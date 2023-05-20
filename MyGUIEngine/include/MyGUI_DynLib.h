@@ -36,7 +36,7 @@ namespace MyGUI
 		friend class DynLibManager;
 
 	protected:
-		DynLib(const std::string& name);
+		DynLib(std::string_view name);
 
 	public:
 
@@ -49,17 +49,17 @@ namespace MyGUI
 		void unload();
 
 		//! Get the name of the library
-		std::string getName(void) const;
+		const std::string& getName(void) const;
 
 		/**
 			Returns the address of the given symbol from the loaded library.
 			@param
-				strName The name of the symbol to search for
+				strName The null terminated name of the symbol to search for
 			@returns
 				If the function succeeds, the returned value is a handle to the symbol.
 				If the function fails, the returned value is <b>nullptr</b>.
 		*/
-		void* getSymbol( const std::string& strName ) const noexcept;
+		void* getSymbol( const char* strName ) const noexcept;
 
 	protected:
 		//! Gets the last loading error

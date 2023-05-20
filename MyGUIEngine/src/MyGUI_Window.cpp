@@ -91,7 +91,7 @@ namespace MyGUI
 		}
 
 		const size_t countNames = 8;
-		const char* resizers[2][countNames] =
+		const std::string_view resizers[2][countNames] =
 		{
 			{"ResizeLeftTop", "ResizeTop", "ResizeRightTop", "ResizeRight", "ResizeRightBottom", "ResizeBottom", "ResizeLeftBottom", "ResizeLeft"},
 			{"Left Top", "Top", "Right Top", "Right", "Right Bottom", "Bottom", "Left Bottom", "Left"}
@@ -476,7 +476,7 @@ namespace MyGUI
 		return IntSize(mMinmax.right, mMinmax.bottom);
 	}
 
-	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void Window::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{Window, AutoAlpha, bool} Режим регулировки прозрачности опираясь на фокус ввода.
 		if (_key == "AutoAlpha")
@@ -563,7 +563,7 @@ namespace MyGUI
 		}
 		else if (_widget->isUserString("Action"))
 		{
-			const std::string& action = _widget->getUserString("Action");
+			std::string_view action = _widget->getUserString("Action");
 			if (action == "Move")
 			{
 				if (mMovable)

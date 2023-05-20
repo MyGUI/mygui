@@ -117,10 +117,11 @@ namespace MyGUI
 				return stream.str();
 			}
 
-			static TSize<T> parse(const std::string& _value)
+			static TSize<T> parse(std::string_view _value)
 			{
 				TSize<T> result;
-				std::istringstream stream(_value);
+				std::stringstream stream;
+				stream << _value;
 				stream >> result.width >> result.height;
 				if (stream.fail())
 				{

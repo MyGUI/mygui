@@ -290,7 +290,7 @@ namespace MyGUI
 		// метод для запроса номера айтема и контейнера
 		size_t _getItemIndex(Widget* _item) const override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		size_t getIndexByWidget(Widget* _widget) const;

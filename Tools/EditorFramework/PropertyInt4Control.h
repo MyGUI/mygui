@@ -22,7 +22,7 @@ namespace tools
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyEditTextChange(MyGUI::EditBox* _sender);

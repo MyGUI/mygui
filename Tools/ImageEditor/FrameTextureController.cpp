@@ -103,7 +103,7 @@ namespace tools
 		}
 	}
 
-	void FrameTextureController::notifyChangeValue(const std::string& _value)
+	void FrameTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -117,7 +117,7 @@ namespace tools
 		}
 	}
 
-	void FrameTextureController::notifyChangeScope(const std::string& _scope)
+	void FrameTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -148,10 +148,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -162,7 +162,7 @@ namespace tools
 		}
 	}
 
-	void FrameTextureController::updateCoords(const std::string& _value)
+	void FrameTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

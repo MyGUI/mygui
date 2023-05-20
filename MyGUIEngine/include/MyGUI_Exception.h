@@ -24,7 +24,7 @@ namespace MyGUI
 		public std::exception
 	{
 	public:
-		Exception(const std::string& _description, const std::string& _source, const char* _file, long _line);
+		Exception(std::string _description, std::string _source, std::string _file, long _line);
 
 		Exception(const Exception& _rhs);
 

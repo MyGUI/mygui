@@ -11,8 +11,8 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(EditorWidgets);
 
-	const std::string LogSection = "LayoutEditor";
-	const std::string CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
+	const std::string_view LogSection = "LayoutEditor";
+	const std::string_view CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
 
 	EditorWidgets::EditorWidgets() :
 		mWidgetsChanged(false),
@@ -117,7 +117,7 @@ namespace tools
 				{
 					if (_index == 0)
 					{
-						mCurrentItemName = element->findAttribute("name");
+						mCurrentItemName.assign(element->findAttribute("name"));
 
 						loadWidgetsFromXmlNode(element.current());
 
@@ -197,7 +197,7 @@ namespace tools
 				{
 					if (_index == 0)
 					{
-						mCurrentItemName = element->findAttribute("name");
+						mCurrentItemName.assign(element->findAttribute("name"));
 
 						element->clear();
 						element->addAttribute("type", "ResourceLayout");
@@ -229,13 +229,10 @@ namespace tools
 	{
 		MyGUI::xml::ElementPtr root = doc->getRoot();
 
-		std::string type;
-		if (root->findAttribute("type", type))
+		std::string_view type = root->findAttribute("type");
+		if (type == "Layout")
 		{
-			if (type == "Layout")
-			{
-				loadWidgetsFromXmlNode(root, _testMode);
-			}
+			loadWidgetsFromXmlNode(root, _testMode);
 		}
 		mWidgetsChanged = true;
 	}
@@ -383,15 +380,15 @@ namespace tools
 
 	WidgetContainer* EditorWidgets::find(MyGUI::Widget* _widget)
 	{
-		return _find(_widget, "", mWidgets);
+		return _find(_widget, {}, mWidgets);
 	}
 
-	WidgetContainer* EditorWidgets::find(const std::string& _name)
+	WidgetContainer* EditorWidgets::find(std::string_view _name)
 	{
 		return _find(nullptr, _name, mWidgets);
 	}
 
-	WidgetContainer* EditorWidgets::_find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
+	WidgetContainer* EditorWidgets::_find(MyGUI::Widget* _widget, std::string_view _name, std::vector<WidgetContainer*> _widgets)
 	{
 		for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 		{
@@ -441,7 +438,7 @@ namespace tools
 		}
 
 		// проверяем скин на присутствие
-		std::string skin = container->getSkin();
+		std::string_view skin = container->getSkin();
 		bool exist = isSkinExist(container->getSkin());
 		if (!exist && !container->getSkin().empty())
 		{
@@ -451,7 +448,7 @@ namespace tools
 			if (skin.empty())
 				skin_string = "empty skin";
 			else
-				skin_string = "'" + skin + "'";
+				skin_string = "'" + std::string{skin} + "'";
 
 			// FIXME : not translated string
 			std::string mess = MyGUI::utility::toString("'", container->getSkin(), "' skin not found , temporary changed to ", skin_string);
@@ -461,7 +458,7 @@ namespace tools
 		if (!_testMode)
 			skin = getSkinReplace(skin);
 
-		std::string layer = DEFAULT_EDITOR_LAYER;
+		std::string_view layer = DEFAULT_EDITOR_LAYER;
 		if (_testMode)
 		{
 			// use widget's layer if possible
@@ -470,7 +467,7 @@ namespace tools
 			else
 				layer = DEFAULT_TEST_MODE_LAYER;
 		}
-		std::string widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
+		std::string_view widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
 			container->getType() : MyGUI::Widget::getClassTypeName();
 
 		if (nullptr == _parent)
@@ -562,7 +559,7 @@ namespace tools
 		}
 	}
 
-	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode)
+	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value, bool _testMode)
 	{
 		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
 		if (container->existUserData("LE_TargetWidgetType"))
@@ -572,9 +569,10 @@ namespace tools
 		{
 			if (_key == "Image_Texture")
 			{
-				if (!MyGUI::DataManager::getInstance().isDataExist(_value))
+				std::string value{_value};
+				if (!MyGUI::DataManager::getInstance().isDataExist(value))
 				{
-					GroupMessage::getInstance().addMessage("No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::LogLevel::Warning);
+					GroupMessage::getInstance().addMessage("No such " + std::string{_key} + ": '" + value + "'. This value will be saved.", MyGUI::LogLevel::Warning);
 					return true;
 				}
 			}
@@ -586,7 +584,7 @@ namespace tools
 		}
 		catch (...)
 		{
-			GroupMessage::getInstance().addMessage("Can't apply '" + _key + "'property.", MyGUI::LogLevel::Error);
+			GroupMessage::getInstance().addMessage("Can't apply '" + std::string{_key} + "'property.", MyGUI::LogLevel::Error);
 			return false;
 		}
 		return true;
@@ -648,13 +646,13 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
 	{
 		MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
 		while (parameter.next("Parameter"))
 		{
-			std::string name = parameter->findAttribute("key");
-			mIgnoreParameters.push_back(name);
+			std::string_view name = parameter->findAttribute("key");
+			mIgnoreParameters.emplace_back(name);
 		}
 	}
 
@@ -677,7 +675,7 @@ namespace tools
 		return EnumeratorWidgetContainer(mWidgets);
 	}
 
-	std::string EditorWidgets::getSkinReplace(const std::string& _skinName)
+	std::string_view EditorWidgets::getSkinReplace(std::string_view _skinName)
 	{
 		MyGUI::MapString::iterator item = mSkinReplaces.find(_skinName);
 		if (item != mSkinReplaces.end())
@@ -685,21 +683,28 @@ namespace tools
 		return _skinName;
 	}
 
-	void EditorWidgets::loadSkinReplace(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void EditorWidgets::loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Skin"))
-			mSkinReplaces[node->findAttribute("key")] = node->getContent();
+		{
+			std::string_view key = node->findAttribute("key");
+			auto it = mSkinReplaces.find(key);
+			if (it == mSkinReplaces.end())
+				mSkinReplaces.emplace(key, node->getContent());
+			else
+				it->second = node->getContent();
+		}
 	}
 
-	bool EditorWidgets::isSkinExist(const std::string& _skinName)
+	bool EditorWidgets::isSkinExist(std::string_view _skinName)
 	{
 		return _skinName == "Default" ||
 			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
 
-	bool EditorWidgets::checkTemplate(const std::string& _skinName)
+	bool EditorWidgets::checkTemplate(std::string_view _skinName)
 	{
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
 		if (templateInfo != nullptr)
@@ -775,10 +780,10 @@ namespace tools
 		MyGUI::xml::ElementEnumerator widget = _sectorNode->getElementEnumerator();
 		while (widget.next())
 		{
-			std::string key, value;
-
 			if (widget->getName() == "Property")
 			{
+				std::string key, value;
+
 				// парсим атрибуты
 				if (!widget->findAttribute("key", key))
 					continue;
@@ -802,7 +807,7 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, const std::string& _owner)
+	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner)
 	{
 		eventChangeWidgetCoord(_widget, _value, _owner);
 	}

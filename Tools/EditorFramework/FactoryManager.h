@@ -23,15 +23,15 @@ namespace components
 		static FactoryManager* GetInstancePtr();
 		static FactoryManager& GetInstance();
 
-		bool ExistFactory(const std::string& _factoryName);
+		bool ExistFactory(std::string_view _factoryName);
 
-		void RegisterFactory(IFactory* _factory, const std::string& _factoryName);
+		void RegisterFactory(IFactory* _factory, std::string_view _factoryName);
 		void UnregisterAllFactories();
 
-		IFactoryItem* CreateItem(const std::string& _factoryName);
+		IFactoryItem* CreateItem(std::string_view _factoryName);
 
 		template <typename Type>
-		Type* CreateItem(const std::string& _factoryName)
+		Type* CreateItem(std::string_view _factoryName)
 		{
 			IFactoryItem* item = CreateItem(_factoryName);
 			if (item != nullptr)
@@ -45,7 +45,7 @@ namespace components
 		}
 
 	private:
-		typedef std::map<std::string, IFactory*> MapFactory;
+		typedef std::map<std::string, IFactory*, std::less<>> MapFactory;
 		MapFactory mFactories;
 	};
 

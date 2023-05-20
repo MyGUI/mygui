@@ -7,6 +7,7 @@
 #define _ccf347aa_fadc_4b79_8b3b_73475259614d_
 
 #include <string>
+#include <string_view>
 #include <vector>
 #include "DataInfo.h"
 
@@ -27,7 +28,7 @@ namespace tools
 		void load(const std::string& _fileName);
 		void clear();
 
-		DataInfo* getData(const std::string& _type);
+		DataInfo* getData(std::string_view _type);
 
 	private:
 		static DataInfoManager* mInstance;

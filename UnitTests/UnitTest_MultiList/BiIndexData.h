@@ -20,9 +20,9 @@ namespace unittest
 			return mItemsInfo.size();
 		}
 
-		void insertItemAt(size_t _index, const std::string& _name, size_t _data);
+		void insertItemAt(size_t _index, std::string_view _name, size_t _data);
 
-		void addItem(const std::string& _name, size_t _data)
+		void addItem(std::string_view _name, size_t _data)
 		{
 			insertItemAt(MyGUI::ITEM_NONE, _name, _data);
 		}

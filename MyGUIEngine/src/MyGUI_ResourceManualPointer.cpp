@@ -21,8 +21,8 @@ namespace MyGUI
 		xml::ElementEnumerator info = _node->getElementEnumerator();
 		while (info.next("Property"))
 		{
-			const std::string& key = info->findAttribute("key");
-			const std::string& value = info->findAttribute("value");
+			std::string_view key = info->findAttribute("key");
+			std::string_view value = info->findAttribute("value");
 
 			if (key == "Point") mPoint = IntPoint::parse(value);
 			else if (key == "Size") mSize = IntSize::parse(value);

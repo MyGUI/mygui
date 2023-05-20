@@ -21,7 +21,7 @@ namespace wraps
 		typedef DataType Type;
 
 	protected:
-		BaseCellView(const std::string& _layout, MyGUI::Widget* _parent) :
+		BaseCellView(std::string_view _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent)
 		{
 		}

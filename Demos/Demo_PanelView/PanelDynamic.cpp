@@ -9,7 +9,7 @@
 namespace demo
 {
 
-	PanelDynamic::PanelDynamic() : BasePanelViewItem("")
+	PanelDynamic::PanelDynamic() : BasePanelViewItem(std::string_view{})
 	{
 	}
 

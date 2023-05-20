@@ -20,7 +20,7 @@ namespace MyGUI
 	{
 	}
 
-	ResourceLayout::ResourceLayout(xml::ElementPtr _node, const std::string& _fileName)
+	ResourceLayout::ResourceLayout(xml::ElementPtr _node, std::string_view _fileName)
 	{
 		// FIXME hardcoded version
 		deserialization(_node, Version(1, 0, 0));
@@ -76,11 +76,17 @@ namespace MyGUI
 			}
 			else if (node->getName() == "Property")
 			{
-				widgetInfo.properties.push_back(PairString(node->findAttribute("key"), node->findAttribute("value")));
+				widgetInfo.properties.emplace_back(node->findAttribute("key"), node->findAttribute("value"));
 			}
 			else if (node->getName() == "UserString")
 			{
-				widgetInfo.userStrings[node->findAttribute("key")] = node->findAttribute("value");
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
+				auto it = widgetInfo.userStrings.find(key);
+				if (it == widgetInfo.userStrings.end())
+					widgetInfo.userStrings.emplace(key, value);
+				else
+					it->second = value;
 			}
 			else if (node->getName() == "Controller")
 			{
@@ -89,7 +95,15 @@ namespace MyGUI
 
 				xml::ElementEnumerator prop = node->getElementEnumerator();
 				while (prop.next("Property"))
-					controllerInfo.properties[prop->findAttribute("key")] = prop->findAttribute("value");
+				{
+					std::string_view key = prop->findAttribute("key");
+					std::string_view value = prop->findAttribute("value");
+					auto it = controllerInfo.properties.find(key);
+					if (it == controllerInfo.properties.end())
+						controllerInfo.properties.emplace(key, value);
+					else
+						it->second = value;
+				}
 
 				widgetInfo.controllers.push_back(controllerInfo);
 			}
@@ -98,7 +112,7 @@ namespace MyGUI
 		return widgetInfo;
 	}
 
-	VectorWidgetPtr ResourceLayout::createLayout(const std::string& _prefix, Widget* _parent)
+	VectorWidgetPtr ResourceLayout::createLayout(std::string_view _prefix, Widget* _parent)
 	{
 		VectorWidgetPtr widgets;
 
@@ -111,15 +125,19 @@ namespace MyGUI
 		return widgets;
 	}
 
-	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, const std::string& _prefix, Widget* _parent, bool _template)
+	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, std::string_view _prefix, Widget* _parent, bool _template)
 	{
-		std::string widgetName = _widgetInfo.name;
+		std::string widgetName;
 		WidgetStyle style = _widgetInfo.style;
-		std::string widgetLayer = _widgetInfo.layer;
+		std::string_view widgetLayer = _widgetInfo.layer;
 
-		if (!widgetName.empty()) widgetName = _prefix + widgetName;
+		if (!_widgetInfo.name.empty())
+		{
+			widgetName = _prefix;
+			widgetName += _widgetInfo.name;
+		}
 
-		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
+		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer = {};
 		if (_parent == nullptr && widgetLayer.empty())
 		{
 			MYGUI_LOG(Warning, "Root widget's layer is not specified, widget won't be visible. Specify layer or parent or attach it to another widget after load." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");

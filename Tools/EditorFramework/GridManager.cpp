@@ -29,7 +29,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void GridManager::notifySettingsChanged(const std::string& _path)
+	void GridManager::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == "Settings/GridStep")
 		{

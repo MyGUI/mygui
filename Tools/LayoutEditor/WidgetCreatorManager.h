@@ -29,7 +29,7 @@ namespace tools
 		void moveNewWidget(const MyGUI::IntPoint& _point);
 		void finishNewWidget(const MyGUI::IntPoint& _point);
 
-		void setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin);
+		void setCreatorInfo(std::string_view _widgetType, std::string_view _widgetSkin);
 		void resetCreatorInfo();
 
 		void setPopupMode(bool _value);

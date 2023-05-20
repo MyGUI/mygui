@@ -23,7 +23,7 @@ namespace tools
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &FocusInfoControl::notifyFrameStart);
 	}
 
-	void FocusInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void FocusInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		Control::OnInitialise(_parent, _place, "FocusInfoControl.layout");
 

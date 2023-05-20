@@ -54,8 +54,8 @@ namespace MyGUI
 		{
 			if (node->getName() == "Property")
 			{
-				const std::string& key = node->findAttribute("key");
-				const std::string& value = node->findAttribute("value");
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
 				if (key == "Source") mSource = value;
 				else if (key == "DefaultHeight") mDefaultHeight = utility::parseInt(value);
 				else if (key == "Shader") mShader = value;
@@ -145,14 +145,14 @@ namespace MyGUI
 		return mDefaultHeight;
 	}
 
-	void ResourceManualFont::setSource(const std::string& value)
+	void ResourceManualFont::setSource(std::string_view value)
 	{
 		mTexture = nullptr;
 		mSource = value;
 		loadTexture();
 	}
 
-	void ResourceManualFont::setShader(const std::string& value)
+	void ResourceManualFont::setShader(std::string_view value)
 	{
 		mShader = value;
 		if (mTexture != nullptr)

@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	TextureControlLE::TextureControlLE(const std::string& _layout, MyGUI::Widget* _parent) :
+	TextureControlLE::TextureControlLE(std::string_view _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mView(nullptr),
 		mTexture(nullptr),

@@ -24,7 +24,7 @@ namespace tools
 		mMainWidget->eventChangeCoord -= MyGUI::newDelegate(this, &PropertyPanelControl::notifyChangeCoord);
 	}
 
-	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -48,7 +48,7 @@ namespace tools
 
 	void PropertyPanelControl::InitialiseProperty(PropertyPtr _property, int& _height)
 	{
-		std::string type = _property->getType()->getType();
+		const std::string& type = _property->getType()->getType();
 		PropertyControl* control = nullptr;
 
 		for (VectorPairControl::iterator child = mPropertyControls.begin(); child != mPropertyControls.end(); child ++)
@@ -66,7 +66,7 @@ namespace tools
 			control = components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
 			if (control != nullptr)
 			{
-				control->Initialise(this, mScrollView, "");
+				control->Initialise(this, mScrollView, std::string_view{});
 
 				mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
 			}

@@ -62,7 +62,7 @@ namespace tools
 			CommandManager::getInstance().setCommandData(*data);
 
 		const std::string& command = _item->getItemId();
-		if (command.size() > 8 && command.substr(0, 8) == "Command_")
+		if (MyGUI::utility::startWith(command, "Command_"))
 		{
 			CommandManager::getInstance().executeCommand(command);
 		}
@@ -111,13 +111,13 @@ namespace tools
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
-		addUserTag("WidgetName", _print_name ? widgetContainer->getName() : "");
-		addUserTag("WidgetType", _print_type ? _widget->getTypeName() : "");
-		addUserTag("WidgetSkin", _print_skin ? widgetContainer->getSkin() : "");
+		addUserTag("WidgetName", _print_name ? MyGUI::UString(widgetContainer->getName()) : MyGUI::UString{});
+		addUserTag("WidgetType", _print_type ? MyGUI::UString(_widget->getTypeName()) : MyGUI::UString{});
+		addUserTag("WidgetSkin", _print_skin ? MyGUI::UString(widgetContainer->getSkin()) : MyGUI::UString{});
 
-		addUserTag("FormatWidgetName", (_print_name && !widgetContainer->getName().empty()) ? "#{PatternWidgetName}" : "");
-		addUserTag("FormatWidgetType", _print_type ? "#{PatternWidgetType}" : "");
-		addUserTag("FormatWidgetSkin", _print_skin ? "#{PatternWidgetSkin}" : "");
+		addUserTag("FormatWidgetName", (_print_name && !widgetContainer->getName().empty()) ? "#{PatternWidgetName}" : MyGUI::UString{});
+		addUserTag("FormatWidgetType", _print_type ? "#{PatternWidgetType}" : MyGUI::UString{});
+		addUserTag("FormatWidgetSkin", _print_skin ? "#{PatternWidgetSkin}" : MyGUI::UString{});
 
 		return replaceTags("MenuItemWidgetInfo");
 	}
@@ -127,7 +127,7 @@ namespace tools
 		widgetsUpdate();
 	}
 
-	void MainMenuControlLE::notifySettingsChanged(const std::string& _path)
+	void MainMenuControlLE::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == "Settings/ShowName" ||
 			_path == "Settings/ShowType" ||

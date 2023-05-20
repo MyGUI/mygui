@@ -77,7 +77,7 @@ namespace demo
 		void setVisible(bool _visible);
 
 		template <typename T>
-		bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = "")
+		bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = MyGUI::UString())
 		{
 			if (_value.empty())
 			{
@@ -100,7 +100,7 @@ namespace demo
 		}
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _button);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _button);
 
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);

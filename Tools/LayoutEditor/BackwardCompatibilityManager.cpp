@@ -136,9 +136,9 @@ namespace tools
 		SettingsManager::getInstance().setValue("Settings/LayoutVersion", mCurrentVersion);
 	}
 
-	void BackwardCompatibilityManager::serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility)
+	void BackwardCompatibilityManager::serialiseProperty(MyGUI::xml::Element* _node, std::string_view _widgetType, const MyGUI::PairString& _property, bool _compatibility)
 	{
-		std::string propertyName = _property.first;
+		std::string_view propertyName = _property.first;
 
 		if (_compatibility && getDefaultVersion() != getCurrentVersion())
 		{
@@ -175,7 +175,7 @@ namespace tools
 		return mVersions;
 	}
 
-	void BackwardCompatibilityManager::notifySettingsChanged(const std::string& _path)
+	void BackwardCompatibilityManager::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == "Settings/LayoutVersion")
 			mCurrentVersion = SettingsManager::getInstance().getValue("Settings/LayoutVersion");
@@ -191,7 +191,7 @@ namespace tools
 		return mCurrentVersion;
 	}
 
-	void BackwardCompatibilityManager::setCurrentVersion(const std::string& _value)
+	void BackwardCompatibilityManager::setCurrentVersion(std::string_view _value)
 	{
 		mCurrentVersion = _value;
 	}

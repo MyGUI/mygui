@@ -32,7 +32,7 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void PropertyInt2ListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyInt2ListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyListControl.layout");
 
@@ -87,7 +87,7 @@ namespace tools
 		return result;
 	}
 
-	void PropertyInt2ListControl::setValue(const std::string& _value)
+	void PropertyInt2ListControl::setValue(std::string_view _value)
 	{
 		mList->removeAllItems();
 		std::vector<std::string> values = MyGUI::utility::split(_value, "|");
@@ -97,11 +97,11 @@ namespace tools
 
 	void PropertyInt2ListControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
-		mList->addItem("");
+		mList->addItem(MyGUI::UString());
 		mList->beginToItemAt(mList->getItemCount() - 1);
 
 		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
-		mTextFieldControl->setTextField("");
+		mTextFieldControl->setTextField(MyGUI::UString());
 
 		MyGUI::Widget* widget = mList->getWidgetByIndex(mList->getItemCount() - 1);
 		if (widget != nullptr)
@@ -126,7 +126,7 @@ namespace tools
 
 		if (_result)
 		{
-			if (mTextFieldControl->getTextField() != "")
+			if (!mTextFieldControl->getTextField().empty())
 			{
 				mList->setItemNameAt(mList->getItemCount() - 1, mTextFieldControl->getTextField());
 				executeAction(getValue());

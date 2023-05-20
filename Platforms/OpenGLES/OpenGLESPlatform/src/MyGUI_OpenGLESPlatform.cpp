@@ -20,7 +20,7 @@ namespace MyGUI
 		delete mLogManager;
 	}
 
-	void OpenGLESPlatform::initialise(OpenGLESImageLoader* _loader, const std::string& _logName)
+	void OpenGLESPlatform::initialise(OpenGLESImageLoader* _loader, std::string_view _logName)
 	{
 		assert(!mIsInitialise);
 		mIsInitialise = true;

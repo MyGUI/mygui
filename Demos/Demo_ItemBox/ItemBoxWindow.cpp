@@ -9,7 +9,7 @@
 namespace demo
 {
 
-	ItemBoxWindow::ItemBoxWindow(const std::string& _layout) :
+	ItemBoxWindow::ItemBoxWindow(std::string_view _layout) :
 		BaseLayout(_layout)
 	{
 		assignBase(mItemBox, "box_Items");

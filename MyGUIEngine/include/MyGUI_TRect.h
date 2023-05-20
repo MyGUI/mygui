@@ -160,10 +160,11 @@ namespace MyGUI
 				return stream.str();
 			}
 
-			static TRect<T> parse(const std::string& _value)
+			static TRect<T> parse(std::string_view _value)
 			{
 				TRect<T> result;
-				std::istringstream stream(_value);
+				std::stringstream stream;
+				stream << _value;
 				stream >> result.left >> result.top >> result.right >> result.bottom;
 				if (stream.fail())
 				{

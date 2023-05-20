@@ -17,7 +17,7 @@ namespace demo
 		public wraps::BaseGraphNode
 	{
 	public:
-		BaseAnimationNode(const std::string& _layout, const std::string& _type, const std::string& _name) :
+		BaseAnimationNode(std::string_view _layout, std::string_view _type, std::string_view _name) :
 			BaseGraphNode(_layout),
 			mAnimationNode(nullptr),
 			mType(_type),
@@ -36,11 +36,11 @@ namespace demo
 			return mAnimationNode;
 		}
 
-		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		virtual void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin)
 		{
 		}
 
-		virtual void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		virtual void removeConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin)
 		{
 		}
 

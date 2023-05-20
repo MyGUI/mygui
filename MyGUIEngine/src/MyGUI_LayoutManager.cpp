@@ -29,7 +29,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlLayoutTagName) = newDelegate(this, &LayoutManager::_load);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceLayout>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
@@ -43,27 +43,27 @@ namespace MyGUI
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlLayoutTagName);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().unregisterFactory<ResourceLayout>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
-	void LayoutManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void LayoutManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 		ResourceLayout* resource = new ResourceLayout(_node, _file);
 		ResourceManager::getInstance().addResource(resource);
 	}
 
-	VectorWidgetPtr LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)
+	VectorWidgetPtr LayoutManager::loadLayout(std::string_view _file, std::string_view _prefix, Widget* _parent)
 	{
 		mCurrentLayoutName = _file;
 
 		ResourceLayout* resource = getByName(_file, false);
 		if (!resource)
 		{
-			ResourceManager::getInstance().load(_file);
+			ResourceManager::getInstance().load(mCurrentLayoutName);
 			resource = getByName(_file, false);
 		}
 
@@ -73,7 +73,7 @@ namespace MyGUI
 		else
 			MYGUI_LOG(Warning, "Layout '" << _file << "' couldn't be loaded");
 
-		mCurrentLayoutName = "";
+		mCurrentLayoutName.clear();
 
 		return result;
 	}
@@ -83,9 +83,9 @@ namespace MyGUI
 		WidgetManager::getInstance().destroyWidgets(_widgets);
 	}
 
-	ResourceLayout* LayoutManager::getByName(const std::string& _name, bool _throw) const
+	ResourceLayout* LayoutManager::getByName(std::string_view _name, bool _throw) const
 	{
-		std::string skinName = BackwardCompatibility::getSkinRename(_name);
+		std::string_view skinName = BackwardCompatibility::getSkinRename(_name);
 		IResource* result = ResourceManager::getInstance().getByName(skinName, false);
 
 		if (result != nullptr)
@@ -107,7 +107,7 @@ namespace MyGUI
 		return mCurrentLayoutName;
 	}
 
-	bool LayoutManager::isExist(const std::string& _name) const
+	bool LayoutManager::isExist(std::string_view _name) const
 	{
 		return getByName(_name, false) != nullptr;
 	}

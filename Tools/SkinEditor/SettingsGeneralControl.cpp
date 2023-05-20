@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
-#include "SettingsManager.h"
 #include "FactoryManager.h"
 
 namespace tools
@@ -29,7 +28,7 @@ namespace tools
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
 	}
 
-	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -76,7 +75,7 @@ namespace tools
 			button->setStateSelected(!button->getStateSelected());
 	}
 
-	void SettingsGeneralControl::setLanguageValue(const std::string& _value)
+	void SettingsGeneralControl::setLanguageValue(std::string_view _value)
 	{
 		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
 		{
@@ -96,14 +95,14 @@ namespace tools
 		}
 	}
 
-	std::string SettingsGeneralControl::getLanguageValue()
+	NullTerminatedStringView SettingsGeneralControl::getLanguageValue()
 	{
 		if (mInterfaceLanguage->getIndexSelected() == MyGUI::ITEM_NONE)
 			return "Auto";
 		return mInterfaceLanguage->getItemNameAt(mInterfaceLanguage->getIndexSelected());
 	}
 
-	void SettingsGeneralControl::OnCommand(const std::string& _command)
+	void SettingsGeneralControl::OnCommand(std::string_view _command)
 	{
 		Control::OnCommand(_command);
 

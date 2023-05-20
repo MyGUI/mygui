@@ -40,8 +40,8 @@ namespace input
 		void frameEvent(float _time);
 		void computeMouseMove();
 
-		void onClipboardChanged(const std::string& _type, const std::string& _data);
-		void onClipboardRequested(const std::string& _type, std::string& _data);
+		void onClipboardChanged(std::string_view _type, std::string_view _data);
+		void onClipboardRequested(std::string_view _type, std::string& _data);
 
 		virtual bool mouseMoved(const SDL_MouseMotionEvent &evt);
 		virtual bool mousePressed(const SDL_MouseButtonEvent &evt);

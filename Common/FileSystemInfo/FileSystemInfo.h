@@ -142,13 +142,14 @@ namespace common
 		if (lHandle != -1)
 			_findclose(lHandle);
 #else
-		DIR* dir = opendir(MyGUI::UString(_folder).asUTF8_c_str());
+		std::string folder = MyGUI::UString(_folder).asUTF8();
+		DIR* dir = opendir(folder.c_str());
 		struct dirent* dp;
 
 		if (dir == nullptr)
 		{
 			/* opendir() failed */
-			MYGUI_LOG(Error, (std::string("Can't open ") + MyGUI::UString(_folder).asUTF8_c_str()));
+			MYGUI_LOG(Error, "Can't open " + folder);
 			return;
 		}
 
@@ -159,7 +160,7 @@ namespace common
 			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) && !isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
 			{
 				struct stat fInfo;
-				std::string path = MyGUI::UString(_folder).asUTF8() + "/" + dp->d_name;
+				std::string path = folder + "/" + dp->d_name;
 				if (stat(path.c_str(), &fInfo) == -1)perror("stat");
 				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr_c_str(), (S_ISDIR(fInfo.st_mode))));
 			}

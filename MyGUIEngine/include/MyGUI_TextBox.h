@@ -36,9 +36,9 @@ namespace MyGUI
 		virtual const UString& getCaption() const;
 
 		/** Set widget text font */
-		virtual void setFontName(const std::string& _value);
+		virtual void setFontName(std::string_view _value);
 		/** Get widget text font name */
-		const std::string& getFontName() const;
+		std::string_view getFontName() const;
 
 		/** Set widget text font height */
 		virtual void setFontHeight(int _value);
@@ -60,7 +60,7 @@ namespace MyGUI
 			"#{Keyword}" replaced with string from LanguageManager or
 			left as it is if kayword wasn't found.
 		*/
-		void setCaptionWithReplacing(const std::string& _value);
+		void setCaptionWithReplacing(std::string_view _value);
 
 		/** Set widget text shadow colour */
 		virtual void setTextShadowColour(const Colour& _value);
@@ -73,7 +73,7 @@ namespace MyGUI
 		bool getTextShadow() const;
 
 	protected:
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 	};
 
 } // namespace MyGUI

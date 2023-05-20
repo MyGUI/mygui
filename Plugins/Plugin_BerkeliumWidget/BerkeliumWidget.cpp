@@ -97,10 +97,10 @@ namespace MyGUI
 		}
 	}
 
-	void BerkeliumWidget::loadURL(const std::string& _url)
+	void BerkeliumWidget::loadURL(std::string_view _url)
 	{
 		if (mWindow != nullptr)
-			mWindow->navigateTo(_url.c_str(), _url.length());
+			mWindow->navigateTo(_url.data(), _url.size());
 	}
 
 	Berkelium::Window* BerkeliumWidget::getBerkeliumWindow() const
@@ -230,7 +230,7 @@ namespace MyGUI
 		Base::onKeyButtonReleased(_key);
 	}
 
-	void BerkeliumWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void BerkeliumWidget::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		if (_key == "SourceURL")
 			loadURL(_value);

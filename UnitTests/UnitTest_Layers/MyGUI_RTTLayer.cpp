@@ -36,8 +36,8 @@ namespace MyGUI
 		MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
 		while (propert.next("Property"))
 		{
-			const std::string& key = propert->findAttribute("key");
-			const std::string& value = propert->findAttribute("value");
+			std::string_view key = propert->findAttribute("key");
+			std::string_view value = propert->findAttribute("value");
 			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
 #ifdef MYGUI_OGRE_PLATFORM
 			else if (key == "Entity") setEntity(value);

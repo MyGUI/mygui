@@ -173,7 +173,7 @@ namespace tools
 		}
 	}
 
-	void WorkspaceControl::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
+	void WorkspaceControl::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, std::string_view _owner)
 	{
 		if (_owner == "WorkspaceControl" || _widget != mCurrentWidget)
 			return;

@@ -86,12 +86,10 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& DirectXDataManager::getDataPath(const std::string& _name) const
+	std::string DirectXDataManager::getDataPath(const std::string& _name) const
 	{
-		static std::string path;
 		VectorString result;
 		common::VectorWString wresult;
-		path.clear();
 
 		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
@@ -105,7 +103,7 @@ namespace MyGUI
 
 		if (!result.empty())
 		{
-			path = result[0];
+			const std::string& path = result[0];
 			if (result.size() > 1)
 			{
 				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << path << "' was used.");
@@ -113,13 +111,10 @@ namespace MyGUI
 				for (size_t index = 1; index < result.size(); index++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
 			}
-		}
-		else
-		{
-			path.clear();
+			return path;
 		}
 
-		return path;
+		return {};
 	}
 
 	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)

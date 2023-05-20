@@ -33,7 +33,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlFontTagName) = newDelegate(this, &FontManager::_load);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceManualFont>(resourceCategory);
 		FactoryManager::getInstance().registerFactory<ResourceTrueTypeFont>(resourceCategory);
 
@@ -50,7 +50,7 @@ namespace MyGUI
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlFontTagName);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().unregisterFactory<ResourceManualFont>(resourceCategory);
 		FactoryManager::getInstance().unregisterFactory<ResourceTrueTypeFont>(resourceCategory);
 
@@ -58,7 +58,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void FontManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		loadOldFontFormat(_node, _file, _version, mXmlFontTagName);
@@ -69,8 +69,8 @@ namespace MyGUI
 		{
 			if (node->getName() == mXmlPropertyTagName)
 			{
-				const std::string& key = node->findAttribute("key");
-				const std::string& value = node->findAttribute("value");
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
 #ifdef MYGUI_USE_FREETYPE
 				if (key == "Default")
 #else
@@ -81,12 +81,12 @@ namespace MyGUI
 		}
 	}
 
-	void FontManager::setDefaultFont(const std::string& _value)
+	void FontManager::setDefaultFont(std::string_view _value)
 	{
 		mDefaultName = _value;
 	}
 
-	IFont* FontManager::getByName(const std::string& _name) const
+	IFont* FontManager::getByName(std::string_view _name) const
 	{
 		IResource* result = nullptr;
 		//FIXME для совместимости шрифт может иметь имя Default

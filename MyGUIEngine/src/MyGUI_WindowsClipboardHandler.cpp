@@ -80,7 +80,7 @@ namespace MyGUI
 		ClipboardManager::getInstance().eventClipboardRequested -= newDelegate(this, &WindowsClipboardHandler::handleClipboardRequested);
 	}
 
-	void WindowsClipboardHandler::handleClipboardChanged(const std::string& _type, const std::string& _data)
+	void WindowsClipboardHandler::handleClipboardChanged(std::string_view _type, std::string_view _data)
 	{
 		if (_type == "Text")
 		{
@@ -103,7 +103,7 @@ namespace MyGUI
 		}
 	}
 
-	void WindowsClipboardHandler::handleClipboardRequested(const std::string& _type, std::string& _data)
+	void WindowsClipboardHandler::handleClipboardRequested(std::string_view _type, std::string& _data)
 	{
 		if (_type == "Text")
 		{

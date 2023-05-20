@@ -27,7 +27,7 @@ namespace tools
 		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldEditBox::notifyForceApplyProperties);
 	}
 
-	void PropertyFieldEditBox::initialise(const std::string& _type)
+	void PropertyFieldEditBox::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -43,7 +43,7 @@ namespace tools
 
 		std::string value = mField->getOnlyText();
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-			value = "";
+			value.clear();
 
 		bool goodData = onCheckValue();
 
@@ -53,7 +53,7 @@ namespace tools
 		}
 	}
 
-	void PropertyFieldEditBox::onAction(const std::string& _value, bool _final)
+	void PropertyFieldEditBox::onAction(std::string_view _value, bool _final)
 	{
 		eventAction(mName, _value, _final);
 	}
@@ -84,25 +84,25 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldEditBox::setValue(const std::string& _value)
+	void PropertyFieldEditBox::setValue(std::string_view _value)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		if (_value.empty())
 		{
+			std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
 			mField->setCaption(DEFAULT_VALUE);
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 			onCheckValue();
 		}
 	}
 
-	void PropertyFieldEditBox::setName(const std::string& _value)
+	void PropertyFieldEditBox::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
 	void PropertyFieldEditBox::setVisible(bool _value)

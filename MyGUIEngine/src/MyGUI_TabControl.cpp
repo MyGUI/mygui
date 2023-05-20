@@ -161,7 +161,7 @@ namespace MyGUI
 			child->setCoord(_getWidgetTemplate()->getAbsoluteLeft() - getAbsoluteLeft(), _getWidgetTemplate()->getAbsoluteTop() - getAbsoluteTop(), _getWidgetTemplate()->getWidth(), _getWidgetTemplate()->getHeight());
 			child->setAlign(_getWidgetTemplate()->getAlign());
 
-			_insertItem(ITEM_NONE, "", child, Any::Null);
+			_insertItem(ITEM_NONE, UString(), child, Any::Null);
 		}
 	}
 
@@ -169,7 +169,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "TabControl::insertItem");
 
-		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "", false);
+		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), std::string_view{}, std::string_view{}, false);
 
 		size_t lastIndex = mItemsInfo.size() - 1;
 		setItemNameAt(lastIndex, _name);
@@ -614,7 +614,7 @@ namespace MyGUI
 		return mWidgetBar == nullptr ? this : mWidgetBar;
 	}
 
-	void TabControl::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void TabControl::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{TabControl, ButtonWidth, int} Ширина кнопок в заголовках в пикселях.
 		if (_key == "ButtonWidth")

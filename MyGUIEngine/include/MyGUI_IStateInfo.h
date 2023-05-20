@@ -20,8 +20,8 @@ namespace MyGUI
 	};
 
 	typedef std::vector<IStateInfo*> VectorStateInfo;
-	typedef std::map<std::string, IStateInfo*> MapStateInfo;
-	typedef std::map<std::string, VectorStateInfo> MapWidgetStateInfo;
+	typedef std::map<std::string, IStateInfo*, std::less<>> MapStateInfo;
+	typedef std::map<std::string, VectorStateInfo, std::less<>> MapWidgetStateInfo;
 
 } // namespace MyGUI
 

@@ -32,7 +32,7 @@ namespace tools
 		SettingsManager::getInstance().setValue("Controls/TryFontControl/Text", mEdit->getCaption());
 	}
 
-	void FontTryControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void FontTryControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -61,7 +61,7 @@ namespace tools
 		if (data != nullptr)
 			mEdit->setFontName(data->getPropertyValue("FontName"));
 		else
-			mEdit->setFontName("");
+			mEdit->setFontName(std::string_view{});
 	}
 
 }

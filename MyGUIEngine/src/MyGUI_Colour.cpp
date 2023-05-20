@@ -33,7 +33,7 @@ namespace MyGUI
 	{
 	}
 
-	Colour::Colour(const std::string& _value)
+	Colour::Colour(std::string_view _value)
 	{
 		*this = parse(_value);
 	}
@@ -77,13 +77,14 @@ namespace MyGUI
 		return stream.str();
 	}
 
-	Colour Colour::parse(const std::string& _value)
+	Colour Colour::parse(std::string_view _value)
 	{
 		if (!_value.empty())
 		{
 			if (_value[0] == '#')
 			{
-				std::istringstream stream(_value.substr(1));
+				std::stringstream stream;
+				stream << _value.substr(1);
 				int result = 0;
 				stream >> std::hex >> result;
 				if (!stream.fail())
@@ -94,7 +95,8 @@ namespace MyGUI
 			else
 			{
 				float red, green, blue;
-				std::istringstream stream(_value);
+				std::stringstream stream;
+				stream << _value;
 				stream >> red >> green >> blue;
 				if (!stream.fail())
 				{

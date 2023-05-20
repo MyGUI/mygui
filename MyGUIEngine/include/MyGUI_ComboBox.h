@@ -170,7 +170,7 @@ namespace MyGUI
 
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);

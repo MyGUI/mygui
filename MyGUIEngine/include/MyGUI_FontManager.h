@@ -35,13 +35,13 @@ namespace MyGUI
 		/** Get default font name.
 			Default skin also used when creating widget with skin that doesn't exist.
 		*/
-		void setDefaultFont(const std::string& _value);
+		void setDefaultFont(std::string_view _value);
 
 		/** Get font resource */
-		IFont* getByName(const std::string& _name) const;
+		IFont* getByName(std::string_view _name) const;
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 	private:
 		std::string mDefaultName;

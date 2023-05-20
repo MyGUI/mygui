@@ -10,7 +10,7 @@ namespace tools
 		public wraps::BaseLayout
 	{
 	public:
-		SeparatorPartControl(const std::string& _layout, MyGUI::Widget* _parent);
+		SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent);
 		~SeparatorPartControl() override;
 
 	private:

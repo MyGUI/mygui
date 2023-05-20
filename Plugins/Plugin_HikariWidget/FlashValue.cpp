@@ -51,7 +51,7 @@ inline std::string numberToString(const NumberType& number)
 		return number ? "true" : "false";
 	}
 
-	return (converter << number).fail() ? "" : converter.str();
+	return (converter << number).fail() ? std::string{} : converter.str();
 }
 
 FlashValue::FlashValue() : numValue(0), boolValue(0), valueType(FT_NULL)
@@ -154,7 +154,7 @@ MyGUI::UString FlashValue::getString() const
 	else if (valueType == FT_NUMBER)
 		return numberToString<float>(numValue);
 
-	return "";
+	return UString();
 }
 
 Args::Args()

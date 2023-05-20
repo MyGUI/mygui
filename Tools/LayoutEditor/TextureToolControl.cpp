@@ -35,7 +35,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void TextureToolControlLE::notifySettingsChanged(const std::string& _path)
+	void TextureToolControlLE::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == "Workspace/Colours/ColourBackground")
 		{

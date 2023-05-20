@@ -28,12 +28,12 @@ namespace demo
 	{
 	}
 
-	bool isConnectionOut(const std::string& _type)
+	bool isConnectionOut(std::string_view _type)
 	{
 		return _type == "EventOut" || _type == "PositionOut";
 	}
 
-	bool isConnectionTypeSimple(const std::string& _type)
+	bool isConnectionTypeSimple(std::string_view _type)
 	{
 		return _type == "EventIn" || _type == "EventOut";
 	}
@@ -133,7 +133,7 @@ namespace demo
 		delete tools::DialogManager::getInstancePtr();
 	}
 
-	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
+	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, std::string_view _id)
 	{
 		if (_id == "SaveGraph")
 		{
@@ -167,9 +167,9 @@ namespace demo
 		createNode(_id, name);
 	}
 
-	BaseAnimationNode* DemoKeeper::createNode(const std::string& _type, const std::string& _name)
+	BaseAnimationNode* DemoKeeper::createNode(std::string_view _type, std::string_view _name)
 	{
-		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _type, _name);
+		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + std::string{_type}, _name);
 		assert(node);
 
 		mNodes.push_back(node);
@@ -409,8 +409,8 @@ namespace demo
 						if (anim_node2)
 						{
 							//соединить точки в ноде
-							const std::string& from_point = conn.current()->findAttribute("from");
-							const std::string& to_point = conn.current()->findAttribute("to");
+							std::string_view from_point = conn.current()->findAttribute("from");
+							std::string_view to_point = conn.current()->findAttribute("to");
 
 							wraps::BaseGraphConnection* from_conn = anim_node->getConnectionByName(from_point, "EventOut");
 							if (!from_conn) from_conn = anim_node->getConnectionByName(from_point, "PositionOut");
@@ -445,7 +445,7 @@ namespace demo
 
 	}
 
-	BaseAnimationNode* DemoKeeper::getNodeByName(const std::string& _name)
+	BaseAnimationNode* DemoKeeper::getNodeByName(std::string_view _name)
 	{
 		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
 		while (node.next())
@@ -459,13 +459,13 @@ namespace demo
 		return nullptr;
 	}
 
-	void DemoKeeper::connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to)
+	void DemoKeeper::connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to)
 	{
 		_node_from->getAnimationNode()->addConnection(_name_from, _node_to->getAnimationNode(), _name_to);
 		_node_from->addConnection(_name_from, _node_to, _name_to);
 	}
 
-	void DemoKeeper::disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to)
+	void DemoKeeper::disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to)
 	{
 		_node_from->removeConnection(_name_from, _node_to, _name_to);
 		_node_from->getAnimationNode()->removeConnection(_name_from, _node_to->getAnimationNode(), _name_to);

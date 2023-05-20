@@ -24,7 +24,7 @@ namespace tools
 		return mValue;
 	}
 
-	void Property::setValue(const std::string& _value)
+	void Property::setValue(std::string_view _value)
 	{
 		if (mValue != _value)
 		{

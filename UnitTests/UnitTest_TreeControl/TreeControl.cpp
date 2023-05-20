@@ -122,7 +122,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != getClientWidget(), "Child Widget Client not found in skin (TreeControl must have Client)");
 
 		if (isUserString("SkinLine"))
-			mstrSkinLine = getUserString("SkinLine");
+			mstrSkinLine.assign(getUserString("SkinLine"));
 		if (isUserString("HeightLine"))
 			mnItemHeight = utility::parseValue<int>(getUserString("HeightLine"));
 		if (isUserString("LevelOffset"))

@@ -68,7 +68,7 @@ namespace demo
 			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()) );
 
 		mBox->addColourItem(colour, mLine->getOnlyText());
-		mLine->setCaption("");
+		mLine->setCaption(MyGUI::UString());
 	}
 
 } // namespace demo

@@ -28,7 +28,7 @@ namespace tools
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
 	}
 
-	void TestWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void TestWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		Control::OnInitialise(_parent, _place, "TestWindow.layout");
 
@@ -58,7 +58,7 @@ namespace tools
 		deleteSkin();
 	}
 
-	void TestWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void TestWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		eventEndDialog(this, false);
 	}
@@ -134,7 +134,7 @@ namespace tools
 		docLoad.open(mTestSkinFileName);
 		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
 
-		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, "", MyGUI::Version(1, 1, 0));
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, std::string_view{}, MyGUI::Version(1, 1, 0));
 	}
 
 }

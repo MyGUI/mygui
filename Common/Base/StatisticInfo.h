@@ -21,7 +21,7 @@ namespace diagnostic
 			mInfo(nullptr),
 			mOffset(20, 20)
 		{
-			const std::string layer = "Statistic";
+			std::string_view layer = "Statistic";
 			if (!MyGUI::LayerManager::getInstance().isExist(layer))
 				return;
 
@@ -40,7 +40,7 @@ namespace diagnostic
 		}
 
 		template <typename T>
-		void change(const std::string& _key, const T& _value)
+		void change(std::string_view _key, const T& _value)
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
@@ -50,10 +50,10 @@ namespace diagnostic
 					return;
 				}
 			}
-			mParams.push_back(std::make_pair(_key, MyGUI::utility::toString<T>(_value)));
+			mParams.emplace_back(_key, MyGUI::utility::toString<T>(_value));
 		}
 
-		void remove(const std::string& _key)
+		void remove(std::string_view _key)
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
@@ -81,7 +81,7 @@ namespace diagnostic
 				MyGUI::ISubWidgetText* text = mInfo->getSubWidgetText();
 				if (text != nullptr)
 				{
-					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
+					MyGUI::IntSize size = text->getTextSize() + mInfo->getSize() - text->getSize();
 					const MyGUI::IntSize& size_view = MyGUI::RenderManager::getInstance().getViewSize();
 					MyGUI::IntCoord coord(size_view.width - size.width - mOffset.left, size_view.height - size.height - mOffset.top, size.width, size.height);
 					if (coord != mInfo->getCoord())
@@ -95,7 +95,7 @@ namespace diagnostic
 			mParams.clear();
 		}
 
-		void clear(const std::string& _key)
+		void clear(std::string_view _key)
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{

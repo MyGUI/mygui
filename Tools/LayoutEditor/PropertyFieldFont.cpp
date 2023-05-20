@@ -26,8 +26,8 @@ namespace tools
 		WidgetStyle::VectorString values;
 
 		const std::string DEFAULT_STRING = "[DEFAULT]";
-		values.push_back(replaceTags("ColourDefault") + DEFAULT_STRING);
-		values.push_back("Default");
+		values.emplace_back(replaceTags("ColourDefault") + DEFAULT_STRING);
+		values.emplace_back("Default");
 
 		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
 		while (resource.next())

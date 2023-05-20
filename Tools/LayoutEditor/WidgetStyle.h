@@ -11,7 +11,7 @@ namespace tools
 
 	struct WidgetStyle
 	{
-		WidgetStyle(const std::string& _name) :
+		WidgetStyle(std::string_view _name) :
 			name(_name),
 			parent(false),
 			child(true),

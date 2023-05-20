@@ -19,7 +19,7 @@ namespace tools
 
 	public:
 		Dialog();
-		Dialog(const std::string& _layout);
+		Dialog(std::string_view _layout);
 
 		void doModal();
 		void endModal();

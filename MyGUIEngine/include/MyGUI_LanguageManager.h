@@ -28,7 +28,7 @@ namespace MyGUI
 		void shutdown();
 
 		/** Set current language for replacing #{} tags */
-		void setCurrentLanguage(const std::string& _name);
+		void setCurrentLanguage(std::string_view _name);
 		/** Get current language */
 		const std::string& getCurrentLanguage() const;
 		/** Get all available languages */
@@ -65,7 +65,7 @@ namespace MyGUI
 		delegates::CDelegate2<const UString&, UString&> eventRequestTag;
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);
@@ -74,14 +74,14 @@ namespace MyGUI
 		UString replaceTagsPass(const UString& _line, bool& _replaceResult);
 
 	private:
-		typedef std::map<UString, UString> MapLanguageString;
+		typedef std::map<UString, UString, std::less<>> MapLanguageString;
 
 		MapLanguageString mMapLanguage;
 		MapLanguageString mUserMapLanguage;
 
 		std::string mCurrentLanguageName;
 
-		typedef std::map<std::string, VectorString> MapListString;
+		typedef std::map<std::string, VectorString, std::less<>> MapListString;
 		MapListString mMapFile;
 
 		bool mIsInitialise;

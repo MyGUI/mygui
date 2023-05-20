@@ -16,7 +16,7 @@ namespace animation
 		{
 		}
 
-		Group2Controller(const std::string& _name, IAnimationGraph* _graph) :
+		Group2Controller(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
 		{
 		}
@@ -25,18 +25,18 @@ namespace animation
 		{
 		}
 
-		void setEvent(const std::string& _name, float _value) override
+		void setEvent(std::string_view _name, float _value) override
 		{
 			if (_name == "Start1") startAnimation1();
 			else if (_name == "Start2") startAnimation2();
 		}
 
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}

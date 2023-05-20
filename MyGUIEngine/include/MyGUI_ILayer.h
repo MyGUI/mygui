@@ -31,7 +31,7 @@ namespace MyGUI
 			return mName;
 		}
 
-		void setName(const std::string& _name)
+		void setName(std::string_view _name)
 		{
 			mName = _name;
 		}

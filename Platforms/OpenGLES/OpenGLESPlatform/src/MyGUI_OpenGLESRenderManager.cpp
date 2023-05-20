@@ -59,7 +59,7 @@ namespace MyGUI
 
 	std::string OpenGLESRenderManager::loadFileContent(const std::string& _file)
 	{
-		const std::string& fullPath = DataManager::getInstance().getDataPath(_file);
+		std::string fullPath = DataManager::getInstance().getDataPath(_file);
 		if (fullPath.empty())
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");

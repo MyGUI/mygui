@@ -163,7 +163,7 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	bool Button::_setState(const std::string& _value)
+	bool Button::_setState(std::string_view _value)
 	{
 		if (mModeImage)
 		{
@@ -177,27 +177,27 @@ namespace MyGUI
 		return _setWidgetState(_value);
 	}
 
-	void Button::setImageResource(const std::string& _name)
+	void Button::setImageResource(std::string_view _name)
 	{
 		if (mImage)
 			mImage->setItemResource(_name);
 		updateButtonState();
 	}
 
-	void Button::setImageGroup(const std::string& _name)
+	void Button::setImageGroup(std::string_view _name)
 	{
 		if (mImage)
 			mImage->setItemGroup(_name);
 		updateButtonState();
 	}
 
-	void Button::setImageName(const std::string& _name)
+	void Button::setImageName(std::string_view _name)
 	{
 		if (mImage)
 			mImage->setItemName(_name);
 	}
 
-	void Button::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void Button::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{Button, StateSelected, bool} Set state selected.
 		if (_key == "StateSelected")

@@ -24,7 +24,7 @@ namespace tools
 
 		const std::string& getCurrentScope() const;
 
-		sigslot::signal1<const std::string&> eventChangeScope;
+		sigslot::signal1<std::string_view> eventChangeScope;
 
 	private:
 		void commandChangeScope(const MyGUI::UString& _commandName, bool& _result);

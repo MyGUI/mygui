@@ -36,7 +36,7 @@ namespace tools
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = widgetType->templateData.begin(); iter != widgetType->templateData.end(); ++iter)
 			{
-				std::string value = widgetContainer->getUserData(iter->first);
+				std::string_view value = widgetContainer->getUserData(iter->first);
 
 				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
 				field->setTarget(_currentWidget);
@@ -89,7 +89,7 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelTemplateProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelTemplateProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{

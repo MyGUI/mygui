@@ -23,11 +23,11 @@ namespace tools
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		std::string getValue();
-		void setValue(const std::string& _value);
+		void setValue(std::string_view _value);
 
 		void notifyClickAdd(MyGUI::Widget* _sender);
 		void notifyClickDelete(MyGUI::Widget* _sender);

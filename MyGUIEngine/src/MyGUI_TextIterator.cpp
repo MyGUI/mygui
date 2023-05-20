@@ -292,7 +292,7 @@ namespace MyGUI
 
 	UString TextIterator::getFromStart() const
 	{
-		if (mSave == mEnd) return L"";
+		if (mSave == mEnd) return UString();
 		size_t start = mSave - mText.begin();
 		return UString(mText.substr(start, mCurrent - mText.begin() - start));
 	}

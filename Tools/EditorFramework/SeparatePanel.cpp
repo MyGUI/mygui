@@ -29,7 +29,7 @@ namespace tools
 		saveDefaultSize();
 	}
 
-	void SeparatePanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SeparatePanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -256,7 +256,7 @@ namespace tools
 
 	void SeparatePanel::loadDefaultSize()
 	{
-		if (mSaveAs != "")
+		if (!mSaveAs.empty())
 			mDefaultPanelSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Controls/SeparateControl/" + mSaveAs);
 
 		if (mDefaultPanelSize.empty())
@@ -277,7 +277,7 @@ namespace tools
 
 	void SeparatePanel::saveDefaultSize()
 	{
-		if (mSaveAs != "")
+		if (!mSaveAs.empty())
 			SettingsManager::getInstance().setValue("Controls/SeparateControl/" + mSaveAs, mDefaultPanelSize);
 	}
 

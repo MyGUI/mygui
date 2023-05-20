@@ -17,7 +17,7 @@ namespace demo
 	public:
 		virtual ~IPointerSetter() { }
 
-		virtual void setPointer(const std::string& _name) = 0;
+		virtual void setPointer(std::string_view _name) = 0;
 	};
 
 	class PointerContextManager
@@ -25,17 +25,17 @@ namespace demo
 	public:
 		PointerContextManager(IPointerSetter* _setter);
 
-		void addContext(const std::string& _name);
-		void removeContext(const std::string& _name);
+		void addContext(std::string_view _name);
+		void removeContext(std::string_view _name);
 
-		void setPointer(const std::string& _name);
+		void setPointer(std::string_view _name);
 
 	private:
-		void notifyChangeMousePointer(const std::string& _name);
+		void notifyChangeMousePointer(std::string_view _name);
 		void updateCursor();
 
 		bool isHighLevelContext() const;
-		void _setPointer(const std::string& _name);
+		void _setPointer(std::string_view _name);
 
 	private:
 		std::string mCurrentPointer;

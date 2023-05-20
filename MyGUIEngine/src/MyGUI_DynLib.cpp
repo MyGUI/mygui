@@ -27,7 +27,7 @@
 
 namespace MyGUI
 {
-	DynLib::DynLib(const std::string& name) :
+	DynLib::DynLib(std::string_view name) :
 		mName(name),
 		mInstance(nullptr)
 	{
@@ -43,11 +43,11 @@ namespace MyGUI
 
 		std::string name = mName;
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		const std::string extension = ".dll";
+		const std::string_view extension = ".dll";
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-		const std::string extension = ".so";
+		const std::string_view extension = ".so";
 #else
-		const std::string extension = "";
+		const std::string_view extension;
 #endif
 
 		if (name.find(extension) == std::string::npos)
@@ -82,7 +82,7 @@ namespace MyGUI
 #endif
 	}
 
-	void* DynLib::getSymbol( const std::string& strName ) const noexcept
+	void* DynLib::getSymbol( const char* strName ) const noexcept
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
 		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
@@ -91,7 +91,7 @@ namespace MyGUI
 		//APPLE SPECIFIC CODE HERE
 		return nullptr;
 #else
-		return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName.c_str());
+		return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName);
 #endif
 #endif
 	}
@@ -123,7 +123,7 @@ namespace MyGUI
 #endif
 	}
 
-	std::string DynLib::getName(void) const
+	const std::string& DynLib::getName(void) const
 	{
 		return mName;
 	}

@@ -19,8 +19,8 @@ namespace wraps
 		public wraps::BaseLayout
 	{
 	public:
-		BasePanelViewItem(const std::string& _layout) :
-			BaseLayout("", nullptr),
+		BasePanelViewItem(std::string_view _layout) :
+			BaseLayout({}, nullptr),
 			mPanelCell(nullptr),
 			mWidgetClient(nullptr),
 			mLayout(_layout)

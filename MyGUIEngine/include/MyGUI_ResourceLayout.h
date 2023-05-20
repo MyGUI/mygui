@@ -23,17 +23,17 @@ namespace MyGUI
 	public:
 		ResourceLayout();
 
-		ResourceLayout(xml::ElementPtr _node, const std::string& _file);
+		ResourceLayout(xml::ElementPtr _node, std::string_view _file);
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		const VectorWidgetInfo& getLayoutData() const;
 
 		/** Create widgets described in layout */
-		VectorWidgetPtr createLayout(const std::string& _prefix = "", Widget* _parent = nullptr);
+		VectorWidgetPtr createLayout(std::string_view _prefix = {}, Widget* _parent = nullptr);
 
 		// widget info -> Widget
-		Widget* createWidget(const WidgetInfo& _widgetInfo, const std::string& _prefix = "", Widget* _parent = nullptr, bool _template = false);
+		Widget* createWidget(const WidgetInfo& _widgetInfo, std::string_view _prefix = {}, Widget* _parent = nullptr, bool _template = false);
 
 	protected:
 		// xml -> widget info

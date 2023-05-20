@@ -34,7 +34,7 @@ namespace MyGUI
 
 		bool addTime(Widget* _widget, float _time) override;
 		void prepareItem(Widget* _widget) override;
-		void setProperty(const std::string& _key, const std::string& _value) override;
+		void setProperty(std::string_view _key, std::string_view _value) override;
 
 		typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_RepeatClick;
 

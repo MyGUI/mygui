@@ -18,7 +18,7 @@ namespace demo
 		{
 		}
 
-		ColourWindowCellData(const MyGUI::Colour& _colour, const std::string& _name) :
+		ColourWindowCellData(const MyGUI::Colour& _colour, std::string_view _name) :
 			m_colour(_colour),
 			m_name(_name)
 		{

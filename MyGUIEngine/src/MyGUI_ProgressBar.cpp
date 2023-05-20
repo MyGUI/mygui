@@ -308,7 +308,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ProgressBar::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ProgressBar::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ProgressBar, Range, size_t} Диапазон прогресса.
 		if (_key == "Range")

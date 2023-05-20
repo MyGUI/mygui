@@ -16,7 +16,7 @@ namespace demo
 		MyGUI::PointerManager::getInstance().eventChangeMousePointer += MyGUI::newDelegate(this, &PointerContextManager::notifyChangeMousePointer);
 	}
 
-	void PointerContextManager::notifyChangeMousePointer(const std::string& _name)
+	void PointerContextManager::notifyChangeMousePointer(std::string_view _name)
 	{
 		mCurrentGuiPointer = _name;
 		updateCursor();
@@ -29,7 +29,7 @@ namespace demo
 		return false;
 	}
 
-	void PointerContextManager::addContext(const std::string& _name)
+	void PointerContextManager::addContext(std::string_view _name)
 	{
 		bool found = false;
 		for (VectorContext::iterator item = mContexts.begin(); item != mContexts.end(); ++item)
@@ -73,7 +73,7 @@ namespace demo
 		updateCursor();
 	}
 
-	void PointerContextManager::removeContext(const std::string& _name)
+	void PointerContextManager::removeContext(std::string_view _name)
 	{
 		for (VectorContext::iterator item = mContexts.begin(); item != mContexts.end(); ++item)
 		{
@@ -87,7 +87,7 @@ namespace demo
 		updateCursor();
 	}
 
-	void PointerContextManager::setPointer(const std::string& _name)
+	void PointerContextManager::setPointer(std::string_view _name)
 	{
 		if (mCurrentPointer != _name)
 		{
@@ -115,11 +115,11 @@ namespace demo
 		}
 	}
 
-	void PointerContextManager::_setPointer(const std::string& _name)
+	void PointerContextManager::_setPointer(std::string_view _name)
 	{
 		if (!mContexts.empty())
 		{
-			std::string pointer = mContexts.back()->getPointer(_name);
+			std::string_view pointer = mContexts.back()->getPointer(_name);
 			if (!pointer.empty())
 			{
 				mPointerSetter->setPointer(pointer);

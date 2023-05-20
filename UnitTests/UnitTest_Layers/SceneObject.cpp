@@ -49,7 +49,7 @@ namespace demo
 		const Ogre::Vector3& position,
 		const Ogre::Quaternion& orient,
 		const Ogre::Vector3& scale,
-		const std::string& _material)
+		std::string_view _material)
 	{
 		bool added_shared = false;
 		size_t current_offset = 0;
@@ -301,13 +301,13 @@ namespace demo
 		return result;
 	}
 
-	void SceneObject::setEntity(const std::string& _name)
+	void SceneObject::setEntity(std::string_view _name)
 	{
 		mEntityName = _name;
 		updateData();
 	}
 
-	void SceneObject::setMaterial(const std::string& _material)
+	void SceneObject::setMaterial(std::string_view _material)
 	{
 		mMaterialName = _material;
 		updateData();
@@ -338,7 +338,7 @@ namespace demo
 		}
 	}
 
-	void SceneObject::setTextureName(const std::string& _name)
+	void SceneObject::setTextureName(std::string_view _name)
 	{
 		mTextureName = _name;
 
@@ -390,12 +390,12 @@ namespace demo
 		return getSceneManager()->getCamera(mCamera);
 	}
 
-	void SceneObject::setSceneManager(const std::string& _value)
+	void SceneObject::setSceneManager(std::string_view _value)
 	{
 		mSceneManager = _value;
 	}
 
-	void SceneObject::setCamera(const std::string& _value)
+	void SceneObject::setCamera(std::string_view _value)
 	{
 		mCamera = _value;
 	}

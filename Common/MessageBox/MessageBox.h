@@ -33,7 +33,7 @@ namespace MyGUI
 			initialise();
 		}
 
-		Message(const std::string& _layoutName) :
+		Message(std::string_view _layoutName) :
 			wraps::BaseLayout(_layoutName),
 			mWidgetText(nullptr),
 			mInfoOk(MessageBoxStyle::None),
@@ -189,12 +189,12 @@ namespace MyGUI
 			const UString& _caption,
 			const UString& _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
-			const std::string& _layer = "",
+			std::string_view _layer = {},
 			bool _modal = true,
-			const std::string& _button1 = "",
-			const std::string& _button2 = "",
-			const std::string& _button3 = "",
-			const std::string& _button4 = "")
+			std::string_view _button1 = {},
+			std::string_view _button2 = {},
+			std::string_view _button3 = {},
+			std::string_view _button4 = {})
 		{
 			Message* mess = new Message();
 
@@ -207,13 +207,13 @@ namespace MyGUI
 
 			if (!_button1.empty())
 			{
-				mess->addButtonName(_button1);
+				mess->addButtonName(UString(_button1));
 				if (!_button2.empty())
 				{
-					mess->addButtonName(_button2);
+					mess->addButtonName(UString(_button2));
 					if (!_button3.empty())
 					{
-						mess->addButtonName(_button3);
+						mess->addButtonName(UString(_button3));
 					}
 				}
 			}
@@ -313,35 +313,35 @@ namespace MyGUI
 		UString getButtonName(MessageBoxStyle _style) const
 		{
 			size_t index = _style.getButtonIndex();
-			const char* tag = getButtonTag(index);
+			std::string_view tag = getButtonTag(index);
 			UString result = LanguageManager::getInstance().replaceTags(utility::toString("#{", tag, "}"));
 			if (result == tag)
-				return getButtonName(index);
+				result.assign(getButtonName(index));
 			return result;
 		}
 
-		const char* getIconName(size_t _index) const
+		std::string_view getIconName(size_t _index) const
 		{
 			static const size_t CountIcons = 4;
-			static const char* IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
+			static const std::string_view IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", std::string_view{} };
 			if (_index >= CountIcons)
 				return IconNames[CountIcons];
 			return IconNames[_index];
 		}
 
-		const char* getButtonName(size_t _index) const
+		std::string_view getButtonName(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const char * Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
+			static const std::string_view Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", std::string_view{} };
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
 		}
 
-		const char* getButtonTag(size_t _index) const
+		std::string_view getButtonTag(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const char* Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", "" };
+			static const std::string_view Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", std::string_view{} };
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
@@ -387,7 +387,7 @@ namespace MyGUI
 				window->eventWindowButtonPressed += newDelegate(this, &Message::notifyWindowButtonPressed);
 		}
 
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 		{
 			if (_name == "close")
 				endMessage();

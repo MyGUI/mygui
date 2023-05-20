@@ -17,7 +17,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodeLoopController(const std::string& _name) :
+		GraphNodeLoopController(std::string_view _name) :
 			BaseAnimationNode("GraphNodeLoopController.layout", "LoopController", _name),
 			mStartIn(nullptr),
 			mStopIn(nullptr),
@@ -30,7 +30,7 @@ namespace demo
 		{
 		}
 
-		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")
@@ -40,7 +40,7 @@ namespace demo
 			}
 		}
 
-		void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::removeConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")

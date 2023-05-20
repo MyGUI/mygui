@@ -303,13 +303,13 @@ namespace input
 			mMouseY = mHeight - 1;
 	}
 
-	void InputManager::onClipboardChanged(const std::string &_type, const std::string &_data)
+	void InputManager::onClipboardChanged(std::string_view _type, std::string_view _data)
 	{
 		if (_type == "Text")
 			SDL_SetClipboardText(MyGUI::TextIterator::getOnlyText(MyGUI::UString(_data)).asUTF8().c_str());
 	}
 
-	void InputManager::onClipboardRequested(const std::string &_type, std::string &_data)
+	void InputManager::onClipboardRequested(std::string_view _type, std::string &_data)
 	{
 		if (_type != "Text")
 			return;

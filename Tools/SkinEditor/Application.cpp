@@ -52,7 +52,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
-		setResourceFilename("");
+		setResourceFilename(std::string_view{});
 	}
 
 	void Application::createScene()
@@ -67,7 +67,7 @@ namespace tools
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
 
-		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
+		const std::string& subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		LoadGuiSettings();
@@ -196,7 +196,7 @@ namespace tools
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
 
-		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
+		const std::string& subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>(subWidgetCategory);
 	}
 

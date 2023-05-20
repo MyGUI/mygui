@@ -655,7 +655,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node2, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node2, std::string_view _file, Version _version, std::string_view _tag)
 	{
 		xml::ElementEnumerator _node = _node2->getElementEnumerator();
 		while (_node.next())
@@ -666,14 +666,11 @@ namespace MyGUI
 				if (!_node->findAttribute("name", name))
 					return;
 
-				std::string type;
-				if (type.empty())
-				{
-					if (_node->findAttribute("resolution").empty())
-						type = "ResourceManualFont";
-					else
-						type = "ResourceTrueTypeFont";
-				}
+				std::string_view type;
+				if (_node->findAttribute("resolution").empty())
+					type = "ResourceManualFont";
+				else
+					type = "ResourceTrueTypeFont";
 
 				xml::Document doc;
 				xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -873,7 +870,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	VectorWidgetPtr MemberObsolete<LayoutManager>::load(const std::string& _file)
+	VectorWidgetPtr MemberObsolete<LayoutManager>::load(std::string_view _file)
 	{
 		return static_cast<LayoutManager*>(this)->loadLayout(_file);
 	}
@@ -883,7 +880,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<PointerManager>::setDeafultPointer(const std::string& _value)
+	void MemberObsolete<PointerManager>::setDeafultPointer(std::string_view _value)
 	{
 		static_cast<PointerManager*>(this)->setDefaultPointer(_value);
 	}
@@ -903,10 +900,10 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<PointerManager>::loadOldPointerFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<PointerManager>::loadOldPointerFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag)
 	{
-		std::string pointer;
-		std::string layer;
+		std::string_view pointer;
+		std::string_view layer;
 
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
@@ -917,19 +914,19 @@ namespace MyGUI
 				pointer = node->findAttribute("default");
 
 				// сохраняем
-				std::string shared_text = node->findAttribute("texture");
+				std::string_view shared_text = node->findAttribute("texture");
 
 				// берем детей и крутимся, основной цикл
 				xml::ElementEnumerator info = node->getElementEnumerator();
 				while (info.next("Info"))
 				{
-					std::string name = info->findAttribute("name");
+					std::string_view name = info->findAttribute("name");
 					if (name.empty())
 						continue;
 
-					std::string texture = info->findAttribute("texture");
+					std::string_view texture = info->findAttribute("texture");
 
-					std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+					std::string_view type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
 
 					xml::Document doc;
 					xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -989,12 +986,12 @@ namespace MyGUI
 	{
 		return static_cast<const ResourceManager*>(this)->getCount();
 	}
-	IResourcePtr MemberObsolete<ResourceManager>::getResource(const std::string& _name, bool _throw) const
+	IResourcePtr MemberObsolete<ResourceManager>::getResource(std::string_view _name, bool _throw) const
 	{
 		return static_cast<const ResourceManager*>(this)->getByName(_name, _throw);
 	}
 
-	ResourceSkin* MemberObsolete<SkinManager>::getSkin(const std::string& _name) const
+	ResourceSkin* MemberObsolete<SkinManager>::getSkin(std::string_view _name) const
 	{
 		return static_cast<const SkinManager*>(this)->getByName(_name);
 	}
@@ -1002,15 +999,15 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, std::string_view, Version _version, std::string_view _tag)
 	{
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 
 		// берем детей и крутимся, основной цикл со скинами
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(_tag))
 		{
-			std::string type = skin->findAttribute("type");
+			std::string_view type = skin->findAttribute("type");
 			if (type.empty())
 				type = "ResourceSkin";
 
@@ -1030,15 +1027,15 @@ namespace MyGUI
 	{
 		static_cast<WidgetManager*>(this)->destroyWidgets(_widgets);
 	}
-	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, bool _throw)
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _throw);
 	}
-	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
 	}
-	void MemberObsolete<WidgetManager>::parse(Widget* _widget, const std::string& _key, const std::string& _value)
+	void MemberObsolete<WidgetManager>::parse(Widget* _widget, std::string_view _key, std::string_view _value)
 	{
 		_widget->setProperty(_key, _value);
 	}
@@ -1048,7 +1045,7 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	static std::string convertAlignToDirection(const std::string& _value)
+	static std::string_view convertAlignToDirection(std::string_view _value)
 	{
 		Align align = utility::parseValue<Align>(_value);
 		if (align == Align::Right)
@@ -1060,21 +1057,21 @@ namespace MyGUI
 		return FlowDirection(FlowDirection::LeftToRight).print();
 	}
 
-	static std::string convertRectToCoord(const std::string& _value)
+	static std::string convertRectToCoord(std::string_view _value)
 	{
 		IntRect rect = IntRect::parse(_value);
 		IntCoord coord(rect.left, rect.top, rect.width(), rect.height());
 		return coord.print();
 	}
 
-	using SetString = std::set<std::string>;
+	using SetString = std::set<std::string, std::less<>>;
 	static MapString mPropertyRename;
 	static SetString mPropertyIgnore;
 	static MapString mSkinRename;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-	bool BackwardCompatibility::isIgnoreProperty(const std::string& _key)
+	bool BackwardCompatibility::isIgnoreProperty(std::string_view _key)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
@@ -1271,7 +1268,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
-	std::string BackwardCompatibility::getPropertyRename(const std::string& _propertyName)
+	std::string_view BackwardCompatibility::getPropertyRename(std::string_view _propertyName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::const_iterator item = mPropertyRename.find(_propertyName);
@@ -1281,7 +1278,7 @@ namespace MyGUI
 		return _propertyName;
 	}
 
-	std::string BackwardCompatibility::getFactoryRename(const std::string& _categoryName, const std::string& _factoryName)
+	std::string_view BackwardCompatibility::getFactoryRename(std::string_view _categoryName, std::string_view _factoryName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (_categoryName == "Widget")
@@ -1339,7 +1336,7 @@ namespace MyGUI
 		return _factoryName;
 	}
 
-	std::string BackwardCompatibility::getSkinRename(const std::string& _skinName)
+	std::string_view BackwardCompatibility::getSkinRename(std::string_view _skinName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::iterator item = mSkinRename.find(_skinName);
@@ -1363,7 +1360,7 @@ namespace MyGUI
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		FactoryManager& factory = FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.registerFactory<HScroll>(widgetCategory);
 		factory.registerFactory<VScroll>(widgetCategory);
 		factory.registerFactory<Canvas>(widgetCategory, "RenderBox");

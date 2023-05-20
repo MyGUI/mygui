@@ -60,10 +60,10 @@ namespace MyGUI
 
 	bool ResourceManager::load(const std::string& _file)
 	{
-		return _loadImplement(_file, false, "", getClassTypeName());
+		return _loadImplement(_file, false, {}, getClassTypeName());
 	}
 
-	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -103,7 +103,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManager::_loadList(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void ResourceManager::_loadList(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();
@@ -112,24 +112,24 @@ namespace MyGUI
 			std::string source;
 			if (!node->findAttribute("file", source)) continue;
 			MYGUI_LOG(Info, "Load ini file '" << source << "'");
-			_loadImplement(source, false, "", getClassTypeName());
+			_loadImplement(source, false, {}, getClassTypeName());
 		}
 	}
 
-	ResourceManager::LoadXmlDelegate& ResourceManager::registerLoadXmlDelegate(const std::string& _key)
+	ResourceManager::LoadXmlDelegate& ResourceManager::registerLoadXmlDelegate(std::string_view _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
-		return (mMapLoadXmlDelegate[_key] = LoadXmlDelegate());
+		return mMapLoadXmlDelegate.emplace(_key, LoadXmlDelegate()).first->second;
 	}
 
-	void ResourceManager::unregisterLoadXmlDelegate(const std::string& _key)
+	void ResourceManager::unregisterLoadXmlDelegate(std::string_view _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
 	}
 
-	bool ResourceManager::_loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance)
+	bool ResourceManager::_loadImplement(const std::string& _file, bool _match, std::string_view _type, std::string_view _instance)
 	{
 		DataStreamHolder data = DataManager::getInstance().getData(_file);
 		if (data.getData() == nullptr)
@@ -221,25 +221,25 @@ namespace MyGUI
 		}
 	}
 
-	bool ResourceManager::isExist(const std::string& _name) const
+	bool ResourceManager::isExist(std::string_view _name) const
 	{
 		return mResources.find(_name) != mResources.end();
 	}
 
-	IResource* ResourceManager::findByName(const std::string& _name) const
+	IResource* ResourceManager::findByName(std::string_view _name) const
 	{
 		MapResource::const_iterator item = mResources.find(_name);
 		return (item == mResources.end()) ? nullptr : item->second;
 	}
 
-	IResource* ResourceManager::getByName(const std::string& _name, bool _throw) const
+	IResource* ResourceManager::getByName(std::string_view _name, bool _throw) const
 	{
 		IResource* result = findByName(_name);
 		MYGUI_ASSERT(result || !_throw, "Resource '" << _name << "' not found");
 		return result;
 	}
 
-	bool ResourceManager::removeByName(const std::string& _name)
+	bool ResourceManager::removeByName(std::string_view _name)
 	{
 		MapResource::const_iterator item = mResources.find(_name);
 		if (item != mResources.end())

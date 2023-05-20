@@ -44,7 +44,7 @@ namespace MyGUI
 		virtual const VectorString& getDataListNames(const std::string& _pattern) const;
 
 		/** @see DataManager::getDataPath(const std::string& _name) */
-		virtual const std::string& getDataPath(const std::string& _name) const;
+		std::string getDataPath(const std::string& _name) const override;
 
 	/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);

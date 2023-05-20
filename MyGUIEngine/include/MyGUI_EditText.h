@@ -46,8 +46,8 @@ namespace MyGUI
 
 		void setAlpha(float _value) override;
 
-		void setFontName(const std::string& _value) override;
-		const std::string& getFontName() const override;
+		void setFontName(std::string_view _value) override;
+		std::string_view getFontName() const override;
 
 		void setFontHeight(int _value) override;
 		int getFontHeight() const override;

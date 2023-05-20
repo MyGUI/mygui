@@ -52,8 +52,8 @@ namespace MyGUI
 
 		if (mList == nullptr)
 		{
-			std::string list_skin = getUserString("ListSkin");
-			std::string list_layer = getUserString("ListLayer");
+			std::string_view list_skin = getUserString("ListSkin");
+			std::string_view list_layer = getUserString("ListLayer");
 
 			mList = static_cast<ListBox*>(_createSkinWidget(WidgetStyle::Popup, ListBox::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
 		}
@@ -129,7 +129,7 @@ namespace MyGUI
 	void ComboBox::notifyListSelectAccept(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
-		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
+		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : UString());
 
 		mDropMouse = false;
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -178,7 +178,7 @@ namespace MyGUI
 	void ComboBox::notifyListMouseItemActivate(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
-		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
+		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : UString());
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
@@ -320,7 +320,7 @@ namespace MyGUI
 		mList->setIndexSelected(_index);
 		if (_index == ITEM_NONE)
 		{
-			Base::setCaption("");
+			Base::setCaption(UString());
 			return;
 		}
 		Base::setCaption(mList->getItemNameAt(_index));
@@ -441,7 +441,7 @@ namespace MyGUI
 		return coord;
 	}
 
-	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ComboBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ComboBox, ModeDrop, bool} Режим выпадающего списка, в этом режиме значение в поля поменять нельзя.
 		if (_key == "ModeDrop")
@@ -461,7 +461,7 @@ namespace MyGUI
 
 		// не коментировать
 		else if (_key == "AddItem")
-			addItem(LanguageManager::getInstance().replaceTags(_value));
+			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 
 		else
 		{

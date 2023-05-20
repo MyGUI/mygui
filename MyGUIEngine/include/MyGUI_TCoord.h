@@ -204,10 +204,11 @@ namespace MyGUI
 				return stream.str();
 			}
 
-			static TCoord<T> parse(const std::string& _value)
+			static TCoord<T> parse(std::string_view _value)
 			{
 				TCoord<T> result;
-				std::istringstream stream(_value);
+				std::stringstream stream;
+				stream << _value;
 				stream >> result.left >> result.top >> result.width >> result.height;
 				if (stream.fail())
 				{

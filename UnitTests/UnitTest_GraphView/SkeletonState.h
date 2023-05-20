@@ -22,7 +22,7 @@ namespace animation
 		{
 		}
 
-		SkeletonState(const std::string& _name, IAnimationGraph* _graph) :
+		SkeletonState(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph),
 			mState(nullptr)
 		{
@@ -33,7 +33,7 @@ namespace animation
 			if (mState != nullptr) mState->setEnabled(false);
 		}
 
-		void setEvent(const std::string& _name, float _value = 0) override
+		void setEvent(std::string_view _name, float _value = 0) override
 		{
 			if (!mState)
 			{
@@ -47,12 +47,12 @@ namespace animation
 			else if (_name == "Weight") mState->setWeight(_value);
 		}
 
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
 		}
 
-		void setProperty(const std::string& _key, const std::string& _value) override
+		void setProperty(std::string_view _key, std::string_view _value) override
 		{
 			if (_key == "StateName")
 			{

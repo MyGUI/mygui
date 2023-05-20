@@ -84,7 +84,7 @@ namespace tools
 
 	void PanelControllers::notifyAdd(MyGUI::Widget* _sender)
 	{
-		std::string key = mControllerName->getOnlyText();
+		auto key = mControllerName->getOnlyText();
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		ControllerInfo* controllerInfo = new ControllerInfo();
@@ -124,22 +124,23 @@ namespace tools
 		if (MyGUI::ITEM_NONE == mIndexSelected)
 			return;
 
-		std::string key = mList->getItemNameAt(mIndexSelected);
+		const MyGUI::UString& key = mList->getItemNameAt(mIndexSelected);
 		mControllerName->setOnlyText(key);
+		auto property = mControllersProperties.find(key.asUTF8());
 
-		if (mControllersProperties.find(key) != mControllersProperties.end())
+		if (property != mControllersProperties.end())
 		{
 			ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(mIndexSelected);
 
-			for (MyGUI::MapString::iterator iter = mControllersProperties[key].begin(); iter != mControllersProperties[key].end(); ++iter)
+			for (const auto& [pKey, pValue] : property->second)
 			{
-				std::string value = "";
-				if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
-					value = controllerInfo->mProperty[iter->first];
+				std::string_view value;
+				if (controllerInfo->mProperty.find(pKey) != controllerInfo->mProperty.end())
+					value = controllerInfo->mProperty[pKey];
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
+				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, pValue);
 				field->setTarget(mCurrentWidget);
-				field->setName(iter->first);
+				field->setName(pKey);
 				field->setValue(value);
 				field->eventAction = MyGUI::newDelegate(this, &PanelControllers::notifyAction);
 				mFields.push_back(field);
@@ -163,18 +164,30 @@ namespace tools
 		mPanelCell->setClientHeight(height);
 	}
 
-	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
 	{
 		MyGUI::xml::ElementEnumerator controller = _node->getElementEnumerator();
 		while (controller.next("Controller"))
 		{
 			MyGUI::MapString controllerProperties;
-			std::string name = controller->findAttribute("name");
-			mControllerName->addItem(name);
+			std::string_view name = controller->findAttribute("name");
+			mControllerName->addItem(MyGUI::UString(name));
 			MyGUI::xml::ElementEnumerator prop = controller->getElementEnumerator();
 			while (prop.next("Property"))
-				controllerProperties[prop->findAttribute("key")] = prop->findAttribute("type");
-			mControllersProperties[name] = controllerProperties;
+			{
+				std::string_view key = prop->findAttribute("key");
+				std::string_view value = prop->findAttribute("type");
+				auto it = controllerProperties.find(key);
+				if (it == controllerProperties.end())
+					controllerProperties.emplace(key, value);
+				else
+					it->second = value;
+			}
+			auto it = mControllersProperties.find(name);
+			if (it == mControllersProperties.end())
+				mControllersProperties.emplace(name, controllerProperties);
+			else
+				it->second = controllerProperties;
 		}
 	}
 
@@ -185,14 +198,19 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelControllers::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelControllers::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
 			if (mIndexSelected != MyGUI::ITEM_NONE)
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-				widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+				auto& prop = widgetContainer->mController[mIndexSelected]->mProperty;
+				auto it = prop.find(_name);
+				if (it == prop.end())
+					prop.emplace(_name, _value);
+				else
+					it->second = _value;
 
 				UndoManager::getInstance().addValue(PR_PROPERTIES);
 			}

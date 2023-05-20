@@ -34,13 +34,13 @@ namespace demo
 		void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id) override;
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
-		void setPointer(const std::string& _name) override;
+		void setPointer(std::string_view _name) override;
 
 		void createEntities();
 		void destroyEntities();
 
 		void updateCamera(int _x, int _y);
-		std::string getCursorFromScene(int _x, int _y);
+		std::string_view getCursorFromScene(int _x, int _y);
 
 	private:
 		EnemyPanel* mEnemyPanel;

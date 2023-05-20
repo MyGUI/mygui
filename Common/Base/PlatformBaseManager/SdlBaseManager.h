@@ -35,7 +35,7 @@ namespace base
 		void setWindowCaption(const std::wstring& _text);
 
 		const std::string& getRootMedia() const;
-		void setResourceFilename(const std::string& _flename);
+		void setResourceFilename(std::string_view _flename);
 
 	/*internal:*/
 		void _windowResized(int w, int h);

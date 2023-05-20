@@ -69,7 +69,7 @@ namespace MyGUI
 		mListItem.clear();
 	}
 
-	ControllerItem* ControllerManager::createItem(const std::string& _type)
+	ControllerItem* ControllerManager::createItem(std::string_view _type)
 	{
 		IObject* object = FactoryManager::getInstance().createObject(mCategoryName, _type);
 		return object == nullptr ? nullptr : object->castType<ControllerItem>();

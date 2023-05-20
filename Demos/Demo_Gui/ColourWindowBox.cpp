@@ -23,7 +23,7 @@ namespace demo
 		}
 	}
 
-	void ColourWindowBox::addColourItem(const MyGUI::Colour& _colour, const std::string& _name)
+	void ColourWindowBox::addColourItem(const MyGUI::Colour& _colour, std::string_view _name)
 	{
 		addItem(new ColourWindowCellData(_colour, _name));
 	}

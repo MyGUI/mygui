@@ -25,11 +25,11 @@ namespace MyGUI
 		void close() override;
 		//! @copydoc ILogListener::flush()
 		void flush() override;
-		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
-		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) override;
+		//! @copydoc ILogListener::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
+		void log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line) override;
 
 		/** Set listener's file name where it wirte log. */
-		void setFileName(const std::string& _value);
+		void setFileName(std::string_view _value);
 		/** Get listener's file name where it wirte log. */
 		const std::string& getFileName() const;
 

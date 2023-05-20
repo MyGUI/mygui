@@ -130,10 +130,10 @@ namespace MyGUI
 			return Colour::Zero;
 		}
 
-		virtual void setFontName(const std::string& /*_value*/) { }
-		virtual const std::string& getFontName() const
+		virtual void setFontName(std::string_view /*_value*/) { }
+		virtual std::string_view getFontName() const
 		{
-			return Constants::getEmptyString();
+			return {};
 		}
 
 		virtual void setFontHeight(int /*_value*/) { }

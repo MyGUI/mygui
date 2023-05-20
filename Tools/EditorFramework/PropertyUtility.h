@@ -15,19 +15,19 @@ namespace tools
 	class MYGUI_EXPORT_DLL PropertyUtility
 	{
 	public:
-		static bool isUniqueName(DataPtr _data, const std::string& _propertyName);
-		static void executeAction(PropertyPtr _property, const std::string& _value, bool _merge = false);
+		static bool isUniqueName(DataPtr _data, std::string_view _propertyName);
+		static void executeAction(PropertyPtr _property, std::string_view _value, bool _merge = false);
 
 		typedef std::pair<PropertyPtr, std::string> PairProprty;
 		typedef std::vector<PairProprty> VectorPairProperty;
-		static void storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, DataPtr _parent, VectorPairProperty& _store);
+		static void storeUniqueNameProperty(std::string_view _propertyName, std::string_view _propertyUnique, DataPtr _parent, VectorPairProperty& _store);
 		static void restoreUniqueNameProperty(VectorPairProperty& _store);
 
-		static PropertyPtr getPropertyByName(const std::string& _dataType, const std::string& _propertyName);
+		static PropertyPtr getPropertyByName(std::string_view _dataType, std::string_view _propertyName);
 		static bool isDataSelected(DataPtr _data);
 
 	private:
-		static PropertyPtr getPropertyByName(DataPtr _data, const std::string& _dataType, const std::string& _propertyName);
+		static PropertyPtr getPropertyByName(DataPtr _data, std::string_view _dataType, std::string_view _propertyName);
 		static bool isDataSelected(DataPtr _parent, DataPtr _data);
 	};
 }

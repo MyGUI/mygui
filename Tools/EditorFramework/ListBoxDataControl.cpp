@@ -31,7 +31,7 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void ListBoxDataControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void ListBoxDataControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -92,7 +92,7 @@ namespace tools
 				mListBox->removeItemAt(mListBox->getItemCount() - 1);
 
 			while (mListBox->getItemCount() < childs.size())
-				mListBox->addItem("", nullptr);
+				mListBox->addItem(MyGUI::UString(), nullptr);
 
 			for (size_t index = 0; index < childs.size(); index ++)
 			{
@@ -225,7 +225,7 @@ namespace tools
 		mEnableChangePosition = _value;
 	}
 
-	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName)
+	void ListBoxDataControl::setDataInfo(std::string_view _parentType, std::string_view _thisType, std::string_view _propertyName)
 	{
 		mPropertyForName = _propertyName;
 		mThisType = _thisType;
@@ -281,14 +281,14 @@ namespace tools
 		return true;
 	}
 
-	void ListBoxDataControl::setReplaceColourName(const std::string& _value)
+	void ListBoxDataControl::setReplaceColourName(std::string_view _value)
 	{
 		mColourName = _value;
 	}
 
-	void ListBoxDataControl::addPropertyNameEnabled(const std::string& _propertyName)
+	void ListBoxDataControl::addPropertyNameEnabled(std::string_view _propertyName)
 	{
-		mPropertyNamesEnable.push_back(_propertyName);
+		mPropertyNamesEnable.emplace_back(_propertyName);
 	}
 
 }

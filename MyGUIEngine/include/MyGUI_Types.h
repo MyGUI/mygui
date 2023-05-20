@@ -37,7 +37,7 @@ namespace MyGUI
 	using FloatCoord = types::TCoord<float>;
 	using DoubleCoord = types::TCoord<double>;
 
-	typedef std::map<std::string, std::string> MapString;
+	typedef std::map<std::string, std::string, std::less<>> MapString;
 	using VectorString = std::vector<std::string>;
 	typedef std::pair<std::string, std::string> PairString;
 	using VectorStringPairs = std::vector<PairString>;

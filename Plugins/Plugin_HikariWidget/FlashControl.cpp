@@ -172,7 +172,7 @@ void FlashControl::load(const std::string& movieFilename)
 {
 	mIsInitialise = false;
 
-	const std::string& full_path = MyGUI::DataManager::getInstance().getDataPath(movieFilename);
+	std::string full_path = MyGUI::DataManager::getInstance().getDataPath(movieFilename);
 	if (full_path.empty())
 	{
 		MYGUI_LOGGING(plugin::Plugin::LogSection, Error, "Could not load '" << movieFilename << "', the file was not found.");

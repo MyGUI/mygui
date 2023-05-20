@@ -214,7 +214,7 @@ namespace MyGUI
 
 
 		//! @copydoc TextBox::setFontName
-		void setFontName(const std::string& _value) override;
+		void setFontName(std::string_view _value) override;
 		//! @copydoc TextBox::setFontHeight
 		void setFontHeight(int _value) override;
 		//! @copydoc TextBox::getFontHeight
@@ -276,7 +276,7 @@ namespace MyGUI
 
 		void eraseView();
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		// устанавливает текст

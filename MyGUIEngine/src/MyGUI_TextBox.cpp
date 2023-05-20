@@ -50,16 +50,16 @@ namespace MyGUI
 		return (nullptr == getSubWidgetText()) ? Colour::Zero : getSubWidgetText()->getTextColour();
 	}
 
-	void TextBox::setFontName(const std::string& _value)
+	void TextBox::setFontName(std::string_view _value)
 	{
 		if (nullptr != getSubWidgetText())
 			getSubWidgetText()->setFontName(_value);
 	}
 
-	const std::string& TextBox::getFontName() const
+	std::string_view TextBox::getFontName() const
 	{
 		if (nullptr == getSubWidgetText())
-			return Constants::getEmptyString();
+			return {};
 		return getSubWidgetText()->getFontName();
 	}
 
@@ -87,13 +87,13 @@ namespace MyGUI
 		return getSubWidgetText()->getCaption();
 	}
 
-	void TextBox::setCaptionWithReplacing(const std::string& _value)
+	void TextBox::setCaptionWithReplacing(std::string_view _value)
 	{
 		// replace "\\n" with char '\n'
 		size_t pos = _value.find("\\n");
 		if (pos == std::string::npos)
 		{
-			setCaption(LanguageManager::getInstance().replaceTags(_value));
+			setCaption(LanguageManager::getInstance().replaceTags(UString(_value)));
 		}
 		else
 		{
@@ -130,7 +130,7 @@ namespace MyGUI
 		return (nullptr == getSubWidgetText()) ? false : getSubWidgetText()->getShadow();
 	}
 
-	void TextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void TextBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{TextBox, TextColour, Colour} Цвет текста.
 		if (_key == "TextColour")

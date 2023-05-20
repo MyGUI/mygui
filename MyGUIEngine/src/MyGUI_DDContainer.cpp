@@ -252,7 +252,7 @@ namespace MyGUI
 		mouseDrag(MouseButton::Left);
 	}
 
-	void DDContainer::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void DDContainer::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{DDContainer, NeedDragDrop, bool} Поддержка Drag and Drop.
 		if (_key == "NeedDragDrop")

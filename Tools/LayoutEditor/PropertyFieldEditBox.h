@@ -21,11 +21,11 @@ namespace tools
 	public:
 		PropertyFieldEditBox(MyGUI::Widget* _parent);
 
-		void initialise(const std::string& _type) override;
+		void initialise(std::string_view _type) override;
 
 		void setTarget(MyGUI::Widget* _currentWidget) override;
-		void setValue(const std::string& _value) override;
-		void setName(const std::string& _value) override;
+		void setValue(std::string_view _value) override;
+		void setName(std::string_view _value) override;
 
 		void setVisible(bool _value) override;
 		bool getVisible() override;
@@ -40,7 +40,7 @@ namespace tools
 
 	protected:
 		virtual bool onCheckValue();
-		virtual void onAction(const std::string& _value, bool _final);
+		virtual void onAction(std::string_view _value, bool _final);
 
 	protected:
 		MyGUI::TextBox* mText;

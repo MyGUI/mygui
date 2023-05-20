@@ -35,19 +35,19 @@ namespace tools
 		return mMainWidget;
 	}
 
-	void Control::Initialise(const std::string& _layoutName)
+	void Control::Initialise(std::string_view _layoutName)
 	{
 		OnInitialise(nullptr, nullptr, _layoutName);
 		ActivateControllers();
 	}
 
-	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		OnInitialise(_parent, _place, _layoutName);
 		ActivateControllers();
 	}
 
-	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		mParent = _parent;
 		if (_parent != nullptr)
@@ -70,10 +70,10 @@ namespace tools
 	{
 		AdviceWidget(_widget);
 
-		std::string controlType = _widget->getUserString("ControlType");
+		std::string_view controlType = _widget->getUserString("ControlType");
 		if (!controlType.empty())
 		{
-			std::string controlLayout = _widget->getUserString("ControlLayout");
+			std::string_view controlLayout = _widget->getUserString("ControlLayout");
 
 			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);
 			if (control != nullptr)
@@ -89,7 +89,7 @@ namespace tools
 
 	void Control::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClick"));
+		CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getUserString("CommandClick")));
 	}
 
 	const Control::VectorControl& Control::getChilds() const
@@ -100,30 +100,30 @@ namespace tools
 	void Control::notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index)
 	{
 		if (_index != MyGUI::ITEM_NONE)
-			CommandManager::getInstance().executeCommand(_sender->getItemAt(_index)->getUserString("CommandActivate"));
+			CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getItemAt(_index)->getUserString("CommandActivate")));
 	}
 
-	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
-			CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClose"));
+			CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getUserString("CommandClose")));
 	}
 
 	void Control::AdviceWidget(MyGUI::Widget* _widget)
 	{
-		std::string command = _widget->getUserString("CommandClick");
+		std::string_view command = _widget->getUserString("CommandClick");
 		if (!command.empty())
 			_widget->eventMouseButtonClick += MyGUI::newDelegate(this, &Control::notifyMouseButtonClick);
 
 		MyGUI::TabControl* tab = _widget->castType<MyGUI::TabControl>(false);
 		if (tab != nullptr)
 		{
-			if (tab->getItemCount() != 0 && tab->getItemAt(0)->getUserString("CommandActivate") != "")
+			if (tab->getItemCount() != 0 && !tab->getItemAt(0)->getUserString("CommandActivate").empty())
 				tab->eventTabChangeSelect += MyGUI::newDelegate(this, &Control::notifyTabChangeSelect);
 		}
 
 		MyGUI::Window* window = _widget->castType<MyGUI::Window>(false);
-		if (window != nullptr && window->getUserString("CommandClose") != "")
+		if (window != nullptr && !window->getUserString("CommandClose").empty())
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &Control::notifyWindowButtonPressed);
 
 		command = _widget->getUserString("CommandAccept");
@@ -135,7 +135,7 @@ namespace tools
 		}
 	}
 
-	void Control::SendCommand(const std::string& _command)
+	void Control::SendCommand(std::string_view _command)
 	{
 		OnCommand(_command);
 
@@ -143,26 +143,26 @@ namespace tools
 			(*child)->SendCommand(_command);
 	}
 
-	void Control::OnCommand(const std::string& _command)
+	void Control::OnCommand(std::string_view _command)
 	{
 	}
 
 	void Control::notifyEditSelectAccept(MyGUI::EditBox* _sender)
 	{
-		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandAccept"));
+		CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getUserString("CommandAccept")));
 	}
 
-	MyGUI::Widget* Control::CreateFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent)
+	MyGUI::Widget* Control::CreateFakeWidgetT(std::string_view _typeName, MyGUI::Widget* _parent)
 	{
 		if (_parent)
 			return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
 
-		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, std::string_view{});
 	}
 
 	void Control::CreateControllers()
 	{
-		std::string controllers = mMainWidget->getUserString("ControlControllers");
+		std::string_view controllers = mMainWidget->getUserString("ControlControllers");
 		if (!controllers.empty())
 		{
 			std::vector<std::string> values = MyGUI::utility::split(controllers, "\t\n ,");

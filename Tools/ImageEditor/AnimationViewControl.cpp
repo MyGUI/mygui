@@ -28,7 +28,7 @@ namespace tools
 		mPlay(true)
 	{
 	}
-	void AnimationViewControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void AnimationViewControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -98,7 +98,7 @@ namespace tools
 
 	void AnimationViewControl::rebuildAnimations()
 	{
-		mAnimation.setTextureName("");
+		mAnimation.setTextureName(std::string_view{});
 		mAnimation.clearFrames();
 		mCurrentFrame = 0;
 		mTime = 0;

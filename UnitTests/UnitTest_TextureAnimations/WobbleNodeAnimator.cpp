@@ -18,7 +18,7 @@ namespace demo
 
 	static float getLength(const MyGUI::FloatPoint& _value)
 	{
-		return (float)std::sqrt( _value.left * _value.left + _value.top * _value.top );
+		return std::sqrt( _value.left * _value.left + _value.top * _value.top );
 	}
 
 	static void setLength(MyGUI::FloatPoint& _value, float _len)
@@ -46,8 +46,8 @@ namespace demo
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Property"))
 		{
-			const std::string& key = node->findAttribute("key");
-			const std::string& value = node->findAttribute("value");
+			std::string_view key = node->findAttribute("key");
+			std::string_view value = node->findAttribute("value");
 
 			if (key == "DragStrength") mDragStrength = MyGUI::utility::parseFloat(value);
 			else if (key == "ResizeStrength") mResizeStrength = MyGUI::utility::parseFloat(value);

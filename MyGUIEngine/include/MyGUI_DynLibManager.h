@@ -27,7 +27,7 @@ namespace MyGUI
 		void shutdown();
 
 		//!	Load library
-		DynLib* load(const std::string& fileName);
+		DynLib* load(std::string_view fileName);
 		//!	Unload library
 		void unload(DynLib* library);
 
@@ -41,7 +41,7 @@ namespace MyGUI
 
 	private:
 		//! Dynamic libraries map
-		typedef std::map <std::string, DynLib*> StringDynLibMap;
+		typedef std::map <std::string, DynLib*, std::less<>> StringDynLibMap;
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
 

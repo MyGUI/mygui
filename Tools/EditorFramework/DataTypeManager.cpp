@@ -65,7 +65,7 @@ namespace tools
 		mDataInfos.clear();
 	}
 
-	DataTypePtr DataTypeManager::getType(const std::string& _type)
+	DataTypePtr DataTypeManager::getType(std::string_view _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{
@@ -76,7 +76,7 @@ namespace tools
 		return nullptr;
 	}
 
-	DataTypePtr DataTypeManager::getParentType(const std::string& _type)
+	DataTypePtr DataTypeManager::getParentType(std::string_view _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{

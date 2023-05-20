@@ -27,7 +27,7 @@ namespace MyGUI
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
 		ISubWidgetRect* getSubWidgetMain() const;
 
-		void _setTextureName(const std::string& _texture);
+		void _setTextureName(std::string_view _texture);
 		const std::string& _getTextureName() const;
 
 	protected:
@@ -41,7 +41,7 @@ namespace MyGUI
 		void _correctSkinItemView();
 		void _updateSkinItemView();
 
-		bool _setSkinItemState(const std::string& _state);
+		bool _setSkinItemState(std::string_view _state);
 		void _setSubSkinVisible(bool _visible);
 
 	private:

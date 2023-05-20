@@ -21,19 +21,22 @@ namespace demo
 		msCommandManager = nullptr;
 	}
 
-	void CommandManager::execiteCommand(const std::string& _name, MyGUI::Any _data)
+	void CommandManager::execiteCommand(std::string_view _name, MyGUI::Any _data)
 	{
 		MapDelegate::iterator item = mDelegates.find(_name);
 		if (item != mDelegates.end())
 			(*item).second(_name, _data);
 	}
 
-	void CommandManager::registerCommand(const std::string& _name, CommandDelegate::IDelegate* _delegate)
+	void CommandManager::registerCommand(std::string_view _name, CommandDelegate::IDelegate* _delegate)
 	{
-		mDelegates[_name] = _delegate;
+		auto it = mDelegates.find(_name);
+		if (it == mDelegates.end())
+			it = mDelegates.emplace(_name, CommandDelegate()).first;
+		it->second = _delegate;
 	}
 
-	void CommandManager::unregisterCommand(const std::string& _name)
+	void CommandManager::unregisterCommand(std::string_view _name)
 	{
 		MapDelegate::iterator item = mDelegates.find(_name);
 		if (item != mDelegates.end())

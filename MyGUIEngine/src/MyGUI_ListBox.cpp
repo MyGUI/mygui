@@ -928,11 +928,11 @@ namespace MyGUI
 		}
 	}
 
-	void ListBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ListBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		// не коментировать
 		if (_key == "AddItem")
-			addItem(LanguageManager::getInstance().replaceTags(_value));
+			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 		else if (_key == "ActivateOnClick")
 			mActivateOnClick = utility::parseBool(_value);
 		else

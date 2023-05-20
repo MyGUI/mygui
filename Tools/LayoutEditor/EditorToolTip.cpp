@@ -42,8 +42,8 @@ namespace tools
 		const std::string& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const std::string& colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
 
-		std::string skin = _data.widget_skin;
-		std::string widget = _data.widget_type;
+		const std::string& skin = _data.widget_skin;
+		std::string_view widget = _data.widget_type;
 
 		MyGUI::ResourceSkin* skinInfo = MyGUI::SkinManager::getInstance().getByName(skin);
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(skin, false);
@@ -83,7 +83,8 @@ namespace tools
 		}
 
 		bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
-		std::string text = "Widget: " + (exist ? colour_success : colour_error) + widget + colour_success +
+		std::string text = "Widget: " + (exist ? colour_success : colour_error);
+		text += widget; text += colour_success +
 			"\nSkin: " + skin +
 			"\nDefaultSize: " + (templateRootFound ? MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height) : (colour_error + "'Root' widget not found"));
 

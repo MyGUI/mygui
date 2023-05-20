@@ -20,7 +20,7 @@ namespace tools
 		return mAnimationName;
 	}
 
-	void AnimationInfo::setTextureName(const std::string& _value)
+	void AnimationInfo::setTextureName(std::string_view _value)
 	{
 		mAnimationName = _value;
 	}

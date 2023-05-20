@@ -9,7 +9,7 @@
 namespace demo
 {
 
-	State::State(const std::string& _layout, ControllerType _type) :
+	State::State(std::string_view _layout, ControllerType _type) :
 		wraps::BaseLayout(_layout),
 		mFrameAdvise(false)
 	{

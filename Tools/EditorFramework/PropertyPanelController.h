@@ -28,7 +28,7 @@ namespace tools
 		void deactivate() override;
 
 	private:
-		void notifyChangeScope(const std::string& _scope);
+		void notifyChangeScope(std::string_view _scope);
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 
 	private:

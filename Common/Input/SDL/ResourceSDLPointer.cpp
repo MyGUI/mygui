@@ -24,7 +24,7 @@ namespace input
 		{
 			if (info->getName() == "Property")
 			{
-				const std::string& key = info->findAttribute("key");
+				std::string_view key = info->findAttribute("key");
 
 				if (key == "SourceFile")
 				{
@@ -33,7 +33,7 @@ namespace input
 				}
 				else if (key == "SourceSystem")
 				{
-					std::string value = info->getContent();
+					const std::string& value = info->getContent();
 					if (value == "SDL_SYSTEM_CURSOR_ARROW")
 						mCursorType = SDL_SYSTEM_CURSOR_ARROW;
 					else if (value == "SDL_SYSTEM_CURSOR_IBEAM")

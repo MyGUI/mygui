@@ -24,7 +24,7 @@ namespace tools
 		void setProperty(PropertyPtr _value);
 		PropertyPtr getProperty();
 
-		void executeAction(const std::string& _value, bool _merge = false);
+		void executeAction(std::string_view _value, bool _merge = false);
 
 	protected:
 		virtual void updateProperty();

@@ -10,7 +10,7 @@
 namespace tools
 {
 
-	void PositionSelectorBlackControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PositionSelectorBlackControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "PositionSelectorControl.layout");
 		setPropertyColour("ColourSelectorInactive");

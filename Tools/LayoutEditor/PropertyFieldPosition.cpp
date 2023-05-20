@@ -42,7 +42,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->disconnect(this);
 	}
 
-	void PropertyFieldPosition::initialise(const std::string& _type)
+	void PropertyFieldPosition::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -60,14 +60,14 @@ namespace tools
 
 		std::string value = mField->getOnlyText();
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-			value = "";
+			value.clear();
 
 		onAction(value, _force);
 
 		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
-	void PropertyFieldPosition::onAction(const std::string& _value, bool _force)
+	void PropertyFieldPosition::onAction(std::string_view _value, bool _force)
 	{
 		EditorWidgets* ew = &EditorWidgets::getInstance();
 		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
@@ -78,7 +78,8 @@ namespace tools
 		{
 			if (widgetContainer->getRelativeMode())
 			{
-				std::istringstream str(_value);
+				std::stringstream str;
+				str << _value;
 				MyGUI::DoubleCoord double_coord;
 				str >> double_coord;
 				double_coord.left /= 100;
@@ -130,25 +131,25 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldPosition::setValue(const std::string& _value)
+	void PropertyFieldPosition::setValue(std::string_view _value)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		if (_value.empty())
 		{
+			std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
 			mField->setCaption(DEFAULT_VALUE);
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 			onCheckValue();
 		}
 	}
 
-	void PropertyFieldPosition::setName(const std::string& _value)
+	void PropertyFieldPosition::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
 	void PropertyFieldPosition::notifyMouseButtonClick(MyGUI::Widget* _sender)
@@ -193,7 +194,7 @@ namespace tools
 		setValue(widgetContainer->position());
 	}
 
-	void PropertyFieldPosition::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
+	void PropertyFieldPosition::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, std::string_view _owner)
 	{
 		if (_owner == "PropertiesPanelView" || _widget != mCurrentWidget)
 			return;

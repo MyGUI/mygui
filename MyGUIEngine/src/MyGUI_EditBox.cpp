@@ -40,7 +40,7 @@ namespace MyGUI
 	const size_t EDIT_DEFAULT_MAX_TEXT_LENGTH = 2048;
 	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // дополнительное смещение для курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 1500; // область для восприятия мыши за пределом эдита
-	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
+	const std::string_view EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
 	EditBox::EditBox() :
@@ -1108,7 +1108,9 @@ namespace MyGUI
 		TextIterator iterator(getRealString());
 
 		// дефолтный цвет
-		UString colour = mClientText == nullptr ? "" : TextIterator::convertTagColour(mClientText->getTextColour());
+		UString colour;
+		if (mClientText != nullptr)
+			colour = TextIterator::convertTagColour(mClientText->getTextColour());
 
 		// нужно ли вставлять цвет
 		bool need_colour = true;
@@ -1164,7 +1166,9 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		UString colour = mClientText == nullptr ? "" : TextIterator::convertTagColour(mClientText->getTextColour());
+		UString colour;
+		if (mClientText != nullptr)
+			colour = TextIterator::convertTagColour(mClientText->getTextColour());
 
 		// цикл прохода по строке
 		while (iterator.moveNext())
@@ -1228,7 +1232,7 @@ namespace MyGUI
 	UString EditBox::getTextSelection() const
 	{
 		if ( !isTextSelection())
-			return "";
+			return UString();
 		size_t start = getTextSelectionStart();
 		size_t end =  getTextSelectionEnd();
 		return getTextInterval(start, end - start);
@@ -1336,7 +1340,9 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		UString colour = mClientText == nullptr ? "" : TextIterator::convertTagColour(mClientText->getTextColour());
+		UString colour;
+		if (mClientText != nullptr)
+			colour = TextIterator::convertTagColour(mClientText->getTextColour());
 		// нужен ли тег текста
 		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
 		bool need_colour = ( (_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#') );
@@ -1783,7 +1789,7 @@ namespace MyGUI
 		eraseView();
 	}
 
-	void EditBox::setFontName(const std::string& _value)
+	void EditBox::setFontName(std::string_view _value)
 	{
 		Base::setFontName(_value);
 
@@ -2036,7 +2042,7 @@ namespace MyGUI
 		if (getClientWidget() != nullptr)
 		{
 			if (mModeStatic)
-				getClientWidget()->setPointer("");
+				getClientWidget()->setPointer(std::string_view{});
 			else
 				getClientWidget()->setPointer(mOriginalPointer);
 		}
@@ -2125,7 +2131,7 @@ namespace MyGUI
 			mClientText->setInvertSelected(_value);
 	}
 
-	void EditBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void EditBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{EditBox, CursorPosition, size_t} Позиция курсора.
 		if (_key == "CursorPosition")
@@ -2149,7 +2155,7 @@ namespace MyGUI
 
 		/// @wproperty{EditBox, PasswordChar, string} Символ для замены в режиме пароля.
 		else if (_key == "PasswordChar")
-			setPasswordChar(_value);
+			setPasswordChar(UString(_value));
 
 		/// @wproperty{EditBox, MaxTextLength, size_t} Максимальное длина текста.
 		else if (_key == "MaxTextLength")

@@ -167,11 +167,6 @@ namespace tools
 		#undef BIND_KEY
 	}
 
-	HotKeyManager::~HotKeyManager()
-	{
-		mKeyNames.clear();
-	}
-
 	void HotKeyManager::initialise()
 	{
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("HotKeys") = MyGUI::newDelegate(this, &HotKeyManager::loadXml);
@@ -182,7 +177,7 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate("HotKeys");
 	}
 
-	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Command"))

@@ -24,7 +24,7 @@ namespace demo
 		MyGUI::ResourceManager::getInstance().load("Fonts.xml");
 		MyGUI::ResourceManager::getInstance().load("HyperTextSkins.xml");
 
-		std::string category = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& category = MyGUI::WidgetManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WrapPanel>(category);
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>(category);
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>(category);
@@ -61,14 +61,14 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		std::string category = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& category = MyGUI::WidgetManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>(category);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>(category);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>(category);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>(category);
 	}
 
-	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url)
+	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, std::string_view _url)
 	{
 	}
 

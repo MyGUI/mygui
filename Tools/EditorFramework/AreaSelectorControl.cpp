@@ -10,7 +10,7 @@
 namespace tools
 {
 
-	void AreaSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void AreaSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "AreaSelectorControl.layout");
 		setPropertyColour("ColourSelector");

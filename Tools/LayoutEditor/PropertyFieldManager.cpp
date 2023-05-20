@@ -69,7 +69,7 @@ namespace tools
 	{
 	}
 
-	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _type)
+	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, std::string_view _type)
 	{
 		IPropertyField* result = nullptr;
 

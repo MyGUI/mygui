@@ -103,7 +103,7 @@ namespace tools
 		}
 	}
 
-	void IndexTextureController::notifyChangeScope(const std::string& _scope)
+	void IndexTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -131,10 +131,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -145,7 +145,7 @@ namespace tools
 		}
 	}
 
-	void IndexTextureController::updateCoords(const std::string& _value)
+	void IndexTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

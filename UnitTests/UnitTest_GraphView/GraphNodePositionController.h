@@ -17,7 +17,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodePositionController(const std::string& _name) :
+		GraphNodePositionController(std::string_view _name) :
 			BaseAnimationNode("GraphNodePosition.layout", "PositionController", _name),
 			mConnectionOut(nullptr),
 			mEditPosition(nullptr),
@@ -27,7 +27,7 @@ namespace demo
 		{
 		}
 
-		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")
@@ -37,7 +37,7 @@ namespace demo
 			}
 		}
 
-		void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::removeConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")

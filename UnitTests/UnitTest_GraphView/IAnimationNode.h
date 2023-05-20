@@ -16,7 +16,7 @@ namespace animation
 		{
 		}
 
-		IAnimationNode(const std::string& _name, IAnimationGraph* _graph) :
+		IAnimationNode(std::string_view _name, IAnimationGraph* _graph) :
 			mName(_name),
 			mGraph(_graph)
 		{
@@ -26,15 +26,15 @@ namespace animation
 		{
 		}
 
-		virtual void setEvent(const std::string& _name, float _value = 0)
+		virtual void setEvent(std::string_view _name, float _value = 0)
 		{
 		}
 
-		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		virtual void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin)
 		{
 		}
 
-		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		virtual void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin)
 		{
 		}
 
@@ -42,7 +42,7 @@ namespace animation
 		{
 		}
 
-		virtual void setProperty(const std::string& _key, const std::string& _value)
+		virtual void setProperty(std::string_view _key, std::string_view _value)
 		{
 		}
 

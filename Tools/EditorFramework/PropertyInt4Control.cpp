@@ -22,7 +22,7 @@ namespace tools
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
 	}
 
-	void PropertyInt4Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyInt4Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
@@ -53,7 +53,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 		}
 	}
@@ -96,7 +96,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, value1, value2, value3, value4))
 			return MyGUI::utility::toString(value1, " ", value2, " ", value3, " ", value4);
 
-		return "";
+		return MyGUI::UString();
 	}
 
 	void PropertyInt4Control::setColour(bool _validate)

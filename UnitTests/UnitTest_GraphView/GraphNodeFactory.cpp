@@ -28,7 +28,7 @@ namespace demo
 		mConstructs.clear();
 	}
 
-	BaseAnimationNode* GraphNodeFactory::createNode(const std::string& _type, const std::string& _name)
+	BaseAnimationNode* GraphNodeFactory::createNode(std::string_view _type, std::string_view _name)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
 		if (item == mConstructs.end())
@@ -36,9 +36,13 @@ namespace demo
 		return (*item).second->create(_name);
 	}
 
-	void GraphNodeFactory::addConstruct(const std::string& _type, IGraphNodeConstruct* _construct)
+	void GraphNodeFactory::addConstruct(std::string_view _type, IGraphNodeConstruct* _construct)
 	{
-		mConstructs[_type] = _construct;
+		auto it = mConstructs.find(_type);
+		if (it == mConstructs.end())
+			mConstructs.emplce(_type, _construct);
+		else
+			it->second = _construct;
 	}
 
 } // namespace demo

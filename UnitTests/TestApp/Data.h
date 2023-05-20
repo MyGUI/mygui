@@ -31,8 +31,8 @@ namespace tools
 
 		const MyGUI::MapString getProperties() const;
 
-		const std::string& getPropertyValue(const std::string& _name) const;
-		void setPropertyValue(const std::string& _name, const std::string& _value);
+		const std::string& getPropertyValue(std::string_view _name) const;
+		void setPropertyValue(std::string_view _name, std::string_view _value);
 
 	private:
 		void clear();

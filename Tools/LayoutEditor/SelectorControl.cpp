@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	SelectorControlLE::SelectorControlLE(const std::string& _layout, MyGUI::Widget* _parent) :
+	SelectorControlLE::SelectorControlLE(std::string_view _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mScaleValue(1.0)
 	{
@@ -157,7 +157,7 @@ namespace tools
 		mMainWidget->setAlpha(_value.alpha);
 	}
 
-	void SelectorControlLE::notifySettingsChanged(const std::string& _path)
+	void SelectorControlLE::notifySettingsChanged(std::string_view _path)
 	{
 		if (!mPropertyColour.empty() && _path == ("Workspace/Colours/" + mPropertyColour))
 		{
@@ -166,7 +166,7 @@ namespace tools
 		}
 	}
 
-	void SelectorControlLE::setPropertyColour(const std::string& _propertyName)
+	void SelectorControlLE::setPropertyColour(std::string_view _propertyName)
 	{
 		mPropertyColour = _propertyName;
 		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);

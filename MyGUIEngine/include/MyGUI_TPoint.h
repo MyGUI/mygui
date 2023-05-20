@@ -117,10 +117,11 @@ namespace MyGUI
 				return stream.str();
 			}
 
-			static TPoint<T> parse(const std::string& _value)
+			static TPoint<T> parse(std::string_view _value)
 			{
 				TPoint<T> result;
-				std::istringstream stream(_value);
+				std::stringstream stream;
+				stream << _value;
 				stream >> result.left >> result.top;
 				if (stream.fail())
 				{

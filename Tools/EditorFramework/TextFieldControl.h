@@ -37,7 +37,7 @@ namespace tools
 		}
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 		void onDoModal() override;
 		void onEndModal() override;
@@ -45,7 +45,7 @@ namespace tools
 	private:
 		void notifyOk(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _buttonName);
 		void notifyTextAccept(MyGUI::EditBox* _sender);
 		void notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus);
 

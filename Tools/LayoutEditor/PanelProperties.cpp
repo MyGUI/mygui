@@ -47,7 +47,7 @@ namespace tools
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 		{
-			std::string value = widgetContainer->getProperty(iter->first);
+			std::string_view value = widgetContainer->getProperty(iter->first);
 
 			// TODO: add extra property to WidgetStyle.parameter
 			if (iter->first == "Depth" && mCurrentWidget->isRootWidget())
@@ -108,7 +108,7 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
@@ -131,7 +131,7 @@ namespace tools
 			(*item).second->setVisible(false);
 	}
 
-	IPropertyField* PanelProperties::getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type)
+	IPropertyField* PanelProperties::getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type)
 	{
 		MapPropertyField::iterator item = mFields.find(_name);
 		if (item != mFields.end())
@@ -144,7 +144,7 @@ namespace tools
 		result->setName(_name);
 		result->eventAction = MyGUI::newDelegate(this, &PanelProperties::notifyAction);
 
-		mFields[_name] = result;
+		mFields.emplace(_name, result);
 
 		return result;
 	}

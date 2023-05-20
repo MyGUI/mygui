@@ -22,7 +22,7 @@ namespace wraps
 		typedef std::vector<BaseGraphNode*> VectorGraphNode;
 		typedef MyGUI::Enumerator<VectorGraphNode> EnumeratorNode;
 
-		BaseGraphView(const std::string& _layout, MyGUI::Widget* _parent) :
+		BaseGraphView(std::string_view _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent),
 			mCanvas(nullptr),
 			mIsDrug(false),

@@ -102,7 +102,7 @@ namespace demo
 			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 
 		// регестрируем тип нашего ресурса
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>(resourceCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
@@ -152,7 +152,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		// тип нашего ресурса
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceItemInfo>(resourceCategory);
 
 		delete mItemBoxH;

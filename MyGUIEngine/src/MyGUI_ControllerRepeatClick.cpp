@@ -39,7 +39,7 @@ namespace MyGUI
 		mStep = step;
 	}
 
-	void ControllerRepeatClick::setProperty(const std::string& _key, const std::string& _value)
+	void ControllerRepeatClick::setProperty(std::string_view _key, std::string_view _value)
 	{
 	}
 

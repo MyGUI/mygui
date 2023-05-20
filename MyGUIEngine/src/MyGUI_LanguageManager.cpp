@@ -46,7 +46,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void LanguageManager::_load(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		std::string default_lang;
 		bool event_change = false;
@@ -80,7 +80,7 @@ namespace MyGUI
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
 					while (source_info.next("Source"))
 					{
-						std::string file_source = source_info->getContent();
+						const std::string& file_source = source_info->getContent();
 						// добавляем в карту
 						mMapFile[name].push_back(file_source);
 
@@ -102,7 +102,7 @@ namespace MyGUI
 			eventChangeLanguage(mCurrentLanguageName);
 	}
 
-	void LanguageManager::setCurrentLanguage(const std::string& _name)
+	void LanguageManager::setCurrentLanguage(std::string_view _name)
 	{
 		MapListString::iterator item = mMapFile.find(_name);
 		if (item == mMapFile.end())
@@ -151,10 +151,13 @@ namespace MyGUI
 				xml::ElementEnumerator tag = root->getElementEnumerator();
 				while (tag.next("Tag"))
 				{
-					if (_user)
-						mUserMapLanguage[tag->findAttribute("name")] = tag->getContent();
+					std::string_view key = tag->findAttribute("name");
+					auto& map = _user ? mUserMapLanguage : mMapLanguage;
+					auto it = map.find(key);
+					if (it == map.end())
+						map.emplace(key, tag->getContent());
 					else
-						mMapLanguage[tag->findAttribute("name")] = tag->getContent();
+						it->second = tag->getContent();
 				}
 			}
 		}
@@ -181,12 +184,12 @@ namespace MyGUI
 			size_t pos = read.find_first_of(" \t");
 			if (_user)
 			{
-				if (pos == std::string::npos) mUserMapLanguage[read] = "";
+				if (pos == std::string::npos) mUserMapLanguage[read].clear();
 				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 			else
 			{
-				if (pos == std::string::npos) mMapLanguage[read] = "";
+				if (pos == std::string::npos) mMapLanguage[read].clear();
 				else mMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 		}

@@ -12,18 +12,18 @@
 namespace tools
 {
 
-	typedef MyGUI::delegates::CDelegate3<const std::string&, const std::string&, bool> PropertyFieldActionDelegate;
+	typedef MyGUI::delegates::CDelegate3<std::string_view, std::string_view, bool> PropertyFieldActionDelegate;
 
 	class IPropertyField
 	{
 	public:
 		virtual ~IPropertyField() { }
 
-		virtual void initialise(const std::string& _type) = 0;
+		virtual void initialise(std::string_view _type) = 0;
 
 		virtual void setTarget(MyGUI::Widget* _targetWidget) = 0;
-		virtual void setValue(const std::string& _value) = 0;
-		virtual void setName(const std::string& _value) = 0;
+		virtual void setValue(std::string_view _value) = 0;
+		virtual void setName(std::string_view _value) = 0;
 
 		virtual void setVisible(bool _value) = 0;
 		virtual bool getVisible() = 0;

@@ -24,7 +24,7 @@ namespace tools
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyFontHintingControl::notifyComboChangePosition);
 	}
 
-	void PropertyFontHintingControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyFontHintingControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
@@ -69,7 +69,8 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			std::string_view value;
+			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

@@ -17,7 +17,7 @@ namespace demo
 		public wraps::BaseLayout
 	{
 	public:
-		ItemBoxWindow(const std::string& _layout);
+		ItemBoxWindow(std::string_view _layout);
 		ItemBox* getItemBox()
 		{
 			return mItemBox;

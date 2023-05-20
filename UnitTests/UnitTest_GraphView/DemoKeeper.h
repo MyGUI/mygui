@@ -36,7 +36,7 @@ namespace demo
 		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 		void notifyInvalidateNode(BaseAnimationNode* _sender);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
-		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id);
+		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, std::string_view _id);
 
 		void SaveGraph();
 		void LoadGraph();
@@ -46,11 +46,11 @@ namespace demo
 		void saveToFile(const std::string& _filename);
 		void loadFromFile(const std::string& _filename);
 
-		BaseAnimationNode* createNode(const std::string& _type, const std::string& _name);
-		BaseAnimationNode* getNodeByName(const std::string& _name);
+		BaseAnimationNode* createNode(std::string_view _type, std::string_view _name);
+		BaseAnimationNode* getNodeByName(std::string_view _name);
 
-		void connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to);
-		void disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to);
+		void connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to);
+		void disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to);
 
 	private:
 		GraphView* mGraphView;

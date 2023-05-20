@@ -27,7 +27,7 @@ namespace tools
 		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
 	}
 
-	void PropertyFieldComboBox::initialise(const std::string& _type)
+	void PropertyFieldComboBox::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -54,12 +54,12 @@ namespace tools
 		std::string value = mField->getOnlyText();
 
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-			value = "";
+			value.clear();
 
 		onAction(value, true);
 	}
 
-	void PropertyFieldComboBox::onAction(const std::string& _value, bool _final)
+	void PropertyFieldComboBox::onAction(std::string_view _value, bool _final)
 	{
 		eventAction(mName, _value, _final);
 	}
@@ -79,24 +79,22 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldComboBox::setValue(const std::string& _value)
+	void PropertyFieldComboBox::setValue(std::string_view _value)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		if (_value.empty())
 		{
-			mField->setCaption(DEFAULT_VALUE);
+			mField->setCaption(replaceTags("ColourDefault") + DEFAULT_STRING);
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 		}
 	}
 
-	void PropertyFieldComboBox::setName(const std::string& _value)
+	void PropertyFieldComboBox::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
 	void PropertyFieldComboBox::setVisible(bool _value)

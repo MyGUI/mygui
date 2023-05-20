@@ -256,7 +256,7 @@ namespace MyGUI
 		// запрашиваем у конейтера айтем по позиции мыши
 		size_t _getContainerIndex(const IntPoint& _point) const override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		size_t calcIndexByWidget(Widget* _widget) const;

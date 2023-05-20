@@ -21,7 +21,7 @@ namespace demo
 		~MonitorPanel() override;
 
 	private:
-		void notifyCommand(const std::string& _name, MyGUI::Any _data);
+		void notifyCommand(std::string_view _name, MyGUI::Any _data);
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mShipImage, "Ship");

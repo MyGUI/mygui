@@ -24,7 +24,7 @@ namespace demo
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 		void setupResources() override;
 		void createNewWindow();
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 
 	private:
 		typedef std::set<MyGUI::Window*> SetWidget;

@@ -65,7 +65,7 @@ namespace unittest
 			{
 				size_t count = mVectorColumnInfo.front().list->getItemCount();
 				for (size_t pos = 0; pos < count; ++pos)
-					column.list->addItem("");
+					column.list->addItem(MyGUI::UString());
 			}
 
 			mVectorColumnInfo.insert(mVectorColumnInfo.begin() + _column, column);
@@ -166,7 +166,7 @@ namespace unittest
 			// вставляем во все поля пустые, а потом присваиваем первому
 			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 			{
-				(*iter).list->insertItemAt(_index, "");
+				(*iter).list->insertItemAt(_index, MyGUI::UString());
 			}
 			mVectorColumnInfo.front().list->setItemNameAt(_index, _name);
 			mVectorColumnInfo.front().list->setItemDataAt(_index, _data);

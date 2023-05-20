@@ -28,7 +28,7 @@ namespace MyGUI
 		void resizeView(const IntSize& _viewSize) override;
 
 		void setTextureSize(const IntSize& _size);
-		void setTextureName(const std::string& _name);
+		void setTextureName(std::string_view _name);
 
 		const IntSize& getSize() const override;
 

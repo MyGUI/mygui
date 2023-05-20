@@ -26,7 +26,7 @@ namespace MyGUI
 		delete mLogManager;
 	}
 
-	void OpenGLPlatform::initialise(OpenGLImageLoader* _loader, const std::string& _logName)
+	void OpenGLPlatform::initialise(OpenGLImageLoader* _loader, std::string_view _logName)
 	{
 		assert(!mIsInitialise);
 		mIsInitialise = true;

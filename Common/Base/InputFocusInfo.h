@@ -86,9 +86,9 @@ namespace diagnostic
 
 		void updateFocusWidgetHelpers(bool _updateinfo = true)
 		{
-			const std::string layer = "Statistic";
-			const std::string skin_mouse = "RectGreen";
-			const std::string skin_key = "RectBlue";
+			const std::string_view layer = "Statistic";
+			const std::string_view skin_mouse = "RectGreen";
+			const std::string_view skin_key = "RectBlue";
 
 			if ((mWidgetMouseFocus != mOldMouseFocus)
 				|| ((mWidgetMouseFocus != nullptr)

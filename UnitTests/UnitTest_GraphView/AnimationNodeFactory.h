@@ -14,12 +14,12 @@ namespace animation
 		AnimationNodeFactory();
 		~AnimationNodeFactory();
 
-		IAnimationNode* createNode(const std::string& _type, const std::string& _name, IAnimationGraph* _holder);
+		IAnimationNode* createNode(std::string_view _type, std::string_view _name, IAnimationGraph* _holder);
 
-		void addConstruct(const std::string& _type, IAnimationNodeConstruct* _construct);
+		void addConstruct(std::string_view _type, IAnimationNodeConstruct* _construct);
 
 	private:
-		typedef std::map<std::string, IAnimationNodeConstruct*> MapConstruct;
+		typedef std::map<std::string, IAnimationNodeConstruct*, std::less<>> MapConstruct;
 		MapConstruct mConstructs;
 
 	};

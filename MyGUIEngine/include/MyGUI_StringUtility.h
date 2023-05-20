@@ -36,6 +36,12 @@ namespace MyGUI
 			return _value;
 		}
 
+		template<>
+		inline std::string toString (std::string_view _value)
+		{
+			return std::string{ _value };
+		}
+
 		template<typename T1,  typename T2>
 		inline std::string toString (T1 p1, T2 p2)
 		{
@@ -109,9 +115,10 @@ namespace MyGUI
 
 		// утилиты для парсинга
 		template<typename T>
-		inline T parseValue( const std::string& _value )
+		inline T parseValue( std::string_view _value )
 		{
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 			T result;
 			stream >> result;
 			if (stream.fail())
@@ -131,82 +138,83 @@ namespace MyGUI
 
 		// отдельная имплементация под bool
 		template<>
-		inline bool parseValue(const std::string& _value)
+		inline bool parseValue(std::string_view _value)
 		{
 			return _value == "True" || _value == "true" || _value == "1";
 		}
 
 		// отдельная имплементация под char
 		template<>
-		inline char parseValue(const std::string& _value)
+		inline char parseValue(std::string_view _value)
 		{
-			return (char)parseValue<short>(_value);
+			return static_cast<char>(parseValue<short>(_value));
 		}
 
 		// отдельная имплементация под unsigned char
 		template<>
-		inline unsigned char parseValue(const std::string& _value)
+		inline unsigned char parseValue(std::string_view _value)
 		{
-			return (unsigned char)parseValue<unsigned short>(_value);
+			return static_cast<unsigned char>(parseValue<unsigned short>(_value));
 		}
 
 
-		inline short parseShort(const std::string& _value)
+		inline short parseShort(std::string_view _value)
 		{
 			return parseValue<short>(_value);
 		}
 
-		inline unsigned short parseUShort(const std::string& _value)
+		inline unsigned short parseUShort(std::string_view _value)
 		{
 			return parseValue<unsigned short>(_value);
 		}
 
-		inline int parseInt(const std::string& _value)
+		inline int parseInt(std::string_view _value)
 		{
 			return parseValue<int>(_value);
 		}
 
-		inline unsigned int parseUInt(const std::string& _value)
+		inline unsigned int parseUInt(std::string_view _value)
 		{
 			return parseValue<unsigned int>(_value);
 		}
 
-		inline size_t parseSizeT(const std::string& _value)
+		inline size_t parseSizeT(std::string_view _value)
 		{
 			return parseValue<size_t>(_value);
 		}
 
-		inline float parseFloat(const std::string& _value)
+		inline float parseFloat(std::string_view _value)
 		{
 			return parseValue<float>(_value);
 		}
 
-		inline double parseDouble(const std::string& _value)
+		inline double parseDouble(std::string_view _value)
 		{
 			return parseValue<double>(_value);
 		}
 
-		inline bool parseBool(const std::string& _value)
+		inline bool parseBool(std::string_view _value)
 		{
 			return parseValue<bool>(_value);
 		}
 
-		inline char parseChar(const std::string& _value)
+		inline char parseChar(std::string_view _value)
 		{
 			return parseValue<char>(_value);
 		}
 
-		inline unsigned char parseUChar(const std::string& _value)
+		inline unsigned char parseUChar(std::string_view _value)
 		{
 			return parseValue<unsigned char>(_value);
 		}
 
 		// для парсинга сложных типов, состоящих из простых
 		template<typename T1, typename T2>
-		inline T1 parseValueEx2(const std::string& _value)
+		inline T1 parseValueEx2(std::string_view _value)
 		{
 			T2 p1, p2;
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 			stream >> p1 >> p2;
 			if (stream.fail())
 				return T1();
@@ -224,10 +232,11 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2>
-		inline T1 parseValueEx3(const std::string& _value)
+		inline T1 parseValueEx3(std::string_view _value)
 		{
 			T2 p1, p2, p3;
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 			stream >> p1 >> p2 >> p3;
 			if (stream.fail())
 				return T1();
@@ -245,10 +254,11 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2>
-		inline T1 parseValueEx4(const std::string& _value)
+		inline T1 parseValueEx4(std::string_view _value)
 		{
 			T2 p1, p2, p3, p4;
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 			stream >> p1 >> p2 >> p3 >> p4;
 			if (stream.fail())
 				return T1();
@@ -267,18 +277,18 @@ namespace MyGUI
 
 		namespace templates
 		{
-			template<typename Type>
-			inline void split(std::vector<Type>& _ret, const Type& _source, const Type& _delims)
+			template<class ReturnType, class InputType = ReturnType>
+			inline void split(std::vector<ReturnType>& _ret, const InputType& _source, const InputType& _delims)
 			{
 				size_t start = _source.find_first_not_of(_delims);
 				while (start != _source.npos)
 				{
 					size_t end = _source.find_first_of(_delims, start);
 					if (end != _source.npos)
-						_ret.push_back(_source.substr(start, end - start));
+						_ret.emplace_back(_source.substr(start, end - start));
 					else
 					{
-						_ret.push_back(_source.substr(start));
+						_ret.emplace_back(_source.substr(start));
 						break;
 					}
 					start = _source.find_first_not_of(_delims, end + 1);
@@ -286,17 +296,18 @@ namespace MyGUI
 			}
 		} // namespace templates
 
-		inline std::vector<std::string> split(const std::string& _source, const std::string& _delims = "\t\n ")
+		inline std::vector<std::string> split(std::string_view _source, std::string_view _delims = "\t\n ")
 		{
 			std::vector<std::string> result;
-			templates::split<std::string>(result, _source, _delims);
+			templates::split<std::string, std::string_view>(result, _source, _delims);
 			return result;
 		}
 
 		template<typename T1, typename T2, typename T3, typename T4>
-		inline bool parseComplex(const std::string& _value, T1& _p1, T2& _p2, T3& _p3, T4& _p4)
+		inline bool parseComplex(std::string_view _value, T1& _p1, T2& _p2, T3& _p3, T4& _p4)
 		{
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 
 			stream >> _p1 >> _p2 >> _p3 >> _p4;
 
@@ -314,9 +325,10 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2, typename T3>
-		inline bool parseComplex(const std::string& _value, T1& _p1, T2& _p2, T3& _p3)
+		inline bool parseComplex(std::string_view _value, T1& _p1, T2& _p2, T3& _p3)
 		{
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 
 			stream >> _p1 >> _p2 >> _p3;
 
@@ -334,9 +346,10 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2>
-		inline bool parseComplex(const std::string& _value, T1& _p1, T2& _p2)
+		inline bool parseComplex(std::string_view _value, T1& _p1, T2& _p2)
 		{
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 
 			stream >> _p1 >> _p2;
 
@@ -354,9 +367,10 @@ namespace MyGUI
 		}
 
 		template<typename T1>
-		inline bool parseComplex(const std::string& _value, T1& _p1)
+		inline bool parseComplex(std::string_view _value, T1& _p1)
 		{
-			std::istringstream stream(_value);
+			std::stringstream stream;
+			stream << _value;
 
 			stream >> _p1;
 
@@ -374,7 +388,7 @@ namespace MyGUI
 		}
 
 		template<>
-		inline bool parseComplex<bool>(const std::string& _value, bool& _p1)
+		inline bool parseComplex<bool>(std::string_view _value, bool& _p1)
 		{
 			std::string value(_value);
 			trim(value);
@@ -392,8 +406,11 @@ namespace MyGUI
 			return false;
 		}
 
-		inline bool startWith(const std::string& _source, const std::string& _value)
+		inline bool startWith(std::string_view _source, std::string_view _value)
 		{
+#if __cplusplus >= 202002L
+			return _source.starts_with(_value);
+#endif
 			size_t count = _value.size();
 			if (_source.size() < count)
 				return false;
@@ -405,8 +422,11 @@ namespace MyGUI
 			return true;
 		}
 
-		inline bool endWith(const std::string& _source, const std::string& _value)
+		inline bool endWith(std::string_view _source, std::string_view _value)
 		{
+#if __cplusplus >= 202002L
+			return _source.ends_with(_value);
+#endif
 			size_t count = _value.size();
 			if (_source.size() < count)
 				return false;

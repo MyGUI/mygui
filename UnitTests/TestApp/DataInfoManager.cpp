@@ -65,7 +65,7 @@ namespace tools
 		mDataInfos.clear();
 	}
 
-	DataInfo* DataInfoManager::getData(const std::string& _type)
+	DataInfo* DataInfoManager::getData(std::string_view _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{

@@ -39,7 +39,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuControl* _submenu, const std::string& _id, Any _data) :
+			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuControl* _submenu, std::string_view _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -82,12 +82,12 @@ namespace MyGUI
 		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
-		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, std::string_view _id = {}, Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItem* insertItem(MenuItem* _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* insertItem(MenuItem* _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, std::string_view _id = {}, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		MenuItem* addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, std::string_view _id = {}, Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -138,9 +138,9 @@ namespace MyGUI
 		}
 
 		//! Replace an item id at a specified position
-		void setItemIdAt(size_t _index, const std::string& _id);
+		void setItemIdAt(size_t _index, std::string_view _id);
 		//! Replace an item id
-		void setItemId(MenuItem* _item, const std::string& _id);
+		void setItemId(MenuItem* _item, std::string_view _id);
 
 		//! Get item id from specified position
 		const std::string& getItemIdAt(size_t _index) const;
@@ -148,13 +148,13 @@ namespace MyGUI
 		const std::string& getItemId(const MenuItem* _item) const;
 
 		/** Get item by id */
-		MenuItem* getItemById(const std::string& _id) const;
+		MenuItem* getItemById(std::string_view _id) const;
 
 		/** Find item by id */
-		MenuItem* findItemById(const std::string& _id, bool _recursive = false);
+		MenuItem* findItemById(std::string_view _id, bool _recursive = false);
 
 		/** Get item index by id */
-		size_t getItemIndexById(const std::string& _id) const;
+		size_t getItemIndexById(std::string_view _id) const;
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
 
@@ -278,7 +278,7 @@ namespace MyGUI
 
 		void onWidgetCreated(Widget* _widget) override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus) const;
@@ -286,7 +286,7 @@ namespace MyGUI
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
 		const std::string& getSkinByType(MenuItemType _type) const;
-		std::string getIconIndexByType(MenuItemType _type) const;
+		std::string_view getIconIndexByType(MenuItemType _type) const;
 
 		void update();
 
@@ -294,9 +294,9 @@ namespace MyGUI
 
 		void notifyMenuCtrlAccept(MenuItem* _item);
 
-		Widget* createItemChildByType(size_t _index, const std::string& _type);
+		Widget* createItemChildByType(size_t _index, std::string_view _type);
 
-		void _wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data);
+		void _wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, std::string_view _id, Any _data);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 

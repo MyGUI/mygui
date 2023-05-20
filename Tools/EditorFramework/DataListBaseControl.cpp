@@ -27,7 +27,7 @@ namespace tools
 	{
 	}
 
-	void DataListBaseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void DataListBaseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -121,7 +121,7 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique)
+	void DataListBaseControl::setDataInfo(std::string_view _parentType, std::string_view _currentType, std::string_view _propertyName, std::string_view _propertyUnique)
 	{
 		mParentType = _parentType;
 		mCurrentType = _currentType;
@@ -145,7 +145,7 @@ namespace tools
 		ActionManager::getInstance().doAction(command);
 	}
 
-	void DataListBaseControl::notifyChangeName(DataPtr _data, const std::string& _name)
+	void DataListBaseControl::notifyChangeName(DataPtr _data, std::string_view _name)
 	{
 		PropertyUtility::executeAction(_data->getProperty(mPropertyForName), _name);
 	}

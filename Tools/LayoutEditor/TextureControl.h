@@ -18,7 +18,7 @@ namespace tools
 		public wraps::BaseLayout
 	{
 	public:
-		TextureControlLE(const std::string& _layout, MyGUI::Widget* _parent);
+		TextureControlLE(std::string_view _layout, MyGUI::Widget* _parent);
 		~TextureControlLE() override;
 
 	protected:

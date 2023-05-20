@@ -49,14 +49,14 @@ namespace tools
 		mEvents.clear();
 	}
 
-	DataSelectorManager::EventType* DataSelectorManager::getEvent(const std::string& _dataType)
+	DataSelectorManager::EventType* DataSelectorManager::getEvent(std::string_view _dataType)
 	{
 		MapEvent::iterator event = mEvents.find(_dataType);
 		if (event != mEvents.end())
 			return (*event).second;
 
 		EventType* type = new EventType();
-		mEvents[_dataType] = type;
+		mEvents.emplace(_dataType, type);
 		return type;
 	}
 

@@ -22,8 +22,8 @@ namespace tools
 		~SettingsResourcesControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void OnCommand(const std::string& _command) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void OnCommand(std::string_view _command) override;
 
 	private:
 		void loadSettings();

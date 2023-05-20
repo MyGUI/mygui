@@ -111,7 +111,10 @@ namespace tools
 
 	void EditorState::updateCaption()
 	{
-		addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
+		MyGUI::UString tag;
+		if (ActionManager::getInstance().getChanges())
+			tag = "*";
+		addUserTag("HasChanged", tag);
 
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}

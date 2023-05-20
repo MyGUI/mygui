@@ -18,9 +18,9 @@ namespace MyGUI
 
 #define MYGUI_DECLARE_TYPE_NAME(Type, Override) \
 		public: \
-			static const std::string& getClassTypeName() { static std::string type = #Type; return type; } \
+			static std::string_view getClassTypeName() { return #Type; } \
 			/** Get type name as string */ \
-			virtual const std::string& getTypeName() const Override { return getClassTypeName(); }
+			virtual std::string_view getTypeName() const Override { return getClassTypeName(); }
 
 #define MYGUI_RTTI_BASE(BaseType) \
 		public: \

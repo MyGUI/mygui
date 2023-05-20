@@ -37,9 +37,9 @@ namespace MyGUI
 
 		// Manual loading methods, not needed when loading from XML
 		// Set the source texture by name
-		void setSource(const std::string& value);
+		void setSource(std::string_view value);
 		// Set the shader by name
-		void setShader(const std::string& value);
+		void setShader(std::string_view value);
 		// Set the source texture directly
 		// Note: the user is responsible for deallocation of the texture.
 		void setTexture(MyGUI::ITexture* texture);

@@ -38,11 +38,11 @@ namespace MyGUI
 		/** Get Image mode flag */
 		bool getModeImage() const;
 
-		void setImageResource(const std::string& _name);
+		void setImageResource(std::string_view _name);
 
-		void setImageGroup(const std::string& _name);
+		void setImageGroup(std::string_view _name);
 
-		void setImageName(const std::string& _name);
+		void setImageName(std::string_view _name);
 
 		/*internal:*/
 		void _setKeyFocus(bool _focus);
@@ -63,9 +63,9 @@ namespace MyGUI
 
 		void baseUpdateEnable() override;
 
-		bool _setState(const std::string& _value);
+		bool _setState(std::string_view _value);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void updateButtonState();

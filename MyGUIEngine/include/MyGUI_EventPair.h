@@ -11,109 +11,74 @@
 
 namespace MyGUI
 {
-
 	template <typename EventObsolete, typename Event>
-	class EventPair
+	class CompositeEvent
 	{
+		using IObsoleteDelegate = typename EventObsolete::IDelegate;
 	public:
+		using IDelegate = typename Event::IDelegate;
 
-		template <typename T>
-		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
+		template <class T>
 		void operator = (T* _delegate)
 		{
-			m_eventObsolete = _delegate;
-			m_event = nullptr;
-		}
-
-		MYGUI_OBSOLETE("use : operator += ")
-		void operator = (typename Event::IDelegate* _delegate)
-		{
-			m_eventObsolete = nullptr;
+			m_eventObsolete.clear();
 			m_event = _delegate;
 		}
 
-		template <typename T>
+		template <class T>
+		void operator = (const T& _delegate)
+		{
+			m_eventObsolete.clear();
+			m_event = _delegate;
+		}
+
+		template <>
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator += (T* _delegate)
+		void operator = (IObsoleteDelegate* _delegate)
+		{
+			m_eventObsolete = _delegate;
+			m_event.clear();
+		}
+
+		template<class T>
+		void operator +=(T*) = delete;
+		template<class T>
+		void operator -=(T*) = delete;
+
+		template<>
+		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
+		void operator += (IObsoleteDelegate* _delegate)
 		{
 			m_eventObsolete += _delegate;
 			m_event.clear();
 		}
 
-		void operator += (typename Event::IDelegate* _delegate)
+		template<>
+		void operator += (IDelegate* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event += _delegate;
 		}
 
-		template <typename T>
+		template<>
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator -= (T* _delegate)
+		void operator -= (IObsoleteDelegate* _delegate)
 		{
 			m_eventObsolete -= _delegate;
 			m_event.clear();
 		}
 
-		void operator -= (typename Event::IDelegate* _delegate)
+		template<>
+		void operator -= (IDelegate* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event -= _delegate;
 		}
 
-		template <typename TP1>
-		void operator()( TP1 p1 )
+		void clear()
 		{
-			m_eventObsolete(p1);
-			m_event(p1);
-		}
-
-		template <typename TP1, typename TP2>
-		void operator()( TP1 p1, TP2 p2 )
-		{
-			m_eventObsolete(p1, p2);
-			m_event(p1, p2);
-		}
-
-		template <typename TP1, typename TP2, typename TP3>
-		void operator()( TP1 p1, TP2 p2, TP3 p3 )
-		{
-			m_eventObsolete(p1, p2, p3);
-			m_event(p1, p2, p3);
-		}
-
-		template <typename TP1, typename TP2, typename TP3, typename TP4>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4 )
-		{
-			m_eventObsolete(p1, p2, p3, p4);
-			m_event(p1, p2, p3, p4);
-		}
-
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5 )
-		{
-			m_eventObsolete(p1, p2, p3, p4, p5);
-			m_event(p1, p2, p3, p4, p5);
-		}
-
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6 )
-		{
-			m_eventObsolete(p1, p2, p3, p4, p5, p6);
-			m_event(p1, p2, p3, p4, p5, p6);
-		}
-
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7 )
-		{
-			m_eventObsolete(p1, p2, p3, p4, p5, p6, p7);
-			m_event(p1, p2, p3, p4, p5, p6, p7);
-		}
-
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7, typename TP8>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8 )
-		{
-			m_eventObsolete(p1, p2, p3, p4, p5, p6, p7, p8);
-			m_event(p1, p2, p3, p4, p5, p6, p7, p8);
+			m_eventObsolete.clear();
+			m_event.clear();
 		}
 
 		bool empty() const
@@ -121,58 +86,82 @@ namespace MyGUI
 			return m_eventObsolete.empty() && m_event.empty();
 		}
 
-	public:
 		EventObsolete m_eventObsolete;
 		Event m_event;
 	};
 
 	template <typename EventObsolete, typename Event>
-	class EventPairAddParameter
+	class EventPair : public CompositeEvent<EventObsolete, Event>
 	{
 	public:
+		using CompositeEvent<EventObsolete, Event>::operator=;
+		using CompositeEvent<EventObsolete, Event>::m_eventObsolete;
+		using CompositeEvent<EventObsolete, Event>::m_event;
 
-		template <typename T>
-		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator = (T* _delegate)
+		template <typename TP1>
+		void operator()( TP1 p1 ) const
 		{
-			m_eventObsolete = _delegate;
-			m_event = nullptr;
+			m_eventObsolete(p1);
+			m_event(p1);
 		}
 
-		MYGUI_OBSOLETE("use : operator += ")
-		void operator = (typename Event::IDelegate* _delegate)
+		template <typename TP1, typename TP2>
+		void operator()( TP1 p1, TP2 p2 ) const
 		{
-			m_eventObsolete = nullptr;
-			m_event = _delegate;
+			m_eventObsolete(p1, p2);
+			m_event(p1, p2);
 		}
 
-		template <typename T>
-		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator += (T* _delegate)
+		template <typename TP1, typename TP2, typename TP3>
+		void operator()( TP1 p1, TP2 p2, TP3 p3 ) const
 		{
-			m_eventObsolete += _delegate;
-			m_event.clear();
+			m_eventObsolete(p1, p2, p3);
+			m_event(p1, p2, p3);
 		}
 
-		void operator += (typename Event::IDelegate* _delegate)
+		template <typename TP1, typename TP2, typename TP3, typename TP4>
+		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4 ) const
 		{
-			m_eventObsolete.clear();
-			m_event += _delegate;
+			m_eventObsolete(p1, p2, p3, p4);
+			m_event(p1, p2, p3, p4);
 		}
 
-		template <typename T>
-		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator -= (T* _delegate)
+		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5>
+		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5 ) const
 		{
-			m_eventObsolete -= _delegate;
-			m_event.clear();
+			m_eventObsolete(p1, p2, p3, p4, p5);
+			m_event(p1, p2, p3, p4, p5);
 		}
 
-		void operator -= (typename Event::IDelegate* _delegate)
+		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6>
+		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6 ) const
 		{
-			m_eventObsolete.clear();
-			m_event -= _delegate;
+			m_eventObsolete(p1, p2, p3, p4, p5, p6);
+			m_event(p1, p2, p3, p4, p5, p6);
 		}
+
+		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7>
+		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7 ) const
+		{
+			m_eventObsolete(p1, p2, p3, p4, p5, p6, p7);
+			m_event(p1, p2, p3, p4, p5, p6, p7);
+		}
+
+		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7, typename TP8>
+		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8 ) const
+		{
+			m_eventObsolete(p1, p2, p3, p4, p5, p6, p7, p8);
+			m_event(p1, p2, p3, p4, p5, p6, p7, p8);
+		}
+	};
+
+	template <typename EventObsolete, typename Event>
+	class EventPairAddParameter : public CompositeEvent<EventObsolete, Event>
+	{
+	public:
+		using CompositeEvent<EventObsolete, Event>::operator=;
+		using CompositeEvent<EventObsolete, Event>::m_eventObsolete;
+		using CompositeEvent<EventObsolete, Event>::m_event;
 
 		// 1 to 2
 		template <typename TP1, typename TP2>
@@ -197,15 +186,34 @@ namespace MyGUI
 			m_eventObsolete(p1, p2, p3);
 			m_event(p1, p2, p3, p4);
 		}
+	};
 
-		bool empty() const
+	template <typename EventObsolete, typename Event>
+	class EventPairConvertStringView : public CompositeEvent<EventObsolete, Event>
+	{
+		template <class T>
+		T&& convertStringView(T&& value) const noexcept
 		{
-			return m_eventObsolete.empty() && m_event.empty();
+			return std::forward<T>(value);
 		}
 
+		template<class T>
+		std::basic_string<T> convertStringView(std::basic_string_view<T> value) const noexcept
+		{
+			return std::string{ value };
+		}
 	public:
-		EventObsolete m_eventObsolete;
-		Event m_event;
+		using CompositeEvent<EventObsolete, Event>::operator=;
+		using CompositeEvent<EventObsolete, Event>::m_eventObsolete;
+		using CompositeEvent<EventObsolete, Event>::m_event;
+
+		template <typename... Args>
+		void operator()( Args&&... args ) const
+		{
+			if (!m_eventObsolete.empty())
+				m_eventObsolete(convertStringView(args)...);
+			m_event(args...);
+		}
 	};
 
 } // namespace MyGUI

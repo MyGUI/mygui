@@ -16,7 +16,7 @@ namespace tools
 	{
 	}
 
-	Dialog::Dialog(const std::string& _layout) :
+	Dialog::Dialog(std::string_view _layout) :
 		wraps::BaseLayout(_layout),
 		mModal(false)
 	{

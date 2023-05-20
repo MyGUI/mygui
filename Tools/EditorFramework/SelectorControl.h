@@ -43,8 +43,8 @@ namespace tools
 		MyGUI::Widget* getMainWidget();
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void setPropertyColour(const std::string& _propertyName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void setPropertyColour(std::string_view _propertyName);
 
 	private:
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
@@ -52,7 +52,7 @@ namespace tools
 		void setColour(MyGUI::Colour _value);
 		void updateCoord();
 
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 	private:
 		MyGUI::IntCoord mCoordValue;

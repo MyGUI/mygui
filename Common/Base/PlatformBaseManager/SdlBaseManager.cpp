@@ -198,7 +198,7 @@ namespace base
 		{
 			if (node->getName() == "Path")
 			{
-				if (node->findAttribute("root") != "")
+				if (!node->findAttribute("root").empty())
 				{
 					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
 					if (rootAttribute)
@@ -386,7 +386,7 @@ namespace base
 		return mRootMedia;
 	}
 
-	void SdlBaseManager::setResourceFilename(const std::string& _flename)
+	void SdlBaseManager::setResourceFilename(std::string_view _flename)
 	{
 		mResourceFileName = _flename;
 	}

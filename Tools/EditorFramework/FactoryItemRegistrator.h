@@ -10,17 +10,18 @@
 #include "IFactory.h"
 #include "FactoryTemplate.h"
 #include <string>
+#include <string_view>
 
 namespace factories
 {
-	bool MYGUI_EXPORT_DLL IsExistFactoryName(const std::string& _factoryName);
-	void MYGUI_EXPORT_DLL RegisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
+	bool MYGUI_EXPORT_DLL IsExistFactoryName(std::string_view _factoryName);
+	void MYGUI_EXPORT_DLL RegisterFactory(::components::IFactory* _factory, std::string_view _factoryName);
 
 	template <typename Type>
 	class FactoryItemRegistrator
 	{
 	public:
-		FactoryItemRegistrator(const std::string& _factoryName) :
+		FactoryItemRegistrator(std::string_view _factoryName) :
 			mFactoryName(_factoryName)
 		{
 			if (!IsExistFactoryName(mFactoryName))

@@ -16,7 +16,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodeFadeController(const std::string& _name) :
+		GraphNodeFadeController(std::string_view _name) :
 			BaseAnimationNode("GraphNodeFadeController.layout", "FadeController", _name),
 			mStartIn(nullptr),
 			mStopIn(nullptr),

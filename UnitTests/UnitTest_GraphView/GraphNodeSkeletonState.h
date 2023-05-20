@@ -17,7 +17,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodeSkeletonState(const std::string& _name) :
+		GraphNodeSkeletonState(std::string_view _name) :
 			BaseAnimationNode("GraphNodeSkeletonState.layout", "SkeletonState", _name),
 			mStartIn(nullptr),
 			mStopIn(nullptr),
@@ -59,12 +59,12 @@ namespace demo
 			MyGUI::xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
 			{
-				const std::string& key = prop->findAttribute("key");
-				const std::string& value = prop->findAttribute("value");
+				std::string_view key = prop->findAttribute("key");
+				std::string_view value = prop->findAttribute("value");
 
 				if (key == "StateName")
 				{
-					setStateName(value);
+					setStateName(MyGUI::UString(value));
 				}
 			}
 		}
@@ -76,7 +76,7 @@ namespace demo
 			prop->addAttribute("value", mStateName);
 		}
 
-		void setStateName(const std::string& _name)
+		void setStateName(const MyGUI::UString& _name)
 		{
 			size_t index = mComboStates->findItemIndexWith(_name);
 			if (index != MyGUI::ITEM_NONE)

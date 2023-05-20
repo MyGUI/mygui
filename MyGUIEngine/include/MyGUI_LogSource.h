@@ -33,7 +33,7 @@ namespace MyGUI
 		/** Call ILogListener::flush() for all listeners. */
 		void flush();
 		/** Call ILogListener::log for all listeners for messages that match LogSource filter (@see void setLogFilter(ILogFilter* _filter)). */
-		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
+		void log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line);
 
 	private:
 		using VectorLogListeners = std::vector<ILogListener*>;

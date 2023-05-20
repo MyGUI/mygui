@@ -234,7 +234,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::setFontName(const std::string& _value)
+	void EditText::setFontName(std::string_view _value)
 	{
 		mTexture = nullptr;
 		mFont = FontManager::getInstance().getByName(_value);
@@ -269,7 +269,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	const std::string& EditText::getFontName() const
+	std::string_view EditText::getFontName() const
 	{
 		return mFont->getResourceName();
 	}

@@ -19,14 +19,14 @@ namespace animation
 	{
 	public:
 		IAnimationGraph() : IAnimationNode() { }
-		IAnimationGraph(const std::string& _name) : IAnimationNode(_name, nullptr) { }
+		IAnimationGraph(std::string_view _name) : IAnimationNode(_name, nullptr) { }
 
-		virtual Ogre::Any getData(const std::string& _name) = 0;
-		virtual void addData(const std::string& _name, Ogre::Any _any) = 0;
+		virtual Ogre::Any getData(std::string_view _name) = 0;
+		virtual void addData(std::string_view _name, Ogre::Any _any) = 0;
 
 		virtual void addNode(IAnimationNode* _node) = 0;
 		virtual void removeNode(IAnimationNode* _node) = 0;
-		virtual IAnimationNode* getNodeByName(const std::string& _name) = 0;
+		virtual IAnimationNode* getNodeByName(std::string_view _name) = 0;
 	};
 
 } // namespace animation

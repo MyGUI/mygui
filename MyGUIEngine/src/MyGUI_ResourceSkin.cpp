@@ -31,7 +31,7 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
+		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
 		// парсим атрибуты скина
 		std::string name, texture, tmp;
@@ -123,7 +123,7 @@ namespace MyGUI
 					{
 						if (state->getName() == "State")
 						{
-							const std::string& name_state = state->findAttribute("name");
+							std::string_view name_state = state->findAttribute("name");
 							if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check"))
 							{
 								new_format = true;
@@ -191,7 +191,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceSkin::setInfo(const IntSize& _size, const std::string& _texture)
+	void ResourceSkin::setInfo(const IntSize& _size, std::string_view _texture)
 	{
 		mSize = _size;
 		mTexture = _texture;
@@ -205,9 +205,13 @@ namespace MyGUI
 		fillState(_bind.mStates, mBasis.size() - 1);
 	}
 
-	void ResourceSkin::addProperty(const std::string& _key, const std::string& _value)
+	void ResourceSkin::addProperty(std::string_view _key, std::string_view _value)
 	{
-		mProperties[_key] = _value;
+		auto it = mProperties.find(_key);
+		if (it == mProperties.end())
+			mProperties.emplace(_key, _value);
+		else
+			it->second = _value;
 	}
 
 	void ResourceSkin::addChild(const ChildSkinInfo& _child)
@@ -234,14 +238,14 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceSkin::checkState(const std::string& _name)
+	void ResourceSkin::checkState(std::string_view _name)
 	{
 		// ищем такой же ключ
 		MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
 		if (iter == mStates.end())
 		{
 			// добавляем новый стейт
-			mStates[_name] = VectorStateInfo();
+			mStates.emplace(_name, VectorStateInfo());
 		}
 	}
 

@@ -34,7 +34,7 @@ namespace tools
 			(*selector).first->eventChangePosition.disconnect(this);
 	}
 
-	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
 
@@ -57,7 +57,7 @@ namespace tools
 
 		updateCaption();
 
-		setTextureValue("");
+		setTextureValue(MyGUI::UString());
 		clearCoordValue();
 	}
 
@@ -318,7 +318,7 @@ namespace tools
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
 
-	void ScopeTextureControl::setValue(const std::string& _value)
+	void ScopeTextureControl::setValue(std::string_view _value)
 	{
 		eventChangeValue(_value);
 	}
@@ -352,7 +352,7 @@ namespace tools
 
 	void ScopeTextureControl::clearAll()
 	{
-		setTextureValue("");
+		setTextureValue(MyGUI::UString());
 		clearCoordValue();
 		clearViewSelectors();
 	}

@@ -19,7 +19,7 @@
 namespace tools
 {
 
-	const std::string LogSection = "LayoutEditor";
+	const std::string_view LogSection = "LayoutEditor";
 
 	ProjectControl::ProjectControl(MyGUI::Widget* _parent) :
 		BaseLayout("ProjectControl.layout", _parent),
@@ -263,7 +263,7 @@ namespace tools
 
 		clear();
 
-		MyGUI::UString filePath = "";
+		MyGUI::UString filePath;
 		MyGUI::UString fileName = data;
 
 		size_t index = data.find_last_of("\\/");
@@ -337,7 +337,7 @@ namespace tools
 			while (element.next("Resource"))
 			{
 				if (element->findAttribute("type") == "ResourceLayout")
-					items.push_back(element->findAttribute("name"));
+					items.emplace_back(element->findAttribute("name"));
 			}
 		}
 		else
@@ -345,12 +345,15 @@ namespace tools
 			return false;
 		}
 
-		const std::string& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+		const MyGUI::UString& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 
 		for (MyGUI::VectorString::const_iterator item = items.begin(); item != items.end(); ++item)
 		{
 			bool successItem = checkItem(*item, items);
-			mList->addItem(successItem ? (*item) : (colour_error + (*item)));
+			if (successItem)
+				mList->addItem(*item);
+			else
+				mList->addItem(colour_error + (*item));
 		}
 
 		RecentFilesManager::getInstance().addRecentProject(fileName);
@@ -358,7 +361,7 @@ namespace tools
 		return true;
 	}
 
-	bool ProjectControl::checkItem(const std::string& _name, const MyGUI::VectorString& _items)
+	bool ProjectControl::checkItem(std::string_view _name, const MyGUI::VectorString& _items)
 	{
 		size_t count = 0;
 		for (MyGUI::VectorString::const_iterator item = _items.begin(); item != _items.end(); ++item)
@@ -373,7 +376,7 @@ namespace tools
 		return checkTemplate(_name);
 	}
 
-	bool ProjectControl::checkTemplate(const std::string& _skinName)
+	bool ProjectControl::checkTemplate(std::string_view _skinName)
 	{
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
 		if (templateInfo != nullptr)
@@ -528,7 +531,7 @@ namespace tools
 			if (index == MyGUI::ITEM_NONE)
 				return;
 
-			if (mTextFieldControl->getTextField() == "")
+			if (mTextFieldControl->getTextField().empty())
 				return;
 
 			renameItemInProject(index, mTextFieldControl->getTextField());
@@ -712,7 +715,7 @@ namespace tools
 	{
 		MyGUI::ListBox* box = _sender->castType<MyGUI::ListBox>();
 		MyGUI::UString name = box->getItemNameAt(_index);
-		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
+		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{});
 	}
 
 }

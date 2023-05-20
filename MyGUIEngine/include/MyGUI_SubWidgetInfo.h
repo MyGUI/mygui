@@ -8,6 +8,7 @@
 #define MYGUI_SUB_WIDGET_INFO_H_
 
 #include "MyGUI_Prerequest.h"
+#include <utility>
 
 namespace MyGUI
 {
@@ -16,10 +17,10 @@ namespace MyGUI
 	struct SubWidgetInfo
 	{
 	public:
-		SubWidgetInfo(const std::string& _type, const IntCoord& _coord, Align _align) :
+		SubWidgetInfo(std::string _type, const IntCoord& _coord, Align _align) :
 			coord(_coord),
 			align(_align),
-			type(_type)
+			type(std::move(_type))
 		{
 		}
 

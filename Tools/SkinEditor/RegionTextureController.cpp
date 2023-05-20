@@ -51,7 +51,7 @@ namespace tools
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
-		std::string texture;
+		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
@@ -61,7 +61,7 @@ namespace tools
 				property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
 		}
 
-		std::string coord;
+		std::string_view coord;
 		property = PropertyUtility::getPropertyByName("Skin", "Size");
 		if (property != nullptr)
 		{
@@ -92,7 +92,7 @@ namespace tools
 			}
 		}
 
-		mControl->setTextureValue(texture);
+		mControl->setTextureValue(MyGUI::UString(texture));
 		updateCoords(coord);
 	}
 
@@ -120,7 +120,7 @@ namespace tools
 		}
 	}
 
-	void RegionTextureController::notifyChangeValue(const std::string& _value)
+	void RegionTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -134,7 +134,7 @@ namespace tools
 		}
 	}
 
-	void RegionTextureController::notifyChangeScope(const std::string& _scope)
+	void RegionTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -165,10 +165,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -179,7 +179,7 @@ namespace tools
 		}
 	}
 
-	void RegionTextureController::updateCoords(const std::string& _value)
+	void RegionTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

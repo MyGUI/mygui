@@ -549,7 +549,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ScrollBar::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ScrollBar::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ScrollBar, Range, size_t} Диапазон прокрутки.
 		if (_key == "Range")

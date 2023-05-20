@@ -31,7 +31,7 @@ namespace MyGUI
 	public:
 		BerkeliumWidget();
 
-		void loadURL(const std::string& _url);
+		void loadURL(std::string_view _url);
 		Berkelium::Window* getBerkeliumWindow() const;
 
 		void setWindowDelegate(BerkeliumDelegate* _windowDelegate);
@@ -40,7 +40,7 @@ namespace MyGUI
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		void onMouseDrag(int _left, int _top, MouseButton _id) override;
 		void onMouseMove(int _left, int _top) override;

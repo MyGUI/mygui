@@ -27,7 +27,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, const std::string& _name);
+		Widget* createWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, std::string_view _name);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);
@@ -44,7 +44,7 @@ namespace MyGUI
 		void unlinkFromUnlinkers(Widget* _widget);
 
 		/** Check if factory with specified widget type exist */
-		bool isFactoryExist(const std::string& _type);
+		bool isFactoryExist(std::string_view _type);
 
 		/*internal:*/
 		void _deleteWidget(Widget* _widget);

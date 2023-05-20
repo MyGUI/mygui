@@ -21,15 +21,15 @@ namespace MyGUI
 		}
 
 		template<>
-		inline UString parseValue<UString>(const std::string& _value)
+		inline UString parseValue<UString>(std::string_view _value)
 		{
-			return _value;
+			return UString(_value);
 		}
 
 		template<>
-		inline bool parseComplex<UString>(const std::string& _value, UString& _p1)
+		inline bool parseComplex<UString>(std::string_view _value, UString& _p1)
 		{
-			_p1 = _value;
+			_p1.assign(_value);
 			return true;
 		}
 

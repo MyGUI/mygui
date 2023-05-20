@@ -38,7 +38,7 @@ namespace MyGUI
 			@param _name Layer name
 			@param _item Widget pointer
 		*/
-		void attachToLayerNode(const std::string& _name, Widget* _item);
+		void attachToLayerNode(std::string_view _name, Widget* _item);
 		/** Detach widget from layer
 			@param _item Widget pointer
 		*/
@@ -50,7 +50,7 @@ namespace MyGUI
 		void upLayerItem(Widget* _item);
 
 		/** Check is layer exist */
-		bool isExist(const std::string& _name) const;
+		bool isExist(std::string_view _name) const;
 		/** Get layer nodes Enumerator */
 		EnumeratorLayer getEnumerator() const;
 
@@ -59,10 +59,10 @@ namespace MyGUI
 			@param _type Could be OverlappedLayer, SharedLayer or any custom registered layer type.
 			@param _index New layer will be placed before old layer with given index.
 		*/
-		ILayer* createLayerAt(const std::string& _name, const std::string& _type, size_t _index);
+		ILayer* createLayerAt(std::string_view _name, std::string_view _type, size_t _index);
 
 		/** Get layer by name */
-		ILayer* getByName(const std::string& _name, bool _throw = true) const;
+		ILayer* getByName(std::string_view _name, bool _throw = true) const;
 
 		size_t getLayerCount() const;
 
@@ -79,10 +79,10 @@ namespace MyGUI
 		const std::string& getCategoryName() const;
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 		void _unlinkWidget(Widget* _widget) override;
 
-		ILayer* _createLayerObject(const std::string& _type);
+		ILayer* _createLayerObject(std::string_view _type);
 
 		void clear();
 

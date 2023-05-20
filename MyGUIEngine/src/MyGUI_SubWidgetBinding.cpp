@@ -15,12 +15,12 @@ namespace MyGUI
 		clear();
 	}
 
-	SubWidgetBinding::SubWidgetBinding(const IntCoord& _coord, Align _aligin, const std::string& _type)
+	SubWidgetBinding::SubWidgetBinding(const IntCoord& _coord, Align _aligin, std::string_view _type)
 	{
 		create(_coord, _aligin, _type);
 	}
 
-	void SubWidgetBinding::create(const IntCoord& _coord, Align _aligin, const std::string& _type)
+	void SubWidgetBinding::create(const IntCoord& _coord, Align _aligin, std::string_view _type)
 	{
 		clear();
 		mOffset = _coord;
@@ -30,12 +30,12 @@ namespace MyGUI
 
 	void SubWidgetBinding::clear()
 	{
-		mType = "";
+		mType.clear();
 		mAlign = Align::Default;
 		mStates.clear();
 	}
 
-	void SubWidgetBinding::add(const std::string& _name, IStateInfo* _data, const std::string& _skin)
+	void SubWidgetBinding::add(std::string_view _name, IStateInfo* _data, std::string_view _skin)
 	{
 		// ищем такой же ключ
 		MapStateInfo::const_iterator iter = mStates.find(_name);
@@ -46,7 +46,7 @@ namespace MyGUI
 			return;
 		}
 		// добавляем
-		mStates[_name] = _data;
+		mStates.emplace(_name, _data);
 	}
 
 } // namespace MyGUI

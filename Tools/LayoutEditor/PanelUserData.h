@@ -33,7 +33,7 @@ namespace tools
 		void notifyUpdateUserData(MyGUI::EditBox* _widget);
 		void notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index);
 
-		bool checkUserData(WidgetContainer* _widgetContainer, const std::string& _key);
+		bool checkUserData(WidgetContainer* _widgetContainer, std::string_view _key);
 
 	private:
 		MyGUI::EditBox* mEditKey;

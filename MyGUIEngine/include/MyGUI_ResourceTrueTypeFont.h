@@ -65,11 +65,11 @@ namespace MyGUI
 		// создаение ресурса по текущим значениям
 		void initialise();
 
-		void setSource(const std::string& _value);
-		void setShader(const std::string& _value);
+		void setSource(std::string_view _value);
+		void setShader(std::string_view _value);
 		void setSize(float _value);
 		void setResolution(unsigned int _value);
-		void setHinting(const std::string& _value);
+		void setHinting(std::string_view _value);
 		void setAntialias(bool _value);
 		void setTabWidth(float _value);
 		void setOffsetHeight(int _value);

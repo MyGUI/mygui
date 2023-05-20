@@ -32,7 +32,7 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void SettingsResourcesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SettingsResourcesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -66,11 +66,11 @@ namespace tools
 
 	void SettingsResourcesControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
-		mResources->addItem("");
+		mResources->addItem(MyGUI::UString());
 		mResources->beginToItemAt(mResources->getItemCount() - 1);
 
 		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
-		mTextFieldControl->setTextField("");
+		mTextFieldControl->setTextField(MyGUI::UString());
 
 		MyGUI::Widget* widget = mResources->getWidgetByIndex(mResources->getItemCount() - 1);
 		if (widget != nullptr)
@@ -92,7 +92,7 @@ namespace tools
 
 		if (_result)
 		{
-			if (mTextFieldControl->getTextField() != "")
+			if (!mTextFieldControl->getTextField().empty())
 			{
 				mResources->setItemNameAt(mResources->getItemCount() - 1, mTextFieldControl->getTextField());
 				return;
@@ -102,7 +102,7 @@ namespace tools
 		mResources->removeItemAt(mResources->getItemCount() - 1);
 	}
 
-	void SettingsResourcesControl::OnCommand(const std::string& _command)
+	void SettingsResourcesControl::OnCommand(std::string_view _command)
 	{
 		Control::OnCommand(_command);
 

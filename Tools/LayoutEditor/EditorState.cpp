@@ -352,7 +352,10 @@ namespace tools
 
 	void EditorState::updateCaption()
 	{
-		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
+		MyGUI::UString tag;
+		if (UndoManager::getInstance().isUnsaved())
+			tag = "*";
+		addUserTag("HasChanged", tag);
 
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
@@ -560,8 +563,8 @@ namespace tools
 					if (itemIndex == 0)
 					{
 						// поменять на теги
-						std::string resourceName = element->findAttribute("name");
-						addUserTag("ResourceName", resourceName);
+						std::string_view resourceName = element->findAttribute("name");
+						addUserTag("ResourceName", MyGUI::UString(resourceName));
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}
 					else

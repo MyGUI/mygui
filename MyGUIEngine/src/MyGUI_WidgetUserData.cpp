@@ -11,18 +11,22 @@
 namespace MyGUI
 {
 
-	void UserData::setUserString(const std::string& _key, const std::string& _value)
+	void UserData::setUserString(std::string_view _key, std::string_view _value)
 	{
-		mMapUserString[_key] = _value;
+		auto it = mMapUserString.find(_key);
+		if (it == mMapUserString.end())
+			mMapUserString.emplace(_key, _value);
+		else
+			it->second = _value;
 	}
 
 	/** Get user string or "" if not found */
-	const std::string& UserData::getUserString(const std::string& _key) const
+	std::string_view UserData::getUserString(std::string_view _key) const
 	{
 		MapString::const_iterator iter = mMapUserString.find(_key);
 		if (iter != mMapUserString.end())
 			return iter->second;
-		return Constants::getEmptyString();
+		return {};
 	}
 
 	const MapString& UserData::getUserStrings() const
@@ -30,7 +34,7 @@ namespace MyGUI
 		return mMapUserString;
 	}
 
-	bool UserData::clearUserString(const std::string& _key)
+	bool UserData::clearUserString(std::string_view _key)
 	{
 		MapString::iterator iter = mMapUserString.find(_key);
 		if (iter != mMapUserString.end())
@@ -41,7 +45,7 @@ namespace MyGUI
 		return false;
 	}
 
-	bool UserData::isUserString(const std::string& _key) const
+	bool UserData::isUserString(std::string_view _key) const
 	{
 		return mMapUserString.find(_key) != mMapUserString.end();
 	}

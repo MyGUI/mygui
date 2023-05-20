@@ -34,9 +34,7 @@
 // these are explained later
 #include <iterator>
 #include <string>
-#if __cplusplus >= 201703L
 #include <string_view>
-#endif
 #include <stdexcept>
 
 namespace MyGUI
@@ -452,9 +450,7 @@ namespace MyGUI
 		template <size_type num>
 		UString( const char(& str)[num] ) : UString( str, num ) {}
 
-#if __cplusplus >= 201703L
-		UString( std::string_view str ) : UString( str.data(), str.size() ) {}
-#endif
+		explicit UString( std::string_view str ) : UString( str.data(), str.size() ) {}
 		//! destructor
 		~UString();
 		//@}
@@ -599,11 +595,9 @@ namespace MyGUI
 		UString& assign( const wchar_t* w_str, size_type num );
 #endif
 		//! assign \a str to the current string (\a str is treated as a UTF-8 stream)
-		UString& assign( const std::string& str );
+		UString& assign( std::string_view str ) { return assign(str.data(), str.size()); }
 
 		UString& assign( const utf32string & str );
-		//! assign \a c_str to the current string (\a c_str is treated as a UTF-8 stream)
-		UString& assign( const char* c_str );
 		//! assign the first \a num characters of \a c_str to the current string (\a c_str is treated as a UTF-8 stream)
 		UString& assign( const char* c_str, size_type num );
 		//@}
@@ -893,6 +887,8 @@ namespace MyGUI
 		operator std::string() const;
 		//! implicit cast to std::wstring
 		operator std::wstring() const;
+		//! implicit cast to std::string_view
+		operator std::string_view() const { return asUTF8(); }
 		//@}
 
 		//////////////////////////////////////////////////////////////////////////
@@ -943,7 +939,7 @@ namespace MyGUI
 		//! verifies a UTF-8 stream, returning the total number of Unicode characters found
 		static size_type _verifyUTF8( const unsigned char* c_str );
 		//! verifies a UTF-8 stream, returning the total number of Unicode characters found
-		static size_type _verifyUTF8( const std::string& str );
+		static size_type _verifyUTF8( std::string_view str ) { return _verifyUTF8(str.data(), str.size()); }
 		//! verifies a UTF-8 stream, returning the total number of Unicode characters found
 		static size_type _verifyUTF8( const char* c_str, size_type num );
 		//@}

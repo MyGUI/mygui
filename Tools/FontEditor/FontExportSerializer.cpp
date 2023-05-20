@@ -82,7 +82,7 @@ namespace tools
 		if (!value.empty())
 			data->setPropertyValue("Distance", MyGUI::utility::parseValue<int>(value));
 
-		value = "";
+		value.clear();
 		pugi::xpath_node_set codes = _node.select_nodes("Codes/Code/@range");
 		for (pugi::xpath_node_set::const_iterator code = codes.begin(); code != codes.end(); code ++)
 		{
@@ -195,7 +195,7 @@ namespace tools
 	}
 
 	template<typename Type>
-	void addProperty(MyGUI::xml::ElementPtr _node, const std::string& _name, Type _value)
+	void addProperty(MyGUI::xml::ElementPtr _node, std::string_view _name, Type _value)
 	{
 		MyGUI::xml::ElementPtr node = _node->createChild("Property");
 		node->addAttribute("key", _name);
@@ -290,7 +290,7 @@ namespace tools
 		std::string fontName = _data->getPropertyValue("FontName");
 		removeFont(fontName);
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::ResourceTrueTypeFont* font = MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceTrueTypeFont>(resourceCategory);
 
 		font->setResourceName(fontName);
@@ -308,7 +308,7 @@ namespace tools
 		font->setMsdfRange(_data->getPropertyValue<int>("MsdfRange"));
 		font->setShader(_data->getPropertyValue("Shader"));
 
-		std::string ranges = _data->getPropertyValue("FontCodeRanges");
+		const std::string& ranges = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
 		for (size_t index = 0; index < values.size(); index ++)
 		{
@@ -321,7 +321,7 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().addResource(font);
 	}
 
-	void FontExportSerializer::removeFont(const std::string& _fontName)
+	void FontExportSerializer::removeFont(std::string_view _fontName)
 	{
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 		if (manager.isExist(_fontName))
