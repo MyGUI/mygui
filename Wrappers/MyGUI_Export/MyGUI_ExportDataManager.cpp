@@ -105,9 +105,6 @@ namespace MyGUI
 			result.push_back(MyGUI::UString(file).asUTF8());
 		}
 
-		static std::string path;
-		path.clear();
-
 		if (!result.empty())
 		{
 			const std::string& path = result[0];
