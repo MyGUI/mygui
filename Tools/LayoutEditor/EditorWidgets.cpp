@@ -688,12 +688,7 @@ namespace tools
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Skin"))
 		{
-			std::string_view key = node->findAttribute("key");
-			auto it = mSkinReplaces.find(key);
-			if (it == mSkinReplaces.end())
-				mSkinReplaces.emplace(key, node->getContent());
-			else
-				it->second = node->getContent();
+			MyGUI::mapSet(mSkinReplaces, node->findAttribute("key"), node->getContent());
 		}
 	}
 

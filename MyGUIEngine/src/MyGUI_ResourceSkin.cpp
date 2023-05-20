@@ -203,11 +203,7 @@ namespace MyGUI
 
 	void ResourceSkin::addProperty(std::string_view _key, std::string_view _value)
 	{
-		auto it = mProperties.find(_key);
-		if (it == mProperties.end())
-			mProperties.emplace(_key, _value);
-		else
-			it->second = _value;
+		mapSet(mProperties, _key, _value);
 	}
 
 	void ResourceSkin::addChild(const ChildSkinInfo& _child)

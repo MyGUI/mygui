@@ -32,11 +32,7 @@ namespace MyGUI
 
 	void ChildSkinInfo::addParam(std::string_view _key, std::string_view _value)
 	{
-		auto it = params.find(_key);
-		if (it == params.end())
-			params.emplace(_key, _value);
-		else
-			it->second = _value;
+		mapSet(params, _key, _value);
 	}
 
 } // namespace MyGUI

@@ -13,11 +13,7 @@ namespace MyGUI
 
 	void UserData::setUserString(std::string_view _key, std::string_view _value)
 	{
-		auto it = mMapUserString.find(_key);
-		if (it == mMapUserString.end())
-			mMapUserString.emplace(_key, _value);
-		else
-			it->second = _value;
+		mapSet(mMapUserString, _key, _value);
 	}
 
 	/** Get user string or "" if not found */

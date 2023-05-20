@@ -39,11 +39,7 @@ namespace animation
 
 	void AnimationNodeFactory::addConstruct(std::string_view _type, IAnimationNodeConstruct* _construct)
 	{
-		auto it = mConstructs.find(_type);
-		if (it == mConstructs.end())
-			mConstructs.emplace(_type, _construct);
-		else
-			it->second = _construct;
+		MyGUI::mapSet(mConstructs, _type, _construct);
 	}
 
 } // namespace animation

@@ -57,11 +57,7 @@ namespace MyGUI
 
 	void ClipboardManager::setClipboardData(std::string_view _type, std::string_view _data)
 	{
-		auto it = mClipboardData.find(_type);
-		if (it == mClipboardData.end())
-			mClipboardData.emplace(_type, _data);
-		else
-			it->second = _data;
+		mapSet(mClipboardData, _type, _data);
 
 		eventClipboardChanged(_type, _data);
 	}

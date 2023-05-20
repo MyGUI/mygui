@@ -38,11 +38,7 @@ namespace demo
 
 	void GraphNodeFactory::addConstruct(std::string_view _type, IGraphNodeConstruct* _construct)
 	{
-		auto it = mConstructs.find(_type);
-		if (it == mConstructs.end())
-			mConstructs.emplce(_type, _construct);
-		else
-			it->second = _construct;
+		MyGUI::mapSet(mConstructs, _type, _construct);
 	}
 
 } // namespace demo

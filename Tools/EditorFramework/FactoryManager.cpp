@@ -22,11 +22,7 @@ namespace components
 
 	void FactoryManager::RegisterFactory(IFactory* _factory, std::string_view _factoryName)
 	{
-		auto it = mFactories.find(_factoryName);
-		if (it == mFactories.end())
-			mFactories.emplace(_factoryName, _factory);
-		else
-			it->second = _factory;
+		MyGUI::mapSet(mFactories, _factoryName, _factory);
 	}
 
 	IFactoryItem* FactoryManager::CreateItem(std::string_view _factoryName)
