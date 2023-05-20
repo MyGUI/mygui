@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetInput.h"
@@ -21,7 +22,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view> EventHandle_WidgetStringString;
+	typedef EventPairConvertStringView<delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&>, delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view>> EventHandle_WidgetStringString;
 
 	/** \brief @wpage{Widget}
 		Widget widget description should be here.

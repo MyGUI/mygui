@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_EventPair.h"
 #include "MyGUI_UString.h"
 
 namespace MyGUI
@@ -48,7 +49,7 @@ namespace MyGUI
 			@param _type of data (for example "Text")
 			@param _data
 		*/
-		delegates::CMultiDelegate2<std::string_view, std::string_view> eventClipboardChanged;
+		EventPairConvertStringView<delegates::CMultiDelegate2<const std::string&, const std::string&>, delegates::CMultiDelegate2<std::string_view, std::string_view>> eventClipboardChanged;
 
 		/** Event : The content of the clipboard is being requested via getClipboardData.\n
 			Delegates of this event can modify the _data argument in-place to change the data returned by getClipboardData.
@@ -56,7 +57,7 @@ namespace MyGUI
 			@param _type of data (for example "Text")
 			@param _data 
 		*/
-		delegates::CMultiDelegate2<std::string_view, std::string&> eventClipboardRequested;
+		EventPairConvertStringView<delegates::CMultiDelegate2<const std::string&, std::string&>, delegates::CMultiDelegate2<std::string_view, std::string&>> eventClipboardRequested;
 
 	private:
 		MapString mClipboardData;

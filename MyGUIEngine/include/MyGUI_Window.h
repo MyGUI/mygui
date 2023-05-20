@@ -16,9 +16,9 @@ namespace MyGUI
 {
 
 	// OBSOLETE
-	typedef delegates::CMultiDelegate2<Widget*, std::string_view> EventHandle_WidgetString;
+	typedef EventPairConvertStringView<delegates::CMultiDelegate2<Widget*, const std::string&>, delegates::CMultiDelegate2<Widget*, std::string_view>> EventHandle_WidgetString;
 
-	typedef delegates::CMultiDelegate2<Window*, std::string_view> EventHandle_WindowPtrCStringRef;
+	typedef EventPairConvertStringView<delegates::CMultiDelegate2<Window*, const std::string&>, delegates::CMultiDelegate2<Window*, std::string_view>> EventHandle_WindowPtrCStringRef;
 	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
 
 	/** \brief @wpage{Window}

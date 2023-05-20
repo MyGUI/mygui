@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
+#include "MyGUI_EventPair.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ImageBox.h"
 #include "MyGUI_IPointer.h"
@@ -58,7 +59,7 @@ namespace MyGUI
 			signature : void method(std::string_view _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		delegates::CMultiDelegate1<std::string_view> eventChangeMousePointer;
+		EventPairConvertStringView<delegates::CMultiDelegate1<const std::string&>, delegates::CMultiDelegate1<std::string_view>> eventChangeMousePointer;
 
 	private:
 		void _unlinkWidget(Widget* _widget) override;

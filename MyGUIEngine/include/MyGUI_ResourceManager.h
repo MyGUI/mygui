@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
+#include "MyGUI_EventPair.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
@@ -40,7 +41,7 @@ namespace MyGUI
 		/** Remove resource item from resources */
 		void removeResource(IResourcePtr _item);
 
-		typedef delegates::CDelegate3<xml::ElementPtr, std::string_view, Version> LoadXmlDelegate;
+		typedef EventPairConvertStringView<delegates::CDelegate3<xml::ElementPtr, const std::string&, Version>, delegates::CDelegate3<xml::ElementPtr, std::string_view, Version>> LoadXmlDelegate;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(std::string_view _key);

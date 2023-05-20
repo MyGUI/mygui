@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
+#include "MyGUI_EventPair.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ResourceLayout.h"
@@ -18,7 +19,7 @@ namespace MyGUI
 {
 
 	typedef delegates::CMultiDelegate2<Widget*, const WidgetInfo&> EventHandle_CreateWidgetDelegate;
-	typedef delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view> EventHandle_AddUserStringDelegate;
+	typedef EventPairConvertStringView<delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&>, delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view>> EventHandle_AddUserStringDelegate;
 
 	class MYGUI_EXPORT LayoutManager :
 		public MemberObsolete<LayoutManager>
