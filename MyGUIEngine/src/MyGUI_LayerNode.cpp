@@ -278,6 +278,7 @@ namespace MyGUI
 		{
 			if (firstRenderItem->getNeedCompression())
 			{
+				firstRenderItem->setNeedCompression(false);
 				need_compression = true;
 				break;
 			}
@@ -296,8 +297,6 @@ namespace MyGUI
 
 			for (const auto& item : mFirstRenderItems)
 			{
-				item->setNeedCompression(false);
-
 				if (item->getNeedVertexCount() == 0 && !item->getManualRender())
 					emptyItems.push_back(item);
 				else
