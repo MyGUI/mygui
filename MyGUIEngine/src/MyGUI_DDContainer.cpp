@@ -132,7 +132,6 @@ namespace MyGUI
 		mDropResult = false;
 		mReseiverContainer = nullptr;
 		Widget* receiver = nullptr;
-		size_t receiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item)
 		{
@@ -141,14 +140,13 @@ namespace MyGUI
 			// работаем только с контейнерами
 			if (receiver && receiver->isType<DDContainer>())
 			{
-				receiver_index = receiver->_getItemIndex(item);
-
 				// подписываемся на информацию о валидности дропа
 				mReseiverContainer = static_cast<DDContainer*>(receiver);
 				mReseiverContainer->_eventInvalideContainer.clear();
 				mReseiverContainer->_eventInvalideContainer += newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
+				size_t receiver_index = receiver->_getItemIndex(item);
 				mDropInfo.set(this, mDropSenderIndex, mReseiverContainer, receiver_index);
 
 				eventRequestDrop(this, mDropInfo, mDropResult);

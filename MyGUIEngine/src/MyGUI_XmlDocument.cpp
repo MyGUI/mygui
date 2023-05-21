@@ -606,7 +606,6 @@ namespace MyGUI
 			}
 
 			size_t start = 0;
-			size_t end = 0;
 			// проверяем на закрытие тега
 			if (symbol == '/')
 			{
@@ -624,7 +623,7 @@ namespace MyGUI
 				}
 				else
 				{
-					end = _content.find_last_not_of(" \t");
+					size_t end = _content.find_last_not_of(" \t");
 					_content = _content.substr(start, end - start + 1);
 				}
 				// проверяем соответствие открывающего и закрывающего тегов

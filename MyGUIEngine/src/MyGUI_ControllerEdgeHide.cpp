@@ -81,22 +81,26 @@ namespace MyGUI
 
 		bool nearBorder = false;
 
-		if ((coord.left <= 0) && !(coord.right() >= view_size.width - 1))
+		bool behindLeft = coord.left <= 0;
+		bool behindRight = coord.right() >= view_size.width - 1;
+		bool behindTop = coord.top <= 0;
+		bool behindBottom = coord.bottom() >= view_size.height - 1;
+		if (behindLeft && !behindRight)
 		{
 			coord.left = - int( float(coord.width - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height - 1))
+		if (behindTop && !behindBottom)
 		{
 			coord.top = - int( float(coord.height - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
+		if (behindRight && !behindLeft)
 		{
 			coord.left = int(float(view_size.width - 1) - float(mRemainPixels) * k - float(coord.width) * (1.f - k));
 			nearBorder = true;
 		}
-		if ((coord.bottom() >= view_size.height - 1) && !(coord.top <= 0))
+		if (behindBottom && !behindTop)
 		{
 			coord.top = int(float(view_size.height - 1) - float(mRemainPixels) * k - float(coord.height) * (1.f - k));
 			nearBorder = true;
@@ -133,20 +137,24 @@ namespace MyGUI
 		const MyGUI::IntCoord& coord = _widget->getCoord();
 		const MyGUI::IntSize& view_size = _widget->getParentSize();
 
+		bool behindLeft = coord.left <= 0;
+		bool behindRight = coord.right() >= view_size.width - 1;
+		bool behindTop = coord.top <= 0;
+		bool behindBottom = coord.bottom() >= view_size.height - 1;
 		// check if widget is near any border and not near opposite borders at same time
-		if ((coord.left <= 0) && !(coord.right() >= view_size.width - 1))
+		if (behindLeft && !behindRight)
 		{
 			k = - (float) coord.left / (coord.width - mRemainPixels - mShadowSize);
 		}
-		else if ((coord.top <= 0) && !(coord.bottom() >= view_size.height - 1))
+		else if (behindTop && !behindBottom)
 		{
 			k = - (float)coord.top / (coord.height - mRemainPixels - mShadowSize);
 		}
-		else if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
+		else if (behindRight && !behindLeft)
 		{
 			k = (float)(coord.right() - view_size.width + 1 ) / (coord.width - mRemainPixels);
 		}
-		else if ((coord.bottom() >= view_size.height - 1) && !(coord.top <= 0))
+		else if (behindBottom && !behindTop)
 		{
 			k = (float)(coord.bottom() - view_size.height + 1 ) / (coord.height - mRemainPixels);
 		}

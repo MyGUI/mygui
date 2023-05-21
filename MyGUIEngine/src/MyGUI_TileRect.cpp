@@ -200,16 +200,13 @@ namespace MyGUI
 
 		size_t count = 0;
 
-		float left = window_left;
-		float right = window_left;
-		float top = window_top;
 		float bottom = window_top;
 
 		for (int y = 0; y < mCoord.height; y += mTileSize.height)
 		{
-			top = bottom;
+			float top = bottom;
 			bottom -= mRealTileHeight;
-			right = window_left;
+			float right = window_left;
 
 			float vertex_top = top;
 			float vertex_bottom = bottom;
@@ -240,7 +237,7 @@ namespace MyGUI
 
 			for (int x = 0; x < mCoord.width; x += mTileSize.width)
 			{
-				left = right;
+				float left = right;
 				right += mRealTileWidth;
 
 				float vertex_left = left;

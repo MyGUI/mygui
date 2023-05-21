@@ -742,7 +742,7 @@ namespace MyGUI
 	void Widget::detachFromWidget(std::string_view _layer)
 	{
 		std::string_view oldlayer;
-		if (const MyGUI::ILayer* layer = getLayer())
+		if (getLayer())
 			oldlayer = getLayer()->getName();
 
 		Widget* parent = getParent();

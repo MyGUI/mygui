@@ -118,21 +118,15 @@ namespace MyGUI
 	{
 		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); /*added in body*/)
 		{
-			if (nullptr == (*iter).first)
-			{
-				delete (*iter).second;
-				iter = mListItem.erase(iter);
-				continue;
-			}
-
 			if ((*iter).second->addTime((*iter).first, _time))
 			{
 				++iter;
 				continue;
 			}
 
-			// will be removed in next iteration
-			(*iter).first = nullptr;
+			iter->first = nullptr;
+			delete iter->second;
+			iter = mListItem.erase(iter);
 		}
 
 		if (mListItem.empty())

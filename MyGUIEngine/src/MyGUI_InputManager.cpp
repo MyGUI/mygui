@@ -325,7 +325,7 @@ namespace MyGUI
 					if (mTimerDoubleClick < INPUT_TIME_DOUBLE_CLICK)
 					{
 						mWidgetMouseFocus->_riseMouseButtonClick();
-						// после вызова, виджет может быть сброшен
+						// might be reset in the call above, so check again
 						if (nullptr != mWidgetMouseFocus)
 							mWidgetMouseFocus->_riseMouseButtonDoubleClick();
 					}

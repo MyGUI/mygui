@@ -418,13 +418,6 @@ namespace MyGUI
 			}
 
 		}
-		else if (editCmd == EditCommand::Cut)
-		{
-			// сбрасываем повтор
-			commandResetRedo();
-
-			commandCut();
-		}
 		else if (editCmd == EditCommand::EraseNext)
 		{
 			if (!mModeReadOnly)

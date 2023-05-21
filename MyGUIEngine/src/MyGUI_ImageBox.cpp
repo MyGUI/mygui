@@ -355,7 +355,7 @@ namespace MyGUI
 			return;
 
 		// если первый раз то устанавливаем дефолтное
-		if (mResource == nullptr && _resource != nullptr)
+		if (mResource == nullptr)
 		{
 			if (mItemGroup.empty())
 			{
