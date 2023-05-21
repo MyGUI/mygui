@@ -40,7 +40,7 @@ namespace MyGUI
 		/** Get widget text font name */
 		std::string_view getFontName() const;
 
-		/** Set widget text font height */
+		/** Set widget text font height. If set to 0 then default height from selected font is used */
 		virtual void setFontHeight(int _value);
 		/** Get widget text font height */
 		virtual int getFontHeight() const;

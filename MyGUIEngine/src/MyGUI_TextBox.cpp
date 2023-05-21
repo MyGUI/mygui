@@ -132,31 +132,31 @@ namespace MyGUI
 
 	void TextBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{TextBox, TextColour, Colour} Цвет текста.
+		/// @wproperty{TextBox, TextColour, Colour} Text colour.
 		if (_key == "TextColour")
 			setTextColour(utility::parseValue<Colour>(_value));
 
-		/// @wproperty{TextBox, TextAlign, Align} Выравнивание текста.
+		/// @wproperty{TextBox, TextAlign, Align} Text alignment.
 		else if (_key == "TextAlign")
 			setTextAlign(utility::parseValue<Align>(_value));
 
-		/// @wproperty{TextBox, FontName, string} Имя шрифта.
+		/// @wproperty{TextBox, FontName, string} Font name.
 		else if (_key == "FontName")
 			setFontName(_value);
 
-		/// @wproperty{TextBox, FontHeight, int} Высота шрифта.
+		/// @wproperty{TextBox, FontHeight, int} Font height.
 		else if (_key == "FontHeight")
 			setFontHeight(utility::parseValue<int>(_value));
 
-		/// @wproperty{TextBox, Caption, string} Содержимое поля редактирования.
+		/// @wproperty{TextBox, Caption, string} Text value.
 		else if (_key == "Caption")
 			setCaptionWithReplacing(_value);
 
-		/// @wproperty{TextBox, TextShadowColour, Colour} Цвет тени текста.
+		/// @wproperty{TextBox, TextShadowColour, Colour} Text shadow colour.
 		else if (_key == "TextShadowColour")
 			setTextShadowColour(utility::parseValue<Colour>(_value));
 
-		/// @wproperty{TextBox, TextShadow, bool} Режим показа тени текста.
+		/// @wproperty{TextBox, TextShadow, bool} Is text shadow visible.
 		else if (_key == "TextShadow")
 			setTextShadow(utility::parseValue<bool>(_value));
 

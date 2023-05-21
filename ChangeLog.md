@@ -1,9 +1,10 @@
 ## MyGUI v3.4.3
 ### Widgets
 - Add missing eventClipboardChanged when trying to cut/copy with no text selected
-- Fix rare crash when changing widget style after it was clicked in the same frame
-- Fix TabItem left disabled when rapidly switching between tabs
+- Fixed rare crash when changing widget style after it was clicked in the same frame
+- Fixed TabItem left disabled when rapidly switching between tabs
 - Improve performance of the TabControl tabs switching
+- Fixed ignoring "FontHeight" property when "FontName" is also set
 
 ### Tools
 - Minor fixes for macOS

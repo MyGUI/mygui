@@ -242,8 +242,8 @@ namespace MyGUI
 		{
 			mTexture = mFont->getTextureFont();
 
-			// если надо, устанавливаем дефолтный размер шрифта
-			if (mFont->getDefaultHeight() != 0)
+			// set default font height
+			if (mFont->getDefaultHeight() != 0 && !mCustomFontHeight)
 			{
 				mFontHeight = mFont->getDefaultHeight();
 			}
@@ -276,7 +276,11 @@ namespace MyGUI
 
 	void EditText::setFontHeight(int _value)
 	{
-		mFontHeight = _value;
+		mCustomFontHeight = _value;
+		if (!mCustomFontHeight && mFont)
+			mFontHeight = mFont->getDefaultHeight();
+		else
+			mFontHeight = _value;
 		mTextOutDate = true;
 
 		if (nullptr != mNode)

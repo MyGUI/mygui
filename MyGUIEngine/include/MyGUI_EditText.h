@@ -151,6 +151,7 @@ namespace MyGUI
 		IFont* mFont;
 		ITexture* mTexture;
 		int mFontHeight;
+		int mCustomFontHeight = 0;
 
 		bool mBackgroundNormal;
 		size_t mStartSelect;
