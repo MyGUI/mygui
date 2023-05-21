@@ -141,13 +141,13 @@ namespace wraps
 		}
 
 	public:
-		MyGUI::delegates::CDelegate3<BaseLayout*, DDItemInfo, bool&> eventStartDrag;
-		MyGUI::delegates::CDelegate3<BaseLayout*, DDItemInfo, bool&> eventRequestDrop;
-		MyGUI::delegates::CDelegate3<BaseLayout*, DDItemInfo, bool> eventDropResult;
-		MyGUI::delegates::CDelegate2<BaseLayout*, MyGUI::DDItemState> eventChangeDDState;
-		MyGUI::delegates::CDelegate2<BaseLayout*, const MyGUI::IBNotifyItemData& > eventNotifyItem;
+		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool&> eventStartDrag;
+		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool&> eventRequestDrop;
+		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool> eventDropResult;
+		MyGUI::delegates::Delegate<BaseLayout*, MyGUI::DDItemState> eventChangeDDState;
+		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::IBNotifyItemData& > eventNotifyItem;
 
-		MyGUI::delegates::CDelegate3<BaseLayout*, const MyGUI::ToolTipInfo&, DataType> eventToolTip;
+		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::ToolTipInfo&, DataType> eventToolTip;
 
 		MyGUI::ItemBox* getItemBox() const
 		{

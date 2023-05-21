@@ -24,7 +24,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		using Delegate = delegates::CDelegate1<IObject*&>;
+		using Delegate = delegates::Delegate<IObject*&>;
 		/** Register delegate function that creates object for specified _category and _type. */
 		void registerFactory(std::string_view _category, std::string_view _type, Delegate::IDelegate* _delegate);
 		/** Unregister delegate function that creates object for specified _category and _type. */

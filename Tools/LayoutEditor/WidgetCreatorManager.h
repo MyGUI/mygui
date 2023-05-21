@@ -13,8 +13,8 @@
 namespace tools
 {
 
-	using Event_ChangeCreatorMode = MyGUI::delegates::CMultiDelegate1<bool>;
-	using Event_ChangeSelector = MyGUI::delegates::CMultiDelegate2<bool, const MyGUI::IntCoord&>;
+	using Event_ChangeCreatorMode = MyGUI::delegates::MultiDelegate<bool>;
+	using Event_ChangeSelector = MyGUI::delegates::MultiDelegate<bool, const MyGUI::IntCoord&>;
 
 	class WidgetCreatorManager
 	{

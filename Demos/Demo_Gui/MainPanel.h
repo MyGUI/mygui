@@ -34,7 +34,7 @@ namespace demo
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 
 	public:
-		MyGUI::delegates::CDelegate2<TypeEvents, size_t> eventAction;
+		MyGUI::delegates::Delegate<TypeEvents, size_t> eventAction;
 
 		MyGUI::Button* mButtonNew;
 		MyGUI::Button* mButtonLoad;

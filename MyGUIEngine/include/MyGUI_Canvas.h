@@ -43,8 +43,8 @@ namespace MyGUI
 			bool requested;
 		};
 
-		using EventHandle_CanvasPtr = delegates::CMultiDelegate1<Canvas*>;
-		using EventHandle_CanvasPtrEvent = delegates::CDelegate2<Canvas*, Event>;
+		using EventHandle_CanvasPtr = delegates::MultiDelegate<Canvas*>;
+		using EventHandle_CanvasPtrEvent = delegates::Delegate<Canvas*, Event>;
 
 		/**
 			Available resize and view modes of texture

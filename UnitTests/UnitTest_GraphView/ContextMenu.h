@@ -40,7 +40,7 @@ namespace wraps
 			@param _sender
 			@param _id
 		*/
-		MyGUI::delegates::CDelegate2<ContextMenu*, std::string_view> eventMenuAccept;
+		MyGUI::delegates::Delegate<ContextMenu*, std::string_view> eventMenuAccept;
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)

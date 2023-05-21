@@ -14,7 +14,7 @@ namespace demo
 	class CommandManager
 	{
 	public:
-		using CommandDelegate = MyGUI::delegates::CDelegate2<std::string_view, MyGUI::Any>;
+		using CommandDelegate = MyGUI::delegates::Delegate<std::string_view, MyGUI::Any>;
 
 	public:
 		CommandManager();

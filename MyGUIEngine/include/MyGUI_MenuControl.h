@@ -21,8 +21,8 @@
 namespace MyGUI
 {
 
-	using EventHandle_MenuCtrlPtrMenuItemPtr = delegates::CMultiDelegate2<MenuControl*, MenuItem*>;
-	using EventHandle_MenuCtrlPtr = delegates::CMultiDelegate1<MenuControl*>;
+	using EventHandle_MenuCtrlPtrMenuItemPtr = delegates::MultiDelegate<MenuControl*, MenuItem*>;
+	using EventHandle_MenuCtrlPtr = delegates::MultiDelegate<MenuControl*>;
 
 	/** \brief @wpage{MenuControl}
 		MenuControl widget description should be here.

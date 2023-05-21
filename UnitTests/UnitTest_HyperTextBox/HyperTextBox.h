@@ -66,7 +66,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _url
 		*/
-		delegates::CMultiDelegate2<HyperTextBox*, std::string_view> eventUrlClick;
+		delegates::MultiDelegate<HyperTextBox*, std::string_view> eventUrlClick;
 
 	protected:
 		void initialiseOverride() override;

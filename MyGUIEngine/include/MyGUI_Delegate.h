@@ -343,35 +343,35 @@ namespace delegates
 		mutable ListDelegate mListDelegates;
 	};
 
-//#ifndef MYGUI_DONT_USE_OBSOLETE // TODO
-	using CDelegate0 = Delegate<>;
+#ifndef MYGUI_DONT_USE_OBSOLETE
+	using CDelegate0 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate<>") = Delegate<>;
 	template <typename ...Args>
-	using CDelegate1 = Delegate<Args...>;
+	using CDelegate1 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate2 = Delegate<Args...>;
+	using CDelegate2 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate3 = Delegate<Args...>;
+	using CDelegate3 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate4 = Delegate<Args...>;
+	using CDelegate4 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate5 = Delegate<Args...>;
+	using CDelegate5 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate6 = Delegate<Args...>;
+	using CDelegate6 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
 
-	using CMultiDelegate0 = MultiDelegate<>;
+	using CMultiDelegate0 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate<>") = MultiDelegate<>;
 	template <typename ...Args>
-	using CMultiDelegate1 = MultiDelegate<Args...>;
+	using CMultiDelegate1 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate2 = MultiDelegate<Args...>;
+	using CMultiDelegate2 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate3 = MultiDelegate<Args...>;
+	using CMultiDelegate3 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate4 = MultiDelegate<Args...>;
+	using CMultiDelegate4 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate5 = MultiDelegate<Args...>;
+	using CMultiDelegate5 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate6 = MultiDelegate<Args...>;
-//#endif
+	using CMultiDelegate6 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+#endif
 }
 
 } // namespace MyGUI

@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	using Event_ChangeSelectedWidget = MyGUI::delegates::CMultiDelegate1<MyGUI::Widget*>;
+	using Event_ChangeSelectedWidget = MyGUI::delegates::MultiDelegate<MyGUI::Widget*>;
 
 	class WidgetSelectorManager
 	{

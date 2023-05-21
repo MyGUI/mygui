@@ -69,7 +69,7 @@ namespace demo
 			signature : void method(BaseAnimationNode* _sender)
 			@param _sender
 		*/
-		MyGUI::delegates::CDelegate1<BaseAnimationNode*> eventInvalidateNode;
+		MyGUI::delegates::Delegate<BaseAnimationNode*> eventInvalidateNode;
 
 	protected:
 		virtual void baseInitialiseAnimationNode() { }

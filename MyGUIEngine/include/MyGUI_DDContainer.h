@@ -16,12 +16,12 @@ namespace MyGUI
 {
 
 	using EventHandle_DDContainerPtrCDDItemInfoRefBoolRef =
-		delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool&>;
+		delegates::MultiDelegate<DDContainer*, const DDItemInfo&, bool&>;
 	using EventHandle_DDContainerPtrCDDItemInfoRefBool =
-		delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool>;
-	using EventHandle_EventHandle_DDContainerPtrDDItemState = delegates::CMultiDelegate2<DDContainer*, DDItemState>;
+		delegates::MultiDelegate<DDContainer*, const DDItemInfo&, bool>;
+	using EventHandle_EventHandle_DDContainerPtrDDItemState = delegates::MultiDelegate<DDContainer*, DDItemState>;
 	using EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef =
-		delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&>;
+		delegates::Delegate<DDContainer*, Widget*&, IntCoord&>;
 
 
 	/** \brief @wpage{DDContainer}
@@ -93,7 +93,7 @@ namespace MyGUI
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
 		*/
-		delegates::CMultiDelegate1<DDContainer*> _eventInvalideContainer;
+		delegates::MultiDelegate<DDContainer*> _eventInvalideContainer;
 
 		/** Event : [Internal event] !!обновить виджеты дропа DD_FIXME наверное internal.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget* _item, const MyGUI::DDWidgetState& _state)
@@ -101,7 +101,7 @@ namespace MyGUI
 			@param _items
 			@param _state
 		*/
-		delegates::CMultiDelegate3<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;
+		delegates::MultiDelegate<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;
 
 	protected:
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;

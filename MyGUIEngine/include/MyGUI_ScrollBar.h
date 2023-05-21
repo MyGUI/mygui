@@ -15,7 +15,7 @@ namespace MyGUI
 
 	class ControllerItem;
 
-	using EventHandle_ScrollBarPtrSizeT = delegates::CMultiDelegate2<ScrollBar*, size_t>;
+	using EventHandle_ScrollBarPtrSizeT = delegates::MultiDelegate<ScrollBar*, size_t>;
 
 	/** \brief @wpage{ScrollBar}
 		ScrollBar widget description should be here.

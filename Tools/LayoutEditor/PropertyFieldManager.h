@@ -24,7 +24,7 @@ namespace tools
 		IPropertyField* createPropertyField(MyGUI::Widget* _window, std::string_view _type);
 
 	private:
-		using Delegate = MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*>;
+		using Delegate = MyGUI::delegates::Delegate<IPropertyField*&, MyGUI::Widget*>;
 		using MapFactoryItem = std::map<std::string, Delegate, std::less<>>;
 		MapFactoryItem mFactories;
 	};

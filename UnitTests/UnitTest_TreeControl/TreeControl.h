@@ -20,8 +20,8 @@ namespace MyGUI
 	public:
 		class Node;
 
-		using EventHandle_TreeControlPtrNodePtr = delegates::CMultiDelegate2<TreeControl*, Node*>;
-		using EventHandle_TreeControlPtrSizeT = delegates::CMultiDelegate2<TreeControl*, size_t>;
+		using EventHandle_TreeControlPtrNodePtr = delegates::MultiDelegate<TreeControl*, Node*>;
+		using EventHandle_TreeControlPtrSizeT = delegates::MultiDelegate<TreeControl*, size_t>;
 
 		class Node :
 			public GenericNode<Node, TreeControl>

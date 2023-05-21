@@ -59,7 +59,7 @@ namespace MyGUI
 			signature : void method(std::string_view _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		EventPairConvertStringView<delegates::CMultiDelegate1<const std::string&>, delegates::CMultiDelegate1<std::string_view>> eventChangeMousePointer;
+		EventPairConvertStringView<delegates::MultiDelegate<const std::string&>, delegates::MultiDelegate<std::string_view>> eventChangeMousePointer;
 
 	private:
 		void _unlinkWidget(Widget* _widget) override;

@@ -78,7 +78,7 @@ namespace Hikari
 	};
 
 	class HikariWidget;
-	typedef MyGUI::delegates::CDelegate3<HikariWidget*, const Arguments&, FlashValue&> FlashDelegate;
+	typedef MyGUI::delegates::Delegate<HikariWidget*, const Arguments&, FlashValue&> FlashDelegate;
 
 	/**
 	* The FlashControl class is an instance of the Flash Player that is rendered dynamically to a texture and

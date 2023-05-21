@@ -15,7 +15,8 @@ namespace tools
 
 	class SelectorControlLE;
 
-	using EventHandle_ChangePosition = MyGUI::delegates::CMultiDelegate0;
+	using EventHandle_ChangePosition = MyGUI::delegates::MultiDelegate<>;
+
 
 	class SelectorControlLE :
 		public wraps::BaseLayout,

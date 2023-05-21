@@ -7,8 +7,8 @@
 namespace tools
 {
 
-	using Event_ChangeWidgets = MyGUI::delegates::CMultiDelegate0;
-	using Event_ChangeWidgetCoord = MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view>;
+	using Event_ChangeWidgets = MyGUI::delegates::MultiDelegate<>;
+	using Event_ChangeWidgetCoord = MyGUI::delegates::MultiDelegate<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view>;
 
 	using VectorWidgetContainer = std::vector<WidgetContainer*>;
 	using EnumeratorWidgetContainer = MyGUI::Enumerator<VectorWidgetContainer>;

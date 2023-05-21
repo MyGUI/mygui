@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	using EventHandle_FrameEventDelegate = delegates::CMultiDelegate1<float>;
+	using EventHandle_FrameEventDelegate = delegates::MultiDelegate<float>;
 
 	class MYGUI_EXPORT Gui :
 		public IUnlinkWidget,

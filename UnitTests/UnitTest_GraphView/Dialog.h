@@ -15,7 +15,7 @@ namespace tools
 		public wraps::BaseLayout
 	{
 	public:
-		typedef MyGUI::delegates::CDelegate2<Dialog*, bool> EventHandle_Result;
+		typedef MyGUI::delegates::Delegate<Dialog*, bool> EventHandle_Result;
 
 	public:
 		Dialog();

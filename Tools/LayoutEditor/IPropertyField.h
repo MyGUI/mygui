@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	using PropertyFieldActionDelegate = MyGUI::delegates::CDelegate3<std::string_view, std::string_view, bool>;
+	using PropertyFieldActionDelegate = MyGUI::delegates::Delegate<std::string_view, std::string_view, bool>;
 
 	class IPropertyField
 	{

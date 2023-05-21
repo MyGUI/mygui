@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	using CommandDelegate = MyGUI::delegates::CDelegate2<const MyGUI::UString&, const MyGUI::UString&>;
+	using CommandDelegate = MyGUI::delegates::Delegate<const MyGUI::UString&, const MyGUI::UString&>;
 
 	namespace formates
 	{

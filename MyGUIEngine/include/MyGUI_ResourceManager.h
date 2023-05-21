@@ -42,8 +42,8 @@ namespace MyGUI
 		void removeResource(IResourcePtr _item);
 
 		using LoadXmlDelegate = EventPairConvertStringView<
-			delegates::CDelegate3<xml::ElementPtr, const std::string&, Version>,
-			delegates::CDelegate3<xml::ElementPtr, std::string_view, Version>>;
+			delegates::Delegate<xml::ElementPtr, const std::string&, Version>,
+			delegates::Delegate<xml::ElementPtr, std::string_view, Version>>;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(std::string_view _key);

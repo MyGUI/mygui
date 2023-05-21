@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	using EventHandle_TabPtrSizeT = delegates::CMultiDelegate2<TabControl*, size_t>;
+	using EventHandle_TabPtrSizeT = delegates::MultiDelegate<TabControl*, size_t>;
 
 	/** \brief @wpage{TabControl}
 		TabControl widget description should be here.

@@ -23,7 +23,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ControllerPosition )
 
 	public:
-		using FrameAction = delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float>;
+		using FrameAction = delegates::Delegate<const IntCoord&, const IntCoord&, IntCoord&, float>;
 
 		ControllerPosition();
 

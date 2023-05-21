@@ -17,13 +17,13 @@ namespace MyGUI
 
 	// OBSOLETE
 	using EventHandle_WidgetString = EventPairConvertStringView<
-		delegates::CMultiDelegate2<Widget*, const std::string&>,
-		delegates::CMultiDelegate2<Widget*, std::string_view>>;
+		delegates::MultiDelegate<Widget*, const std::string&>,
+		delegates::MultiDelegate<Widget*, std::string_view>>;
 
 	using EventHandle_WindowPtrCStringRef = EventPairConvertStringView<
-		delegates::CMultiDelegate2<Window*, const std::string&>,
-		delegates::CMultiDelegate2<Window*, std::string_view>>;
-	using EventHandle_WindowPtr = delegates::CMultiDelegate1<Window*>;
+		delegates::MultiDelegate<Window*, const std::string&>,
+		delegates::MultiDelegate<Window*, std::string_view>>;
+	using EventHandle_WindowPtr = delegates::MultiDelegate<Window*>;
 
 	/** \brief @wpage{Window}
 		Window widget description should be here.

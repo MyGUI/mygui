@@ -18,8 +18,8 @@
 namespace MyGUI
 {
 
-	using EventHandle_ListPtrSizeT = delegates::CMultiDelegate2<ListBox*, size_t>;
-	using EventHandle_ListBoxPtrCIBNotifyCellDataRef = delegates::CMultiDelegate2<ListBox*, const IBNotifyItemData&>;
+	using EventHandle_ListPtrSizeT = delegates::MultiDelegate<ListBox*, size_t>;
+	using EventHandle_ListBoxPtrCIBNotifyCellDataRef = delegates::MultiDelegate<ListBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{ListBox}
 		ListBox widget description should be here.

@@ -22,15 +22,15 @@ namespace MyGUI
 
 	//OBSOLETE
 	using EventHandle_WidgetIntUTFStringUTFStringBool =
-		delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&>;
+		delegates::MultiDelegate<Widget*, size_t, const UString&, const UString&, bool&>;
 
 	using EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef =
-		delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&>;
+		delegates::Delegate<MultiListBox*, size_t, const UString&, const UString&, bool&>;
 	using EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef =
-		delegates::CDelegate5<MultiListBox*, size_t, size_t, size_t, bool&>;
-	using EventHandle_MultiListPtrSizeT = delegates::CMultiDelegate2<MultiListBox*, size_t>;
+		delegates::Delegate<MultiListBox*, size_t, size_t, size_t, bool&>;
+	using EventHandle_MultiListPtrSizeT = delegates::MultiDelegate<MultiListBox*, size_t>;
 	using EventHandle_MultiListPtrCIBNotifyCellDataRef =
-		delegates::CMultiDelegate2<MultiListBox*, const IBNotifyItemData&>;
+		delegates::MultiDelegate<MultiListBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{MultiListBox}
 		MultiListBox widget description should be here.

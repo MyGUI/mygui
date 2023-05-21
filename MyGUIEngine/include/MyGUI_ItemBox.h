@@ -17,12 +17,12 @@
 namespace MyGUI
 {
 
-	using EventHandle_ItemBoxPtrWidgetPtr = delegates::CDelegate2<ItemBox*, Widget*>;
-	using EventHandle_ItemBoxPtrIntCoordRefBool = delegates::CDelegate3<ItemBox*, IntCoord&, bool>;
+	using EventHandle_ItemBoxPtrWidgetPtr = delegates::Delegate<ItemBox*, Widget*>;
+	using EventHandle_ItemBoxPtrIntCoordRefBool = delegates::Delegate<ItemBox*, IntCoord&, bool>;
 	using EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef =
-		delegates::CDelegate3<ItemBox*, Widget*, const IBDrawItemInfo&>;
-	using EventHandle_ItemBoxPtrSizeT = delegates::CMultiDelegate2<ItemBox*, size_t>;
-	using EventHandle_ItemBoxPtrCIBNotifyCellDataRef = delegates::CMultiDelegate2<ItemBox*, const IBNotifyItemData&>;
+		delegates::Delegate<ItemBox*, Widget*, const IBDrawItemInfo&>;
+	using EventHandle_ItemBoxPtrSizeT = delegates::MultiDelegate<ItemBox*, size_t>;
+	using EventHandle_ItemBoxPtrCIBNotifyCellDataRef = delegates::MultiDelegate<ItemBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{ItemBox}
 		ItemBox widget description should be here.

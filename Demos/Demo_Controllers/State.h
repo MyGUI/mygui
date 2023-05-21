@@ -53,7 +53,7 @@ namespace demo
 
 		void setVisible(bool _visible);
 
-		MyGUI::delegates::CDelegate2<ControllerType, bool> eventButtonPress;
+		MyGUI::delegates::Delegate<ControllerType, bool> eventButtonPress;
 
 	private:
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);

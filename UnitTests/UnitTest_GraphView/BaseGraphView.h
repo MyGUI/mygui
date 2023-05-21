@@ -112,7 +112,7 @@ namespace wraps
 			@param _to
 			@param _result
 		*/
-		MyGUI::delegates::CDelegate4<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestConnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestConnectPoint;
 
 		/** Request : Disconnection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
@@ -121,7 +121,7 @@ namespace wraps
 			@param _to
 			@param _result
 		*/
-		MyGUI::delegates::CDelegate4<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestDisconnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestDisconnectPoint;
 
 		/** Event : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -129,7 +129,7 @@ namespace wraps
 			@param _from
 			@param _to
 		*/
-		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventConnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventConnectPoint;
 
 		/** Event : Disconnection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -137,21 +137,21 @@ namespace wraps
 			@param _from
 			@param _to
 		*/
-		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventDisconnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventDisconnectPoint;
 
 		/** Event : Change size.\n
 			signature : void method(wraps::BaseGraphView* _sender, MyGUI::IntSize _size)
 			@param _sender
 			@param _size
 		*/
-		MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
+		MyGUI::delegates::Delegate<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
 
 		/** Event : Node closed.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
 			@param _sender
 			@param _id
 		*/
-		MyGUI::delegates::CDelegate2<BaseGraphView*, BaseGraphNode*> eventNodeClosed;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphNode*> eventNodeClosed;
 
 	protected:
 		void setCanvasWidget(const std::string& _widgetName)

@@ -86,7 +86,7 @@ namespace wraps
 			return mMainWidget->getVisible();
 		}
 
-		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
+		MyGUI::delegates::Delegate<BasePanelViewCell*> eventUpdatePanel;
 
 	private:
 		void notifyUpdateAction(MyGUI::Widget* _widget, MyGUI::ControllerItem* _controller)

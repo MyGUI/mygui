@@ -25,7 +25,7 @@ namespace tools
 	class GenericFactory
 	{
 	public:
-		using Delegate = MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*>;
+		using Delegate = MyGUI::delegates::Delegate<IPropertyField*&, MyGUI::Widget*>;
 		static typename Delegate::IDelegate* getFactory()
 		{
 			return MyGUI::newDelegate(createFromFactory);

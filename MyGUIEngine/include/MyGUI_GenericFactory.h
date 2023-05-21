@@ -19,7 +19,7 @@ namespace MyGUI
 	class GenericFactory
 	{
 	public:
-		using Delegate = delegates::CDelegate1<IObject*&>;
+		using Delegate = delegates::Delegate<IObject*&>;
 		static typename Delegate::IDelegate* getFactory()
 		{
 			return newDelegate(createFromFactory);

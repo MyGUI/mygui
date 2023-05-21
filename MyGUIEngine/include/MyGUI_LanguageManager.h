@@ -54,7 +54,7 @@ namespace MyGUI
 			signature : void method(const std::string& _language);
 			@param _language Current language.
 		*/
-		delegates::CMultiDelegate1<const std::string&> eventChangeLanguage;
+		delegates::MultiDelegate<const std::string&> eventChangeLanguage;
 
 		/** Event : Request tag.\n
 			signature : void method(const MyGUI::UString& _tag, MyGUI::UString& _result);
@@ -62,7 +62,7 @@ namespace MyGUI
 			@param _result String that should be placed instead specified tag.
 			@note If this event is empty and _tag not found - "#{_tag}" used by default.
 		*/
-		delegates::CDelegate2<const UString&, UString&> eventRequestTag;
+		delegates::Delegate<const UString&, UString&> eventRequestTag;
 
 	private:
 		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
