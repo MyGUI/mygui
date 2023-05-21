@@ -2,9 +2,18 @@ noExplicitConstructor
 useStlAlgorithm
 unusedFunction
 shadowFunction
+cstyleCast
+constParameterPointer
+constParameterReference
+constParameterCallback
+missingIncludeSystem
+// buggy with range-based for
+constVariableReference
 
 // false positive:
 nullPointer:*/MyGUI_Widget.cpp:197
+knownConditionTrueFalse:*/MyGUI_InputManager.cpp
+nullPointerRedundantCheck:*/MyGUI_InputManager.cpp
 uninitStructMember:*/Mirror_MultiList.h
 
 // thirdparty
@@ -14,10 +23,7 @@ uninitStructMember:*/Mirror_MultiList.h
 *:*/sigslot*
 
 // TODO: minor
-unreadVariable
 useInitializationList
-postfixOperator
-constVariable
 noCopyConstructor
 noOperatorEq
 uninitMemberVar
