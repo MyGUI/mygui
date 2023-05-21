@@ -137,12 +137,11 @@ namespace delegates
 	public:
 		using IDelegate = DelegateFunction<Args...>;
 
-		Delegate() : mDelegate(nullptr) { }
-		Delegate(const Delegate& _event) : mDelegate(nullptr)
+		Delegate() = default;
+		Delegate(Delegate&& _event) noexcept : mDelegate(_event.mDelegate)
 		{
 			// take ownership
-			mDelegate = _event.mDelegate;
-			const_cast<Delegate&>(_event).mDelegate = nullptr;
+			_event.mDelegate = nullptr;
 		}
 
 		~Delegate()
@@ -168,14 +167,14 @@ namespace delegates
 			return *this;
 		}
 
-		Delegate& operator=(const Delegate<Args...>& _event)
+		Delegate& operator=(Delegate<Args...>&& _event) noexcept
 		{
 			if (this == &_event)
 				return *this;
 
 			// take ownership
 			IDelegate* del = _event.mDelegate;
-			const_cast<Delegate&>(_event).mDelegate = nullptr;
+			_event.mDelegate = nullptr;
 
 			if (mDelegate != nullptr && !mDelegate->compare(del))
 				delete mDelegate;
@@ -192,7 +191,7 @@ namespace delegates
 		}
 
 	private:
-		IDelegate* mDelegate;
+		IDelegate* mDelegate = nullptr;
 	};
 
 	template <typename ...Args>
@@ -202,7 +201,7 @@ namespace delegates
 		using IDelegate = DelegateFunction<Args...>;
 		using ListDelegate = typename std::list<IDelegate*>;
 
-		MultiDelegate() { }
+		MultiDelegate() = default;
 		~MultiDelegate()
 		{
 			clear();
@@ -281,22 +280,22 @@ namespace delegates
 			}
 		}
 
-		MultiDelegate(const MultiDelegate& _event)
+		MultiDelegate(MultiDelegate&& _event) noexcept
 		{
 			// take ownership
 			ListDelegate del = _event.mListDelegates;
-			const_cast<MultiDelegate&>(_event).mListDelegates.clear();
+			_event.mListDelegates.clear();
 
 			safe_clear(del);
 
 			mListDelegates = del;
 		}
 
-		MultiDelegate& operator=(const MultiDelegate& _event)
+		MultiDelegate& operator=(MultiDelegate&& _event) noexcept
 		{
 			// take ownership
 			ListDelegate del = _event.mListDelegates;
-			const_cast<MultiDelegate&>(_event).mListDelegates.clear();
+			_event.mListDelegates.clear();
 
 			safe_clear(del);
 
