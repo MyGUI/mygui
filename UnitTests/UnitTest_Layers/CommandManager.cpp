@@ -21,7 +21,7 @@ namespace demo
 		msCommandManager = nullptr;
 	}
 
-	void CommandManager::execiteCommand(std::string_view _name, MyGUI::Any _data)
+	void CommandManager::executeCommand(std::string_view _name, MyGUI::Any _data)
 	{
 		MapDelegate::iterator item = mDelegates.find(_name);
 		if (item != mDelegates.end())

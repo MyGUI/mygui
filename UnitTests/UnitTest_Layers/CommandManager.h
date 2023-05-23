@@ -25,10 +25,10 @@ namespace demo
 			return *msCommandManager;
 		}
 
-		void execiteCommand(const std::string& _name, MyGUI::Any _data);
+		void executeCommand(std::string_view _name, MyGUI::Any _data);
 
-		void registerCommand(const std::string& _name, CommandDelegate::IDelegate* _delegate);
-		void unregisterCommand(const std::string& _name);
+		void registerCommand(std::string_view _name, CommandDelegate::IDelegate* _delegate);
+		void unregisterCommand(std::string_view _name);
 
 	private:
 		static CommandManager* msCommandManager;

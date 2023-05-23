@@ -21,7 +21,7 @@ namespace demo
 		mButtonAmmo->eventMouseButtonClick += MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
 		mButtonArmor->eventMouseButtonClick += MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
 
-		CommandManager::getInstance().execiteCommand("KeyboardClick", mMainWidget->getUserString("Command"));
+		CommandManager::getInstance().executeCommand("KeyboardClick", mMainWidget->getUserString("Command"));
 	}
 
 	void KeyboardPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
@@ -31,7 +31,7 @@ namespace demo
 		if (selected)
 		{
 			button->setStateSelected(false);
-			CommandManager::getInstance().execiteCommand("KeyboardClick", mMainWidget->getUserString("Command"));
+			CommandManager::getInstance().executeCommand("KeyboardClick", mMainWidget->getUserString("Command"));
 		}
 		else
 		{
@@ -40,7 +40,7 @@ namespace demo
 			mButtonAmmo->setStateSelected(false);
 			mButtonArmor->setStateSelected(false);
 			button->setStateSelected(true);
-			CommandManager::getInstance().execiteCommand("KeyboardClick", button->getUserString("Command"));
+			CommandManager::getInstance().executeCommand("KeyboardClick", button->getUserString("Command"));
 		}
 	}
 

@@ -713,7 +713,7 @@ namespace MyGUI
 						return false;
 					}
 					// ищем вторые ковычки
-					end = _content.find_first_of("\"\'", start + 1);
+					size_t end = _content.find_first_of("\"\'", start + 1);
 					if (end == _content.npos)
 					{
 						mLastError = ErrorType::IncorrectAttribute;
