@@ -128,6 +128,26 @@ inline delegates::DelegateFunction<Args...>* newDelegate(const std::function<voi
 	return new delegates::DelegateFunction<Args...>(_function, delegateId);
 }
 
+
+template<typename>
+struct GetDelegateFunctionFromLambda;
+template<typename R, typename C, typename... Args>
+struct GetDelegateFunctionFromLambda<R (C::*)(Args...) const>
+{
+	using type = MyGUI::delegates::DelegateFunction<Args...>;
+};
+
+// Creates delegate from lambda
+// Require some user-defined delegateId, that should be used if operator-= is called to remove delegate.
+// delegateId need to be unique within single delegate.
+template<typename TLambda>
+inline auto
+newDelegate(const TLambda& _function, int64_t delegateId)
+{
+	using DelegateType = typename GetDelegateFunctionFromLambda<decltype(&TLambda::operator())>::type;
+	return new DelegateType(_function, delegateId);
+}
+
 namespace delegates
 {
 

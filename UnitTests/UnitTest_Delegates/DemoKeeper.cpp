@@ -79,7 +79,17 @@ namespace demo
 		std::function<void(MyGUI::Widget*)> f = std::bind(Delegate_W, classInstance, std::placeholders::_1);
 		// note that we need to specify user-defined delegate Id to make it possible to use `eventMouseButtonClick -=`
 		button->eventMouseButtonClick += MyGUI::newDelegate(f, 123);
-        y += yStep;
+		y += yStep;
+
+		button =
+			gui->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, y, 200, 30), MyGUI::Align::Default, "Main");
+		button->setCaption("lambda");
+
+		// note that we need to specify user-defined delegate Id to make it possible to use `eventMouseButtonClick -=`
+		button->eventMouseButtonClick += MyGUI::newDelegate(
+			[classInstance](MyGUI::Widget* _sender) { _sender->castType<MyGUI::Button>()->setCaption("Lambda call."); },
+			1234);
+		y += yStep;
 	}
 
 	void DemoKeeper::destroyScene()
