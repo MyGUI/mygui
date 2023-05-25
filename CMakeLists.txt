@@ -202,6 +202,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			)
 			# not useful
 			add_compile_options(
+				-Wno-unsafe-buffer-usage
 				-Wno-unknown-warning-option
 				-Wno-documentation
 				-Wno-documentation-unknown-command
