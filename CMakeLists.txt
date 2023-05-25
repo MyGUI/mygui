@@ -246,6 +246,8 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	endif ()
 endif ()
 
+option(MYGUI_CLANG_TIDY_BUILD "Hack some things for clang-tidy runs, f.e. disable PCH" FALSE)
+
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	# usage:
 	# UBSAN_OPTIONS=print_stacktrace=1,suppressions=sanitizers/UBSanitizer.supp <command>

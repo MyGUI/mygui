@@ -335,7 +335,11 @@ function(mygui_tool PROJECTNAME)
 
 	include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
 	if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
-		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		if (NOT MYGUI_CLANG_TIDY_BUILD)
+			target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		else ()
+			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
+		endif ()
 	endif ()
 
 	target_link_libraries(${PROJECTNAME}
@@ -353,7 +357,11 @@ function(mygui_tool_dll PROJECTNAME)
 	mygui_dll(${PROJECTNAME} Tools)
 
 	if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
-		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		if (NOT MYGUI_CLANG_TIDY_BUILD)
+			target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		else ()
+			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
+		endif ()
 	endif ()
 endfunction(mygui_tool_dll)
 
