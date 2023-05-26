@@ -49,7 +49,7 @@ namespace MyGUI
 		void unload();
 
 		//! Get the name of the library
-		const std::string& getName(void) const;
+		const std::string& getName() const;
 
 		/**
 			Returns the address of the given symbol from the loaded library.

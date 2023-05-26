@@ -290,7 +290,7 @@ namespace tools
 
 	void SkinExportSerializer::fillSeparatorData(DataPtr _data, pugi::xml_node _node)
 	{
-		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
+		pugi::xpath_node_set regions = _node.select_nodes(R"(BasisSkin[@type="SubSkin"or@type="TileRect"])");
 		for (auto region : regions)
 		{
 			MyGUI::IntCoord offset = MyGUI::IntCoord::parse(region.node().attribute("offset").value());
@@ -336,7 +336,7 @@ namespace tools
 
 	void SkinExportSerializer::fillRegionData(DataPtr _data, pugi::xml_node _node)
 	{
-		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
+		pugi::xpath_node_set regions = _node.select_nodes(R"(BasisSkin[@type="SubSkin"or@type="TileRect"])");
 		for (auto region : regions)
 		{
 			DataPtr regionData = nullptr;
@@ -384,7 +384,7 @@ namespace tools
 			regionData->setPropertyValue("Type", type);
 		}
 
-		pugi::xpath_node regionText = _node.select_single_node("BasisSkin[@type=\"SimpleText\"or@type=\"EditText\"]");
+		pugi::xpath_node regionText = _node.select_single_node(R"(BasisSkin[@type="SimpleText"or@type="EditText"])");
 		if (!regionText.node().empty())
 		{
 			DataPtr regionData = getChildData(_data, "RegionText", "Text");

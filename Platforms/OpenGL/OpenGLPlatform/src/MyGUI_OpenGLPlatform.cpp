@@ -5,7 +5,7 @@
 */
 
 #include "MyGUI_OpenGLPlatform.h"
-#include <assert.h>
+#include <cassert>
 
 namespace MyGUI
 {

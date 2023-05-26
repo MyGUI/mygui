@@ -123,7 +123,7 @@ namespace MyGUI
 #endif
 	}
 
-	const std::string& DynLib::getName(void) const
+	const std::string& DynLib::getName() const
 	{
 		return mName;
 	}
