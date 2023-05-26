@@ -2819,8 +2819,8 @@ PUGI__NS_BEGIN
 
 	class xml_buffered_writer
 	{
-		xml_buffered_writer(const xml_buffered_writer&);
-		xml_buffered_writer& operator=(const xml_buffered_writer&);
+		xml_buffered_writer(const xml_buffered_writer&) = delete;
+		xml_buffered_writer& operator=(const xml_buffered_writer&) = delete;
 
 	public:
 		xml_buffered_writer(xml_writer& writer_, xml_encoding user_encoding): writer(writer_), bufsize(0), encoding(get_write_encoding(user_encoding))
@@ -7458,8 +7458,8 @@ PUGI__NS_BEGIN
 			const char_t* nodetest;
 		} _data;
 
-		xpath_ast_node(const xpath_ast_node&);
-		xpath_ast_node& operator=(const xpath_ast_node&);
+		xpath_ast_node(const xpath_ast_node&) = delete;
+		xpath_ast_node& operator=(const xpath_ast_node&) = delete;
 
 		template <class Comp> static bool compare_eq(xpath_ast_node* lhs, xpath_ast_node* rhs, const xpath_context& c, const xpath_stack& stack, const Comp& comp)
 		{

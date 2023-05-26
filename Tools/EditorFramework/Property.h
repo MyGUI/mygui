@@ -23,6 +23,7 @@ namespace tools
 		using PropertyPtr = std::shared_ptr<Property>;
 		using PropertyWeak = std::weak_ptr<Property>;
 
+		Property() = delete;
 		Property(DataTypePropertyPtr _type, DataPtr _owner);
 
 		static PropertyPtr CreateInstance(DataTypePropertyPtr _type, DataPtr _owner);
@@ -55,9 +56,6 @@ namespace tools
 		DataPtr getOwner();
 
 		sigslot::signal1<PropertyPtr> eventChangeProperty;
-
-	private:
-		Property();
 
 	private:
 		std::string mValue;

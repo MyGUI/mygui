@@ -856,10 +856,6 @@ namespace pugi
 		char_t* _buffer;
 
 		char _memory[192];
-		
-		// Non-copyable semantics
-		xml_document(const xml_document&);
-		const xml_document& operator=(const xml_document&);
 
 		void create();
 		void destroy();
@@ -867,6 +863,10 @@ namespace pugi
 		xml_parse_result load_buffer_impl(void* contents, size_t size, unsigned int options, xml_encoding encoding, bool is_mutable, bool own);
 
 	public:
+		// Non-copyable semantics
+		xml_document(const xml_document&) = delete;
+		const xml_document& operator=(const xml_document&) = delete;
+
 		// Default constructor, makes empty document
 		xml_document();
 
@@ -991,13 +991,13 @@ namespace pugi
 	private:
 		xpath_variable* _data[64];
 
-		// Non-copyable semantics
-		xpath_variable_set(const xpath_variable_set&);
-		xpath_variable_set& operator=(const xpath_variable_set&);
-
 		xpath_variable* find(const char_t* name) const;
 
 	public:
+		// Non-copyable semantics
+		xpath_variable_set(const xpath_variable_set&) = delete;
+		xpath_variable_set& operator=(const xpath_variable_set&) = delete;
+
 		// Default constructor/destructor
 		xpath_variable_set();
 		~xpath_variable_set();
@@ -1025,11 +1025,11 @@ namespace pugi
 
 		typedef void (*unspecified_bool_type)(xpath_query***);
 
-		// Non-copyable semantics
-		xpath_query(const xpath_query&);
-		xpath_query& operator=(const xpath_query&);
-
 	public:
+		// Non-copyable semantics
+		xpath_query(const xpath_query&) = delete;
+		xpath_query& operator=(const xpath_query&) = delete;
+
 		// Construct a compiled object from XPath expression.
 		// If PUGIXML_NO_EXCEPTIONS is not defined, throws xpath_exception on compilation errors.
 		explicit xpath_query(const char_t* query, xpath_variable_set* variables = nullptr);

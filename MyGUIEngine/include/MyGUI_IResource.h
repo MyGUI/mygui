@@ -39,11 +39,12 @@ namespace MyGUI
 			mResourceName = _value;
 		}
 
+		IResource(IResource const&) = delete;
+		IResource& operator = (IResource const&) = delete;
+
 	protected:
 		IResource() = default;
 		~IResource() override = default;
-		IResource(IResource const&) = delete;
-		IResource& operator = (IResource const&) = delete;
 
 		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
 		{
