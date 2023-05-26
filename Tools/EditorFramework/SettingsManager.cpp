@@ -128,13 +128,13 @@ namespace tools
 		if (!nodes.empty())
 		{
 			for (const auto& node : nodes)
-				result.push_back(node.node().child_value());
+				result.emplace_back(node.node().child_value());
 		}
 		else
 		{
 			nodes = mDocument->document_element().select_nodes(path.data());
 			for (const auto& node : nodes)
-				result.push_back(node.node().child_value());
+				result.emplace_back(node.node().child_value());
 		}
 
 		return result;

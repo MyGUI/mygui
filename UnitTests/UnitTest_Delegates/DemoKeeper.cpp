@@ -76,7 +76,7 @@ namespace demo
 		button->setCaption("std::function");
 
 		SomeClassPtr classInstance(new SomeClass(4));
-		std::function<void(MyGUI::Widget*)> f = std::bind(Delegate_W, classInstance, std::placeholders::_1);
+		std::function<void(MyGUI::Widget*)> f = std::bind(Delegate_W, classInstance, std::placeholders::_1); // NOLINT
 		// note that we need to specify user-defined delegate Id to make it possible to use `eventMouseButtonClick -=`
 		button->eventMouseButtonClick += MyGUI::newDelegate(f, 123);
 		y += yStep;

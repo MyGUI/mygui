@@ -216,7 +216,7 @@ namespace tools
 				{
 					if (visible)
 					{
-						mFrames.push_back(std::make_pair(value, type));
+						mFrames.emplace_back(value, type);
 					}
 				}
 			}

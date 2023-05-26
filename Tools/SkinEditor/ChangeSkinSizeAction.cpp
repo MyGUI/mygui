@@ -53,13 +53,13 @@ namespace tools
 				continue;
 
 			PropertyPtr property = child->getProperty("Coord");
-			_store.push_back(std::make_pair(property, property->getValue()));
+			_store.emplace_back(property, property->getValue());
 		}
 	}
 
 	void ChangeSkinSizeAction::storeOldValues()
 	{
-		mOldValues.push_back(std::make_pair(getProperty(), getProperty()->getValue()));
+		mOldValues.emplace_back(getProperty(), getProperty()->getValue());
 
 		DataPtr skinData = getProperty()->getOwner();
 		storeRegionValues(skinData, mOldValues);

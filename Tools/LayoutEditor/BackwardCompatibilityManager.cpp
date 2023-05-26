@@ -15,8 +15,8 @@ namespace tools
 	BackwardCompatibilityManager::BackwardCompatibilityManager() :
 		mSingletonHolder(this)
 	{
-		mVersions.push_back("3.2.0");
-		mVersions.push_back("3.1.0");
+		mVersions.emplace_back("3.2.0");
+		mVersions.emplace_back("3.1.0");
 
 		mPropertyNames["3.1.0-StateSelected"] = "Button_Pressed";
 		mPropertyNames["3.1.0-ModeImage"] = "Button_ModeImage";

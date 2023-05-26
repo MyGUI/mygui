@@ -629,7 +629,7 @@ namespace tools
 			{
 				MyGUI::Widget* child = _widget->getChildAt(index);
 				if (!child->isRootWidget())
-					coords.push_back(PairWidgetCoord(child, child->getCoord()));
+					coords.emplace_back(child, child->getCoord());
 			}
 
 			// на сколько сдвинут виджет

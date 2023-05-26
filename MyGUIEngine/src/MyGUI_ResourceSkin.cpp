@@ -194,7 +194,7 @@ namespace MyGUI
 	void ResourceSkin::addInfo(const SubWidgetBinding& _bind)
 	{
 		checkState(_bind.mStates);
-		mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
+		mBasis.emplace_back(_bind.mType, _bind.mOffset, _bind.mAlign);
 		checkBasis();
 		fillState(_bind.mStates, mBasis.size() - 1);
 	}

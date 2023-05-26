@@ -68,7 +68,7 @@ namespace tools
 			{
 				control->Initialise(this, mScrollView, std::string_view{});
 
-				mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
+				mPropertyControls.emplace_back(_property->getType()->getType(), control);
 			}
 		}
 

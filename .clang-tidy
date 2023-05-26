@@ -9,9 +9,7 @@ Checks: '\
   -modernize-use-nodiscard,\
   \
   -modernize-return-braced-init-list,\
-  -modernize-use-emplace,\
   -modernize-use-default-member-init,\
-  -modernize-avoid-bind,\
   -modernize-avoid-c-arrays'
 # options above are mostly TODO
 WarningsAsErrors: "*"

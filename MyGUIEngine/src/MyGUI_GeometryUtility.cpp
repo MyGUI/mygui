@@ -47,13 +47,13 @@ namespace MyGUI::geometry_utility
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.left - _sideCoord) / (_sideCoord - v1.left);
-					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c * v1.top) / (c + 1)));
+					newVerticies.emplace_back((float)_sideCoord, (v0.top + c * v1.top) / (c + 1));
 				}
 				// intersect side (2nd vertex in)
 				else if (invert * v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
 				{
 					float c = (v0.left - _sideCoord) / (_sideCoord - v1.left);
-					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c * v1.top) / (c + 1)));
+					newVerticies.emplace_back((float)_sideCoord, (v0.top + c * v1.top) / (c + 1));
 				}
 				// else don't add any verticies
 				break;
@@ -67,13 +67,13 @@ namespace MyGUI::geometry_utility
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.top - _sideCoord) / (_sideCoord - v1.top);
-					newVerticies.push_back(FloatPoint((v0.left + c * v1.left) / (c + 1), (float)_sideCoord));
+					newVerticies.emplace_back((v0.left + c * v1.left) / (c + 1), (float)_sideCoord);
 				}
 				// intersect side (2nd vertex in)
 				else if (invert * v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
 				{
 					float c = (v0.top - _sideCoord) / (_sideCoord - v1.top);
-					newVerticies.push_back(FloatPoint((v0.left + c * v1.left) / (c + 1), (float)_sideCoord));
+					newVerticies.emplace_back((v0.left + c * v1.left) / (c + 1), (float)_sideCoord);
 				}
 				// else don't add any verticies
 				break;

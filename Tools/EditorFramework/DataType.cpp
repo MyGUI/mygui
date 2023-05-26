@@ -17,7 +17,7 @@ namespace tools
 
 		pugi::xpath_node_set childs = _node.select_nodes("Childs/Child/Type");
 		for (const auto& child : childs)
-			mChilds.push_back(child.node().child_value());
+			mChilds.emplace_back(child.node().child_value());
 
 		pugi::xpath_node_set properties = _node.select_nodes("Properties/Property");
 		for (const auto& property : properties)

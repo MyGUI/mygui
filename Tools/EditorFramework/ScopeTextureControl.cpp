@@ -437,7 +437,7 @@ namespace tools
 		if (_type == SelectorPositionReadOnly)
 			control->setEnabled(false);
 
-		_selectors.push_back(std::make_pair(control, _type));
+		_selectors.emplace_back(control, _type);
 
 		return control;
 	}

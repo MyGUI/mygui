@@ -131,7 +131,7 @@ namespace MyGUI
 		}
 #endif
 
-		mDrawItems.push_back(DrawItemInfo(_item, _count));
+		mDrawItems.emplace_back(_item, _count);
 		mNeedVertexCount += _count;
 		mOutOfDate = true;
 

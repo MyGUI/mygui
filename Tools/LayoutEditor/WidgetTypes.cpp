@@ -127,7 +127,7 @@ namespace tools
 						continue;
 					if (!field->findAttribute("value", value))
 						continue;
-					widget_type->parameter.push_back(MyGUI::PairString(key, value));
+					widget_type->parameter.emplace_back(key, value);
 				}
 				else if (field->getName() == "TemplateData")
 				{
@@ -135,7 +135,7 @@ namespace tools
 						continue;
 					if (!field->findAttribute("value", value))
 						continue;
-					widget_type->templateData.push_back(MyGUI::PairString(key, value));
+					widget_type->templateData.emplace_back(key, value);
 				}
 				else if (field->getName() == "ParameterData")
 				{
@@ -143,7 +143,7 @@ namespace tools
 						continue;
 					if (!field->findAttribute("value", value))
 						continue;
-					widget_type->parameterData.push_back(MyGUI::PairString(key, value));
+					widget_type->parameterData.emplace_back(key, value);
 				}
 			}
 

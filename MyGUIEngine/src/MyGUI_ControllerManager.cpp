@@ -97,7 +97,7 @@ namespace MyGUI
 		if (mListItem.empty())
 			Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
-		mListItem.push_back(PairControllerItem(_widget, _item));
+		mListItem.emplace_back(_widget, _item);
 	}
 
 	void ControllerManager::removeItem(Widget* _widget)

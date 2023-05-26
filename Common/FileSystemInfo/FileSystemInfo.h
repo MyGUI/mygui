@@ -162,7 +162,7 @@ namespace common
 				struct stat fInfo;
 				std::string path = folder + "/" + dp->d_name;
 				if (stat(path.c_str(), &fInfo) == -1)perror("stat");
-				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr_c_str(), (S_ISDIR(fInfo.st_mode))));
+				_result.emplace_back(MyGUI::UString(dp->d_name).asWStr_c_str(), (S_ISDIR(fInfo.st_mode)));
 			}
 		}
 

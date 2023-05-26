@@ -145,7 +145,7 @@ namespace MyGUI
 			{
 				if ((num & 1) == 1)
 				{
-					buttons.push_back(MessageBoxStyle::Enum( MYGUI_FLAG(index)));
+					buttons.emplace_back(MessageBoxStyle::Enum(MYGUI_FLAG(index)));
 				}
 
 				++index;

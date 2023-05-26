@@ -190,7 +190,7 @@ namespace tools
 				else
 				{
 					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-					mFrames.push_back(std::make_pair(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition));
+					mFrames.emplace_back(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);
 				}
 			}
 

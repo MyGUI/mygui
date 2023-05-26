@@ -196,7 +196,7 @@ namespace MyGUI
 					// convert to ABGR if we use that colour format
 					texture_utility::convertColour(colour, _format);
 
-					line_info.symbols.push_back( CharInfo(colour) );
+					line_info.symbols.emplace_back(colour);
 
 					continue;
 				}
@@ -261,7 +261,8 @@ namespace MyGUI
 				continue;
 			}
 
-			line_info.symbols.push_back(CharInfo(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY));
+			line_info.symbols
+				.emplace_back(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY);
 			width += char_fullAdvance;
 			count ++;
 		}

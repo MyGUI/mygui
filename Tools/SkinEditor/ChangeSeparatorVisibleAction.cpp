@@ -37,16 +37,16 @@ namespace tools
 				continue;
 
 			PropertyPtr property = child->getProperty("Enable");
-			_store.push_back(std::make_pair(property, property->getValue()));
+			_store.emplace_back(property, property->getValue());
 
 			property = child->getProperty("Coord");
-			_store.push_back(std::make_pair(property, property->getValue()));
+			_store.emplace_back(property, property->getValue());
 		}
 	}
 
 	void ChangeSeparatorVisibleAction::storeOldValues()
 	{
-		mOldValues.push_back(std::make_pair(getProperty(), getProperty()->getValue()));
+		mOldValues.emplace_back(getProperty(), getProperty()->getValue());
 
 		DataPtr skinData = getProperty()->getOwner()->getParent();
 		storeRegionValues(skinData, mOldValues);

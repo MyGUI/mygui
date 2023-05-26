@@ -53,7 +53,7 @@ namespace tools
 	void AnimationInfo::addFrame(const MyGUI::IntPoint& _frame, size_t _count)
 	{
 		_count = _count < 1 ? 1 : _count;
-		mFrames.push_back(PairFrame(_frame, _count));
+		mFrames.emplace_back(_frame, _count);
 	}
 
 	void AnimationInfo::clearFrames()

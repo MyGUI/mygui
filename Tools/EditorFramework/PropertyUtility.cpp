@@ -57,7 +57,7 @@ namespace tools
 
 			if (property->getValue<bool>() != unique)
 			{
-				_store.push_back(std::make_pair(property, property->getValue()));
+				_store.emplace_back(property, property->getValue());
 				property->setValue(unique);
 			}
 		}
