@@ -75,11 +75,11 @@
 namespace pugi
 {
 	// Character type used for all internal storage and operations; depends on PUGIXML_WCHAR_MODE
-	typedef PUGIXML_CHAR char_t;
+	using char_t = PUGIXML_CHAR;
 
 #ifndef PUGIXML_NO_STL
 	// String type used for operations that work with STL string; depends on PUGIXML_WCHAR_MODE
-	typedef std::basic_string<PUGIXML_CHAR, std::char_traits<PUGIXML_CHAR>, std::allocator<PUGIXML_CHAR> > string_t;
+	using string_t = std::basic_string<PUGIXML_CHAR, std::char_traits<PUGIXML_CHAR>, std::allocator<PUGIXML_CHAR>>;
 #endif
 }
 
@@ -220,7 +220,7 @@ namespace pugi
 	template <typename It> class xml_object_range
 	{
 	public:
-		typedef It const_iterator;
+		using const_iterator = It;
 
 		xml_object_range(It b, It e): _begin(b), _end(e)
 		{
@@ -282,7 +282,7 @@ namespace pugi
 	private:
 		xml_attribute_struct* _attr;
 	
-		typedef void (*unspecified_bool_type)(xml_attribute***);
+		using unspecified_bool_type = void (*)(xml_attribute ***);
 
 	public:
 		// Default constructor. Constructs an empty attribute.
@@ -368,7 +368,7 @@ namespace pugi
 	protected:
 		xml_node_struct* _root;
 
-		typedef void (*unspecified_bool_type)(xml_node***);
+		using unspecified_bool_type = void (*)(xml_node ***);
 
 	public:
 		// Default constructor. Constructs an empty node.
@@ -559,13 +559,13 @@ namespace pugi
 	#endif
 
 		// Child nodes iterators
-		typedef xml_node_iterator iterator;
+		using iterator = xml_node_iterator;
 
 		iterator begin() const;
 		iterator end() const;
 
 		// Attribute iterators
-		typedef xml_attribute_iterator attribute_iterator;
+		using attribute_iterator = xml_attribute_iterator;
 
 		attribute_iterator attributes_begin() const;
 		attribute_iterator attributes_end() const;
@@ -598,7 +598,7 @@ namespace pugi
 
 		xml_node_struct* _root;
 
-		typedef void (*unspecified_bool_type)(xml_text***);
+		using unspecified_bool_type = void (*)(xml_text ***);
 
 		explicit xml_text(xml_node_struct* root);
 
@@ -672,13 +672,13 @@ namespace pugi
 
 	public:
 		// Iterator traits
-		typedef ptrdiff_t difference_type;
-		typedef xml_node value_type;
-		typedef xml_node* pointer;
-		typedef xml_node& reference;
+		using difference_type = ptrdiff_t;
+		using value_type = xml_node;
+		using pointer = xml_node *;
+		using reference = xml_node &;
 
 	#ifndef PUGIXML_NO_STL
-		typedef std::bidirectional_iterator_tag iterator_category;
+		using iterator_category = std::bidirectional_iterator_tag;
 	#endif
 
 		// Default constructor
@@ -714,13 +714,13 @@ namespace pugi
 
 	public:
 		// Iterator traits
-		typedef ptrdiff_t difference_type;
-		typedef xml_attribute value_type;
-		typedef xml_attribute* pointer;
-		typedef xml_attribute& reference;
+		using difference_type = ptrdiff_t;
+		using value_type = xml_attribute;
+		using pointer = xml_attribute *;
+		using reference = xml_attribute &;
 
 	#ifndef PUGIXML_NO_STL
-		typedef std::bidirectional_iterator_tag iterator_category;
+		using iterator_category = std::bidirectional_iterator_tag;
 	#endif
 
 		// Default constructor
@@ -748,13 +748,13 @@ namespace pugi
 	{
 	public:
 		// Iterator traits
-		typedef ptrdiff_t difference_type;
-		typedef xml_node value_type;
-		typedef xml_node* pointer;
-		typedef xml_node& reference;
+		using difference_type = ptrdiff_t;
+		using value_type = xml_node;
+		using pointer = xml_node *;
+		using reference = xml_node &;
 
 	#ifndef PUGIXML_NO_STL
-		typedef std::forward_iterator_tag iterator_category;
+		using iterator_category = std::forward_iterator_tag;
 	#endif
 
 		// Default constructor
@@ -1023,7 +1023,7 @@ namespace pugi
 		void* _impl;
 		xpath_parse_result _result;
 
-		typedef void (*unspecified_bool_type)(xpath_query***);
+		using unspecified_bool_type = void (*)(xpath_query ***);
 
 	public:
 		// Non-copyable semantics
@@ -1101,7 +1101,7 @@ namespace pugi
 		xml_node _node;
 		xml_attribute _attribute;
 	
-		typedef void (*unspecified_bool_type)(xpath_node***);
+		using unspecified_bool_type = void (*)(xpath_node ***);
 
 	public:
 		// Default constructor; constructs empty XPath node
@@ -1148,7 +1148,7 @@ namespace pugi
 		};
 		
 		// Constant iterator type
-		typedef const xpath_node* const_iterator;
+		using const_iterator = const xpath_node *;
 	
 		// Default constructor. Constructs empty set.
 		xpath_node_set();
@@ -1208,10 +1208,10 @@ namespace pugi
 #endif
 
 	// Memory allocation function interface; returns pointer to allocated memory or nullptr on failure
-	typedef void* (*allocation_function)(size_t size);
+	using allocation_function = void *(*)(size_t);
 	
 	// Memory deallocation function interface
-	typedef void (*deallocation_function)(void* ptr);
+	using deallocation_function = void (*)(void *);
 
 	// Override default memory management functions. All subsequent allocations/deallocations will be performed via supplied functions.
 	void PUGIXML_FUNCTION set_memory_management_functions(allocation_function allocate, deallocation_function deallocate);

@@ -8,7 +8,6 @@ Checks: '\
   -modernize-pass-by-value,\
   -modernize-use-nodiscard,\
   \
-  -modernize-use-using,\
   -modernize-use-equals-default,\
   -modernize-loop-convert,\
   -modernize-return-braced-init-list,\

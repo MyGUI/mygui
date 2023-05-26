@@ -356,12 +356,9 @@ namespace MyGUI::xml
 
 	}; // class Document
 
-	MYGUI_OBSOLETE("use : class MyGUI::xml::ElementEnumerator")
-	typedef ElementEnumerator xmlNodeIterator;
-	MYGUI_OBSOLETE("use : class MyGUI::xml::ElementPtr")
-	typedef ElementPtr xmlNodePtr;
-	MYGUI_OBSOLETE("use : class MyGUI::xml::Document")
-	typedef Document xmlDocument;
+	using xmlNodeIterator MYGUI_OBSOLETE("use : class MyGUI::xml::ElementEnumerator") = ElementEnumerator;
+	using xmlNodePtr MYGUI_OBSOLETE("use : class MyGUI::xml::ElementPtr") = ElementPtr;
+	using xmlDocument MYGUI_OBSOLETE("use : class MyGUI::xml::Document") = Document;
 
 } // namespace MyGUI
 
