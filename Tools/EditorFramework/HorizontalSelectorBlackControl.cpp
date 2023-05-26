@@ -10,9 +10,7 @@
 namespace tools
 {
 
-	HorizontalSelectorBlackControl::HorizontalSelectorBlackControl()
-	{
-	}
+	HorizontalSelectorBlackControl::HorizontalSelectorBlackControl() = default;
 
 	void HorizontalSelectorBlackControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{

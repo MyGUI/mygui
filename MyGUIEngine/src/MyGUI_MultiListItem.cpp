@@ -11,9 +11,7 @@
 namespace MyGUI
 {
 
-	MultiListItem::MultiListItem()
-	{
-	}
+	MultiListItem::MultiListItem() = default;
 
 	void MultiListItem::initialiseOverride()
 	{

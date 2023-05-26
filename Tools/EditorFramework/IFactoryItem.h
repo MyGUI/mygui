@@ -13,7 +13,7 @@ namespace components
 	class MYGUI_EXPORT_DLL IFactoryItem
 	{
 	public:
-		virtual ~IFactoryItem() { }
+		virtual ~IFactoryItem() = default;
 	};
 
 }

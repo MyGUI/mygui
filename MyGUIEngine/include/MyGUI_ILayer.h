@@ -24,7 +24,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ILayer )
 
 	public:
-		ILayer() { }
+		ILayer() = default;
 
 		const std::string& getName() const
 		{

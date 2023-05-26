@@ -21,7 +21,7 @@ namespace MyGUI
 			mCroppedParent(nullptr)
 		{ }
 
-		virtual ~ICroppedRectangle() { }
+		virtual ~ICroppedRectangle() = default;
 
 		/** Get parent ICroppedRectangle */
 		ICroppedRectangle* getCroppedParent()

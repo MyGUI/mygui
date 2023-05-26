@@ -9,9 +9,7 @@
 namespace MyGUI
 {
 
-	StackPanel::StackPanel()
-	{
-	}
+	StackPanel::StackPanel() = default;
 
 	IntSize StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{

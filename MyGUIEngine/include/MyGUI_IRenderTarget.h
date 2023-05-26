@@ -20,7 +20,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IRenderTarget
 	{
 	public:
-		virtual ~IRenderTarget() { }
+		virtual ~IRenderTarget() = default;
 
 		virtual void begin() = 0;
 		virtual void end() = 0;

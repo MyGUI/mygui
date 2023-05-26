@@ -8,12 +8,9 @@ Checks: '\
   -modernize-pass-by-value,\
   -modernize-use-nodiscard,\
   \
-  -modernize-use-equals-default,\
-  -modernize-loop-convert,\
   -modernize-return-braced-init-list,\
   -modernize-use-emplace,\
   -modernize-use-default-member-init,\
-  -modernize-make-shared,\
   -modernize-avoid-bind,\
   -modernize-avoid-c-arrays'
 # options above are mostly TODO

@@ -12,9 +12,7 @@
 namespace MyGUI
 {
 
-	TextBox::TextBox()
-	{
-	}
+	TextBox::TextBox() = default;
 
 	IntCoord TextBox::getTextRegion() const
 	{

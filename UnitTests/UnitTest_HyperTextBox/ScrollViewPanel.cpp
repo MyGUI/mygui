@@ -12,9 +12,7 @@
 namespace MyGUI
 {
 
-	ScrollViewPanel::ScrollViewPanel()
-	{
-	}
+	ScrollViewPanel::ScrollViewPanel() = default;
 
 	void ScrollViewPanel::setPosition(const IntPoint& _point)
 	{

@@ -18,7 +18,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IPlugin
 	{
 	public:
-		virtual ~IPlugin() { }
+		virtual ~IPlugin() = default;
 
 		/*!	Get the name of the plugin.
 			@remarks An implementation must be supplied for this method to uniquely

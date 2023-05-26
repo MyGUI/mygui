@@ -16,9 +16,7 @@
 namespace MyGUI
 {
 
-	ResourceLayout::ResourceLayout()
-	{
-	}
+	ResourceLayout::ResourceLayout() = default;
 
 	ResourceLayout::ResourceLayout(xml::ElementPtr _node, std::string_view _fileName)
 	{

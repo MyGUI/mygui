@@ -14,9 +14,7 @@ namespace demo
 	class ColourWindowCellData
 	{
 	public:
-		ColourWindowCellData()
-		{
-		}
+		ColourWindowCellData() = default;
 
 		ColourWindowCellData(const MyGUI::Colour& _colour, std::string_view _name) :
 			m_colour(_colour),

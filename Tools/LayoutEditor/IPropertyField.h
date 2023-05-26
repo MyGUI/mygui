@@ -17,7 +17,7 @@ namespace tools
 	class IPropertyField
 	{
 	public:
-		virtual ~IPropertyField() { }
+		virtual ~IPropertyField() = default;
 
 		virtual void initialise(std::string_view _type) = 0;
 

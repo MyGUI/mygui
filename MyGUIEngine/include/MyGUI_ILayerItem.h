@@ -19,7 +19,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ILayerItem
 	{
 	public:
-		virtual ~ILayerItem() { }
+		virtual ~ILayerItem() = default;
 
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 		virtual const IntCoord& getLayerItemCoord() const = 0;

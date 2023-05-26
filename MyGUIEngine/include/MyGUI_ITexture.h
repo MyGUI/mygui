@@ -19,7 +19,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ITextureInvalidateListener
 	{
 	public:
-		virtual ~ITextureInvalidateListener() { }
+		virtual ~ITextureInvalidateListener() = default;
 		// update texture after render device lost event
 		virtual void textureInvalidate(ITexture* _texture) = 0;
 	};
@@ -27,7 +27,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ITexture
 	{
 	public:
-		virtual ~ITexture() { }
+		virtual ~ITexture() = default;
 
 		virtual const std::string& getName() const = 0;
 

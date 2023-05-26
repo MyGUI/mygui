@@ -15,7 +15,7 @@ namespace demo
 	class IPointerSetter
 	{
 	public:
-		virtual ~IPointerSetter() { }
+		virtual ~IPointerSetter() = default;
 
 		virtual void setPointer(std::string_view _name) = 0;
 	};
