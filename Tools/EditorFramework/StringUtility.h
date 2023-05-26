@@ -9,31 +9,28 @@
 
 #include "MyGUI.h"
 
-namespace MyGUI
+namespace MyGUI::utility
 {
-	namespace utility
+
+	template<>
+	inline std::string toString<UString>(UString _value)
 	{
-
-		template<>
-		inline std::string toString<UString>(UString _value)
-		{
-			return _value;
-		}
-
-		template<>
-		inline UString parseValue<UString>(std::string_view _value)
-		{
-			return UString(_value);
-		}
-
-		template<>
-		inline bool parseComplex<UString>(std::string_view _value, UString& _p1)
-		{
-			_p1.assign(_value);
-			return true;
-		}
-
+		return _value;
 	}
+
+	template<>
+	inline UString parseValue<UString>(std::string_view _value)
+	{
+		return UString(_value);
+	}
+
+	template<>
+	inline bool parseComplex<UString>(std::string_view _value, UString& _p1)
+	{
+		_p1.assign(_value);
+		return true;
+	}
+
 }
 
 #endif
