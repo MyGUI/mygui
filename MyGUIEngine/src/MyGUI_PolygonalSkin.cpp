@@ -533,7 +533,7 @@ namespace MyGUI
 
 		// too sharp angle
 		if (std::fabs(angle) < 1e-6f /*< 0.2f*/)
-			return FloatPoint();
+			return {};
 
 		float width = mLineWidth / 2 / std::sin(angle);
 		result.left *= width;

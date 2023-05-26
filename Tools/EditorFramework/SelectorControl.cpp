@@ -154,7 +154,7 @@ namespace tools
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			return window->getActionScale();
-		return MyGUI::IntCoord();
+		return {};
 	}
 
 	void SelectorControl::setColour(MyGUI::Colour _value)

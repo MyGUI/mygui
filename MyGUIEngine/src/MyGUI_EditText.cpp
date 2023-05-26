@@ -450,7 +450,7 @@ namespace MyGUI
 	IntCoord EditText::getCursorCoord(size_t _position) const
 	{
 		if (nullptr == mFont)
-			return IntCoord();
+			return {};
 
 		if (mTextOutDate)
 			updateRawData();

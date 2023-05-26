@@ -308,12 +308,12 @@ namespace MyGUI
 
 	IntSize ScrollViewBase::getContentSize() const
 	{
-		return IntSize();
+		return {};
 	}
 
 	IntPoint ScrollViewBase::getContentPosition() const
 	{
-		return IntPoint();
+		return {};
 	}
 
 	void ScrollViewBase::setContentPosition(const IntPoint& _value)
@@ -322,7 +322,7 @@ namespace MyGUI
 
 	IntSize ScrollViewBase::getViewSize() const
 	{
-		return IntSize();
+		return {};
 	}
 
 	size_t ScrollViewBase::getHScrollPage() const

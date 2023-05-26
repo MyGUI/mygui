@@ -479,31 +479,34 @@ namespace pugi
 		// Find attribute using predicate. Returns first attribute for which predicate returned true.
 		template <typename Predicate> xml_attribute find_attribute(Predicate pred) const
 		{
-			if (!_root) return xml_attribute();
-			
+			if (!_root)
+				return {};
+
 			for (xml_attribute attrib = first_attribute(); attrib; attrib = attrib.next_attribute())
 				if (pred(attrib))
 					return attrib;
-		
-			return xml_attribute();
+
+			return {};
 		}
 
 		// Find child node using predicate. Returns first child for which predicate returned true.
 		template <typename Predicate> xml_node find_child(Predicate pred) const
 		{
-			if (!_root) return xml_node();
-	
+			if (!_root)
+				return {};
+
 			for (xml_node node = first_child(); node; node = node.next_sibling())
 				if (pred(node))
 					return node;
-		
-			return xml_node();
+
+			return {};
 		}
 
 		// Find node from subtree using predicate. Returns first node from subtree (depth-first), for which predicate returned true.
 		template <typename Predicate> xml_node find_node(Predicate pred) const
 		{
-			if (!_root) return xml_node();
+			if (!_root)
+				return {};
 
 			xml_node cur = first_child();
 			
@@ -521,7 +524,7 @@ namespace pugi
 				}
 			}
 
-			return xml_node();
+			return {};
 		}
 
 		// Find child node by attribute name/value

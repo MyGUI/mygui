@@ -95,13 +95,13 @@ namespace MyGUI
 		{
 			const std::vector<std::string>& vec = utility::split(_value, ".");
 			if (vec.empty())
-				return Version();
+				return {};
 
 			unsigned int major = utility::parseValue<unsigned int>(vec[0]);
 			unsigned int minor = vec.size() > 1 ? utility::parseValue<unsigned int>(vec[1]) : 0;
 			unsigned int patch = vec.size() > 2 ? utility::parseValue<unsigned int>(vec[2]) : 0;
 
-			return Version(major, minor, patch);
+			return {major, minor, patch};
 		}
 
 	private:

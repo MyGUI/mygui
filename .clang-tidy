@@ -8,7 +8,6 @@ Checks: '\
   -modernize-pass-by-value,\
   -modernize-use-nodiscard,\
   \
-  -modernize-return-braced-init-list,\
   -modernize-use-default-member-init,\
   -modernize-avoid-c-arrays'
 # options above are mostly TODO

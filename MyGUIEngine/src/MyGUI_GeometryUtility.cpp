@@ -93,7 +93,7 @@ namespace MyGUI::geometry_utility
 
 		float div = dirX.left * dirY.top - dirX.top * dirY.left;
 		if (div == 0.0f)
-			return FloatPoint();
+			return {};
 		return FloatPoint(
 			(point.top * dirX.left - point.left * dirX.top) / div,
 			(point.left * dirY.top - point.top * dirY.left) / div);

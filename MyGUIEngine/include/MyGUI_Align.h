@@ -104,12 +104,12 @@ namespace MyGUI
 
 		friend Align operator | (Enum const& a, Enum const& b)
 		{
-			return Align(Enum(int(a) | int(b)));
+			return {Enum(int(a) | int(b))};
 		}
 
 		friend Align operator | (Align const& a, Align const& b)
 		{
-			return Align(Enum(int(a.mValue) | int(b.mValue)));
+			return {Enum(int(a.mValue) | int(b.mValue))};
 		}
 
 		friend bool operator == (Align const& a, Align const& b)

@@ -88,7 +88,7 @@ namespace MyGUI
 		// возвращает положение курсора в обсолютных координатах
 		virtual IntCoord getCursorCoord(size_t /*_position*/) const
 		{
-			return IntCoord();
+			return {};
 		}
 
 		// возвращает положение курсора в обсолютных координатах
@@ -108,14 +108,14 @@ namespace MyGUI
 		// возвращает размер текста в пикселях
 		virtual IntSize getTextSize() const
 		{
-			return IntSize();
+			return {};
 		}
 
 		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(const IntPoint& /*_point*/) { }
 		virtual IntPoint getViewOffset() const
 		{
-			return IntPoint();
+			return {};
 		}
 
 		virtual void setCaption(const UString& /*_value*/) { }

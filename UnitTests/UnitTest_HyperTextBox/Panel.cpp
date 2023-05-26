@@ -81,7 +81,7 @@ namespace MyGUI
 		if (sizePtr != nullptr)
 			return *sizePtr;
 
-		return IntSize();
+		return {};
 	}
 
 	/*void Panel::invalidateMeasure(Widget* _widget)

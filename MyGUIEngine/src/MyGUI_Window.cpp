@@ -569,7 +569,7 @@ namespace MyGUI
 				if (mMovable)
 					return IntCoord(1, 1, 0, 0);
 				else
-					return IntCoord();
+					return {};
 			}
 
 			IntCoord coord;
@@ -598,7 +598,7 @@ namespace MyGUI
 			return coord;
 		}
 
-		return IntCoord();
+		return {};
 	}
 
 	void Window::setMovable(bool _value)

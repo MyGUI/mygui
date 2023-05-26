@@ -252,7 +252,7 @@ namespace tools
 		else if (_name == "Bottom")
 			return MyGUI::IntCoord(0, mTextureCoord.height - _offset, mTextureCoord.width, 1);
 
-		return MyGUI::IntCoord();
+		return {};
 	}
 
 	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name)

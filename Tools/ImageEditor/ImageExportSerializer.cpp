@@ -186,7 +186,7 @@ namespace tools
 	MyGUI::IntPoint ImageExportSerializer::getFirstFramePoint(DataPtr _data)
 	{
 		if (_data->getType()->getName() != "Group")
-			return MyGUI::IntPoint();
+			return {};
 
 		if (_data->getChilds().size() != 0)
 		{
@@ -197,8 +197,7 @@ namespace tools
 			}
 		}
 
-
-		return MyGUI::IntPoint();
+		return {};
 	}
 
 }

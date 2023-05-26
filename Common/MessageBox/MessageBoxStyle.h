@@ -66,12 +66,12 @@ namespace MyGUI
 
 		friend MessageBoxStyle operator | (Enum const& a, Enum const& b)
 		{
-			return MessageBoxStyle(Enum(int(a) | int(b)));
+			return {Enum(int(a) | int(b))};
 		}
 
 		MessageBoxStyle operator | (Enum const& a)
 		{
-			return MessageBoxStyle(Enum(int(mValue) | int(a)));
+			return {Enum(int(mValue) | int(a))};
 		}
 
 		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b)

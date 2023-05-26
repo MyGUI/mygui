@@ -74,12 +74,12 @@ namespace tools
 		if (_index != MyGUI::ITEM_NONE)
 		{
 			MyGUI::UString name = mField->getItemNameAt(_index);
-			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{});
+			return {MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{}};
 		}
 		else
 		{
 			MyGUI::UString name = mField->getCaption();
-			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{});
+			return {MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{}};
 		}
 	}
 

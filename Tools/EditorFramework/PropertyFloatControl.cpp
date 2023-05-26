@@ -90,7 +90,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, value1))
 			return MyGUI::utility::toString(value1);
 
-		return MyGUI::UString();
+		return {};
 	}
 
 	void PropertyFloatControl::setColour(bool _validate)

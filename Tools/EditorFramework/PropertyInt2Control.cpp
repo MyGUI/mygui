@@ -92,7 +92,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, value1, value2))
 			return MyGUI::utility::toString(value1, " ", value2);
 
-		return MyGUI::UString();
+		return {};
 	}
 
 	void PropertyInt2Control::setColour(bool _validate)

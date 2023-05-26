@@ -45,7 +45,7 @@ namespace tools
 				return possibleValue->values;
 			}
 		}
-		return VectorString();
+		return {};
 	}
 
 	WidgetStyle* WidgetTypes::getWidgetType(std::string_view _name)

@@ -135,12 +135,12 @@ namespace MyGUI
 
 		friend TextureUsage operator | (Enum const& a, Enum const& b)
 		{
-			return TextureUsage(Enum(int(a) | int(b)));
+			return {Enum(int(a) | int(b))};
 		}
 
 		friend TextureUsage operator | (TextureUsage const& a, TextureUsage const& b)
 		{
-			return TextureUsage(Enum(int(a.mValue) | int(b.mValue)));
+			return {Enum(int(a.mValue) | int(b.mValue))};
 		}
 
 		bool isValue(Enum _value) const

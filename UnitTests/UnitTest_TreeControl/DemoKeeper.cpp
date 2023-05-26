@@ -191,7 +191,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
 {
 	if (!pNode || pNode == mpResourcesTree->getRoot())
-		return MyGUI::UString();
+		return {};
 
 	MyGUI::UString strPath;
 	while (pNode->getParent() != mpResourcesTree->getRoot())

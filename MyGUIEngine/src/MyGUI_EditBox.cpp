@@ -1225,7 +1225,7 @@ namespace MyGUI
 	UString EditBox::getTextSelection() const
 	{
 		if ( !isTextSelection())
-			return UString();
+			return {};
 		size_t start = getTextSelectionStart();
 		size_t end =  getTextSelectionEnd();
 		return getTextInterval(start, end - start);

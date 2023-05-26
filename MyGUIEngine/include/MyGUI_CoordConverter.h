@@ -19,7 +19,8 @@ namespace MyGUI
 		/** Convert pixel coordinates to texture UV coordinates */
 		static FloatRect convertTextureCoord(const IntCoord& _coord, const IntSize& _textureSize)
 		{
-			if (!_textureSize.width || !_textureSize.height) return FloatRect();
+			if (!_textureSize.width || !_textureSize.height)
+				return {};
 			return FloatRect(
 				(float)_coord.left / (float)_textureSize.width,
 				(float)_coord.top / (float)_textureSize.height,
