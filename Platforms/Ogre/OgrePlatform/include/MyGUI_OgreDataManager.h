@@ -17,8 +17,6 @@ namespace MyGUI
 		public DataManager
 	{
 	public:
-		OgreDataManager();
-
 		void initialise(const std::string& _group);
 		void shutdown();
 
@@ -59,9 +57,9 @@ namespace MyGUI
 
 	private:
 		std::string mGroup;
-		bool mAllGroups;
+		bool mAllGroups{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

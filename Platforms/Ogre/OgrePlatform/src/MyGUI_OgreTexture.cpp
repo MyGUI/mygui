@@ -18,12 +18,7 @@ namespace MyGUI
 
 	OgreTexture::OgreTexture(const std::string& _name, const std::string& _group) :
 		mName(_name),
-		mGroup(_group),
-		mNumElemBytes(0),
-		mPixelFormat(Ogre::PF_UNKNOWN),
-		mUsage(Ogre::TU_DEFAULT),
-		mListener(nullptr),
-		mRenderTarget(nullptr)
+		mGroup(_group)
 	{
 		mTmpData.data = nullptr;
 	}

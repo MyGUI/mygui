@@ -13,12 +13,6 @@ namespace MyGUI
 
 	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
-	OgreVertexBuffer::OgreVertexBuffer() :
-		mVertexCount(0),
-		mNeedVertexCount(0)
-	{
-	}
-
 	OgreVertexBuffer::~OgreVertexBuffer()
 	{
 		destroy();

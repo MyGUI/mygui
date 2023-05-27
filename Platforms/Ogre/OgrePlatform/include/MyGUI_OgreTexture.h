@@ -91,13 +91,13 @@ namespace MyGUI
 
 		TextureUsage mOriginalUsage;
 		PixelFormat mOriginalFormat;
-		size_t mNumElemBytes;
+		size_t mNumElemBytes{0};
 
-		Ogre::PixelFormat mPixelFormat;
-		Ogre::TextureUsage mUsage;
+		Ogre::PixelFormat mPixelFormat{Ogre::PF_UNKNOWN};
+		Ogre::TextureUsage mUsage{Ogre::TU_DEFAULT};
 
-		ITextureInvalidateListener* mListener;
-		IRenderTarget* mRenderTarget;
+		ITextureInvalidateListener* mListener{nullptr};
+		IRenderTarget* mRenderTarget{nullptr};
 		Ogre::PixelBox mTmpData;
 	};
 

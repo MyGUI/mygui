@@ -23,8 +23,7 @@ namespace MyGUI
 	class OgrePlatform
 	{
 	public:
-		OgrePlatform() :
-			mIsInitialise(false)
+		OgrePlatform()
 		{
 			mLogManager = new LogManager();
 			mDataManager = new OgreDataManager();
@@ -75,7 +74,7 @@ namespace MyGUI
 		}
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		OgreRenderManager* mRenderManager;
 		OgreDataManager* mDataManager;
 		LogManager* mLogManager;

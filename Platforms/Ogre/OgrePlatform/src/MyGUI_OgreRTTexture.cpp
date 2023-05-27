@@ -14,8 +14,6 @@ namespace MyGUI
 {
 
 	OgreRTTexture::OgreRTTexture(Ogre::TexturePtr _texture) :
-		mViewport(nullptr),
-		mSaveViewport(nullptr),
 		mTexture(_texture)
 	{
 		Ogre::Root* root = Ogre::Root::getSingletonPtr();

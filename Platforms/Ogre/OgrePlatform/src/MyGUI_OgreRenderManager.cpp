@@ -27,18 +27,6 @@ namespace MyGUI
 		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	OgreRenderManager::OgreRenderManager() :
-		mUpdate(false),
-		mSceneManager(nullptr),
-		mWindow(nullptr),
-		mActiveViewport(0),
-		mRenderSystem(nullptr),
-		mIsInitialise(false),
-		mManualRender(false),
-		mCountBatch(0)
-	{
-	}
-
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");

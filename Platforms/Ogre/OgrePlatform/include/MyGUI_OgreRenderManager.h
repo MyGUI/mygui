@@ -32,8 +32,6 @@ namespace MyGUI
 		public Ogre::RenderSystem::Listener
 	{
 	public:
-		OgreRenderManager();
-
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
@@ -103,7 +101,7 @@ namespace MyGUI
 			const std::string& _fragmentProgramFile) override;
 
 #if MYGUI_DEBUG_MODE == 1
-		virtual bool checkTexture(ITexture* _texture);
+		bool checkTexture(ITexture* _texture) override;
 #endif
 
 		std::string getShaderExtension() const;
@@ -141,29 +139,29 @@ namespace MyGUI
 
 	private:
 		// флаг для обновления всех и вся
-		bool mUpdate;
+		bool mUpdate{false};
 
 		IntSize mViewSize;
 
-		Ogre::SceneManager* mSceneManager;
+		Ogre::SceneManager* mSceneManager{nullptr};
 
 		VertexColourType mVertexFormat;
 
 		// окно, на которое мы подписываемся для изменения размеров
-		Ogre::RenderWindow* mWindow;
+		Ogre::RenderWindow* mWindow{nullptr};
 
 		// вьюпорт, с которым работает система
-		unsigned short mActiveViewport;
+		unsigned short mActiveViewport{0};
 
-		Ogre::RenderSystem* mRenderSystem;
+		Ogre::RenderSystem* mRenderSystem{nullptr};
 		RenderTargetInfo mInfo;
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
 
-		bool mIsInitialise;
-		bool mManualRender;
-		size_t mCountBatch;
+		bool mIsInitialise{false};
+		bool mManualRender{false};
+		size_t mCountBatch{0};
 
 		OgreShaderInfo* mDefaultShader = nullptr;
 		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;

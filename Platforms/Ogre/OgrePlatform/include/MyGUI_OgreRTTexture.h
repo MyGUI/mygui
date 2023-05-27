@@ -34,8 +34,8 @@ namespace MyGUI
 
 	private:
 		RenderTargetInfo mRenderTargetInfo;
-		Ogre::Viewport* mViewport;
-		Ogre::Viewport* mSaveViewport;
+		Ogre::Viewport* mViewport{nullptr};
+		Ogre::Viewport* mSaveViewport{nullptr};
 		Ogre::TexturePtr mTexture;
 	};
 
