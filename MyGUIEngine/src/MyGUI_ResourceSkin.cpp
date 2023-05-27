@@ -13,8 +13,6 @@
 namespace MyGUI
 {
 
-	ResourceSkin::ResourceSkin() = default;
-
 	ResourceSkin::~ResourceSkin()
 	{
 		clear();

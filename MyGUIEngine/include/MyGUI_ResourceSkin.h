@@ -24,7 +24,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceSkin )
 
 	public:
-		ResourceSkin();
 		~ResourceSkin() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;

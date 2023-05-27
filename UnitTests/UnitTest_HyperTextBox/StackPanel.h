@@ -18,8 +18,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( StackPanel )
 
 	public:
-		StackPanel();
-
 		const IntSize& getSpacer() const;
 		void setSpacer(const IntSize& _value);
 

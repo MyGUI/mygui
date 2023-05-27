@@ -19,8 +19,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ScrollViewPanel )
 
 	public:
-		ScrollViewPanel();
-
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		void setPosition(const IntPoint& _value) override;
 		//! @copydoc Widget::setSize(const IntSize& _value)

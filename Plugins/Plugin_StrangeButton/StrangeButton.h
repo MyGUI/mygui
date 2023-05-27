@@ -17,9 +17,6 @@ namespace plugin
 	{
 		MYGUI_RTTI_DERIVED( StrangeButton )
 
-	public:
-		StrangeButton();
-
 	protected:
 		void onMouseLostFocus(MyGUI::Widget* _new) override;
 		void onMouseSetFocus(MyGUI::Widget* _old) override;

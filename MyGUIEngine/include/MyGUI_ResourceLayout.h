@@ -21,8 +21,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceLayout )
 
 	public:
-		ResourceLayout();
-
+		ResourceLayout() = default;
 		ResourceLayout(xml::ElementPtr _node, std::string_view _file);
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;

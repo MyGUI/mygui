@@ -24,8 +24,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( MultiListItem )
 
 	public:
-		MultiListItem();
-
 		/** Set item caption */
 		void setCaption(const UString& _value) override;
 		/** Get item caption */

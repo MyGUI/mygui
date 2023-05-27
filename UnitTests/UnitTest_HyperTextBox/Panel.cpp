@@ -10,8 +10,6 @@
 namespace MyGUI
 {
 
-	Panel::Panel() = default;
-
 	void Panel::setPosition(const IntPoint& _value)
 	{
 		Base::setPosition(_value);

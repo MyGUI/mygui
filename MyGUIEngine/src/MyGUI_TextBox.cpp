@@ -12,8 +12,6 @@
 namespace MyGUI
 {
 
-	TextBox::TextBox() = default;
-
 	IntCoord TextBox::getTextRegion() const
 	{
 		return (nullptr == getSubWidgetText()) ? IntCoord() : getSubWidgetText()->getCoord();

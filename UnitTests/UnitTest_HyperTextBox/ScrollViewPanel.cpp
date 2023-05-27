@@ -12,8 +12,6 @@
 namespace MyGUI
 {
 
-	ScrollViewPanel::ScrollViewPanel() = default;
-
 	void ScrollViewPanel::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);

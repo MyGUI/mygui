@@ -14,9 +14,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL ControlDebug :
 		public Control
 	{
-	public:
-		ControlDebug() = default;
-
 	protected:
 		using Control::OnInitialise;
 	};

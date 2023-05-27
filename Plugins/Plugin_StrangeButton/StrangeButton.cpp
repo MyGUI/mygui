@@ -11,8 +11,6 @@
 namespace plugin
 {
 
-	StrangeButton::StrangeButton() = default;
-
 	void StrangeButton::onMouseSetFocus(MyGUI::Widget* _old)
 	{
 		Base::onMouseSetFocus(_old);

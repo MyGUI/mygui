@@ -18,8 +18,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Panel )
 
 	public:
-		Panel();
-
 		/** Set widget position (position of left top corner) */
 		void setPosition(const IntPoint& _value) override;
 		/** Set widget size */

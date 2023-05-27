@@ -10,8 +10,6 @@
 namespace MyGUI
 {
 
-	TabItem::TabItem() = default;
-
 	void TabItem::initialiseOverride()
 	{
 		Base::initialiseOverride();

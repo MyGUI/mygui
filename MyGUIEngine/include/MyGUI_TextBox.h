@@ -22,8 +22,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( TextBox )
 
 	public:
-		TextBox();
-
 		/** Get text region coordinate */
 		virtual IntCoord getTextRegion() const;
 

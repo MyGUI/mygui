@@ -23,8 +23,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( TabItem )
 
 	public:
-		TabItem();
-
 		/** Set item caption */
 		void setCaption(const UString& _value) override;
 		/** Get item caption */
