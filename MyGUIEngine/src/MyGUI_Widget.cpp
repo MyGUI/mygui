@@ -411,7 +411,7 @@ namespace MyGUI
 	{
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getCoord();
-		return IntCoord(0, 0, mCoord.width, mCoord.height);
+		return {0, 0, mCoord.width, mCoord.height};
 	}
 
 	void Widget::setAlpha(float _alpha)

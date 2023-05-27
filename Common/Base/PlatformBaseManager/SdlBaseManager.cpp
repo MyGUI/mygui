@@ -269,7 +269,7 @@ namespace base
 		int left, top, width, height;
 		SDL_GetWindowPosition(mSdlWindow, &left, &top);
 		SDL_GetWindowSize(mSdlWindow, &width, &height);
-		return MyGUI::IntCoord(left, top, width, height);
+		return {left, top, width, height};
 	}
 
 	void SdlBaseManager::setWindowCaption(const std::wstring& _text)

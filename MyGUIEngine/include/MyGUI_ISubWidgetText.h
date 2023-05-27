@@ -95,14 +95,14 @@ namespace MyGUI
 		IntPoint getCursorPoint(size_t _position) const
 		{
 			const IntCoord& coord = getCursorCoord(_position);
-			return IntPoint(coord.left + coord.width / 2, coord.top + coord.height / 2);
+			return {coord.left + coord.width / 2, coord.top + coord.height / 2};
 		}
 
 		// возвращает положение курсора в обсолютных координатах
 		IntRect getCursorRect(size_t _position) const
 		{
 			const IntCoord& coord = getCursorCoord(_position);
-			return IntRect(coord.left, coord.top, coord.left + coord.width, coord.top + coord.height);
+			return {coord.left, coord.top, coord.left + coord.width, coord.top + coord.height};
 		}
 
 		// возвращает размер текста в пикселях

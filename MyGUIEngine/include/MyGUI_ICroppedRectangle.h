@@ -66,12 +66,12 @@ namespace MyGUI
 		/** Get rectangle in screen coordinates */
 		IntRect getAbsoluteRect() const
 		{
-			return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left + mCoord.width, mAbsolutePosition.top + mCoord.height);
+			return {mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left + mCoord.width, mAbsolutePosition.top + mCoord.height};
 		}
 		/** Get coordinate in screen coordinates */
 		IntCoord getAbsoluteCoord() const
 		{
-			return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height);
+			return {mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height};
 		}
 
 		/** Get X in screen coordinates */

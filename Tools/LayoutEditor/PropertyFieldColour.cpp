@@ -105,7 +105,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldColour::getContentSize()
 	{
-		return MyGUI::IntSize(0, mMainWidget->getHeight());
+		return {0, mMainWidget->getHeight()};
 	}
 
 	void PropertyFieldColour::setCoord(const MyGUI::IntCoord& _coord)

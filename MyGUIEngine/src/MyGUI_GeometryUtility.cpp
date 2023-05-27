@@ -94,16 +94,16 @@ namespace MyGUI::geometry_utility
 		float div = dirX.left * dirY.top - dirX.top * dirY.left;
 		if (div == 0.0f)
 			return {};
-		return FloatPoint(
+		return {
 			(point.top * dirX.left - point.left * dirX.top) / div,
-			(point.left * dirY.top - point.top * dirY.left) / div);
+			(point.left * dirY.top - point.top * dirY.left) / div};
 	}
 
 	FloatPoint getUVFromPositionInsideRect(const FloatPoint& _point, const FloatPoint& _v0, const FloatPoint& _v1, const FloatPoint& _baseUV)
 	{
-		return FloatPoint(
+		return {
 			_baseUV.left + _point.left * _v0.left + _point.top * _v1.left,
-			_baseUV.top  + _point.left * _v0.top  + _point.top * _v1.top);
+			_baseUV.top  + _point.left * _v0.top  + _point.top * _v1.top};
 	}
 
 } // namespace MyGUI

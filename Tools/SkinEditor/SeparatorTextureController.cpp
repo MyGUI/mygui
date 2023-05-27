@@ -237,13 +237,13 @@ namespace tools
 	MyGUI::IntCoord SeparatorTextureController::getCoordByName(std::string_view _name, int _offset)
 	{
 		if (_name == "Left")
-			return MyGUI::IntCoord(_offset, 0, 1, mTextureCoord.height);
+			return {_offset, 0, 1, mTextureCoord.height};
 		else if (_name == "Right")
-			return MyGUI::IntCoord(mTextureCoord.width - _offset, 0, 1, mTextureCoord.height);
+			return {mTextureCoord.width - _offset, 0, 1, mTextureCoord.height};
 		else if (_name == "Top")
-			return MyGUI::IntCoord(0, _offset, mTextureCoord.width, 1);
+			return {0, _offset, mTextureCoord.width, 1};
 		else if (_name == "Bottom")
-			return MyGUI::IntCoord(0, mTextureCoord.height - _offset, mTextureCoord.width, 1);
+			return {0, mTextureCoord.height - _offset, mTextureCoord.width, 1};
 
 		return {};
 	}

@@ -345,7 +345,7 @@ namespace MyGUI
 			top += mFontHeight;
 		}
 
-		return IntPoint((int)left, top);
+		return {(int)left, top};
 	}
 
 	const IntSize& TextView::getViewSize() const

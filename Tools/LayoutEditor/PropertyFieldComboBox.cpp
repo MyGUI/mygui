@@ -68,7 +68,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldComboBox::getContentSize()
 	{
-		return MyGUI::IntSize(0, mMainWidget->getHeight());
+		return {0, mMainWidget->getHeight()};
 	}
 
 	void PropertyFieldComboBox::setCoord(const MyGUI::IntCoord& _coord)

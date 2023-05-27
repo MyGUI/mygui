@@ -433,7 +433,7 @@ namespace MyGUI
 		point -= mViewOffset;
 		point += mCoord.point();
 
-		return IntCoord(point.left, point.top, 2, mFontHeight);
+		return {point.left, point.top, 2, mFontHeight};
 	}
 
 	void EditText::setShiftText(bool _value)

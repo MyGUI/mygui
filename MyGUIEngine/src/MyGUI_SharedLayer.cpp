@@ -110,7 +110,7 @@ namespace MyGUI
 
 	IntPoint SharedLayer::getPosition(int _left, int _top) const
 	{
-		return IntPoint(_left, _top);
+		return {_left, _top};
 	}
 
 	void SharedLayer::renderToTarget(IRenderTarget* _target, bool _update)

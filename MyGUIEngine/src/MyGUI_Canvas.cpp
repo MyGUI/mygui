@@ -282,7 +282,7 @@ namespace MyGUI
 
 	IntSize Canvas::getTextureRealSize() const
 	{
-		return IntSize( getTextureRealWidth(), getTextureRealHeight() );
+		return { getTextureRealWidth(), getTextureRealHeight() };
 	}
 
 	int Canvas::getTextureSrcWidth() const

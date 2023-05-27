@@ -1606,13 +1606,13 @@ namespace MyGUI
 
 	UString::operator std::string() const 
 	{
-		return std::string( asUTF8() );
+		return asUTF8();
 	}
 	
 	//! implicit cast to std::wstring
 	UString::operator std::wstring() const 
 	{
-		return std::wstring( asWStr() );
+		return asWStr();
 	}
 
 

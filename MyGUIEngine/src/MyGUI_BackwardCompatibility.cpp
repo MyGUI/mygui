@@ -642,11 +642,11 @@ namespace MyGUI
 	}
 	IntRect MemberObsolete<Window>::getMinMax() const
 	{
-		return IntRect(
+		return {
 			static_cast<const Window*>(this)->getMinSize().width,
 			static_cast<const Window*>(this)->getMinSize().height,
 			static_cast<const Window*>(this)->getMaxSize().width,
-			static_cast<const Window*>(this)->getMaxSize().height);
+			static_cast<const Window*>(this)->getMaxSize().height};
 	}
 
 	bool MemberObsolete<FontManager>::load(const std::string& _file)

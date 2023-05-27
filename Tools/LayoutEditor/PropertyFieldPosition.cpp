@@ -119,7 +119,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldPosition::getContentSize()
 	{
-		return MyGUI::IntSize(0, mMainWidget->getHeight());
+		return {0, mMainWidget->getHeight()};
 	}
 
 	void PropertyFieldPosition::setCoord(const MyGUI::IntCoord& _coord)

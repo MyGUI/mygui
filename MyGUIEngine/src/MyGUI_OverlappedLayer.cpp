@@ -144,7 +144,7 @@ namespace MyGUI
 
 	IntPoint OverlappedLayer::getPosition(int _left, int _top) const
 	{
-		return IntPoint(_left, _top);
+		return {_left, _top};
 	}
 
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)

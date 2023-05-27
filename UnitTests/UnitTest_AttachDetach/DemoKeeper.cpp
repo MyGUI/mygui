@@ -64,7 +64,7 @@ namespace demo
 
 	static MyGUI::IntCoord get_coord()
 	{
-		return MyGUI::IntCoord(random(500), random(500), random(500), random(500));
+		return {random(500), random(500), random(500), random(500)};
 	}
 
 	static void step_detach_layer()

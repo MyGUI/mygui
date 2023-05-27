@@ -451,7 +451,7 @@ namespace MyGUI
 
 	IntSize Window::getMinSize() const
 	{
-		return IntSize(mMinmax.left, mMinmax.top);
+		return {mMinmax.left, mMinmax.top};
 	}
 
 	void Window::setMaxSize(const IntSize& _value)
@@ -462,7 +462,7 @@ namespace MyGUI
 
 	IntSize Window::getMaxSize() const
 	{
-		return IntSize(mMinmax.right, mMinmax.bottom);
+		return {mMinmax.right, mMinmax.bottom};
 	}
 
 	void Window::setPropertyOverride(std::string_view _key, std::string_view _value)
@@ -556,7 +556,7 @@ namespace MyGUI
 			if (action == "Move")
 			{
 				if (mMovable)
-					return IntCoord(1, 1, 0, 0);
+					return {1, 1, 0, 0};
 				else
 					return {};
 			}

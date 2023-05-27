@@ -901,13 +901,13 @@ namespace MyGUI
 		// float ascent = _glyph->metrics.horiBearingY / 64.0f;
 		// float descent = (_glyph->metrics.height / 64.0f) - ascent;
 
-		return GlyphInfo(
+		return {
 			_codePoint,
 			std::max((float)_glyph->bitmap.width, _glyph->metrics.width / 64.0f),
 			std::max((float)_glyph->bitmap.rows, _glyph->metrics.height / 64.0f),
 			(_glyph->advance.x / 64.0f) - bearingX,
 			bearingX,
-			std::floor(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight));
+			std::floor(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight)};
 	}
 
 	int ResourceTrueTypeFont::createGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
