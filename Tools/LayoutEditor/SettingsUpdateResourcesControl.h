@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		SettingsUpdateResourcesControl();
 		~SettingsUpdateResourcesControl() override;
 
 	protected:
@@ -35,11 +34,11 @@ namespace tools
 		void notifyEndDialog(Dialog* _sender, bool _result);
 
 	private:
-		MyGUI::Button* mResourceAdd;
-		MyGUI::Button* mResourceDelete;
-		MyGUI::ListBox* mResources;
+		MyGUI::Button* mResourceAdd{nullptr};
+		MyGUI::Button* mResourceDelete{nullptr};
+		MyGUI::ListBox* mResources{nullptr};
 
-		TextFieldControl* mTextFieldControl;
+		TextFieldControl* mTextFieldControl{nullptr};
 	};
 
 }

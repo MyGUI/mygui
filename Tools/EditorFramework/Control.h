@@ -19,7 +19,6 @@ namespace tools
 		public components::IFactoryItem
 	{
 	public:
-		Control();
 		~Control() override;
 
 		MyGUI::Widget* getRoot();
@@ -96,7 +95,7 @@ namespace tools
 
 	private:
 		VectorControl mChilds;
-		Control* mParent;
+		Control* mParent{nullptr};
 		using VectorController = std::vector<IControlController*>;
 		VectorController mControllers;
 	};

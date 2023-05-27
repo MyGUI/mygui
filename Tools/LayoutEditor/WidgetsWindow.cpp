@@ -17,12 +17,7 @@ namespace tools
 {
 
 	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
-		BaseLayout("WidgetsWindow.layout", _parent),
-		mTabSkins(nullptr),
-		mPopupMode(nullptr),
-		mWidgetsButtonWidth(0),
-		mWidgetsButtonHeight(0),
-		mWidgetsButtonOffset(0)
+		BaseLayout("WidgetsWindow.layout", _parent)
 	{
 		assignWidget(mTabSkins, "tabSkins");
 		assignWidget(mPopupMode, "PopupMode");

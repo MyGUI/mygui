@@ -18,7 +18,6 @@ namespace tools
 		public Control
 	{
 	public:
-		TextFieldControl();
 		~TextFieldControl() override;
 
 		void setCaption(const MyGUI::UString& _value);
@@ -50,9 +49,9 @@ namespace tools
 		void notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus);
 
 	private:
-		MyGUI::EditBox* mText;
-		MyGUI::Button* mOk;
-		MyGUI::Button* mCancel;
+		MyGUI::EditBox* mText{nullptr};
+		MyGUI::Button* mOk{nullptr};
+		MyGUI::Button* mCancel{nullptr};
 	};
 
 }

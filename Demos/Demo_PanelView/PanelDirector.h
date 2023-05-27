@@ -37,9 +37,9 @@ namespace demo
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 
 	private:
-		MyGUI::Button* mCheckShowStatic;
-		MyGUI::Button* mCheckShowDynamic;
-		MyGUI::ComboBox* mComboCount;
+		MyGUI::Button* mCheckShowStatic{nullptr};
+		MyGUI::Button* mCheckShowDynamic{nullptr};
+		MyGUI::ComboBox* mComboCount{nullptr};
 	};
 
 } // namespace demo

@@ -16,7 +16,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyRegionTextTypeControl();
 		~PropertyRegionTextTypeControl() override;
 
 	protected:
@@ -30,8 +29,8 @@ namespace tools
 		size_t getComboIndex(const MyGUI::UString& _name);
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::ComboBox* mComboBox;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ComboBox* mComboBox{nullptr};
 	};
 
 }

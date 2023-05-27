@@ -340,36 +340,36 @@ namespace MyGUI
 
 	protected:
 		// нажата ли кнопка
-		bool mIsPressed;
+		bool mIsPressed{false};
 		// в фокусе ли кнопка
-		bool mIsFocus;
+		bool mIsFocus{false};
 
-		bool mCursorActive;
-		float mCursorTimer;
-		float mActionMouseTimer;
+		bool mCursorActive{false};
+		float mCursorTimer{0};
+		float mActionMouseTimer{0};
 
 		// позиция курсора
-		size_t mCursorPosition;
+		size_t mCursorPosition{0};
 		// максимальное колличество
-		size_t mTextLength;
+		size_t mTextLength{0};
 
 		// выделение
-		size_t mStartSelect;
-		size_t mEndSelect;
+		size_t mStartSelect{ITEM_NONE};
+		size_t mEndSelect{0};
 
 		// списоки изменений для отмены и повтора
 		DequeUndoRedoInfo mVectorUndoChangeInfo;
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
 
-		bool mMouseLeftPressed;
+		bool mMouseLeftPressed{false};
 
-		bool mModeReadOnly;
-		bool mModePassword;
-		bool mModeMultiline;
-		bool mModeStatic;
-		bool mModeWordWrap;
+		bool mModeReadOnly{false};
+		bool mModePassword{false};
+		bool mModeMultiline{false};
+		bool mModeStatic{false};
+		bool mModeWordWrap{false};
 
-		bool mTabPrinting;
+		bool mTabPrinting{false};
 
 		// настоящий текст, закрытый за звездочками
 		UString mPasswordText;
@@ -377,12 +377,12 @@ namespace MyGUI
 		// для поддержки режима статик, где курсор не нужен
 		std::string mOriginalPointer;
 
-		Char mCharPassword;
+		Char mCharPassword{'*'};
 
-		bool mOverflowToTheLeft;
+		bool mOverflowToTheLeft{false};
 		size_t mMaxTextLength;
 
-		ISubWidgetText* mClientText;
+		ISubWidgetText* mClientText{nullptr};
 	};
 
 } // namespace MyGUI

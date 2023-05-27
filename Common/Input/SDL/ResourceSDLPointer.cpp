@@ -10,11 +10,6 @@
 namespace input
 {
 
-	ResourceSDLPointer::ResourceSDLPointer() :
-		mCursorType(SDL_NUM_SYSTEM_CURSORS)
-	{
-	}
-
 	void ResourceSDLPointer::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
 	{
 		Base::deserialization(_node, _version);

@@ -18,7 +18,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(FontManager);
 
 	FontManager::FontManager() :
-		mIsInitialise(false),
 		mXmlFontTagName("Font"),
 		mXmlPropertyTagName("Property"),
 		mXmlDefaultFontValue("Default"),

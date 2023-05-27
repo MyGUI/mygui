@@ -16,18 +16,7 @@
 namespace MyGUI
 {
 
-	RenderItem::RenderItem() :
-		mTexture(nullptr),
-		mNeedVertexCount(0),
-		mOutOfDate(false),
-		mCountVertex(0),
-		mCurrentUpdate(true),
-		mCurrentVertex(nullptr),
-		mLastVertexCount(0),
-		mVertexBuffer(nullptr),
-		mRenderTarget(nullptr),
-		mNeedCompression(false),
-		mManualRender(false)
+	RenderItem::RenderItem()
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
 	}

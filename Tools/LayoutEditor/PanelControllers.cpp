@@ -15,16 +15,7 @@ namespace tools
 {
 
 	PanelControllers::PanelControllers() :
-		BasePanelViewItem("PanelControllers.layout"),
-		mControllerName(nullptr),
-		mButtonAdd(nullptr),
-		mButtonDelete(nullptr),
-		mList(nullptr),
-		mCurrentWidget(nullptr),
-		mButtonLeft(0),
-		mButtonRight(0),
-		mButtonSpace(0),
-		mIndexSelected(MyGUI::ITEM_NONE)
+		BasePanelViewItem("PanelControllers.layout")
 	{
 	}
 

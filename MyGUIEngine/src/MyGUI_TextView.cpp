@@ -32,14 +32,6 @@ namespace MyGUI
 	class RollBackPoint
 	{
 	public:
-		RollBackPoint() :
-			position(0),
-			count(0),
-			width(0),
-			rollback(false)
-		{
-		}
-
 		void set(size_t _position, const UString::utf32string::const_iterator& _space_point, size_t _count, float _width)
 		{
 			position = _position;
@@ -84,18 +76,12 @@ namespace MyGUI
 		}
 
 	private:
-		size_t position;
+		size_t position{0};
 		UString::utf32string::const_iterator space_point;
-		size_t count;
-		float width;
-		bool rollback;
+		size_t count{0};
+		float width{0};
+		bool rollback{false};
 	};
-
-	TextView::TextView() :
-		mLength(0),
-		mFontHeight(0)
-	{
-	}
 
 	void TextView::update(const UString::utf32string& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth)
 	{

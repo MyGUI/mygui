@@ -22,7 +22,6 @@ namespace tools
 		public Control
 	{
 	public:
-		TextureBrowseControl();
 		~TextureBrowseControl() override;
 
 		const std::string& getTextureName() const;
@@ -45,12 +44,12 @@ namespace tools
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(TextureBrowseControl, mOk, "OK");
-		MyGUI::Button* mOk;
+		MyGUI::Button* mOk{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(TextureBrowseControl, mCancel, "Cancel");
-		MyGUI::Button* mCancel;
+		MyGUI::Button* mCancel{nullptr};
 
-		wraps::BaseItemBox<TextureBrowseCell>* mTextures;
+		wraps::BaseItemBox<TextureBrowseCell>* mTextures{nullptr};
 
 		std::string mCurrentTextureName;
 	};

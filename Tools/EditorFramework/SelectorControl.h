@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		SelectorControl();
 		~SelectorControl() override;
 
 		void setVisible(bool _value);
@@ -57,8 +56,8 @@ namespace tools
 	private:
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::IntCoord mCoordReal;
-		double mScaleValue;
-		MyGUI::Widget* mProjection;
+		double mScaleValue{1.0};
+		MyGUI::Widget* mProjection{nullptr};
 		MyGUI::IntCoord mProjectionDiff;
 		std::string mPropertyColour;
 	};

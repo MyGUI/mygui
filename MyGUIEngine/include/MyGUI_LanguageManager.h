@@ -84,7 +84,7 @@ namespace MyGUI
 		using MapListString = std::map<std::string, VectorString, std::less<>>;
 		MapListString mMapFile;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mXmlLanguageTagName;
 	};
 

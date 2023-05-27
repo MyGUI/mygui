@@ -11,18 +11,6 @@
 namespace MyGUI
 {
 
-	ScrollViewBase::ScrollViewBase() :
-		mVScroll(nullptr),
-		mHScroll(nullptr),
-		mScrollViewClient(nullptr),
-		mVisibleHScroll(true),
-		mVisibleVScroll(true),
-		mVRange(0),
-		mHRange(0),
-		mChangeContentByResize(false)
-	{
-	}
-
 	void ScrollViewBase::updateScrollSize()
 	{
 		if (mScrollViewClient == nullptr)

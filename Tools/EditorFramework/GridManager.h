@@ -29,7 +29,7 @@ namespace tools
 	private:
 		void notifySettingsChanged(std::string_view _path);
 
-		int mGridStep;
+		int mGridStep{0};
 	};
 
 }

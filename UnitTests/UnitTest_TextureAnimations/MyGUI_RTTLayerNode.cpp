@@ -13,14 +13,7 @@ namespace MyGUI
 {
 
 	RTTLayerNode::RTTLayerNode(ILayer* _layer, ILayerNode* _parent) :
-		LayerNode(_layer, _parent),
-		mVertexBuffer(nullptr),
-		mTexture(nullptr),
-		mOutOfDateRtt(false),
-		mMajorUpdate(false),
-		mChacheUsing(true),
-		mDestroy(false),
-		mIsAnimate(false)
+		LayerNode(_layer, _parent)
 	{
 		mTimer.reset();
 	}

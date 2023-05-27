@@ -18,7 +18,6 @@ namespace tools
 		public Control
 	{
 	public:
-		TextureControl();
 		~TextureControl() override;
 
 		void setTextureValue(const MyGUI::UString& _value);
@@ -89,11 +88,11 @@ namespace tools
 		MyGUI::IntPoint getMousePosition();
 
 	private:
-		MyGUI::ScrollView* mView;
-		MyGUI::ImageBox* mTexture;
-		MyGUI::Widget* mBackground;
+		MyGUI::ScrollView* mView{nullptr};
+		MyGUI::ImageBox* mTexture{nullptr};
+		MyGUI::Widget* mBackground{nullptr};
 
-		double mScaleValue;
+		double mScaleValue{1.0};
 		MyGUI::IntSize mTextureSize;
 		MyGUI::IntCoord mTextureRegion;
 		MyGUI::Colour mCurrentColour;
@@ -102,10 +101,10 @@ namespace tools
 
 		MyGUI::IntPoint mRightMouseClick;
 		MyGUI::IntPoint mViewOffset;
-		bool mMouseCapture;
+		bool mMouseCapture{false};
 
 		MyGUI::FloatPoint mMouseRelative;
-		bool mMouseLeftPressed;
+		bool mMouseLeftPressed{false};
 	};
 
 }

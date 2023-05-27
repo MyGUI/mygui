@@ -31,11 +31,11 @@ namespace tools
 		void setPosition(const MyGUI::IntPoint& _point);
 
 	private:
-		MyGUI::EditBox* mText;
-		MyGUI::Widget* mLastWidget;
+		MyGUI::EditBox* mText{nullptr};
+		MyGUI::Widget* mLastWidget{nullptr};
 
-		int mMinWidth;
-		int mMinHeight;
+		int mMinWidth{0};
+		int mMinHeight{0};
 	};
 
 }

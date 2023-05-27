@@ -11,14 +11,6 @@
 namespace tools
 {
 
-	PropertyColourControl::PropertyColourControl() :
-		mName(nullptr),
-		mEdit(nullptr),
-		mColour(nullptr),
-		mColourPanel(nullptr)
-	{
-	}
-
 	PropertyColourControl::~PropertyColourControl()
 	{
 		delete mColourPanel;

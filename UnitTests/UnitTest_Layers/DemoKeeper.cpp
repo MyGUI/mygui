@@ -18,16 +18,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mKeyboardPanel(nullptr),
-		mMonitorPanel(nullptr),
-		mCommandManager(nullptr),
-		mRightButtonPressed(false),
-		mSaveCursorX(0),
-		mSaveCursorY(0)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

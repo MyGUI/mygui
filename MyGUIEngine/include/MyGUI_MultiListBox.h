@@ -44,8 +44,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( MultiListBox )
 
 	public:
-		MultiListBox();
-
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		void setPosition(const IntPoint& _value) override;
 		//! @copydoc Widget::setSize(const IntSize& _value)
@@ -362,28 +360,28 @@ namespace MyGUI
 		int updateWidthColumns(size_t& _countStars, size_t& _lastIndexStar);
 
 	private:
-		int mHeightButton;
-		int mWidthBar;
+		int mHeightButton{0};
+		int mWidthBar{0};
 		std::string mSkinButton;
 		std::string mSkinList;
-		Widget* mWidgetEmpty;
+		Widget* mWidgetEmpty{nullptr};
 
 		VectorColumnInfo mVectorColumnInfo;
 
 		VectorWidgetPtr mSeparators;
 
-		size_t mLastMouseFocusIndex;
+		size_t mLastMouseFocusIndex{ITEM_NONE};
 
-		bool mSortUp;
-		size_t mSortColumnIndex;
+		bool mSortUp{true};
+		size_t mSortColumnIndex{ITEM_NONE};
 
-		int mWidthSeparator;
+		int mWidthSeparator{0};
 		std::string mSkinSeparator;
 
-		size_t mItemSelected;
+		size_t mItemSelected{ITEM_NONE};
 
-		bool mFrameAdvise;
-		Widget* mHeaderPlace;
+		bool mFrameAdvise{false};
+		Widget* mHeaderPlace{nullptr};
 	};
 
 } // namespace MyGUI

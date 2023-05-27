@@ -21,8 +21,6 @@ namespace MyGUI
 		public ILayerItem
 	{
 	public:
-		LayerItem();
-
 		ILayer* getLayer() const;
 		ILayerNode* getLayerNode() const;
 
@@ -50,10 +48,10 @@ namespace MyGUI
 
 	private:
 		// актуально для рутового виджета
-		ILayer* mLayer;
+		ILayer* mLayer{nullptr};
 		// конкретный айтем находящийся в слое
-		ILayerNode* mLayerNode;
-		ILayerNode* mSaveLayerNode;
+		ILayerNode* mLayerNode{nullptr};
+		ILayerNode* mSaveLayerNode{nullptr};
 
 		using VectorLayerItem = std::vector<LayerItem*>;
 		// список наших детей айтемов
@@ -64,7 +62,7 @@ namespace MyGUI
 		// вектор всех детей сабскинов
 		VectorSubWidget mDrawItems;
 
-		ITexture* mTexture;
+		ITexture* mTexture{nullptr};
 	};
 
 } // namespace MyGUI

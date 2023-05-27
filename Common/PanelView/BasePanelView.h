@@ -24,10 +24,7 @@ namespace wraps
 
 	public:
 		BasePanelView(std::string_view _layout, MyGUI::Widget* _parent) :
-			BaseLayout(_layout, _parent),
-			mNeedUpdate(false),
-			mOldClientWidth(0),
-			mFirstInitialise(false)
+			BaseLayout(_layout, _parent)
 		{
 			mScrollView = mMainWidget->castType<MyGUI::ScrollView>();
 
@@ -221,10 +218,10 @@ namespace wraps
 
 	private:
 		VectorCell mItems;
-		bool mNeedUpdate;
-		int mOldClientWidth;
+		bool mNeedUpdate{false};
+		int mOldClientWidth{0};
 		MyGUI::IntSize mOldSize;
-		bool mFirstInitialise;
+		bool mFirstInitialise{false};
 	};
 
 } // namespace wraps

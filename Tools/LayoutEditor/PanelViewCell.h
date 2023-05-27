@@ -17,8 +17,7 @@ namespace tools
 	{
 	public:
 		PanelViewCell(MyGUI::Widget* _parent) :
-			BasePanelViewCell("PanelCell.layout", _parent),
-			mButtonMinimize(nullptr)
+			BasePanelViewCell("PanelCell.layout", _parent)
 		{
 			assignWidget(mTextCaption, "text_Caption");
 			assignWidget(mButtonMinimize, "button_Minimize");
@@ -49,8 +48,7 @@ namespace tools
 		}
 
 	private:
-		MyGUI::Button* mButtonMinimize;
-
+		MyGUI::Button* mButtonMinimize{nullptr};
 	};
 
 }

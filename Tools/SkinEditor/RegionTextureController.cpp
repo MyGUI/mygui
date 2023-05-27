@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(RegionTextureController)
 
-	RegionTextureController::RegionTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void RegionTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

@@ -18,14 +18,11 @@ namespace tools
 		public Control,
 		public sigslot::has_slots<>
 	{
-	public:
-		RegionListControl();
-
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
-		ListBoxDataControl* mListBoxControl;
+		ListBoxDataControl* mListBoxControl{nullptr};
 	};
 
 }

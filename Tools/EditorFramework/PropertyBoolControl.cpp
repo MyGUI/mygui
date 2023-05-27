@@ -10,12 +10,6 @@
 namespace tools
 {
 
-	PropertyBoolControl::PropertyBoolControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyBoolControl::~PropertyBoolControl()
 	{
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);

@@ -17,7 +17,6 @@ namespace tools
 
 	PanelMainProperties::PanelMainProperties() :
 		BasePanelViewItem("PanelMainProperties.layout"),
-		mCurrentWidget(nullptr),
 		mUserDataTargetType("LE_TargetWidgetType")
 	{
 	}

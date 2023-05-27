@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		MainMenuControl();
 		~MainMenuControl() override;
 
 	protected:
@@ -31,8 +30,8 @@ namespace tools
 		void updateRecentFilesMenu();
 
 	private:
-		MyGUI::MenuBar* mMainMenu;
-		MyGUI::MenuItem* mScaleMenu;
+		MyGUI::MenuBar* mMainMenu{nullptr};
+		MyGUI::MenuItem* mScaleMenu{nullptr};
 	};
 
 }

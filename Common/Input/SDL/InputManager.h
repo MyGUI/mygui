@@ -55,12 +55,12 @@ namespace input
 		void buildVKeyMap();
 		void buildMouseButtonMap();
 	private:
-		int mMouseX;
-		int mMouseY;
-		int mMouseZ;
-		bool mMouseMove;
-		int mWidth;
-		int mHeight;
+		int mMouseX{0};
+		int mMouseY{0};
+		int mMouseZ{0};
+		bool mMouseMove{false};
+		int mWidth{0};
+		int mHeight{0};
 		std::map<int, MyGUI::KeyCode> mSDLVKeyMap;
 		std::map<int, MyGUI::MouseButton> mSDLMouseMap;
 	};

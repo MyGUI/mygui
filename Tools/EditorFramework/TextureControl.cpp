@@ -11,16 +11,6 @@
 namespace tools
 {
 
-	TextureControl::TextureControl() :
-		mView(nullptr),
-		mTexture(nullptr),
-		mBackground(nullptr),
-		mScaleValue(1.0),
-		mMouseCapture(false),
-		mMouseLeftPressed(false)
-	{
-	}
-
 	TextureControl::~TextureControl()
 	{
 		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);

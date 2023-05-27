@@ -16,11 +16,6 @@ namespace MyGUI
 	class MYGUI_EXPORT ICroppedRectangle
 	{
 	public:
-		ICroppedRectangle() :
-			mIsMargin(false),
-			mCroppedParent(nullptr)
-		{ }
-
 		virtual ~ICroppedRectangle() = default;
 
 		/** Get parent ICroppedRectangle */
@@ -245,8 +240,8 @@ namespace MyGUI
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
-		bool mIsMargin;
-		ICroppedRectangle* mCroppedParent;
+		bool mIsMargin{false};
+		ICroppedRectangle* mCroppedParent{nullptr};
 	};
 
 } // namespace MyGUI

@@ -16,7 +16,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL Dialog
 	{
 	public:
-		Dialog();
 		virtual ~Dialog() = default;
 
 		void setDialogRoot(MyGUI::Widget* _root);
@@ -32,8 +31,8 @@ namespace tools
 		virtual void onEndModal() { }
 
 	private:
-		bool mModal;
-		MyGUI::Widget* mRootWidget;
+		bool mModal{false};
+		MyGUI::Widget* mRootWidget{nullptr};
 	};
 
 }

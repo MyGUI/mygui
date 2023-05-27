@@ -18,12 +18,6 @@ namespace base
 		public BaseManager
 	{
 	public:
-		BaseDemoManager() :
-			mInfo(nullptr),
-			mFocusInfo(nullptr)
-		{
-		}
-
 		diagnostic::StatisticInfo* getStatisticInfo()
 		{
 			return mInfo;
@@ -97,8 +91,8 @@ namespace base
 		}
 
 	private:
-		diagnostic::StatisticInfo* mInfo;
-		diagnostic::InputFocusInfo* mFocusInfo;
+		diagnostic::StatisticInfo* mInfo{nullptr};
+		diagnostic::InputFocusInfo* mFocusInfo{nullptr};
 	};
 
 }

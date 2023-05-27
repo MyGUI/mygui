@@ -56,8 +56,6 @@ namespace MyGUI
 
 		using VectorNodePtr = Node::VectorGenericNodePtr;
 
-		TreeControl();
-
 		Node* getRoot() const;
 		void setRootVisible(bool bValue);
 		bool isRootVisible() const;
@@ -106,21 +104,21 @@ namespace MyGUI
 		void sendScrollingEvents(size_t nPosition);
 
 	private:
-		ScrollBar* mpWidgetScroll;
+		ScrollBar* mpWidgetScroll{nullptr};
 		VectorTreeItemPtr mItemWidgets;
 		UString mstrSkinLine;
-		bool mbScrollAlwaysVisible;
-		bool mbInvalidated;
-		bool mbRootVisible;
-		int mnItemHeight;
-		int mnScrollRange;
-		int mnTopIndex;
-		int mnTopOffset;
-		size_t mnFocusIndex;
-		Node* mpSelection;
-		Node* mpRoot;
-		size_t mnExpandedNodes;
-		int mnLevelOffset;
+		bool mbScrollAlwaysVisible{true};
+		bool mbInvalidated{false};
+		bool mbRootVisible{false};
+		int mnItemHeight{1};
+		int mnScrollRange{-1};
+		int mnTopIndex{0};
+		int mnTopOffset{0};
+		size_t mnFocusIndex{ITEM_NONE};
+		Node* mpSelection{nullptr};
+		Node* mpRoot{nullptr};
+		size_t mnExpandedNodes{0};
+		int mnLevelOffset{0};
 	};
 
 

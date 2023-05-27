@@ -50,7 +50,7 @@ namespace MyGUI
 	private:
 		std::string mDefaultName;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mXmlSkinTagName;
 		std::string mXmlDefaultSkinValue;
 	};

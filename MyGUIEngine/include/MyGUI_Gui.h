@@ -172,24 +172,24 @@ namespace MyGUI
 		VectorWidgetPtr mWidgetChild;
 
 		// синглтоны гуя
-		InputManager* mInputManager;
-		SubWidgetManager* mSubWidgetManager;
-		LayerManager* mLayerManager;
-		SkinManager* mSkinManager;
-		WidgetManager* mWidgetManager;
-		FontManager* mFontManager;
-		ControllerManager* mControllerManager;
-		PointerManager* mPointerManager;
-		ClipboardManager* mClipboardManager;
-		LayoutManager* mLayoutManager;
-		DynLibManager* mDynLibManager;
-		PluginManager* mPluginManager;
-		LanguageManager* mLanguageManager;
-		ResourceManager* mResourceManager;
-		FactoryManager* mFactoryManager;
-		ToolTipManager* mToolTipManager;
+		InputManager* mInputManager{nullptr};
+		SubWidgetManager* mSubWidgetManager{nullptr};
+		LayerManager* mLayerManager{nullptr};
+		SkinManager* mSkinManager{nullptr};
+		WidgetManager* mWidgetManager{nullptr};
+		FontManager* mFontManager{nullptr};
+		ControllerManager* mControllerManager{nullptr};
+		PointerManager* mPointerManager{nullptr};
+		ClipboardManager* mClipboardManager{nullptr};
+		LayoutManager* mLayoutManager{nullptr};
+		DynLibManager* mDynLibManager{nullptr};
+		PluginManager* mPluginManager{nullptr};
+		LanguageManager* mLanguageManager{nullptr};
+		ResourceManager* mResourceManager{nullptr};
+		FactoryManager* mFactoryManager{nullptr};
+		ToolTipManager* mToolTipManager{nullptr};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

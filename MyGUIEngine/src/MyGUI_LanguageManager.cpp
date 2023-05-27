@@ -18,7 +18,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(LanguageManager);
 
 	LanguageManager::LanguageManager() :
-		mIsInitialise(false),
 		mXmlLanguageTagName("Language"),
 		mSingletonHolder(this)
 	{

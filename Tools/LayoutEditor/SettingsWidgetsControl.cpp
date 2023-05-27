@@ -14,13 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SettingsWidgetsControl)
 
-	SettingsWidgetsControl::SettingsWidgetsControl() :
-		mCheckShowName(nullptr),
-		mCheckShowType(nullptr),
-		mCheckShowSkin(nullptr)
-	{
-	}
-
 	SettingsWidgetsControl::~SettingsWidgetsControl()
 	{
 		mCheckShowName->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);

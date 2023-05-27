@@ -15,12 +15,8 @@ namespace MyGUI
 {
 
 	LayerNode::LayerNode(ILayer* _layer, ILayerNode* _parent) :
-		mLastNotEmptyItem(0),
 		mParent(_parent),
-		mLayer(_layer),
-		mOutOfDate(false),
-		mOutOfDateCompression(false),
-		mDepth(0.0f)
+		mLayer(_layer)
 	{
 	}
 

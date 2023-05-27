@@ -16,11 +16,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(StatisticInfoControl)
 
-	StatisticInfoControl::StatisticInfoControl() :
-		mText(nullptr)
-	{
-	}
-
 	StatisticInfoControl::~StatisticInfoControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &StatisticInfoControl::notifyFrameStart);

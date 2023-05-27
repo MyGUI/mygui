@@ -20,7 +20,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( RTTLayer )
 
 	public:
-		RTTLayer();
 		~RTTLayer() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -38,7 +37,7 @@ namespace MyGUI
 
 	private:
 		Version mVersion;
-		xml::ElementPtr mData;
+		xml::ElementPtr mData{nullptr};
 	};
 
 } // namespace MyGUI

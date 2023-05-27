@@ -18,7 +18,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyTexturesControl();
 		~PropertyTexturesControl() override;
 
 	protected:
@@ -38,12 +37,12 @@ namespace tools
 		void updateTexture();
 
 	private:
-		MyGUI::ImageBox* mImage;
-		MyGUI::TextBox* mName;
-		MyGUI::ComboBox* mComboBox;
-		MyGUI::Button* mBrowse;
+		MyGUI::ImageBox* mImage{nullptr};
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ComboBox* mComboBox{nullptr};
+		MyGUI::Button* mBrowse{nullptr};
 
-		TextureBrowseControl* mTextureBrowseControl;
+		TextureBrowseControl* mTextureBrowseControl{nullptr};
 		MyGUI::VectorString mTextures;
 		MyGUI::IntSize mTextureSize;
 	};

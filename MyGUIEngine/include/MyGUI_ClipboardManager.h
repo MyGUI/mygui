@@ -70,7 +70,7 @@ namespace MyGUI
 		WindowsClipboardHandler* mWindowsClipboardHandler;
 #endif
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

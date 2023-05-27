@@ -10,10 +10,7 @@ namespace demo
 {
 
 	PanelDirector::PanelDirector() :
-		BasePanelViewItem("PanelDirector.layout"),
-		mCheckShowStatic(nullptr),
-		mCheckShowDynamic(nullptr),
-		mComboCount(nullptr)
+		BasePanelViewItem("PanelDirector.layout")
 	{
 	}
 

@@ -21,7 +21,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(ControllerManager);
 
 	ControllerManager::ControllerManager() :
-		mIsInitialise(false),
 		mCategoryName("Controller"),
 		mSingletonHolder(this)
 	{

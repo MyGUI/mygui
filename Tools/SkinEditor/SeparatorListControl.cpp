@@ -25,11 +25,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SeparatorListControl)
 
-	SeparatorListControl::SeparatorListControl() :
-		mListBoxControl(nullptr)
-	{
-	}
-
 	void SeparatorListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

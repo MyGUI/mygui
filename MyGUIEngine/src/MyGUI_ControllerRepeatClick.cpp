@@ -9,12 +9,6 @@
 
 namespace MyGUI
 {
-	ControllerRepeatClick::ControllerRepeatClick() :
-		mInit(0.5f),
-		mStep(0.1f),
-		mTimeLeft(0)
-	{
-	}
 
 	bool ControllerRepeatClick::addTime(MyGUI::Widget* _widget, float _time)
 	{

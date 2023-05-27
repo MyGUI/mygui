@@ -21,7 +21,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		ColourPanel();
 		~ColourPanel() override;
 
 		void setColour(const MyGUI::Colour& _colour);
@@ -67,49 +66,49 @@ namespace tools
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourRect, "widget_ColourRect");
-		MyGUI::ImageBox* mColourRect;
+		MyGUI::ImageBox* mColourRect{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourView, "widget_ColourView");
-		MyGUI::Widget* mColourView;
+		MyGUI::Widget* mColourView{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mImageColourPicker, "image_Picker");
-		MyGUI::ImageBox* mImageColourPicker;
+		MyGUI::ImageBox* mImageColourPicker{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditRed, "edit_Red");
-		MyGUI::EditBox* mEditRed;
+		MyGUI::EditBox* mEditRed{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditGreen, "edit_Green");
-		MyGUI::EditBox* mEditGreen;
+		MyGUI::EditBox* mEditGreen{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditBlue, "edit_Blue");
-		MyGUI::EditBox* mEditBlue;
+		MyGUI::EditBox* mEditBlue{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mInputAlpha, "InputAlpha");
-		MyGUI::EditBox* mInputAlpha;
+		MyGUI::EditBox* mInputAlpha{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mTextAlpha, "TextAlpha");
-		MyGUI::TextBox* mTextAlpha;
+		MyGUI::TextBox* mTextAlpha{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mScrollRange, "scroll_Range");
-		MyGUI::ScrollBar* mScrollRange;
+		MyGUI::ScrollBar* mScrollRange{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSliderBack, "AlphaSliderBack");
-		MyGUI::Widget* mAlphaSliderBack;
+		MyGUI::Widget* mAlphaSliderBack{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSliderPlace, "AlphaSliderPlace");
-		MyGUI::Widget* mAlphaSliderPlace;
+		MyGUI::Widget* mAlphaSliderPlace{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSlider, "AlphaSlider");
-		MyGUI::ScrollBar* mAlphaSlider;
+		MyGUI::ScrollBar* mAlphaSlider{nullptr};
 
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mBaseColour;
 
 		std::vector<MyGUI::Colour> mColourRange;
 
-		MyGUI::ITexture* mTexture;
+		MyGUI::ITexture* mTexture{nullptr};
 		MyGUI::UString mTextureName;
-		bool mAlphaSupport;
+		bool mAlphaSupport{true};
 	};
 
 }

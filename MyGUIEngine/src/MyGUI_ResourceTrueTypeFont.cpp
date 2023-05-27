@@ -264,24 +264,6 @@ namespace MyGUI
 	const float ResourceTrueTypeFont::mSelectedWidth = 1.0f;
 	const float ResourceTrueTypeFont::mCursorWidth = 2.0f;
 
-	ResourceTrueTypeFont::ResourceTrueTypeFont() :
-		mSize(0),
-		mResolution(96),
-		mHinting(HintingUseNative),
-		mAntialias(false),
-		mSpaceWidth(0.0f),
-		mGlyphSpacing(-1),
-		mTabWidth(0.0f),
-		mOffsetHeight(0),
-		mSubstituteCodePoint(static_cast<Char>(FontCodeType::NotDefined)),
-		mMsdfMode(false),
-		mMsdfRange(2),
-		mDefaultHeight(0),
-		mSubstituteGlyphInfo(nullptr),
-		mTexture(nullptr)
-	{
-	}
-
 	ResourceTrueTypeFont::~ResourceTrueTypeFont()
 	{
 		if (mTexture != nullptr)

@@ -15,12 +15,6 @@
 namespace tools
 {
 
-	PropertyPanelController::PropertyPanelController() :
-		mControl(nullptr),
-		mParentType(nullptr)
-	{
-	}
-
 	void PropertyPanelController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<PropertyPanelControl>();

@@ -22,11 +22,6 @@
 namespace tools
 {
 
-	DataListBaseControl::DataListBaseControl() :
-		mListBoxControl(nullptr)
-	{
-	}
-
 	void DataListBaseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

@@ -35,8 +35,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Window )
 
 	public:
-		Window();
-
 		/** @copydoc Widget::setVisible */
 		void setVisible(bool _value) override;
 
@@ -142,27 +140,27 @@ namespace MyGUI
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
-		TextBox* mWidgetCaption;
+		TextBox* mWidgetCaption{nullptr};
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;
 
 		// наши главные фокусы
-		bool mMouseRootFocus;
-		bool mKeyRootFocus;
+		bool mMouseRootFocus{false};
+		bool mKeyRootFocus{false};
 
 		// автоматическое или ручное управление альфой
-		bool mIsAutoAlpha;
+		bool mIsAutoAlpha{false};
 
 		// минимальные и максимальные размеры окна
 		IntRect mMinmax;
 
-		bool mSnap; // прилеплять ли к краям
+		bool mSnap{false}; // прилеплять ли к краям
 
 		IntCoord mCurrentActionScale;
-		bool mAnimateSmooth;
+		bool mAnimateSmooth{false};
 
-		bool mMovable;
+		bool mMovable{true};
 	};
 
 } // namespace MyGUI

@@ -34,8 +34,8 @@ namespace tools
 		void notifyEndDialogTest(Dialog* _sender, bool _result);
 
 	private:
-		TestWindow* mTestWindow;
-		Control* mBack;
+		TestWindow* mTestWindow{nullptr};
+		Control* mBack{nullptr};
 	};
 
 }

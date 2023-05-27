@@ -18,8 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		SeparatorTextureController();
-
 		void setTarget(Control* _control) override;
 
 		void activate() override;
@@ -39,12 +37,12 @@ namespace tools
 		int getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name);
 
 	private:
-		ScopeTextureControl* mControl;
+		ScopeTextureControl* mControl{nullptr};
 		std::string mParentTypeName;
 		std::string mScopeName;
 		std::string mThisType;
-		DataPtr mParentData;
-		bool mActivated;
+		DataPtr mParentData{nullptr};
+		bool mActivated{false};
 		MyGUI::IntCoord mTextureCoord;
 		ScopeTextureControl::VectorCoord mFrames;
 	};

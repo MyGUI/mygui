@@ -10,13 +10,6 @@
 namespace tools
 {
 
-	TextFieldControl::TextFieldControl() :
-		mText(nullptr),
-		mOk(nullptr),
-		mCancel(nullptr)
-	{
-	}
-
 	TextFieldControl::~TextFieldControl()
 	{
 		mMainWidget->eventRootKeyChangeFocus -= MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);

@@ -10,15 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mMenu1(nullptr),
-		mMenu2(nullptr),
-		mMenu3(nullptr),
-		mMenu4(nullptr),
-		mIsAnim(false)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

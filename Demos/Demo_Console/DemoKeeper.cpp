@@ -10,12 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mConsole(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

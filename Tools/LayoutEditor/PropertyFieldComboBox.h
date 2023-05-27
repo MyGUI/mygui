@@ -42,9 +42,9 @@ namespace tools
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
 
 	protected:
-		MyGUI::TextBox* mText;
-		MyGUI::ComboBox* mField;
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::TextBox* mText{nullptr};
+		MyGUI::ComboBox* mField{nullptr};
+		MyGUI::Widget* mCurrentWidget{nullptr};
 		std::string mType;
 		std::string mName;
 	};

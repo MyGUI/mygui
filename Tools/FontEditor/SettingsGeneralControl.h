@@ -17,7 +17,6 @@ namespace tools
 		public Control
 	{
 	public:
-		SettingsGeneralControl();
 		~SettingsGeneralControl() override;
 
 	protected:
@@ -38,11 +37,11 @@ namespace tools
 		NullTerminatedStringView getLanguageValue();
 
 	private:
-		int mGridStep;
+		int mGridStep{0};
 
-		MyGUI::EditBox* mGridEdit;
-		MyGUI::Button* mSaveLastTexture;
-		MyGUI::ComboBox* mInterfaceLanguage;
+		MyGUI::EditBox* mGridEdit{nullptr};
+		MyGUI::Button* mSaveLastTexture{nullptr};
+		MyGUI::ComboBox* mInterfaceLanguage{nullptr};
 	};
 
 }

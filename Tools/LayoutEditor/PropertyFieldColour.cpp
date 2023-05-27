@@ -16,13 +16,7 @@ namespace tools
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldColour::PropertyFieldColour(MyGUI::Widget* _parent) :
-		BaseLayout("PropertyFieldColour.layout", _parent),
-		mText(nullptr),
-		mField(nullptr),
-		mColourPlace(nullptr),
-		mCurrentWidget(nullptr),
-		mColourPanel(nullptr),
-		mGoodData(false)
+		BaseLayout("PropertyFieldColour.layout", _parent)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");

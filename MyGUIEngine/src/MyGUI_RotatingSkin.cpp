@@ -14,13 +14,7 @@
 namespace MyGUI
 {
 
-	RotatingSkin::RotatingSkin() :
-		mGeometryOutdated(false),
-		mAngle(0.0f),
-		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
-		mNode(nullptr),
-		mRenderItem(nullptr)
+	RotatingSkin::RotatingSkin()
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}

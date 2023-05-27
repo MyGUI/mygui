@@ -20,7 +20,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( RTTLayer )
 
 	public:
-		RTTLayer();
 		~RTTLayer() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -33,10 +32,10 @@ namespace MyGUI
 		const IntSize& getSize() const override;
 
 	private:
-		MyGUI::ITexture* mTexture;
+		MyGUI::ITexture* mTexture{nullptr};
 		IntSize mTextureSize;
 		std::string mTextureName;
-		bool mOutOfDateRtt;
+		bool mOutOfDateRtt{false};
 	};
 
 }

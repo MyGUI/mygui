@@ -15,7 +15,6 @@ namespace tools
 	const std::string_view CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
 
 	EditorWidgets::EditorWidgets() :
-		mWidgetsChanged(false),
 		mSingletonHolder(this)
 	{
 	}

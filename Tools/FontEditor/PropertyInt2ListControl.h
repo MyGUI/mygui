@@ -17,7 +17,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyInt2ListControl();
 		~PropertyInt2ListControl() override;
 
 	protected:
@@ -35,12 +34,12 @@ namespace tools
 		void notifyEndDialog(Dialog* _sender, bool _result);
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::ListBox* mList;
-		MyGUI::Button* mAdd;
-		MyGUI::Button* mDelete;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ListBox* mList{nullptr};
+		MyGUI::Button* mAdd{nullptr};
+		MyGUI::Button* mDelete{nullptr};
 
-		TextFieldControl* mTextFieldControl;
+		TextFieldControl* mTextFieldControl{nullptr};
 	};
 
 }

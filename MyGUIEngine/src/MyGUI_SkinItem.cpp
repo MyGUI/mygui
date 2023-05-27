@@ -13,13 +13,6 @@
 
 namespace MyGUI
 {
-	SkinItem::SkinItem() :
-		mText(nullptr),
-		mMainSkin(nullptr),
-		mTexture(nullptr),
-		mSubSkinsVisible(true)
-	{
-	}
 
 	void SkinItem::_setSkinItemAlign(const IntSize& _size)
 	{

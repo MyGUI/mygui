@@ -23,8 +23,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Button )
 
 	public:
-		Button();
-
 		//! Set button selected state
 		void setStateSelected(bool _value);
 		//! Get buton selected
@@ -71,14 +69,14 @@ namespace MyGUI
 		void updateButtonState();
 
 	private:
-		bool mIsMousePressed;
-		bool mIsKeyFocus;
-		bool mIsMouseFocus;
+		bool mIsMousePressed{false};
+		bool mIsKeyFocus{false};
+		bool mIsMouseFocus{false};
 		// is fixed in pressed position
-		bool mStateSelected;
+		bool mStateSelected{false};
 
-		ImageBox* mImage;
-		bool mModeImage;
+		ImageBox* mImage{nullptr};
+		bool mModeImage{false};
 	};
 
 } // namespace MyGUI

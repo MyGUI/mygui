@@ -17,28 +17,6 @@ namespace MyGUI
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	TabControl::TabControl() :
-		mOffsetTab(0),
-		mButtonShow(true),
-		mWidthBar(0),
-		mWidgetBar(nullptr),
-		mButtonLeft(nullptr),
-		mButtonRight(nullptr),
-		mButtonDecor(nullptr),
-		mEmptyBarWidget(nullptr),
-		mItemTemplate(nullptr),
-		mStartIndex(0),
-		mIndexSelect(ITEM_NONE),
-		mButtonDefaultWidth(1),
-		mSmoothShow(true),
-		mButtonAutoWidth(true),
-		mShutdown(false),
-		mHeaderPlace(nullptr),
-		mControls(nullptr),
-		mEmpty(nullptr)
-	{
-	}
-
 	void TabControl::initialiseOverride()
 	{
 		Base::initialiseOverride();

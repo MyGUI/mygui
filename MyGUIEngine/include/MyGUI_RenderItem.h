@@ -58,25 +58,25 @@ namespace MyGUI
 		std::string mTextureName;
 #endif
 
-		ITexture* mTexture;
+		ITexture* mTexture{nullptr};
 
-		size_t mNeedVertexCount;
+		size_t mNeedVertexCount{0};
 
-		bool mOutOfDate;
+		bool mOutOfDate{false};
 		VectorDrawItem mDrawItems;
 
 		// колличество отрендренных реально вершин
-		size_t mCountVertex;
+		size_t mCountVertex{0};
 
-		bool mCurrentUpdate;
-		Vertex* mCurrentVertex;
-		size_t mLastVertexCount;
+		bool mCurrentUpdate{true};
+		Vertex* mCurrentVertex{nullptr};
+		size_t mLastVertexCount{0};
 
-		IVertexBuffer* mVertexBuffer;
-		IRenderTarget* mRenderTarget;
+		IVertexBuffer* mVertexBuffer{nullptr};
+		IRenderTarget* mRenderTarget{nullptr};
 
-		bool mNeedCompression;
-		bool mManualRender;
+		bool mNeedCompression{false};
+		bool mManualRender{false};
 	};
 
 } // namespace MyGUI

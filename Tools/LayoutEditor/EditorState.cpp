@@ -25,10 +25,6 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(EditorState)
 
 	EditorState::EditorState() :
-		mSettingsWindow(nullptr),
-		mCodeGenerator(nullptr),
-		mOpenSaveFileDialog(nullptr),
-		mMainPaneControl(nullptr),
 		mFileName("unnamed.layout"),
 		mDefaultFileName("unnamed.layout")
 	{

@@ -16,12 +16,6 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer() :
-		mTexture(nullptr),
-		mOutOfDateRtt(false)
-	{
-	}
-
 	RTTLayer::~RTTLayer()
 	{
 		if (mTexture)

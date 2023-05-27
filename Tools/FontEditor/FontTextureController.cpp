@@ -20,13 +20,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FontTextureController)
 
-	FontTextureController::FontTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void FontTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

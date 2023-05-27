@@ -17,8 +17,6 @@ namespace tools
 		public Action
 	{
 	public:
-		ActionDestroyData();
-
 		void doAction() override;
 		void undoAction() override;
 
@@ -26,9 +24,9 @@ namespace tools
 		void setUniqueProperty(std::string_view _value);
 
 	private:
-		DataPtr mData;
-		DataPtr mParent;
-		size_t mIndex;
+		DataPtr mData{nullptr};
+		DataPtr mParent{nullptr};
+		size_t mIndex{MyGUI::ITEM_NONE};
 		std::string mUniqueProperty;
 
 		using PairProprty = std::pair<PropertyPtr, std::string>;

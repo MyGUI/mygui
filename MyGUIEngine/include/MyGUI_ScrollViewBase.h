@@ -16,7 +16,6 @@ namespace MyGUI
 	class MYGUI_EXPORT ScrollViewBase
 	{
 	protected:
-		ScrollViewBase();
 		virtual ~ScrollViewBase() = default;
 
 		void updateScrollSize();
@@ -41,18 +40,18 @@ namespace MyGUI
 		virtual void eraseContent();
 
 	protected:
-		ScrollBar* mVScroll;
-		ScrollBar* mHScroll;
-		Widget* mScrollViewClient;
+		ScrollBar* mVScroll{nullptr};
+		ScrollBar* mHScroll{nullptr};
+		Widget* mScrollViewClient{nullptr};
 
-		bool mVisibleHScroll;
-		bool mVisibleVScroll;
+		bool mVisibleHScroll{true};
+		bool mVisibleVScroll{true};
 
-		size_t mVRange;
-		size_t mHRange;
+		size_t mVRange{0};
+		size_t mHRange{0};
 
 		// изменяется ли содержимое при ресайзе
-		bool mChangeContentByResize;
+		bool mChangeContentByResize{false};
 	};
 
 } // namespace MyGUI

@@ -17,11 +17,7 @@ namespace tools
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldPosition::PropertyFieldPosition(MyGUI::Widget* _parent) :
-		BaseLayout("PropertyFieldPosition.layout", _parent),
-		mText(nullptr),
-		mField(nullptr),
-		mButton(nullptr),
-		mCurrentWidget(nullptr)
+		BaseLayout("PropertyFieldPosition.layout", _parent)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");

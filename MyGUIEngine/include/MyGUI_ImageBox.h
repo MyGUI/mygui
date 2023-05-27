@@ -25,8 +25,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ImageBox )
 
 	public:
-		ImageBox();
-
 		//------------------------------------------------------------------------------//
 		// The simple interface
 		//------------------------------------------------------------------------------//
@@ -203,15 +201,15 @@ namespace MyGUI
 		// размер текстуры
 		IntSize mSizeTexture;
 		// текущая картинка
-		size_t mIndexSelect;
+		size_t mIndexSelect{ITEM_NONE};
 
 		VectorImages mItems;
 
-		bool mFrameAdvise;
-		float mCurrentTime;
-		size_t mCurrentFrame;
+		bool mFrameAdvise{false};
+		float mCurrentTime{0};
+		size_t mCurrentFrame{0};
 
-		ResourceImageSetPtr mResource;
+		ResourceImageSetPtr mResource{nullptr};
 		std::string mItemName;
 		std::string mItemGroup;
 		std::string mCurrentTextureName;

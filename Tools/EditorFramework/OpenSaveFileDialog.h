@@ -20,8 +20,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		OpenSaveFileDialog();
-
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
 		void setCurrentFolder(const MyGUI::UString& _value);
@@ -62,17 +60,17 @@ namespace tools
 		void upFolder();
 
 	private:
-		MyGUI::ListBox* mListFiles;
-		MyGUI::EditBox* mEditFileName;
-		MyGUI::ComboBox* mCurrentFolderField;
-		MyGUI::Button* mButtonOpenSave;
+		MyGUI::ListBox* mListFiles{nullptr};
+		MyGUI::EditBox* mEditFileName{nullptr};
+		MyGUI::ComboBox* mCurrentFolderField{nullptr};
+		MyGUI::Button* mButtonOpenSave{nullptr};
 
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;
-		MyGUI::UString mFileMask;
+		MyGUI::UString mFileMask{"*.*"};
 
 		MyGUI::UString mMode;
-		bool mFolderMode;
+		bool mFolderMode{false};
 	};
 
 }

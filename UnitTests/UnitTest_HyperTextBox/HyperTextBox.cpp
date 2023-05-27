@@ -17,18 +17,6 @@ namespace MyGUI
 {
 
 	HyperTextBox::HyperTextBox() :
-		mBold(false),
-		mItalic(false),
-		mStrike(false),
-		mUnder(false),
-		mImage(false),
-		mHeader1(false),
-		mHeader2(false),
-		mHeader3(false),
-		mColour(false),
-		mUrl(false),
-		mStackPanel(nullptr),
-		mScrollViewPanel(nullptr),
 		mTextSkin("TextBox"),
 		mImageSkin("ImageBox"),
 		mParagraphSkin("Default"),
@@ -40,9 +28,7 @@ namespace MyGUI
 		mDefaultFont("Default"),
 		mBoldFont("Default"),
 		mItalicFont("Default"),
-		mBoldItalicFont("Default"),
-		mCurrentWrapPanel(nullptr),
-		mBreakHeight(0)
+		mBoldItalicFont("Default")
 	{
 	}
 

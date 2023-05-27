@@ -4,13 +4,7 @@
 namespace input
 {
 
-	InputManager::InputManager() :
-		mMouseX(0),
-		mMouseY(0),
-		mMouseZ(0),
-		mMouseMove(false),
-		mWidth(0),
-		mHeight(0)
+	InputManager::InputManager()
 	{
 		// build the virtual key map and mouse button between SDL and MyGUI
 		buildVKeyMap();

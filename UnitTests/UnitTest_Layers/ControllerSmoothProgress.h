@@ -20,12 +20,6 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerSmoothProgress )
 
 	public:
-		ControllerSmoothProgress() :
-			mTime(0),
-			mCurrentPosition(0),
-			mNeedPosition(0)
-		{ }
-
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			const float slice = 0.04f;
@@ -88,10 +82,9 @@ namespace demo
 		}
 
 	private:
-		float mTime;
-		size_t mCurrentPosition;
-		size_t mNeedPosition;
-
+		float mTime{0};
+		size_t mCurrentPosition{0};
+		size_t mNeedPosition{0};
 	};
 
 }

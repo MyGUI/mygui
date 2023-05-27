@@ -44,26 +44,7 @@ namespace MyGUI
 	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
 	EditBox::EditBox() :
-		mIsPressed(false),
-		mIsFocus(false),
-		mCursorActive(false),
-		mCursorTimer(0),
-		mActionMouseTimer(0),
-		mCursorPosition(0),
-		mTextLength(0),
-		mStartSelect(ITEM_NONE),
-		mEndSelect(0),
-		mMouseLeftPressed(false),
-		mModeReadOnly(false),
-		mModePassword(false),
-		mModeMultiline(false),
-		mModeStatic(false),
-		mModeWordWrap(false),
-		mTabPrinting(false),
-		mCharPassword('*'),
-		mOverflowToTheLeft(false),
-		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
-		mClientText(nullptr)
+		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
 	{
 		mChangeContentByResize = true;
 	}

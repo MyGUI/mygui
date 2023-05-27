@@ -86,16 +86,16 @@ namespace MyGUI
 		void updateBreakHeight();
 
 	private:
-		bool mBold;
-		bool mItalic;
-		bool mStrike;
-		bool mUnder;
-		bool mImage;
-		bool mHeader1;
-		bool mHeader2;
-		bool mHeader3;
-		bool mColour;
-		bool mUrl;
+		bool mBold{false};
+		bool mItalic{false};
+		bool mStrike{false};
+		bool mUnder{false};
+		bool mImage{false};
+		bool mHeader1{false};
+		bool mHeader2{false};
+		bool mHeader3{false};
+		bool mColour{false};
+		bool mUrl{false};
 		Colour mColourValue;
 		IntSize mImageSize;
 		IntSize mSpacer;
@@ -114,11 +114,11 @@ namespace MyGUI
 		std::string mItalicFont;
 		std::string mBoldItalicFont;
 
-		StackPanel* mStackPanel;
-		ScrollViewPanel* mScrollViewPanel;
-		WrapPanel* mCurrentWrapPanel;
+		StackPanel* mStackPanel{nullptr};
+		ScrollViewPanel* mScrollViewPanel{nullptr};
+		WrapPanel* mCurrentWrapPanel{nullptr};
 
-		int mBreakHeight;
+		int mBreakHeight{0};
 	};
 
 } // namespace MyGUI

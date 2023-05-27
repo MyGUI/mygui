@@ -27,8 +27,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ScrollBar )
 
 	public:
-		ScrollBar();
-
 		/** Set vertical alignment grid mode */
 		void setVerticalAlignment(bool _value);
 		/** Get vertical alignment grid mode flag */
@@ -153,34 +151,34 @@ namespace MyGUI
 
 	protected:
 		// наши кнопки
-		Button* mWidgetStart;
-		Button* mWidgetEnd;
-		Button* mWidgetTrack;
+		Button* mWidgetStart{nullptr};
+		Button* mWidgetEnd{nullptr};
+		Button* mWidgetTrack{nullptr};
 		// куски между кнопками
-		Widget* mWidgetFirstPart;
-		Widget* mWidgetSecondPart;
+		Widget* mWidgetFirstPart{nullptr};
+		Widget* mWidgetSecondPart{nullptr};
 
 		// смещение внутри окна
 		IntPoint mPreActionOffset;
 
 		// диапазон на который трек может двигаться
-		size_t mSkinRangeStart;
-		size_t mSkinRangeEnd;
+		size_t mSkinRangeStart{0};
+		size_t mSkinRangeEnd{0};
 
-		size_t mScrollRange;
-		size_t mScrollPosition;
-		size_t mScrollPage; // track step, when clicking buttons
-		size_t mScrollViewPage; // track step, when clicking scroll line
-		size_t mScrollWheelPage; // track step, when scrolling with mouse wheel
+		size_t mScrollRange{0};
+		size_t mScrollPosition{0};
+		size_t mScrollPage{0}; // track step, when clicking buttons
+		size_t mScrollViewPage{0}; // track step, when clicking scroll line
+		size_t mScrollWheelPage{0}; // track step, when scrolling with mouse wheel
 
-		bool mEnableRepeat; // Repeat clicks on the scrollbar buttons when the mouse button remains pressed down
-		float mRepeatTriggerTime; // Time the mouse button needs to be held for repeating to start
-		float mRepeatStepTime; // Time between repeats
+		bool mEnableRepeat{true}; // Repeat clicks on the scrollbar buttons when the mouse button remains pressed down
+		float mRepeatTriggerTime{0.f}; // Time the mouse button needs to be held for repeating to start
+		float mRepeatStepTime{0.f}; // Time between repeats
 
-		int mMinTrackSize;
-		bool mMoveToClick;
+		int mMinTrackSize{0};
+		bool mMoveToClick{false};
 
-		bool mVerticalAlignment;
+		bool mVerticalAlignment{true};
 	};
 
 } // namespace MyGUI

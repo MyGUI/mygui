@@ -13,12 +13,6 @@
 namespace input
 {
 
-	PointerManager::PointerManager() :
-		mManagerPointer(true),
-		mCursor(nullptr)
-	{
-	}
-
 	PointerManager::~PointerManager()
 	{
 		SDL_FreeCursor(mCursor);

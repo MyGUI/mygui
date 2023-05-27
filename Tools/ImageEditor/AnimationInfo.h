@@ -15,8 +15,6 @@ namespace tools
 	class AnimationInfo
 	{
 	public:
-		AnimationInfo();
-
 		const std::string& getTextureName() const;
 		void setTextureName(std::string_view _value);
 
@@ -35,7 +33,7 @@ namespace tools
 	private:
 		std::string mAnimationName;
 		MyGUI::IntSize mSize;
-		float mRate;
+		float mRate{0};
 		VectorFrame mFrames;
 	};
 

@@ -70,12 +70,12 @@ namespace tools
 		void setRttLayerSize(const MyGUI::IntSize& _size);
 
 	private:
-		AreaSelectorControlLE* mAreaSelectorControl;
+		AreaSelectorControlLE* mAreaSelectorControl{nullptr};
 		MyGUI::IntCoord mCoordValue;
-		MyGUI::Widget* mCurrentWidget;
-		bool mMoveableWidget;
-		PositionSelectorControlLE* mPositionSelectorCreatorControl;
-		bool mFreeChildMode;
+		MyGUI::Widget* mCurrentWidget{nullptr};
+		bool mMoveableWidget{false};
+		PositionSelectorControlLE* mPositionSelectorCreatorControl{nullptr};
+		bool mFreeChildMode{false};
 	};
 
 }

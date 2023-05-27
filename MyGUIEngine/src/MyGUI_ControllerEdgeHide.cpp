@@ -19,14 +19,6 @@ namespace MyGUI
 #endif
 	const float M_PI = 3.141593f;
 
-	ControllerEdgeHide::ControllerEdgeHide() :
-		mTime(1.0),
-		mRemainPixels(0),
-		mShadowSize(0),
-		mElapsedTime(0)
-	{
-	}
-
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
 		recalculateTime(_widget);

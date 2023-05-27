@@ -22,17 +22,6 @@ namespace MyGUI
 
 	const int WINDOW_SNAP_DISTANSE = 10;
 
-	Window::Window() :
-		mWidgetCaption(nullptr),
-		mMouseRootFocus(false),
-		mKeyRootFocus(false),
-		mIsAutoAlpha(false),
-		mSnap(false),
-		mAnimateSmooth(false),
-		mMovable(true)
-	{
-	}
-
 	void Window::initialiseOverride()
 	{
 		Base::initialiseOverride();

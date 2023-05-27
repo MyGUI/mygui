@@ -10,12 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mDemoView(nullptr),
-		mComboSkins(nullptr)
-	{
-	}
-
 	void DemoKeeper::createDemo(size_t _index)
 	{
 		destroyDemo();

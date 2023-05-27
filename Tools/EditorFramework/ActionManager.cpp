@@ -13,8 +13,7 @@ namespace tools
 
 	ActionManager* ActionManager::mInstance = nullptr;
 
-	ActionManager::ActionManager() :
-		mMaxActions(256)
+	ActionManager::ActionManager()
 	{
 		mInstance = this;
 	}

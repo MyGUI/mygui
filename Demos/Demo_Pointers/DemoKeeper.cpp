@@ -20,17 +20,6 @@ namespace demo
 	static float gAngleV = -25;
 #endif
 
-	DemoKeeper::DemoKeeper() :
-		mEnemyPanel(nullptr),
-		mFriendPanel(nullptr),
-		mControlPanel(nullptr),
-		mPointerContextManager(nullptr),
-		mRightButtonPressed(false),
-		mSaveCursorX(0),
-		mSaveCursorY(0)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

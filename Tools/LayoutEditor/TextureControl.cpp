@@ -12,13 +12,7 @@ namespace tools
 {
 
 	TextureControlLE::TextureControlLE(std::string_view _layout, MyGUI::Widget* _parent) :
-		wraps::BaseLayout(_layout, _parent),
-		mView(nullptr),
-		mTexture(nullptr),
-		mBackground(nullptr),
-		mScaleValue(1.0),
-		mMouseCapture(false),
-		mMouseLeftPressed(false)
+		wraps::BaseLayout(_layout, _parent)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");

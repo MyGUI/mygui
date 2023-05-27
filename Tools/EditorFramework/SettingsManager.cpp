@@ -12,8 +12,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(SettingsManager);
 
 	SettingsManager::SettingsManager() :
-		mDocument(nullptr),
-		mUserDocument(nullptr),
 		mSingletonHolder(this)
 	{
 		mDocument = new pugi::xml_document();

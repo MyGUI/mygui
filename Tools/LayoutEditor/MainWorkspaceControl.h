@@ -15,8 +15,8 @@ namespace tools
 		MainWorkspaceControl(MyGUI::Widget* _parent);
 
 	private:
-		ToolsControl* mToolsControl;
-		WorkspaceControl* mWorkspaceControl;
+		ToolsControl* mToolsControl{nullptr};
+		WorkspaceControl* mWorkspaceControl{nullptr};
 	};
 
 }

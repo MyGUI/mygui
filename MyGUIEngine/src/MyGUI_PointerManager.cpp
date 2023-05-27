@@ -25,11 +25,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(PointerManager);
 
 	PointerManager::PointerManager() :
-		mVisible(false),
-		mWidgetOwner(nullptr),
-		mMousePointer(nullptr),
-		mPointer(nullptr),
-		mIsInitialise(false),
 		mXmlPointerTagName("Pointer"),
 		mXmlPropertyTagName("Property"),
 		mXmlDefaultPointerValue("Default"),

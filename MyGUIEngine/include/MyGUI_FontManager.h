@@ -46,7 +46,7 @@ namespace MyGUI
 	private:
 		std::string mDefaultName;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mXmlFontTagName;
 		std::string mXmlPropertyTagName;
 		std::string mXmlDefaultFontValue;

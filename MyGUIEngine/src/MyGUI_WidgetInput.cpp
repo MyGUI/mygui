@@ -11,16 +11,6 @@
 namespace MyGUI
 {
 
-	WidgetInput::WidgetInput() :
-		mNeedToolTip(false),
-		mInheritsPick(false),
-		mNeedKeyFocus(false),
-		mNeedMouseFocus(true),
-		mRootMouseFocus(false),
-		mRootKeyFocus(false)
-	{
-	}
-
 	void WidgetInput::setMaskPick(const std::string& _filename)
 	{
 		if (_filename.empty())

@@ -13,10 +13,7 @@
 namespace MyGUI
 {
 
-	SharedLayer::SharedLayer() :
-		mIsPick(false),
-		mChildItem(nullptr),
-		mOutOfDate(false)
+	SharedLayer::SharedLayer()
 	{
 		mViewSize = RenderManager::getInstance().getViewSize();
 	}

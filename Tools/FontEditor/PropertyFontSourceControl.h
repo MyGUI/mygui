@@ -18,7 +18,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyFontSourceControl();
 		~PropertyFontSourceControl() override;
 
 	protected:
@@ -34,8 +33,8 @@ namespace tools
 		void fillResources();
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::ComboBox* mComboBox;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ComboBox* mComboBox{nullptr};
 
 		MyGUI::VectorString mResources;
 	};

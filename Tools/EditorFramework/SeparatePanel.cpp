@@ -14,16 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SeparatePanel)
 
-	SeparatePanel::SeparatePanel() :
-		mFirstPanel(),
-		mSecondPanel(),
-		mSeparatorH(),
-		mSeparatorV(),
-		mMinSize(),
-		mPanelAlign(MyGUI::Align::Left)
-	{
-	}
-
 	SeparatePanel::~SeparatePanel()
 	{
 		saveDefaultSize();

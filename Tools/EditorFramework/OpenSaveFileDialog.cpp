@@ -12,16 +12,6 @@
 namespace tools
 {
 
-	OpenSaveFileDialog::OpenSaveFileDialog() :
-		mListFiles(nullptr),
-		mEditFileName(nullptr),
-		mCurrentFolderField(nullptr),
-		mButtonOpenSave(nullptr),
-		mFileMask("*.*"),
-		mFolderMode(false)
-	{
-	}
-
 	void OpenSaveFileDialog::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

@@ -10,12 +10,6 @@
 namespace tools
 {
 
-	DataTypeProperty::DataTypeProperty() :
-		mReadOnly(false),
-		mVisible(false)
-	{
-	}
-
 	void DataTypeProperty::deserialization(pugi::xml_node _node)
 	{
 		mName = _node.select_single_node("Name").node().child_value();

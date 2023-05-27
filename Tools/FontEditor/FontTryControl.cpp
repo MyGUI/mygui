@@ -20,11 +20,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FontTryControl)
 
-	FontTryControl::FontTryControl() :
-		mEdit(nullptr)
-	{
-	}
-
 	FontTryControl::~FontTryControl()
 	{
 		DataSelectorManager::getInstance().getEvent("Root")->disconnect(this);

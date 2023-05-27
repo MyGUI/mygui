@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		FocusInfoControl();
 		~FocusInfoControl() override;
 
 	protected:
@@ -31,8 +30,8 @@ namespace tools
 		void updateFocusWidgetHelpers();
 
 	private:
-		MyGUI::Widget* mMouseView;
-		MyGUI::Widget* mKeyView;
+		MyGUI::Widget* mMouseView{nullptr};
+		MyGUI::Widget* mKeyView{nullptr};
 		MyGUI::IntCoord mKeyCoord;
 		MyGUI::IntCoord mMouseCoord;
 	};

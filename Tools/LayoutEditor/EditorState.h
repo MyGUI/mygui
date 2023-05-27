@@ -66,11 +66,11 @@ namespace tools
 		bool isProjectFile(const MyGUI::UString& _fileName);
 
 	private:
-		SettingsWindow* mSettingsWindow;
-		CodeGenerator* mCodeGenerator;
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+		SettingsWindow* mSettingsWindow{nullptr};
+		CodeGenerator* mCodeGenerator{nullptr};
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
 
-		MainPaneControl* mMainPaneControl;
+		MainPaneControl* mMainPaneControl{nullptr};
 
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;

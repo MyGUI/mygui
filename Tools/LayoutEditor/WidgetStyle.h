@@ -12,13 +12,7 @@ namespace tools
 	struct WidgetStyle
 	{
 		WidgetStyle(std::string_view _name) :
-			name(_name),
-			parent(false),
-			child(true),
-			resizeable(true),
-			many_items(false),
-			depth(0),
-			internalType(false)
+			name(_name)
 		{
 		}
 
@@ -31,16 +25,16 @@ namespace tools
 		MyGUI::VectorStringPairs templateData;
 		MyGUI::VectorStringPairs parameterData;
 		// can have child widgets
-		bool parent;
+		bool parent{false};
 		// can have farent
-		bool child;
+		bool child{true};
 		// can be selected
-		bool resizeable;
+		bool resizeable{true};
 		// have many items (such as ListBox, ComboBox, TabControl, MenuBar, etc...)
-		bool many_items;
+		bool many_items{false};
 		// hierarchy depths
-		size_t depth;
-		bool internalType;
+		size_t depth{0};
+		bool internalType{false};
 	};
 
 }

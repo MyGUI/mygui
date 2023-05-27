@@ -18,9 +18,7 @@ namespace tools
 {
 
 	MainMenuControlLE::MainMenuControlLE(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("MainMenuControl.layout", _parent),
-		mBar(nullptr),
-		mPopupMenuWidgets(nullptr)
+		wraps::BaseLayout("MainMenuControl.layout", _parent)
 	{
 		assignWidget(mBar, "Menu");
 

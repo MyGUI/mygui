@@ -11,13 +11,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mToolTip(nullptr),
-		mItemBoxV(nullptr),
-		mItemBoxH(nullptr)
-	{
-	}
-
 	void DemoKeeper::notifyStartDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE)

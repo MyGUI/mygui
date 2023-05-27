@@ -44,8 +44,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Widget )
 
 	public:
-		Widget();
-
 		/** Create child widget
 			@param _type widget type
 			@param _skin widget skin
@@ -395,7 +393,7 @@ namespace MyGUI
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе
 		// то обязательно проинициализировать Client
-		Widget* mWidgetClient;
+		Widget* mWidgetClient{nullptr};
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
@@ -404,26 +402,26 @@ namespace MyGUI
 		VectorWidgetPtr mWidgetChildSkin;
 
 		// availability for mouse/keyboard
-		bool mEnabled;
-		bool mInheritedEnabled;
+		bool mEnabled{true};
+		bool mInheritedEnabled{true};
 		// visibility on screen and for mouse
-        bool mVisible;
-		bool mInheritedVisible;
+		bool mVisible{true};
+		bool mInheritedVisible{true};
 		// transparency and transparency inheritance
-		float mAlpha;
-		float mRealAlpha;
-		bool mInheritsAlpha;
+		float mAlpha{ALPHA_MAX};
+		float mRealAlpha{ALPHA_MAX};
+		bool mInheritsAlpha{true};
 		std::string mName;
 
 		// parent in widgets hierarchy
-		Widget* mParent;
+		Widget* mParent{nullptr};
 
-		WidgetStyle mWidgetStyle;
+		WidgetStyle mWidgetStyle{WidgetStyle::Child};
 
-		Widget* mContainer;
+		Widget* mContainer{nullptr};
 
-		Align mAlign;
-		int mDepth;
+		Align mAlign{Align::Default};
+		int mDepth{0};
 	};
 
 } // namespace MyGUI

@@ -22,10 +22,7 @@ namespace tools
 	const std::string_view LogSection = "LayoutEditor";
 
 	ProjectControl::ProjectControl(MyGUI::Widget* _parent) :
-		BaseLayout("ProjectControl.layout", _parent),
-		mOpenSaveFileDialog(nullptr),
-		mTextFieldControl(nullptr),
-		mList(nullptr)
+		BaseLayout("ProjectControl.layout", _parent)
 	{
 		assignWidget(mList, "List");
 		assignWidget(mProjectNameText, "ProjectName");

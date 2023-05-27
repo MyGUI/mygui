@@ -13,7 +13,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(GridManager);
 
 	GridManager::GridManager() :
-		mGridStep(0),
 		mSingletonHolder(this)
 	{
 	}

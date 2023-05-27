@@ -20,8 +20,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		PropertyPanelController();
-
 		void setTarget(Control* _control) override;
 
 		void activate() override;
@@ -32,8 +30,8 @@ namespace tools
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 
 	private:
-		PropertyPanelControl* mControl;
-		DataTypePtr mParentType;
+		PropertyPanelControl* mControl{nullptr};
+		DataTypePtr mParentType{nullptr};
 	};
 
 }

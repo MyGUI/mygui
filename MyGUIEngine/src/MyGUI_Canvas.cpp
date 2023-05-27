@@ -14,13 +14,7 @@
 namespace MyGUI
 {
 
-	Canvas::Canvas() :
-		mTexture(nullptr),
-		mTexResizeMode( TRM_PT_CONST_SIZE ),
-		mTexData(nullptr),
-		mTexManaged(true),
-		mFrameAdvise(false),
-		mInvalidateData(false)
+	Canvas::Canvas()
 	{
 		mGenTexName = utility::toString((size_t)this, "_Canvas");
 	}

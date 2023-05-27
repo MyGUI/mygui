@@ -45,7 +45,7 @@ namespace MyGUI
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 
 		using VectorDynLib = std::vector<DynLib*>;
 		VectorDynLib mDelayDynLib;

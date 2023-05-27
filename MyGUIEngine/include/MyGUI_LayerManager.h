@@ -92,7 +92,7 @@ namespace MyGUI
 	private:
 		VectorLayer mLayerNodes;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 	};
 

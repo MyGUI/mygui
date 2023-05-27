@@ -60,25 +60,25 @@ namespace MyGUI
 		void _rebuildGeometry();
 
 	private:
-		bool mGeometryOutdated;
+		bool mGeometryOutdated{false};
 
-		float mAngle;
+		float mAngle{0.0f};
 		IntPoint mCenterPos;
 
 		enum {RECT_VERTICIES_COUNT = 4, GEOMETRY_VERTICIES_TOTAL_COUNT = 8};
 		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
 		FloatPoint mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT];
 
-		bool mEmptyView;
+		bool mEmptyView{false};
 
 		VertexColourType mVertexFormat;
-		uint32 mCurrentColour;
+		uint32 mCurrentColour{0xFFFFFFFF};
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
 
-		ILayerNode* mNode;
-		RenderItem* mRenderItem;
+		ILayerNode* mNode{nullptr};
+		RenderItem* mRenderItem{nullptr};
 	};
 
 } // namespace MyGUI

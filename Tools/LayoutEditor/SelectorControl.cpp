@@ -12,8 +12,7 @@ namespace tools
 {
 
 	SelectorControlLE::SelectorControlLE(std::string_view _layout, MyGUI::Widget* _parent) :
-		wraps::BaseLayout(_layout, _parent),
-		mScaleValue(1.0)
+		wraps::BaseLayout(_layout, _parent)
 	{
 		assignWidget(mProjection, "Projection", false, false);
 

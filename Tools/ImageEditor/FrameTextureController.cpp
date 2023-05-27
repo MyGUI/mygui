@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FrameTextureController)
 
-	FrameTextureController::FrameTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void FrameTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

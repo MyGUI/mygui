@@ -25,7 +25,7 @@ namespace demo
 
 	private:
 		MyGUI::EditBox* mInfo;
-		MyGUI::Widget* mFocus;
+		MyGUI::Widget* mFocus{nullptr};
 	};
 
 } // namespace demo

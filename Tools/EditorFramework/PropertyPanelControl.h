@@ -20,7 +20,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		PropertyPanelControl();
 		~PropertyPanelControl() override;
 
 		void setCurrentData(DataPtr _data);
@@ -37,12 +36,12 @@ namespace tools
 		void updateView();
 
 	private:
-		DataPtr mCurrentData;
+		DataPtr mCurrentData{nullptr};
 		using VectorPairControl = std::vector<std::pair<std::string, PropertyControl*>>;
 		VectorPairControl mPropertyControls;
-		int mDistance;
-		MyGUI::ScrollView* mScrollView;
-		int mContentHeight;
+		int mDistance{0};
+		MyGUI::ScrollView* mScrollView{nullptr};
+		int mContentHeight{0};
 	};
 
 }

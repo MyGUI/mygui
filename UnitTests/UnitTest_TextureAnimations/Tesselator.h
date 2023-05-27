@@ -16,8 +16,6 @@ namespace demo
 	class Tesselator
 	{
 	protected:
-		Tesselator();
-
 		size_t tesselation(
 			size_t _count,
 			MyGUI::VectorQuadData& _data,
@@ -56,14 +54,13 @@ namespace demo
 		}
 
 	private:
-		int mCountX;
-		int mCountY;
+		int mCountX{64};
+		int mCountY{64};
 
-		float mLeft;
-		float mTop;
-		float mWidth;
-		float mHeight;
-
+		float mLeft{0};
+		float mTop{0};
+		float mWidth{0};
+		float mHeight{0};
 	};
 
 } // namespace MyGUI

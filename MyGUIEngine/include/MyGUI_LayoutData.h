@@ -24,8 +24,7 @@ namespace MyGUI
 	public:
 		WidgetInfo() :
 			align(Align::Default),
-			style(WidgetStyle::Child),
-			positionType(None)
+			style(WidgetStyle::Child)
 		{
 		}
 
@@ -43,7 +42,7 @@ namespace MyGUI
 		std::string layer;
 
 		enum PositionType { Pixels, Relative, None };
-		PositionType positionType;
+		PositionType positionType{None};
 		IntCoord intCoord;
 		FloatCoord floatCoord;
 	};

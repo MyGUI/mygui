@@ -33,8 +33,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ComboBox )
 
 	public:
-		ComboBox();
-
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -192,17 +190,17 @@ namespace MyGUI
 		IntCoord calculateListPosition();
 
 	private:
-		Button* mButton;
-		ListBox* mList;
+		Button* mButton{nullptr};
+		ListBox* mList{nullptr};
 
-		bool mListShow;
-		int mMaxListLength;
-		size_t mItemIndex;
-		bool mModeDrop;
-		bool mDropMouse;
-		bool mShowSmooth;
+		bool mListShow{false};
+		int mMaxListLength{-1};
+		size_t mItemIndex{ITEM_NONE};
+		bool mModeDrop{false};
+		bool mDropMouse{false};
+		bool mShowSmooth{false};
 
-		FlowDirection mFlowDirection;
+		FlowDirection mFlowDirection{FlowDirection::TopToBottom};
 	};
 
 } // namespace MyGUI

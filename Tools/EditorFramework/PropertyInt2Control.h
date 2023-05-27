@@ -16,7 +16,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyInt2Control();
 		~PropertyInt2Control() override;
 
 	protected:
@@ -32,8 +31,8 @@ namespace tools
 		void setColour(bool _validate);
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::EditBox* mEdit;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::EditBox* mEdit{nullptr};
 	};
 
 }

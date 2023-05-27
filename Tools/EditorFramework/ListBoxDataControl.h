@@ -20,7 +20,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		ListBoxDataControl();
 		~ListBoxDataControl() override;
 
 		void OnRenameData();
@@ -54,15 +53,15 @@ namespace tools
 		void selectListItemByData(DataPtr _data);
 
 	private:
-		MyGUI::ListBox* mListBox;
-		MyGUI::EditBox* mHelpPanel;
-		DataPtr mParentData;
-		size_t mLastIndex;
+		MyGUI::ListBox* mListBox{nullptr};
+		MyGUI::EditBox* mHelpPanel{nullptr};
+		DataPtr mParentData{nullptr};
+		size_t mLastIndex{MyGUI::ITEM_NONE};
 		std::string mPropertyForName;
 		std::string mThisType;
-		MyGUI::PopupMenu* mContextMenu;
-		TextFieldControl* mTextFieldControl;
-		bool mEnableChangePosition;
+		MyGUI::PopupMenu* mContextMenu{nullptr};
+		TextFieldControl* mTextFieldControl{nullptr};
+		bool mEnableChangePosition{false};
 		std::string mColourName;
 
 		using VectorString = std::vector<std::string>;

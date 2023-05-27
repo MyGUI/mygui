@@ -9,11 +9,6 @@
 namespace MyGUI
 {
 
-	WrapPanel::WrapPanel() :
-		mContentFloat(false)
-	{
-	}
-
 	IntSize WrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		if (mContentFloat)

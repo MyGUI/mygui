@@ -18,9 +18,6 @@ namespace MyGUI
 	class MYGUI_EXPORT LogSource
 	{
 	public:
-		LogSource();
-		~LogSource();
-
 		/** Set log messages filter. */
 		void setLogFilter(ILogFilter* _filter);
 		/** Set log messages filter. */
@@ -38,7 +35,7 @@ namespace MyGUI
 	private:
 		using VectorLogListeners = std::vector<ILogListener*>;
 		VectorLogListeners mListeners;
-		ILogFilter* mFilter;
+		ILogFilter* mFilter{nullptr};
 	};
 
 } // namespace MyGUI

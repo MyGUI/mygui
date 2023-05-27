@@ -99,21 +99,18 @@ namespace MyGUI
 	struct MYGUI_EXPORT DDWidgetState
 	{
 		DDWidgetState(size_t _index) :
-			index(_index),
-			update(true),
-			accept(false),
-			refuse(false)
+			index(_index)
 		{
 		}
 
 		/** Index of element */
 		size_t index;
 		/** State and internal data changed */
-		bool update;
+		bool update{true};
 		/** Is widget accept drop */
-		bool accept;
+		bool accept{false};
 		/** Is widget refuse drop */
-		bool refuse;
+		bool refuse{false};
 	};
 
 } // namespace MyGUI

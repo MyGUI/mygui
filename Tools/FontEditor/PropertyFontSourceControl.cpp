@@ -17,12 +17,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontSourceControl)
 
-	PropertyFontSourceControl::PropertyFontSourceControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyFontSourceControl::~PropertyFontSourceControl()
 	{
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);

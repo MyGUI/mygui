@@ -11,12 +11,6 @@
 namespace tools
 {
 
-	SettingsWindow::SettingsWindow() :
-		mListSettings(nullptr),
-		mTabSettings(nullptr)
-	{
-	}
-
 	void SettingsWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

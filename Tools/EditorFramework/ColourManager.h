@@ -38,7 +38,7 @@ namespace tools
 		MyGUI::Colour getColour();
 
 	private:
-		ColourPanel* mColourPanel;
+		ColourPanel* mColourPanel{nullptr};
 		MyGUI::Colour mPreviewColour;
 		std::string mCurrentColourType;
 	};

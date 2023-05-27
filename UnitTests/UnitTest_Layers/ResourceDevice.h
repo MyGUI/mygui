@@ -23,14 +23,6 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ResourceDevice )
 
 	private:
-		ResourceDevice() :
-			mValueEnergy(0),
-			mValueExplosion(0),
-			mValueTarget(0),
-			mValueHP(0)
-		{
-		}
-
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override
 		{
 			Base::deserialization(_node, _version);
@@ -76,11 +68,10 @@ namespace demo
 	private:
 		std::string mDeviceName;
 		std::string mDeviceDescription;
-		size_t mValueEnergy;
-		size_t mValueExplosion;
-		size_t mValueTarget;
-		size_t mValueHP;
-
+		size_t mValueEnergy{0};
+		size_t mValueExplosion{0};
+		size_t mValueTarget{0};
+		size_t mValueHP{0};
 	};
 
 } // namespace demo

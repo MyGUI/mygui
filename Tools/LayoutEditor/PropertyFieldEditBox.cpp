@@ -15,10 +15,7 @@ namespace tools
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldEditBox::PropertyFieldEditBox(MyGUI::Widget* _parent) :
-		BaseLayout("PropertyFieldEditBox.layout", _parent),
-		mText(nullptr),
-		mField(nullptr),
-		mCurrentWidget(nullptr)
+		BaseLayout("PropertyFieldEditBox.layout", _parent)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");

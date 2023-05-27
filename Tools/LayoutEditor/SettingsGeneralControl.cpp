@@ -13,15 +13,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl)
 
-	SettingsGeneralControl::SettingsGeneralControl() :
-		mGridStep(0),
-		mGridEdit(nullptr),
-		mLoadLastProject(nullptr),
-		mInterfaceLanguage(nullptr),
-		mWorkspaceSize(nullptr)
-	{
-	}
-
 	SettingsGeneralControl::~SettingsGeneralControl()
 	{
 		mLoadLastProject->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);

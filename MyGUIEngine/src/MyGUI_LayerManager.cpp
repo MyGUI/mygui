@@ -21,7 +21,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(LayerManager);
 
 	LayerManager::LayerManager() :
-		mIsInitialise(false),
 		mCategoryName("Layer"),
 		mSingletonHolder(this)
 	{

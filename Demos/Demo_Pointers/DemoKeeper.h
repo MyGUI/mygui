@@ -21,8 +21,6 @@ namespace demo
 		public IPointerSetter
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -43,13 +41,13 @@ namespace demo
 		std::string_view getCursorFromScene(int _x, int _y);
 
 	private:
-		EnemyPanel* mEnemyPanel;
-		FriendPanel* mFriendPanel;
-		ControlPanel* mControlPanel;
-		PointerContextManager* mPointerContextManager;
-		bool mRightButtonPressed;
-		int mSaveCursorX;
-		int mSaveCursorY;
+		EnemyPanel* mEnemyPanel{nullptr};
+		FriendPanel* mFriendPanel{nullptr};
+		ControlPanel* mControlPanel{nullptr};
+		PointerContextManager* mPointerContextManager{nullptr};
+		bool mRightButtonPressed{false};
+		int mSaveCursorX{0};
+		int mSaveCursorY{0};
 	};
 
 } // namespace demo

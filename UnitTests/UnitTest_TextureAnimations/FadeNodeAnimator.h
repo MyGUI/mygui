@@ -47,11 +47,11 @@ namespace demo
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 	private:
-		float mFadeDuration;
-		int mFadeType;
+		float mFadeDuration{0};
+		int mFadeType{0};
 
-		bool mDestroy;
-		float mAlpha;
+		bool mDestroy{true};
+		float mAlpha{0};
 		std::vector<int> mSpeed;
 
 	};

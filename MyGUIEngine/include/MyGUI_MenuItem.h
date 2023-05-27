@@ -26,8 +26,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( MenuItem )
 
 	public:
-		MenuItem();
-
 		/** @copydoc TextBox::setCaption(const UString& _value) */
 		void setCaption(const UString& _value) override;
 
@@ -106,10 +104,10 @@ namespace MyGUI
 		void updateCheck();
 
 	private:
-		MenuControl* mOwner;
-		IntSize mMinSize;
-		Widget* mCheck;
-		bool mCheckValue;
+		MenuControl* mOwner{nullptr};
+		IntSize mMinSize{10, 10};
+		Widget* mCheck{nullptr};
+		bool mCheckValue{false};
 	};
 
 } // namespace MyGUI

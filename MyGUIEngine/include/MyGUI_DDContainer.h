@@ -33,8 +33,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( DDContainer )
 
 	public:
-		DDContainer();
-
 		/** Set drag'n'drop mode flag.
 			Disabled (false) by default.
 		*/
@@ -123,27 +121,26 @@ namespace MyGUI
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	protected:
-		bool mDropResult;
-		bool mNeedDrop;
-		bool mStartDrop;
+		bool mDropResult{false};
+		bool mNeedDrop{false};
+		bool mStartDrop{false};
 
-		Widget* mOldDrop;
-		Widget* mCurrentSender;
+		Widget* mOldDrop{nullptr};
 
 		DDItemInfo mDropInfo;
 
-		size_t mDropSenderIndex;
+		size_t mDropSenderIndex{ITEM_NONE};
 
 		// список виджетов для дропа
-		Widget* mDropItem;
+		Widget* mDropItem{nullptr};
 		IntCoord mDropDimension;
 
 		IntPoint mClickInWidget;
 
 		// нужно и виджету поддержка драг энд дропа
-		bool mNeedDragDrop;
+		bool mNeedDragDrop{false};
 
-		DDContainer* mReseiverContainer;
+		DDContainer* mReseiverContainer{nullptr};
 	};
 
 } // namespace MyGUI

@@ -24,8 +24,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ControllerRepeatClick )
 
 	public:
-		ControllerRepeatClick();
-
 		/** Change initial delay and time step
 			@param init The delay before the first event will be triggered.
 			@param step The delay after each event before the next event is triggered.
@@ -44,9 +42,9 @@ namespace MyGUI
 		EventHandle_RepeatClick eventRepeatClick;
 
 	private:
-		float mInit;
-		float mStep;
-		float mTimeLeft;
+		float mInit{0.5f};
+		float mStep{0.1f};
+		float mTimeLeft{0};
 	};
 
 }

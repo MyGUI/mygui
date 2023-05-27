@@ -9,16 +9,6 @@
 namespace demo
 {
 
-	Tesselator::Tesselator() :
-		mCountX(64),
-		mCountY(64),
-		mLeft(0),
-		mTop(0),
-		mWidth(0),
-		mHeight(0)
-	{
-	}
-
 	size_t Tesselator::tesselation(
 		size_t _count,
 		MyGUI::VectorQuadData& _data,

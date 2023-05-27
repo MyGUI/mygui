@@ -45,9 +45,9 @@ namespace tools
 	private:
 		using VectorSizeT = std::vector<size_t>;
 		VectorSizeT mScaleValue;
-		size_t mCurrentScaleValue;
+		size_t mCurrentScaleValue{100};
 
-		bool mActivate;
+		bool mActivate{true};
 	};
 
 }

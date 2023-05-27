@@ -27,8 +27,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ControllerEdgeHide )
 
 	public:
-		ControllerEdgeHide();
-
 		/**
 			@param _value in which widget will be hidden or shown
 		*/
@@ -51,10 +49,10 @@ namespace MyGUI
 	private:
 		void recalculateTime(Widget* _widget);
 
-		float mTime;
-		int mRemainPixels;
-		int mShadowSize;
-		float mElapsedTime;
+		float mTime{1.0};
+		int mRemainPixels{0};
+		int mShadowSize{0};
+		float mElapsedTime{0};
 		// for checking if widget was moved
 		MyGUI::IntCoord mLastCoord;
 	};

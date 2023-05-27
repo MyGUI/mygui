@@ -20,17 +20,7 @@ namespace MyGUI
 	const size_t TILERECT_COUNT_VERTEX = 16 * VertexQuad::VertexCount;
 
 	TileRect::TileRect() :
-		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
-		mNode(nullptr),
-		mRenderItem(nullptr),
-		mCountVertex(TILERECT_COUNT_VERTEX),
-		mRealTileWidth(0),
-		mRealTileHeight(0),
-		mTextureHeightOne(0),
-		mTextureWidthOne(0),
-		mTileH(true),
-		mTileV(true)
+		mCountVertex(TILERECT_COUNT_VERTEX)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}

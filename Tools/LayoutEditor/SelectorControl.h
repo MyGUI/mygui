@@ -59,7 +59,7 @@ namespace tools
 	private:
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::IntCoord mCoordReal;
-		double mScaleValue;
+		double mScaleValue{1.0};
 		MyGUI::Widget* mProjection;
 		MyGUI::IntCoord mProjectionDiff;
 		std::string mPropertyColour;

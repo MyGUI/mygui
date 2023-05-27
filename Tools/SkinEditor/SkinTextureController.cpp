@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SkinTextureController)
 
-	SkinTextureController::SkinTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void SkinTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

@@ -15,14 +15,7 @@ namespace MyGUI
 
 	struct ImageItem
 	{
-	public:
-		ImageItem() :
-			frame_rate(0)
-		{
-		}
-
-	public:
-		float frame_rate;
+		float frame_rate{0};
 		std::vector<FloatRect> images;
 	};
 

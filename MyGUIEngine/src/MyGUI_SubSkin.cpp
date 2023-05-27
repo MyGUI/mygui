@@ -17,13 +17,7 @@
 namespace MyGUI
 {
 
-	SubSkin::SubSkin() :
-		ISubWidgetRect(),
-		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
-		mNode(nullptr),
-		mRenderItem(nullptr),
-		mSeparate(false)
+	SubSkin::SubSkin()
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}

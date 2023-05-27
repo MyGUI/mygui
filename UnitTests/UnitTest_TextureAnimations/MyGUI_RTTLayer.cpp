@@ -13,11 +13,6 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer() :
-		mData(nullptr)
-	{
-	}
-
 	RTTLayer::~RTTLayer()
 	{
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); )

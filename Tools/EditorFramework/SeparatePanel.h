@@ -15,7 +15,6 @@ namespace tools
 		public Control
 	{
 	public:
-		SeparatePanel();
 		~SeparatePanel() override;
 
 		void setPanelAlign(MyGUI::Align _value);
@@ -36,12 +35,12 @@ namespace tools
 		void saveDefaultSize();
 
 	private:
-		MyGUI::Widget* mFirstPanel;
-		MyGUI::Widget* mSecondPanel;
-		MyGUI::Widget* mSeparatorH;
-		MyGUI::Widget* mSeparatorV;
-		int mMinSize;
-		MyGUI::Align mPanelAlign;
+		MyGUI::Widget* mFirstPanel{};
+		MyGUI::Widget* mSecondPanel{};
+		MyGUI::Widget* mSeparatorH{};
+		MyGUI::Widget* mSeparatorV{};
+		int mMinSize{};
+		MyGUI::Align mPanelAlign{MyGUI::Align::Left};
 		MyGUI::IntSize mDefaultPanelSize;
 		MyGUI::IntPoint mMousePressedOffset;
 		std::string mSaveAs;

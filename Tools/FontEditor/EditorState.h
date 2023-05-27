@@ -71,9 +71,9 @@ namespace tools
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
 
-		Control* mMainPane;
-		OpenSaveFileDialog* mOpenSaveFileDialog;
-		SettingsWindow* mSettingsWindow;
+		Control* mMainPane{nullptr};
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
+		SettingsWindow* mSettingsWindow{nullptr};
 	};
 
 }

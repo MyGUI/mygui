@@ -9,11 +9,6 @@
 namespace demo
 {
 
-	ResourcePointerContext::ResourcePointerContext() :
-		mHighLevel(false)
-	{
-	}
-
 	void ResourcePointerContext::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
 	{
 		Base::deserialization(_node, _version);

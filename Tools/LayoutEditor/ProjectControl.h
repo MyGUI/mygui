@@ -67,13 +67,13 @@ namespace tools
 		void updateProjectSkins();
 
 	private:
-		OpenSaveFileDialog* mOpenSaveFileDialog;
-		TextFieldControl* mTextFieldControl;
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
+		TextFieldControl* mTextFieldControl{nullptr};
 
 		MyGUI::UString mProjectName;
 		MyGUI::UString mProjectPath;
 
-		MyGUI::ListBox* mList;
+		MyGUI::ListBox* mList{nullptr};
 		MyGUI::TextBox* mProjectNameText;
 	};
 

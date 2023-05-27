@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(StateTextureController)
 
-	StateTextureController::StateTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void StateTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

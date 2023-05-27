@@ -18,12 +18,8 @@ namespace wraps
 		public BaseLayout
 	{
 	public:
-
 		BasePanelViewCell(std::string_view _layout, MyGUI::Widget* _parent) :
-			BaseLayout(_layout, _parent),
-			mTextCaption(nullptr),
-			mWidgetClient(nullptr),
-			m_minimized(false)
+			BaseLayout(_layout, _parent)
 		{
 			mMainWidget->setPosition(0, 0);
 
@@ -126,9 +122,9 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::TextBox* mTextCaption;
-		MyGUI::Widget* mWidgetClient;
-		bool m_minimized;
+		MyGUI::TextBox* mTextCaption{nullptr};
+		MyGUI::Widget* mWidgetClient{nullptr};
+		bool m_minimized{false};
 
 		int m_minHeight;
 		int m_maxHeight;

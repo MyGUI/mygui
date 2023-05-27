@@ -46,14 +46,14 @@ namespace tools
 
 	private:
 		// position in the bufer (0 - newest element)
-		size_t mPosition;
+		size_t mPosition{0};
 
 		CyclicBuffer<MyGUI::xml::Document*> mOperations;
-		int mLastProperty;
+		int mLastProperty{0};
 
-		EditorWidgets* mEditorWidgets;
+		EditorWidgets* mEditorWidgets{nullptr};
 
-		bool mUnsaved;
+		bool mUnsaved{false};
 	};
 
 }

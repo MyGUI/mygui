@@ -16,15 +16,7 @@ namespace tools
 {
 
 	PanelItems::PanelItems() :
-		BasePanelViewItem("PanelItems.layout"),
-		mEdit(nullptr),
-		mList(nullptr),
-		mButtonAdd(nullptr),
-		mButtonDelete(nullptr),
-		mCurrentWidget(nullptr),
-		mButtonLeft(0),
-		mButtonRight(0),
-		mButtonSpace(0)
+		BasePanelViewItem("PanelItems.layout")
 	{
 	}
 

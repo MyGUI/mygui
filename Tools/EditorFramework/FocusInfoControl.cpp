@@ -12,12 +12,6 @@
 namespace tools
 {
 
-	FocusInfoControl::FocusInfoControl() :
-		mMouseView(nullptr),
-		mKeyView(nullptr)
-	{
-	}
-
 	FocusInfoControl::~FocusInfoControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &FocusInfoControl::notifyFrameStart);

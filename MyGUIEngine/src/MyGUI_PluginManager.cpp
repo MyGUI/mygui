@@ -17,7 +17,6 @@ namespace MyGUI
 	using DLL_STOP_PLUGIN = void (*)();
 
 	PluginManager::PluginManager() :
-		mIsInitialise(false),
 		mXmlPluginTagName("Plugin"),
 		mSingletonHolder(this)
 	{

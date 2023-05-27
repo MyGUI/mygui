@@ -134,8 +134,8 @@ namespace tools
 		void mergeAttributes(pugi::xml_node _node1, pugi::xml_node _node2);
 
 	private:
-		pugi::xml_document* mDocument;
-		pugi::xml_document* mUserDocument;
+		pugi::xml_document* mDocument{nullptr};
+		pugi::xml_document* mUserDocument{nullptr};
 		std::string mUserSettingsFileName;
 	};
 

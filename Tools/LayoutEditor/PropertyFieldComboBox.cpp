@@ -16,10 +16,7 @@ namespace tools
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldComboBox::PropertyFieldComboBox(MyGUI::Widget* _parent) :
-		BaseLayout("PropertyFieldComboBox.layout", _parent),
-		mText(nullptr),
-		mField(nullptr),
-		mCurrentWidget(nullptr)
+		BaseLayout("PropertyFieldComboBox.layout", _parent)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");

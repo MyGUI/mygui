@@ -42,11 +42,11 @@ namespace tools
 		void generateSkin();
 
 	private:
-		BackgroundControl* mBackgroundControl;
-		DataPtr mSkinItem;
-		MyGUI::Button* mSkinButton;
+		BackgroundControl* mBackgroundControl{nullptr};
+		DataPtr mSkinItem{nullptr};
+		MyGUI::Button* mSkinButton{nullptr};
 		std::string mSkinName;
-		MyGUI::Widget* mBack;
+		MyGUI::Widget* mBack{nullptr};
 		std::string mTestSkinFileName;
 		std::string mDefaultFontName;
 	};

@@ -16,19 +16,7 @@ namespace tools
 {
 
 	PanelUserData::PanelUserData() :
-		BasePanelViewItem("PanelUserData.layout"),
-		mEditKey(nullptr),
-		mEditValue(nullptr),
-		mButtonAdd(nullptr),
-		mButtonDelete(nullptr),
-		mMultilist(nullptr),
-		mCurrentWidget(nullptr),
-		mEditLeft(0),
-		mEditRight(0),
-		mEditSpace(0),
-		mButtonLeft(0),
-		mButtonRight(0),
-		mButtonSpace(0)
+		BasePanelViewItem("PanelUserData.layout")
 	{
 	}
 

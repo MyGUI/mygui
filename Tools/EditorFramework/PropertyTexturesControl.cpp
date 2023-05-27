@@ -11,15 +11,6 @@
 namespace tools
 {
 
-	PropertyTexturesControl::PropertyTexturesControl() :
-		mImage(nullptr),
-		mName(nullptr),
-		mComboBox(nullptr),
-		mBrowse(nullptr),
-		mTextureBrowseControl(nullptr)
-	{
-	}
-
 	PropertyTexturesControl::~PropertyTexturesControl()
 	{
 		mBrowse->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);

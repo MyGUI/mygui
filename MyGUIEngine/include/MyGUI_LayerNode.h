@@ -83,7 +83,7 @@ namespace MyGUI
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
 
-		size_t mLastNotEmptyItem;
+		size_t mLastNotEmptyItem{0};
 
 		// root widgets list
 		// overlapping layers have only one item here
@@ -93,9 +93,9 @@ namespace MyGUI
 
 		ILayerNode* mParent;
 		ILayer* mLayer;
-		bool mOutOfDate;
-		bool mOutOfDateCompression;
-		float mDepth;
+		bool mOutOfDate{false};
+		bool mOutOfDateCompression{false};
+		float mDepth{0.0f};
 	};
 
 } // namespace MyGUI

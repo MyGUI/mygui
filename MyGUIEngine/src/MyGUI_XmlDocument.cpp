@@ -89,7 +89,6 @@ namespace MyGUI::xml
 	// class ElementEnumerator
 	//----------------------------------------------------------------------//
 	ElementEnumerator::ElementEnumerator(VectorElement::iterator _begin, VectorElement::iterator _end) :
-		m_first(true),
 		m_current(_begin),
 		m_end(_end)
 	{
@@ -380,14 +379,6 @@ namespace MyGUI::xml
 	//----------------------------------------------------------------------//
 	// class Document
 	//----------------------------------------------------------------------//
-	Document::Document():
-		mRoot(nullptr),
-		mDeclaration(nullptr),
-		mLine(0),
-		mCol(0)
-	{
-	}
-
 	Document::~Document()
 	{
 		clear();

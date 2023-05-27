@@ -41,15 +41,15 @@ namespace MyGUI
 		size_t getToolTipIndex(Widget* _widget) const;
 
 	private:
-		float mDelayVisible;
-		Widget* mOldFocusWidget;
+		float mDelayVisible{0.5f};
+		Widget* mOldFocusWidget{nullptr};
 		IntPoint mOldMousePoint;
-		bool mToolTipVisible;
-		float mCurrentTime;
-		size_t mOldIndex;
-		bool mNeedToolTip;
+		bool mToolTipVisible{false};
+		float mCurrentTime{0};
+		size_t mOldIndex{ITEM_NONE};
+		bool mNeedToolTip{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

@@ -16,18 +16,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(AnimationViewControl)
 
-	AnimationViewControl::AnimationViewControl() :
-		mImage(nullptr),
-		mFrameInfo(nullptr),
-		mButtonPlay(nullptr),
-		mButtonLeft(nullptr),
-		mButtonRight(nullptr),
-		mParentData(nullptr),
-		mCurrentFrame(0),
-		mTime(0),
-		mPlay(true)
-	{
-	}
 	void AnimationViewControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

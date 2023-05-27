@@ -74,7 +74,7 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCurrentLayoutName;
 		std::string mXmlLayoutTagName;
 	};

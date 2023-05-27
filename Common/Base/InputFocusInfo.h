@@ -16,14 +16,7 @@ namespace diagnostic
 	class InputFocusInfo
 	{
 	public:
-		InputFocusInfo() :
-			mFocusVisible(false),
-			mMouseHelper(nullptr),
-			mKeyHelper(nullptr),
-			mWidgetMouseFocus(nullptr),
-			mWidgetKeyFocus(nullptr),
-			mOldMouseFocus(nullptr),
-			mOldKeyFocus(nullptr)
+		InputFocusInfo()
 		{
 			MyGUI::InputManager::getInstance().eventChangeMouseFocus += MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
 			MyGUI::InputManager::getInstance().eventChangeKeyFocus += MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
@@ -151,15 +144,14 @@ namespace diagnostic
 		}
 
 	private:
-		bool mFocusVisible;
-		MyGUI::Widget* mMouseHelper;
-		MyGUI::Widget* mKeyHelper;
+		bool mFocusVisible{false};
+		MyGUI::Widget* mMouseHelper{nullptr};
+		MyGUI::Widget* mKeyHelper{nullptr};
 
-		MyGUI::Widget* mWidgetMouseFocus;
-		MyGUI::Widget* mWidgetKeyFocus;
-		MyGUI::Widget* mOldMouseFocus;
-		MyGUI::Widget* mOldKeyFocus;
-
+		MyGUI::Widget* mWidgetMouseFocus{nullptr};
+		MyGUI::Widget* mWidgetKeyFocus{nullptr};
+		MyGUI::Widget* mOldMouseFocus{nullptr};
+		MyGUI::Widget* mOldKeyFocus{nullptr};
 	};
 
 } // namespace diagnostic

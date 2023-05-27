@@ -20,12 +20,6 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerSmoothCaption )
 
 	public:
-		ControllerSmoothCaption() :
-			mTime(0),
-			mCurrentPosition(0)
-		{ }
-		~ControllerSmoothCaption() override = default;
-
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			const float slice = 0.04f;
@@ -78,10 +72,9 @@ namespace demo
 		}
 
 	private:
-		float mTime;
+		float mTime{0};
 		std::string mNeedCaption;
-		size_t mCurrentPosition;
-
+		size_t mCurrentPosition{0};
 	};
 
 }

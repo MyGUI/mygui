@@ -23,20 +23,7 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(InputManager);
 
 	InputManager::InputManager() :
-		mWidgetMouseFocus(nullptr),
-		mWidgetKeyFocus(nullptr),
-		mLayerMouseFocus(nullptr),
 		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK),
-		mIsShiftPressed(false),
-		mIsControlPressed(false),
-		mIsAltPressed(false),
-		mIsMetaPressed(false),
-		mHoldKey(KeyCode::None),
-		mHoldChar(0),
-		mFirstPressKey(false),
-		mTimerKey(0.0f),
-		mOldAbsZ(0),
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 		resetMouseCaptureWidget();

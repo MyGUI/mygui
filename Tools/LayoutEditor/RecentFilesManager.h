@@ -41,11 +41,11 @@ namespace tools
 	private:
 		MyGUI::UString mRecentFolder;
 		VectorUString mRecentFolders;
-		size_t mMaxRecentFolders;
+		size_t mMaxRecentFolders{0};
 		VectorUString mRecentFiles;
-		size_t mMaxRecentFiles;
+		size_t mMaxRecentFiles{0};
 		VectorUString mRecentProjects;
-		size_t mMaxRecentProjects;
+		size_t mMaxRecentProjects{0};
 	};
 
 }

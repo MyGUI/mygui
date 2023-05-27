@@ -11,24 +11,6 @@
 namespace tools
 {
 
-	ColourPanel::ColourPanel() :
-		mColourRect(nullptr),
-		mColourView(nullptr),
-		mImageColourPicker(nullptr),
-		mEditRed(nullptr),
-		mEditGreen(nullptr),
-		mEditBlue(nullptr),
-		mInputAlpha(nullptr),
-		mTextAlpha(nullptr),
-		mScrollRange(nullptr),
-		mAlphaSliderBack(nullptr),
-		mAlphaSliderPlace(nullptr),
-		mAlphaSlider(nullptr),
-		mTexture(nullptr),
-		mAlphaSupport(true)
-	{
-	}
-
 	ColourPanel::~ColourPanel()
 	{
 		destroyTexture();

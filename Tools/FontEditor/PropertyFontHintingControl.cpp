@@ -13,12 +13,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontHintingControl)
 
-	PropertyFontHintingControl::PropertyFontHintingControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyFontHintingControl::~PropertyFontHintingControl()
 	{
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyFontHintingControl::notifyComboChangePosition);

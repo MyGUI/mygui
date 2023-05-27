@@ -13,12 +13,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyRegionTypeControl)
 
-	PropertyRegionTypeControl::PropertyRegionTypeControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyRegionTypeControl::~PropertyRegionTypeControl()
 	{
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);

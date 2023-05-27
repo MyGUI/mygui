@@ -21,7 +21,6 @@ namespace MyGUI
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		mWindowsClipboardHandler(nullptr),
 #endif
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}

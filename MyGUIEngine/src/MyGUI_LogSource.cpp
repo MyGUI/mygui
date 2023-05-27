@@ -10,13 +10,6 @@
 namespace MyGUI
 {
 
-	LogSource::LogSource() :
-		mFilter(nullptr)
-	{
-	}
-
-	LogSource::~LogSource() = default;
-
 	void LogSource::setLogFilter(ILogFilter* _filter)
 	{
 		mFilter = _filter;

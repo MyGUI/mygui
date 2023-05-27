@@ -77,7 +77,7 @@ namespace MyGUI
 		using MapRegisterFactoryItem = std::map<std::string, MapFactoryItem, std::less<>>;
 		MapRegisterFactoryItem mRegisterFactoryItems;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

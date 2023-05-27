@@ -15,11 +15,7 @@
 namespace MyGUI
 {
 
-	ControllerPosition::ControllerPosition() :
-		mTime(1),
-		mElapsedTime(0),
-		mCalcPosition(false),
-		mCalcSize(false)
+	ControllerPosition::ControllerPosition()
 	{
         setFunction("Linear");
 	}

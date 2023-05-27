@@ -46,7 +46,7 @@ namespace tools
 		IPropertyField* getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type);
 
 	private:
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 		using MapPropertyField = std::map<std::string, IPropertyField*, std::less<>>;
 		MapPropertyField mFields;
 		std::string mUserDataTargetType;

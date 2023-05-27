@@ -15,8 +15,6 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -31,8 +29,7 @@ namespace demo
 		void createSuccesScene();
 		void createFailedScene();
 
-		MyGUI::TextBox* mTextBoxTest;
-
+		MyGUI::TextBox* mTextBoxTest{nullptr};
 	};
 
 } // namespace demo

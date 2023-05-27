@@ -13,12 +13,6 @@
 namespace tools
 {
 
-	MainMenuControl::MainMenuControl() :
-		mMainMenu(nullptr),
-		mScaleMenu(nullptr)
-	{
-	}
-
 	MainMenuControl::~MainMenuControl()
 	{
 		mMainMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);

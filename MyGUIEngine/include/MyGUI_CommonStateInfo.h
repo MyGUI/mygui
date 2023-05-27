@@ -53,12 +53,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( TileRectStateInfo )
 
 	public:
-		TileRectStateInfo() :
-			mTileH(true),
-			mTileV(true)
-		{
-		}
-
 		const FloatRect& getRect() const
 		{
 			return mRect;
@@ -108,8 +102,8 @@ namespace MyGUI
 	private:
 		FloatRect mRect;
 		IntSize mTileSize;
-		bool mTileH;
-		bool mTileV;
+		bool mTileH{true};
+		bool mTileV{true};
 	};
 
 	class MYGUI_EXPORT RotatingSkinStateInfo :
@@ -118,11 +112,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( RotatingSkinStateInfo )
 
 	public:
-		RotatingSkinStateInfo() :
-			mAngle(0)
-		{
-		}
-
 		float getAngle() const
 		{
 			return mAngle;
@@ -166,7 +155,7 @@ namespace MyGUI
 	private:
 		FloatRect mRect;
 		IntPoint mCenter;
-		float mAngle; // Angle in radians
+		float mAngle{0}; // Angle in radians
 	};
 
 
@@ -176,12 +165,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( EditTextStateInfo )
 
 	public:
-		EditTextStateInfo() :
-			mColour(Colour::White),
-			mShift(false)
-		{
-		}
-
 		const Colour& getColour() const
 		{
 			return mColour;
@@ -207,8 +190,8 @@ namespace MyGUI
 		}
 
 	private:
-		Colour mColour;
-		bool mShift;
+		Colour mColour{Colour::White};
+		bool mShift{false};
 	};
 
 } // namespace MyGUI

@@ -16,18 +16,7 @@
 namespace MyGUI
 {
 
-	ItemBox::ItemBox() :
-		mCountItemInLine(0),
-		mCountLines(0),
-		mFirstVisibleIndex(0),
-		mFirstOffsetIndex(0),
-		mIndexSelect(ITEM_NONE),
-		mIndexActive(ITEM_NONE),
-		mIndexAccept(ITEM_NONE),
-		mIndexRefuse(ITEM_NONE),
-		mIsFocus(false),
-		mItemDrag(nullptr),
-		mAlignVert(true)
+	ItemBox::ItemBox()
 	{
 		mChangeContentByResize = true;
 	}

@@ -26,10 +26,7 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(EditorState)
 
-	EditorState::EditorState() :
-		mMainPane(nullptr),
-		mOpenSaveFileDialog(nullptr),
-		mSettingsWindow(nullptr)
+	EditorState::EditorState()
 	{
 		CommandManager::getInstance().getEvent("Command_FileDrop")->connect(this, &EditorState::commandFileDrop);
 		CommandManager::getInstance().getEvent("Command_FileLoad")->connect(this, &EditorState::commandLoad);

@@ -13,13 +13,6 @@
 namespace MyGUI
 {
 
-	ResourceManualFont::ResourceManualFont() :
-		mDefaultHeight(0),
-		mSubstituteGlyphInfo(nullptr),
-		mTexture(nullptr)
-	{
-	}
-
 	const GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id) const
 	{
 		CharMap::const_iterator iter = mCharMap.find(_id);

@@ -32,8 +32,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ListBox )
 
 	public:
-		ListBox();
-
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -297,29 +295,29 @@ namespace MyGUI
 
 	private:
 		std::string mSkinLine;
-		ScrollBar* mWidgetScroll;
+		ScrollBar* mWidgetScroll{nullptr};
 
 		// наши дети в строках
 		using VectorButton = std::vector<Button*>;
 		VectorButton mWidgetLines;
 
-		bool mActivateOnClick; // Require a full mouse click rather than only mouse press to activate an item
+		bool mActivateOnClick{false}; // Require a full mouse click rather than only mouse press to activate an item
 
-		int mHeightLine; // высота одной строки
-		int mTopIndex; // индекс самого верхнего элемента
-		int mOffsetTop; // текущее смещение
-		int mRangeIndex; // размерность скрола
-		size_t mLastRedrawLine; // последняя перерисованная линия
+		int mHeightLine{1}; // высота одной строки
+		int mTopIndex{0}; // индекс самого верхнего элемента
+		int mOffsetTop{0}; // текущее смещение
+		int mRangeIndex{-1}; // размерность скрола
+		size_t mLastRedrawLine{0}; // последняя перерисованная линия
 
-		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
-		size_t mLineActive; // текущий виджет над которым мыша
+		size_t mIndexSelect{ITEM_NONE}; // текущий выделенный элемент или ITEM_NONE
+		size_t mLineActive{ITEM_NONE}; // текущий виджет над которым мыша
 
 		using PairItem = std::pair<UString, Any>;
 		using VectorItemInfo = std::vector<PairItem>;
 		VectorItemInfo mItemsInfo;
 
 		// имеем ли мы фокус ввода
-		bool mNeedVisibleScroll;
+		bool mNeedVisibleScroll{true};
 
 		IntSize mOldSize;
 	};

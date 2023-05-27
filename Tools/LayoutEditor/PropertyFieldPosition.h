@@ -53,10 +53,10 @@ namespace tools
 		virtual void onAction(std::string_view _value, bool _force);
 
 	protected:
-		MyGUI::TextBox* mText;
-		MyGUI::EditBox* mField;
-		MyGUI::Button* mButton;
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::TextBox* mText{nullptr};
+		MyGUI::EditBox* mField{nullptr};
+		MyGUI::Button* mButton{nullptr};
+		MyGUI::Widget* mCurrentWidget{nullptr};
 		std::string mType;
 		std::string mName;
 	};

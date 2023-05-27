@@ -41,7 +41,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(WidgetManager);
 
 	WidgetManager::WidgetManager() :
-		mIsInitialise(false),
 		mCategoryName("Widget"),
 		mSingletonHolder(this)
 	{

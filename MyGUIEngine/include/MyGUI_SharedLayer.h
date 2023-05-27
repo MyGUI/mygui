@@ -58,9 +58,9 @@ namespace MyGUI
 		bool isOutOfDate() const;
 
 	protected:
-		bool mIsPick;
-		SharedLayerNode* mChildItem;
-		bool mOutOfDate;
+		bool mIsPick{false};
+		SharedLayerNode* mChildItem{nullptr};
+		bool mOutOfDate{false};
 		IntSize mViewSize;
 	};
 

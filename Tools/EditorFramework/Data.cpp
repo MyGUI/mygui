@@ -11,13 +11,6 @@
 namespace tools
 {
 
-	Data::Data() :
-		mType(nullptr),
-		mParent(nullptr),
-		mIndexSelected(MyGUI::ITEM_NONE)
-	{
-	}
-
 	Data::~Data()
 	{
 		clear();

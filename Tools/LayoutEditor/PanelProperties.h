@@ -44,8 +44,8 @@ namespace tools
 	private:
 		using MapPropertyField = std::map<std::string, IPropertyField*, std::less<>>;
 		MapPropertyField mFields;
-		size_t mDepth;
-		MyGUI::Widget* mCurrentWidget;
+		size_t mDepth{0};
+		MyGUI::Widget* mCurrentWidget{nullptr};
 	};
 
 }

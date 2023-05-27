@@ -13,12 +13,6 @@
 namespace MyGUI
 {
 
-	MaskPickInfo::MaskPickInfo() :
-		mWidth(0),
-		mHeight(0)
-	{
-	}
-
 	bool MaskPickInfo::load(const std::string& _file)
 	{
 		if (!DataManager::getInstance().isDataExist(_file))

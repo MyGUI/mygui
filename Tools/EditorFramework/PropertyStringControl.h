@@ -17,7 +17,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyStringControl();
 		~PropertyStringControl() override;
 
 	protected:
@@ -31,8 +30,8 @@ namespace tools
 		MyGUI::UString getClearValue();
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::EditBox* mEdit;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::EditBox* mEdit{nullptr};
 	};
 
 }

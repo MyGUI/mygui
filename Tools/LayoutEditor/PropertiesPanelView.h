@@ -38,20 +38,20 @@ namespace tools
 
 	private:
 		MyGUI::IntSize mOldSize;
-		PanelView* mPanelView;
+		PanelView* mPanelView{nullptr};
 
-		PanelMainProperties* mPanelMainProperties;
+		PanelMainProperties* mPanelMainProperties{nullptr};
 
 		using MapPropertyWindow = std::map<WidgetStyle*, PanelProperties*>;
 		MapPropertyWindow mMapPropertyWindow;
 
-		PanelItems* mPanelItems;
-		PanelUserData* mPanelUserData;
-		PanelControllers* mPanelControllers;
-		PanelTemplateProperties* mPanelTemplateProperties;
-		PanelExtensionProperties* mPanelExtensionProperties;
+		PanelItems* mPanelItems{nullptr};
+		PanelUserData* mPanelUserData{nullptr};
+		PanelControllers* mPanelControllers{nullptr};
+		PanelTemplateProperties* mPanelTemplateProperties{nullptr};
+		PanelExtensionProperties* mPanelExtensionProperties{nullptr};
 
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 	};
 
 }

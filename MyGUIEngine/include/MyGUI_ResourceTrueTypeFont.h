@@ -37,7 +37,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont )
 
 	public:
-		ResourceTrueTypeFont();
 		~ResourceTrueTypeFont() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -99,22 +98,22 @@ namespace MyGUI
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
 		std::string mShader; // Optional shader, applied to the font.
-		float mSize; // Size of the font, in points (there are 72 points per inch).
-		unsigned int mResolution; // Resolution of the font, in pixels per inch.
-		Hinting mHinting; // What type of hinting to use when rendering the font.
-		bool mAntialias; // Whether or not to anti-alias the font by copying its alpha channel to its luminance channel.
-		float mSpaceWidth; // The width of a "Space" character, in pixels. If zero, the default width is used.
-		int mGlyphSpacing; // How far apart the glyphs are placed from each other in the font texture, in pixels.
-		float mTabWidth; // The width of the "Tab" special character, in pixels.
-		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
-		Char mSubstituteCodePoint; // The code point to use as a substitute for code points that don't exist in the font.
-		bool mMsdfMode; // Signed distance field texture, designed to be used with shader (see https://github.com/Chlumsky/msdfgen)
-		int mMsdfRange; // Gragient area range in pixels for msdf mode (higher range is required for thick outlines)
+		float mSize{0}; // Size of the font, in points (there are 72 points per inch).
+		unsigned int mResolution{96}; // Resolution of the font, in pixels per inch.
+		Hinting mHinting{HintingUseNative}; // What type of hinting to use when rendering the font.
+		bool mAntialias{false}; // Whether or not to anti-alias the font by copying its alpha channel to its luminance channel.
+		float mSpaceWidth{0.0f}; // The width of a "Space" character, in pixels. If zero, the default width is used.
+		int mGlyphSpacing{-1}; // How far apart the glyphs are placed from each other in the font texture, in pixels.
+		float mTabWidth{0.0f}; // The width of the "Tab" special character, in pixels.
+		int mOffsetHeight{0}; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
+		Char mSubstituteCodePoint{static_cast<Char>(FontCodeType::NotDefined)}; // The code point to use as a substitute for code points that don't exist in the font.
+		bool mMsdfMode{false}; // Signed distance field texture, designed to be used with shader (see https://github.com/Chlumsky/msdfgen)
+		int mMsdfRange{2}; // Gragient area range in pixels for msdf mode (higher range is required for thick outlines)
 
 		// The following variables are calculated automatically.
-		int mDefaultHeight; // The nominal height of the font in pixels.
-		GlyphInfo* mSubstituteGlyphInfo; // The glyph info to use as a substitute for code points that don't exist in the font.
-		MyGUI::ITexture* mTexture; // The texture that contains all of the rendered glyphs in the font.
+		int mDefaultHeight{0}; // The nominal height of the font in pixels.
+		GlyphInfo* mSubstituteGlyphInfo{nullptr}; // The glyph info to use as a substitute for code points that don't exist in the font.
+		MyGUI::ITexture* mTexture{nullptr}; // The texture that contains all of the rendered glyphs in the font.
 
 		// The following constants used to be mutable, but they no longer need to be. Do not modify their values!
 		static const int mDefaultGlyphSpacing; // How far apart the glyphs are placed from each other in the font texture, in pixels.

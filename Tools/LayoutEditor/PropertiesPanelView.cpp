@@ -14,15 +14,7 @@ namespace tools
 {
 
 	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
-		BaseLayout("PropertiesPanelView.layout", _parent),
-		mPanelView(nullptr),
-		mPanelMainProperties(nullptr),
-		mPanelItems(nullptr),
-		mPanelUserData(nullptr),
-		mPanelControllers(nullptr),
-		mPanelTemplateProperties(nullptr),
-		mPanelExtensionProperties(nullptr),
-		mCurrentWidget(nullptr)
+		BaseLayout("PropertiesPanelView.layout", _parent)
 	{
 		assignBase(mPanelView, "scroll_View");
 

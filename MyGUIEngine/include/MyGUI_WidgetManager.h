@@ -56,7 +56,7 @@ namespace MyGUI
 		void notifyEventFrameStart(float _time);
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 
 		// список менеджеров для отписки при удалении

@@ -26,7 +26,7 @@ namespace MyGUI
 		const std::string& getStateCategoryName() const;
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 		std::string mStateCategoryName;
 	};

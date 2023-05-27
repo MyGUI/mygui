@@ -34,8 +34,8 @@ namespace tools
 		void deleteTestLayout();
 
 	private:
-		MyGUI::xml::Document* mTestLayout;
-		BackgroundControl* mBackgroundControl;
+		MyGUI::xml::Document* mTestLayout{nullptr};
+		BackgroundControl* mBackgroundControl{nullptr};
 	};
 
 }

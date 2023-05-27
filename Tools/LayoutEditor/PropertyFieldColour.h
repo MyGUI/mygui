@@ -55,15 +55,15 @@ namespace tools
 		virtual void onAction(std::string_view _value, bool _final);
 
 	private:
-		MyGUI::TextBox* mText;
-		MyGUI::EditBox* mField;
-		MyGUI::Widget* mColourPlace;
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::TextBox* mText{nullptr};
+		MyGUI::EditBox* mField{nullptr};
+		MyGUI::Widget* mColourPlace{nullptr};
+		MyGUI::Widget* mCurrentWidget{nullptr};
 		std::string mType;
 		std::string mName;
-		ColourPanel* mColourPanel;
+		ColourPanel* mColourPanel{nullptr};
 		MyGUI::Colour mPreviewColour;
-		bool mGoodData;
+		bool mGoodData{false};
 	};
 
 }

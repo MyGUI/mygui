@@ -18,20 +18,6 @@ namespace MyGUI
 	const size_t PROGRESS_AUTO_RANGE = 1000;
 	const float PROGRESS_AUTO_COEF = 400;
 
-	ProgressBar::ProgressBar() :
-		mTrackWidth(1),
-		mTrackStep(0),
-		mTrackMin(0),
-		mRange(0),
-		mStartPosition(0),
-		mEndPosition(0),
-		mAutoPosition(0.0f),
-		mAutoTrack(false),
-		mFillTrack(false),
-		mTrackPlace(nullptr)
-	{
-	}
-
 	void ProgressBar::initialiseOverride()
 	{
 		Base::initialiseOverride();

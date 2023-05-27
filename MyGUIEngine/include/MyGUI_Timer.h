@@ -15,8 +15,6 @@ namespace MyGUI
 	class MYGUI_EXPORT Timer
 	{
 	public:
-		Timer();
-
 		void reset();
 		unsigned long getMilliseconds() const;
 
@@ -24,7 +22,7 @@ namespace MyGUI
 		unsigned long getCurrentMilliseconds() const;
 
 	private:
-		unsigned long mTimeStart;
+		unsigned long mTimeStart{0};
 	};
 
 } // namespace MyGUI

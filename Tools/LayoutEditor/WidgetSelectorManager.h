@@ -43,8 +43,8 @@ namespace tools
 		MyGUI::Widget* findWidgetSelected(WidgetContainer* _container);
 
 	private:
-		MyGUI::Widget* mCurrentWidget;
-		size_t mSelectDepth;
+		MyGUI::Widget* mCurrentWidget{nullptr};
+		size_t mSelectDepth{0};
 		MyGUI::IntPoint mLastClickPoint;
 		std::string mStoreWidgetTag;
 	};

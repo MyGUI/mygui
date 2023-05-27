@@ -17,7 +17,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		TextureToolControl();
 		~TextureToolControl() override;
 
 	protected:
@@ -41,7 +40,7 @@ namespace tools
 	private:
 		using VectorSizeT = std::vector<size_t>;
 		VectorSizeT mScaleValue;
-		size_t mCurrentScaleValue;
+		size_t mCurrentScaleValue{100};
 		std::string mColourValueName;
 	};
 

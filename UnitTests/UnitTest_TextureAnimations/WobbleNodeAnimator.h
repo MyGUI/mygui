@@ -22,8 +22,6 @@ namespace demo
 		MYGUI_RTTI_DERIVED( WobbleNodeAnimator )
 
 	public:
-		WobbleNodeAnimator();
-
 		void attach(MyGUI::ILayerNode* _node) override;
 
 		void create() override;
@@ -55,10 +53,10 @@ namespace demo
 		MyGUI::FloatPoint mInertiaPoint;
 		MyGUI::FloatPoint mDragOffset;
 
-		bool mInertiaMode;
-		float mDragStrength;
-		float mResizeStrength;
-		bool mDestroy;
+		bool mInertiaMode{false};
+		float mDragStrength{0.001f};
+		float mResizeStrength{0.0009f};
+		bool mDestroy{true};
 	};
 
 }

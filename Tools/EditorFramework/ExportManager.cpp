@@ -14,7 +14,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(ExportManager);
 
 	ExportManager::ExportManager() :
-		mExportSerializer(nullptr),
 		mSingletonHolder(this)
 	{
 	}

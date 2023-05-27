@@ -23,19 +23,6 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox() :
-		mButton(nullptr),
-		mList(nullptr),
-		mListShow(false),
-		mMaxListLength(-1),
-		mItemIndex(ITEM_NONE),
-		mModeDrop(false),
-		mDropMouse(false),
-		mShowSmooth(false),
-		mFlowDirection(FlowDirection::TopToBottom)
-	{
-	}
-
 	void ComboBox::initialiseOverride()
 	{
 		Base::initialiseOverride();

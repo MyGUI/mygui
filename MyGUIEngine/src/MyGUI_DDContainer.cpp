@@ -12,19 +12,6 @@
 namespace MyGUI
 {
 
-	DDContainer::DDContainer() :
-		mDropResult(false),
-		mNeedDrop(false),
-		mStartDrop(false),
-		mOldDrop(nullptr),
-		mCurrentSender(nullptr),
-		mDropSenderIndex(ITEM_NONE),
-		mDropItem(nullptr),
-		mNeedDragDrop(false),
-		mReseiverContainer(nullptr)
-	{
-	}
-
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		// смещение внутри виджета, куда кликнули мышкой
@@ -60,7 +47,6 @@ namespace MyGUI
 			mReseiverContainer = nullptr;
 
 			// сбрасываем, чтобы обновился дропный виджет
-			mCurrentSender = nullptr;
 			mStartDrop = false;
 
 		}

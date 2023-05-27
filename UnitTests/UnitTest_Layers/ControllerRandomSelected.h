@@ -20,8 +20,6 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerRandomSelected )
 
 	public:
-		ControllerRandomSelected() : mTime(0) { }
-
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			mTime += _time;
@@ -52,8 +50,7 @@ namespace demo
 		}
 
 	private:
-		float mTime;
-
+		float mTime{0};
 	};
 
 }

@@ -10,12 +10,6 @@
 namespace tools
 {
 
-	BackgroundControl::BackgroundControl() :
-		mBackground(nullptr),
-		mCanvas(nullptr)
-	{
-	}
-
 	BackgroundControl::~BackgroundControl()
 	{
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);

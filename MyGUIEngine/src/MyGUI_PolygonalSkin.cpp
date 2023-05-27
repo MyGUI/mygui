@@ -14,16 +14,7 @@
 namespace MyGUI
 {
 
-	PolygonalSkin::PolygonalSkin() :
-		mGeometryOutdated(false),
-		mLineWidth(1.0f),
-		mLineStroke(0),
-		mLineLength(0.0f),
-		mVertexCount(VertexQuad::VertexCount),
-		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
-		mNode(nullptr),
-		mRenderItem(nullptr)
+	PolygonalSkin::PolygonalSkin()
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}

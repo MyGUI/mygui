@@ -33,14 +33,6 @@ namespace demo
 		return _value.left * _value.left + _value.top * _value.top;
 	}
 
-	WobbleNodeAnimator::WobbleNodeAnimator() :
-		mInertiaMode(false),
-		mDragStrength(0.001f),
-		mResizeStrength(0.0009f),
-		mDestroy(true)
-	{
-	}
-
 	void WobbleNodeAnimator::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();

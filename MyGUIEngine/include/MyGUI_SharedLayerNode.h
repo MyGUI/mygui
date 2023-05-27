@@ -26,7 +26,7 @@ namespace MyGUI
 		size_t countUsing() const;
 
 	private:
-		size_t mCountUsing;
+		size_t mCountUsing{0};
 	};
 
 } // namespace MyGUI

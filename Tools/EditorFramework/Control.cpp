@@ -12,11 +12,6 @@
 namespace tools
 {
 
-	Control::Control() :
-		mParent(nullptr)
-	{
-	}
-
 	Control::~Control()
 	{
 		DeactivateControllers();

@@ -35,18 +35,21 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( MenuControl )
 
 	public:
-		MenuControl();
-
 		struct ItemInfo
 		{
-			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuControl* _submenu, std::string_view _id, Any _data) :
+			ItemInfo(
+				MenuItem* _item,
+				const UString& _name,
+				MenuItemType _type,
+				MenuControl* _submenu,
+				std::string_view _id,
+				Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
 				submenu(_submenu),
 				id(_id),
-				data(_data),
-				width(0)
+				data(_data)
 			{
 			}
 
@@ -63,7 +66,7 @@ namespace MyGUI
 			/** User data */
 			Any data;
 			/** Item width */
-			int width;
+			int width{0};
 		};
 
 		using VectorMenuItemInfo = std::vector<ItemInfo>;
@@ -303,12 +306,12 @@ namespace MyGUI
 		void _setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth);
 
 	protected:
-		bool mHideByAccept;
+		bool mHideByAccept{true};
 		// нужно ли выбрасывать по нажатию
-		bool mMenuDropMode;
-		bool mIsMenuDrop;
-		bool mHideByLostKey;
-		bool mResizeToContent;
+		bool mMenuDropMode{false};
+		bool mIsMenuDrop{true};
+		bool mHideByLostKey{false};
+		bool mResizeToContent{true};
 
 	private:
 		VectorMenuItemInfo mItemsInfo;
@@ -321,16 +324,16 @@ namespace MyGUI
 		std::string mSubMenuLayer;
 
 		// флаг, чтобы отсеч уведомления от айтемов, при общем шутдауне виджета
-		bool mShutdown;
+		bool mShutdown{false};
 
-		bool mVerticalAlignment;
-		int mDistanceButton;
-		bool mPopupAccept;
-		MenuItem* mOwner;
-		bool mAnimateSmooth;
+		bool mVerticalAlignment{true};
+		int mDistanceButton{0};
+		bool mPopupAccept{false};
+		MenuItem* mOwner{nullptr};
+		bool mAnimateSmooth{false};
 
-		bool mChangeChildSkin;
-		bool mInternalCreateChild;
+		bool mChangeChildSkin{false};
+		bool mInternalCreateChild{false};
 	};
 
 } // namespace MyGUI

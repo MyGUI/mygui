@@ -28,7 +28,7 @@ namespace tools
 		bool deserialization(pugi::xml_document& _doc);
 
 	private:
-		IExportSerializer* mExportSerializer;
+		IExportSerializer* mExportSerializer{nullptr};
 	};
 
 }

@@ -22,8 +22,6 @@ namespace input
 		MYGUI_RTTI_DERIVED( ResourceSDLPointer )
 
 	public:
-		ResourceSDLPointer();
-
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 		SDL_SystemCursor getPointerType()
@@ -32,7 +30,7 @@ namespace input
 		}
 
 	private:
-		SDL_SystemCursor mCursorType;
+		SDL_SystemCursor mCursorType{SDL_NUM_SYSTEM_CURSORS};
 	};
 
 }

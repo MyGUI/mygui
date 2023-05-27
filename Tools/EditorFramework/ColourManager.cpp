@@ -14,7 +14,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(ColourManager);
 
 	ColourManager::ColourManager() :
-		mColourPanel(nullptr),
 		mSingletonHolder(this)
 	{
 		CommandManager::getInstance().getEvent("Command_ChangeColourBackground")->connect(this, &ColourManager::commandChangeColourBackground);

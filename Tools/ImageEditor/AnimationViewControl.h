@@ -20,9 +20,6 @@ namespace tools
 		public Control,
 		public sigslot::has_slots<>
 	{
-	public:
-		AnimationViewControl();
-
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
@@ -41,25 +38,25 @@ namespace tools
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mImage, "Image");
-		MyGUI::ImageBox* mImage;
+		MyGUI::ImageBox* mImage{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mFrameInfo, "Info");
-		MyGUI::TextBox* mFrameInfo;
+		MyGUI::TextBox* mFrameInfo{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mButtonPlay, "Play");
-		MyGUI::Button* mButtonPlay;
+		MyGUI::Button* mButtonPlay{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mButtonLeft, "Left");
-		MyGUI::Button* mButtonLeft;
+		MyGUI::Button* mButtonLeft{nullptr};
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mButtonRight, "Right");
-		MyGUI::Button* mButtonRight;
+		MyGUI::Button* mButtonRight{nullptr};
 
-		DataPtr mParentData;
+		DataPtr mParentData{nullptr};
 		AnimationInfo mAnimation;
-		size_t mCurrentFrame;
-		float mTime;
-		bool mPlay;
+		size_t mCurrentFrame{0};
+		float mTime{0};
+		bool mPlay{true};
 	};
 
 }

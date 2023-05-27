@@ -10,14 +10,6 @@
 namespace MyGUI
 {
 
-	MenuItem::MenuItem() :
-		mOwner(nullptr),
-		mMinSize(10, 10),
-		mCheck(nullptr),
-		mCheckValue(false)
-	{
-	}
-
 	void MenuItem::initialiseOverride()
 	{
 		Base::initialiseOverride();

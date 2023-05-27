@@ -15,14 +15,6 @@ namespace demo
 	static int stroke = 0;
 	static MyGUI::Widget* point[PointsCount];
 
-	DemoKeeper::DemoKeeper() :
-		mClient(nullptr),
-		mPolygonalSkin(nullptr),
-		mQualityText(nullptr),
-		mStrokeText(nullptr)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

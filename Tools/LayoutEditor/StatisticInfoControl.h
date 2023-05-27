@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		StatisticInfoControl();
 		~StatisticInfoControl() override;
 
 	protected:
@@ -29,7 +28,7 @@ namespace tools
 		void notifyFrameStart(float _time);
 
 	private:
-		MyGUI::TextBox* mText;
+		MyGUI::TextBox* mText{nullptr};
 	};
 
 }

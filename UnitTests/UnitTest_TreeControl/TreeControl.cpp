@@ -77,23 +77,6 @@ namespace MyGUI
 		invalidate();
 	}
 
-	TreeControl::TreeControl() :
-		mpWidgetScroll(nullptr),
-		mbScrollAlwaysVisible(true),
-		mbInvalidated(false),
-		mbRootVisible(false),
-		mnItemHeight(1),
-		mnScrollRange(-1),
-		mnTopIndex(0),
-		mnTopOffset(0),
-		mnFocusIndex(ITEM_NONE),
-		mpSelection(nullptr),
-		mpRoot(nullptr),
-		mnExpandedNodes(0),
-		mnLevelOffset(0)
-	{
-	}
-
 	void TreeControl::initialiseOverride()
 	{
 		Base::initialiseOverride();

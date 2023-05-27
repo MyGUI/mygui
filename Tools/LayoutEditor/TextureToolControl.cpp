@@ -14,9 +14,7 @@ namespace tools
 {
 
 	TextureToolControlLE::TextureToolControlLE(MyGUI::Widget* _parent) :
-		TextureControlLE("TextureControl.layout", _parent),
-		mCurrentScaleValue(100),
-		mActivate(true)
+		TextureControlLE("TextureControl.layout", _parent)
 	{
 		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
 		setColour(colour);

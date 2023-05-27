@@ -11,6 +11,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_VertexData.h"
 
 namespace MyGUI
 {
@@ -60,28 +61,28 @@ namespace MyGUI
 		FloatPoint _getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3) const;
 
 	private:
-		bool mGeometryOutdated;
+		bool mGeometryOutdated{false};
 
-		float mLineWidth;
-		size_t mLineStroke;
+		float mLineWidth{1.0f};
+		size_t mLineStroke{0};
 		std::vector<FloatPoint> mLinePoints;
-		float mLineLength;
+		float mLineLength{0.0f};
 
 		std::vector<FloatPoint> mResultVerticiesPos;
 		std::vector<FloatPoint> mResultVerticiesUV;
 
-		size_t mVertexCount;
+		size_t mVertexCount{VertexQuad::VertexCount};
 
-		bool mEmptyView;
+		bool mEmptyView{false};
 
 		VertexColourType mVertexFormat;
-		uint32 mCurrentColour;
+		uint32 mCurrentColour{0xFFFFFFFF};
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
 
-		ILayerNode* mNode;
-		RenderItem* mRenderItem;
+		ILayerNode* mNode{nullptr};
+		RenderItem* mRenderItem{nullptr};
 	};
 
 } // namespace MyGUI

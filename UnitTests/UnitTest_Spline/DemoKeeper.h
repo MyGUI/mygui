@@ -15,8 +15,6 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 
 	private:
@@ -31,11 +29,11 @@ namespace demo
 		void notifyChangeStroke(MyGUI::ScrollBar* _sender, size_t _position);
 
 	private:
-		MyGUI::Widget* mClient;
+		MyGUI::Widget* mClient{nullptr};
 		std::vector<MyGUI::FloatPoint> mLinePoints;
-		MyGUI::PolygonalSkin* mPolygonalSkin;
-		MyGUI::TextBox* mQualityText;
-		MyGUI::TextBox* mStrokeText;
+		MyGUI::PolygonalSkin* mPolygonalSkin{nullptr};
+		MyGUI::TextBox* mQualityText{nullptr};
+		MyGUI::TextBox* mStrokeText{nullptr};
 		MyGUI::IntPoint mOffset;
 	};
 

@@ -16,10 +16,7 @@ namespace diagnostic
 	class StatisticInfo
 	{
 	public:
-
-		StatisticInfo() :
-			mInfo(nullptr),
-			mOffset(20, 20)
+		StatisticInfo()
 		{
 			std::string_view layer = "Statistic";
 			if (!MyGUI::LayerManager::getInstance().isExist(layer))
@@ -126,9 +123,9 @@ namespace diagnostic
 		}
 
 	private:
-		MyGUI::TextBox* mInfo;
+		MyGUI::TextBox* mInfo{nullptr};
 		MyGUI::VectorStringPairs mParams;
-		MyGUI::IntPoint mOffset;
+		MyGUI::IntPoint mOffset{20, 20};
 	};
 
 } // namespace diagnostic

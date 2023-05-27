@@ -9,11 +9,6 @@
 
 namespace MyGUI
 {
-	TreeControlItem::TreeControlItem() :
-		mpButtonExpandCollapse(nullptr),
-		mpIcon(nullptr)
-	{
-	}
 
 	void TreeControlItem::initialiseOverride()
 	{

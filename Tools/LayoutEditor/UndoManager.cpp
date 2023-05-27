@@ -10,11 +10,7 @@ namespace tools
 	const int UNDO_COUNT = 64;
 
 	UndoManager::UndoManager() :
-		mPosition(0),
 		mOperations(UNDO_COUNT),
-		mLastProperty(0),
-		mEditorWidgets(nullptr),
-		mUnsaved(false),
 		mSingletonHolder(this)
 	{
 		CommandManager::getInstance().getEvent("Command_Undo")->connect(this, &UndoManager::commandUndo);

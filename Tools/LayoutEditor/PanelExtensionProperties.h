@@ -38,7 +38,7 @@ namespace tools
 	private:
 		using VectorPropertyField = std::vector<IPropertyField*>;
 		VectorPropertyField mFields;
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 	};
 
 }

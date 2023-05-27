@@ -45,16 +45,16 @@ namespace tools
 		void addPropertyValue(MyGUI::Widget* _widget, std::string_view _propertyName, std::string_view _propertyValue);
 
 	private:
-		MyGUI::EditBox* mEdit;
-		MyGUI::ListBox* mList;
-		MyGUI::Button* mButtonAdd;
-		MyGUI::Button* mButtonDelete;
+		MyGUI::EditBox* mEdit{nullptr};
+		MyGUI::ListBox* mList{nullptr};
+		MyGUI::Button* mButtonAdd{nullptr};
+		MyGUI::Button* mButtonDelete{nullptr};
 
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 
-		int mButtonLeft;
-		int mButtonRight;
-		int mButtonSpace;
+		int mButtonLeft{0};
+		int mButtonRight{0};
+		int mButtonSpace{0};
 	};
 
 }

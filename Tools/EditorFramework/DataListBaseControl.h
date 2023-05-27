@@ -19,8 +19,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		DataListBaseControl();
-
 		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
 		void commandCloneData(const MyGUI::UString& _commandName, bool& _result);
 		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
@@ -42,7 +40,7 @@ namespace tools
 		void notifyChangeName(DataPtr _data, std::string_view _name);
 
 	private:
-		ListBoxDataControl* mListBoxControl;
+		ListBoxDataControl* mListBoxControl{nullptr};
 		std::string mParentType;
 		std::string mCurrentType;
 		std::string mPropertyForName;

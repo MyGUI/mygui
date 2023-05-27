@@ -19,8 +19,6 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -36,13 +34,13 @@ namespace demo
 		void notifyFrameStart(float _time);
 
 	private:
-		EditorWindow* mEditorWindow;
-		MainPanel* mMainPanel;
-		InformationWindow* mInformationWindow;
-		ColourWindow* mColourWindow;
+		EditorWindow* mEditorWindow{nullptr};
+		MainPanel* mMainPanel{nullptr};
+		InformationWindow* mInformationWindow{nullptr};
+		ColourWindow* mColourWindow{nullptr};
 
 #ifdef MYGUI_OGRE_PLATFORM
-		Ogre::SceneNode* mNode;
+		Ogre::SceneNode* mNode{nullptr};
 #endif // MYGUI_OGRE_PLATFORM
 	};
 

@@ -19,7 +19,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		FontTryControl();
 		~FontTryControl() override;
 
 	protected:
@@ -31,7 +30,7 @@ namespace tools
 		void updateFont();
 
 	private:
-		MyGUI::EditBox* mEdit;
+		MyGUI::EditBox* mEdit{nullptr};
 	};
 
 }

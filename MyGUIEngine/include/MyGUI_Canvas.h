@@ -221,7 +221,7 @@ namespace MyGUI
 
 	protected:
 		/// Current texture
-		ITexture* mTexture;
+		ITexture* mTexture{nullptr};
 
 		/// Requested bu user sizes
 		IntSize mReqTexSize;
@@ -230,18 +230,18 @@ namespace MyGUI
 		std::string mGenTexName;
 
 		/// Texture resize mode \sa TextureResizeMode
-		TextureResizeMode mTexResizeMode;
+		TextureResizeMode mTexResizeMode{TRM_PT_CONST_SIZE};
 
 		/// Saved pointer from last calling lock. \sa lock
-		uint8* mTexData;
+		uint8* mTexData{nullptr};
 
 		/// true if we own the texture (can delete it or replace by another instance), otherwise false
-		bool mTexManaged;
+		bool mTexManaged{true};
 
 		/// For updating once per frame. True state means updating before next frame starts.
-		bool mFrameAdvise;
+		bool mFrameAdvise{false};
 
-		bool mInvalidateData;
+		bool mInvalidateData{false};
 	};
 
 } // namespace MyGUI

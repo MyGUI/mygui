@@ -49,13 +49,13 @@ namespace tools
 		void resetAllCreatorInfo();
 
 	private:
-		bool mCreateMode;
+		bool mCreateMode{false};
 		std::string mWidgetType;
 		std::string mWidgetSkin;
-		bool mStartNewWidget;
+		bool mStartNewWidget{false};
 		MyGUI::IntPoint mStartPoint;
-		MyGUI::Widget* mNewWidget;
-		bool mPopupMode;
+		MyGUI::Widget* mNewWidget{nullptr};
+		bool mPopupMode{false};
 	};
 
 }

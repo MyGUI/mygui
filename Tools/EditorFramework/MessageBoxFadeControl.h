@@ -16,7 +16,6 @@ namespace tools
 		public Control
 	{
 	public:
-		MessageBoxFadeControl();
 		~MessageBoxFadeControl() override;
 
 	protected:
@@ -26,7 +25,7 @@ namespace tools
 		void notifyFrameStart(float _time);
 
 	private:
-		float mMaxAlpha;
+		float mMaxAlpha{1};
 	};
 
 }

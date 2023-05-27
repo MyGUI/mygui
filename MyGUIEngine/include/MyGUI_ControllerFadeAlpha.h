@@ -21,8 +21,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ControllerFadeAlpha )
 
 	public:
-		ControllerFadeAlpha();
-
 		/**
 			@param _value Alpha that will be as result of changing
 		*/
@@ -43,9 +41,9 @@ namespace MyGUI
 		void setProperty(std::string_view _key, std::string_view _value) override;
 
 	private:
-		float mAlpha;
-		float mCoef;
-		bool mEnabled;
+		float mAlpha{1};
+		float mCoef{1};
+		bool mEnabled{true};
 	};
 
 } // namespace MyGUI

@@ -15,7 +15,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(DynLibManager);
 
 	DynLibManager::DynLibManager() :
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}

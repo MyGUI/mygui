@@ -20,8 +20,6 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -30,10 +28,10 @@ namespace demo
 		void setupResources() override;
 
 	private:
-		PanelViewWindow* mView;
-		PanelDirector* mPanelDirector;
-		PanelDynamic* mPanelDynamic;
-		PanelStatic* mPanelStatic;
+		PanelViewWindow* mView{nullptr};
+		PanelDirector* mPanelDirector{nullptr};
+		PanelDynamic* mPanelDynamic{nullptr};
+		PanelStatic* mPanelStatic{nullptr};
 	};
 
 } // namespace demo

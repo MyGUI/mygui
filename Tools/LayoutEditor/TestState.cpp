@@ -19,9 +19,7 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(TestState)
 
-	TestState::TestState() :
-		mTestLayout(nullptr),
-		mBackgroundControl(nullptr)
+	TestState::TestState()
 	{
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);
 		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &TestState::command_Test);

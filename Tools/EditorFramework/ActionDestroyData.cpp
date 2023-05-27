@@ -13,13 +13,6 @@
 namespace tools
 {
 
-	ActionDestroyData::ActionDestroyData() :
-		mData(nullptr),
-		mParent(nullptr),
-		mIndex(MyGUI::ITEM_NONE)
-	{
-	}
-
 	void ActionDestroyData::doAction()
 	{
 		mParent = mData->getParent();

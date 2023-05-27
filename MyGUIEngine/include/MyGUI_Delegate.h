@@ -62,7 +62,6 @@ namespace delegates
 		// non-static class method
 		DelegateFunction(Function _function, Any _functionPointer, const void* _object) :
 			mFunction(_function),
-			mUnlink(nullptr),
 			mObject(_object),
 			mFunctionPointer(_functionPointer)
 		{

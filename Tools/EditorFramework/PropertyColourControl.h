@@ -17,7 +17,6 @@ namespace tools
 		public PropertyControl
 	{
 	public:
-		PropertyColourControl();
 		~PropertyColourControl() override;
 
 	protected:
@@ -43,11 +42,11 @@ namespace tools
 		void updateSetProperty();
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::EditBox* mEdit;
-		MyGUI::Widget* mColour;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::EditBox* mEdit{nullptr};
+		MyGUI::Widget* mColour{nullptr};
 
-		ColourPanel* mColourPanel;
+		ColourPanel* mColourPanel{nullptr};
 
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mPreviewColour;

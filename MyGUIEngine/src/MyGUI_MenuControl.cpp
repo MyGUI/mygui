@@ -22,23 +22,6 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuControl::MenuControl() :
-		mHideByAccept(true),
-		mMenuDropMode(false),
-		mIsMenuDrop(true),
-		mHideByLostKey(false),
-		mResizeToContent(true),
-		mShutdown(false),
-		mVerticalAlignment(true),
-		mDistanceButton(0),
-		mPopupAccept(false),
-		mOwner(nullptr),
-		mAnimateSmooth(false),
-		mChangeChildSkin(false),
-		mInternalCreateChild(false)
-	{
-	}
-
 	void MenuControl::initialiseOverride()
 	{
 		Base::initialiseOverride();

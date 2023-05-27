@@ -13,11 +13,7 @@ namespace tools
 {
 
 	TestWindow::TestWindow() :
-		mBackgroundControl(nullptr),
-		mSkinItem(nullptr),
-		mSkinButton(nullptr),
-		mSkinName("GeneratedSkinName"),
-		mBack(nullptr)
+		mSkinName("GeneratedSkinName")
 	{
 	}
 

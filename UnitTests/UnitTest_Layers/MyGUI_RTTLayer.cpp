@@ -15,11 +15,6 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer() :
-		mTexture(nullptr)
-	{
-	}
-
 	RTTLayer::~RTTLayer()
 	{
 		if (mTexture)

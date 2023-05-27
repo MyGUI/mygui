@@ -55,7 +55,7 @@ namespace tools
 		ListAction mActions;
 		ListAction::iterator mCurrentAction;
 		ListAction::iterator mActionAsSave;
-		size_t mMaxActions;
+		size_t mMaxActions{256};
 	};
 
 }

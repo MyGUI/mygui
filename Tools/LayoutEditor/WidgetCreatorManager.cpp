@@ -17,10 +17,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(WidgetCreatorManager);
 
 	WidgetCreatorManager::WidgetCreatorManager() :
-		mCreateMode(false),
-		mStartNewWidget(false),
-		mNewWidget(nullptr),
-		mPopupMode(false),
 		mSingletonHolder(this)
 	{
 	}

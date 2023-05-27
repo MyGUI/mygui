@@ -28,23 +28,6 @@
 namespace MyGUI
 {
 
-	Widget::Widget() :
-		mWidgetClient(nullptr),
-		mEnabled(true),
-		mInheritedEnabled(true),
-		mInheritedVisible(true),
-		mAlpha(ALPHA_MAX),
-		mRealAlpha(ALPHA_MAX),
-		mInheritsAlpha(true),
-		mParent(nullptr),
-		mWidgetStyle(WidgetStyle::Child),
-		mContainer(nullptr),
-		mAlign(Align::Default),
-		mVisible(true),
-		mDepth(0)
-	{
-	}
-
 	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, std::string_view _skinName, Widget* _parent, ICroppedRectangle* _croppedParent, std::string_view _name)
 	{
 		ResourceSkin* skinInfo = nullptr;

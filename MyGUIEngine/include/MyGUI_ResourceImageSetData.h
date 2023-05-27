@@ -14,13 +14,8 @@ namespace MyGUI
 
 	struct IndexImage
 	{
-		IndexImage() :
-			rate(0)
-		{
-		}
-
 		std::string name;
-		float rate;
+		float rate{0};
 		std::vector<IntPoint> frames;
 	};
 	using VectorIndexImage = std::vector<IndexImage>;

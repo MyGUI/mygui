@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(GroupTextureController)
 
-	GroupTextureController::GroupTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void GroupTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

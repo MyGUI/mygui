@@ -16,9 +16,9 @@ namespace tools
 		ToolsControl(MyGUI::Widget* _parent = nullptr);
 
 	private:
-		PropertiesPanelView* mPropertiesPanelView;
-		WidgetsWindow* mWidgetsWindow;
-		ProjectControl* mProjectControl;
+		PropertiesPanelView* mPropertiesPanelView{nullptr};
+		WidgetsWindow* mWidgetsWindow{nullptr};
+		ProjectControl* mProjectControl{nullptr};
 	};
 
 }

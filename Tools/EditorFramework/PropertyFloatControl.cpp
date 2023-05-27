@@ -11,12 +11,6 @@
 namespace tools
 {
 
-	PropertyFloatControl::PropertyFloatControl() :
-		mName(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	PropertyFloatControl::~PropertyFloatControl()
 	{
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyFloatControl::notifyEditTextChange);

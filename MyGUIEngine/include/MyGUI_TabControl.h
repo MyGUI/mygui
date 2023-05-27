@@ -35,8 +35,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( TabControl )
 
 	public:
-		TabControl();
-
 		struct TabItemInfo
 		{
 			TabItemInfo(int _width, const UString& _name, TabItem* _item, Any _data) :
@@ -268,36 +266,36 @@ namespace MyGUI
 		void updateBarNew();
 
 	private:
-		int mOffsetTab; // смещение бара при показе кнопок
-		bool mButtonShow;
-		int mWidthBar; // ширина в которую помещаються все кнопки
+		int mOffsetTab{0}; // смещение бара при показе кнопок
+		bool mButtonShow{true};
+		int mWidthBar{0}; // ширина в которую помещаються все кнопки
 		std::vector<Button*> mItemButton; // список кнопок, не должно равно списку страниц
 		std::string mButtonSkinName;
 		std::string mEmptySkinName;
 
-		Widget* mWidgetBar;
-		Button* mButtonLeft;
-		Button* mButtonRight;
-		Widget* mButtonDecor;
+		Widget* mWidgetBar{nullptr};
+		Button* mButtonLeft{nullptr};
+		Button* mButtonRight{nullptr};
+		Widget* mButtonDecor{nullptr};
 		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
-		Widget* mEmptyBarWidget;
-		Widget* mItemTemplate;
+		Widget* mEmptyBarWidget{nullptr};
+		Widget* mItemTemplate{nullptr};
 
 		// информация о вкладках
 		VectorTabItemInfo mItemsInfo;
-		size_t mStartIndex;
-		size_t mIndexSelect;
+		size_t mStartIndex{0};
+		size_t mIndexSelect{ITEM_NONE};
 
-		int mButtonDefaultWidth;
-		bool mSmoothShow;
-		bool mButtonAutoWidth;
+		int mButtonDefaultWidth{1};
+		bool mSmoothShow{true};
+		bool mButtonAutoWidth{true};
 
 		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
-		bool mShutdown;
+		bool mShutdown{false};
 
-		Widget* mHeaderPlace;
-		Widget* mControls;
-		Widget* mEmpty;
+		Widget* mHeaderPlace{nullptr};
+		Widget* mControls{nullptr};
+		Widget* mEmpty{nullptr};
 	};
 
 } // namespace MyGUI

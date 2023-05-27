@@ -22,8 +22,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceManualFont )
 
 	public:
-		ResourceManualFont();
-
 		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
@@ -60,9 +58,9 @@ namespace MyGUI
 		std::string mShader; // Optional shader, applied to the font.
 
 		// The following variables are calculated automatically.
-		int mDefaultHeight; // The nominal height of the font in pixels.
-		GlyphInfo* mSubstituteGlyphInfo; // The glyph info to use as a substitute for code points that don't exist in the font.
-		MyGUI::ITexture* mTexture; // The texture that contains all of the rendered glyphs in the font.
+		int mDefaultHeight{0}; // The nominal height of the font in pixels.
+		GlyphInfo* mSubstituteGlyphInfo{nullptr}; // The glyph info to use as a substitute for code points that don't exist in the font.
+		MyGUI::ITexture* mTexture{nullptr}; // The texture that contains all of the rendered glyphs in the font.
 
 		CharMap mCharMap; // A map of code points to glyph info objects.
 	};

@@ -21,34 +21,7 @@ namespace MyGUI
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VertexQuad::VertexCount;
 
 	EditText::EditText() :
-		ISubWidgetText(),
-		mEmptyView(false),
-		mCurrentColourNative(0xFFFFFFFF),
-		mInverseColourNative(0xFF000000),
-		mShadowColourNative(0x00000000),
-		mTextOutDate(false),
-		mTextAlign(Align::Default),
-		mColour(Colour::White),
-		mShadowColour(Colour::Black),
-		mAlpha(ALPHA_MAX),
-		mFont(nullptr),
-		mTexture(nullptr),
-		mFontHeight(0),
-		mBackgroundNormal(true),
-		mStartSelect(0),
-		mEndSelect(0),
-		mCursorPosition(0),
-		mVisibleCursor(false),
-		mInvertSelect(true),
-		mShadow(false),
-		mNode(nullptr),
-		mRenderItem(nullptr),
-		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
-		mIsAddCursorWidth(true),
-		mShiftText(false),
-		mWordWrap(false),
-		mManualColour(false),
-		mOldWidth(0)
+		mCountVertex(SIMPLETEXT_COUNT_VERTEX)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}

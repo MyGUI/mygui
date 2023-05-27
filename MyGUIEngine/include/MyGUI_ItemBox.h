@@ -285,35 +285,35 @@ namespace MyGUI
 		IntPoint mContentPosition;
 
 		// колличество айтемов в одной строке
-		int mCountItemInLine;
+		int mCountItemInLine{0};
 		// колличество линий
-		int mCountLines;
+		int mCountLines{0};
 
 		// самая верхняя строка
-		int mFirstVisibleIndex;
+		int mFirstVisibleIndex{0};
 		// текущее смещение верхнего элемента в пикселях
 		// сколько его пикселей не видно сверху
-		int mFirstOffsetIndex;
+		int mFirstOffsetIndex{0};
 
 		// текущий выделенный элемент или ITEM_NONE
-		size_t mIndexSelect;
+		size_t mIndexSelect{ITEM_NONE};
 		// подсвеченный элемент или ITEM_NONE
-		size_t mIndexActive;
+		size_t mIndexActive{ITEM_NONE};
 		// индекс со свойством приема или ITEM_NONE
-		size_t mIndexAccept;
+		size_t mIndexAccept{ITEM_NONE};
 		// индекс со свойством отказа или ITEM_NONE
-		size_t mIndexRefuse;
+		size_t mIndexRefuse{ITEM_NONE};
 
 		// имеем ли мы фокус ввода
-		bool mIsFocus;
+		bool mIsFocus{false};
 
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
 
-		Widget* mItemDrag;
+		Widget* mItemDrag{nullptr};
 		IntPoint mPointDragOffset;
 
-		bool mAlignVert;
+		bool mAlignVert{true};
 
 		std::string mDragLayer;
 	};

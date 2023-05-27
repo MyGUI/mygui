@@ -66,7 +66,7 @@ namespace tools
 		MyGUI::MapString mTemplateFiles;
 		MyGUI::MapString mTemplateStrings;
 
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
 	};
 
 }

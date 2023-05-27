@@ -66,7 +66,7 @@ namespace demo
 		void FrameAdvise(bool _advise);
 
 	private:
-		bool mFrameAdvise;
+		bool mFrameAdvise{false};
 		MyGUI::Button* mButton1;
 		MyGUI::Button* mButton2;
 		MyGUI::Button* mButton3;

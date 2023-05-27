@@ -66,7 +66,7 @@ namespace MyGUI
 		//!	Installed plugins
 		PluginList mPlugins;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mXmlPluginTagName;
 	};
 

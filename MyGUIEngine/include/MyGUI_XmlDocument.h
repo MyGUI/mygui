@@ -146,7 +146,7 @@ namespace MyGUI::xml
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		bool m_first;
+		bool m_first{true};
 		VectorElement::iterator m_current, m_end;
 	};
 
@@ -282,7 +282,6 @@ namespace MyGUI::xml
 	class MYGUI_EXPORT Document
 	{
 	public:
-		Document();
 		~Document();
 
 		// открывает обычным файлом, имя файла в utf8
@@ -347,12 +346,12 @@ namespace MyGUI::xml
 		void clearRoot();
 
 	private:
-		ElementPtr mRoot;
-		ElementPtr mDeclaration;
+		ElementPtr mRoot{nullptr};
+		ElementPtr mDeclaration{nullptr};
 		ErrorType mLastError;
 		std::string mLastErrorFile;
-		size_t mLine;
-		size_t mCol;
+		size_t mLine{0};
+		size_t mCol{0};
 
 	}; // class Document
 

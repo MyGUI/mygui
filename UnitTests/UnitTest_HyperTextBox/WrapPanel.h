@@ -18,8 +18,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( WrapPanel )
 
 	public:
-		WrapPanel();
-
 		Align getContentAlign() const;
 		void setContentAlign(Align _value);
 
@@ -48,7 +46,7 @@ namespace MyGUI
 	private:
 		Align mContentAlign;
 		Align mSnapFloat;
-		bool mContentFloat;
+		bool mContentFloat{false};
 		IntSize mSpacer;
 	};
 

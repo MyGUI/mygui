@@ -61,13 +61,13 @@ namespace MyGUI
 	private:
 		IntCoord mStartCoord;
 		IntCoord mDestCoord;
-		float mTime;
-		float mElapsedTime;
+		float mTime{1};
+		float mElapsedTime{0};
 
 		// controller changing position
-		bool mCalcPosition;
+		bool mCalcPosition{false};
 		// controller changing size
-		bool mCalcSize;
+		bool mCalcSize{false};
 
 		/** Event : Every frame action while controller exist.\n
 			signature : void method(const IntRect& _startRect, const IntRect& _destRect, IntRect& _result, float _current_time)\n

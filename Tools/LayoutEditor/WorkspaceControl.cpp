@@ -13,12 +13,7 @@ namespace tools
 {
 
 	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
-		TextureToolControlLE(_parent),
-		mAreaSelectorControl(nullptr),
-		mCurrentWidget(nullptr),
-		mMoveableWidget(false),
-		mPositionSelectorCreatorControl(nullptr),
-		mFreeChildMode(false)
+		TextureToolControlLE(_parent)
 	{
 		MyGUI::IntSize size = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 

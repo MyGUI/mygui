@@ -14,17 +14,6 @@
 namespace tools
 {
 
-	ListBoxDataControl::ListBoxDataControl() :
-		mListBox(nullptr),
-		mHelpPanel(nullptr),
-		mParentData(nullptr),
-		mLastIndex(MyGUI::ITEM_NONE),
-		mContextMenu(nullptr),
-		mTextFieldControl(nullptr),
-		mEnableChangePosition(false)
-	{
-	}
-
 	ListBoxDataControl::~ListBoxDataControl()
 	{
 		delete mTextFieldControl;

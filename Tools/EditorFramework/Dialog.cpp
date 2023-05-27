@@ -11,12 +11,6 @@
 namespace tools
 {
 
-	Dialog::Dialog() :
-		mModal(false),
-		mRootWidget(nullptr)
-	{
-	}
-
 	void Dialog::doModal()
 	{
 		MYGUI_ASSERT(mModal != true, "Already modal mode");

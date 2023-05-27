@@ -57,9 +57,9 @@ namespace MyGUI
 		bool isOutOfDate() const;
 
 	protected:
-		bool mIsPick;
+		bool mIsPick{false};
 		VectorILayerNode mChildItems;
-		bool mOutOfDate;
+		bool mOutOfDate{false};
 		IntSize mViewSize;
 	};
 

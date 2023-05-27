@@ -25,11 +25,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(StateListControl)
 
-	StateListControl::StateListControl() :
-		mListBoxControl(nullptr)
-	{
-	}
-
 	void StateListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

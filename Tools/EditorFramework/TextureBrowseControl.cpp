@@ -10,13 +10,6 @@
 namespace tools
 {
 
-	TextureBrowseControl::TextureBrowseControl() :
-		mOk(nullptr),
-		mCancel(nullptr),
-		mTextures(nullptr)
-	{
-	}
-
 	TextureBrowseControl::~TextureBrowseControl()
 	{
 		MyGUI::ItemBox* box = mTextures->getItemBox();

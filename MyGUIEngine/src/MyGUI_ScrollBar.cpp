@@ -15,28 +15,6 @@
 namespace MyGUI
 {
 
-	ScrollBar::ScrollBar() :
-		mWidgetStart(nullptr),
-		mWidgetEnd(nullptr),
-		mWidgetTrack(nullptr),
-		mWidgetFirstPart(nullptr),
-		mWidgetSecondPart(nullptr),
-		mSkinRangeStart(0),
-		mSkinRangeEnd(0),
-		mScrollRange(0),
-		mScrollPosition(0),
-		mScrollPage(0),
-		mScrollViewPage(0),
-		mScrollWheelPage(0),
-		mEnableRepeat(true),
-		mRepeatTriggerTime(0.f),
-		mRepeatStepTime(0.f),
-		mMinTrackSize(0),
-		mMoveToClick(false),
-		mVerticalAlignment(true)
-	{
-	}
-
 	void ScrollBar::initialiseOverride()
 	{
 		Base::initialiseOverride();

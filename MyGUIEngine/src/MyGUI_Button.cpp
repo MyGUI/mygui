@@ -13,16 +13,6 @@
 namespace MyGUI
 {
 
-	Button::Button() :
-		mIsMousePressed(false),
-		mIsKeyFocus(false),
-		mIsMouseFocus(false),
-		mStateSelected(false),
-		mImage(nullptr),
-		mModeImage(false)
-	{
-	}
-
 	void Button::initialiseOverride()
 	{
 		Base::initialiseOverride();

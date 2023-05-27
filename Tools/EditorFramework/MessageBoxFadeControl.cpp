@@ -11,11 +11,6 @@
 namespace tools
 {
 
-	MessageBoxFadeControl::MessageBoxFadeControl() :
-		mMaxAlpha(1)
-	{
-	}
-
 	MessageBoxFadeControl::~MessageBoxFadeControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &MessageBoxFadeControl::notifyFrameStart);

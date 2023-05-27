@@ -40,16 +40,16 @@ namespace tools
 		void updateSize();
 
 	private:
-		MyGUI::ComboBox* mControllerName;
-		MyGUI::Button* mButtonAdd;
-		MyGUI::Button* mButtonDelete;
-		MyGUI::ListBox* mList;
+		MyGUI::ComboBox* mControllerName{nullptr};
+		MyGUI::Button* mButtonAdd{nullptr};
+		MyGUI::Button* mButtonDelete{nullptr};
+		MyGUI::ListBox* mList{nullptr};
 
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 
-		int mButtonLeft;
-		int mButtonRight;
-		int mButtonSpace;
+		int mButtonLeft{0};
+		int mButtonRight{0};
+		int mButtonSpace{0};
 
 		using MapMapString = std::map<std::string, MyGUI::MapString, std::less<>>;
 		MapMapString mControllersProperties;
@@ -57,7 +57,7 @@ namespace tools
 		using VectorPropertyField = std::vector<IPropertyField*>;
 		VectorPropertyField mFields;
 
-		size_t mIndexSelected;
+		size_t mIndexSelected{MyGUI::ITEM_NONE};
 	};
 
 }

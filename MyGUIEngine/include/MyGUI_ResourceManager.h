@@ -88,7 +88,7 @@ namespace MyGUI
 		using VectorResource = std::vector<IResource*>;
 		VectorResource mRemovedResources;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 		std::string mXmlListTagName;
 	};

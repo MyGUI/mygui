@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		SettingsResourcePathsControl();
 		~SettingsResourcePathsControl() override;
 
 	protected:
@@ -35,11 +34,11 @@ namespace tools
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
 
 	private:
-		MyGUI::Button* mResourcePathAdd;
-		MyGUI::Button* mResourcePathDelete;
-		MyGUI::ListBox* mResourcePaths;
+		MyGUI::Button* mResourcePathAdd{nullptr};
+		MyGUI::Button* mResourcePathDelete{nullptr};
+		MyGUI::ListBox* mResourcePaths{nullptr};
 
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
 	};
 
 }

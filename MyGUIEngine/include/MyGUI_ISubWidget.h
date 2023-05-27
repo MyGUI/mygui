@@ -28,8 +28,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISubWidget )
 
 	public:
-		ISubWidget() : mVisible(true) { }
-
 		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node) = 0;
 		virtual void destroyDrawItem() = 0;
 
@@ -57,7 +55,7 @@ namespace MyGUI
 
 	protected:
 		Align mAlign;
-		bool mVisible;
+		bool mVisible{true};
 	};
 
 } // namespace MyGUI

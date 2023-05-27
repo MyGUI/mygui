@@ -18,15 +18,6 @@ namespace MyGUI
 
 	const size_t IMAGE_MAX_INDEX = 256;
 
-	ImageBox::ImageBox() :
-		mIndexSelect(ITEM_NONE),
-		mFrameAdvise(false),
-		mCurrentTime(0),
-		mCurrentFrame(0),
-		mResource(nullptr)
-	{
-	}
-
 	void ImageBox::shutdownOverride()
 	{
 		frameAdvise(false);

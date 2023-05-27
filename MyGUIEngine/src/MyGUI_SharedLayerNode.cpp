@@ -11,8 +11,7 @@ namespace MyGUI
 {
 
 	SharedLayerNode::SharedLayerNode(ILayer* _layer, ILayerNode* _parent) :
-		LayerNode(_layer, _parent),
-		mCountUsing(0)
+		LayerNode(_layer, _parent)
 	{
 	}
 

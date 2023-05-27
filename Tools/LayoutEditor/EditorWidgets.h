@@ -81,7 +81,7 @@ namespace tools
 		void saveCodeGeneratorSettings(MyGUI::xml::ElementPtr _rootNode);
 
 	private:
-		bool mWidgetsChanged;
+		bool mWidgetsChanged{false};
 		using VectorString = std::vector<std::string>;
 		VectorString mIgnoreParameters;
 		VectorWidgetContainer mWidgets;

@@ -11,12 +11,6 @@
 namespace tools
 {
 
-	PropertyInt4Control::PropertyInt4Control() :
-		mName(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	PropertyInt4Control::~PropertyInt4Control()
 	{
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);

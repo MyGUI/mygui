@@ -64,13 +64,13 @@ namespace MyGUI
 		using VectorLogSource = std::vector<LogSource*>;
 		VectorLogSource mSources;
 
-		ConsoleLogListener* mConsole;
-		FileLogListener* mFile;
-		LevelLogFilter* mFilter;
-		LogSource* mDefaultSource;
+		ConsoleLogListener* mConsole{nullptr};
+		FileLogListener* mFile{nullptr};
+		LevelLogFilter* mFilter{nullptr};
+		LogSource* mDefaultSource{nullptr};
 
-		LogLevel mLevel;
-		bool mConsoleEnable;
+		LogLevel mLevel{LogLevel::Info};
+		bool mConsoleEnable{true};
 	};
 
 } // namespace MyGUI

@@ -51,18 +51,18 @@ namespace MyGUI
 
 	protected:
 		FloatRect mRectTexture;
-		bool mEmptyView;
+		bool mEmptyView{false};
 
 		VertexColourType mVertexFormat;
-		uint32 mCurrentColour;
+		uint32 mCurrentColour{0xFFFFFFFF};
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
 
-		ILayerNode* mNode;
-		RenderItem* mRenderItem;
+		ILayerNode* mNode{nullptr};
+		RenderItem* mRenderItem{nullptr};
 
-		bool mSeparate;
+		bool mSeparate{false};
 	};
 
 } // namespace MyGUI

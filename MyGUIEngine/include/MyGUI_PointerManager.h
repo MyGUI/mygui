@@ -84,16 +84,16 @@ namespace MyGUI
 		std::string mDefaultName;
 		IntPoint mPoint;
 		IntPoint mOldPoint;
-		bool mVisible;
+		bool mVisible{false};
 		std::string mLayerName;
 		std::string mSkinName;
 
-		Widget* mWidgetOwner;
-		ImageBox* mMousePointer;
-		IPointer* mPointer;
+		Widget* mWidgetOwner{nullptr};
+		ImageBox* mMousePointer{nullptr};
+		IPointer* mPointer{nullptr};
 		std::string mCurrentMousePointer;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mXmlPointerTagName;
 		std::string mXmlPropertyTagName;
 		std::string mXmlDefaultPointerValue;

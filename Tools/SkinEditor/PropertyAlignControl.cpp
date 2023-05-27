@@ -13,12 +13,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyAlignControl)
 
-	PropertyAlignControl::PropertyAlignControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyAlignControl::~PropertyAlignControl()
 	{
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);

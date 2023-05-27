@@ -23,7 +23,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(SubWidgetManager);
 
 	SubWidgetManager::SubWidgetManager() :
-		mIsInitialise(false),
 		mCategoryName("BasisSkin"),
 		mStateCategoryName("BasisSkin/State"),
 		mSingletonHolder(this)

@@ -18,7 +18,6 @@ namespace input
 	class PointerManager
 	{
 	public:
-		PointerManager();
 		virtual ~PointerManager();
 
 		void createPointerManager();
@@ -38,8 +37,8 @@ namespace input
 	private:
 		using MapPointer = std::map<std::string, SDL_SystemCursor, std::less<>>;
 		MapPointer mMapPointer;
-		bool mManagerPointer;
-		SDL_Cursor* mCursor;
+		bool mManagerPointer{true};
+		SDL_Cursor* mCursor{nullptr};
 	};
 
 } // namespace input

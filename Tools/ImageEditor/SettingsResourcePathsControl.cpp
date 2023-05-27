@@ -15,14 +15,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SettingsResourcePathsControl)
 
-	SettingsResourcePathsControl::SettingsResourcePathsControl() :
-		mResourcePathAdd(nullptr),
-		mResourcePathDelete(nullptr),
-		mResourcePaths(nullptr),
-		mOpenSaveFileDialog(nullptr)
-	{
-	}
-
 	SettingsResourcePathsControl::~SettingsResourcePathsControl()
 	{
 		mResourcePathAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);

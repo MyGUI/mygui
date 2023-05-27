@@ -14,15 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyInt2ListControl)
 
-	PropertyInt2ListControl::PropertyInt2ListControl() :
-		mName(nullptr),
-		mList(nullptr),
-		mAdd(nullptr),
-		mDelete(nullptr),
-		mTextFieldControl(nullptr)
-	{
-	}
-
 	PropertyInt2ListControl::~PropertyInt2ListControl()
 	{
 		mAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyInt2ListControl::notifyClickAdd);

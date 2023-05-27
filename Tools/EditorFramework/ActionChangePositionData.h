@@ -17,8 +17,6 @@ namespace tools
 		public Action
 	{
 	public:
-		ActionChangePositionData();
-
 		void doAction() override;
 		void undoAction() override;
 
@@ -26,9 +24,9 @@ namespace tools
 		void setData2(DataPtr _data);
 
 	private:
-		DataPtr mData1;
-		DataPtr mData2;
-		size_t mIndex;
+		DataPtr mData1{nullptr};
+		DataPtr mData2{nullptr};
+		size_t mIndex{MyGUI::ITEM_NONE};
 	};
 
 }

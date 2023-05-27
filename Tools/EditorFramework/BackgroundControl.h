@@ -18,7 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		BackgroundControl();
 		~BackgroundControl() override;
 
 		MyGUI::Widget* getCanvas();
@@ -31,8 +30,8 @@ namespace tools
 		void notifySettingsChanged(std::string_view _path);
 
 	private:
-		MyGUI::Widget* mBackground;
-		MyGUI::Widget* mCanvas;
+		MyGUI::Widget* mBackground{nullptr};
+		MyGUI::Widget* mCanvas{nullptr};
 		std::string mColourValueName;
 	};
 

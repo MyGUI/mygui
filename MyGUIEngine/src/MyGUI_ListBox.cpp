@@ -16,20 +16,6 @@
 namespace MyGUI
 {
 
-	ListBox::ListBox() :
-		mWidgetScroll(nullptr),
-		mActivateOnClick(false),
-		mHeightLine(1),
-		mTopIndex(0),
-		mOffsetTop(0),
-		mRangeIndex(-1),
-		mLastRedrawLine(0),
-		mIndexSelect(ITEM_NONE),
-		mLineActive(ITEM_NONE),
-		mNeedVisibleScroll(true)
-	{
-	}
-
 	void ListBox::initialiseOverride()
 	{
 		Base::initialiseOverride();

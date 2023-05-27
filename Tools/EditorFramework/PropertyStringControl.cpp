@@ -11,12 +11,6 @@
 namespace tools
 {
 
-	PropertyStringControl::PropertyStringControl() :
-		mName(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	PropertyStringControl::~PropertyStringControl()
 	{
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyStringControl::notifyEditTextChange);

@@ -11,12 +11,6 @@
 namespace tools
 {
 
-	SelectorControl::SelectorControl() :
-		mScaleValue(1.0),
-		mProjection(nullptr)
-	{
-	}
-
 	SelectorControl::~SelectorControl()
 	{
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);

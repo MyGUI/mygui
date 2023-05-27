@@ -36,12 +36,12 @@ namespace tools
 		bool getCellSelected(MyGUI::Widget* _widget);
 
 	private:
-		MyGUI::TabControl* mTabSkins;
-		MyGUI::Button* mPopupMode;
+		MyGUI::TabControl* mTabSkins{nullptr};
+		MyGUI::Button* mPopupMode{nullptr};
 
-		int mWidgetsButtonWidth;
-		int mWidgetsButtonHeight;
-		int mWidgetsButtonOffset;
+		int mWidgetsButtonWidth{0};
+		int mWidgetsButtonHeight{0};
+		int mWidgetsButtonOffset{0};
 
 		std::string mSkinSheetName;
 		std::string mButtonSkinName;

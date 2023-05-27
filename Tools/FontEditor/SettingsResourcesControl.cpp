@@ -15,14 +15,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SettingsResourcesControl)
 
-	SettingsResourcesControl::SettingsResourcesControl() :
-		mResourceAdd(nullptr),
-		mResourceDelete(nullptr),
-		mResources(nullptr),
-		mTextFieldControl(nullptr)
-	{
-	}
-
 	SettingsResourcesControl::~SettingsResourcesControl()
 	{
 		mResourceAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickAdd);

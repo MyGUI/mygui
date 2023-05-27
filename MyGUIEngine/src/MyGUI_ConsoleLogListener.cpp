@@ -10,11 +10,6 @@
 namespace MyGUI
 {
 
-	ConsoleLogListener::ConsoleLogListener() :
-		mEnabled(true)
-	{
-	}
-
 	void ConsoleLogListener::log(std::string_view, LogLevel, const struct tm*, std::string_view _message, std::string_view, int)
 	{
 		if (mEnabled)

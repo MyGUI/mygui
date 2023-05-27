@@ -18,9 +18,6 @@ namespace tools
 		public Control,
 		public sigslot::has_slots<>
 	{
-	public:
-		SettingsWindow();
-
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
@@ -33,8 +30,8 @@ namespace tools
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
 
 	private:
-		MyGUI::ListBox* mListSettings;
-		MyGUI::TabControl* mTabSettings;
+		MyGUI::ListBox* mListSettings{nullptr};
+		MyGUI::TabControl* mTabSettings{nullptr};
 	};
 
 }

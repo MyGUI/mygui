@@ -17,8 +17,6 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -27,8 +25,8 @@ namespace demo
 		void setupResources() override;
 
 	private:
-		ColourPanel* mColourPanel;
-		EditPanel* mEditPanel;
+		ColourPanel* mColourPanel{nullptr};
+		EditPanel* mEditPanel{nullptr};
 	};
 
 } // namespace demo

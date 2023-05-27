@@ -19,8 +19,6 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ResourcePointerContext )
 
 	public:
-		ResourcePointerContext();
-
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 		bool isHighLevel() const;
@@ -28,7 +26,7 @@ namespace demo
 
 	private:
 		MyGUI::MapString mPointers;
-		bool mHighLevel;
+		bool mHighLevel{false};
 	};
 
 }

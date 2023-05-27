@@ -13,11 +13,6 @@
 namespace tools
 {
 
-	TextureToolControl::TextureToolControl() :
-		mCurrentScaleValue(100)
-	{
-	}
-
 	TextureToolControl::~TextureToolControl()
 	{
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);

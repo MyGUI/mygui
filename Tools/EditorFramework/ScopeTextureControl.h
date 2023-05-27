@@ -17,7 +17,6 @@ namespace tools
 		public TextureToolControl
 	{
 	public:
-		ScopeTextureControl();
 		~ScopeTextureControl() override;
 
 		enum SelectorType { SelectorNone, SelectorCoord, SelectorPosition, SelectorPositionReadOnly, SelectorOffsetH, SelectorOffsetV };
@@ -75,8 +74,8 @@ namespace tools
 		SelectorControl* getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes);
 
 	private:
-		SelectorControl* mCurrentSelectorControl;
-		SelectorType mCurrentSelectorType;
+		SelectorControl* mCurrentSelectorControl{nullptr};
+		SelectorType mCurrentSelectorType{SelectorNone};
 
 		MyGUI::IntCoord mCoordValue;
 

@@ -25,8 +25,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ProgressBar )
 
 	public:
-		ProgressBar();
-
 		/** Set progress range */
 		void setProgressRange(size_t _value);
 		/** Get progress range */
@@ -73,20 +71,20 @@ namespace MyGUI
 
 	private:
 		std::string mTrackSkin;
-		int mTrackWidth;
-		int mTrackStep;
-		int mTrackMin;
+		int mTrackWidth{1};
+		int mTrackStep{0};
+		int mTrackMin{0};
 
 		VectorWidgetPtr mVectorTrack;
-		size_t mRange;
-		size_t mStartPosition, mEndPosition;
-		float mAutoPosition;
-		bool mAutoTrack;
-		bool mFillTrack;
+		size_t mRange{0};
+		size_t mStartPosition{0}, mEndPosition{0};
+		float mAutoPosition{0.0f};
+		bool mAutoTrack{false};
+		bool mFillTrack{false};
 
 		FlowDirection mFlowDirection;
 
-		Widget* mTrackPlace;
+		Widget* mTrackPlace{nullptr};
 	};
 
 } // namespace MyGUI

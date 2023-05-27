@@ -10,8 +10,7 @@ namespace demo
 {
 
 	InformationWindow::InformationWindow(MyGUI::Widget* _parent) :
-		BaseLayout("InformationWindow.layout", _parent),
-		mFocus(nullptr)
+		BaseLayout("InformationWindow.layout", _parent)
 	{
 		assignWidget(mInfo, "Info");
 

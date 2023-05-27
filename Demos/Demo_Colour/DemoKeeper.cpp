@@ -10,12 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mColourPanel(nullptr),
-		mEditPanel(nullptr)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

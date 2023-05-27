@@ -11,14 +11,6 @@
 namespace tools
 {
 
-	PropertyPanelControl::PropertyPanelControl() :
-		mCurrentData(nullptr),
-		mDistance(0),
-		mScrollView(nullptr),
-		mContentHeight(0)
-	{
-	}
-
 	PropertyPanelControl::~PropertyPanelControl()
 	{
 		mMainWidget->eventChangeCoord -= MyGUI::newDelegate(this, &PropertyPanelControl::notifyChangeCoord);

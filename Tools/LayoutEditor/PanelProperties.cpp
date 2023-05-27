@@ -15,9 +15,7 @@ namespace tools
 {
 
 	PanelProperties::PanelProperties() :
-		BasePanelViewItem("PanelProperties.layout"),
-		mDepth(0),
-		mCurrentWidget(nullptr)
+		BasePanelViewItem("PanelProperties.layout")
 	{
 	}
 

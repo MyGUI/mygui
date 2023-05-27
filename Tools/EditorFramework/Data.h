@@ -21,7 +21,6 @@ namespace tools
 		using DataPtr = std::shared_ptr<Data>;
 		using DataWeak = std::weak_ptr<Data>;
 
-		Data();
 		~Data();
 
 		static DataPtr CreateInstance();
@@ -74,11 +73,11 @@ namespace tools
 		void clear();
 
 	private:
-		DataTypePtr mType;
-		DataPtr mParent;
+		DataTypePtr mType{nullptr};
+		DataPtr mParent{nullptr};
 		VectorData mChilds;
 		MapProperty mProperties;
-		size_t mIndexSelected;
+		size_t mIndexSelected{MyGUI::ITEM_NONE};
 		DataWeak mWeakThis;
 	};
 

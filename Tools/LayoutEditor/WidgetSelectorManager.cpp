@@ -13,8 +13,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(WidgetSelectorManager);
 
 	WidgetSelectorManager::WidgetSelectorManager() :
-		mCurrentWidget(nullptr),
-		mSelectDepth(0),
 		mStoreWidgetTag("LE_StoreWidgetTag"),
 		mSingletonHolder(this)
 	{

@@ -17,11 +17,6 @@
 namespace MyGUI
 {
 
-	Timer::Timer() :
-		mTimeStart(0)
-	{
-	}
-
 	void Timer::reset()
 	{
 		mTimeStart = getCurrentMilliseconds();

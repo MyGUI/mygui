@@ -11,14 +11,6 @@
 namespace MyGUI
 {
 
-	LayerItem::LayerItem() :
-		mLayer(nullptr),
-		mLayerNode(nullptr),
-		mSaveLayerNode(nullptr),
-		mTexture(nullptr)
-	{
-	}
-
 	void LayerItem::addChildItem(LayerItem* _item)
 	{
 		mLayerItems.push_back(_item);

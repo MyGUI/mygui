@@ -16,13 +16,7 @@ namespace MyGUI
 
 	LogManager* LogManager::msInstance = nullptr;
 
-	LogManager::LogManager() :
-		mConsole(nullptr),
-		mFile(nullptr),
-		mFilter(nullptr),
-		mDefaultSource(nullptr),
-		mLevel(LogLevel::Info),
-		mConsoleEnable(true)
+	LogManager::LogManager()
 	{
 		msInstance = this;
 	}

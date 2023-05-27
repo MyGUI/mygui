@@ -13,9 +13,7 @@
 namespace MyGUI
 {
 
-	OverlappedLayer::OverlappedLayer() :
-		mIsPick(false),
-		mOutOfDate(false)
+	OverlappedLayer::OverlappedLayer()
 	{
 		mViewSize = RenderManager::getInstance().getViewSize();
 	}

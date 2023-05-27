@@ -18,8 +18,6 @@ namespace MyGUI
 	class TextView
 	{
 	public:
-		TextView();
-
 		void update(const UString::utf32string& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth = -1);
 
 		size_t getCursorPosition(const IntPoint& _value) const;
@@ -34,9 +32,9 @@ namespace MyGUI
 
 	private:
 		IntSize mViewSize;
-		size_t mLength;
+		size_t mLength{0};
 		VectorLineInfo mLineInfo;
-		int mFontHeight;
+		int mFontHeight{0};
 	};
 
 } // namespace MyGUI

@@ -17,8 +17,7 @@ namespace tools
 	// FIXME hardcoded template
 	const std::string TemplateName = "BaseLayoutCPP.xml";
 
-	CodeGenerator::CodeGenerator() :
-		mOpenSaveFileDialog(nullptr)
+	CodeGenerator::CodeGenerator()
 	{
 		initialiseByAttributes(this);
 

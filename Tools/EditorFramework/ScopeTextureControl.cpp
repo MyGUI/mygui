@@ -22,12 +22,6 @@
 namespace tools
 {
 
-	ScopeTextureControl::ScopeTextureControl() :
-		mCurrentSelectorControl(nullptr),
-		mCurrentSelectorType(SelectorNone)
-	{
-	}
-
 	ScopeTextureControl::~ScopeTextureControl()
 	{
 		for (auto& selector : mSelectors)

@@ -34,23 +34,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(Gui);
 
 	Gui::Gui() :
-		mInputManager(nullptr),
-		mSubWidgetManager(nullptr),
-		mLayerManager(nullptr),
-		mSkinManager(nullptr),
-		mWidgetManager(nullptr),
-		mFontManager(nullptr),
-		mControllerManager(nullptr),
-		mPointerManager(nullptr),
-		mClipboardManager(nullptr),
-		mLayoutManager(nullptr),
-		mDynLibManager(nullptr),
-		mPluginManager(nullptr),
-		mLanguageManager(nullptr),
-		mResourceManager(nullptr),
-		mFactoryManager(nullptr),
-		mToolTipManager(nullptr),
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}

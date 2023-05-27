@@ -10,14 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mView(nullptr),
-		mPanelDirector(nullptr),
-		mPanelDynamic(nullptr),
-		mPanelStatic(nullptr)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

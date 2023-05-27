@@ -20,9 +20,7 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(TestState)
 
-	TestState::TestState() :
-		mTestWindow(nullptr),
-		mBack(nullptr)
+	TestState::TestState()
 	{
 		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &TestState::commandTest);
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);

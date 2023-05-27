@@ -21,8 +21,6 @@ namespace wraps
 	public:
 		BasePanelViewItem(std::string_view _layout) :
 			BaseLayout({}, nullptr),
-			mPanelCell(nullptr),
-			mWidgetClient(nullptr),
 			mLayout(_layout)
 		{
 		}
@@ -81,8 +79,8 @@ namespace wraps
 		virtual void shutdown() { }
 
 	protected:
-		BasePanelViewCell* mPanelCell;
-		MyGUI::Widget* mWidgetClient;
+		BasePanelViewCell* mPanelCell{nullptr};
+		MyGUI::Widget* mWidgetClient{nullptr};
 		std::string mLayout;
 	};
 

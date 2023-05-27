@@ -16,7 +16,6 @@ namespace tools
 		public Control
 	{
 	public:
-		SettingsWidgetsControl();
 		~SettingsWidgetsControl() override;
 
 	protected:
@@ -30,9 +29,9 @@ namespace tools
 		void notifyToggleCheck(MyGUI::Widget* _sender);
 
 	private:
-		MyGUI::Button* mCheckShowName;
-		MyGUI::Button* mCheckShowType;
-		MyGUI::Button* mCheckShowSkin;
+		MyGUI::Button* mCheckShowName{nullptr};
+		MyGUI::Button* mCheckShowType{nullptr};
+		MyGUI::Button* mCheckShowSkin{nullptr};
 	};
 
 }

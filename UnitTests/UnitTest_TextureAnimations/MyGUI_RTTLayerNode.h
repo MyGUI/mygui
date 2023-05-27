@@ -62,18 +62,18 @@ namespace MyGUI
 		void checkTexture();
 
 	private:
-		IVertexBuffer* mVertexBuffer;
-		ITexture* mTexture;
+		IVertexBuffer* mVertexBuffer{nullptr};
+		ITexture* mTexture{nullptr};
 
 		IntSize mTextureSize;
 		IntCoord mCurrentCoord;
 
-		bool mOutOfDateRtt;
+		bool mOutOfDateRtt{false};
 
-		bool mMajorUpdate;
-		bool mChacheUsing;
-		bool mDestroy;
-		bool mIsAnimate;
+		bool mMajorUpdate{false};
+		bool mChacheUsing{true};
+		bool mDestroy{false};
+		bool mIsAnimate{false};
 
 		using VectorLayerNodeAnimation = std::vector<LayerNodeAnimation*>;
 		VectorLayerNodeAnimation mLayerNodeAnimation;

@@ -58,7 +58,7 @@ namespace MyGUI
 		using ListControllerItem = std::list<PairControllerItem>;
 		ListControllerItem mListItem;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 	};
 

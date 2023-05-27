@@ -44,8 +44,8 @@ namespace tools
 		void CommandOnChangeScale(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
-		MyGUI::MenuBar* mBar;
-		MyGUI::MenuControl* mPopupMenuWidgets;
+		MyGUI::MenuBar* mBar{nullptr};
+		MyGUI::MenuControl* mPopupMenuWidgets{nullptr};
 	};
 
 }

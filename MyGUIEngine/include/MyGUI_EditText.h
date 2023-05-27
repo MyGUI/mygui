@@ -132,46 +132,46 @@ namespace MyGUI
 			uint32 _colour) const;
 
 	protected:
-		bool mEmptyView;
-		uint32 mCurrentColourNative;
-		uint32 mInverseColourNative;
-		uint32 mShadowColourNative;
+		bool mEmptyView{false};
+		uint32 mCurrentColourNative{0xFFFFFFFF};
+		uint32 mInverseColourNative{0xFF000000};
+		uint32 mShadowColourNative{0x00000000};
 		IntCoord mCurrentCoord;
 
 		UString mCaption;
 		UString::utf32string mUtf32Caption;
-		mutable bool mTextOutDate;
-		Align mTextAlign;
+		mutable bool mTextOutDate{false};
+		Align mTextAlign{Align::Default};
 
-		Colour mColour;
-		Colour mShadowColour;
-		float mAlpha;
+		Colour mColour{Colour::White};
+		Colour mShadowColour{Colour::Black};
+		float mAlpha{ALPHA_MAX};
 		VertexColourType mVertexFormat;
 
-		IFont* mFont;
-		ITexture* mTexture;
-		int mFontHeight;
+		IFont* mFont{nullptr};
+		ITexture* mTexture{nullptr};
+		int mFontHeight{0};
 		int mCustomFontHeight = 0;
 
-		bool mBackgroundNormal;
-		size_t mStartSelect;
-		size_t mEndSelect;
-		size_t mCursorPosition;
-		bool mVisibleCursor;
-		bool mInvertSelect;
-		bool mShadow;
+		bool mBackgroundNormal{true};
+		size_t mStartSelect{0};
+		size_t mEndSelect{0};
+		size_t mCursorPosition{0};
+		bool mVisibleCursor{false};
+		bool mInvertSelect{true};
+		bool mShadow{false};
 
 		IntPoint mViewOffset; // смещение текста
 
-		ILayerNode* mNode;
-		RenderItem* mRenderItem;
+		ILayerNode* mNode{nullptr};
+		RenderItem* mRenderItem{nullptr};
 		size_t mCountVertex;
-		bool mIsAddCursorWidth;
+		bool mIsAddCursorWidth{true};
 
-		bool mShiftText;
-		bool mWordWrap;
-		bool mManualColour;
-		int mOldWidth;
+		bool mShiftText{false};
+		bool mWordWrap{false};
+		bool mManualColour{false};
+		int mOldWidth{0};
 
 		mutable TextView mTextView;
 	};

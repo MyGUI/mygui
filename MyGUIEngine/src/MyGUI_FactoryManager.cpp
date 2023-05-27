@@ -14,7 +14,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(FactoryManager);
 
 	FactoryManager::FactoryManager() :
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}

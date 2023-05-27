@@ -17,20 +17,6 @@
 namespace MyGUI
 {
 
-	MultiListBox::MultiListBox() :
-		mHeightButton(0),
-		mWidthBar(0),
-		mWidgetEmpty(nullptr),
-		mLastMouseFocusIndex(ITEM_NONE),
-		mSortUp(true),
-		mSortColumnIndex(ITEM_NONE),
-		mWidthSeparator(0),
-		mItemSelected(ITEM_NONE),
-		mFrameAdvise(false),
-		mHeaderPlace(nullptr)
-	{
-	}
-
 	void MultiListBox::initialiseOverride()
 	{
 		Base::initialiseOverride();
