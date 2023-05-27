@@ -25,6 +25,7 @@ namespace MyGUI
 		MYGUI_SINGLETON_DECLARATION(ResourceManager);
 	public:
 		ResourceManager();
+		ResourceManager(ResourceManager&&) = default;
 
 		void initialise();
 		void shutdown();
