@@ -18,15 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeLoopController(std::string_view _name) :
-			BaseAnimationNode("GraphNodeLoopController.layout", "LoopController", _name),
-			mStartIn(nullptr),
-			mStopIn(nullptr),
-			mWeightIn(nullptr),
-			mStartOut(nullptr),
-			mStopOut(nullptr),
-			mWeightOut(nullptr),
-			mPositionOut(nullptr),
-			mLength(1)
+			BaseAnimationNode("GraphNodeLoopController.layout", "LoopController", _name)
 		{
 		}
 
@@ -96,15 +88,15 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mStartIn;
-		wraps::BaseGraphConnection* mStopIn;
-		wraps::BaseGraphConnection* mWeightIn;
-		wraps::BaseGraphConnection* mStartOut;
-		wraps::BaseGraphConnection* mStopOut;
-		wraps::BaseGraphConnection* mWeightOut;
-		wraps::BaseGraphConnection* mPositionOut;
+		wraps::BaseGraphConnection* mStartIn{nullptr};
+		wraps::BaseGraphConnection* mStopIn{nullptr};
+		wraps::BaseGraphConnection* mWeightIn{nullptr};
+		wraps::BaseGraphConnection* mStartOut{nullptr};
+		wraps::BaseGraphConnection* mStopOut{nullptr};
+		wraps::BaseGraphConnection* mWeightOut{nullptr};
+		wraps::BaseGraphConnection* mPositionOut{nullptr};
 
-		float mLength;
+		float mLength{1};
 		std::string mStateName;
 	};
 

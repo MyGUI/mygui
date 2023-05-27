@@ -13,9 +13,7 @@ namespace wraps
 
 	struct ConnectionInfo
 	{
-		ConnectionInfo()
-		{
-		}
+		ConnectionInfo() = default;
 
 		ConnectionInfo(
 			const MyGUI::IntPoint& _point_start,

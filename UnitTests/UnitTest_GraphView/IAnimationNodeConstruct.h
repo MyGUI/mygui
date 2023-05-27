@@ -10,7 +10,7 @@ namespace animation
 	class IAnimationNodeConstruct
 	{
 	public:
-		virtual ~IAnimationNodeConstruct() { }
+		virtual ~IAnimationNodeConstruct() = default;
 		virtual IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) = 0;
 	};
 

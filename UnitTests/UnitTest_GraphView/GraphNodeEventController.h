@@ -18,9 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeEventController(std::string_view _name) :
-			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name),
-			mConnectionOut(nullptr),
-			mButtonEvent(nullptr)
+			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name)
 		{
 		}
 
@@ -51,9 +49,8 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::Button* mButtonEvent;
-
+		wraps::BaseGraphConnection* mConnectionOut{nullptr};
+		MyGUI::Button* mButtonEvent{nullptr};
 	};
 
 } // namespace demo

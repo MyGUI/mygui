@@ -18,11 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeWeightController(std::string_view _name) :
-			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name),
-			mConnectionOut(nullptr),
-			mEditPosition(nullptr),
-			mScrollPosition(nullptr),
-			mPosition(0)
+			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name)
 		{
 		}
 
@@ -91,11 +87,10 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::EditBox* mEditPosition;
-		MyGUI::ScrollBar* mScrollPosition;
-		float mPosition;
-
+		wraps::BaseGraphConnection* mConnectionOut{nullptr};
+		MyGUI::EditBox* mEditPosition{nullptr};
+		MyGUI::ScrollBar* mScrollPosition{nullptr};
+		float mPosition{0};
 	};
 
 } // namespace demo

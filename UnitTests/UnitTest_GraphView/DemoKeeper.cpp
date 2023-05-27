@@ -19,26 +19,26 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mGraphView(nullptr),
-		mGraph(nullptr),
-		mFileDialog(nullptr),
-		mFileDialogSave(false),
-		mContextMenu(nullptr)
+	DemoKeeper::DemoKeeper()
+
 	{
 	}
 
-	bool isConnectionOut(std::string_view _type)
+	static bool isConnectionOut(std::string_view _type)
 	{
 		return _type == "EventOut" || _type == "PositionOut";
 	}
 
-	bool isConnectionTypeSimple(std::string_view _type)
+	static bool isConnectionTypeSimple(std::string_view _type)
 	{
 		return _type == "EventIn" || _type == "EventOut";
 	}
 
-	void requestConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+	static void requestConnectPoint(
+		wraps::BaseGraphView* _sender,
+		wraps::BaseGraphConnection* _from,
+		wraps::BaseGraphConnection* _to,
+		bool& _result)
 	{
 		if (_to == nullptr)
 		{
@@ -61,7 +61,11 @@ namespace demo
 		}
 	}
 
-	void requestDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+	static void requestDisconnectPoint(
+		wraps::BaseGraphView* _sender,
+		wraps::BaseGraphConnection* _from,
+		wraps::BaseGraphConnection* _to,
+		bool& _result)
 	{
 		_result = true;
 	}
@@ -109,11 +113,11 @@ namespace demo
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
-		for (VectorBaseAnimationNode::iterator item = mNodes.begin(); item != mNodes.end(); ++ item)
+		for (auto& mNode : mNodes)
 		{
-			animation::IAnimationNode* anim_node = (*item)->getAnimationNode();
+			animation::IAnimationNode* anim_node = mNode->getAnimationNode();
 			delete anim_node;
-			delete (*item);
+			delete mNode;
 		}
 		mNodes.clear();
 
@@ -151,7 +155,7 @@ namespace demo
 			return;
 		}
 
-		std::string name = _id;
+		std::string name{_id};
 		size_t index = name.find("Controller");
 		if (index != MyGUI::ITEM_NONE) name.erase(index);
 		else

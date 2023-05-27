@@ -18,12 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodePositionController(std::string_view _name) :
-			BaseAnimationNode("GraphNodePosition.layout", "PositionController", _name),
-			mConnectionOut(nullptr),
-			mEditPosition(nullptr),
-			mScrollPosition(nullptr),
-			mPosition(0.0f),
-			mLength(1.0f)
+			BaseAnimationNode("GraphNodePosition.layout", "PositionController", _name)
 		{
 		}
 
@@ -132,11 +127,11 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::EditBox* mEditPosition;
-		MyGUI::ScrollBar* mScrollPosition;
-		float mPosition;
-		float mLength;
+		wraps::BaseGraphConnection* mConnectionOut{nullptr};
+		MyGUI::EditBox* mEditPosition{nullptr};
+		MyGUI::ScrollBar* mScrollPosition{nullptr};
+		float mPosition{0.0f};
+		float mLength{1.0f};
 
 		std::string mStateName;
 	};

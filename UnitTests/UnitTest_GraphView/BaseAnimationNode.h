@@ -19,7 +19,7 @@ namespace demo
 	public:
 		BaseAnimationNode(std::string_view _layout, std::string_view _type, std::string_view _name) :
 			BaseGraphNode(_layout),
-			mAnimationNode(nullptr),
+
 			mType(_type),
 			mName(_name)
 		{
@@ -75,7 +75,7 @@ namespace demo
 		virtual void baseInitialiseAnimationNode() { }
 
 	private:
-		animation::IAnimationNode* mAnimationNode;
+		animation::IAnimationNode* mAnimationNode{nullptr};
 		std::string mType;
 		std::string mName;
 

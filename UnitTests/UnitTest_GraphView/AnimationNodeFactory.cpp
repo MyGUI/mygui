@@ -25,8 +25,8 @@ namespace animation
 
 	AnimationNodeFactory::~AnimationNodeFactory()
 	{
-		for (MapConstruct::iterator item = mConstructs.begin(); item != mConstructs.end(); ++item)
-			delete (*item).second;
+		for (auto& mConstruct : mConstructs)
+			delete mConstruct.second;
 		mConstructs.clear();
 	}
 

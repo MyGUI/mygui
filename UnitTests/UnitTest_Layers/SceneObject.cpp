@@ -16,16 +16,8 @@
 namespace demo
 {
 
-	SceneObject::SceneObject() :
-		mTextureCoords(nullptr),
-		mVertices(nullptr),
-		mIndices(nullptr),
-		mVertexCount(0),
-		mIndexCount(0),
-		mUScale(1),
-		mVScale(1),
-		mRaySceneQuery(nullptr),
-		mTextureUnit(nullptr)
+	SceneObject::SceneObject()
+
 	{
 	}
 
@@ -362,11 +354,11 @@ namespace demo
 		mRaySceneQuery->setRay(ray);
 		mRaySceneQuery->setSortByDistance(true);
 		Ogre::RaySceneQueryResult& result = mRaySceneQuery->execute();
-		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter != result.end(); ++iter)
+		for (auto& iter : result)
 		{
-			if (iter->movable != nullptr)
+			if (iter.movable != nullptr)
 			{
-				if (iter->movable->getName() == mEntityName)
+				if (iter.movable->getName() == mEntityName)
 				{
 					if (isIntersectMesh(_x, _y, ray, _texture_width, _texture_height))
 					{

@@ -17,17 +17,10 @@ namespace animation
 		public IAnimationGraph
 	{
 	public:
-		AnimationGraph() :
-			IAnimationGraph()
-		{
-		}
+		AnimationGraph() = default;
 
 		AnimationGraph(std::string_view _name) :
 			IAnimationGraph(_name)
-		{
-		}
-
-		~AnimationGraph() override
 		{
 		}
 
@@ -48,9 +41,9 @@ namespace animation
 
 		void addTime(float _value) override
 		{
-			for (VectorNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
+			for (auto& mNode : mNodes)
 			{
-				(*item)->addTime(_value);
+				mNode->addTime(_value);
 			}
 		}
 
@@ -70,11 +63,11 @@ namespace animation
 		{
 			if (_name == getName()) return this;
 
-			for (VectorNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
+			for (auto& mNode : mNodes)
 			{
-				if ((*item)->getName() == _name)
+				if (mNode->getName() == _name)
 				{
-					return (*item);
+					return mNode;
 				}
 			}
 			return nullptr;
@@ -84,7 +77,7 @@ namespace animation
 		{
 			MapAny::iterator item = mDatas.find(_name);
 			if (item != mDatas.end()) return item->second;
-			return Ogre::Any();
+			return {};
 		}
 
 		void addData(std::string_view _name, Ogre::Any _any) override
@@ -95,10 +88,10 @@ namespace animation
 	private:
 		ConnectionReceiver mConnection;
 
-		typedef std::vector<IAnimationNode*> VectorNode;
+		using VectorNode = std::vector<IAnimationNode*>;
 		VectorNode mNodes;
 
-		typedef std::map<std::string, Ogre::Any, std::less<>> MapAny;
+		using MapAny = std::map<std::string, Ogre::Any, std::less<>>;
 		MapAny mDatas;
 
 	};

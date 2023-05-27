@@ -18,14 +18,6 @@ namespace wraps
 	class RenderBox
 	{
 	public:
-		RenderBox() :
-			mCanvas(nullptr),
-			mCamera(nullptr),
-			mRenderTarget(nullptr),
-			mColour(Ogre::ColourValue::ZERO)
-		{
-		}
-
 		virtual ~RenderBox()
 		{
 			destroy();
@@ -132,10 +124,10 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::Canvas* mCanvas;
-		Ogre::Camera* mCamera;
-		Ogre::RenderTarget* mRenderTarget;
-		Ogre::ColourValue mColour;
+		MyGUI::Canvas* mCanvas{nullptr};
+		Ogre::Camera* mCamera{nullptr};
+		Ogre::RenderTarget* mRenderTarget{nullptr};
+		Ogre::ColourValue mColour{Ogre::ColourValue::ZERO};
 	};
 
 } // namespace wraps

@@ -19,7 +19,7 @@ namespace animation
 		void addConstruct(std::string_view _type, IAnimationNodeConstruct* _construct);
 
 	private:
-		typedef std::map<std::string, IAnimationNodeConstruct*, std::less<>> MapConstruct;
+		using MapConstruct = std::map<std::string, IAnimationNodeConstruct*, std::less<>>;
 		MapConstruct mConstructs;
 
 	};

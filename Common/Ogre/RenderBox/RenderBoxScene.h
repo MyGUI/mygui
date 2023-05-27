@@ -18,29 +18,8 @@ namespace wraps
 	class RenderBoxScene : public RenderBox
 	{
 	public:
-		RenderBoxScene() :
-			mScene(nullptr),
-			mNode(nullptr),
-			mCameraNode(nullptr),
-			mSceneCamera(nullptr),
-			mEntity(nullptr),
-			mAnimationState(nullptr),
-			mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
-			mMouseRotation(false),
-			mLastPointerX(0),
-			mMousePressed(false),
-			mAutoRotation(false),
-			mFrameAdvise(false)
-		{
-		}
-
-		~RenderBoxScene() override
-		{
-		}
-
 		/** default RenderBox autorotation speed (if enabled) */
-		enum { RENDER_BOX_AUTO_ROTATION_SPEED = 20 };
-
+		static constexpr int RENDER_BOX_AUTO_ROTATION_SPEED = 20;
 
 		/** Add mesh to scene and remove previous one
 			@param
@@ -329,20 +308,20 @@ namespace wraps
 		}
 
 	private:
-		Ogre::SceneManager* mScene;
-		Ogre::SceneNode* mNode;
-		Ogre::SceneNode* mCameraNode;
-		Ogre::Camera* mSceneCamera;
-		Ogre::Entity* mEntity;
-		Ogre::AnimationState* mAnimationState;
+		Ogre::SceneManager* mScene{nullptr};
+		Ogre::SceneNode* mNode{nullptr};
+		Ogre::SceneNode* mCameraNode{nullptr};
+		Ogre::Camera* mSceneCamera{nullptr};
+		Ogre::Entity* mEntity{nullptr};
+		Ogre::AnimationState* mAnimationState{nullptr};
 
-		int mRotationSpeed;
-		bool mMouseRotation;
-		int mLastPointerX;
-		bool mMousePressed;
-		bool mAutoRotation;
+		int mRotationSpeed{RENDER_BOX_AUTO_ROTATION_SPEED};
+		bool mMouseRotation{false};
+		int mLastPointerX{0};
+		bool mMousePressed{false};
+		bool mAutoRotation{false};
 
-		bool mFrameAdvise;
+		bool mFrameAdvise{false};
 	};
 
 } // namespace wraps

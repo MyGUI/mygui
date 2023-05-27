@@ -31,10 +31,6 @@ namespace animation
 		{
 		}
 
-		~FadeController() override
-		{
-		}
-
 		void setEvent(std::string_view _name, float _value = 0) override
 		{
 			if (_name == "Start")

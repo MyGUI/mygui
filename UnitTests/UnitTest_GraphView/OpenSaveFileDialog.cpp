@@ -12,14 +12,7 @@ namespace tools
 {
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		Dialog("OpenSaveFileDialog.layout"),
-		mWindow(nullptr),
-		mListFiles(nullptr),
-		mEditFileName(nullptr),
-		mButtonUp(nullptr),
-		mCurrentFolderField(nullptr),
-		mButtonOpenSave(nullptr),
-		mFileMask("*.*"),
-		mFolderMode(false)
+		mFileMask("*.*")
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
@@ -160,10 +153,10 @@ namespace tools
 		common::VectorFileInfo infos;
 		getSystemFileList(infos, mCurrentFolder, L"*.*");
 
-		for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
+		for (auto& info : infos)
 		{
-			if ((*item).folder)
-				mListFiles->addItem(L"[" + (*item).name + L"]", *item);
+			if (info.folder)
+				mListFiles->addItem(L"[" + info.name + L"]", info);
 		}
 
 		if (!mFolderMode)
@@ -172,10 +165,10 @@ namespace tools
 			infos.clear();
 			getSystemFileList(infos, mCurrentFolder, mFileMask);
 
-			for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
+			for (auto& info : infos)
 			{
-				if (!(*item).folder)
-					mListFiles->addItem((*item).name, *item);
+				if (!info.folder)
+					mListFiles->addItem(info.name, info);
 			}
 		}
 	}
@@ -240,8 +233,8 @@ namespace tools
 	{
 		mCurrentFolderField->removeAllItems();
 
-		for (VectorUString::const_iterator item = _listFolders.begin(); item != _listFolders.end(); ++ item)
-			mCurrentFolderField->addItem((*item));
+		for (const auto& _listFolder : _listFolders)
+			mCurrentFolderField->addItem(_listFolder);
 	}
 
 	void OpenSaveFileDialog::notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)

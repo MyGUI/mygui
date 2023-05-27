@@ -52,18 +52,18 @@ namespace demo
 		void disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to);
 
 	private:
-		GraphView* mGraphView;
+		GraphView* mGraphView{nullptr};
 
 		animation::AnimationNodeFactory mNodeFactory;
-		animation::AnimationGraph* mGraph;
+		animation::AnimationGraph* mGraph{nullptr};
 
 		GraphNodeFactory mGraphNodeFactory;
 
-		tools::OpenSaveFileDialog* mFileDialog;
-		bool mFileDialogSave;
-		wraps::ContextMenu* mContextMenu;
+		tools::OpenSaveFileDialog* mFileDialog{nullptr};
+		bool mFileDialogSave{false};
+		wraps::ContextMenu* mContextMenu{nullptr};
 
-		typedef std::vector<BaseAnimationNode*> VectorBaseAnimationNode;
+		using VectorBaseAnimationNode = std::vector<BaseAnimationNode*>;
 		VectorBaseAnimationNode mNodes;
 
 		MyGUI::IntPoint mClickPosition;

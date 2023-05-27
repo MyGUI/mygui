@@ -49,7 +49,7 @@ namespace animation
 
 		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnections.emplace_back(_eventout, PairIn(_node, _eventin));
 		}
 
 		void setProperty(std::string_view _key, std::string_view _value) override
@@ -104,9 +104,9 @@ namespace animation
 
 	private:
 		Ogre::AnimationState* mState;
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
+		using PairIn = std::pair<IAnimationNode*, std::string>;
+		using PairOut = std::pair<std::string, PairIn>;
+		using VectorPairOut = std::vector<PairOut>;
 		VectorPairOut mConnections;
 
 		std::string mStateName;

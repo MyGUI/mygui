@@ -12,16 +12,10 @@ namespace animation
 		public IAnimationNode
 	{
 	public:
-		PositionController()
-		{
-		}
+		PositionController() = default;
 
 		PositionController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
-		{
-		}
-
-		~PositionController() override
 		{
 		}
 

@@ -56,20 +56,20 @@ namespace demo
 		Ogre::Camera* getCamera() const;
 
 	private:
-		Ogre::Vector2* mTextureCoords;
-		Ogre::Vector3* mVertices;
-		unsigned long* mIndices;
-		size_t mVertexCount;
-		size_t mIndexCount;
-		float mUScale;
-		float mVScale;
-		mutable Ogre::RaySceneQuery* mRaySceneQuery;
+		Ogre::Vector2* mTextureCoords{nullptr};
+		Ogre::Vector3* mVertices{nullptr};
+		unsigned long* mIndices{nullptr};
+		size_t mVertexCount{0};
+		size_t mIndexCount{0};
+		float mUScale{1};
+		float mVScale{1};
+		mutable Ogre::RaySceneQuery* mRaySceneQuery{nullptr};
 		std::string mEntityName;
 		std::string mMaterialName;
 		std::string mTextureName;
 		std::string mSceneManager;
 		std::string mCamera;
-		Ogre::TextureUnitState* mTextureUnit;
+		Ogre::TextureUnitState* mTextureUnit{nullptr};
 	};
 
 } // namespace demo

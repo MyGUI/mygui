@@ -9,7 +9,7 @@ namespace demo
 	class IGraphNodeConstruct
 	{
 	public:
-		virtual ~IGraphNodeConstruct() { }
+		virtual ~IGraphNodeConstruct() = default;
 		virtual BaseAnimationNode* create(std::string_view _name) = 0;
 	};
 

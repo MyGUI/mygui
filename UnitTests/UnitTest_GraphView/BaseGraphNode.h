@@ -19,8 +19,7 @@ namespace wraps
 	public:
 		BaseGraphNode(std::string_view _layout) :
 			BaseLayout({}, nullptr),
-			mLayout(_layout),
-			mView(nullptr)
+			mLayout(_layout)
 		{
 		}
 
@@ -174,7 +173,7 @@ namespace wraps
 	private:
 		std::string mLayout;
 		VectorConnection mListConnection;
-		IGraphController* mView;
+		IGraphController* mView{nullptr};
 	};
 
 } // namespace wraps

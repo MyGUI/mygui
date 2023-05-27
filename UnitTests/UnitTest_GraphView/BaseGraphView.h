@@ -19,16 +19,11 @@ namespace wraps
 		public IGraphController
 	{
 	public:
-		typedef std::vector<BaseGraphNode*> VectorGraphNode;
-		typedef MyGUI::Enumerator<VectorGraphNode> EnumeratorNode;
+		using VectorGraphNode = std::vector<BaseGraphNode*>;
+		using EnumeratorNode = MyGUI::Enumerator<VectorGraphNode>;
 
 		BaseGraphView(std::string_view _layout, MyGUI::Widget* _parent) :
-			BaseLayout(_layout, _parent),
-			mCanvas(nullptr),
-			mIsDrug(false),
-			mConnectionStart(nullptr),
-			mInvalidate(false),
-			mCurrentIndexConnection(0)
+			BaseLayout(_layout, _parent)
 		{
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
 		}
@@ -70,11 +65,11 @@ namespace wraps
 
 		void removeAllItems()
 		{
-			for (VectorGraphNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
+			for (auto& mNode : mNodes)
 			{
-				removeAllConnections((*item));
-				(*item)->_shutdown();
-				(*item) = nullptr;
+				removeAllConnections(mNode);
+				mNode->_shutdown();
+				mNode = nullptr;
 			}
 			mNodes.clear();
 
@@ -387,9 +382,9 @@ namespace wraps
 			clearCanvas();
 
 			// проходим по всем нодам и перерисовываем связи
-			for (size_t index = 0; index < mNodes.size(); ++index)
+			for (auto& mNode : mNodes)
 			{
-				EnumeratorConnection node_point = mNodes[index]->getConnectionEnumerator();
+				EnumeratorConnection node_point = mNode->getConnectionEnumerator();
 				while (node_point.next())
 				{
 					const MyGUI::IntCoord& coord_from = node_point->getAbsoluteCoord();
@@ -451,8 +446,8 @@ namespace wraps
 
 		void clearCanvas()
 		{
-			for (MyGUI::VectorWidgetPtr::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
-				(*item)->setVisible(false);
+			for (auto& mConnection : mConnections)
+				mConnection->setVisible(false);
 			mCurrentIndexConnection = 0;
 		}
 
@@ -488,14 +483,14 @@ namespace wraps
 
 			const size_t PointsNumber = 16;
 			std::vector<MyGUI::FloatPoint> basePoints;
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_start.left, (float)_info.point_start.top + _offset));
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_start.left + _info.start_offset.width, (float)_info.point_start.top + _info.start_offset.height + _offset));
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_end.left + _info.end_offset.width, (float)_info.point_end.top + _info.end_offset.height + _offset));
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_end.left, (float)_info.point_end.top + _offset));
+			basePoints.emplace_back((float)_info.point_start.left, (float)_info.point_start.top + _offset);
+			basePoints.emplace_back(
+				(float)_info.point_start.left + _info.start_offset.width,
+				(float)_info.point_start.top + _info.start_offset.height + _offset);
+			basePoints.emplace_back(
+				(float)_info.point_end.left + _info.end_offset.width,
+				(float)_info.point_end.top + _info.end_offset.height + _offset);
+			basePoints.emplace_back((float)_info.point_end.left, (float)_info.point_end.top + _offset);
 			std::vector<MyGUI::FloatPoint> splinePoints;
 			splinePoints.reserve(PointsNumber);
 			for (size_t i = 0; i < PointsNumber; ++i)
@@ -503,7 +498,7 @@ namespace wraps
 				float t = float(i) / (PointsNumber - 1);
 				float left = basePoints[0].left * std::pow(1 - t, 3.0f) + 3 * basePoints[1].left * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].left * (1 - t) * t * t + t * t * t * basePoints[3].left;
 				float top = basePoints[0].top * std::pow(1 - t, 3.0f) + 3 * basePoints[1].top * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].top * (1 - t) * t * t + t * t * t * basePoints[3].top;
-				splinePoints.push_back(MyGUI::FloatPoint(left, top));
+				splinePoints.emplace_back(left, top);
 			}
 			polygonalSkin->setPoints(splinePoints);
 		}
@@ -517,9 +512,9 @@ namespace wraps
 		MyGUI::IntSize getViewSize()
 		{
 			MyGUI::IntSize result;
-			for (size_t index = 0; index < mNodes.size(); ++index)
+			for (auto& mNode : mNodes)
 			{
-				const MyGUI::IntCoord& coord = mNodes[index]->getCoord();
+				const MyGUI::IntCoord& coord = mNode->getCoord();
 				if (coord.right() > result.width) result.width = coord.right();
 				if (coord.bottom() > result.height) result.height = coord.bottom();
 			}
@@ -534,13 +529,13 @@ namespace wraps
 	private:
 		VectorGraphNode mNodes;
 
-		MyGUI::Widget* mCanvas;
-		bool mIsDrug;
+		MyGUI::Widget* mCanvas{nullptr};
+		bool mIsDrug{false};
 		ConnectionInfo mDrugLine;
-		BaseGraphConnection* mConnectionStart;
-		bool mInvalidate;
+		BaseGraphConnection* mConnectionStart{nullptr};
+		bool mInvalidate{false};
 		MyGUI::VectorWidgetPtr mConnections;
-		size_t mCurrentIndexConnection;
+		size_t mCurrentIndexConnection{0};
 	};
 
 } // namespace wraps

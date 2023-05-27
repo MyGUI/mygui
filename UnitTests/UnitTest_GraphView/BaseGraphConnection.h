@@ -13,16 +13,15 @@ namespace wraps
 {
 	class BaseGraphNode;
 	class BaseGraphConnection;
-	typedef std::vector<BaseGraphConnection*> VectorConnection;
-	typedef MyGUI::Enumerator<VectorConnection> EnumeratorConnection;
+	using VectorConnection = std::vector<BaseGraphConnection*>;
+	using EnumeratorConnection = MyGUI::Enumerator<VectorConnection>;
 
 	class BaseGraphConnection :
 		public BaseLayout
 	{
 	public:
 		BaseGraphConnection(MyGUI::Widget* _widget) :
-			BaseLayout(std::string_view{}, _widget),
-			mOwnerNode(nullptr)
+			BaseLayout(std::string_view{}, _widget)
 		{
 			mType = mMainWidget->getUserString("Type");
 			mName = mMainWidget->getUserString("Name");
@@ -112,7 +111,7 @@ namespace wraps
 		}
 
 	private:
-		BaseGraphNode* mOwnerNode;
+		BaseGraphNode* mOwnerNode{nullptr};
 		std::string mType;
 		std::string mName;
 		VectorConnection mConnection;

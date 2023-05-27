@@ -226,13 +226,13 @@ namespace demo
 		gRaySceneQuery->setRay(ray);
 		gRaySceneQuery->setSortByDistance(true);
 		Ogre::RaySceneQueryResult& result = gRaySceneQuery->execute();
-		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter != result.end(); ++iter)
+		for (auto& iter : result)
 		{
-			if (iter->movable != nullptr)
+			if (iter.movable != nullptr)
 			{
-				if (iter->movable->getName() == "enemy")
+				if (iter.movable->getName() == "enemy")
 					return "enemy";
-				else if (iter->movable->getName() == "friend")
+				else if (iter.movable->getName() == "friend")
 					return "friend";
 			}
 		}

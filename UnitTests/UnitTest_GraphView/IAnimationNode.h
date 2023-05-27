@@ -22,9 +22,7 @@ namespace animation
 		{
 		}
 
-		virtual ~IAnimationNode()
-		{
-		}
+		virtual ~IAnimationNode() = default;
 
 		virtual void setEvent(std::string_view _name, float _value = 0)
 		{

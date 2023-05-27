@@ -167,8 +167,8 @@ namespace demo
 	void DemoKeeper::removeRenderBoxes()
 	{
 #ifdef MYGUI_OGRE_PLATFORM
-		for (std::vector<wraps::RenderBox*>::iterator item = mRenderBoxes.begin(); item != mRenderBoxes.end(); ++item)
-			delete *item;
+		for (auto& mRenderBox : mRenderBoxes)
+			delete mRenderBox;
 		mRenderBoxes.clear();
 #endif // MYGUI_OGRE_PLATFORM
 	}

@@ -28,7 +28,7 @@ namespace tools
 		const MyGUI::UString& getMode() const;
 		void setMode(const MyGUI::UString& _value);
 
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 		void setRecentFolders(const VectorUString& _listFolders);
 
 		void setFileMask(const MyGUI::UString& _value);
@@ -54,19 +54,19 @@ namespace tools
 		void upFolder();
 
 	private:
-		MyGUI::Window* mWindow;
-		MyGUI::ListBox* mListFiles;
-		MyGUI::EditBox* mEditFileName;
-		MyGUI::Button* mButtonUp;
-		MyGUI::ComboBox* mCurrentFolderField;
-		MyGUI::Button* mButtonOpenSave;
+		MyGUI::Window* mWindow{nullptr};
+		MyGUI::ListBox* mListFiles{nullptr};
+		MyGUI::EditBox* mEditFileName{nullptr};
+		MyGUI::Button* mButtonUp{nullptr};
+		MyGUI::ComboBox* mCurrentFolderField{nullptr};
+		MyGUI::Button* mButtonOpenSave{nullptr};
 
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;
 		MyGUI::UString mFileMask;
 
 		MyGUI::UString mMode;
-		bool mFolderMode;
+		bool mFolderMode{false};
 	};
 
 } // namespace tools

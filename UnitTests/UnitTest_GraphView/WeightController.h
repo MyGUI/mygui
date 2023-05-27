@@ -12,16 +12,10 @@ namespace animation
 		public IAnimationNode
 	{
 	public:
-		WeightController()
-		{
-		}
+		WeightController() = default;
 
 		WeightController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
-		{
-		}
-
-		~WeightController() override
 		{
 		}
 

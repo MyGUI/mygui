@@ -17,25 +17,10 @@ namespace animation
 		public IAnimationNode
 	{
 	public:
-		LoopController() :
-			IAnimationNode(),
-			mLength(0),
-			mCurrentTime(0),
-			mIsAnimationRun(false),
-			mState(nullptr)
-		{
-		}
+		LoopController() = default;
 
 		LoopController(std::string_view _name, IAnimationGraph* _graph) :
-			IAnimationNode(_name, _graph),
-			mLength(0),
-			mCurrentTime(0),
-			mIsAnimationRun(false),
-			mState(nullptr)
-		{
-		}
-
-		~LoopController() override
+			IAnimationNode(_name, _graph)
 		{
 		}
 
@@ -108,10 +93,10 @@ namespace animation
 		}
 
 	private:
-		float mLength;
-		float mCurrentTime;
-		bool mIsAnimationRun;
-		IAnimationNode* mState;
+		float mLength{0};
+		float mCurrentTime{0};
+		bool mIsAnimationRun{false};
+		IAnimationNode* mState{nullptr};
 
 		ConnectionReceiver mConnection;
 

@@ -18,16 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeSkeletonState(std::string_view _name) :
-			BaseAnimationNode("GraphNodeSkeletonState.layout", "SkeletonState", _name),
-			mStartIn(nullptr),
-			mStopIn(nullptr),
-			mPositionIn(nullptr),
-			mWeightIn(nullptr),
-			mComboStates(nullptr),
-			mWeightValue(nullptr),
-			mPositionValue(nullptr),
-			mStartValue(nullptr),
-			mStopValue(nullptr)
+			BaseAnimationNode("GraphNodeSkeletonState.layout", "SkeletonState", _name)
 		{
 		}
 
@@ -157,16 +148,15 @@ namespace demo
 
 	private:
 		std::string mStateName;
-		wraps::BaseGraphConnection* mStartIn;
-		wraps::BaseGraphConnection* mStopIn;
-		wraps::BaseGraphConnection* mPositionIn;
-		wraps::BaseGraphConnection* mWeightIn;
-		MyGUI::ComboBox* mComboStates;
-		MyGUI::TextBox* mWeightValue;
-		MyGUI::TextBox* mPositionValue;
-		MyGUI::TextBox* mStartValue;
-		MyGUI::TextBox* mStopValue;
-
+		wraps::BaseGraphConnection* mStartIn{nullptr};
+		wraps::BaseGraphConnection* mStopIn{nullptr};
+		wraps::BaseGraphConnection* mPositionIn{nullptr};
+		wraps::BaseGraphConnection* mWeightIn{nullptr};
+		MyGUI::ComboBox* mComboStates{nullptr};
+		MyGUI::TextBox* mWeightValue{nullptr};
+		MyGUI::TextBox* mPositionValue{nullptr};
+		MyGUI::TextBox* mStartValue{nullptr};
+		MyGUI::TextBox* mStopValue{nullptr};
 	};
 
 } // namespace demo

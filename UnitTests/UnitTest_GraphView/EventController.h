@@ -12,16 +12,10 @@ namespace animation
 		public IAnimationNode
 	{
 	public:
-		EventController()
-		{
-		}
+		EventController() = default;
 
 		EventController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
-		{
-		}
-
-		~EventController() override
 		{
 		}
 

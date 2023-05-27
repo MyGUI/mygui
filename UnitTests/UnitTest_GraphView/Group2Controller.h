@@ -12,16 +12,10 @@ namespace animation
 		public IAnimationNode
 	{
 	public:
-		Group2Controller()
-		{
-		}
+		Group2Controller() = default;
 
 		Group2Controller(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
-		{
-		}
-
-		~Group2Controller() override
 		{
 		}
 
