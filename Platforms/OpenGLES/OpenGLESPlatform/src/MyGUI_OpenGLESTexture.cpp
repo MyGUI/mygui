@@ -13,21 +13,7 @@ namespace MyGUI
 
 	OpenGLESTexture::OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader) :
 		mName(_name),
-		mTextureId(0),
-		mProgramId(0),
-		mPboID(0),
-		mWidth(0),
-		mHeight(0),
-		mLock(false),
-		mPixelFormat(0),
-		mDataSize(0),
-		mUsage(0),
-		mBuffer(nullptr),
-		mInternalPixelFormat(0),
-		mAccess(0),
-		mNumElemBytes(0),
-		mImageLoader(_loader),
-		mRenderTarget(nullptr)
+		mImageLoader(_loader)
 	{
 	}
 

@@ -14,14 +14,6 @@ namespace MyGUI
 
 	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer() :
-		mBufferID(0),
-		mVertexCount(0),
-		mNeedVertexCount(0),
-		mSizeInBytes(0)
-	{
-	}
-
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		destroy();

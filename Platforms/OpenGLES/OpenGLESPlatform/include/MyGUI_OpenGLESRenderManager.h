@@ -14,8 +14,6 @@ namespace MyGUI
 		public IRenderTarget
 	{
 	public:
-		OpenGLESRenderManager();
-
 		void initialise(OpenGLESImageLoader* _loader = nullptr);
 		void shutdown();
 
@@ -76,7 +74,7 @@ namespace MyGUI
 
 	private:
 		IntSize mViewSize;
-		bool mUpdate;
+		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 		unsigned int mDefaultProgramId;
@@ -86,10 +84,10 @@ namespace MyGUI
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
-		OpenGLESImageLoader* mImageLoader;
-		bool mPboIsSupported;
+		OpenGLESImageLoader* mImageLoader{nullptr};
+		bool mPboIsSupported{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

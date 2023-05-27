@@ -10,8 +10,7 @@
 namespace MyGUI
 {
 
-	OpenGLPlatform::OpenGLPlatform() :
-		mIsInitialise(false)
+	OpenGLPlatform::OpenGLPlatform()
 	{
 		mRenderManager = new OpenGLRenderManager();
 		mDataManager = new OpenGLDataManager();

@@ -21,8 +21,6 @@ namespace MyGUI
 		public IRenderTarget
 	{
 	public:
-		OpenGLRenderManager();
-
 		void initialise(OpenGLImageLoader* _loader = nullptr);
 		void shutdown();
 
@@ -77,16 +75,16 @@ namespace MyGUI
 
 	private:
 		IntSize mViewSize;
-		bool mUpdate;
+		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
-		OpenGLImageLoader* mImageLoader;
-		bool mPboIsSupported;
+		OpenGLImageLoader* mImageLoader{nullptr};
+		bool mPboIsSupported{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

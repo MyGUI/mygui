@@ -10,8 +10,6 @@ namespace MyGUI
 		public DataManager
 	{
 	public:
-		OpenGLESDataManager();
-
 		void initialise();
 		void shutdown();
 
@@ -51,7 +49,7 @@ namespace MyGUI
 		using VectorArhivInfo = std::vector<ArhivInfo>;
 		VectorArhivInfo mPaths;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

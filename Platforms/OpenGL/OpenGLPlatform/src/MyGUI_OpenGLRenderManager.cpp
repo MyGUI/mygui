@@ -27,14 +27,6 @@ namespace MyGUI
 		return static_cast<OpenGLRenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	OpenGLRenderManager::OpenGLRenderManager() :
-		mUpdate(false),
-		mImageLoader(nullptr),
-		mPboIsSupported(false),
-		mIsInitialise(false)
-	{
-	}
-
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");

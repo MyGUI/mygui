@@ -16,7 +16,6 @@ namespace MyGUI
 	class OpenGLVertexBuffer : public IVertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer();
 		~OpenGLVertexBuffer() override;
 
 		void setVertexCount(size_t _count) override;
@@ -37,10 +36,10 @@ namespace MyGUI
 		void resize();
 
 	private:
-		unsigned int mBufferID;
-		size_t mVertexCount;
-		size_t mNeedVertexCount;
-		size_t mSizeInBytes;
+		unsigned int mBufferID{0};
+		size_t mVertexCount{0};
+		size_t mNeedVertexCount{0};
+		size_t mSizeInBytes{0};
 	};
 
 } // namespace MyGUI

@@ -35,10 +35,10 @@ namespace MyGUI
 	private:
 		RenderTargetInfo mRenderTargetInfo;
 		unsigned int mTextureId;
-		int mWidth;
-		int mHeight;
-		unsigned int mFBOID;
-		unsigned int mRBOID;
+		int mWidth{0};
+		int mHeight{0};
+		unsigned int mFBOID{0};
+		unsigned int mRBOID{0};
 	};
 
 } // namespace MyGUI

@@ -55,22 +55,22 @@ namespace MyGUI
 
 	private:
 		std::string mName;
-		int mWidth;
-		int mHeight;
-		int mPixelFormat;
-		int mInternalPixelFormat;
-		int mUsage;
-		int mAccess;
-		size_t mNumElemBytes;
-		size_t mDataSize;
-		unsigned int mTextureId;
-		unsigned int mPboID;
-		bool mLock;
-		void* mBuffer;
+		int mWidth{0};
+		int mHeight{0};
+		int mPixelFormat{0};
+		int mInternalPixelFormat{0};
+		int mUsage{0};
+		int mAccess{0};
+		size_t mNumElemBytes{0};
+		size_t mDataSize{0};
+		unsigned int mTextureId{0};
+		unsigned int mPboID{0};
+		bool mLock{false};
+		void* mBuffer{nullptr};
 		PixelFormat mOriginalFormat;
 		TextureUsage mOriginalUsage;
 		OpenGLImageLoader* mImageLoader;
-		OpenGLRTTexture* mRenderTarget;
+		OpenGLRTTexture* mRenderTarget{nullptr};
 	};
 
 } // namespace MyGUI

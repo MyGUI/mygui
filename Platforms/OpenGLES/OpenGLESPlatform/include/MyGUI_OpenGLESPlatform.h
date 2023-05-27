@@ -23,7 +23,7 @@ namespace MyGUI
 		OpenGLESDataManager* getDataManagerPtr() const;
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		OpenGLESRenderManager* mRenderManager;
 		OpenGLESDataManager* mDataManager;
 		LogManager* mLogManager;

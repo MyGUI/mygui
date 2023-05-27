@@ -9,11 +9,6 @@
 namespace MyGUI
 {
 
-	OpenGLESDataManager::OpenGLESDataManager() :
-		mIsInitialise(false)
-	{
-	}
-
 	void OpenGLESDataManager::initialise()
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");

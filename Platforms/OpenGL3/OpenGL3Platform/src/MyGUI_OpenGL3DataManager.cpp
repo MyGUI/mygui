@@ -13,11 +13,6 @@
 namespace MyGUI
 {
 
-	OpenGL3DataManager::OpenGL3DataManager() :
-		mIsInitialise(false)
-	{
-	}
-
 	void OpenGL3DataManager::initialise()
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");

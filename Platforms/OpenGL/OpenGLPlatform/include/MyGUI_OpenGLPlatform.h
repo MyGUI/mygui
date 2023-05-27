@@ -30,7 +30,7 @@ namespace MyGUI
 		OpenGLDataManager* getDataManagerPtr() const;
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		OpenGLRenderManager* mRenderManager;
 		OpenGLDataManager* mDataManager;
 		LogManager* mLogManager;

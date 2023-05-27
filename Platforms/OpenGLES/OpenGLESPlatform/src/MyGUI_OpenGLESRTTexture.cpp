@@ -11,11 +11,7 @@ namespace MyGUI
 {
 
 	OpenGLESRTTexture::OpenGLESRTTexture(unsigned int _texture) :
-		mTextureId(_texture),
-		mWidth(0),
-		mHeight(0),
-		mFBOID(0),
-		mRBOID(0)
+		mTextureId(_texture)
 	{
 		//int miplevel = 0;
 		glBindTexture(GL_TEXTURE_2D, mTextureId);

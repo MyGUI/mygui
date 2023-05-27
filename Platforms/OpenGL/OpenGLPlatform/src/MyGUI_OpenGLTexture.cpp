@@ -17,20 +17,7 @@ namespace MyGUI
 
 	OpenGLTexture::OpenGLTexture(const std::string& _name, OpenGLImageLoader* _loader) :
 		mName(_name),
-		mWidth(0),
-		mHeight(0),
-		mPixelFormat(0),
-		mInternalPixelFormat(0),
-		mUsage(0),
-		mAccess(0),
-		mNumElemBytes(0),
-		mDataSize(0),
-		mTextureId(0),
-		mPboID(0),
-		mLock(false),
-		mBuffer(nullptr),
-		mImageLoader(_loader),
-		mRenderTarget(nullptr)
+		mImageLoader(_loader)
 	{
 	}
 

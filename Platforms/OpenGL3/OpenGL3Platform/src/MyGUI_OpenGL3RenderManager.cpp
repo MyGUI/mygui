@@ -28,14 +28,6 @@ namespace MyGUI
 		return static_cast<OpenGL3RenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	OpenGL3RenderManager::OpenGL3RenderManager() :
-		mUpdate(false),
-		mImageLoader(nullptr),
-		mPboIsSupported(false),
-		mIsInitialise(false)
-	{
-	}
-
 	static GLuint buildShader(const std::string& text, GLenum type)
 	{
 		GLuint id = glCreateShader(type);

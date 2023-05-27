@@ -1,11 +1,10 @@
 #include "MyGUI_OpenGLESPlatform.h"
-#include <assert.h>
+#include <cassert>
 
 namespace MyGUI
 {
 
-	OpenGLESPlatform::OpenGLESPlatform() :
-		mIsInitialise(false)
+	OpenGLESPlatform::OpenGLESPlatform()
 	{
 		mRenderManager = new OpenGLESRenderManager();
 		mDataManager = new OpenGLESDataManager();

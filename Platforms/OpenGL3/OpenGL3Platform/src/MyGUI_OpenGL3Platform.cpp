@@ -5,13 +5,12 @@
 */
 
 #include "MyGUI_OpenGL3Platform.h"
-#include <assert.h>
+#include <cassert>
 
 namespace MyGUI
 {
 
-	OpenGL3Platform::OpenGL3Platform() :
-		mIsInitialise(false)
+	OpenGL3Platform::OpenGL3Platform()
 	{
 		mRenderManager = new OpenGL3RenderManager();
 		mDataManager = new OpenGL3DataManager();
