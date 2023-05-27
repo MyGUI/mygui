@@ -100,8 +100,8 @@ namespace tools
 			std::vector<Type> result;
 			result.reserve(resultString.size());
 
-			for (VectorString::const_iterator item = resultString.begin(); item != resultString.end(); item ++)
-				result.push_back(MyGUI::utility::parseValue<Type>(*item));
+			for (const auto& item : resultString)
+				result.push_back(MyGUI::utility::parseValue<Type>(item));
 
 			return result;
 		}

@@ -44,8 +44,8 @@ namespace tools
 	{
 		mResources->removeAllItems();
 		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
-		for (SettingsManager::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
-			mResources->addItem(*item);
+		for (const auto& path : paths)
+			mResources->addItem(path);
 	}
 
 	void SettingsResourcesControl::saveSettings()

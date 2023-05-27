@@ -154,10 +154,10 @@ namespace MyGUI
 		else
 		{
 			VectorString result = utility::split(_value);
-			for (VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			for (const auto& item : result)
 			{
 				TextBox* text = _parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
-				text->setCaption(*item);
+				text->setCaption(item);
 				if (mBold)
 				{
 					if (mItalic)
@@ -287,13 +287,15 @@ namespace MyGUI
 
 			std::string_view valueColour = _value.substr(colourStartTagName.size(), _value.size() - (colourStartTagName.size() + colourEndTagName.size()));
 			VectorString result = utility::split(valueColour);
-			for (VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			for (const auto& item : result)
 			{
-				if (utility::startWith(*item, colourTagName))
+				if (utility::startWith(item, colourTagName))
 				{
-					if ((colourTagName.size() + 2) < ((*item).size()))
+					if ((colourTagName.size() + 2) < (item.size()))
 					{
-						std::string_view value = std::string_view(*item).substr(colourTagName.size() + 1, (*item).size() - (colourTagName.size() + 2));
+						std::string_view value = std::string_view(item).substr(
+							colourTagName.size() + 1,
+							item.size() - (colourTagName.size() + 2));
 						mColourValue = Colour::parse(value);
 					}
 				}
@@ -312,13 +314,13 @@ namespace MyGUI
 
 			std::string_view valueUrl = _value.substr(urlStartTagName.size(), _value.size() - (urlStartTagName.size() + urlEndTagName.size()));
 			VectorString result = utility::split(valueUrl);
-			for (VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			for (const auto& item : result)
 			{
-				if (utility::startWith(*item, urlTagName))
+				if (utility::startWith(item, urlTagName))
 				{
-					if ((urlTagName.size() + 2) < ((*item).size()))
+					if ((urlTagName.size() + 2) < (item.size()))
 					{
-						mUrlValue = (*item).substr(urlTagName.size() + 1, (*item).size() - (urlTagName.size() + 2));
+						mUrlValue = item.substr(urlTagName.size() + 1, item.size() - (urlTagName.size() + 2));
 					}
 				}
 			}
@@ -344,14 +346,16 @@ namespace MyGUI
 
 			std::string_view valueParagraph = _value.substr(paragraphStartTagName.size(), _value.size() - (paragraphStartTagName.size() + paragraphEndTagName.size()));
 			VectorString result = utility::split(valueParagraph);
-			for (VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			for (const auto& item : result)
 			{
-				if (utility::startWith(*item, alightTagName))
+				if (utility::startWith(item, alightTagName))
 				{
-					if ((alightTagName.size() + 2) < ((*item).size()))
+					if ((alightTagName.size() + 2) < (item.size()))
 					{
 						needAlign = true;
-						std::string_view value = std::string_view(*item).substr(alightTagName.size() + 1, (*item).size() - (alightTagName.size() + 2));
+						std::string_view value = std::string_view(item).substr(
+							alightTagName.size() + 1,
+							item.size() - (alightTagName.size() + 2));
 						if (value == "left")
 							alignResult = Align::Default;
 						else if (value == "center")
@@ -362,12 +366,14 @@ namespace MyGUI
 							alignResult = Align::Default;
 					}
 				}
-				else if (utility::startWith(*item, floatTagName))
+				else if (utility::startWith(item, floatTagName))
 				{
-					if ((floatTagName.size() + 2) < ((*item).size()))
+					if ((floatTagName.size() + 2) < (item.size()))
 					{
 						needFloat = true;
-						std::string_view value = std::string_view(*item).substr(floatTagName.size() + 1, (*item).size() - (floatTagName.size() + 2));
+						std::string_view value = std::string_view(item).substr(
+							floatTagName.size() + 1,
+							item.size() - (floatTagName.size() + 2));
 						if (value == "left")
 							floatResult = Align::Default;
 						else if (value == "center")
@@ -404,21 +410,25 @@ namespace MyGUI
 
 			std::string_view valueImage = _value.substr(imageStartTagName.size(), _value.size() - (imageStartTagName.size() + imageEndTagName.size()));
 			VectorString result = utility::split(valueImage);
-			for (VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			for (const auto& item : result)
 			{
-				if (utility::startWith(*item, widthTagName))
+				if (utility::startWith(item, widthTagName))
 				{
-					if ((widthTagName.size() + 2) < ((*item).size()))
+					if ((widthTagName.size() + 2) < (item.size()))
 					{
-						std::string_view value = std::string_view(*item).substr(widthTagName.size() + 1, (*item).size() - (widthTagName.size() + 2));
+						std::string_view value = std::string_view(item).substr(
+							widthTagName.size() + 1,
+							item.size() - (widthTagName.size() + 2));
 						mImageSize.width = utility::parseValue<int>(value);
 					}
 				}
-				else if (utility::startWith(*item, heightTagName))
+				else if (utility::startWith(item, heightTagName))
 				{
-					if ((heightTagName.size() + 2) < ((*item).size()))
+					if ((heightTagName.size() + 2) < (item.size()))
 					{
-						std::string_view value = std::string_view(*item).substr(heightTagName.size() + 1, (*item).size() - (heightTagName.size() + 2));
+						std::string_view value = std::string_view(item).substr(
+							heightTagName.size() + 1,
+							item.size() - (heightTagName.size() + 2));
 						mImageSize.height = utility::parseValue<int>(value);
 					}
 				}

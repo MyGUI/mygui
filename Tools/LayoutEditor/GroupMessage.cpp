@@ -21,18 +21,18 @@ namespace tools
 	{
 		if (_type == MyGUI::LogLevel::Error)
 		{
-			for (VectorUString::const_iterator item = mErrorMessages.begin(); item != mErrorMessages.end(); ++item)
+			for (const auto& errorMessage : mErrorMessages)
 			{
-				if ((*item) == _message)
+				if (errorMessage == _message)
 					return;
 			}
 			mErrorMessages.push_back(_message);
 		}
 		else
 		{
-			for (VectorUString::const_iterator item = mWarningMessages.begin(); item != mWarningMessages.end(); ++item)
+			for (const auto& warningMessage : mWarningMessages)
 			{
-				if ((*item) == _message)
+				if (warningMessage == _message)
 					return;
 			}
 			mWarningMessages.push_back(_message);
@@ -44,12 +44,12 @@ namespace tools
 		if (!mWarningMessages.empty())
 		{
 			MyGUI::UString warningMess;
-			for (VectorUString::const_iterator iter = mWarningMessages.begin(); iter != mWarningMessages.end(); ++iter)
+			for (const auto& warningMessage : mWarningMessages)
 			{
 				if (warningMess.empty())
-					warningMess = warningMess + *iter;
+					warningMess = warningMess + warningMessage;
 				else
-					warningMess = warningMess + "\n" + *iter;
+					warningMess = warningMess + "\n" + warningMessage;
 			}
 			if (!warningMess.empty())
 			{
@@ -65,12 +65,12 @@ namespace tools
 		if (!mErrorMessages.empty())
 		{
 			MyGUI::UString errorMessages;
-			for (VectorUString::const_iterator iter = mErrorMessages.begin(); iter != mErrorMessages.end(); ++iter)
+			for (const auto& errorMessage : mErrorMessages)
 			{
 				if (errorMessages.empty())
-					errorMessages = errorMessages + *iter;
+					errorMessages = errorMessages + errorMessage;
 				else
-					errorMessages = errorMessages + "\n" + *iter;
+					errorMessages = errorMessages + "\n" + errorMessage;
 			}
 			if (!errorMessages.empty())
 			{

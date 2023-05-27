@@ -241,9 +241,9 @@ namespace input
 		{
 			MyGUI::UString ustring(evt->text);
 			MyGUI::UString::utf32string utf32string = ustring.asUTF32();
-			for (MyGUI::UString::utf32string::const_iterator it = utf32string.begin(); it != utf32string.end(); ++it)
+			for (unsigned int it : utf32string)
 			{
-				injectKeyPress(myGuiKeyCode, *it);
+				injectKeyPress(myGuiKeyCode, it);
 			}
 		}
 		return true;

@@ -198,26 +198,26 @@ namespace common
 		VectorFileInfo result;
 		getSystemFileList(result, folder, _mask);
 
-		for (VectorFileInfo::const_iterator item = result.begin(); item != result.end(); ++item)
+		for (const auto& item : result)
 		{
-			if (item->folder) continue;
+			if (item.folder)
+				continue;
 
 			if (_fullpath)
-				_result.push_back(folder + item->name);
+				_result.push_back(folder + item.name);
 			else
-				_result.push_back(item->name);
+				_result.push_back(item.name);
 		}
 
 		if (_recursive)
 		{
 			getSystemFileList(result, folder, L"*");
 
-			for (VectorFileInfo::const_iterator item = result.begin(); item != result.end(); ++item)
+			for (const auto& item : result)
 			{
-				if (!item->folder
-					|| item->name == L".."
-					|| item->name == L".") continue;
-				scanFolder(_result, folder + item->name, _recursive, _mask, _fullpath);
+				if (!item.folder || item.name == L".." || item.name == L".")
+					continue;
+				scanFolder(_result, folder + item.name, _recursive, _mask, _fullpath);
 			}
 
 		}

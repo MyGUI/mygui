@@ -6,6 +6,8 @@
 
 #include "Precompiled.h"
 #include "Data.h"
+
+#include <memory>
 #include "MyGUI.h"
 
 namespace tools
@@ -150,7 +152,7 @@ namespace tools
 
 	DataPtr Data::CreateInstance()
 	{
-		DataPtr result = DataPtr(new Data());
+		DataPtr result = std::make_shared<Data>();
 		result->mWeakThis = DataWeak(result);
 		return result;
 	}

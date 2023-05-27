@@ -101,11 +101,11 @@ namespace tools
 			names = MyGUI::utility::split(_path, "/");
 
 			pugi::xml_node currentNode = mUserDocument->document_element();
-			for (std::vector<std::string>::const_iterator name = names.begin(); name != names.end(); name ++)
+			for (const auto& name : names)
 			{
-				pugi::xml_node childNode = currentNode.child((*name).data());
+				pugi::xml_node childNode = currentNode.child(name.data());
 				if (childNode.empty())
-					childNode = currentNode.append_child((*name).data());
+					childNode = currentNode.append_child(name.data());
 
 				currentNode = childNode;
 			}
@@ -236,11 +236,11 @@ namespace tools
 			names = MyGUI::utility::split(_path, "/");
 
 			pugi::xml_node currentNode = mUserDocument->document_element();
-			for (std::vector<std::string>::const_iterator name = names.begin(); name != names.end(); name ++)
+			for (const auto& name : names)
 			{
-				pugi::xml_node childNode = currentNode.child((*name).data());
+				pugi::xml_node childNode = currentNode.child(name.data());
 				if (childNode.empty())
-					childNode = currentNode.append_child((*name).data());
+					childNode = currentNode.append_child(name.data());
 
 				currentNode = childNode;
 			}

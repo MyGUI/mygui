@@ -97,12 +97,12 @@ namespace tools
 
 		Data::VectorData childs = DataUtility::getChildsByType(_data, "Region", false);
 		sortByAlign(childs);
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child ++)
-			writeRegion(node, _data, (*child), false);
+		for (const auto& child : childs)
+			writeRegion(node, _data, child, false);
 
 		childs = DataUtility::getChildsByType(_data, "RegionText", false);
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child ++)
-			writeRegion(node, _data, (*child), true);
+		for (const auto& child : childs)
+			writeRegion(node, _data, child, true);
 	}
 
 	void SkinExportSerializer::writeRegion(pugi::xml_node _parent, DataPtr _parentData, DataPtr _data, bool _text)

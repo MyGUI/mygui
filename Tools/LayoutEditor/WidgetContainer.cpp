@@ -72,10 +72,10 @@ namespace tools
 
 	std::string_view WidgetContainer::getUserData(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (const auto& item : mUserString)
 		{
-			if ((*item).first == _key)
-				return (*item).second;
+			if (item.first == _key)
+				return item.second;
 		}
 		return {};
 	}
@@ -130,10 +130,10 @@ namespace tools
 
 	std::string_view WidgetContainer::getProperty(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		for (const auto& item : mProperty)
 		{
-			if ((*item).first == _key)
-				return (*item).second;
+			if (item.first == _key)
+				return item.second;
 		}
 		return {};
 	}

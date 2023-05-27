@@ -31,8 +31,8 @@ namespace tools
 
 		fillResources();
 
-		for (MyGUI::VectorString::const_iterator item = mResources.begin(); item != mResources.end(); ++item)
-			mComboBox->addItem((*item));
+		for (const auto& resource : mResources)
+			mComboBox->addItem(resource);
 
 		mComboBox->beginToItemFirst();
 

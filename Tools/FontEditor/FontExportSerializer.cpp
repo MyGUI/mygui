@@ -275,8 +275,8 @@ namespace tools
 
 			// Add all of the code points. Skip over the substitute code point -- unless it's been customized, in which case it
 			// needs to be added here as a regular code point and then at the end as a substitute code point.
-			for (std::vector<std::pair<MyGUI::Char, MyGUI::Char> >::const_iterator iter = codePointRanges.begin() ; iter != codePointRanges.end(); ++iter)
-				for (MyGUI::Char code = iter->first; code <= iter->second && code >= iter->first; ++code)
+			for (const auto& rarnge : codePointRanges)
+				for (MyGUI::Char code = rarnge.first; code <= rarnge.second && code >= rarnge.first; ++code)
 					if (code != substituteCodePoint || isCustomSubstituteCodePoint)
 						addCode(codes, code, font, false);
 

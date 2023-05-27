@@ -32,9 +32,6 @@ namespace factories
 		}
 
 	private:
-		FactoryItemRegistrator() { }
-
-	private:
 		std::string mFactoryName;
 	};
 }

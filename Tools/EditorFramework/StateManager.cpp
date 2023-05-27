@@ -133,10 +133,10 @@ namespace tools
 
 	std::string_view StateManager::getEventToState(std::string_view _currentStateName, std::string_view _eventName)
 	{
-		for (VectorPairPairString::const_iterator item = mLinks.begin(); item != mLinks.end(); ++item)
+		for (const auto& link : mLinks)
 		{
-			if ((*item).first == _currentStateName && (*item).second.first == _eventName)
-				return (*item).second.second;
+			if (link.first == _currentStateName && link.second.first == _eventName)
+				return link.second.second;
 		}
 		return {};
 	}

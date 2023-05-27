@@ -47,11 +47,6 @@ namespace MyGUI
 	template<typename T>
 	class Enumerator
 	{
-	private:
-		Enumerator()
-		{
-		}
-
 	public:
 		explicit Enumerator(const T& _container) :
 			m_first(true),

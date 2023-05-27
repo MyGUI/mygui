@@ -161,9 +161,10 @@ namespace tools
 		if (!controllers.empty())
 		{
 			std::vector<std::string> values = MyGUI::utility::split(controllers, "\t\n ,");
-			for (std::vector<std::string>::const_iterator value = values.begin(); value != values.end(); value ++)
+			for (const auto& value : values)
 			{
-				IControlController* controller = components::FactoryManager::GetInstance().CreateItem<IControlController>(*value);
+				IControlController* controller =
+					components::FactoryManager::GetInstance().CreateItem<IControlController>(value);
 				if (controller != nullptr)
 				{
 					controller->setTarget(this);

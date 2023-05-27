@@ -380,11 +380,11 @@ namespace tools
 	void Application::LoadStates()
 	{
 		SettingsManager::VectorString values = SettingsManager::getInstance().getValueList("Editor/States/State.List");
-		for (SettingsManager::VectorString::const_iterator value = values.begin(); value != values.end(); value ++)
+		for (const auto& value : values)
 		{
-			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(*value);
+			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(value);
 			if (state != nullptr)
-				StateManager::getInstance().registerState(state, *value);
+				StateManager::getInstance().registerState(state, value);
 		}
 
 		pugi::xpath_node_set events = SettingsManager::getInstance().getValueNodeList("Editor/States/Event.List");

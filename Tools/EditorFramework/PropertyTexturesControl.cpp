@@ -31,8 +31,8 @@ namespace tools
 
 		fillTextures();
 
-		for (MyGUI::VectorString::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
-			mComboBox->addItem((*item));
+		for (const auto& texture : mTextures)
+			mComboBox->addItem(texture);
 
 		mComboBox->beginToItemFirst();
 

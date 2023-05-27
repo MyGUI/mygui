@@ -230,9 +230,9 @@ namespace tools
 		if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 
-		for (VectorString::const_iterator name = mPropertyNamesEnable.begin(); name != mPropertyNamesEnable.end(); name ++)
+		for (const auto& name : mPropertyNamesEnable)
 		{
-			property = _data->getProperty(*name);
+			property = _data->getProperty(name);
 			if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 		}
@@ -261,9 +261,9 @@ namespace tools
 
 	bool ListBoxDataControl::isDataEnabled(DataPtr _data)
 	{
-		for (VectorString::const_iterator name = mPropertyNamesEnable.begin(); name != mPropertyNamesEnable.end(); name ++)
+		for (const auto& name : mPropertyNamesEnable)
 		{
-			if (!_data->getPropertyValue<bool>(*name))
+			if (!_data->getPropertyValue<bool>(name))
 				return false;
 		}
 
