@@ -32,7 +32,7 @@ namespace demo
 
 	private:
 		static CommandManager* msCommandManager;
-		typedef std::map<std::string, CommandDelegate, std::less<>> MapDelegate;
+		using MapDelegate = std::map<std::string, CommandDelegate, std::less<>>;
 		MapDelegate mDelegates;
 	};
 

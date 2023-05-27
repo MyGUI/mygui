@@ -23,13 +23,6 @@ namespace demo
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper()
-	{
-#ifdef MYGUI_OGRE_PLATFORM
-		mNode = nullptr;
-#endif // MYGUI_OGRE_PLATFORM
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();

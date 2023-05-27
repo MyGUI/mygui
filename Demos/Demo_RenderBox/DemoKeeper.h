@@ -27,7 +27,7 @@ namespace demo
 
 	private:
 #ifdef MYGUI_OGRE_PLATFORM
-		Ogre::SceneNode* mNode;
+		Ogre::SceneNode* mNode{nullptr};
 #endif // MYGUI_OGRE_PLATFORM
 	};
 
