@@ -20,6 +20,7 @@ namespace MyGUI
 		MYGUI_SINGLETON_DECLARATION(FactoryManager);
 	public:
 		FactoryManager();
+		FactoryManager(FactoryManager&&) = default;
 
 		void initialise();
 		void shutdown();
