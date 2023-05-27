@@ -9,7 +9,6 @@
 #include "Base/BaseDemoManager.h"
 #include "GraphView.h"
 #include "AnimationGraph.h"
-#include "AnimationGraphFactory.h"
 #include "AnimationNodeFactory.h"
 #include "GraphNodeFactory.h"
 #include "OpenSaveFileDialog.h"
@@ -55,7 +54,6 @@ namespace demo
 	private:
 		GraphView* mGraphView;
 
-		animation::AnimationGraphFactory mGraphFactory;
 		animation::AnimationNodeFactory mNodeFactory;
 		animation::AnimationGraph* mGraph;
 
