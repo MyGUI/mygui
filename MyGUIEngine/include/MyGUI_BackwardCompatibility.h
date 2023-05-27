@@ -310,6 +310,8 @@ namespace MyGUI
 		bool isShowHScroll();
 	};
 
+//	MYGUI_OBSOLETE(" is deprecated, use : TabControl::DEFAULT_WIDTH")
+	constexpr int DEFAULT = -1; // actually TabControl::DEFAULT_WIDTH
 	template <>
 	class MYGUI_EXPORT MemberObsolete<TabControl>
 	{

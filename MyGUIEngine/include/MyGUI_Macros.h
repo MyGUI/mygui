@@ -17,7 +17,6 @@ namespace MyGUI
 {
 
 	constexpr size_t ITEM_NONE = (std::numeric_limits<size_t>::max)();
-	constexpr int DEFAULT = -1;
 	constexpr float ALPHA_MAX = 1.0f;
 	constexpr float ALPHA_MIN = 0.0f;
 

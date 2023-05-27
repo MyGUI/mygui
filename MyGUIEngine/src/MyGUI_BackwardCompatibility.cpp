@@ -29,7 +29,6 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_LanguageManager.h"
-#include "MyGUI_LayoutManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"

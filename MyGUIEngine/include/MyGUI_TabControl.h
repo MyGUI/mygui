@@ -55,6 +55,8 @@ namespace MyGUI
 
 		using VectorTabItemInfo = std::vector<TabItemInfo>;
 
+		static constexpr int DEFAULT_WIDTH = -1;
+
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		void setPosition(const IntPoint& _value) override;
 		//! @copydoc Widget::setSize(const IntSize& _value)
@@ -186,9 +188,9 @@ namespace MyGUI
 		// остальные манипуляции
 
 		//! Set button width at a specified position
-		void setButtonWidthAt(size_t _index, int _width = DEFAULT);
+		void setButtonWidthAt(size_t _index, int _width = DEFAULT_WIDTH);
 		//! Set button width
-		void setButtonWidth(TabItem* _item, int _width = DEFAULT);
+		void setButtonWidth(TabItem* _item, int _width = DEFAULT_WIDTH);
 
 		//! Get button width at a specified position
 		int getButtonWidthAt(size_t _index) const;

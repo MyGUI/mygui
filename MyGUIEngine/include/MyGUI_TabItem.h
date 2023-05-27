@@ -31,7 +31,7 @@ namespace MyGUI
 		const UString& getCaption() const override;
 
 		//! Set button width
-		void setButtonWidth(int _value = DEFAULT);
+		void setButtonWidth(int _value = TabControl::DEFAULT_WIDTH);
 
 	protected:
 		void initialiseOverride() override;
