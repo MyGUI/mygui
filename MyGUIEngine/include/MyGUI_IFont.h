@@ -23,9 +23,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( IFont )
 
 	public:
-		IFont() = default;
-		~IFont() override = default;
-
 		virtual const GlyphInfo* getGlyphInfo(Char _id) const = 0;
 
 		virtual ITexture* getTextureFont() const = 0;

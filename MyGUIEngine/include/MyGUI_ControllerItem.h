@@ -28,8 +28,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ControllerItem )
 
 	public:
-		~ControllerItem() override = default;
-
 		virtual void prepareItem(Widget* _widget) = 0;
 		virtual bool addTime(Widget* _widget, float _time) = 0;
 

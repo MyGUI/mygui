@@ -19,11 +19,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper()
-
-	{
-	}
-
 	static bool isConnectionOut(std::string_view _type)
 	{
 		return _type == "EventOut" || _type == "PositionOut";

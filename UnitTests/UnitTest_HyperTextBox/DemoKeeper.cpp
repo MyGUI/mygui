@@ -8,7 +8,6 @@
 
 namespace demo
 {
-	DemoKeeper::DemoKeeper() = default;
 
 	void DemoKeeper::setupResources()
 	{
