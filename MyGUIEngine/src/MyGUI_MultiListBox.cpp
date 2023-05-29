@@ -373,8 +373,12 @@ namespace MyGUI
 		}
 		else
 		{
+#ifndef MYGUI_DONT_USE_OBSOLETE
 			requestOperatorLess.m_eventObsolete(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
 			requestOperatorLess.m_event(this, mSortColumnIndex, BiIndexBase::convertToFace(_left), BiIndexBase::convertToFace(_right), result);
+#else
+			requestOperatorLess(this, mSortColumnIndex, BiIndexBase::convertToFace(_left), BiIndexBase::convertToFace(_right), result);
+#endif
 		}
 		return result;
 	}

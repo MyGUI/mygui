@@ -125,8 +125,7 @@ namespace MyGUI
 		{
 			_resetContainer(false);
 
-			eventComboAccept.m_eventObsolete(this);
-			eventComboAccept.m_event(this, mItemIndex);
+			eventComboAccept(this, mItemIndex);
 		}
 	}
 
@@ -157,8 +156,7 @@ namespace MyGUI
 		{
 			_resetContainer(false);
 
-			eventComboAccept.m_eventObsolete(this);
-			eventComboAccept.m_event(this, mItemIndex);
+			eventComboAccept(this, mItemIndex);
 		}
 	}
 
@@ -173,8 +171,7 @@ namespace MyGUI
 		{
 			_resetContainer(false);
 
-			eventComboAccept.m_eventObsolete(this);
-			eventComboAccept.m_event(this, mItemIndex);
+			eventComboAccept(this, mItemIndex);
 		}
 	}
 
