@@ -11,6 +11,7 @@
 
 namespace MyGUI
 {
+#ifndef MYGUI_DONT_USE_OBSOLETE
 	template <typename EventObsolete, typename Event>
 	class CompositeEvent
 	{
@@ -89,8 +90,12 @@ namespace MyGUI
 		EventObsolete m_eventObsolete;
 		Event m_event;
 	};
+#endif
 
 	template <typename EventObsolete, typename Event>
+#ifdef MYGUI_DONT_USE_OBSOLETE
+	using EventPair = Event;
+#else
 	class EventPair : public CompositeEvent<EventObsolete, Event>
 	{
 	public:
@@ -154,8 +159,12 @@ namespace MyGUI
 			m_event(p1, p2, p3, p4, p5, p6, p7, p8);
 		}
 	};
+#endif
 
 	template <typename EventObsolete, typename Event>
+#ifdef MYGUI_DONT_USE_OBSOLETE
+	using EventPairAddParameter = Event;
+#else
 	class EventPairAddParameter : public CompositeEvent<EventObsolete, Event>
 	{
 	public:
@@ -187,8 +196,12 @@ namespace MyGUI
 			m_event(p1, p2, p3, p4);
 		}
 	};
+#endif
 
 	template <typename EventObsolete, typename Event>
+#ifdef MYGUI_DONT_USE_OBSOLETE
+	using EventPairConvertStringView = Event;
+#else
 	class EventPairConvertStringView : public CompositeEvent<EventObsolete, Event>
 	{
 		template <class T>
@@ -215,6 +228,7 @@ namespace MyGUI
 			m_event(args...);
 		}
 	};
+#endif
 
 } // namespace MyGUI
 

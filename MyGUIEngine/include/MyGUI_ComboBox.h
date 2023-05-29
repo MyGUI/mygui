@@ -143,7 +143,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _index item
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
+		EventPairAddParameter<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
 			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
