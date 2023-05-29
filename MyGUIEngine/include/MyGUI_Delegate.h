@@ -9,8 +9,9 @@
 
 #include "MyGUI_Diagnostic.h"
 #include "MyGUI_Any.h"
+#include <algorithm>
 #include <list>
-
+#include <memory>
 #include <functional>
 
 namespace MyGUI
@@ -157,60 +158,32 @@ namespace delegates
 		using IDelegate = DelegateFunction<Args...>;
 
 		Delegate() = default;
-		Delegate(Delegate&& _event) noexcept : mDelegate(_event.mDelegate)
-		{
-			// take ownership
-			_event.mDelegate = nullptr;
-		}
-
-		~Delegate()
-		{
-			clear();
-		}
+		Delegate(Delegate&&) = default;
 
 		bool empty() const
 		{
-			return mDelegate == nullptr;
+			return !mDelegate;
 		}
 
 		void clear()
 		{
-			delete mDelegate;
-			mDelegate = nullptr;
+			mDelegate.reset();
 		}
 
 		Delegate& operator=(IDelegate* _delegate)
 		{
-			delete mDelegate;
-			mDelegate = _delegate;
-			return *this;
-		}
-
-		Delegate& operator=(Delegate<Args...>&& _event) noexcept
-		{
-			if (this == &_event)
-				return *this;
-
-			// take ownership
-			IDelegate* del = _event.mDelegate;
-			_event.mDelegate = nullptr;
-
-			if (mDelegate != nullptr && !mDelegate->compare(del))
-				delete mDelegate;
-
-			mDelegate = del;
-
+			mDelegate.reset(_delegate);
 			return *this;
 		}
 
 		void operator()(Args... args) const
 		{
-			if (mDelegate == nullptr) return;
-			mDelegate->invoke(args...);
+			if (mDelegate)
+				mDelegate->invoke(args...);
 		}
 
 	private:
-		IDelegate* mDelegate = nullptr;
+		std::unique_ptr<IDelegate> mDelegate;
 	};
 
 	template <typename ...Args>
@@ -218,109 +191,56 @@ namespace delegates
 	{
 	public:
 		using IDelegate = DelegateFunction<Args...>;
-		using ListDelegate = typename std::list<IDelegate*>;
+		using ListDelegate = typename std::list<std::unique_ptr<IDelegate>>;
 
 		MultiDelegate() = default;
-		~MultiDelegate()
-		{
-			clear();
-		}
+		MultiDelegate(MultiDelegate&&) = default;
 
 		bool empty() const
 		{
-			for (const auto& delegate : mListDelegates)
-			{
-				if (delegate) return false;
-			}
-			return true;
+			return mListDelegates.empty();
 		}
 
 		void clear()
 		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
-			{
-				delete (*iter);
-				(*iter) = nullptr;
-			}
+			mListDelegates.clear();
 		}
 
 		void clear(IDelegateUnlink* _unlink)
 		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
-			{
-				if ((*iter) && (*iter)->compare(_unlink))
-				{
-					delete (*iter);
-					(*iter) = nullptr;
-				}
-			}
+			if (!_unlink)
+				return;
+			mListDelegates.remove_if([=] (const auto& delegate) { return delegate->compare(_unlink); });
 		}
 
 		void operator+=(IDelegate* _delegate)
 		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
-			{
-				if ((*iter) && (*iter)->compare(_delegate))
-				{
-					MYGUI_EXCEPT("Trying to add same delegate twice.");
-				}
-			}
-			mListDelegates.push_back(_delegate);
+			if (!_delegate)
+				return;
+			auto found = std::find_if(mListDelegates.begin(), mListDelegates.end(), [=](const auto& delegate) { return delegate->compare(_delegate); });
+			if (found != mListDelegates.end())
+				MYGUI_EXCEPT("Trying to add same delegate twice.");
+			mListDelegates.emplace_back(_delegate);
 		}
 
 		void operator-=(IDelegate* _delegate)
 		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			if (!_delegate)
+				return;
+			auto found = std::find_if(mListDelegates.begin(), mListDelegates.end(), [=](const auto& delegate) { return delegate->compare(_delegate); });
+			if (found != mListDelegates.end())
 			{
-				if ((*iter) && (*iter)->compare(_delegate))
-				{
-					if ((*iter) != _delegate) delete (*iter);
-					(*iter) = nullptr;
-					break;
-				}
+				if (found->get() == _delegate)
+					_delegate = nullptr;
+				mListDelegates.erase(found);
 			}
 			delete _delegate;
 		}
 
 		void operator()(Args... args) const
 		{
-			auto iter = mListDelegates.begin();
-			while (iter != mListDelegates.end())
-			{
-				if (nullptr == (*iter))
-				{
-					iter = mListDelegates.erase(iter);
-				}
-				else
-				{
-					(*iter)->invoke(args...);
-					++iter;
-				}
-			}
-		}
-
-		MultiDelegate(MultiDelegate&& _event) noexcept
-		{
-			// take ownership
-			ListDelegate del = _event.mListDelegates;
-			_event.mListDelegates.clear();
-
-			safe_clear(del);
-
-			mListDelegates = del;
-		}
-
-		MultiDelegate& operator=(MultiDelegate&& _event) noexcept
-		{
-			// take ownership
-			ListDelegate del = _event.mListDelegates;
-			_event.mListDelegates.clear();
-
-			safe_clear(del);
-
-			mListDelegates = del;
-
-			return *this;
+			for (const auto& delegate : mListDelegates)
+				delegate->invoke(args...);
 		}
 
 		MYGUI_OBSOLETE("use : operator += ")
@@ -332,34 +252,7 @@ namespace delegates
 		}
 
 	private:
-		void safe_clear(ListDelegate& _delegates)
-		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
-			{
-				if (*iter)
-				{
-					IDelegate* del = (*iter);
-					(*iter) = nullptr;
-					delete_is_not_found(del, _delegates);
-				}
-			}
-		}
-
-		void delete_is_not_found(IDelegate* _del, ListDelegate& _delegates)
-		{
-			for (auto iter = _delegates.begin(); iter != _delegates.end(); ++iter)
-			{
-				if ((*iter) && (*iter)->compare(_del))
-				{
-					return;
-				}
-			}
-
-			delete _del;
-		}
-
-	private:
-		mutable ListDelegate mListDelegates;
+		ListDelegate mListDelegates;
 	};
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
