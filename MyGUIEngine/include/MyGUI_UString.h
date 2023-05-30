@@ -159,7 +159,7 @@ namespace MyGUI
 		//! size type used to indicate string size and character positions within the string
 		using size_type = size_t;
 		//! the usual constant representing: not found, no limit, etc
-		static const size_type npos = static_cast<size_type>(~0);
+		static const size_type npos = std::numeric_limits<size_t>::max();
 
 		//! a single 32-bit Unicode character
 		using unicode_char = uint32;
