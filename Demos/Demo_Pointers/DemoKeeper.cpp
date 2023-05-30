@@ -153,7 +153,7 @@ namespace demo
 		// для горячих клавиш
 		mControlPanel->injectKeyPress(_key);
 
-		base::BaseManager::injectKeyPress(_key, _text);
+		base::BaseDemoManager::injectKeyPress(_key, _text);
 	}
 
 	void DemoKeeper::setPointer(std::string_view _name)

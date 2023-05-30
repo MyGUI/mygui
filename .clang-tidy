@@ -1,6 +1,7 @@
 Checks: '\
   -*,\
   modernize-*,\
+  bugprone-parent-virtual-call,\
   \
   -modernize-use-trailing-return-type,\
   -modernize-use-auto,\
@@ -8,7 +9,12 @@ Checks: '\
   -modernize-use-nodiscard,\
   \
   -modernize-avoid-c-arrays'
-# options above are mostly TODO
+
+# blocks above are:
+# some definitely good checks
+# intentionallu disabled modernize-*
+# TODO modernize-* checks
+
 WarningsAsErrors: "*"
 HeaderFilterRegex: '.*'
 FormatStyle: file

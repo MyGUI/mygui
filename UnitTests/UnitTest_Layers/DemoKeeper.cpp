@@ -93,7 +93,7 @@ namespace demo
 		}
 #endif
 
-		return BaseManager::injectKeyPress( _key, _text );
+		return base::BaseDemoManager::injectKeyPress(_key, _text);
 	}
 
 	void DemoKeeper::createGround()
