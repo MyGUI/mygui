@@ -36,8 +36,6 @@ namespace MyGUI
 				iter = mChildItems.erase(iter);
 			}
 		}
-
-		delete mData;
 	}
 
 	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)

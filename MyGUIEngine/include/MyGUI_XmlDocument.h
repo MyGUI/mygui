@@ -19,6 +19,7 @@
 #include <sstream>
 #include <cassert>
 #include <type_traits>
+#include <memory>
 
 namespace MyGUI::xml
 {
@@ -105,7 +106,7 @@ namespace MyGUI::xml
 	using ElementPtr = Element*;
 	using PairAttribute = std::pair<std::string, std::string>;
 	using VectorAttributes = std::vector<PairAttribute>;
-	using VectorElement = std::vector<ElementPtr>;
+	using VectorElement = std::vector<std::unique_ptr<Element> >;
 
 	//----------------------------------------------------------------------//
 	// class ElementEnumerator
@@ -159,10 +160,10 @@ namespace MyGUI::xml
 		friend class Document;
 
 	public:
-		~Element();
+		Element(std::string_view _name, ElementPtr _parent, ElementType _type = ElementType::Normal, std::string_view _content = {});
+		Element(Element&&) = default;
 
 	private:
-		Element(std::string_view _name, ElementPtr _parent, ElementType _type = ElementType::Normal, std::string_view _content = {});
 		void save(std::ostream& _stream, size_t _level);
 
 	public:
@@ -214,7 +215,7 @@ namespace MyGUI::xml
 
 		ElementType getType() const;
 
-		ElementPtr createCopy();
+		std::unique_ptr<Element> createCopy();
 
 		/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -271,7 +272,7 @@ namespace MyGUI::xml
 		std::string mName;
 		std::string mContent;
 		VectorAttributes mAttributes;
-		VectorElement mChilds;
+		VectorElement mChildren;
 		ElementPtr mParent;
 		ElementType mType;
 	};
@@ -282,8 +283,6 @@ namespace MyGUI::xml
 	class MYGUI_EXPORT Document
 	{
 	public:
-		~Document();
-
 		// открывает обычным файлом, имя файла в utf8
 		bool open(const std::string& _filename);
 
@@ -346,8 +345,8 @@ namespace MyGUI::xml
 		void clearRoot();
 
 	private:
-		ElementPtr mRoot{nullptr};
-		ElementPtr mDeclaration{nullptr};
+		std::unique_ptr<Element> mRoot;
+		std::unique_ptr<Element> mDeclaration;
 		ErrorType mLastError;
 		std::string mLastErrorFile;
 		size_t mLine{0};
