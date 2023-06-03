@@ -11,6 +11,7 @@
 #include "MyGUI_LogStream.h"
 #include "MyGUI_LogSource.h"
 #include "MyGUI_Diagnostic.h"
+#include <memory>
 #include <vector>
 
 namespace MyGUI
@@ -64,10 +65,10 @@ namespace MyGUI
 		using VectorLogSource = std::vector<LogSource*>;
 		VectorLogSource mSources;
 
-		ConsoleLogListener* mConsole{nullptr};
-		FileLogListener* mFile{nullptr};
-		LevelLogFilter* mFilter{nullptr};
-		LogSource* mDefaultSource{nullptr};
+		std::unique_ptr<ConsoleLogListener> mConsole;
+		std::unique_ptr<FileLogListener> mFile;
+		std::unique_ptr<LevelLogFilter> mFilter;
+		std::unique_ptr<LogSource> mDefaultSource;
 
 		LogLevel mLevel{LogLevel::Info};
 		bool mConsoleEnable{true};

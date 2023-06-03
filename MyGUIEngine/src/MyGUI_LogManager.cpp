@@ -26,15 +26,6 @@ namespace MyGUI
 		flush();
 		close();
 
-		delete mDefaultSource;
-		mDefaultSource = nullptr;
-		delete mConsole;
-		mConsole = nullptr;
-		delete mFile;
-		mFile = nullptr;
-		delete mFilter;
-		mFilter = nullptr;
-
 		msInstance = nullptr;
 	}
 
@@ -79,25 +70,25 @@ namespace MyGUI
 
 	void LogManager::createDefaultSource(std::string_view _logname)
 	{
-		mDefaultSource = new LogSource();
+		mDefaultSource = std::make_unique<LogSource>();
 
-		mConsole = new ConsoleLogListener();
+		mConsole = std::make_unique<ConsoleLogListener>();
 		mConsole->setEnabled(mConsoleEnable);
-		mDefaultSource->addLogListener(mConsole);
+		mDefaultSource->addLogListener(mConsole.get());
 
 #ifndef EMSCRIPTEN
-		mFile = new FileLogListener();
+		mFile = std::make_unique<FileLogListener>();
 		mFile->setFileName(_logname);
-		mDefaultSource->addLogListener(mFile);
+		mDefaultSource->addLogListener(mFile.get());
 #endif
 
-		mFilter = new LevelLogFilter();
+		mFilter = std::make_unique<LevelLogFilter>();
 		mFilter->setLoggingLevel(mLevel);
-		mDefaultSource->setLogFilter(mFilter);
+		mDefaultSource->setLogFilter(mFilter.get());
 
 		mDefaultSource->open();
 
-		LogManager::getInstance().addLogSource(mDefaultSource);
+		LogManager::getInstance().addLogSource(mDefaultSource.get());
 	}
 
 	void LogManager::setSTDOutputEnabled(bool _value)
