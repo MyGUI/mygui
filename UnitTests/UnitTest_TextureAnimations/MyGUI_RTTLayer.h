@@ -37,7 +37,7 @@ namespace MyGUI
 
 	private:
 		Version mVersion;
-		xml::ElementPtr mData{nullptr};
+		std::unique_ptr<xml::Element> mData;
 	};
 
 } // namespace MyGUI

@@ -33,16 +33,13 @@ namespace MyGUI
 		if (filepath.empty())
 			return nullptr;
 
-		std::ifstream* stream = new std::ifstream();
+		auto stream = std::make_unique<std::ifstream>();
 		stream->open(filepath.c_str(), std::ios_base::binary);
 
 		if (!stream->is_open())
-		{
-			delete stream;
 			return nullptr;
-		}
 
-		DataFileStream* data = new DataFileStream(stream);
+		DataFileStream* data = new DataFileStream(std::move(stream));
 
 		return data;
 	}

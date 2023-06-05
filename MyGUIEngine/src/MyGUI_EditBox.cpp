@@ -15,6 +15,7 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_ScrollBar.h"
 
+#include <algorithm>
 #include <cctype>
 
 namespace MyGUI
@@ -1717,10 +1718,7 @@ namespace MyGUI
 			else
 				offset -= EDIT_MOUSE_WHEEL;
 
-			if (offset < 0)
-				offset = 0;
-			else if (offset > (int)mVRange)
-				offset = mVRange;
+			offset = std::clamp(offset, 0, int(mVRange));
 
 			if (offset != point.top)
 			{
@@ -1739,10 +1737,7 @@ namespace MyGUI
 			else
 				offset -= EDIT_MOUSE_WHEEL;
 
-			if (offset < 0)
-				offset = 0;
-			else if (offset > (int)mHRange)
-				offset = mHRange;
+			offset = std::clamp(offset, 0, int(mHRange));
 
 			if (offset != point.left)
 			{

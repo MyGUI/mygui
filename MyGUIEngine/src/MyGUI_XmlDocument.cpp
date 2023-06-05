@@ -122,13 +122,13 @@ namespace MyGUI::xml
 	ElementPtr ElementEnumerator::operator->() const
 	{
 		assert(m_current != m_end);
-		return (*m_current);
+		return m_current->get();
 	}
 
 	ElementPtr ElementEnumerator::current()
 	{
 		assert(m_current != m_end);
-		return (*m_current);
+		return m_current->get();
 	}
 
 	//----------------------------------------------------------------------//
@@ -140,15 +140,6 @@ namespace MyGUI::xml
 		mParent(_parent),
 		mType(_type)
 	{
-	}
-
-	Element::~Element()
-	{
-		for (auto& child : mChilds)
-		{
-			delete child;
-		}
-		mChilds.clear();
 	}
 
 	void Element::save(std::ostream& _stream, size_t _level)
@@ -172,7 +163,7 @@ namespace MyGUI::xml
 			_stream << " " << attribute.first << "=\"" << utility::convert_to_xml(attribute.second) << "\"";
 		}
 
-		bool empty = mChilds.empty();
+		bool empty = mChildren.empty();
 		// если детей нет то закрываем
 		if (empty && mContent.empty())
 		{
@@ -201,7 +192,7 @@ namespace MyGUI::xml
 					_stream << "\n";
 			}
 			// save child items
-			for (auto& child : mChilds)
+			for (const auto& child : mChildren)
 			{
 				child->save(_stream, _level + 1);
 			}
@@ -217,25 +208,24 @@ namespace MyGUI::xml
 
 	ElementPtr Element::createChild(std::string_view _name, std::string_view _content, ElementType _type)
 	{
-		ElementPtr node = new Element(_name, this, _type, _content);
-		mChilds.push_back(node);
-		return node;
+		return mChildren.emplace_back(std::make_unique<Element>(_name, this, _type, _content)).get();
 	}
 
 	void Element::removeChild(ElementPtr _child)
 	{
-		VectorElement::iterator item = std::find(mChilds.begin(), mChilds.end(), _child);
-		if (item != mChilds.end())
+		for (auto iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
-			delete (*item);
-			mChilds.erase(item);
+			if (iter->get() == _child)
+			{
+				mChildren.erase(iter);
+				break;
+			}
 		}
 	}
 
 	void Element::clear()
 	{
-		for (auto& child : mChilds) delete child;
-		mChilds.clear();
+		mChildren.clear();
 		mContent.clear();
 		mAttributes.clear();
 	}
@@ -280,16 +270,16 @@ namespace MyGUI::xml
 		}
 	}
 
-	ElementPtr Element::createCopy()
+	std::unique_ptr<Element> Element::createCopy()
 	{
-		Element* elem = new Element(mName, nullptr, mType, mContent);
+		auto elem = std::make_unique<Element>(mName, nullptr, mType, mContent);
 		elem->mAttributes = mAttributes;
 
-		for (auto& oldChild : mChilds)
+		for (const auto& oldChild : mChildren)
 		{
-			Element* child = oldChild->createCopy();
-			child->mParent = elem;
-			elem->mChilds.push_back(child);
+			auto child = oldChild->createCopy();
+			child->mParent = elem.get();
+			elem->mChildren.emplace_back(std::move(child));
 		}
 
 		return elem;
@@ -348,7 +338,7 @@ namespace MyGUI::xml
 
 	ElementEnumerator Element::getElementEnumerator()
 	{
-		return {mChilds.begin(), mChilds.end()};
+		return {mChildren.begin(), mChildren.end()};
 	}
 
 	ElementType Element::getType() const
@@ -379,10 +369,6 @@ namespace MyGUI::xml
 	//----------------------------------------------------------------------//
 	// class Document
 	//----------------------------------------------------------------------//
-	Document::~Document()
-	{
-		clear();
-	}
 
 	// открывает обычным файлом, имя файла в utf8
 	bool Document::open(const std::string& _filename)
@@ -424,10 +410,9 @@ namespace MyGUI::xml
 
 	bool Document::open(std::istream& _stream)
 	{
-		DataStream* data = new DataStream(&_stream);
+		auto data = std::make_unique<DataStream>(&_stream);
 
-		bool result = open(data);
-		delete data;
+		bool result = open(data.get());
 
 		return result;
 	}
@@ -565,12 +550,10 @@ namespace MyGUI::xml
 			{
 				_currentNode = _currentNode->createChild(std::string_view{});
 			}
-			else
+			else if (!mRoot)
 			{
-				_currentNode = new Element(std::string_view{}, nullptr);
-				// если это первый то запоминаем
-				if (!mRoot)
-					mRoot = _currentNode;
+				mRoot = std::make_unique<Element>(std::string_view{}, nullptr);
+				_currentNode = mRoot.get();
 			}
 			return true;
 		}
@@ -653,8 +636,8 @@ namespace MyGUI::xml
 						mLastError = ErrorType::MoreThanOneXMLDeclaration;
 						return false;
 					}
-					_currentNode = new Element(cut, nullptr, ElementType::Declaration);
-					mDeclaration = _currentNode;
+					mDeclaration = std::make_unique<Element>(cut, nullptr, ElementType::Declaration);
+					_currentNode = mDeclaration.get();
 				}
 				else
 				{
@@ -664,8 +647,8 @@ namespace MyGUI::xml
 						mLastError = ErrorType::MoreThanOneRootElement;
 						return false;
 					}
-					_currentNode = new Element(cut, nullptr, ElementType::Normal);
-					mRoot = _currentNode;
+					mRoot = std::make_unique<Element>(cut, nullptr, ElementType::Normal);
+					_currentNode = mRoot.get();
 				}
 			}
 
@@ -816,30 +799,28 @@ namespace MyGUI::xml
 
 	void Document::clearDeclaration()
 	{
-		delete mDeclaration;
-		mDeclaration = nullptr;
+		mDeclaration.reset();
 	}
 
 	void Document::clearRoot()
 	{
-		delete mRoot;
-		mRoot = nullptr;
+		mRoot.reset();
 	}
 
 	ElementPtr Document::createDeclaration(std::string_view _version, std::string_view _encoding)
 	{
 		clearDeclaration();
-		mDeclaration = new Element("xml", nullptr, ElementType::Declaration);
+		mDeclaration = std::make_unique<Element>("xml", nullptr, ElementType::Declaration);
 		mDeclaration->addAttribute("version", _version);
 		mDeclaration->addAttribute("encoding", _encoding);
-		return mDeclaration;
+		return mDeclaration.get();
 	}
 
 	ElementPtr Document::createRoot(std::string_view _name)
 	{
 		clearRoot();
-		mRoot = new Element(_name, nullptr, ElementType::Normal);
-		return mRoot;
+		mRoot = std::make_unique<Element>(_name, nullptr, ElementType::Normal);
+		return mRoot.get();
 	}
 
 	bool Document::parseLine(std::string& _line, ElementPtr& _element)
@@ -922,7 +903,7 @@ namespace MyGUI::xml
 
 	ElementPtr Document::getRoot() const
 	{
-		return mRoot;
+		return mRoot.get();
 	}
 
 	void Document::setLastFileError(std::string_view _filename)
