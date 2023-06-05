@@ -11,11 +11,6 @@ namespace MyGUI
 {
 
 	//--------------------------------------------------------------------------
-	UString::_base_iterator::_base_iterator()
-	{
-		mString = nullptr;
-	}
-	//--------------------------------------------------------------------------
 	void UString::_base_iterator::_seekFwd( size_type c )
 	{
 		mIter += c;
@@ -99,19 +94,6 @@ namespace MyGUI
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
-	UString::_fwd_iterator::_fwd_iterator() = default;
-	//--------------------------------------------------------------------------
-	UString::_fwd_iterator::_fwd_iterator( const _fwd_iterator& i )
-	{
-		_become( i );
-	}
-	//--------------------------------------------------------------------------
-	UString::_fwd_iterator& UString::_fwd_iterator::operator=( const _fwd_iterator& i )
-	{
-		_become( i );
-		return *this;
-	}
 	//--------------------------------------------------------------------------
 	UString::_fwd_iterator& UString::_fwd_iterator::operator++()
 	{
@@ -206,26 +188,18 @@ namespace MyGUI
 		return _getCharacter();
 	}
 	//--------------------------------------------------------------------------
-	int UString::_fwd_iterator::setCharacter( unicode_char uc )
+	int UString::_fwd_iterator::setCharacter(unicode_char uc)
 	{
-		return _setCharacter( uc );
+		return _setCharacter(uc);
 	}
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	UString::_const_fwd_iterator::_const_fwd_iterator() = default;
-	//--------------------------------------------------------------------------
-	UString::_const_fwd_iterator::_const_fwd_iterator( const _const_fwd_iterator& i )
-	{
-		_become( i );
-	}
-	//--------------------------------------------------------------------------
-	UString::_const_fwd_iterator& UString::_const_fwd_iterator::operator=( const _const_fwd_iterator& i )
-	{
-		_become( i );
-		return *this;
-	}
+	UString::_const_fwd_iterator::_const_fwd_iterator(const _const_fwd_iterator& i) = default;
+	UString::_const_fwd_iterator::_const_fwd_iterator(_const_fwd_iterator&& i) = default;
+	UString::_const_fwd_iterator& UString::_const_fwd_iterator::operator=(const _const_fwd_iterator& i) = default;
 	//--------------------------------------------------------------------------
 	UString::_const_fwd_iterator::_const_fwd_iterator( const _fwd_iterator& i )
 	{
@@ -328,13 +302,6 @@ namespace MyGUI
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
-	UString::_rev_iterator::_rev_iterator() = default;
-	//--------------------------------------------------------------------------
-	UString::_rev_iterator::_rev_iterator( const _rev_iterator& i )
-	{
-		_become( i );
-	}
-	//--------------------------------------------------------------------------
 	UString::_rev_iterator& UString::_rev_iterator::operator++()
 	{
 		_seekRev( 1 );
@@ -415,13 +382,9 @@ namespace MyGUI
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	UString::_const_rev_iterator::_const_rev_iterator() = default;
-	//--------------------------------------------------------------------------
-	UString::_const_rev_iterator::_const_rev_iterator( const _const_rev_iterator& i )
-	{
-		_become( i );
-	}
-	//--------------------------------------------------------------------------
-	UString::_const_rev_iterator::_const_rev_iterator( const _rev_iterator& i )
+	UString::_const_rev_iterator::_const_rev_iterator(const _const_rev_iterator& i) = default;
+	UString::_const_rev_iterator::_const_rev_iterator(_const_rev_iterator&& i) = default;
+	UString::_const_rev_iterator::_const_rev_iterator(const _rev_iterator& i)
 	{
 		_become( i );
 	}

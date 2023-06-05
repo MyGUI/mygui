@@ -176,7 +176,8 @@ namespace MyGUI
 		using utf32string = std::basic_string<unicode_char>;
 
 		//! This exception is used when invalid data streams are encountered
-	class MYGUI_EXPORT invalid_data: public std::runtime_error { /* i don't know why the beautifier is freaking out on this line */
+		class MYGUI_EXPORT invalid_data : public std::runtime_error
+		{
 		public:
 			//! constructor takes a string message that can be later retrieved by the what() function
 			explicit invalid_data( const std::string& _message ): std::runtime_error( _message ) {
@@ -186,13 +187,12 @@ namespace MyGUI
 
 		//#########################################################################
 		//! base iterator class for UString
-	class MYGUI_EXPORT _base_iterator
-	{
+		class MYGUI_EXPORT _base_iterator
+		{
 			friend class UString;
+
 		protected:
 			using difference_type = ptrdiff_t;
-
-			_base_iterator();
 
 			void _seekFwd( size_type c );
 			void _seekRev( size_type c );
@@ -209,7 +209,7 @@ namespace MyGUI
 			void _movePrev();
 
 			dstring::iterator mIter;
-			UString* mString;
+			UString* mString{nullptr};
 		};
 
 		//#########################################################################
@@ -220,12 +220,7 @@ namespace MyGUI
 		//! forward iterator for UString
 	class MYGUI_EXPORT _fwd_iterator: public _base_iterator
 	{
-			friend class _const_fwd_iterator;
 		public:
-			_fwd_iterator();
-			_fwd_iterator( const _fwd_iterator& i );
-			_fwd_iterator& operator=( const _fwd_iterator& i );
-
 			//! pre-increment
 			_fwd_iterator& operator++();
 			//! post-increment
@@ -263,15 +258,17 @@ namespace MyGUI
 		};
 
 
-
 		//#########################################################################
 		//! const forward iterator for UString
-	class MYGUI_EXPORT _const_fwd_iterator: public _base_iterator { /* i don't know why the beautifier is freaking out on this line */
+		class MYGUI_EXPORT _const_fwd_iterator : public _base_iterator
+		{
 		public:
 			_const_fwd_iterator();
-			_const_fwd_iterator( const _const_fwd_iterator& i );
-			_const_fwd_iterator& operator=( const _const_fwd_iterator& i );
-			_const_fwd_iterator( const _fwd_iterator& i );
+			_const_fwd_iterator(const _const_fwd_iterator& i);
+			_const_fwd_iterator(_const_fwd_iterator&& i);
+			_const_fwd_iterator& operator=(const _const_fwd_iterator& i);
+
+			_const_fwd_iterator(const _fwd_iterator& i);
 
 			//! pre-increment
 			_const_fwd_iterator& operator++();
@@ -328,12 +325,9 @@ namespace MyGUI
 		//#########################################################################
 		class _const_rev_iterator; // forward declaration
 		//! forward iterator for UString
-	class MYGUI_EXPORT _rev_iterator: public _base_iterator { /* i don't know why the beautifier is freaking out on this line */
-			friend class _const_rev_iterator;
+		class MYGUI_EXPORT _rev_iterator : public _base_iterator
+		{
 		public:
-			_rev_iterator();
-			_rev_iterator( const _rev_iterator& i );
-
 			//! pre-increment
 			_rev_iterator& operator++();
 			//! post-increment
@@ -362,11 +356,14 @@ namespace MyGUI
 		};
 		//#########################################################################
 		//! const reverse iterator for UString
-	class MYGUI_EXPORT _const_rev_iterator: public _base_iterator { /* i don't know why the beautifier is freaking out on this line */
+		class MYGUI_EXPORT _const_rev_iterator : public _base_iterator
+		{
 		public:
 			_const_rev_iterator();
-			_const_rev_iterator( const _const_rev_iterator& i );
-			_const_rev_iterator( const _rev_iterator& i );
+			_const_rev_iterator(const _const_rev_iterator& i);
+			_const_rev_iterator(_const_rev_iterator&& i);
+
+			_const_rev_iterator(const _rev_iterator& i);
 			//! pre-increment
 			_const_rev_iterator& operator++();
 			//! post-increment
@@ -945,7 +942,6 @@ namespace MyGUI
 		//@}
 
 	private:
-		//template<class ITER_TYPE> friend class _iterator;
 		dstring mData;
 
 		//! buffer data type identifier
