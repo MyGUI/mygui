@@ -58,12 +58,6 @@ namespace tools
 			setPropertyValue(_name, MyGUI::utility::toString(_value));
 		}
 
-		template <>
-		void setPropertyValue(std::string_view _name, const bool& _value) const
-		{
-			setPropertyValue(_name, _value ? "True" : "False");
-		}
-
 		PropertyPtr getProperty(std::string_view _name) const;
 
 		DataPtr getChildSelected();

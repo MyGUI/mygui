@@ -407,12 +407,6 @@ function(mygui_plugin PROJECTNAME)
 	install(FILES ${HEADER_FILES}
 		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 	)
-
-	if (MYGUI_HIGH_LEVEL_WARNINGS)
-		if (NOT MSVC)
-			target_compile_options(${PROJECTNAME} PRIVATE -Wno-missing-prototypes)
-		endif ()
-	endif ()
 endfunction(mygui_plugin)
 
 
