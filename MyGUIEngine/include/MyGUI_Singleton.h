@@ -13,13 +13,8 @@ namespace MyGUI
 {
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-#	if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	template <class T>
-	class Singleton
-#	else
-	template <class T>
-	class MYGUI_EXPORT MYGUI_OBSOLETE("Singleton class is deprecated. Do not use singletons.") Singleton
-#	endif
+	class MYGUI_OBSOLETE("Singleton class is deprecated. Do not use singletons.") Singleton
 	{
 	public:
 
