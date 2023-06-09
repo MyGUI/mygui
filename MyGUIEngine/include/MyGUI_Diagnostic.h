@@ -53,22 +53,6 @@ do { \
 #	define MYGUI_DEBUG_ASSERT(exp, dest) ((void)0)
 #endif
 
-#if __cplusplus >= 201402L
-#	define MYGUI_OBSOLETE(text) /*! \deprecated text */ [[deprecated(text)]]
-#else
-#	if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#		define MYGUI_OBSOLETE_START(text) __declspec(deprecated(text))
-#		define MYGUI_OBSOLETE_END
-#	elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-#		define MYGUI_OBSOLETE_START(text)
-#		define MYGUI_OBSOLETE_END __attribute__((deprecated))
-#	else
-#		define MYGUI_OBSOLETE_START(text)
-#		define MYGUI_OBSOLETE_END
-#	endif
-#
-
-#	define MYGUI_OBSOLETE(text) /*! \deprecated text */ MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END
-#endif
+#define MYGUI_OBSOLETE(text) /*! \deprecated text */ [[deprecated(text)]]
 
 #endif // MYGUI_DIAGNOSTIC_H_
