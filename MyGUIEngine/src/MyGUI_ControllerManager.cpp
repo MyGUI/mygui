@@ -104,7 +104,8 @@ namespace MyGUI
 		// replace with nullptr instead of removing, will  be deleted in frameEntered
 		for (auto& iter : mListItem)
 		{
-			if (iter.first == _widget) iter.first = nullptr;
+			if (iter.first == _widget)
+				iter.first = nullptr;
 		}
 	}
 
@@ -117,15 +118,21 @@ namespace MyGUI
 	{
 		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); /*added in body*/)
 		{
+			if (nullptr == (*iter).first)
+			{
+				delete (*iter).second;
+				iter = mListItem.erase(iter);
+				continue;
+			}
+
 			if ((*iter).second->addTime((*iter).first, _time))
 			{
 				++iter;
 				continue;
 			}
 
-			iter->first = nullptr;
-			delete iter->second;
-			iter = mListItem.erase(iter);
+			// will be removed in next iteration
+			(*iter).first = nullptr;
 		}
 
 		if (mListItem.empty())
