@@ -12,13 +12,14 @@
 namespace MyGUI
 {
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#ifndef MYGUI_DONT_USE_OBSOLETE
+#	if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	template <class T>
 	class Singleton
-#else
+#	else
 	template <class T>
 	class MYGUI_EXPORT MYGUI_OBSOLETE("Singleton class is deprecated. Do not use singletons.") Singleton
-#endif
+#	endif
 	{
 	public:
 
@@ -60,6 +61,7 @@ namespace MyGUI
 		static T* msInstance;
 		static std::string_view mClassTypeName;
 	};
+#endif
 
 /*
     // Template Singleton class was replaces with a set of macroses, because there were too many issues with it,
