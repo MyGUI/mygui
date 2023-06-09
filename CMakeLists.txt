@@ -65,23 +65,9 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
 	if (MYGUI_GCC_VISIBILITY)
-		# determine gcc version
-		execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE MYGUI_GCC_VERSION)
-		message(STATUS "Detected g++ ${MYGUI_GCC_VERSION}")
-		message(STATUS "Enabling GCC visibility flags")
-		set(MYGUI_GCC_VISIBILITY_FLAGS "-DMYGUI_GCC_VISIBILITY -fvisibility=hidden")
-
-		# check if we can safely add -fvisibility-inlines-hidden
-		string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
-		if (MYGUI_BUILD_TYPE STREQUAL "debug")
-			if(MYGUI_GCC_VERSION VERSION_LESS "4.2")
-				message(STATUS "Skipping -fvisibility-inlines-hidden due to possible bug in g++ < 4.2")
-			else() # double if because of bug in CMake 2.6
-				set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
-			endif()
-		else ()
-			set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
-		endif ()
+		message(STATUS "Enabling visibility flags")
+		set(MYGUI_GCC_VISIBILITY_DEFINITIONS "MYGUI_GCC_VISIBILITY")
+		set(MYGUI_GCC_VISIBILITY_OPTIONS "-fvisibility-inlines-hidden;-fvisibility=hidden")
 	endif (MYGUI_GCC_VISIBILITY)
 
 	# Fix x64 issues on Linux

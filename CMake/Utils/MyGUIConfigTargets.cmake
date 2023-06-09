@@ -419,7 +419,8 @@ function(mygui_config_lib PROJECTNAME)
 	else (MYGUI_STATIC)
 		if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 			# add GCC visibility flags to shared library build
-			set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
+			target_compile_options(${PROJECTNAME} PRIVATE ${MYGUI_GCC_VISIBILITY_OPTIONS})
+			target_compile_definitions(${PROJECTNAME} PRIVATE ${MYGUI_GCC_VISIBILITY_DEFINITIONS})
 			if (APPLE)
 				# deal with Mac OS X's framework system
 				set_target_properties(${PROJECTNAME} PROPERTIES FRAMEWORK TRUE)
