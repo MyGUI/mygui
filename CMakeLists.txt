@@ -206,29 +206,24 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wno-global-constructors
 			)
 		else ()
-			# TODO: the warnings below have'nt been checked for a while
 			add_compile_options(
 				-Wno-deprecated
 				-Wall
-				-Wno-reorder
 				-Winit-self
-				-Woverloaded-virtual
 				-Wcast-qual
 				-Wwrite-strings
 				-Wextra
 				-pedantic
 			)
+			add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-reorder;-Woverloaded-virtual>")
 			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-				add_compile_definitions(-Wctor-dtor-privacy)
-				add_compile_definitions(-fdiagnostics-show-option)
+				add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wctor-dtor-privacy>")
+				add_compile_options(-fdiagnostics-show-option)
 			endif ()
 			# disable some
-			add_compile_definitions(
+			add_compile_options(
 				-Wno-unused-parameter
 			)
-
-			# MyGUI_UString.h ignored from warnings because of this
-			add_compile_definitions(-Wshadow)
 		endif ()
 	endif ()
 endif ()

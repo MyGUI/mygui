@@ -143,18 +143,15 @@ namespace MyGUI
 				_var = _newValue;
 		}
 
-		std::pair<const Char, const uint8> charMaskData[] =
+		const std::map<const Char, const uint8> charMask
 		{
-			std::make_pair(FontCodeType::Selected, (const uint8)'\x88'),
-			std::make_pair(FontCodeType::SelectedBack, (const uint8)'\x60'),
-			std::make_pair(FontCodeType::Cursor, (const uint8)'\xFF'),
-			std::make_pair(FontCodeType::Tab, (const uint8)'\x00')
+			{FontCodeType::Selected, 0x88},
+			{FontCodeType::SelectedBack, 0x60},
+			{FontCodeType::Cursor, 0xFF},
+			{FontCodeType::Tab, 0x00}
 		};
-
-		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof(*charMaskData));
-
-		const uint8 charMaskBlack = (const uint8)'\x00';
-		const uint8 charMaskWhite = (const uint8)'\xFF';
+		const uint8 charMaskBlack = 0x00;
+		const uint8 charMaskWhite = 0xFF;
 
 		template<bool LAMode>
 		struct PixelBase

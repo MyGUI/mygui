@@ -36,7 +36,7 @@ namespace MyGUI
 			return (_value & (_value - 1)) == 0;
 		}
 
-	};
+	}
 
 } // namespace MyGUI
 
