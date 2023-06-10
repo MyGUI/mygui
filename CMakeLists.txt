@@ -214,10 +214,10 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wwrite-strings
 				-Wextra
 				-pedantic
+				-Wshadow
 			)
-			add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-reorder;-Woverloaded-virtual>")
+			add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-reorder;-Woverloaded-virtual;-Wsuggest-override>")
 			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-				add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wctor-dtor-privacy>")
 				add_compile_options(-fdiagnostics-show-option)
 			endif ()
 			# disable some
