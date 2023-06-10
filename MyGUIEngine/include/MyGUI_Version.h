@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 	public:
 
-		Version(unsigned int _major = 0, unsigned int _minor = 0, unsigned int _patch = 0) :
+		Version(uint8_t _major = 0, uint8_t _minor = 0, uint16_t _patch = 0) :
 			mMajor(_major),
 			mMinor(_minor),
 			mPatch(_patch)
@@ -69,17 +69,17 @@ namespace MyGUI
 			return _stream;
 		}
 
-		unsigned int getMajor() const
+		uint8_t getMajor() const
 		{
 			return mMajor;
 		}
 
-		unsigned int getMinor() const
+		uint8_t getMinor() const
 		{
 			return mMinor;
 		}
 
-		unsigned int getPatch() const
+		uint16_t getPatch() const
 		{
 			return mPatch;
 		}
@@ -97,17 +97,17 @@ namespace MyGUI
 			if (vec.empty())
 				return {};
 
-			unsigned int major = utility::parseValue<unsigned int>(vec[0]);
-			unsigned int minor = vec.size() > 1 ? utility::parseValue<unsigned int>(vec[1]) : 0;
-			unsigned int patch = vec.size() > 2 ? utility::parseValue<unsigned int>(vec[2]) : 0;
+			uint8_t major = utility::parseValue<uint8_t>(vec[0]);
+			uint8_t minor = vec.size() > 1 ? utility::parseValue<uint8_t>(vec[1]) : 0;
+			uint16_t patch = vec.size() > 2 ? utility::parseValue<uint16_t>(vec[2]) : 0;
 
 			return {major, minor, patch};
 		}
 
 	private:
-		unsigned mMajor : 8;
-		unsigned mMinor : 8;
-		unsigned mPatch : 16;
+		uint8_t mMajor;
+		uint8_t mMinor;
+		uint16_t mPatch;
 	};
 
 } // namespace MyGUI
