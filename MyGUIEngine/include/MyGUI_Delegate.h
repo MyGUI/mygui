@@ -198,26 +198,41 @@ namespace delegates
 
 		bool empty() const
 		{
-			return mListDelegates.empty();
+			for (const auto& delegate : mListDelegates)
+			{
+				if (delegate)
+					return false;
+			}
+			return true;
 		}
 
 		void clear()
 		{
-			mListDelegates.clear();
+			if (mRunning)
+			{
+				for (auto& delegate : mListDelegates)
+					delegate.reset();
+			}
+			else
+				mListDelegates.clear();
 		}
 
 		void clear(IDelegateUnlink* _unlink)
 		{
 			if (!_unlink)
 				return;
-			mListDelegates.remove_if([=] (const auto& delegate) { return delegate->compare(_unlink); });
+			for (auto& delegate : mListDelegates)
+			{
+				if (delegate && delegate->compare(_unlink))
+					delegate.reset();
+			}
 		}
 
 		void operator+=(IDelegate* _delegate)
 		{
 			if (!_delegate)
 				return;
-			auto found = std::find_if(mListDelegates.begin(), mListDelegates.end(), [=](const auto& delegate) { return delegate->compare(_delegate); });
+			auto found = std::find_if(mListDelegates.begin(), mListDelegates.end(), [=](const auto& delegate) { return delegate && delegate->compare(_delegate); });
 			if (found != mListDelegates.end())
 				MYGUI_EXCEPT("Trying to add same delegate twice.");
 			mListDelegates.emplace_back(_delegate);
@@ -227,20 +242,31 @@ namespace delegates
 		{
 			if (!_delegate)
 				return;
-			auto found = std::find_if(mListDelegates.begin(), mListDelegates.end(), [=](const auto& delegate) { return delegate->compare(_delegate); });
+			auto found = std::find_if(mListDelegates.begin(), mListDelegates.end(), [=](const auto& delegate) { return delegate && delegate->compare(_delegate); });
 			if (found != mListDelegates.end())
 			{
 				if (found->get() == _delegate)
 					_delegate = nullptr;
-				mListDelegates.erase(found);
+				found->reset();
 			}
 			delete _delegate;
 		}
 
 		void operator()(Args... args) const
 		{
-			for (const auto& delegate : mListDelegates)
-				delegate->invoke(args...);
+			bool canErase = !mRunning;
+			InvocationModificationGuard guard(*this);
+			for (auto it = mListDelegates.begin(); it != mListDelegates.end();)
+			{
+				if (*it)
+					(*it)->invoke(args...);
+				else if (canErase)
+				{
+					it = mListDelegates.erase(it);
+					continue;
+				}
+				++it;
+			}
 		}
 
 		MYGUI_OBSOLETE("use : operator += ")
@@ -252,7 +278,30 @@ namespace delegates
 		}
 
 	private:
-		ListDelegate mListDelegates;
+		mutable ListDelegate mListDelegates;
+		mutable bool mRunning;
+
+		class InvocationModificationGuard
+		{
+			const MultiDelegate* mDelegate;
+		public:
+			InvocationModificationGuard(const MultiDelegate& delegate)
+			{
+				if (delegate.mRunning)
+					mDelegate = nullptr;
+				else
+				{
+					mDelegate = &delegate;
+					mDelegate->mRunning = true;
+				}
+			}
+			~InvocationModificationGuard()
+			{
+				if (mDelegate)
+					mDelegate->mRunning = false;
+			}
+		};
+		friend class InvocationModificationGuard;
 	};
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
