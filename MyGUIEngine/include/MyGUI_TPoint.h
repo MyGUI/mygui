@@ -8,6 +8,7 @@
 #define MYGUI_TPONT_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_StringUtility.h"
 
 namespace MyGUI::types
 {
@@ -117,25 +118,7 @@ namespace MyGUI::types
 
 		static TPoint<T> parse(std::string_view _value)
 		{
-			TPoint<T> result;
-			std::stringstream stream;
-			stream << _value;
-			stream >> result.left >> result.top;
-			if (stream.fail())
-			{
-				return TPoint<T>();
-			}
-			else
-			{
-				int item = stream.get();
-				while (item != -1)
-				{
-					if (item != ' ' && item != '\t')
-						return TPoint<T>();
-					item = stream.get();
-				}
-			}
-			return result;
+			return utility::parseValue<TPoint<T>>(_value);
 		}
 
 		friend std::ostream& operator << (std::ostream& _stream, const TPoint<T>&  _value)

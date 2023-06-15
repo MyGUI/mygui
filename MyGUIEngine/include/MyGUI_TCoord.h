@@ -204,25 +204,7 @@ namespace MyGUI::types
 
 		static TCoord<T> parse(std::string_view _value)
 		{
-			TCoord<T> result;
-			std::stringstream stream;
-			stream << _value;
-			stream >> result.left >> result.top >> result.width >> result.height;
-			if (stream.fail())
-			{
-				return TCoord<T>();
-			}
-			else
-			{
-				int item = stream.get();
-				while (item != -1)
-				{
-					if (item != ' ' && item != '\t')
-						return TCoord<T>();
-					item = stream.get();
-				}
-			}
-			return result;
+			return utility::parseValue<TCoord<T>>(_value);
 		}
 
 		friend std::ostream& operator << (std::ostream& _stream, const TCoord<T>&  _value)

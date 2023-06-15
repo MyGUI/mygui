@@ -8,6 +8,7 @@
 #define MYGUI_TSIZE_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_StringUtility.h"
 
 namespace MyGUI::types
 {
@@ -117,25 +118,7 @@ namespace MyGUI::types
 
 		static TSize<T> parse(std::string_view _value)
 		{
-			TSize<T> result;
-			std::stringstream stream;
-			stream << _value;
-			stream >> result.width >> result.height;
-			if (stream.fail())
-			{
-				return TSize<T>();
-			}
-			else
-			{
-				int item = stream.get();
-				while (item != -1)
-				{
-					if (item != ' ' && item != '\t')
-						return TSize<T>();
-					item = stream.get();
-				}
-			}
-			return result;
+			return utility::parseValue<TSize<T>>(_value);
 		}
 
 		friend std::ostream& operator << (std::ostream& _stream, const TSize<T>&  _value)

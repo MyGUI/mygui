@@ -8,6 +8,7 @@
 #define MYGUI_TRECT_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_StringUtility.h"
 
 namespace MyGUI::types
 {
@@ -160,25 +161,7 @@ namespace MyGUI::types
 
 		static TRect<T> parse(std::string_view _value)
 		{
-			TRect<T> result;
-			std::stringstream stream;
-			stream << _value;
-			stream >> result.left >> result.top >> result.right >> result.bottom;
-			if (stream.fail())
-			{
-				return TRect<T>();
-			}
-			else
-			{
-				int item = stream.get();
-				while (item != -1)
-				{
-					if (item != ' ' && item != '\t')
-						return TRect<T>();
-					item = stream.get();
-				}
-			}
-			return result;
+			return utility::parseValue<TRect<T>>(_value);
 		}
 
 		friend std::ostream& operator << (std::ostream& _stream, const TRect<T>&  _value)
