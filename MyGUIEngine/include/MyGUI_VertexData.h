@@ -63,7 +63,7 @@ namespace MyGUI
 			vertex[CornerLB2] = vertex[CornerLB];
 		}
 
-		Vertex vertex[6];
+		Vertex vertex[VertexCount];
 	};
 
 } // namespace MyGUI

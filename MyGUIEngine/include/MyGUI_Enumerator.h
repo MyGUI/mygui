@@ -66,15 +66,13 @@ namespace MyGUI
 		{
 			if (m_current == m_end)
 				return false;
-			else if (m_first)
+			if (m_first)
 			{
 				m_first = false;
 				return true;
 			}
 			++ m_current;
-			if (m_current == m_end)
-				return false;
-			return true;
+			return m_current != m_end;
 		}
 
 		typename T::const_reference operator->() const
