@@ -36,7 +36,7 @@ namespace tools
 	private:
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
 		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
-		void notifyForceApplyProperties(MyGUI::EditBox* _widget);
+		void notifyForceApplyProperties(MyGUI::EditBox* _sender);
 
 	protected:
 		virtual bool onCheckValue();

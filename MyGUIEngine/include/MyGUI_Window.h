@@ -36,20 +36,20 @@ namespace MyGUI
 
 	public:
 		/** @copydoc Widget::setVisible */
-		void setVisible(bool _value) override;
+		void setVisible(bool _visible) override;
 
 		/** Hide or show window smooth */
-		void setVisibleSmooth(bool _value);
+		void setVisibleSmooth(bool _visible);
 		/** Hide window smooth and then destroy it */
 		void destroySmooth();
 
 		/** Enable or disable auto alpha mode */
-		void setAutoAlpha(bool _value);
+		void setAutoAlpha(bool _auto);
 		/** Get auto alpha mode flag */
 		bool getAutoAlpha() const;
 
 		/** Set window caption */
-		void setCaption(const UString& _value) override;
+		void setCaption(const UString& _caption) override;
 		/** Get window caption */
 		const UString& getCaption() const override;
 
@@ -70,12 +70,12 @@ namespace MyGUI
 		/** Get maximal possible window size */
 		IntSize getMaxSize() const;
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;

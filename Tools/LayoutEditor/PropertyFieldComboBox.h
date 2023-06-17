@@ -39,7 +39,7 @@ namespace tools
 
 	private:
 		void notifyApplyProperties(MyGUI::Widget* _sender);
-		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
+		void notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index);
 
 	protected:
 		MyGUI::TextBox* mText{nullptr};

@@ -37,15 +37,13 @@ namespace MyGUI
 		// возвращает отца или nullptr
 		virtual ILayerNode* getParent() const = 0;
 
-		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// поднимаем дочерний нод
-		virtual void upChildItemNode(ILayerNode* _node) = 0;
+		// up child item (make it draw and pick above others)
+		virtual void upChildItemNode(ILayerNode* _item) = 0;
 
-		// список детей
+		// child items list
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		virtual size_t getLayerNodeCount() const = 0;

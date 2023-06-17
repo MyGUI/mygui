@@ -45,7 +45,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void LanguageManager::_load(xml::ElementPtr _node, std::string_view, Version _version)
+	void LanguageManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 		std::string default_lang;
 		bool event_change = false;

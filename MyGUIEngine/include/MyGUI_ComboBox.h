@@ -40,7 +40,7 @@ namespace MyGUI
 		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
+		void insertItemAt(size_t _index, const UString& _item, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
 		void addItem(const UString& _name, Any _data = Any::Null);
@@ -116,7 +116,7 @@ namespace MyGUI
 		// методы для управления отображением
 
 		//! Set drop list mode (text can not be edited)
-		void setComboModeDrop(bool _value);
+		void setComboModeDrop(bool _drop);
 		//! Get drop list mode flag
 		bool getComboModeDrop() const;
 

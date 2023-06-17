@@ -73,10 +73,10 @@ namespace MyGUI
 
 	public:
 		/** @copydoc Widget::setVisible */
-		void setVisible(bool _value) override;
+		void setVisible(bool _visible) override;
 
 		/** Hide or show Menu smooth */
-		void setVisibleSmooth(bool _value);
+		void setVisibleSmooth(bool _visible);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами

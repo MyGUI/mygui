@@ -55,12 +55,12 @@ namespace MyGUI
 
 		static constexpr int DEFAULT_WIDTH = -1;
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -198,12 +198,12 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		/** Set default button width and disable autowidth mode */
-		void setButtonDefaultWidth(int _value);
+		void setButtonDefaultWidth(int _width);
 		/** Get default button width */
 		int getButtonDefaultWidth() const;
 
 		/** Enable or disable button auto width */
-		void setButtonAutoWidth(bool _value);
+		void setButtonAutoWidth(bool _auto);
 		/** Get button auto width flag */
 		bool getButtonAutoWidth() const;
 
@@ -240,14 +240,14 @@ namespace MyGUI
 
 		int _getTextWidth(const UString& _text);
 
-		void _showItem(TabItem* _sheet, bool _show, bool _smooth);
+		void _showItem(TabItem* _item, bool _show, bool _smooth);
 
 		void _createItemButton();
 
 		void _insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data);
 
 		// вкладка при удалении уведомляет таб
-		void _notifyDeleteItem(TabItem* _item);
+		void _notifyDeleteItem(TabItem* _sheet);
 
 		void onWidgetCreated(Widget* _widget) override;
 

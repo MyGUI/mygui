@@ -22,7 +22,7 @@ namespace tools
 		bool deserialization(pugi::xml_document& _doc) override;
 
 		static bool exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName);
-		static void generateFont(DataPtr _font);
+		static void generateFont(DataPtr _data);
 
 	private:
 		void parseFont(pugi::xml_node _node);

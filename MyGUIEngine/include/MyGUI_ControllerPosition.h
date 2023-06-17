@@ -27,11 +27,11 @@ namespace MyGUI
 
 		ControllerPosition();
 
-		void setCoord(const IntCoord& _value);
+		void setCoord(const IntCoord& _destCoord);
 
-		void setSize(const IntSize& _value);
+		void setSize(const IntSize& _destSize);
 
-		void setPosition(const IntPoint& _value);
+		void setPosition(const IntPoint& _destPoint);
 
 		/**
 		 * Set acceleration behavior, same as calling controller->setAction(MyGUI::newDelegate(chosen by value))

@@ -24,7 +24,7 @@ namespace MyGUI
 
 	public:
 		//! Set button selected state
-		void setStateSelected(bool _value);
+		void setStateSelected(bool _check);
 		//! Get buton selected
 		bool getStateSelected() const;
 

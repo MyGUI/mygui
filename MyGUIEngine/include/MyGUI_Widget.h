@@ -110,11 +110,11 @@ namespace MyGUI
 		}
 
 		/** Set widget position (position of left top corner) */
-		void setPosition(const IntPoint& _value) override;
+		void setPosition(const IntPoint& _point) override;
 		/** Set widget size */
-		void setSize(const IntSize& _value) override;
+		void setSize(const IntSize& _size) override;
 		/** Set widget position and size */
-		void setCoord(const IntCoord& _value) override;
+		void setCoord(const IntCoord& _coord) override;
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
 		void setPosition(int _left, int _top);
@@ -124,11 +124,11 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height);
 
 		/** Set widget position (position of left top corner)*/
-		void setRealPosition(const FloatPoint& _value);
+		void setRealPosition(const FloatPoint& _point);
 		/** Set widget size */
-		void setRealSize(const FloatSize& _value);
+		void setRealSize(const FloatSize& _size);
 		/** Set widget position and size*/
-		void setRealCoord(const FloatCoord& _value);
+		void setRealCoord(const FloatCoord& _coord);
 
 		/** See Widget::setRealPosition(const FloatPoint& _point) */
 		void setRealPosition(float _left, float _top);
@@ -162,7 +162,7 @@ namespace MyGUI
 		Align getAlign() const;
 
 		/** Set widget opacity */
-		void setAlpha(float _value);
+		void setAlpha(float _alpha);
 		/** Get widget opacity */
 		float getAlpha() const;
 
@@ -176,7 +176,7 @@ namespace MyGUI
 			changes.\n
 			Enabled (true) by default.
 		*/
-		void setInheritsAlpha(bool _value);
+		void setInheritsAlpha(bool _inherits);
 		/** Get inherits alpha mode flag */
 		bool getInheritsAlpha() const;
 
@@ -304,7 +304,7 @@ namespace MyGUI
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
 
-		bool _setWidgetState(std::string_view _value);
+		bool _setWidgetState(std::string_view _state);
 
 		// перерисовывает детей
 		void _updateChilds();
@@ -361,7 +361,7 @@ namespace MyGUI
 		virtual void setPropertyOverride(std::string_view _key, std::string_view _value);
 
 	private:
-		const WidgetInfo* initialiseWidgetSkinBase(ResourceSkin* _info, ResourceLayout* _templateInfo);
+		const WidgetInfo* initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo);
 		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();

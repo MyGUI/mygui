@@ -39,8 +39,8 @@ namespace MyGUI
 		virtual ILayerNode* createChildItemNode() = 0;
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// up child item (make it draw and pick above other)
-		virtual void upChildItemNode(ILayerNode* _node) = 0;
+		// up child item (make it draw and pick above others)
+		virtual void upChildItemNode(ILayerNode* _item) = 0;
 
 		// child items list
 		virtual EnumeratorILayerNode getEnumerator() const = 0;

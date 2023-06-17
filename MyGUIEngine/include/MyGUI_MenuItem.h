@@ -41,7 +41,7 @@ namespace MyGUI
 		const UString& getItemName() const;
 
 		//! Replace an item name
-		void setItemData(Any _value);
+		void setItemData(Any _data);
 
 		//! Get item data
 		template <typename ValueType>
@@ -54,7 +54,7 @@ namespace MyGUI
 		void removeItem();
 
 		//! Replace an item id at a specified position
-		void setItemId(std::string_view _value);
+		void setItemId(std::string_view _id);
 		//! Get item id from specified position
 		const std::string& getItemId() const;
 
@@ -72,12 +72,12 @@ namespace MyGUI
 		}
 
 		/** Set item type (see MenuItemType) */
-		void setItemType(MenuItemType _value);
+		void setItemType(MenuItemType _type);
 		/** Get item type (see MenuItemType) */
 		MenuItemType getItemType() const;
 
 		/** Hide or show child item (submenu) */
-		void setItemChildVisible(bool _value);
+		void setItemChildVisible(bool _visible);
 
 		/** Get parent MenuControl */
 		MenuControl* getMenuCtrlParent() const;

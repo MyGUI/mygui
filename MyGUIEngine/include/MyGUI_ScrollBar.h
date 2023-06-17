@@ -105,12 +105,12 @@ namespace MyGUI
 		/** Get how much time between scrollbar button repeats. */
 		float getRepeatStepTime(float time) const;
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
         using Widget::setPosition;
         using Widget::setSize;

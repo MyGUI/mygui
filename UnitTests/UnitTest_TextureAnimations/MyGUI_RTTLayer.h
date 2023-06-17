@@ -27,7 +27,7 @@ namespace MyGUI
 		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;
 		// удаляем дочерний нод
-		void destroyChildItemNode(ILayerNode* _node) override;
+		void destroyChildItemNode(ILayerNode* _item) override;
 
 		// возвращает виджет по позиции
 		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;

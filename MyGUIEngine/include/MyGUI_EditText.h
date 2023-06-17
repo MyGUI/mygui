@@ -30,7 +30,7 @@ namespace MyGUI
 	public:
 		EditText();
 
-		void setVisible(bool _value) override;
+		void setVisible(bool _visible) override;
 
 		// use in const methods, but actually might update object
 		void updateRawData() const;
@@ -93,7 +93,7 @@ namespace MyGUI
 		bool getShadow() const override;
 		void setShadow(bool _value) override;
 
-		void setShiftText(bool _shift) override;
+		void setShiftText(bool _value) override;
 
 		void setWordWrap(bool _value) override;
 

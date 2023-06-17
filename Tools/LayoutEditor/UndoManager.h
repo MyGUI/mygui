@@ -20,7 +20,7 @@ namespace tools
 		UndoManager();
 
 	public:
-		void initialise(EditorWidgets* mEditorWidgets);
+		void initialise(EditorWidgets* _ew);
 		void shutdown();
 
 		void undo();
@@ -36,7 +36,7 @@ namespace tools
 		{
 			return mUnsaved;
 		}
-		void setUnsaved(bool _unsaved);
+		void setUnsaved(bool _value);
 
 		Event_Changes eventChanges;
 

@@ -34,15 +34,13 @@ namespace MyGUI
 		// возвращает отца или nullptr
 		ILayerNode* getParent() const override;
 
-		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;
-		// удаляем дочерний нод
 		void destroyChildItemNode(ILayerNode* _node) override;
 
-		// поднимаем дочерний нод
-		void upChildItemNode(ILayerNode* _node) override;
+		// up child item (make it draw and pick above others)
+		void upChildItemNode(ILayerNode* _item) override;
 
-		// список детей
+		// child items list
 		EnumeratorILayerNode getEnumerator() const override;
 
 		size_t getLayerNodeCount() const override;

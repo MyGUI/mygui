@@ -28,10 +28,10 @@ namespace MyGUI
 		void setPick(bool _pick);
 
 		ILayerNode* createChildItemNode() override;
-		void destroyChildItemNode(ILayerNode* _node) override;
+		void destroyChildItemNode(ILayerNode* _item) override;
 
-		// up child item (make it draw and pick above other)
-		void upChildItemNode(ILayerNode* _node) override;
+		// up child item (make it draw and pick above others)
+		void upChildItemNode(ILayerNode* _item) override;
 
 		// child items list
 		EnumeratorILayerNode getEnumerator() const override;

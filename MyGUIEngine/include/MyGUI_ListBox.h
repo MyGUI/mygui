@@ -158,12 +158,12 @@ namespace MyGUI
 			Methods used to manipulate the widget's settings.
 		*/
 		//@{
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -237,7 +237,7 @@ namespace MyGUI
 		void _checkAlign();
 
 		// вспомогательные методы для составных списков
-		void _setItemFocus(size_t _position, bool _focus);
+		void _setItemFocus(size_t _index, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
 		// IItemContainer impl
@@ -258,7 +258,7 @@ namespace MyGUI
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 		void onKeyButtonReleased(KeyCode _key) override;
 
-		void notifyScrollChangePosition(ScrollBar* _sender, size_t _rel);
+		void notifyScrollChangePosition(ScrollBar* _sender, size_t _position);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseClick(Widget* _sender);
 		void notifyMouseDoubleClick(Widget* _sender);

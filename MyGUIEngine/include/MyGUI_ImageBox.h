@@ -39,16 +39,16 @@ namespace MyGUI
 		/* Set texture
 			@param _texture file name or texture name
 		*/
-		void setImageTexture(std::string_view _value);
+		void setImageTexture(std::string_view _texture);
 
 		/** Set _rect - part of texture where we take tiles */
-		void setImageRect(const IntRect& _value);
+		void setImageRect(const IntRect& _rect);
 
 		/** Set _coord - part of texture where we take tiles */
-		void setImageCoord(const IntCoord& _value);
+		void setImageCoord(const IntCoord& _coord);
 
 		/** Set _tile size */
-		void setImageTile(const IntSize& _value);
+		void setImageTile(const IntSize& _tile);
 
 		/** Set current tile index
 			@param _index - tile index
@@ -162,9 +162,9 @@ namespace MyGUI
 		bool setItemResource(std::string_view _name);
 
 		/** Select current item group */
-		void setItemGroup(std::string_view _value);
+		void setItemGroup(std::string_view _group);
 		/** Select current item mane */
-		void setItemName(std::string_view _value);
+		void setItemName(std::string_view _name);
 
 		/** Select current items resource used in ImageBox
 			@param _resource Resource pointer
