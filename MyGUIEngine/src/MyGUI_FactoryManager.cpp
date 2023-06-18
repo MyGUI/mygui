@@ -127,13 +127,7 @@ namespace MyGUI
 		{
 			return false;
 		}
-		MapFactoryItem::iterator type = category->second.find(_type);
-		if (type == category->second.end())
-		{
-			return false;
-		}
-
-		return true;
+		return category->second.find(_type) != category->second.end();
 	}
 
 } // namespace MyGUI

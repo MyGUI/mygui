@@ -18,7 +18,7 @@ namespace tools
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 
-	void PropertyAlignControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void PropertyAlignControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 

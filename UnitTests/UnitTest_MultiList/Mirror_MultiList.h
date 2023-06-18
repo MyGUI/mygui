@@ -61,7 +61,7 @@ namespace unittest
 			column.data = _data;
 
 			// если уже были столбики, то делаем то же колличество полей
-			if (false == mVectorColumnInfo.empty())
+			if (!mVectorColumnInfo.empty())
 			{
 				size_t count = mVectorColumnInfo.front().list->getItemCount();
 				for (size_t pos = 0; pos < count; ++pos)

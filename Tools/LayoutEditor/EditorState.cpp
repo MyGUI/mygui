@@ -335,14 +335,12 @@ namespace tools
 			UndoManager::getInstance().setUnsaved(false);
 			return true;
 		}
-		else
-		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				replaceTags("MessageFailedSaveFile"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
-		}
+
+		/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
+			replaceTags("Error"),
+			replaceTags("MessageFailedSaveFile"),
+			MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
+
 		return false;
 	}
 
@@ -563,10 +561,8 @@ namespace tools
 						addUserTag("ResourceName", MyGUI::UString(resourceName));
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}
-					else
-					{
-						itemIndex --;
-					}
+
+					itemIndex--;
 				}
 			}
 		}

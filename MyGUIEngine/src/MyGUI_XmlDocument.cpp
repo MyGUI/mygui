@@ -33,19 +33,17 @@ namespace MyGUI::xml
 					_ok = false;
 					return ret;
 				}
+
+				std::string_view tag = _string.substr(pos, end - pos + 1);
+				if (tag == "&amp;") ret += '&';
+				else if (tag == "&lt;") ret += '<';
+				else if (tag == "&gt;") ret += '>';
+				else if (tag == "&apos;") ret += '\'';
+				else if (tag == "&quot;") ret += '\"';
 				else
 				{
-					std::string_view tag = _string.substr(pos, end - pos + 1);
-					if (tag == "&amp;") ret += '&';
-					else if (tag == "&lt;") ret += '<';
-					else if (tag == "&gt;") ret += '>';
-					else if (tag == "&apos;") ret += '\'';
-					else if (tag == "&quot;") ret += '\"';
-					else
-					{
-						_ok = false;
-						return ret;
-					}
+					_ok = false;
+					return ret;
 				}
 
 				old = end + 1;
@@ -98,15 +96,13 @@ namespace MyGUI::xml
 	{
 		if (m_current == m_end)
 			return false;
-		else if (m_first)
+		if (m_first)
 		{
 			m_first = false;
 			return true;
 		}
 		++ m_current;
-		if (m_current == m_end)
-			return false;
-		return true;
+		return m_current != m_end;
 	}
 
 	bool ElementEnumerator::next(std::string_view _name)
@@ -571,7 +567,7 @@ namespace MyGUI::xml
 			return true;
 		}
 		// проверяем на информационный тег
-		else if (symbol == '?')
+		if (symbol == '?')
 		{
 			tagDeclaration = true;
 			_content.erase(0, 1); // удаляем первый символ
@@ -588,7 +584,7 @@ namespace MyGUI::xml
 			}
 			// обрезаем имя тэга
 			start = _content.find_first_not_of(" \t", 1);
-			if (start == _content.npos)
+			if (start == std::string::npos)
 			{
 				// тег пустой
 				_content.clear();
@@ -612,7 +608,7 @@ namespace MyGUI::xml
 			// выделяем имя до первого пробела или закрывающего тега
 			std::string cut = _content;
 			start = _content.find_first_of(" \t/?", 1); // << превед
-			if (start != _content.npos)
+			if (start != std::string::npos)
 			{
 				cut = _content.substr(0, start);
 				_content = _content.substr(start);
@@ -654,7 +650,7 @@ namespace MyGUI::xml
 
 			// проверим на пустоту
 			start = _content.find_last_not_of(" \t");
-			if (start == _content.npos)
+			if (start == std::string::npos)
 				return true;
 
 			// сразу отделим закрывающийся тэг
@@ -666,7 +662,7 @@ namespace MyGUI::xml
 				_content[start] = ' ';
 				// проверим на пустоту
 				start = _content.find_last_not_of(" \t");
-				if (start == _content.npos)
+				if (start == std::string::npos)
 				{
 					// возвращаем все назад и уходим
 					_currentNode = _currentNode->getParent();
@@ -679,20 +675,20 @@ namespace MyGUI::xml
 			{
 				// ищем равно
 				start = _content.find('=');
-				if (start == _content.npos)
+				if (start == std::string::npos)
 				{
 					mLastError = ErrorType::IncorrectAttribute;
 					return false;
 				}
 				// ищем вторые ковычки
 				size_t end = _content.find_first_of("\"\'", start + 1);
-				if (end == _content.npos)
+				if (end == std::string::npos)
 				{
 					mLastError = ErrorType::IncorrectAttribute;
 					return false;
 				}
 				end = _content.find_first_of("\"\'", end + 1);
-				if (end == _content.npos)
+				if (end == std::string::npos)
 				{
 					mLastError = ErrorType::IncorrectAttribute;
 					return false;
@@ -716,7 +712,7 @@ namespace MyGUI::xml
 
 				// в строке не осталось символов
 				start = _content.find_first_not_of(" \t");
-				if (start == _content.npos)
+				if (start == std::string::npos)
 					break;
 
 				mCol += start;
@@ -740,7 +736,7 @@ namespace MyGUI::xml
 		if (_key.empty())
 			return false;
 		size_t start = _key.find_first_of(" \t\"\'&");
-		if (start != _key.npos)
+		if (start != std::string::npos)
 			return false;
 
 		// в значении, ковычки по бокам
@@ -777,7 +773,7 @@ namespace MyGUI::xml
 				break;
 			}
 			// нашли ковычку
-			else if (_text[pos] == '"')
+			if (_text[pos] == '"')
 			{
 				kov = !kov;
 				pos ++;
@@ -830,7 +826,7 @@ namespace MyGUI::xml
 		{
 			// сначала ищем по угловым скобкам
 			size_t start = find(_line, '<');
-			if (start == _line.npos)
+			if (start == std::string::npos)
 				break;
 			size_t end;
 
@@ -838,14 +834,14 @@ namespace MyGUI::xml
 			if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-'))
 			{
 				end = _line.find("-->", start + 4);
-				if (end == _line.npos)
+				if (end == std::string::npos)
 					break;
 				end += 2;
 			}
 			else
 			{
 				end = find(_line, '>', start + 1);
-				if (end == _line.npos)
+				if (end == std::string::npos)
 					break;
 			}
 			// проверяем на наличее тела

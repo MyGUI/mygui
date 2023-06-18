@@ -416,7 +416,7 @@ namespace tools
 
 		if (align == MyGUI::Align::Stretch)
 			return "Stretch";
-		else if (align == MyGUI::Align::Center)
+		if (align == MyGUI::Align::Center)
 			return "Center";
 
 		return align.print();

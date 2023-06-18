@@ -22,7 +22,7 @@ namespace tools
 
 	private:
 		void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item);
-		void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag);
+		void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag) const;
 		void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info);
 
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);

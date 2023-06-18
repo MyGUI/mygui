@@ -228,35 +228,35 @@ namespace tools
 	{
 		if (_name == "Left" || _name == "Right")
 			return ScopeTextureControl::SelectorOffsetV;
-		else if (_name == "Top" || _name == "Bottom")
+		if (_name == "Top" || _name == "Bottom")
 			return ScopeTextureControl::SelectorOffsetH;
 
 		return ScopeTextureControl::SelectorPosition;
 	}
 
-	MyGUI::IntCoord SeparatorTextureController::getCoordByName(std::string_view _name, int _offset)
+	MyGUI::IntCoord SeparatorTextureController::getCoordByName(std::string_view _name, int _offset) const
 	{
 		if (_name == "Left")
 			return {_offset, 0, 1, mTextureCoord.height};
-		else if (_name == "Right")
+		if (_name == "Right")
 			return {mTextureCoord.width - _offset, 0, 1, mTextureCoord.height};
-		else if (_name == "Top")
+		if (_name == "Top")
 			return {0, _offset, mTextureCoord.width, 1};
-		else if (_name == "Bottom")
+		if (_name == "Bottom")
 			return {0, mTextureCoord.height - _offset, mTextureCoord.width, 1};
 
 		return {};
 	}
 
-	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name)
+	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name) const
 	{
 		if (_name == "Left")
 			return _coord.left;
-		else if (_name == "Right")
+		if (_name == "Right")
 			return mTextureCoord.width - _coord.left;
-		else if (_name == "Top")
+		if (_name == "Top")
 			return _coord.top;
-		else if (_name == "Bottom")
+		if (_name == "Bottom")
 			return mTextureCoord.height - _coord.top;
 
 		return 0;

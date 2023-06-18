@@ -550,15 +550,14 @@ namespace MyGUI
 
 			return result;
 		}
-		else if (_widget->isUserString("Action"))
+		if (_widget->isUserString("Action"))
 		{
 			std::string_view action = _widget->getUserString("Action");
 			if (action == "Move")
 			{
 				if (mMovable)
 					return {1, 1, 0, 0};
-				else
-					return {};
+				return {};
 			}
 
 			IntCoord coord;

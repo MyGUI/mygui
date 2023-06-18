@@ -239,7 +239,7 @@ namespace demo
 #else
 		if (mEnemyPanel->isIntersect(_x, _y))
 			return "enemy";
-		else if (mFriendPanel->isIntersect(_x, _y))
+		if (mFriendPanel->isIntersect(_x, _y))
 			return "friend";
 #endif
 

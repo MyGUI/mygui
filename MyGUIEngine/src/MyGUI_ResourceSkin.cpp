@@ -26,7 +26,9 @@ namespace MyGUI
 		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
 		// парсим атрибуты скина
-		std::string name, texture, tmp;
+		std::string name;
+		std::string texture;
+		std::string tmp;
 		IntSize size;
 		_node->findAttribute("name", name);
 		_node->findAttribute("texture", texture);
@@ -56,7 +58,8 @@ namespace MyGUI
 			if (basis->getName() == "Property")
 			{
 				// загружаем свойства
-				std::string key, value;
+				std::string key;
+				std::string value;
 				if (!basis->findAttribute("key", key))
 					continue;
 				if (!basis->findAttribute("value", value))
@@ -92,7 +95,8 @@ namespace MyGUI
 			else if (basis->getName() == "BasisSkin")
 			{
 				// парсим атрибуты
-				std::string basisSkinType, tmp_str;
+				std::string basisSkinType;
+				std::string tmp_str;
 				IntCoord offset;
 				Align align = Align::Default;
 				basis->findAttribute("type", basisSkinType);

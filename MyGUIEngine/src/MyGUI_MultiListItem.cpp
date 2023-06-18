@@ -78,7 +78,7 @@ namespace MyGUI
 		{
 			if (getParent()->isType<MultiListBox>())
 				return getParent()->castType<MultiListBox>();
-			else if ((getParent()->getParent() != nullptr) && (getParent()->getParent()->getClientWidget() == getParent()))
+			if ((getParent()->getParent() != nullptr) && (getParent()->getParent()->getClientWidget() == getParent()))
 			{
 				if (getParent()->getParent()->isType<MultiListBox>())
 					return getParent()->getParent()->castType<MultiListBox>();

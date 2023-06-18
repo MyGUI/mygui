@@ -399,10 +399,12 @@ namespace MyGUI
 
 		if (!mCharMap.empty())
 		{
-			CharMap::const_iterator iter = mCharMap.begin(), endIter = mCharMap.end();
+			CharMap::const_iterator iter = mCharMap.begin();
+			CharMap::const_iterator endIter = mCharMap.end();
 
 			// Start the first range with the first code point in the map.
-			Char rangeBegin = iter->first, rangeEnd = rangeBegin;
+			Char rangeBegin = iter->first;
+			Char rangeEnd = rangeBegin;
 
 			// Loop over the rest of the map and find the contiguous ranges.
 			for (++iter; iter != endIter; ++iter)
@@ -925,8 +927,10 @@ namespace MyGUI
 		{
 			if (FT_Load_Glyph(_ftFace, _glyphIndex, _ftLoadFlags) == 0)
 				return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _ftFace->glyph), _glyphHeightMap);
-			else
-				MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << _glyphIndex << " for character " << _codePoint << " in font '" << getResourceName() << "'.");
+			MYGUI_LOG(
+				Warning,
+				"ResourceTrueTypeFont: Cannot load glyph " << _glyphIndex << " for character " << _codePoint
+														   << " in font '" << getResourceName() << "'.");
 		}
 		else
 		{
@@ -942,7 +946,8 @@ namespace MyGUI
 		FT_Bitmap ftBitmap;
 		FT_Bitmap_New(&ftBitmap);
 
-		int texX = mGlyphSpacing, texY = mGlyphSpacing;
+		int texX = mGlyphSpacing;
+		int texY = mGlyphSpacing;
 
 		for (const auto& sameHeightGlyphs : _glyphHeightMap)
 		{

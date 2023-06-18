@@ -25,7 +25,7 @@ namespace demo
 		CommandManager::getInstance().unregisterCommand("KeyboardClick");
 	}
 
-	void MonitorPanel::notifyCommand(std::string_view, MyGUI::Any _data)
+	void MonitorPanel::notifyCommand(std::string_view /*_name*/, MyGUI::Any _data)
 	{
 		std::string* data = _data.castType<std::string>(false);
 		if (data != nullptr)

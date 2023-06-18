@@ -284,11 +284,9 @@ namespace MyGUI
 				onWidgetCreated(widget);
 				return widget;
 			}
-			else
-			{
-				widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
-				addWidget(widget);
-			}
+
+			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+			addWidget(widget);
 		}
 
 		widget->setAlign(_align);
@@ -1014,7 +1012,7 @@ namespace MyGUI
 
 	bool Widget::_checkPoint(int _left, int _top) const
 	{
-		return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
+		return (_getViewLeft() <= _left) && (_getViewTop() <= _top) && (_getViewRight() >= _left) && (_getViewBottom() >= _top);
 	}
 
 	void Widget::_linkChildWidget(Widget* _widget)

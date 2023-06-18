@@ -9,7 +9,6 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Constants.h"
 
 namespace MyGUI

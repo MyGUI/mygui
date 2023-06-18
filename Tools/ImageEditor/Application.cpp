@@ -17,7 +17,6 @@
 #include "StateManager.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
-#include "SettingsManager.h"
 #include "ColourManager.h"
 #include "Localise.h"
 #include "GridManager.h"

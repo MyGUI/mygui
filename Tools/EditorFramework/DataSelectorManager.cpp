@@ -99,7 +99,7 @@ namespace tools
 					DataPtr subChildSelected = child->getChildSelected();
 					if (subChildSelected == nullptr)
 					{
-						if (child->getChilds().size() != 0)
+						if (!child->getChilds().empty())
 						{
 							DataPtr childData = child->getChildByIndex(0);
 							child->setChildSelected(childData);

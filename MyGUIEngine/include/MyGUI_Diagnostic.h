@@ -26,6 +26,7 @@ do { \
 	MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
 } while (false)
 
+// NOLINTBEGIN(readability-simplify-boolean-expr)
 #define MYGUI_ASSERT(exp, dest) \
 do { \
 	if ( ! (exp) ) \
@@ -36,6 +37,7 @@ do { \
 		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
 	} \
 } while (false)
+// NOLINTEND(readability-simplify-boolean-expr)
 
 #define MYGUI_ASSERT_RANGE(index, size, owner) MYGUI_ASSERT(index < size, owner << " : index number " << index << " out of range [" << size << "]")
 #define MYGUI_ASSERT_RANGE_AND_NONE(index, size, owner) MYGUI_ASSERT(index < size || index == MyGUI::ITEM_NONE, owner << " : index number " << index << " out of range [" << size << "]")

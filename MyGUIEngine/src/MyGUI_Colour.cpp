@@ -91,7 +91,9 @@ namespace MyGUI
 			}
 			else
 			{
-				float red, green, blue;
+				float red;
+				float green;
+				float blue;
 				std::stringstream stream;
 				stream << _value;
 				stream >> red >> green >> blue;

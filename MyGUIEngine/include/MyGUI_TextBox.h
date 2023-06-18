@@ -29,7 +29,7 @@ namespace MyGUI
 		virtual IntSize getTextSize() const;
 
 		/** Set widget caption */
-		virtual void setCaption(const UString& _value);
+		virtual void setCaption(const UString& _caption);
 		/** Get widget caption */
 		virtual const UString& getCaption() const;
 
@@ -39,7 +39,7 @@ namespace MyGUI
 		std::string_view getFontName() const;
 
 		/** Set widget text font height. If set to 0 then default height from selected font is used */
-		virtual void setFontHeight(int _value);
+		virtual void setFontHeight(int _height);
 		/** Get widget text font height */
 		virtual int getFontHeight() const;
 

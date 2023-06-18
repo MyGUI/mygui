@@ -65,7 +65,7 @@ namespace tools
 
 		void Command_FreeChildMode(const MyGUI::UString& _commandName, bool& _result);
 
-		void setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord);
+		void setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord) const;
 
 		void setRttLayerSize(const MyGUI::IntSize& _size);
 

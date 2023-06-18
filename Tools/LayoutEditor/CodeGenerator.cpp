@@ -47,7 +47,7 @@ namespace tools
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
+	void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*unused*/)
 	{
 		mTemplateFiles.clear();
 		mTemplateStrings.clear();

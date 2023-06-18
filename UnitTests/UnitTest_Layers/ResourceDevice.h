@@ -48,19 +48,19 @@ namespace demo
 		{
 			return mDeviceDescription;
 		}
-		size_t getValueEnergy()
+		size_t getValueEnergy() const
 		{
 			return mValueEnergy;
 		}
-		size_t getValueExplosion()
+		size_t getValueExplosion() const
 		{
 			return mValueExplosion;
 		}
-		size_t getValueTarget()
+		size_t getValueTarget() const
 		{
 			return mValueTarget;
 		}
-		size_t getValueHP()
+		size_t getValueHP() const
 		{
 			return mValueHP;
 		}

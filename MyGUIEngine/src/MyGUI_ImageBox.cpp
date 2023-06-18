@@ -136,10 +136,9 @@ namespace MyGUI
 			_setTextureName(std::string_view{});
 			return;
 		}
-		else
-		{
-			_setTextureName(mCurrentTextureName);
-		}
+
+		_setTextureName(mCurrentTextureName);
+
 
 		VectorImages::iterator iter = mItems.begin() + _index;
 
@@ -315,7 +314,7 @@ namespace MyGUI
 
 		mItems.clear();
 
-		if (_info.frames.size() != 0)
+		if (!_info.frames.empty())
 		{
 			std::vector<IntPoint>::const_iterator iter = _info.frames.begin();
 

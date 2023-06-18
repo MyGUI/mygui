@@ -54,7 +54,7 @@ namespace tools
 	{
 		MYGUI_ASSERT(_target != _prototype, "Error clone self");
 		MYGUI_ASSERT(_target->getType() == _prototype->getType(), "Error clone different types");
-		MYGUI_ASSERT(_target->getChilds().size() == 0, "Target not empty");
+		MYGUI_ASSERT(_target->getChilds().empty(), "Target not empty");
 
 		copyProperty(_target, _prototype);
 		

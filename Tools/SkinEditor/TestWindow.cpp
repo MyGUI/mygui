@@ -24,7 +24,7 @@ namespace tools
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
 	}
 
-	void TestWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void TestWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "TestWindow.layout");
 

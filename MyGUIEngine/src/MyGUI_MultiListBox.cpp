@@ -838,20 +838,17 @@ namespace MyGUI
 		{
 			return info.realWidth;
 		}
-		else if (info.sizeType == ResizingPolicy::Fixed)
+		if (info.sizeType == ResizingPolicy::Fixed)
 		{
 			return info.realWidth;
 		}
-		else if (info.sizeType == ResizingPolicy::Fill)
+		if (info.sizeType == ResizingPolicy::Fill)
 		{
 			if (_lastIndexStar == _index)
 			{
 				return _starWidth + _freeSpace - (_starWidth * _countStars);
 			}
-			else
-			{
-				return _starWidth;
-			}
+			return _starWidth;
 		}
 		return 0;
 	}

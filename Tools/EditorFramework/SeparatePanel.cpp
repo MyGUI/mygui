@@ -134,7 +134,7 @@ namespace tools
 		return mPanelAlign;
 	}
 
-	void SeparatePanel::updateSize(int& _firstWidth, int& _secondWidth, int _separatorWidth, int _mainWidth, int _defaultSize)
+	void SeparatePanel::updateSize(int& _firstWidth, int& _secondWidth, int _separatorWidth, int _mainWidth, int _defaultSize) const
 	{
 		if (_firstWidth < _defaultSize)
 			_firstWidth = _defaultSize;

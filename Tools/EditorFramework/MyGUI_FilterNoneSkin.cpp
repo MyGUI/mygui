@@ -28,13 +28,14 @@
 namespace MyGUI
 {
 
-	FilterNone::FilterNone() :
-		SubSkin()
-	{
 #ifdef MYGUI_OGRE_PLATFORM
+	FilterNone::FilterNone()
+	{
 		mSeparate = true;
-#endif
 	}
+	#else
+	FilterNone::FilterNone() = default;
+#endif
 
 	void FilterNone::_setAlign(const IntSize& _oldsize)
 	{

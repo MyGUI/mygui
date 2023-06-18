@@ -233,7 +233,7 @@ namespace MyGUI
 
 	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		for (auto widget : _widgets)
+		for (auto* widget : _widgets)
 			destroyWidget(widget);
 	}
 
@@ -308,7 +308,7 @@ namespace MyGUI
 		return EnumeratorWidgetPtr(mWidgetChild);
 	}
 
-	void Gui::frameEvent(float _time)
+	void Gui::frameEvent(float _time) const
 	{
 		eventFrameStart(_time);
 	}

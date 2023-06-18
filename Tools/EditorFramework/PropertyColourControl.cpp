@@ -20,7 +20,7 @@ namespace tools
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyColourControl::notifyEditTextChange);
 	}
 
-	void PropertyColourControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void PropertyColourControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyColourControl.layout");
 
@@ -168,7 +168,9 @@ namespace tools
 	{
 		if (!_value.empty())
 		{
-			float red, green, blue;
+			float red;
+			float green;
+			float blue;
 			std::istringstream stream(_value);
 			stream >> red >> green >> blue;
 			if (!stream.fail())
@@ -193,7 +195,10 @@ namespace tools
 	{
 		if (!_value.empty())
 		{
-			float red, green, blue, alpha;
+			float red;
+			float green;
+			float blue;
+			float alpha;
 			std::istringstream stream(_value);
 			stream >> red >> green >> blue >> alpha;
 			if (!stream.fail())

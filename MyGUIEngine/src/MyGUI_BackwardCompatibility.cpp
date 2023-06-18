@@ -482,9 +482,9 @@ namespace MyGUI
 	{
 		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::RightToLeft)
 			return Align::Right;
-		else if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
+		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
 			return Align::Top;
-		else if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
+		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
 			return Align::Bottom;
 
 		return Align::Left;
@@ -998,7 +998,7 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, std::string_view, Version _version, std::string_view _tag)
+	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, std::string_view /*_file*/, Version _version, std::string_view _tag)
 	{
 		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 
@@ -1049,9 +1049,9 @@ namespace MyGUI
 		Align align = utility::parseValue<Align>(_value);
 		if (align == Align::Right)
 			return FlowDirection(FlowDirection::RightToLeft).print();
-		else if (align == Align::Top)
+		if (align == Align::Top)
 			return FlowDirection(FlowDirection::TopToBottom).print();
-		else if (align == Align::Bottom)
+		if (align == Align::Bottom)
 			return FlowDirection(FlowDirection::BottomToTop).print();
 		return FlowDirection(FlowDirection::LeftToRight).print();
 	}
@@ -1073,10 +1073,10 @@ namespace MyGUI
 	bool BackwardCompatibility::isIgnoreProperty(std::string_view _key)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
-			return true;
-#endif // MYGUI_DONT_USE_OBSOLETE
+		return mPropertyIgnore.find(_key) != mPropertyIgnore.end();
+#else
 		return false;
+#endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)

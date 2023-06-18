@@ -23,7 +23,7 @@ namespace tools
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 	}
 
-	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "TextField.layout");
 

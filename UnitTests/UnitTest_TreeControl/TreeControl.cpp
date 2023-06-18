@@ -48,7 +48,7 @@ namespace MyGUI
 		prepare();
 
 		size_t nResult = 0;
-		for (auto pChild : getChildren())
+		for (auto* pChild : getChildren())
 		{
 			nResult++;
 

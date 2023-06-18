@@ -44,7 +44,7 @@ namespace tools
 		mRootWidget = _root;
 	}
 
-	bool Dialog::isDialogModal()
+	bool Dialog::isDialogModal() const
 	{
 		return mModal;
 	}

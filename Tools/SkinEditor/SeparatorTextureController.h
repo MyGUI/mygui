@@ -33,8 +33,8 @@ namespace tools
 		void updateFrames();
 
 		ScopeTextureControl::SelectorType getTypeByName(std::string_view _name);
-		MyGUI::IntCoord getCoordByName(std::string_view _name, int _offset);
-		int getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name);
+		MyGUI::IntCoord getCoordByName(std::string_view _name, int _offset) const;
+		int getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name) const;
 
 	private:
 		ScopeTextureControl* mControl{nullptr};

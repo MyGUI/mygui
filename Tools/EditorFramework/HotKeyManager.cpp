@@ -177,7 +177,7 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate("HotKeys");
 	}
 
-	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
+	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Command"))

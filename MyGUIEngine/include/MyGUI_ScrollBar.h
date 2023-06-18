@@ -33,12 +33,12 @@ namespace MyGUI
 		bool getVerticalAlignment() const;
 
 		/** Set scroll range */
-		void setScrollRange(size_t _value);
+		void setScrollRange(size_t _range);
 		/** Get scroll range */
 		size_t getScrollRange() const;
 
 		/** Set scroll position (value from 0 to range - 1) */
-		void setScrollPosition(size_t _value);
+		void setScrollPosition(size_t _position);
 		/** Get scroll position (value from 0 to range - 1) */
 		size_t getScrollPosition() const;
 
@@ -69,7 +69,7 @@ namespace MyGUI
 		/** Set size of track in pixels
 			@param _value in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		void setTrackSize(int _value);
+		void setTrackSize(int _size);
 		/** Get size of track in pixels */
 		int getTrackSize() const;
 

@@ -13,7 +13,6 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
-#include "MyGUI_MenuItemType.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_IItem.h"
 #include "MyGUI_IItemContainer.h"

@@ -9,13 +9,9 @@
 
 #include "MyGUI_Prerequest.h"
 
-namespace MyGUI
+namespace MyGUI::Bitwise
 {
-
-	namespace Bitwise
-	{
-		/** Returns the closest power-of-two number greater or equal to value.
-		*/
+		/** Returns the closest power-of-two number greater or equal to value. */
 		template<typename Type>
 		static inline Type firstPO2From(Type _value)
 		{
@@ -35,9 +31,6 @@ namespace MyGUI
 		{
 			return (_value & (_value - 1)) == 0;
 		}
-
-	}
-
-} // namespace MyGUI
+}
 
 #endif // MYGUI_BITWISE_H_

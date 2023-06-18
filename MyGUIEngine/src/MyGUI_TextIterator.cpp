@@ -33,7 +33,7 @@ namespace MyGUI
 	bool TextIterator::moveNext()
 	{
 		if (mCurrent == mEnd) return false;
-		else if (mFirst)
+		if (mFirst)
 		{
 			mFirst = false;
 			return true;

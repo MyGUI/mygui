@@ -10,7 +10,7 @@
 namespace tools
 {
 
-	void HorizontalSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void HorizontalSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "HorizontalSelectorControl.layout");
 		setPropertyColour("ColourSelector");

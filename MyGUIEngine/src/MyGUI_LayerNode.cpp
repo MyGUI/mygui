@@ -199,7 +199,7 @@ namespace MyGUI
 			{
 				return secondRenderItem;
 			}
-			else if (secondRenderItem->getNeedVertexCount() == 0)
+			if (secondRenderItem->getNeedVertexCount() == 0)
 			{
 				secondRenderItem->setTexture(_texture);
 

@@ -294,7 +294,7 @@ namespace MyGUI::xml
 
 		bool open(const UString& _filename);
 
-		bool open(IDataStream* _data);
+		bool open(IDataStream* _stream);
 
 		// сохраняет файл
 		bool save(const std::string& _filename);

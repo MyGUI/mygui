@@ -149,7 +149,7 @@ namespace MyGUI
 				continue;
 			}
 			// tag
-			else if (character == L'#')
+			if (character == L'#')
 			{
 				// check next character
 				++index;

@@ -110,7 +110,7 @@ namespace tools
 
 		mImage->setImageTexture(mAnimation.getTextureName());
 
-		if (mAnimation.getFrames().size() == 0)
+		if (mAnimation.getFrames().empty())
 			mImage->setImageCoord(MyGUI::IntCoord());
 		else
 			updateFrame();
@@ -140,7 +140,7 @@ namespace tools
 
 	void AnimationViewControl::notifyFrameStart(float _frame)
 	{
-		if (mAnimation.getFrames().size() == 0 || !mPlay)
+		if (mAnimation.getFrames().empty() || !mPlay)
 			return;
 
 		mTime += _frame;
@@ -168,7 +168,7 @@ namespace tools
 		}
 		else if (_sender == mButtonLeft)
 		{
-			if (mAnimation.getFrames().size() != 0 && !mPlay)
+			if (!mAnimation.getFrames().empty() && !mPlay)
 			{
 				mCurrentFrame += mAnimation.getFrames().size();
 
@@ -178,7 +178,7 @@ namespace tools
 		}
 		else if (_sender == mButtonRight && !mPlay)
 		{
-			if (mAnimation.getFrames().size() != 0)
+			if (!mAnimation.getFrames().empty())
 			{
 				mCurrentFrame ++;
 				updateFrame();

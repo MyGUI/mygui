@@ -653,9 +653,7 @@ namespace MyGUI
 		// строка это верхний выделенный
 		if (_index == (size_t)mTopIndex)
 		{
-			if ((mOffsetTop != 0) && (_fill))
-				return false; // нам нужна полностью видимость
-			return true;
+			return mOffsetTop == 0 || !_fill;
 		}
 
 		// высчитывам положение строки

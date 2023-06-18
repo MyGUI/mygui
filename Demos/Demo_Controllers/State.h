@@ -58,7 +58,7 @@ namespace demo
 	private:
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyFrameEvent(float _time);
-		void notifyPostAction(MyGUI::Widget* _sender, MyGUI::ControllerItem* _controller);
+		void notifyPostAction(MyGUI::Widget* _sender, MyGUI::ControllerItem* _controller) const;
 
 		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntPoint& _point);
 		MyGUI::ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);

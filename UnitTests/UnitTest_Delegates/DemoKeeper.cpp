@@ -21,7 +21,11 @@ namespace demo
 		{
 		}
 
-		int getValue() { return mValue; }
+		int getValue() const
+		{
+			return mValue;
+		}
+
 	private:
 		int mValue;
 	};

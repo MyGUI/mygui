@@ -68,10 +68,7 @@ namespace tools
 			return true;
 
 		node = mDocument->document_element().select_single_node(_path.c_str());
-		if (!node.node().empty())
-			return true;
-
-		return false;
+		return !node.node().empty();
 	}
 
 	std::string SettingsManager::getValue(CString _path)

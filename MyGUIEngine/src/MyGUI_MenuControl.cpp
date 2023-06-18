@@ -759,7 +759,7 @@ namespace MyGUI
 	{
 		if (_type == MenuItemType::Popup)
 			return mItemPopupSkin;
-		else if (_type == MenuItemType::Separator)
+		if (_type == MenuItemType::Separator)
 			return mItemSeparatorSkin;
 		return mItemNormalSkin;
 	}
@@ -775,7 +775,7 @@ namespace MyGUI
 	{
 		if (_submenu)
 			return MenuItemType::Popup;
-		else if (_separator)
+		if (_separator)
 			return MenuItemType::Separator;
 		return MenuItemType::Normal;
 	}

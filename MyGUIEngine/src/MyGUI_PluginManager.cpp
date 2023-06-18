@@ -97,7 +97,7 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
+	void PluginManager::_load(xml::ElementPtr _node, std::string_view /*_file*/, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())

@@ -564,7 +564,8 @@ namespace MyGUI
 	//--------------------------------------------------------------------------
 	UString::size_type UString::length_Characters() const
 	{
-		const_iterator i = begin(), ie = end();
+		const_iterator i = begin();
+		const_iterator ie = end();
 		size_type c = 0;
 		while ( i != ie ) {
 			i.moveNext();
@@ -655,7 +656,8 @@ namespace MyGUI
 
 	bool UString::inString( unicode_char ch ) const
 	{
-		const_iterator i, ie = end();
+		const_iterator i;
+		const_iterator ie = end();
 		for ( i = begin(); i != ie; i.moveNext() ) {
 			if ( i.getCharacter() == ch )
 				return true;
@@ -867,7 +869,8 @@ namespace MyGUI
 #else // otherwise we do it the safe way (which is still 100% safe to pass UTF-16 through, just slower)
 		code_point cp[3] = {0, 0, 0};
 		unicode_char tmp;
-		std::wstring::const_iterator i, ie = wstr.end();
+		std::wstring::const_iterator i;
+		std::wstring::const_iterator ie = wstr.end();
 		for ( i = wstr.begin(); i != ie; i++ ) {
 			tmp = static_cast<unicode_char>( *i );
 			size_t l = _utf32_to_utf16( tmp, cp );
@@ -1581,23 +1584,23 @@ namespace MyGUI
 
 	bool UString::_utf16_independent_char( code_point cp )
 	{
-		if ( 0xD800 <= cp && cp <= 0xDFFF ) // tests if the cp is within the surrogate pair range
-			return false; // it matches a surrogate pair signature
-		return true; // everything else is a standalone code point
+		// tests if the cp is within the surrogate pair range
+		// everything else is a standalone code point, ot it matches a surrogate pair signature
+		return 0xD800 > cp || cp > 0xDFFF;
 	}
 
 	bool UString::_utf16_surrogate_lead( code_point cp )
 	{
-		if ( 0xD800 <= cp && cp <= 0xDBFF ) // tests if the cp is within the 2nd word of a surrogate pair
-			return true; // it is a 1st word
-		return false; // it isn't
+		// tests if the cp is within the 2nd word of a surrogate pair
+		// it is a 1st word, or it isn't
+		return 0xD800 <= cp && cp <= 0xDBFF;
 	}
 
 	bool UString::_utf16_surrogate_follow( code_point cp )
 	{
-		if ( 0xDC00 <= cp && cp <= 0xDFFF ) // tests if the cp is within the 2nd word of a surrogate pair
-			return true; // it is a 2nd word
-		return false; // everything else isn't
+		// tests if the cp is within the 2nd word of a surrogate pair
+		// it is a 2nd word, everything else isn't
+		return 0xDC00 <= cp && cp <= 0xDFFF;
 	}
 
 	size_t UString::_utf16_char_length( code_point cp )
@@ -1632,7 +1635,8 @@ namespace MyGUI
 			return 1;
 		}
 
-		unsigned short cU = cp1, cL = cp2; // copy upper and lower words of surrogate pair to writable buffers
+		unsigned short cU = cp1;
+		unsigned short cL = cp2; // copy upper and lower words of surrogate pair to writable buffers
 		cU -= 0xD800; // remove the encoding markers
 		cL -= 0xDC00;
 
@@ -1951,7 +1955,8 @@ namespace MyGUI
 		unicode_char c;
 		size_t len;
 
-		const_iterator i, ie = end();
+		const_iterator i;
+		const_iterator ie = end();
 		for ( i = begin(); i != ie; i.moveNext() ) {
 			c = i.getCharacter();
 			len = _utf32_to_utf8( c, utf8buf );
@@ -1973,7 +1978,8 @@ namespace MyGUI
 		}
 #else // wchar_t fits UTF-32
 		unicode_char c;
-		const_iterator i, ie = end();
+		const_iterator i;
+		const_iterator ie = end();
 		for ( i = begin(); i != ie; i.moveNext() ) {
 			c = i.getCharacter();
 			buffer.push_back(( wchar_t )c );
@@ -1989,7 +1995,8 @@ namespace MyGUI
 
 		unicode_char c;
 
-		const_iterator i, ie = end();
+		const_iterator i;
+		const_iterator ie = end();
 		for ( i = begin(); i != ie; i.moveNext() ) {
 			c = i.getCharacter();
 			buffer.push_back( c );

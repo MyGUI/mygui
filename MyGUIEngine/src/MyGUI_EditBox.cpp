@@ -1106,18 +1106,16 @@ namespace MyGUI
 			}
 
 			// проверяем на надобность начального тега
-			else if (pos == _start)
+			if (pos == _start)
 			{
-				need_colour = ! iterator.getTagColour(colour);
+				need_colour = !iterator.getTagColour(colour);
 				// сохраняем место откуда начинается
 				iterator.saveStartPoint();
-
 			}
 
 			// а теперь просто до конца диапазона
 			else if (pos == end)
 				break;
-
 		}
 
 		// возвращаем строку
@@ -1159,7 +1157,7 @@ namespace MyGUI
 				continue;
 
 			// ставим начальный тег
-			else if (pos == _start)
+			if (pos == _start)
 				iterator.setTagColour(_colour);
 
 			// внутри диапазона очищаем все
@@ -1173,7 +1171,6 @@ namespace MyGUI
 				// и выходим из цикла
 				break;
 			}
-
 		}
 
 		// сохраняем позицию для восстановления курсора
@@ -1303,7 +1300,7 @@ namespace MyGUI
 		if (_text.empty())
 			return;
 
-		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength))
+		if ((!mOverflowToTheLeft) && (mTextLength == mMaxTextLength))
 			return;
 
 		// история изменений
@@ -1420,7 +1417,7 @@ namespace MyGUI
 			}
 
 			// сохраняем место откуда начинается
-			else if (pos == _start)
+			if (pos == _start)
 			{
 				// если до диапазона был цвет, то нужно закрыть тег
 				if (!colour.empty())
@@ -1451,7 +1448,6 @@ namespace MyGUI
 
 				break;
 			}
-
 		}
 
 		// удаляем диапазон
@@ -1496,7 +1492,7 @@ namespace MyGUI
 		}
 	}
 
-	void EditBox::commandCopy()
+	void EditBox::commandCopy() const
 	{
 		if (isTextSelection() && (!mModePassword))
 			ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
@@ -1526,7 +1522,7 @@ namespace MyGUI
 	{
 		if (mModePassword)
 			return mPasswordText;
-		else if (mClientText == nullptr)
+		if (mClientText == nullptr)
 			return mPasswordText;
 
 		return mClientText->getCaption();

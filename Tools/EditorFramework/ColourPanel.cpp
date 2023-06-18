@@ -16,7 +16,7 @@ namespace tools
 		destroyTexture();
 	}
 
-	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, GetLayoutName(this));
 
@@ -320,12 +320,11 @@ namespace tools
 	{
 		if (_index == 0)
 			return _colour.red;
-		else if (_index == 1)
+		if (_index == 1)
 			return _colour.green;
-		else if (_index == 2)
+		if (_index == 2)
 			return _colour.blue;
-		else
-			return _colour.alpha;
+		return _colour.alpha;
 	}
 
 	void ColourPanel::onDoModal()

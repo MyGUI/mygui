@@ -42,7 +42,7 @@ namespace MyGUI
 			mouseFocus = mouseFocus->getParent();
 
 		// if our widget or its children have focus
-		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || (_widget->getVisible() == false);
+		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || (!_widget->getVisible());
 
 		mElapsedTime += haveFocus ? -_time : _time;
 
@@ -67,8 +67,7 @@ namespace MyGUI
 			// if still moving - leave it alone
 			if (haveFocus)
 				return true;
-			else
-				recalculateTime(_widget);
+			recalculateTime(_widget);
 		}
 
 		bool nearBorder = false;

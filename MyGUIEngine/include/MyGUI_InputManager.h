@@ -12,7 +12,6 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_IUnlinkWidget.h"
-#include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"

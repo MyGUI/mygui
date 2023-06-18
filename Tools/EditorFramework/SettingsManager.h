@@ -130,8 +130,8 @@ namespace tools
 	private:
 		void setValueImpl(std::string_view _path, CString _value);
 		void setValueListImpl(std::string_view _path, const VectorString& _values);
-		void mergeNodes(pugi::xml_node _node1, pugi::xml_node _node2);
-		void mergeAttributes(pugi::xml_node _node1, pugi::xml_node _node2);
+		void mergeNodes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource);
+		void mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource);
 
 	private:
 		pugi::xml_document* mDocument{nullptr};

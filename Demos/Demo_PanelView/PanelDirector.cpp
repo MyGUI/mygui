@@ -46,7 +46,7 @@ namespace demo
 		}
 	}
 
-	void PanelDirector::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
+	void PanelDirector::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index) const
 	{
 		eventChangePanels(EVENT_COUNT_DYNAMIC, MyGUI::utility::parseInt(_sender->getOnlyText()));
 	}

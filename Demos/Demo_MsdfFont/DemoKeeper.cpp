@@ -105,7 +105,7 @@ namespace demo
 
 	void DemoKeeper::increaseFontHeight(MyGUI::Widget* _sender)
 	{
-		for (auto edit : mEditBoxes)
+		for (auto* edit : mEditBoxes)
 		{
 			edit->setFontHeight(edit->getFontHeight() + 1);
 		}
@@ -113,7 +113,7 @@ namespace demo
 
 	void DemoKeeper::decreaseFontHeight(MyGUI::Widget* _sender)
 	{
-		for (auto edit : mEditBoxes)
+		for (auto* edit : mEditBoxes)
 		{
 			edit->setFontHeight(edit->getFontHeight() - 1);
 		}

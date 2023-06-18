@@ -266,7 +266,10 @@ namespace base
 
 	MyGUI::IntCoord SdlBaseManager::getWindowCoord() const
 	{
-		int left, top, width, height;
+		int left;
+		int top;
+		int width;
+		int height;
 		SDL_GetWindowPosition(mSdlWindow, &left, &top);
 		SDL_GetWindowSize(mSdlWindow, &width, &height);
 		return {left, top, width, height};
@@ -312,7 +315,7 @@ namespace base
 			mExit = true;
 			return;
 		}
-		else if (_key == MyGUI::KeyCode::SysRq)
+		if (_key == MyGUI::KeyCode::SysRq)
 		{
 			makeScreenShot();
 			return;

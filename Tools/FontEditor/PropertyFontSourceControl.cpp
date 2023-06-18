@@ -22,7 +22,7 @@ namespace tools
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
 	}
 
-	void PropertyFontSourceControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void PropertyFontSourceControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 

@@ -404,8 +404,7 @@ namespace MyGUI
 		{
 			if (mVerticalAlignment)
 				return mWidgetTrack->getHeight();
-			else
-				return mWidgetTrack->getWidth();
+			return mWidgetTrack->getWidth();
 		}
 		return 1;
 	}
@@ -643,8 +642,7 @@ namespace MyGUI
 		{
 			if (mVerticalAlignment)
 				return mWidgetTrack->getParent()->getHeight();
-			else
-				return mWidgetTrack->getParent()->getWidth();
+			return mWidgetTrack->getParent()->getWidth();
 		}
 		return 0;
 	}

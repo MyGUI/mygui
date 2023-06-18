@@ -30,7 +30,6 @@
 #include "MyGUI_TextBox.h"
 #include "MyGUI_TabControl.h"
 #include "MyGUI_TabItem.h"
-#include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
 
 #include "MyGUI_BackwardCompatibility.h"
@@ -152,12 +151,7 @@ namespace MyGUI
 
 	bool WidgetManager::isFactoryExist(std::string_view _type)
 	{
-		if (FactoryManager::getInstance().isFactoryExist(mCategoryName, _type))
-		{
-			return true;
-		}
-
-		return false;
+		return FactoryManager::getInstance().isFactoryExist(mCategoryName, _type);
 	}
 
 	void WidgetManager::notifyEventFrameStart(float _time)

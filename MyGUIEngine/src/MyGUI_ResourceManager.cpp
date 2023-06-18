@@ -62,7 +62,7 @@ namespace MyGUI
 		return _loadImplement(_file, false, {}, getClassTypeName());
 	}
 
-	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, std::string_view, Version _version)
+	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, std::string_view /*unused*/, Version _version)
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -71,7 +71,8 @@ namespace MyGUI
 		while (root.next(mCategoryName))
 		{
 			// парсим атрибуты
-			std::string type, name;
+			std::string type;
+			std::string name;
 			root->findAttribute("type", type);
 			root->findAttribute("name", name);
 
@@ -102,7 +103,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManager::_loadList(xml::ElementPtr _node, std::string_view, Version _version)
+	void ResourceManager::_loadList(xml::ElementPtr _node, std::string_view /*unused*/, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();

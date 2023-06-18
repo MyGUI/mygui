@@ -39,7 +39,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated")
 		ImageBox* getStaticImage() const;
 		MYGUI_OBSOLETE(" is deprecated, use : void Button::setImageName(std::string_view _name)")
-		void setImageIndex(size_t _value);
+		void setImageIndex(size_t _index);
 		MYGUI_OBSOLETE(" is deprecated")
 		size_t getImageIndex() const;
 	};

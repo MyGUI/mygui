@@ -188,10 +188,10 @@ namespace tools
 		if (_data->getType()->getName() != "Group")
 			return {};
 
-		if (_data->getChilds().size() != 0)
+		if (!_data->getChilds().empty())
 		{
 			DataPtr child = _data->getChildByIndex(0);
-			if (child->getChilds().size() != 0)
+			if (!child->getChilds().empty())
 			{
 				return child->getChildByIndex(0)->getPropertyValue<MyGUI::IntPoint>("Point");
 			}

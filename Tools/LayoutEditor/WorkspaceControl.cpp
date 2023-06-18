@@ -611,7 +611,7 @@ namespace tools
 		}
 	}
 
-	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord)
+	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord) const
 	{
 		if (mFreeChildMode)
 		{

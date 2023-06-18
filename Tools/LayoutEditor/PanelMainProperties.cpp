@@ -112,7 +112,7 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelMainProperties::notifyActionSkin(std::string_view, std::string_view _value, bool _final)
+	void PanelMainProperties::notifyActionSkin(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -163,7 +163,7 @@ namespace tools
 		return false;
 	}
 
-	void PanelMainProperties::notifyActionLayer(std::string_view, std::string_view _value, bool _final)
+	void PanelMainProperties::notifyActionLayer(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -174,7 +174,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionName(std::string_view, std::string_view _value, bool _final)
+	void PanelMainProperties::notifyActionName(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -185,7 +185,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionType(std::string_view, std::string_view _value, bool _final)
+	void PanelMainProperties::notifyActionType(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -223,7 +223,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionAlign(std::string_view, std::string_view _value, bool _final)
+	void PanelMainProperties::notifyActionAlign(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -236,7 +236,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionTemplate(std::string_view, std::string_view _value, bool _final)
+	void PanelMainProperties::notifyActionTemplate(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{

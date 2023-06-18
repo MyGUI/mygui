@@ -38,22 +38,20 @@ namespace MyGUI::texture_utility
 				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
 				return Constants::getZeroIntSize();
 			}
-			else
+
+			texture = render.createTexture(_texture);
+			if (texture == nullptr)
 			{
-				texture = render.createTexture(_texture);
-				if (texture == nullptr)
-				{
-					MYGUI_LOG(Error, "Texture '" + _texture + "' cannot be created");
-					return Constants::getZeroIntSize();
-				}
-				texture->loadFromFile(_texture);
-#if MYGUI_DEBUG_MODE == 1
-				if (!Bitwise::isPO2(prevSize.width) || !Bitwise::isPO2(prevSize.height))
-				{
-					MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
-				}
-#endif
+				MYGUI_LOG(Error, "Texture '" + _texture + "' cannot be created");
+				return Constants::getZeroIntSize();
 			}
+			texture->loadFromFile(_texture);
+#if MYGUI_DEBUG_MODE == 1
+			if (!Bitwise::isPO2(prevSize.width) || !Bitwise::isPO2(prevSize.height))
+			{
+				MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
+			}
+#endif
 		}
 
 		prevSize = IntSize(texture->getWidth(), texture->getHeight());

@@ -27,11 +27,11 @@ namespace demo
 	public:
 		MainPanel();
 
-		void addObject(const MyGUI::UString& _name);
+		void addObject(const MyGUI::UString& _name) const;
 
 	private:
-		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender) const;
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index) const;
 
 	public:
 		MyGUI::delegates::Delegate<TypeEvents, size_t> eventAction;

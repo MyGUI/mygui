@@ -43,9 +43,9 @@ namespace tools
 
 		if (_line == Closest)
 			return (_value + mGridStep / 2) / mGridStep * mGridStep;
-		else if (_line == Previous)
+		if (_line == Previous)
 			return (_value - 1) / mGridStep * mGridStep;
-		else if (_line == Next)
+		if (_line == Next)
 			return (_value + mGridStep) / mGridStep * mGridStep;
 
 		return _value;

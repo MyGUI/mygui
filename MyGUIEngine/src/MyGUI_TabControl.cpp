@@ -259,7 +259,7 @@ namespace MyGUI
 
 		if (_index == mStartIndex)
 			return;
-		else if (_index < mStartIndex)
+		if (_index < mStartIndex)
 		{
 			mStartIndex = _index;
 			updateBar();
@@ -278,7 +278,7 @@ namespace MyGUI
 			while ((mStartIndex < _index) && (width > _getWidgetBar()->getWidth()))
 			{
 				width -= mItemsInfo[mStartIndex].width;
-				mStartIndex ++;
+				mStartIndex++;
 				change = true;
 			}
 			if (change)

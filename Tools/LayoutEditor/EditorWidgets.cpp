@@ -122,10 +122,8 @@ namespace tools
 
 						break;
 					}
-					else
-					{
-						_index --;
-					}
+
+					_index--;
 				}
 			}
 		}
@@ -212,10 +210,8 @@ namespace tools
 
 						return true;
 					}
-					else
-					{
-						_index --;
-					}
+
+					_index--;
 				}
 			}
 			return false;
@@ -282,7 +278,7 @@ namespace tools
 		if (nullptr != _container)
 		{
 			std::vector<WidgetContainer*>::reverse_iterator iter;
-			while (_container->childContainers.empty() == false)
+			while (!_container->childContainers.empty())
 			{
 				iter = _container->childContainers.rbegin();
 				remove(*iter);
@@ -326,7 +322,7 @@ namespace tools
 		if (nullptr != _container)
 		{
 			std::vector<WidgetContainer*>::reverse_iterator iter;
-			while (_container->childContainers.empty() == false)
+			while (!_container->childContainers.empty())
 			{
 				iter = _container->childContainers.rbegin();
 				if (unbind(*iter))
@@ -391,7 +387,7 @@ namespace tools
 	{
 		for (auto& iter : _widgets)
 		{
-			if ((iter->getWidget() == _widget) || ((_name.empty() == false) && (iter->getName() == _name)))
+			if ((iter->getWidget() == _widget) || (!_name.empty() && iter->getName() == _name))
 			{
 				return iter;
 			}
@@ -484,7 +480,9 @@ namespace tools
 		MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
 		while (widget.next())
 		{
-			std::string key, value, type;
+			std::string key;
+			std::string value;
+			std::string type;
 
 			if (widget->getName() == "Widget")
 			{
@@ -505,7 +503,7 @@ namespace tools
 					key = key.substr(indexSeparator + 1);
 
 				// и пытаемся парсить свойство
-				if (tryToApplyProperty(container->getWidget(), key, value, _testMode) == false)
+				if (!tryToApplyProperty(container->getWidget(), key, value, _testMode))
 					continue;
 
 				container->setProperty(key, value, false);
@@ -645,7 +643,7 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
+	void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
 		while (parameter.next("Parameter"))
@@ -682,7 +680,7 @@ namespace tools
 		return _skinName;
 	}
 
-	void EditorWidgets::loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
+	void EditorWidgets::loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Skin"))
@@ -776,7 +774,8 @@ namespace tools
 		{
 			if (widget->getName() == "Property")
 			{
-				std::string key, value;
+				std::string key;
+				std::string value;
 
 				// парсим атрибуты
 				if (!widget->findAttribute("key", key))
@@ -801,7 +800,7 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner)
+	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner) const
 	{
 		eventChangeWidgetCoord(_widget, _value, _owner);
 	}

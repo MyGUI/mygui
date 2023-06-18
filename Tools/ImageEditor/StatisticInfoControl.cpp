@@ -21,7 +21,7 @@ namespace tools
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &StatisticInfoControl::notifyFrameStart);
 	}
 
-	void StatisticInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void StatisticInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "StatisticInfoControl.layout");
 

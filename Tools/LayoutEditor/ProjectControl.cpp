@@ -439,10 +439,8 @@ namespace tools
 						deleted = true;
 						break;
 					}
-					else
-					{
-						_index --;
-					}
+
+					_index--;
 				}
 			}
 		}
@@ -486,10 +484,8 @@ namespace tools
 						renamed = true;
 						break;
 					}
-					else
-					{
-						_index --;
-					}
+
+					_index--;
 				}
 			}
 		}

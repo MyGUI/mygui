@@ -16,7 +16,7 @@ namespace tools
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt2Control::notifyEditTextChange);
 	}
 
-	void PropertyInt2Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void PropertyInt2Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
@@ -71,10 +71,7 @@ namespace tools
 
 		int value1 = 0;
 		int value2 = 0;
-		if (!MyGUI::utility::parseComplex(value, value1, value2))
-			return false;
-
-		return true;
+		return MyGUI::utility::parseComplex(value, value1, value2);
 	}
 
 	MyGUI::UString PropertyInt2Control::getClearValue()

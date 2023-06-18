@@ -154,7 +154,7 @@ namespace tools
 		_item->setUserData(button);
 	}
 
-	void WidgetsWindow::requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
+	void WidgetsWindow::requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag) const
 	{
 		_coord.set(0, 0, mWidgetsButtonWidth + mWidgetsButtonOffset + mWidgetsButtonOffset, mWidgetsButtonHeight + mWidgetsButtonOffset + mWidgetsButtonOffset);
 	}

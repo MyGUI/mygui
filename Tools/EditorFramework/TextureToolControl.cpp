@@ -18,7 +18,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void TextureToolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void TextureToolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		TextureControl::OnInitialise(_parent, _place, "TextureControl.layout");
 

@@ -15,8 +15,8 @@
 namespace MyGUI
 {
 
-	SimpleText::SimpleText() :
-		EditText()
+	SimpleText::SimpleText()
+
 	{
 		mIsAddCursorWidth = false;
 	}

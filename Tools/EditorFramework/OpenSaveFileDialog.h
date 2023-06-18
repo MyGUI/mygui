@@ -22,7 +22,7 @@ namespace tools
 	public:
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
-		void setCurrentFolder(const MyGUI::UString& _value);
+		void setCurrentFolder(const MyGUI::UString& _folder);
 		const MyGUI::UString& getCurrentFolder() const;
 
 		void setFileName(const MyGUI::UString& _value);

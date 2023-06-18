@@ -34,7 +34,7 @@ namespace demo
 
 	private:
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index) const;
 
 	private:
 		MyGUI::Button* mCheckShowStatic{nullptr};

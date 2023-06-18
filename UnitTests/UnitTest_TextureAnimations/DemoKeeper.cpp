@@ -84,7 +84,7 @@ namespace demo
 		}
 		else if (_key == MyGUI::KeyCode::V)
 		{
-			for (auto widget : mWidgets)
+			for (auto* widget : mWidgets)
 			{
 				const MyGUI::IntCoord coord(0, 0, 1024, 768);
 				const MyGUI::IntSize size(300, 300);

@@ -17,7 +17,7 @@ namespace tools
 		box->eventSelectItemAccept -= MyGUI::newDelegate(this, &TextureBrowseControl::notifySelectItemAccept);
 	}
 
-	void TextureBrowseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void TextureBrowseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, GetLayoutName(this));
 
@@ -63,7 +63,7 @@ namespace tools
 		eventEndDialog(this, true);
 	}
 
-	void TextureBrowseControl::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view)
+	void TextureBrowseControl::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view /*_name*/)
 	{
 		eventEndDialog(this, false);
 	}

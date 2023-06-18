@@ -64,7 +64,7 @@ namespace MyGUI
 		bool isTextSelection() const;
 
 		/** Colour selected text */
-		void setTextSelectionColour(const Colour& _value);
+		void setTextSelectionColour(const Colour& _colour);
 
 		/** Set text cursor position */
 		void setTextCursor(size_t _index);
@@ -78,7 +78,7 @@ namespace MyGUI
 		const UString& getCaption() const override;
 
 		/** Set edit text without tags */
-		void setOnlyText(const UString& _value);
+		void setOnlyText(const UString& _text);
 		/** Get edit text without tags */
 		UString getOnlyText() const;
 
@@ -117,7 +117,7 @@ namespace MyGUI
 			Password mode: you see password chars (*** by default) instead text.\n
 			Disabled (false) by default.
 		*/
-		void setEditPassword(bool _value);
+		void setEditPassword(bool _password);
 		/** Get edit password mode flag */
 		bool getEditPassword() const;
 
@@ -139,9 +139,9 @@ namespace MyGUI
 		bool getEditStatic() const;
 
 		/** Set edit password character ('*' by default) */
-		void setPasswordChar(Char _value);
+		void setPasswordChar(Char _char);
 		/** Set edit password character ('*' by default). First character of string used. */
-		void setPasswordChar(const UString& _char);
+		void setPasswordChar(const UString& _value);
 		/** Get edit password character */
 		Char getPasswordChar() const;
 
@@ -280,11 +280,11 @@ namespace MyGUI
 
 	private:
 		// устанавливает текст
-		void setText(const UString& _text, bool _history);
+		void setText(const UString& _caption, bool _history);
 		// удаляет все что выделенно
 		bool deleteTextSelect(bool _history);
 		// вставляет текст в указанную позицию
-		void insertText(const UString& _text, size_t _index, bool _history);
+		void insertText(const UString& _text, size_t _start, bool _history);
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
@@ -316,7 +316,7 @@ namespace MyGUI
 
 		// clipboard commands
 		void commandCut();
-		void commandCopy();
+		void commandCopy() const;
 		void commandPaste();
 
 		const UString& getRealString() const;

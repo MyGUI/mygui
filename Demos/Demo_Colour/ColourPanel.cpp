@@ -284,10 +284,13 @@ namespace demo
 
 	float& ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
 	{
-		if (_index == 0) return _colour.red;
-		else if (_index == 1) return _colour.green;
-		else if (_index == 2) return _colour.blue;
-		else return _colour.alpha;
+		if (_index == 0)
+			return _colour.red;
+		if (_index == 1)
+			return _colour.green;
+		if (_index == 2)
+			return _colour.blue;
+		return _colour.alpha;
 	}
 
 	const MyGUI::Colour& ColourPanel::getColour() const

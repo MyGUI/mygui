@@ -155,7 +155,7 @@ namespace tools
 		mPanelCell->setClientHeight(height);
 	}
 
-	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
+	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator controller = _node->getElementEnumerator();
 		while (controller.next("Controller"))

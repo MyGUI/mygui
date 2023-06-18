@@ -51,19 +51,11 @@ namespace tools::utility
 		{
 			return false;
 		}
-		else
-		{
-			std::string tmp;
-			str >> tmp;
-			if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
+
+		std::string tmp;
+		str >> tmp;
+		// reading more data must fail, because there should've been no more data
+		return str.fail() && tmp.find_first_not_of(" \t\r") == std::string::npos;
 	}
 
 }

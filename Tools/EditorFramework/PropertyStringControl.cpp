@@ -16,7 +16,7 @@ namespace tools
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyStringControl::notifyEditTextChange);
 	}
 
-	void PropertyStringControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
+	void PropertyStringControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 

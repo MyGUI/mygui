@@ -142,7 +142,7 @@ namespace MyGUI
 		/** Inject frame entered event (called be renderer, do not call it manually).
 			This function is called every frame by renderer.
 		*/
-		void frameEvent(float _time);
+		void frameEvent(float _time) const;
 
 		/*events:*/
 		/** Event : Multidelegate. GUI per frame call.\n

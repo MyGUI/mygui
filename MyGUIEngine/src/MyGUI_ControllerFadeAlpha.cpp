@@ -46,10 +46,8 @@ namespace MyGUI
 				eventUpdateAction(_widget, this);
 				return true;
 			}
-			else
-			{
-				_widget->setAlpha(mAlpha);
-			}
+
+			_widget->setAlpha(mAlpha);
 		}
 		else if (mAlpha < alpha)
 		{
@@ -60,10 +58,8 @@ namespace MyGUI
 				eventUpdateAction(_widget, this);
 				return true;
 			}
-			else
-			{
-				_widget->setAlpha(mAlpha);
-			}
+
+			_widget->setAlpha(mAlpha);
 		}
 
 		// вызываем пользовательский делегат пост обработки

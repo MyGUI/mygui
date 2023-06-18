@@ -11,7 +11,6 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
-#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {

@@ -16,7 +16,6 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <fnmatch.h>
 #endif
 
@@ -84,17 +83,15 @@ namespace common
 		{
 			return _name;
 		}
-		else
-		{
-			if (endWith(_base, L"\\") || endWith(_base, L"/"))
-				return _base + _name;
+
+		if (endWith(_base, L"\\") || endWith(_base, L"/"))
+			return _base + _name;
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			return _base + L'\\' + _name;
+		return _base + L'\\' + _name;
 #else
-			return _base + L'/' + _name;
+		return _base + L'/' + _name;
 #endif
-		}
 	}
 
 	inline bool isReservedDir (const wchar_t* _fn)

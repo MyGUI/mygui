@@ -26,17 +26,17 @@ namespace MyGUI
 
 	public:
 		/** Set progress range */
-		void setProgressRange(size_t _value);
+		void setProgressRange(size_t _range);
 		/** Get progress range */
 		size_t getProgressRange() const;
 
 		/** Set progress position */
-		void setProgressPosition(size_t _value);
+		void setProgressPosition(size_t _pos);
 		/** Get progress position */
 		size_t getProgressPosition() const;
 
 		/** Enable or disable progress auto tracking */
-		void setProgressAutoTrack(bool _value);
+		void setProgressAutoTrack(bool _auto);
 		/** Get progress auto tracking flag */
 		bool getProgressAutoTrack() const;
 
