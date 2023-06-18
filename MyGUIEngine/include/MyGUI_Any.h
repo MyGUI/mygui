@@ -135,6 +135,8 @@ namespace MyGUI
 		class Holder :
 			public Placeholder
 		{
+			friend class Any;
+
 		public:
 			Holder(const ValueType& value) :
 				held(value)
@@ -156,22 +158,13 @@ namespace MyGUI
 
 			bool compare(Placeholder* other) const override
 			{
-				return compareImpl(other);
+				if constexpr (HasOperatorEqual<ValueType>::value)
+					return getType() == other->getType() && held == static_cast<Holder*>(other)->held;
+				else
+					MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
 			}
+
 		private:
-			template<typename T = ValueType>
-			typename std::enable_if<HasOperatorEqual<T>::value == true, bool>::type compareImpl(Placeholder* other) const
-			{
-				return getType() == other->getType() && held == static_cast<Holder*>(other)->held;
-			}
-
-			template<typename T = ValueType>
-			typename std::enable_if<HasOperatorEqual<T>::value == false, bool>::type compareImpl(Placeholder* /*other*/) const
-			{
-				MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
-			}
-
-		public:
 			ValueType held;
 		};
 
