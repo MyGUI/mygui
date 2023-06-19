@@ -129,18 +129,18 @@ namespace MyGUI
 
 		TextureUsage& operator |= (TextureUsage const& _other)
 		{
-			mValue = Enum(int(mValue) | int(_other.mValue));
+			mValue = (mValue | _other.mValue).mValue;
 			return *this;
 		}
 
 		friend TextureUsage operator | (Enum const& a, Enum const& b)
 		{
-			return {Enum(int(a) | int(b))};
+			return {Enum((unsigned int)a | (unsigned int)b)};
 		}
 
 		friend TextureUsage operator | (TextureUsage const& a, TextureUsage const& b)
 		{
-			return {Enum(int(a.mValue) | int(b.mValue))};
+			return a.mValue | b.mValue;
 		}
 
 		bool isValue(Enum _value) const

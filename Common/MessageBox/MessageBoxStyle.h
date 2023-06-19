@@ -60,18 +60,18 @@ namespace MyGUI
 
 		MessageBoxStyle& operator |= (MessageBoxStyle const& _other)
 		{
-			mValue = Enum(int(mValue) | int(_other.mValue));
+			mValue = (mValue | _other.mValue).mValue;
 			return *this;
 		}
 
 		friend MessageBoxStyle operator | (Enum const& a, Enum const& b)
 		{
-			return {Enum(int(a) | int(b))};
+			return {Enum((unsigned int)a | (unsigned int)b)};
 		}
 
 		MessageBoxStyle operator | (Enum const& a)
 		{
-			return {Enum(int(mValue) | int(a))};
+			return mValue | a;
 		}
 
 		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b)
