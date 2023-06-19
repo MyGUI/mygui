@@ -25,7 +25,7 @@ namespace unittest
 		{
 			if (!_expression)
 			{
-				throw new std::exception();
+				throw std::exception();
 			}
 		}
 
