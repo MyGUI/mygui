@@ -156,59 +156,39 @@ namespace MyGUI
 		template<bool LAMode>
 		struct PixelBase
 		{
-			// Returns PixelFormat::R8G8B8A8 when LAMode is false, or PixelFormat::L8A8 when LAMode is true.
-			static PixelFormat::Enum getFormat();
+			static PixelFormat::Enum getFormat()
+			{
+				if constexpr (LAMode)
+					return PixelFormat::L8A8;
+				else
+					return PixelFormat::R8G8B8A8;
+			}
 
-			// Returns 4 when LAMode is false, or 2 when LAMode is true.
-			static size_t getNumBytes();
+			static size_t getNumBytes()
+			{
+				if constexpr (LAMode)
+					return 2;
+				else
+					return 4;
+			}
 
 		protected:
 			// Sets a pixel in _dest as 4 or 2 bytes: L8L8L8A8 if LAMode is false, or L8A8 if LAMode is true.
 			// Automatically advances _dest just past the pixel written.
-			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha);
-		};
-
-		template<>
-		struct PixelBase<false>
-		{
-			static size_t getNumBytes()
-			{
-				return 4;
-			}
-
-			static PixelFormat::Enum getFormat()
-			{
-				return PixelFormat::R8G8B8A8;
-			}
-
-		protected:
 			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha)
 			{
-				*_dest++ = _luminance;
-				*_dest++ = _luminance;
-				*_dest++ = _luminance;
-				*_dest++ = _alpha;
-			}
-		};
-
-		template<>
-		struct PixelBase<true>
-		{
-			static size_t getNumBytes()
-			{
-				return 2;
-			}
-
-			static PixelFormat::Enum getFormat()
-			{
-				return PixelFormat::L8A8;
-			}
-
-		protected:
-			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha)
-			{
-				*_dest++ = _luminance;
-				*_dest++ = _alpha;
+				if constexpr (LAMode)
+				{
+					*_dest++ = _luminance;
+					*_dest++ = _alpha;
+				}
+				else
+				{
+					*_dest++ = _luminance;
+					*_dest++ = _luminance;
+					*_dest++ = _luminance;
+					*_dest++ = _alpha;
+				}
 			}
 		};
 
@@ -220,40 +200,32 @@ namespace MyGUI
 			// Sets alpha from _source if FromSource is true; otherwise, uses the specified value.
 			// Automatically advances _source just past the pixel read if FromSource is true.
 			// Automatically advances _dest just past the pixel written.
-			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha, uint8*& _source);
-		};
-
-		template<bool LAMode, bool Antialias>
-		struct Pixel<LAMode, false, Antialias> : PixelBase<LAMode>
-		{
-			// Sets the destination pixel using the specified luminance and alpha. Source is ignored, since FromSource is false.
-			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha, uint8* /*_source*/ = nullptr)
+			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha, uint8*& _source)
 			{
-				PixelBase<LAMode>::set(_dest, _luminance, _alpha);
+				if constexpr (FromSource)
+				{
+					(void)_alpha;
+					if constexpr (Antialias)
+					{
+						(void)_luminance;
+						// Sets the destination pixel using both the luminance and alpha from the specified source.
+						PixelBase<LAMode>::set(_dest, *_source, *_source);
+					}
+					else
+					{
+						// Sets the destination pixel using the specified _luminance and alpha from the specified source.
+						PixelBase<LAMode>::set(_dest, _luminance, *_source);
+					}
+					++_source;
+				}
+				else
+				{
+					(void)_source;
+					// Sets the destination pixel using the specified luminance and alpha. Source is ignored.
+					PixelBase<LAMode>::set(_dest, _luminance, _alpha);
+				}
 			}
 		};
-
-		template<bool LAMode>
-		struct Pixel<LAMode, true, false> : PixelBase<LAMode>
-		{
-			// Sets the destination pixel using the specified _luminance and using the alpha from the specified source.
-			static void set(uint8*& _dest, uint8 _luminance, uint8 /*_alpha*/, uint8*& _source)
-			{
-				PixelBase<LAMode>::set(_dest, _luminance, *_source++);
-			}
-		};
-
-		template<bool LAMode>
-		struct Pixel<LAMode, true, true> : PixelBase<LAMode>
-		{
-			// Sets the destination pixel using both the luminance and alpha from the specified source, since Antialias is true.
-			static void set(uint8*& _dest, uint8 /*_luminance*/, uint8 /*_alpha*/, uint8*& _source)
-			{
-				PixelBase<LAMode>::set(_dest, *_source, *_source);
-				++_source;
-			}
-		};
-
 	}
 
 	const int ResourceTrueTypeFont::mDefaultGlyphSpacing = 1;
@@ -479,7 +451,7 @@ namespace MyGUI
 
 		// Select and call an appropriate initialisation method. By making this decision up front, we avoid having to branch on
 		// these variables many thousands of times inside tight nested loops later. From this point on, the various function
-		// templates ensure that all of the necessary branching is done purely at compile time for all combinations.
+		// templates ensure that all the necessary branching is done purely at compile time for all combinations.
 		int init = (laMode ? 2 : 0) | (mAntialias ? 1 : 0);
 
 		switch (init)
@@ -743,7 +715,7 @@ namespace MyGUI
 		{
 			// Make the texture background transparent white (or black for msdf mode).
 			for (uint8* dest = texBuffer, * endDest = dest + texWidth * texHeight * Pixel<LAMode>::getNumBytes(); dest != endDest; )
-				Pixel<LAMode, false, false>::set(dest, mMsdfMode ? charMaskBlack : charMaskWhite, charMaskBlack);
+				Pixel<LAMode, false, false>::set(dest, mMsdfMode ? charMaskBlack : charMaskWhite, charMaskBlack, dest);
 
 			if (!mMsdfMode)
 				renderGlyphs<LAMode, Antialias>(glyphHeightMap, ftLibrary, ftFace, ftLoadFlags, texBuffer, texWidth, texHeight);
