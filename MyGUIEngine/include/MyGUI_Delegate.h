@@ -279,7 +279,7 @@ namespace delegates
 
 	private:
 		mutable ListDelegate mListDelegates;
-		mutable bool mRunning;
+		mutable bool mRunning{false};
 
 		class InvocationModificationGuard
 		{
