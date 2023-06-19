@@ -20,8 +20,8 @@ namespace MyGUI
 	constexpr float ALPHA_MAX = 1.0f;
 	constexpr float ALPHA_MIN = 0.0f;
 
-	constexpr int MYGUI_FLAG_NONE = 0;
-	constexpr int MYGUI_FLAG(uint8_t num) { return 1 << num; }
+	constexpr unsigned int MYGUI_FLAG_NONE = 0;
+	constexpr unsigned int MYGUI_FLAG(uint8_t num) { return 1U << num; }
 
 	/**
 	   Analagous to std::map's operator[], i.e. it replicates map[key] = value.
