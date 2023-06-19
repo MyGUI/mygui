@@ -452,22 +452,19 @@ namespace MyGUI
 		// Select and call an appropriate initialisation method. By making this decision up front, we avoid having to branch on
 		// these variables many thousands of times inside tight nested loops later. From this point on, the various function
 		// templates ensure that all the necessary branching is done purely at compile time for all combinations.
-		int init = (laMode ? 2 : 0) | (mAntialias ? 1 : 0);
-
-		switch (init)
+		if (laMode)
 		{
-		case 0:
-			ResourceTrueTypeFont::initialiseFreeType<false, false>();
-			break;
-		case 1:
-			ResourceTrueTypeFont::initialiseFreeType<false, true>();
-			break;
-		case 2:
-			ResourceTrueTypeFont::initialiseFreeType<true, false>();
-			break;
-		case 3:
-			ResourceTrueTypeFont::initialiseFreeType<true, true>();
-			break;
+			if (mAntialias)
+				ResourceTrueTypeFont::initialiseFreeType<true, true>();
+			else
+				ResourceTrueTypeFont::initialiseFreeType<true, false>();
+		}
+		else
+		{
+			if (mAntialias)
+				ResourceTrueTypeFont::initialiseFreeType<false, true>();
+			else
+				ResourceTrueTypeFont::initialiseFreeType<false, false>();
 		}
 	}
 

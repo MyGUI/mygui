@@ -1735,6 +1735,8 @@ namespace MyGUI
 			case 2:
 				c = in_cp[i] & _lead1_mask;
 				break;
+			default:
+				break;
 		}
 
 		// load each continuation byte

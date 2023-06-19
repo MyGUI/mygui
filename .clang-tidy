@@ -2,8 +2,18 @@ Checks: '\
   -*,\ # definitely good checks
   modernize-*,\
   readability-*,\
+  hicpp-*,\
   bugprone-parent-virtual-call,\
   \ # intentionally disabled checks
+  -hicpp-special-member-functions,\
+  -hicpp-braces-around-statements,\
+  -hicpp-explicit-conversions,\
+  -hicpp-use-auto,\
+  -hicpp-uppercase-literal-suffix,\
+  -hicpp-avoid-c-arrays,\
+  -hicpp-member-init,-hicpp-vararg,\
+  -hicpp-no-array-decay,\
+  -hicpp-signed-bitwise,\
   -modernize-pass-by-value,\
   -modernize-use-auto,\
   -modernize-use-nodiscard,\
