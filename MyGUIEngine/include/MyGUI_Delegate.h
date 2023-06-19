@@ -158,7 +158,7 @@ namespace delegates
 		using IDelegate = DelegateFunction<Args...>;
 
 		Delegate() = default;
-		Delegate(Delegate&&) = default;
+		Delegate(Delegate&&) noexcept = default;
 
 		bool empty() const
 		{
@@ -194,7 +194,7 @@ namespace delegates
 		using ListDelegate = typename std::list<std::unique_ptr<IDelegate>>;
 
 		MultiDelegate() = default;
-		MultiDelegate(MultiDelegate&&) = default;
+		MultiDelegate(MultiDelegate&&) noexcept = default;
 
 		bool empty() const
 		{
