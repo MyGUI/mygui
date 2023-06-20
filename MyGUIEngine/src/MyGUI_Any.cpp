@@ -10,14 +10,9 @@
 namespace MyGUI
 {
 
-	Any::AnyEmpty Any::Null;
+	const Any Any::Null{};
 
 	Any::Any() :
-		mContent(nullptr)
-	{
-	}
-
-	Any::Any(const Any::AnyEmpty& value) :
 		mContent(nullptr)
 	{
 	}
@@ -35,13 +30,6 @@ namespace MyGUI
 	Any& Any::swap(Any& rhs)
 	{
 		std::swap(mContent, rhs.mContent);
-		return *this;
-	}
-
-	Any& Any::operator = (const Any::AnyEmpty& rhs)
-	{
-		delete mContent;
-		mContent = nullptr;
 		return *this;
 	}
 

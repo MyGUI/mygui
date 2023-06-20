@@ -55,11 +55,8 @@ namespace MyGUI
 	class MYGUI_EXPORT Any
 	{
 	public:
-		struct AnyEmpty { };
-		static AnyEmpty Null;
-
+		static const Any Null;
 		Any();
-		Any(const Any::AnyEmpty& value);
 		Any(const Any& other);
 
 		template<typename ValueType>
@@ -79,7 +76,6 @@ namespace MyGUI
 			return *this;
 		}
 
-		Any& operator = (const Any::AnyEmpty& rhs);
 		Any& operator = (const Any& rhs);
 
 		bool empty() const;
