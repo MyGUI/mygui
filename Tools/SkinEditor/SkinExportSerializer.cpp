@@ -228,19 +228,18 @@ namespace tools
 			}
 		}
 
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+		for (const auto& child : _data->getChilds())
 		{
-			if ((*child)->getType()->getName() != "State")
+			if (child->getType()->getName() != "State")
 				continue;
 
-			DataPtr childData = (*child);
-			MapPoint::iterator result = values.find(convertEditorToExportStateName(childData->getPropertyValue("Name")));
+			MapPoint::iterator result = values.find(convertEditorToExportStateName(child->getPropertyValue("Name")));
 			if (result != values.end())
 			{
-				childData->setPropertyValue("Visible", "True");
+				child->setPropertyValue("Visible", "True");
 				if ((*result).second.left != (std::numeric_limits<int>::max)() &&
 					(*result).second.top != (std::numeric_limits<int>::max)())
-					childData->setPropertyValue("Point", (*result).second);
+					child->setPropertyValue("Point", (*result).second);
 			}
 		}
 
@@ -251,16 +250,15 @@ namespace tools
 			int textShift = MyGUI::utility::parseValue<int>(state.node().attribute("shift").value());
 			MyGUI::Colour textColour = MyGUI::utility::parseValue<MyGUI::Colour>(state.node().attribute("colour").value());
 
-			for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+			for (const auto& child : _data->getChilds())
 			{
-				if ((*child)->getType()->getName() != "State")
+				if (child->getType()->getName() != "State")
 					continue;
 
-				DataPtr childData = (*child);
-				if (convertEditorToExportStateName(childData->getPropertyValue("Name")) == name)
+				if (convertEditorToExportStateName(child->getPropertyValue("Name")) == name)
 				{
-					childData->setPropertyValue("TextShift", textShift);
-					childData->setPropertyValue("TextColour", MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
+					child->setPropertyValue("TextShift", textShift);
+					child->setPropertyValue("TextColour", MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
 				}
 			}
 		}
