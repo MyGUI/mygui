@@ -52,8 +52,6 @@ namespace MyGUI
 
 	private:
 		VectorGroupImage mGroups;
-
-		static std::vector<IntPoint> mFramesEmpty;
 	};
 
 } // namespace MyGUI

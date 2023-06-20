@@ -13,8 +13,6 @@
 namespace MyGUI
 {
 
-	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
-
 	void ResourceImageSet::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
@@ -75,7 +73,7 @@ namespace MyGUI
 				return {group.texture, group.size, index.rate, index.frames};
 			}
 		}
-		return {std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty};
+		return {std::string_view{}, Constants::getZeroIntSize(), 0, {}};
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, std::string_view _index) const
@@ -90,7 +88,7 @@ namespace MyGUI
 				return {group.texture, group.size, index.rate, index.frames};
 			}
 		}
-		return {std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty};
+		return {std::string_view{}, Constants::getZeroIntSize(), 0, {}};
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(std::string_view _group, size_t _index) const
@@ -105,7 +103,7 @@ namespace MyGUI
 				return {group.texture, group.size, index.rate, index.frames};
 			}
 		}
-		return {std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty};
+		return {std::string_view{}, Constants::getZeroIntSize(), 0, {}};
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, size_t _index) const
@@ -119,7 +117,7 @@ namespace MyGUI
 				return {group.texture, group.size, index.rate, index.frames};
 			}
 		}
-		return {std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty};
+		return {std::string_view{}, Constants::getZeroIntSize(), 0, {}};
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, size_t _index) const
@@ -134,7 +132,7 @@ namespace MyGUI
 				return {group.texture, group.size, index.rate, index.frames};
 			}
 		}
-		return {std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty};
+		return {std::string_view{}, Constants::getZeroIntSize(), 0, {}};
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, std::string_view _index) const
@@ -150,7 +148,7 @@ namespace MyGUI
 				return {group.texture, group.size, index.rate, index.frames};
 			}
 		}
-		return {std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty};
+		return {std::string_view{}, Constants::getZeroIntSize(), 0, {}};
 	}
 
 	size_t ResourceImageSet::getGroupIndex(std::string_view _name) const

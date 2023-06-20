@@ -25,9 +25,9 @@ namespace delegates
 	public:
 		virtual ~IDelegateUnlink() = default;
 
-		IDelegateUnlink()
+		IDelegateUnlink() :
+			m_baseDelegateUnlink(this)
 		{
-			m_baseDelegateUnlink = this;
 		}
 		bool compare(IDelegateUnlink* _unlink) const
 		{
