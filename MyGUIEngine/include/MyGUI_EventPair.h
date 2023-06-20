@@ -20,24 +20,27 @@ namespace MyGUI
 		using IDelegate = typename Event::IDelegate;
 
 		template <class T>
-		void operator = (T* _delegate)
+		CompositeEvent& operator=(T* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event = _delegate;
+			return *this;
 		}
 
 		template <class T>
-		void operator = (const T& _delegate)
+		CompositeEvent& operator=(const T& _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event = _delegate;
+			return *this;
 		}
 
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator = (IObsoleteDelegate* _delegate)
+		CompositeEvent& operator=(IObsoleteDelegate* _delegate)
 		{
 			m_eventObsolete = _delegate;
 			m_event.clear();
+			return *this;
 		}
 
 		template<class T>
