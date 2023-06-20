@@ -18,7 +18,7 @@ namespace MyGUI::xml
 			std::string ret;
 			_ok = true;
 
-			size_t pos = _string.find("&");
+			size_t pos = _string.find('&');
 			if (pos == std::string::npos) return std::string{ _string };
 
 			ret.reserve(_string.size());
@@ -27,7 +27,7 @@ namespace MyGUI::xml
 			{
 				ret += _string.substr(old, pos - old);
 
-				size_t end = _string.find(";", pos + 1);
+				size_t end = _string.find(';', pos + 1);
 				if (end == std::string::npos)
 				{
 					_ok = false;
@@ -47,7 +47,7 @@ namespace MyGUI::xml
 				}
 
 				old = end + 1;
-				pos = _string.find("&", old);
+				pos = _string.find('&', old);
 			}
 			ret += _string.substr(old, std::string::npos);
 

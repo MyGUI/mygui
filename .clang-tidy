@@ -1,6 +1,7 @@
 Checks: '\
   -*,\ # definitely good checks
   modernize-*,\
+  performance-*,\
   readability-*,\
   hicpp-*,\
   bugprone-parent-virtual-call,\
@@ -18,6 +19,7 @@ Checks: '\
   -modernize-use-auto,\
   -modernize-use-nodiscard,\
   -modernize-use-trailing-return-type,\
+  -performance-unnecessary-value-param,\
   -readability-braces-around-statements,\
   -readability-convert-member-functions-to-static,\
   -readability-identifier-length,\
