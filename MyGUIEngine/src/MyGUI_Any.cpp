@@ -12,10 +12,7 @@ namespace MyGUI
 
 	const Any Any::Null{};
 
-	Any::Any() :
-		mContent(nullptr)
-	{
-	}
+	Any::Any() = default;
 
 	Any::Any(const Any& other) :
 		mContent(other.mContent ? other.mContent->clone() : nullptr)

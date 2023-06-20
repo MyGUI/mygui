@@ -165,7 +165,7 @@ namespace MyGUI
 		};
 
 	private:
-		Placeholder* mContent;
+		Placeholder* mContent{nullptr};
 	};
 
 } // namespace MyGUI
