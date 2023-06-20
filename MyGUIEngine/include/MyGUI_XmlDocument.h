@@ -80,8 +80,9 @@ namespace MyGUI::xml
 	private:
 		std::string_view getValueName(int _index) const
 		{
-			static const std::string_view values[MAX + 1] =
-			{
+			if (_index < 0 || _index >= MAX)
+				return {};
+			static const std::string_view values[MAX] = {
 				"Failed to open XML file",
 				"Failed to create XML file",
 				"XML file contain incorrect content",
@@ -91,10 +92,8 @@ namespace MyGUI::xml
 				"XML file contain inconsistent elements",
 				"XML file contain more than one declaration",
 				"XML file contain more than one root element",
-				"XML file contain incorrect attribute",
-				std::string_view{}
-			};
-			return values[(_index < MAX && _index >= 0) ? _index : MAX];
+				"XML file contain incorrect attribute"};
+			return values[_index];
 		}
 	private:
 		Enum mValue;
