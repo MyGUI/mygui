@@ -8,7 +8,7 @@
 #include "PointerManager.h"
 #include <MyGUI.h>
 
-#include "ResourceSDLPointer.cpp"
+#include "ResourceSDLPointer.h"
 
 namespace input
 {

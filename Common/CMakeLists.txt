@@ -83,16 +83,20 @@ include_directories(Input/SDL)
 set (HEADER_FILES ${HEADER_FILES}
 	Input/SDL/InputManager.h
 	Input/SDL/PointerManager.h
-	)
+	Input/SDL/ResourceSDLPointer.h
+)
 set (SOURCE_FILES ${SOURCE_FILES}
 	Input/SDL/InputManager.cpp
 	Input/SDL/PointerManager.cpp
-	)
+	Input/SDL/ResourceSDLPointer.cpp
+)
 SOURCE_GROUP("Base" FILES
 	Input/SDL/InputManager.h
 	Input/SDL/InputManager.cpp
 	Input/SDL/PointerManager.h
 	Input/SDL/PointerManager.cpp
+	Input/SDL/ResourceSDLPointer.h
+	Input/SDL/ResourceSDLPointer.cpp
 )
 
 add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
