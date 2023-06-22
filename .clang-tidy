@@ -6,8 +6,17 @@ Checks: '\
   cppcoreguidelines-*,\
   hicpp-*,\
   google-*,\
-  bugprone-parent-virtual-call,\
-  \ # intentionally disabled checks
+  bugprone-*,\
+  \ # intentionally disabled checks (sorted alphabetically)
+  -bugprone-branch-clone,\
+  -bugprone-easily-swappable-parameters,\
+  -bugprone-exception-escape,\ # TODO?
+  -bugprone-implicit-widening-of-multiplication-result,\ # TODO?
+  -bugprone-macro-parentheses,\
+  -bugprone-misplaced-widening-cast,\
+  -bugprone-narrowing-conversions,\
+  -bugprone-reserved-identifier,\
+  -bugprone-signed-char-misuse,\ # TODO?
   -cppcoreguidelines-avoid-c-arrays,\
   -cppcoreguidelines-avoid-const-or-ref-data-members,\
   -cppcoreguidelines-avoid-do-while,\
@@ -70,14 +79,3 @@ WarningsAsErrors: "*"
 HeaderFilterRegex: '.*'
 FormatStyle: file
 UseColor: true
-
-#  '-*,
-#  bugprone-*,
-#  cert-dcl21-cpp,cert-dcl50-cpp,cert-env33-c,cert-err34-c,cert-err52-cpp,cert-err60-cpp,cert-flp30-c,cert-msc50-cpp,cert-msc51-cpp,
-#CheckOptions:
-#  - key: bugprone-argument-comment.StrictMode
-#    value: 1
-#  - key: bugprone-exception-escape.FunctionsThatShouldNotThrow
-#    value: WinMain,SDL_main
-#  - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
-#    value: 1

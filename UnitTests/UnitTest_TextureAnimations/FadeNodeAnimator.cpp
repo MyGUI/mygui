@@ -86,14 +86,14 @@ namespace demo
 					}
 					if (mFadeType == 2) // from center
 					{
-						float x1 = float(x - getCountX() / 2) / getCountX() * 2;
-						float y1 = float(y - getCountY() / 2) / getCountY() * 2;
+						float x1 = float(x - getCountX() / 2.0f) / getCountX() * 2;
+						float y1 = float(y - getCountY() / 2.0f) / getCountY() * 2;
 						speed = std::sqrt(x1 * x1 + y1 * y1);
 					}
 					if (mFadeType == 3) // TV
 					{
-						float x1 = float(x - getCountX() / 2) / getCountX() * 2;
-						float y1 = float(y - getCountY() / 2) / getCountY() * 2;
+						float x1 = float(x - getCountX() / 2.0f) / getCountX() * 2;
+						float y1 = float(y - getCountY() / 2.0f) / getCountY() * 2;
 						speed = std::sqrt(x1 * x1 * x1 * x1 + y1 * y1);
 					}
 					float alpha = std::pow(mAlpha, speed);
