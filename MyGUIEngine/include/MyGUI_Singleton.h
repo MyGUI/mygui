@@ -115,7 +115,9 @@ namespace MyGUI
 	public: \
 	static ClassName& getInstance(); \
 	static ClassName* getInstancePtr(); \
-	static std::string_view getClassTypeName()
+	static std::string_view getClassTypeName(); \
+	ClassName(const ClassName&) = delete; \
+	ClassName& operator=(const ClassName&) = delete
 
 #define MYGUI_SINGLETON_DEFINITION(ClassName) \
 	static ClassName* ClassName##Instance = nullptr; \
