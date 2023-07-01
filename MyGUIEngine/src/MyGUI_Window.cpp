@@ -79,24 +79,28 @@ namespace MyGUI
 			action->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
 		}
 
-		const size_t countNames = 8;
-		const std::string_view resizers[2][countNames] =
-		{
-			{"ResizeLeftTop", "ResizeTop", "ResizeRightTop", "ResizeRight", "ResizeRightBottom", "ResizeBottom", "ResizeLeftBottom", "ResizeLeft"},
-			{"Left Top", "Top", "Right Top", "Right", "Right Bottom", "Bottom", "Left Bottom", "Left"}
-		};
+		constexpr size_t countNames = 8;
+		const std::array<std::pair<std::string_view, std::string_view>, countNames> resizers{
+			{{"ResizeLeftTop", "Left Top"},
+			 {"ResizeTop", "Top"},
+			 {"ResizeRightTop", "Right Top"},
+			 {"ResizeRight", "Right"},
+			 {"ResizeRightBottom", "Right Bottom"},
+			 {"ResizeBottom", "Bottom"},
+			 {"ResizeLeftBottom", "Left Bottom"},
+			 {"ResizeLeft", "Left"}}};
 
-		for (size_t index = 0; index < countNames; ++ index)
+		for (const auto& resizer : resizers)
 		{
 			Widget* widget = nullptr;
-			assignWidget(widget, resizers[0][index]);
+			assignWidget(widget, resizer.first);
 			if (widget != nullptr)
 			{
 				widget->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 				widget->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 				widget->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 				widget->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
-				widget->setUserString("Action", resizers[1][index]);
+				widget->setUserString("Action", resizer.second);
 			}
 		}
 	}
