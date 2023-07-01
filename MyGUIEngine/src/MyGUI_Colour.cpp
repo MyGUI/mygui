@@ -17,14 +17,6 @@ namespace MyGUI
 	const Colour Colour::Green = Colour(0, 1, 0, 1);
 	const Colour Colour::Blue = Colour(0, 0, 1, 1);
 
-	Colour::Colour() :
-		red(1),
-		green(1),
-		blue(1),
-		alpha(1)
-	{
-	}
-
 	Colour::Colour( float _red, float _green, float _blue, float _alpha) :
 		red(_red),
 		green(_green),
@@ -37,8 +29,6 @@ namespace MyGUI
 	{
 		*this = parse(_value);
 	}
-
-	Colour& Colour::operator = (Colour const& _value) = default;
 
 	bool Colour::operator == (Colour const& _value) const
 	{

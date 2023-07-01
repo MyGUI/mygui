@@ -16,12 +16,10 @@ namespace MyGUI
 	struct MYGUI_EXPORT Colour
 	{
 	public:
-		Colour();
+		Colour() = default;
 		Colour(float _red, float _green, float _blue, float _alpha = 1);
-		Colour(const Colour& _value) = default;
 		explicit Colour(std::string_view _value);
 
-		Colour& operator = (Colour const& _value);
 		bool operator == (Colour const& _value) const;
 		bool operator != (Colour const& _value) const;
 
@@ -47,10 +45,10 @@ namespace MyGUI
 		static std::istream& operatorShiftRight(std::istream& _stream, Colour&  _value);
 
 	public:
-		float red;
-		float green;
-		float blue;
-		float alpha;
+		float red{1.0f};
+		float green{1.0f};
+		float blue{1.0f};
+		float alpha{1.0f};
 
 		static const Colour Zero;
 		static const Colour Black;

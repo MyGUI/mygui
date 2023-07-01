@@ -264,9 +264,6 @@ namespace MyGUI
 		{
 		public:
 			_const_fwd_iterator();
-			_const_fwd_iterator(const _const_fwd_iterator& i);
-			_const_fwd_iterator(_const_fwd_iterator&& i) noexcept;
-			_const_fwd_iterator& operator=(const _const_fwd_iterator& i);
 
 			_const_fwd_iterator(const _fwd_iterator& i);
 
@@ -360,8 +357,6 @@ namespace MyGUI
 		{
 		public:
 			_const_rev_iterator();
-			_const_rev_iterator(const _const_rev_iterator& i);
-			_const_rev_iterator(_const_rev_iterator&& i) noexcept;
 
 			_const_rev_iterator(const _rev_iterator& i);
 			//! pre-increment

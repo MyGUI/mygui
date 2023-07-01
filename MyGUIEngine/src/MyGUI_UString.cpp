@@ -197,9 +197,6 @@ namespace MyGUI
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	UString::_const_fwd_iterator::_const_fwd_iterator() = default;
-	UString::_const_fwd_iterator::_const_fwd_iterator(const _const_fwd_iterator& i) = default;
-	UString::_const_fwd_iterator::_const_fwd_iterator(_const_fwd_iterator&& i) noexcept = default;
-	UString::_const_fwd_iterator& UString::_const_fwd_iterator::operator=(const _const_fwd_iterator& i) = default;
 	//--------------------------------------------------------------------------
 	UString::_const_fwd_iterator::_const_fwd_iterator( const _fwd_iterator& i )
 	{
@@ -382,8 +379,6 @@ namespace MyGUI
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	UString::_const_rev_iterator::_const_rev_iterator() = default;
-	UString::_const_rev_iterator::_const_rev_iterator(const _const_rev_iterator& i) = default;
-	UString::_const_rev_iterator::_const_rev_iterator(_const_rev_iterator&& i) noexcept = default;
 	UString::_const_rev_iterator::_const_rev_iterator(const _rev_iterator& i)
 	{
 		_become( i );

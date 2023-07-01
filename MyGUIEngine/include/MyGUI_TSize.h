@@ -16,14 +16,10 @@ namespace MyGUI::types
 	template<typename T>
 	struct TSize
 	{
-		T width;
-		T height;
+		T width{};
+		T height{};
 
-		TSize() :
-			width(0),
-			height(0)
-		{
-		}
+		TSize() = default;
 
 		TSize(T const& _width, T const& _height) :
 			width(_width),
@@ -31,13 +27,7 @@ namespace MyGUI::types
 		{
 		}
 
-		TSize(TSize const& _obj) :
-			width(_obj.width),
-			height(_obj.height)
-		{
-		}
-
-		TSize& operator -= (TSize const& _obj)
+		TSize& operator-=(TSize const& _obj)
 		{
 			width -= _obj.width;
 			height -= _obj.height;
@@ -59,13 +49,6 @@ namespace MyGUI::types
 		TSize operator + (TSize const& _obj) const
 		{
 			return TSize(width + _obj.width, height + _obj.height);
-		}
-
-		TSize& operator = (TSize const& _obj)
-		{
-			width = _obj.width;
-			height = _obj.height;
-			return *this;
 		}
 
 		template<typename U>

@@ -16,24 +16,14 @@ namespace MyGUI::types
 	template<typename T>
 	struct TPoint
 	{
-		T left;
-		T top;
+		T left{};
+		T top{};
 
-		TPoint() :
-			left(0),
-			top(0)
-		{
-		}
+		TPoint() = default;
 
 		TPoint(T const& _left, T const& _top) :
 			left(_left),
 			top(_top)
-		{
-		}
-
-		TPoint(TPoint const& _obj) :
-			left(_obj.left),
-			top(_obj.top)
 		{
 		}
 
@@ -59,13 +49,6 @@ namespace MyGUI::types
 		TPoint operator + (TPoint const& _obj) const
 		{
 			return TPoint(left + _obj.left, top + _obj.top);
-		}
-
-		TPoint& operator = (TPoint const& _obj)
-		{
-			left = _obj.left;
-			top = _obj.top;
-			return *this;
 		}
 
 		template<typename U>

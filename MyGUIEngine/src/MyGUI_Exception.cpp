@@ -21,25 +21,6 @@ namespace MyGUI
 	{
 	}
 
-	Exception::Exception(const Exception& _rhs) :
-		mDescription(_rhs.mDescription),
-		mSource(_rhs.mSource),
-		mFile(_rhs.mFile),
-		mLine(_rhs.mLine),
-		mFullDesc(_rhs.mFullDesc)
-	{
-	}
-
-	Exception& Exception::operator = (const Exception& _rhs)
-	{
-		mDescription = _rhs.mDescription;
-		mSource = _rhs.mSource;
-		mFile = _rhs.mFile;
-		mLine = _rhs.mLine;
-		mFullDesc = _rhs.mFullDesc;
-		return *this;
-	}
-
 	const std::string& Exception::getFullDescription() const
 	{
 		if (mFullDesc.empty())

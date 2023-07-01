@@ -26,10 +26,6 @@ namespace MyGUI
 	public:
 		Exception(std::string _description, std::string _source, std::string _file, long _line);
 
-		Exception(const Exception& _rhs);
-
-		Exception& operator = (const Exception& _rhs);
-
 		virtual const std::string& getFullDescription() const;
 
 		virtual const std::string& getSource() const;

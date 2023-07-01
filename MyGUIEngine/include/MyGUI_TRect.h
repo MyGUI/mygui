@@ -16,18 +16,12 @@ namespace MyGUI::types
 	template<typename T>
 	struct TRect
 	{
-		T left;
-		T top;
-		T right;
-		T bottom;
+		T left{};
+		T top{};
+		T right{};
+		T bottom{};
 
-		TRect() :
-			left(0),
-			top(0),
-			right(0),
-			bottom(0)
-		{
-		}
+		TRect() = default;
 
 		TRect(T const& _left, T const& _top, T const& _right, T const& _bottom) :
 			left(_left),
@@ -37,13 +31,6 @@ namespace MyGUI::types
 		{
 		}
 
-		TRect(TRect const& _obj) :
-			left(_obj.left),
-			top(_obj.top),
-			right(_obj.right),
-			bottom(_obj.bottom)
-		{
-		}
 
 		TRect& operator -= (TRect const& _obj)
 		{
@@ -71,15 +58,6 @@ namespace MyGUI::types
 		TRect operator + (TRect const& _obj) const
 		{
 			return TRect(left + _obj.left, top + _obj.top, right + _obj.right, bottom + _obj.bottom);
-		}
-
-		TRect& operator = (TRect const& _obj)
-		{
-			left = _obj.left;
-			top = _obj.top;
-			right = _obj.right;
-			bottom = _obj.bottom;
-			return *this;
 		}
 
 		template<typename U>

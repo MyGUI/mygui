@@ -17,32 +17,18 @@ namespace MyGUI::types
 	template<typename T>
 	struct TCoord
 	{
-		T left;
-		T top;
-		T width;
-		T height;
+		T left{};
+		T top{};
+		T width{};
+		T height{};
 
-		TCoord() :
-			left(0),
-			top(0),
-			width(0),
-			height(0)
-		{
-		}
+		TCoord() = default;
 
 		TCoord(T const& _left, T const& _top, T const& _width, T const& _height) :
 			left(_left),
 			top(_top),
 			width(_width),
 			height(_height)
-		{
-		}
-
-		TCoord(TCoord const& _obj) :
-			left(_obj.left),
-			top(_obj.top),
-			width(_obj.width),
-			height(_obj.height)
 		{
 		}
 
@@ -100,15 +86,6 @@ namespace MyGUI::types
 		TCoord operator + (TSize<T> const& _obj) const
 		{
 			return TCoord(left, top, width + _obj.width, height + _obj.height);
-		}
-
-		TCoord& operator = (TCoord const& _obj)
-		{
-			left = _obj.left;
-			top = _obj.top;
-			width = _obj.width;
-			height = _obj.height;
-			return *this;
 		}
 
 		template< typename U >
