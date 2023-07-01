@@ -288,8 +288,6 @@ namespace MyGUI
 		FloatPoint vectorU = baseVerticiesUV[1] - baseVerticiesUV[0];
 		//FloatPoint vectorV = baseVerticiesUV[3] - baseVerticiesUV[0];
 
-		FloatPoint vertex1;
-		FloatPoint vertex2;
 		mResultVerticiesPos.clear();
 		mResultVerticiesUV.clear();
 		// add first two verticies

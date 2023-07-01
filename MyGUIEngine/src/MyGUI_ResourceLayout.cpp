@@ -50,7 +50,6 @@ namespace MyGUI
 
 		if (_widget->findAttribute("style", tmp)) widgetInfo.style = WidgetStyle::parse(tmp);
 
-		IntCoord coord;
 		if (_widget->findAttribute("position", tmp))
 		{
 			widgetInfo.intCoord = IntCoord::parse(tmp);

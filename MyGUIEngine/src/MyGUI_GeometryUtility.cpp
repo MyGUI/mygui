@@ -85,8 +85,6 @@ namespace MyGUI::geometry_utility
 
 	FloatPoint getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2)
 	{
-		FloatPoint result;
-
 		FloatPoint point = _point - _corner0;
 		FloatPoint dirX = _corner1 - _corner0;
 		FloatPoint dirY = _corner2 - _corner0;
