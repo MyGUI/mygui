@@ -53,6 +53,8 @@ KeepEmptyLinesAtTheStartOfBlocks: false
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: All
 PackConstructorInitializers: Never
+PenaltyIndentedWhitespace: 1
+PenaltyReturnTypeOnItsOwnLine: 1000
 PointerAlignment: Left
 ReflowComments: false
 SortIncludes: Never
