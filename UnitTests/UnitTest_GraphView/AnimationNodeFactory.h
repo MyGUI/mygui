@@ -21,7 +21,6 @@ namespace animation
 	private:
 		using MapConstruct = std::map<std::string, IAnimationNodeConstruct*, std::less<>>;
 		MapConstruct mConstructs;
-
 	};
 
 } // namespace animation

@@ -25,12 +25,9 @@ namespace MyGUI
 	/** \brief @wpage{ComboBox}
 		ComboBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ComboBox :
-		public EditBox,
-		public IItemContainer,
-		public MemberObsolete<ComboBox>
+	class MYGUI_EXPORT ComboBox : public EditBox, public IItemContainer, public MemberObsolete<ComboBox>
 	{
-		MYGUI_RTTI_DERIVED( ComboBox )
+		MYGUI_RTTI_DERIVED(ComboBox)
 
 	public:
 		//------------------------------------------------------------------------------//
@@ -79,7 +76,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return mList->getItemDataAt<ValueType>(_index, _throw);

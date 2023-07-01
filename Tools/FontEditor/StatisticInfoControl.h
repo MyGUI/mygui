@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class StatisticInfoControl :
-		public Control,
-		public sigslot::has_slots<>
+	class StatisticInfoControl : public Control, public sigslot::has_slots<>
 	{
 	public:
 		~StatisticInfoControl() override;

@@ -8,8 +8,7 @@
 namespace animation
 {
 
-	class EventController :
-		public IAnimationNode
+	class EventController : public IAnimationNode
 	{
 	public:
 		EventController() = default;
@@ -36,7 +35,6 @@ namespace animation
 
 	private:
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

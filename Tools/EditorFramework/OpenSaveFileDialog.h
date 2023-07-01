@@ -14,10 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL OpenSaveFileDialog :
-		public Dialog,
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL OpenSaveFileDialog : public Dialog, public Control, public sigslot::has_slots<>
 	{
 	public:
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);

@@ -55,7 +55,8 @@ namespace tools
 
 		if (control == nullptr)
 		{
-			control = components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
+			control =
+				components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
 			if (control != nullptr)
 			{
 				control->Initialise(this, mScrollView, std::string_view{});
@@ -88,7 +89,7 @@ namespace tools
 				if (property->getVisible())
 				{
 					PropertyPtr pr = mCurrentData->getProperty(property->getName());
-						InitialiseProperty(pr, mContentHeight);
+					InitialiseProperty(pr, mContentHeight);
 				}
 			}
 

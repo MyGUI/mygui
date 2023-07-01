@@ -13,8 +13,7 @@
 namespace MyGUI
 {
 
-	class OpenGLDataManager :
-		public DataManager
+	class OpenGLDataManager : public DataManager
 	{
 	public:
 		void initialise();
@@ -44,7 +43,7 @@ namespace MyGUI
 		/** @see DataManager::getDataPath(const std::string& _name) */
 		std::string getDataPath(const std::string& _name) const override;
 
-	/*internal:*/
+		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:

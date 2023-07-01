@@ -20,8 +20,12 @@ namespace tools
 		assignWidget(mListSettings, "ListSettings", false, false);
 		assignWidget(mTabSettings, "TabSettings", false, false);
 
-		CommandManager::getInstance().getEvent("Command_SettingsAccept")->connect(this, &SettingsWindow::commandSettingsAccept);
-		CommandManager::getInstance().getEvent("Command_SettingsCancel")->connect(this, &SettingsWindow::commandSettingsCancel);
+		CommandManager::getInstance()
+			.getEvent("Command_SettingsAccept")
+			->connect(this, &SettingsWindow::commandSettingsAccept);
+		CommandManager::getInstance()
+			.getEvent("Command_SettingsCancel")
+			->connect(this, &SettingsWindow::commandSettingsCancel);
 
 		mMainWidget->setVisible(false);
 
@@ -56,7 +60,7 @@ namespace tools
 
 	void SettingsWindow::InitialiseListTab()
 	{
-		for (size_t index = 0; index < mTabSettings->getItemCount(); index ++)
+		for (size_t index = 0; index < mTabSettings->getItemCount(); index++)
 			mListSettings->addItem(mTabSettings->getItemNameAt(index));
 
 		if (mListSettings->getItemCount() != 0)

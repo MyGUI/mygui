@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PanelUserData :
-		public wraps::BasePanelViewItem
+	class PanelUserData : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelUserData();

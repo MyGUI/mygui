@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class SettingsResourcePathsControl :
-		public Control,
-		public sigslot::has_slots<>
+	class SettingsResourcePathsControl : public Control, public sigslot::has_slots<>
 	{
 	public:
 		~SettingsResourcePathsControl() override;

@@ -30,7 +30,8 @@ namespace MyGUI
 			Selected = 0xFFFFFFFC, // Used for rendering text selections when they have input focus.
 			SelectedBack = 0xFFFFFFFD, // Used for rendering text selections when they don't have input focus.
 			Cursor = 0xFFFFFFFE, // Used for rendering the blinking text cursor.
-			NotDefined = 0xFFFFFFFF // Used to render substitute glyphs for characters that aren't supported by the current font.
+			NotDefined =
+				0xFFFFFFFF // Used to render substitute glyphs for characters that aren't supported by the current font.
 		};
 
 	}

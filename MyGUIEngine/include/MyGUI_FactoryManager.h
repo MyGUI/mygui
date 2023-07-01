@@ -18,6 +18,7 @@ namespace MyGUI
 	class MYGUI_EXPORT FactoryManager
 	{
 		MYGUI_SINGLETON_DECLARATION(FactoryManager);
+
 	public:
 		FactoryManager();
 

@@ -16,9 +16,7 @@
 namespace tools
 {
 
-	class TestWindow :
-		public Dialog,
-		public Control
+	class TestWindow : public Dialog, public Control
 	{
 	public:
 		TestWindow();

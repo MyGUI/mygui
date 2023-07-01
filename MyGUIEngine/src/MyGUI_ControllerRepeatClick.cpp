@@ -12,7 +12,7 @@ namespace MyGUI
 
 	bool ControllerRepeatClick::addTime(MyGUI::Widget* _widget, float _time)
 	{
-		if(mTimeLeft == 0)
+		if (mTimeLeft == 0)
 			mTimeLeft = mInit;
 
 		if (mStep <= 0)
@@ -41,4 +41,3 @@ namespace MyGUI
 	{
 	}
 }
-

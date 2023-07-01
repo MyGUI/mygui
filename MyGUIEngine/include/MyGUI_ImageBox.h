@@ -18,11 +18,9 @@ namespace MyGUI
 	/** \brief @wpage{ImageBox}
 		ImageBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ImageBox :
-		public Widget,
-		public MemberObsolete<ImageBox>
+	class MYGUI_EXPORT ImageBox : public Widget, public MemberObsolete<ImageBox>
 	{
-		MYGUI_RTTI_DERIVED( ImageBox )
+		MYGUI_RTTI_DERIVED(ImageBox)
 
 	public:
 		//------------------------------------------------------------------------------//

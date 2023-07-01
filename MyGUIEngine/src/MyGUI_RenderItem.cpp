@@ -110,7 +110,6 @@ namespace MyGUI
 
 	void RenderItem::addDrawItem(ISubWidget* _item, size_t _count)
 	{
-
 // проверяем только в дебаге
 #if MYGUI_DEBUG_MODE == 1
 		for (const auto& item : mDrawItems)

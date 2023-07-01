@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyBoolControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyBoolControl : public PropertyControl
 	{
 	public:
 		~PropertyBoolControl() override;

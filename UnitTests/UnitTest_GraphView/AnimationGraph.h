@@ -13,8 +13,7 @@
 namespace animation
 {
 
-	class AnimationGraph :
-		public IAnimationGraph
+	class AnimationGraph : public IAnimationGraph
 	{
 	public:
 		AnimationGraph() = default;
@@ -61,7 +60,8 @@ namespace animation
 
 		IAnimationNode* getNodeByName(std::string_view _name) override
 		{
-			if (_name == getName()) return this;
+			if (_name == getName())
+				return this;
 
 			for (auto& mNode : mNodes)
 			{
@@ -76,7 +76,8 @@ namespace animation
 		Ogre::Any getData(std::string_view _name) override
 		{
 			MapAny::iterator item = mDatas.find(_name);
-			if (item != mDatas.end()) return item->second;
+			if (item != mDatas.end())
+				return item->second;
 			return {};
 		}
 
@@ -93,7 +94,6 @@ namespace animation
 
 		using MapAny = std::map<std::string, Ogre::Any, std::less<>>;
 		MapAny mDatas;
-
 	};
 
 } // namespace animation

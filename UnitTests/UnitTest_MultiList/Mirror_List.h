@@ -13,7 +13,6 @@ namespace unittest
 
 	class Mirror_List
 	{
-
 	public:
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -28,7 +27,8 @@ namespace unittest
 		void insertItemAt(size_t _index, const MyGUI::UString& _name, MyGUI::Any _data = MyGUI::Any::Null)
 		{
 			MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListBox::insertItemAt");
-			if (_index == MyGUI::ITEM_NONE) _index = mItemsInfo.size();
+			if (_index == MyGUI::ITEM_NONE)
+				_index = mItemsInfo.size();
 			mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(_name, _data));
 		}
 
@@ -56,7 +56,8 @@ namespace unittest
 		{
 			MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "ListBox::swapItemsAt");
 			MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "ListBox::swapItemsAt");
-			if (_index1 == _index2) return;
+			if (_index1 == _index2)
+				return;
 			std::swap(mItemsInfo[_index1], mItemsInfo[_index2]);
 		}
 
@@ -65,7 +66,8 @@ namespace unittest
 		{
 			for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 			{
-				if (mItemsInfo[pos].name == _name) return pos;
+				if (mItemsInfo[pos].name == _name)
+					return pos;
 			}
 			return MyGUI::ITEM_NONE;
 		}
@@ -88,7 +90,7 @@ namespace unittest
 		}
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
@@ -114,7 +116,6 @@ namespace unittest
 		}
 
 	private:
-
 		struct ItemInfo
 		{
 			ItemInfo(const MyGUI::UString& _name, MyGUI::Any& _data) :
@@ -129,7 +130,6 @@ namespace unittest
 
 		using VectorItemInfo = std::vector<ItemInfo>;
 		VectorItemInfo mItemsInfo;
-
 	};
 
 } // namespace unittest

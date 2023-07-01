@@ -8,8 +8,7 @@
 namespace animation
 {
 
-	class WeightController :
-		public IAnimationNode
+	class WeightController : public IAnimationNode
 	{
 	public:
 		WeightController() = default;
@@ -36,7 +35,6 @@ namespace animation
 
 	private:
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

@@ -22,14 +22,14 @@ namespace MyGUI
 	{
 		RenderManager& render = RenderManager::getInstance();
 
-		if ( mVertexBuffer != nullptr )
+		if (mVertexBuffer != nullptr)
 		{
-			render.destroyVertexBuffer( mVertexBuffer );
+			render.destroyVertexBuffer(mVertexBuffer);
 			mVertexBuffer = nullptr;
 		}
-		if ( mTexture != nullptr )
+		if (mTexture != nullptr)
 		{
-			MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
+			MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
 			mTexture = nullptr;
 		}
 
@@ -113,9 +113,16 @@ namespace MyGUI
 			float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
 
 			mDefaultData.set(
-				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-				0, 0, texture_u, texture_v, 0xFFFFFFFF
-			);
+				vertex_left,
+				vertex_top,
+				vertex_right,
+				vertex_bottom,
+				vertex_z,
+				0,
+				0,
+				texture_u,
+				texture_v,
+				0xFFFFFFFF);
 		}
 
 		// анимируем и проверяем, использовалась ли анимация
@@ -128,7 +135,16 @@ namespace MyGUI
 		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
 		while (anim.next())
 		{
-			count_quad = anim->animate(_update, count_quad, mData, frameTime, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mIsAnimate);
+			count_quad = anim->animate(
+				_update,
+				count_quad,
+				mData,
+				frameTime,
+				mVertexBuffer,
+				mTexture,
+				_target->getInfo(),
+				mCurrentCoord,
+				mIsAnimate);
 		}
 
 		if (mIsAnimate)
@@ -201,15 +217,22 @@ namespace MyGUI
 
 			if (mTexture != nullptr)
 			{
-				MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
+				MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
 				mTexture = nullptr;
 			}
 
 			if (mCurrentCoord.width > 0 && mCurrentCoord.height > 0)
 			{
-				mTextureSize.set(MyGUI::Bitwise::firstPO2From(mCurrentCoord.width), MyGUI::Bitwise::firstPO2From(mCurrentCoord.height));
-				mTexture = MyGUI::RenderManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
-				mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::R8G8B8A8);
+				mTextureSize.set(
+					MyGUI::Bitwise::firstPO2From(mCurrentCoord.width),
+					MyGUI::Bitwise::firstPO2From(mCurrentCoord.height));
+				mTexture =
+					MyGUI::RenderManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
+				mTexture->createManual(
+					mTextureSize.width,
+					mTextureSize.height,
+					TextureUsage::RenderTarget,
+					PixelFormat::R8G8B8A8);
 			}
 		}
 	}

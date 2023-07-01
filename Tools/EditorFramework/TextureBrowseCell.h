@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TextureBrowseCell :
-		public wraps::BaseCellView<std::string>
+	class MYGUI_EXPORT_DLL TextureBrowseCell : public wraps::BaseCellView<std::string>
 	{
 	public:
 		TextureBrowseCell(MyGUI::Widget* _parent);

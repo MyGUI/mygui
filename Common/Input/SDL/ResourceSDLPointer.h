@@ -16,10 +16,9 @@
 namespace input
 {
 
-	class ResourceSDLPointer :
-		public MyGUI::IResource
+	class ResourceSDLPointer : public MyGUI::IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourceSDLPointer )
+		MYGUI_RTTI_DERIVED(ResourceSDLPointer)
 
 	public:
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;

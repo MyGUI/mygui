@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class SettingsUpdateResourcesControl :
-		public Control,
-		public sigslot::has_slots<>
+	class SettingsUpdateResourcesControl : public Control, public sigslot::has_slots<>
 	{
 	public:
 		~SettingsUpdateResourcesControl() override;

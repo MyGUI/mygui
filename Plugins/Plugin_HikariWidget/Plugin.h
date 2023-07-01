@@ -16,8 +16,7 @@
 namespace plugin
 {
 
-	class Plugin :
-		public MyGUI::IPlugin
+	class Plugin : public MyGUI::IPlugin
 	{
 	public:
 		Plugin();
@@ -50,7 +49,6 @@ namespace plugin
 		static HMODULE msFlashLib;
 		HookListenerImpl mHookListenerImpl;
 		KeyboardHook* mKeyboardHook;
-
 	};
 
 } // namespace plugin

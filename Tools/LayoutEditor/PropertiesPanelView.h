@@ -21,8 +21,7 @@
 namespace tools
 {
 
-	class PropertiesPanelView :
-		public wraps::BaseLayout
+	class PropertiesPanelView : public wraps::BaseLayout
 	{
 	public:
 		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);

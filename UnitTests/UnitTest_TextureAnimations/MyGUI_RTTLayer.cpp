@@ -15,7 +15,7 @@ namespace MyGUI
 
 	RTTLayer::~RTTLayer()
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); )
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end();)
 		{
 			if ((*iter) != nullptr)
 			{
@@ -60,7 +60,8 @@ namespace MyGUI
 			while (controller.next())
 			{
 				IObject* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
-				if (object == nullptr) continue;
+				if (object == nullptr)
+					continue;
 
 				LayerNodeAnimation* data = object->castType<LayerNodeAnimation>(false);
 				if (data == nullptr)
@@ -102,7 +103,7 @@ namespace MyGUI
 
 	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); )
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end();)
 		{
 			if ((*iter) != nullptr)
 			{
@@ -147,7 +148,8 @@ namespace MyGUI
 			if ((*iter) != nullptr)
 			{
 				ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
-				if (item != nullptr) return item;
+				if (item != nullptr)
+					return item;
 			}
 			++iter;
 		}

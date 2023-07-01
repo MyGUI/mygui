@@ -14,8 +14,7 @@
 namespace wraps
 {
 	template<typename DataType>
-	class BaseCellView :
-		public BaseLayout
+	class BaseCellView : public BaseLayout
 	{
 	public:
 		using Type = DataType;

@@ -46,16 +46,21 @@ namespace MyGUI
 			mStream.flush();
 	}
 
-	void FileLogListener::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
+	void FileLogListener::log(
+		std::string_view _section,
+		LogLevel _level,
+		const struct tm* _time,
+		std::string_view _message,
+		std::string_view _file,
+		int _line)
 	{
 		if (mStream.is_open())
 		{
 			std::string_view separator = "  |  ";
-			mStream << std::setw(2) << std::setfill('0') << _time->tm_hour << ":"
-				<< std::setw(2) << std::setfill('0') << _time->tm_min << ":"
-				<< std::setw(2) << std::setfill('0') << _time->tm_sec << separator
-				<< _section << separator << _level.print() << separator
-				<< _message << separator << _file << separator << _line << std::endl;
+			mStream << std::setw(2) << std::setfill('0') << _time->tm_hour << ":" << std::setw(2) << std::setfill('0')
+					<< _time->tm_min << ":" << std::setw(2) << std::setfill('0') << _time->tm_sec << separator
+					<< _section << separator << _level.print() << separator << _message << separator << _file
+					<< separator << _line << std::endl;
 		}
 	}
 

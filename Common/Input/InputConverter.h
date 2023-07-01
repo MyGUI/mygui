@@ -10,20 +10,20 @@
 #include <MyGUI.h>
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <windows.h>
-#ifdef max
-#undef max
-#endif
-#ifdef min
-#undef min
-#endif
+	#include <windows.h>
+	#ifdef max
+		#undef max
+	#endif
+	#ifdef min
+		#undef min
+	#endif
 #endif
 
 //#define INPUT_KEY_NAME
 
 #ifdef INPUT_KEY_NAME
-#include <vector>
-#include <string>
+	#include <vector>
+	#include <string>
 #endif
 
 namespace input
@@ -335,9 +335,9 @@ namespace input
 		SC_8 = 0x09,
 		SC_9 = 0x0A,
 		SC_0 = 0x0B,
-		SC_MINUS = 0x0C,    // - on main keyboard
+		SC_MINUS = 0x0C, // - on main keyboard
 		SC_EQUALS = 0x0D,
-		SC_BACK = 0x0E,    // backspace
+		SC_BACK = 0x0E, // backspace
 		SC_TAB = 0x0F,
 		SC_Q = 0x10,
 		SC_W = 0x11,
@@ -351,7 +351,7 @@ namespace input
 		SC_P = 0x19,
 		SC_LBRACKET = 0x1A,
 		SC_RBRACKET = 0x1B,
-		SC_RETURN = 0x1C,    // Enter on main keyboard
+		SC_RETURN = 0x1C, // Enter on main keyboard
 		SC_LCONTROL = 0x1D,
 		SC_A = 0x1E,
 		SC_S = 0x1F,
@@ -364,7 +364,7 @@ namespace input
 		SC_L = 0x26,
 		SC_SEMICOLON = 0x27,
 		SC_APOSTROPHE = 0x28,
-		SC_GRAVE = 0x29,    // accent
+		SC_GRAVE = 0x29, // accent
 		SC_LSHIFT = 0x2A,
 		SC_BACKSLASH = 0x2B,
 		SC_Z = 0x2C,
@@ -375,11 +375,11 @@ namespace input
 		SC_N = 0x31,
 		SC_M = 0x32,
 		SC_COMMA = 0x33,
-		SC_PERIOD = 0x34,    // . on main keyboard
-		SC_SLASH = 0x35,    // / on main keyboard
+		SC_PERIOD = 0x34, // . on main keyboard
+		SC_SLASH = 0x35, // / on main keyboard
 		SC_RSHIFT = 0x36,
-		SC_MULTIPLY = 0x37,    // * on numeric keypad
-		SC_LMENU = 0x38,    // left Alt
+		SC_MULTIPLY = 0x37, // * on numeric keypad
+		SC_LMENU = 0x38, // left Alt
 		SC_SPACE = 0x39,
 		SC_CAPITAL = 0x3A,
 		SC_F1 = 0x3B,
@@ -393,81 +393,81 @@ namespace input
 		SC_F9 = 0x43,
 		SC_F10 = 0x44,
 		SC_NUMLOCK = 0x45,
-		SC_SCROLL = 0x46,    // Scroll Lock
+		SC_SCROLL = 0x46, // Scroll Lock
 		SC_NUMPAD7 = 0x47,
 		SC_NUMPAD8 = 0x48,
 		SC_NUMPAD9 = 0x49,
-		SC_SUBTRACT = 0x4A,    // - on numeric keypad
+		SC_SUBTRACT = 0x4A, // - on numeric keypad
 		SC_NUMPAD4 = 0x4B,
 		SC_NUMPAD5 = 0x4C,
 		SC_NUMPAD6 = 0x4D,
-		SC_ADD = 0x4E,    // + on numeric keypad
+		SC_ADD = 0x4E, // + on numeric keypad
 		SC_NUMPAD1 = 0x4F,
 		SC_NUMPAD2 = 0x50,
 		SC_NUMPAD3 = 0x51,
 		SC_NUMPAD0 = 0x52,
-		SC_DECIMAL = 0x53,    // . on numeric keypad
-		SC_OEM_102 = 0x56,    // < > | on UK/Germany keyboards
+		SC_DECIMAL = 0x53, // . on numeric keypad
+		SC_OEM_102 = 0x56, // < > | on UK/Germany keyboards
 		SC_F11 = 0x57,
 		SC_F12 = 0x58,
-		SC_F13 = 0x64,    //                     (NEC PC98)
-		SC_F14 = 0x65,    //                     (NEC PC98)
-		SC_F15 = 0x66,    //                     (NEC PC98)
-		SC_KANA = 0x70,    // (Japanese keyboard)
-		SC_ABNT_C1 = 0x73,    // / ? on Portugese (Brazilian) keyboards
-		SC_CONVERT = 0x79,    // (Japanese keyboard)
-		SC_NOCONVERT = 0x7B,    // (Japanese keyboard)
-		SC_YEN = 0x7D,    // (Japanese keyboard)
-		SC_ABNT_C2 = 0x7E,    // Numpad . on Portugese (Brazilian) keyboards
-		SC_NUMPADEQUALS = 0x8D,    // = on numeric keypad (NEC PC98)
-		SC_PREVTRACK = 0x90,    // Previous Track (SC_CIRCUMFLEX on Japanese keyboard)
-		SC_AT = 0x91,    //                     (NEC PC98)
-		SC_COLON = 0x92,    //                     (NEC PC98)
-		SC_UNDERLINE = 0x93,    //                     (NEC PC98)
-		SC_KANJI = 0x94,    // (Japanese keyboard)
-		SC_STOP = 0x95,    //                     (NEC PC98)
-		SC_AX = 0x96,    //                     (Japan AX)
-		SC_UNLABELED = 0x97,    //                        (J3100)
-		SC_NEXTTRACK = 0x99,    // Next Track
-		SC_NUMPADENTER = 0x9C,    // Enter on numeric keypad
+		SC_F13 = 0x64, //                     (NEC PC98)
+		SC_F14 = 0x65, //                     (NEC PC98)
+		SC_F15 = 0x66, //                     (NEC PC98)
+		SC_KANA = 0x70, // (Japanese keyboard)
+		SC_ABNT_C1 = 0x73, // / ? on Portugese (Brazilian) keyboards
+		SC_CONVERT = 0x79, // (Japanese keyboard)
+		SC_NOCONVERT = 0x7B, // (Japanese keyboard)
+		SC_YEN = 0x7D, // (Japanese keyboard)
+		SC_ABNT_C2 = 0x7E, // Numpad . on Portugese (Brazilian) keyboards
+		SC_NUMPADEQUALS = 0x8D, // = on numeric keypad (NEC PC98)
+		SC_PREVTRACK = 0x90, // Previous Track (SC_CIRCUMFLEX on Japanese keyboard)
+		SC_AT = 0x91, //                     (NEC PC98)
+		SC_COLON = 0x92, //                     (NEC PC98)
+		SC_UNDERLINE = 0x93, //                     (NEC PC98)
+		SC_KANJI = 0x94, // (Japanese keyboard)
+		SC_STOP = 0x95, //                     (NEC PC98)
+		SC_AX = 0x96, //                     (Japan AX)
+		SC_UNLABELED = 0x97, //                        (J3100)
+		SC_NEXTTRACK = 0x99, // Next Track
+		SC_NUMPADENTER = 0x9C, // Enter on numeric keypad
 		SC_RCONTROL = 0x9D,
-		SC_MUTE = 0xA0,    // Mute
-		SC_CALCULATOR = 0xA1,    // Calculator
-		SC_PLAYPAUSE = 0xA2,    // Play / Pause
-		SC_MEDIASTOP = 0xA4,    // Media Stop
-		SC_VOLUMEDOWN = 0xAE,    // Volume -
-		SC_VOLUMEUP = 0xB0,    // Volume +
-		SC_WEBHOME = 0xB2,    // Web home
-		SC_NUMPADCOMMA = 0xB3,    // , on numeric keypad (NEC PC98)
-		SC_DIVIDE = 0xB5,    // / on numeric keypad
+		SC_MUTE = 0xA0, // Mute
+		SC_CALCULATOR = 0xA1, // Calculator
+		SC_PLAYPAUSE = 0xA2, // Play / Pause
+		SC_MEDIASTOP = 0xA4, // Media Stop
+		SC_VOLUMEDOWN = 0xAE, // Volume -
+		SC_VOLUMEUP = 0xB0, // Volume +
+		SC_WEBHOME = 0xB2, // Web home
+		SC_NUMPADCOMMA = 0xB3, // , on numeric keypad (NEC PC98)
+		SC_DIVIDE = 0xB5, // / on numeric keypad
 		SC_SYSRQ = 0xB7,
-		SC_RMENU = 0xB8,    // right Alt
-		SC_PAUSE = 0xC5,    // Pause
-		SC_HOME = 0xC7,    // Home on arrow keypad
-		SC_UP = 0xC8,    // UpArrow on arrow keypad
-		SC_PGUP = 0xC9,    // PgUp on arrow keypad
-		SC_LEFT = 0xCB,    // LeftArrow on arrow keypad
-		SC_RIGHT = 0xCD,    // RightArrow on arrow keypad
-		SC_END = 0xCF,    // End on arrow keypad
-		SC_DOWN = 0xD0,    // DownArrow on arrow keypad
-		SC_PGDOWN = 0xD1,    // PgDn on arrow keypad
-		SC_INSERT = 0xD2,    // Insert on arrow keypad
-		SC_DELETE = 0xD3,    // Delete on arrow keypad
-		SC_LWIN = 0xDB,    // Left Windows key
-		SC_RWIN = 0xDC,    // Right Windows key
-		SC_APPS = 0xDD,    // AppMenu key
-		SC_POWER = 0xDE,    // System Power
-		SC_SLEEP = 0xDF,    // System Sleep
-		SC_WAKE = 0xE3,    // System Wake
-		SC_WEBSEARCH = 0xE5,    // Web Search
-		SC_WEBFAVORITES = 0xE6,    // Web Favorites
-		SC_WEBREFRESH = 0xE7,    // Web Refresh
-		SC_WEBSTOP = 0xE8,    // Web Stop
-		SC_WEBFORWARD = 0xE9,    // Web Forward
-		SC_WEBBACK = 0xEA,    // Web Back
-		SC_MYCOMPUTER = 0xEB,    // My Computer
-		SC_MAIL = 0xEC,    // Mail
-		SC_MEDIASELECT = 0xED,     // Media Select
+		SC_RMENU = 0xB8, // right Alt
+		SC_PAUSE = 0xC5, // Pause
+		SC_HOME = 0xC7, // Home on arrow keypad
+		SC_UP = 0xC8, // UpArrow on arrow keypad
+		SC_PGUP = 0xC9, // PgUp on arrow keypad
+		SC_LEFT = 0xCB, // LeftArrow on arrow keypad
+		SC_RIGHT = 0xCD, // RightArrow on arrow keypad
+		SC_END = 0xCF, // End on arrow keypad
+		SC_DOWN = 0xD0, // DownArrow on arrow keypad
+		SC_PGDOWN = 0xD1, // PgDn on arrow keypad
+		SC_INSERT = 0xD2, // Insert on arrow keypad
+		SC_DELETE = 0xD3, // Delete on arrow keypad
+		SC_LWIN = 0xDB, // Left Windows key
+		SC_RWIN = 0xDC, // Right Windows key
+		SC_APPS = 0xDD, // AppMenu key
+		SC_POWER = 0xDE, // System Power
+		SC_SLEEP = 0xDF, // System Sleep
+		SC_WAKE = 0xE3, // System Wake
+		SC_WEBSEARCH = 0xE5, // Web Search
+		SC_WEBFAVORITES = 0xE6, // Web Favorites
+		SC_WEBREFRESH = 0xE7, // Web Refresh
+		SC_WEBSTOP = 0xE8, // Web Stop
+		SC_WEBFORWARD = 0xE9, // Web Forward
+		SC_WEBBACK = 0xEA, // Web Back
+		SC_MYCOMPUTER = 0xEB, // My Computer
+		SC_MAIL = 0xEC, // Mail
+		SC_MEDIASELECT = 0xED, // Media Select
 		SC_MAX
 	};
 
@@ -479,7 +479,7 @@ namespace input
 #ifdef INPUT_KEY_NAME
 			mVirtualKeyToName.resize(VLK_MAX);
 
-			#define DECLARE_VIRTUAL_KEY(_key) mVirtualKeyToName[_key] = #_key;
+	#define DECLARE_VIRTUAL_KEY(_key) mVirtualKeyToName[_key] = #_key;
 
 			DECLARE_VIRTUAL_KEY(VLK_LBUTTON)
 			DECLARE_VIRTUAL_KEY(VLK_RBUTTON)
@@ -704,11 +704,11 @@ namespace input
 			DECLARE_VIRTUAL_KEY(VLK_PA1)
 			DECLARE_VIRTUAL_KEY(VLK_OEM_CLEAR)
 
-			#undef DECLARE_VIRTUAL_KEY
+	#undef DECLARE_VIRTUAL_KEY
 
 
 			mScanCodeToName.resize(SC_MAX);
-			#define DECLARE_SCAN_CODE(_code) mScanCodeToName[_code] = #_code;
+	#define DECLARE_SCAN_CODE(_code) mScanCodeToName[_code] = #_code;
 
 			DECLARE_SCAN_CODE(SC_ESCAPE)
 			DECLARE_SCAN_CODE(SC_1)
@@ -855,18 +855,18 @@ namespace input
 			DECLARE_SCAN_CODE(SC_MAIL)
 			DECLARE_SCAN_CODE(SC_MEDIASELECT)
 
-			#undef DECLARE_SCAN_CODE
+	#undef DECLARE_SCAN_CODE
 #endif
 
 			memset(mVirtualKeyToScanCode, 0, VLK_MAX);
 			memset(mScanCodeToVirtualKey, 0, SC_MAX);
 
-			#define ADD_MAP(_keyName) \
-				mVirtualKeyToScanCode[VLK_##_keyName] = SC_##_keyName; \
-				mScanCodeToVirtualKey[SC_##_keyName] = VLK_##_keyName;
-			#define ADD_MAP2(_virtualKey, _scanCode) \
-				mVirtualKeyToScanCode[VLK_##_virtualKey] = SC_##_scanCode; \
-				mScanCodeToVirtualKey[SC_##_scanCode] = VLK_##_virtualKey;
+#define ADD_MAP(_keyName) \
+	mVirtualKeyToScanCode[VLK_##_keyName] = SC_##_keyName; \
+	mScanCodeToVirtualKey[SC_##_keyName] = VLK_##_keyName;
+#define ADD_MAP2(_virtualKey, _scanCode) \
+	mVirtualKeyToScanCode[VLK_##_virtualKey] = SC_##_scanCode; \
+	mScanCodeToVirtualKey[SC_##_scanCode] = VLK_##_virtualKey;
 
 			ADD_MAP(0)
 			ADD_MAP(1)
@@ -991,8 +991,8 @@ namespace input
 			ADD_MAP(NUMPAD9)
 
 
-			#undef ADD_MAP
-			#undef ADD_MAP2
+#undef ADD_MAP
+#undef ADD_MAP2
 		}
 
 		int VirtualKeyToScanCode(WPARAM _virtualKey) const
@@ -1077,17 +1077,17 @@ namespace input
 		static WCHAR deadKey = 0;
 
 		BYTE keyState[256];
-		HKL  layout = GetKeyboardLayout(0);
+		HKL layout = GetKeyboardLayout(0);
 		if (GetKeyboardState(keyState) == 0)
 			return 0;
 
-		WCHAR buff[3] = { 0, 0, 0 };
+		WCHAR buff[3] = {0, 0, 0};
 		int ascii = ToUnicodeEx((UINT)_virtualKey, 0, keyState, buff, 3, 0, layout);
-		if (ascii == 1 && deadKey != '\0' )
+		if (ascii == 1 && deadKey != '\0')
 		{
 			// A dead key is stored and we have just converted a character key
 			// Combine the two into a single character
-			WCHAR wcBuff[3] = { buff[0], deadKey, '\0' };
+			WCHAR wcBuff[3] = {buff[0], deadKey, '\0'};
 			WCHAR out[3];
 
 			deadKey = '\0';
@@ -1122,9 +1122,7 @@ namespace input
 			case 0xB8: // Cedilla: з
 				deadKey = 0x327;
 				break;
-			default:
-				deadKey = buff[0];
-				break;
+			default: deadKey = buff[0]; break;
 			}
 		}
 		return 0;
@@ -1132,7 +1130,7 @@ namespace input
 
 	int ScanCodeToText(int _scanCode)
 	{
-		HKL  layout = GetKeyboardLayout(0);
+		HKL layout = GetKeyboardLayout(0);
 		unsigned int vk = MapVirtualKeyEx((UINT)_scanCode, 3 /*MAPVK_VSC_TO_VK_EX*/, layout);
 		if (vk == 0)
 			return 0;

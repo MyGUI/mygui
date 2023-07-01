@@ -18,12 +18,9 @@ namespace MyGUI
 	/** \brief @wpage{MenuItem}
 		MenuItem widget description should be here.
 	*/
-	class MYGUI_EXPORT MenuItem :
-		public Button,
-		public IItem,
-		public MemberObsolete<MenuItem>
+	class MYGUI_EXPORT MenuItem : public Button, public IItem, public MemberObsolete<MenuItem>
 	{
-		MYGUI_RTTI_DERIVED( MenuItem )
+		MYGUI_RTTI_DERIVED(MenuItem)
 
 	public:
 		/** @copydoc TextBox::setCaption(const UString& _value) */
@@ -44,7 +41,7 @@ namespace MyGUI
 		void setItemData(Any _data);
 
 		//! Get item data
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemData(bool _throw = true)
 		{
 			return mOwner->getItemData<ValueType>(this, _throw);
@@ -65,7 +62,7 @@ namespace MyGUI
 		MenuControl* createItemChild();
 
 		/** Create specific type child item (submenu), MenuItem can have only one child */
-		template <typename Type>
+		template<typename Type>
 		Type* createItemChildT()
 		{
 			return mOwner->createItemChildT<Type>(this);

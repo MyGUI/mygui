@@ -15,7 +15,7 @@ namespace tools
 	HotKeyManager::HotKeyManager() :
 		mSingletonHolder(this)
 	{
-		#define BIND_KEY(name) mKeyNames[#name] = MyGUI::KeyCode::name
+#define BIND_KEY(name) mKeyNames[#name] = MyGUI::KeyCode::name
 
 		BIND_KEY(None);
 		BIND_KEY(Escape);
@@ -164,12 +164,13 @@ namespace tools
 		BIND_KEY(Mail);
 		BIND_KEY(MediaSelect);
 
-		#undef BIND_KEY
+#undef BIND_KEY
 	}
 
 	void HotKeyManager::initialise()
 	{
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("HotKeys") = MyGUI::newDelegate(this, &HotKeyManager::loadXml);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("HotKeys") =
+			MyGUI::newDelegate(this, &HotKeyManager::loadXml);
 	}
 
 	void HotKeyManager::shutdown()
@@ -238,9 +239,7 @@ namespace tools
 		const VectorCommand& commands = (*section).second;
 		for (const auto& command : commands)
 		{
-			if (command.getPressed() == _pressed
-				&& command.getShift() == _shift
-				&& command.getControl() == _control)
+			if (command.getPressed() == _pressed && command.getShift() == _shift && command.getControl() == _control)
 			{
 				if (CommandManager::getInstance().executeCommand(command.getCommand()))
 					result = true;

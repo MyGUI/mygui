@@ -20,9 +20,7 @@ namespace MyGUI
 
 	using EventHandle_FrameEventDelegate = delegates::MultiDelegate<float>;
 
-	class MYGUI_EXPORT Gui :
-		public IUnlinkWidget,
-		public MemberObsolete<Gui>
+	class MYGUI_EXPORT Gui : public IUnlinkWidget, public MemberObsolete<Gui>
 	{
 		MYGUI_SINGLETON_DECLARATION(Gui);
 		friend class WidgetManager;
@@ -39,7 +37,8 @@ namespace MyGUI
 		void initialise(const std::string& _core = "MyGUI_Core.xml");
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		MYGUI_OBSOLETE(" is deprecated, use : void Gui::initialise(const std::string& _core) and set log filename in Platform")
+		MYGUI_OBSOLETE(
+			" is deprecated, use : void Gui::initialise(const std::string& _core) and set log filename in Platform")
 		void initialise(const std::string& _core, std::string_view _logFileName);
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -55,38 +54,101 @@ namespace MyGUI
 			@param _layer layer where widget will be created (all layers usually defined in core_layer.xml file).
 			@param _name optional widget name (you can use it for finding widget by name later)
 		*/
-		Widget* createWidgetT(std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name = {});
+		Widget* createWidgetT(
+			std::string_view _type,
+			std::string_view _skin,
+			const IntCoord& _coord,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {});
 		/** See Gui::createWidgetT */
-		Widget* createWidgetT(std::string_view _type, std::string_view _skin, int _left, int _top, int _width, int _height, Align _align, std::string_view _layer, std::string_view _name = {});
+		Widget* createWidgetT(
+			std::string_view _type,
+			std::string_view _skin,
+			int _left,
+			int _top,
+			int _width,
+			int _height,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {});
 		/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
-		Widget* createWidgetRealT(std::string_view _type, std::string_view _skin, const FloatCoord& _coord, Align _align, std::string_view _layer, std::string_view _name = {});
+		Widget* createWidgetRealT(
+			std::string_view _type,
+			std::string_view _skin,
+			const FloatCoord& _coord,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {});
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		Widget* createWidgetRealT(std::string_view _type, std::string_view _skin, float _left, float _top, float _width, float _height, Align _align, std::string_view _layer, std::string_view _name = {});
+		Widget* createWidgetRealT(
+			std::string_view _type,
+			std::string_view _skin,
+			float _left,
+			float _top,
+			float _width,
+			float _height,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {});
 
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of Widget* */
-		template <typename T>
-		T* createWidget(std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name = {})
+		template<typename T>
+		T* createWidget(
+			std::string_view _skin,
+			const IntCoord& _coord,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {})
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetT but return T* instead of Widget* */
-		template <typename T>
-		T* createWidget(std::string_view _skin, int _left, int _top, int _width, int _height, Align _align, std::string_view _layer, std::string_view _name = {})
+		template<typename T>
+		T* createWidget(
+			std::string_view _skin,
+			int _left,
+			int _top,
+			int _width,
+			int _height,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {})
 		{
-			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
+			return static_cast<T*>(createWidgetT(
+				T::getClassTypeName(),
+				_skin,
+				IntCoord(_left, _top, _width, _height),
+				_align,
+				_layer,
+				_name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of Widget* */
-		template <typename T>
-		T* createWidgetReal(std::string_view _skin, const FloatCoord& _coord, Align _align, std::string_view _layer, std::string_view _name = {})
+		template<typename T>
+		T* createWidgetReal(
+			std::string_view _skin,
+			const FloatCoord& _coord,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {})
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of Widget* */
-		template <typename T>
-		T* createWidgetReal(std::string_view _skin, float _left, float _top, float _width, float _height, Align _align, std::string_view _layer, std::string_view _name = {})
+		template<typename T>
+		T* createWidgetReal(
+			std::string_view _skin,
+			float _left,
+			float _top,
+			float _width,
+			float _height,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name = {})
 		{
-			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
+			return static_cast<T*>(
+				createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
 		/** Destroy any created widget */
@@ -111,18 +173,19 @@ namespace MyGUI
 		/** Find widget by name and cast it to T type.
 			If widget not found or T and found widget have different types exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		template <typename T>
+		template<typename T>
 		T* findWidget(std::string_view _name, bool _throw = true) const
 		{
 			Widget* widget = findWidgetT(_name, _throw);
-			if (nullptr == widget) return nullptr;
+			if (nullptr == widget)
+				return nullptr;
 			return widget->castType<T>(_throw);
 		}
 
 		/** Find widget by name and prefix and cast it to T type
 			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		template <typename T>
+		template<typename T>
 		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true) const
 		{
 			std::string name{_prefix};
@@ -157,7 +220,14 @@ namespace MyGUI
 
 	private:
 		// создает виджет
-		Widget* baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name);
+		Widget* baseCreateWidget(
+			WidgetStyle _style,
+			std::string_view _type,
+			std::string_view _skin,
+			const IntCoord& _coord,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name);
 
 		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);

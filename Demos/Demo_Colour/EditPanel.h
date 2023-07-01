@@ -13,8 +13,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(EditPanel, "EditPanel.layout");
-	class EditPanel :
-		public wraps::BaseLayout
+	class EditPanel : public wraps::BaseLayout
 	{
 	public:
 		EditPanel();

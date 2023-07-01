@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TextureControl :
-		public Control
+	class MYGUI_EXPORT_DLL TextureControl : public Control
 	{
 	public:
 		~TextureControl() override;
@@ -32,7 +31,7 @@ namespace tools
 		const MyGUI::IntSize& getTextureSize() const;
 
 		template<typename T>
-		void addSelectorControl(T * & _control)
+		void addSelectorControl(T*& _control)
 		{
 			_control = new T();
 			_control->Initialise(this, mTexture, std::string_view{});

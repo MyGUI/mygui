@@ -152,7 +152,8 @@ namespace MyGUI
 
 	void* DirectX11Texture::lock(TextureUsage _access)
 	{
-		if (mLock) return nullptr;
+		if (mLock)
+			return nullptr;
 		mLock = true;
 
 		if (_access == TextureUsage::Write)
@@ -165,18 +166,14 @@ namespace MyGUI
 
 	void DirectX11Texture::unlock()
 	{
-		if (!mLock) return;
+		if (!mLock)
+			return;
 		mLock = false;
 
 		if (mWriteData)
 		{
-			mManager->mpD3DContext->UpdateSubresource(
-				mTexture,
-				D3D11CalcSubresource(0, 0, 0),
-				nullptr,
-				mWriteData,
-				mWidth * 4,
-				0);
+			mManager->mpD3DContext
+				->UpdateSubresource(mTexture, D3D11CalcSubresource(0, 0, 0), nullptr, mWriteData, mWidth * 4, 0);
 			free(mWriteData);
 			mWriteData = nullptr;
 		}
@@ -204,7 +201,8 @@ namespace MyGUI
 
 	IRenderTarget* DirectX11Texture::getRenderTarget()
 	{
-		if (mRenderTarget == nullptr) mRenderTarget = new DirectX11RTTexture(this, mManager);
+		if (mRenderTarget == nullptr)
+			mRenderTarget = new DirectX11RTTexture(this, mManager);
 		return mRenderTarget;
 	}
 

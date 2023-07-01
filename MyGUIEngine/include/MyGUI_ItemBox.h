@@ -27,12 +27,9 @@ namespace MyGUI
 	/** \brief @wpage{ItemBox}
 		ItemBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ItemBox :
-		public DDContainer,
-		protected ScrollViewBase,
-		public MemberObsolete<ItemBox>
+	class MYGUI_EXPORT ItemBox : public DDContainer, protected ScrollViewBase, public MemberObsolete<ItemBox>
 	{
-		MYGUI_RTTI_DERIVED( ItemBox )
+		MYGUI_RTTI_DERIVED(ItemBox)
 
 	public:
 		ItemBox();
@@ -85,7 +82,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::getItemDataAt");
@@ -204,7 +201,9 @@ namespace MyGUI
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
-				data(_data) { }
+				data(_data)
+			{
+			}
 			Any data;
 		};
 		using VectorItemInfo = std::vector<ItemDataInfo>;

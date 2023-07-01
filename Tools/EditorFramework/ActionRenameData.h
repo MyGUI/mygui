@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionRenameData :
-		public ActionChangeDataProperty
+	class MYGUI_EXPORT_DLL ActionRenameData : public ActionChangeDataProperty
 	{
 	public:
 		void doAction() override;

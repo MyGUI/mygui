@@ -13,10 +13,9 @@
 namespace MyGUI
 {
 
-	class ScrollViewPanel :
-		public ScrollView
+	class ScrollViewPanel : public ScrollView
 	{
-		MYGUI_RTTI_DERIVED( ScrollViewPanel )
+		MYGUI_RTTI_DERIVED(ScrollViewPanel)
 
 	public:
 		//! @copydoc Widget::setPosition(const IntPoint& _point)

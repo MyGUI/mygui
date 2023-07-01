@@ -8,7 +8,7 @@
 #include "Base/Main.h"
 #include "ResourcePointerContext.h"
 #ifdef MYGUI_OGRE_PLATFORM
-#include <Ogre.h>
+	#include <Ogre.h>
 #endif
 
 namespace demo
@@ -35,7 +35,8 @@ namespace demo
 
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
 
 		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>(resourceCategory);
@@ -195,8 +196,18 @@ namespace demo
 		//node->showBoundingBox(true);
 
 		Ogre::MeshManager::getSingleton().createPlane(
-			"FloorPlane", MyGuiResourceGroup,
-			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 2000, 2000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+			"FloorPlane",
+			MyGuiResourceGroup,
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0),
+			2000,
+			2000,
+			1,
+			1,
+			true,
+			1,
+			1,
+			1,
+			Ogre::Vector3::UNIT_Z);
 
 		entity = getSceneManager()->createEntity("floor", "FloorPlane", MyGuiResourceGroup);
 		entity->setMaterialName("Ground", MyGuiResourceGroup);
@@ -220,9 +231,7 @@ namespace demo
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		MyGUI::IntSize size = MyGUI::RenderManager::getInstance().getViewSize();
-		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
-			_x / float(size.width),
-			_y / float(size.height));
+		Ogre::Ray ray = getCamera()->getCameraToViewportRay(_x / float(size.width), _y / float(size.height));
 		gRaySceneQuery->setRay(ray);
 		gRaySceneQuery->setSortByDistance(true);
 		Ogre::RaySceneQueryResult& result = gRaySceneQuery->execute();

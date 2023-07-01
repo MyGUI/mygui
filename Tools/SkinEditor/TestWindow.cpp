@@ -73,7 +73,10 @@ namespace tools
 
 		generateSkin();
 
-		mSkinButton = mBackgroundControl->getCanvas()->createWidget<MyGUI::Button>(mSkinName, MyGUI::IntCoord(0, 0, canvasSize.width, canvasSize.height), MyGUI::Align::Stretch);
+		mSkinButton = mBackgroundControl->getCanvas()->createWidget<MyGUI::Button>(
+			mSkinName,
+			MyGUI::IntCoord(0, 0, canvasSize.width, canvasSize.height),
+			MyGUI::Align::Stretch);
 		mSkinButton->setFontName(mDefaultFontName);
 		mSkinButton->setTextAlign(MyGUI::Align::Center);
 		mSkinButton->setCaption("Caption");
@@ -83,7 +86,11 @@ namespace tools
 		MyGUI::IntSize windowSize = coord.size() + mMainWidget->getSize() - canvasSize;
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-		mMainWidget->setCoord((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2, windowSize.width, windowSize.height);
+		mMainWidget->setCoord(
+			(parentSize.width - windowSize.width) / 2,
+			(parentSize.height - windowSize.height) / 2,
+			windowSize.width,
+			windowSize.height);
 	}
 
 	void TestWindow::deleteSkin()
@@ -124,13 +131,20 @@ namespace tools
 
 		root.select_single_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
-		/*bool result = */doc.save_file(mTestSkinFileName.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
+		/*bool result = */ doc.save_file(
+			mTestSkinFileName.c_str(),
+			"\t",
+			(pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) &
+				(~pugi::format_space_before_slash));
 
 		MyGUI::xml::Document docLoad;
 		docLoad.open(mTestSkinFileName);
 		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
 
-		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, std::string_view{}, MyGUI::Version(1, 1, 0));
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(
+			resourceNode,
+			std::string_view{},
+			MyGUI::Version(1, 1, 0));
 	}
 
 }

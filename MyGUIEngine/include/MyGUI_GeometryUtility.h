@@ -19,13 +19,27 @@ namespace MyGUI
 	{
 		VectorFloatPoint cropPolygon(FloatPoint* _baseVerticiesPos, size_t _size, const IntCoord& _cropRectangle);
 
-		enum Side {Left, Right, Top, Bottom};
+		enum Side
+		{
+			Left,
+			Right,
+			Top,
+			Bottom
+		};
 		void cropPolygonSide(VectorFloatPoint& _verticies, int _sideCoord, Side _side);
 
 		// get point position relative to rectangle
-		FloatPoint getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2);
+		FloatPoint getPositionInsideRect(
+			const FloatPoint& _point,
+			const FloatPoint& _corner0,
+			const FloatPoint& _corner1,
+			const FloatPoint& _corner2);
 
-		FloatPoint getUVFromPositionInsideRect(const FloatPoint& _point, const FloatPoint& _v0, const FloatPoint& _v1, const FloatPoint& _baseUV);
+		FloatPoint getUVFromPositionInsideRect(
+			const FloatPoint& _point,
+			const FloatPoint& _v0,
+			const FloatPoint& _v1,
+			const FloatPoint& _baseUV);
 
 	} // namespace geometry_utility
 

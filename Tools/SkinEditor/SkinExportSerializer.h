@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class SkinExportSerializer :
-		public IExportSerializer
+	class SkinExportSerializer : public IExportSerializer
 	{
 	public:
 		SkinExportSerializer();

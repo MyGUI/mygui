@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TexturePropertyInitialisator :
-		public IPropertyInitialisator
+	class MYGUI_EXPORT_DLL TexturePropertyInitialisator : public IPropertyInitialisator
 	{
 	public:
 		void initialise(PropertyPtr _property) override;

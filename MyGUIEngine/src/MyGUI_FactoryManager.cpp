@@ -36,7 +36,10 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void FactoryManager::registerFactory(std::string_view _category, std::string_view _type, Delegate::IDelegate* _delegate)
+	void FactoryManager::registerFactory(
+		std::string_view _category,
+		std::string_view _type,
+		Delegate::IDelegate* _delegate)
 	{
 		//FIXME
 		auto category = mRegisterFactoryItems.find(_category);

@@ -12,24 +12,25 @@ namespace MyGUI
 
 	DataStream::DataStream() :
 		mStream(nullptr),
-		mSize((size_t) - 1)
+		mSize((size_t)-1)
 	{
 	}
 
 	DataStream::DataStream(std::istream* _stream) :
 		mStream(_stream),
-		mSize((size_t) - 1)
+		mSize((size_t)-1)
 	{
 	}
 
 	size_t DataStream::size()
 	{
-		if (mStream == nullptr) return 0;
-		if (mSize == (size_t) - 1)
+		if (mStream == nullptr)
+			return 0;
+		if (mSize == (size_t)-1)
 		{
-			mStream->seekg (0, std::ios::end);
+			mStream->seekg(0, std::ios::end);
 			mSize = (size_t)mStream->tellg();
-			mStream->seekg (0, std::ios::beg);
+			mStream->seekg(0, std::ios::beg);
 		}
 		return mSize;
 	}
@@ -41,13 +42,15 @@ namespace MyGUI
 
 	void DataStream::readline(std::string& _source, Char _delim)
 	{
-		if (mStream == nullptr) return;
+		if (mStream == nullptr)
+			return;
 		std::getline(*mStream, _source, (char)_delim);
 	}
 
 	size_t DataStream::read(void* _buf, size_t _count)
 	{
-		if (mStream == nullptr) return 0;
+		if (mStream == nullptr)
+			return 0;
 		size_t count = std::min(size(), _count);
 		mStream->read((char*)_buf, count);
 		return count;

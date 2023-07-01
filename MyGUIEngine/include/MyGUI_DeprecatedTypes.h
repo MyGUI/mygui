@@ -9,7 +9,7 @@
 
 namespace MyGUI
 {
-	template <typename Type>
+	template<typename Type>
 	class MemberObsolete
 	{
 	public:

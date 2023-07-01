@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyInt2Control :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyInt2Control : public PropertyControl
 	{
 	public:
 		~PropertyInt2Control() override;

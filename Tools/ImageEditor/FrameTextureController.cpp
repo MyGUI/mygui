@@ -65,7 +65,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
@@ -122,7 +124,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &FrameTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FrameTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &FrameTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -173,7 +177,9 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			DataPtr selected = mParentData->getChildSelected();
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if (selected == *child)
 				{

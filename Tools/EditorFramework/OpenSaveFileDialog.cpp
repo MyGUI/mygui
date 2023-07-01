@@ -25,21 +25,32 @@ namespace tools
 
 		mListFiles->eventListChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
 		mListFiles->eventListSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
-		mCurrentFolderField->eventComboAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboAccept);
-		mCurrentFolderField->eventComboChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
+		mCurrentFolderField->eventComboAccept +=
+			MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboAccept);
+		mCurrentFolderField->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
 
 		mCurrentFolder = common::getSystemCurrentFolder();
 
-		CommandManager::getInstance().getEvent("Command_OpenSaveAccept")->connect(this, &OpenSaveFileDialog::commandOpenSaveAccept);
-		CommandManager::getInstance().getEvent("Command_OpenSaveCancel")->connect(this, &OpenSaveFileDialog::commandOpenSaveCancel);
-		CommandManager::getInstance().getEvent("Command_OpenSaveFolderUp")->connect(this, &OpenSaveFileDialog::commandOpenSaveFolderUp);
+		CommandManager::getInstance()
+			.getEvent("Command_OpenSaveAccept")
+			->connect(this, &OpenSaveFileDialog::commandOpenSaveAccept);
+		CommandManager::getInstance()
+			.getEvent("Command_OpenSaveCancel")
+			->connect(this, &OpenSaveFileDialog::commandOpenSaveCancel);
+		CommandManager::getInstance()
+			.getEvent("Command_OpenSaveFolderUp")
+			->connect(this, &OpenSaveFileDialog::commandOpenSaveFolderUp);
 
 		mMainWidget->setVisible(false);
 
 		update();
 	}
 
-	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode)
+	void OpenSaveFileDialog::setDialogInfo(
+		const MyGUI::UString& _caption,
+		const MyGUI::UString& _button,
+		bool _folderMode)
 	{
 		mFolderMode = _folderMode;
 
@@ -67,7 +78,8 @@ namespace tools
 
 	void OpenSaveFileDialog::notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index)
 	{
-		if (_index == MyGUI::ITEM_NONE) return;
+		if (_index == MyGUI::ITEM_NONE)
+			return;
 
 		common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 		if (info.folder)
@@ -78,7 +90,7 @@ namespace tools
 			}
 			else
 			{
-				mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
+				mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
 				update();
 			}
 		}
@@ -102,7 +114,7 @@ namespace tools
 			{
 				common::FileInfo info = *mListFiles->getItemDataAt<common::FileInfo>(mListFiles->getIndexSelected());
 				if (!common::isParentDir(info.name.c_str()))
-					mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
+					mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
 			}
 			eventEndDialog(this, true);
 		}

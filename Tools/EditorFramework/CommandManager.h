@@ -16,8 +16,12 @@ namespace tools
 	class MYGUI_EXPORT_DLL CommandManager
 	{
 		MYGUI_SINGLETON_DECLARATION(CommandManager);
+
 	public:
-		CommandManager() : mSingletonHolder(this) { }
+		CommandManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 

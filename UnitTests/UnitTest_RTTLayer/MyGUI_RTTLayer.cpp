@@ -74,10 +74,17 @@ namespace MyGUI
 			mTexture = nullptr;
 		}
 
-		MYGUI_ASSERT(mTextureSize.width && mTextureSize.height, "RTTLayer texture size must have non-zero width and height");
-		std::string name = mTextureName.empty() ? MyGUI::utility::toString((size_t)this, getClassTypeName()) : mTextureName;
+		MYGUI_ASSERT(
+			mTextureSize.width && mTextureSize.height,
+			"RTTLayer texture size must have non-zero width and height");
+		std::string name =
+			mTextureName.empty() ? MyGUI::utility::toString((size_t)this, getClassTypeName()) : mTextureName;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
-		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+		mTexture->createManual(
+			mTextureSize.width,
+			mTextureSize.height,
+			MyGUI::TextureUsage::RenderTarget,
+			MyGUI::PixelFormat::R8G8B8A8);
 
 		mOutOfDateRtt = true;
 	}

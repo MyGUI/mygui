@@ -16,8 +16,7 @@
 namespace MyGUI
 {
 
-	class OgreRTTexture :
-		public IRenderTarget
+	class OgreRTTexture : public IRenderTarget
 	{
 	public:
 		OgreRTTexture(Ogre::TexturePtr _texture);

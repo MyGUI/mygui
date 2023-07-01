@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PanelItems :
-		public wraps::BasePanelViewItem
+	class PanelItems : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelItems();
@@ -40,7 +39,11 @@ namespace tools
 
 		void setContainerProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value);
 
-		void setPropertyValue(MyGUI::Widget* _widget, size_t _index, std::string_view _propertyName, std::string_view _propertyValue);
+		void setPropertyValue(
+			MyGUI::Widget* _widget,
+			size_t _index,
+			std::string_view _propertyName,
+			std::string_view _propertyValue);
 		void erasePropertyValue(MyGUI::Widget* _widget, size_t _index, std::string_view _propertyName);
 		void addPropertyValue(MyGUI::Widget* _widget, std::string_view _propertyName, std::string_view _propertyValue);
 

@@ -16,10 +16,7 @@
 namespace tools
 {
 
-	class PropertyFieldColour :
-		public wraps::BaseLayout,
-		public IPropertyField,
-		public sigslot::has_slots<>
+	class PropertyFieldColour : public wraps::BaseLayout, public IPropertyField, public sigslot::has_slots<>
 	{
 	public:
 		PropertyFieldColour(MyGUI::Widget* _parent);

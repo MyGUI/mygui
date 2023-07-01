@@ -21,8 +21,7 @@ namespace demo
 
 	using EventHandle_EventDirector = MyGUI::delegates::Delegate<int, size_t>;
 
-	class PanelDirector :
-		public wraps::BasePanelViewItem
+	class PanelDirector : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelDirector();

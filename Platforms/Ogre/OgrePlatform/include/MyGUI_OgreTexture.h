@@ -19,9 +19,7 @@ namespace MyGUI
 
 	struct OgreShaderInfo;
 
-	class OgreTexture :
-		public ITexture,
-		public Ogre::ManualResourceLoader
+	class OgreTexture : public ITexture, public Ogre::ManualResourceLoader
 	{
 	public:
 		OgreTexture(const std::string& _name, const std::string& _group);
@@ -62,7 +60,7 @@ namespace MyGUI
 
 		static Ogre::TextureUsage convertUsage(TextureUsage _usage);
 		static Ogre::PixelFormat convertFormat(PixelFormat _format);
-	/*internal:*/
+		/*internal:*/
 		Ogre::TexturePtr getOgreTexture()
 		{
 			return mTexture;

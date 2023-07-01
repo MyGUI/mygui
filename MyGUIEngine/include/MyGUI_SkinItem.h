@@ -16,8 +16,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SkinItem :
-		public LayerItem
+	class MYGUI_EXPORT SkinItem : public LayerItem
 	{
 	public:
 		/** Get text sub widget or nullptr if no text sub widget */

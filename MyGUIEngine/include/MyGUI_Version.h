@@ -17,7 +17,6 @@ namespace MyGUI
 	class MYGUI_EXPORT Version
 	{
 	public:
-
 		Version(uint8_t _major = 0, uint8_t _minor = 0, uint16_t _patch = 0) :
 			mMajor(_major),
 			mMinor(_minor),
@@ -25,43 +24,43 @@ namespace MyGUI
 		{
 		}
 
-		friend bool operator < (Version const& a, Version const& b)
+		friend bool operator<(Version const& a, Version const& b)
 		{
 			return (a.mMajor < b.mMajor) ? true : (a.mMinor < b.mMinor);
 		}
 
-		friend bool operator >= (Version const& a, Version const& b)
+		friend bool operator>=(Version const& a, Version const& b)
 		{
 			return !(a < b);
 		}
 
-		friend bool operator > (Version const& a, Version const& b)
+		friend bool operator>(Version const& a, Version const& b)
 		{
 			return (b < a);
 		}
 
-		friend bool operator <= (Version const& a, Version const& b)
+		friend bool operator<=(Version const& a, Version const& b)
 		{
 			return !(a > b);
 		}
 
-		friend bool operator == (Version const& a, Version const& b)
+		friend bool operator==(Version const& a, Version const& b)
 		{
 			return !(a < b) && !(a > b);
 		}
 
-		friend bool operator != (Version const& a, Version const& b)
+		friend bool operator!=(Version const& a, Version const& b)
 		{
 			return !(a == b);
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const Version&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const Version& _value)
 		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, Version&  _value)
+		friend std::istream& operator>>(std::istream& _stream, Version& _value)
 		{
 			std::string value;
 			_stream >> value;

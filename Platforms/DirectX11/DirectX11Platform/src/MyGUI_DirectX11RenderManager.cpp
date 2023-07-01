@@ -18,11 +18,10 @@
 namespace MyGUI
 {
 
-	static const D3D11_INPUT_ELEMENT_DESC vertexLayout[] =
-	{
-		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"COLOR",    0, DXGI_FORMAT_R8G8B8A8_UNORM,  0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0},
+	static const D3D11_INPUT_ELEMENT_DESC vertexLayout[] = {
+		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"COLOR", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 
 	DirectX11RenderManager::DirectX11RenderManager() :
@@ -111,7 +110,8 @@ namespace MyGUI
 		depthDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 		depthDesc.StencilEnable = false;
 		depthDesc.StencilReadMask = depthDesc.StencilWriteMask = 0;
-		depthDesc.BackFace.StencilDepthFailOp = depthDesc.BackFace.StencilFailOp = depthDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+		depthDesc.BackFace.StencilDepthFailOp = depthDesc.BackFace.StencilFailOp = depthDesc.BackFace.StencilPassOp =
+			D3D11_STENCIL_OP_KEEP;
 		depthDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 		depthDesc.FrontFace = depthDesc.BackFace;
 		hr = mpD3DDevice->CreateDepthStencilState(&depthDesc, &mDepthStencilState);
@@ -146,11 +146,16 @@ namespace MyGUI
 
 		destroyAllResources();
 
-		if (mSamplerState) mSamplerState->Release();
-		if (mBlendState) mBlendState->Release();
-		if (mDepthStencilState) mDepthStencilState->Release();
-		if (mRasterizerState) mRasterizerState->Release();
-		if (mpD3DContext) mpD3DContext->Release();
+		if (mSamplerState)
+			mSamplerState->Release();
+		if (mBlendState)
+			mBlendState->Release();
+		if (mDepthStencilState)
+			mDepthStencilState->Release();
+		if (mRasterizerState)
+			mRasterizerState->Release();
+		if (mpD3DContext)
+			mpD3DContext->Release();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -169,7 +174,9 @@ namespace MyGUI
 	void DirectX11RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		DirectX11Texture* texture = static_cast<DirectX11Texture*>(_texture);
-		MYGUI_ASSERT(_texture != nullptr && texture->mResourceView != nullptr, "Rendering without texture is not supported");
+		MYGUI_ASSERT(
+			_texture != nullptr && texture->mResourceView != nullptr,
+			"Rendering without texture is not supported");
 
 		DirectX11VertexBuffer* buffer = static_cast<DirectX11VertexBuffer*>(_buffer);
 
@@ -223,7 +230,9 @@ namespace MyGUI
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())
 			return iter->second;
-		MYGUI_PLATFORM_LOG(Error, "Failed to get shader info for shader '" << _shaderName << "'. Did you forgot to register shader?");
+		MYGUI_PLATFORM_LOG(
+			Error,
+			"Failed to get shader info for shader '" << _shaderName << "'. Did you forgot to register shader?");
 		return nullptr;
 	}
 
@@ -275,7 +284,8 @@ namespace MyGUI
 
 	bool DirectX11RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		if (_format != PixelFormat::R8G8B8A8) return false;
+		if (_format != PixelFormat::R8G8B8A8)
+			return false;
 		return true;
 	}
 
@@ -304,8 +314,8 @@ namespace MyGUI
 		mViewSize.set(_width, _height);
 
 		mInfo.maximumDepth = 0.0f;
-		mInfo.hOffset = 0.0f;//-0.5f / float(mViewSize.width);
-		mInfo.vOffset = 0.0f;//-0.5f / float(mViewSize.height);
+		mInfo.hOffset = 0.0f; //-0.5f / float(mViewSize.width);
+		mInfo.vOffset = 0.0f; //-0.5f / float(mViewSize.height);
 		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
 		mInfo.pixScaleX = 1.0f / float(mViewSize.width);
 		mInfo.pixScaleY = 1.0f / float(mViewSize.height);
@@ -376,7 +386,8 @@ namespace MyGUI
 		hr = D3DGetInputSignatureBlob(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), &signature);
 		MYGUI_PLATFORM_ASSERT(
 			hr == S_OK,
-			(errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Compilation failed, failed to get input signature!"));
+			(errors ? (char*)errors->GetBufferPointer()
+					: "Vertex Shader Compilation failed, failed to get input signature!"));
 
 		hr = mpD3DDevice->CreateVertexShader(
 			bytecode->GetBufferPointer(),
@@ -387,8 +398,10 @@ namespace MyGUI
 			hr == S_OK,
 			(errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
 
-		if (bytecode) bytecode->Release();
-		if (errors) errors->Release();
+		if (bytecode)
+			bytecode->Release();
+		if (errors)
+			errors->Release();
 
 
 		// Build Textured Pixel Shader
@@ -418,15 +431,18 @@ namespace MyGUI
 			&shaderInfo->pixelShader);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Create failed!"));
 
-		if (bytecode) bytecode->Release();
-		if (errors) errors->Release();
+		if (bytecode)
+			bytecode->Release();
+		if (errors)
+			errors->Release();
 
 		// Create Sampler State
 		D3D11_SAMPLER_DESC samplerDesc;
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.BorderColor[0] = samplerDesc.BorderColor[1] = samplerDesc.BorderColor[2] = samplerDesc.BorderColor[3] = 0.0f;
+		samplerDesc.BorderColor[0] = samplerDesc.BorderColor[1] = samplerDesc.BorderColor[2] =
+			samplerDesc.BorderColor[3] = 0.0f;
 		samplerDesc.ComparisonFunc = (D3D11_COMPARISON_FUNC)0;
 		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 		samplerDesc.MaxAnisotropy = 1;

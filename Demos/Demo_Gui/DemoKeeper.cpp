@@ -9,7 +9,7 @@
 
 #ifdef MYGUI_OGRE_PLATFORM
 
-#include "Ogre/RenderBox/RenderBox.h"
+	#include "Ogre/RenderBox/RenderBox.h"
 
 namespace demo
 {
@@ -35,7 +35,8 @@ namespace demo
 		createDefaultScene();
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		mMainPanel = new MainPanel();
 		mMainPanel->eventAction = MyGUI::newDelegate(this, &DemoKeeper::notifyEventAction);
@@ -118,14 +119,29 @@ namespace demo
 			if (_index == 0)
 			{
 				const MyGUI::IntSize size(80, 80);
-				MyGUI::Window* window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::Window* window = view->createWidget<MyGUI::Window>(
+					MyGUI::WidgetStyle::Overlapped,
+					"WindowCS",
+					MyGUI::IntCoord(
+						getRand(0, coord.width - size.width),
+						getRand(0, coord.height - size.height),
+						size.width,
+						size.height),
+					MyGUI::Align::Default);
 				window->setCaption("Frame");
 				window->setMinSize(size);
 			}
 			else if (_index == 1)
 			{
 				const MyGUI::IntSize size(180, 15);
-				MyGUI::ScrollBar* scroll = view->createWidget<MyGUI::ScrollBar>("ScrollBarH", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::ScrollBar* scroll = view->createWidget<MyGUI::ScrollBar>(
+					"ScrollBarH",
+					MyGUI::IntCoord(
+						getRand(0, coord.width - size.width),
+						getRand(0, coord.height - size.height),
+						size.width,
+						size.height),
+					MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -134,7 +150,14 @@ namespace demo
 			else if (_index == 2)
 			{
 				const MyGUI::IntSize size(15, 180);
-				MyGUI::ScrollBar* scroll = view->createWidget<MyGUI::ScrollBar>("ScrollBarV", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::ScrollBar* scroll = view->createWidget<MyGUI::ScrollBar>(
+					"ScrollBarV",
+					MyGUI::IntCoord(
+						getRand(0, coord.width - size.width),
+						getRand(0, coord.height - size.height),
+						size.width,
+						size.height),
+					MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -143,21 +166,46 @@ namespace demo
 			else if (_index == 3)
 			{
 				const MyGUI::IntSize size(80, 26);
-				MyGUI::TextBox* text = view->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::TextBox* text = view->createWidget<MyGUI::TextBox>(
+					"TextBox",
+					MyGUI::IntCoord(
+						getRand(0, coord.width - size.width),
+						getRand(0, coord.height - size.height),
+						size.width,
+						size.height),
+					MyGUI::Align::Default);
 				text->setCaption("TextBox");
 			}
 			else if (_index == 4)
 			{
 				const MyGUI::IntSize size(50, 50);
-				MyGUI::ImageBox* image = view->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::ImageBox* image = view->createWidget<MyGUI::ImageBox>(
+					"ImageBox",
+					MyGUI::IntCoord(
+						getRand(0, coord.width - size.width),
+						getRand(0, coord.height - size.height),
+						size.width,
+						size.height),
+					MyGUI::Align::Default);
 				image->setImageTexture("HelpIcon.png");
 			}
 			else if (_index == 5)
 			{
 				const MyGUI::IntSize size(150, 150);
-				MyGUI::Window* window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::Window* window = view->createWidget<MyGUI::Window>(
+					MyGUI::WidgetStyle::Overlapped,
+					"WindowC",
+					MyGUI::IntCoord(
+						getRand(0, coord.width - size.width),
+						getRand(0, coord.height - size.height),
+						size.width,
+						size.height),
+					MyGUI::Align::Default);
 				window->setCaption("Render");
-				MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
+				MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>(
+					"Canvas",
+					MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height),
+					MyGUI::Align::Stretch);
 
 				createRenderBox(canvas);
 			}
@@ -201,8 +249,18 @@ namespace demo
 		try
 		{
 			Ogre::MeshManager::getSingleton().createPlane(
-				"FloorPlane", MyGuiResourceGroup,
-				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 1000, 1000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+				"FloorPlane",
+				MyGuiResourceGroup,
+				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0),
+				1000,
+				1000,
+				1,
+				1,
+				true,
+				1,
+				1,
+				1,
+				Ogre::Vector3::UNIT_Z);
 
 			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane", MyGuiResourceGroup);
 			entity->setMaterialName("Ground", MyGuiResourceGroup);

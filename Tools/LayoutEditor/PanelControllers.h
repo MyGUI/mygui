@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PanelControllers :
-		public wraps::BasePanelViewItem
+	class PanelControllers : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelControllers();

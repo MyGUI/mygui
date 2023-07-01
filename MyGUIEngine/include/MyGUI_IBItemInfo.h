@@ -19,7 +19,6 @@ namespace MyGUI
 	/** Info about ItemBox item*/
 	struct MYGUI_EXPORT IBDrawItemInfo
 	{
-
 		IBDrawItemInfo() :
 			index(ITEM_NONE),
 			update(false),
@@ -31,7 +30,14 @@ namespace MyGUI
 		{
 		}
 
-		IBDrawItemInfo(size_t _index, size_t _select, size_t _active, size_t _accept, size_t _refuse, bool _update, bool _drag) :
+		IBDrawItemInfo(
+			size_t _index,
+			size_t _select,
+			size_t _active,
+			size_t _accept,
+			size_t _refuse,
+			bool _update,
+			bool _drag) :
 			index(_index),
 			update(_update),
 			select(_index == _select),

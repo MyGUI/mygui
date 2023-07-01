@@ -18,7 +18,7 @@ namespace attribute
 	{
 		using BaseValueType = MyGUI::Widget;
 
-		template <typename Type>
+		template<typename Type>
 		static Type* convert(BaseValueType* _value)
 		{
 			return _value == nullptr ? nullptr : _value->castType<Type>(false);
@@ -33,8 +33,7 @@ namespace attribute
 
 	DECLARE_ATTRIBUTE_CLASS(AttributeLayout, std::string);
 
-#define ATTRIBUTE_CLASS_LAYOUT(_class, _value) \
-	ATTRIBUTE_CLASS(AttributeLayout, _class, _value)
+#define ATTRIBUTE_CLASS_LAYOUT(_class, _value) ATTRIBUTE_CLASS(AttributeLayout, _class, _value)
 
 }
 

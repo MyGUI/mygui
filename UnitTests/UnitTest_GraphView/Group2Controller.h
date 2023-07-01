@@ -8,8 +8,7 @@
 namespace animation
 {
 
-	class Group2Controller :
-		public IAnimationNode
+	class Group2Controller : public IAnimationNode
 	{
 	public:
 		Group2Controller() = default;
@@ -21,8 +20,10 @@ namespace animation
 
 		void setEvent(std::string_view _name, float _value) override
 		{
-			if (_name == "Start1") startAnimation1();
-			else if (_name == "Start2") startAnimation2();
+			if (_name == "Start1")
+				startAnimation1();
+			else if (_name == "Start2")
+				startAnimation2();
 		}
 
 		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
@@ -50,7 +51,6 @@ namespace animation
 
 	private:
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

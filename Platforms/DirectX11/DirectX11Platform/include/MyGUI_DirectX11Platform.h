@@ -73,7 +73,6 @@ namespace MyGUI
 		DirectX11RenderManager* mRenderManager;
 		DirectX11DataManager* mDataManager;
 		LogManager* mLogManager;
-
 	};
 
 } // namespace MyGUI

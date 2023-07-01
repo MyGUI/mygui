@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class PropertyAlignControl :
-		public PropertyControl
+	class PropertyAlignControl : public PropertyControl
 	{
 	public:
 		~PropertyAlignControl() override;

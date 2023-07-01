@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class BackgroundControl :
-		public wraps::BaseLayout
+	class BackgroundControl : public wraps::BaseLayout
 	{
 	public:
 		BackgroundControl();

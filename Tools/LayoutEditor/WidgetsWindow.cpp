@@ -25,8 +25,10 @@ namespace tools
 		mPopupMode->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
 
 		mWidgetsButtonWidth = SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonWidth");
-		mWidgetsButtonHeight = SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonHeight");
-		mWidgetsButtonOffset = SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonOffset");
+		mWidgetsButtonHeight =
+			SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonHeight");
+		mWidgetsButtonOffset =
+			SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonOffset");
 		mSkinSheetName = SettingsManager::getInstance().getValue("Controls/WidgetsWindow/LastSkinGroup");
 
 		if (!SettingsManager::getInstance().tryGetValue("Controls/WidgetsWindow/ButtonSkinName", mButtonSkinName))
@@ -34,12 +36,14 @@ namespace tools
 
 		initialise();
 
-		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
+		WidgetCreatorManager::getInstance().eventChangeCreatorMode +=
+			MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
 	}
 
 	WidgetsWindow::~WidgetsWindow()
 	{
-		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
+		WidgetCreatorManager::getInstance().eventChangeCreatorMode -=
+			MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
 
 		size_t sheet_index = mTabSkins->getIndexSelected();
 		if (sheet_index != MyGUI::ITEM_NONE)
@@ -58,7 +62,10 @@ namespace tools
 		for (const auto& group : groups)
 		{
 			MyGUI::TabItem* page = mTabSkins->addItem(group.first);
-			MyGUI::ItemBox* box = page->createWidget<MyGUI::ItemBox>("ItemBoxEmpty", MyGUI::IntCoord(0, 0, page->getSize().width, page->getSize().height), MyGUI::Align::Stretch);
+			MyGUI::ItemBox* box = page->createWidget<MyGUI::ItemBox>(
+				"ItemBoxEmpty",
+				MyGUI::IntCoord(0, 0, page->getSize().width, page->getSize().height),
+				MyGUI::Align::Stretch);
 			mItemBoxs.push_back(box);
 
 			box->requestCreateWidgetItem = MyGUI::newDelegate(this, &WidgetsWindow::requestCreateWidgetItem);
@@ -139,11 +146,13 @@ namespace tools
 
 	void WidgetsWindow::requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
-		MyGUI::Button* button = _item->createWidget<MyGUI::Button>(mButtonSkinName, MyGUI::IntCoord(
-			mWidgetsButtonOffset,
-			mWidgetsButtonOffset,
-			_item->getWidth() - mWidgetsButtonOffset - mWidgetsButtonOffset,
-			_item->getHeight() - mWidgetsButtonOffset - mWidgetsButtonOffset),
+		MyGUI::Button* button = _item->createWidget<MyGUI::Button>(
+			mButtonSkinName,
+			MyGUI::IntCoord(
+				mWidgetsButtonOffset,
+				mWidgetsButtonOffset,
+				_item->getWidth() - mWidgetsButtonOffset - mWidgetsButtonOffset,
+				_item->getHeight() - mWidgetsButtonOffset - mWidgetsButtonOffset),
 			MyGUI::Align::Stretch);
 
 		button->setTextAlign(MyGUI::Align::Center);
@@ -156,10 +165,17 @@ namespace tools
 
 	void WidgetsWindow::requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag) const
 	{
-		_coord.set(0, 0, mWidgetsButtonWidth + mWidgetsButtonOffset + mWidgetsButtonOffset, mWidgetsButtonHeight + mWidgetsButtonOffset + mWidgetsButtonOffset);
+		_coord.set(
+			0,
+			0,
+			mWidgetsButtonWidth + mWidgetsButtonOffset + mWidgetsButtonOffset,
+			mWidgetsButtonHeight + mWidgetsButtonOffset + mWidgetsButtonOffset);
 	}
 
-	void WidgetsWindow::requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
+	void WidgetsWindow::requestDrawItem(
+		MyGUI::ItemBox* _sender,
+		MyGUI::Widget* _item,
+		const MyGUI::IBDrawItemInfo& _info)
 	{
 		MyGUI::Button* button = *_item->getUserData<MyGUI::Button*>();
 		SkinInfo data = *_sender->getItemDataAt<SkinInfo>(_info.index);

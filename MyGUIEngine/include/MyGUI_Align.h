@@ -96,28 +96,28 @@ namespace MyGUI
 			return Default == (mValue & Stretch);
 		}
 
-		Align& operator |= (Align const& _other)
+		Align& operator|=(Align const& _other)
 		{
 			mValue = (mValue | _other.mValue).mValue;
 			return *this;
 		}
 
-		friend Align operator | (Enum const& a, Enum const& b)
+		friend Align operator|(Enum const& a, Enum const& b)
 		{
 			return {Enum((unsigned int)a | (unsigned int)b)};
 		}
 
-		friend Align operator | (Align const& a, Align const& b)
+		friend Align operator|(Align const& a, Align const& b)
 		{
 			return a.mValue | b.mValue;
 		}
 
-		friend bool operator == (Align const& a, Align const& b)
+		friend bool operator==(Align const& a, Align const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (Align const& a, Align const& b)
+		friend bool operator!=(Align const& a, Align const& b)
 		{
 			return a.mValue != b.mValue;
 		}
@@ -171,13 +171,13 @@ namespace MyGUI
 			return result;
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const Align&  _value )
+		friend std::ostream& operator<<(std::ostream& _stream, const Align& _value)
 		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, Align&  _value )
+		friend std::istream& operator>>(std::istream& _stream, Align& _value)
 		{
 			_value.mValue = Enum(0);
 			std::string value;

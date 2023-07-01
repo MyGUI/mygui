@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class ImageExportSerializer :
-		public IExportSerializer
+	class ImageExportSerializer : public IExportSerializer
 	{
 	public:
 		void serialization(pugi::xml_document& _doc) override;

@@ -18,7 +18,11 @@ namespace tools
 	struct WidgetContainer
 	{
 		WidgetContainer();
-		WidgetContainer(std::string_view _type, std::string_view _skin, MyGUI::Widget* _widget, std::string_view _name = {});
+		WidgetContainer(
+			std::string_view _type,
+			std::string_view _skin,
+			MyGUI::Widget* _widget,
+			std::string_view _name = {});
 
 		~WidgetContainer();
 
@@ -30,7 +34,7 @@ namespace tools
 		void clearUserData(std::string_view _key);
 		bool existUserData(std::string_view _key) const;
 		using UserDataEnumerator = MyGUI::Enumerator<MyGUI::VectorStringPairs>;
-                UserDataEnumerator getUserDataEnumerator() const;
+		UserDataEnumerator getUserDataEnumerator() const;
 
 		void setProperty(std::string_view _key, std::string_view _value, bool _eraseExist = true);
 		void setPropertyByIndex(size_t _index, std::string_view _key, std::string_view _value);
@@ -39,7 +43,7 @@ namespace tools
 		std::string_view getProperty(std::string_view _key);
 		bool existProperty(std::string_view _key) const;
 		using PropertyEnumerator = MyGUI::Enumerator<MyGUI::VectorStringPairs>;
-                PropertyEnumerator getPropertyEnumerator() const;
+		PropertyEnumerator getPropertyEnumerator() const;
 
 		void setLayerName(std::string_view _value);
 		const std::string& getLayerName() const;

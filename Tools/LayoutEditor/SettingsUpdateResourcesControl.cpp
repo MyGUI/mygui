@@ -17,14 +17,19 @@ namespace tools
 
 	SettingsUpdateResourcesControl::~SettingsUpdateResourcesControl()
 	{
-		mResourceAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickAdd);
-		mResourceDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickDelete);
+		mResourceAdd->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickAdd);
+		mResourceDelete->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickDelete);
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
 	}
 
-	void SettingsUpdateResourcesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
+	void SettingsUpdateResourcesControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -36,14 +41,17 @@ namespace tools
 		mTextFieldControl->Initialise();
 		mTextFieldControl->eventEndDialog.connect(this, &SettingsUpdateResourcesControl::notifyEndDialog);
 
-		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickAdd);
-		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickDelete);
+		mResourceAdd->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickAdd);
+		mResourceDelete->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickDelete);
 	}
 
 	void SettingsUpdateResourcesControl::loadSettings()
 	{
 		mResources->removeAllItems();
-		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/UpdateResource.List");
+		SettingsManager::VectorString paths =
+			SettingsManager::getInstance().getValueList("Resources/UpdateResource.List");
 		for (const auto& path : paths)
 			mResources->addItem(path);
 	}
@@ -51,7 +59,7 @@ namespace tools
 	void SettingsUpdateResourcesControl::saveSettings()
 	{
 		SettingsManager::VectorString paths;
-		for (size_t index = 0; index < mResources->getItemCount(); ++ index)
+		for (size_t index = 0; index < mResources->getItemCount(); ++index)
 			paths.push_back(mResources->getItemNameAt(index));
 		SettingsManager::getInstance().setValueList("Resources/UpdateResource.List", paths);
 	}
@@ -66,7 +74,11 @@ namespace tools
 
 		MyGUI::Widget* widget = mResources->getWidgetByIndex(mResources->getItemCount() - 1);
 		if (widget != nullptr)
-			mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+			mTextFieldControl->setCoord(MyGUI::IntCoord(
+				widget->getAbsoluteLeft(),
+				widget->getAbsoluteTop(),
+				widget->getWidth(),
+				widget->getHeight()));
 
 		mTextFieldControl->doModal();
 	}

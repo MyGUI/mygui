@@ -8,8 +8,7 @@
 namespace animation
 {
 
-	class PositionController :
-		public IAnimationNode
+	class PositionController : public IAnimationNode
 	{
 	public:
 		PositionController() = default;
@@ -36,7 +35,6 @@ namespace animation
 
 	private:
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

@@ -14,10 +14,9 @@
 namespace demo
 {
 
-	class ControllerSmoothProgress :
-		public MyGUI::ControllerItem
+	class ControllerSmoothProgress : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerSmoothProgress )
+		MYGUI_RTTI_DERIVED(ControllerSmoothProgress)
 
 	public:
 		bool addTime(MyGUI::Widget* _widget, float _time) override
@@ -42,7 +41,8 @@ namespace demo
 			MyGUI::ProgressBar* progress = _widget->castType<MyGUI::ProgressBar>(false);
 			if (progress != nullptr)
 			{
-				_widget->eventChangeProperty += MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
+				_widget->eventChangeProperty +=
+					MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
 			}
 		}
 

@@ -12,8 +12,7 @@
 namespace MyGUI
 {
 
-	class DirectX11DataManager :
-		public DataManager
+	class DirectX11DataManager : public DataManager
 	{
 	public:
 		DirectX11DataManager();

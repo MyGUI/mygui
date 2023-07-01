@@ -41,7 +41,8 @@ namespace MyGUI
 		InputManager::getInstance().eventChangeMouseFocus += newDelegate(this, &PointerManager::notifyChangeMouseFocus);
 		WidgetManager::getInstance().registerUnlinker(this);
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPointerTagName) = newDelegate(this, &PointerManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPointerTagName) =
+			newDelegate(this, &PointerManager::_load);
 
 		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceManualPointer>(resourceCategory);
@@ -119,7 +120,8 @@ namespace MyGUI
 
 	void PointerManager::setVisible(bool _visible)
 	{
-		if (nullptr != mMousePointer) mMousePointer->setVisible(_visible);
+		if (nullptr != mMousePointer)
+			mMousePointer->setVisible(_visible);
 		mVisible = _visible;
 	}
 
@@ -146,8 +148,10 @@ namespace MyGUI
 
 	void PointerManager::_unlinkWidget(Widget* _widget)
 	{
-		if (_widget == mWidgetOwner) setPointer(mDefaultName, nullptr);
-		else if (_widget == mMousePointer) mMousePointer = nullptr;
+		if (_widget == mWidgetOwner)
+			setPointer(mDefaultName, nullptr);
+		else if (_widget == mMousePointer)
+			mMousePointer = nullptr;
 	}
 
 	void PointerManager::resetToDefaultPointer()
@@ -156,9 +160,18 @@ namespace MyGUI
 	}
 
 	// создает виджет
-	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
+	Widget* PointerManager::baseCreateWidget(
+		WidgetStyle _style,
+		std::string_view _type,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		Align _align,
+		std::string_view _layer,
+		std::string_view _name)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */nullptr, nullptr, /*this, */_name);
+		Widget* widget =
+			WidgetManager::getInstance()
+				.createWidget(_style, _type, _skin, _coord, /*_align, */ nullptr, nullptr, /*this, */ _name);
 		mWidgetChild.push_back(widget);
 
 		widget->setAlign(_align);
@@ -207,7 +220,14 @@ namespace MyGUI
 	void PointerManager::Update()
 	{
 		if (mMousePointer == nullptr)
-			mMousePointer = static_cast<ImageBox*>(baseCreateWidget(WidgetStyle::Overlapped, ImageBox::getClassTypeName(), mSkinName, IntCoord(), Align::Default, std::string_view{}, std::string_view{}));
+			mMousePointer = static_cast<ImageBox*>(baseCreateWidget(
+				WidgetStyle::Overlapped,
+				ImageBox::getClassTypeName(),
+				mSkinName,
+				IntCoord(),
+				Align::Default,
+				std::string_view{},
+				std::string_view{}));
 	}
 
 	IPointer* PointerManager::getByName(std::string_view _name) const

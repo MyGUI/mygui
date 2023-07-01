@@ -17,8 +17,7 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	private:
 		void createScene() override;
@@ -28,8 +27,14 @@ namespace demo
 
 		void createGrapView();
 		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
-		void notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
-		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
+		void notifyConnectPoint(
+			wraps::BaseGraphView* _sender,
+			wraps::BaseGraphConnection* _from,
+			wraps::BaseGraphConnection* _to);
+		void notifyDisconnectPoint(
+			wraps::BaseGraphView* _sender,
+			wraps::BaseGraphConnection* _from,
+			wraps::BaseGraphConnection* _to);
 		void notifyInvalidateNode(BaseAnimationNode* _sender);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, std::string_view _id);
@@ -45,8 +50,16 @@ namespace demo
 		BaseAnimationNode* createNode(std::string_view _type, std::string_view _name);
 		BaseAnimationNode* getNodeByName(std::string_view _name);
 
-		void connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to);
-		void disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, std::string_view _name_from, std::string_view _name_to);
+		void connectPoints(
+			BaseAnimationNode* _node_from,
+			BaseAnimationNode* _node_to,
+			std::string_view _name_from,
+			std::string_view _name_to);
+		void disconnectPoints(
+			BaseAnimationNode* _node_from,
+			BaseAnimationNode* _node_to,
+			std::string_view _name_from,
+			std::string_view _name_to);
 
 	private:
 		GraphView* mGraphView{nullptr};

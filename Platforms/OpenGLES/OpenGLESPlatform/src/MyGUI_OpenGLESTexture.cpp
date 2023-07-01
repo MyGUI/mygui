@@ -86,13 +86,13 @@ namespace MyGUI
 
 		// Set unpack alignment to one byte
 		int alignment = 0;
-		glGetIntegerv(GL_UNPACK_ALIGNMENT, (GLint*) &alignment);
+		glGetIntegerv(GL_UNPACK_ALIGNMENT, (GLint*)&alignment);
 		CHECK_GL_ERROR_DEBUG();
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		CHECK_GL_ERROR_DEBUG();
 
 		// создаем тукстуру
-		glGenTextures(1, (GLuint*) &mTextureId);
+		glGenTextures(1, (GLuint*)&mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		CHECK_GL_ERROR_DEBUG();
@@ -141,7 +141,6 @@ namespace MyGUI
 			CHECK_GL_ERROR_DEBUG();
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 			CHECK_GL_ERROR_DEBUG();
-
 		}
 #endif
 	}
@@ -158,7 +157,7 @@ namespace MyGUI
 		}
 		if (mPboID != 0)
 		{
-            glDeleteBuffers(1, (GLuint*)&mPboID);
+			glDeleteBuffers(1, (GLuint*)&mPboID);
 			mPboID = 0;
 		}
 

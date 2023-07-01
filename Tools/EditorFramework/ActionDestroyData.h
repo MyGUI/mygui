@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionDestroyData :
-		public Action
+	class MYGUI_EXPORT_DLL ActionDestroyData : public Action
 	{
 	public:
 		void doAction() override;

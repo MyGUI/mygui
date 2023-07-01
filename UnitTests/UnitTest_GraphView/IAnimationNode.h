@@ -62,7 +62,6 @@ namespace animation
 	private:
 		std::string mName;
 		IAnimationGraph* mGraph;
-
 	};
 
 } // namespace animation

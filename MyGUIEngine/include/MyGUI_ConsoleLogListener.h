@@ -13,12 +13,17 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ConsoleLogListener :
-		public ILogListener
+	class MYGUI_EXPORT ConsoleLogListener : public ILogListener
 	{
 	public:
 		//! @copydoc ILogListener::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
-		void log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line) override;
+		void log(
+			std::string_view _section,
+			LogLevel _level,
+			const struct tm* _time,
+			std::string_view _message,
+			std::string_view _file,
+			int _line) override;
 
 		/** Is log listener enabled. */
 		bool getEnabled() const;

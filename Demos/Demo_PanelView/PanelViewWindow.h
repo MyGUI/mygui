@@ -12,8 +12,7 @@
 namespace demo
 {
 
-	class PanelViewWindow :
-		public wraps::BaseLayout
+	class PanelViewWindow : public wraps::BaseLayout
 	{
 	public:
 		PanelViewWindow() :

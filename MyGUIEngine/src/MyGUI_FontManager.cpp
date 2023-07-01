@@ -30,7 +30,8 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlFontTagName) = newDelegate(this, &FontManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlFontTagName) =
+			newDelegate(this, &FontManager::_load);
 
 		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceManualFont>(resourceCategory);

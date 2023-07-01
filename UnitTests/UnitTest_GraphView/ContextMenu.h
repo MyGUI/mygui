@@ -12,8 +12,7 @@
 namespace wraps
 {
 
-	class ContextMenu :
-		public BaseLayout
+	class ContextMenu : public BaseLayout
 	{
 	public:
 		ContextMenu(std::string_view _layout) :
@@ -50,7 +49,6 @@ namespace wraps
 
 	private:
 		MyGUI::PopupMenu* mMenu;
-
 	};
 
 } // namespace wraps

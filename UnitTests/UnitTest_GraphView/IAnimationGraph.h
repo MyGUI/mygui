@@ -14,12 +14,17 @@
 namespace animation
 {
 
-	class IAnimationGraph :
-		public IAnimationNode
+	class IAnimationGraph : public IAnimationNode
 	{
 	public:
-		IAnimationGraph() : IAnimationNode() { }
-		IAnimationGraph(std::string_view _name) : IAnimationNode(_name, nullptr) { }
+		IAnimationGraph() :
+			IAnimationNode()
+		{
+		}
+		IAnimationGraph(std::string_view _name) :
+			IAnimationNode(_name, nullptr)
+		{
+		}
 
 		virtual Ogre::Any getData(std::string_view _name) = 0;
 		virtual void addData(std::string_view _name, Ogre::Any _any) = 0;

@@ -17,7 +17,9 @@ namespace demo
 
 		mMainWidget->setPosition(0, 0);
 
-		CommandManager::getInstance().registerCommand("KeyboardClick", MyGUI::newDelegate(this, &MonitorPanel::notifyCommand));
+		CommandManager::getInstance().registerCommand(
+			"KeyboardClick",
+			MyGUI::newDelegate(this, &MonitorPanel::notifyCommand));
 	}
 
 	MonitorPanel::~MonitorPanel()
@@ -44,7 +46,6 @@ namespace demo
 					mHP->setProperty("RangePosition", MyGUI::utility::toString(device->getValueHP()));
 				}
 			}
-
 		}
 	}
 

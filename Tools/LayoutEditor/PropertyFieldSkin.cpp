@@ -16,12 +16,13 @@ namespace tools
 	PropertyFieldSkin::PropertyFieldSkin(MyGUI::Widget* _parent) :
 		PropertyFieldComboBox(_parent)
 	{
-		mField->eventToolTip += newDelegate (this, &PropertyFieldSkin::notifyToolTip);
+		mField->eventToolTip += newDelegate(this, &PropertyFieldSkin::notifyToolTip);
 	}
 
 	void PropertyFieldSkin::onFillValues()
 	{
-		WidgetStyle::VectorString values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
+		WidgetStyle::VectorString values =
+			WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
 		// добавляем скины и шаблоны
 		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();

@@ -13,14 +13,19 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LevelLogFilter :
-		public ILogFilter
+	class MYGUI_EXPORT LevelLogFilter : public ILogFilter
 	{
 	public:
 		LevelLogFilter();
 
 		//! @copydoc ILogFilter::shouldLog(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
-		bool shouldLog(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line) override;
+		bool shouldLog(
+			std::string_view _section,
+			LogLevel _level,
+			const struct tm* _time,
+			std::string_view _message,
+			std::string_view _file,
+			int _line) override;
 
 		/** Set logging level.
 			@param _value messages with this or higher level will be logged.

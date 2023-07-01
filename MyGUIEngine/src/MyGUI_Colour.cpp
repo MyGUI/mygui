@@ -17,7 +17,7 @@ namespace MyGUI
 	const Colour Colour::Green = Colour(0, 1, 0, 1);
 	const Colour Colour::Blue = Colour(0, 0, 1, 1);
 
-	Colour::Colour( float _red, float _green, float _blue, float _alpha) :
+	Colour::Colour(float _red, float _green, float _blue, float _alpha) :
 		red(_red),
 		green(_green),
 		blue(_blue),
@@ -30,14 +30,14 @@ namespace MyGUI
 		*this = parse(_value);
 	}
 
-	bool Colour::operator == (Colour const& _value) const
+	bool Colour::operator==(Colour const& _value) const
 	{
 		return ((red == _value.red) && (green == _value.green) && (blue == _value.blue) && (alpha == _value.alpha));
 	}
 
-	bool Colour::operator != (Colour const& _value) const
+	bool Colour::operator!=(Colour const& _value) const
 	{
-		return ! (*this == _value);
+		return !(*this == _value);
 	}
 
 	void Colour::set(float _red, float _green, float _blue, float _alpha)
@@ -73,10 +73,9 @@ namespace MyGUI
 				if (!stream.fail())
 				{
 					return {
-						(unsigned char)( result >> 16 ) / 256.0f,
-						(unsigned char)( result >> 8 ) / 256.0f,
-						(unsigned char)( result ) / 256.0f
-					};
+						(unsigned char)(result >> 16) / 256.0f,
+						(unsigned char)(result >> 8) / 256.0f,
+						(unsigned char)(result) / 256.0f};
 				}
 			}
 			else
@@ -99,13 +98,13 @@ namespace MyGUI
 		return Colour::Zero;
 	}
 
-	std::ostream& Colour::operatorShiftLeft(std::ostream& _stream, const Colour&  _value)
+	std::ostream& Colour::operatorShiftLeft(std::ostream& _stream, const Colour& _value)
 	{
 		_stream << _value.red << " " << _value.green << " " << _value.blue << " " << _value.alpha;
 		return _stream;
 	}
 
-	std::istream& Colour::operatorShiftRight(std::istream& _stream, Colour&  _value)
+	std::istream& Colour::operatorShiftRight(std::istream& _stream, Colour& _value)
 	{
 		_value.clear();
 

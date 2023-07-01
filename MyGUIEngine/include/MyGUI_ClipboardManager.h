@@ -21,6 +21,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ClipboardManager
 	{
 		MYGUI_SINGLETON_DECLARATION(ClipboardManager);
+
 	public:
 		ClipboardManager();
 
@@ -51,7 +52,8 @@ namespace MyGUI
 		*/
 		EventPairConvertStringView<
 			delegates::MultiDelegate<const std::string&, const std::string&>,
-			delegates::MultiDelegate<std::string_view, std::string_view>> eventClipboardChanged;
+			delegates::MultiDelegate<std::string_view, std::string_view>>
+			eventClipboardChanged;
 
 		/** Event : The content of the clipboard is being requested via getClipboardData.\n
 			Delegates of this event can modify the _data argument in-place to change the data returned by getClipboardData.
@@ -61,7 +63,8 @@ namespace MyGUI
 		*/
 		EventPairConvertStringView<
 			delegates::MultiDelegate<const std::string&, std::string&>,
-			delegates::MultiDelegate<std::string_view, std::string&>> eventClipboardRequested;
+			delegates::MultiDelegate<std::string_view, std::string&>>
+			eventClipboardRequested;
 
 	private:
 		MapString mClipboardData;

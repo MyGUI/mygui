@@ -25,12 +25,19 @@ namespace wraps
 			@param
 				_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
-		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3& _position = Ogre::Vector3::ZERO, const Ogre::Quaternion& _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3& _scale = Ogre::Vector3::UNIT_SCALE)
+		void injectObject(
+			const Ogre::String& _meshName,
+			const Ogre::Vector3& _position = Ogre::Vector3::ZERO,
+			const Ogre::Quaternion& _orientation = Ogre::Quaternion::IDENTITY,
+			const Ogre::Vector3& _scale = Ogre::Vector3::UNIT_SCALE)
 		{
 			clearScene();
 
 			static size_t num = 0;
-			mEntity = mScene->createEntity(MyGUI::utility::toString(this, "_RenderBoxMesh_", _meshName, num++), _meshName, base::BaseManager::MyGuiResourceGroup);
+			mEntity = mScene->createEntity(
+				MyGUI::utility::toString(this, "_RenderBoxMesh_", _meshName, num++),
+				_meshName,
+				base::BaseManager::MyGuiResourceGroup);
 			Ogre::SceneNode* node = mNode->createChildSceneNode(_position, _orientation);
 			node->attachObject(mEntity);
 
@@ -182,13 +189,15 @@ namespace wraps
 			{
 				if (_id == MyGUI::MouseButton::Left)
 				{
-					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
+					const MyGUI::IntPoint& point =
+						MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
 					mLastPointerX = point.left;
 					mMousePressed = true;
 				}
 				if (_id == MyGUI::MouseButton::Right)
 				{
-					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Right);
+					const MyGUI::IntPoint& point =
+						MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Right);
 					mLastPointerX = point.left;
 					mMousePressed = true;
 				}
@@ -259,7 +268,7 @@ namespace wraps
 			if (mCanvas->getHeight() == 0)
 				mSceneCamera->setAspectRatio(1);
 			else
-				mSceneCamera->setAspectRatio(float(mCanvas->getWidth()) / float(mCanvas->getHeight()) );
+				mSceneCamera->setAspectRatio(float(mCanvas->getWidth()) / float(mCanvas->getHeight()));
 
 			setViewport(mSceneCamera);
 		}
@@ -278,10 +287,13 @@ namespace wraps
 				// вычисляем расстояние, чтобы был виден весь объект
 				Ogre::AxisAlignedBox box;
 
-				box.merge(mEntity->getBoundingBox().getMinimum() + mEntity->getParentSceneNode()->_getDerivedPosition());
-				box.merge(mEntity->getBoundingBox().getMaximum() + mEntity->getParentSceneNode()->_getDerivedPosition());
+				box.merge(
+					mEntity->getBoundingBox().getMinimum() + mEntity->getParentSceneNode()->_getDerivedPosition());
+				box.merge(
+					mEntity->getBoundingBox().getMaximum() + mEntity->getParentSceneNode()->_getDerivedPosition());
 
-				if (box.isNull()) return;
+				if (box.isNull())
+					return;
 
 				Ogre::Vector3 vec = box.getSize();
 
@@ -289,10 +301,12 @@ namespace wraps
 				float len2 = width / mSceneCamera->getAspectRatio();
 				float height = vec.y;
 				float len1 = height;
-				if (len1 < len2) len1 = len2;
+				if (len1 < len2)
+					len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближняя грань BoundingBox'а + чуть вверх и еще назад для красоты
-				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z / 2 + len1) + Ogre::Vector3(0, height * 0.1f, len1 * 0.2f);
+				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z / 2 + len1) +
+					Ogre::Vector3(0, height * 0.1f, len1 * 0.2f);
 				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
 
 				mCameraNode->setPosition(result);

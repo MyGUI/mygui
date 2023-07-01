@@ -8,14 +8,20 @@
 namespace tools
 {
 
-	enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
+	enum
+	{
+		PR_DEFAULT,
+		PR_POSITION,
+		PR_PROPERTIES,
+		PR_KEY_POSITION
+	};
 
 	using Event_Changes = MyGUI::delegates::MultiDelegate<bool>;
 
-	class UndoManager :
-		public sigslot::has_slots<>
+	class UndoManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(UndoManager);
+
 	public:
 		UndoManager();
 

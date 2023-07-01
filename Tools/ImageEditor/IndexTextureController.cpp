@@ -65,7 +65,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
@@ -107,7 +109,9 @@ namespace tools
 			{
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &IndexTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &IndexTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -155,7 +159,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
 				mFrames.emplace_back(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);

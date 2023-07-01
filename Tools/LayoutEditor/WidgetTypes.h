@@ -11,8 +11,12 @@ namespace tools
 	class WidgetTypes
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetTypes);
+
 	public:
-		WidgetTypes() : mSingletonHolder(this) { }
+		WidgetTypes() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
@@ -23,7 +27,11 @@ namespace tools
 
 		void clearAllSkins();
 
-		void addWidgetSkinType(std::string_view _type, std::string_view _skin, std::string_view _group, std::string_view _button_name);
+		void addWidgetSkinType(
+			std::string_view _type,
+			std::string_view _skin,
+			std::string_view _group,
+			std::string_view _button_name);
 
 		const SkinGroups& getSkinGroups() const;
 

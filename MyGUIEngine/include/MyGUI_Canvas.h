@@ -18,21 +18,19 @@ namespace MyGUI
 		Widget wrapper over Texture - shows the texture.
 		Implemented: resizing of texture (see TextureResizeMode); recovery after loosing device;
 	*/
-	class MYGUI_EXPORT Canvas :
-		public Widget,
-		public ITextureInvalidateListener
+	class MYGUI_EXPORT Canvas : public Widget, public ITextureInvalidateListener
 	{
-		MYGUI_RTTI_DERIVED( Canvas )
+		MYGUI_RTTI_DERIVED(Canvas)
 
 	public:
 		Canvas();
 
 		struct Event
 		{
-			Event( bool _textureChanged, bool _widgetResized, bool _requested ) :
-				textureChanged( _textureChanged ),
-				widgetResized( _widgetResized ),
-				requested( _requested )
+			Event(bool _textureChanged, bool _widgetResized, bool _requested) :
+				textureChanged(_textureChanged),
+				widgetResized(_widgetResized),
+				requested(_requested)
 			{
 			}
 
@@ -90,13 +88,25 @@ namespace MyGUI
 
 	public:
 		/// Creates texture
-		void createTexture(TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat());
+		void createTexture(
+			TextureResizeMode _resizeMode,
+			TextureUsage _usage = getDefaultTextureUsage(),
+			PixelFormat _format = getDefaultTextureFormat());
 
 		/// Creates texture
-		void createTexture(int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat());
+		void createTexture(
+			int _width,
+			int _height,
+			TextureResizeMode _resizeMode,
+			TextureUsage _usage = getDefaultTextureUsage(),
+			PixelFormat _format = getDefaultTextureFormat());
 
 		/// Creates texture
-		void createTexture(const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat());
+		void createTexture(
+			const IntSize& _size,
+			TextureResizeMode _resizeMode,
+			TextureUsage _usage = getDefaultTextureUsage(),
+			PixelFormat _format = getDefaultTextureFormat());
 
 		/// Destroys texture
 		void destroyTexture();

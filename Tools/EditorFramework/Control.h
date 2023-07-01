@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL Control :
-		public wraps::BaseLayout,
-		public components::IFactoryItem
+	class MYGUI_EXPORT_DLL Control : public wraps::BaseLayout, public components::IFactoryItem
 	{
 	public:
 		~Control() override;
@@ -33,7 +31,7 @@ namespace tools
 
 		void SendCommand(std::string_view _command);
 
-		template <typename Type>
+		template<typename Type>
 		Type* findControl()
 		{
 			Type* result = dynamic_cast<Type*>(this);
@@ -51,17 +49,24 @@ namespace tools
 		}
 
 	protected:
-		template <typename Type>
+		template<typename Type>
 		std::string GetLayoutName(Type* _owner)
 		{
 			return attribute::AttributeLayout<Type>::getData();
 		}
 
-		template <typename Type>
-		void InitialiseByAttributes(Type* _owner, MyGUI::Widget* _parent = nullptr, bool _throw = true, bool _createFakeWidgets = true)
+		template<typename Type>
+		void InitialiseByAttributes(
+			Type* _owner,
+			MyGUI::Widget* _parent = nullptr,
+			bool _throw = true,
+			bool _createFakeWidgets = true)
 		{
-			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
-			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item = data.begin(); item != data.end(); ++item)
+			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data =
+				attribute::AttributeFieldWidgetName<Type>::getData();
+			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item = data.begin();
+				 item != data.end();
+				 ++item)
 			{
 				MyGUI::Widget* value = nullptr;
 				assignWidget(value, item->second, _throw, false);

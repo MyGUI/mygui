@@ -32,7 +32,7 @@ namespace MyGUI
 		public TextBox, // FIXME пока для кэпшена вместо виджета текст (Bug #190)
 		public MemberObsolete<Window>
 	{
-		MYGUI_RTTI_DERIVED( Window )
+		MYGUI_RTTI_DERIVED(Window)
 
 	public:
 		/** @copydoc Widget::setVisible */
@@ -133,7 +133,11 @@ namespace MyGUI
 
 	private:
 		float getAlphaVisible() const;
-		enum class Snap {Position, Size};
+		enum class Snap
+		{
+			Position,
+			Size
+		};
 		void getSnappedCoord(IntCoord& _coord, Snap snapMode) const;
 		IntCoord _getActionScale(Widget* _widget) const;
 

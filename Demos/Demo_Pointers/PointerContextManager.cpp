@@ -13,7 +13,8 @@ namespace demo
 		mPointerSetter(_setter)
 	{
 		mCurrentGuiPointer = MyGUI::PointerManager::getInstance().getDefaultPointer();
-		MyGUI::PointerManager::getInstance().eventChangeMousePointer += MyGUI::newDelegate(this, &PointerContextManager::notifyChangeMousePointer);
+		MyGUI::PointerManager::getInstance().eventChangeMousePointer +=
+			MyGUI::newDelegate(this, &PointerContextManager::notifyChangeMousePointer);
 	}
 
 	void PointerContextManager::notifyChangeMousePointer(std::string_view _name)
@@ -65,7 +66,6 @@ namespace demo
 							}
 						}
 					}
-
 				}
 			}
 		}

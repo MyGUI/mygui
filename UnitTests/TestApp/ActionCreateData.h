@@ -12,8 +12,7 @@
 
 namespace tools
 {
-	class ActionCreateData :
-		public Action
+	class ActionCreateData : public Action
 	{
 	public:
 		ActionCreateData();

@@ -18,7 +18,8 @@ namespace tools
 	SettingsResourcesControl::~SettingsResourcesControl()
 	{
 		mResourceAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickAdd);
-		mResourceDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);
+		mResourceDelete->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
@@ -37,13 +38,15 @@ namespace tools
 		mTextFieldControl->eventEndDialog.connect(this, &SettingsResourcesControl::notifyEndDialog);
 
 		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickAdd);
-		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);
+		mResourceDelete->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);
 	}
 
 	void SettingsResourcesControl::loadSettings()
 	{
 		mResources->removeAllItems();
-		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
+		SettingsManager::VectorString paths =
+			SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
 		for (const auto& path : paths)
 			mResources->addItem(path);
 	}
@@ -51,7 +54,7 @@ namespace tools
 	void SettingsResourcesControl::saveSettings()
 	{
 		SettingsManager::VectorString paths;
-		for (size_t index = 0; index < mResources->getItemCount(); ++ index)
+		for (size_t index = 0; index < mResources->getItemCount(); ++index)
 			paths.push_back(mResources->getItemNameAt(index));
 		SettingsManager::getInstance().setValueList("Resources/AdditionalResource.List", paths);
 	}
@@ -66,7 +69,11 @@ namespace tools
 
 		MyGUI::Widget* widget = mResources->getWidgetByIndex(mResources->getItemCount() - 1);
 		if (widget != nullptr)
-			mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+			mTextFieldControl->setCoord(MyGUI::IntCoord(
+				widget->getAbsoluteLeft(),
+				widget->getAbsoluteTop(),
+				widget->getWidth(),
+				widget->getHeight()));
 
 		mTextFieldControl->doModal();
 	}

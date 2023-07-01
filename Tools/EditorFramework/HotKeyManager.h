@@ -16,6 +16,7 @@ namespace tools
 	class MYGUI_EXPORT_DLL HotKeyManager
 	{
 		MYGUI_SINGLETON_DECLARATION(HotKeyManager);
+
 	public:
 		HotKeyManager();
 

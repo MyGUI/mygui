@@ -32,7 +32,7 @@ namespace MyGUI
 		createTexture(mOldWidth, mOldHeight, TRM_PT_VIEW_REQUESTED);
 		requestUpdateCanvas = newDelegate(this, &BerkeliumWidget::notifyUpdateCanvas);
 
-		Berkelium::Context *context = Berkelium::Context::create();
+		Berkelium::Context* context = Berkelium::Context::create();
 		mWindow = Berkelium::Window::create(context);
 
 		updateSize();

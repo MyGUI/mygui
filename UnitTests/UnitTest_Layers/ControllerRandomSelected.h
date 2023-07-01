@@ -14,10 +14,9 @@
 namespace demo
 {
 
-	class ControllerRandomSelected :
-		public MyGUI::ControllerItem
+	class ControllerRandomSelected : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRandomSelected )
+		MYGUI_RTTI_DERIVED(ControllerRandomSelected)
 
 	public:
 		bool addTime(MyGUI::Widget* _widget, float _time) override

@@ -17,13 +17,9 @@ namespace tools
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
-	class CodeGenerator :
-		public wraps::BaseLayout,
-		public Dialog,
-		public sigslot::has_slots<>
+	class CodeGenerator : public wraps::BaseLayout, public Dialog, public sigslot::has_slots<>
 	{
 	public:
-
 		CodeGenerator();
 		~CodeGenerator() override;
 

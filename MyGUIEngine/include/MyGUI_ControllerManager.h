@@ -17,10 +17,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ControllerManager :
-		public IUnlinkWidget
+	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
 	{
 		MYGUI_SINGLETON_DECLARATION(ControllerManager);
+
 	public:
 		ControllerManager();
 

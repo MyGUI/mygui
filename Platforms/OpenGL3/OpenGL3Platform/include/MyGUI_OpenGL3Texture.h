@@ -45,7 +45,7 @@ namespace MyGUI
 
 		IRenderTarget* getRenderTarget() override;
 
-	/*internal:*/
+		/*internal:*/
 		unsigned int getTextureId() const;
 		unsigned int getShaderId() const;
 		void setUsage(TextureUsage _usage);

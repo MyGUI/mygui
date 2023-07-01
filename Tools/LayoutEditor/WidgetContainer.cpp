@@ -16,7 +16,11 @@ namespace tools
 	{
 	}
 
-	WidgetContainer::WidgetContainer(std::string_view _type, std::string_view _skin, MyGUI::Widget* _widget, std::string_view _name):
+	WidgetContainer::WidgetContainer(
+		std::string_view _type,
+		std::string_view _skin,
+		MyGUI::Widget* _widget,
+		std::string_view _name) :
 		mRelativeMode(false),
 		mType(_type),
 		mSkin(_skin),
@@ -40,11 +44,13 @@ namespace tools
 	{
 		if (mRelativeMode)
 		{
-			MyGUI::DoubleCoord coord = MyGUI::CoordConverter::convertToRelativeD(mWidget->getCoord(), mWidget->getParentSize());
+			MyGUI::DoubleCoord coord =
+				MyGUI::CoordConverter::convertToRelativeD(mWidget->getCoord(), mWidget->getParentSize());
 			std::ostringstream stream;
 			stream.precision(17);
 			if (_percent)
-				stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " " << coord.height * 100;
+				stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " "
+					   << coord.height * 100;
 			else
 				stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
 			return stream.str();
@@ -82,7 +88,7 @@ namespace tools
 
 	void WidgetContainer::clearUserData(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++item)
 		{
 			if ((*item).first == _key)
 			{
@@ -140,7 +146,7 @@ namespace tools
 
 	void WidgetContainer::clearProperty(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++item)
 		{
 			if ((*item).first == _key)
 			{
@@ -256,7 +262,7 @@ namespace tools
 					item.second = _value;
 					break;
 				}
-				-- _index;
+				--_index;
 			}
 		}
 	}
@@ -272,7 +278,7 @@ namespace tools
 					mProperty.erase(item);
 					break;
 				}
-				-- _index;
+				--_index;
 			}
 		}
 	}

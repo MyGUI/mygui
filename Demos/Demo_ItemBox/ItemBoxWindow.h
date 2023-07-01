@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class ItemBoxWindow :
-		public wraps::BaseLayout
+	class ItemBoxWindow : public wraps::BaseLayout
 	{
 	public:
 		ItemBoxWindow(std::string_view _layout);

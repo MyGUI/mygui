@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PropertyFontSourceControl :
-		public PropertyControl
+	class PropertyFontSourceControl : public PropertyControl
 	{
 	public:
 		~PropertyFontSourceControl() override;

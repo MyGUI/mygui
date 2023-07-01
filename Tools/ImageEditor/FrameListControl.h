@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class FrameListControl :
-		public DataListBaseControl
+	class FrameListControl : public DataListBaseControl
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

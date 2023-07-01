@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class PropertyFontHintingControl :
-		public PropertyControl
+	class PropertyFontHintingControl : public PropertyControl
 	{
 	public:
 		~PropertyFontHintingControl() override;

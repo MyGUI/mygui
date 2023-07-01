@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionCloneData :
-		public Action
+	class MYGUI_EXPORT_DLL ActionCloneData : public Action
 	{
 	public:
 		ActionCloneData();

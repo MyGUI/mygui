@@ -15,10 +15,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RotatingSkin :
-		public ISubWidgetRect
+	class MYGUI_EXPORT RotatingSkin : public ISubWidgetRect
 	{
-		MYGUI_RTTI_DERIVED( RotatingSkin )
+		MYGUI_RTTI_DERIVED(RotatingSkin)
 
 	public:
 		RotatingSkin();
@@ -65,7 +64,11 @@ namespace MyGUI
 		float mAngle{0.0f};
 		IntPoint mCenterPos;
 
-		enum {RECT_VERTICIES_COUNT = 4, GEOMETRY_VERTICIES_TOTAL_COUNT = 8};
+		enum
+		{
+			RECT_VERTICIES_COUNT = 4,
+			GEOMETRY_VERTICIES_TOTAL_COUNT = 8
+		};
 		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
 		FloatPoint mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT];
 

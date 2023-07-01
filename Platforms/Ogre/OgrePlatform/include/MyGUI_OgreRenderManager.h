@@ -106,7 +106,7 @@ namespace MyGUI
 
 		std::string getShaderExtension() const;
 
-	/*internal:*/
+		/*internal:*/
 		/* for use with RTT */
 		void beginRttRender(bool isFlippedTexture);
 		void endRttRender();
@@ -114,14 +114,10 @@ namespace MyGUI
 		OgreShaderInfo* getShaderInfo(const std::string& _shaderName) const;
 
 	private:
-		void renderQueueStarted(
-			Ogre::uint8 queueGroupId,
-			const Ogre::String& invocation,
-			bool& skipThisInvocation) override;
-		void renderQueueEnded(
-			Ogre::uint8 queueGroupId,
-			const Ogre::String& invocation,
-			bool& repeatThisInvocation) override;
+		void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
+			override;
+		void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
+			override;
 		virtual void windowResized(Ogre::RenderWindow* _window);
 
 		// restore buffers

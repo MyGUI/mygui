@@ -65,7 +65,8 @@ namespace MyGUI
 		if (count > mVertexCount)
 		{
 			mVertexCount = count;
-			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
+			if (nullptr != mRenderItem)
+				mRenderItem->reallockDrawItem(this, mVertexCount);
 		}
 
 		_updateView();
@@ -149,8 +150,8 @@ namespace MyGUI
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
-        mCurrentCoord = mCoord;
-        _updateView();
+		mCurrentCoord = mCoord;
+		_updateView();
 	}
 
 	void PolygonalSkin::_updateView()
@@ -234,7 +235,13 @@ namespace MyGUI
 
 		for (size_t i = 0; i < size; ++i)
 		{
-			verticies[i].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
+			verticies[i].set(
+				mResultVerticiesPos[i].left,
+				mResultVerticiesPos[i].top,
+				vertex_z,
+				mResultVerticiesUV[i].left,
+				mResultVerticiesUV[i].top,
+				mCurrentColour);
 		}
 
 		mRenderItem->setLastVertexCount(size);
@@ -276,13 +283,11 @@ namespace MyGUI
 		// using mCurrentCoord as rectangle where we draw polygons
 
 		// base texture coordinates
-		FloatPoint baseVerticiesUV[4] =
-		{
+		FloatPoint baseVerticiesUV[4] = {
 			FloatPoint(mCurrentTexture.left, mCurrentTexture.top),
 			FloatPoint(mCurrentTexture.right, mCurrentTexture.top),
 			FloatPoint(mCurrentTexture.right, mCurrentTexture.bottom),
-			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)
-		};
+			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)};
 
 		// UV vectors
 		FloatPoint vectorU = baseVerticiesUV[1] - baseVerticiesUV[0];
@@ -313,7 +318,8 @@ namespace MyGUI
 				}
 			}
 
-			currentLength += len(mLinePoints[i - 1].left - mLinePoints[i].left,  mLinePoints[i - 1].top - mLinePoints[i].top);
+			currentLength +=
+				len(mLinePoints[i - 1].left - mLinePoints[i].left, mLinePoints[i - 1].top - mLinePoints[i].top);
 
 			// getting normal between previous and next point
 			if (i != mLinePoints.size() - 1)
@@ -368,7 +374,7 @@ namespace MyGUI
 
 			if (sharp)
 			{
-				normal =  _getMiddleLine(mLinePoints[i - 1], mLinePoints[i + 1], mLinePoints[i]);
+				normal = _getMiddleLine(mLinePoints[i - 1], mLinePoints[i + 1], mLinePoints[i]);
 
 				float sharpness = len(normal.left, normal.top) / mLineWidth;
 
@@ -400,7 +406,9 @@ namespace MyGUI
 					normal2.top = -normal2.top;
 				}
 
-				FloatPoint UVcenter((baseVerticiesUV[0].left + baseVerticiesUV[3].left) / 2, (baseVerticiesUV[0].top + baseVerticiesUV[3].top) / 2);
+				FloatPoint UVcenter(
+					(baseVerticiesUV[0].left + baseVerticiesUV[3].left) / 2,
+					(baseVerticiesUV[0].top + baseVerticiesUV[3].top) / 2);
 
 				if (draw)
 				{
@@ -429,12 +437,7 @@ namespace MyGUI
 
 #ifndef MYGUI_NO_POLYGONAL_SKIN_CROPPING
 		// crop triangles
-		IntCoord cropRectangle(
-			mCurrentCoord.left,
-			mCurrentCoord.top,
-			mCurrentCoord.width,
-			mCurrentCoord.height
-			);
+		IntCoord cropRectangle(mCurrentCoord.left, mCurrentCoord.top, mCurrentCoord.width, mCurrentCoord.height);
 
 		VectorFloatPoint newResultVerticiesPos;
 		VectorFloatPoint newResultVerticiesUV;
@@ -442,8 +445,7 @@ namespace MyGUI
 		newResultVerticiesUV.reserve(mResultVerticiesPos.size());
 		for (size_t i = 0; i < mResultVerticiesPos.size(); i += 3)
 		{
-			VectorFloatPoint croppedTriangle =
-				geometry_utility::cropPolygon(&mResultVerticiesPos[i], 3, cropRectangle);
+			VectorFloatPoint croppedTriangle = geometry_utility::cropPolygon(&mResultVerticiesPos[i], 3, cropRectangle);
 			if (!croppedTriangle.empty())
 			{
 				FloatPoint v0 = mResultVerticiesUV[i + 2] - mResultVerticiesUV[i];
@@ -457,12 +459,27 @@ namespace MyGUI
 
 					// calculate UV
 					FloatPoint point;
-					point = geometry_utility::getPositionInsideRect(croppedTriangle[0], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
-					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
-					point = geometry_utility::getPositionInsideRect(croppedTriangle[j], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
-					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
-					point = geometry_utility::getPositionInsideRect(croppedTriangle[j + 1], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
-					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+					point = geometry_utility::getPositionInsideRect(
+						croppedTriangle[0],
+						mResultVerticiesPos[i],
+						mResultVerticiesPos[i + 1],
+						mResultVerticiesPos[i + 2]);
+					newResultVerticiesUV.push_back(
+						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+					point = geometry_utility::getPositionInsideRect(
+						croppedTriangle[j],
+						mResultVerticiesPos[i],
+						mResultVerticiesPos[i + 1],
+						mResultVerticiesPos[i + 2]);
+					newResultVerticiesUV.push_back(
+						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+					point = geometry_utility::getPositionInsideRect(
+						croppedTriangle[j + 1],
+						mResultVerticiesPos[i],
+						mResultVerticiesPos[i + 1],
+						mResultVerticiesPos[i + 2]);
+					newResultVerticiesUV.push_back(
+						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
 				}
 			}
 		}
@@ -474,7 +491,8 @@ namespace MyGUI
 		// now calculate widget base offset and then resulting position in screen coordinates
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float vertex_top_base =
+			-(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
 		for (auto& pos : mResultVerticiesPos)
 		{
@@ -496,7 +514,10 @@ namespace MyGUI
 		return result;
 	}
 
-	FloatPoint PolygonalSkin::_getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3) const
+	FloatPoint PolygonalSkin::_getMiddleLine(
+		const FloatPoint& _point1,
+		const FloatPoint& _point2,
+		const FloatPoint& _point3) const
 	{
 		// bisectrix
 		FloatPoint line1 = _point3 - _point1;

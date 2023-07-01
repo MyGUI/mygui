@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class StateListControl :
-		public Control,
-		public sigslot::has_slots<>
+	class StateListControl : public Control, public sigslot::has_slots<>
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

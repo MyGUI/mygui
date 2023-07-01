@@ -15,6 +15,7 @@ namespace tools
 	class MYGUI_EXPORT_DLL RecentFilesManager
 	{
 		MYGUI_SINGLETON_DECLARATION(RecentFilesManager);
+
 	public:
 		using VectorUString = std::vector<MyGUI::UString>;
 

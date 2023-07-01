@@ -53,7 +53,7 @@ namespace tools
 			}
 			if (!warningMess.empty())
 			{
-				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+				/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
 					replaceTags("Warning"),
 					warningMess,
 					MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok);
@@ -74,7 +74,7 @@ namespace tools
 			}
 			if (!errorMessages.empty())
 			{
-				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+				/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					errorMessages,
 					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);

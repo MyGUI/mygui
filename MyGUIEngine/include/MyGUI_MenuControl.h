@@ -26,12 +26,9 @@ namespace MyGUI
 	/** \brief @wpage{MenuControl}
 		MenuControl widget description should be here.
 	*/
-	class MYGUI_EXPORT MenuControl :
-		public Widget,
-		public IItemContainer,
-		public MemberObsolete<MenuControl>
+	class MYGUI_EXPORT MenuControl : public Widget, public IItemContainer, public MemberObsolete<MenuControl>
 	{
-		MYGUI_RTTI_DERIVED( MenuControl )
+		MYGUI_RTTI_DERIVED(MenuControl)
 
 	public:
 		struct ItemInfo
@@ -84,12 +81,26 @@ namespace MyGUI
 		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
-		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, std::string_view _id = {}, Any _data = Any::Null);
+		MenuItem* insertItemAt(
+			size_t _index,
+			const UString& _name,
+			MenuItemType _type = MenuItemType::Normal,
+			std::string_view _id = {},
+			Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItem* insertItem(MenuItem* _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, std::string_view _id = {}, Any _data = Any::Null);
+		MenuItem* insertItem(
+			MenuItem* _to,
+			const UString& _name,
+			MenuItemType _type = MenuItemType::Normal,
+			std::string_view _id = {},
+			Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		MenuItem* addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, std::string_view _id = {}, Any _data = Any::Null);
+		MenuItem* addItem(
+			const UString& _name,
+			MenuItemType _type = MenuItemType::Normal,
+			std::string_view _id = {},
+			Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -126,14 +137,14 @@ namespace MyGUI
 		void clearItemData(MenuItem* _item);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemData(MenuItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
@@ -182,14 +193,14 @@ namespace MyGUI
 		// остальные манипуляции
 
 		/** Create specific type child item (submenu) for item by index */
-		template <typename Type>
+		template<typename Type>
 		Type* createItemChildTAt(size_t _index)
 		{
 			return static_cast<Type*>(createItemChildByType(_index, Type::getClassTypeName()));
 		}
 
 		/** Create specific type child item (submenu) for item */
-		template <typename Type>
+		template<typename Type>
 		Type* createItemChildT(MenuItem* _item)
 		{
 			return createItemChildTAt<Type>(getItemIndex(_item));
@@ -298,7 +309,13 @@ namespace MyGUI
 
 		Widget* createItemChildByType(size_t _index, std::string_view _type);
 
-		void _wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, std::string_view _id, Any _data);
+		void _wrapItem(
+			MenuItem* _item,
+			size_t _index,
+			const UString& _name,
+			MenuItemType _type,
+			std::string_view _id,
+			Any _data);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 

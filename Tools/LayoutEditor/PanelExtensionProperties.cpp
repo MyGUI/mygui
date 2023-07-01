@@ -29,7 +29,10 @@ namespace tools
 		destroyPropertyFields();
 	}
 
-	void PanelExtensionProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
+	void PanelExtensionProperties::AddParametrs(
+		WidgetStyle* widgetType,
+		WidgetContainer* widgetContainer,
+		MyGUI::Widget* _currentWidget)
 	{
 		if (widgetType != nullptr)
 		{
@@ -37,7 +40,8 @@ namespace tools
 			{
 				std::string_view value = widgetContainer->getUserData(iter.first);
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter.second);
+				IPropertyField* field =
+					PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter.second);
 				field->setTarget(_currentWidget);
 				field->setName(iter.first);
 				field->setValue(value);

@@ -70,7 +70,8 @@ namespace demo
 
 	void DemoKeeper::createNewWindow()
 	{
-		MyGUI::Window* widget = MyGUI::LayoutManager::getInstance().loadLayout("Window.layout")[0]->castType<MyGUI::Window>();
+		MyGUI::Window* widget =
+			MyGUI::LayoutManager::getInstance().loadLayout("Window.layout")[0]->castType<MyGUI::Window>();
 		widget->eventWindowButtonPressed += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowButtonPressed);
 
 		mWidgets.insert(widget);
@@ -95,7 +96,11 @@ namespace demo
 				}
 				else
 				{
-					widget->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+					widget->setCoord(
+						coord.width / 2 - size.width / 2,
+						coord.height / 2 - size.height / 2,
+						size.width,
+						size.height);
 				}
 			}
 		}
@@ -141,7 +146,7 @@ namespace demo
 			}
 		}
 
-		return base::BaseDemoManager::injectKeyPress( _key, _text );
+		return base::BaseDemoManager::injectKeyPress(_key, _text);
 	}
 
 } // namespace demo

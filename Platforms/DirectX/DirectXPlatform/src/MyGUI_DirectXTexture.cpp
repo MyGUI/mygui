@@ -95,12 +95,10 @@ namespace MyGUI
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT(
-				"Failed to create texture (error code " << result << "): size '" << mSize <<
-				"' internal usage '" << mInternalUsage <<
-				"' internal format '" << mInternalFormat << "'."
-				);
+				"Failed to create texture (error code "
+				<< result << "): size '" << mSize << "' internal usage '" << mInternalUsage << "' internal format '"
+				<< mInternalFormat << "'.");
 		}
-
 	}
 
 	void DirectXTexture::loadFromFile(const std::string& _filename)
@@ -141,11 +139,8 @@ namespace MyGUI
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT(
-				"Failed to load texture '" << _filename <<
-				"' (error code " << result <<
-				"): size '" << mSize <<
-				"' format '" << info.Format << "'."
-				);
+				"Failed to load texture '" << _filename << "' (error code " << result << "): size '" << mSize
+										   << "' format '" << info.Format << "'.");
 		}
 	}
 
@@ -160,9 +155,10 @@ namespace MyGUI
 
 			if (nNewRefCount > 0)
 			{
-				MYGUI_PLATFORM_EXCEPT("The texture object failed to cleanup properly.\n"
-					"Release() returned a reference count of '" << nNewRefCount << "'."
-					);
+				MYGUI_PLATFORM_EXCEPT(
+					"The texture object failed to cleanup properly.\n"
+					"Release() returned a reference count of '"
+					<< nNewRefCount << "'.");
 			}
 
 			mpTexture = nullptr;

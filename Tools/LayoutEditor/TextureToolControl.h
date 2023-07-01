@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class TextureToolControlLE :
-		public TextureControlLE,
-		public sigslot::has_slots<>
+	class TextureToolControlLE : public TextureControlLE, public sigslot::has_slots<>
 	{
 	public:
 		TextureToolControlLE(MyGUI::Widget* _parent);

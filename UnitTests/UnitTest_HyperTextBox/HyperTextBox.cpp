@@ -114,7 +114,10 @@ namespace MyGUI
 				}
 			}
 
-			ImageBox* image = _parent->createWidget<ImageBox>(mImageSkin, IntCoord(0, 0, mImageSize.width, mImageSize.height), Align::Default);
+			ImageBox* image = _parent->createWidget<ImageBox>(
+				mImageSkin,
+				IntCoord(0, 0, mImageSize.width, mImageSize.height),
+				Align::Default);
 			image->setItemResource(_value);
 			// картинка как урл
 			if (mUrl)
@@ -126,7 +129,8 @@ namespace MyGUI
 		}
 		else if (mUrl)
 		{
-			TextBox* text = _parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
+			TextBox* text =
+				_parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
 			text->setCaption(MyGUI::UString(_value));
 			text->setPointer(mLinkPoiner);
 			if (mBold)
@@ -141,7 +145,10 @@ namespace MyGUI
 				text->setFontName(mItalicFont);
 			}
 
-			Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
+			Widget* line = text->createWidget<Widget>(
+				mLineSkin,
+				IntCoord(0, defaultSize - 1, defaultSize, 1),
+				Align::HStretch | Align::Bottom);
 			line->setColour(Colour::Black);
 			line->setVisible(false);
 			line->setNeedMouseFocus(false);
@@ -156,7 +163,8 @@ namespace MyGUI
 			VectorString result = utility::split(_value);
 			for (const auto& item : result)
 			{
-				TextBox* text = _parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
+				TextBox* text =
+					_parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
 				text->setCaption(item);
 				if (mBold)
 				{
@@ -189,7 +197,10 @@ namespace MyGUI
 
 				if (mStrike)
 				{
-					Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, 0, defaultSize, 1), Align::HStretch | Align::VCenter);
+					Widget* line = text->createWidget<Widget>(
+						mLineSkin,
+						IntCoord(0, 0, defaultSize, 1),
+						Align::HStretch | Align::VCenter);
 					line->setColour(Colour::Black);
 					line->setNeedMouseFocus(false);
 					if (mColour)
@@ -198,7 +209,10 @@ namespace MyGUI
 
 				if (mUnder)
 				{
-					Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
+					Widget* line = text->createWidget<Widget>(
+						mLineSkin,
+						IntCoord(0, defaultSize - 1, defaultSize, 1),
+						Align::HStretch | Align::Bottom);
 					line->setColour(Colour::Black);
 					line->setNeedMouseFocus(false);
 					if (mColour)
@@ -285,7 +299,9 @@ namespace MyGUI
 
 			const std::string_view colourTagName = "value=";
 
-			std::string_view valueColour = _value.substr(colourStartTagName.size(), _value.size() - (colourStartTagName.size() + colourEndTagName.size()));
+			std::string_view valueColour = _value.substr(
+				colourStartTagName.size(),
+				_value.size() - (colourStartTagName.size() + colourEndTagName.size()));
 			VectorString result = utility::split(valueColour);
 			for (const auto& item : result)
 			{
@@ -312,7 +328,8 @@ namespace MyGUI
 
 			const std::string_view urlTagName = "value=";
 
-			std::string_view valueUrl = _value.substr(urlStartTagName.size(), _value.size() - (urlStartTagName.size() + urlEndTagName.size()));
+			std::string_view valueUrl =
+				_value.substr(urlStartTagName.size(), _value.size() - (urlStartTagName.size() + urlEndTagName.size()));
 			VectorString result = utility::split(valueUrl);
 			for (const auto& item : result)
 			{
@@ -344,7 +361,9 @@ namespace MyGUI
 			const std::string_view alightTagName = "align=";
 			const std::string_view floatTagName = "float=";
 
-			std::string_view valueParagraph = _value.substr(paragraphStartTagName.size(), _value.size() - (paragraphStartTagName.size() + paragraphEndTagName.size()));
+			std::string_view valueParagraph = _value.substr(
+				paragraphStartTagName.size(),
+				_value.size() - (paragraphStartTagName.size() + paragraphEndTagName.size()));
 			VectorString result = utility::split(valueParagraph);
 			for (const auto& item : result)
 			{
@@ -408,7 +427,9 @@ namespace MyGUI
 			const std::string_view widthTagName = "width=";
 			const std::string_view heightTagName = "height=";
 
-			std::string_view valueImage = _value.substr(imageStartTagName.size(), _value.size() - (imageStartTagName.size() + imageEndTagName.size()));
+			std::string_view valueImage = _value.substr(
+				imageStartTagName.size(),
+				_value.size() - (imageStartTagName.size() + imageEndTagName.size()));
 			VectorString result = utility::split(valueImage);
 			for (const auto& item : result)
 			{
@@ -453,7 +474,10 @@ namespace MyGUI
 			if (mCurrentWrapPanel != nullptr)
 			{
 				const int countInTab = 4;
-				mCurrentWrapPanel->createWidget<Widget>("Default", IntCoord(0, 0, countInTab * mSpacer.width, 0), Align::Default);
+				mCurrentWrapPanel->createWidget<Widget>(
+					"Default",
+					IntCoord(0, 0, countInTab * mSpacer.width, 0),
+					Align::Default);
 			}
 		}
 	}
@@ -562,7 +586,7 @@ namespace MyGUI
 
 	void HyperTextBox::setBoldItalicFont(std::string_view _value)
 	{
-		mBoldItalicFont =_value;
+		mBoldItalicFont = _value;
 	}
 
 	void HyperTextBox::setPropertyOverride(std::string_view _key, std::string_view _value)

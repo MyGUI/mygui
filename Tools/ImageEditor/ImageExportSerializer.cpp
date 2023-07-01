@@ -117,7 +117,8 @@ namespace tools
 		pugi::xml_node node = _parent.append_child("Group");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
 		node.append_attribute("texture").set_value(_data->getPropertyValue("Texture").c_str());
-		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
+		node.append_attribute("size").set_value(
+			MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
 
 		for (const auto& child : _data->getChilds())
 			writeIndex(node, child);
@@ -135,7 +136,7 @@ namespace tools
 		for (const auto& child : _data->getChilds())
 			writeFrame(node, child);
 	}
-	
+
 	void ImageExportSerializer::writeFrame(pugi::xml_node _parent, DataPtr _data)
 	{
 		pugi::xml_node node = _parent.append_child("Frame");

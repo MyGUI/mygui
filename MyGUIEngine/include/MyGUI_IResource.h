@@ -20,13 +20,12 @@ namespace MyGUI
 
 	class ResourceManager;
 
-	class MYGUI_EXPORT IResource :
-		public ISerializable
+	class MYGUI_EXPORT IResource : public ISerializable
 	{
 		// для серелизации и удаления
 		friend class ResourceManager;
 
-		MYGUI_RTTI_DERIVED( IResource )
+		MYGUI_RTTI_DERIVED(IResource)
 
 	public:
 		const std::string& getResourceName() const
@@ -40,7 +39,7 @@ namespace MyGUI
 		}
 
 		IResource(IResource const&) = delete;
-		IResource& operator = (IResource const&) = delete;
+		IResource& operator=(IResource const&) = delete;
 
 	protected:
 		IResource() = default;

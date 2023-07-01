@@ -9,8 +9,10 @@ namespace tools
 
 	void WidgetTypes::initialise()
 	{
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") =
+			MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") =
+			MyGUI::newDelegate(this, &WidgetTypes::loadValues);
 	}
 
 	void WidgetTypes::shutdown()
@@ -63,7 +65,11 @@ namespace tools
 		return type;
 	}
 
-	void WidgetTypes::addWidgetSkinType(std::string_view _type, std::string_view _skin, std::string_view _group, std::string_view _button_name)
+	void WidgetTypes::addWidgetSkinType(
+		std::string_view _type,
+		std::string_view _skin,
+		std::string_view _group,
+		std::string_view _button_name)
 	{
 		WidgetStyle* widget_type = getWidgetType(_type);
 		if (_group.empty())
@@ -166,9 +172,9 @@ namespace tools
 			}
 		}
 
-        PossibleValue* possible_value = new PossibleValue();
-        possible_value->name = _name;
-        mPossibleValues.push_back(possible_value);
+		PossibleValue* possible_value = new PossibleValue();
+		possible_value->name = _name;
+		mPossibleValues.push_back(possible_value);
 
 		return possible_value;
 	}
@@ -254,7 +260,7 @@ namespace tools
 		while (_style != nullptr && !_style->base.empty())
 		{
 			_style = findWidgetStyle(_style->base);
-			++ result;
+			++result;
 		}
 
 		return result;

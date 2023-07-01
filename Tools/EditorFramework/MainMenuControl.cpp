@@ -26,7 +26,9 @@ namespace tools
 
 		mScaleMenu = mMainMenu->findItemById("Scale");
 
-		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &MainMenuControl::command_UpdateAppCaption);
+		CommandManager::getInstance()
+			.getEvent("Command_UpdateAppCaption")
+			->connect(this, &MainMenuControl::command_UpdateAppCaption);
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 
@@ -55,11 +57,17 @@ namespace tools
 			if (!recentFiles.empty())
 			{
 				size_t index = 1;
-				for (RecentFilesManager::VectorUString::const_iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter, ++index)
+				for (RecentFilesManager::VectorUString::const_iterator iter = recentFiles.begin();
+					 iter != recentFiles.end();
+					 ++iter, ++index)
 				{
 					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
 					addUserTag("RecentFile", *iter);
-					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
+					recentFilesMenu->getItemChild()->addItem(
+						replaceTags("FormatRecentFile"),
+						MyGUI::MenuItemType::Normal,
+						"Command_RecentFiles",
+						*iter);
 				}
 			}
 		}
@@ -74,7 +82,7 @@ namespace tools
 			{
 				int value = MyGUI::utility::parseValue<int>(replaceTags("CurrentScale"));
 				std::string id = MyGUI::utility::toString("Command_ChangeScale", ".", value);
-				for (size_t index = 0; index < menu->getItemCount(); index ++)
+				for (size_t index = 0; index < menu->getItemCount(); index++)
 				{
 					MyGUI::MenuItem* item = menu->getItemAt(index);
 					item->setItemChecked(item->getItemId() == id);

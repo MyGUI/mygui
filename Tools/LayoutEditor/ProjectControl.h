@@ -17,9 +17,7 @@
 namespace tools
 {
 
-	class ProjectControl :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+	class ProjectControl : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
 		ProjectControl(MyGUI::Widget* _parent = nullptr);

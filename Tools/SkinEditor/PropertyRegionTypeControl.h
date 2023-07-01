@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class PropertyRegionTypeControl :
-		public PropertyControl
+	class PropertyRegionTypeControl : public PropertyControl
 	{
 	public:
 		~PropertyRegionTypeControl() override;

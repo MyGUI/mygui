@@ -15,7 +15,7 @@ namespace tools::utility
 	void _setSuccessText(MyGUI::EditBox* _edit, const MyGUI::UString& _text, bool _success);
 	bool _checkStreamFail(std::istringstream& str);
 
-	template <typename T>
+	template<typename T>
 	bool checkParseInterval(MyGUI::EditBox* _edit, size_t _count, T _min, T _max)
 	{
 		const MyGUI::UString& text = _edit->getOnlyText();
@@ -26,8 +26,9 @@ namespace tools::utility
 		while (success && _count > 0)
 		{
 			str >> p;
-			if (p > _max || p < _min) success = false;
-			-- _count;
+			if (p > _max || p < _min)
+				success = false;
+			--_count;
 		}
 		if (success)
 		{
@@ -38,7 +39,7 @@ namespace tools::utility
 		return success;
 	}
 
-	template <typename T>
+	template<typename T>
 	bool checkParse(MyGUI::EditBox* _edit, size_t _count)
 	{
 		const MyGUI::UString& text = _edit->getOnlyText();
@@ -49,7 +50,7 @@ namespace tools::utility
 		while (_count > 0)
 		{
 			str >> p;
-			-- _count;
+			--_count;
 		}
 		success = _checkStreamFail(str);
 

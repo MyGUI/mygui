@@ -8,11 +8,10 @@
 namespace tools
 {
 
-	class Application :
-		public base::BaseDemoManager,
-		public sigslot::has_slots<>
+	class Application : public base::BaseDemoManager, public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(Application);
+
 	public:
 		Application();
 		~Application() override;

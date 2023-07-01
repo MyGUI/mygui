@@ -45,7 +45,7 @@ namespace MyGUI
 
 		IRenderTarget* getRenderTarget() override;
 
-	/*internal:*/
+		/*internal:*/
 		unsigned int getTextureId() const;
 		void setUsage(TextureUsage _usage);
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);

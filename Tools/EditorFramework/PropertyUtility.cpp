@@ -36,7 +36,8 @@ namespace tools
 
 		const std::string& actionName = _property->getType()->getAction();
 
-		ActionChangeDataProperty* action = components::FactoryManager::GetInstance().CreateItem<ActionChangeDataProperty>(actionName);
+		ActionChangeDataProperty* action =
+			components::FactoryManager::GetInstance().CreateItem<ActionChangeDataProperty>(actionName);
 		if (action != nullptr)
 		{
 			action->setProperty(_property);
@@ -47,7 +48,11 @@ namespace tools
 		}
 	}
 
-	void PropertyUtility::storeUniqueNameProperty(std::string_view _propertyName, std::string_view _propertyUnique, DataPtr _parent, VectorPairProperty& _store)
+	void PropertyUtility::storeUniqueNameProperty(
+		std::string_view _propertyName,
+		std::string_view _propertyUnique,
+		DataPtr _parent,
+		VectorPairProperty& _store)
 	{
 		const Data::VectorData& childs = _parent->getChilds();
 		for (const auto& child : childs)
@@ -70,7 +75,10 @@ namespace tools
 		_store.clear();
 	}
 
-	PropertyPtr PropertyUtility::getPropertyByName(DataPtr _data, std::string_view _dataType, std::string_view _propertyName)
+	PropertyPtr PropertyUtility::getPropertyByName(
+		DataPtr _data,
+		std::string_view _dataType,
+		std::string_view _propertyName)
 	{
 		if (_data == nullptr)
 			return nullptr;

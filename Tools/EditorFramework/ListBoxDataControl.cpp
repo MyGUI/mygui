@@ -31,7 +31,8 @@ namespace tools
 
 		if (mListBox != nullptr)
 		{
-			mListBox->eventListChangePosition += MyGUI::newDelegate(this, &ListBoxDataControl::notifyListChangePosition);
+			mListBox->eventListChangePosition +=
+				MyGUI::newDelegate(this, &ListBoxDataControl::notifyListChangePosition);
 			mListBox->eventNotifyItem += MyGUI::newDelegate(this, &ListBoxDataControl::notifyItem);
 		}
 
@@ -72,7 +73,7 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (size_t index = 0; index < mListBox->getItemCount(); index ++)
+			for (size_t index = 0; index < mListBox->getItemCount(); index++)
 				mListBox->setItemDataAt(index, nullptr);
 
 			const Data::VectorData& childs = DataUtility::getChildsByType(mParentData, mThisType);
@@ -83,7 +84,7 @@ namespace tools
 			while (mListBox->getItemCount() < childs.size())
 				mListBox->addItem(MyGUI::UString(), nullptr);
 
-			for (size_t index = 0; index < childs.size(); index ++)
+			for (size_t index = 0; index < childs.size(); index++)
 			{
 				DataPtr child = childs.at(index);
 
@@ -91,7 +92,9 @@ namespace tools
 				if (unique)
 					mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
 				else
-					mListBox->setItemNameAt(index, replaceTags(mColourName) + child->getPropertyValue(mPropertyForName));
+					mListBox->setItemNameAt(
+						index,
+						replaceTags(mColourName) + child->getPropertyValue(mPropertyForName));
 
 				mListBox->setItemDataAt(index, child);
 
@@ -112,7 +115,8 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			size_t currentIndex = mListBox->getIndexSelected();
-			DataPtr selection = currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(currentIndex) : nullptr;
+			DataPtr selection =
+				currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(currentIndex) : nullptr;
 
 			if (selection != mParentData->getChildSelected())
 				selectListItemByData(mParentData->getChildSelected());
@@ -121,7 +125,7 @@ namespace tools
 
 	void ListBoxDataControl::selectListItemByData(DataPtr _data)
 	{
-		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
+		for (size_t index = 0; index < mListBox->getItemCount(); index++)
 		{
 			DataPtr selection = *mListBox->getItemDataAt<DataPtr>(index);
 			if (selection == _data)
@@ -154,7 +158,8 @@ namespace tools
 
 				if (mParentData != nullptr)
 				{
-					DataPtr selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_info.index) : nullptr;
+					DataPtr selection =
+						_info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_info.index) : nullptr;
 					DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
 				}
 			}
@@ -166,7 +171,8 @@ namespace tools
 				if (mContextMenu->getChildCount() != 0)
 				{
 					MyGUI::IntPoint point = MyGUI::IntPoint(_info.x, _info.y);
-					if ((_info.y + mContextMenu->getHeight()) >= MyGUI::RenderManager::getInstance().getViewSize().height)
+					if ((_info.y + mContextMenu->getHeight()) >=
+						MyGUI::RenderManager::getInstance().getViewSize().height)
 						point.top -= mContextMenu->getHeight();
 					if ((_info.x + mContextMenu->getWidth()) >= MyGUI::RenderManager::getInstance().getViewSize().width)
 						point.left -= mContextMenu->getWidth();
@@ -192,7 +198,11 @@ namespace tools
 				mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
 				mTextFieldControl->setTextField(data->getPropertyValue(mPropertyForName));
 				mTextFieldControl->setUserData(data);
-				mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+				mTextFieldControl->setCoord(MyGUI::IntCoord(
+					widget->getAbsoluteLeft(),
+					widget->getAbsoluteTop(),
+					widget->getWidth(),
+					widget->getHeight()));
 				mTextFieldControl->doModal();
 			}
 		}
@@ -214,12 +224,17 @@ namespace tools
 		mEnableChangePosition = _value;
 	}
 
-	void ListBoxDataControl::setDataInfo(std::string_view _parentType, std::string_view _thisType, std::string_view _propertyName)
+	void ListBoxDataControl::setDataInfo(
+		std::string_view _parentType,
+		std::string_view _thisType,
+		std::string_view _propertyName)
 	{
 		mPropertyForName = _propertyName;
 		mThisType = _thisType;
 
-		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
+		DataSelectorManager::getInstance()
+			.getEvent(_parentType)
+			->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
 		mParentData = DataUtility::getSelectedDataByType(_parentType);
 		notifyChangeDataSelector(mParentData, false);
 	}
@@ -245,7 +260,7 @@ namespace tools
 		if (mParentData != _sender->getOwner()->getParent())
 			return;
 
-		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
+		for (size_t index = 0; index < mListBox->getItemCount(); index++)
 		{
 			DataPtr data = *mListBox->getItemDataAt<DataPtr>(index);
 			if (data == _sender->getOwner())

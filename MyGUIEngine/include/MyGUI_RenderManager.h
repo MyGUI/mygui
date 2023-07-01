@@ -20,6 +20,7 @@ namespace MyGUI
 	class MYGUI_EXPORT RenderManager
 	{
 		MYGUI_SINGLETON_DECLARATION(RenderManager);
+
 	public:
 		RenderManager();
 		virtual ~RenderManager() = default;
@@ -48,7 +49,7 @@ namespace MyGUI
 		/** Check if texture format supported by hardware */
 		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
-        /** Set render view size. Should be called on every window resize */
+		/** Set render view size. Should be called on every window resize */
 		virtual void setViewSize(int _width, int _height) = 0;
 
 		/** Register shader, that can set with ITexture::setShader.

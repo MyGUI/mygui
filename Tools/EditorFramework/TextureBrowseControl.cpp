@@ -32,7 +32,8 @@ namespace tools
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TextureBrowseControl::notifyWindowButtonPressed);
+			window->eventWindowButtonPressed +=
+				MyGUI::newDelegate(this, &TextureBrowseControl::notifyWindowButtonPressed);
 
 		MyGUI::ItemBox* box = mTextures->getItemBox();
 		box->eventChangeItemPosition += MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
@@ -46,7 +47,9 @@ namespace tools
 		MyGUI::IntSize windowSize = mMainWidget->getSize();
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+		mMainWidget->setPosition(
+			(parentSize.width - windowSize.width) / 2,
+			(parentSize.height - windowSize.height) / 2);
 	}
 
 	void TextureBrowseControl::onEndModal()

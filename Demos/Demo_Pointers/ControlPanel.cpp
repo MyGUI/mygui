@@ -51,7 +51,6 @@ namespace demo
 				mPointerContextManager->removeContext(mRepair->getUserString("Context"));
 			}
 		}
-
 	}
 
 	void ControlPanel::injectKeyPress(MyGUI::KeyCode _key)

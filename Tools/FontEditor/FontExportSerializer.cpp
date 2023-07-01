@@ -134,7 +134,8 @@ namespace tools
 		nodeProperty.append_attribute("key").set_value("Resolution");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Resolution").c_str());
 
-		std::string value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Antialias")));
+		std::string value =
+			MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Antialias")));
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Antialias");
 		nodeProperty.append_attribute("value").set_value(value.c_str());
@@ -173,7 +174,6 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Shader");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Shader").c_str());
-
 	}
 
 	bool FontExportSerializer::exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName)
@@ -202,7 +202,11 @@ namespace tools
 		node->addAttribute("value", _value);
 	}
 
-	static void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute)
+	static void addCode(
+		MyGUI::xml::Element* _node,
+		MyGUI::Char _code,
+		MyGUI::ResourceTrueTypeFont* _font,
+		bool _isSubstitute)
 	{
 		MyGUI::xml::Element* codeNode = _node->createChild("Code");
 
@@ -210,21 +214,13 @@ namespace tools
 		{
 			switch (_code)
 			{
-			case MyGUI::FontCodeType::Selected:
-				codeNode->addAttribute("index", "selected");
-				break;
+			case MyGUI::FontCodeType::Selected: codeNode->addAttribute("index", "selected"); break;
 
-			case MyGUI::FontCodeType::SelectedBack:
-				codeNode->addAttribute("index", "selected_back");
-				break;
+			case MyGUI::FontCodeType::SelectedBack: codeNode->addAttribute("index", "selected_back"); break;
 
-			case MyGUI::FontCodeType::Cursor:
-				codeNode->addAttribute("index", "cursor");
-				break;
+			case MyGUI::FontCodeType::Cursor: codeNode->addAttribute("index", "cursor"); break;
 
-			default:
-				codeNode->addAttribute("index", _code);
-				break;
+			default: codeNode->addAttribute("index", _code); break;
 			}
 		}
 		else
@@ -234,7 +230,11 @@ namespace tools
 
 		const MyGUI::GlyphInfo* info = _font->getGlyphInfo(_code);
 		MyGUI::ITexture* texture = _font->getTextureFont();
-		MyGUI::FloatCoord coord(info->uvRect.left * (float)texture->getWidth(), info->uvRect.top * (float)texture->getHeight(), info->width, info->height);
+		MyGUI::FloatCoord coord(
+			info->uvRect.left * (float)texture->getWidth(),
+			info->uvRect.top * (float)texture->getHeight(),
+			info->width,
+			info->height);
 
 		if (!coord.empty())
 			codeNode->addAttribute("coord", coord);
@@ -246,10 +246,14 @@ namespace tools
 			codeNode->addAttribute("advance", info->advance);
 	}
 
-	void FontExportSerializer::generateFontManualXml(MyGUI::xml::ElementPtr _root, const MyGUI::UString& _folderName, DataPtr _data)
+	void FontExportSerializer::generateFontManualXml(
+		MyGUI::xml::ElementPtr _root,
+		const MyGUI::UString& _folderName,
+		DataPtr _data)
 	{
 		MyGUI::IFont* resource = MyGUI::FontManager::getInstance().getByName(_data->getPropertyValue("FontName"));
-		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
+		MyGUI::ResourceTrueTypeFont* font =
+			resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
 
 		if (font != nullptr)
 		{
@@ -257,7 +261,8 @@ namespace tools
 			MyGUI::ITexture* texture = font->getTextureFont();
 			if (texture == nullptr)
 				return;
-			texture->saveToFile(MyGUI::UString(common::concatenatePath(_folderName, MyGUI::UString(textureName))).asUTF8());
+			texture->saveToFile(
+				MyGUI::UString(common::concatenatePath(_folderName, MyGUI::UString(textureName))).asUTF8());
 
 			MyGUI::xml::ElementPtr node = _root->createChild("Resource");
 			node->addAttribute("type", "ResourceManualFont");
@@ -269,7 +274,7 @@ namespace tools
 
 			MyGUI::xml::Element* codes = node->createChild("Codes");
 
-			std::vector<std::pair<MyGUI::Char, MyGUI::Char> > codePointRanges = font->getCodePointRanges();
+			std::vector<std::pair<MyGUI::Char, MyGUI::Char>> codePointRanges = font->getCodePointRanges();
 			MyGUI::Char substituteCodePoint = font->getSubstituteCodePoint();
 			bool isCustomSubstituteCodePoint = substituteCodePoint != MyGUI::FontCodeType::NotDefined;
 
@@ -291,7 +296,8 @@ namespace tools
 		removeFont(fontName);
 
 		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
-		MyGUI::ResourceTrueTypeFont* font = MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceTrueTypeFont>(resourceCategory);
+		MyGUI::ResourceTrueTypeFont* font =
+			MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceTrueTypeFont>(resourceCategory);
 
 		font->setResourceName(fontName);
 

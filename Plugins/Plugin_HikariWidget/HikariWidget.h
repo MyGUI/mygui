@@ -13,10 +13,9 @@
 namespace Hikari
 {
 
-	class MYGUI_EXPORT_DLL HikariWidget :
-		public MyGUI::Canvas
+	class MYGUI_EXPORT_DLL HikariWidget : public MyGUI::Canvas
 	{
-		MYGUI_RTTI_DERIVED( HikariWidget )
+		MYGUI_RTTI_DERIVED(HikariWidget)
 
 	public:
 		HikariWidget();

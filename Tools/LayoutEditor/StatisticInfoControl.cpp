@@ -27,7 +27,9 @@ namespace tools
 
 		assignWidget(mText, "Text");
 
-		CommandManager::getInstance().getEvent("Command_StatisticInfo")->connect(this, &StatisticInfoControl::command_StatisticInfo);
+		CommandManager::getInstance()
+			.getEvent("Command_StatisticInfo")
+			->connect(this, &StatisticInfoControl::command_StatisticInfo);
 
 		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/StatisticInfoControl/Visible"));
 
@@ -53,7 +55,7 @@ namespace tools
 			std::string value;
 
 			MyGUI::MapString statistic = Application::getInstance().getStatistic();
-			for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info ++)
+			for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info++)
 			{
 				if (!value.empty())
 					value += "\n";

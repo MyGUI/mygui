@@ -11,28 +11,36 @@
 #include "Precompiled.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <direct.h>
+	#define WIN32_LEAN_AND_MEAN
+	#include <windows.h>
+	#include <direct.h>
 #endif
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#	define MYGUI_APP(cls) INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return startApp<cls>(); }
+	#define MYGUI_APP(cls) \
+		INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) \
+		{ \
+			return startApp<cls>(); \
+		}
 #else
-#	define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
+	#define MYGUI_APP(cls) \
+		int main(int argc, char** argv) \
+		{ \
+			return startApp<cls>(); \
+		}
 #endif
 
 #ifdef EMSCRIPTEN
-#include <emscripten.h>
+	#include <emscripten.h>
 
-template <class AppClass>
+template<class AppClass>
 void run(void* arg)
 {
 	reinterpret_cast<AppClass*>(arg)->run();
 }
 #endif
 
-template <class AppClass>
+template<class AppClass>
 int startApp()
 {
 	try
@@ -64,9 +72,14 @@ int startApp()
 	catch (MyGUI::Exception& _e)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		MessageBoxA( nullptr, _e.getFullDescription().c_str(), "An exception has occured", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+		MessageBoxA(
+			nullptr,
+			_e.getFullDescription().c_str(),
+			"An exception has occured",
+			MB_OK | MB_ICONERROR | MB_TASKMODAL);
 #else
-		std::cerr << "An exception has occured" << " : " << _e.getFullDescription().c_str();
+		std::cerr << "An exception has occured"
+				  << " : " << _e.getFullDescription().c_str();
 #endif
 		throw;
 	}

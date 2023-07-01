@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class ImageListControl :
-		public DataListBaseControl
+	class ImageListControl : public DataListBaseControl
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

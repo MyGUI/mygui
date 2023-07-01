@@ -12,9 +12,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TextureToolControl :
-		public TextureControl,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL TextureToolControl : public TextureControl, public sigslot::has_slots<>
 	{
 	public:
 		~TextureToolControl() override;

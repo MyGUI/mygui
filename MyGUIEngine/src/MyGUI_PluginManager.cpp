@@ -27,7 +27,8 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPluginTagName) = newDelegate(this, &PluginManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPluginTagName) =
+			newDelegate(this, &PluginManager::_load);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -87,7 +88,9 @@ namespace MyGUI
 			// Call plugin shutdown
 			DLL_STOP_PLUGIN pFunc = reinterpret_cast<DLL_STOP_PLUGIN>((*it).second->getSymbol("dllStopPlugin"));
 
-			MYGUI_ASSERT(nullptr != pFunc, getClassTypeName() << "Cannot find symbol 'dllStopPlugin' in library " << _file);
+			MYGUI_ASSERT(
+				nullptr != pFunc,
+				getClassTypeName() << "Cannot find symbol 'dllStopPlugin' in library " << _file);
 
 			// this must call uninstallPlugin
 			pFunc();

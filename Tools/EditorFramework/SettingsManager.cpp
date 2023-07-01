@@ -178,7 +178,9 @@ namespace tools
 
 	void SettingsManager::mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
 	{
-		for (pugi::xml_node::attribute_iterator attribute = _nodeSource.attributes_begin(); attribute != _nodeSource.attributes_end(); attribute ++)
+		for (pugi::xml_node::attribute_iterator attribute = _nodeSource.attributes_begin();
+			 attribute != _nodeSource.attributes_end();
+			 attribute++)
 		{
 			pugi::xml_attribute attributeNode = _nodeTarget.attribute((*attribute).name());
 			if (attributeNode.empty())
@@ -196,7 +198,8 @@ namespace tools
 
 		if (result)
 		{
-			if (std::string_view(doc.first_child().name()) == std::string_view(mUserDocument->document_element().name()))
+			if (std::string_view(doc.first_child().name()) ==
+				std::string_view(mUserDocument->document_element().name()))
 				mergeNodes(mUserDocument->document_element(), doc.first_child());
 		}
 		else

@@ -33,7 +33,7 @@ namespace tools
 
 		PropertyFieldActionDelegate eventAction;
 	};
-	
+
 }
 
 #endif

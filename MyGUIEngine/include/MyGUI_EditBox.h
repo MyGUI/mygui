@@ -22,12 +22,9 @@ namespace MyGUI
 	/** \brief @wpage{EditBox}
 		EditBox widget description should be here.
 	*/
-	class MYGUI_EXPORT EditBox :
-		public TextBox,
-		public ScrollViewBase,
-		public MemberObsolete<EditBox>
+	class MYGUI_EXPORT EditBox : public TextBox, public ScrollViewBase, public MemberObsolete<EditBox>
 	{
-		MYGUI_RTTI_DERIVED( EditBox )
+		MYGUI_RTTI_DERIVED(EditBox)
 
 	public:
 		EditBox();

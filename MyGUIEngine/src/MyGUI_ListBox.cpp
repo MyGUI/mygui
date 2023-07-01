@@ -86,7 +86,7 @@ namespace MyGUI
 				if (sel == ITEM_NONE)
 					sel = 0;
 				else
-					sel --;
+					sel--;
 			}
 		}
 		else if (_key == KeyCode::ArrowDown)
@@ -94,7 +94,7 @@ namespace MyGUI
 			if (sel == ITEM_NONE)
 				sel = 0;
 			else
-				sel ++;
+				sel++;
 
 			if (sel >= getItemCount())
 			{
@@ -220,7 +220,9 @@ namespace MyGUI
 		if (MouseButton::Left == _id && !mActivateOnClick)
 			_activateItem(_sender);
 
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
+		eventNotifyItem(
+			this,
+			IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
 	}
 
 	void ListBox::notifyMouseClick(MyGUI::Widget* _sender)
@@ -270,20 +272,25 @@ namespace MyGUI
 				mWidgetScroll->setVisible(false);
 				// увеличиваем клиентскую зону на ширину скрола
 				if (getClientWidget() != nullptr)
-					getClientWidget()->setSize(getClientWidget()->getWidth() + mWidgetScroll->getWidth(), getClientWidget()->getHeight());
+					getClientWidget()->setSize(
+						getClientWidget()->getWidth() + mWidgetScroll->getWidth(),
+						getClientWidget()->getHeight());
 			}
 		}
 		else if (!mWidgetScroll->getVisible())
 		{
 			if (getClientWidget() != nullptr)
-				getClientWidget()->setSize(getClientWidget()->getWidth() - mWidgetScroll->getWidth(), getClientWidget()->getHeight());
+				getClientWidget()->setSize(
+					getClientWidget()->getWidth() - mWidgetScroll->getWidth(),
+					getClientWidget()->getHeight());
 			mWidgetScroll->setVisible(true);
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
 		mWidgetScroll->setScrollViewPage(_getClientWidget()->getHeight());
 		if (!mItemsInfo.empty())
-			mWidgetScroll->setTrackSize(mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size());
+			mWidgetScroll->setTrackSize(
+				mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size());
 	}
 
 	void ListBox::updateLine(bool _reset)
@@ -305,10 +312,18 @@ namespace MyGUI
 			int height = (int)mWidgetLines.size() * mHeightLine - mOffsetTop;
 
 			// до тех пор, пока не достигнем максимального колличества, и всегда на одну больше
-			while ( (height <= (_getClientWidget()->getHeight() + mHeightLine)) && (mWidgetLines.size() < mItemsInfo.size()) )
+			while ((height <= (_getClientWidget()->getHeight() + mHeightLine)) &&
+				   (mWidgetLines.size() < mItemsInfo.size()))
 			{
 				// создаем линию
-				Widget* widget = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
+				Widget* widget = _getClientWidget()->createWidgetT(
+					"Button",
+					mSkinLine,
+					0,
+					height,
+					_getClientWidget()->getWidth(),
+					mHeightLine,
+					Align::Top | Align::HStretch);
 				Button* line = widget->castType<Button>();
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
@@ -360,7 +375,7 @@ namespace MyGUI
 					if (mOffsetTop == mHeightLine)
 					{
 						mOffsetTop = 0;
-						count --;
+						count--;
 					}
 
 					int top = (int)mItemsInfo.size() - count - 1;
@@ -479,13 +494,15 @@ namespace MyGUI
 		// строка, до первого видимого элемента
 		if ((_index <= (size_t)mTopIndex) && (mRangeIndex > 0))
 		{
-			mTopIndex ++;
+			mTopIndex++;
 			// просчитываем положение скролла
 			if (mWidgetScroll != nullptr)
 			{
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
 				if (!mItemsInfo.empty())
-					mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
+					mWidgetScroll->setTrackSize(
+						mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
+						(int)mItemsInfo.size());
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			}
 			mRangeIndex += mHeightLine;
@@ -503,7 +520,9 @@ namespace MyGUI
 				{
 					mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
 					if (!mItemsInfo.empty())
-						mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
+						mWidgetScroll->setTrackSize(
+							mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
+							(int)mItemsInfo.size());
 					mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				}
 				mRangeIndex += mHeightLine;
@@ -529,7 +548,8 @@ namespace MyGUI
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
 
 		// если надо, то меняем выделенный элемент
-		if (mItemsInfo.empty()) mIndexSelect = ITEM_NONE;
+		if (mItemsInfo.empty())
+			mIndexSelect = ITEM_NONE;
 		else if (mIndexSelect != ITEM_NONE)
 		{
 			if (_index < mIndexSelect)
@@ -547,13 +567,15 @@ namespace MyGUI
 		// строка, до первого видимого элемента
 		if (_index < (size_t)mTopIndex)
 		{
-			mTopIndex --;
+			mTopIndex--;
 			// просчитываем положение скролла
 			if (mWidgetScroll != nullptr)
 			{
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
 				if (!mItemsInfo.empty())
-					mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
+					mWidgetScroll->setTrackSize(
+						mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
+						(int)mItemsInfo.size());
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			}
 			mRangeIndex -= mHeightLine;
@@ -571,7 +593,9 @@ namespace MyGUI
 				{
 					mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
 					if (!mItemsInfo.empty())
-						mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
+						mWidgetScroll->setTrackSize(
+							mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
+							(int)mItemsInfo.size());
 					mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				}
 				mRangeIndex -= mHeightLine;
@@ -625,7 +649,8 @@ namespace MyGUI
 			return;
 
 		int offset = (int)_index * mHeightLine;
-		if (offset >= mRangeIndex) offset = mRangeIndex;
+		if (offset >= mRangeIndex)
+			offset = mRangeIndex;
 
 		if (mWidgetScroll != nullptr)
 		{
@@ -713,7 +738,6 @@ namespace MyGUI
 
 	void ListBox::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
-
 #if MYGUI_DEBUG_MODE == 1
 		MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMouseSetFocus");
 #endif
@@ -946,10 +970,15 @@ namespace MyGUI
 		// ячейка может быть скрыта
 		else if (_sender->getVisible())
 		{
-
 #if MYGUI_DEBUG_MODE == 1
-			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
-			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(
+				*_sender->_getInternalData<size_t>(),
+				mWidgetLines.size(),
+				"ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(
+				*_sender->_getInternalData<size_t>() + mTopIndex,
+				mItemsInfo.size(),
+				"ListBox::notifyMousePressed");
 #endif
 
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
@@ -1011,7 +1040,9 @@ namespace MyGUI
 
 	void ListBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
+		eventNotifyItem(
+			this,
+			IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ListBox::onKeyButtonReleased(KeyCode _key)

@@ -13,8 +13,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(MonitorPanel, "Monitor.layout");
-	class MonitorPanel :
-		public wraps::BaseLayout
+	class MonitorPanel : public wraps::BaseLayout
 	{
 	public:
 		MonitorPanel();

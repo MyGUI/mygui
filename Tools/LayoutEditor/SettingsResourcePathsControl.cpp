@@ -17,14 +17,19 @@ namespace tools
 
 	SettingsResourcePathsControl::~SettingsResourcePathsControl()
 	{
-		mResourcePathAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);
-		mResourcePathDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickDelete);
+		mResourcePathAdd->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);
+		mResourcePathDelete->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickDelete);
 
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void SettingsResourcePathsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
+	void SettingsResourcePathsControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -33,18 +38,22 @@ namespace tools
 		assignWidget(mResourcePaths, "ResourcePaths");
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->Initialise(
+			SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &SettingsResourcePathsControl::notifyEndDialogOpenSaveFile);
 
-		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);
-		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickDelete);
+		mResourcePathAdd->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);
+		mResourcePathDelete->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickDelete);
 	}
 
 	void SettingsResourcePathsControl::loadSettings()
 	{
 		mResourcePaths->removeAllItems();
-		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
+		SettingsManager::VectorString paths =
+			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (const auto& path : paths)
 			mResourcePaths->addItem(path);
 	}
@@ -52,7 +61,7 @@ namespace tools
 	void SettingsResourcePathsControl::saveSettings()
 	{
 		SettingsManager::VectorString paths;
-		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++ index)
+		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++index)
 			paths.push_back(mResourcePaths->getItemNameAt(index));
 		SettingsManager::getInstance().setValueList("Resources/AdditionalPath.List", paths);
 	}

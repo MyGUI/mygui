@@ -16,8 +16,10 @@ namespace MyGUI::utility
 
 	inline void trim(std::string& _str, bool _left = true, bool _right = true)
 	{
-		if (_right) _str.erase(_str.find_last_not_of(" \t\r") + 1);
-		if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
+		if (_right)
+			_str.erase(_str.find_last_not_of(" \t\r") + 1);
+		if (_left)
+			_str.erase(0, _str.find_first_not_of(" \t\r"));
 	}
 
 	template<typename T>
@@ -28,18 +30,18 @@ namespace MyGUI::utility
 		return stream.str();
 	}
 
-	inline const std::string& toString (const std::string& _value)
+	inline const std::string& toString(const std::string& _value)
 	{
 		return _value;
 	}
 
 	template<>
-	inline std::string toString (std::string_view _value)
+	inline std::string toString(std::string_view _value)
 	{
-		return std::string{ _value };
+		return std::string{_value};
 	}
 
-	template<typename ...Args>
+	template<typename... Args>
 	inline std::string toString(Args&&... args)
 	{
 		std::ostringstream stream;
@@ -48,14 +50,14 @@ namespace MyGUI::utility
 	}
 
 	template<>
-	inline std::string toString<bool> (bool _value)
+	inline std::string toString<bool>(bool _value)
 	{
 		return _value ? "true" : "false";
 	}
 
 
 	template<typename T>
-	inline T parseValue( std::string_view _value )
+	inline T parseValue(std::string_view _value)
 	{
 		std::stringstream stream;
 		stream << _value;
@@ -155,7 +157,7 @@ namespace MyGUI::utility
 		return result;
 	}
 
-	template<typename ...Args>
+	template<typename... Args>
 	inline bool parseComplex(std::string_view _value, Args&... args)
 	{
 		std::stringstream stream;
@@ -205,7 +207,7 @@ namespace MyGUI::utility
 		size_t count = _value.size();
 		if (_source.size() < count)
 			return false;
-		for (size_t index = 0; index < count; ++ index)
+		for (size_t index = 0; index < count; ++index)
 		{
 			if (_source[index] != _value[index])
 				return false;
@@ -223,7 +225,7 @@ namespace MyGUI::utility
 		if (_source.size() < count)
 			return false;
 		size_t offset = _source.size() - count;
-		for (size_t index = 0; index < count; ++ index)
+		for (size_t index = 0; index < count; ++index)
 		{
 			if (_source[index + offset] != _value[index])
 				return false;

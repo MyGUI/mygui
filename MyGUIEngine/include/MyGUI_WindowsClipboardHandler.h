@@ -24,6 +24,7 @@ namespace MyGUI
 
 		void handleClipboardChanged(std::string_view _type, std::string_view _data);
 		void handleClipboardRequested(std::string_view _type, std::string& _data);
+
 	private:
 		// дескриптор нашего главного окна
 		size_t mHwnd;

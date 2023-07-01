@@ -20,8 +20,8 @@ namespace tools
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
 
-		mField->eventEditTextChange += newDelegate (this, &PropertyFieldEditBox::notifyTryApplyProperties);
-		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldEditBox::notifyForceApplyProperties);
+		mField->eventEditTextChange += newDelegate(this, &PropertyFieldEditBox::notifyTryApplyProperties);
+		mField->eventEditSelectAccept += newDelegate(this, &PropertyFieldEditBox::notifyForceApplyProperties);
 	}
 
 	void PropertyFieldEditBox::initialise(std::string_view _type)

@@ -27,46 +27,46 @@ namespace MyGUI::types
 		{
 		}
 
-		TPoint& operator -= (TPoint const& _obj)
+		TPoint& operator-=(TPoint const& _obj)
 		{
 			left -= _obj.left;
 			top -= _obj.top;
 			return *this;
 		}
 
-		TPoint& operator += (TPoint const& _obj)
+		TPoint& operator+=(TPoint const& _obj)
 		{
 			left += _obj.left;
 			top += _obj.top;
 			return *this;
 		}
 
-		TPoint operator - (TPoint const& _obj) const
+		TPoint operator-(TPoint const& _obj) const
 		{
 			return TPoint(left - _obj.left, top - _obj.top);
 		}
 
-		TPoint operator + (TPoint const& _obj) const
+		TPoint operator+(TPoint const& _obj) const
 		{
 			return TPoint(left + _obj.left, top + _obj.top);
 		}
 
 		template<typename U>
-		TPoint& operator = (TPoint<U> const& _obj)
+		TPoint& operator=(TPoint<U> const& _obj)
 		{
 			left = _obj.left;
 			top = _obj.top;
 			return *this;
 		}
 
-		bool operator == (TPoint const& _obj) const
+		bool operator==(TPoint const& _obj) const
 		{
 			return ((left == _obj.left) && (top == _obj.top));
 		}
 
-		bool operator != (TPoint const& _obj) const
+		bool operator!=(TPoint const& _obj) const
 		{
-			return ! ((left == _obj.left) && (top == _obj.top));
+			return !((left == _obj.left) && (top == _obj.top));
 		}
 
 		void clear()
@@ -104,13 +104,13 @@ namespace MyGUI::types
 			return utility::parseValue<TPoint<T>>(_value);
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const TPoint<T>&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const TPoint<T>& _value)
 		{
 			_stream << _value.left << " " << _value.top;
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, TPoint<T>&  _value)
+		friend std::istream& operator>>(std::istream& _stream, TPoint<T>& _value)
 		{
 			_stream >> _value.left >> _value.top;
 			if (_stream.fail())

@@ -26,8 +26,10 @@ using namespace Hikari;
 template<class NumberType>
 inline NumberType toNumber(MyGUI::UString numberString)
 {
-	if (numberString.substr(0, 4).compare("true") == 0) return 1;
-	else if (numberString.substr(0, 4).compare("false") == 0) return 0;
+	if (numberString.substr(0, 4).compare("true") == 0)
+		return 1;
+	else if (numberString.substr(0, 4).compare("false") == 0)
+		return 0;
 
 	std::istringstream converter(numberString);
 
@@ -54,39 +56,71 @@ inline std::string numberToString(const NumberType& number)
 	return (converter << number).fail() ? std::string{} : converter.str();
 }
 
-FlashValue::FlashValue() : numValue(0), boolValue(0), valueType(FT_NULL)
+FlashValue::FlashValue() :
+	numValue(0),
+	boolValue(0),
+	valueType(FT_NULL)
 {
 }
 
-FlashValue::FlashValue(bool booleanValue) : numValue(0), boolValue(booleanValue), valueType(FT_BOOLEAN)
+FlashValue::FlashValue(bool booleanValue) :
+	numValue(0),
+	boolValue(booleanValue),
+	valueType(FT_BOOLEAN)
 {
 }
 
-FlashValue::FlashValue(int numericValue) : numValue(float(numericValue)), boolValue(0), valueType(FT_NUMBER)
+FlashValue::FlashValue(int numericValue) :
+	numValue(float(numericValue)),
+	boolValue(0),
+	valueType(FT_NUMBER)
 {
 }
 
-FlashValue::FlashValue(float numericValue) : numValue(numericValue), boolValue(0), valueType(FT_NUMBER)
+FlashValue::FlashValue(float numericValue) :
+	numValue(numericValue),
+	boolValue(0),
+	valueType(FT_NUMBER)
 {
 }
 
-FlashValue::FlashValue(const char* stringValue) : strValue(stringValue), numValue(0), boolValue(0), valueType(FT_STRING)
+FlashValue::FlashValue(const char* stringValue) :
+	strValue(stringValue),
+	numValue(0),
+	boolValue(0),
+	valueType(FT_STRING)
 {
 }
 
-FlashValue::FlashValue(const wchar_t* stringValue) : strValue(stringValue), numValue(0), boolValue(0), valueType(FT_STRING)
+FlashValue::FlashValue(const wchar_t* stringValue) :
+	strValue(stringValue),
+	numValue(0),
+	boolValue(0),
+	valueType(FT_STRING)
 {
 }
 
-FlashValue::FlashValue(const std::string& stringValue) : strValue(stringValue), numValue(0), boolValue(0), valueType(FT_STRING)
+FlashValue::FlashValue(const std::string& stringValue) :
+	strValue(stringValue),
+	numValue(0),
+	boolValue(0),
+	valueType(FT_STRING)
 {
 }
 
-FlashValue::FlashValue(const std::wstring& stringValue) : strValue(stringValue), numValue(0), boolValue(0), valueType(FT_STRING)
+FlashValue::FlashValue(const std::wstring& stringValue) :
+	strValue(stringValue),
+	numValue(0),
+	boolValue(0),
+	valueType(FT_STRING)
 {
 }
 
-FlashValue::FlashValue(const MyGUI::UString& stringValue) : strValue(stringValue), numValue(0), boolValue(0), valueType(FT_STRING)
+FlashValue::FlashValue(const MyGUI::UString& stringValue) :
+	strValue(stringValue),
+	numValue(0),
+	boolValue(0),
+	valueType(FT_STRING)
 {
 }
 
@@ -166,7 +200,8 @@ Args::Args(Args& v)
 	this->swap(v);
 }
 
-Args::Args(const FlashValue& firstArg) : Arguments(1, firstArg)
+Args::Args(const FlashValue& firstArg) :
+	Arguments(1, firstArg)
 {
 }
 

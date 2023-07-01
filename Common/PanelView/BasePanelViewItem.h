@@ -15,8 +15,7 @@
 namespace wraps
 {
 
-	class BasePanelViewItem :
-		public wraps::BaseLayout
+	class BasePanelViewItem : public wraps::BaseLayout
 	{
 	public:
 		BasePanelViewItem(std::string_view _layout) :
@@ -30,7 +29,7 @@ namespace wraps
 			mPanelCell = _cell;
 			mWidgetClient = mPanelCell->getClient();
 
-			if ( ! mLayout.empty())
+			if (!mLayout.empty())
 			{
 				BaseLayout::initialise(mLayout, mWidgetClient);
 				mMainWidget->setCoord(0, 0, mWidgetClient->getWidth(), mMainWidget->getHeight());
@@ -44,7 +43,7 @@ namespace wraps
 		{
 			shutdown();
 
-			if ( ! mLayout.empty())
+			if (!mLayout.empty())
 			{
 				BaseLayout::shutdown();
 			}
@@ -75,8 +74,12 @@ namespace wraps
 		}
 
 	protected:
-		virtual void initialise() { }
-		virtual void shutdown() { }
+		virtual void initialise()
+		{
+		}
+		virtual void shutdown()
+		{
+		}
 
 	protected:
 		BasePanelViewCell* mPanelCell{nullptr};

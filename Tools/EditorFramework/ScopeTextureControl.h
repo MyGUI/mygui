@@ -13,13 +13,20 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ScopeTextureControl :
-		public TextureToolControl
+	class MYGUI_EXPORT_DLL ScopeTextureControl : public TextureToolControl
 	{
 	public:
 		~ScopeTextureControl() override;
 
-		enum SelectorType { SelectorNone, SelectorCoord, SelectorPosition, SelectorPositionReadOnly, SelectorOffsetH, SelectorOffsetV };
+		enum SelectorType
+		{
+			SelectorNone,
+			SelectorCoord,
+			SelectorPosition,
+			SelectorPositionReadOnly,
+			SelectorOffsetH,
+			SelectorOffsetV
+		};
 
 		void setCoordValue(const MyGUI::IntCoord& _value, SelectorType _type);
 		void clearCoordValue();
@@ -71,7 +78,11 @@ namespace tools
 
 		using PairSelectorType = std::pair<SelectorControl*, SelectorType>;
 		using VectorSelector = std::vector<PairSelectorType>;
-		SelectorControl* getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes);
+		SelectorControl* getFreeSelector(
+			VectorSelector& _selectors,
+			bool _backType,
+			SelectorType _type,
+			bool& _changes);
 
 	private:
 		SelectorControl* mCurrentSelectorControl{nullptr};

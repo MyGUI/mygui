@@ -23,8 +23,10 @@ namespace tools
 	{
 		mWidgetsChanged = true;
 
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("SkinReplace") = MyGUI::newDelegate(this, &EditorWidgets::loadSkinReplace);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") =
+			MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("SkinReplace") =
+			MyGUI::newDelegate(this, &EditorWidgets::loadSkinReplace);
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
 		MyGUI::WidgetManager::getInstance().registerUnlinker(this);
@@ -304,7 +306,10 @@ namespace tools
 					containerParent = find(parent);
 				}
 
-				containerParent->childContainers.erase(std::find(containerParent->childContainers.begin(), containerParent->childContainers.end(), _container));
+				containerParent->childContainers.erase(std::find(
+					containerParent->childContainers.begin(),
+					containerParent->childContainers.end(),
+					_container));
 			}
 
 			MyGUI::Gui::getInstance().destroyWidget(_container->getWidget());
@@ -349,7 +354,10 @@ namespace tools
 					containerParent = find(parent);
 				}
 
-				containerParent->childContainers.erase(std::find(containerParent->childContainers.begin(), containerParent->childContainers.end(), _container));
+				containerParent->childContainers.erase(std::find(
+					containerParent->childContainers.begin(),
+					containerParent->childContainers.end(),
+					_container));
 			}
 
 			delete _container;
@@ -367,7 +375,7 @@ namespace tools
 
 		while (!mWidgets.empty())
 		{
-			remove(mWidgets[mWidgets.size()-1]);
+			remove(mWidgets[mWidgets.size() - 1]);
 		}
 
 		mCodeGeneratorSettings.clear();
@@ -383,7 +391,10 @@ namespace tools
 		return _find(nullptr, _name, mWidgets);
 	}
 
-	WidgetContainer* EditorWidgets::_find(MyGUI::Widget* _widget, std::string_view _name, std::vector<WidgetContainer*> _widgets)
+	WidgetContainer* EditorWidgets::_find(
+		MyGUI::Widget* _widget,
+		std::string_view _name,
+		std::vector<WidgetContainer*> _widgets)
 	{
 		for (auto& iter : _widgets)
 		{
@@ -427,9 +438,12 @@ namespace tools
 		if (_widget->findAttribute("position_real", position))
 		{
 			container->setRelativeMode(true);
-			MyGUI::IntSize textureSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
+			MyGUI::IntSize textureSize =
+				SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 			MyGUI::IntSize size = _testMode ? MyGUI::RenderManager::getInstance().getViewSize() : textureSize;
-			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::DoubleCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
+			coord = MyGUI::CoordConverter::convertFromRelative(
+				MyGUI::DoubleCoord::parse(position),
+				_parent == nullptr ? size : _parent->getClientCoord().size());
 		}
 
 		// проверяем скин на присутствие
@@ -446,7 +460,11 @@ namespace tools
 				skin_string = "'" + std::string{skin} + "'";
 
 			// FIXME : not translated string
-			std::string mess = MyGUI::utility::toString("'", container->getSkin(), "' skin not found , temporary changed to ", skin_string);
+			std::string mess = MyGUI::utility::toString(
+				"'",
+				container->getSkin(),
+				"' skin not found , temporary changed to ",
+				skin_string);
 			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 		}
 
@@ -462,8 +480,10 @@ namespace tools
 			else
 				layer = DEFAULT_TEST_MODE_LAYER;
 		}
-		std::string_view widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
-			container->getType() : MyGUI::Widget::getClassTypeName();
+		std::string_view widgetType =
+			MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType())
+			? container->getType()
+			: MyGUI::Widget::getClassTypeName();
 
 		if (nullptr == _parent)
 		{
@@ -556,7 +576,11 @@ namespace tools
 		}
 	}
 
-	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value, bool _testMode)
+	bool EditorWidgets::tryToApplyProperty(
+		MyGUI::Widget* _widget,
+		std::string_view _key,
+		std::string_view _value,
+		bool _testMode)
 	{
 		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
 		if (container->existUserData("LE_TargetWidgetType"))
@@ -569,19 +593,24 @@ namespace tools
 				std::string value{_value};
 				if (!MyGUI::DataManager::getInstance().isDataExist(value))
 				{
-					GroupMessage::getInstance().addMessage("No such " + std::string{_key} + ": '" + value + "'. This value will be saved.", MyGUI::LogLevel::Warning);
+					GroupMessage::getInstance().addMessage(
+						"No such " + std::string{_key} + ": '" + value + "'. This value will be saved.",
+						MyGUI::LogLevel::Warning);
 					return true;
 				}
 			}
 
-			if (_testMode || std::find(mIgnoreParameters.begin(), mIgnoreParameters.end(), _key) == mIgnoreParameters.end())
+			if (_testMode ||
+				std::find(mIgnoreParameters.begin(), mIgnoreParameters.end(), _key) == mIgnoreParameters.end())
 			{
 				_widget->setProperty(_key, _value);
 			}
 		}
 		catch (...)
 		{
-			GroupMessage::getInstance().addMessage("Can't apply '" + std::string{_key} + "'property.", MyGUI::LogLevel::Error);
+			GroupMessage::getInstance().addMessage(
+				"Can't apply '" + std::string{_key} + "'property.",
+				MyGUI::LogLevel::Error);
 			return false;
 		}
 		return true;
@@ -614,7 +643,8 @@ namespace tools
 		WidgetContainer::PropertyEnumerator propertyItem = _container->getPropertyEnumerator();
 		while (propertyItem.next())
 		{
-			BackwardCompatibilityManager::getInstance().serialiseProperty(node, _container->getType(), propertyItem.current(), _compatibility);
+			BackwardCompatibilityManager::getInstance()
+				.serialiseProperty(node, _container->getType(), propertyItem.current(), _compatibility);
 		}
 
 		WidgetContainer::UserDataEnumerator userData = _container->getUserDataEnumerator();
@@ -643,7 +673,10 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
+	void EditorWidgets::loadIgnoreParameters(
+		MyGUI::xml::ElementPtr _node,
+		std::string_view /*_file*/,
+		MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
 		while (parameter.next("Parameter"))
@@ -680,7 +713,10 @@ namespace tools
 		return _skinName;
 	}
 
-	void EditorWidgets::loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
+	void EditorWidgets::loadSkinReplace(
+		MyGUI::xml::ElementPtr _node,
+		std::string_view /*_file*/,
+		MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Skin"))
@@ -691,8 +727,7 @@ namespace tools
 
 	bool EditorWidgets::isSkinExist(std::string_view _skinName)
 	{
-		return _skinName == "Default" ||
-			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
 
@@ -792,7 +827,9 @@ namespace tools
 	{
 		MyGUI::xml::ElementPtr node = _rootNode->createChild(CodeGeneratorSettingsNodeName);
 
-		for (MyGUI::MapString::const_iterator iter = mCodeGeneratorSettings.begin(); iter != mCodeGeneratorSettings.end(); ++iter)
+		for (MyGUI::MapString::const_iterator iter = mCodeGeneratorSettings.begin();
+			 iter != mCodeGeneratorSettings.end();
+			 ++iter)
 		{
 			MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
 			nodeProp->addAttribute("key", iter->first);
@@ -800,7 +837,8 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner) const
+	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner)
+		const
 	{
 		eventChangeWidgetCoord(_widget, _value, _owner);
 	}

@@ -30,7 +30,7 @@ namespace components
 
 		IFactoryItem* CreateItem(std::string_view _factoryName);
 
-		template <typename Type>
+		template<typename Type>
 		Type* CreateItem(std::string_view _factoryName)
 		{
 			IFactoryItem* item = CreateItem(_factoryName);

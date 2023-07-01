@@ -23,12 +23,19 @@ namespace tools
 		TextureControl::OnInitialise(_parent, _place, "TextureControl.layout");
 
 		mColourValueName = "ColourBackground";
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
+		MyGUI::Colour colour =
+			SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
 		setColour(colour);
 
-		CommandManager::getInstance().getEvent("Command_ChangeNextScale")->connect(this, &TextureToolControl::CommandChangeNextScale);
-		CommandManager::getInstance().getEvent("Command_ChangePrevScale")->connect(this, &TextureToolControl::CommandChangePrevScale);
-		CommandManager::getInstance().getEvent("Command_ChangeScale")->connect(this, &TextureToolControl::CommandChangeScale);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeNextScale")
+			->connect(this, &TextureToolControl::CommandChangeNextScale);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangePrevScale")
+			->connect(this, &TextureToolControl::CommandChangePrevScale);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeScale")
+			->connect(this, &TextureToolControl::CommandChangeScale);
 
 		mScaleValue = SettingsManager::getInstance().getValueList<size_t>("Workspace/TextureScale/ScaleValue.List");
 
@@ -39,7 +46,8 @@ namespace tools
 	{
 		if (_path == ("Workspace/Colours/" + mColourValueName))
 		{
-			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
+			MyGUI::Colour colour =
+				SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
 			setColour(colour);
 		}
 	}
@@ -89,8 +97,7 @@ namespace tools
 
 	bool TextureToolControl::checkCommand()
 	{
-		return mMainWidget->getRootKeyFocus() &&
-			!getSelectorsCapture();
+		return mMainWidget->getRootKeyFocus() && !getSelectorsCapture();
 	}
 
 	void TextureToolControl::onMouseWheel(int _rel)

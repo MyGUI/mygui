@@ -16,8 +16,7 @@ namespace MyGUI
 
 	using EventHandle_MessageBoxPtrMessageStyle = delegates::MultiDelegate<Message*, MessageBoxStyle>;
 
-	class Message :
-		public wraps::BaseLayout
+	class Message : public wraps::BaseLayout
 	{
 	public:
 		Message() :
@@ -75,14 +74,16 @@ namespace MyGUI
 				return MessageBoxStyle::None;
 			}
 			// бит, номер кнопки + смещение до Button1
-			MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_indexUserButton1)));
+			MessageBoxStyle info = MessageBoxStyle(
+				MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_indexUserButton1)));
 
 			// запоминаем кнопки для отмены и подтверждения
 			if (mVectorButton.empty())
 				mInfoOk = info;
 			mInfoCancel = info;
 
-			Widget* widget = mMainWidget->createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
+			Widget* widget =
+				mMainWidget->createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
 			Button* button = widget->castType<Button>();
 			button->eventMouseButtonClick += newDelegate(this, &Message::notifyButtonClick);
 			button->setCaption(_name);
@@ -217,14 +218,13 @@ namespace MyGUI
 			return mess;
 		}
 
-	/*events:*/
+		/*events:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(tools::Message* _sender, MessageBoxStyle _result)\n
 			@param _sender widget that called this event
 			@param _result - id of pressed button
 		*/
-		EventHandle_MessageBoxPtrMessageStyle
-			eventMessageBoxResult;
+		EventHandle_MessageBoxPtrMessageStyle eventMessageBoxResult;
 
 	protected:
 		void updateSize()
@@ -243,7 +243,8 @@ namespace MyGUI
 			size += mOffsetText;
 			size.width += 3;
 
-			int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size() + 1) * mButtonOffset.width);
+			int width = ((int)mVectorButton.size() * mButtonSize.width) +
+				(((int)mVectorButton.size() + 1) * mButtonOffset.width);
 			if (size.width < width)
 				size.width = width;
 
@@ -254,22 +255,35 @@ namespace MyGUI
 			size.height += mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
 
 			const IntSize& view = RenderManager::getInstance().getViewSize();
-			mMainWidget->setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
+			mMainWidget
+				->setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
 
 			if (nullptr != mIcon)
 			{
 				if (mWidgetText != nullptr)
 				{
 					if (mIcon->getImageIndex() != ITEM_NONE)
-						mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+						mWidgetText->setCoord(
+							mLeftOffset2,
+							mWidgetText->getTop(),
+							mWidgetText->getWidth(),
+							mWidgetText->getHeight());
 					else
-						mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+						mWidgetText->setCoord(
+							mLeftOffset1,
+							mWidgetText->getTop(),
+							mWidgetText->getWidth(),
+							mWidgetText->getHeight());
 				}
 			}
 
 			for (auto& iter : mVectorButton)
 			{
-				iter->setCoord(offset, mMainWidget->getClientCoord().height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
+				iter->setCoord(
+					offset,
+					mMainWidget->getClientCoord().height - mButtonOffset.height,
+					mButtonSize.width,
+					mButtonSize.height);
 				offset += mButtonOffset.width + mButtonSize.width;
 			}
 		}
@@ -316,7 +330,8 @@ namespace MyGUI
 		std::string_view getIconName(size_t _index) const
 		{
 			static const size_t CountIcons = 4;
-			static const std::string_view IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", std::string_view{} };
+			static const std::string_view IconNames[CountIcons + 1] =
+				{"Info", "Quest", "Error", "Warning", std::string_view{}};
 			if (_index >= CountIcons)
 				return IconNames[CountIcons];
 			return IconNames[_index];
@@ -325,7 +340,8 @@ namespace MyGUI
 		std::string_view getButtonName(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const std::string_view Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", std::string_view{} };
+			static const std::string_view Names[Count + 1] =
+				{"Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", std::string_view{}};
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
@@ -334,7 +350,17 @@ namespace MyGUI
 		std::string_view getButtonTag(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const std::string_view Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", std::string_view{} };
+			static const std::string_view Names[Count + 1] = {
+				"MessageBox_Ok",
+				"MessageBox_Yes",
+				"MessageBox_No",
+				"MessageBox_Abort",
+				"MessageBox_Retry",
+				"MessageBox_Ignore",
+				"MessageBox_Cancel",
+				"MessageBox_Try",
+				"MessageBox_Continue",
+				std::string_view{}};
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
@@ -346,7 +372,9 @@ namespace MyGUI
 			assignWidget(mWidgetText, "Text", false);
 			if (mWidgetText != nullptr)
 			{
-				mOffsetText.set(mMainWidget->getClientCoord().width - mWidgetText->getWidth(), mMainWidget->getClientCoord().height - mWidgetText->getHeight());
+				mOffsetText.set(
+					mMainWidget->getClientCoord().width - mWidgetText->getWidth(),
+					mMainWidget->getClientCoord().height - mWidgetText->getHeight());
 				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 			}
 

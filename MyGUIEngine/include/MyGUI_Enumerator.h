@@ -71,7 +71,7 @@ namespace MyGUI
 				m_first = false;
 				return true;
 			}
-			++ m_current;
+			++m_current;
 			return m_current != m_end;
 		}
 

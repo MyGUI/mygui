@@ -41,7 +41,12 @@ namespace MyGUI
 		std::string name;
 		std::string layer;
 
-		enum PositionType { Pixels, Relative, None };
+		enum PositionType
+		{
+			Pixels,
+			Relative,
+			None
+		};
 		PositionType positionType{None};
 		IntCoord intCoord;
 		FloatCoord floatCoord;

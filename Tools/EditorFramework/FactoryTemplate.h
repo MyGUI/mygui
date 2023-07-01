@@ -12,9 +12,8 @@
 namespace components
 {
 
-	template <typename Type>
-	class FactoryTemplate :
-		public IFactory
+	template<typename Type>
+	class FactoryTemplate : public IFactory
 	{
 	public:
 		IFactoryItem* CreateItem() override

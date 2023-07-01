@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyFloatControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyFloatControl : public PropertyControl
 	{
 	public:
 		~PropertyFloatControl() override;

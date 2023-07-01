@@ -17,8 +17,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayerItem :
-		public ILayerItem
+	class MYGUI_EXPORT LayerItem : public ILayerItem
 	{
 	public:
 		ILayer* getLayer() const;

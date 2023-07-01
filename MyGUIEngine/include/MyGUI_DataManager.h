@@ -18,6 +18,7 @@ namespace MyGUI
 	class MYGUI_EXPORT DataManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DataManager);
+
 	public:
 		DataManager();
 		virtual ~DataManager() = default;

@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class GraphNodeWeightController :
-		public BaseAnimationNode
+	class GraphNodeWeightController : public BaseAnimationNode
 	{
 	public:
 		GraphNodeWeightController(std::string_view _name) :
@@ -36,8 +35,10 @@ namespace demo
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept += MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition += MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept +=
+				MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition +=
+				MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}
@@ -64,8 +65,10 @@ namespace demo
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender)
 		{
 			mPosition = MyGUI::utility::parseValue<float>(_sender->getCaption());
-			if (mPosition < 0) mPosition = 0;
-			else if (mPosition > 1) mPosition = 1;
+			if (mPosition < 0)
+				mPosition = 0;
+			else if (mPosition > 1)
+				mPosition = 1;
 
 			updateWidgets();
 		}

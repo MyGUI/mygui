@@ -48,7 +48,6 @@ namespace MyGUI
 
 			// сбрасываем, чтобы обновился дропный виджет
 			mStartDrop = false;
-
 		}
 		// если нажата другая клавиша и был дроп то сбрасываем
 		else
@@ -109,11 +108,13 @@ namespace MyGUI
 		updateDropItems();
 
 		// если равно, значит уже спрашивали
-		if (mOldDrop == item) return;
+		if (mOldDrop == item)
+			return;
 		mOldDrop = item;
 
 		// сбрасываем старую подсветку
-		if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
+		if (mReseiverContainer)
+			mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
 
 		mDropResult = false;
 		mReseiverContainer = nullptr;
@@ -187,9 +188,11 @@ namespace MyGUI
 			removeDropItems();
 
 			// сбрасываем старую подсветку
-			if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
+			if (mReseiverContainer)
+				mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
 
-			if (_reset) mDropResult = false;
+			if (_reset)
+				mDropResult = false;
 			eventDropResult(this, mDropInfo, mDropResult);
 			eventChangeDDState(this, DDItemState::End);
 
@@ -211,7 +214,6 @@ namespace MyGUI
 
 	void DDContainer::updateDropItems()
 	{
-
 		if (mDropItem == nullptr)
 		{
 			requestDragWidgetInfo(this, mDropItem, mDropDimension);
@@ -221,7 +223,11 @@ namespace MyGUI
 
 		if (mDropItem)
 		{
-			mDropItem->setCoord(point.left - mClickInWidget.left + mDropDimension.left, point.top - mClickInWidget.top + mDropDimension.top, mDropDimension.width, mDropDimension.height);
+			mDropItem->setCoord(
+				point.left - mClickInWidget.left + mDropDimension.left,
+				point.top - mClickInWidget.top + mDropDimension.top,
+				mDropDimension.width,
+				mDropDimension.height);
 			mDropItem->setVisible(true);
 		}
 	}

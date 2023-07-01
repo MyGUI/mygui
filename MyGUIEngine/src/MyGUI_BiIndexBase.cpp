@@ -48,7 +48,7 @@ namespace MyGUI
 			}
 			mIndexFace.insert(mIndexFace.begin() + _index, index);
 
-			count ++;
+			count++;
 			mIndexBack.push_back(0);
 			for (size_t pos = 0; pos < count; ++pos)
 			{

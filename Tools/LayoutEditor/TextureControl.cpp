@@ -152,8 +152,10 @@ namespace tools
 		mSelectors.push_back(_control);
 		_control->setScale(mScaleValue);
 		_control->getMainWidget()->eventMouseWheel += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseWheel);
-		_control->getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonPressed);
-		_control->getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonReleased);
+		_control->getMainWidget()->eventMouseButtonPressed +=
+			MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonPressed);
+		_control->getMainWidget()->eventMouseButtonReleased +=
+			MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonReleased);
 		_control->getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseDrag);
 		_control->getMainWidget()->eventMouseMove += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseMove);
 	}
@@ -177,7 +179,11 @@ namespace tools
 		}
 	}
 
-	void TextureControlLE::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void TextureControlLE::notifyMouseButtonReleased(
+		MyGUI::Widget* _sender,
+		int _left,
+		int _top,
+		MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Right)
 		{
@@ -229,7 +235,9 @@ namespace tools
 		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
 		MyGUI::IntPoint mouseOffset = mousePoint - mTexture->getAbsolutePosition();
 
-		mMouseRelative.set((float)mouseOffset.left / (float)canvasSize.width, (float)mouseOffset.top / (float)canvasSize.height);
+		mMouseRelative.set(
+			(float)mouseOffset.left / (float)canvasSize.width,
+			(float)mouseOffset.top / (float)canvasSize.height);
 	}
 
 	void TextureControlLE::loadMouseRelative()
@@ -241,7 +249,9 @@ namespace tools
 		// смещение мыши относительно вью
 		MyGUI::IntPoint mouseOffset = mousePoint - mView->getAbsolutePosition() - viewCoord.point();
 		// смещение нужной точки внутри текстуры в пикселях
-		MyGUI::IntPoint canvasPointOffset((int)(mMouseRelative.left * (float)canvasSize.width), (int)(mMouseRelative.top * (float)canvasSize.height));
+		MyGUI::IntPoint canvasPointOffset(
+			(int)(mMouseRelative.left * (float)canvasSize.width),
+			(int)(mMouseRelative.top * (float)canvasSize.height));
 		// смещение вью в пикселях
 		MyGUI::IntPoint canvasOffset = canvasPointOffset - mouseOffset;
 

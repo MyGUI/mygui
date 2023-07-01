@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class FontTextureController :
-		public IControlController,
-		public sigslot::has_slots<>
+	class FontTextureController : public IControlController, public sigslot::has_slots<>
 	{
 	public:
 		void setTarget(Control* _control) override;
@@ -25,7 +23,7 @@ namespace tools
 
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
-//		void notifyChangeProperty(PropertyPtr _sender);
+		//		void notifyChangeProperty(PropertyPtr _sender);
 		void notifyChangeScope(std::string_view _scope);
 
 		void updateTexture(std::string_view _value);

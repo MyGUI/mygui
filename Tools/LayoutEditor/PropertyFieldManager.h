@@ -16,8 +16,12 @@ namespace tools
 	class PropertyFieldManager
 	{
 		MYGUI_SINGLETON_DECLARATION(PropertyFieldManager);
+
 	public:
-		PropertyFieldManager() : mSingletonHolder(this) { }
+		PropertyFieldManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 

@@ -12,10 +12,9 @@ namespace MyGUI
 {
 	class TreeControlItem;
 
-	class TreeControl :
-		public Widget
+	class TreeControl : public Widget
 	{
-		MYGUI_RTTI_DERIVED( TreeControl )
+		MYGUI_RTTI_DERIVED(TreeControl)
 
 	public:
 		class Node;
@@ -23,8 +22,7 @@ namespace MyGUI
 		using EventHandle_TreeControlPtrNodePtr = delegates::MultiDelegate<TreeControl*, Node*>;
 		using EventHandle_TreeControlPtrSizeT = delegates::MultiDelegate<TreeControl*, size_t>;
 
-		class Node :
-			public GenericNode<Node, TreeControl>
+		class Node : public GenericNode<Node, TreeControl>
 		{
 		public:
 			Node();
@@ -44,7 +42,7 @@ namespace MyGUI
 			void setImage(const UString& strImage);
 
 			void setData(Any Data);
-			template <typename TYPE>
+			template<typename TYPE>
 			TYPE* getData() const;
 
 		private:
@@ -125,7 +123,8 @@ namespace MyGUI
 	inline TreeControl::Node::Node() :
 		mbIsPrepared(false),
 		mbIsExpanded(true)
-	{ }
+	{
+	}
 	inline bool TreeControl::Node::isPrepared() const
 	{
 		return mbIsPrepared;
@@ -146,7 +145,7 @@ namespace MyGUI
 	{
 		mData = std::move(Data);
 	}
-	template <typename TYPE>
+	template<typename TYPE>
 	TYPE* TreeControl::Node::getData() const
 	{
 		return mData.castType<TYPE>(true);

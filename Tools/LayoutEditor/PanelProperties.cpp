@@ -39,7 +39,10 @@ namespace tools
 		return mDepth;
 	}
 
-	size_t PanelProperties::addParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
+	size_t PanelProperties::addParametrs(
+		WidgetStyle* widgetType,
+		WidgetContainer* widgetContainer,
+		MyGUI::Widget* _currentWidget)
 	{
 		size_t result = 0;
 
@@ -55,7 +58,7 @@ namespace tools
 			field->setTarget(_currentWidget);
 			field->setValue(value);
 
-			result ++;
+			result++;
 		}
 
 		return result;
@@ -129,7 +132,10 @@ namespace tools
 			field.second->setVisible(false);
 	}
 
-	IPropertyField* PanelProperties::getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type)
+	IPropertyField* PanelProperties::getPropertyField(
+		MyGUI::Widget* _client,
+		std::string_view _name,
+		std::string_view _type)
 	{
 		MapPropertyField::iterator item = mFields.find(_name);
 		if (item != mFields.end())

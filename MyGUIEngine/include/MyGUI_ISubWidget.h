@@ -21,19 +21,21 @@ namespace MyGUI
 	class ISubWidget;
 	using VectorSubWidget = std::vector<ISubWidget*>;
 
-	class MYGUI_EXPORT ISubWidget :
-		public ICroppedRectangle,
-		public IObject
+	class MYGUI_EXPORT ISubWidget : public ICroppedRectangle, public IObject
 	{
-		MYGUI_RTTI_DERIVED( ISubWidget )
+		MYGUI_RTTI_DERIVED(ISubWidget)
 
 	public:
 		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node) = 0;
 		virtual void destroyDrawItem() = 0;
 
-		virtual void setAlpha(float /*_alpha*/) { }
+		virtual void setAlpha(float /*_alpha*/)
+		{
+		}
 
-		virtual void setStateData(IStateInfo* /*_data*/) { }
+		virtual void setStateData(IStateInfo* /*_data*/)
+		{
+		}
 
 		virtual void doRender() = 0;
 
@@ -46,12 +48,20 @@ namespace MyGUI
 			mVisible = _value;
 		}
 
-		virtual void _updateView() { }
-		virtual void _correctView() { }
+		virtual void _updateView()
+		{
+		}
+		virtual void _correctView()
+		{
+		}
 
-		virtual void _setAlign(const IntSize& /*_oldsize*/)  { }
+		virtual void _setAlign(const IntSize& /*_oldsize*/)
+		{
+		}
 
-		virtual void doManualRender(IVertexBuffer* /*_buffer*/, ITexture* /*_texture*/, size_t /*_count*/) { }
+		virtual void doManualRender(IVertexBuffer* /*_buffer*/, ITexture* /*_texture*/, size_t /*_count*/)
+		{
+		}
 
 	protected:
 		Align mAlign;

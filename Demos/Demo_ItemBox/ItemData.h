@@ -29,7 +29,8 @@ namespace demo
 		{
 			MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 			mResourceInfo = manager.getByName(_resource)->castType<demo::ResourceItemInfo>();
-			mResourceImage = manager.getByName(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
+			mResourceImage =
+				manager.getByName(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
 		}
 
 		bool isEmpty() const

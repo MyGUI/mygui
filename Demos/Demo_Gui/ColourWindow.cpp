@@ -11,15 +11,19 @@ namespace demo
 
 	int ColourWindow::getRand(int _min, int _max)
 	{
-		if (_max < _min) std::swap(_max, _min);
+		if (_max < _min)
+			std::swap(_max, _min);
 		int range = _max - _min;
-		if (range == 0) return 0;
+		if (range == 0)
+			return 0;
 		int result = ::rand() % range;
-		if (result < 0) result = -result;
+		if (result < 0)
+			result = -result;
 		return _min + result;
 	}
 
-	ColourWindow::ColourWindow(MyGUI::Widget* _parent) : BaseLayout("ColourWindow.layout", _parent)
+	ColourWindow::ColourWindow(MyGUI::Widget* _parent) :
+		BaseLayout("ColourWindow.layout", _parent)
 	{
 		assignWidget(mSliderRed, "Red");
 		assignWidget(mSliderGreen, "Green");
@@ -40,7 +44,8 @@ namespace demo
 		{
 			const MyGUI::IntCoord& coord = _parent->getClientCoord();
 			const MyGUI::IntSize& size = mMainWidget->getSize();
-			mMainWidget->setPosition(MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
+			mMainWidget->setPosition(
+				MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
 		}
 
 		// update
@@ -49,9 +54,10 @@ namespace demo
 
 	void ColourWindow::notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
 	{
-		MyGUI::Colour colour(float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
+		MyGUI::Colour colour(
+			float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),
-			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()) );
+			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()));
 
 		mColour->setColour(colour);
 	}
@@ -63,9 +69,10 @@ namespace demo
 
 	void ColourWindow::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		MyGUI::Colour colour(float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
+		MyGUI::Colour colour(
+			float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),
-			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()) );
+			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()));
 
 		mBox->addColourItem(colour, mLine->getOnlyText());
 		mLine->setCaption(MyGUI::UString());

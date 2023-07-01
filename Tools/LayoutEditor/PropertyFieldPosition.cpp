@@ -23,18 +23,22 @@ namespace tools
 		assignWidget(mField, "Field");
 		assignWidget(mButton, "Button");
 
-		mField->eventEditTextChange += newDelegate (this, &PropertyFieldPosition::notifyTryApplyProperties);
-		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldPosition::notifyForceApplyProperties);
+		mField->eventEditTextChange += newDelegate(this, &PropertyFieldPosition::notifyTryApplyProperties);
+		mField->eventEditSelectAccept += newDelegate(this, &PropertyFieldPosition::notifyForceApplyProperties);
 
-		mButton->eventMouseButtonClick += newDelegate (this, &PropertyFieldPosition::notifyMouseButtonClick);
+		mButton->eventMouseButtonClick += newDelegate(this, &PropertyFieldPosition::notifyMouseButtonClick);
 
-		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->connect(this, &PropertyFieldPosition::commandToggleRelativeMode);
-		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
+		CommandManager::getInstance()
+			.getEvent("Command_ToggleRelativeMode")
+			->connect(this, &PropertyFieldPosition::commandToggleRelativeMode);
+		EditorWidgets::getInstance().eventChangeWidgetCoord +=
+			MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
 	}
 
 	PropertyFieldPosition::~PropertyFieldPosition()
 	{
-		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
+		EditorWidgets::getInstance().eventChangeWidgetCoord -=
+			MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
 		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->disconnect(this);
 	}
 
@@ -82,15 +86,22 @@ namespace tools
 				double_coord.top /= 100;
 				double_coord.width /= 100;
 				double_coord.height /= 100;
-				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(double_coord, mCurrentWidget->getParentSize());
+				MyGUI::IntCoord coord =
+					MyGUI::CoordConverter::convertFromRelative(double_coord, mCurrentWidget->getParentSize());
 
 				mCurrentWidget->setCoord(coord);
-				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
+				EditorWidgets::getInstance().onSetWidgetCoord(
+					mCurrentWidget,
+					mCurrentWidget->getAbsoluteCoord(),
+					"PropertiesPanelView");
 			}
 			else
 			{
 				widgetContainer->getWidget()->setProperty("Coord", _value);
-				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
+				EditorWidgets::getInstance().onSetWidgetCoord(
+					mCurrentWidget,
+					mCurrentWidget->getAbsoluteCoord(),
+					"PropertiesPanelView");
 			}
 		}
 	}
@@ -190,7 +201,10 @@ namespace tools
 		setValue(widgetContainer->position());
 	}
 
-	void PropertyFieldPosition::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, std::string_view _owner)
+	void PropertyFieldPosition::notifyPropertyChangeCoord(
+		MyGUI::Widget* _widget,
+		const MyGUI::IntCoord& _coordValue,
+		std::string_view _owner)
 	{
 		if (_owner == "PropertiesPanelView" || _widget != mCurrentWidget)
 			return;

@@ -57,7 +57,7 @@ namespace tools
 
 		AdviceWidget(mMainWidget);
 
-		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
+		for (size_t index = 0; index < getRoot()->getChildCount(); index++)
 			CreateChilds(this, getRoot()->getChildAt(index));
 	}
 
@@ -78,7 +78,7 @@ namespace tools
 			}
 		}
 
-		for (size_t index = 0; index < _widget->getChildCount(); index ++)
+		for (size_t index = 0; index < _widget->getChildCount(); index++)
 			CreateChilds(_parent, _widget->getChildAt(index));
 	}
 
@@ -95,7 +95,8 @@ namespace tools
 	void Control::notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index)
 	{
 		if (_index != MyGUI::ITEM_NONE)
-			CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getItemAt(_index)->getUserString("CommandActivate")));
+			CommandManager::getInstance().executeCommand(
+				MyGUI::UString(_sender->getItemAt(_index)->getUserString("CommandActivate")));
 	}
 
 	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
@@ -150,9 +151,18 @@ namespace tools
 	MyGUI::Widget* Control::CreateFakeWidgetT(std::string_view _typeName, MyGUI::Widget* _parent)
 	{
 		if (_parent)
-			return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
+			return _parent->createWidgetT(
+				_typeName,
+				MyGUI::SkinManager::getInstance().getDefaultSkin(),
+				MyGUI::IntCoord(),
+				MyGUI::Align::Default);
 
-		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, std::string_view{});
+		return MyGUI::Gui::getInstance().createWidgetT(
+			_typeName,
+			MyGUI::SkinManager::getInstance().getDefaultSkin(),
+			MyGUI::IntCoord(),
+			MyGUI::Align::Default,
+			std::string_view{});
 	}
 
 	void Control::CreateControllers()
@@ -193,7 +203,9 @@ namespace tools
 
 	void Control::Shutdown()
 	{
-		mParent->mChilds.erase(std::remove(mParent->mChilds.begin(), mParent->mChilds.end(), this), mParent->mChilds.end());
+		mParent->mChilds.erase(
+			std::remove(mParent->mChilds.begin(), mParent->mChilds.end(), this),
+			mParent->mChilds.end());
 		mParent = nullptr;
 
 		shutdown();

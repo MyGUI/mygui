@@ -28,12 +28,12 @@ namespace demo
 		{
 		}
 
-		friend bool operator == (ControllerType const& a, ControllerType const& b)
+		friend bool operator==(ControllerType const& a, ControllerType const& b)
 		{
 			return a.value == b.value;
 		}
 
-		friend bool operator != (ControllerType const& a, ControllerType const& b)
+		friend bool operator!=(ControllerType const& a, ControllerType const& b)
 		{
 			return a.value != b.value;
 		}
@@ -42,8 +42,7 @@ namespace demo
 		EnumType value;
 	};
 
-	class State :
-		public wraps::BaseLayout
+	class State : public wraps::BaseLayout
 	{
 	public:
 		State(std::string_view _layout, ControllerType _type);

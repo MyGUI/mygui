@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class PropertyFieldComboBox :
-		public wraps::BaseLayout,
-		public IPropertyField
+	class PropertyFieldComboBox : public wraps::BaseLayout, public IPropertyField
 	{
 	public:
 		PropertyFieldComboBox(MyGUI::Widget* _parent);

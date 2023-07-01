@@ -22,7 +22,8 @@ namespace diagnostic
 			if (!MyGUI::LayerManager::getInstance().isExist(layer))
 				return;
 
-			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+			mInfo = MyGUI::Gui::getInstance()
+						.createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 			mInfo->setTextColour(MyGUI::Colour::White);
 			mInfo->setTextShadow(true);
 		}
@@ -36,7 +37,7 @@ namespace diagnostic
 			}
 		}
 
-		template <typename T>
+		template<typename T>
 		void change(std::string_view _key, const T& _value)
 		{
 			for (auto& param : mParams)
@@ -69,7 +70,8 @@ namespace diagnostic
 				std::ostringstream stream;
 				for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 				{
-					if (iter != mParams.begin()) stream << "\n";
+					if (iter != mParams.begin())
+						stream << "\n";
 					stream << iter->first << " : " << iter->second;
 				}
 
@@ -80,7 +82,11 @@ namespace diagnostic
 				{
 					MyGUI::IntSize size = text->getTextSize() + mInfo->getSize() - text->getSize();
 					const MyGUI::IntSize& size_view = MyGUI::RenderManager::getInstance().getViewSize();
-					MyGUI::IntCoord coord(size_view.width - size.width - mOffset.left, size_view.height - size.height - mOffset.top, size.width, size.height);
+					MyGUI::IntCoord coord(
+						size_view.width - size.width - mOffset.left,
+						size_view.height - size.height - mOffset.top,
+						size.width,
+						size.height);
 					if (coord != mInfo->getCoord())
 						mInfo->setCoord(coord);
 				}

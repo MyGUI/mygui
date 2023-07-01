@@ -29,7 +29,8 @@ namespace tools
 		if (mType != nullptr)
 		{
 			const DataInfo::VectorProperty& properties = mType->getProperties();
-			for (DataInfo::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
+			for (DataInfo::VectorProperty::const_iterator property = properties.begin(); property != properties.end();
+				 property++)
 				mProperties[(*property)->getName()].clear();
 		}
 	}
@@ -72,7 +73,7 @@ namespace tools
 		mChilds.push_back(_child);
 		_child->mParent = this;
 	}
-	
+
 	void Data::removeChild(Data* _child)
 	{
 		MYGUI_ASSERT(_child->getParent() == this, "Child not found");
@@ -88,7 +89,7 @@ namespace tools
 
 		return (*property).second;
 	}
-	
+
 	void Data::setPropertyValue(std::string_view _name, std::string_view _value)
 	{
 		MyGUI::MapString::iterator property = mProperties.find(_name);

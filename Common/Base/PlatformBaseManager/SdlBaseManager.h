@@ -10,14 +10,12 @@
 namespace base
 {
 
-	class SdlBaseManager :
-		public input::InputManager,
-		public input::PointerManager
+	class SdlBaseManager : public input::InputManager, public input::PointerManager
 	{
 	public:
-        SdlBaseManager(bool _isOpenGlWindow);
+		SdlBaseManager(bool _isOpenGlWindow);
 
-        // Block of virtual functions for specific platform implementations
+		// Block of virtual functions for specific platform implementations
 		virtual bool createRender(int _width, int _height, bool _windowed) = 0;
 		virtual void destroyRender() = 0;
 		virtual void createGuiPlatform() = 0;
@@ -25,7 +23,10 @@ namespace base
 		virtual void drawOneFrame() = 0;
 		virtual void resizeRender(int _width, int _height) = 0;
 		virtual void addResourceLocation(const std::string& _name, bool _recursive = false) = 0;
-		virtual void makeScreenShot() { MYGUI_LOG(Warning, "makeScreenShot not implemented"); }
+		virtual void makeScreenShot()
+		{
+			MYGUI_LOG(Warning, "makeScreenShot not implemented");
+		}
 
 		bool create(int _width = 1024, int _height = 768);
 		void destroy();
@@ -37,14 +38,21 @@ namespace base
 		const std::string& getRootMedia() const;
 		void setResourceFilename(std::string_view _flename);
 
-	/*internal:*/
+		/*internal:*/
 		void _windowResized(int w, int h);
 
-		virtual void prepare() { }
+		virtual void prepare()
+		{
+		}
 		virtual MyGUI::MapString getStatistic();
+
 	protected:
-		virtual void createScene() { }
-		virtual void destroyScene() { }
+		virtual void createScene()
+		{
+		}
+		virtual void destroyScene()
+		{
+		}
 
 		virtual void setupResources();
 
@@ -63,7 +71,7 @@ namespace base
 		virtual void setWindowCoord(const MyGUI::IntCoord& _value);
 		virtual MyGUI::IntCoord getWindowCoord() const;
 
-		void* convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat);
+		void* convertPixelData(SDL_Surface* _image, MyGUI::PixelFormat& _myGuiPixelFormat);
 
 	protected:
 		SDL_Window* mSdlWindow = nullptr;
@@ -79,7 +87,7 @@ namespace base
 		std::string mRootMedia;
 		std::string mResourceFileName = "MyGUI_Core.xml";
 		bool mWindowOn = false;
-		SDL_Keycode	mKeyCode;
+		SDL_Keycode mKeyCode;
 		int mFpsCounter = 0;
 	};
 

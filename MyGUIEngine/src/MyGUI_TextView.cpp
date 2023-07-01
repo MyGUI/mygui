@@ -32,7 +32,11 @@ namespace MyGUI
 	class RollBackPoint
 	{
 	public:
-		void set(size_t _position, const UString::utf32string::const_iterator& _space_point, size_t _count, float _width)
+		void set(
+			size_t _position,
+			const UString::utf32string::const_iterator& _space_point,
+			size_t _count,
+			float _width)
 		{
 			position = _position;
 			space_point = _space_point;
@@ -83,18 +87,20 @@ namespace MyGUI
 		bool rollback{false};
 	};
 
-	void TextView::update(const UString::utf32string& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth)
+	void TextView::update(
+		const UString::utf32string& _text,
+		IFont* _font,
+		int _height,
+		Align _align,
+		VertexColourType _format,
+		int _maxWidth)
 	{
 		mFontHeight = _height;
 
 		// массив для быстрой конвертации цветов
-		static const char convert_colour[64] =
-		{
-			0,  1,  2,  3,  4,  5,  6, 7, 8, 9, 0, 0, 0, 0, 0, 0,
-			0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
+		static const char convert_colour[64] = {
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 		mViewSize.clear();
 
@@ -120,9 +126,7 @@ namespace MyGUI
 			Char character = *index;
 
 			// new line
-			if (character == FontCodeType::CR
-				|| character == FontCodeType::NEL
-				|| character == FontCodeType::LF)
+			if (character == FontCodeType::CR || character == FontCodeType::NEL || character == FontCodeType::LF)
 			{
 				if (character == FontCodeType::CR)
 				{
@@ -169,14 +173,14 @@ namespace MyGUI
 					// and 5 more after '#'
 					for (char i = 0; i < 5; i++)
 					{
-						++ index;
+						++index;
 						if (index == end)
 						{
 							--index;
 							continue;
 						}
 						colour <<= 4;
-						colour += convert_colour[ ((*index) - 48) & 0x3F ];
+						colour += convert_colour[((*index) - 48) & 0x3F];
 					}
 
 					// convert to ABGR if we use that colour format
@@ -218,9 +222,7 @@ namespace MyGUI
 			float char_fullAdvance = char_bearingX + char_advance;
 
 			// перенос слов
-			if (_maxWidth != -1
-				&& (width + char_fullAdvance) > _maxWidth
-				&& !roll_back.empty())
+			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth && !roll_back.empty())
 			{
 				// откатываем до последнего пробела
 				width = roll_back.getWidth();
@@ -250,7 +252,7 @@ namespace MyGUI
 			line_info.symbols
 				.emplace_back(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY);
 			width += char_fullAdvance;
-			count ++;
+			count++;
 		}
 
 		line_info.width = (int)std::ceil(width);
@@ -305,7 +307,7 @@ namespace MyGUI
 						break;
 					}
 					left += fullAdvance;
-					count ++;
+					count++;
 				}
 
 				result += count;
@@ -336,7 +338,7 @@ namespace MyGUI
 					if (position == _position)
 						break;
 
-					position ++;
+					position++;
 					left += sym.getBearingX() + sym.getAdvance();
 				}
 				break;

@@ -15,10 +15,7 @@
 namespace tools
 {
 
-	class PropertyFieldPosition :
-		public wraps::BaseLayout,
-		public IPropertyField,
-		public sigslot::has_slots<>
+	class PropertyFieldPosition : public wraps::BaseLayout, public IPropertyField, public sigslot::has_slots<>
 	{
 	public:
 		PropertyFieldPosition(MyGUI::Widget* _parent);
@@ -44,7 +41,10 @@ namespace tools
 		void notifyToggleRelativeMode();
 
 		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
-		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, std::string_view _owner);
+		void notifyPropertyChangeCoord(
+			MyGUI::Widget* _widget,
+			const MyGUI::IntCoord& _coordValue,
+			std::string_view _owner);
 		void updatePositionCaption();
 		void updateButton();
 

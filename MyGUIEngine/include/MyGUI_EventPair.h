@@ -12,14 +12,15 @@
 namespace MyGUI
 {
 #ifndef MYGUI_DONT_USE_OBSOLETE
-	template <typename EventObsolete, typename Event>
+	template<typename EventObsolete, typename Event>
 	class CompositeEvent
 	{
 		using IObsoleteDelegate = typename EventObsolete::IDelegate;
+
 	public:
 		using IDelegate = typename Event::IDelegate;
 
-		template <class T>
+		template<class T>
 		CompositeEvent& operator=(T* _delegate)
 		{
 			m_eventObsolete.clear();
@@ -27,7 +28,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		template <class T>
+		template<class T>
 		CompositeEvent& operator=(const T& _delegate)
 		{
 			m_eventObsolete.clear();
@@ -44,31 +45,31 @@ namespace MyGUI
 		}
 
 		template<class T>
-		void operator +=(T*) = delete;
+		void operator+=(T*) = delete;
 		template<class T>
-		void operator -=(T*) = delete;
+		void operator-=(T*) = delete;
 
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator += (IObsoleteDelegate* _delegate)
+		void operator+=(IObsoleteDelegate* _delegate)
 		{
 			m_eventObsolete += _delegate;
 			m_event.clear();
 		}
 
-		void operator += (IDelegate* _delegate)
+		void operator+=(IDelegate* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event += _delegate;
 		}
 
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator -= (IObsoleteDelegate* _delegate)
+		void operator-=(IObsoleteDelegate* _delegate)
 		{
 			m_eventObsolete -= _delegate;
 			m_event.clear();
 		}
 
-		void operator -= (IDelegate* _delegate)
+		void operator-=(IDelegate* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event -= _delegate;
@@ -90,7 +91,7 @@ namespace MyGUI
 	};
 #endif
 
-	template <typename EventObsolete, typename Event>
+	template<typename EventObsolete, typename Event>
 #ifdef MYGUI_DONT_USE_OBSOLETE
 	using EventPair = Event;
 #else
@@ -101,57 +102,65 @@ namespace MyGUI
 		using CompositeEvent<EventObsolete, Event>::m_eventObsolete;
 		using CompositeEvent<EventObsolete, Event>::m_event;
 
-		template <typename TP1>
-		void operator()( TP1 p1 ) const
+		template<typename TP1>
+		void operator()(TP1 p1) const
 		{
 			m_eventObsolete(p1);
 			m_event(p1);
 		}
 
-		template <typename TP1, typename TP2>
-		void operator()( TP1 p1, TP2 p2 ) const
+		template<typename TP1, typename TP2>
+		void operator()(TP1 p1, TP2 p2) const
 		{
 			m_eventObsolete(p1, p2);
 			m_event(p1, p2);
 		}
 
-		template <typename TP1, typename TP2, typename TP3>
-		void operator()( TP1 p1, TP2 p2, TP3 p3 ) const
+		template<typename TP1, typename TP2, typename TP3>
+		void operator()(TP1 p1, TP2 p2, TP3 p3) const
 		{
 			m_eventObsolete(p1, p2, p3);
 			m_event(p1, p2, p3);
 		}
 
-		template <typename TP1, typename TP2, typename TP3, typename TP4>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4 ) const
+		template<typename TP1, typename TP2, typename TP3, typename TP4>
+		void operator()(TP1 p1, TP2 p2, TP3 p3, TP4 p4) const
 		{
 			m_eventObsolete(p1, p2, p3, p4);
 			m_event(p1, p2, p3, p4);
 		}
 
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5 ) const
+		template<typename TP1, typename TP2, typename TP3, typename TP4, typename TP5>
+		void operator()(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5) const
 		{
 			m_eventObsolete(p1, p2, p3, p4, p5);
 			m_event(p1, p2, p3, p4, p5);
 		}
 
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6 ) const
+		template<typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6>
+		void operator()(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6) const
 		{
 			m_eventObsolete(p1, p2, p3, p4, p5, p6);
 			m_event(p1, p2, p3, p4, p5, p6);
 		}
 
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7 ) const
+		template<typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7>
+		void operator()(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7) const
 		{
 			m_eventObsolete(p1, p2, p3, p4, p5, p6, p7);
 			m_event(p1, p2, p3, p4, p5, p6, p7);
 		}
 
-		template <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6, typename TP7, typename TP8>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8 ) const
+		template<
+			typename TP1,
+			typename TP2,
+			typename TP3,
+			typename TP4,
+			typename TP5,
+			typename TP6,
+			typename TP7,
+			typename TP8>
+		void operator()(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8) const
 		{
 			m_eventObsolete(p1, p2, p3, p4, p5, p6, p7, p8);
 			m_event(p1, p2, p3, p4, p5, p6, p7, p8);
@@ -159,7 +168,7 @@ namespace MyGUI
 	};
 #endif
 
-	template <typename EventObsolete, typename Event>
+	template<typename EventObsolete, typename Event>
 #ifdef MYGUI_DONT_USE_OBSOLETE
 	using EventPairAddParameter = Event;
 #else
@@ -171,24 +180,24 @@ namespace MyGUI
 		using CompositeEvent<EventObsolete, Event>::m_event;
 
 		// 1 to 2
-		template <typename TP1, typename TP2>
-		void operator()( TP1 p1, TP2 p2 )
+		template<typename TP1, typename TP2>
+		void operator()(TP1 p1, TP2 p2)
 		{
 			m_eventObsolete(p1);
 			m_event(p1, p2);
 		}
 
 		// 2 to 3
-		template <typename TP1, typename TP2, typename TP3, typename TP4>
-		void operator()( TP1 p1, TP2 p2, TP3 p3 )
+		template<typename TP1, typename TP2, typename TP3, typename TP4>
+		void operator()(TP1 p1, TP2 p2, TP3 p3)
 		{
 			m_eventObsolete(p1, p2);
 			m_event(p1, p2, p3);
 		}
 
 		// 3 to 4
-		template <typename TP1, typename TP2, typename TP3, typename TP4>
-		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4 )
+		template<typename TP1, typename TP2, typename TP3, typename TP4>
+		void operator()(TP1 p1, TP2 p2, TP3 p3, TP4 p4)
 		{
 			m_eventObsolete(p1, p2, p3);
 			m_event(p1, p2, p3, p4);
@@ -196,13 +205,13 @@ namespace MyGUI
 	};
 #endif
 
-	template <typename EventObsolete, typename Event>
+	template<typename EventObsolete, typename Event>
 #ifdef MYGUI_DONT_USE_OBSOLETE
 	using EventPairConvertStringView = Event;
 #else
 	class EventPairConvertStringView : public CompositeEvent<EventObsolete, Event>
 	{
-		template <class T>
+		template<class T>
 		T&& convertStringView(T&& value) const noexcept
 		{
 			return std::forward<T>(value);
@@ -211,15 +220,16 @@ namespace MyGUI
 		template<class T>
 		std::basic_string<T> convertStringView(std::basic_string_view<T> value) const noexcept
 		{
-			return std::string{ value };
+			return std::string{value};
 		}
+
 	public:
 		using CompositeEvent<EventObsolete, Event>::operator=;
 		using CompositeEvent<EventObsolete, Event>::m_eventObsolete;
 		using CompositeEvent<EventObsolete, Event>::m_event;
 
-		template <typename... Args>
-		void operator()( Args&&... args ) const
+		template<typename... Args>
+		void operator()(Args&&... args) const
 		{
 			if (!m_eventObsolete.empty())
 				m_eventObsolete(convertStringView(args)...);

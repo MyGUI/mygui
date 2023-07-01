@@ -18,11 +18,9 @@ namespace MyGUI
 	/** \brief @wpage{ProgressBar}
 		ProgressBar widget description should be here.
 	*/
-	class MYGUI_EXPORT ProgressBar :
-		public Widget,
-		public MemberObsolete<ProgressBar>
+	class MYGUI_EXPORT ProgressBar : public Widget, public MemberObsolete<ProgressBar>
 	{
-		MYGUI_RTTI_DERIVED( ProgressBar )
+		MYGUI_RTTI_DERIVED(ProgressBar)
 
 	public:
 		/** Set progress range */

@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class PropertyFieldEditBox :
-		public wraps::BaseLayout,
-		public IPropertyField
+	class PropertyFieldEditBox : public wraps::BaseLayout, public IPropertyField
 	{
 	public:
 		PropertyFieldEditBox(MyGUI::Widget* _parent);

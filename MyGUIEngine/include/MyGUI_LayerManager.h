@@ -19,11 +19,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayerManager :
-		public IUnlinkWidget,
-		public MemberObsolete<LayerManager>
+	class MYGUI_EXPORT LayerManager : public IUnlinkWidget, public MemberObsolete<LayerManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(LayerManager);
+
 	public:
 		using VectorLayer = std::vector<ILayer*>;
 		using EnumeratorLayer = Enumerator<VectorLayer>;

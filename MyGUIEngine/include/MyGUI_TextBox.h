@@ -16,10 +16,9 @@ namespace MyGUI
 	/** \brief @wpage{TextBox}
 		TextBox widget description should be here.
 	*/
-	class MYGUI_EXPORT TextBox :
-		public Widget
+	class MYGUI_EXPORT TextBox : public Widget
 	{
-		MYGUI_RTTI_DERIVED( TextBox )
+		MYGUI_RTTI_DERIVED(TextBox)
 
 	public:
 		/** Get text region coordinate */

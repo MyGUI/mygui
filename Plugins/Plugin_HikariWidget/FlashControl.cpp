@@ -31,7 +31,7 @@ using namespace Hikari;
 
 std::string getCurrentWorkingDirectory()
 {
-	char currentPath[_MAX_PATH + 1] = { 0 };
+	char currentPath[_MAX_PATH + 1] = {0};
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	::GetCurrentDirectoryA(MAX_PATH, currentPath);
 #else
@@ -72,8 +72,10 @@ FlashControl::FlashControl(HikariWidget* _owner, HMODULE _lib) :
 
 FlashControl::~FlashControl()
 {
-	if (windowlessObject) windowlessObject->Release();
-	if (flashInterface) flashInterface->Release();
+	if (windowlessObject)
+		windowlessObject->Release();
+	if (flashInterface)
+		flashInterface->Release();
 	if (handler)
 	{
 		handler->Shutdown();
@@ -86,17 +88,22 @@ FlashControl::~FlashControl()
 		oleObject->Release();
 	}
 
-	if (site) site->Release();
+	if (site)
+		site->Release();
 
 	if (comCount)
 	{
 		MYGUI_LOGGING(plugin::Plugin::LogSection, Warning, "Hikari::FlashControl is leaking COM objects!");
 	}
 
-	if (mainContext) ::DeleteDC(mainContext);
-	if (mainBitmap) ::DeleteObject(mainBitmap);
-	if (altContext) ::DeleteDC(altContext);
-	if (altBitmap) ::DeleteObject(altBitmap);
+	if (mainContext)
+		::DeleteDC(mainContext);
+	if (mainBitmap)
+		::DeleteObject(mainBitmap);
+	if (altContext)
+		::DeleteDC(altContext);
+	if (altBitmap)
+		::DeleteObject(altBitmap);
 	if (renderBuffer)
 	{
 		delete renderBuffer;
@@ -113,7 +120,7 @@ void FlashControl::createControl(HMODULE _lib)
 	// Try to load from user-supplied Flash OCX first
 	if (_lib)
 	{
-		typedef HRESULT (__stdcall * GetClassObject)(REFCLSID rclsid, REFIID riid, LPVOID * ppv);
+		typedef HRESULT(__stdcall * GetClassObject)(REFCLSID rclsid, REFIID riid, LPVOID * ppv);
 
 		IClassFactory* factory = nullptr;
 		GetClassObject getClassFunc = (GetClassObject)GetProcAddress(_lib, "DllGetClassObject");
@@ -128,7 +135,12 @@ void FlashControl::createControl(HMODULE _lib)
 	// If we still don't have the object, try loading from registry
 	if (!oleObject)
 	{
-		HRESULT result = CoCreateInstance(ShockwaveFlashObjects::CLSID_ShockwaveFlash, 0, CLSCTX_INPROC_SERVER, IID_IOleObject, (void**)&oleObject);
+		HRESULT result = CoCreateInstance(
+			ShockwaveFlashObjects::CLSID_ShockwaveFlash,
+			0,
+			CLSCTX_INPROC_SERVER,
+			IID_IOleObject,
+			(void**)&oleObject);
 		if (FAILED(result))
 		{
 			MYGUI_EXCEPT("Unable to load the Flash ActiveX control.");
@@ -175,7 +187,10 @@ void FlashControl::load(const std::string& movieFilename)
 	std::string full_path = MyGUI::DataManager::getInstance().getDataPath(movieFilename);
 	if (full_path.empty())
 	{
-		MYGUI_LOGGING(plugin::Plugin::LogSection, Error, "Could not load '" << movieFilename << "', the file was not found.");
+		MYGUI_LOGGING(
+			plugin::Plugin::LogSection,
+			Error,
+			"Could not load '" << movieFilename << "', the file was not found.");
 		return;
 	}
 
@@ -211,24 +226,12 @@ void FlashControl::setQuality(short renderQuality)
 {
 	switch (renderQuality)
 	{
-	case RQ_LOW:
-		flashInterface->PutQuality2("low");
-		break;
-	case RQ_MEDIUM:
-		flashInterface->PutQuality2("medium");
-		break;
-	case RQ_HIGH:
-		flashInterface->PutQuality2("high");
-		break;
-	case RQ_BEST:
-		flashInterface->PutQuality2("best");
-		break;
-	case RQ_AUTOLOW:
-		flashInterface->PutQuality2("autolow");
-		break;
-	case RQ_AUTOHIGH:
-		flashInterface->PutQuality2("autohigh");
-		break;
+	case RQ_LOW: flashInterface->PutQuality2("low"); break;
+	case RQ_MEDIUM: flashInterface->PutQuality2("medium"); break;
+	case RQ_HIGH: flashInterface->PutQuality2("high"); break;
+	case RQ_BEST: flashInterface->PutQuality2("best"); break;
+	case RQ_AUTOLOW: flashInterface->PutQuality2("autolow"); break;
+	case RQ_AUTOHIGH: flashInterface->PutQuality2("autohigh"); break;
 	}
 }
 
@@ -279,7 +282,7 @@ void FlashControl::injectMouseUp(int xPos, int yPos)
 }
 
 #ifndef WM_MOUSEWHEEL
-#	define WM_MOUSEWHEEL 0x020A
+	#define WM_MOUSEWHEEL 0x020A
 #endif
 
 void FlashControl::injectMouseWheel(int relScroll, int xPos, int yPos)
@@ -371,7 +374,7 @@ void FlashControl::update()
 		lastDirtyHeight = dirtyHeight;
 
 		HDC hdc = GetDC(0);
-		BITMAPINFOHEADER bih = { 0 };
+		BITMAPINFOHEADER bih = {0};
 		bih.biSize = sizeof(BITMAPINFOHEADER);
 		bih.biBitCount = 32;
 		bih.biCompression = BI_RGB;
@@ -415,7 +418,7 @@ void FlashControl::update()
 	// We've rendered the dirty area twice: once on black and once
 	// on white. Now we compare the red channels of each to determine
 	// the alpha value of each pixel.
-	BYTE* blackBuffer, *whiteBuffer;
+	BYTE *blackBuffer, *whiteBuffer;
 	blackBuffer = mainBuffer;
 	whiteBuffer = altBuffer;
 	BYTE blackRed, whiteRed;
@@ -458,5 +461,4 @@ void FlashControl::setSize(int _width, int _height)
 		inPlaceObject->SetObjectRects(&dirtyBounds, &dirtyBounds);
 		inPlaceObject->Release();
 	}
-
 }

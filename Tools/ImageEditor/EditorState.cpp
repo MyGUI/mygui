@@ -57,7 +57,8 @@ namespace tools
 		mSettingsWindow->eventEndDialog.connect(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->Initialise(
+			SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &EditorState::notifyEndDialog);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
@@ -126,10 +127,8 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoad);
 		}
 		else
@@ -176,10 +175,8 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultClear);
 		}
 		else
@@ -200,10 +197,8 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
 		}
 		else
@@ -228,11 +223,10 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
+			message->eventMessageBoxResult +=
+				MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
 		}
 		else
 		{
@@ -303,7 +297,9 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+				mFileName = common::concatenatePath(
+					mOpenSaveFileDialog->getCurrentFolder(),
+					mOpenSaveFileDialog->getFileName());
 				addUserTag("CurrentFileName", mFileName);
 
 				save();
@@ -312,7 +308,9 @@ namespace tools
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+				mFileName = common::concatenatePath(
+					mOpenSaveFileDialog->getCurrentFolder(),
+					mOpenSaveFileDialog->getFileName());
 				addUserTag("CurrentFileName", mFileName);
 
 				load();
@@ -416,11 +414,10 @@ namespace tools
 			}
 			else
 			{
-				/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
+				/*MyGUI::Message* message =*/MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					replaceTags("MessageIncorrectFileFormat"),
-					MyGUI::MessageBoxStyle::IconError
-						| MyGUI::MessageBoxStyle::Yes);
+					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Yes);
 
 				mFileName = mDefaultFileName;
 				addUserTag("CurrentFileName", mFileName);
@@ -430,11 +427,10 @@ namespace tools
 		}
 		else
 		{
-			/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message =*/MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				result.description(),
-				MyGUI::MessageBoxStyle::IconError
-					| MyGUI::MessageBoxStyle::Yes);
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Yes);
 		}
 	}
 
@@ -447,7 +443,11 @@ namespace tools
 
 		ExportManager::getInstance().serialization(doc);
 
-		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
+		bool result = doc.save_file(
+			mFileName.asWStr_c_str(),
+			"\t",
+			(pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) &
+				(~pugi::format_space_before_slash));
 
 		if (result)
 		{
@@ -458,11 +458,10 @@ namespace tools
 			return true;
 		}
 
-		/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
+		/*MyGUI::Message* message =*/MessageBoxManager::getInstance().create(
 			replaceTags("Error"),
 			"Error save file",
-			MyGUI::MessageBoxStyle::IconError
-				| MyGUI::MessageBoxStyle::Yes);
+			MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Yes);
 
 		return false;
 	}

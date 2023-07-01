@@ -13,8 +13,7 @@
 namespace MyGUI
 {
 
-	class DummyDataManager :
-		public DataManager
+	class DummyDataManager : public DataManager
 	{
 	public:
 		DummyDataManager();

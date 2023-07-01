@@ -25,16 +25,20 @@ namespace tools
 		createMainMenu();
 
 		SettingsManager::getInstance().eventSettingsChanged.connect(this, &MainMenuControlLE::notifySettingsChanged);
-		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
+		EditorWidgets::getInstance().eventChangeWidgets +=
+			MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
 
-		CommandManager::getInstance().getEvent("Command_OnChangeScale")->connect(this, &MainMenuControlLE::CommandOnChangeScale);
+		CommandManager::getInstance()
+			.getEvent("Command_OnChangeScale")
+			->connect(this, &MainMenuControlLE::CommandOnChangeScale);
 
 		updateMenuScale(100);
 	}
 
 	MainMenuControlLE::~MainMenuControlLE()
 	{
-		EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
+		EditorWidgets::getInstance().eventChangeWidgets -=
+			MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
@@ -79,11 +83,18 @@ namespace tools
 			createWidgetPopup(widget.current(), mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
 
-	void MainMenuControlLE::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
+	void MainMenuControlLE::createWidgetPopup(
+		WidgetContainer* _container,
+		MyGUI::MenuControl* _parentPopup,
+		bool _print_name,
+		bool _print_type,
+		bool _print_skin)
 	{
 		bool submenu = !_container->childContainers.empty();
 
-		_parentPopup->addItem(getDescriptionString(_container->getWidget(), _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
+		_parentPopup->addItem(
+			getDescriptionString(_container->getWidget(), _print_name, _print_type, _print_skin),
+			submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
 		_parentPopup->setItemDataAt(_parentPopup->getItemCount() - 1, _container->getWidget());
 
 		if (submenu)
@@ -105,7 +116,11 @@ namespace tools
 		WidgetSelectorManager::getInstance().setSelectedWidget(widget);
 	}
 
-	std::string MainMenuControlLE::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
+	std::string MainMenuControlLE::getDescriptionString(
+		MyGUI::Widget* _widget,
+		bool _print_name,
+		bool _print_type,
+		bool _print_skin)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
@@ -113,7 +128,9 @@ namespace tools
 		addUserTag("WidgetType", _print_type ? MyGUI::UString(_widget->getTypeName()) : MyGUI::UString{});
 		addUserTag("WidgetSkin", _print_skin ? MyGUI::UString(widgetContainer->getSkin()) : MyGUI::UString{});
 
-		addUserTag("FormatWidgetName", (_print_name && !widgetContainer->getName().empty()) ? "#{PatternWidgetName}" : MyGUI::UString{});
+		addUserTag(
+			"FormatWidgetName",
+			(_print_name && !widgetContainer->getName().empty()) ? "#{PatternWidgetName}" : MyGUI::UString{});
 		addUserTag("FormatWidgetType", _print_type ? "#{PatternWidgetType}" : MyGUI::UString{});
 		addUserTag("FormatWidgetSkin", _print_skin ? "#{PatternWidgetSkin}" : MyGUI::UString{});
 
@@ -127,9 +144,7 @@ namespace tools
 
 	void MainMenuControlLE::notifySettingsChanged(std::string_view _path)
 	{
-		if (_path == "Settings/ShowName" ||
-			_path == "Settings/ShowType" ||
-			_path == "Settings/ShowSkin")
+		if (_path == "Settings/ShowName" || _path == "Settings/ShowType" || _path == "Settings/ShowSkin")
 			widgetsUpdate();
 		else if (_path == "Files/RecentFile.List")
 			updateRecentFilesMenu();
@@ -148,11 +163,17 @@ namespace tools
 			if (!recentFiles.empty())
 			{
 				size_t index = 1;
-				for (RecentFilesManager::VectorUString::const_iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter, ++index)
+				for (RecentFilesManager::VectorUString::const_iterator iter = recentFiles.begin();
+					 iter != recentFiles.end();
+					 ++iter, ++index)
 				{
 					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
 					addUserTag("RecentFile", *iter);
-					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_OpenRecentFile", *iter);
+					recentFilesMenu->getItemChild()->addItem(
+						replaceTags("FormatRecentFile"),
+						MyGUI::MenuItemType::Normal,
+						"Command_OpenRecentFile",
+						*iter);
 				}
 			}
 		}
@@ -165,15 +186,22 @@ namespace tools
 		{
 			recentProjectsMenu->getItemChild()->removeAllItems();
 			// список последних открытых проектов
-			const RecentFilesManager::VectorUString& recentProjects = RecentFilesManager::getInstance().getRecentProjects();
+			const RecentFilesManager::VectorUString& recentProjects =
+				RecentFilesManager::getInstance().getRecentProjects();
 			if (!recentProjects.empty())
 			{
 				size_t index = 1;
-				for (RecentFilesManager::VectorUString::const_iterator iter = recentProjects.begin(); iter != recentProjects.end(); ++iter, ++index)
+				for (RecentFilesManager::VectorUString::const_iterator iter = recentProjects.begin();
+					 iter != recentProjects.end();
+					 ++iter, ++index)
 				{
 					addUserTag("IndexRecentProject", MyGUI::utility::toString(index));
 					addUserTag("RecentProject", *iter);
-					recentProjectsMenu->getItemChild()->addItem(replaceTags("FormatRecentProject"), MyGUI::MenuItemType::Normal, "Command_OpenRecentProject", *iter);
+					recentProjectsMenu->getItemChild()->addItem(
+						replaceTags("FormatRecentProject"),
+						MyGUI::MenuItemType::Normal,
+						"Command_OpenRecentProject",
+						*iter);
 				}
 			}
 		}
@@ -200,7 +228,7 @@ namespace tools
 			if (popup != nullptr)
 			{
 				std::string id = MyGUI::utility::toString("Command_ChangeScale.", (int)_scale);
-				for (size_t index = 0; index < popup->getItemCount(); index ++)
+				for (size_t index = 0; index < popup->getItemCount(); index++)
 				{
 					MyGUI::MenuItem* item = popup->getItemAt(index);
 					item->setItemChecked(item->getItemId() == id);

@@ -12,7 +12,8 @@ namespace tools
 
 	PropertyBoolControl::~PropertyBoolControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
 	}
 
 	void PropertyBoolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
@@ -27,7 +28,8 @@ namespace tools
 
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
 	}
 
 	void PropertyBoolControl::updateCaption()
@@ -59,7 +61,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			std::string_view value;
-			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

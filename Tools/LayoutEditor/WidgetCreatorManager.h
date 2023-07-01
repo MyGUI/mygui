@@ -19,6 +19,7 @@ namespace tools
 	class WidgetCreatorManager
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetCreatorManager);
+
 	public:
 		WidgetCreatorManager();
 

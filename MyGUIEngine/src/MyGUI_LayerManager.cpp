@@ -75,10 +75,9 @@ namespace MyGUI
 		xml::ElementEnumerator layer = _node->getElementEnumerator();
 		while (layer.next(mCategoryName))
 		{
-
 			std::string name;
 
-			if ( !layer->findAttribute("name", name))
+			if (!layer->findAttribute("name", name))
 			{
 				MYGUI_LOG(Warning, "Attribute 'name' not found (file : " << _file << ")");
 				continue;
@@ -164,7 +163,8 @@ namespace MyGUI
 	{
 		for (auto& layerNode : mLayerNodes)
 		{
-			if (layerNode == nullptr) continue;
+			if (layerNode == nullptr)
+				continue;
 			bool find = false;
 			const std::string& name = layerNode->getName();
 			for (auto& layer : _layers)
@@ -214,7 +214,8 @@ namespace MyGUI
 		while (iter != mLayerNodes.rend())
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (item != nullptr) return static_cast<Widget*>(item);
+			if (item != nullptr)
+				return static_cast<Widget*>(item);
 			++iter;
 		}
 		return nullptr;

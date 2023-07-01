@@ -32,7 +32,11 @@ namespace unittest
 	public:
 		UnitTest_MultiList()
 		{
-			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>("MultiListBox", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
+			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>(
+				"MultiListBox",
+				MyGUI::IntCoord(300, 100, 400, 400),
+				MyGUI::Align::Default,
+				"Main");
 			//original_list = new unittest::BiIndexData();
 			mirror_list = new unittest::Mirror_MultiList();
 			count_items = 0;
@@ -76,29 +80,37 @@ namespace unittest
 			{
 				for (size_t column = 0; column < count_columns; ++column)
 				{
-
 					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
 					//Assert(original_list->getItemNameAt(item) == MyGUI::utility::toString(item));
 
 					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
 					Assert(original_list->getItemNameAt(item) == mirror_list->getItemNameAt(item));
 
-					Assert(original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
+					Assert(
+						original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
 
-					Assert(((original_list->getItemDataAt<size_t>(item, false) == nullptr) && (mirror_list->getItemDataAt<size_t>(item, false) == nullptr))
-						|| (*original_list->getItemDataAt<size_t>(item, false) == *mirror_list->getItemDataAt<size_t>(item, false)));
+					Assert(
+						((original_list->getItemDataAt<size_t>(item, false) == nullptr) &&
+						 (mirror_list->getItemDataAt<size_t>(item, false) == nullptr)) ||
+						(*original_list->getItemDataAt<size_t>(item, false) ==
+						 *mirror_list->getItemDataAt<size_t>(item, false)));
 
-					Assert((original_list->getSubItemDataAt<size_t>(column, item, false) == nullptr && mirror_list->getSubItemDataAt<size_t>(column, item, false) == nullptr)
-						|| *original_list->getSubItemDataAt<size_t>(column, item, false) == *mirror_list->getSubItemDataAt<size_t>(column, item, false));
+					Assert(
+						(original_list->getSubItemDataAt<size_t>(column, item, false) == nullptr &&
+						 mirror_list->getSubItemDataAt<size_t>(column, item, false) == nullptr) ||
+						*original_list->getSubItemDataAt<size_t>(column, item, false) ==
+							*mirror_list->getSubItemDataAt<size_t>(column, item, false));
 				}
 			}
 		}
 
 		void Begin()
 		{
-			if (count_columns == 0) return;
+			if (count_columns == 0)
+				return;
 			size_t count = original_list->getItemCount();
-			if (count == 0) return;
+			if (count == 0)
+				return;
 
 			size_t index = (size_t)rand() % count;
 			original_list->setIndexSelected(index);
@@ -117,12 +129,13 @@ namespace unittest
 
 		void AddItem()
 		{
-			if (count_columns == 0) return;
+			if (count_columns == 0)
+				return;
 
 			size_t item = (size_t)rand();
 			mirror_list->addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
-			count_items ++;
+			count_items++;
 
 			checkMultiList();
 		}
@@ -138,7 +151,8 @@ namespace unittest
 
 		void InsertItem()
 		{
-			if (count_columns == 0) return;
+			if (count_columns == 0)
+				return;
 
 			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 			size_t item = (size_t)rand();
@@ -146,7 +160,7 @@ namespace unittest
 			mirror_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 			original_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 
-			count_items ++;
+			count_items++;
 
 			checkMultiList();
 		}
@@ -162,15 +176,17 @@ namespace unittest
 
 		void RemoveItem()
 		{
-			if (count_columns == 0) return;
-			if (count_items == 0) return;
+			if (count_columns == 0)
+				return;
+			if (count_items == 0)
+				return;
 
 			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			mirror_list->removeItemAt(index);
 			original_list->removeItemAt(index);
 
-			count_items --;
+			count_items--;
 
 			checkMultiList();
 		}
@@ -186,8 +202,10 @@ namespace unittest
 
 		void SwapItems()
 		{
-			if (count_columns == 0) return;
-			if (count_items == 0) return;
+			if (count_columns == 0)
+				return;
+			if (count_items == 0)
+				return;
 
 			size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 			size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
@@ -209,8 +227,10 @@ namespace unittest
 
 		void SortItems()
 		{
-			if (count_columns == 0) return;
-			if (count_items == 0) return;
+			if (count_columns == 0)
+				return;
+			if (count_items == 0)
+				return;
 
 			//size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 			//size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
@@ -232,8 +252,10 @@ namespace unittest
 
 		void ChangeItems()
 		{
-			if (count_columns == 0) return;
-			if (count_items == 0) return;
+			if (count_columns == 0)
+				return;
+			if (count_items == 0)
+				return;
 
 			size_t index = (size_t)rand() % count_items;
 			size_t column = (size_t)rand() % count_columns;
@@ -258,7 +280,8 @@ namespace unittest
 
 		void RemoveAllItems()
 		{
-			if (count_columns == 0) return;
+			if (count_columns == 0)
+				return;
 
 			mirror_list->removeAllItems();
 			original_list->removeAllItems();
@@ -305,17 +328,23 @@ namespace unittest
 			size_t index = (size_t)rand() % 7;
 			size_t count = (size_t)rand() % 3;
 
-			if (index == 0) InsertItem(count);
-			else if (index == 1) AddItem(count);
-			else if (index == 2) RemoveItem(count);
-			else if (index == 3) SwapItems(count);
-			else if (index == 4) SortItems(count);
-			else if (index == 5) ChangeItems(count * 5);
-			else if (index == 6) Begin(count);
+			if (index == 0)
+				InsertItem(count);
+			else if (index == 1)
+				AddItem(count);
+			else if (index == 2)
+				RemoveItem(count);
+			else if (index == 3)
+				SwapItems(count);
+			else if (index == 4)
+				SortItems(count);
+			else if (index == 5)
+				ChangeItems(count * 5);
+			else if (index == 6)
+				Begin(count);
 
 			//base::BaseManager::getInstance().getStatisticInfo()->change("Count", count_items);
 		}
-
 	};
 
 }

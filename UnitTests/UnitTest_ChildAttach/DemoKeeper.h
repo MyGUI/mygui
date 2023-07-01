@@ -11,8 +11,7 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
 		void createScene() override;
@@ -22,7 +21,6 @@ namespace demo
 		void setupResources() override;
 
 	private:
-
 		void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
 		void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new);
 

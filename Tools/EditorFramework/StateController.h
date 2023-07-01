@@ -13,15 +13,22 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL StateController :
-		public components::IFactoryItem
+	class MYGUI_EXPORT_DLL StateController : public components::IFactoryItem
 	{
 	public:
-		virtual void initState() { }
-		virtual void cleanupState() { }
+		virtual void initState()
+		{
+		}
+		virtual void cleanupState()
+		{
+		}
 
-		virtual void pauseState() { }
-		virtual void resumeState() { }
+		virtual void pauseState()
+		{
+		}
+		virtual void resumeState()
+		{
+		}
 	};
 
 }

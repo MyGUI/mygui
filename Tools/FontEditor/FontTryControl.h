@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class FontTryControl :
-		public Control,
-		public sigslot::has_slots<>
+	class FontTryControl : public Control, public sigslot::has_slots<>
 	{
 	public:
 		~FontTryControl() override;

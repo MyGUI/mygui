@@ -24,9 +24,7 @@ namespace animation
 		{
 			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
 			{
-				if (_eventout == item->first
-					&& _node == item->second.first
-					&& _eventin == item->second.second)
+				if (_eventout == item->first && _node == item->second.first && _eventin == item->second.second)
 				{
 					mConnections.erase(item);
 					return;
@@ -49,7 +47,6 @@ namespace animation
 		using PairOut = std::pair<std::string, PairIn>;
 		using VectorPairOut = std::vector<PairOut>;
 		VectorPairOut mConnections;
-
 	};
 
 } // namespace animation

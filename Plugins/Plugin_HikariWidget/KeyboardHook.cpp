@@ -26,7 +26,8 @@ LRESULT CALLBACK GetMessageProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 KeyboardHook* KeyboardHook::instance = 0;
 
-KeyboardHook::KeyboardHook(HookListener* listener) : listener(listener)
+KeyboardHook::KeyboardHook(HookListener* listener) :
+	listener(listener)
 {
 	instance = this;
 

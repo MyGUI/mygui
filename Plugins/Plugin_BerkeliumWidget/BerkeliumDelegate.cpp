@@ -34,13 +34,14 @@ namespace MyGUI
 	}
 
 	void BerkeliumDelegate::onPaint(
-		Berkelium::Window *win,
-		const unsigned char *sourceBuffer,
-		const Berkelium::Rect &sourceBufferRect,
+		Berkelium::Window* win,
+		const unsigned char* sourceBuffer,
+		const Berkelium::Rect& sourceBufferRect,
 		size_t numCopyRects,
-		const Berkelium::Rect *copyRects,
-		int dx, int dy,
-		const Berkelium::Rect &scrollRect)
+		const Berkelium::Rect* copyRects,
+		int dx,
+		int dy,
+		const Berkelium::Rect& scrollRect)
 	{
 		if (mWindow == nullptr || mBuffer == nullptr)
 			return;
@@ -49,14 +50,21 @@ namespace MyGUI
 
 		for (size_t i = 0; i < numCopyRects; i++)
 		{
-			const Berkelium::Rect &updateRect = copyRects[i];
+			const Berkelium::Rect& updateRect = copyRects[i];
 
-			mBuffer->update((void*)sourceBuffer, updateRect.left(), updateRect.top(), updateRect.width(), updateRect.height(),
-				updateRect.left() - sourceBufferRect.left(), updateRect.top() - sourceBufferRect.top(), sourceBufferRect.width());
+			mBuffer->update(
+				(void*)sourceBuffer,
+				updateRect.left(),
+				updateRect.top(),
+				updateRect.width(),
+				updateRect.height(),
+				updateRect.left() - sourceBufferRect.left(),
+				updateRect.top() - sourceBufferRect.top(),
+				sourceBufferRect.width());
 		}
 	}
 
-	void BerkeliumDelegate::onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor)
+	void BerkeliumDelegate::onCursorUpdated(Berkelium::Window* win, const Berkelium::Cursor& newCursor)
 	{
 		if (mWidget == nullptr)
 			return;
@@ -74,9 +82,9 @@ namespace MyGUI
 		{
 			cursor = "link";
 		}
-#elif  MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
 		// TODO
-#elif  MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 		// TODO
 #endif
 		mWidget->setPointer(cursor);

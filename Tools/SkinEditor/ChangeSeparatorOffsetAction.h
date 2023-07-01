@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class ChangeSeparatorOffsetAction :
-		public ActionChangeDataProperty
+	class ChangeSeparatorOffsetAction : public ActionChangeDataProperty
 	{
 	public:
 		void doAction() override;

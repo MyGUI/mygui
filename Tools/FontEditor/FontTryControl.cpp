@@ -34,8 +34,10 @@ namespace tools
 		mEdit = mMainWidget->castType<MyGUI::EditBox>();
 
 		mEdit->setCaption(SettingsManager::getInstance().getValue("Controls/TryFontControl/Text"));
-		
-		CommandManager::getInstance().getEvent("Command_OnGenerateFont")->connect(this, &FontTryControl::commandOnGenerateFont);
+
+		CommandManager::getInstance()
+			.getEvent("Command_OnGenerateFont")
+			->connect(this, &FontTryControl::commandOnGenerateFont);
 		DataSelectorManager::getInstance().getEvent("Root")->connect(this, &FontTryControl::notifyChangeDataSelector);
 		updateFont();
 	}

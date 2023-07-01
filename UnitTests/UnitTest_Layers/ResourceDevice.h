@@ -14,13 +14,11 @@
 namespace demo
 {
 
-	class ResourceDevice :
-		public MyGUI::IResource,
-		public MyGUI::GenericFactory<ResourceDevice>
+	class ResourceDevice : public MyGUI::IResource, public MyGUI::GenericFactory<ResourceDevice>
 	{
 		friend class MyGUI::GenericFactory<ResourceDevice>;
 
-		MYGUI_RTTI_DERIVED( ResourceDevice )
+		MYGUI_RTTI_DERIVED(ResourceDevice)
 
 	private:
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override
@@ -30,12 +28,18 @@ namespace demo
 			MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 			while (node.next())
 			{
-				if (node->getName() == "Name") mDeviceName = node->getContent();
-				else if (node->getName() == "Description") mDeviceDescription = node->getContent();
-				else if (node->getName() == "ValueEnergy") mValueEnergy = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueExplosion") mValueExplosion = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueTarget") mValueTarget = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueHP") mValueHP = MyGUI::utility::parseValue<size_t>(node->getContent());
+				if (node->getName() == "Name")
+					mDeviceName = node->getContent();
+				else if (node->getName() == "Description")
+					mDeviceDescription = node->getContent();
+				else if (node->getName() == "ValueEnergy")
+					mValueEnergy = MyGUI::utility::parseValue<size_t>(node->getContent());
+				else if (node->getName() == "ValueExplosion")
+					mValueExplosion = MyGUI::utility::parseValue<size_t>(node->getContent());
+				else if (node->getName() == "ValueTarget")
+					mValueTarget = MyGUI::utility::parseValue<size_t>(node->getContent());
+				else if (node->getName() == "ValueHP")
+					mValueHP = MyGUI::utility::parseValue<size_t>(node->getContent());
 			}
 		}
 

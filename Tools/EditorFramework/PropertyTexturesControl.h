@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyTexturesControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyTexturesControl : public PropertyControl
 	{
 	public:
 		~PropertyTexturesControl() override;

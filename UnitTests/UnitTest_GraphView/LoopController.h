@@ -13,8 +13,7 @@
 namespace animation
 {
 
-	class LoopController :
-		public IAnimationNode
+	class LoopController : public IAnimationNode
 	{
 	public:
 		LoopController() = default;
@@ -26,9 +25,12 @@ namespace animation
 
 		void setEvent(std::string_view _name, float _value = 0) override
 		{
-			if (_name == "Start") start();
-			else if (_name == "Stop") stop();
-			else if (_name == "Weight") mConnection.forceEvent("Weight", _value);
+			if (_name == "Start")
+				start();
+			else if (_name == "Stop")
+				stop();
+			else if (_name == "Weight")
+				mConnection.forceEvent("Weight", _value);
 		}
 
 		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
@@ -48,7 +50,8 @@ namespace animation
 				if (mLength != 0)
 				{
 					mCurrentTime += _value;
-					while (mCurrentTime > mLength) mCurrentTime -= mLength;
+					while (mCurrentTime > mLength)
+						mCurrentTime -= mLength;
 				}
 				else
 				{
@@ -58,7 +61,8 @@ namespace animation
 						if (mLength != 0)
 						{
 							mCurrentTime += _value;
-							while (mCurrentTime > mLength) mCurrentTime -= mLength;
+							while (mCurrentTime > mLength)
+								mCurrentTime -= mLength;
 						}
 					}
 				}
@@ -99,7 +103,6 @@ namespace animation
 		IAnimationNode* mState{nullptr};
 
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

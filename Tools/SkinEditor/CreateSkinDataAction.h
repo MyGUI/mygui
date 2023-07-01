@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class CreateSkinDataAction :
-		public Action
+	class CreateSkinDataAction : public Action
 	{
 	public:
 		CreateSkinDataAction();

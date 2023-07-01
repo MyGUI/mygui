@@ -17,9 +17,15 @@ namespace tools
 	public:
 		enum RegionIndex
 		{
-			RegionLeftTop, RegionTop, RegionRightTop,
-			RegionLeft, RegionCenter, RegionRight,
-			RegionLeftBottom, RegionBottom, RegionRightBottom,
+			RegionLeftTop,
+			RegionTop,
+			RegionRightTop,
+			RegionLeft,
+			RegionCenter,
+			RegionRight,
+			RegionLeftBottom,
+			RegionBottom,
+			RegionRightBottom,
 			RegionMax
 		};
 

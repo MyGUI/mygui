@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class BaseAnimationNode :
-		public wraps::BaseGraphNode
+	class BaseAnimationNode : public wraps::BaseGraphNode
 	{
 	public:
 		BaseAnimationNode(std::string_view _layout, std::string_view _type, std::string_view _name) :
@@ -72,13 +71,14 @@ namespace demo
 		MyGUI::delegates::Delegate<BaseAnimationNode*> eventInvalidateNode;
 
 	protected:
-		virtual void baseInitialiseAnimationNode() { }
+		virtual void baseInitialiseAnimationNode()
+		{
+		}
 
 	private:
 		animation::IAnimationNode* mAnimationNode{nullptr};
 		std::string mType;
 		std::string mName;
-
 	};
 
 } // namespace demo

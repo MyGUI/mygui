@@ -18,10 +18,11 @@ namespace MyGUI
 	class RTTLayer :
 		public OverlappedLayer
 #ifdef MYGUI_OGRE_PLATFORM
-		, public demo::SceneObject
+		,
+		public demo::SceneObject
 #endif
 	{
-		MYGUI_RTTI_DERIVED( RTTLayer )
+		MYGUI_RTTI_DERIVED(RTTLayer)
 
 	public:
 		~RTTLayer() override;

@@ -32,22 +32,50 @@ namespace tools
 	{
 		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_MoveLeft")->connect(this, &ScopeTextureControl::CommandMoveLeft);
-		CommandManager::getInstance().getEvent("Command_MoveRight")->connect(this, &ScopeTextureControl::CommandMoveRight);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveLeft")
+			->connect(this, &ScopeTextureControl::CommandMoveLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveRight")
+			->connect(this, &ScopeTextureControl::CommandMoveRight);
 		CommandManager::getInstance().getEvent("Command_MoveTop")->connect(this, &ScopeTextureControl::CommandMoveTop);
-		CommandManager::getInstance().getEvent("Command_MoveBottom")->connect(this, &ScopeTextureControl::CommandMoveBottom);
-		CommandManager::getInstance().getEvent("Command_SizeLeft")->connect(this, &ScopeTextureControl::CommandSizeLeft);
-		CommandManager::getInstance().getEvent("Command_SizeRight")->connect(this, &ScopeTextureControl::CommandSizeRight);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveBottom")
+			->connect(this, &ScopeTextureControl::CommandMoveBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeLeft")
+			->connect(this, &ScopeTextureControl::CommandSizeLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeRight")
+			->connect(this, &ScopeTextureControl::CommandSizeRight);
 		CommandManager::getInstance().getEvent("Command_SizeTop")->connect(this, &ScopeTextureControl::CommandSizeTop);
-		CommandManager::getInstance().getEvent("Command_SizeBottom")->connect(this, &ScopeTextureControl::CommandSizeBottom);
-		CommandManager::getInstance().getEvent("Command_GridMoveLeft")->connect(this, &ScopeTextureControl::CommandGridMoveLeft);
-		CommandManager::getInstance().getEvent("Command_GridMoveRight")->connect(this, &ScopeTextureControl::CommandGridMoveRight);
-		CommandManager::getInstance().getEvent("Command_GridMoveTop")->connect(this, &ScopeTextureControl::CommandGridMoveTop);
-		CommandManager::getInstance().getEvent("Command_GridMoveBottom")->connect(this, &ScopeTextureControl::CommandGridMoveBottom);
-		CommandManager::getInstance().getEvent("Command_GridSizeLeft")->connect(this, &ScopeTextureControl::CommandGridSizeLeft);
-		CommandManager::getInstance().getEvent("Command_GridSizeRight")->connect(this, &ScopeTextureControl::CommandGridSizeRight);
-		CommandManager::getInstance().getEvent("Command_GridSizeTop")->connect(this, &ScopeTextureControl::CommandGridSizeTop);
-		CommandManager::getInstance().getEvent("Command_GridSizeBottom")->connect(this, &ScopeTextureControl::CommandGridSizeBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeBottom")
+			->connect(this, &ScopeTextureControl::CommandSizeBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveLeft")
+			->connect(this, &ScopeTextureControl::CommandGridMoveLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveRight")
+			->connect(this, &ScopeTextureControl::CommandGridMoveRight);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveTop")
+			->connect(this, &ScopeTextureControl::CommandGridMoveTop);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveBottom")
+			->connect(this, &ScopeTextureControl::CommandGridMoveBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeLeft")
+			->connect(this, &ScopeTextureControl::CommandGridSizeLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeRight")
+			->connect(this, &ScopeTextureControl::CommandGridSizeRight);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeTop")
+			->connect(this, &ScopeTextureControl::CommandGridSizeTop);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeBottom")
+			->connect(this, &ScopeTextureControl::CommandGridSizeBottom);
 
 		updateCaption();
 
@@ -76,7 +104,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left --;
+		mCoordValue.left--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -87,7 +115,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left ++;
+		mCoordValue.left++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -98,7 +126,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top --;
+		mCoordValue.top--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -109,7 +137,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top ++;
+		mCoordValue.top++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -164,7 +192,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
+		mCoordValue.width =
+			GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -175,7 +204,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
+		mCoordValue.width =
+			GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -186,7 +216,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
+		mCoordValue.height =
+			GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -197,7 +228,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
+		mCoordValue.height =
+			GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -208,7 +240,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width --;
+		mCoordValue.width--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -219,7 +251,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width ++;
+		mCoordValue.width++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -230,7 +262,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height --;
+		mCoordValue.height--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -241,7 +273,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height ++;
+		mCoordValue.height++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -381,7 +413,11 @@ namespace tools
 			blackSelector.first->setVisible(false);
 	}
 
-	SelectorControl* ScopeTextureControl::getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes)
+	SelectorControl* ScopeTextureControl::getFreeSelector(
+		VectorSelector& _selectors,
+		bool _backType,
+		SelectorType _type,
+		bool& _changes)
 	{
 		for (auto& selector : _selectors)
 		{

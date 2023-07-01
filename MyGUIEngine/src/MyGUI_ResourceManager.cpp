@@ -110,7 +110,8 @@ namespace MyGUI
 		while (node.next(mXmlListTagName))
 		{
 			std::string source;
-			if (!node->findAttribute("file", source)) continue;
+			if (!node->findAttribute("file", source))
+				continue;
 			MYGUI_LOG(Info, "Load ini file '" << source << "'");
 			_loadImplement(source, false, {}, getClassTypeName());
 		}
@@ -126,10 +127,15 @@ namespace MyGUI
 	void ResourceManager::unregisterLoadXmlDelegate(std::string_view _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
-		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
+		if (iter != mMapLoadXmlDelegate.end())
+			mMapLoadXmlDelegate.erase(iter);
 	}
 
-	bool ResourceManager::_loadImplement(const std::string& _file, bool _match, std::string_view _type, std::string_view _instance)
+	bool ResourceManager::_loadImplement(
+		const std::string& _file,
+		bool _match,
+		std::string_view _type,
+		std::string_view _instance)
 	{
 		DataStreamHolder data = DataManager::getInstance().getData(_file);
 		if (data.getData() == nullptr)
@@ -146,7 +152,7 @@ namespace MyGUI
 		}
 
 		xml::ElementPtr root = doc.getRoot();
-		if ( (nullptr == root) || (root->getName() != "MyGUI") )
+		if ((nullptr == root) || (root->getName() != "MyGUI"))
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
 			return false;
@@ -189,7 +195,9 @@ namespace MyGUI
 					}
 					else
 					{
-						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
+						MYGUI_LOG(
+							Error,
+							_instance << " : '" << _file << "', delegate for type '" << type << "'not found");
 					}
 				}
 				else

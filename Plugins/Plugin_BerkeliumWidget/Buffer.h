@@ -11,7 +11,10 @@ namespace helpers
 	class Buffer
 	{
 	public:
-		enum { BIT_IN_COLOUR = 4 };
+		enum
+		{
+			BIT_IN_COLOUR = 4
+		};
 		typedef unsigned char byte;
 
 		Buffer() :
@@ -96,7 +99,7 @@ namespace helpers
 					}
 				}
 
-				delete [] mBuffer;
+				delete[] mBuffer;
 				mBuffer = new_data;
 			}
 			else
@@ -146,7 +149,6 @@ namespace helpers
 						dest += width_bytes_dest;
 					}
 				}
-
 			}
 		}
 
@@ -177,8 +179,10 @@ namespace helpers
 
 				if (_width > 0 && _height > 0)
 				{
-					if (_dx < 0) _left -= _dx;
-					if (_dy < 0) _top -= _dy;
+					if (_dx < 0)
+						_left -= _dx;
+					if (_dy < 0)
+						_top -= _dy;
 
 					byte* data = mBuffer + (((_top * mWidthVisible) + _left) * BIT_IN_COLOUR);
 					if (_dy > 0)
@@ -230,7 +234,15 @@ namespace helpers
 			}
 		}
 
-		void update(void* _data, int _left, int _top, int _width, int _height, int sourceLeft, int sourceTop, int sourceWidth)
+		void update(
+			void* _data,
+			int _left,
+			int _top,
+			int _width,
+			int _height,
+			int sourceLeft,
+			int sourceTop,
+			int sourceWidth)
 		{
 			mDirty = true;
 

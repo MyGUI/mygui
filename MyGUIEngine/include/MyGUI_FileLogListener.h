@@ -15,8 +15,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FileLogListener :
-		public ILogListener
+	class MYGUI_EXPORT FileLogListener : public ILogListener
 	{
 	public:
 		//! @copydoc ILogListener::open()
@@ -26,7 +25,13 @@ namespace MyGUI
 		//! @copydoc ILogListener::flush()
 		void flush() override;
 		//! @copydoc ILogListener::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
-		void log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line) override;
+		void log(
+			std::string_view _section,
+			LogLevel _level,
+			const struct tm* _time,
+			std::string_view _message,
+			std::string_view _file,
+			int _line) override;
 
 		/** Set listener's file name where it wirte log. */
 		void setFileName(std::string_view _value);

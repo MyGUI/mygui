@@ -14,8 +14,7 @@
 namespace wraps
 {
 
-	class BasePanelViewCell :
-		public BaseLayout
+	class BasePanelViewCell : public BaseLayout
 	{
 	public:
 		BasePanelViewCell(std::string_view _layout, MyGUI::Widget* _parent) :
@@ -96,22 +95,32 @@ namespace wraps
 			if (!m_minimized)
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
-				MyGUI::ControllerPosition* controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition* controller = createControllerPosition(
+					size,
+					POSITION_CONTROLLER_TIME,
+					MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 			else
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
-				MyGUI::ControllerPosition* controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition* controller = createControllerPosition(
+					size,
+					POSITION_CONTROLLER_TIME,
+					MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 		}
 
-		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntSize& _size, float _time, MyGUI::ControllerPosition::FrameAction::IDelegate* _action)
+		MyGUI::ControllerPosition* createControllerPosition(
+			const MyGUI::IntSize& _size,
+			float _time,
+			MyGUI::ControllerPosition::FrameAction::IDelegate* _action)
 		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
+			MyGUI::ControllerItem* item =
+				MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
 			MyGUI::ControllerPosition* controller = item->castType<MyGUI::ControllerPosition>();
 
 			controller->setSize(_size);

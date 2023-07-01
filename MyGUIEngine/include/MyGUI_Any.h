@@ -86,7 +86,9 @@ namespace MyGUI
 		{
 			if (this->getType() == typeid(ValueType))
 				return &static_cast<Any::Holder<ValueType>*>(this->mContent.get())->held;
-			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
+			MYGUI_ASSERT(
+				!_throw,
+				"Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
 			return nullptr;
 		}
 
@@ -107,17 +109,19 @@ namespace MyGUI
 		template<class T>
 		struct HasOperatorEqualImpl
 		{
-			template <typename U>
+			template<typename U>
 			static auto test(U*) -> decltype(std::declval<U>() == std::declval<U>());
-			template <typename>
-			static auto test(...)->std::false_type;
+			template<typename>
+			static auto test(...) -> std::false_type;
 
 			using type = typename std::is_same<bool, decltype(test<T>(nullptr))>::type;
 			static constexpr bool value = type::value;
 		};
 
 		template<class T>
-		struct HasOperatorEqual : HasOperatorEqualImpl<T>::type {};
+		struct HasOperatorEqual : HasOperatorEqualImpl<T>::type
+		{
+		};
 		template<typename T1, typename T2>
 		struct HasOperatorEqual<std::pair<T1, T2>>
 		{
@@ -125,8 +129,7 @@ namespace MyGUI
 		};
 
 		template<typename ValueType>
-		class Holder :
-			public Placeholder
+		class Holder : public Placeholder
 		{
 			friend class Any;
 

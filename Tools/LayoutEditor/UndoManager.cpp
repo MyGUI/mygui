@@ -37,7 +37,8 @@ namespace tools
 
 	void UndoManager::undo()
 	{
-		if (mPosition == mOperations.GetSize() - 1) return;
+		if (mPosition == mOperations.GetSize() - 1)
+			return;
 
 		setUnsaved(true);
 
@@ -48,7 +49,8 @@ namespace tools
 
 	void UndoManager::redo()
 	{
-		if (mPosition == 0) return;
+		if (mPosition == 0)
+			return;
 
 		setUnsaved(true);
 
@@ -65,13 +67,13 @@ namespace tools
 		{
 			delete mOperations.Front();
 			mOperations.PopFirst();
-			mOperations.Push( mEditorWidgets->savexmlDocument() );
+			mOperations.Push(mEditorWidgets->savexmlDocument());
 			return;
 		}
 
 		mLastProperty = _property;
 
-		if ( mPosition != 0 )
+		if (mPosition != 0)
 		{
 			mLastProperty = PR_DEFAULT;
 			while (mPosition)
@@ -82,8 +84,9 @@ namespace tools
 			}
 		}
 
-		if ( mOperations.IsFull() ) delete mOperations.Back();
-		mOperations.Push( mEditorWidgets->savexmlDocument() );
+		if (mOperations.IsFull())
+			delete mOperations.Back();
+		mOperations.Push(mEditorWidgets->savexmlDocument());
 		mPosition = 0;
 	}
 

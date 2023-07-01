@@ -19,10 +19,9 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class MYGUI_EXPORT TileRect :
-		public ISubWidgetRect
+	class MYGUI_EXPORT TileRect : public ISubWidgetRect
 	{
-		MYGUI_RTTI_DERIVED( TileRect )
+		MYGUI_RTTI_DERIVED(TileRect)
 
 	public:
 		TileRect();

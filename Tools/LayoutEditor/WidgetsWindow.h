@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class WidgetsWindow :
-		public wraps::BaseLayout
+	class WidgetsWindow : public wraps::BaseLayout
 	{
 	public:
 		WidgetsWindow(MyGUI::Widget* _parent = nullptr);

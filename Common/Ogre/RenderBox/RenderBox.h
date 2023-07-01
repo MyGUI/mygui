@@ -88,7 +88,8 @@ namespace wraps
 				mRenderTarget->removeAllViewports();
 				mRenderTarget = nullptr;
 				if (mCanvas)
-					Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(mCanvas->getTexture()->getName());
+					Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(
+						mCanvas->getTexture()->getName());
 			}
 		}
 
@@ -108,9 +109,7 @@ namespace wraps
 			Ogre::TexturePtr texture = static_cast<MyGUI::OgreTexture*>(mCanvas->getTexture())->getOgreTexture();
 			Ogre::RenderTexture* target = texture->getBuffer()->getRenderTarget();
 
-			if (mRenderTarget != target
-				&& target != nullptr
-				&& mCamera != nullptr )
+			if (mRenderTarget != target && target != nullptr && mCamera != nullptr)
 			{
 				mRenderTarget = target;
 
@@ -119,7 +118,6 @@ namespace wraps
 				viewport->setBackgroundColour(mColour);
 				viewport->setClearEveryFrame(true);
 				viewport->setOverlaysEnabled(false);
-
 			}
 		}
 

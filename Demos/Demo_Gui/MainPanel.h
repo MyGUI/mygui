@@ -12,8 +12,7 @@
 namespace demo
 {
 
-	class MainPanel :
-		public wraps::BaseLayout
+	class MainPanel : public wraps::BaseLayout
 	{
 	public:
 		enum TypeEvents

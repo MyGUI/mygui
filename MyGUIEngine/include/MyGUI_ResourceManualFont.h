@@ -16,10 +16,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ResourceManualFont :
-		public IFont
+	class MYGUI_EXPORT ResourceManualFont : public IFont
 	{
-		MYGUI_RTTI_DERIVED( ResourceManualFont )
+		MYGUI_RTTI_DERIVED(ResourceManualFont)
 
 	public:
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -59,7 +58,8 @@ namespace MyGUI
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight{0}; // The nominal height of the font in pixels.
-		GlyphInfo* mSubstituteGlyphInfo{nullptr}; // The glyph info to use as a substitute for code points that don't exist in the font.
+		GlyphInfo* mSubstituteGlyphInfo{
+			nullptr}; // The glyph info to use as a substitute for code points that don't exist in the font.
 		MyGUI::ITexture* mTexture{nullptr}; // The texture that contains all of the rendered glyphs in the font.
 
 		CharMap mCharMap; // A map of code points to glyph info objects.

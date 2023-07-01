@@ -17,28 +17,47 @@ namespace demo
 
 	namespace formates
 	{
-		template<typename T> inline std::string format()
+		template<typename T>
+		inline std::string format()
 		{
-			return MyGUI::utility::toString("[ ", (std::numeric_limits<T>::min)(), " | ", (std::numeric_limits<T>::max)(), " ]");
+			return MyGUI::utility::toString(
+				"[ ",
+				(std::numeric_limits<T>::min)(),
+				" | ",
+				(std::numeric_limits<T>::max)(),
+				" ]");
 		}
-		template<> inline std::string format<bool>()
+		template<>
+		inline std::string format<bool>()
 		{
 			return "[ true | false ]";
 		}
-		template<> inline std::string format<float>()
+		template<>
+		inline std::string format<float>()
 		{
-			return MyGUI::utility::toString("[ ", -(std::numeric_limits<float>::max)(), " | ", (std::numeric_limits<float>::max)(), " ]");
+			return MyGUI::utility::toString(
+				"[ ",
+				-(std::numeric_limits<float>::max)(),
+				" | ",
+				(std::numeric_limits<float>::max)(),
+				" ]");
 		}
-		template<> inline std::string format<double>()
+		template<>
+		inline std::string format<double>()
 		{
-			return MyGUI::utility::toString("[ ", -(std::numeric_limits<double>::max)(), " | ", (std::numeric_limits<double>::max)(), " ]");
+			return MyGUI::utility::toString(
+				"[ ",
+				-(std::numeric_limits<double>::max)(),
+				" | ",
+				(std::numeric_limits<double>::max)(),
+				" ]");
 		}
 	}
 
-	class Console :
-		public wraps::BaseLayout
+	class Console : public wraps::BaseLayout
 	{
 		MYGUI_SINGLETON_DECLARATION(Console);
+
 	public:
 		Console();
 
@@ -76,8 +95,12 @@ namespace demo
 		bool getVisible();
 		void setVisible(bool _visible);
 
-		template <typename T>
-		bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = MyGUI::UString())
+		template<typename T>
+		bool isAction(
+			T& _result,
+			const MyGUI::UString& _key,
+			const MyGUI::UString& _value,
+			const MyGUI::UString& _format = MyGUI::UString())
 		{
 			if (_value.empty())
 			{

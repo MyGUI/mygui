@@ -17,16 +17,18 @@ namespace MyGUI
 	class MYGUI_EXPORT LogStream
 	{
 	public:
-		struct End { };
+		struct End
+		{
+		};
 
 	public:
-		std::string operator << (const End& /*_endl*/)
+		std::string operator<<(const End& /*_endl*/)
 		{
 			return mStream.str();
 		}
 
-		template <typename T>
-		LogStream& operator << (const T& _value)
+		template<typename T>
+		LogStream& operator<<(const T& _value)
 		{
 			mStream << _value;
 			return *this;

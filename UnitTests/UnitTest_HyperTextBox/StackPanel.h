@@ -12,10 +12,9 @@
 namespace MyGUI
 {
 
-	class StackPanel :
-		public Panel
+	class StackPanel : public Panel
 	{
-		MYGUI_RTTI_DERIVED( StackPanel )
+		MYGUI_RTTI_DERIVED(StackPanel)
 
 	public:
 		const IntSize& getSpacer() const;

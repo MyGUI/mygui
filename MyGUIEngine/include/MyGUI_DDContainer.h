@@ -27,10 +27,9 @@ namespace MyGUI
 	/** \brief @wpage{DDContainer}
 		DDContainer widget description should be here.
 	*/
-	class MYGUI_EXPORT DDContainer :
-		public Widget
+	class MYGUI_EXPORT DDContainer : public Widget
 	{
-		MYGUI_RTTI_DERIVED( DDContainer )
+		MYGUI_RTTI_DERIVED(DDContainer)
 
 	public:
 		/** Set drag'n'drop mode flag.
@@ -106,7 +105,7 @@ namespace MyGUI
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
 		void onMouseDrag(int _left, int _top, MouseButton _id) override;
 
-        virtual void notifyInvalideDrop(DDContainer* _sender);
+		virtual void notifyInvalideDrop(DDContainer* _sender);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();

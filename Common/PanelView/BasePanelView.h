@@ -15,9 +15,8 @@
 namespace wraps
 {
 
-	template <typename TypeCell>
-	class BasePanelView :
-		public BaseLayout
+	template<typename TypeCell>
+	class BasePanelView : public BaseLayout
 	{
 	public:
 		using VectorCell = std::vector<BasePanelViewItem*>;

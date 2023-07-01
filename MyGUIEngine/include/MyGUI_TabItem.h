@@ -17,10 +17,9 @@ namespace MyGUI
 	/** \brief @wpage{TabItem}
 		TabItem widget description should be here.
 	*/
-	class MYGUI_EXPORT TabItem :
-        public TextBox // FIXME temporary use TextBox instead of Widget for caption
+	class MYGUI_EXPORT TabItem : public TextBox // FIXME temporary use TextBox instead of Widget for caption
 	{
-		MYGUI_RTTI_DERIVED( TabItem )
+		MYGUI_RTTI_DERIVED(TabItem)
 
 	public:
 		/** Set item caption */

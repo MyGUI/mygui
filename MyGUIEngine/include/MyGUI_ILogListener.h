@@ -19,13 +19,27 @@ namespace MyGUI
 		virtual ~ILogListener() = default;
 
 		/** Opens log listener. (for example open file) */
-		virtual void open() { }
+		virtual void open()
+		{
+		}
 		/** Opens log listener. (for example close file) */
-		virtual void close() { }
+		virtual void close()
+		{
+		}
 		/** Flush log listener messages.*/
-		virtual void flush() { }
+		virtual void flush()
+		{
+		}
 		/** Log message.*/
-		virtual void log(std::string_view /*_section*/, LogLevel /*_level*/, const struct tm* /*_time*/, std::string_view /*_message*/, std::string_view /*_file*/, int /*_line*/) { }
+		virtual void log(
+			std::string_view /*_section*/,
+			LogLevel /*_level*/,
+			const struct tm* /*_time*/,
+			std::string_view /*_message*/,
+			std::string_view /*_file*/,
+			int /*_line*/)
+		{
+		}
 	};
 
 } // namespace MyGUI

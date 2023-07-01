@@ -24,12 +24,9 @@ namespace MyGUI
 	/** \brief @wpage{ListBox}
 		ListBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ListBox :
-		public Widget,
-		public IItemContainer,
-		public MemberObsolete<ListBox>
+	class MYGUI_EXPORT ListBox : public Widget, public IItemContainer, public MemberObsolete<ListBox>
 	{
-		MYGUI_RTTI_DERIVED( ListBox )
+		MYGUI_RTTI_DERIVED(ListBox)
 
 	public:
 		//------------------------------------------------------------------------------//
@@ -93,7 +90,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");

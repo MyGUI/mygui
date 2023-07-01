@@ -20,10 +20,9 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class MYGUI_EXPORT SubSkin :
-		public ISubWidgetRect
+	class MYGUI_EXPORT SubSkin : public ISubWidgetRect
 	{
-		MYGUI_RTTI_DERIVED( SubSkin )
+		MYGUI_RTTI_DERIVED(SubSkin)
 
 	public:
 		SubSkin();

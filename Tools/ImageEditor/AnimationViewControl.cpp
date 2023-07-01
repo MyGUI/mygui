@@ -23,7 +23,9 @@ namespace tools
 		InitialiseByAttributes(this);
 
 		std::string parentType = "Index";
-		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &AnimationViewControl::notifyChangeDataSelector);
+		DataSelectorManager::getInstance()
+			.getEvent(parentType)
+			->connect(this, &AnimationViewControl::notifyChangeDataSelector);
 		mParentData = DataUtility::getSelectedDataByType(parentType);
 		notifyChangeDataSelector(mParentData, false);
 
@@ -71,7 +73,9 @@ namespace tools
 			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
@@ -97,7 +101,9 @@ namespace tools
 			mAnimation.setSize(mParentData->getParent()->getPropertyValue<MyGUI::IntCoord>("Size").size());
 			mAnimation.setRate(mParentData->getPropertyValue<float>("Rate"));
 
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				size_t count = (*child)->getPropertyValue<size_t>("Count");
 				MyGUI::IntPoint point = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
@@ -130,7 +136,11 @@ namespace tools
 		MyGUI::IntSize size = mAnimation.getSize();
 		MyGUI::IntSize parentSize = mImage->getParentSize();
 
-		mImage->setCoord((parentSize.width - size.width) / 2, (parentSize.height - size.height) / 2, size.width, size.height);
+		mImage->setCoord(
+			(parentSize.width - size.width) / 2,
+			(parentSize.height - size.height) / 2,
+			size.width,
+			size.height);
 	}
 
 	void AnimationViewControl::notifyChangeCoord(MyGUI::Widget* _sender)
@@ -150,7 +160,7 @@ namespace tools
 		if (mTime > len)
 		{
 			mTime -= len;
-			mCurrentFrame ++;
+			mCurrentFrame++;
 
 			updateFrame();
 		}
@@ -172,7 +182,7 @@ namespace tools
 			{
 				mCurrentFrame += mAnimation.getFrames().size();
 
-				mCurrentFrame --;
+				mCurrentFrame--;
 				updateFrame();
 			}
 		}
@@ -180,7 +190,7 @@ namespace tools
 		{
 			if (!mAnimation.getFrames().empty())
 			{
-				mCurrentFrame ++;
+				mCurrentFrame++;
 				updateFrame();
 			}
 		}
@@ -191,7 +201,8 @@ namespace tools
 		mCurrentFrame %= mAnimation.getFrames().size();
 		MyGUI::IntPoint point = mAnimation.getFrames()[mCurrentFrame].first;
 
-		mImage->setImageCoord(MyGUI::IntCoord(point.left, point.top, mAnimation.getSize().width, mAnimation.getSize().height));
+		mImage->setImageCoord(
+			MyGUI::IntCoord(point.left, point.top, mAnimation.getSize().width, mAnimation.getSize().height));
 		mImage->setImageTile(mAnimation.getSize());
 		mImage->setImageIndex(0);
 		mFrameInfo->setCaption(MyGUI::utility::toString(mCurrentFrame, " : ", mAnimation.getFrames().size()));

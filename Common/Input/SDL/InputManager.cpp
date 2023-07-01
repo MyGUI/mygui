@@ -16,8 +16,7 @@ namespace input
 		int sdlKey;
 		MyGUI::KeyCode myguiKey;
 	};
-	static KeyMapItem mapItems[] =
-	{
+	static KeyMapItem mapItems[] = {
 		{0, MyGUI::KeyCode::None},
 		{SDLK_UNKNOWN, MyGUI::KeyCode::None},
 		{SDLK_ESCAPE, MyGUI::KeyCode::Escape},
@@ -152,8 +151,7 @@ namespace input
 		{SDLK_LGUI, MyGUI::KeyCode::LeftWindows},
 		//{, MyGUI::KeyCode::RightWindow},
 		{SDLK_RGUI, MyGUI::KeyCode::RightWindows},
-		{SDLK_APPLICATION, MyGUI::KeyCode::AppMenu}
-	};
+		{SDLK_APPLICATION, MyGUI::KeyCode::AppMenu}};
 
 	void InputManager::buildVKeyMap()
 	{
@@ -178,14 +176,18 @@ namespace input
 		MyGUI::ClipboardManager::getInstance().eventClipboardChanged.clear();
 		MyGUI::ClipboardManager::getInstance().eventClipboardRequested.clear();
 		// Set the cross-platform SDL system clipboard handler
-		MyGUI::ClipboardManager::getInstance().eventClipboardChanged += MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
-		MyGUI::ClipboardManager::getInstance().eventClipboardRequested += MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged +=
+			MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested +=
+			MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
 	}
 
 	void InputManager::destroyInput()
 	{
-		MyGUI::ClipboardManager::getInstance().eventClipboardChanged -= MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
-		MyGUI::ClipboardManager::getInstance().eventClipboardRequested -= MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged -=
+			MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested -=
+			MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
 	}
 
 	void InputManager::updateCursorPosition()
@@ -206,7 +208,7 @@ namespace input
 		}
 	}
 
-	bool InputManager::mouseMoved(const SDL_MouseMotionEvent &evt)
+	bool InputManager::mouseMoved(const SDL_MouseMotionEvent& evt)
 	{
 		mMouseX = evt.x;
 		mMouseY = evt.y;
@@ -214,14 +216,14 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::mousePressed(const SDL_MouseButtonEvent &evt)
+	bool InputManager::mousePressed(const SDL_MouseButtonEvent& evt)
 	{
 		computeMouseMove();
 		injectMousePress(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
 		return true;
 	}
 
-	bool InputManager::mouseReleased(const SDL_MouseButtonEvent &evt )
+	bool InputManager::mouseReleased(const SDL_MouseButtonEvent& evt)
 	{
 		computeMouseMove();
 		injectMouseRelease(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
@@ -230,11 +232,13 @@ namespace input
 
 	bool InputManager::keyPressed(SDL_Keycode key, const SDL_TextInputEvent* evt)
 	{
-		if (mSDLVKeyMap.count(key) == 0) {
+		if (mSDLVKeyMap.count(key) == 0)
+		{
 			return false;
 		}
 		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
-		if (evt == nullptr) {
+		if (evt == nullptr)
+		{
 			injectKeyPress(myGuiKeyCode, 0);
 		}
 		else
@@ -249,16 +253,17 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::keyReleased(const SDL_KeyboardEvent &key)
+	bool InputManager::keyReleased(const SDL_KeyboardEvent& key)
 	{
-		if (mSDLVKeyMap.count(key.keysym.sym) == 0) {
+		if (mSDLVKeyMap.count(key.keysym.sym) == 0)
+		{
 			return false;
 		}
 		injectKeyRelease(mSDLVKeyMap[key.keysym.sym]);
 		return true;
 	}
 
-	bool InputManager::mouseWheelMoved(const SDL_MouseWheelEvent &evt)
+	bool InputManager::mouseWheelMoved(const SDL_MouseWheelEvent& evt)
 	{
 		mMouseZ += evt.y;
 		mMouseMove = true;
@@ -266,8 +271,8 @@ namespace input
 	}
 
 	void InputManager::captureInput()
-    {
-    }
+	{
+	}
 
 	void InputManager::setInputViewSize(int _width, int _height)
 	{
@@ -303,7 +308,7 @@ namespace input
 			SDL_SetClipboardText(MyGUI::TextIterator::getOnlyText(MyGUI::UString(_data)).asUTF8().c_str());
 	}
 
-	void InputManager::onClipboardRequested(std::string_view _type, std::string &_data)
+	void InputManager::onClipboardRequested(std::string_view _type, std::string& _data)
 	{
 		if (_type != "Text")
 			return;

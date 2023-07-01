@@ -18,7 +18,12 @@ namespace MyGUI
 {
 
 #define MYGUI_LOGGING(section, level, text) \
-		MyGUI::LogManager::getInstance().log(section, MyGUI::LogLevel::level, MyGUI::LogStream() << text << MyGUI::LogStream::End(), __FILE__, __LINE__)
+	MyGUI::LogManager::getInstance().log( \
+		section, \
+		MyGUI::LogLevel::level, \
+		MyGUI::LogStream() << text << MyGUI::LogStream::End(), \
+		__FILE__, \
+		__LINE__)
 
 	class ConsoleLogListener;
 	class FileLogListener;
@@ -36,7 +41,12 @@ namespace MyGUI
 		/** Call LogSource::flush() for all log sources. */
 		void flush();
 		/** Call LogSource::log for all log sources. */
-		void log(std::string_view _section, LogLevel _level, std::string_view _message, std::string_view _file, int _line);
+		void log(
+			std::string_view _section,
+			LogLevel _level,
+			std::string_view _message,
+			std::string_view _file,
+			int _line);
 
 		/** Create default LevelLogFilter, FileLogListener and ConsoleLogListener. */
 		void createDefaultSource(std::string_view _logname);

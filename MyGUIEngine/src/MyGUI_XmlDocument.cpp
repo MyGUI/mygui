@@ -19,7 +19,8 @@ namespace MyGUI::xml
 			_ok = true;
 
 			size_t pos = _string.find('&');
-			if (pos == std::string::npos) return std::string{ _string };
+			if (pos == std::string::npos)
+				return std::string{_string};
 
 			ret.reserve(_string.size());
 			size_t old = 0;
@@ -35,11 +36,16 @@ namespace MyGUI::xml
 				}
 
 				std::string_view tag = _string.substr(pos, end - pos + 1);
-				if (tag == "&amp;") ret += '&';
-				else if (tag == "&lt;") ret += '<';
-				else if (tag == "&gt;") ret += '>';
-				else if (tag == "&apos;") ret += '\'';
-				else if (tag == "&quot;") ret += '\"';
+				if (tag == "&amp;")
+					ret += '&';
+				else if (tag == "&lt;")
+					ret += '<';
+				else if (tag == "&gt;")
+					ret += '>';
+				else if (tag == "&apos;")
+					ret += '\'';
+				else if (tag == "&quot;")
+					ret += '\"';
 				else
 				{
 					_ok = false;
@@ -59,7 +65,8 @@ namespace MyGUI::xml
 			std::string ret;
 
 			size_t pos = _string.find_first_of("&<>'\"");
-			if (pos == std::string::npos) return std::string{ _string };
+			if (pos == std::string::npos)
+				return std::string{_string};
 
 			ret.reserve(_string.size() * 2);
 			size_t old = 0;
@@ -67,11 +74,16 @@ namespace MyGUI::xml
 			{
 				ret += _string.substr(old, pos - old);
 
-				if (_string[pos] == '&') ret += "&amp;";
-				else if (_string[pos] == '<') ret += "&lt;";
-				else if (_string[pos] == '>') ret += "&gt;";
-				else if (_string[pos] == '\'') ret += "&apos;";
-				else if (_string[pos] == '\"') ret += "&quot;";
+				if (_string[pos] == '&')
+					ret += "&amp;";
+				else if (_string[pos] == '<')
+					ret += "&lt;";
+				else if (_string[pos] == '>')
+					ret += "&gt;";
+				else if (_string[pos] == '\'')
+					ret += "&apos;";
+				else if (_string[pos] == '\"')
+					ret += "&quot;";
 
 				old = pos + 1;
 				pos = _string.find_first_of("&<>'\"", old);
@@ -101,7 +113,7 @@ namespace MyGUI::xml
 			m_first = false;
 			return true;
 		}
-		++ m_current;
+		++m_current;
 		return m_current != m_end;
 	}
 
@@ -142,7 +154,7 @@ namespace MyGUI::xml
 	{
 		// сначала табуляции намутим
 		for (size_t tab = 0; tab < _level; ++tab)
-			_stream  << "    ";
+			_stream << "    ";
 
 		// теперь заголовок тега
 		if (mType == ElementType::Declaration)
@@ -180,7 +192,8 @@ namespace MyGUI::xml
 			{
 				if (!empty)
 				{
-					for (size_t tab = 0; tab <= _level; ++tab) _stream  << "    ";
+					for (size_t tab = 0; tab <= _level; ++tab)
+						_stream << "    ";
 				}
 				_stream << utility::convert_to_xml(mContent);
 
@@ -196,7 +209,7 @@ namespace MyGUI::xml
 			if (!empty)
 			{
 				for (size_t tab = 0; tab < _level; ++tab)
-					_stream  << "    ";
+					_stream << "    ";
 			}
 			_stream << "</" << mName << ">\n";
 		}
@@ -230,7 +243,7 @@ namespace MyGUI::xml
 	{
 		for (const auto& attribute : mAttributes)
 		{
-			if ( attribute.first == _name)
+			if (attribute.first == _name)
 			{
 				_value = attribute.second;
 				return true;
@@ -484,7 +497,7 @@ namespace MyGUI::xml
 			if (read.empty())
 				continue;
 
-			mLine ++;
+			mLine++;
 			mCol = 0; // потом проверить на многострочных тэгах
 
 			// текущая строка для разбора и то что еще прочитали
@@ -698,7 +711,7 @@ namespace MyGUI::xml
 				std::string value = _content.substr(start + 1, end - start);
 
 				// проверка на валидность
-				if (! checkPair(key, value))
+				if (!checkPair(key, value))
 				{
 					mLastError = ErrorType::IncorrectAttribute;
 					return false;
@@ -724,7 +737,6 @@ namespace MyGUI::xml
 				// не проверяем имена, потому что это наш тэг
 				_currentNode = _currentNode->getParent();
 			}
-
 		}
 		return true;
 	}
@@ -776,12 +788,12 @@ namespace MyGUI::xml
 			if (_text[pos] == '"')
 			{
 				kov = !kov;
-				pos ++;
+				pos++;
 			}
 			// если мы в ковычках, то идем дальше
 			else if (kov)
 			{
-				pos ++;
+				pos++;
 			}
 			// мы не в ковычках
 			else
@@ -831,7 +843,8 @@ namespace MyGUI::xml
 			size_t end;
 
 			// пытаемся вырезать многострочный коментарий
-			if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-'))
+			if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') &&
+				(_line[start + 3] == '-'))
 			{
 				end = _line.find("-->", start + 4);
 				if (end == std::string::npos)
@@ -879,7 +892,15 @@ namespace MyGUI::xml
 		std::string_view error = mLastError.print();
 		if (error.empty())
 			return {};
-		return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
+		return MyGUI::utility::toString(
+			"'",
+			error,
+			"' ,  file='",
+			mLastErrorFile,
+			"' ,  line=",
+			mLine,
+			" ,  col=",
+			mCol);
 	}
 
 	bool Document::open(const UString& _filename)

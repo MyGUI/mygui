@@ -19,10 +19,9 @@ namespace MyGUI
 	using VectorRenderItem = std::vector<RenderItem*>;
 	using VectorLayerItem = std::vector<ILayerItem*>;
 
-	class MYGUI_EXPORT LayerNode :
-		public ILayerNode
+	class MYGUI_EXPORT LayerNode : public ILayerNode
 	{
-		MYGUI_RTTI_DERIVED( LayerNode )
+		MYGUI_RTTI_DERIVED(LayerNode)
 
 	public:
 		explicit LayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
@@ -74,6 +73,7 @@ namespace MyGUI
 		void updateCompression();
 		RenderItem* addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender);
 		RenderItem* addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender);
+
 	protected:
 		// two render queues, for subskins and text
 		// first queue keep render order based on order of creation

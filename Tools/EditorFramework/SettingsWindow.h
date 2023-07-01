@@ -13,10 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL SettingsWindow :
-		public Dialog,
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL SettingsWindow : public Dialog, public Control, public sigslot::has_slots<>
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

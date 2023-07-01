@@ -13,8 +13,7 @@
 namespace animation
 {
 
-	class FadeController :
-		public IAnimationNode
+	class FadeController : public IAnimationNode
 	{
 	public:
 		FadeController() :
@@ -39,7 +38,8 @@ namespace animation
 				if (mWeight == 0)
 					mConnection.forceEvent("Start");
 			}
-			else if (_name == "Stop") mIsAnimationRun = false;
+			else if (_name == "Stop")
+				mIsAnimationRun = false;
 		}
 
 		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
@@ -60,7 +60,8 @@ namespace animation
 				if (mWeight != 1)
 				{
 					mWeight += _value * (1 / fade_time);
-					if (mWeight > 1) mWeight = 1;
+					if (mWeight > 1)
+						mWeight = 1;
 					mConnection.forceEvent("Weight", mWeight);
 				}
 			}
@@ -69,7 +70,8 @@ namespace animation
 				if (mWeight != 0)
 				{
 					mWeight -= _value * (1 / fade_time);
-					if (mWeight < 0) mWeight = 0;
+					if (mWeight < 0)
+						mWeight = 0;
 					mConnection.forceEvent("Weight", mWeight);
 
 					if (mWeight == 0)

@@ -12,22 +12,20 @@ namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		D3D_FEATURE_LEVEL featureLevels[] =
-		{
+		D3D_FEATURE_LEVEL featureLevels[] = {
 			D3D_FEATURE_LEVEL_11_0,
 			D3D_FEATURE_LEVEL_10_1,
 			D3D_FEATURE_LEVEL_10_0,
 			D3D_FEATURE_LEVEL_9_3,
 			D3D_FEATURE_LEVEL_9_2,
-			D3D_FEATURE_LEVEL_9_1
-		};
+			D3D_FEATURE_LEVEL_9_1};
 
 		static const int numFeatureLevels = 6;
 
 		D3D_FEATURE_LEVEL selectedFeatureLevel = D3D_FEATURE_LEVEL_11_0;
 
 		DXGI_SWAP_CHAIN_DESC swapChainDesc;
-		ZeroMemory( &swapChainDesc, sizeof(swapChainDesc) );
+		ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
 		swapChainDesc.BufferCount = 1;
 		swapChainDesc.BufferDesc.Width = _width;
 		swapChainDesc.BufferDesc.Height = _height;
@@ -46,28 +44,29 @@ namespace base
 
 		HRESULT hr = S_OK;
 
-		if (FAILED(hr = D3D11CreateDeviceAndSwapChain(
-			nullptr,
-			D3D_DRIVER_TYPE_HARDWARE,
-			nullptr,
-			0,
-			featureLevels,
-			numFeatureLevels,
-			D3D11_SDK_VERSION,
-			&swapChainDesc,
-			&mSwapChain,
-			&mDevice,
-			&selectedFeatureLevel,
-			&mDeviceContext)))
+		if (FAILED(
+				hr = D3D11CreateDeviceAndSwapChain(
+					nullptr,
+					D3D_DRIVER_TYPE_HARDWARE,
+					nullptr,
+					0,
+					featureLevels,
+					numFeatureLevels,
+					D3D11_SDK_VERSION,
+					&swapChainDesc,
+					&mSwapChain,
+					&mDevice,
+					&selectedFeatureLevel,
+					&mDeviceContext)))
 		{
 			return false;
 		}
 
-		hr = mSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&mBackBuffer);
+		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&mBackBuffer);
 
-		mDevice->CreateRenderTargetView(mBackBuffer, nullptr, &mRenderTarget );
+		mDevice->CreateRenderTargetView(mBackBuffer, nullptr, &mRenderTarget);
 
-		mDeviceContext->OMSetRenderTargets( 1, &mRenderTarget, nullptr );
+		mDeviceContext->OMSetRenderTargets(1, &mRenderTarget, nullptr);
 
 		D3D11_VIEWPORT vp;
 		vp.Width = (float)_width;
@@ -76,7 +75,7 @@ namespace base
 		vp.MaxDepth = 1.0f;
 		vp.TopLeftX = 0.0f;
 		vp.TopLeftY = 0.0f;
-		mDeviceContext->RSSetViewports( 1, &vp );
+		mDeviceContext->RSSetViewports(1, &vp);
 		return true;
 	}
 
@@ -87,7 +86,8 @@ namespace base
 			mRenderTarget->Release();
 			mRenderTarget = nullptr;
 		}
-		if (mBackBuffer) {
+		if (mBackBuffer)
+		{
 			mBackBuffer->Release();
 			mBackBuffer = nullptr;
 		}
@@ -127,7 +127,7 @@ namespace base
 
 	void BaseManager::drawOneFrame()
 	{
-		const float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		const float clearColor[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		mDeviceContext->ClearRenderTargetView(mRenderTarget, clearColor);
 		mPlatform->getRenderManagerPtr()->drawOneFrame();
 		mSwapChain->Present(0, 0);
@@ -144,7 +144,8 @@ namespace base
 				mRenderTarget->Release();
 				mRenderTarget = nullptr;
 			}
-			if (mBackBuffer) {
+			if (mBackBuffer)
+			{
 				mBackBuffer->Release();
 				mBackBuffer = nullptr;
 			}
@@ -168,7 +169,7 @@ namespace base
 			vp.MaxDepth = 1.0f;
 			vp.TopLeftX = 0.0f;
 			vp.TopLeftY = 0.0f;
-			mDeviceContext->RSSetViewports( 1, &vp );
+			mDeviceContext->RSSetViewports(1, &vp);
 		}
 	}
 

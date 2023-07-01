@@ -12,10 +12,9 @@
 namespace MyGUI
 {
 
-	class WrapPanel :
-		public Panel
+	class WrapPanel : public Panel
 	{
-		MYGUI_RTTI_DERIVED( WrapPanel )
+		MYGUI_RTTI_DERIVED(WrapPanel)
 
 	public:
 		Align getContentAlign() const;

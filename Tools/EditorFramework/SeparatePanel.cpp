@@ -47,13 +47,20 @@ namespace tools
 
 	void SeparatePanel::notifyChangeCoord(MyGUI::Widget* _sender)
 	{
-		invalidateSize(mFirstPanel->getCoord(), mSeparatorH->getCoord(), mSeparatorV->getCoord(), mSecondPanel->getCoord());
+		invalidateSize(
+			mFirstPanel->getCoord(),
+			mSeparatorH->getCoord(),
+			mSeparatorV->getCoord(),
+			mSecondPanel->getCoord());
 	}
 
-	void SeparatePanel::invalidateSize(const MyGUI::IntCoord& _firstPanel, const MyGUI::IntCoord& _separatorH, const MyGUI::IntCoord& _separatorV, const MyGUI::IntCoord& _secondPanel)
+	void SeparatePanel::invalidateSize(
+		const MyGUI::IntCoord& _firstPanel,
+		const MyGUI::IntCoord& _separatorH,
+		const MyGUI::IntCoord& _separatorV,
+		const MyGUI::IntCoord& _secondPanel)
 	{
-		if (mMainWidget->getWidth() <= 0 ||
-			mMainWidget->getHeight() <= 0)
+		if (mMainWidget->getWidth() <= 0 || mMainWidget->getHeight() <= 0)
 			return;
 
 		MyGUI::IntCoord firstPanel = _firstPanel;
@@ -63,7 +70,12 @@ namespace tools
 
 		if (mPanelAlign.isLeft())
 		{
-			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mDefaultPanelSize.width);
+			updateSize(
+				firstPanel.width,
+				secondPanel.width,
+				separatorH.width,
+				mMainWidget->getWidth(),
+				mDefaultPanelSize.width);
 			firstPanel.top = separatorH.top = secondPanel.top = 0;
 			firstPanel.height = separatorH.height = secondPanel.height = mMainWidget->getHeight();
 			firstPanel.left = 0;
@@ -72,7 +84,12 @@ namespace tools
 		}
 		else if (mPanelAlign.isRight())
 		{
-			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mDefaultPanelSize.width);
+			updateSize(
+				firstPanel.width,
+				secondPanel.width,
+				separatorH.width,
+				mMainWidget->getWidth(),
+				mDefaultPanelSize.width);
 			firstPanel.top = separatorH.top = secondPanel.top = 0;
 			firstPanel.height = separatorH.height = secondPanel.height = mMainWidget->getHeight();
 			secondPanel.left = 0;
@@ -81,7 +98,12 @@ namespace tools
 		}
 		else if (mPanelAlign.isTop())
 		{
-			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mDefaultPanelSize.height);
+			updateSize(
+				firstPanel.height,
+				secondPanel.height,
+				separatorV.height,
+				mMainWidget->getHeight(),
+				mDefaultPanelSize.height);
 			firstPanel.left = separatorV.left = secondPanel.left = 0;
 			firstPanel.width = separatorV.width = secondPanel.width = mMainWidget->getWidth();
 			firstPanel.top = 0;
@@ -90,7 +112,12 @@ namespace tools
 		}
 		else if (mPanelAlign.isBottom())
 		{
-			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mDefaultPanelSize.height);
+			updateSize(
+				firstPanel.height,
+				secondPanel.height,
+				separatorV.height,
+				mMainWidget->getHeight(),
+				mDefaultPanelSize.height);
 			firstPanel.left = separatorV.left = secondPanel.left = 0;
 			firstPanel.width = separatorV.width = secondPanel.width = mMainWidget->getWidth();
 			secondPanel.top = 0;
@@ -126,7 +153,11 @@ namespace tools
 			mSeparatorV->setVisible(true);
 		}
 
-		invalidateSize(mFirstPanel->getCoord(), mSeparatorH->getCoord(), mSeparatorV->getCoord(), mSecondPanel->getCoord());
+		invalidateSize(
+			mFirstPanel->getCoord(),
+			mSeparatorH->getCoord(),
+			mSeparatorV->getCoord(),
+			mSecondPanel->getCoord());
 	}
 
 	MyGUI::Align SeparatePanel::getPanelAlign() const
@@ -134,7 +165,12 @@ namespace tools
 		return mPanelAlign;
 	}
 
-	void SeparatePanel::updateSize(int& _firstWidth, int& _secondWidth, int _separatorWidth, int _mainWidth, int _defaultSize) const
+	void SeparatePanel::updateSize(
+		int& _firstWidth,
+		int& _secondWidth,
+		int _separatorWidth,
+		int _mainWidth,
+		int _defaultSize) const
 	{
 		if (_firstWidth < _defaultSize)
 			_firstWidth = _defaultSize;
@@ -247,7 +283,8 @@ namespace tools
 	void SeparatePanel::loadDefaultSize()
 	{
 		if (!mSaveAs.empty())
-			mDefaultPanelSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Controls/SeparateControl/" + mSaveAs);
+			mDefaultPanelSize =
+				SettingsManager::getInstance().getValue<MyGUI::IntSize>("Controls/SeparateControl/" + mSaveAs);
 
 		if (mDefaultPanelSize.empty())
 		{

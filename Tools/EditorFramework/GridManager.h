@@ -13,17 +13,22 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL GridManager :
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL GridManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(GridManager);
+
 	public:
 		GridManager();
 
 		void initialise();
 		void shutdown();
 
-		enum GridLine { Previous, Closest, Next };
+		enum GridLine
+		{
+			Previous,
+			Closest,
+			Next
+		};
 		int toGrid(int _value, GridLine _line = Closest) const;
 
 	private:

@@ -15,8 +15,7 @@ namespace tools
 
 	class Property;
 
-	class MYGUI_EXPORT_DLL IPropertyInitialisator :
-		public components::IFactoryItem
+	class MYGUI_EXPORT_DLL IPropertyInitialisator : public components::IFactoryItem
 	{
 	public:
 		virtual void initialise(std::shared_ptr<Property> _property) = 0;

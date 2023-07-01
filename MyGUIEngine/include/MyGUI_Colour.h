@@ -20,8 +20,8 @@ namespace MyGUI
 		Colour(float _red, float _green, float _blue, float _alpha = 1);
 		explicit Colour(std::string_view _value);
 
-		bool operator == (Colour const& _value) const;
-		bool operator != (Colour const& _value) const;
+		bool operator==(Colour const& _value) const;
+		bool operator!=(Colour const& _value) const;
 
 		void set(float _red, float _green, float _blue, float _alpha = 1);
 
@@ -31,18 +31,18 @@ namespace MyGUI
 
 		static Colour parse(std::string_view _value);
 
-		friend std::ostream& operator << (std::ostream& _stream, const Colour&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const Colour& _value)
 		{
 			return operatorShiftLeft(_stream, _value);
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, Colour&  _value)
+		friend std::istream& operator>>(std::istream& _stream, Colour& _value)
 		{
 			return operatorShiftRight(_stream, _value);
 		}
 
-		static std::ostream& operatorShiftLeft(std::ostream& _stream, const Colour&  _value);
-		static std::istream& operatorShiftRight(std::istream& _stream, Colour&  _value);
+		static std::ostream& operatorShiftLeft(std::ostream& _stream, const Colour& _value);
+		static std::istream& operatorShiftRight(std::istream& _stream, Colour& _value);
 
 	public:
 		float red{1.0f};

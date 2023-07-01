@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class GraphNodePositionController :
-		public BaseAnimationNode
+	class GraphNodePositionController : public BaseAnimationNode
 	{
 	public:
 		GraphNodePositionController(std::string_view _name) :
@@ -60,7 +59,8 @@ namespace demo
 			if (node)
 			{
 				mLength = node->getLength();
-				if (mLength > 0.0001f) mLength -= 0.0001f;
+				if (mLength > 0.0001f)
+					mLength -= 0.0001f;
 			}
 			else
 			{
@@ -76,8 +76,10 @@ namespace demo
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept += MyGUI::newDelegate(this, &GraphNodePositionController::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition += MyGUI::newDelegate(this, &GraphNodePositionController::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept +=
+				MyGUI::newDelegate(this, &GraphNodePositionController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition +=
+				MyGUI::newDelegate(this, &GraphNodePositionController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}
@@ -104,8 +106,10 @@ namespace demo
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender)
 		{
 			mPosition = MyGUI::utility::parseValue<float>(_sender->getCaption());
-			if (mPosition < 0) mPosition = 0;
-			else if (mPosition > mLength) mPosition = mLength;
+			if (mPosition < 0)
+				mPosition = 0;
+			else if (mPosition > mLength)
+				mPosition = mLength;
 
 			updateWidgets();
 		}
@@ -121,7 +125,8 @@ namespace demo
 
 		void onChangePosition(float _position)
 		{
-			animation::PositionController* controller = dynamic_cast<animation::PositionController*>(getAnimationNode());
+			animation::PositionController* controller =
+				dynamic_cast<animation::PositionController*>(getAnimationNode());
 			if (controller)
 				controller->generateEvent(_position);
 		}

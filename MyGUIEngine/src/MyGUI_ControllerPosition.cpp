@@ -17,7 +17,7 @@ namespace MyGUI
 
 	ControllerPosition::ControllerPosition()
 	{
-        setFunction("Linear");
+		setFunction("Linear");
 	}
 
 	void ControllerPosition::setCoord(const IntCoord& _destCoord)
@@ -63,10 +63,13 @@ namespace MyGUI
 			eventFrameAction(mStartCoord, mDestCoord, coord, mElapsedTime / mTime);
 			if (mCalcPosition)
 			{
-				if (mCalcSize) _widget->setCoord(coord);
-				else _widget->setPosition(coord.point());
+				if (mCalcSize)
+					_widget->setCoord(coord);
+				else
+					_widget->setPosition(coord.point());
 			}
-			else if (mCalcSize) _widget->setSize(coord.size());
+			else if (mCalcSize)
+				_widget->setSize(coord.size());
 
 			// вызываем пользовательский делегат обновления
 			eventUpdateAction(_widget, this);
@@ -79,10 +82,13 @@ namespace MyGUI
 		eventFrameAction(mStartCoord, mDestCoord, coord, 1.0f);
 		if (mCalcPosition)
 		{
-			if (mCalcSize) _widget->setCoord(coord);
-			else _widget->setPosition(coord.point());
+			if (mCalcSize)
+				_widget->setCoord(coord);
+			else
+				_widget->setPosition(coord.point());
 		}
-		else if (mCalcSize) _widget->setSize(coord.size());
+		else if (mCalcSize)
+			_widget->setSize(coord.size());
 
 		// вызываем пользовательский делегат обновления
 		eventUpdateAction(_widget, this);

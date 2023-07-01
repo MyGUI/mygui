@@ -24,7 +24,8 @@ namespace tools
 		setDialogRoot(mMainWidget);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->Initialise(
+			SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &CodeGenerator::notifyEndDialogOpenSaveFile);
 
@@ -37,7 +38,8 @@ namespace tools
 		if (window != nullptr)
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &CodeGenerator::notifyWindowButtonPressed);
 
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("LECodeTemplate") = MyGUI::newDelegate(this, &CodeGenerator::parseTemplate);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("LECodeTemplate") =
+			MyGUI::newDelegate(this, &CodeGenerator::parseTemplate);
 		MyGUI::ResourceManager::getInstance().load(TemplateName);
 	}
 
@@ -47,7 +49,10 @@ namespace tools
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*unused*/)
+	void CodeGenerator::parseTemplate(
+		MyGUI::xml::ElementPtr _node,
+		std::string_view /*_file*/,
+		MyGUI::Version /*unused*/)
 	{
 		mTemplateFiles.clear();
 		mTemplateStrings.clear();
@@ -74,16 +79,14 @@ namespace tools
 		// replace lower case sharacters with upper case characters and add '_' between words
 		// words is either Word or WORD, for example TestXMLPanelName return TEST_XML_PANEL_NAME
 		std::string ret;
-		if (_str.empty()) return ret;
+		if (_str.empty())
+			return ret;
 		bool previousIsLowerCase = false;
 		for (size_t i = 0; i < _str.length(); i++)
 		{
 			if ((i != 0) &&
-				(
-				(previousIsLowerCase && isupper(_str[i])) ||
-				(isupper(_str[i]) && (i + 1 < _str.length()) && islower(_str[i+1]))
-				)
-				)
+				((previousIsLowerCase && isupper(_str[i])) ||
+				 (isupper(_str[i]) && (i + 1 < _str.length()) && islower(_str[i + 1]))))
 			{
 				ret.push_back('_');
 			}
@@ -136,8 +139,10 @@ namespace tools
 			return;
 		}
 
-		if (includeDirectory.empty()) includeDirectory = ".";
-		if (sourceDirectory.empty()) sourceDirectory = ".";
+		if (includeDirectory.empty())
+			includeDirectory = ".";
+		if (sourceDirectory.empty())
+			sourceDirectory = ".";
 
 		lm.addUserTag("Panel_Name", panelName);
 		lm.addUserTag("Panel_Namespace", panelNamespace);
@@ -177,7 +182,9 @@ namespace tools
 		MyGUI::IntSize windowSize = mMainWidget->getSize();
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+		mMainWidget->setPosition(
+			(parentSize.width - windowSize.width) / 2,
+			(parentSize.height - windowSize.height) / 2);
 	}
 
 	void CodeGenerator::onEndModal()

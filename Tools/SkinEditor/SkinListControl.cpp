@@ -21,10 +21,18 @@ namespace tools
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_CreateSkinData")->connect(this, &SkinListControl::commandCreateImageData);
-		CommandManager::getInstance().getEvent("Command_CloneSkinData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
-		CommandManager::getInstance().getEvent("Command_DestroySkinData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
-		CommandManager::getInstance().getEvent("Command_RenameSkinData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameData);
+		CommandManager::getInstance()
+			.getEvent("Command_CreateSkinData")
+			->connect(this, &SkinListControl::commandCreateImageData);
+		CommandManager::getInstance()
+			.getEvent("Command_CloneSkinData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
+		CommandManager::getInstance()
+			.getEvent("Command_DestroySkinData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
+		CommandManager::getInstance()
+			.getEvent("Command_RenameSkinData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameData);
 
 		setDataInfo("Root", "Skin", "Name", "UniqueName");
 	}

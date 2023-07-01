@@ -16,9 +16,7 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager,
-		public IPointerSetter
+	class DemoKeeper : public base::BaseDemoManager, public IPointerSetter
 	{
 	public:
 		void createScene() override;

@@ -28,7 +28,13 @@
 namespace MyGUI
 {
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, std::string_view _skinName, Widget* _parent, ICroppedRectangle* _croppedParent, std::string_view _name)
+	void Widget::_initialise(
+		WidgetStyle _style,
+		const IntCoord& _coord,
+		std::string_view _skinName,
+		Widget* _parent,
+		ICroppedRectangle* _croppedParent,
+		std::string_view _name)
 	{
 		ResourceSkin* skinInfo = nullptr;
 		ResourceLayout* templateInfo = nullptr;
@@ -105,7 +111,7 @@ namespace MyGUI
 
 	void Widget::_shutdown()
 	{
-        eventWidgetDestroyed(this);
+		eventWidgetDestroyed(this);
 
 		setUserData(Any::Null);
 
@@ -169,7 +175,7 @@ namespace MyGUI
 
 	const WidgetInfo* Widget::initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo)
 	{
-		const WidgetInfo* root  = nullptr;
+		const WidgetInfo* root = nullptr;
 		bool skinOnly = false;
 
 		if (_skinInfo == nullptr)
@@ -220,7 +226,15 @@ namespace MyGUI
 			const VectorChildSkinInfo& child = _skinInfo->getChild();
 			for (const auto& iter : child)
 			{
-				Widget* widget = baseCreateWidget(iter.style, iter.type, iter.skin, iter.coord, iter.align, iter.layer, iter.name, true);
+				Widget* widget = baseCreateWidget(
+					iter.style,
+					iter.type,
+					iter.skin,
+					iter.coord,
+					iter.align,
+					iter.layer,
+					iter.name,
+					true);
 				// fill UserString with skin properties
 				for (const auto& prop : iter.params)
 					widget->setUserString(prop.first, prop.second);
@@ -267,25 +281,48 @@ namespace MyGUI
 		mWidgetClient = nullptr;
 	}
 
-	Widget* Widget::baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name, bool _template)
+	Widget* Widget::baseCreateWidget(
+		WidgetStyle _style,
+		std::string_view _type,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		Align _align,
+		std::string_view _layer,
+		std::string_view _name,
+		bool _template)
 	{
 		Widget* widget = nullptr;
 
 		if (_template)
 		{
-			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+			widget = WidgetManager::getInstance().createWidget(
+				_style,
+				_type,
+				_skin,
+				_coord,
+				this,
+				_style == WidgetStyle::Popup ? nullptr : this,
+				_name);
 			mWidgetChildSkin.push_back(widget);
 		}
 		else
 		{
 			if (mWidgetClient != nullptr)
 			{
-				widget = mWidgetClient->baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, _template);
+				widget =
+					mWidgetClient->baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, _template);
 				onWidgetCreated(widget);
 				return widget;
 			}
 
-			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+			widget = WidgetManager::getInstance().createWidget(
+				_style,
+				_type,
+				_skin,
+				_coord,
+				this,
+				_style == WidgetStyle::Popup ? nullptr : this,
+				_name);
 			addWidget(widget);
 		}
 
@@ -300,7 +337,12 @@ namespace MyGUI
 		return widget;
 	}
 
-	Widget* Widget::createWidgetRealT(std::string_view _type, std::string_view _skin, const FloatCoord& _coord, Align _align, std::string_view _name)
+	Widget* Widget::createWidgetRealT(
+		std::string_view _type,
+		std::string_view _skin,
+		const FloatCoord& _coord,
+		Align _align,
+		std::string_view _name)
 	{
 		return createWidgetT(_type, _skin, CoordConverter::convertFromRelative(_coord, getSize()), _align, _name);
 	}
@@ -445,17 +487,15 @@ namespace MyGUI
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
 		// проверяем попадание
-		if (!mEnabled
-			|| !mInheritedVisible
-			|| (!getNeedMouseFocus() && !getInheritsPick())
-			|| !_checkPoint(_left, _top)
+		if (!mEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
+			!_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord)
-			)
+			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))
 			return nullptr;
 
 		// спрашиваем у детишек
-		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
+		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend();
+			 ++widget)
 		{
 			// общаемся только с послушными детьми
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
@@ -466,7 +506,9 @@ namespace MyGUI
 				return item;
 		}
 		// спрашиваем у детишек скина
-		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
+		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChildSkin.rbegin();
+			 widget != mWidgetChildSkin.rend();
+			 ++widget)
 		{
 			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr)
@@ -514,10 +556,10 @@ namespace MyGUI
 		}
 		// code below is an optimized way to setDepth for multiple widgets
 		// without calling slow Windget::_updateChilds multiple times
-		std::stable_sort(mWidgetChild.begin(), mWidgetChild.end(), [](Widget* lhs, Widget* rhs)
-		{
-			return lhs->getDepth() < rhs->getDepth();
-		});
+		std::stable_sort(
+			mWidgetChild.begin(),
+			mWidgetChild.end(),
+			[](Widget* lhs, Widget* rhs) { return lhs->getDepth() < rhs->getDepth(); });
 		_updateChilds();
 	}
 
@@ -539,22 +581,28 @@ namespace MyGUI
 
 	void Widget::setRealPosition(const FloatPoint& _point)
 	{
-		setPosition(CoordConverter::convertFromRelative(_point, mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
+		setPosition(CoordConverter::convertFromRelative(
+			_point,
+			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
 	void Widget::setRealSize(const FloatSize& _size)
 	{
-		setSize(CoordConverter::convertFromRelative(_size, mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
+		setSize(CoordConverter::convertFromRelative(
+			_size,
+			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
 	void Widget::setRealCoord(const FloatCoord& _coord)
 	{
-		setCoord(CoordConverter::convertFromRelative(_coord, mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
+		setCoord(CoordConverter::convertFromRelative(
+			_coord,
+			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
 	void Widget::_setAlign(const IntSize& _oldsize, const IntSize& _newSize)
 	{
-		const IntSize& size = _newSize;//getParentSize();
+		const IntSize& size = _newSize; //getParentSize();
 
 		bool need_move = false;
 		bool need_size = false;
@@ -730,7 +778,7 @@ namespace MyGUI
 		if (parent)
 		{
 			// отдетачиваемся от лееров
-			if ( ! isRootWidget() )
+			if (!isRootWidget())
 			{
 				detachFromLayerItemNode(true);
 
@@ -884,22 +932,50 @@ namespace MyGUI
 		// ищем леер к которому мы присоедененны
 	}
 
-	Widget* Widget::createWidgetT(std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _name)
+	Widget* Widget::createWidgetT(
+		std::string_view _type,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		Align _align,
+		std::string_view _name)
 	{
 		return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, {}, _name, false);
 	}
 
-	Widget* Widget::createWidgetT(std::string_view _type, std::string_view _skin, int _left, int _top, int _width, int _height, Align _align, std::string_view _name)
+	Widget* Widget::createWidgetT(
+		std::string_view _type,
+		std::string_view _skin,
+		int _left,
+		int _top,
+		int _width,
+		int _height,
+		Align _align,
+		std::string_view _name)
 	{
 		return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
 	}
 
-	Widget* Widget::createWidgetRealT(std::string_view _type, std::string_view _skin, float _left, float _top, float _width, float _height, Align _align, std::string_view _name)
+	Widget* Widget::createWidgetRealT(
+		std::string_view _type,
+		std::string_view _skin,
+		float _left,
+		float _top,
+		float _width,
+		float _height,
+		Align _align,
+		std::string_view _name)
 	{
 		return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
 	}
 
-	Widget* Widget::createWidgetT(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
+	Widget* Widget::createWidgetT(
+		WidgetStyle _style,
+		std::string_view _type,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		Align _align,
+		std::string_view _layer,
+		std::string_view _name)
 	{
 		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, false);
 	}
@@ -946,7 +1022,7 @@ namespace MyGUI
 	void Widget::_updateVisible()
 	{
 		mInheritedVisible = mParent == nullptr || mParent->getInheritedVisible();
-        mInheritedVisible = mVisible && mInheritedVisible;
+		mInheritedVisible = mVisible && mInheritedVisible;
 
 		_setSkinItemVisible(mInheritedVisible);
 
@@ -1012,7 +1088,8 @@ namespace MyGUI
 
 	bool Widget::_checkPoint(int _left, int _top) const
 	{
-		return (_getViewLeft() <= _left) && (_getViewTop() <= _top) && (_getViewRight() >= _left) && (_getViewBottom() >= _top);
+		return (_getViewLeft() <= _left) && (_getViewTop() <= _top) && (_getViewRight() >= _left) &&
+			(_getViewBottom() >= _top);
 	}
 
 	void Widget::_linkChildWidget(Widget* _widget)
@@ -1056,7 +1133,10 @@ namespace MyGUI
 			size_t index = key.find('_');
 			if (index != std::string::npos)
 			{
-				MYGUI_LOG(Warning, "Widget property '" << key << "' have type prefix - use '" << key.substr(index + 1) << "' instead [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"Widget property '" << key << "' have type prefix - use '" << key.substr(index + 1) << "' instead ["
+										<< LayoutManager::getInstance().getCurrentLayout() << "]");
 				key = key.substr(index + 1);
 			}
 
@@ -1114,7 +1194,14 @@ namespace MyGUI
 		return getClientWidget() == nullptr ? this : getClientWidget();
 	}
 
-	Widget* Widget::_createSkinWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
+	Widget* Widget::_createSkinWidget(
+		WidgetStyle _style,
+		std::string_view _type,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		Align _align,
+		std::string_view _layer,
+		std::string_view _name)
 	{
 		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, true);
 	}
@@ -1183,7 +1270,10 @@ namespace MyGUI
 
 		else
 		{
-			MYGUI_LOG(Warning, "Widget '" << getName() << "|" << getTypeName() << "' have unknown property '" << _key << "' " << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Widget '" << getName() << "|" << getTypeName() << "' have unknown property '" << _key << "' "
+						   << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			return;
 		}
 
@@ -1240,7 +1330,7 @@ namespace MyGUI
 		return mAlpha;
 	}
 
-	bool Widget::getInheritsAlpha()  const
+	bool Widget::getInheritsAlpha() const
 	{
 		return mInheritsAlpha;
 	}

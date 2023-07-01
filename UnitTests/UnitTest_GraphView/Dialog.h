@@ -11,8 +11,7 @@
 
 namespace tools
 {
-	class Dialog :
-		public wraps::BaseLayout
+	class Dialog : public wraps::BaseLayout
 	{
 	public:
 		using EventHandle_Result = MyGUI::delegates::Delegate<Dialog*, bool>;
@@ -27,8 +26,12 @@ namespace tools
 		EventHandle_Result eventEndDialog;
 
 	protected:
-		virtual void onDoModal() { }
-		virtual void onEndModal() { }
+		virtual void onDoModal()
+		{
+		}
+		virtual void onEndModal()
+		{
+		}
 
 	private:
 		bool mModal;

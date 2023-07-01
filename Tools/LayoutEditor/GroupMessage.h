@@ -9,8 +9,12 @@ namespace tools
 	class GroupMessage
 	{
 		MYGUI_SINGLETON_DECLARATION(GroupMessage);
+
 	public:
-		GroupMessage() : mSingletonHolder(this) { }
+		GroupMessage() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 

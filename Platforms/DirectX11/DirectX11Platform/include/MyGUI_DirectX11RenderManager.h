@@ -31,9 +31,7 @@ namespace MyGUI
 		ID3D11InputLayout* inputLayout = nullptr;
 	};
 
-	class DirectX11RenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class DirectX11RenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		DirectX11RenderManager();

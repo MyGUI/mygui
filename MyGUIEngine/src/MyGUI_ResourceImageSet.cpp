@@ -45,11 +45,12 @@ namespace MyGUI
 				{
 					size_t count = utility::parseSizeT(frame_node->findAttribute("count"));
 					const IntPoint& point = IntPoint::parse(frame_node->findAttribute("point"));
-					if ((count < 1) || (count > 256)) count = 1;
+					if ((count < 1) || (count > 256))
+						count = 1;
 					while (count > 0)
 					{
 						index.frames.push_back(point);
-						-- count;
+						--count;
 					}
 				}
 

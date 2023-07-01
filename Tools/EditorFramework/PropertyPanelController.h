@@ -15,9 +15,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyPanelController :
-		public IControlController,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL PropertyPanelController : public IControlController, public sigslot::has_slots<>
 	{
 	public:
 		void setTarget(Control* _control) override;

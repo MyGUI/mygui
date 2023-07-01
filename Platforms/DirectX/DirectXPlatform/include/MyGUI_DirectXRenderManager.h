@@ -17,9 +17,7 @@ struct IDirect3DDevice9;
 namespace MyGUI
 {
 
-	class DirectXRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class DirectXRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		DirectXRenderManager();

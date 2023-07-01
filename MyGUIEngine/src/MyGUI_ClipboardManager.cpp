@@ -9,7 +9,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_TextIterator.h"
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include "MyGUI_WindowsClipboardHandler.h"
+	#include "MyGUI_WindowsClipboardHandler.h"
 #endif
 
 namespace MyGUI
@@ -64,7 +64,8 @@ namespace MyGUI
 	void ClipboardManager::clearClipboardData(std::string_view _type)
 	{
 		MapString::iterator iter = mClipboardData.find(_type);
-		if (iter != mClipboardData.end()) mClipboardData.erase(iter);
+		if (iter != mClipboardData.end())
+			mClipboardData.erase(iter);
 		eventClipboardChanged(_type, std::string_view{});
 	}
 

@@ -14,8 +14,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT DataFileStream :
-		public DataStream
+	class MYGUI_EXPORT DataFileStream : public DataStream
 	{
 	public:
 		DataFileStream() = default;

@@ -18,10 +18,18 @@ namespace tools
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_CreateIndexData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateData);
-		CommandManager::getInstance().getEvent("Command_CloneIndexData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
-		CommandManager::getInstance().getEvent("Command_DestroyIndexData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
-		CommandManager::getInstance().getEvent("Command_RenameIndexData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameData);
+		CommandManager::getInstance()
+			.getEvent("Command_CreateIndexData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateData);
+		CommandManager::getInstance()
+			.getEvent("Command_CloneIndexData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
+		CommandManager::getInstance()
+			.getEvent("Command_DestroyIndexData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
+		CommandManager::getInstance()
+			.getEvent("Command_RenameIndexData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameData);
 
 		setDataInfo("Group", "Index", "Name", "UniqueName");
 	}

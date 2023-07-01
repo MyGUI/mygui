@@ -15,10 +15,14 @@ namespace tools
 
 	PropertyRegionTextTypeControl::~PropertyRegionTextTypeControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyRegionTextTypeControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyRegionTextTypeControl::notifyComboChangePosition);
 	}
 
-	void PropertyRegionTextTypeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
+	void PropertyRegionTextTypeControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
@@ -30,7 +34,8 @@ namespace tools
 
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyRegionTextTypeControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyRegionTextTypeControl::notifyComboChangePosition);
 	}
 
 	void PropertyRegionTextTypeControl::updateCaption()
@@ -62,7 +67,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			std::string_view value;
-			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

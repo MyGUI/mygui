@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL DataListBaseControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL DataListBaseControl : public Control, public sigslot::has_slots<>
 	{
 	public:
 		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
@@ -24,7 +22,11 @@ namespace tools
 		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
 
-		void setDataInfo(std::string_view _parentType, std::string_view _currentType, std::string_view _propertyName, std::string_view _propertyUnique);
+		void setDataInfo(
+			std::string_view _parentType,
+			std::string_view _currentType,
+			std::string_view _propertyName,
+			std::string_view _propertyUnique);
 
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

@@ -9,14 +9,14 @@
 
 #include <MyGUI.h>
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <windows.h>
-#include <io.h>
+	#include <windows.h>
+	#include <io.h>
 #else
-#include <unistd.h>
-#include <dirent.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fnmatch.h>
+	#include <unistd.h>
+	#include <dirent.h>
+	#include <sys/types.h>
+	#include <sys/stat.h>
+	#include <fnmatch.h>
 #endif
 
 #include <string>
@@ -28,7 +28,11 @@ namespace common
 
 	struct FileInfo
 	{
-		FileInfo(const std::wstring& _name, bool _folder) : name(_name), folder(_folder) { }
+		FileInfo(const std::wstring& _name, bool _folder) :
+			name(_name),
+			folder(_folder)
+		{
+		}
 		std::wstring name;
 		bool folder;
 	};
@@ -39,7 +43,7 @@ namespace common
 		std::wstring result;
 		result.resize(_input.size());
 		static std::locale sLocale("");
-		for (unsigned int i=0; i<_input.size(); ++i)
+		for (unsigned int i = 0; i < _input.size(); ++i)
 			result[i] = std::tolower(_input[i], sLocale);
 		return result;
 	}
@@ -56,10 +60,10 @@ namespace common
 
 	inline bool isAbsolutePath(const wchar_t* path)
 	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (IsCharAlphaW(path[0]) && path[1] == ':')
 			return true;
-	#endif
+#endif
 		return path[0] == '/' || path[0] == '\\';
 	}
 
@@ -69,7 +73,7 @@ namespace common
 		if (_source.size() < count)
 			return false;
 		size_t offset = _source.size() - count;
-		for (size_t index = 0; index < count; ++ index)
+		for (size_t index = 0; index < count; ++index)
 		{
 			if (_source[index + offset] != _value[index])
 				return false;
@@ -94,19 +98,23 @@ namespace common
 #endif
 	}
 
-	inline bool isReservedDir (const wchar_t* _fn)
+	inline bool isReservedDir(const wchar_t* _fn)
 	{
 		// if "."
-		return (_fn [0] == '.' && _fn [1] == 0);
+		return (_fn[0] == '.' && _fn[1] == 0);
 	}
 
-	inline bool isParentDir (const wchar_t* _fn)
+	inline bool isParentDir(const wchar_t* _fn)
 	{
 		// if ".."
-		return (_fn [0] == '.' && _fn [1] == '.' && _fn [2] == 0);
+		return (_fn[0] == '.' && _fn[1] == '.' && _fn[2] == 0);
 	}
 
-	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask, bool _sorted = true)
+	inline void getSystemFileList(
+		VectorFileInfo& _result,
+		const std::wstring& _folder,
+		const std::wstring& _mask,
+		bool _sorted = true)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		//FIXME add optional parameter?
@@ -120,7 +128,7 @@ namespace common
 		size_t pos = _mask.find_last_of(L"/\\");
 		std::wstring directory;
 		if (pos != _mask.npos)
-			directory = _mask.substr (0, pos);
+			directory = _mask.substr(0, pos);
 
 		std::wstring full_mask = concatenatePath(_folder, _mask);
 
@@ -128,12 +136,12 @@ namespace common
 		res = 0;
 		while (lHandle != -1 && res != -1)
 		{
-			if (( !ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
-				!isReservedDir(tagData.name))
+			if ((!ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0) && !isReservedDir(tagData.name))
 			{
-				_result.push_back(FileInfo(concatenatePath(directory, tagData.name), (tagData.attrib & _A_SUBDIR) != 0));
+				_result.push_back(
+					FileInfo(concatenatePath(directory, tagData.name), (tagData.attrib & _A_SUBDIR) != 0));
 			}
-			res = _wfindnext( lHandle, &tagData );
+			res = _wfindnext(lHandle, &tagData);
 		}
 		// Close if we found any files
 		if (lHandle != -1)
@@ -150,15 +158,17 @@ namespace common
 			return;
 		}
 
-		rewinddir (dir);
+		rewinddir(dir);
 
-		while ((dp = readdir (dir)) != nullptr)
+		while ((dp = readdir(dir)) != nullptr)
 		{
-			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) && !isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
+			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) &&
+				!isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
 			{
 				struct stat fInfo;
 				std::string path = folder + "/" + dp->d_name;
-				if (stat(path.c_str(), &fInfo) == -1)perror("stat");
+				if (stat(path.c_str(), &fInfo) == -1)
+					perror("stat");
 				_result.emplace_back(MyGUI::UString(dp->d_name).asWStr_c_str(), (S_ISDIR(fInfo.st_mode)));
 			}
 		}
@@ -174,23 +184,29 @@ namespace common
 	inline std::wstring getSystemCurrentFolder()
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		wchar_t buff[MAX_PATH+1];
+		wchar_t buff[MAX_PATH + 1];
 		::GetCurrentDirectoryW(MAX_PATH, buff);
 		return buff;
 #else
-#	ifndef PATH_MAX
-#		define PATH_MAX 256
-#	endif
-		char buff[PATH_MAX+1];
+	#ifndef PATH_MAX
+		#define PATH_MAX 256
+	#endif
+		char buff[PATH_MAX + 1];
 		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr_c_str() : std::wstring();
 #endif
 	}
 
 	using VectorWString = std::vector<std::wstring>;
-	inline void scanFolder(VectorWString& _result, const std::wstring& _folder, bool _recursive, const std::wstring& _mask, bool _fullpath)
+	inline void scanFolder(
+		VectorWString& _result,
+		const std::wstring& _folder,
+		bool _recursive,
+		const std::wstring& _mask,
+		bool _fullpath)
 	{
 		std::wstring folder = _folder;
-		if (!folder.empty() && *folder.rbegin() != '/' && *folder.rbegin() != '\\') folder += L"/";
+		if (!folder.empty() && *folder.rbegin() != '/' && *folder.rbegin() != '\\')
+			folder += L"/";
 
 		VectorFileInfo result;
 		getSystemFileList(result, folder, _mask);
@@ -216,7 +232,6 @@ namespace common
 					continue;
 				scanFolder(_result, folder + item.name, _recursive, _mask, _fullpath);
 			}
-
 		}
 	}
 

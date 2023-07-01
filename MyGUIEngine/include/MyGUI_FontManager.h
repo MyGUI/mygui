@@ -18,10 +18,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FontManager :
-		public MemberObsolete<FontManager>
+	class MYGUI_EXPORT FontManager : public MemberObsolete<FontManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(FontManager);
+
 	public:
 		FontManager();
 

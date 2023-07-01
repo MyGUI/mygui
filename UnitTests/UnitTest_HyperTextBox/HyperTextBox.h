@@ -16,10 +16,9 @@
 namespace MyGUI
 {
 
-	class HyperTextBox :
-		public Widget
+	class HyperTextBox : public Widget
 	{
-		MYGUI_RTTI_DERIVED( HyperTextBox )
+		MYGUI_RTTI_DERIVED(HyperTextBox)
 
 	public:
 		HyperTextBox();
@@ -60,7 +59,7 @@ namespace MyGUI
 		const std::string& getBoldItalicFont() const;
 		void setBoldItalicFont(std::string_view _value);
 
-	/*events:*/
+		/*events:*/
 		/** Event : Click to Url.\n
 			signature : void method(MyGUI::HyperTextBox* _sender, std::string_view _url)
 			@param _sender widget that called this event

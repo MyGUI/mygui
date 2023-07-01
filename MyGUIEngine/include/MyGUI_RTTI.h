@@ -17,47 +17,75 @@ namespace MyGUI
 {
 
 #define MYGUI_DECLARE_TYPE_NAME(Type, Override) \
-		public: \
-			static std::string_view getClassTypeName() { return #Type; } \
-			/** Get type name as string */ \
-			virtual std::string_view getTypeName() const Override { return getClassTypeName(); }
+public: \
+	static std::string_view getClassTypeName() \
+	{ \
+		return #Type; \
+	} \
+	/** Get type name as string */ \
+	virtual std::string_view getTypeName() const Override \
+	{ \
+		return getClassTypeName(); \
+	}
 
 #define MYGUI_RTTI_BASE(BaseType) \
-		public: \
-			typedef BaseType RTTIBase; \
-			MYGUI_DECLARE_TYPE_NAME(BaseType,) \
-			/** Compare with selected type */ \
-			virtual bool isType(const std::type_info& _type) const { return typeid(BaseType) == _type; } \
-			/** Compare with selected type */ \
-			template<typename Type> bool isType() const { return isType(typeid(Type)); } \
-			/** Try to cast pointer to selected type. \
+public: \
+	typedef BaseType RTTIBase; \
+	MYGUI_DECLARE_TYPE_NAME(BaseType, ) \
+	/** Compare with selected type */ \
+	virtual bool isType(const std::type_info& _type) const \
+	{ \
+		return typeid(BaseType) == _type; \
+	} \
+	/** Compare with selected type */ \
+	template<typename Type> \
+	bool isType() const \
+	{ \
+		return isType(typeid(Type)); \
+	} \
+	/** Try to cast pointer to selected type. \
 				@param _throw If true throw exception when casting in wrong type, else return nullptr \
 			*/ \
-			template<typename Type> Type* castType(bool _throw = true) \
-			{ \
-				if (this->isType<Type>()) return static_cast<Type*>(this); \
-				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
-				return nullptr; \
-			} \
-			/** Try to cast pointer to selected type. \
+	template<typename Type> \
+	Type* castType(bool _throw = true) \
+	{ \
+		if (this->isType<Type>()) \
+			return static_cast<Type*>(this); \
+		MYGUI_ASSERT( \
+			!_throw, \
+			"Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
+		return nullptr; \
+	} \
+	/** Try to cast pointer to selected type. \
 				@param _throw If true throw exception when casting in wrong type, else return nullptr \
 			*/ \
-			template<typename Type> const Type* castType(bool _throw = true) const \
-			{ \
-				if (this->isType<Type>()) return static_cast<Type*>(this); \
-				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
-				return nullptr; \
-			}
+	template<typename Type> \
+	const Type* castType(bool _throw = true) const \
+	{ \
+		if (this->isType<Type>()) \
+			return static_cast<Type*>(this); \
+		MYGUI_ASSERT( \
+			!_throw, \
+			"Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
+		return nullptr; \
+	}
 
 #define MYGUI_RTTI_DERIVED(DerivedType) \
-		public: \
-			MYGUI_DECLARE_TYPE_NAME(DerivedType, override) \
-			typedef RTTIBase Base; \
-			typedef DerivedType RTTIBase; \
-			/** Compare with selected type */ \
-			virtual bool isType(const std::type_info& _type) const override { return typeid(DerivedType) == _type || Base::isType(_type); } \
-			/** Compare with selected type */ \
-			template<typename Type> bool isType() const { return isType(typeid(Type)); }
+public: \
+	MYGUI_DECLARE_TYPE_NAME(DerivedType, override) \
+	typedef RTTIBase Base; \
+	typedef DerivedType RTTIBase; \
+	/** Compare with selected type */ \
+	virtual bool isType(const std::type_info& _type) const override \
+	{ \
+		return typeid(DerivedType) == _type || Base::isType(_type); \
+	} \
+	/** Compare with selected type */ \
+	template<typename Type> \
+	bool isType() const \
+	{ \
+		return isType(typeid(Type)); \
+	}
 
 } // namespace MyGUI
 

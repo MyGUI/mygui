@@ -23,7 +23,8 @@ namespace tools
 		assignWidget(mCanvas, "Canvas");
 
 		mColourValueName = "ColourBackground";
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
+		MyGUI::Colour colour =
+			SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
 		setColour(colour);
 
 		SettingsManager::getInstance().eventSettingsChanged.connect(this, &BackgroundControl::notifySettingsChanged);
@@ -42,7 +43,8 @@ namespace tools
 
 	void BackgroundControl::notifySettingsChanged(std::string_view _path)
 	{
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
+		MyGUI::Colour colour =
+			SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
 		setColour(colour);
 	}
 

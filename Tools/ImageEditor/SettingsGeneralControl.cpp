@@ -16,7 +16,8 @@ namespace tools
 
 	SettingsGeneralControl::~SettingsGeneralControl()
 	{
-		mSaveLastTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
+		mSaveLastTexture->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 		mGridEdit->eventEditSelectAccept -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
 	}
@@ -31,7 +32,8 @@ namespace tools
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
-		mSaveLastTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
+		mSaveLastTexture->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	void SettingsGeneralControl::loadSettings()
@@ -70,7 +72,7 @@ namespace tools
 
 	void SettingsGeneralControl::setLanguageValue(std::string_view _value)
 	{
-		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
+		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index++)
 		{
 			if (mInterfaceLanguage->getItemNameAt(index) == _value)
 			{
@@ -78,7 +80,7 @@ namespace tools
 				return;
 			}
 		}
-		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
+		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index++)
 		{
 			if (mInterfaceLanguage->getItemNameAt(index) == "Auto")
 			{

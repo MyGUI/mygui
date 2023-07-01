@@ -15,11 +15,9 @@
 namespace demo
 {
 
-	class WobbleNodeAnimator :
-		public MyGUI::LayerNodeAnimation,
-		public Tesselator
+	class WobbleNodeAnimator : public MyGUI::LayerNodeAnimation, public Tesselator
 	{
-		MYGUI_RTTI_DERIVED( WobbleNodeAnimator )
+		MYGUI_RTTI_DERIVED(WobbleNodeAnimator)
 
 	public:
 		void attach(MyGUI::ILayerNode* _node) override;
@@ -36,8 +34,7 @@ namespace demo
 			MyGUI::ITexture* _texture,
 			const MyGUI::RenderTargetInfo& _info,
 			const MyGUI::IntCoord& _coord,
-			bool& _isAnimate
-		) override;
+			bool& _isAnimate) override;
 
 	private:
 		void addInertia(const MyGUI::FloatPoint& _value);

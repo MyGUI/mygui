@@ -45,7 +45,8 @@ namespace MyGUI
 		CharInfo(uint32 _colour) :
 			mIsColour(true),
 			mColour(_colour)
-		{ }
+		{
+		}
 
 		bool isColour() const
 		{
@@ -88,7 +89,6 @@ namespace MyGUI
 		}
 
 	private:
-
 		bool mIsColour;
 		FloatRect mUVRect;
 
@@ -106,7 +106,6 @@ namespace MyGUI
 			Metrics mMetrics;
 			uint32 mColour;
 		};
-
 	};
 
 	using VectorCharInfo = std::vector<CharInfo>;

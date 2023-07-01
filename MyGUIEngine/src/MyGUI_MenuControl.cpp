@@ -95,10 +95,16 @@ namespace MyGUI
 		}
 	}
 
-	MenuItem* MenuControl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
+	MenuItem* MenuControl::insertItemAt(
+		size_t _index,
+		const UString& _name,
+		MenuItemType _type,
+		std::string_view _id,
+		Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuControl::insertItemAt");
-		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+		if (_index == ITEM_NONE)
+			_index = mItemsInfo.size();
 
 		mInternalCreateChild = true;
 		MenuItem* item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
@@ -282,7 +288,7 @@ namespace MyGUI
 		info.item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
 
-		info.item->setImageName(getIconIndexByType(_type ));
+		info.item->setImageName(getIconIndexByType(_type));
 		info.item->setCaption(info.name);
 
 		update();
@@ -406,7 +412,13 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::createItemChildByType");
 		removeItemChildAt(_index);
-		Widget* child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+		Widget* child = mItemsInfo[_index].item->createWidgetT(
+			WidgetStyle::Popup,
+			_type,
+			mSubMenuSkin,
+			IntCoord(),
+			Align::Default,
+			mSubMenuLayer);
 		MYGUI_ASSERT(child->isType<MenuControl>(), "child must have MenuControl base type");
 		return child;
 	}
@@ -481,14 +493,20 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuControl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
+	void MenuControl::_wrapItem(
+		MenuItem* _item,
+		size_t _index,
+		const UString& _name,
+		MenuItemType _type,
+		std::string_view _id,
+		Any _data)
 	{
 		_item->setAlign(mVerticalAlignment ? Align::Top | Align::HStretch : Align::Default);
 		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuControl::notifyRootKeyChangeFocus);
 		_item->eventMouseButtonClick += newDelegate(this, &MenuControl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus += newDelegate(this, &MenuControl::notifyMouseSetFocus);
 
-		_item->setImageName(getIconIndexByType(_type ));
+		_item->setImageName(getIconIndexByType(_type));
 
 		MenuControl* submenu = nullptr;
 
@@ -567,7 +585,12 @@ namespace MyGUI
 		return controller;
 	}
 
-	MenuItem* MenuControl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
+	MenuItem* MenuControl::insertItem(
+		MenuItem* _to,
+		const UString& _name,
+		MenuItemType _type,
+		std::string_view _id,
+		Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 	}

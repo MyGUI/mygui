@@ -30,10 +30,14 @@ namespace animation
 		mConstructs.clear();
 	}
 
-	IAnimationNode* AnimationNodeFactory::createNode(std::string_view _type, std::string_view _name, IAnimationGraph* _holder)
+	IAnimationNode* AnimationNodeFactory::createNode(
+		std::string_view _type,
+		std::string_view _name,
+		IAnimationGraph* _holder)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
-		if (item == mConstructs.end()) return nullptr;
+		if (item == mConstructs.end())
+			return nullptr;
 		return (*item).second->create(_name, _holder);
 	}
 

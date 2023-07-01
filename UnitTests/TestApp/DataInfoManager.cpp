@@ -49,7 +49,7 @@ namespace tools
 		if (result)
 		{
 			pugi::xpath_node_set nodes = doc.select_nodes("Document/DataInfos/DataInfo");
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
+			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node++)
 			{
 				DataInfo* data = new DataInfo();
 				data->deserialization((*node).node());
@@ -60,14 +60,14 @@ namespace tools
 
 	void DataInfoManager::clear()
 	{
-		for (VectorDataInfo::iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
+		for (VectorDataInfo::iterator data = mDataInfos.begin(); data != mDataInfos.end(); data++)
 			delete *data;
 		mDataInfos.clear();
 	}
 
 	DataInfo* DataInfoManager::getData(std::string_view _type)
 	{
-		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
+		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data++)
 		{
 			if ((*data)->getType() == _type)
 				return *data;

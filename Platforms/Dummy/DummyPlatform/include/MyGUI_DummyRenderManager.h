@@ -14,9 +14,7 @@
 namespace MyGUI
 {
 
-	class DummyRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class DummyRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		DummyRenderManager();

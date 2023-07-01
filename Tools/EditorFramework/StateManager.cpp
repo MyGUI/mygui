@@ -116,7 +116,10 @@ namespace tools
 		MyGUI::mapSet(mStateName, _name, _state);
 	}
 
-	void StateManager::registerEventState(std::string_view _stateName, std::string_view _eventName, std::string_view _toState)
+	void StateManager::registerEventState(
+		std::string_view _stateName,
+		std::string_view _eventName,
+		std::string_view _toState)
 	{
 		mLinks.emplace_back(_stateName, std::make_pair(_eventName, _toState));
 	}

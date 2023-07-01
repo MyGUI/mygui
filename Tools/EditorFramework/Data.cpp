@@ -87,7 +87,7 @@ namespace tools
 	{
 		insertChild(MyGUI::ITEM_NONE, _child);
 	}
-	
+
 	void Data::removeChild(DataPtr _child)
 	{
 		MYGUI_ASSERT(_child->getParent() == mWeakThis.lock(), "Child not found");
@@ -103,7 +103,7 @@ namespace tools
 	{
 		return getProperty(_name)->getValue();
 	}
-	
+
 	void Data::setPropertyValue(std::string_view _name, std::string_view _value) const
 	{
 		getProperty(_name)->setValue(_value);
@@ -114,7 +114,7 @@ namespace tools
 		if (_child == nullptr)
 			return MyGUI::ITEM_NONE;
 
-		for (size_t index = 0; index < mChilds.size(); index ++)
+		for (size_t index = 0; index < mChilds.size(); index++)
 		{
 			if (_child == mChilds[index])
 				return index;

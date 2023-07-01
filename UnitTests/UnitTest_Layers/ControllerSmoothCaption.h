@@ -14,10 +14,9 @@
 namespace demo
 {
 
-	class ControllerSmoothCaption :
-		public MyGUI::ControllerItem
+	class ControllerSmoothCaption : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerSmoothCaption )
+		MYGUI_RTTI_DERIVED(ControllerSmoothCaption)
 
 	public:
 		bool addTime(MyGUI::Widget* _widget, float _time) override
@@ -46,7 +45,7 @@ namespace demo
 		{
 			if (mCurrentPosition < mNeedCaption.size())
 			{
-				mCurrentPosition ++;
+				mCurrentPosition++;
 				MyGUI::TextBox* text = _widget->castType<MyGUI::TextBox>(false);
 				if (text != nullptr)
 				{

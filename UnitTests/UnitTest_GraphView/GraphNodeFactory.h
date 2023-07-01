@@ -19,7 +19,6 @@ namespace demo
 	private:
 		using MapConstruct = std::map<std::string, IGraphNodeConstruct*, std::less<>>;
 		MapConstruct mConstructs;
-
 	};
 
 } // namespace demo

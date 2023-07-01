@@ -25,7 +25,10 @@ namespace demo
 	static MyGUI::WidgetStyle get_type()
 	{
 		const int SIZE = 3;
-		static MyGUI::WidgetStyle types[SIZE] = { MyGUI::WidgetStyle::Child,  MyGUI::WidgetStyle::Popup,  MyGUI::WidgetStyle::Overlapped };
+		static MyGUI::WidgetStyle types[SIZE] = {
+			MyGUI::WidgetStyle::Child,
+			MyGUI::WidgetStyle::Popup,
+			MyGUI::WidgetStyle::Overlapped};
 		return types[random(SIZE)];
 	}
 
@@ -44,21 +47,23 @@ namespace demo
 
 	static MyGUI::Widget* get_random(MyGUI::VectorWidgetPtr& _mass)
 	{
-		if (_mass.empty()) return nullptr;
+		if (_mass.empty())
+			return nullptr;
 		return _mass.at(random((int)_mass.size()));
 	}
 
 	static std::string_view get_skin()
 	{
 		const int SIZE = 8;
-		static std::string_view names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditBoxStretch", "RadioButton", "CheckBox" };
+		static std::string_view names[SIZE] =
+			{"WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditBoxStretch", "RadioButton", "CheckBox"};
 		return names[random(SIZE)];
 	}
 
 	static std::string_view get_layer()
 	{
 		const int SIZE = 4;
-		static const std::string_view names[SIZE] = { std::string_view{}, "Main", "Overlapped", "Popup" };
+		static const std::string_view names[SIZE] = {std::string_view{}, "Main", "Overlapped", "Popup"};
 		return names[random(SIZE)];
 	}
 
@@ -70,7 +75,8 @@ namespace demo
 	static void step_detach_layer()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
-		if (!widget) return;
+		if (!widget)
+			return;
 		MyGUI::LayerManager::getInstance().detachFromLayer(widget);
 		test_widgets();
 	}
@@ -88,7 +94,8 @@ namespace demo
 	static void step_attach_layer()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
-		if (!widget) return;
+		if (!widget)
+			return;
 		if (widget->isRootWidget())
 		{
 			std::string_view layername = get_layer();
@@ -111,7 +118,8 @@ namespace demo
 	static void step_detach_widget()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
-		if (!widget) return;
+		if (!widget)
+			return;
 		widget->detachFromWidget(get_layer());
 		test_widgets();
 	}
@@ -130,15 +138,16 @@ namespace demo
 	{
 		MyGUI::Widget* widget1 = get_random(all_widgets);
 		MyGUI::Widget* widget2 = get_random(all_widgets);
-		if (!widget1 || !widget2) return;
+		if (!widget1 || !widget2)
+			return;
 
 		MyGUI::Widget* test = widget1;
 		do
 		{
-			if (test == widget2) return;
+			if (test == widget2)
+				return;
 			test = test->getParent();
-		}
-		while (test);
+		} while (test);
 
 		widget2->attachToWidget(widget1, get_type(), get_layer());
 		test_widgets();
@@ -157,7 +166,8 @@ namespace demo
 	static void step_destroy_widget()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
-		if (!widget) return;
+		if (!widget)
+			return;
 		/*if (!widget->isRootWidget()) */
 		MyGUI::WidgetManager::getInstance().destroyWidget(widget);
 		test_widgets();
@@ -180,13 +190,18 @@ namespace demo
 		{
 			auto type = get_type();
 			auto layer = type == MyGUI::WidgetStyle::Popup ? get_layer() : "";
-			MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(type, get_skin(), get_coord(), MyGUI::Align::Default, layer);
+			MyGUI::Widget* child =
+				widget->createWidget<MyGUI::Widget>(type, get_skin(), get_coord(), MyGUI::Align::Default, layer);
 			MYGUI_ASSERT(child, "child nullptr");
 			all_widgets.push_back(child);
 		}
 		else
 		{
-			MyGUI::Widget* child = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
+			MyGUI::Widget* child = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
+				get_skin(),
+				get_coord(),
+				MyGUI::Align::Default,
+				get_layer());
 			MYGUI_ASSERT(child, "child nullptr");
 			all_widgets.push_back(child);
 		}
@@ -206,7 +221,8 @@ namespace demo
 	static void step_change_skin()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
-		if (!widget) return;
+		if (!widget)
+			return;
 		widget->changeWidgetSkin(get_skin());
 		test_widgets();
 	}
@@ -224,7 +240,8 @@ namespace demo
 	static void step_change_type()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
-		if (!widget) return;
+		if (!widget)
+			return;
 		widget->setWidgetStyle(get_type());
 		test_widgets();
 	}
@@ -239,8 +256,7 @@ namespace demo
 		}
 	}
 
-	class Unlink :
-		public MyGUI::IUnlinkWidget
+	class Unlink : public MyGUI::IUnlinkWidget
 	{
 	public:
 		void _unlinkWidget(MyGUI::Widget* _widget) override
@@ -316,7 +332,6 @@ namespace demo
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(10);
 #endif
-
 	}
 
 } // namespace demo

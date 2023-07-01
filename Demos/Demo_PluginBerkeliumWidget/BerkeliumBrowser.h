@@ -14,9 +14,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(BerkeliumBrowser, "BerkeliumBrowser.layout");
-	class BerkeliumBrowser :
-		public wraps::BaseLayout,
-		public MyGUI::BerkeliumDelegate
+	class BerkeliumBrowser : public wraps::BaseLayout, public MyGUI::BerkeliumDelegate
 	{
 	public:
 		BerkeliumBrowser(MyGUI::Widget* _parent = nullptr);
@@ -27,10 +25,11 @@ namespace demo
 
 	protected:
 		// override Berkelium::WindowDelegate functions
-		virtual void onAddressBarChanged(Berkelium::Window *win, Berkelium::URLString newURL);
-		virtual void onLoadingStateChanged(Berkelium::Window *win, bool isLoading);
+		virtual void onAddressBarChanged(Berkelium::Window* win, Berkelium::URLString newURL);
+		virtual void onLoadingStateChanged(Berkelium::Window* win, bool isLoading);
+
 	private:
-	//%LE Widget_Declaration list start
+		//%LE Widget_Declaration list start
 		ATTRIBUTE_FIELD_WIDGET_NAME(BerkeliumBrowser, mWebPageBerkeliumWidget, "WebPage");
 		MyGUI::BerkeliumWidget* mWebPageBerkeliumWidget;
 		ATTRIBUTE_FIELD_WIDGET_NAME(BerkeliumBrowser, mUrlEditBox, "Url");
@@ -41,7 +40,7 @@ namespace demo
 		MyGUI::Button* mForwardButton;
 		ATTRIBUTE_FIELD_WIDGET_NAME(BerkeliumBrowser, mLoadingProgressBar, "Loading");
 		MyGUI::ProgressBar* mLoadingProgressBar;
-	//%LE Widget_Declaration list end
+		//%LE Widget_Declaration list end
 	};
 
 } // namespace demo

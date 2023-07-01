@@ -52,7 +52,10 @@ namespace MyGUI
 				skinButtonEmpty = getUserString("SkinButtonEmpty");
 
 			if (!skinButtonEmpty.empty())
-				mWidgetEmpty = _getClientWidget()->createWidget<Widget>(skinButtonEmpty, IntCoord(0, 0, _getClientWidget()->getWidth(), getButtonHeight()), Align::Default);
+				mWidgetEmpty = _getClientWidget()->createWidget<Widget>(
+					skinButtonEmpty,
+					IntCoord(0, 0, _getClientWidget()->getWidth(), getButtonHeight()),
+					Align::Default);
 		}
 
 		if (getUpdateByResize())
@@ -161,7 +164,10 @@ namespace MyGUI
 			return;
 
 		MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::setIndexSelected");
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::setIndexSelected");
+		MYGUI_ASSERT_RANGE_AND_NONE(
+			_index,
+			mVectorColumnInfo.begin()->list->getItemCount(),
+			"MultiListBox::setIndexSelected");
 
 		mItemSelected = _index;
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
@@ -237,7 +243,7 @@ namespace MyGUI
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
-	void MultiListBox::notifyListNotifyItem(ListBox * _sender, const MyGUI::IBNotifyItemData & _info)
+	void MultiListBox::notifyListNotifyItem(ListBox* _sender, const MyGUI::IBNotifyItemData& _info)
 	{
 		IBNotifyItemData infoConvertedIndex(_info);
 		infoConvertedIndex.index = BiIndexBase::convertToFace(_info.index);
@@ -305,7 +311,7 @@ namespace MyGUI
 		{
 			if (!mFrameAdvise)
 			{
-				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &MultiListBox::frameEntered );
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &MultiListBox::frameEntered);
 				mFrameAdvise = true;
 			}
 		}
@@ -313,7 +319,7 @@ namespace MyGUI
 		{
 			if (mFrameAdvise)
 			{
-				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &MultiListBox::frameEntered );
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &MultiListBox::frameEntered);
 				mFrameAdvise = false;
 			}
 		}
@@ -344,7 +350,7 @@ namespace MyGUI
 		size_t last = mVectorColumnInfo.front().list->getItemCount();
 		if (0 == last)
 			return;
-		last --;
+		last--;
 		size_t first = 0;
 
 		while (first < last)
@@ -374,10 +380,25 @@ namespace MyGUI
 		else
 		{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-			requestOperatorLess.m_eventObsolete(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
-			requestOperatorLess.m_event(this, mSortColumnIndex, BiIndexBase::convertToFace(_left), BiIndexBase::convertToFace(_right), result);
+			requestOperatorLess.m_eventObsolete(
+				this,
+				mSortColumnIndex,
+				_list->getItemNameAt(_left),
+				_list->getItemNameAt(_right),
+				result);
+			requestOperatorLess.m_event(
+				this,
+				mSortColumnIndex,
+				BiIndexBase::convertToFace(_left),
+				BiIndexBase::convertToFace(_right),
+				result);
 #else
-			requestOperatorLess(this, mSortColumnIndex, BiIndexBase::convertToFace(_left), BiIndexBase::convertToFace(_right), result);
+			requestOperatorLess(
+				this,
+				mSortColumnIndex,
+				BiIndexBase::convertToFace(_left),
+				BiIndexBase::convertToFace(_right),
+				result);
 #endif
 		}
 		return result;
@@ -397,7 +418,7 @@ namespace MyGUI
 		// shell sort
 		int first;
 		size_t last;
-		for (size_t step = count >> 1; step > 0 ; step >>= 1)
+		for (size_t step = count >> 1; step > 0; step >>= 1)
 		{
 			for (size_t i = 0; i < (count - step); i++)
 			{
@@ -433,7 +454,7 @@ namespace MyGUI
 		// если надо, то меняем выделенный элемент
 		// при сортировке, обновится
 		if ((mItemSelected != ITEM_NONE) && (_index <= mItemSelected))
-			mItemSelected ++;
+			mItemSelected++;
 
 		size_t index = BiIndexBase::insertItemAt(_index);
 
@@ -467,9 +488,9 @@ namespace MyGUI
 		else if (mItemSelected != ITEM_NONE)
 		{
 			if (_index < mItemSelected)
-				mItemSelected --;
+				mItemSelected--;
 			else if ((_index == mItemSelected) && (mItemSelected == count))
-				mItemSelected --;
+				mItemSelected--;
 		}
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
@@ -690,7 +711,10 @@ namespace MyGUI
 		column.sizeType = ResizingPolicy::Auto;
 
 		column.item = _item;
-		column.list = _item->createWidget<ListBox>(mSkinList, IntCoord(0, 0, _item->getWidth(), _item->getHeight()), Align::Stretch);
+		column.list = _item->createWidget<ListBox>(
+			mSkinList,
+			IntCoord(0, 0, _item->getWidth(), _item->getHeight()),
+			Align::Stretch);
 		column.list->eventListChangePosition += newDelegate(this, &MultiListBox::notifyListChangePosition);
 		column.list->eventListMouseItemFocus += newDelegate(this, &MultiListBox::notifyListChangeFocus);
 		column.list->eventListChangeScroll += newDelegate(this, &MultiListBox::notifyListChangeScrollPosition);
@@ -770,7 +794,7 @@ namespace MyGUI
 
 	size_t MultiListBox::getColumnIndex(const MultiListItem* _item) const
 	{
-		for (size_t index = 0; index < mVectorColumnInfo.size(); ++ index)
+		for (size_t index = 0; index < mVectorColumnInfo.size(); ++index)
 		{
 			if (mVectorColumnInfo[index].item == _item)
 				return index;
@@ -830,7 +854,12 @@ namespace MyGUI
 		return false;
 	}
 
-	int MultiListBox::getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth) const
+	int MultiListBox::getColumnWidth(
+		size_t _index,
+		int _freeSpace,
+		size_t _countStars,
+		size_t _lastIndexStar,
+		int _starWidth) const
 	{
 		const ColumnInfo& info = mVectorColumnInfo[_index];
 
@@ -860,22 +889,23 @@ namespace MyGUI
 
 		int width = 0;
 
-		for (size_t index = 0; index < mVectorColumnInfo.size(); ++ index)
+		for (size_t index = 0; index < mVectorColumnInfo.size(); ++index)
 		{
 			ColumnInfo& info = mVectorColumnInfo[index];
 
 			if (info.sizeType == ResizingPolicy::Auto)
 			{
-				info.realWidth = info.button->getWidth() - info.button->getTextRegion().width + info.button->getTextSize().width;
+				info.realWidth =
+					info.button->getWidth() - info.button->getTextRegion().width + info.button->getTextSize().width;
 			}
 			else if (info.sizeType == ResizingPolicy::Fixed)
 			{
-				info.realWidth =  info.width < 0 ? 0 : info.width;
+				info.realWidth = info.width < 0 ? 0 : info.width;
 			}
 			else if (info.sizeType == ResizingPolicy::Fill)
 			{
 				info.realWidth = 0;
-				_countStars ++;
+				_countStars++;
 				_lastIndexStar = index;
 			}
 			else
@@ -901,7 +931,7 @@ namespace MyGUI
 		int starWidth = (countStars != 0 && freeSpace > 0) ? (freeSpace / countStars) : 0;
 
 		mWidthBar = 0;
-		for (size_t index = 0; index < mVectorColumnInfo.size(); ++ index)
+		for (size_t index = 0; index < mVectorColumnInfo.size(); ++index)
 		{
 			ColumnInfo& info = mVectorColumnInfo[index];
 
@@ -913,7 +943,8 @@ namespace MyGUI
 			}
 			else
 			{
-				info.item->setCoord(mWidthBar, mHeightButton, columnWidth, _getClientWidget()->getHeight() - mHeightButton);
+				info.item
+					->setCoord(mWidthBar, mHeightButton, columnWidth, _getClientWidget()->getHeight() - mHeightButton);
 			}
 
 			info.button->setCoord(mWidthBar, 0, columnWidth, getButtonHeight());

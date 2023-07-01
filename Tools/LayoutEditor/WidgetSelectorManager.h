@@ -18,6 +18,7 @@ namespace tools
 	class WidgetSelectorManager
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetSelectorManager);
+
 	public:
 		WidgetSelectorManager();
 

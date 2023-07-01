@@ -19,14 +19,14 @@ namespace MyGUI
 {
 
 	using EventHandle_CreateWidgetDelegate = delegates::MultiDelegate<Widget*, const WidgetInfo&>;
-        using EventHandle_AddUserStringDelegate = EventPairConvertStringView<
-            delegates::MultiDelegate<Widget*, const std::string&, const std::string&>,
-            delegates::MultiDelegate<Widget*, std::string_view, std::string_view>>;
+	using EventHandle_AddUserStringDelegate = EventPairConvertStringView<
+		delegates::MultiDelegate<Widget*, const std::string&, const std::string&>,
+		delegates::MultiDelegate<Widget*, std::string_view, std::string_view>>;
 
-	class MYGUI_EXPORT LayoutManager :
-		public MemberObsolete<LayoutManager>
+	class MYGUI_EXPORT LayoutManager : public MemberObsolete<LayoutManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(LayoutManager);
+
 	public:
 		LayoutManager();
 

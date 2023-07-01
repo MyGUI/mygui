@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class ChangeTextureValueAction :
-		public ActionChangeDataProperty
+	class ChangeTextureValueAction : public ActionChangeDataProperty
 	{
 	public:
 		void doAction() override;

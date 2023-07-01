@@ -36,7 +36,7 @@ namespace tools
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
 		mText->eventEditSelectAccept += MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
-		
+
 		mMainWidget->eventRootKeyChangeFocus += MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);

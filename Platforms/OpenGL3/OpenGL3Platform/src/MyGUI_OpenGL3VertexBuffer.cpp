@@ -89,7 +89,13 @@ namespace MyGUI
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)nullptr);
-		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, colour));
+		glVertexAttribPointer(
+			1,
+			4,
+			GL_UNSIGNED_BYTE,
+			GL_TRUE,
+			sizeof(Vertex),
+			(GLubyte*)offsetof(struct Vertex, colour));
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, u));
 
 		glBindVertexArray(0);

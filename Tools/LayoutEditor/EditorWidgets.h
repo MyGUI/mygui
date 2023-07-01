@@ -8,15 +8,16 @@ namespace tools
 {
 
 	using Event_ChangeWidgets = MyGUI::delegates::MultiDelegate<>;
-	using Event_ChangeWidgetCoord = MyGUI::delegates::MultiDelegate<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view>;
+	using Event_ChangeWidgetCoord =
+		MyGUI::delegates::MultiDelegate<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view>;
 
 	using VectorWidgetContainer = std::vector<WidgetContainer*>;
 	using EnumeratorWidgetContainer = MyGUI::Enumerator<VectorWidgetContainer>;
 
-	class EditorWidgets :
-		public MyGUI::IUnlinkWidget
+	class EditorWidgets : public MyGUI::IUnlinkWidget
 	{
 		MYGUI_SINGLETON_DECLARATION(EditorWidgets);
+
 	public:
 		EditorWidgets();
 
@@ -35,7 +36,11 @@ namespace tools
 		void remove(MyGUI::Widget* _widget);
 		void remove(WidgetContainer* _container);
 
-		bool tryToApplyProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value, bool _testMode = false);
+		bool tryToApplyProperty(
+			MyGUI::Widget* _widget,
+			std::string_view _key,
+			std::string_view _value,
+			bool _testMode = false);
 		void onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner) const;
 
 		void invalidateWidgets();

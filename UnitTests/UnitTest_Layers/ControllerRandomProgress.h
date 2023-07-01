@@ -14,10 +14,9 @@
 namespace demo
 {
 
-	class ControllerRandomProgress :
-		public MyGUI::ControllerItem
+	class ControllerRandomProgress : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRandomProgress )
+		MYGUI_RTTI_DERIVED(ControllerRandomProgress)
 
 	public:
 		bool addTime(MyGUI::Widget* _widget, float _time) override

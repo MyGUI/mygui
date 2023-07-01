@@ -36,7 +36,8 @@ namespace tools
 		mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();
 		mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") = MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") =
+			MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
 		MyGUI::ResourceManager::getInstance().load("Controllers.xml");
 	}
 
@@ -70,7 +71,11 @@ namespace tools
 
 		int half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
 		mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
-		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
+		mButtonDelete->setCoord(
+			mButtonAdd->getRight() + mButtonSpace,
+			mButtonDelete->getTop(),
+			width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight),
+			mButtonDelete->getHeight());
 	}
 
 	void PanelControllers::notifyAdd(MyGUI::Widget* _sender)
@@ -93,7 +98,10 @@ namespace tools
 			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(index));
+		std::vector<ControllerInfo*>::iterator iter = std::find(
+			widgetContainer->mController.begin(),
+			widgetContainer->mController.end(),
+			*mList->getItemDataAt<ControllerInfo*>(index));
 		if (iter != widgetContainer->mController.end())
 		{
 			delete *iter;
@@ -155,7 +163,10 @@ namespace tools
 		mPanelCell->setClientHeight(height);
 	}
 
-	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
+	void PanelControllers::loadControllerTypes(
+		MyGUI::xml::ElementPtr _node,
+		std::string_view /*_file*/,
+		MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator controller = _node->getElementEnumerator();
 		while (controller.next("Controller"))

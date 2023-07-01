@@ -29,7 +29,10 @@ namespace base
 		SDL_VERSION(&wmInfo.version)
 		if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
 		{
-			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Couldn't get WM Info! (SDL2)", "BaseManager::createRender");
+			OGRE_EXCEPT(
+				Ogre::Exception::ERR_INTERNAL_ERROR,
+				"Couldn't get WM Info! (SDL2)",
+				"BaseManager::createRender");
 		}
 
 		Ogre::NameValuePairList params;
@@ -131,7 +134,8 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
+		Ogre::ResourceGroupManager::getSingleton()
+			.addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()
@@ -150,8 +154,7 @@ namespace base
 			}
 			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
 			stream.open(file.c_str());
-		}
-		while (stream.is_open());
+		} while (stream.is_open());
 		mWindow->writeContentsToFile(file);
 	}
 

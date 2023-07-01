@@ -11,13 +11,13 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
 		void createScene() override;
 
 		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id) override;
+
 	private:
 		void setupResources() override;
 

@@ -15,10 +15,9 @@ namespace MyGUI
 {
 
 	/** ResourceLayout is resource that contain full layout info, used for creating widgets. */
-	class MYGUI_EXPORT ResourceLayout :
-		public IResource
+	class MYGUI_EXPORT ResourceLayout : public IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourceLayout )
+		MYGUI_RTTI_DERIVED(ResourceLayout)
 
 	public:
 		ResourceLayout() = default;
@@ -32,7 +31,11 @@ namespace MyGUI
 		VectorWidgetPtr createLayout(std::string_view _prefix = {}, Widget* _parent = nullptr);
 
 		// widget info -> Widget
-		Widget* createWidget(const WidgetInfo& _widgetInfo, std::string_view _prefix = {}, Widget* _parent = nullptr, bool _template = false);
+		Widget* createWidget(
+			const WidgetInfo& _widgetInfo,
+			std::string_view _prefix = {},
+			Widget* _parent = nullptr,
+			bool _template = false);
 
 	protected:
 		// xml -> widget info

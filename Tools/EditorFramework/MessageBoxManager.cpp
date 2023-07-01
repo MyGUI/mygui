@@ -19,7 +19,10 @@ namespace tools
 	{
 	}
 
-	MyGUI::Message* MessageBoxManager::create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style)
+	MyGUI::Message* MessageBoxManager::create(
+		const MyGUI::UString& _caption,
+		const MyGUI::UString& _message,
+		MyGUI::MessageBoxStyle _style)
 	{
 		MyGUI::Message* message = new MyGUI::Message("MessageBox2.layout");
 

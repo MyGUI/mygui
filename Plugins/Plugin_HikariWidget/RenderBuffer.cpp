@@ -23,7 +23,11 @@
 
 using namespace Hikari;
 
-RenderBuffer::RenderBuffer(int width, int height) : width(0), height(0), buffer(0), rowSpan(0)
+RenderBuffer::RenderBuffer(int width, int height) :
+	width(0),
+	height(0),
+	buffer(0),
+	rowSpan(0)
 {
 	reserve(width, height);
 }
@@ -44,7 +48,7 @@ void RenderBuffer::reserve(int width, int height)
 
 		if (buffer)
 		{
-			delete [] buffer;
+			delete[] buffer;
 			buffer = 0;
 		}
 
@@ -67,7 +71,10 @@ void RenderBuffer::copyArea(RECT srcRect, unsigned char* srcBuffer, int srcRowSp
 		int srcHeight = srcRect.bottom - srcRect.top;
 
 		for (int row = 0; row < srcHeight; row++)
-			memcpy(buffer + (row + srcRect.top) * rowSpan + (srcRect.left * 4), srcBuffer + row * srcRowSpan, srcWidth * 4);
+			memcpy(
+				buffer + (row + srcRect.top) * rowSpan + (srcRect.left * 4),
+				srcBuffer + row * srcRowSpan,
+				srcWidth * 4);
 	}
 }
 

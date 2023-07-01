@@ -140,7 +140,9 @@ namespace MyGUI
 			const std::string& result = files[0];
 			if (files.size() > 1)
 			{
-				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
+				MYGUI_PLATFORM_LOG(
+					Warning,
+					"There are several files with name '" << _name << "'. '" << result << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
 				for (size_t index = 1; index < files.size(); index++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << files[index] << "'");

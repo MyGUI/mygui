@@ -161,7 +161,8 @@ namespace tools
 	{
 		if (!mPropertyColour.empty() && _path == ("Workspace/Colours/" + mPropertyColour))
 		{
-			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
+			MyGUI::Colour colour =
+				SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
 			setColour(colour);
 		}
 	}
@@ -169,7 +170,8 @@ namespace tools
 	void SelectorControl::setPropertyColour(std::string_view _propertyName)
 	{
 		mPropertyColour = _propertyName;
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
+		MyGUI::Colour colour =
+			SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
 		setColour(colour);
 	}
 

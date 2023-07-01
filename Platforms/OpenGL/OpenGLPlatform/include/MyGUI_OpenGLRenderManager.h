@@ -16,9 +16,7 @@
 namespace MyGUI
 {
 
-	class OpenGLRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class OpenGLRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		void initialise(OpenGLImageLoader* _loader = nullptr);
@@ -66,7 +64,7 @@ namespace MyGUI
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile) override;
 
-	/*internal:*/
+		/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
 

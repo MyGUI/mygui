@@ -153,7 +153,7 @@ namespace tools
 				mNewWidget->setCoord(coord);
 
 				// создали виджет, все счастливы
-				WidgetContainer * widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
+				WidgetContainer* widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
 				if (mPopupMode)
 					widgetContainer->setStyle(mNewWidget->getWidgetStyle().print());
 				mNewWidget = nullptr;

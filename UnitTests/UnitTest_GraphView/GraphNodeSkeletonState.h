@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class GraphNodeSkeletonState :
-		public BaseAnimationNode
+	class GraphNodeSkeletonState : public BaseAnimationNode
 	{
 	public:
 		GraphNodeSkeletonState(std::string_view _name) :
@@ -37,12 +36,14 @@ namespace demo
 			assignWidget(mStopValue, "StopValue");
 
 			mComboStates->eventComboAccept += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyComboAccept);
-			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
+			MyGUI::Gui::getInstance().eventFrameStart +=
+				MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
 		void shutdown() override
 		{
-			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
+			MyGUI::Gui::getInstance().eventFrameStart -=
+				MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
 		void deserialization(MyGUI::xml::ElementPtr _node) override

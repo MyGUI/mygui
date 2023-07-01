@@ -155,7 +155,10 @@ namespace tools
 						item = stream.get();
 					}
 
-					_resultValue = MyGUI::Colour( (unsigned char)( result >> 16 ) / 256.0f, (unsigned char)( result >> 8 ) / 256.0f, (unsigned char)( result ) / 256.0f );
+					_resultValue = MyGUI::Colour(
+						(unsigned char)(result >> 16) / 256.0f,
+						(unsigned char)(result >> 8) / 256.0f,
+						(unsigned char)(result) / 256.0f);
 					return true;
 				}
 			}
@@ -257,7 +260,9 @@ namespace tools
 	{
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
-			executeAction(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), true);
+			executeAction(
+				MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue),
+				true);
 	}
 
 }

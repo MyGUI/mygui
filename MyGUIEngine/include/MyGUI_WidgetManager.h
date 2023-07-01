@@ -17,17 +17,24 @@
 
 namespace MyGUI
 {
-	class MYGUI_EXPORT WidgetManager :
-		public MemberObsolete<WidgetManager>
+	class MYGUI_EXPORT WidgetManager : public MemberObsolete<WidgetManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetManager);
+
 	public:
 		WidgetManager();
 
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, std::string_view _name);
+		Widget* createWidget(
+			WidgetStyle _style,
+			std::string_view _type,
+			std::string_view _skin,
+			const IntCoord& _coord,
+			Widget* _parent,
+			ICroppedRectangle* _cropeedParent,
+			std::string_view _name);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);

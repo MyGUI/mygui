@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class PropertyFieldFileName :
-		public PropertyFieldEditBox
+	class PropertyFieldFileName : public PropertyFieldEditBox
 	{
 	public:
 		PropertyFieldFileName(MyGUI::Widget* _parent);

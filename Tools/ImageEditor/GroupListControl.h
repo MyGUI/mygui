@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class GroupListControl :
-		public DataListBaseControl
+	class GroupListControl : public DataListBaseControl
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

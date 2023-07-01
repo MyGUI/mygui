@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionChangePositionData :
-		public Action
+	class MYGUI_EXPORT_DLL ActionChangePositionData : public Action
 	{
 	public:
 		void doAction() override;

@@ -131,7 +131,8 @@ namespace MyGUI
 		{
 			// поднимаемся до рута
 			Widget* root = item;
-			while (root->getParent()) root = root->getParent();
+			while (root->getParent())
+				root = root->getParent();
 
 			// проверяем на модальность
 			if (!mVectorModalRootWidget.empty())
@@ -188,7 +189,7 @@ namespace MyGUI
 
 		if ((item != nullptr) && (item->getInheritedEnabled()))
 		{
-			MyGUI::IntPoint point (_absx, _absy);
+			MyGUI::IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
 			item->_riseMouseMove(point.left, point.top);
@@ -251,7 +252,7 @@ namespace MyGUI
 
 		if (isFocusMouse())
 		{
-			IntPoint point (_absx, _absy);
+			IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
 			mWidgetMouseFocus->_riseMouseButtonPressed(point.left, point.top, _id);
@@ -269,12 +270,12 @@ namespace MyGUI
 					// если оверлаппед, то поднимаем пикинг
 					if (pick->getWidgetStyle() == WidgetStyle::Overlapped)
 					{
-						if (pick->getParent()) pick->getParent()->_forcePick(pick);
+						if (pick->getParent())
+							pick->getParent()->_forcePick(pick);
 					}
 
 					pick = pick->getParent();
-				}
-				while (pick);
+				} while (pick);
 			}
 		}
 
@@ -298,7 +299,7 @@ namespace MyGUI
 			if (!mWidgetMouseFocus->getInheritedEnabled())
 				return true;
 
-			IntPoint point (_absx, _absy);
+			IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
 			mWidgetMouseFocus->_riseMouseButtonReleased(point.left, point.top, _id);
@@ -319,7 +320,7 @@ namespace MyGUI
 					{
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
 						Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-						if ( item == mWidgetMouseFocus)
+						if (item == mWidgetMouseFocus)
 						{
 							mWidgetMouseFocus->_riseMouseButtonClick();
 						}
@@ -458,7 +459,10 @@ namespace MyGUI
 				mMouseCapture[i] = false;
 				if (nullptr != mouseFocus)
 				{
-					mouseFocus->_riseMouseButtonReleased(mLastPressed[i].left, mLastPressed[i].top, MouseButton::Enum(i));
+					mouseFocus->_riseMouseButtonReleased(
+						mLastPressed[i].left,
+						mLastPressed[i].top,
+						MouseButton::Enum(i));
 				}
 			}
 		}
@@ -485,7 +489,8 @@ namespace MyGUI
 			resetKeyFocusWidget();
 
 		// ручками сбрасываем, чтобы не менять фокусы
-		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end();
+			 ++iter)
 		{
 			if (*iter == _widget)
 			{
@@ -514,7 +519,8 @@ namespace MyGUI
 		resetKeyFocusWidget(_widget);
 		_resetMouseFocusWidget();
 
-		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end();
+			 ++iter)
 		{
 			if (*iter == _widget)
 			{
@@ -535,11 +541,11 @@ namespace MyGUI
 		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 
-		if ( !isFocusKey() ) return;
-		if ( (_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)
-			|| (_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)
-			|| (_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt)
-			) return;
+		if (!isFocusKey())
+			return;
+		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift) || (_key == KeyCode::LeftControl) ||
+			(_key == KeyCode::RightControl) || (_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt))
+			return;
 
 		mFirstPressKey = true;
 		mHoldKey = _key;
@@ -557,10 +563,10 @@ namespace MyGUI
 	{
 		mTimerDoubleClick += _frame;
 
-		if ( mHoldKey == KeyCode::None)
+		if (mHoldKey == KeyCode::None)
 			return;
 
-		if ( !isFocusKey() )
+		if (!isFocusKey())
 		{
 			mHoldKey = KeyCode::None;
 			mHoldChar = 0;
@@ -589,7 +595,6 @@ namespace MyGUI
 					mWidgetKeyFocus->_riseKeyButtonReleased(mHoldKey);
 			}
 		}
-
 	}
 
 	void InputManager::resetKeyFocusWidget(Widget* _widget)

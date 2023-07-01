@@ -9,8 +9,7 @@
 namespace tools
 {
 
-	class ToolsControl :
-		public wraps::BaseLayout
+	class ToolsControl : public wraps::BaseLayout
 	{
 	public:
 		ToolsControl(MyGUI::Widget* _parent = nullptr);

@@ -61,16 +61,16 @@ namespace MyGUI
 #define MYGUI_VERSION_MINOR 4
 #define MYGUI_VERSION_PATCH 3
 
-#define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
+#define MYGUI_VERSION MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
 
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
-// disable: "<type> needs to have dll-interface to be used by clients'
-// Happens on STL member variables which are not public therefore is ok
-#	pragma warning (disable : 4251)
+	// disable: "<type> needs to have dll-interface to be used by clients'
+	// Happens on STL member variables which are not public therefore is ok
+	#pragma warning(disable : 4251)
 
-// also some warnings are disabled in CMake
+		// also some warnings are disabled in CMake
 
 #endif
 

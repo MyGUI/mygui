@@ -18,11 +18,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT PointerManager :
-		public IUnlinkWidget,
-		public MemberObsolete<PointerManager>
+	class MYGUI_EXPORT PointerManager : public IUnlinkWidget, public MemberObsolete<PointerManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(PointerManager);
+
 	public:
 		PointerManager();
 
@@ -59,14 +58,24 @@ namespace MyGUI
 			signature : void method(std::string_view _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		EventPairConvertStringView<delegates::MultiDelegate<const std::string&>, delegates::MultiDelegate<std::string_view>> eventChangeMousePointer;
+		EventPairConvertStringView<
+			delegates::MultiDelegate<const std::string&>,
+			delegates::MultiDelegate<std::string_view>>
+			eventChangeMousePointer;
 
 	private:
 		void _unlinkWidget(Widget* _widget) override;
 		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 		// создает виджет
-		Widget* baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name);
+		Widget* baseCreateWidget(
+			WidgetStyle _style,
+			std::string_view _type,
+			std::string_view _skin,
+			const IntCoord& _coord,
+			Align _align,
+			std::string_view _layer,
+			std::string_view _name);
 
 		// удаляет всех детей
 		void _destroyAllChildWidget();

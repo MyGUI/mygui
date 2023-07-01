@@ -14,13 +14,17 @@ namespace tools
 	PropertyTexturesControl::~PropertyTexturesControl()
 	{
 		mBrowse->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
 
 		delete mTextureBrowseControl;
 		mTextureBrowseControl = nullptr;
 	}
 
-	void PropertyTexturesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
+	void PropertyTexturesControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyTextureBrowseControl.layout");
 
@@ -41,7 +45,8 @@ namespace tools
 		mTextureBrowseControl->eventEndDialog.connect(this, &PropertyTexturesControl::notifyEndDialog);
 		mTextureBrowseControl->setTextures(mTextures);
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
 		mBrowse->eventMouseButtonClick += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
 
 		mMainWidget->eventChangeCoord += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyChangeCoord);
@@ -89,7 +94,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			std::string_view value;
-			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}
@@ -159,10 +165,15 @@ namespace tools
 			float k1 = (float)targetSize.width / mTextureSize.width;
 			float k2 = (float)targetSize.height / mTextureSize.height;
 			float k = (std::min)(k1, k2);
-			MyGUI::IntSize size = MyGUI::IntSize((int)(k * (float)mTextureSize.width), (int)(k * (float)mTextureSize.height));
+			MyGUI::IntSize size =
+				MyGUI::IntSize((int)(k * (float)mTextureSize.width), (int)(k * (float)mTextureSize.height));
 
 			MyGUI::IntSize parentSize = mImage->getParentSize();
-			mImage->setCoord((parentSize.width - size.width) / 2, (parentSize.height - size.height) / 2, size.width, size.height);
+			mImage->setCoord(
+				(parentSize.width - size.width) / 2,
+				(parentSize.height - size.height) / 2,
+				size.width,
+				size.height);
 		}
 		else
 		{

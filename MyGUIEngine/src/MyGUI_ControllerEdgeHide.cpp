@@ -15,7 +15,7 @@ namespace MyGUI
 {
 
 #ifdef M_PI
-#undef M_PI
+	#undef M_PI
 #endif
 	const float M_PI = 3.141593f;
 
@@ -57,8 +57,10 @@ namespace MyGUI
 		}
 
 		float k = std::sin(M_PI * mElapsedTime / mTime - M_PI / 2);
-		if (k < 0) k = (-std::pow(-k, 0.7f) + 1) / 2;
-		else k = (std::pow(k, 0.7f) + 1) / 2;
+		if (k < 0)
+			k = (-std::pow(-k, 0.7f) + 1) / 2;
+		else
+			k = (std::pow(k, 0.7f) + 1) / 2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
 		// if widget was moved
@@ -78,12 +80,12 @@ namespace MyGUI
 		bool behindBottom = coord.bottom() >= view_size.height - 1;
 		if (behindLeft && !behindRight)
 		{
-			coord.left = - int( float(coord.width - mRemainPixels - mShadowSize) * k);
+			coord.left = -int(float(coord.width - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
 		if (behindTop && !behindBottom)
 		{
-			coord.top = - int( float(coord.height - mRemainPixels - mShadowSize) * k);
+			coord.top = -int(float(coord.height - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
 		if (behindRight && !behindLeft)
@@ -135,25 +137,25 @@ namespace MyGUI
 		// check if widget is near any border and not near opposite borders at same time
 		if (behindLeft && !behindRight)
 		{
-			k = - (float) coord.left / (coord.width - mRemainPixels - mShadowSize);
+			k = -(float)coord.left / (coord.width - mRemainPixels - mShadowSize);
 		}
 		else if (behindTop && !behindBottom)
 		{
-			k = - (float)coord.top / (coord.height - mRemainPixels - mShadowSize);
+			k = -(float)coord.top / (coord.height - mRemainPixels - mShadowSize);
 		}
 		else if (behindRight && !behindLeft)
 		{
-			k = (float)(coord.right() - view_size.width + 1 ) / (coord.width - mRemainPixels);
+			k = (float)(coord.right() - view_size.width + 1) / (coord.width - mRemainPixels);
 		}
 		else if (behindBottom && !behindTop)
 		{
-			k = (float)(coord.bottom() - view_size.height + 1 ) / (coord.height - mRemainPixels);
+			k = (float)(coord.bottom() - view_size.height + 1) / (coord.height - mRemainPixels);
 		}
 
 		//mElapsedTime = (asin(k)/M_PI + 1./2) * mTime;
 		// this is reversed formula from ControllerEdgeHide::addTime k calculation
 		if (k > 0.5f)
-			mElapsedTime = (std::asin( std::pow( 2 * k - 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
+			mElapsedTime = (std::asin(std::pow(2 * k - 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 		else
 			mElapsedTime = (std::asin(-std::pow(-2 * k + 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 	}

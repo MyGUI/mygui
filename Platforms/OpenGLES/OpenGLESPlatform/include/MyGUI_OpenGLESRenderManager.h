@@ -9,9 +9,7 @@
 namespace MyGUI
 {
 
-	class OpenGLESRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class OpenGLESRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		void initialise(OpenGLESImageLoader* _loader = nullptr);
@@ -69,7 +67,9 @@ namespace MyGUI
 
 	private:
 		std::string loadFileContent(const std::string& _file);
-		unsigned int createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
+		unsigned int createShaderProgram(
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
 
 	private:

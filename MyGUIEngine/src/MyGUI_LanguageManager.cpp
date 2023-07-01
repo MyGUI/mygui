@@ -28,7 +28,8 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlLanguageTagName) = newDelegate(this, &LanguageManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlLanguageTagName) =
+			newDelegate(this, &LanguageManager::_load);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -91,7 +92,6 @@ namespace MyGUI
 						}
 					}
 				}
-
 			}
 		}
 
@@ -164,7 +164,8 @@ namespace MyGUI
 		while (!_stream->eof())
 		{
 			_stream->readline(read, '\n');
-			if (read.empty()) continue;
+			if (read.empty())
+				continue;
 
 			// заголовок утф
 			if ((uint8)read[0] == 0xEF && read.size() > 2)
@@ -172,19 +173,25 @@ namespace MyGUI
 				read.erase(0, 3);
 			}
 
-			if (read[read.size() - 1] == '\r') read.erase(read.size() - 1, 1);
-			if (read.empty()) continue;
+			if (read[read.size() - 1] == '\r')
+				read.erase(read.size() - 1, 1);
+			if (read.empty())
+				continue;
 
 			size_t pos = read.find_first_of(" \t");
 			if (_user)
 			{
-				if (pos == std::string::npos) mUserMapLanguage[read].clear();
-				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
+				if (pos == std::string::npos)
+					mUserMapLanguage[read].clear();
+				else
+					mUserMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 			else
 			{
-				if (pos == std::string::npos) mMapLanguage[read].clear();
-				else mMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
+				if (pos == std::string::npos)
+					mMapLanguage[read].clear();
+				else
+					mMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 		}
 	}
@@ -197,8 +204,7 @@ namespace MyGUI
 		do
 		{
 			result = replaceTagsPass(result, replace);
-		}
-		while (replace);
+		} while (replace);
 
 		return result;
 	}
@@ -258,7 +264,7 @@ namespace MyGUI
 		UString::utf32string line(_line.asUTF32());
 
 		UString::utf32string::iterator end = line.end();
-		for (UString::utf32string::iterator iter = line.begin(); iter != end; )
+		for (UString::utf32string::iterator iter = line.begin(); iter != end;)
 		{
 			if (*iter == '#')
 			{

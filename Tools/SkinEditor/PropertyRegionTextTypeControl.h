@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class PropertyRegionTextTypeControl :
-		public PropertyControl
+	class PropertyRegionTextTypeControl : public PropertyControl
 	{
 	public:
 		~PropertyRegionTextTypeControl() override;

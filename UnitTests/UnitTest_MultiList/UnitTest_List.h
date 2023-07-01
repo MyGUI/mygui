@@ -21,7 +21,11 @@ namespace unittest
 	public:
 		UnitTest_List()
 		{
-			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::ListBox>("ListBox", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
+			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::ListBox>(
+				"ListBox",
+				MyGUI::IntCoord(100, 100, 100, 100),
+				MyGUI::Align::Default,
+				"Main");
 			mirror_list = new unittest::Mirror_List();
 			count_items = 0;
 		}
@@ -49,7 +53,8 @@ namespace unittest
 		void Begin()
 		{
 			size_t count = original_list->getItemCount();
-			if (count == 0) return;
+			if (count == 0)
+				return;
 			size_t index = ((size_t)rand() % count);
 			original_list->beginToItemAt(index);
 
@@ -70,7 +75,7 @@ namespace unittest
 			size_t item = (size_t)rand();
 			mirror_list->addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
-			count_items ++;
+			count_items++;
 
 			checkList();
 		}
@@ -92,7 +97,7 @@ namespace unittest
 			mirror_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 			original_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 
-			count_items ++;
+			count_items++;
 
 			checkList();
 		}
@@ -108,14 +113,15 @@ namespace unittest
 
 		void RemoveItem()
 		{
-			if (count_items == 0) return;
+			if (count_items == 0)
+				return;
 
 			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			mirror_list->removeItemAt(index);
 			original_list->removeItemAt(index);
 
-			count_items --;
+			count_items--;
 
 			checkList();
 		}
@@ -140,17 +146,21 @@ namespace unittest
 
 		void nextFrame()
 		{
-			if (count_items > 100) RemoveAllItems();
+			if (count_items > 100)
+				RemoveAllItems();
 
 			size_t index = (size_t)rand() % 4;
 			size_t count = (size_t)rand() % 3;
 
-			if (index == 0) InsertItem(count);
-			else if (index == 1) AddItem(count);
-			else if (index == 2) RemoveItem(count);
-			else if (index == 3) Begin(count);
+			if (index == 0)
+				InsertItem(count);
+			else if (index == 1)
+				AddItem(count);
+			else if (index == 2)
+				RemoveItem(count);
+			else if (index == 3)
+				Begin(count);
 		}
-
 	};
 
 }

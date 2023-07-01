@@ -12,7 +12,7 @@
 #include "ControllerSmoothCaption.h"
 #include "ResourceDevice.h"
 #ifdef MYGUI_OGRE_PLATFORM
-#include <Ogre.h>
+	#include <Ogre.h>
 #endif
 
 namespace demo
@@ -77,7 +77,6 @@ namespace demo
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-
 #ifdef MYGUI_OGRE_PLATFORM
 		if (_key == MyGUI::KeyCode::One)
 		{
@@ -100,8 +99,18 @@ namespace demo
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		Ogre::MeshManager::getSingleton().createPlane(
-			"FloorPlane", MyGuiResourceGroup,
-			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+			"FloorPlane",
+			MyGuiResourceGroup,
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0),
+			200,
+			200,
+			1,
+			1,
+			true,
+			1,
+			1,
+			1,
+			Ogre::Vector3::UNIT_Z);
 
 		Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane", MyGuiResourceGroup);
 		entity->setMaterialName("Ground", MyGuiResourceGroup);

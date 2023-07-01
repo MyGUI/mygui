@@ -21,7 +21,7 @@ namespace tools
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
 
-		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
+		mField->eventComboAccept += newDelegate(this, &PropertyFieldComboBox::notifyForceApplyProperties2);
 	}
 
 	void PropertyFieldComboBox::initialise(std::string_view _type)

@@ -6,7 +6,7 @@
 namespace base
 {
 	SdlBaseManager::SdlBaseManager(bool _isOpenGlWindow) :
-	    mIsOpenGlWindow(_isOpenGlWindow)
+		mIsOpenGlWindow(_isOpenGlWindow)
 	{
 	}
 
@@ -43,7 +43,13 @@ namespace base
 		int left = (currDisp.w - width) / 2;
 		int top = (currDisp.h - height) / 2;
 
-		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, (mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE);
+		mSdlWindow = SDL_CreateWindow(
+			"MyGUI Render Window",
+			left,
+			top,
+			width,
+			height,
+			(mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window.";
@@ -65,8 +71,10 @@ namespace base
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 32, 32, LR_DEFAULTSIZE));
-		HICON hIconBig = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
+		HICON hIconSmall =
+			static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 32, 32, LR_DEFAULTSIZE));
+		HICON hIconBig =
+			static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
 		if (hIconSmall)
 			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIconSmall);
 		if (hIconBig)
@@ -120,15 +128,9 @@ namespace base
 					keyReleased(mEvent.key);
 					break;
 					// mouse events
-				case SDL_MOUSEMOTION:
-					mouseMoved(mEvent.motion);
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					mousePressed(mEvent.button);
-					break;
-				case SDL_MOUSEBUTTONUP:
-					mouseReleased(mEvent.button);
-					break;
+				case SDL_MOUSEMOTION: mouseMoved(mEvent.motion); break;
+				case SDL_MOUSEBUTTONDOWN: mousePressed(mEvent.button); break;
+				case SDL_MOUSEBUTTONUP: mouseReleased(mEvent.button); break;
 				case SDL_MOUSEWHEEL:
 					mouseWheelMoved(mEvent.wheel);
 					break;
@@ -139,24 +141,14 @@ namespace base
 				case SDL_WINDOWEVENT:
 					switch (mEvent.window.event)
 					{
-					case SDL_WINDOWEVENT_CLOSE:
-						mExit = true;
-						break;
-					case SDL_WINDOWEVENT_RESIZED:
-						_windowResized(mEvent.window.data1, mEvent.window.data2);
-						break;
-					case SDL_WINDOWEVENT_FOCUS_GAINED:
-						mWindowOn = true;
-						break;
-					case SDL_WINDOWEVENT_FOCUS_LOST:
-						mWindowOn = false;
-						break;
-					default:
-						break;
+					case SDL_WINDOWEVENT_CLOSE: mExit = true; break;
+					case SDL_WINDOWEVENT_RESIZED: _windowResized(mEvent.window.data1, mEvent.window.data2); break;
+					case SDL_WINDOWEVENT_FOCUS_GAINED: mWindowOn = true; break;
+					case SDL_WINDOWEVENT_FOCUS_LOST: mWindowOn = false; break;
+					default: break;
 					}
 					break;
-				default:
-					break;
+				default: break;
 				}
 			}
 
@@ -332,30 +324,22 @@ namespace base
 		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
-	void* SdlBaseManager::convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat)
+	void* SdlBaseManager::convertPixelData(SDL_Surface* _image, MyGUI::PixelFormat& _myGuiPixelFormat)
 	{
 		void* ret = nullptr;
-		SDL_PixelFormat *format = _image->format;
+		SDL_PixelFormat* format = _image->format;
 		unsigned int bpp = format->BytesPerPixel;
-		switch (bpp) {
-		case 1:
-			_myGuiPixelFormat = MyGUI::PixelFormat::L8;
-			break;
-		case 2:
-			_myGuiPixelFormat = MyGUI::PixelFormat::L8A8;
-			break;
-		case 3:
-			_myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8;
-			break;
-		case 4:
-			_myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8A8;
-			break;
-		default:
-			break;
+		switch (bpp)
+		{
+		case 1: _myGuiPixelFormat = MyGUI::PixelFormat::L8; break;
+		case 2: _myGuiPixelFormat = MyGUI::PixelFormat::L8A8; break;
+		case 3: _myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8; break;
+		case 4: _myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8A8; break;
+		default: break;
 		}
 		SDL_LockSurface(_image);
 
-		int pitchSrc = _image->pitch;	//the length of a row of pixels in bytes
+		int pitchSrc = _image->pitch; //the length of a row of pixels in bytes
 		size_t size = _image->h * pitchSrc;
 		ret = new unsigned char[size];
 		unsigned char* ptr_source = (unsigned char*)_image->pixels;

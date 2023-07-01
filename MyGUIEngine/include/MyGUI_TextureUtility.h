@@ -21,7 +21,8 @@ namespace MyGUI::texture_utility
 	MYGUI_EXPORT void convertColour(uint32& _colour, VertexColourType _format);
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-	MYGUI_OBSOLETE(" is deprecated, use : uint32 texture_utility::toNativeColour(const Colour& _colour, VertexColourType _format)")
+	MYGUI_OBSOLETE(
+		" is deprecated, use : uint32 texture_utility::toNativeColour(const Colour& _colour, VertexColourType _format)")
 	inline uint32 toColourARGB(const Colour& _colour)
 	{
 		return toNativeColour(_colour, VertexColourType::ColourARGB);

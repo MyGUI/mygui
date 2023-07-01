@@ -23,7 +23,8 @@ namespace demo
 		mHeight = -(_info.pixScaleY * (float)_coord.height * 2);
 
 		size_t count = mCountX * mCountY;
-		if (_count == count) return count;
+		if (_count == count)
+			return count;
 
 		// запрашивам нужный размер вершин
 		_data.resize(count);
@@ -51,22 +52,22 @@ namespace demo
 
 				if (rx < mCountX && ry < mCountY)
 				{
-					_data[rx + ry* mCountX].vertex[MyGUI::QuadData::CornerLT] = vertex;
+					_data[rx + ry * mCountX].vertex[MyGUI::QuadData::CornerLT] = vertex;
 				}
 
 				if (rx > 0 && ry > 0)
 				{
-					_data[(rx-1) + (ry-1)*mCountX].vertex[MyGUI::QuadData::CornerRB] = vertex;
+					_data[(rx - 1) + (ry - 1) * mCountX].vertex[MyGUI::QuadData::CornerRB] = vertex;
 				}
 
 				if (rx > 0 && ry < mCountY)
 				{
-					_data[(rx-1) + ry* mCountX].vertex[MyGUI::QuadData::CornerRT] = vertex;
+					_data[(rx - 1) + ry * mCountX].vertex[MyGUI::QuadData::CornerRT] = vertex;
 				}
 
 				if (rx < mCountX && ry > 0)
 				{
-					_data[rx + (ry-1)*mCountX].vertex[MyGUI::QuadData::CornerLB] = vertex;
+					_data[rx + (ry - 1) * mCountX].vertex[MyGUI::QuadData::CornerLB] = vertex;
 				}
 			}
 		}

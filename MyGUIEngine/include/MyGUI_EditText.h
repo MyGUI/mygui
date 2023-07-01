@@ -22,10 +22,9 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class MYGUI_EXPORT EditText :
-		public ISubWidgetText
+	class MYGUI_EXPORT EditText : public ISubWidgetText
 	{
-		MYGUI_RTTI_DERIVED( EditText )
+		MYGUI_RTTI_DERIVED(EditText)
 
 	public:
 		EditText();
@@ -41,7 +40,7 @@ namespace MyGUI
 		void setCaption(const UString& _value) override;
 		const UString& getCaption() const override;
 
-		void setTextColour(const Colour& _value)override;
+		void setTextColour(const Colour& _value) override;
 		const Colour& getTextColour() const override;
 
 		void setAlpha(float _value) override;

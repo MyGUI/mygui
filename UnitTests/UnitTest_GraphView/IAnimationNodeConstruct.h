@@ -14,9 +14,8 @@ namespace animation
 		virtual IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) = 0;
 	};
 
-	template <typename Type>
-	class AnimationNodeConstruct :
-		public IAnimationNodeConstruct
+	template<typename Type>
+	class AnimationNodeConstruct : public IAnimationNodeConstruct
 	{
 	public:
 		IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) override

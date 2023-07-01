@@ -13,8 +13,7 @@
 namespace MyGUI
 {
 
-	class DirectXDataManager :
-		public DataManager
+	class DirectXDataManager : public DataManager
 	{
 	public:
 		DirectXDataManager();
@@ -46,7 +45,7 @@ namespace MyGUI
 		/** @see DataManager::getDataPath(const std::string& _name) */
 		std::string getDataPath(const std::string& _name) const override;
 
-	/*internal:*/
+		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:

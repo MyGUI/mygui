@@ -66,7 +66,11 @@ namespace MyGUI
 		/** Get rectangle in screen coordinates */
 		IntRect getAbsoluteRect() const
 		{
-			return {mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left + mCoord.width, mAbsolutePosition.top + mCoord.height};
+			return {
+				mAbsolutePosition.left,
+				mAbsolutePosition.top,
+				mAbsolutePosition.left + mCoord.width,
+				mAbsolutePosition.top + mCoord.height};
 		}
 		/** Get coordinate in screen coordinates */
 		IntCoord getAbsoluteCoord() const
@@ -229,10 +233,11 @@ namespace MyGUI
 
 		bool _checkOutside() const // проверка на полный выход за границу
 		{
-			return ( (getRight() < mCroppedParent->mMargin.left ) || // совсем уехали налево
-				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right ) || // совсем уехали направо
-				(getBottom() < mCroppedParent->mMargin.top  ) || // совсем уехали вверх
-				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom ) );  // совсем уехали вниз
+			return (
+				(getRight() < mCroppedParent->mMargin.left) || // совсем уехали налево
+				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) || // совсем уехали направо
+				(getBottom() < mCroppedParent->mMargin.top) || // совсем уехали вверх
+				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom)); // совсем уехали вниз
 		}
 
 	protected:

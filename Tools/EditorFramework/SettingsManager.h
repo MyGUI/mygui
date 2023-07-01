@@ -18,11 +18,21 @@ namespace tools
 	class NullTerminatedStringView
 	{
 		std::string_view mValue;
+
 	public:
-		NullTerminatedStringView(const std::string& string) : mValue(string) {}
-		template <size_t num>
-		NullTerminatedStringView(const char(& str)[num]) : mValue(str, num) {}
-		NullTerminatedStringView(const MyGUI::UString& string) : mValue(string) {}
+		NullTerminatedStringView(const std::string& string) :
+			mValue(string)
+		{
+		}
+		template<size_t num>
+		NullTerminatedStringView(const char (&str)[num]) :
+			mValue(str, num)
+		{
+		}
+		NullTerminatedStringView(const MyGUI::UString& string) :
+			mValue(string)
+		{
+		}
 
 		std::string_view c_str() const
 		{
@@ -33,10 +43,20 @@ namespace tools
 	class CString
 	{
 		const char* mValue;
+
 	public:
-		CString(const std::string& string) : mValue(string.data()) {}
-		CString(const char* string) : mValue(string) {}
-		CString(NullTerminatedStringView string) : mValue(string.c_str().data()) {}
+		CString(const std::string& string) :
+			mValue(string.data())
+		{
+		}
+		CString(const char* string) :
+			mValue(string)
+		{
+		}
+		CString(NullTerminatedStringView string) :
+			mValue(string.c_str().data())
+		{
+		}
 
 		const char* c_str() const
 		{
@@ -47,6 +67,7 @@ namespace tools
 	class MYGUI_EXPORT_DLL SettingsManager
 	{
 		MYGUI_SINGLETON_DECLARATION(SettingsManager);
+
 	public:
 		SettingsManager();
 		virtual ~SettingsManager();
@@ -59,7 +80,7 @@ namespace tools
 
 		bool getExistValue(CString _path);
 
-		template <typename Type>
+		template<typename Type>
 		bool tryGetValue(CString _path, Type& _result)
 		{
 			_result = Type();
@@ -73,7 +94,7 @@ namespace tools
 
 		std::string getValue(CString _path);
 
-		template <typename Type>
+		template<typename Type>
 		Type getValue(CString _path)
 		{
 			return MyGUI::utility::parseValue<Type>(getValue(_path));
@@ -84,7 +105,7 @@ namespace tools
 			setValueImpl(_path.c_str(), _value);
 		}
 
-		template <class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		template<class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
 		void setValue(NullTerminatedStringView _path, const Type& value)
 		{
 			setValueImpl(_path.c_str(), MyGUI::utility::toString(value));
@@ -93,7 +114,7 @@ namespace tools
 		using VectorString = std::vector<std::string>;
 		VectorString getValueList(std::string_view _path);
 
-		template <typename Type>
+		template<typename Type>
 		std::vector<Type> getValueList(std::string_view _path)
 		{
 			VectorString resultString = getValueList(_path);
@@ -111,13 +132,13 @@ namespace tools
 			setValueListImpl(_path.c_str(), _values);
 		}
 
-		template <typename Type>
+		template<typename Type>
 		void setValueList(NullTerminatedStringView _path, const std::vector<Type>& _values)
 		{
 			VectorString values;
 			values.reserve(_values.size());
 
-			for (typename std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item ++)
+			for (typename std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item++)
 				values.push_back(MyGUI::utility::toString(*item));
 
 			setValueList(_path, values);

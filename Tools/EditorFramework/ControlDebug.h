@@ -11,8 +11,7 @@
 
 namespace tools
 {
-	class MYGUI_EXPORT_DLL ControlDebug :
-		public Control
+	class MYGUI_EXPORT_DLL ControlDebug : public Control
 	{
 	protected:
 		using Control::OnInitialise;

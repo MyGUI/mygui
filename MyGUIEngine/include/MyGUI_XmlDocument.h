@@ -34,12 +34,15 @@ namespace MyGUI::xml
 			MAX
 		};
 
-		ElementType(Enum _value = MAX) : mValue(_value) { }
-		friend bool operator == (ElementType const& a, ElementType const& b)
+		ElementType(Enum _value = MAX) :
+			mValue(_value)
+		{
+		}
+		friend bool operator==(ElementType const& a, ElementType const& b)
 		{
 			return a.mValue == b.mValue;
 		}
-		friend bool operator != (ElementType const& a, ElementType const& b)
+		friend bool operator!=(ElementType const& a, ElementType const& b)
 		{
 			return a.mValue != b.mValue;
 		}
@@ -70,7 +73,10 @@ namespace MyGUI::xml
 			MAX
 		};
 
-		ErrorType(Enum _value = MAX) : mValue(_value) { }
+		ErrorType(Enum _value = MAX) :
+			mValue(_value)
+		{
+		}
 
 		std::string_view print() const
 		{
@@ -95,6 +101,7 @@ namespace MyGUI::xml
 				"XML file contain incorrect attribute"};
 			return values[_index];
 		}
+
 	private:
 		Enum mValue;
 	};
@@ -105,7 +112,7 @@ namespace MyGUI::xml
 	using ElementPtr = Element*;
 	using PairAttribute = std::pair<std::string, std::string>;
 	using VectorAttributes = std::vector<PairAttribute>;
-	using VectorElement = std::vector<std::unique_ptr<Element> >;
+	using VectorElement = std::vector<std::unique_ptr<Element>>;
 
 	//----------------------------------------------------------------------//
 	// class ElementEnumerator
@@ -159,17 +166,24 @@ namespace MyGUI::xml
 		friend class Document;
 
 	public:
-		Element(std::string_view _name, ElementPtr _parent, ElementType _type = ElementType::Normal, std::string_view _content = {});
+		Element(
+			std::string_view _name,
+			ElementPtr _parent,
+			ElementType _type = ElementType::Normal,
+			std::string_view _content = {});
 		Element(Element&&) = default;
 
 	private:
 		void save(std::ostream& _stream, size_t _level);
 
 	public:
-		ElementPtr createChild(std::string_view _name, std::string_view _content = {}, ElementType _type = ElementType::Normal);
+		ElementPtr createChild(
+			std::string_view _name,
+			std::string_view _content = {},
+			ElementType _type = ElementType::Normal);
 		void removeChild(ElementPtr _child);
 
-		template <typename T, typename = std::enable_if_t<!std::is_convertible_v<T, std::string_view>>>
+		template<typename T, typename = std::enable_if_t<!std::is_convertible_v<T, std::string_view>>>
 		void addAttribute(std::string_view _key, const T& _value)
 		{
 			addAttribute(_key, MyGUI::utility::toString(_value));
@@ -181,7 +195,7 @@ namespace MyGUI::xml
 
 		void setAttribute(std::string_view _key, std::string_view _value);
 
-		template <typename T, typename = std::enable_if_t<!std::is_convertible_v<T, std::string_view>>>
+		template<typename T, typename = std::enable_if_t<!std::is_convertible_v<T, std::string_view>>>
 		void addContent(const T& _content)
 		{
 			addContent(MyGUI::utility::toString(_content));
@@ -189,7 +203,7 @@ namespace MyGUI::xml
 
 		void addContent(std::string_view _content);
 
-		template <typename T, typename = std::enable_if_t<!std::is_convertible_v<T, std::string_view>>>
+		template<typename T, typename = std::enable_if_t<!std::is_convertible_v<T, std::string_view>>>
 		void setContent(const T& _content)
 		{
 			setContent(MyGUI::utility::toString(_content));
@@ -219,8 +233,9 @@ namespace MyGUI::xml
 		/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		template <typename T>
-		MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
+		template<typename T>
+		MYGUI_OBSOLETE(
+			"use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
 		void addAttributes(std::string_view _key, const T& _value)
 		{
 			addAttribute<T>(_key, _value);
@@ -231,7 +246,7 @@ namespace MyGUI::xml
 			addAttribute(_key, _value);
 		}
 
-		template <typename T>
+		template<typename T>
 		MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
 		void addBody(const T& _content)
 		{
@@ -242,7 +257,7 @@ namespace MyGUI::xml
 		{
 			addContent(_content);
 		}
-		template <typename T>
+		template<typename T>
 		MYGUI_OBSOLETE("use : template <typename T> void Element::setContent(const T& _content)")
 		void setBody(const T& _content)
 		{
@@ -319,7 +334,8 @@ namespace MyGUI::xml
 		/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(std::string_view _version, std::string_view _encoding)")
+		MYGUI_OBSOLETE(
+			"use : ElementPtr Document::createDeclaration(std::string_view _version, std::string_view _encoding)")
 		ElementPtr createInfo(std::string_view _version = "1.0", std::string_view _encoding = "UTF-8")
 		{
 			return createDeclaration(_version, _encoding);

@@ -29,7 +29,8 @@ namespace demo
 		MyGUI::ResourceManager::getInstance().load("SplineSkin.xml");
 
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("PolygonalSkin usage. Drag white rectangles to move points for bezier curve.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+			"PolygonalSkin usage. Drag white rectangles to move points for bezier curve.");
 
 		MyGUI::VectorWidgetPtr widgets = MyGUI::LayoutManager::getInstance().loadLayout("SplineWindow.layout");
 		mQualityText = widgets.at(0)->findWidget("SplineText")->castType<MyGUI::TextBox>();
@@ -41,7 +42,10 @@ namespace demo
 		mClient = widgets.at(0)->findWidget("SplineClient");
 
 		// create widget with skin that contain specific sub skin - PolygonalSkin
-		MyGUI::Widget* widget = mClient->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(MyGUI::IntPoint(), mClient->getSize()), MyGUI::Align::Stretch);
+		MyGUI::Widget* widget = mClient->createWidget<MyGUI::Widget>(
+			"PolygonalSkin",
+			MyGUI::IntCoord(MyGUI::IntPoint(), mClient->getSize()),
+			MyGUI::Align::Stretch);
 		widget->setColour(MyGUI::Colour::Red);
 		// get main subskin
 		MyGUI::ISubWidget* main = widget->getSubWidgetMain();
@@ -53,7 +57,10 @@ namespace demo
 
 		for (int i = 0; i < PointsCount; ++i)
 		{
-			point[i] = mClient->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10 + (i + i % 2 * 3) * 40, 10 + (i + i / 2 * 3) * 40, 16, 16), MyGUI::Align::Default);
+			point[i] = mClient->createWidget<MyGUI::Button>(
+				"Button",
+				MyGUI::IntCoord(10 + (i + i % 2 * 3) * 40, 10 + (i + i / 2 * 3) * 40, 16, 16),
+				MyGUI::Align::Default);
 			point[i]->eventMouseDrag += newDelegate(this, &DemoKeeper::notifyPointMove);
 			point[i]->eventMouseButtonPressed += newDelegate(this, &DemoKeeper::notifyPointPressed);
 		}
@@ -69,8 +76,10 @@ namespace demo
 		for (size_t i = 0; i < _pointsNumber; ++i)
 		{
 			float t = float(i) / (_pointsNumber - 1);
-			float left = _points[0].left * std::pow(1 - t, 3.0f) + 3 * _points[1].left * std::pow(1 - t, 2.0f) * t + 3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
-			float top = _points[0].top * std::pow(1 - t, 3.0f) + 3 * _points[1].top * std::pow(1 - t, 2.0f) * t + 3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
+			float left = _points[0].left * std::pow(1 - t, 3.0f) + 3 * _points[1].left * std::pow(1 - t, 2.0f) * t +
+				3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
+			float top = _points[0].top * std::pow(1 - t, 3.0f) + 3 * _points[1].top * std::pow(1 - t, 2.0f) * t +
+				3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
 			mLinePoints.emplace_back(left, top);
 		}
 	}
@@ -89,7 +98,8 @@ namespace demo
 
 	void DemoKeeper::notifyPointMove(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		_sender->setPosition(MyGUI::IntPoint(_left, _top) - _sender->getCroppedParent()->getAbsolutePosition() - mOffset);
+		_sender->setPosition(
+			MyGUI::IntPoint(_left, _top) - _sender->getCroppedParent()->getAbsolutePosition() - mOffset);
 		updateSpline();
 	}
 

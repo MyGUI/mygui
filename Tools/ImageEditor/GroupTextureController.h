@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class GroupTextureController :
-		public IControlController,
-		public sigslot::has_slots<>
+	class GroupTextureController : public IControlController, public sigslot::has_slots<>
 	{
 	public:
 		void setTarget(Control* _control) override;

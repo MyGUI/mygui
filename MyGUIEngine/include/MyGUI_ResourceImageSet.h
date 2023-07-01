@@ -23,12 +23,11 @@ namespace MyGUI
 	class ResourceImageSet;
 	using ResourceImageSetPtr = ResourceImageSet*;
 
-	class MYGUI_EXPORT ResourceImageSet :
-		public IResource
+	class MYGUI_EXPORT ResourceImageSet : public IResource
 	{
 		friend class GenericFactory<ResourceImageSet>;
 
-		MYGUI_RTTI_DERIVED( ResourceImageSet )
+		MYGUI_RTTI_DERIVED(ResourceImageSet)
 
 	public:
 		ImageIndexInfo getIndexInfo(std::string_view _group, std::string_view _index) const;

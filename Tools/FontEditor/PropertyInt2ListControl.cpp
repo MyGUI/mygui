@@ -23,7 +23,10 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void PropertyInt2ListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
+	void PropertyInt2ListControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyListControl.layout");
 
@@ -68,7 +71,7 @@ namespace tools
 	{
 		std::string result;
 
-		for (size_t index = 0; index < mList->getItemCount(); index ++)
+		for (size_t index = 0; index < mList->getItemCount(); index++)
 		{
 			if (!result.empty())
 				result += "|";
@@ -96,7 +99,11 @@ namespace tools
 
 		MyGUI::Widget* widget = mList->getWidgetByIndex(mList->getItemCount() - 1);
 		if (widget != nullptr)
-			mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+			mTextFieldControl->setCoord(MyGUI::IntCoord(
+				widget->getAbsoluteLeft(),
+				widget->getAbsoluteTop(),
+				widget->getWidth(),
+				widget->getHeight()));
 
 		mTextFieldControl->doModal();
 	}

@@ -49,7 +49,8 @@ namespace tools
 	{
 		if (!mType->getInitialisator().empty())
 		{
-			IPropertyInitialisator* initialisator = components::FactoryManager::GetInstance().CreateItem<IPropertyInitialisator>(mType->getInitialisator());
+			IPropertyInitialisator* initialisator =
+				components::FactoryManager::GetInstance().CreateItem<IPropertyInitialisator>(mType->getInitialisator());
 			if (initialisator != nullptr)
 				initialisator->initialise(mWeakThis.lock());
 		}

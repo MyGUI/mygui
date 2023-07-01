@@ -23,7 +23,9 @@ namespace demo
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Sample colour picker implementation. Select text in EditBox and then select colour to colour selected part of text.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"Sample colour picker implementation. Select text in EditBox and then select colour to colour selected "
+				"part of text.");
 
 		mColourPanel = new ColourPanel();
 		mEditPanel = new EditPanel();

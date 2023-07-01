@@ -16,11 +16,9 @@ namespace MyGUI
 	/** \brief @wpage{Button}
 		Button widget description should be here.
 	*/
-	class MYGUI_EXPORT Button :
-		public TextBox,
-		public MemberObsolete<Button>
+	class MYGUI_EXPORT Button : public TextBox, public MemberObsolete<Button>
 	{
-		MYGUI_RTTI_DERIVED( Button )
+		MYGUI_RTTI_DERIVED(Button)
 
 	public:
 		//! Set button selected state

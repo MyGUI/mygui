@@ -12,16 +12,15 @@
 #include <string>
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
- // disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-#	pragma warning (push)
-#	pragma warning (disable : 4275)
+	// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+	#pragma warning(push)
+	#pragma warning(disable : 4275)
 #endif
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Exception :
-		public std::exception
+	class MYGUI_EXPORT Exception : public std::exception
 	{
 	public:
 		Exception(std::string _description, std::string _source, std::string _file, long _line);
@@ -49,7 +48,7 @@ namespace MyGUI
 } // namespace MyGUI
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	pragma warning (pop)
+	#pragma warning(pop)
 #endif
 
 #endif // MYGUI_EXCEPTION_H_

@@ -20,13 +20,12 @@ namespace MyGUI
 
 	class BerkeliumDelegate;
 
-	class MYGUI_EXPORT_DLL BerkeliumWidget :
-		public Canvas
+	class MYGUI_EXPORT_DLL BerkeliumWidget : public Canvas
 	{
 		// для вызова закрытого конструктора
 		friend class BerkeliumWidgetFactory;
 
-		MYGUI_RTTI_DERIVED( BerkeliumWidget )
+		MYGUI_RTTI_DERIVED(BerkeliumWidget)
 
 	public:
 		BerkeliumWidget();

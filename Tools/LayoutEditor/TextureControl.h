@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class TextureControlLE :
-		public wraps::BaseLayout
+	class TextureControlLE : public wraps::BaseLayout
 	{
 	public:
 		TextureControlLE(std::string_view _layout, MyGUI::Widget* _parent);
@@ -29,7 +28,7 @@ namespace tools
 		const MyGUI::IntCoord& getTextureRegion() const;
 
 		template<typename T>
-		void addSelectorControl(T * & _control)
+		void addSelectorControl(T*& _control)
 		{
 			assignBase(_control, "Texture");
 			registerSelectorControl(_control);

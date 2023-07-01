@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class GraphNodeEventController :
-		public BaseAnimationNode
+	class GraphNodeEventController : public BaseAnimationNode
 	{
 	public:
 		GraphNodeEventController(std::string_view _name) :
@@ -29,7 +28,8 @@ namespace demo
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mButtonEvent, "ButtonEvent");
 
-			mButtonEvent->eventMouseButtonClick += MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
+			mButtonEvent->eventMouseButtonClick +=
+				MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
 		}
 
 		void shutdown() override

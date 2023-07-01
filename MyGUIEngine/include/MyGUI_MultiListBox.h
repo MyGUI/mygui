@@ -41,7 +41,7 @@ namespace MyGUI
 		public IItemContainer,
 		public MemberObsolete<MultiListBox>
 	{
-		MYGUI_RTTI_DERIVED( MultiListBox )
+		MYGUI_RTTI_DERIVED(MultiListBox)
 
 	public:
 		//! @copydoc Widget::setPosition(const IntPoint& _point)
@@ -150,7 +150,7 @@ namespace MyGUI
 		void clearColumnDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getColumnDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::getItemDataAt");
@@ -219,7 +219,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return getSubItemDataAt<ValueType>(0, _index, _throw);
@@ -254,10 +254,13 @@ namespace MyGUI
 		void clearSubItemDataAt(size_t _column, size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getSubItemDataAt(size_t _column, size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemDataAt");
+			MYGUI_ASSERT_RANGE(
+				_index,
+				mVectorColumnInfo.begin()->list->getItemCount(),
+				"MultiListBox::getSubItemDataAt");
 
 			size_t index = BiIndexBase::convertToBack(_index);
 			return getSubItemAt(_column)->getItemDataAt<ValueType>(index, _throw);
@@ -286,7 +289,10 @@ namespace MyGUI
 			@param _index2 Index of row for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventPair<EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef, EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef> requestOperatorLess;
+		EventPair<
+			EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef,
+			EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef>
+			requestOperatorLess;
 
 		/** Event : Notify about event in item widget.\n
 		signature : void method(MyGUI::MultiList* _sender, const MyGUI::IBNotifyItemData& _info)
@@ -355,7 +361,8 @@ namespace MyGUI
 		void _unwrapItem(MultiListItem* _item);
 		void _swapColumnsAt(size_t _index1, size_t _index2);
 
-		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth) const;
+		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth)
+			const;
 		bool getUpdateByResize() const;
 		int updateWidthColumns(size_t& _countStars, size_t& _lastIndexStar);
 

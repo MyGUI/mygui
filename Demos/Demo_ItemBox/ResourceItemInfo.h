@@ -17,13 +17,11 @@ namespace demo
 	class ResourceItemInfo;
 	using ResourceItemInfoPtr = ResourceItemInfo*;
 
-	class ResourceItemInfo :
-		public MyGUI::IResource,
-		public MyGUI::GenericFactory<ResourceItemInfo>
+	class ResourceItemInfo : public MyGUI::IResource, public MyGUI::GenericFactory<ResourceItemInfo>
 	{
 		friend class MyGUI::GenericFactory<ResourceItemInfo>;
 
-		MYGUI_RTTI_DERIVED( ResourceItemInfo )
+		MYGUI_RTTI_DERIVED(ResourceItemInfo)
 
 	private:
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;

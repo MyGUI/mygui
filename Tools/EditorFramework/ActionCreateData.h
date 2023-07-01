@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionCreateData :
-		public Action
+	class MYGUI_EXPORT_DLL ActionCreateData : public Action
 	{
 	public:
 		ActionCreateData();

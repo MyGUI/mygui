@@ -21,10 +21,10 @@ namespace MyGUI
 
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
-	class MYGUI_EXPORT PluginManager :
-		public MemberObsolete<PluginManager>
+	class MYGUI_EXPORT PluginManager : public MemberObsolete<PluginManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(PluginManager);
+
 	public:
 		PluginManager();
 

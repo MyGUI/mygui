@@ -16,8 +16,7 @@
 static MyGUI::UString gMediaBase;
 using PairFileInfo = std::pair<std::wstring, common::FileInfo>;
 
-class SampleLayout :
-	public wraps::BaseLayout
+class SampleLayout : public wraps::BaseLayout
 {
 public:
 	SampleLayout();
@@ -31,7 +30,8 @@ private:
 
 static SampleLayout* mSampleLayout;
 
-SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
+SampleLayout::SampleLayout() :
+	BaseLayout("SampleLayout.layout")
 {
 	assignWidget(mpResourcesTree, "ResourcesTree");
 	mpResourcesTree->eventTreeNodePrepare += newDelegate(this, &SampleLayout::notifyTreeNodePrepare);
@@ -39,7 +39,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 
 	MyGUI::TreeControl::Node* pRoot = mpResourcesTree->getRoot();
 
-/*#ifdef MYGUI_OGRE_PLATFORM
+	/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::ArchiveManager::ArchiveMapIterator ArchiveIterator = Ogre::ArchiveManager::getSingleton().getArchiveIterator();
 	while (ArchiveIterator.hasMoreElements())
 	{
@@ -63,7 +63,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 		pRoot->add(pNode);
 	}
 
-//#endif
+	//#endif
 }
 
 void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI::TreeControl::Node* pNode)
@@ -73,7 +73,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 
 	pNode->removeAll();
 
-/*#ifdef MYGUI_OGRE_PLATFORM
+	/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::Archive* pArchive = *(pNode->getData<Ogre::Archive*>());
 
 	MyGUI::UString strPath(getPath(pNode));
@@ -155,11 +155,16 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 				if (nPosition != MyGUI::UString::npos)
 				{
 					strExtension = strName.substr(nPosition + 1);
-					std::transform(strExtension.begin(), strExtension.end(), strExtension.begin(), [](unsigned char c) { return tolower(c); });
+					std::transform(
+						strExtension.begin(),
+						strExtension.end(),
+						strExtension.begin(),
+						[](unsigned char c) { return tolower(c); });
 				}
 
 				MyGUI::UString strImage;
-				if (strExtension == "png" || strExtension == "tif" || strExtension == "tiff" || strExtension == "jpg" || strExtension == "jpeg")
+				if (strExtension == "png" || strExtension == "tif" || strExtension == "tiff" || strExtension == "jpg" ||
+					strExtension == "jpeg")
 					strImage = "Image";
 				else if (strExtension == "mat" || strExtension == "material")
 					strImage = "Material";
@@ -185,7 +190,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		}
 	}
 
-//#endif
+	//#endif
 }
 
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const

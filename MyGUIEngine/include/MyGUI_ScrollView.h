@@ -17,12 +17,9 @@ namespace MyGUI
 	/** \brief @wpage{ScrollView}
 		ScrollView widget description should be here.
 	*/
-	class MYGUI_EXPORT ScrollView :
-		public Widget,
-		protected ScrollViewBase,
-		public MemberObsolete<ScrollView>
+	class MYGUI_EXPORT ScrollView : public Widget, protected ScrollViewBase, public MemberObsolete<ScrollView>
 	{
-		MYGUI_RTTI_DERIVED( ScrollView )
+		MYGUI_RTTI_DERIVED(ScrollView)
 
 	public:
 		ScrollView();

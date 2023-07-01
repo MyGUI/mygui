@@ -42,23 +42,23 @@ namespace MyGUI
 			return type;
 		}
 
-		friend bool operator == (ResizingPolicy const& a, ResizingPolicy const& b)
+		friend bool operator==(ResizingPolicy const& a, ResizingPolicy const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (ResizingPolicy const& a, ResizingPolicy const& b)
+		friend bool operator!=(ResizingPolicy const& a, ResizingPolicy const& b)
 		{
 			return a.mValue != b.mValue;
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const ResizingPolicy&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const ResizingPolicy& _value)
 		{
 			_stream << _value.getValueName(_value.mValue);
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, ResizingPolicy&  _value)
+		friend std::istream& operator>>(std::istream& _stream, ResizingPolicy& _value)
 		{
 			std::string value;
 			_stream >> value;

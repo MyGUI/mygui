@@ -20,11 +20,9 @@ namespace MyGUI
 	/** \brief @wpage{ScrollBar}
 		ScrollBar widget description should be here.
 	*/
-	class MYGUI_EXPORT ScrollBar :
-		public Widget,
-		public MemberObsolete<ScrollBar>
+	class MYGUI_EXPORT ScrollBar : public Widget, public MemberObsolete<ScrollBar>
 	{
-		MYGUI_RTTI_DERIVED( ScrollBar )
+		MYGUI_RTTI_DERIVED(ScrollBar)
 
 	public:
 		/** Set vertical alignment grid mode */
@@ -112,9 +110,9 @@ namespace MyGUI
 		//! @copydoc Widget::setCoord(const IntCoord& _coord)
 		void setCoord(const IntCoord& _coord) override;
 
-        using Widget::setPosition;
-        using Widget::setSize;
-        using Widget::setCoord;
+		using Widget::setPosition;
+		using Widget::setSize;
+		using Widget::setCoord;
 
 		/*events:*/
 		/** Event : scroll tracker position changed.\n

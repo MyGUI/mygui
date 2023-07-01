@@ -11,8 +11,7 @@
 
 namespace tools
 {
-	class ActionDestroyData :
-		public Action
+	class ActionDestroyData : public Action
 	{
 	public:
 		ActionDestroyData();

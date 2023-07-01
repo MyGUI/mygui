@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class SettingsGeneralControl :
-		public Control
+	class SettingsGeneralControl : public Control
 	{
 	public:
 		~SettingsGeneralControl() override;

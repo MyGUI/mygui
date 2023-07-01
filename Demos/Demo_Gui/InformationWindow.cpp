@@ -20,7 +20,8 @@ namespace demo
 		{
 			const MyGUI::IntCoord& coord = _parent->getClientCoord();
 			const MyGUI::IntSize& size = mMainWidget->getSize();
-			mMainWidget->setPosition(MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
+			mMainWidget->setPosition(
+				MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
 		}
 	}
 

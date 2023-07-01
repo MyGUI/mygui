@@ -27,8 +27,12 @@ namespace tools
 		sigslot::signal2<Dialog*, bool> eventEndDialog;
 
 	protected:
-		virtual void onDoModal() { }
-		virtual void onEndModal() { }
+		virtual void onDoModal()
+		{
+		}
+		virtual void onEndModal()
+		{
+		}
 
 	private:
 		bool mModal{false};

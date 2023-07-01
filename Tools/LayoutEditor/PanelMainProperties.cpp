@@ -132,7 +132,10 @@ namespace tools
 			}
 			else
 			{
-				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->getSkin(), "' not found. This value will be saved.");
+				std::string mess = MyGUI::utility::toString(
+					"Skin '",
+					widgetContainer->getSkin(),
+					"' not found. This value will be saved.");
 				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 			}
 
@@ -142,8 +145,7 @@ namespace tools
 
 	bool PanelMainProperties::isSkinExist(std::string_view _skinName)
 	{
-		return _skinName == "Default" ||
-			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
 
@@ -283,7 +285,10 @@ namespace tools
 		}
 	}
 
-	IPropertyField* PanelMainProperties::getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type)
+	IPropertyField* PanelMainProperties::getPropertyField(
+		MyGUI::Widget* _client,
+		std::string_view _name,
+		std::string_view _type)
 	{
 		MapPropertyField::iterator item = mFields.find(_name);
 		if (item != mFields.end())

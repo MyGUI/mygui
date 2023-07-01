@@ -36,7 +36,7 @@ namespace demo
 				button->eventMouseButtonClick += MyGUI::newDelegate(this, &DataListUI::notifyMouseButtonClick);
 		}
 
-		for (size_t index = 0; index < _widget->getChildCount(); index ++)
+		for (size_t index = 0; index < _widget->getChildCount(); index++)
 			bindEvents(_widget->getChildAt(index));
 	}
 
@@ -59,7 +59,7 @@ namespace demo
 
 			tools::ActionManager::getInstance().doAction(command);
 
-			mIndex ++;
+			mIndex++;
 		}
 		else if (event == "Remove")
 		{
@@ -90,7 +90,7 @@ namespace demo
 		mListBox->removeAllItems();
 
 		const tools::Data::VectorData& childs = tools::DataManager::getInstance().getRoot()->getChilds();
-		for (tools::Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child ++)
+		for (tools::Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			tools::Data* data = *(child);
 			mListBox->addItem((*child)->getPropertyValue("Name"), data);

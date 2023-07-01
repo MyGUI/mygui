@@ -16,8 +16,12 @@ namespace tools
 	class MYGUI_EXPORT_DLL StateManager
 	{
 		MYGUI_SINGLETON_DECLARATION(StateManager);
+
 	public:
-		StateManager() : mSingletonHolder(this) { }
+		StateManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 

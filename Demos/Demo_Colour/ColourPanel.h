@@ -13,8 +13,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
-	class ColourPanel :
-		public wraps::BaseLayout
+	class ColourPanel : public wraps::BaseLayout
 	{
 	public:
 		ColourPanel();

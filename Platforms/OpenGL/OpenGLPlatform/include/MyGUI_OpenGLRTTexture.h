@@ -15,8 +15,7 @@
 namespace MyGUI
 {
 
-	class OpenGLRTTexture :
-		public IRenderTarget
+	class OpenGLRTTexture : public IRenderTarget
 	{
 	public:
 		OpenGLRTTexture(unsigned int _texture);

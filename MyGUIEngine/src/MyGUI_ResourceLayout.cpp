@@ -44,11 +44,13 @@ namespace MyGUI
 		_widget->findAttribute("skin", widgetInfo.skin);
 		_widget->findAttribute("layer", widgetInfo.layer);
 
-		if (_widget->findAttribute("align", tmp)) widgetInfo.align = Align::parse(tmp);
+		if (_widget->findAttribute("align", tmp))
+			widgetInfo.align = Align::parse(tmp);
 
 		_widget->findAttribute("name", widgetInfo.name);
 
-		if (_widget->findAttribute("style", tmp)) widgetInfo.style = WidgetStyle::parse(tmp);
+		if (_widget->findAttribute("style", tmp))
+			widgetInfo.style = WidgetStyle::parse(tmp);
 
 		if (_widget->findAttribute("position", tmp))
 		{
@@ -112,7 +114,11 @@ namespace MyGUI
 		return widgets;
 	}
 
-	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, std::string_view _prefix, Widget* _parent, bool _template)
+	Widget* ResourceLayout::createWidget(
+		const WidgetInfo& _widgetInfo,
+		std::string_view _prefix,
+		Widget* _parent,
+		bool _template)
 	{
 		std::string widgetName;
 		WidgetStyle style = _widgetInfo.style;
@@ -124,29 +130,57 @@ namespace MyGUI
 			widgetName += _widgetInfo.name;
 		}
 
-		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer = {};
+		if (_parent != nullptr && style != WidgetStyle::Popup)
+			widgetLayer = {};
 		if (_parent == nullptr && widgetLayer.empty())
 		{
-			MYGUI_LOG(Warning, "Root widget's layer is not specified, widget won't be visible. Specify layer or parent or attach it to another widget after load." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Root widget's layer is not specified, widget won't be visible. Specify layer or parent or attach it "
+				"to another widget after load."
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
 
 		IntCoord coord;
-		if (_widgetInfo.positionType == WidgetInfo::Pixels) coord = _widgetInfo.intCoord;
+		if (_widgetInfo.positionType == WidgetInfo::Pixels)
+			coord = _widgetInfo.intCoord;
 		else if (_widgetInfo.positionType == WidgetInfo::Relative)
 		{
 			if (_parent == nullptr || style == WidgetStyle::Popup)
-				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, RenderManager::getInstance().getViewSize());
+				coord = CoordConverter::convertFromRelative(
+					_widgetInfo.floatCoord,
+					RenderManager::getInstance().getViewSize());
 			else
 				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, _parent->getClientCoord().size());
 		}
 
 		Widget* wid;
 		if (nullptr == _parent)
-			wid = Gui::getInstance().createWidgetT(_widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+			wid = Gui::getInstance().createWidgetT(
+				_widgetInfo.type,
+				_widgetInfo.skin,
+				coord,
+				_widgetInfo.align,
+				widgetLayer,
+				widgetName);
 		else if (_template)
-			wid = _parent->_createSkinWidget(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+			wid = _parent->_createSkinWidget(
+				style,
+				_widgetInfo.type,
+				_widgetInfo.skin,
+				coord,
+				_widgetInfo.align,
+				widgetLayer,
+				widgetName);
 		else
-			wid = _parent->createWidgetT(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+			wid = _parent->createWidgetT(
+				style,
+				_widgetInfo.type,
+				_widgetInfo.skin,
+				coord,
+				_widgetInfo.align,
+				widgetLayer,
+				widgetName);
 
 		for (const auto& property : _widgetInfo.properties)
 		{

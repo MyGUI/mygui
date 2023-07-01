@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	Exception::Exception(std::string _description, std::string _source, std::string _file, long _line ) :
+	Exception::Exception(std::string _description, std::string _source, std::string _file, long _line) :
 		mDescription(std::move(_description)),
 		mSource(std::move(_source)),
 		mFile(std::move(_file)),
@@ -25,9 +25,18 @@ namespace MyGUI
 	{
 		if (mFullDesc.empty())
 		{
-			if ( mLine > 0 )
+			if (mLine > 0)
 			{
-				mFullDesc = utility::toString("MyGUI EXCEPTION : ", mDescription, " in ", mSource, " at ", mFile, " (line ", mLine, ")");
+				mFullDesc = utility::toString(
+					"MyGUI EXCEPTION : ",
+					mDescription,
+					" in ",
+					mSource,
+					" at ",
+					mFile,
+					" (line ",
+					mLine,
+					")");
 			}
 			else
 			{

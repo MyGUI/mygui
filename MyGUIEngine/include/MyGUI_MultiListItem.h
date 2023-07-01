@@ -18,10 +18,9 @@ namespace MyGUI
 	/** \brief @wpage{MultiListItem}
 		MultiListItem widget description should be here.
 	*/
-	class MYGUI_EXPORT MultiListItem :
-		public TextBox
+	class MYGUI_EXPORT MultiListItem : public TextBox
 	{
-		MYGUI_RTTI_DERIVED( MultiListItem )
+		MYGUI_RTTI_DERIVED(MultiListItem)
 
 	public:
 		/** Set item caption */
@@ -41,7 +40,6 @@ namespace MyGUI
 
 	private:
 		MultiListBox* getOwner() const;
-
 	};
 
 } // namespace MyGUI

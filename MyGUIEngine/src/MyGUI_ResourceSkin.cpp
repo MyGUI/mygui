@@ -32,7 +32,8 @@ namespace MyGUI
 		IntSize size;
 		_node->findAttribute("name", name);
 		_node->findAttribute("texture", texture);
-		if (_node->findAttribute("size", tmp)) size = IntSize::parse(tmp);
+		if (_node->findAttribute("size", tmp))
+			size = IntSize::parse(tmp);
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -183,7 +184,6 @@ namespace MyGUI
 				// теперь всё вместе добавляем в скин
 				addInfo(bind);
 			}
-
 		}
 	}
 
@@ -215,7 +215,7 @@ namespace MyGUI
 	{
 		for (auto& state : mStates)
 		{
-			for (auto& info :state.second)
+			for (auto& info : state.second)
 				delete info;
 		}
 	}

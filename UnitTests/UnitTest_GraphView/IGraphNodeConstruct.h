@@ -13,9 +13,8 @@ namespace demo
 		virtual BaseAnimationNode* create(std::string_view _name) = 0;
 	};
 
-	template <typename Type>
-	class GraphNodeConstruct :
-		public IGraphNodeConstruct
+	template<typename Type>
+	class GraphNodeConstruct : public IGraphNodeConstruct
 	{
 	public:
 		BaseAnimationNode* create(std::string_view _name) override

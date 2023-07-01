@@ -13,15 +13,15 @@
 
 #ifdef MYGUI_USE_FREETYPE
 
-#	include FT_GLYPH_H
-#	include FT_TRUETYPE_TABLES_H
-#	include FT_BITMAP_H
-#	include FT_WINFONTS_H
+	#include FT_GLYPH_H
+	#include FT_TRUETYPE_TABLES_H
+	#include FT_BITMAP_H
+	#include FT_WINFONTS_H
 
-#ifdef MYGUI_MSDF_FONTS
-#include "msdfgen/msdfgen.h"
-#include "msdfgen/msdfgen-ext.h"
-#endif
+	#ifdef MYGUI_MSDF_FONTS
+		#include "msdfgen/msdfgen.h"
+		#include "msdfgen/msdfgen-ext.h"
+	#endif
 
 #endif // MYGUI_USE_FREETYPE
 
@@ -40,7 +40,10 @@ namespace MyGUI
 	void ResourceTrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
-		MYGUI_LOG(Error, "ResourceTrueTypeFont: TrueType font '" << getResourceName() << "' disabled. Define MYGUI_USE_FREETYE if you need TrueType fonts.");
+		MYGUI_LOG(
+			Error,
+			"ResourceTrueTypeFont: TrueType font '"
+				<< getResourceName() << "' disabled. Define MYGUI_USE_FREETYE if you need TrueType fonts.");
 	}
 
 	const GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id) const
@@ -62,9 +65,9 @@ namespace MyGUI
 	{
 	}
 
-	std::vector<std::pair<Char, Char> > ResourceTrueTypeFont::getCodePointRanges() const
+	std::vector<std::pair<Char, Char>> ResourceTrueTypeFont::getCodePointRanges() const
 	{
-		return std::vector<std::pair<Char, Char> >();
+		return std::vector<std::pair<Char, Char>>();
 	}
 
 	Char ResourceTrueTypeFont::getSubstituteCodePoint() const
@@ -143,13 +146,11 @@ namespace MyGUI
 				_var = _newValue;
 		}
 
-		const std::map<const Char, const uint8> charMask
-		{
+		const std::map<const Char, const uint8> charMask{
 			{FontCodeType::Selected, 0x88},
 			{FontCodeType::SelectedBack, 0x60},
 			{FontCodeType::Cursor, 0xFF},
-			{FontCodeType::Tab, 0x00}
-		};
+			{FontCodeType::Tab, 0x00}};
 		const uint8 charMaskBlack = 0x00;
 		const uint8 charMaskWhite = 0xFF;
 
@@ -276,11 +277,19 @@ namespace MyGUI
 				else if (key == "SpaceWidth")
 				{
 					mSpaceWidth = utility::parseFloat(value);
-					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; remove it to use automatic calculation.");
+					MYGUI_LOG(
+						Warning,
+						_node->findAttribute("type")
+							<< ": Property '" << key << "' in font '" << _node->findAttribute("name")
+							<< "' is deprecated; remove it to use automatic calculation.");
 				}
 				else if (key == "CursorWidth")
 				{
-					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; value ignored.");
+					MYGUI_LOG(
+						Warning,
+						_node->findAttribute("type")
+							<< ": Property '" << key << "' in font '" << _node->findAttribute("name")
+							<< "' is deprecated; value ignored.");
 				}
 				else if (key == "MsdfMode")
 				{
@@ -365,9 +374,9 @@ namespace MyGUI
 		initialise();
 	}
 
-	std::vector<std::pair<Char, Char> > ResourceTrueTypeFont::getCodePointRanges() const
+	std::vector<std::pair<Char, Char>> ResourceTrueTypeFont::getCodePointRanges() const
 	{
-		std::vector<std::pair<Char, Char> > result;
+		std::vector<std::pair<Char, Char>> result;
 
 		if (!mCharMap.empty())
 		{
@@ -445,7 +454,9 @@ namespace MyGUI
 			mGlyphSpacing = mDefaultGlyphSpacing;
 
 		// If L8A8 (2 bytes per pixel) is supported, use it; otherwise, use R8G8B8A8 (4 bytes per pixel) as L8L8L8A8.
-		bool laMode = MyGUI::RenderManager::getInstance().isFormatSupported(Pixel<true>::getFormat(), TextureUsage::Static | TextureUsage::Write);
+		bool laMode = MyGUI::RenderManager::getInstance().isFormatSupported(
+			Pixel<true>::getFormat(),
+			TextureUsage::Static | TextureUsage::Write);
 		if (mMsdfMode)
 			laMode = false;
 
@@ -491,14 +502,14 @@ namespace MyGUI
 			return;
 		}
 
-#ifdef MYGUI_MSDF_FONTS
+	#ifdef MYGUI_MSDF_FONTS
 		msdfgen::FontHandle* msdfFont = nullptr;
 
 		if (mMsdfMode)
 		{
 			msdfFont = msdfgen::adoptFreetypeFont(ftFace);
 		}
-#endif
+	#endif
 
 		//-------------------------------------------------------------------//
 		// Calculate the font metrics.
@@ -533,20 +544,14 @@ namespace MyGUI
 
 		switch (mHinting)
 		{
-		case HintingForceAuto:
-			ftLoadFlags = FT_LOAD_FORCE_AUTOHINT;
-			break;
-		case HintingDisableAuto:
-			ftLoadFlags = FT_LOAD_NO_AUTOHINT;
-			break;
+		case HintingForceAuto: ftLoadFlags = FT_LOAD_FORCE_AUTOHINT; break;
+		case HintingDisableAuto: ftLoadFlags = FT_LOAD_NO_AUTOHINT; break;
 		case HintingDisableAll:
 			// When hinting is completely disabled, glyphs must always be rendered -- even during layout calculations -- due to
 			// discrepancies between the glyph metrics and the actual rendered bitmap metrics.
 			ftLoadFlags = FT_LOAD_NO_HINTING | FT_LOAD_RENDER;
 			break;
-		case HintingUseNative:
-			ftLoadFlags = FT_LOAD_DEFAULT;
-			break;
+		case HintingUseNative: ftLoadFlags = FT_LOAD_DEFAULT; break;
 		}
 
 		//-------------------------------------------------------------------//
@@ -561,17 +566,17 @@ namespace MyGUI
 		addCodePoint(FontCodeType::Space);
 
 		// Create the standard glyphs.
-		for (CharMap::iterator iter = mCharMap.begin(); iter != mCharMap.end(); )
+		for (CharMap::iterator iter = mCharMap.begin(); iter != mCharMap.end();)
 		{
 			const Char& codePoint = iter->first;
 			FT_UInt glyphIndex = FT_Get_Char_Index(ftFace, codePoint);
 
 			if (!mMsdfMode)
 				texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
-#ifdef MYGUI_MSDF_FONTS
+	#ifdef MYGUI_MSDF_FONTS
 			else
 				texWidth += createMsdfFaceGlyph(codePoint, fontAscent, msdfFont, glyphHeightMap);
-#endif
+	#endif
 
 			// If the newly created glyph is the "Not Defined" glyph, it means that the code point is not supported by the font.
 			// Remove it from the character map so that we can provide our own substitute instead of letting FreeType do it.
@@ -606,10 +611,22 @@ namespace MyGUI
 
 		float height = (float)mDefaultHeight;
 
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::Tab), 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::Selected), mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::SelectedBack), mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::Cursor), mCursorWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(
+			nextGlyphIndex++,
+			GlyphInfo(static_cast<Char>(FontCodeType::Tab), 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f),
+			glyphHeightMap);
+		texWidth += createGlyph(
+			nextGlyphIndex++,
+			GlyphInfo(static_cast<Char>(FontCodeType::Selected), mSelectedWidth, height, 0.0f, 0.0f, 0.0f),
+			glyphHeightMap);
+		texWidth += createGlyph(
+			nextGlyphIndex++,
+			GlyphInfo(static_cast<Char>(FontCodeType::SelectedBack), mSelectedWidth, height, 0.0f, 0.0f, 0.0f),
+			glyphHeightMap);
+		texWidth += createGlyph(
+			nextGlyphIndex++,
+			GlyphInfo(static_cast<Char>(FontCodeType::Cursor), mCursorWidth, height, 0.0f, 0.0f, 0.0f),
+			glyphHeightMap);
 
 		// If a substitute code point has been specified, check to make sure that it exists in the character map. If it doesn't,
 		// revert to the default "Not Defined" code point. This is not a real code point but rather an invalid Unicode value that
@@ -621,11 +638,21 @@ namespace MyGUI
 		if (mSubstituteCodePoint == FontCodeType::NotDefined)
 		{
 			if (!mMsdfMode)
-				texWidth += createFaceGlyph(0, static_cast<Char>(FontCodeType::NotDefined), fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
-#ifdef MYGUI_MSDF_FONTS
+				texWidth += createFaceGlyph(
+					0,
+					static_cast<Char>(FontCodeType::NotDefined),
+					fontAscent,
+					ftFace,
+					ftLoadFlags,
+					glyphHeightMap);
+	#ifdef MYGUI_MSDF_FONTS
 			else
-				texWidth += createMsdfFaceGlyph(static_cast<Char>(FontCodeType::NotDefined), fontAscent, msdfFont, glyphHeightMap);
-#endif
+				texWidth += createMsdfFaceGlyph(
+					static_cast<Char>(FontCodeType::NotDefined),
+					fontAscent,
+					msdfFont,
+					glyphHeightMap);
+	#endif
 		}
 
 		// Cache a pointer to the substitute glyph info for fast lookup.
@@ -685,8 +712,7 @@ namespace MyGUI
 			}
 
 			texHeight = Bitwise::firstPO2From(texY + glyphHeightMap.rbegin()->first);
-		}
-		while (texHeight > texWidth * 2);
+		} while (texHeight > texWidth * 2);
 
 		//-------------------------------------------------------------------//
 		// Create the texture and render the glyphs onto it.
@@ -694,13 +720,14 @@ namespace MyGUI
 
 		if (mTexture)
 		{
-			RenderManager::getInstance().destroyTexture( mTexture );
+			RenderManager::getInstance().destroyTexture(mTexture);
 			mTexture = nullptr;
 		}
 
 		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 
-		mTexture->createManual(texWidth, texHeight, TextureUsage::Static | TextureUsage::Write, Pixel<LAMode>::getFormat());
+		mTexture
+			->createManual(texWidth, texHeight, TextureUsage::Static | TextureUsage::Write, Pixel<LAMode>::getFormat());
 		mTexture->setInvalidateListener(this);
 
 		if (!mShader.empty())
@@ -711,32 +738,46 @@ namespace MyGUI
 		if (texBuffer != nullptr)
 		{
 			// Make the texture background transparent white (or black for msdf mode).
-			for (uint8* dest = texBuffer, * endDest = dest + texWidth * texHeight * Pixel<LAMode>::getNumBytes(); dest != endDest; )
+			for (uint8 *dest = texBuffer, *endDest = dest + texWidth * texHeight * Pixel<LAMode>::getNumBytes();
+				 dest != endDest;)
 				Pixel<LAMode, false, false>::set(dest, mMsdfMode ? charMaskBlack : charMaskWhite, charMaskBlack, dest);
 
 			if (!mMsdfMode)
-				renderGlyphs<LAMode, Antialias>(glyphHeightMap, ftLibrary, ftFace, ftLoadFlags, texBuffer, texWidth, texHeight);
-#ifdef MYGUI_MSDF_FONTS
+				renderGlyphs<LAMode, Antialias>(
+					glyphHeightMap,
+					ftLibrary,
+					ftFace,
+					ftLoadFlags,
+					texBuffer,
+					texWidth,
+					texHeight);
+	#ifdef MYGUI_MSDF_FONTS
 			else
 				renderMsdfGlyphs(glyphHeightMap, msdfFont, texBuffer, texWidth, texHeight);
-#endif
+	#endif
 
 			mTexture->unlock();
 
-			MYGUI_LOG(Info, "ResourceTrueTypeFont: Font '" << getResourceName() << "' using texture size " << texWidth << " x " << texHeight << ".");
-			MYGUI_LOG(Info, "ResourceTrueTypeFont: Font '" << getResourceName() << "' using real height " << mDefaultHeight << " pixels.");
+			MYGUI_LOG(
+				Info,
+				"ResourceTrueTypeFont: Font '"
+					<< getResourceName() << "' using texture size " << texWidth << " x " << texHeight << ".");
+			MYGUI_LOG(
+				Info,
+				"ResourceTrueTypeFont: Font '"
+					<< getResourceName() << "' using real height " << mDefaultHeight << " pixels.");
 		}
 		else
 		{
 			MYGUI_LOG(Error, "ResourceTrueTypeFont: Error locking texture; pointer is nullptr.");
 		}
 
-#ifdef MYGUI_MSDF_FONTS
+	#ifdef MYGUI_MSDF_FONTS
 		if (mMsdfMode)
 		{
 			msdfgen::destroyFont(msdfFont);
 		}
-#endif
+	#endif
 
 		FT_Done_Face(ftFace);
 		FT_Done_FreeType(ftLibrary);
@@ -799,15 +840,15 @@ namespace MyGUI
 				if (FT_Get_WinFNT_Header(result, &fnt) != 0)
 					MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 
-				faceSizes.insert(std::make_pair((float)fnt.nominal_point_size * fnt.vertical_resolution / mResolution, faceIndex));
+				faceSizes.insert(
+					std::make_pair((float)fnt.nominal_point_size * fnt.vertical_resolution / mResolution, faceIndex));
 
 				FT_Done_Face(result);
 
 				if (++faceIndex < numFaces)
 					if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
 						MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
-			}
-			while (faceIndex < numFaces);
+			} while (faceIndex < numFaces);
 
 			std::map<float, FT_Long>::const_iterator iter = faceSizes.lower_bound(mSize);
 
@@ -852,7 +893,8 @@ namespace MyGUI
 		return result;
 	}
 
-	void ResourceTrueTypeFont::autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY) const
+	void ResourceTrueTypeFont::autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY)
+		const
 	{
 		if (_glyphWidth > 0 && _texX + mGlyphSpacing + _glyphWidth > _texWidth)
 		{
@@ -878,7 +920,10 @@ namespace MyGUI
 			std::floor(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight)};
 	}
 
-	int ResourceTrueTypeFont::createGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
+	int ResourceTrueTypeFont::createGlyph(
+		FT_UInt _glyphIndex,
+		const GlyphInfo& _glyphInfo,
+		GlyphHeightMap& _glyphHeightMap)
 	{
 		int width = (int)std::ceil(_glyphInfo.width);
 		int height = (int)std::ceil(_glyphInfo.height);
@@ -890,16 +935,25 @@ namespace MyGUI
 		return (width > 0) ? mGlyphSpacing + width : 0;
 	}
 
-	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, GlyphHeightMap& _glyphHeightMap)
+	int ResourceTrueTypeFont::createFaceGlyph(
+		FT_UInt _glyphIndex,
+		Char _codePoint,
+		int _fontAscent,
+		const FT_Face& _ftFace,
+		FT_Int32 _ftLoadFlags,
+		GlyphHeightMap& _glyphHeightMap)
 	{
 		if (mGlyphMap.find(_codePoint) == mGlyphMap.end())
 		{
 			if (FT_Load_Glyph(_ftFace, _glyphIndex, _ftLoadFlags) == 0)
-				return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _ftFace->glyph), _glyphHeightMap);
+				return createGlyph(
+					_glyphIndex,
+					createFaceGlyphInfo(_codePoint, _fontAscent, _ftFace->glyph),
+					_glyphHeightMap);
 			MYGUI_LOG(
 				Warning,
-				"ResourceTrueTypeFont: Cannot load glyph " << _glyphIndex << " for character " << _codePoint
-														   << " in font '" << getResourceName() << "'.");
+				"ResourceTrueTypeFont: Cannot load glyph "
+					<< _glyphIndex << " for character " << _codePoint << " in font '" << getResourceName() << "'.");
 		}
 		else
 		{
@@ -910,7 +964,14 @@ namespace MyGUI
 	}
 
 	template<bool LAMode, bool Antialias>
-	void ResourceTrueTypeFont::renderGlyphs(const GlyphHeightMap& _glyphHeightMap, const FT_Library& _ftLibrary, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, uint8* _texBuffer, int _texWidth, int _texHeight)
+	void ResourceTrueTypeFont::renderGlyphs(
+		const GlyphHeightMap& _glyphHeightMap,
+		const FT_Library& _ftLibrary,
+		const FT_Face& _ftFace,
+		FT_Int32 _ftLoadFlags,
+		uint8* _texBuffer,
+		int _texWidth,
+		int _texHeight)
 	{
 		FT_Bitmap ftBitmap;
 		FT_Bitmap_New(&ftBitmap);
@@ -930,7 +991,17 @@ namespace MyGUI
 				case FontCodeType::Selected:
 				case FontCodeType::SelectedBack:
 				{
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
+					renderGlyph<LAMode, false, false>(
+						info,
+						charMaskWhite,
+						charMaskBlack,
+						charMask.find(info.codePoint)->second,
+						glyphHeight,
+						_texBuffer,
+						_texWidth,
+						_texHeight,
+						texX,
+						texY);
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
@@ -945,7 +1016,17 @@ namespace MyGUI
 
 				case FontCodeType::Cursor:
 				case FontCodeType::Tab:
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
+					renderGlyph<LAMode, false, false>(
+						info,
+						charMaskWhite,
+						charMaskBlack,
+						charMask.find(info.codePoint)->second,
+						glyphHeight,
+						_texBuffer,
+						_texWidth,
+						_texHeight,
+						texX,
+						texY);
 					break;
 
 				default:
@@ -957,16 +1038,16 @@ namespace MyGUI
 
 							switch (_ftFace->glyph->bitmap.pixel_mode)
 							{
-							case FT_PIXEL_MODE_GRAY:
-								glyphBuffer = _ftFace->glyph->bitmap.buffer;
-								break;
+							case FT_PIXEL_MODE_GRAY: glyphBuffer = _ftFace->glyph->bitmap.buffer; break;
 
 							case FT_PIXEL_MODE_MONO:
 								// Convert the monochrome bitmap to 8-bit before rendering it.
 								if (FT_Bitmap_Convert(_ftLibrary, &_ftFace->glyph->bitmap, &ftBitmap, 1) == 0)
 								{
 									// Go through the bitmap and convert all of the nonzero values to 0xFF (white).
-									for (uint8* p = ftBitmap.buffer, * endP = p + ftBitmap.width * ftBitmap.rows; p != endP; ++p)
+									for (uint8 *p = ftBitmap.buffer, *endP = p + ftBitmap.width * ftBitmap.rows;
+										 p != endP;
+										 ++p)
 										*p = *p ? 0xFF : 0;
 
 									glyphBuffer = ftBitmap.buffer;
@@ -975,12 +1056,27 @@ namespace MyGUI
 							}
 
 							if (glyphBuffer != nullptr)
-								renderGlyph<LAMode, true, Antialias>(info, charMaskWhite, charMaskWhite, charMaskWhite, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY, glyphBuffer);
+								renderGlyph<LAMode, true, Antialias>(
+									info,
+									charMaskWhite,
+									charMaskWhite,
+									charMaskWhite,
+									glyphHeight,
+									_texBuffer,
+									_texWidth,
+									_texHeight,
+									texX,
+									texY,
+									glyphBuffer);
 						}
 					}
 					else
 					{
-						MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot render glyph " << glyph.first << " for character " << info.codePoint << " in font '" << getResourceName() << "'.");
+						MYGUI_LOG(
+							Warning,
+							"ResourceTrueTypeFont: Cannot render glyph "
+								<< glyph.first << " for character " << info.codePoint << " in font '"
+								<< getResourceName() << "'.");
 					}
 					break;
 				}
@@ -991,7 +1087,18 @@ namespace MyGUI
 	}
 
 	template<bool LAMode, bool UseBuffer, bool Antialias>
-	void ResourceTrueTypeFont::renderGlyph(GlyphInfo& _info, uint8 _luminance0, uint8 _luminance1, uint8 _alpha, int _lineHeight, uint8* _texBuffer, int _texWidth, int _texHeight, int& _texX, int& _texY, uint8* _glyphBuffer)
+	void ResourceTrueTypeFont::renderGlyph(
+		GlyphInfo& _info,
+		uint8 _luminance0,
+		uint8 _luminance1,
+		uint8 _alpha,
+		int _lineHeight,
+		uint8* _texBuffer,
+		int _texWidth,
+		int _texHeight,
+		int& _texX,
+		int& _texY,
+		uint8* _glyphBuffer)
 	{
 		int width = (int)std::ceil(_info.width);
 		int height = (int)std::ceil(_info.height);
@@ -1047,8 +1154,12 @@ namespace MyGUI
 			_texX += mGlyphSpacing + width;
 	}
 
-#ifdef MYGUI_MSDF_FONTS
-	GlyphInfo ResourceTrueTypeFont::createMsdfFaceGlyphInfo(Char _codePoint, const msdfgen::Shape& _shape, double _advance, int _fontAscent)
+	#ifdef MYGUI_MSDF_FONTS
+	GlyphInfo ResourceTrueTypeFont::createMsdfFaceGlyphInfo(
+		Char _codePoint,
+		const msdfgen::Shape& _shape,
+		double _advance,
+		int _fontAscent)
 	{
 		msdfgen::Shape::Bounds bounds = _shape.getBounds();
 		double range = mMsdfRange / 2.0;
@@ -1081,7 +1192,11 @@ namespace MyGUI
 		return (width > 0) ? mGlyphSpacing + width : 0;
 	}
 
-	int ResourceTrueTypeFont::createMsdfFaceGlyph(Char _codePoint, int _fontAscent, msdfgen::FontHandle* _fontHandle, GlyphHeightMap& _glyphHeightMap)
+	int ResourceTrueTypeFont::createMsdfFaceGlyph(
+		Char _codePoint,
+		int _fontAscent,
+		msdfgen::FontHandle* _fontHandle,
+		GlyphHeightMap& _glyphHeightMap)
 	{
 		if (mGlyphMap.find(_codePoint) == mGlyphMap.end())
 		{
@@ -1090,7 +1205,10 @@ namespace MyGUI
 			if (msdfgen::loadGlyph(shape, _fontHandle, _codePoint, &advance))
 				createMsdfGlyph(createMsdfFaceGlyphInfo(_codePoint, shape, advance, _fontAscent), _glyphHeightMap);
 			else
-				MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load msdf glyph for character " << _codePoint << " in font '" << getResourceName() << "'.");
+				MYGUI_LOG(
+					Warning,
+					"ResourceTrueTypeFont: Cannot load msdf glyph for character "
+						<< _codePoint << " in font '" << getResourceName() << "'.");
 		}
 		else
 		{
@@ -1100,7 +1218,12 @@ namespace MyGUI
 		return 0;
 	}
 
-	void ResourceTrueTypeFont::renderMsdfGlyphs(const GlyphHeightMap& _glyphHeightMap, msdfgen::FontHandle* _fontHandle, uint8* _texBuffer, int _texWidth, int _texHeight)
+	void ResourceTrueTypeFont::renderMsdfGlyphs(
+		const GlyphHeightMap& _glyphHeightMap,
+		msdfgen::FontHandle* _fontHandle,
+		uint8* _texBuffer,
+		int _texWidth,
+		int _texHeight)
 	{
 		int texX = mGlyphSpacing, texY = mGlyphSpacing;
 
@@ -1113,82 +1236,122 @@ namespace MyGUI
 
 				switch (info.codePoint)
 				{
-					case FontCodeType::Selected:
-					case FontCodeType::SelectedBack:
+				case FontCodeType::Selected:
+				case FontCodeType::SelectedBack:
+				{
+					renderGlyph<false, false, false>(
+						info,
+						charMaskWhite,
+						charMaskBlack,
+						charMask.find(info.codePoint)->second,
+						glyphHeight,
+						_texBuffer,
+						_texWidth,
+						_texHeight,
+						texX,
+						texY);
+
+					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
+					// rendering multi-character selections.
+					GlyphMap::iterator glyphIter = mGlyphMap.find(info.codePoint);
+					if (glyphIter != mGlyphMap.end())
 					{
-						renderGlyph<false, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
-
-						// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
-						// rendering multi-character selections.
-						GlyphMap::iterator glyphIter = mGlyphMap.find(info.codePoint);
-						if (glyphIter != mGlyphMap.end())
-						{
-							glyphIter->second.width = 0.0f;
-							glyphIter->second.uvRect.right = glyphIter->second.uvRect.left;
-						}
+						glyphIter->second.width = 0.0f;
+						glyphIter->second.uvRect.right = glyphIter->second.uvRect.left;
 					}
-						break;
+				}
+				break;
 
-					case FontCodeType::Cursor:
-					case FontCodeType::Tab:
-						renderGlyph<false, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
-						break;
+				case FontCodeType::Cursor:
+				case FontCodeType::Tab:
+					renderGlyph<false, false, false>(
+						info,
+						charMaskWhite,
+						charMaskBlack,
+						charMask.find(info.codePoint)->second,
+						glyphHeight,
+						_texBuffer,
+						_texWidth,
+						_texHeight,
+						texX,
+						texY);
+					break;
 
-					default:
-						msdfgen::Shape shape;
-						if (loadGlyph(shape, _fontHandle, info.codePoint))
+				default:
+					msdfgen::Shape shape;
+					if (loadGlyph(shape, _fontHandle, info.codePoint))
+					{
+						msdfgen::Shape::Bounds bounds = shape.getBounds();
+						double range = mMsdfRange / 2.0;
+						if (shape.contours.empty())
 						{
-							msdfgen::Shape::Bounds bounds = shape.getBounds();
-							double range = mMsdfRange / 2.0;
-							if (shape.contours.empty())
+							bounds = {0, 0, 0, 0};
+							range = 0;
+						}
+
+						shape.normalize();
+						edgeColoringSimple(shape, 3.0);
+
+						msdfgen::Bitmap<float, 3> msdf(
+							std::ceil(bounds.r - bounds.l + 2 * range),
+							std::ceil(bounds.t - bounds.b + 2 * range));
+						msdfgen::generateMSDF(
+							msdf,
+							shape,
+							mMsdfRange,
+							1,
+							msdfgen::Vector2(-bounds.l + range, -bounds.b + range));
+						//							double error = msdfgen::estimateSDFError(
+						//								msdfgen::BitmapConstRef<float, 3>{(float*)msdf, msdf.width(), msdf.height()},
+						//								shape,
+						//								1,
+						//								msdfgen::Vector2(-bounds.l + range, -bounds.b + range),
+						//								33);
+						//							if (100000 * error > 1)
+						//								MYGUI_LOG(Warning, "Error for '" << char(info.codePoint) << "' is :" << (int) 100000 * error);
+
+						uint8* glyphBuffer = new uint8[msdf.width() * msdf.height() * 3];
+						uint8* glyphBufferPointer = glyphBuffer;
+						for (int y = 0; y < msdf.height(); ++y)
+						{
+							for (int x = 0; x < msdf.width(); ++x)
 							{
-								bounds = {0, 0, 0, 0};
-								range = 0;
-							}
-
-							shape.normalize();
-							edgeColoringSimple(shape, 3.0);
-
-							msdfgen::Bitmap<float, 3> msdf(
-								std::ceil(bounds.r - bounds.l + 2 * range),
-								std::ceil(bounds.t - bounds.b + 2 * range));
-							msdfgen::generateMSDF(msdf, shape, mMsdfRange, 1, msdfgen::Vector2(-bounds.l + range, -bounds.b + range));
-//							double error = msdfgen::estimateSDFError(
-//								msdfgen::BitmapConstRef<float, 3>{(float*)msdf, msdf.width(), msdf.height()},
-//								shape,
-//								1,
-//								msdfgen::Vector2(-bounds.l + range, -bounds.b + range),
-//								33);
-//							if (100000 * error > 1)
-//								MYGUI_LOG(Warning, "Error for '" << char(info.codePoint) << "' is :" << (int) 100000 * error);
-
-							uint8* glyphBuffer = new uint8[msdf.width() * msdf.height() * 3];
-							uint8* glyphBufferPointer = glyphBuffer;
-							for (int y = 0; y < msdf.height(); ++y)
-							{
-								for (int x = 0; x < msdf.width(); ++x)
+								for (int i = 0; i < 3; ++i)
 								{
-									for (int i = 0; i < 3; ++i)
-									{
-										// upside-down and RGB->BGR
-										*glyphBufferPointer++ = msdfgen::pixelFloatToByte(msdf(x, msdf.height() - y - 1)[2 - i]);
-									}
+									// upside-down and RGB->BGR
+									*glyphBufferPointer++ =
+										msdfgen::pixelFloatToByte(msdf(x, msdf.height() - y - 1)[2 - i]);
 								}
 							}
+						}
 
-							renderGlyph<false, true, false>(info, charMaskWhite, charMaskWhite, charMaskWhite, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY, glyphBuffer);
-							delete[] glyphBuffer;
-						}
-						else
-						{
-							MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot render glyph for character " << info.codePoint << " in font '" << getResourceName() << "'.");
-						}
-						break;
+						renderGlyph<false, true, false>(
+							info,
+							charMaskWhite,
+							charMaskWhite,
+							charMaskWhite,
+							glyphHeight,
+							_texBuffer,
+							_texWidth,
+							_texHeight,
+							texX,
+							texY,
+							glyphBuffer);
+						delete[] glyphBuffer;
+					}
+					else
+					{
+						MYGUI_LOG(
+							Warning,
+							"ResourceTrueTypeFont: Cannot render glyph for character "
+								<< info.codePoint << " in font '" << getResourceName() << "'.");
+					}
+					break;
 				}
 			}
 		}
 	}
-#endif
+	#endif
 
 	void ResourceTrueTypeFont::setSource(std::string_view _value)
 	{
@@ -1251,12 +1414,14 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::setMsdfMode(bool _value)
 	{
-#ifndef MYGUI_MSDF_FONTS
+	#ifndef MYGUI_MSDF_FONTS
 		if (_value)
-			MYGUI_LOG(Error, "MsdfMode flag ignored Define MYGUI_MSDF_FONTS if you need msdf fonts, msdf mode ignored.");
-#else
+			MYGUI_LOG(
+				Error,
+				"MsdfMode flag ignored Define MYGUI_MSDF_FONTS if you need msdf fonts, msdf mode ignored.");
+	#else
 		mMsdfMode = _value;
-#endif
+	#endif
 	}
 
 	void ResourceTrueTypeFont::setMsdfRange(int _value)

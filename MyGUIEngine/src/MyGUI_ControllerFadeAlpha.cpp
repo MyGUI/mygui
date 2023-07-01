@@ -17,7 +17,8 @@ namespace MyGUI
 	void ControllerFadeAlpha::prepareItem(Widget* _widget)
 	{
 		// подготовка виджета, блокируем если только нужно
-		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
+		if (!mEnabled)
+			_widget->setEnabledSilent(mEnabled);
 
 		if ((ALPHA_MIN != mAlpha) && (!_widget->getVisible()))
 		{
@@ -26,7 +27,8 @@ namespace MyGUI
 		}
 
 		// отписываем его от ввода
-		if (!mEnabled) InputManager::getInstance().unlinkWidget(_widget);
+		if (!mEnabled)
+			InputManager::getInstance().unlinkWidget(_widget);
 
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget, this);

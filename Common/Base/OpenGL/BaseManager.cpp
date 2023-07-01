@@ -71,8 +71,8 @@ namespace base
 	{
 		std::string fullname = MyGUI::OpenGLDataManager::getInstance().getDataPath(_filename);
 		void* result = nullptr;
-		SDL_Surface *image = nullptr;
-		SDL_Surface *cvtImage = nullptr;		// converted surface with RGBA/RGB pixel format
+		SDL_Surface* image = nullptr;
+		SDL_Surface* cvtImage = nullptr; // converted surface with RGBA/RGB pixel format
 		image = IMG_Load(fullname.c_str());
 		MYGUI_ASSERT(image != nullptr, "Failed to load image: " + fullname);
 
@@ -96,7 +96,12 @@ namespace base
 		return result;
 	}
 
-	void BaseManager::saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename)
+	void BaseManager::saveImage(
+		int _width,
+		int _height,
+		MyGUI::PixelFormat _format,
+		void* _texture,
+		const std::string& _filename)
 	{
 		SDL_Surface* surface = SDL_CreateRGBSurface(0, _width, _height, _format.getBytesPerPixel() * 8, 0, 0, 0, 0);
 		std::memcpy(surface->pixels, _texture, _width * _height * _format.getBytesPerPixel());

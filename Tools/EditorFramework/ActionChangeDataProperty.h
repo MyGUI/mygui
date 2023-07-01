@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionChangeDataProperty :
-		public Action
+	class MYGUI_EXPORT_DLL ActionChangeDataProperty : public Action
 	{
 	public:
 		ActionChangeDataProperty();

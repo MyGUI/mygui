@@ -13,12 +13,15 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ScopeManager :
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL ScopeManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(ScopeManager);
+
 	public:
-		ScopeManager() : mSingletonHolder(this) { }
+		ScopeManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 

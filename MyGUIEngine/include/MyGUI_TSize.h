@@ -34,37 +34,37 @@ namespace MyGUI::types
 			return *this;
 		}
 
-		TSize& operator += (TSize const& _obj)
+		TSize& operator+=(TSize const& _obj)
 		{
 			width += _obj.width;
 			height += _obj.height;
 			return *this;
 		}
 
-		TSize operator - (TSize const& _obj) const
+		TSize operator-(TSize const& _obj) const
 		{
 			return TSize(width - _obj.width, height - _obj.height);
 		}
 
-		TSize operator + (TSize const& _obj) const
+		TSize operator+(TSize const& _obj) const
 		{
 			return TSize(width + _obj.width, height + _obj.height);
 		}
 
 		template<typename U>
-		TSize& operator = (TSize<U> const& _obj)
+		TSize& operator=(TSize<U> const& _obj)
 		{
 			width = _obj.width;
 			height = _obj.height;
 			return *this;
 		}
 
-		bool operator == (TSize const& _obj) const
+		bool operator==(TSize const& _obj) const
 		{
 			return ((width == _obj.width) && (height == _obj.height));
 		}
 
-		bool operator != (TSize const& _obj) const
+		bool operator!=(TSize const& _obj) const
 		{
 			return !((width == _obj.width) && (height == _obj.height));
 		}
@@ -104,13 +104,13 @@ namespace MyGUI::types
 			return utility::parseValue<TSize<T>>(_value);
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const TSize<T>&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const TSize<T>& _value)
 		{
 			_stream << _value.width << " " << _value.height;
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, TSize<T>&  _value)
+		friend std::istream& operator>>(std::istream& _stream, TSize<T>& _value)
 		{
 			_stream >> _value.width >> _value.height;
 			if (_stream.fail())

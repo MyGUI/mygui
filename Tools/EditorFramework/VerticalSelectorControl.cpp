@@ -10,7 +10,10 @@
 namespace tools
 {
 
-	void VerticalSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
+	void VerticalSelectorControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "VerticalSelectorControl.layout");
 		setPropertyColour("ColourSelector");

@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL MessageBoxFadeControl :
-		public Control
+	class MYGUI_EXPORT_DLL MessageBoxFadeControl : public Control
 	{
 	public:
 		~MessageBoxFadeControl() override;

@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class ChangeSeparatorVisibleAction :
-		public ActionChangeDataProperty
+	class ChangeSeparatorVisibleAction : public ActionChangeDataProperty
 	{
 	public:
 		void doAction() override;

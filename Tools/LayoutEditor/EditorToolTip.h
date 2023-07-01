@@ -13,10 +13,10 @@
 namespace tools
 {
 
-	class EditorToolTip :
-		public wraps::BaseLayout
+	class EditorToolTip : public wraps::BaseLayout
 	{
 		MYGUI_SINGLETON_DECLARATION(EditorToolTip);
+
 	public:
 		EditorToolTip();
 

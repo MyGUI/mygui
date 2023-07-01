@@ -40,7 +40,7 @@ namespace MyGUI::types
 		{
 		}
 
-		TCoord& operator -= (TCoord const& _obj)
+		TCoord& operator-=(TCoord const& _obj)
 		{
 			left -= _obj.left;
 			top -= _obj.top;
@@ -49,7 +49,7 @@ namespace MyGUI::types
 			return *this;
 		}
 
-		TCoord& operator += (TCoord const& _obj)
+		TCoord& operator+=(TCoord const& _obj)
 		{
 			left += _obj.left;
 			top += _obj.top;
@@ -58,38 +58,38 @@ namespace MyGUI::types
 			return *this;
 		}
 
-		TCoord operator - (TCoord const& _obj) const
+		TCoord operator-(TCoord const& _obj) const
 		{
 			return TCoord(left - _obj.left, top - _obj.top, width - _obj.width, height - _obj.height);
 		}
 
-		TCoord operator - (TPoint<T> const& _obj) const
+		TCoord operator-(TPoint<T> const& _obj) const
 		{
 			return TCoord(left - _obj.left, top - _obj.top, width, height);
 		}
 
-		TCoord operator - (TSize<T> const& _obj) const
+		TCoord operator-(TSize<T> const& _obj) const
 		{
 			return TCoord(left, top, width - _obj.width, height - _obj.height);
 		}
 
-		TCoord operator + (TCoord const& _obj) const
+		TCoord operator+(TCoord const& _obj) const
 		{
 			return TCoord(left + _obj.left, top + _obj.top, width + _obj.width, height + _obj.height);
 		}
 
-		TCoord operator + (TPoint<T> const& _obj) const
+		TCoord operator+(TPoint<T> const& _obj) const
 		{
 			return TCoord(left + _obj.left, top + _obj.top, width, height);
 		}
 
-		TCoord operator + (TSize<T> const& _obj) const
+		TCoord operator+(TSize<T> const& _obj) const
 		{
 			return TCoord(left, top, width + _obj.width, height + _obj.height);
 		}
 
-		template< typename U >
-		TCoord& operator = (TCoord<U> const& _obj)
+		template<typename U>
+		TCoord& operator=(TCoord<U> const& _obj)
 		{
 			left = _obj.left;
 			top = _obj.top;
@@ -98,26 +98,26 @@ namespace MyGUI::types
 			return *this;
 		}
 
-		TCoord& operator = (TPoint<T> const& _obj)
+		TCoord& operator=(TPoint<T> const& _obj)
 		{
 			left = _obj.left;
 			top = _obj.top;
 			return *this;
 		}
 
-		TCoord& operator = (TSize<T> const& _obj)
+		TCoord& operator=(TSize<T> const& _obj)
 		{
 			width = _obj.width;
 			height = _obj.height;
 			return *this;
 		}
 
-		bool operator == (TCoord const& _obj) const
+		bool operator==(TCoord const& _obj) const
 		{
 			return ((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
 		}
 
-		bool operator != (TCoord const& _obj) const
+		bool operator!=(TCoord const& _obj) const
 		{
 			return !((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
 		}
@@ -167,9 +167,10 @@ namespace MyGUI::types
 			return TSize<T>(width, height);
 		}
 
-		bool inside(const TPoint<T>&  _value) const
+		bool inside(const TPoint<T>& _value) const
 		{
-			return ((_value.left >= left) && (_value.left <= right()) && (_value.top >= top) && (_value.top <= bottom()));
+			return (
+				(_value.left >= left) && (_value.left <= right()) && (_value.top >= top) && (_value.top <= bottom()));
 		}
 
 		std::string print() const
@@ -184,13 +185,13 @@ namespace MyGUI::types
 			return utility::parseValue<TCoord<T>>(_value);
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const TCoord<T>&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const TCoord<T>& _value)
 		{
 			_stream << _value.left << " " << _value.top << " " << _value.width << " " << _value.height;
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, TCoord<T>&  _value)
+		friend std::istream& operator>>(std::istream& _stream, TCoord<T>& _value)
 		{
 			_stream >> _value.left >> _value.top >> _value.width >> _value.height;
 			if (_stream.fail())

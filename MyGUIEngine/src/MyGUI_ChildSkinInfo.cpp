@@ -16,7 +16,14 @@ namespace MyGUI
 	{
 	}
 
-	ChildSkinInfo::ChildSkinInfo(std::string_view _type, const WidgetStyle& _style, std::string_view _skin, const IntCoord& _coord, const Align& _align, std::string_view _layer, std::string_view _name) :
+	ChildSkinInfo::ChildSkinInfo(
+		std::string_view _type,
+		const WidgetStyle& _style,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		const Align& _align,
+		std::string_view _layer,
+		std::string_view _name) :
 		type(_type),
 		skin(_skin),
 		name(_name),

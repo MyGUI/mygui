@@ -108,8 +108,8 @@ namespace MyGUI
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
-        mCurrentCoord = mCoord;
-        _updateView();
+		mCurrentCoord = mCoord;
+		_updateView();
 	}
 
 	void RotatingSkin::_updateView()
@@ -157,9 +157,27 @@ namespace MyGUI
 
 		for (int i = 1; i < GEOMETRY_VERTICIES_TOTAL_COUNT - 1; ++i)
 		{
-			verticies[3 * i - 3].set(mResultVerticiesPos[0].left, mResultVerticiesPos[0].top, vertex_z, mResultVerticiesUV[0].left, mResultVerticiesUV[0].top, mCurrentColour);
-			verticies[3 * i - 2].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
-			verticies[3 * i - 1].set(mResultVerticiesPos[i + 1].left, mResultVerticiesPos[i + 1].top, vertex_z, mResultVerticiesUV[i + 1].left, mResultVerticiesUV[i + 1].top, mCurrentColour);
+			verticies[3 * i - 3].set(
+				mResultVerticiesPos[0].left,
+				mResultVerticiesPos[0].top,
+				vertex_z,
+				mResultVerticiesUV[0].left,
+				mResultVerticiesUV[0].top,
+				mCurrentColour);
+			verticies[3 * i - 2].set(
+				mResultVerticiesPos[i].left,
+				mResultVerticiesPos[i].top,
+				vertex_z,
+				mResultVerticiesUV[i].left,
+				mResultVerticiesUV[i].top,
+				mCurrentColour);
+			verticies[3 * i - 1].set(
+				mResultVerticiesPos[i + 1].left,
+				mResultVerticiesPos[i + 1].top,
+				vertex_z,
+				mResultVerticiesUV[i + 1].left,
+				mResultVerticiesUV[i + 1].top,
+				mCurrentColour);
 		}
 
 		mRenderItem->setLastVertexCount((GEOMETRY_VERTICIES_TOTAL_COUNT - 2) * 3);
@@ -206,7 +224,7 @@ namespace MyGUI
 			3 2
 		*/
 #ifdef M_PI
-#undef M_PI
+	#undef M_PI
 #endif
 		const float M_PI = 3.141593f;
 
@@ -216,16 +234,17 @@ namespace MyGUI
 		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
 		float baseAngles[RECT_VERTICIES_COUNT];
 		baseAngles[0] = std::atan2((float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[1] = std::atan2(- width_base + (float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[2] = std::atan2(- width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[3] = std::atan2((float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[1] = std::atan2(-width_base + (float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[2] =
+			std::atan2(-width_base + (float)mCenterPos.left, -height_base + (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[3] = std::atan2((float)mCenterPos.left, -height_base + (float)mCenterPos.top) + M_PI / 2;
 
 		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
 		float baseDistances[RECT_VERTICIES_COUNT];
 		baseDistances[0] = len((float)mCenterPos.left, (float)mCenterPos.top);
-		baseDistances[1] = len(- width_base + (float)mCenterPos.left, (float)mCenterPos.top);
-		baseDistances[2] = len(- width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top);
-		baseDistances[3] = len((float)mCenterPos.left, - height_base + (float)mCenterPos.top);
+		baseDistances[1] = len(-width_base + (float)mCenterPos.left, (float)mCenterPos.top);
+		baseDistances[2] = len(-width_base + (float)mCenterPos.left, -height_base + (float)mCenterPos.top);
+		baseDistances[3] = len((float)mCenterPos.left, -height_base + (float)mCenterPos.top);
 
 
 		// calculate rotated positions of uncropped rectangle verticies (relative to parent)
@@ -241,13 +260,11 @@ namespace MyGUI
 		}
 
 		// base texture coordinates
-		FloatPoint baseVerticiesUV[RECT_VERTICIES_COUNT] =
-		{
+		FloatPoint baseVerticiesUV[RECT_VERTICIES_COUNT] = {
 			FloatPoint(mCurrentTexture.left, mCurrentTexture.top),
 			FloatPoint(mCurrentTexture.right, mCurrentTexture.top),
 			FloatPoint(mCurrentTexture.right, mCurrentTexture.bottom),
-			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)
-		};
+			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)};
 
 		// now we have rotated uncropped rectangle verticies coordinates
 
@@ -292,8 +309,13 @@ namespace MyGUI
 			{
 				if (i < size)
 				{
-					FloatPoint point = geometry_utility::getPositionInsideRect(mResultVerticiesPos[i], baseVerticiesPos[0], baseVerticiesPos[1], baseVerticiesPos[3]);
-					mResultVerticiesUV[i] = geometry_utility::getUVFromPositionInsideRect(point, v0, v1, baseVerticiesUV[0]);
+					FloatPoint point = geometry_utility::getPositionInsideRect(
+						mResultVerticiesPos[i],
+						baseVerticiesPos[0],
+						baseVerticiesPos[1],
+						baseVerticiesPos[3]);
+					mResultVerticiesUV[i] =
+						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, baseVerticiesUV[0]);
 				}
 				else
 				{
@@ -307,7 +329,8 @@ namespace MyGUI
 		// now calculate widget base offset and then resulting position in screen coordinates
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float vertex_top_base =
+			-(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
 		for (size_t i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
 		{

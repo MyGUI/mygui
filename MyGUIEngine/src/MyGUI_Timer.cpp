@@ -8,10 +8,10 @@
 #include "MyGUI_Timer.h"
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	include <windows.h>
-#	pragma comment(lib, "winmm.lib")
+	#include <windows.h>
+	#pragma comment(lib, "winmm.lib")
 #else
-#	include <sys/time.h>
+	#include <sys/time.h>
 #endif
 
 namespace MyGUI

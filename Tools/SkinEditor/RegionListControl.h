@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class RegionListControl :
-		public Control,
-		public sigslot::has_slots<>
+	class RegionListControl : public Control, public sigslot::has_slots<>
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

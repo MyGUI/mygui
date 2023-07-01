@@ -26,7 +26,7 @@ namespace MyGUI
 	static GLuint buildShader(const std::string& text, GLenum type)
 	{
 		GLuint id = glCreateShader(type);
-		const char *c_str = text.c_str();
+		const char* c_str = text.c_str();
 		glShaderSource(id, 1, &c_str, nullptr);
 		glCompileShader(id);
 
@@ -63,7 +63,9 @@ namespace MyGUI
 		return buffer.str();
 	}
 
-	GLuint OpenGLESRenderManager::createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile)
+	GLuint OpenGLESRenderManager::createShaderProgram(
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
 	{
 		GLuint vsID = buildShader(loadFileContent(_vertexProgramFile), GL_VERTEX_SHADER);
 		GLuint fsID = buildShader(loadFileContent(_fragmentProgramFile), GL_FRAGMENT_SHADER);
@@ -231,8 +233,7 @@ namespace MyGUI
 
 	bool OpenGLESRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		if (_format == PixelFormat::R8G8B8 ||
-			_format == PixelFormat::R8G8B8A8)
+		if (_format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8)
 			return true;
 
 		return false;
@@ -305,7 +306,9 @@ namespace MyGUI
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())
 			return iter->second;
-		MYGUI_PLATFORM_LOG(Error, "Failed to get program ID for shader '" << _shaderName << "'. Did you forgot to register shader?");
+		MYGUI_PLATFORM_LOG(
+			Error,
+			"Failed to get program ID for shader '" << _shaderName << "'. Did you forgot to register shader?");
 		return 0;
 	}
 

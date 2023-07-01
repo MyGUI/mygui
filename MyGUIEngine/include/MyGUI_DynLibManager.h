@@ -20,6 +20,7 @@ namespace MyGUI
 	class MYGUI_EXPORT DynLibManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DynLibManager);
+
 	public:
 		DynLibManager();
 

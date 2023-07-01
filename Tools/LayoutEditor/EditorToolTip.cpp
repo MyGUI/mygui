@@ -80,9 +80,10 @@ namespace tools
 
 		bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
 		std::string text = "Widget: " + (exist ? colour_success : colour_error);
-		text += widget; text += colour_success +
-			"\nSkin: " + skin +
-			"\nDefaultSize: " + (templateRootFound ? MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height) : (colour_error + "'Root' widget not found"));
+		text += widget;
+		text += colour_success + "\nSkin: " + skin + "\nDefaultSize: " +
+			(templateRootFound ? MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height)
+							   : (colour_error + "'Root' widget not found"));
 
 		mText->setCaption(text);
 
@@ -123,7 +124,14 @@ namespace tools
 
 		MyGUI::IntSize widgetSize = skinDefaultSize;
 
-		mLastWidget = mMainWidget->createWidgetT("TextBox", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, widgetSize.width, widgetSize.height, MyGUI::Align::Default);
+		mLastWidget = mMainWidget->createWidgetT(
+			"TextBox",
+			skin,
+			MARGIN,
+			MARGIN + LINE_HEIGHT * LINES,
+			widgetSize.width,
+			widgetSize.height,
+			MyGUI::Align::Default);
 		MyGUI::TextBox* textBox = mLastWidget->castType<MyGUI::TextBox>();
 		textBox->setCaption(skin);
 

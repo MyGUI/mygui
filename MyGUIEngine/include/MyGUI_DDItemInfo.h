@@ -30,12 +30,12 @@ namespace MyGUI
 		{
 		}
 
-		friend bool operator == (DDItemState const& a, DDItemState const& b)
+		friend bool operator==(DDItemState const& a, DDItemState const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (DDItemState const& a, DDItemState const& b)
+		friend bool operator!=(DDItemState const& a, DDItemState const& b)
 		{
 			return a.mValue != b.mValue;
 		}

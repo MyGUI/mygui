@@ -83,7 +83,11 @@ namespace MyGUI::geometry_utility
 		_verticies = newVerticies;
 	}
 
-	FloatPoint getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2)
+	FloatPoint getPositionInsideRect(
+		const FloatPoint& _point,
+		const FloatPoint& _corner0,
+		const FloatPoint& _corner1,
+		const FloatPoint& _corner2)
 	{
 		FloatPoint point = _point - _corner0;
 		FloatPoint dirX = _corner1 - _corner0;
@@ -97,11 +101,15 @@ namespace MyGUI::geometry_utility
 			(point.left * dirY.top - point.top * dirY.left) / div};
 	}
 
-	FloatPoint getUVFromPositionInsideRect(const FloatPoint& _point, const FloatPoint& _v0, const FloatPoint& _v1, const FloatPoint& _baseUV)
+	FloatPoint getUVFromPositionInsideRect(
+		const FloatPoint& _point,
+		const FloatPoint& _v0,
+		const FloatPoint& _v1,
+		const FloatPoint& _baseUV)
 	{
 		return {
 			_baseUV.left + _point.left * _v0.left + _point.top * _v1.left,
-			_baseUV.top  + _point.left * _v0.top  + _point.top * _v1.top};
+			_baseUV.top + _point.left * _v0.top + _point.top * _v1.top};
 	}
 
 } // namespace MyGUI

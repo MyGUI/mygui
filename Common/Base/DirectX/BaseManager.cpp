@@ -20,9 +20,9 @@ namespace base
 		memset(&mD3dpp, 0, sizeof(mD3dpp));
 		mD3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 		mD3dpp.EnableAutoDepthStencil = TRUE;
-		mD3dpp.BackBufferCount  = 1;
+		mD3dpp.BackBufferCount = 1;
 		mD3dpp.BackBufferFormat = d3ddm.Format;
-		mD3dpp.BackBufferWidth  = _width;
+		mD3dpp.BackBufferWidth = _width;
 		mD3dpp.BackBufferHeight = _height;
 		mD3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
 		mD3dpp.Windowed = _windowed;
@@ -33,8 +33,12 @@ namespace base
 		mD3dpp.hDeviceWindow = sysWMInfo.info.win.window;
 
 		if (FAILED(mD3d->CreateDevice(
-			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, mD3dpp.hDeviceWindow,
-			D3DCREATE_HARDWARE_VERTEXPROCESSING, &mD3dpp, &mDevice)))
+				D3DADAPTER_DEFAULT,
+				D3DDEVTYPE_HAL,
+				mD3dpp.hDeviceWindow,
+				D3DCREATE_HARDWARE_VERTEXPROCESSING,
+				&mD3dpp,
+				&mDevice)))
 		{
 			return false;
 		}
@@ -76,7 +80,7 @@ namespace base
 	{
 		if (mIsDeviceLost)
 		{
-			Sleep( 100 );
+			Sleep(100);
 
 			HRESULT hr;
 			if (FAILED(hr = mDevice->TestCooperativeLevel()))
@@ -89,7 +93,7 @@ namespace base
 					if (mPlatform != nullptr)
 						mPlatform->getRenderManagerPtr()->deviceLost();
 
-					hr = mDevice->Reset( &mD3dpp );
+					hr = mDevice->Reset(&mD3dpp);
 
 					if (FAILED(hr))
 						return;

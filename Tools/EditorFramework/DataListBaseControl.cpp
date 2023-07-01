@@ -116,7 +116,11 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::setDataInfo(std::string_view _parentType, std::string_view _currentType, std::string_view _propertyName, std::string_view _propertyUnique)
+	void DataListBaseControl::setDataInfo(
+		std::string_view _parentType,
+		std::string_view _currentType,
+		std::string_view _propertyName,
+		std::string_view _propertyUnique)
 	{
 		mParentType = _parentType;
 		mCurrentType = _currentType;

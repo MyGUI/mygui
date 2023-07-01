@@ -43,7 +43,9 @@ namespace tools
 
 		if (mParentType != nullptr)
 		{
-			DataSelectorManager::getInstance().getEvent(mParentType->getName())->connect(this, &PropertyPanelController::notifyChangeDataSelector);
+			DataSelectorManager::getInstance()
+				.getEvent(mParentType->getName())
+				->connect(this, &PropertyPanelController::notifyChangeDataSelector);
 
 			DataPtr parentData = DataUtility::getSelectedDataByType(mParentType->getName());
 			notifyChangeDataSelector(parentData, false);
@@ -61,7 +63,7 @@ namespace tools
 			{
 				if (selected->getType()->getName() != ScopeManager::getInstance().getCurrentScope() &&
 					selected->getType()->getFriend() != ScopeManager::getInstance().getCurrentScope())
-				selected = nullptr;
+					selected = nullptr;
 			}
 
 			mControl->setCurrentData(selected);

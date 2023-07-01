@@ -13,10 +13,9 @@
 namespace demo
 {
 
-	class ResourcePointerContext :
-		public MyGUI::IResource
+	class ResourcePointerContext : public MyGUI::IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourcePointerContext )
+		MYGUI_RTTI_DERIVED(ResourcePointerContext)
 
 	public:
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;

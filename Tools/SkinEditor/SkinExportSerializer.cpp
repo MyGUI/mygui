@@ -67,7 +67,8 @@ namespace tools
 
 		DataPtr state = getChildData(data, "State", "Normal");
 		std::string_view value;
-		if (state != nullptr) value = state->getPropertyValue("Point");
+		if (state != nullptr)
+			value = state->getPropertyValue("Point");
 		MyGUI::IntPoint point = MyGUI::IntPoint::parse(value);
 		MyGUI::IntSize size = MyGUI::IntSize::parse(_node.attribute("size").value());
 
@@ -90,7 +91,8 @@ namespace tools
 		pugi::xml_node node = _parent.append_child("Resource");
 		node.append_attribute("type").set_value("ResourceSkin");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
-		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
+		node.append_attribute("size").set_value(
+			MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
 		const std::string& textureName = _data->getPropertyValue("Texture");
 		if (!textureName.empty())
 			node.append_attribute("texture").set_value(textureName.c_str());
@@ -135,7 +137,9 @@ namespace tools
 		node.append_attribute("offset").set_value(coord.print().c_str());
 		node.append_attribute("align").set_value(convertEditorToExportAlign(_data->getPropertyValue("Name")).c_str());
 
-		for (Data::VectorData::const_iterator child = _parentData->getChilds().begin(); child != _parentData->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _parentData->getChilds().begin();
+			 child != _parentData->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() != "State")
 				continue;
@@ -169,7 +173,10 @@ namespace tools
 		}
 	}
 
-	pugi::xml_node SkinExportSerializer::writeState(pugi::xml_node _parent, DataPtr _data, const MyGUI::IntCoord& _value)
+	pugi::xml_node SkinExportSerializer::writeState(
+		pugi::xml_node _parent,
+		DataPtr _data,
+		const MyGUI::IntCoord& _value)
 	{
 		MyGUI::IntPoint point = MyGUI::IntPoint::parse(_data->getPropertyValue("Point"));
 		MyGUI::IntCoord coord = _value + point;
@@ -216,12 +223,12 @@ namespace tools
 				values.emplace(name, coord.point());
 			}
 
-            // create, if there is no data
+			// create, if there is no data
 			name = convertExportToEditorStateName(name);
 			DataPtr childData = getChildData(_data, "State", name);
 			if (childData == nullptr)
 			{
-                childData = Data::CreateInstance();
+				childData = Data::CreateInstance();
 				childData->setType(DataTypeManager::getInstance().getType("State"));
 				childData->setPropertyValue("Name", name);
 				_data->addChild(childData);
@@ -248,7 +255,8 @@ namespace tools
 		{
 			std::string_view name = state.node().attribute("name").value();
 			int textShift = MyGUI::utility::parseValue<int>(state.node().attribute("shift").value());
-			MyGUI::Colour textColour = MyGUI::utility::parseValue<MyGUI::Colour>(state.node().attribute("colour").value());
+			MyGUI::Colour textColour =
+				MyGUI::utility::parseValue<MyGUI::Colour>(state.node().attribute("colour").value());
 
 			for (const auto& child : _data->getChilds())
 			{
@@ -258,7 +266,9 @@ namespace tools
 				if (convertEditorToExportStateName(child->getPropertyValue("Name")) == name)
 				{
 					child->setPropertyValue("TextShift", textShift);
-					child->setPropertyValue("TextColour", MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
+					child->setPropertyValue(
+						"TextColour",
+						MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
 				}
 			}
 		}
@@ -323,7 +333,8 @@ namespace tools
 
 	DataPtr SkinExportSerializer::getChildData(DataPtr _data, std::string_view _dataType, std::string_view _name)
 	{
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() == _dataType && (*child)->getPropertyValue("Name") == _name)
 				return (*child);
@@ -370,8 +381,10 @@ namespace tools
 			std::string_view type = region.node().attribute("type").value();
 			if (type == "TileRect")
 			{
-				bool vert = MyGUI::utility::parseValue<bool>(region.node().select_single_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
-				bool horz = MyGUI::utility::parseValue<bool>(region.node().select_single_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
+				bool vert = MyGUI::utility::parseValue<bool>(
+					region.node().select_single_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
+				bool horz = MyGUI::utility::parseValue<bool>(
+					region.node().select_single_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
 
 				if (vert && !horz)
 					type = "TileRect Vert";
@@ -435,7 +448,7 @@ namespace tools
 
 	size_t SkinExportSerializer::findIndex(Data::VectorData& childs, std::string_view _name)
 	{
-		for (size_t index = 0; index < childs.size(); index ++)
+		for (size_t index = 0; index < childs.size(); index++)
 		{
 			if (childs[index]->getPropertyValue("Name") == _name)
 				return index;

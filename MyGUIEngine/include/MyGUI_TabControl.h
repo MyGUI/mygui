@@ -23,16 +23,13 @@ namespace MyGUI
 	/** \brief @wpage{TabControl}
 		TabControl widget description should be here.
 	*/
-	class MYGUI_EXPORT TabControl :
-		public Widget,
-		public IItemContainer,
-		public MemberObsolete<TabControl>
+	class MYGUI_EXPORT TabControl : public Widget, public IItemContainer, public MemberObsolete<TabControl>
 	{
 		// для уведобления об удалении
 		//FIXME
 		friend class TabItem;
 
-		MYGUI_RTTI_DERIVED( TabControl )
+		MYGUI_RTTI_DERIVED(TabControl)
 
 	public:
 		struct TabItemInfo
@@ -136,14 +133,14 @@ namespace MyGUI
 		void clearItemData(TabItem* _item);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemData(TabItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);

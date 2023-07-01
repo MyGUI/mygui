@@ -12,17 +12,21 @@ namespace tools
 {
 	namespace
 	{
-		const MyGUI::VectorString fileTypes{ "*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt" };
+		const MyGUI::VectorString fileTypes{"*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt"};
 	}
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontSourceControl)
 
 	PropertyFontSourceControl::~PropertyFontSourceControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
 	}
 
-	void PropertyFontSourceControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
+	void PropertyFontSourceControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
@@ -36,7 +40,8 @@ namespace tools
 
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
 	}
 
 	void PropertyFontSourceControl::updateCaption()
@@ -69,7 +74,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			std::string_view value;
-			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

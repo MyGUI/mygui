@@ -21,10 +21,9 @@ namespace MyGUI
 		till only small part of widget be visible. Widget will move
 		inside screen if it have any focus.
 	*/
-	class MYGUI_EXPORT ControllerEdgeHide :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerEdgeHide : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerEdgeHide )
+		MYGUI_RTTI_DERIVED(ControllerEdgeHide)
 
 	public:
 		/**

@@ -16,12 +16,19 @@ namespace tools
 	class MYGUI_EXPORT_DLL MessageBoxManager
 	{
 		MYGUI_SINGLETON_DECLARATION(MessageBoxManager);
+
 	public:
-		MessageBoxManager() : mSingletonHolder(this) { }
+		MessageBoxManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
-		MyGUI::Message* create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style);
+		MyGUI::Message* create(
+			const MyGUI::UString& _caption,
+			const MyGUI::UString& _message,
+			MyGUI::MessageBoxStyle _style);
 		bool hasAny();
 		void endTop(MyGUI::MessageBoxStyle _button);
 

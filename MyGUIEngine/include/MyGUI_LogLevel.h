@@ -51,43 +51,43 @@ namespace MyGUI
 			return type;
 		}
 
-		friend bool operator < (LogLevel const& a, LogLevel const& b)
+		friend bool operator<(LogLevel const& a, LogLevel const& b)
 		{
 			return a.mValue < b.mValue;
 		}
 
-		friend bool operator >= (LogLevel const& a, LogLevel const& b)
+		friend bool operator>=(LogLevel const& a, LogLevel const& b)
 		{
 			return !(a < b);
 		}
 
-		friend bool operator > (LogLevel const& a, LogLevel const& b)
+		friend bool operator>(LogLevel const& a, LogLevel const& b)
 		{
 			return (b < a);
 		}
 
-		friend bool operator <= (LogLevel const& a, LogLevel const& b)
+		friend bool operator<=(LogLevel const& a, LogLevel const& b)
 		{
 			return !(a > b);
 		}
 
-		friend bool operator == (LogLevel const& a, LogLevel const& b)
+		friend bool operator==(LogLevel const& a, LogLevel const& b)
 		{
 			return !(a < b) && !(a > b);
 		}
 
-		friend bool operator != (LogLevel const& a, LogLevel const& b)
+		friend bool operator!=(LogLevel const& a, LogLevel const& b)
 		{
 			return !(a == b);
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const LogLevel&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const LogLevel& _value)
 		{
 			_stream << _value.getValueName(_value.mValue);
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, LogLevel&  _value)
+		friend std::istream& operator>>(std::istream& _stream, LogLevel& _value)
 		{
 			std::string value;
 			_stream >> value;

@@ -9,7 +9,7 @@
 
 #ifdef MYGUI_OGRE_PLATFORM
 
-#include <OgrePrerequisites.h>
+	#include <OgrePrerequisites.h>
 
 namespace demo
 {
@@ -29,17 +29,23 @@ namespace demo
 	protected:
 		void setTextureName(std::string_view _name);
 
-		bool pickPositionInObject(int& _x, int& _y, int _view_width, int _view_height, int _texture_width, int _texture_height) const;
+		bool pickPositionInObject(
+			int& _x,
+			int& _y,
+			int _view_width,
+			int _view_height,
+			int _texture_width,
+			int _texture_height) const;
 
 	private:
 		// Code found in Wiki: www.ogre3d.org/wiki/index.php/RetrieveVertexData
 		void GetMeshInformation(
 			const Ogre::MeshPtr mesh,
 			size_t& vertex_count,
-			Ogre::Vector3* &vertices,
+			Ogre::Vector3*& vertices,
 			size_t& index_count,
-			unsigned long* &indices,
-			Ogre::Vector2* &coords,
+			unsigned long*& indices,
+			Ogre::Vector2*& coords,
 			const Ogre::Vector3& position,
 			const Ogre::Quaternion& orient,
 			const Ogre::Vector3& scale,
@@ -47,8 +53,16 @@ namespace demo
 		void clear();
 
 		bool isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height) const;
-		Ogre::Vector2 getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2) const;
-		Ogre::Vector2 getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2) const;
+		Ogre::Vector2 getCoordByTriangle(
+			Ogre::Vector3 _position,
+			const Ogre::Vector3& _corner0,
+			const Ogre::Vector3& _corner1,
+			const Ogre::Vector3& _corner2) const;
+		Ogre::Vector2 getCoordByRel(
+			Ogre::Vector2 _position,
+			const Ogre::Vector2& _corner0,
+			const Ogre::Vector2& _corner1,
+			const Ogre::Vector2& _corner2) const;
 
 		void updateData();
 

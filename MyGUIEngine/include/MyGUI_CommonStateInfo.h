@@ -16,10 +16,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SubSkinStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT SubSkinStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( SubSkinStateInfo )
+		MYGUI_RTTI_DERIVED(SubSkinStateInfo)
 
 	public:
 		const FloatRect& getRect() const
@@ -47,10 +46,9 @@ namespace MyGUI
 		FloatRect mRect;
 	};
 
-	class MYGUI_EXPORT TileRectStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT TileRectStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( TileRectStateInfo )
+		MYGUI_RTTI_DERIVED(TileRectStateInfo)
 
 	public:
 		const FloatRect& getRect() const
@@ -93,9 +91,12 @@ namespace MyGUI
 			{
 				std::string_view key = prop->findAttribute("key");
 				std::string_view value = prop->findAttribute("value");
-				if (key == "TileH") mTileH = utility::parseBool(value);
-				else if (key == "TileV") mTileV = utility::parseBool(value);
-				else if (key == "TileSize") mTileSize = IntSize::parse(value);
+				if (key == "TileH")
+					mTileH = utility::parseBool(value);
+				else if (key == "TileV")
+					mTileV = utility::parseBool(value);
+				else if (key == "TileSize")
+					mTileSize = IntSize::parse(value);
 			}
 		}
 
@@ -106,10 +107,9 @@ namespace MyGUI
 		bool mTileV{true};
 	};
 
-	class MYGUI_EXPORT RotatingSkinStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT RotatingSkinStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( RotatingSkinStateInfo )
+		MYGUI_RTTI_DERIVED(RotatingSkinStateInfo)
 
 	public:
 		float getAngle() const
@@ -135,8 +135,10 @@ namespace MyGUI
 			{
 				std::string_view key = prop->findAttribute("key");
 				std::string_view value = prop->findAttribute("value");
-				if (key == "Angle") mAngle = utility::parseFloat(value);
-				if (key == "Center") mCenter = IntPoint::parse(value);
+				if (key == "Angle")
+					mAngle = utility::parseFloat(value);
+				if (key == "Center")
+					mCenter = IntPoint::parse(value);
 			}
 
 			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
@@ -159,10 +161,9 @@ namespace MyGUI
 	};
 
 
-	class MYGUI_EXPORT EditTextStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT EditTextStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( EditTextStateInfo )
+		MYGUI_RTTI_DERIVED(EditTextStateInfo)
 
 	public:
 		const Colour& getColour() const

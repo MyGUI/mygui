@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TextFieldControl :
-		public Dialog,
-		public Control
+	class MYGUI_EXPORT_DLL TextFieldControl : public Dialog, public Control
 	{
 	public:
 		~TextFieldControl() override;
@@ -29,7 +27,7 @@ namespace tools
 
 		void setCoord(const MyGUI::IntCoord& _value);
 
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getUserData(bool _throw = true)
 		{
 			return mMainWidget->getUserData<ValueType>(_throw);

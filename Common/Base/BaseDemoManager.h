@@ -14,8 +14,7 @@
 namespace base
 {
 
-	class BaseDemoManager :
-		public BaseManager
+	class BaseDemoManager : public BaseManager
 	{
 	public:
 		diagnostic::StatisticInfo* getStatisticInfo()
@@ -55,12 +54,14 @@ namespace base
 			mInfo = new diagnostic::StatisticInfo();
 			mFocusInfo = new diagnostic::InputFocusInfo();
 
-			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
+			MyGUI::Gui::getInstance().eventFrameStart +=
+				MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
 		}
 
 		void destroyGui() override
 		{
-			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
+			MyGUI::Gui::getInstance().eventFrameStart -=
+				MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
 
 			delete mInfo;
 			mInfo = nullptr;
@@ -83,7 +84,7 @@ namespace base
 					time -= 1;
 
 					MyGUI::MapString statistic = getStatistic();
-					for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info ++)
+					for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info++)
 						mInfo->change((*info).first, (*info).second);
 					mInfo->update();
 				}

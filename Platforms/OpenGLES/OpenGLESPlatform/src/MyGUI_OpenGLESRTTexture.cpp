@@ -29,7 +29,7 @@ namespace MyGUI
 		mRenderTargetInfo.pixScaleY = 1.0f / float(mHeight);
 
 		// create a framebuffer object, you need to delete them when program exits.
-		glGenFramebuffers(1, (GLuint*) &mFBOID);
+		glGenFramebuffers(1, (GLuint*)&mFBOID);
 		CHECK_GL_ERROR_DEBUG();
 		glBindFramebuffer(GL_FRAMEBUFFER, mFBOID);
 		CHECK_GL_ERROR_DEBUG();
@@ -40,7 +40,7 @@ namespace MyGUI
 		// the rendering output will be corrupted because of missing depth test.
 		// If you also need stencil test for your rendering, then you must
 		// attach additional image to the stencil attachement point, too.
-		glGenRenderbuffers(1, (GLuint*) &mRBOID);
+		glGenRenderbuffers(1, (GLuint*)&mRBOID);
 		CHECK_GL_ERROR_DEBUG();
 		glBindRenderbuffer(GL_RENDERBUFFER, mRBOID);
 		CHECK_GL_ERROR_DEBUG();
@@ -65,13 +65,13 @@ namespace MyGUI
 	{
 		if (mFBOID != 0)
 		{
-			glDeleteFramebuffers(1, (GLuint*) &mFBOID);
+			glDeleteFramebuffers(1, (GLuint*)&mFBOID);
 			CHECK_GL_ERROR_DEBUG();
 			mFBOID = 0;
 		}
 		if (mRBOID != 0)
 		{
-			glDeleteRenderbuffers(1, (GLuint*) &mRBOID);
+			glDeleteRenderbuffers(1, (GLuint*)&mRBOID);
 			CHECK_GL_ERROR_DEBUG();
 			mRBOID = 0;
 		}
@@ -89,7 +89,7 @@ namespace MyGUI
 
 		OpenGLESRenderManager::getInstance().begin();
 		CHECK_GL_ERROR_DEBUG();
-		glClear(GL_COLOR_BUFFER_BIT/* | GL_DEPTH_BUFFER_BIT*/);
+		glClear(GL_COLOR_BUFFER_BIT /* | GL_DEPTH_BUFFER_BIT*/);
 		CHECK_GL_ERROR_DEBUG();
 	}
 

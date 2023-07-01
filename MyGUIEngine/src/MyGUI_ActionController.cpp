@@ -30,21 +30,27 @@ namespace MyGUI::action
 	void linearMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _k)
 	{
 		_result.set(
-			_startRect.left   - int( float(_startRect.left   - _destRect.left)   * _k ),
-			_startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
-			_startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
-			_startRect.height - int( float(_startRect.height - _destRect.height) * _k ));
+			_startRect.left - int(float(_startRect.left - _destRect.left) * _k),
+			_startRect.top - int(float(_startRect.top - _destRect.top) * _k),
+			_startRect.width - int(float(_startRect.width - _destRect.width) * _k),
+			_startRect.height - int(float(_startRect.height - _destRect.height) * _k));
 	}
 
-	void inertionalMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _current_time)
+	void inertionalMoveFunction(
+		const IntCoord& _startRect,
+		const IntCoord& _destRect,
+		IntCoord& _result,
+		float _current_time)
 	{
 #ifdef M_PI
-#undef M_PI
+	#undef M_PI
 #endif
 		const float M_PI = 3.141593f;
 		float k = std::sin(M_PI * _current_time - M_PI / 2.0f);
-		if (k < 0) k = (-std::pow(-k, 0.7f) + 1) / 2;
-		else k = (std::pow(k, 0.7f) + 1) / 2;
+		if (k < 0)
+			k = (-std::pow(-k, 0.7f) + 1) / 2;
+		else
+			k = (std::pow(k, 0.7f) + 1) / 2;
 		linearMoveFunction(_startRect, _destRect, _result, k);
 	}
 

@@ -22,10 +22,11 @@ namespace tools
 		assignWidget(mField, "Field");
 		assignWidget(mColourPlace, "ColourPlace");
 
-		mField->eventEditTextChange += newDelegate (this, &PropertyFieldColour::notifyTryApplyProperties);
-		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldColour::notifyForceApplyProperties);
+		mField->eventEditTextChange += newDelegate(this, &PropertyFieldColour::notifyTryApplyProperties);
+		mField->eventEditSelectAccept += newDelegate(this, &PropertyFieldColour::notifyForceApplyProperties);
 
-		mColourPlace->eventMouseButtonPressed += MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
+		mColourPlace->eventMouseButtonPressed +=
+			MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
 
 		mColourPanel = new ColourPanel();
 		mColourPanel->Initialise();
@@ -135,7 +136,11 @@ namespace tools
 		mText->setCaption(mName);
 	}
 
-	void PropertyFieldColour::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void PropertyFieldColour::notifyMouseButtonPressed(
+		MyGUI::Widget* _sender,
+		int _left,
+		int _top,
+		MyGUI::MouseButton _id)
 	{
 		showColourDialog();
 	}

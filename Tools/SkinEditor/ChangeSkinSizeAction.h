@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class ChangeSkinSizeAction :
-		public ActionChangeDataProperty
+	class ChangeSkinSizeAction : public ActionChangeDataProperty
 	{
 	public:
 		void doAction() override;

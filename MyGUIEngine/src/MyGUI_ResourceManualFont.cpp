@@ -49,9 +49,12 @@ namespace MyGUI
 			{
 				std::string_view key = node->findAttribute("key");
 				std::string_view value = node->findAttribute("value");
-				if (key == "Source") mSource = value;
-				else if (key == "DefaultHeight") mDefaultHeight = utility::parseInt(value);
-				else if (key == "Shader") mShader = value;
+				if (key == "Source")
+					mSource = value;
+				else if (key == "DefaultHeight")
+					mDefaultHeight = utility::parseInt(value);
+				else if (key == "Shader")
+					mShader = value;
 			}
 		}
 
@@ -105,22 +108,23 @@ namespace MyGUI
 							if (advance == 0.0f)
 								advance = size.width;
 
-							GlyphInfo& glyphInfo = mCharMap.insert(CharMap::value_type(id, GlyphInfo(
+							mCharMap.emplace(
 								id,
-								size.width,
-								size.height,
-								advance,
-								bearing.left,
-								bearing.top,
-								FloatRect(
-									coord.left / textureWidth,
-									coord.top / textureHeight,
-									coord.right() / textureWidth,
-									coord.bottom() / textureHeight)
-								))).first->second;
+								GlyphInfo{
+									id,
+									size.width,
+									size.height,
+									advance,
+									bearing.left,
+									bearing.top,
+									FloatRect{
+										coord.left / textureWidth,
+										coord.top / textureHeight,
+										coord.right() / textureWidth,
+										coord.bottom() / textureHeight}});
 
 							if (id == FontCodeType::NotDefined)
-								mSubstituteGlyphInfo = &glyphInfo;
+								mSubstituteGlyphInfo = &mCharMap.at(FontCodeType::NotDefined);
 						}
 					}
 				}
@@ -152,7 +156,7 @@ namespace MyGUI
 			mTexture->setShader(mShader);
 	}
 
-	void ResourceManualFont::setTexture(ITexture *texture)
+	void ResourceManualFont::setTexture(ITexture* texture)
 	{
 		mTexture = texture;
 		mSource.clear();

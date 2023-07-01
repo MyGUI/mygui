@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL Action :
-		public components::IFactoryItem
+	class MYGUI_EXPORT_DLL Action : public components::IFactoryItem
 	{
 	public:
 		virtual void doAction();

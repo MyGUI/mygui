@@ -18,10 +18,9 @@ namespace MyGUI
 {
 
 	/** This controller can be used to repeatedly trigger an event at specific time steps. */
-	class MYGUI_EXPORT ControllerRepeatClick :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerRepeatClick : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRepeatClick )
+		MYGUI_RTTI_DERIVED(ControllerRepeatClick)
 
 	public:
 		/** Change initial delay and time step

@@ -16,9 +16,7 @@
 namespace MyGUI
 {
 
-	class OpenGL3RenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class OpenGL3RenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		void initialise(OpenGL3ImageLoader* _loader = nullptr);
@@ -69,14 +67,16 @@ namespace MyGUI
 		/* for use with RTT, flips Y coordinate when rendering */
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
-	/*internal:*/
+		/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
 		unsigned int getShaderProgramId(const std::string& _shaderName) const;
 
 	private:
 		std::string loadFileContent(const std::string& _file);
-		unsigned int createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
+		unsigned int createShaderProgram(
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
 
 	private:

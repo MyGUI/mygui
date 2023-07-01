@@ -35,14 +35,19 @@ namespace demo
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Sample of picking mask for widget.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
 		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
-		MyGUI::ImageBox* image = MyGUI::Gui::getInstance().createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		MyGUI::ImageBox* image = MyGUI::Gui::getInstance().createWidget<MyGUI::ImageBox>(
+			"ImageBox",
+			MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height),
+			MyGUI::Align::Default,
+			"Main");
 		image->setItemResource("pic_Crystal_Clear_Butterfly");
 		image->setItemGroup("States");
 		image->setItemName("Normal");

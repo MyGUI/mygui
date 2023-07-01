@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL HorizontalSelectorControl :
-		public SelectorControl
+	class MYGUI_EXPORT_DLL HorizontalSelectorControl : public SelectorControl
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

@@ -6,8 +6,7 @@
 namespace tools
 {
 
-	class SeparatorPartControl :
-		public wraps::BaseLayout
+	class SeparatorPartControl : public wraps::BaseLayout
 	{
 	public:
 		SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent);

@@ -45,8 +45,10 @@ namespace demo
 
 	void DemoKeeper::notifyFrameStarted(float _time)
 	{
-		if (unittest_list) unittest_list->nextFrame();
-		if (unittest_multilist) unittest_multilist->nextFrame();
+		if (unittest_list)
+			unittest_list->nextFrame();
+		if (unittest_multilist)
+			unittest_multilist->nextFrame();
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(10);

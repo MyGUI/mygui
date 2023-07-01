@@ -78,7 +78,7 @@ namespace tools
 		else
 		{
 			mActions.push_back(_command);
-			mCurrentAction ++;
+			mCurrentAction++;
 
 			updateMaxActions();
 
@@ -94,7 +94,7 @@ namespace tools
 			return;
 
 		Action* command = (*mCurrentAction);
-		mCurrentAction --;
+		mCurrentAction--;
 
 		command->undoAction();
 		onChangeActions();
@@ -103,7 +103,7 @@ namespace tools
 	void ActionManager::redoAction()
 	{
 		ListAction::iterator next = mCurrentAction;
-		next ++;
+		next++;
 
 		if (next == mActions.end())
 			return;
@@ -153,7 +153,7 @@ namespace tools
 		while (mActions.size() > (mMaxActions + 1))
 		{
 			ListAction::iterator second = mActions.begin();
-			second ++;
+			second++;
 
 			if (second == mActionAsSave || mActionAsSave == mActions.begin())
 			{
@@ -172,7 +172,7 @@ namespace tools
 	void ActionManager::removeRedo()
 	{
 		ListAction::iterator last = mActions.end();
-		last --;
+		last--;
 
 		while (mCurrentAction != last)
 		{

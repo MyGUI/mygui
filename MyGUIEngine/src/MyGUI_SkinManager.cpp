@@ -34,7 +34,8 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlSkinTagName) = newDelegate(this, &SkinManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlSkinTagName) =
+			newDelegate(this, &SkinManager::_load);
 
 		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceSkin>(resourceCategory);
@@ -88,7 +89,10 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
 			if (!skinName.empty() && skinName != mXmlDefaultSkinValue)
 			{
-				MYGUI_LOG(Error, "Skin '" << skinName << "' not found. Replaced with default skin." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Error,
+					"Skin '" << skinName << "' not found. Replaced with default skin."
+							 << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 		}
 

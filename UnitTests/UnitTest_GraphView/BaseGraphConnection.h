@@ -16,8 +16,7 @@ namespace wraps
 	using VectorConnection = std::vector<BaseGraphConnection*>;
 	using EnumeratorConnection = MyGUI::Enumerator<VectorConnection>;
 
-	class BaseGraphConnection :
-		public BaseLayout
+	class BaseGraphConnection : public BaseLayout
 	{
 	public:
 		BaseGraphConnection(MyGUI::Widget* _widget) :
@@ -87,7 +86,7 @@ namespace wraps
 			_point->_removeReverseConnectionPoint(this);
 		}
 
-	/*internal:*/
+		/*internal:*/
 		void _setOwnerNode(BaseGraphNode* _owner)
 		{
 			mOwnerNode = _owner;
@@ -117,7 +116,6 @@ namespace wraps
 		VectorConnection mConnection;
 		VectorConnection mReverseConnection;
 		MyGUI::IntSize mOffset;
-
 	};
 
 }

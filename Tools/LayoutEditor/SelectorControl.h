@@ -18,9 +18,7 @@ namespace tools
 	using EventHandle_ChangePosition = MyGUI::delegates::MultiDelegate<>;
 
 
-	class SelectorControlLE :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+	class SelectorControlLE : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
 		SelectorControlLE(std::string_view _layout, MyGUI::Widget* _parent);

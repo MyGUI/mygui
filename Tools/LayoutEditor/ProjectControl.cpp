@@ -32,7 +32,8 @@ namespace tools
 		mList->eventToolTip += MyGUI::newDelegate(this, &ProjectControl::notifyToolTip);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->Initialise(
+			SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setFileMask("*.xml");
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &ProjectControl::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
@@ -42,14 +43,30 @@ namespace tools
 		mTextFieldControl->Initialise();
 		mTextFieldControl->eventEndDialog.connect(this, &ProjectControl::notifyTextFieldEndDialog);
 
-		CommandManager::getInstance().getEvent("Command_ProjectCreate")->connect(this, &ProjectControl::command_ProjectCreate);
-		CommandManager::getInstance().getEvent("Command_ProjectLoad")->connect(this, &ProjectControl::command_ProjectLoad);
-		CommandManager::getInstance().getEvent("Command_ProjectClose")->connect(this, &ProjectControl::command_ProjectClose);
-		CommandManager::getInstance().getEvent("Command_ProjectDeleteItem")->connect(this, &ProjectControl::command_ProjectDeleteItem);
-		CommandManager::getInstance().getEvent("Command_ProjectRenameItem")->connect(this, &ProjectControl::command_ProjectRenameItem);
-		CommandManager::getInstance().getEvent("Command_ProjectAddItem")->connect(this, &ProjectControl::command_ProjectAddItem);
-		CommandManager::getInstance().getEvent("Command_UpdateResources")->connect(this, &ProjectControl::command_UpdateResources);
-		CommandManager::getInstance().getEvent("Command_OpenRecentProject")->connect(this, &ProjectControl::command_OpenRecentProject);
+		CommandManager::getInstance()
+			.getEvent("Command_ProjectCreate")
+			->connect(this, &ProjectControl::command_ProjectCreate);
+		CommandManager::getInstance()
+			.getEvent("Command_ProjectLoad")
+			->connect(this, &ProjectControl::command_ProjectLoad);
+		CommandManager::getInstance()
+			.getEvent("Command_ProjectClose")
+			->connect(this, &ProjectControl::command_ProjectClose);
+		CommandManager::getInstance()
+			.getEvent("Command_ProjectDeleteItem")
+			->connect(this, &ProjectControl::command_ProjectDeleteItem);
+		CommandManager::getInstance()
+			.getEvent("Command_ProjectRenameItem")
+			->connect(this, &ProjectControl::command_ProjectRenameItem);
+		CommandManager::getInstance()
+			.getEvent("Command_ProjectAddItem")
+			->connect(this, &ProjectControl::command_ProjectAddItem);
+		CommandManager::getInstance()
+			.getEvent("Command_UpdateResources")
+			->connect(this, &ProjectControl::command_UpdateResources);
+		CommandManager::getInstance()
+			.getEvent("Command_OpenRecentProject")
+			->connect(this, &ProjectControl::command_OpenRecentProject);
 
 		if (SettingsManager::getInstance().getValue<bool>("Settings/LoadLastProject"))
 			loadLastProject();
@@ -81,11 +98,10 @@ namespace tools
 				updateProjectSkins();
 				if (!load())
 				{
-					/*Message* message = */MessageBoxManager::getInstance().create(
+					/*Message* message = */ MessageBoxManager::getInstance().create(
 						replaceTags("Error"),
 						replaceTags("MessageFailedLoadProject"),
-						MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-					);
+						MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 
 					clear();
 				}
@@ -96,11 +112,10 @@ namespace tools
 			{
 				if (isExistFile(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()))
 				{
-					/*Message* message = */MessageBoxManager::getInstance().create(
+					/*Message* message = */ MessageBoxManager::getInstance().create(
 						replaceTags("Error"),
 						replaceTags("MessageFileExist"),
-						MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-					);
+						MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 				}
 				else
 				{
@@ -162,20 +177,17 @@ namespace tools
 
 		if (isProjectItemOpen())
 		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageProjectItemOpen"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 			return;
 		}
 
 		MyGUI::Message* message = MessageBoxManager::getInstance().create(
 			replaceTags("Warning"),
 			replaceTags("MessageDeleteLayout"),
-			MyGUI::MessageBoxStyle::IconQuest
-				| MyGUI::MessageBoxStyle::Yes
-				| MyGUI::MessageBoxStyle::No);
+			MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 		message->eventMessageBoxResult += MyGUI::newDelegate(this, &ProjectControl::notifyMessageBoxResultDelete);
 
 		_result = true;
@@ -204,11 +216,10 @@ namespace tools
 
 		if (mProjectName.empty())
 		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageProjectNotOpen"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 			return;
 		}
 
@@ -275,11 +286,10 @@ namespace tools
 
 		if (!load())
 		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageFailedLoadProject"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 
 			clear();
 		}
@@ -573,7 +583,8 @@ namespace tools
 		if (_index == MyGUI::ITEM_NONE)
 			return;
 
-		MyGUI::UString data = MyGUI::utility::toString(MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)), "|", _index);
+		MyGUI::UString data =
+			MyGUI::utility::toString(MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)), "|", _index);
 		CommandManager::getInstance().setCommandData(data);
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
@@ -608,7 +619,10 @@ namespace tools
 
 		if (indexItem != MyGUI::ITEM_NONE)
 		{
-			MyGUI::UString fileName = MyGUI::utility::toString(MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)), "|", indexItem);
+			MyGUI::UString fileName = MyGUI::utility::toString(
+				MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)),
+				"|",
+				indexItem);
 			CommandManager::getInstance().setCommandData(fileName);
 			CommandManager::getInstance().executeCommand("Command_SaveItemAs");
 		}
@@ -652,7 +666,7 @@ namespace tools
 			if (_index == 0)
 				_index = MyGUI::ITEM_NONE;
 			else
-				_index --;
+				_index--;
 		}
 
 		return doc.save(fileName);

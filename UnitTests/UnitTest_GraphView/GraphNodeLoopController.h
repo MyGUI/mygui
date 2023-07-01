@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class GraphNodeLoopController :
-		public BaseAnimationNode
+	class GraphNodeLoopController : public BaseAnimationNode
 	{
 	public:
 		GraphNodeLoopController(std::string_view _name) :
@@ -80,7 +79,6 @@ namespace demo
 			assignBase(mStopOut, "StopOut");
 			assignBase(mWeightOut, "WeightOut");
 			assignBase(mPositionOut, "PositionOut");
-
 		}
 
 		void shutdown() override

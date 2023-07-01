@@ -19,8 +19,12 @@ namespace tools
 		static void executeAction(PropertyPtr _property, std::string_view _value, bool _merge = false);
 
 		using PairProprty = std::pair<PropertyPtr, std::string>;
-                using VectorPairProperty = std::vector<PairProprty>;
-		static void storeUniqueNameProperty(std::string_view _propertyName, std::string_view _propertyUnique, DataPtr _parent, VectorPairProperty& _store);
+		using VectorPairProperty = std::vector<PairProprty>;
+		static void storeUniqueNameProperty(
+			std::string_view _propertyName,
+			std::string_view _propertyUnique,
+			DataPtr _parent,
+			VectorPairProperty& _store);
 		static void restoreUniqueNameProperty(VectorPairProperty& _store);
 
 		static PropertyPtr getPropertyByName(std::string_view _dataType, std::string_view _propertyName);

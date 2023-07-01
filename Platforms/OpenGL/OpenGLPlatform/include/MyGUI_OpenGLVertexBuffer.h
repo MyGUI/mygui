@@ -24,7 +24,7 @@ namespace MyGUI
 		Vertex* lock() override;
 		void unlock() override;
 
-	/*internal:*/
+		/*internal:*/
 		unsigned int getBufferID() const
 		{
 			return mBufferID;

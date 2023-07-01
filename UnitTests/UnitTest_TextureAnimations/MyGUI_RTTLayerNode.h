@@ -16,10 +16,9 @@
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */RTTLayerNode :
-		public LayerNode
+	class /*MYGUI_EXPORT */ RTTLayerNode : public LayerNode
 	{
-		MYGUI_RTTI_DERIVED( RTTLayerNode )
+		MYGUI_RTTI_DERIVED(RTTLayerNode)
 
 	public:
 		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);

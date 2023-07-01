@@ -58,28 +58,28 @@ namespace MyGUI
 		{
 		}
 
-		MessageBoxStyle& operator |= (MessageBoxStyle const& _other)
+		MessageBoxStyle& operator|=(MessageBoxStyle const& _other)
 		{
 			mValue = (mValue | _other.mValue).mValue;
 			return *this;
 		}
 
-		friend MessageBoxStyle operator | (Enum const& a, Enum const& b)
+		friend MessageBoxStyle operator|(Enum const& a, Enum const& b)
 		{
 			return {Enum((unsigned int)a | (unsigned int)b)};
 		}
 
-		MessageBoxStyle operator | (Enum const& a)
+		MessageBoxStyle operator|(Enum const& a)
 		{
 			return mValue | a;
 		}
 
-		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b)
+		friend bool operator==(MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b)
+		friend bool operator!=(MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
 			return a.mValue != b.mValue;
 		}
@@ -90,7 +90,7 @@ namespace MyGUI
 			return _stream;
 		}*/
 
-		friend std::istream& operator >> (std::istream& _stream, MessageBoxStyle&  _value)
+		friend std::istream& operator>>(std::istream& _stream, MessageBoxStyle& _value)
 		{
 			std::string value;
 			_stream >> value;

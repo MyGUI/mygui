@@ -15,7 +15,8 @@ namespace tools
 
 	PropertyAlignControl::~PropertyAlignControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 
 	void PropertyAlignControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
@@ -49,7 +50,8 @@ namespace tools
 		mComboBox->addItem("HCenter VCenter");
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 
 	void PropertyAlignControl::updateCaption()
@@ -81,7 +83,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			std::string_view value;
-			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

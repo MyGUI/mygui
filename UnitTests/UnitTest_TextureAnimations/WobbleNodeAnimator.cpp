@@ -18,7 +18,7 @@ namespace demo
 
 	static float getLength(const MyGUI::FloatPoint& _value)
 	{
-		return std::sqrt( _value.left * _value.left + _value.top * _value.top );
+		return std::sqrt(_value.left * _value.left + _value.top * _value.top);
 	}
 
 	static void setLength(MyGUI::FloatPoint& _value, float _len)
@@ -41,8 +41,10 @@ namespace demo
 			std::string_view key = node->findAttribute("key");
 			std::string_view value = node->findAttribute("value");
 
-			if (key == "DragStrength") mDragStrength = MyGUI::utility::parseFloat(value);
-			else if (key == "ResizeStrength") mResizeStrength = MyGUI::utility::parseFloat(value);
+			if (key == "DragStrength")
+				mDragStrength = MyGUI::utility::parseFloat(value);
+			else if (key == "ResizeStrength")
+				mResizeStrength = MyGUI::utility::parseFloat(value);
 		}
 	}
 
@@ -55,8 +57,7 @@ namespace demo
 		MyGUI::ITexture* _texture,
 		const MyGUI::RenderTargetInfo& _info,
 		const MyGUI::IntCoord& _coord,
-		bool& _isAnimate
-	)
+		bool& _isAnimate)
 	{
 		if (mDestroy)
 		{
@@ -66,7 +67,7 @@ namespace demo
 		// проверяем смещения виджета
 		if (mOldCoord.empty())
 		{
-		    // do nothing
+			// do nothing
 		}
 		else if (mOldCoord.size() != _coord.size() && mOldCoord.point() != _coord.point())
 		{
@@ -79,12 +80,15 @@ namespace demo
 		{
 			mInertiaMode = true;
 
-			addInertia(MyGUI::FloatPoint((float)_coord.width - mOldCoord.width, (float)_coord.height - mOldCoord.height));
+			addInertia(
+				MyGUI::FloatPoint((float)_coord.width - mOldCoord.width, (float)_coord.height - mOldCoord.height));
 		}
 		else if (mOldCoord.point() != _coord.point())
 		{
 			const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getMousePosition();
-			mInertiaPoint = MyGUI::FloatPoint((float)(point.left - _coord.left) / (float)_coord.width, (float)(point.top - _coord.top) / (float)_coord.height);
+			mInertiaPoint = MyGUI::FloatPoint(
+				(float)(point.left - _coord.left) / (float)_coord.width,
+				(float)(point.top - _coord.top) / (float)_coord.height);
 			mInertiaMode = false;
 
 			addInertia(MyGUI::FloatPoint((float)_coord.left - mOldCoord.left, (float)_coord.top - mOldCoord.top));
@@ -103,12 +107,7 @@ namespace demo
 
 		_isAnimate = true;
 
-		_quad_count = tesselation(
-			_quad_count,
-			_data,
-			_texture,
-			_info,
-			_coord);
+		_quad_count = tesselation(_quad_count, _data, _texture, _info, _coord);
 
 		buildQuadVertex(_data);
 
@@ -119,7 +118,7 @@ namespace demo
 	{
 		const float clampFactor = 50.0f;
 		mInertia = mInertia + _value;
-		if ( getLength(mInertia) > clampFactor )
+		if (getLength(mInertia) > clampFactor)
 			setLength(mInertia, clampFactor);
 	}
 
@@ -171,26 +170,26 @@ namespace demo
 
 				if (rx < count_w && ry < count_h)
 				{
-					_data[rx + ry* count_w].vertex[MyGUI::QuadData::CornerLT].x = vert.left;
-					_data[rx + ry* count_w].vertex[MyGUI::QuadData::CornerLT].y = vert.top;
+					_data[rx + ry * count_w].vertex[MyGUI::QuadData::CornerLT].x = vert.left;
+					_data[rx + ry * count_w].vertex[MyGUI::QuadData::CornerLT].y = vert.top;
 				}
 
 				if (rx > 0 && ry > 0)
 				{
-					_data[(rx-1) + (ry-1)*count_w].vertex[MyGUI::QuadData::CornerRB].x = vert.left;
-					_data[(rx-1) + (ry-1)*count_w].vertex[MyGUI::QuadData::CornerRB].y = vert.top;
+					_data[(rx - 1) + (ry - 1) * count_w].vertex[MyGUI::QuadData::CornerRB].x = vert.left;
+					_data[(rx - 1) + (ry - 1) * count_w].vertex[MyGUI::QuadData::CornerRB].y = vert.top;
 				}
 
 				if (rx > 0 && ry < count_h)
 				{
-					_data[(rx-1) + ry* count_w].vertex[MyGUI::QuadData::CornerRT].x = vert.left;
-					_data[(rx-1) + ry* count_w].vertex[MyGUI::QuadData::CornerRT].y = vert.top;
+					_data[(rx - 1) + ry * count_w].vertex[MyGUI::QuadData::CornerRT].x = vert.left;
+					_data[(rx - 1) + ry * count_w].vertex[MyGUI::QuadData::CornerRT].y = vert.top;
 				}
 
 				if (rx < count_w && ry > 0)
 				{
-					_data[rx + (ry-1)*count_w].vertex[MyGUI::QuadData::CornerLB].x = vert.left;
-					_data[rx + (ry-1)*count_w].vertex[MyGUI::QuadData::CornerLB].y = vert.top;
+					_data[rx + (ry - 1) * count_w].vertex[MyGUI::QuadData::CornerLB].x = vert.left;
+					_data[rx + (ry - 1) * count_w].vertex[MyGUI::QuadData::CornerLB].y = vert.top;
 				}
 			}
 		}

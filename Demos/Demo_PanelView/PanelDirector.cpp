@@ -36,12 +36,12 @@ namespace demo
 	{
 		if (_sender == mCheckShowStatic)
 		{
-			mCheckShowStatic->setStateSelected( ! mCheckShowStatic->getStateSelected());
+			mCheckShowStatic->setStateSelected(!mCheckShowStatic->getStateSelected());
 			eventChangePanels(EVENT_SHOW_STATIC, static_cast<size_t>(mCheckShowStatic->getStateSelected()));
 		}
 		else if (_sender == mCheckShowDynamic)
 		{
-			mCheckShowDynamic->setStateSelected( ! mCheckShowDynamic->getStateSelected());
+			mCheckShowDynamic->setStateSelected(!mCheckShowDynamic->getStateSelected());
 			eventChangePanels(EVENT_SHOW_DYNAMIC, static_cast<size_t>(mCheckShowDynamic->getStateSelected()));
 		}
 	}

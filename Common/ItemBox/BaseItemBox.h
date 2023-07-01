@@ -15,8 +15,7 @@
 namespace wraps
 {
 	template<typename CellType>
-	class BaseItemBox :
-		public BaseLayout
+	class BaseItemBox : public BaseLayout
 	{
 	public:
 		using DataType = typename CellType::Type;
@@ -82,7 +81,7 @@ namespace wraps
 			mBoxItems->setItemDataAt(_index, _data);
 		}
 
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return mBoxItems->getItemDataAt<ValueType>(_index, _throw);
@@ -145,7 +144,7 @@ namespace wraps
 		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool&> eventRequestDrop;
 		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool> eventDropResult;
 		MyGUI::delegates::Delegate<BaseLayout*, MyGUI::DDItemState> eventChangeDDState;
-		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::IBNotifyItemData& > eventNotifyItem;
+		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::IBNotifyItemData&> eventNotifyItem;
 
 		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::ToolTipInfo&, DataType> eventToolTip;
 

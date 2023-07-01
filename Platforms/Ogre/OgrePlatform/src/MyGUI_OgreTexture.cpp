@@ -92,11 +92,8 @@ namespace MyGUI
 		delete[] (uint8*)mTmpData.data;
 		mTmpData.data = nullptr;
 
-		mTmpData = Ogre::PixelBox(
-			mTexture->getWidth(),
-			mTexture->getHeight(),
-			mTexture->getDepth(),
-			mTexture->getFormat());
+		mTmpData =
+			Ogre::PixelBox(mTexture->getWidth(), mTexture->getHeight(), mTexture->getDepth(), mTexture->getFormat());
 		mTmpData.data = new uint8[mTexture->getBuffer()->getSizeInBytes()];
 
 		mTexture->getBuffer()->blitToMemory(mTmpData);
@@ -170,10 +167,14 @@ namespace MyGUI
 
 	Ogre::PixelFormat OgreTexture::convertFormat(PixelFormat _format)
 	{
-		if (_format == PixelFormat::L8) return Ogre::PF_BYTE_L;
-		else if (_format == PixelFormat::L8A8) return Ogre::PF_BYTE_LA;
-		else if (_format == PixelFormat::R8G8B8) return Ogre::PF_R8G8B8;
-		else if (_format == PixelFormat::R8G8B8A8) return Ogre::PF_A8R8G8B8;
+		if (_format == PixelFormat::L8)
+			return Ogre::PF_BYTE_L;
+		else if (_format == PixelFormat::L8A8)
+			return Ogre::PF_BYTE_LA;
+		else if (_format == PixelFormat::R8G8B8)
+			return Ogre::PF_R8G8B8;
+		else if (_format == PixelFormat::R8G8B8A8)
+			return Ogre::PF_A8R8G8B8;
 
 		return Ogre::PF_UNKNOWN;
 	}
@@ -196,19 +197,10 @@ namespace MyGUI
 		setFormat(_format);
 		setUsage(_usage);
 
-		mTexture = Ogre::TextureManager::getSingleton().createManual(
-			mName,
-			mGroup,
-			Ogre::TEX_TYPE_2D,
-			_width,
-			_height,
-			0,
-			mPixelFormat,
-			mUsage,
-			this);
+		mTexture = Ogre::TextureManager::getSingleton()
+					   .createManual(mName, mGroup, Ogre::TEX_TYPE_2D, _width, _height, 0, mPixelFormat, mUsage, this);
 
 		mTexture->load();
-
 	}
 
 	void OgreTexture::loadFromFile(const std::string& _filename)
@@ -272,7 +264,6 @@ namespace MyGUI
 				mOriginalFormat = PixelFormat::Unknow;
 				mNumElemBytes = Ogre::PixelUtil::getNumElemBytes(mPixelFormat);
 			}
-
 		}
 	}
 

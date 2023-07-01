@@ -100,7 +100,9 @@ namespace MyGUI
 		}
 
 		MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
-		MYGUI_ASSERT(nullptr != getClientWidget(), "Child Widget Client not found in skin (TreeControl must have Client)");
+		MYGUI_ASSERT(
+			nullptr != getClientWidget(),
+			"Child Widget Client not found in skin (TreeControl must have Client)");
 
 		if (isUserString("SkinLine"))
 			mstrSkinLine.assign(getUserString("SkinLine"));
@@ -209,19 +211,24 @@ namespace MyGUI
 			if (mpWidgetScroll->getVisible())
 			{
 				mpWidgetScroll->setVisible(false);
-				getClientWidget()->setSize(getClientWidget()->getWidth() + mpWidgetScroll->getWidth(), getClientWidget()->getHeight());
+				getClientWidget()->setSize(
+					getClientWidget()->getWidth() + mpWidgetScroll->getWidth(),
+					getClientWidget()->getHeight());
 			}
 		}
 		else if (!mpWidgetScroll->getVisible())
 		{
-			getClientWidget()->setSize(getClientWidget()->getWidth() - mpWidgetScroll->getWidth(), getClientWidget()->getHeight());
+			getClientWidget()->setSize(
+				getClientWidget()->getWidth() - mpWidgetScroll->getWidth(),
+				getClientWidget()->getHeight());
 			mpWidgetScroll->setVisible(true);
 		}
 
 		mpWidgetScroll->setScrollRange(mnScrollRange + 1);
 
 		if (mnExpandedNodes)
-			mpWidgetScroll->setTrackSize(mpWidgetScroll->getLineSize() * getClientWidget()->getHeight() / mnItemHeight / mnExpandedNodes);
+			mpWidgetScroll->setTrackSize(
+				mpWidgetScroll->getLineSize() * getClientWidget()->getHeight() / mnItemHeight / mnExpandedNodes);
 	}
 
 	void TreeControl::updateItems()
@@ -232,12 +239,12 @@ namespace MyGUI
 		while ((nHeight <= (getClientWidget()->getHeight() + mnItemHeight)) && mItemWidgets.size() < mnExpandedNodes)
 		{
 			TreeControlItem* pItem = getClientWidget()->createWidget<TreeControlItem>(
-					mstrSkinLine,
-					0,
-					nHeight,
-					getClientWidget()->getWidth(),
-					mnItemHeight,
-					Align::Top | Align::HStretch);
+				mstrSkinLine,
+				0,
+				nHeight,
+				getClientWidget()->getWidth(),
+				mnItemHeight,
+				Align::Top | Align::HStretch);
 
 			pItem->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
 			pItem->eventMouseButtonDoubleClick += newDelegate(this, &TreeControl::notifyMouseDoubleClick);
@@ -245,7 +252,8 @@ namespace MyGUI
 			pItem->eventMouseSetFocus += newDelegate(this, &TreeControl::notifyMouseSetFocus);
 			pItem->eventMouseLostFocus += newDelegate(this, &TreeControl::notifyMouseLostFocus);
 			pItem->_setInternalData((size_t)mItemWidgets.size());
-			pItem->getButtonExpandCollapse()->eventMouseButtonClick += newDelegate(this, &TreeControl::notifyExpandCollapse);
+			pItem->getButtonExpandCollapse()->eventMouseButtonClick +=
+				newDelegate(this, &TreeControl::notifyExpandCollapse);
 
 			mItemWidgets.push_back(pItem);
 

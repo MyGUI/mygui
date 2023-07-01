@@ -11,9 +11,7 @@
 namespace tools
 {
 
-	class EditorState :
-		public StateController,
-		public sigslot::has_slots<>
+	class EditorState : public StateController, public sigslot::has_slots<>
 	{
 	public:
 		EditorState();

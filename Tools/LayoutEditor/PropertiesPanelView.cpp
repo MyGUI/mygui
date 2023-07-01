@@ -43,14 +43,16 @@ namespace tools
 		mPanelControllers = new PanelControllers();
 		mPanelView->addItem(mPanelControllers);
 
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget +=
+			MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 
 		notifyChangeSelectedWidget(nullptr);
 	}
 
 	PropertiesPanelView::~PropertiesPanelView()
 	{
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -=
+			MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 
 		mPanelView->removeAllItems();
 		delete mPanelMainProperties;
@@ -94,7 +96,10 @@ namespace tools
 				tab->setItemSelected(sheet);
 			}
 
-			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
+			EditorWidgets::getInstance().onSetWidgetCoord(
+				mCurrentWidget,
+				mCurrentWidget->getAbsoluteCoord(),
+				"PropertiesPanelView");
 		}
 
 		for (auto& item : mMapPropertyWindow)
@@ -203,7 +208,7 @@ namespace tools
 
 	size_t PropertiesPanelView::getIndexPanel(PanelProperties* _panel)
 	{
-		for (size_t index = 0; index < mPanelView->getItemCount(); ++ index)
+		for (size_t index = 0; index < mPanelView->getItemCount(); ++index)
 		{
 			if (mPanelView->getItem(index) == _panel)
 				return index;

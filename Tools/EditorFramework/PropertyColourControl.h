@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyColourControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyColourControl : public PropertyControl
 	{
 	public:
 		~PropertyColourControl() override;

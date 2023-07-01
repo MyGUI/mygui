@@ -8,8 +8,7 @@
 namespace tools
 {
 
-	class MainWorkspaceControl :
-		public SeparatorPartControl
+	class MainWorkspaceControl : public SeparatorPartControl
 	{
 	public:
 		MainWorkspaceControl(MyGUI::Widget* _parent);

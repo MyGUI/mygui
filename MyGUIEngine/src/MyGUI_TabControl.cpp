@@ -100,7 +100,8 @@ namespace MyGUI
 		{
 			// создаем виджет, носитель скина пустоты бара
 			// OBSOLETE
-			mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
+			mEmptyBarWidget =
+				_getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 		}
 
 		updateBar();
@@ -136,7 +137,11 @@ namespace MyGUI
 		TabItem* child = _widget->castType<TabItem>(false);
 		if (child != nullptr)
 		{
-			child->setCoord(_getWidgetTemplate()->getAbsoluteLeft() - getAbsoluteLeft(), _getWidgetTemplate()->getAbsoluteTop() - getAbsoluteTop(), _getWidgetTemplate()->getWidth(), _getWidgetTemplate()->getHeight());
+			child->setCoord(
+				_getWidgetTemplate()->getAbsoluteLeft() - getAbsoluteLeft(),
+				_getWidgetTemplate()->getAbsoluteTop() - getAbsoluteTop(),
+				_getWidgetTemplate()->getWidth(),
+				_getWidgetTemplate()->getHeight());
 			child->setAlign(_getWidgetTemplate()->getAlign());
 
 			_insertItem(ITEM_NONE, UString(), child, Any::Null);
@@ -147,7 +152,15 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "TabControl::insertItem");
 
-		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), std::string_view{}, std::string_view{}, false);
+		Widget* widget = Base::baseCreateWidget(
+			WidgetStyle::Child,
+			TabItem::getClassTypeName(),
+			"Default",
+			_getWidgetTemplate()->getCoord(),
+			_getWidgetTemplate()->getAlign(),
+			std::string_view{},
+			std::string_view{},
+			false);
 
 		size_t lastIndex = mItemsInfo.size() - 1;
 		setItemNameAt(lastIndex, _name);
@@ -197,7 +210,7 @@ namespace MyGUI
 		{
 			if (mStartIndex > 0)
 			{
-				mStartIndex --;
+				mStartIndex--;
 				updateBar();
 			}
 		}
@@ -205,7 +218,7 @@ namespace MyGUI
 		{
 			if ((mStartIndex + 1) < mItemsInfo.size())
 			{
-				mStartIndex ++;
+				mStartIndex++;
 				// в updateBar() будет подкорректированно если что
 				updateBar();
 			}
@@ -234,7 +247,7 @@ namespace MyGUI
 				// корректируем нажатость кнопки
 				button->setStateSelected((pos + mStartIndex) == mIndexSelect);
 			}
-			count ++;
+			count++;
 		}
 
 		// стараемся показать выделенную кнопку
@@ -452,11 +465,11 @@ namespace MyGUI
 		else
 		{
 			if (index < mIndexSelect)
-				mIndexSelect --;
+				mIndexSelect--;
 			else if (index == mIndexSelect)
 			{
 				if (mIndexSelect == mItemsInfo.size())
-					mIndexSelect --;
+					mIndexSelect--;
 				mItemsInfo[mIndexSelect].item->setVisible(true);
 				mItemsInfo[mIndexSelect].item->setAlpha(ALPHA_MAX);
 			}
@@ -483,7 +496,7 @@ namespace MyGUI
 		{
 			_sheet->setVisible(false);
 			if (_index <= mIndexSelect)
-				mIndexSelect ++;
+				mIndexSelect++;
 		}
 
 		updateBar();
@@ -861,14 +874,14 @@ namespace MyGUI
 				button->setCoord(coord);
 
 			width += info.width;
-			count ++;
+			count++;
 		}
 
 		// скрываем кнопки что были созданны, но не видны
 		while (count < mItemButton.size())
 		{
 			mItemButton[count]->setVisible(false);
-			count ++;
+			count++;
 		}
 
 		bool right = true;
@@ -927,7 +940,8 @@ namespace MyGUI
 		if (mControls != nullptr)
 			widthControls = mControls->getWidth();
 
-		if ((mHeaderPlace->getWidth() < mWidthBar) && (1 < mItemsInfo.size()) && (mHeaderPlace->getWidth() >= widthControls))
+		if ((mHeaderPlace->getWidth() < mWidthBar) && (1 < mItemsInfo.size()) &&
+			(mHeaderPlace->getWidth() >= widthControls))
 		{
 			if (!mButtonShow)
 			{
@@ -938,7 +952,11 @@ namespace MyGUI
 			}
 
 			if (mControls != nullptr)
-				mControls->setCoord(mHeaderPlace->getWidth() - mControls->getWidth(), 0, mControls->getWidth(), mHeaderPlace->getHeight());
+				mControls->setCoord(
+					mHeaderPlace->getWidth() - mControls->getWidth(),
+					0,
+					mControls->getWidth(),
+					mHeaderPlace->getHeight());
 		}
 		else
 		{
@@ -962,7 +980,8 @@ namespace MyGUI
 				width += mItemsInfo[pos].width;
 
 			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
-			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex - 1].width) <= (mHeaderPlace->getWidth() - widthControls)))
+			while ((mStartIndex > 0) &&
+				   ((width + mItemsInfo[mStartIndex - 1].width) <= (mHeaderPlace->getWidth() - widthControls)))
 			{
 				mStartIndex--;
 				width += mItemsInfo[mStartIndex].width;
@@ -1005,14 +1024,14 @@ namespace MyGUI
 				button->setCoord(coord);
 
 			width += info.width;
-			count ++;
+			count++;
 		}
 
 		// скрываем кнопки что были созданны, но не видны
 		while (count < mItemButton.size())
 		{
 			mItemButton[count]->setVisible(false);
-			count ++;
+			count++;
 		}
 
 		bool right = true;

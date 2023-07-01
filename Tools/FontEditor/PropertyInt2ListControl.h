@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class PropertyInt2ListControl :
-		public PropertyControl
+	class PropertyInt2ListControl : public PropertyControl
 	{
 	public:
 		~PropertyInt2ListControl() override;

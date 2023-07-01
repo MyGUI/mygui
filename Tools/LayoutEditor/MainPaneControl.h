@@ -8,8 +8,7 @@
 namespace tools
 {
 
-	class MainPaneControl :
-		public wraps::BaseLayout
+	class MainPaneControl : public wraps::BaseLayout
 	{
 	public:
 		MainPaneControl();

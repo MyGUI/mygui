@@ -41,7 +41,9 @@ namespace tools
 		if (_data == nullptr)
 			return nullptr;
 
-		for (DataType::VectorString::const_iterator child = _data->getType()->getChilds().begin(); child != _data->getType()->getChilds().end(); child ++)
+		for (DataType::VectorString::const_iterator child = _data->getType()->getChilds().begin();
+			 child != _data->getType()->getChilds().end();
+			 child++)
 		{
 			if ((*child) == _info->getName())
 				return _data;
@@ -57,8 +59,10 @@ namespace tools
 		MYGUI_ASSERT(_target->getChilds().empty(), "Target not empty");
 
 		copyProperty(_target, _prototype);
-		
-		for (Data::VectorData::const_iterator child = _prototype->getChilds().begin(); child != _prototype->getChilds().end(); child ++)
+
+		for (Data::VectorData::const_iterator child = _prototype->getChilds().begin();
+			 child != _prototype->getChilds().end();
+			 child++)
 		{
 			DataPtr data = Data::CreateInstance();
 			data->setType((*child)->getType());
@@ -71,7 +75,9 @@ namespace tools
 
 	void DataUtility::copyProperty(DataPtr _target, DataPtr _prototype)
 	{
-		for (Data::MapProperty::const_iterator property = _prototype->getProperties().begin(); property != _prototype->getProperties().end(); property ++)
+		for (Data::MapProperty::const_iterator property = _prototype->getProperties().begin();
+			 property != _prototype->getProperties().end();
+			 property++)
 			_target->setPropertyValue((*property).first, (*property).second->getValue());
 	}
 
@@ -79,7 +85,7 @@ namespace tools
 	{
 		std::string result{_pattern};
 
-		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index ++)
+		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index++)
 		{
 			std::string name = MyGUI::utility::toString(_pattern, index);
 			bool unique = checkUniqueName(_parent, name);
@@ -95,7 +101,8 @@ namespace tools
 
 	bool DataUtility::checkUniqueName(DataPtr _parent, std::string_view _name)
 	{
-		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getPropertyValue("Name") == _name)
 				return false;
@@ -109,7 +116,8 @@ namespace tools
 		Data::VectorData result;
 		result.reserve(_parent->getChilds().size());
 
-		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() == _type || (_friend && (*child)->getType()->getFriend() == _type))
 				result.push_back((*child));

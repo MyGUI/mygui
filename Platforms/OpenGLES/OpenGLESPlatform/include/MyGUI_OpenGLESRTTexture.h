@@ -8,8 +8,7 @@
 namespace MyGUI
 {
 
-	class OpenGLESRTTexture :
-		public IRenderTarget
+	class OpenGLESRTTexture : public IRenderTarget
 	{
 	public:
 		OpenGLESRTTexture(unsigned int _texture);

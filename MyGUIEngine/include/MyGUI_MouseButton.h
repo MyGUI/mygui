@@ -38,12 +38,12 @@ namespace MyGUI
 		{
 		}
 
-		friend bool operator == (MouseButton const& a, MouseButton const& b)
+		friend bool operator==(MouseButton const& a, MouseButton const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (MouseButton const& a, MouseButton const& b)
+		friend bool operator!=(MouseButton const& a, MouseButton const& b)
 		{
 			return a.mValue != b.mValue;
 		}

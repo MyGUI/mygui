@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class SettingsWidgetsControl :
-		public Control
+	class SettingsWidgetsControl : public Control
 	{
 	public:
 		~SettingsWidgetsControl() override;

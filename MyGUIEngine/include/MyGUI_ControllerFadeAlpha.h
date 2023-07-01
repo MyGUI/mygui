@@ -15,10 +15,9 @@ namespace MyGUI
 {
 
 	/** This controller used for smooth changing alpha of widget in time */
-	class MYGUI_EXPORT ControllerFadeAlpha :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerFadeAlpha : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerFadeAlpha )
+		MYGUI_RTTI_DERIVED(ControllerFadeAlpha)
 
 	public:
 		/**

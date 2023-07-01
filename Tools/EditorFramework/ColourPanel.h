@@ -15,10 +15,7 @@ namespace tools
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
-	class MYGUI_EXPORT_DLL ColourPanel :
-		public Dialog,
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL ColourPanel : public Dialog, public Control, public sigslot::has_slots<>
 	{
 	public:
 		~ColourPanel() override;

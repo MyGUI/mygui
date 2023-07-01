@@ -29,7 +29,9 @@ namespace tools
 		mKeyView->setVisible(false);
 		mKeyView->setCoord(MyGUI::IntCoord());
 
-		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &FocusInfoControl::Command_FocusVisible);
+		CommandManager::getInstance()
+			.getEvent("Command_FocusVisible")
+			->connect(this, &FocusInfoControl::Command_FocusVisible);
 
 		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/FocusInfoControl/Visible"));
 

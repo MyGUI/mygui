@@ -41,14 +41,14 @@ namespace demo
 		mWebPageBerkeliumWidget->getBerkeliumWindow()->goForward();
 	}
 
-	void BerkeliumBrowser::onAddressBarChanged(Berkelium::Window *win, Berkelium::URLString newURL)
+	void BerkeliumBrowser::onAddressBarChanged(Berkelium::Window* win, Berkelium::URLString newURL)
 	{
 		mUrlEditBox->setCaption(newURL.data());
 		mBackButton->setEnabled(mWebPageBerkeliumWidget->getBerkeliumWindow()->canGoBack());
 		mForwardButton->setEnabled(mWebPageBerkeliumWidget->getBerkeliumWindow()->canGoForward());
 	}
 
-	void BerkeliumBrowser::onLoadingStateChanged(Berkelium::Window *win, bool isLoading)
+	void BerkeliumBrowser::onLoadingStateChanged(Berkelium::Window* win, bool isLoading)
 	{
 		mLoadingProgressBar->setVisible(isLoading);
 	}

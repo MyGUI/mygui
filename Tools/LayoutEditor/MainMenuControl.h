@@ -15,9 +15,7 @@
 namespace tools
 {
 
-	class MainMenuControlLE :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+	class MainMenuControlLE : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
 		MainMenuControlLE(MyGUI::Widget* _parent = nullptr);
@@ -30,7 +28,12 @@ namespace tools
 		void notifyPopupMenuAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 
 		void widgetsUpdate();
-		void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+		void createWidgetPopup(
+			WidgetContainer* _container,
+			MyGUI::MenuControl* _parentPopup,
+			bool _print_name,
+			bool _print_type,
+			bool _print_skin);
 		void notifyWidgetsSelect(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 		std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
 

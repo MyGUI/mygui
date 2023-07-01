@@ -66,7 +66,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
@@ -132,7 +134,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &StateTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &StateTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &StateTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -183,7 +187,9 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			DataPtr selected = mParentData->getChildSelected();
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if ((*child)->getType()->getName() != mThisType)
 					continue;

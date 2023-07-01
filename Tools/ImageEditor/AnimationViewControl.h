@@ -16,9 +16,7 @@
 namespace tools
 {
 
-	class AnimationViewControl :
-		public Control,
-		public sigslot::has_slots<>
+	class AnimationViewControl : public Control, public sigslot::has_slots<>
 	{
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;

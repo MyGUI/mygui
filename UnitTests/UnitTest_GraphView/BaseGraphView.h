@@ -14,9 +14,7 @@
 namespace wraps
 {
 
-	class BaseGraphView :
-		public BaseLayout,
-		public IGraphController
+	class BaseGraphView : public BaseLayout, public IGraphController
 	{
 	public:
 		using VectorGraphNode = std::vector<BaseGraphNode*>;
@@ -99,7 +97,7 @@ namespace wraps
 			return mCanvas;
 		}
 
-	/*event:*/
+		/*event:*/
 		/** Request : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
 			@param _sender
@@ -107,7 +105,8 @@ namespace wraps
 			@param _to
 			@param _result
 		*/
-		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestConnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&>
+			requestConnectPoint;
 
 		/** Request : Disconnection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
@@ -116,7 +115,8 @@ namespace wraps
 			@param _to
 			@param _result
 		*/
-		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestDisconnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&>
+			requestDisconnectPoint;
 
 		/** Event : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -195,7 +195,7 @@ namespace wraps
 
 		void startDrag(BaseGraphConnection* _connection) override
 		{
-			if ( ! mIsDrug )
+			if (!mIsDrug)
 			{
 				bool result = false;
 				requestConnectPoint(this, _connection, nullptr, result);
@@ -212,8 +212,7 @@ namespace wraps
 					mDrugLine.end_offset.clear();
 					mDrugLine.point_start.set(
 						coord.left + (coord.width / 2) - mCanvas->getAbsoluteLeft(),
-						coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop()
-					);
+						coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop());
 					mDrugLine.point_end = mDrugLine.point_start;
 
 					mConnectionStart = _connection;
@@ -274,8 +273,7 @@ namespace wraps
 						mDrugLine.end_offset.clear();
 						mDrugLine.point_start.set(
 							coord.left + (coord.width / 2) - mCanvas->getAbsoluteLeft(),
-							coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop()
-						);
+							coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop());
 						mDrugLine.point_end = mDrugLine.point_start;
 
 						mConnectionStart = drag_node;
@@ -284,7 +282,6 @@ namespace wraps
 
 						updateDrag(nullptr);
 					}
-
 				}
 			}
 		}
@@ -317,25 +314,33 @@ namespace wraps
 				mDrugLine.point_end.set(mouse.left - mCanvas->getAbsoluteLeft(), mouse.top - mCanvas->getAbsoluteTop());
 
 				// устанавлваем длинну загиба от дистанции
-				double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) * (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
-					((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
+				double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) *
+								   (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
+					((mDrugLine.point_end.top - mDrugLine.point_start.top) *
+					 (mDrugLine.point_end.top - mDrugLine.point_start.top));
 				distance = std::sqrt(distance);
 
 				mDrugLine.start_offset = _connection->getOffset();
 
 				const int offset = 30;
 				distance *= 0.5;
-				if (distance < 1) distance = 1;
-				else if (distance > offset) distance = offset;
+				if (distance < 1)
+					distance = 1;
+				else if (distance > offset)
+					distance = offset;
 				if (mDrugLine.start_offset.height != 0)
 				{
-					if (mDrugLine.start_offset.height < 0) mDrugLine.start_offset.height = -(int)distance;
-					else  mDrugLine.start_offset.height = (int)distance;
+					if (mDrugLine.start_offset.height < 0)
+						mDrugLine.start_offset.height = -(int)distance;
+					else
+						mDrugLine.start_offset.height = (int)distance;
 				}
 				if (mDrugLine.start_offset.width != 0)
 				{
-					if (mDrugLine.start_offset.width < 0) mDrugLine.start_offset.width = -(int)distance;
-					else  mDrugLine.start_offset.width = (int)distance;
+					if (mDrugLine.start_offset.width < 0)
+						mDrugLine.start_offset.width = -(int)distance;
+					else
+						mDrugLine.start_offset.width = (int)distance;
 				}
 
 				// пикаем виджет под нами
@@ -394,8 +399,10 @@ namespace wraps
 						const MyGUI::IntCoord& coord_to = connect_point->getAbsoluteCoord();
 
 						ConnectionInfo info(
-							coord_from.point() - mCanvas->getAbsolutePosition() + MyGUI::IntPoint(coord_from.width / 2, coord_from.height / 2),
-							coord_to.point() - mCanvas->getAbsolutePosition() + MyGUI::IntPoint(coord_to.width / 2, coord_to.height / 2),
+							coord_from.point() - mCanvas->getAbsolutePosition() +
+								MyGUI::IntPoint(coord_from.width / 2, coord_from.height / 2),
+							coord_to.point() - mCanvas->getAbsolutePosition() +
+								MyGUI::IntPoint(coord_to.width / 2, coord_to.height / 2),
 							MyGUI::Colour::White,
 							node_point->getOffset(),
 							connect_point->getOffset());
@@ -461,7 +468,8 @@ namespace wraps
 			}
 			else
 			{
-				result = mCanvas->createWidget<MyGUI::Widget>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
+				result =
+					mCanvas->createWidget<MyGUI::Widget>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
 				result->setNeedMouseFocus(false);
 				mConnections.push_back(result);
 			}
@@ -496,8 +504,12 @@ namespace wraps
 			for (size_t i = 0; i < PointsNumber; ++i)
 			{
 				float t = float(i) / (PointsNumber - 1);
-				float left = basePoints[0].left * std::pow(1 - t, 3.0f) + 3 * basePoints[1].left * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].left * (1 - t) * t * t + t * t * t * basePoints[3].left;
-				float top = basePoints[0].top * std::pow(1 - t, 3.0f) + 3 * basePoints[1].top * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].top * (1 - t) * t * t + t * t * t * basePoints[3].top;
+				float left = basePoints[0].left * std::pow(1 - t, 3.0f) +
+					3 * basePoints[1].left * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].left * (1 - t) * t * t +
+					t * t * t * basePoints[3].left;
+				float top = basePoints[0].top * std::pow(1 - t, 3.0f) +
+					3 * basePoints[1].top * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].top * (1 - t) * t * t +
+					t * t * t * basePoints[3].top;
 				splinePoints.emplace_back(left, top);
 			}
 			polygonalSkin->setPoints(splinePoints);
@@ -515,8 +527,10 @@ namespace wraps
 			for (auto& mNode : mNodes)
 			{
 				const MyGUI::IntCoord& coord = mNode->getCoord();
-				if (coord.right() > result.width) result.width = coord.right();
-				if (coord.bottom() > result.height) result.height = coord.bottom();
+				if (coord.right() > result.width)
+					result.width = coord.right();
+				if (coord.bottom() > result.height)
+					result.height = coord.bottom();
 			}
 
 			// для соединений справа

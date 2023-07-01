@@ -129,32 +129,39 @@ namespace tools
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
-        LoadGuiSettings();
+		LoadGuiSettings();
 
-        std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");
-        if (language.empty() || language == "Auto")
-        {
-            if (!mLocale.empty())
-                MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
-        }
-        else
-        {
-            MyGUI::LanguageManager::getInstance().setCurrentLanguage(language);
-        }
+		std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");
+		if (language.empty() || language == "Auto")
+		{
+			if (!mLocale.empty())
+				MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
+		}
+		else
+		{
+			MyGUI::LanguageManager::getInstance().setCurrentLanguage(language);
+		}
 
 		bool maximized = SettingsManager::getInstance().getValue<bool>("Controls/Main/Maximized");
 		setWindowMaximized(maximized);
 		if (!maximized)
 		{
-			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");
+			MyGUI::IntCoord windowCoord =
+				SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");
 			setWindowCoord(windowCoord);
 		}
 
-		CommandManager::getInstance().getEvent("Command_StatisticInfo")->connect(this, &Application::command_StatisticInfo);
-		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &Application::command_FocusVisible);
+		CommandManager::getInstance()
+			.getEvent("Command_StatisticInfo")
+			->connect(this, &Application::command_StatisticInfo);
+		CommandManager::getInstance()
+			.getEvent("Command_FocusVisible")
+			->connect(this, &Application::command_FocusVisible);
 		CommandManager::getInstance().getEvent("Command_ScreenShot")->connect(this, &Application::command_ScreenShot);
 		CommandManager::getInstance().getEvent("Command_QuitApp")->connect(this, &Application::command_QuitApp);
-		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &Application::command_UpdateAppCaption);
+		CommandManager::getInstance()
+			.getEvent("Command_UpdateAppCaption")
+			->connect(this, &Application::command_UpdateAppCaption);
 
 		CreateControls();
 		LoadStates();
@@ -249,7 +256,7 @@ namespace tools
 	{
 		// устанавливаем локаль из переменной окружения
 		// без этого не будут открываться наши файлы
-		mLocale = ::setlocale( LC_ALL, "" );
+		mLocale = ::setlocale(LC_ALL, "");
 		// erase everything after '_' to get language name
 		mLocale.erase(std::find(mLocale.begin(), mLocale.end(), '_'), mLocale.end());
 		if (mLocale == "ru")
@@ -288,17 +295,17 @@ namespace tools
 				// имена могут быть в ковычках
 				if (tmp.size() > 2)
 				{
-					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
+					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
 					{
 						tmp = tmp.substr(1, tmp.size() - 2);
 					}
 				}
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
 				stream.open(tmp.c_str());
-#else
+	#else
 				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
-#endif
+	#endif
 				if (stream.is_open())
 				{
 					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
@@ -317,17 +324,17 @@ namespace tools
 				// имена могут быть в ковычках
 				if (tmp.size() > 2)
 				{
-					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
+					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
 					{
 						tmp = tmp.substr(1, tmp.size() - 2);
 					}
 				}
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
 				stream.open(tmp.c_str());
-#else
+	#else
 				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
-#endif
+	#endif
 				if (stream.is_open())
 				{
 					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
@@ -343,8 +350,8 @@ namespace tools
 			start = source.find_first_not_of(delims, end + 1);
 		};
 
-	#else
-	#endif
+#else
+#endif
 	}
 
 	void Application::onFileDrop(const std::wstring& _fileName)
@@ -358,7 +365,7 @@ namespace tools
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (::IsIconic((HWND)_handle))
 			ShowWindow((HWND)_handle, SW_SHOWNORMAL);
-	#endif
+#endif
 
 		CommandManager::getInstance().executeCommand("Command_QuitApp");
 		return false;
@@ -452,22 +459,26 @@ namespace tools
 
 	void Application::LoadGuiSettings()
 	{
-		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueList("Resources/Resource.List");
+		const SettingsManager::VectorString& resources =
+			SettingsManager::getInstance().getValueList("Resources/Resource.List");
 		for (const auto& resource : resources)
 			MyGUI::ResourceManager::getInstance().load(resource);
 
-		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
+		const SettingsManager::VectorString& additionalPaths =
+			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (const auto& additionalPath : additionalPaths)
 			addResourceLocation(additionalPath);
 
-		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
+		const SettingsManager::VectorString& additionalResources =
+			SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
 		for (const auto& additionalResource : additionalResources)
 			MyGUI::ResourceManager::getInstance().load(additionalResource);
 	}
 
 	void Application::CreateControls()
 	{
-		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Control.List");
+		const SettingsManager::VectorString& controls =
+			SettingsManager::getInstance().getValueList("Editor/Control.List");
 		for (const auto& controlType : controls)
 		{
 			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);

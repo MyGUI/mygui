@@ -19,10 +19,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ResourceManager :
-		public MemberObsolete<ResourceManager>
+	class MYGUI_EXPORT ResourceManager : public MemberObsolete<ResourceManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(ResourceManager);
+
 	public:
 		ResourceManager();
 

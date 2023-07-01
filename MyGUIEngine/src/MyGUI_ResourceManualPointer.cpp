@@ -24,10 +24,14 @@ namespace MyGUI
 			std::string_view key = info->findAttribute("key");
 			std::string_view value = info->findAttribute("value");
 
-			if (key == "Point") mPoint = IntPoint::parse(value);
-			else if (key == "Size") mSize = IntSize::parse(value);
-			else if (key == "Texture") mTexture = value;
-			else if (key == "Coord") mTextureCoord = IntCoord::parse(value);
+			if (key == "Point")
+				mPoint = IntPoint::parse(value);
+			else if (key == "Size")
+				mSize = IntSize::parse(value);
+			else if (key == "Texture")
+				mTexture = value;
+			else if (key == "Coord")
+				mTextureCoord = IntCoord::parse(value);
 		}
 	}
 

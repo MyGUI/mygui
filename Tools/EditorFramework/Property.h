@@ -33,13 +33,13 @@ namespace tools
 		const std::string& getValue() const;
 		void setValue(std::string_view _value);
 
-		template <typename Type>
+		template<typename Type>
 		Type getValue() const
 		{
 			return MyGUI::utility::parseValue<Type>(getValue());
 		}
 
-		template <typename Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		template<typename Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
 		void setValue(const Type& _value)
 		{
 			setValue(MyGUI::utility::toString(_value));

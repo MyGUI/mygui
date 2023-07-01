@@ -16,8 +16,7 @@
 namespace tools
 {
 
-	class PanelProperties :
-		public wraps::BasePanelViewItem
+	class PanelProperties : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelProperties();

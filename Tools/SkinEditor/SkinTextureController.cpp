@@ -100,7 +100,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &SkinTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &SkinTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &SkinTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 

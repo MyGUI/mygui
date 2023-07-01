@@ -20,8 +20,7 @@ namespace MyGUI
 {
 	class DirectX11Texture;
 
-	class DirectX11RTTexture :
-		public IRenderTarget
+	class DirectX11RTTexture : public IRenderTarget
 	{
 	public:
 		DirectX11RTTexture(DirectX11Texture* texture, DirectX11RenderManager* manager);

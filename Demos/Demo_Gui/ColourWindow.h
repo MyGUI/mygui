@@ -13,8 +13,7 @@
 namespace demo
 {
 
-	class ColourWindow :
-		public wraps::BaseLayout
+	class ColourWindow : public wraps::BaseLayout
 	{
 	public:
 		ColourWindow(MyGUI::Widget* _parent);

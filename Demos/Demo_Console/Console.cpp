@@ -20,7 +20,8 @@ namespace demo
 		assignWidget(mButtonSubmit, "button_Submit");
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr) window->eventWindowButtonPressed += newDelegate(this, &Console::notifyWindowButtonPressed);
+		if (window != nullptr)
+			window->eventWindowButtonPressed += newDelegate(this, &Console::notifyWindowButtonPressed);
 
 		mStringCurrent.assign(mMainWidget->getUserString("Current"));
 		mStringError.assign(mMainWidget->getUserString("Error"));
@@ -37,7 +38,7 @@ namespace demo
 
 		mMainWidget->setVisible(false);
 
-        registerConsoleDelegate("clear", MyGUI::newDelegate(this, &Console::internalCommand));
+		registerConsoleDelegate("clear", MyGUI::newDelegate(this, &Console::internalCommand));
 	}
 
 	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _button)
@@ -56,7 +57,8 @@ namespace demo
 	void Console::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		const MyGUI::UString& command = _sender->getOnlyText();
-		if (command.empty()) return;
+		if (command.empty())
+			return;
 
 		MyGUI::UString key = command;
 		MyGUI::UString value;
@@ -108,7 +110,8 @@ namespace demo
 		{
 			if (delegate.first.find(command) == 0)
 			{
-				if (command == delegate.first) break;
+				if (command == delegate.first)
+					break;
 				edit->setCaption(delegate.first);
 				edit->setTextSelection(command.length(), delegate.first.length());
 				mAutocomleted = true;

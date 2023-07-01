@@ -102,7 +102,8 @@ namespace MyGUI
 	{
 		mpOwner = pOwner;
 
-		for (typename VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end(); ++Iterator)
+		for (typename VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end();
+			 ++Iterator)
 			(*Iterator)->setOwner(pOwner);
 	}
 
@@ -115,7 +116,8 @@ namespace MyGUI
 	template<class NODE, class OWNER>
 	bool GenericNode<NODE, OWNER>::hasDescendant(const NODE* pNode) const
 	{
-		for (typename VectorGenericNodePtr::const_iterator Iterator = mChildren.begin(); Iterator != mChildren.end(); ++Iterator)
+		for (typename VectorGenericNodePtr::const_iterator Iterator = mChildren.begin(); Iterator != mChildren.end();
+			 ++Iterator)
 		{
 			if (*Iterator == pNode || (*Iterator)->hasDescendant(pNode))
 				return true;
@@ -144,7 +146,8 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(pNode, "GenericNode<NODE, OWNER>::remove pNode is nullptr");
 
-		for (typename VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end(); ++Iterator)
+		for (typename VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end();
+			 ++Iterator)
 		{
 			if (*Iterator != pNode)
 				continue;

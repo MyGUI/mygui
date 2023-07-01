@@ -11,20 +11,23 @@ namespace tools
 	class CyclicBuffer
 	{
 	public:
-		using container_type = std::vector<T>;                      ///< Underlying container type.
-		using value_type = typename std::vector<T>::value_type;     ///< Element type.
-		using size_type = typename std::vector<T>::size_type;       ///< Size and offset type.
+		using container_type = std::vector<T>; ///< Underlying container type.
+		using value_type = typename std::vector<T>::value_type; ///< Element type.
+		using size_type = typename std::vector<T>::size_type; ///< Size and offset type.
 
 		/// Fixed size c-tor.
-		explicit CyclicBuffer( size_type _size ) :
-			pos( (size_t) - 1 ), count( 0 ), size( _size ),
-			c( new value_type[size] )
-		{ }
+		explicit CyclicBuffer(size_type _size) :
+			pos((size_t)-1),
+			count(0),
+			size(_size),
+			c(new value_type[size])
+		{
+		}
 
 		/// D-tor.
 		~CyclicBuffer()
 		{
-			delete [] c;
+			delete[] c;
 		}
 
 		/// Is buffer empty?
@@ -49,14 +52,14 @@ namespace tools
 		}
 
 		/// Peek n-th element for read (0 = newest element).
-		const value_type& operator[]( size_type offset ) const
+		const value_type& operator[](size_type offset) const
 		{
-			return c[( size + pos - offset ) % size];
+			return c[(size + pos - offset) % size];
 		}
 		/// Peek n-th element for edit (0 = newest element).
-		value_type& operator[]( size_type offset )
+		value_type& operator[](size_type offset)
 		{
-			return c[( size + pos - offset ) % size];
+			return c[(size + pos - offset) % size];
 		}
 		/// Peek newest element for read.
 		const value_type& Front() const
@@ -82,19 +85,21 @@ namespace tools
 		/// Clear buffer and all allocated elements.
 		void Clear()
 		{
-			while ( !IsEmpty() ) Pop();
+			while (!IsEmpty())
+				Pop();
 		}
 
 		/// Expand buffer, no element init will be done (uses Pop()).
 		void Expand()
 		{
-			if ( IsFull() ) Pop();
-			pos = ( pos + 1 ) % size;
+			if (IsFull())
+				Pop();
+			pos = (pos + 1) % size;
 			++count;
 		}
 
 		/// Push element into buffer tail (uses Expand())..
-		void Push( const value_type& v )
+		void Push(const value_type& v)
 		{
 			Expand();
 			c[pos] = v;
@@ -103,16 +108,16 @@ namespace tools
 		/// Pop last element from buffer.
 		void Pop()
 		{
-			if ( !IsEmpty() )
+			if (!IsEmpty())
 			{
 				Back() = value_type();
-                --count;
+				--count;
 			}
 		}
 
 		void PopFirst()
 		{
-			if ( !IsEmpty() )
+			if (!IsEmpty())
 			{
 				Front() = value_type();
 				--count;

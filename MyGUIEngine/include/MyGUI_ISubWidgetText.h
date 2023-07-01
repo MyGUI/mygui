@@ -15,10 +15,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ISubWidgetText :
-		public ISubWidget
+	class MYGUI_EXPORT ISubWidgetText : public ISubWidget
 	{
-		MYGUI_RTTI_DERIVED( ISubWidgetText )
+		MYGUI_RTTI_DERIVED(ISubWidgetText)
 
 	public:
 		/** Get index of start of selection */
@@ -34,7 +33,9 @@ namespace MyGUI
 		}
 
 		/** Set text selection */
-		virtual void setTextSelection(size_t /*_start*/, size_t /*_end*/) { }
+		virtual void setTextSelection(size_t /*_start*/, size_t /*_end*/)
+		{
+		}
 
 		// интенсивность выделенного текста
 		virtual bool getSelectBackground() const
@@ -42,7 +43,9 @@ namespace MyGUI
 			return true;
 		}
 
-		virtual void setSelectBackground(bool /*_normal*/) { }
+		virtual void setSelectBackground(bool /*_normal*/)
+		{
+		}
 
 		// нужно ли инвертировать выделение
 		virtual bool getInvertSelected() const
@@ -50,7 +53,9 @@ namespace MyGUI
 			return true;
 		}
 
-		virtual void setInvertSelected(bool /*_value*/) { }
+		virtual void setInvertSelected(bool /*_value*/)
+		{
+		}
 
 		// нужно ли показывать тень
 		virtual bool getShadow() const
@@ -58,7 +63,9 @@ namespace MyGUI
 			return false;
 		}
 
-		virtual void setShadow(bool /*_value*/) { }
+		virtual void setShadow(bool /*_value*/)
+		{
+		}
 
 		// управление видимостью курсора
 		virtual bool isVisibleCursor() const
@@ -66,7 +73,9 @@ namespace MyGUI
 			return false;
 		}
 
-		virtual void setVisibleCursor(bool /*_value*/) { }
+		virtual void setVisibleCursor(bool /*_value*/)
+		{
+		}
 
 		// управление положением курсора
 		virtual size_t getCursorPosition() const
@@ -74,9 +83,13 @@ namespace MyGUI
 			return 0;
 		}
 
-		virtual void setCursorPosition(size_t /*_index*/) { }
+		virtual void setCursorPosition(size_t /*_index*/)
+		{
+		}
 
-		virtual void setWordWrap(bool /*_value*/) { }
+		virtual void setWordWrap(bool /*_value*/)
+		{
+		}
 
 		// возвращает положение курсора по произвольному положению
 		// позиция абсолютная, без учета смещений
@@ -112,50 +125,65 @@ namespace MyGUI
 		}
 
 		// устанавливает смещение текста в пикселях
-		virtual void setViewOffset(const IntPoint& /*_point*/) { }
+		virtual void setViewOffset(const IntPoint& /*_point*/)
+		{
+		}
 		virtual IntPoint getViewOffset() const
 		{
 			return {};
 		}
 
-		virtual void setCaption(const UString& /*_value*/) { }
+		virtual void setCaption(const UString& /*_value*/)
+		{
+		}
 		virtual const UString& getCaption() const
 		{
 			return Constants::getEmptyUString();
 		}
 
-		virtual void setTextColour(const Colour& /*_value*/) { }
+		virtual void setTextColour(const Colour& /*_value*/)
+		{
+		}
 		virtual const Colour& getTextColour() const
 		{
 			return Colour::Zero;
 		}
 
-		virtual void setFontName(std::string_view /*_value*/) { }
+		virtual void setFontName(std::string_view /*_value*/)
+		{
+		}
 		virtual std::string_view getFontName() const
 		{
 			return {};
 		}
 
-		virtual void setFontHeight(int /*_value*/) { }
+		virtual void setFontHeight(int /*_value*/)
+		{
+		}
 		virtual int getFontHeight() const
 		{
 			return 0;
 		}
 
-		virtual void setTextAlign(Align /*_value*/) { }
+		virtual void setTextAlign(Align /*_value*/)
+		{
+		}
 		virtual Align getTextAlign() const
 		{
 			return Align::Default;
 		}
 
-		virtual void setShiftText(bool /*_value*/) { }
+		virtual void setShiftText(bool /*_value*/)
+		{
+		}
 
-		virtual void setShadowColour(const Colour& /*_value*/) { }
+		virtual void setShadowColour(const Colour& /*_value*/)
+		{
+		}
 		virtual const Colour& getShadowColour() const
 		{
 			return Colour::Zero;
 		}
-
 	};
 
 } // namespace MyGUI

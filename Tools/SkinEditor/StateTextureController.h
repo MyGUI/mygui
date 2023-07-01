@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class StateTextureController :
-		public IControlController,
-		public sigslot::has_slots<>
+	class StateTextureController : public IControlController, public sigslot::has_slots<>
 	{
 	public:
 		void setTarget(Control* _control) override;

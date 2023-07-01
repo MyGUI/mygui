@@ -46,7 +46,12 @@ namespace MyGUI
 			source->flush();
 	}
 
-	void LogManager::log(std::string_view _section, LogLevel _level, std::string_view _message, std::string_view _file, int _line)
+	void LogManager::log(
+		std::string_view _section,
+		LogLevel _level,
+		std::string_view _message,
+		std::string_view _file,
+		int _line)
 	{
 		time_t ctTime;
 		time(&ctTime);

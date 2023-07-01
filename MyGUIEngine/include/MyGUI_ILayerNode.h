@@ -25,10 +25,9 @@ namespace MyGUI
 	using VectorILayerNode = std::vector<ILayerNode*>;
 	using EnumeratorILayerNode = Enumerator<VectorILayerNode>;
 
-	class MYGUI_EXPORT ILayerNode :
-		public IObject
+	class MYGUI_EXPORT ILayerNode : public IObject
 	{
-		MYGUI_RTTI_DERIVED( ILayerNode )
+		MYGUI_RTTI_DERIVED(ILayerNode)
 
 	public:
 		// леер, которому мы принадлежим

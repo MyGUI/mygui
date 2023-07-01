@@ -46,13 +46,13 @@ namespace tools
 		const std::string& getPropertyValue(std::string_view _name) const;
 		void setPropertyValue(std::string_view _name, std::string_view _value) const;
 
-		template <typename Type>
+		template<typename Type>
 		Type getPropertyValue(std::string_view _name) const
 		{
 			return MyGUI::utility::parseValue<Type>(getPropertyValue(_name));
 		}
 
-		template <class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		template<class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
 		void setPropertyValue(std::string_view _name, const Type& _value) const
 		{
 			setPropertyValue(_name, MyGUI::utility::toString(_value));

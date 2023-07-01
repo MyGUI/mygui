@@ -6,8 +6,7 @@
 namespace MyGUI
 {
 
-	class OpenGLESDataManager :
-		public DataManager
+	class OpenGLESDataManager : public DataManager
 	{
 	public:
 		void initialise();
@@ -37,7 +36,7 @@ namespace MyGUI
 		/** @see DataManager::getDataPath(const std::string& _name) */
 		std::string getDataPath(const std::string& _name) const override;
 
-	/*internal:*/
+		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:

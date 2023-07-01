@@ -12,8 +12,7 @@
 namespace demo
 {
 
-	class GraphNodeGroup2Controller :
-		public BaseAnimationNode
+	class GraphNodeGroup2Controller : public BaseAnimationNode
 	{
 	public:
 		GraphNodeGroup2Controller(std::string_view _name) :
@@ -32,7 +31,6 @@ namespace demo
 			assignBase(mStop1Out, "Stop1Out");
 			assignBase(mStart2Out, "Start2Out");
 			assignBase(mStop2Out, "Stop2Out");
-
 		}
 
 		void shutdown() override

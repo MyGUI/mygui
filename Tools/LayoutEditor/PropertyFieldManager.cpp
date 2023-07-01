@@ -21,7 +21,7 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(PropertyFieldManager);
 
-	template <typename Type>
+	template<typename Type>
 	class GenericFactory
 	{
 	public:
