@@ -58,25 +58,24 @@ namespace MyGUI
 		static const Any Null;
 		Any();
 		Any(const Any& other);
+		Any(Any&& other) noexcept;
+		~Any();
 
 		template<typename ValueType>
 		Any(const ValueType& value) :
-			mContent(new Holder<ValueType>(value))
+			mContent(std::make_unique<Holder<ValueType>>(value))
 		{
 		}
 
-		~Any();
-
-		Any& swap(Any& rhs);
-
 		template<typename ValueType>
-		Any& operator = (const ValueType& rhs)
+		Any& operator=(const ValueType& rhs)
 		{
-			Any(rhs).swap(*this);
+			mContent = std::make_unique<Holder>(rhs);
 			return *this;
 		}
 
-		Any& operator = (const Any& rhs);
+		Any& operator=(const Any& rhs);
+		Any& operator=(Any&& rhs) noexcept;
 
 		bool empty() const;
 
@@ -86,12 +85,10 @@ namespace MyGUI
 		ValueType* castType(bool _throw = true) const
 		{
 			if (this->getType() == typeid(ValueType))
-				return &static_cast<Any::Holder<ValueType> *>(this->mContent)->held;
+				return &static_cast<Any::Holder<ValueType>*>(this->mContent.get())->held;
 			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
 			return nullptr;
 		}
-
-		void* castUnsafe() const;
 
 		bool compare(const Any& other) const;
 
@@ -103,8 +100,8 @@ namespace MyGUI
 
 		public:
 			virtual const std::type_info& getType() const = 0;
-			virtual Placeholder* clone() const = 0;
-			virtual bool compare(Placeholder* other) const = 0;
+			virtual std::unique_ptr<Placeholder> clone() const = 0;
+			virtual bool compare(const std::unique_ptr<Placeholder>& other) const = 0;
 		};
 
 		template<class T>
@@ -139,23 +136,21 @@ namespace MyGUI
 			{
 			}
 
-			Holder& operator=(const Holder&) = delete;
-
 		public:
 			const std::type_info& getType() const override
 			{
 				return typeid(ValueType);
 			}
 
-			Placeholder* clone() const override
+			std::unique_ptr<Placeholder> clone() const override
 			{
-				return new Holder(held);
+				return std::make_unique<Holder>(held);
 			}
 
-			bool compare(Placeholder* other) const override
+			bool compare(const std::unique_ptr<Placeholder>& other) const override
 			{
 				if constexpr (HasOperatorEqual<ValueType>::value)
-					return getType() == other->getType() && held == static_cast<Holder*>(other)->held;
+					return getType() == other->getType() && held == static_cast<Holder*>(other.get())->held;
 				else
 					MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
 			}
@@ -165,7 +160,7 @@ namespace MyGUI
 		};
 
 	private:
-		Placeholder* mContent{nullptr};
+		std::unique_ptr<Placeholder> mContent;
 	};
 
 } // namespace MyGUI

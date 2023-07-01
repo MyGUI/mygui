@@ -490,7 +490,7 @@ namespace MyGUI
 	void MultiListBox::setColumnDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::setColumnDataAt");
-		mVectorColumnInfo[_index].data = _data;
+		mVectorColumnInfo[_index].data = std::move(_data);
 	}
 
 	void MultiListBox::setSubItemDataAt(size_t _column, size_t _index, Any _data)
@@ -599,7 +599,7 @@ namespace MyGUI
 		mVectorColumnInfo.back().width = _width;
 		mVectorColumnInfo.back().sizeType = ResizingPolicy::Fixed;
 		mVectorColumnInfo.back().name = _name;
-		mVectorColumnInfo.back().data = _data;
+		mVectorColumnInfo.back().data = std::move(_data);
 		mVectorColumnInfo.back().button->setCaption(_name);
 
 		if (_column == (mVectorColumnInfo.size() - 1))

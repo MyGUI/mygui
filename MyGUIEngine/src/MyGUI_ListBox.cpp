@@ -701,7 +701,7 @@ namespace MyGUI
 	void ListBox::setItemDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemDataAt");
-		mItemsInfo[_index].second = _data;
+		mItemsInfo[_index].second = std::move(_data);
 		_redrawItem(_index);
 	}
 

@@ -185,7 +185,7 @@ namespace MyGUI
 	void MenuControl::setItemDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemDataAt");
-		mItemsInfo[_index].data = _data;
+		mItemsInfo[_index].data = std::move(_data);
 	}
 
 	MenuControl* MenuControl::getItemChildAt(size_t _index) const
@@ -494,7 +494,7 @@ namespace MyGUI
 
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
+		mItemsInfo.insert(mItemsInfo.begin() + _index, std::move(info));
 
 		mChangeChildSkin = true;
 		_item->changeWidgetSkin(getSkinByType(_type));

@@ -58,7 +58,7 @@ namespace unittest
 
 			column.list = new Mirror_List();
 			column.name = _name;
-			column.data = _data;
+			column.data = std::move(_data);
 
 			// если уже были столбики, то делаем то же колличество полей
 			if (!mVectorColumnInfo.empty())
@@ -68,8 +68,7 @@ namespace unittest
 					column.list->addItem(MyGUI::UString());
 			}
 
-			mVectorColumnInfo.insert(mVectorColumnInfo.begin() + _column, column);
-
+			mVectorColumnInfo.insert(mVectorColumnInfo.begin() + _column, std::move(column));
 		}
 
 		/** Add new column at last position
@@ -123,7 +122,7 @@ namespace unittest
 		void setColumnDataAt(size_t _index, MyGUI::Any _data)
 		{
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::setColumnDataAt");
-			mVectorColumnInfo[_index].data = _data;
+			mVectorColumnInfo[_index].data = std::move(_data);
 		}
 
 		//! Clear an item data at a specified position

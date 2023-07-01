@@ -492,7 +492,7 @@ namespace MyGUI
 	void TabControl::setItemDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::setItemDataAt");
-		mItemsInfo[_index].data = _data;
+		mItemsInfo[_index].data = std::move(_data);
 	}
 
 	int TabControl::getButtonWidthAt(size_t _index) const

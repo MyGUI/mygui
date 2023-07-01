@@ -53,12 +53,12 @@ namespace MyGUI
 
 	void UserData::setUserData(Any _data)
 	{
-		mUserData = _data;
+		mUserData = std::move(_data);
 	}
 
 	void UserData::_setInternalData(Any _data)
 	{
-		mInternalData = _data;
+		mInternalData = std::move(_data);
 	}
 
 } // namespace MyGUI

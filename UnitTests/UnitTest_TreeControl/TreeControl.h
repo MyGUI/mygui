@@ -144,7 +144,7 @@ namespace MyGUI
 	}
 	inline void TreeControl::Node::setData(Any Data)
 	{
-		mData = Data;
+		mData = std::move(Data);
 	}
 	template <typename TYPE>
 	TYPE* TreeControl::Node::getData() const

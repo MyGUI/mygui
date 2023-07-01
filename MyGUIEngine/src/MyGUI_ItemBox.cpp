@@ -301,7 +301,7 @@ namespace MyGUI
 	void ItemBox::setItemDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::setItemData");
-		mItemsInfo[_index].data = _data;
+		mItemsInfo[_index].data = std::move(_data);
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
