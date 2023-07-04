@@ -64,6 +64,7 @@ Checks: '\
   -performance-unnecessary-value-param,\
   -readability-braces-around-statements,\
   -readability-convert-member-functions-to-static,\
+  -readability-function-cognitive-complexity,\
   -readability-identifier-length,\
   -readability-implicit-bool-conversion,\
   -readability-magic-numbers,\
@@ -73,7 +74,7 @@ Checks: '\
   \ # TODO
   -modernize-avoid-c-arrays,\
   -readability-use-anyofallof,\
-  -readability-function-cognitive-complexity'
+  '
 
 WarningsAsErrors: "*"
 HeaderFilterRegex: '.*'
