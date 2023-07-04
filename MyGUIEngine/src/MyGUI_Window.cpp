@@ -12,6 +12,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
+#include <array>
 
 namespace MyGUI
 {
