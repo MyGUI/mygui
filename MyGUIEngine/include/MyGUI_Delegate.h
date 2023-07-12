@@ -192,6 +192,10 @@ namespace MyGUI
 			using IDelegate = DelegateFunction<Args...>;
 			using ListDelegate = typename std::list<std::unique_ptr<IDelegate>>;
 
+			// These shouldn't be necessary, but MSVC (17.6.5) requires them anyway
+			MultiDelegate() = default;
+			MultiDelegate(MultiDelegate&&) noexcept = default;
+
 			bool empty() const
 			{
 				for (const auto& delegate : mListDelegates)

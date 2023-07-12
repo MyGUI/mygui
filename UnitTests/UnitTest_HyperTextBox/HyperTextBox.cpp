@@ -66,8 +66,8 @@ namespace MyGUI
 
 	void HyperTextBox::parseParagraph(Widget* _parent, std::string_view _value)
 	{
-		const auto* textItem = _value.end();
-		for (const auto* item = _value.begin(); item != _value.end(); ++item)
+		auto textItem = _value.end();
+		for (auto item = _value.begin(); item != _value.end(); ++item)
 		{
 			if ((*item) == '<')
 			{
@@ -79,7 +79,7 @@ namespace MyGUI
 				}
 
 				// ищем конец тега
-				for (const auto* tagItem = item; tagItem != _value.end(); ++tagItem)
+				for (auto tagItem = item; tagItem != _value.end(); ++tagItem)
 				{
 					if ((*tagItem) == '>')
 					{

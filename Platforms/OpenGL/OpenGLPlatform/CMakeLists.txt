@@ -23,7 +23,7 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-if (APPLE)
+if (APPLE OR WIN32)
 	target_link_libraries(${PROJECTNAME} ${OPENGL_gl_LIBRARY} MyGUIEngine)
 else ()
 	# opengl instead of gl makes it compile and work in a libX11-free wayland setup
