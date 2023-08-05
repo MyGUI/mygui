@@ -100,9 +100,7 @@ namespace MyGUI
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile) override;
 
-#if MYGUI_DEBUG_MODE == 1
 		bool checkTexture(ITexture* _texture) override;
-#endif
 
 		std::string getShaderExtension() const;
 

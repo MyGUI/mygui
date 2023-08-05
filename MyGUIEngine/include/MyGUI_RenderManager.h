@@ -60,10 +60,8 @@ namespace MyGUI
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile) = 0;
 
-#if MYGUI_DEBUG_MODE == 1
-		/** Check if texture is valid */
+		/** Check if texture is valid, used only in debug build */
 		virtual bool checkTexture(ITexture* _texture);
-#endif
 
 	protected:
 		virtual void onResizeView(const IntSize& _viewSize);

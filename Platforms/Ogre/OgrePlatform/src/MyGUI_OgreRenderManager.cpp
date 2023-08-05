@@ -387,7 +387,6 @@ namespace MyGUI
 		mRegisteredShaders.clear();
 	}
 
-#if MYGUI_DEBUG_MODE == 1
 	bool OgreRenderManager::checkTexture(ITexture* _texture)
 	{
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
@@ -397,7 +396,6 @@ namespace MyGUI
 		}
 		return false;
 	}
-#endif
 
 	const IntSize& OgreRenderManager::getViewSize() const
 	{
