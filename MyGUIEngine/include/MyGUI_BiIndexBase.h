@@ -40,9 +40,7 @@ namespace MyGUI
 		// меняет местами два индекса, индексы со сторонны данных
 		void swapItemsBackAt(size_t _index1, size_t _index2);
 
-#if MYGUI_DEBUG_MODE == 1
 		void checkIndexes();
-#endif
 
 	private:
 		using VectorSizeT = std::vector<size_t>;

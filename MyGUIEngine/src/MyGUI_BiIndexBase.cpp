@@ -139,8 +139,6 @@ namespace MyGUI
 		std::swap(mIndexFace[mIndexBack[_index1]], mIndexFace[mIndexBack[_index2]]);
 	}
 
-#if MYGUI_DEBUG_MODE == 1
-
 	void BiIndexBase::checkIndexes()
 	{
 		assert(mIndexFace.size() == mIndexBack.size());
@@ -172,7 +170,5 @@ namespace MyGUI
 			MYGUI_ASSERT(mIndexBack[index] == pos, "Invalid index: cross-reference");
 		}
 	}
-
-#endif
 
 } // namespace MyGUI
