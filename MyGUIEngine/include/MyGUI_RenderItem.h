@@ -54,10 +54,6 @@ namespace MyGUI
 		bool getNeedCompression() const;
 
 	private:
-#if MYGUI_DEBUG_MODE == 1
-		std::string mTextureName;
-#endif
-
 		ITexture* mTexture{nullptr};
 
 		size_t mNeedVertexCount{0};

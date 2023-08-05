@@ -65,8 +65,9 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 			if (!RenderManager::getInstance().checkTexture(mTexture))
 			{
+				auto textureName = mTexture ? mTexture->getName() : std::string();
 				mTexture = nullptr;
-				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << mTextureName << "'");
+				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << textureName << "'");
 				return;
 			}
 #endif
@@ -156,12 +157,6 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
 
 		mTexture = _value;
-
-#if MYGUI_DEBUG_MODE == 1
-		mTextureName.clear();
-		if (mTexture != nullptr)
-			mTextureName = mTexture->getName();
-#endif
 	}
 
 	ITexture* RenderItem::getTexture() const
