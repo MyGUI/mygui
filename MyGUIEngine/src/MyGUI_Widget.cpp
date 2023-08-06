@@ -215,12 +215,21 @@ namespace MyGUI
 
 		if (!skinOnly)
 		{
+#ifndef MYGUI_DONT_USE_OBSOLETE
 			const MapString& properties = _skinInfo->getProperties();
 			for (const auto& property : properties)
 			{
 				if (BackwardCompatibility::isIgnoreProperty(property.first))
+				{
+					MYGUI_LOG(
+						Warning,
+						property.first
+							<< " skin property is deprecated, move it to UserString in a widget in ResourceLayout"
+							<< LayoutManager::getInstance().getCurrentLayout() << "]");
 					setUserString(property.first, property.second);
+				}
 			}
+#endif
 
 			// create skin childs
 			const VectorChildSkinInfo& child = _skinInfo->getChild();
