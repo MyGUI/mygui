@@ -71,11 +71,14 @@ namespace MyGUI
 			{
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
 				OGRE_IGNORE_DEPRECATED_BEGIN
+	#if OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0)
+				// TODO: use _setSampler
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(
 					0,
 					Ogre::FO_NONE,
 					Ogre::FO_NONE,
 					Ogre::FO_NONE);
+	#endif
 				OGRE_IGNORE_DEPRECATED_END
 			}
 		}

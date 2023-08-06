@@ -237,7 +237,8 @@ namespace MyGUI
 		if (_window->getNumViewports() > mActiveViewport)
 		{
 			Ogre::Viewport* port = _window->getViewport(mActiveViewport);
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0) && \
+	OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 			Ogre::OrientationMode orient = port->getOrientationMode();
 			if (orient == Ogre::OR_DEGREE_90 || orient == Ogre::OR_DEGREE_270)
 				setViewSize(port->getActualHeight(), port->getActualWidth());
