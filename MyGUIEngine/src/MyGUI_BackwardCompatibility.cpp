@@ -1088,7 +1088,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		return mPropertyIgnore.find(_key) != mPropertyIgnore.end();
 #else
-		return false;
+		return true;
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
