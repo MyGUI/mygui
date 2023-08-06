@@ -1,10 +1,18 @@
 ## MyGUI v3.4.3
+
+### Core
+- Allow passing lambdas into MyGUI::newDelegate without explicitly wrapping them into std::function
+
 ### Widgets
 - Add missing eventClipboardChanged when trying to cut/copy with no text selected
 - Fixed rare crash when changing widget style after it was clicked in the same frame
 - Fixed TabItem left disabled when rapidly switching between tabs
 - Improve performance of the TabControl tabs switching
 - Fixed ignoring "FontHeight" property when "FontName" is also set
+- Move MyGUI::DEFAULT to deprecated, add TabControl::DEFAULT_WIDTH instead
+
+### Platforms
+- Fix build with Ogre 14
 
 ### Tools
 - Minor fixes for macOS
@@ -12,7 +20,10 @@
 
 ### Other
 - Switch to C++17
+- Use string_view, unique_ptr and some other stuff
 - Various code improvements, including range base for migration and some other minor stuff
+- Add some missing MYGUI_DONT_USE_OBSOLETE checks for deprecated stuff
+- Remove MYGUI_DEBUG_MODE from headers to avoid issues with mixed debug/release builds
 
 ## MyGUI v3.4.2
 ### Core
