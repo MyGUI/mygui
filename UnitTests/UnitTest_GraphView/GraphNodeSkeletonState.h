@@ -122,11 +122,9 @@ namespace demo
 			{
 				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
 				Ogre::AnimationStateSet* set = entity->getAllAnimationStates();
-				Ogre::AnimationStateIterator iter = set->getAnimationStateIterator();
-				while (iter.hasMoreElements())
+				for (const auto& state : set->getAnimationStates())
 				{
-					Ogre::AnimationState* state = iter.getNext();
-					mComboStates->addItem(state->getAnimationName());
+					mComboStates->addItem(state.second->getAnimationName());
 				}
 			}
 
