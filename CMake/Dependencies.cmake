@@ -48,6 +48,7 @@ endif()
 find_package(SDL2)
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 	# Find OGRE
+	find_package(ZLIB)
 	find_package(OGRE_Old)
 	macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" TRUE "" "")
 elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7)

@@ -38,20 +38,6 @@ if (NOT OGRE_FOUND)
 	if (OGRE_FOUND)
 		MESSAGE(STATUS "Ogre was found with it's own CMake script")
 
-		set(BOOST_ROOT ${BOOST_ROOT} CACHE PATH "Path to Boost (required if Ogre was built with boost)")
-		FIND_PACKAGE(Boost)
-
-		if (Boost_FOUND)
-			set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
-			set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS} ${BOOST_LIBRARYDIR})
-		else()
-			# trying to get boost from OGRE_SOURCE_DIR
-			set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${OGRE_SOURCE_DIR}/boost)
-			set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${OGRE_SOURCE_DIR}/boost/lib)
-		endif()
-
-		#add_definitions("-DBOOST_ALL_NO_LIB")
-
 		return()
 	endif ()
 
