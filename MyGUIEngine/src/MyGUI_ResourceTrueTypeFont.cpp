@@ -29,13 +29,7 @@ namespace MyGUI
 {
 
 #ifndef MYGUI_USE_FREETYPE
-	ResourceTrueTypeFont::ResourceTrueTypeFont()
-	{
-	}
-
-	ResourceTrueTypeFont::~ResourceTrueTypeFont()
-	{
-	}
+	ResourceTrueTypeFont::~ResourceTrueTypeFont() = default;
 
 	void ResourceTrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
