@@ -3,6 +3,11 @@
 ### Widgets
 - Fixed TabItem child widgets not being clickable in some cases (regression introduced in v3.4.3)
 
+### Other
+
+- Fixed build with MYGUI_USE_FREETYPE=OFF
+- Fixed build with static Ogre
+
 ## MyGUI v3.4.3
 
 ### Core
