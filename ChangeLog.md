@@ -1,3 +1,8 @@
+## MyGUI v3.4.4
+
+### Widgets
+- Fixed TabItem child widgets not being clickable in some cases (regression introduced in v3.4.3)
+
 ## MyGUI v3.4.3
 
 ### Core

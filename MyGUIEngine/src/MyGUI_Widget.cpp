@@ -568,7 +568,7 @@ namespace MyGUI
 		std::stable_sort(
 			mWidgetChild.begin(),
 			mWidgetChild.end(),
-			[](Widget* lhs, Widget* rhs) { return lhs->getDepth() < rhs->getDepth(); });
+			[](Widget* lhs, Widget* rhs) { return lhs->getDepth() > rhs->getDepth(); });
 		_updateChilds();
 	}
 
