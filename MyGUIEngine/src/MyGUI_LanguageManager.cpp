@@ -196,7 +196,7 @@ namespace MyGUI
 		}
 	}
 
-	UString LanguageManager::replaceTags(const UString& _line)
+	UString LanguageManager::replaceTags(const UString& _line) const
 	{
 		UString result(_line);
 
@@ -257,7 +257,7 @@ namespace MyGUI
 		return loadLanguage(_file, true);
 	}
 
-	UString LanguageManager::replaceTagsPass(const UString& _line, bool& _replaceResult)
+	UString LanguageManager::replaceTagsPass(const UString& _line, bool& _replaceResult) const
 	{
 		_replaceResult = false;
 
@@ -296,7 +296,7 @@ namespace MyGUI
 
 						bool find = true;
 						// try to find in loaded from resources language strings
-						MapLanguageString::iterator replace = mMapLanguage.find(UString(tag));
+						auto replace = mMapLanguage.find(UString(tag));
 						if (replace != mMapLanguage.end())
 						{
 							replacement = replace->second;

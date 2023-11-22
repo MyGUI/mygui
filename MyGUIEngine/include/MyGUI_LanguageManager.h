@@ -36,7 +36,7 @@ namespace MyGUI
 
 		/** Replace all tags #{tagname} in _line with appropriate string dependent
 		on current language or keep #{tagname} if 'tagname' not found found */
-		UString replaceTags(const UString& _line);
+		UString replaceTags(const UString& _line) const;
 
 		/** Get tag value */
 		UString getTag(const UString& _tag) const;
@@ -71,7 +71,7 @@ namespace MyGUI
 		void _loadLanguage(IDataStream* _stream, bool _user);
 		void _loadLanguageXML(IDataStream* _stream, bool _user);
 
-		UString replaceTagsPass(const UString& _line, bool& _replaceResult);
+		UString replaceTagsPass(const UString& _line, bool& _replaceResult) const;
 
 	private:
 		using MapLanguageString = std::map<UString, UString, std::less<>>;
