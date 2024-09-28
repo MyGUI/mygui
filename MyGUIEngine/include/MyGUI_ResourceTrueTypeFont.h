@@ -89,9 +89,6 @@ namespace MyGUI
 		};
 
 		void addCodePoint(Char _codePoint);
-		void removeCodePoint(Char _codePoint);
-
-		void clearCodePoints();
 
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.

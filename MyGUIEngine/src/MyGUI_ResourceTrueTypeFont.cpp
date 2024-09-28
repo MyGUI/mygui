@@ -416,11 +416,6 @@ namespace MyGUI
 		mCharMap.insert(CharMap::value_type(_codePoint, 0));
 	}
 
-	void ResourceTrueTypeFont::removeCodePoint(Char _codePoint)
-	{
-		mCharMap.erase(_codePoint);
-	}
-
 	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)
 	{
 		CharMap::iterator positionHint = mCharMap.lower_bound(_first);
@@ -435,11 +430,6 @@ namespace MyGUI
 	void ResourceTrueTypeFont::removeCodePointRange(Char _first, Char _second)
 	{
 		mCharMap.erase(mCharMap.lower_bound(_first), mCharMap.upper_bound(_second));
-	}
-
-	void ResourceTrueTypeFont::clearCodePoints()
-	{
-		mCharMap.clear();
 	}
 
 	void ResourceTrueTypeFont::initialise()
