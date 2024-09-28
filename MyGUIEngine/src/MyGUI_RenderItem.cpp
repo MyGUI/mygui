@@ -65,7 +65,7 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 			if (!RenderManager::getInstance().checkTexture(mTexture))
 			{
-				auto textureName = mTexture ? mTexture->getName() : std::string();
+				auto textureName = mTexture->getName();
 				mTexture = nullptr;
 				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << textureName << "'");
 				return;
