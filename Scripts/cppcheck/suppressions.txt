@@ -7,6 +7,8 @@ constParameterPointer
 constParameterReference
 constParameterCallback
 missingIncludeSystem
+constVariablePointer
+normalCheckLevelMaxBranches
 // buggy with range-based for
 constVariableReference
 
@@ -27,3 +29,4 @@ useInitializationList
 noCopyConstructor
 noOperatorEq
 uninitMemberVar
+duplInheritedMember
