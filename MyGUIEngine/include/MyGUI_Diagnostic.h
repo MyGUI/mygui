@@ -24,7 +24,7 @@
 		MYGUI_LOG(Critical, dest); \
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
-		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
+		MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 	} while (false)
 
 // NOLINTBEGIN(readability-simplify-boolean-expr)
@@ -36,7 +36,7 @@
 			MYGUI_LOG(Critical, dest); \
 			std::ostringstream stream; \
 			stream << dest << "\n"; \
-			MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
+			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 		} \
 	} while (false)
 // NOLINTEND(readability-simplify-boolean-expr)

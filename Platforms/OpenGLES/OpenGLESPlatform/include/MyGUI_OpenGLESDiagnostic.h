@@ -12,7 +12,7 @@
 		MYGUI_PLATFORM_LOG(Critical, dest); \
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
-		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
+		MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 	} while (false)
 
 #define MYGUI_PLATFORM_ASSERT(exp, dest) \
@@ -23,6 +23,6 @@
 			MYGUI_PLATFORM_LOG(Critical, dest); \
 			std::ostringstream stream; \
 			stream << dest << "\n"; \
-			MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
+			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 		} \
 	} while (false)
