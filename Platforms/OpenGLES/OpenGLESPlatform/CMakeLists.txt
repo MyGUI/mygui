@@ -9,7 +9,7 @@ include_directories(
 
 include(${PROJECTNAME}.list)
 add_definitions(-DGL_GLEXT_PROTOTYPES)
-add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
