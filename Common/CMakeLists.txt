@@ -99,7 +99,7 @@ SOURCE_GROUP("Base" FILES
 	Input/SDL/ResourceSDLPointer.cpp
 )
 
-add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
