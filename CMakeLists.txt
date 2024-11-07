@@ -23,11 +23,12 @@ endif()
 project(MYGUI)
 
 # Include necessary submodules
-set(CMAKE_MODULE_PATH
-	"${MYGUI_SOURCE_DIR}/CMake"
-	"${MYGUI_SOURCE_DIR}/CMake/Utils"
-	"${MYGUI_SOURCE_DIR}/CMake/Packages"
+list(APPEND CMAKE_MODULE_PATH
+    "${MYGUI_SOURCE_DIR}/CMake"
+    "${MYGUI_SOURCE_DIR}/CMake/Utils"
+    "${MYGUI_SOURCE_DIR}/CMake/Packages"
 )
+
 include(CMakeDependentOption)
 include(MacroLogFeature)
 include(MyGUIConfigTargets)
