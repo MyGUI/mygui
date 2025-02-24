@@ -202,11 +202,15 @@ namespace MyGUI
 			if (mWidgetTrack->getTop() != start)
 				mWidgetTrack->setPosition(mWidgetTrack->getLeft(), start);
 
-			// расчитываем положение соответствующее позиции
-			// плюс пол позиции
-			int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
-			// высчитываем ближайшее значение и обновляем
-			pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			int pos = 0;
+			if (mScrollRange >= 2)
+			{
+				// расчитываем положение соответствующее позиции
+				// плюс пол позиции
+				pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
+				// высчитываем ближайшее значение и обновляем
+				pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			}
 
 			// проверяем на выходы и изменения
 			if (pos < 0)
@@ -229,11 +233,15 @@ namespace MyGUI
 			if (mWidgetTrack->getLeft() != start)
 				mWidgetTrack->setPosition(IntPoint(start, mWidgetTrack->getTop()));
 
-			// расчитываем положение соответствующее позиции
-			// плюс пол позиции
-			int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
-			// высчитываем ближайшее значение и обновляем
-			pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			int pos = 0;
+			if (mScrollRange >= 2)
+			{
+				// расчитываем положение соответствующее позиции
+				// плюс пол позиции
+				pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
+				// высчитываем ближайшее значение и обновляем
+				pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			}
 
 			// проверяем на выходы и изменения
 			if (pos < 0)
