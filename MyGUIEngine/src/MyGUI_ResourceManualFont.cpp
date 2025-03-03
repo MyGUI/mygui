@@ -91,7 +91,6 @@ namespace MyGUI
 							else
 								id = utility::parseUInt(value);
 
-							float advance(utility::parseValue<float>(element->findAttribute("advance")));
 							FloatPoint bearing(utility::parseValue<FloatPoint>(element->findAttribute("bearing")));
 
 							// texture coordinates
@@ -105,8 +104,10 @@ namespace MyGUI
 								size = utility::parseValue<FloatSize>(sizeString);
 							}
 
-							if (advance == 0.0f)
-								advance = size.width;
+							auto advanceAttribute = element->findAttribute("advance");
+							float advance = size.width;
+							if (!advanceAttribute.empty())
+								advance = utility::parseValue<float>(advanceAttribute);
 
 							mCharMap.emplace(
 								id,
