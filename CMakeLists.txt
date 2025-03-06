@@ -205,6 +205,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wno-exit-time-destructors
 				-Wno-unused-parameter
 				-Wno-global-constructors
+				-Wno-switch-default # conflicts with Wcovered-switch-default
 			)
 		else ()
 			add_compile_options(
