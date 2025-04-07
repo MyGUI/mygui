@@ -344,18 +344,18 @@ namespace MyGUI
 					if (point.left + menu->getWidth() > menu->getParentSize().width)
 					{
 						// move to the left side if possible
-						if (point.left - menu->getWidth() - getWidth() > 0)
+						if (point.left - menu->getWidth() - getWidth() >= 0)
 							point.left -= menu->getWidth() + getWidth();
 						// or put near right parent border (window) if too wide for left side too
 						else
 							point.left = menu->getParentSize().width - menu->getWidth();
 					}
-					// too high (same logic as for too wide)
+					// too high
 					if (point.top + menu->getHeight() > menu->getParentSize().height)
 					{
 						// move to the top side if possible
-						if (point.top - menu->getHeight() - getHeight() > 0)
-							point.top -= menu->getHeight() + getHeight();
+						if (getBottom() - menu->getHeight() >= 0)
+							point.top = getBottom() - menu->getHeight();
 						// or put near bottom parent border (window) if too high for top side too
 						else
 							point.top = menu->getParentSize().height - menu->getHeight();
