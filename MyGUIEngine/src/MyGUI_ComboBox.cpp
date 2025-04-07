@@ -390,9 +390,8 @@ namespace MyGUI
 		if (mMaxListLength > 0 && length > mMaxListLength)
 			length = mMaxListLength;
 
-		// берем глобальные координаты выджета
 		IntCoord coord = getAbsoluteCoord();
-		// размер леера
+		// layer size
 		IntSize sizeView = mList->getParentSize();
 
 		if (mFlowDirection == FlowDirection::TopToBottom)
