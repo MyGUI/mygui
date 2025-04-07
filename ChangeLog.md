@@ -2,11 +2,18 @@
 
 ### Widgets
 - Fixed TabItem child widgets not being clickable in some cases (regression introduced in v3.4.3)
+- Fixed MenuControl popup positioning issue when it is unable to fit into screen height
+- Guard against division by zero in ScrollBar::TrackMove
+
+### Resources
+
+- ResourceTrueTypeFont: preserve explicit 0.0 advance in ResourceManualFont::deserialization
 
 ### Other
 
 - Fixed build with MYGUI_USE_FREETYPE=OFF
 - Fixed build with static Ogre
+- CMake fixes
 
 ## MyGUI v3.4.3
 
