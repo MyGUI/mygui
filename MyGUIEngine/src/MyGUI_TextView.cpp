@@ -222,13 +222,16 @@ namespace MyGUI
 			float char_fullAdvance = char_bearingX + char_advance;
 
 			// перенос слов
-			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth && !roll_back.empty())
+			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth)
 			{
-				// откатываем до последнего пробела
-				width = roll_back.getWidth();
-				count = roll_back.getCount();
-				index = roll_back.getTextIter();
-				line_info.symbols.erase(line_info.symbols.begin() + roll_back.getPosition(), line_info.symbols.end());
+				if (!roll_back.empty())
+				{
+					// откатываем до последнего пробела
+					width = roll_back.getWidth();
+					count = roll_back.getCount();
+					index = roll_back.getTextIter();
+					line_info.symbols.erase(line_info.symbols.begin() + roll_back.getPosition(), line_info.symbols.end());
+				}
 
 				// запоминаем место отката, как полную строку
 				line_info.width = (int)std::ceil(width);
@@ -244,7 +247,8 @@ namespace MyGUI
 				line_info.clear();
 
 				// отменяем откат
-				roll_back.clear();
+				if (!roll_back.empty())
+					roll_back.clear();
 
 				continue;
 			}
