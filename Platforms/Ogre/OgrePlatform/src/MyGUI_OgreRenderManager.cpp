@@ -551,7 +551,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(
 				DataManager::getInstance().isDataExist(_fragmentProgramFile),
-				"Shader file '" << _vertexProgramFile << "' is missing.");
+				"Shader file '" << _fragmentProgramFile << "' is missing.");
 			shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 				_fragmentProgramFile,
 				OgreDataManager::getInstance().getGroup(),
