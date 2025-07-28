@@ -135,10 +135,6 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
   8 - OpenGL ES 2.0 (Emscripten)"
 )
 
-if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7)
-	option(MYGUI_USE_SYSTEM_GLEW "Use system OpenGL Extension Wrangler Library (GLEW)" FALSE)
-endif()
-
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 cmake_dependent_option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE "NOT MYGUI_DISABLE_PLUGINS" FALSE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)

@@ -13,7 +13,7 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_DataManager.h"
 
-#include <GL/glew.h>
+#include <GL/gl.h>
 
 namespace MyGUI
 {
@@ -134,15 +134,17 @@ namespace MyGUI
 
 		mReferenceCount = 0;
 
-		glewInit();
-
-		if (!(GLEW_VERSION_3_0))
+		int major = 0, minor = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &major);
+		glGetIntegerv(GL_MINOR_VERSION, &minor);
+		if (major < 3)
 		{
 			const char* version = (const char*)glGetString(GL_VERSION);
 			MYGUI_PLATFORM_EXCEPT(std::string("OpenGL 3.0 or newer not available, current version is ") + version);
 		}
 
-		mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
+		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
+		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
 
 		registerShader("Default", "MyGUI_OpenGL3_VP.glsl", "MyGUI_OpenGL3_FP.glsl");
 

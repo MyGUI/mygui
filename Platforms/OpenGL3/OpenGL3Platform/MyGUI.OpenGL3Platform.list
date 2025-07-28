@@ -27,7 +27,6 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OpenGL3VertexBuffer.h
 )
 SOURCE_GROUP("Source Files" FILES
-  include/GL/glew.c
   src/MyGUI_OpenGL3DataManager.cpp
   src/MyGUI_OpenGL3Platform.cpp
   src/MyGUI_OpenGL3RTTexture.cpp

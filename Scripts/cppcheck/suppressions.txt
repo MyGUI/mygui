@@ -20,7 +20,6 @@ uninitStructMember:*/Mirror_MultiList.h
 
 // thirdparty
 *:*/MyGUI_UString*
-*:*/include/GL/glew*
 *:*/pugixml*
 *:*/sigslot*
 

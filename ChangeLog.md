@@ -6,11 +6,12 @@
 - Guard against division by zero in ScrollBar::TrackMove
 
 ### Resources
-
 - ResourceTrueTypeFont: preserve explicit 0.0 advance in ResourceManualFont::deserialization
 
-### Other
+### Platforms
+- OpenGL platforms: removed glew dependency
 
+### Other
 - Fixed build with MYGUI_USE_FREETYPE=OFF
 - Fixed build with static Ogre
 - CMake fixes

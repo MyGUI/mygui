@@ -12,7 +12,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
 
-#include <GL/glew.h>
+#include <GL/gl.h>
 
 namespace MyGUI
 {
@@ -37,9 +37,8 @@ namespace MyGUI
 		mUpdate = false;
 		mImageLoader = _loader;
 
-		glewInit();
-
-		mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
+		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
+		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;

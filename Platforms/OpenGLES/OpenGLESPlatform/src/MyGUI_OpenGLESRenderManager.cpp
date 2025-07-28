@@ -129,7 +129,8 @@ namespace MyGUI
 
 		mReferenceCount = 0;
 
-		//mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
+		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
+		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
 
 		registerShader("Default", "MyGUI_OpenGLES_VP.glsl", "MyGUI_OpenGLES_FP.glsl");
 
