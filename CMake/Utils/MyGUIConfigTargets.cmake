@@ -350,6 +350,15 @@ endfunction(mygui_tool)
 
 function(mygui_unit_test PROJECTNAME)
 	mygui_app(${PROJECTNAME} UnitTest)
+	
+	# Register the unit test with CTest when unit tests are enabled
+	# This allows running tests via 'ctest' or 'make check'
+	if (MYGUI_BUILD_UNITTESTS)
+		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
+		# Set working directory to binary directory so tests can find resources
+		set_tests_properties(${PROJECTNAME} PROPERTIES 
+			WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	endif()
 endfunction(mygui_unit_test)
 
 
