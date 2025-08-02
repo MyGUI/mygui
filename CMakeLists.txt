@@ -319,6 +319,10 @@ endif ()
 
 # Setup tests
 if (MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
+	# Enable CMake testing infrastructure when building unit tests
+	if (MYGUI_BUILD_UNITTESTS)
+		enable_testing()
+	endif()
 	add_subdirectory(UnitTests)
 endif ()
 
