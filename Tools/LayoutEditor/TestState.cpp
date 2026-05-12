@@ -39,7 +39,7 @@ namespace tools
 		EditorWidgets::getInstance().clear();
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
 
-		mBackgroundControl = new BackgroundControl();
+		mBackgroundControl = new BackgroundControlLE();
 	}
 
 	void TestState::cleanupState()

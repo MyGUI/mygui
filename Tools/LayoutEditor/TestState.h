@@ -33,7 +33,7 @@ namespace tools
 
 	private:
 		MyGUI::xml::Document* mTestLayout{nullptr};
-		BackgroundControl* mBackgroundControl{nullptr};
+		BackgroundControlLE* mBackgroundControl{nullptr};
 	};
 
 }
