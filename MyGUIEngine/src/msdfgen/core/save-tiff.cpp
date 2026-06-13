@@ -1,5 +1,7 @@
 
+#ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+#endif
 
 #include "save-tiff.h"
 
@@ -8,10 +10,12 @@
 #ifdef MSDFGEN_USE_CPP11
     #include <cstdint>
 #else
+namespace msdfgen {
     typedef int int32_t;
     typedef unsigned uint32_t;
     typedef unsigned short uint16_t;
     typedef unsigned char uint8_t;
+}
 #endif
 
 namespace msdfgen {
@@ -167,23 +171,24 @@ static bool writeTiffHeader(FILE *file, int width, int height, int channels) {
 }
 
 template <int N>
-bool saveTiffFloat(const BitmapConstRef<float, N> &bitmap, const char *filename) {
+bool saveTiffFloat(BitmapConstSection<float, N> bitmap, const char *filename) {
     FILE *file = fopen(filename, "wb");
     if (!file)
         return false;
+    bitmap.reorient(Y_DOWNWARD);
     writeTiffHeader(file, bitmap.width, bitmap.height, N);
-    for (int y = bitmap.height-1; y >= 0; --y)
+    for (int y = 0; y < bitmap.height; ++y)
         fwrite(bitmap(0, y), sizeof(float), N*bitmap.width, file);
     return !fclose(file);
 }
 
-bool saveTiff(const BitmapConstRef<float, 1> &bitmap, const char *filename) {
+bool saveTiff(const BitmapConstSection<float, 1> &bitmap, const char *filename) {
     return saveTiffFloat(bitmap, filename);
 }
-bool saveTiff(const BitmapConstRef<float, 3> &bitmap, const char *filename) {
+bool saveTiff(const BitmapConstSection<float, 3> &bitmap, const char *filename) {
     return saveTiffFloat(bitmap, filename);
 }
-bool saveTiff(const BitmapConstRef<float, 4> &bitmap, const char *filename) {
+bool saveTiff(const BitmapConstSection<float, 4> &bitmap, const char *filename) {
     return saveTiffFloat(bitmap, filename);
 }
 

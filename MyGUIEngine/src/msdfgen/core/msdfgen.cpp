@@ -5,7 +5,6 @@
 #include "edge-selectors.h"
 #include "contour-combiners.h"
 #include "ShapeDistanceFinder.h"
-#include "msdf-edge-artifact-patcher.h"
 
 namespace msdfgen {
 
@@ -14,104 +13,163 @@ class DistancePixelConversion;
 
 template <>
 class DistancePixelConversion<double> {
+    DistanceMapping mapping;
 public:
-    typedef BitmapRef<float, 1> BitmapRefType;
-    inline static void convert(float *pixels, double distance, double range) {
-        *pixels = float(distance/range+.5);
+    typedef BitmapSection<float, 1> BitmapSectionType;
+    inline explicit DistancePixelConversion(DistanceMapping mapping) : mapping(mapping) { }
+    inline void operator()(float *pixels, double distance) const {
+        *pixels = float(mapping(distance));
     }
 };
 
 template <>
 class DistancePixelConversion<MultiDistance> {
+    DistanceMapping mapping;
 public:
-    typedef BitmapRef<float, 3> BitmapRefType;
-    inline static void convert(float *pixels, const MultiDistance &distance, double range) {
-        pixels[0] = float(distance.r/range+.5);
-        pixels[1] = float(distance.g/range+.5);
-        pixels[2] = float(distance.b/range+.5);
+    typedef BitmapSection<float, 3> BitmapSectionType;
+    inline explicit DistancePixelConversion(DistanceMapping mapping) : mapping(mapping) { }
+    inline void operator()(float *pixels, const MultiDistance &distance) const {
+        pixels[0] = float(mapping(distance.r));
+        pixels[1] = float(mapping(distance.g));
+        pixels[2] = float(mapping(distance.b));
     }
 };
 
 template <>
 class DistancePixelConversion<MultiAndTrueDistance> {
+    DistanceMapping mapping;
 public:
-    typedef BitmapRef<float, 4> BitmapRefType;
-    inline static void convert(float *pixels, const MultiAndTrueDistance &distance, double range) {
-        pixels[0] = float(distance.r/range+.5);
-        pixels[1] = float(distance.g/range+.5);
-        pixels[2] = float(distance.b/range+.5);
-        pixels[3] = float(distance.a/range+.5);
+    typedef BitmapSection<float, 4> BitmapSectionType;
+    inline explicit DistancePixelConversion(DistanceMapping mapping) : mapping(mapping) { }
+    inline void operator()(float *pixels, const MultiAndTrueDistance &distance) const {
+        pixels[0] = float(mapping(distance.r));
+        pixels[1] = float(mapping(distance.g));
+        pixels[2] = float(mapping(distance.b));
+        pixels[3] = float(mapping(distance.a));
     }
 };
 
 template <class ContourCombiner>
-void generateDistanceField(const typename DistancePixelConversion<typename ContourCombiner::DistanceType>::BitmapRefType &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate) {
+void generateDistanceField(typename DistancePixelConversion<typename ContourCombiner::DistanceType>::BitmapSectionType output, const Shape &shape, const SDFTransformation &transformation) {
+    DistancePixelConversion<typename ContourCombiner::DistanceType> distancePixelConversion(transformation.distanceMapping);
+    output.reorient(shape.getYAxisOrientation());
 #ifdef MSDFGEN_USE_OPENMP
     #pragma omp parallel
 #endif
     {
         ShapeDistanceFinder<ContourCombiner> distanceFinder(shape);
-        bool rightToLeft = false;
-        Point2 p;
+        int xDirection = 1;
 #ifdef MSDFGEN_USE_OPENMP
         #pragma omp for
 #endif
         for (int y = 0; y < output.height; ++y) {
-            int row = shape.inverseYAxis ? output.height-y-1 : y;
-            p.y = (y+.5)/scale.y-translate.y;
+            int x = xDirection < 0 ? output.width-1 : 0;
             for (int col = 0; col < output.width; ++col) {
-                int x = rightToLeft ? output.width-col-1 : col;
-                p.x = (x+.5)/scale.x-translate.x;
+                Point2 p = transformation.unproject(Point2(x+.5, y+.5));
                 typename ContourCombiner::DistanceType distance = distanceFinder.distance(p);
-                DistancePixelConversion<typename ContourCombiner::DistanceType>::convert(output(x, row), distance, range);
+                distancePixelConversion(output(x, y), distance);
+                x += xDirection;
             }
-            rightToLeft = !rightToLeft;
+            xDirection = -xDirection;
         }
     }
 }
 
-void generateSDF(const BitmapRef<float, 1> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate, bool overlapSupport) {
-    if (overlapSupport)
-        generateDistanceField<OverlappingContourCombiner<TrueDistanceSelector> >(output, shape, range, scale, translate);
+void generateSDF(const BitmapSection<float, 1> &output, const Shape &shape, const SDFTransformation &transformation, const GeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<TrueDistanceSelector> >(output, shape, transformation);
     else
-        generateDistanceField<SimpleContourCombiner<TrueDistanceSelector> >(output, shape, range, scale, translate);
+        generateDistanceField<SimpleContourCombiner<TrueDistanceSelector> >(output, shape, transformation);
 }
 
-void generatePseudoSDF(const BitmapRef<float, 1> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate, bool overlapSupport) {
-    if (overlapSupport)
-        generateDistanceField<OverlappingContourCombiner<PseudoDistanceSelector> >(output, shape, range, scale, translate);
+void generatePSDF(const BitmapSection<float, 1> &output, const Shape &shape, const SDFTransformation &transformation, const GeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<PerpendicularDistanceSelector> >(output, shape, transformation);
     else
-        generateDistanceField<SimpleContourCombiner<PseudoDistanceSelector> >(output, shape, range, scale, translate);
+        generateDistanceField<SimpleContourCombiner<PerpendicularDistanceSelector> >(output, shape, transformation);
 }
 
-void generateMSDF(const BitmapRef<float, 3> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate, double edgeThreshold, bool overlapSupport) {
-    if (overlapSupport)
-        generateDistanceField<OverlappingContourCombiner<MultiDistanceSelector> >(output, shape, range, scale, translate);
+void generateMSDF(const BitmapSection<float, 3> &output, const Shape &shape, const SDFTransformation &transformation, const MSDFGeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<MultiDistanceSelector> >(output, shape, transformation);
     else
-        generateDistanceField<SimpleContourCombiner<MultiDistanceSelector> >(output, shape, range, scale, translate);
-    if (edgeThreshold > 0)
-        msdfErrorCorrection(output, edgeThreshold/(scale*range));
-    msdfPatchEdgeArtifacts(output, shape, range, scale, translate, overlapSupport);
+        generateDistanceField<SimpleContourCombiner<MultiDistanceSelector> >(output, shape, transformation);
+    msdfErrorCorrection(output, shape, transformation, config);
 }
 
-void generateMTSDF(const BitmapRef<float, 4> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate, double edgeThreshold, bool overlapSupport) {
-    if (overlapSupport)
-        generateDistanceField<OverlappingContourCombiner<MultiAndTrueDistanceSelector> >(output, shape, range, scale, translate);
+void generateMTSDF(const BitmapSection<float, 4> &output, const Shape &shape, const SDFTransformation &transformation, const MSDFGeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<MultiAndTrueDistanceSelector> >(output, shape, transformation);
     else
-        generateDistanceField<SimpleContourCombiner<MultiAndTrueDistanceSelector> >(output, shape, range, scale, translate);
-    if (edgeThreshold > 0)
-        msdfErrorCorrection(output, edgeThreshold/(scale*range));
-    msdfPatchEdgeArtifacts(output, shape, range, scale, translate, overlapSupport);
+        generateDistanceField<SimpleContourCombiner<MultiAndTrueDistanceSelector> >(output, shape, transformation);
+    msdfErrorCorrection(output, shape, transformation, config);
+}
+
+void generateSDF(const BitmapSection<float, 1> &output, const Shape &shape, const Projection &projection, Range range, const GeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<TrueDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+    else
+        generateDistanceField<SimpleContourCombiner<TrueDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+}
+
+void generatePSDF(const BitmapSection<float, 1> &output, const Shape &shape, const Projection &projection, Range range, const GeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<PerpendicularDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+    else
+        generateDistanceField<SimpleContourCombiner<PerpendicularDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+}
+
+void generateMSDF(const BitmapSection<float, 3> &output, const Shape &shape, const Projection &projection, Range range, const MSDFGeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<MultiDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+    else
+        generateDistanceField<SimpleContourCombiner<MultiDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+    msdfErrorCorrection(output, shape, SDFTransformation(projection, range), config);
+}
+
+void generateMTSDF(const BitmapSection<float, 4> &output, const Shape &shape, const Projection &projection, Range range, const MSDFGeneratorConfig &config) {
+    if (config.overlapSupport)
+        generateDistanceField<OverlappingContourCombiner<MultiAndTrueDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+    else
+        generateDistanceField<SimpleContourCombiner<MultiAndTrueDistanceSelector> >(output, shape, SDFTransformation(projection, range));
+    msdfErrorCorrection(output, shape, SDFTransformation(projection, range), config);
+}
+
+// Legacy API
+
+void generatePseudoSDF(const BitmapSection<float, 1> &output, const Shape &shape, const Projection &projection, Range range, const GeneratorConfig &config) {
+    generatePSDF(output, shape, SDFTransformation(projection, range), config);
+}
+
+void generateSDF(const BitmapSection<float, 1> &output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, bool overlapSupport) {
+    generateSDF(output, shape, Projection(scale, translate), range, GeneratorConfig(overlapSupport));
+}
+
+void generatePSDF(const BitmapSection<float, 1> &output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, bool overlapSupport) {
+    generatePSDF(output, shape, Projection(scale, translate), range, GeneratorConfig(overlapSupport));
+}
+
+void generatePseudoSDF(const BitmapSection<float, 1> &output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, bool overlapSupport) {
+    generatePSDF(output, shape, Projection(scale, translate), range, GeneratorConfig(overlapSupport));
+}
+
+void generateMSDF(const BitmapSection<float, 3> &output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, const ErrorCorrectionConfig &errorCorrectionConfig, bool overlapSupport) {
+    generateMSDF(output, shape, Projection(scale, translate), range, MSDFGeneratorConfig(overlapSupport, errorCorrectionConfig));
+}
+
+void generateMTSDF(const BitmapSection<float, 4> &output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, const ErrorCorrectionConfig &errorCorrectionConfig, bool overlapSupport) {
+    generateMTSDF(output, shape, Projection(scale, translate), range, MSDFGeneratorConfig(overlapSupport, errorCorrectionConfig));
 }
 
 // Legacy version
 
-void generateSDF_legacy(const BitmapRef<float, 1> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate) {
+void generateSDF_legacy(BitmapSection<float, 1> output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate) {
+    DistanceMapping distanceMapping(range);
+    output.reorient(shape.getYAxisOrientation());
 #ifdef MSDFGEN_USE_OPENMP
     #pragma omp parallel for
 #endif
     for (int y = 0; y < output.height; ++y) {
-        int row = shape.inverseYAxis ? output.height-y-1 : y;
         for (int x = 0; x < output.width; ++x) {
             double dummy;
             Point2 p = Vector2(x+.5, y+.5)/scale-translate;
@@ -122,17 +180,18 @@ void generateSDF_legacy(const BitmapRef<float, 1> &output, const Shape &shape, d
                     if (distance < minDistance)
                         minDistance = distance;
                 }
-            *output(x, row) = float(minDistance.distance/range+.5);
+            *output(x, y) = float(distanceMapping(minDistance.distance));
         }
     }
 }
 
-void generatePseudoSDF_legacy(const BitmapRef<float, 1> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate) {
+void generatePSDF_legacy(BitmapSection<float, 1> output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate) {
+    DistanceMapping distanceMapping(range);
+    output.reorient(shape.getYAxisOrientation());
 #ifdef MSDFGEN_USE_OPENMP
     #pragma omp parallel for
 #endif
     for (int y = 0; y < output.height; ++y) {
-        int row = shape.inverseYAxis ? output.height-y-1 : y;
         for (int x = 0; x < output.width; ++x) {
             Point2 p = Vector2(x+.5, y+.5)/scale-translate;
             SignedDistance minDistance;
@@ -149,18 +208,23 @@ void generatePseudoSDF_legacy(const BitmapRef<float, 1> &output, const Shape &sh
                     }
                 }
             if (nearEdge)
-                (*nearEdge)->distanceToPseudoDistance(minDistance, p, nearParam);
-            *output(x, row) = float(minDistance.distance/range+.5);
+                (*nearEdge)->distanceToPerpendicularDistance(minDistance, p, nearParam);
+            *output(x, y) = float(distanceMapping(minDistance.distance));
         }
     }
 }
 
-void generateMSDF_legacy(const BitmapRef<float, 3> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate, double edgeThreshold) {
+void generatePseudoSDF_legacy(BitmapSection<float, 1> output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate) {
+    generatePSDF_legacy(output, shape, range, scale, translate);
+}
+
+void generateMSDF_legacy(BitmapSection<float, 3> output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, ErrorCorrectionConfig errorCorrectionConfig) {
+    DistanceMapping distanceMapping(range);
+    output.reorient(shape.getYAxisOrientation());
 #ifdef MSDFGEN_USE_OPENMP
     #pragma omp parallel for
 #endif
     for (int y = 0; y < output.height; ++y) {
-        int row = shape.inverseYAxis ? output.height-y-1 : y;
         for (int x = 0; x < output.width; ++x) {
             Point2 p = Vector2(x+.5, y+.5)/scale-translate;
 
@@ -194,27 +258,28 @@ void generateMSDF_legacy(const BitmapRef<float, 3> &output, const Shape &shape, 
                 }
 
             if (r.nearEdge)
-                (*r.nearEdge)->distanceToPseudoDistance(r.minDistance, p, r.nearParam);
+                (*r.nearEdge)->distanceToPerpendicularDistance(r.minDistance, p, r.nearParam);
             if (g.nearEdge)
-                (*g.nearEdge)->distanceToPseudoDistance(g.minDistance, p, g.nearParam);
+                (*g.nearEdge)->distanceToPerpendicularDistance(g.minDistance, p, g.nearParam);
             if (b.nearEdge)
-                (*b.nearEdge)->distanceToPseudoDistance(b.minDistance, p, b.nearParam);
-            output(x, row)[0] = float(r.minDistance.distance/range+.5);
-            output(x, row)[1] = float(g.minDistance.distance/range+.5);
-            output(x, row)[2] = float(b.minDistance.distance/range+.5);
+                (*b.nearEdge)->distanceToPerpendicularDistance(b.minDistance, p, b.nearParam);
+            output(x, y)[0] = float(distanceMapping(r.minDistance.distance));
+            output(x, y)[1] = float(distanceMapping(g.minDistance.distance));
+            output(x, y)[2] = float(distanceMapping(b.minDistance.distance));
         }
     }
 
-    if (edgeThreshold > 0)
-        msdfErrorCorrection(output, edgeThreshold/(scale*range));
+    errorCorrectionConfig.distanceCheckMode = ErrorCorrectionConfig::DO_NOT_CHECK_DISTANCE;
+    msdfErrorCorrection(output, shape, Projection(scale, translate), range, MSDFGeneratorConfig(false, errorCorrectionConfig));
 }
 
-void generateMTSDF_legacy(const BitmapRef<float, 4> &output, const Shape &shape, double range, const Vector2 &scale, const Vector2 &translate, double edgeThreshold) {
+void generateMTSDF_legacy(BitmapSection<float, 4> output, const Shape &shape, Range range, const Vector2 &scale, const Vector2 &translate, ErrorCorrectionConfig errorCorrectionConfig) {
+    DistanceMapping distanceMapping(range);
+    output.reorient(shape.getYAxisOrientation());
 #ifdef MSDFGEN_USE_OPENMP
     #pragma omp parallel for
 #endif
     for (int y = 0; y < output.height; ++y) {
-        int row = shape.inverseYAxis ? output.height-y-1 : y;
         for (int x = 0; x < output.width; ++x) {
             Point2 p = Vector2(x+.5, y+.5)/scale-translate;
 
@@ -251,20 +316,20 @@ void generateMTSDF_legacy(const BitmapRef<float, 4> &output, const Shape &shape,
                 }
 
             if (r.nearEdge)
-                (*r.nearEdge)->distanceToPseudoDistance(r.minDistance, p, r.nearParam);
+                (*r.nearEdge)->distanceToPerpendicularDistance(r.minDistance, p, r.nearParam);
             if (g.nearEdge)
-                (*g.nearEdge)->distanceToPseudoDistance(g.minDistance, p, g.nearParam);
+                (*g.nearEdge)->distanceToPerpendicularDistance(g.minDistance, p, g.nearParam);
             if (b.nearEdge)
-                (*b.nearEdge)->distanceToPseudoDistance(b.minDistance, p, b.nearParam);
-            output(x, row)[0] = float(r.minDistance.distance/range+.5);
-            output(x, row)[1] = float(g.minDistance.distance/range+.5);
-            output(x, row)[2] = float(b.minDistance.distance/range+.5);
-            output(x, row)[3] = float(minDistance.distance/range+.5);
+                (*b.nearEdge)->distanceToPerpendicularDistance(b.minDistance, p, b.nearParam);
+            output(x, y)[0] = float(distanceMapping(r.minDistance.distance));
+            output(x, y)[1] = float(distanceMapping(g.minDistance.distance));
+            output(x, y)[2] = float(distanceMapping(b.minDistance.distance));
+            output(x, y)[3] = float(distanceMapping(minDistance.distance));
         }
     }
 
-    if (edgeThreshold > 0)
-        msdfErrorCorrection(output, edgeThreshold/(scale*range));
+    errorCorrectionConfig.distanceCheckMode = ErrorCorrectionConfig::DO_NOT_CHECK_DISTANCE;
+    msdfErrorCorrection(output, shape, Projection(scale, translate), range, MSDFGeneratorConfig(false, errorCorrectionConfig));
 }
 
 }

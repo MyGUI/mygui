@@ -39,7 +39,7 @@ endif()
 if (MYGUI_USE_FREETYPE)
 	if (MYGUI_MSDF_FONTS)
 		add_subdirectory(src/msdfgen)
-		target_link_libraries(${PROJECTNAME} msdfgen)
+		target_link_libraries(${PROJECTNAME} msdfgen-full)
 	endif ()
 
 	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
