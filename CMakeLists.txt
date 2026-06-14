@@ -122,6 +122,7 @@ option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsolete functions from build" FALSE)
+cmake_dependent_option(MYGUI_APPLE_FRAMEWORK "Build as macOS Framework (defaulted to true to preserve backwards compatibility, ideally should be false)" TRUE "APPLE" FALSE)
 
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "Specify the Render System. Possible values:
