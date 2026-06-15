@@ -7,6 +7,8 @@
 
 ### Resources
 - ResourceTrueTypeFont: preserve explicit 0.0 advance in ResourceManualFont::deserialization
+- Updated msdfgen to v1.13: faster font generation and better quality
+- Fixed incorrect alpha channel or selected text with the MSDF fonts
 
 ### Platforms
 - OpenGL platforms: removed glew dependency
@@ -15,6 +17,7 @@
 - Fixed build with MYGUI_USE_FREETYPE=OFF
 - Fixed build with static Ogre
 - CMake fixes
+- Removed apple framework logic
 
 ## MyGUI v3.4.3
 
