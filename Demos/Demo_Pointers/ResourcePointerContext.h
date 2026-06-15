@@ -13,22 +13,19 @@
 namespace demo
 {
 
-	class ResourcePointerContext :
-		public MyGUI::IResource
+	class ResourcePointerContext : public MyGUI::IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourcePointerContext )
+		MYGUI_RTTI_DERIVED(ResourcePointerContext)
 
 	public:
-		ResourcePointerContext();
-
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 		bool isHighLevel() const;
-		std::string getPointer(const std::string& _type);
+		std::string_view getPointer(std::string_view _type);
 
 	private:
 		MyGUI::MapString mPointers;
-		bool mHighLevel;
+		bool mHighLevel{false};
 	};
 
 }

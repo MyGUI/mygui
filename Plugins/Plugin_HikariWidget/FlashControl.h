@@ -78,7 +78,7 @@ namespace Hikari
 	};
 
 	class HikariWidget;
-	typedef MyGUI::delegates::CDelegate3<HikariWidget*, const Arguments&, FlashValue&> FlashDelegate;
+	typedef MyGUI::delegates::Delegate<HikariWidget*, const Arguments&, FlashValue&> FlashDelegate;
 
 	/**
 	* The FlashControl class is an instance of the Flash Player that is rendered dynamically to a texture and
@@ -244,7 +244,7 @@ namespace Hikari
 		FlashSite* site;
 		FlashHandler* handler;
 		ShockwaveFlashObjects::IShockwaveFlash* flashInterface;
-		IOleObject*	oleObject;
+		IOleObject* oleObject;
 		IOleInPlaceObjectWindowless* windowlessObject;
 
 		int width, height;
@@ -252,7 +252,7 @@ namespace Hikari
 		int comCount;
 		HDC mainContext, altContext;
 		HBITMAP mainBitmap, altBitmap;
-		BYTE* mainBuffer, *altBuffer;
+		BYTE *mainBuffer, *altBuffer;
 		RenderBuffer* renderBuffer;
 		RECT dirtyBounds;
 		bool isClean, isTotallyDirty;

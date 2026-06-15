@@ -16,13 +16,9 @@
 namespace MyGUI
 {
 
-	class OpenGLRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class OpenGLRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
-		OpenGLRenderManager();
-
 		void initialise(OpenGLImageLoader* _loader = nullptr);
 		void shutdown();
 
@@ -68,7 +64,7 @@ namespace MyGUI
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile) override;
 
-	/*internal:*/
+		/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
 
@@ -77,16 +73,16 @@ namespace MyGUI
 
 	private:
 		IntSize mViewSize;
-		bool mUpdate;
+		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
-		OpenGLImageLoader* mImageLoader;
-		bool mPboIsSupported;
+		OpenGLImageLoader* mImageLoader{nullptr};
+		bool mPboIsSupported{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

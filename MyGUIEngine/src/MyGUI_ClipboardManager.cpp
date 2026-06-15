@@ -9,7 +9,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_TextIterator.h"
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include "MyGUI_WindowsClipboardHandler.h"
+	#include "MyGUI_WindowsClipboardHandler.h"
 #endif
 
 namespace MyGUI
@@ -21,7 +21,6 @@ namespace MyGUI
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		mWindowsClipboardHandler(nullptr),
 #endif
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}
@@ -55,20 +54,22 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void ClipboardManager::setClipboardData(const std::string& _type, const std::string& _data)
+	void ClipboardManager::setClipboardData(std::string_view _type, std::string_view _data)
 	{
-		mClipboardData[_type] = _data;
+		mapSet(mClipboardData, _type, _data);
 
 		eventClipboardChanged(_type, _data);
 	}
 
-	void ClipboardManager::clearClipboardData(const std::string& _type)
+	void ClipboardManager::clearClipboardData(std::string_view _type)
 	{
 		MapString::iterator iter = mClipboardData.find(_type);
-		if (iter != mClipboardData.end()) mClipboardData.erase(iter);
+		if (iter != mClipboardData.end())
+			mClipboardData.erase(iter);
+		eventClipboardChanged(_type, std::string_view{});
 	}
 
-	std::string ClipboardManager::getClipboardData(const std::string& _type) const
+	std::string ClipboardManager::getClipboardData(std::string_view _type) const
 	{
 		std::string ret;
 		MapString::const_iterator iter = mClipboardData.find(_type);

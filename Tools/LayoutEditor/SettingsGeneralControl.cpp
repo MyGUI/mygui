@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
-#include "SettingsManager.h"
 #include "FactoryManager.h"
 
 namespace tools
@@ -14,23 +13,15 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl)
 
-	SettingsGeneralControl::SettingsGeneralControl() :
-		mGridStep(0),
-		mGridEdit(nullptr),
-		mLoadLastProject(nullptr),
-		mInterfaceLanguage(nullptr),
-		mWorkspaceSize(nullptr)
-	{
-	}
-
 	SettingsGeneralControl::~SettingsGeneralControl()
 	{
-		mLoadLastProject->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
+		mLoadLastProject->eventMouseButtonClick -=
+			MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 		mGridEdit->eventEditSelectAccept -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
 	}
 
-	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -41,7 +32,8 @@ namespace tools
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
-		mLoadLastProject->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
+		mLoadLastProject->eventMouseButtonClick +=
+			MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	void SettingsGeneralControl::loadSettings()
@@ -83,9 +75,9 @@ namespace tools
 			button->setStateSelected(!button->getStateSelected());
 	}
 
-	void SettingsGeneralControl::setLanguageValue(const std::string& _value)
+	void SettingsGeneralControl::setLanguageValue(std::string_view _value)
 	{
-		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
+		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index++)
 		{
 			if (mInterfaceLanguage->getItemNameAt(index) == _value)
 			{
@@ -93,7 +85,7 @@ namespace tools
 				return;
 			}
 		}
-		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
+		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index++)
 		{
 			if (mInterfaceLanguage->getItemNameAt(index) == "Auto")
 			{
@@ -103,14 +95,14 @@ namespace tools
 		}
 	}
 
-	std::string SettingsGeneralControl::getLanguageValue()
+	NullTerminatedStringView SettingsGeneralControl::getLanguageValue()
 	{
 		if (mInterfaceLanguage->getIndexSelected() == MyGUI::ITEM_NONE)
 			return "Auto";
 		return mInterfaceLanguage->getItemNameAt(mInterfaceLanguage->getIndexSelected());
 	}
 
-	void SettingsGeneralControl::OnCommand(const std::string& _command)
+	void SettingsGeneralControl::OnCommand(std::string_view _command)
 	{
 		Control::OnCommand(_command);
 

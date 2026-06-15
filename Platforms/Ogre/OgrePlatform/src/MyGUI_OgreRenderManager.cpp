@@ -27,18 +27,6 @@ namespace MyGUI
 		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	OgreRenderManager::OgreRenderManager() :
-		mUpdate(false),
-		mSceneManager(nullptr),
-		mWindow(nullptr),
-		mActiveViewport(0),
-		mRenderSystem(nullptr),
-		mIsInitialise(false),
-		mManualRender(false),
-		mCountBatch(0)
-	{
-	}
-
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -56,7 +44,9 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		mMaterial = Ogre::MaterialManager::getSingleton().create("MyGUI/Default", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		mMaterial = Ogre::MaterialManager::getSingleton().create(
+			"MyGUI/Default",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		mPass = mMaterial->getTechnique(0)->getPass(0);
 		mPass->setLightingEnabled(false);
 		mPass->setCullingMode(Ogre::CULL_NONE);
@@ -165,7 +155,9 @@ namespace MyGUI
 		{
 			if (mWindow->getNumViewports() <= mActiveViewport)
 			{
-				MYGUI_PLATFORM_LOG(Error, "Invalid active viewport index selected. There is no viewport with given index.");
+				MYGUI_PLATFORM_LOG(
+					Error,
+					"Invalid active viewport index selected. There is no viewport with given index.");
 			}
 
 			// рассылка обновлений
@@ -186,12 +178,10 @@ namespace MyGUI
 			return;
 
 		Ogre::Viewport* viewport = mSceneManager->getCurrentViewport();
-		if (nullptr == viewport
-			|| !viewport->getOverlaysEnabled())
+		if (nullptr == viewport || !viewport->getOverlaysEnabled())
 			return;
 
-		if (mWindow->getNumViewports() <= mActiveViewport
-			|| viewport != mWindow->getViewport(mActiveViewport))
+		if (mWindow->getNumViewports() <= mActiveViewport || viewport != mWindow->getViewport(mActiveViewport))
 			return;
 
 		mCountBatch = 0;
@@ -247,7 +237,8 @@ namespace MyGUI
 		if (_window->getNumViewports() > mActiveViewport)
 		{
 			Ogre::Viewport* port = _window->getViewport(mActiveViewport);
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0) && \
+	OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 			Ogre::OrientationMode orient = port->getOrientationMode();
 			if (orient == Ogre::OR_DEGREE_90 || orient == Ogre::OR_DEGREE_270)
 				setViewSize(port->getActualHeight(), port->getActualWidth());
@@ -264,7 +255,8 @@ namespace MyGUI
 		if (mRenderSystem != nullptr)
 		{
 			if (mRenderSystem->getName() == "Direct3D11 Rendering Subsystem" ||
-				mRenderSystem->getName() == "Direct3D9 Rendering Subsystem") // special case, it's not working with the value returned by the rendersystem
+				mRenderSystem->getName() ==
+					"Direct3D9 Rendering Subsystem") // special case, it's not working with the value returned by the rendersystem
 			{
 				mInfo.maximumDepth = 0.0f;
 			}
@@ -288,7 +280,9 @@ namespace MyGUI
 
 		// If there is a shader set in the OgreTexture and it is different from the default one then use that shader for this render pass
 		OgreShaderInfo* shaderInfo = texture->getShaderInfo();
-		if(shaderInfo != nullptr && (shaderInfo->vertexProgram != mDefaultShader->vertexProgram || shaderInfo->fragmentProgram != mDefaultShader->fragmentProgram))
+		if (shaderInfo != nullptr &&
+			(shaderInfo->vertexProgram != mDefaultShader->vertexProgram ||
+			 shaderInfo->fragmentProgram != mDefaultShader->fragmentProgram))
 		{
 			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->vertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->fragmentProgram->_getBindingDelegate());
@@ -306,7 +300,9 @@ namespace MyGUI
 		mRenderSystem->_render(*renderOperation);
 
 		// Restore the default shader if it was changed previously
-		if (shaderInfo != nullptr && (shaderInfo->vertexProgram != mDefaultShader->vertexProgram || shaderInfo->fragmentProgram != mDefaultShader->fragmentProgram))
+		if (shaderInfo != nullptr &&
+			(shaderInfo->vertexProgram != mDefaultShader->vertexProgram ||
+			 shaderInfo->fragmentProgram != mDefaultShader->fragmentProgram))
 		{
 			mRenderSystem->bindGpuProgram(mDefaultShader->vertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(mDefaultShader->fragmentProgram->_getBindingDelegate());
@@ -338,7 +334,8 @@ namespace MyGUI
 
 	void OgreRenderManager::destroyTexture(ITexture* _texture)
 	{
-		if (_texture == nullptr) return;
+		if (_texture == nullptr)
+			return;
 
 		MapTexture::iterator item = mTextures.find(_texture->getName());
 		MYGUI_PLATFORM_ASSERT(item != mTextures.end(), "Texture '" << _texture->getName() << "' not found");
@@ -391,7 +388,6 @@ namespace MyGUI
 		mRegisteredShaders.clear();
 	}
 
-#if MYGUI_DEBUG_MODE == 1
 	bool OgreRenderManager::checkTexture(ITexture* _texture)
 	{
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
@@ -401,7 +397,6 @@ namespace MyGUI
 		}
 		return false;
 	}
-#endif
 
 	const IntSize& OgreRenderManager::getViewSize() const
 	{
@@ -497,7 +492,11 @@ namespace MyGUI
 		mSceneManager->_setPass(mPass); // required only by DirectX11 render system
 	}
 
-	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt)
+	void OgreRenderManager::doRenderRtt(
+		IVertexBuffer* _buffer,
+		ITexture* _texture,
+		size_t _count,
+		Ogre::RenderTexture* rtt)
 	{
 		doRender(_buffer, _texture, _count);
 	}
@@ -507,7 +506,9 @@ namespace MyGUI
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())
 			return iter->second;
-		MYGUI_PLATFORM_LOG(Error, "Failed to get shader info for shader '" << _shaderName << "'. Did you forgot to register shader?");
+		MYGUI_PLATFORM_LOG(
+			Error,
+			"Failed to get shader info for shader '" << _shaderName << "'. Did you forgot to register shader?");
 		return nullptr;
 	}
 
@@ -525,7 +526,9 @@ namespace MyGUI
 			OgreDataManager::getInstance().getGroup());
 		if (!shaderInfo->vertexProgram)
 		{
-			MYGUI_ASSERT(DataManager::getInstance().isDataExist(_vertexProgramFile), "Shader file '" << _vertexProgramFile << "' is missing.");
+			MYGUI_ASSERT(
+				DataManager::getInstance().isDataExist(_vertexProgramFile),
+				"Shader file '" << _vertexProgramFile << "' is missing.");
 			shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 				_vertexProgramFile,
 				OgreDataManager::getInstance().getGroup(),
@@ -546,7 +549,9 @@ namespace MyGUI
 			OgreDataManager::getInstance().getGroup());
 		if (!shaderInfo->fragmentProgram)
 		{
-			MYGUI_ASSERT(DataManager::getInstance().isDataExist(_fragmentProgramFile), "Shader file '" << _vertexProgramFile << "' is missing.");
+			MYGUI_ASSERT(
+				DataManager::getInstance().isDataExist(_fragmentProgramFile),
+				"Shader file '" << _fragmentProgramFile << "' is missing.");
 			shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 				_fragmentProgramFile,
 				OgreDataManager::getInstance().getGroup(),

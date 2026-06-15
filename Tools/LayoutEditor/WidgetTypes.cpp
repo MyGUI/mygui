@@ -5,57 +5,58 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(WidgetTypes);
 
-	const std::string DEFAULT_GOROUP_NAME = "Default";
-	const std::string LogSection = "LayoutEditor";
+	const std::string_view DEFAULT_GROUP_NAME = "Default";
 
 	void WidgetTypes::initialise()
 	{
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") =
+			MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") =
+			MyGUI::newDelegate(this, &WidgetTypes::loadValues);
 	}
 
 	void WidgetTypes::shutdown()
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
-			delete *iter;
+		for (auto& widgetType : mWidgetTypes)
+			delete widgetType;
 		mWidgetTypes.clear();
 
-		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
-			delete *iter;
+		for (auto& possibleValue : mPossibleValues)
+			delete possibleValue;
 		mPossibleValues.clear();
 	}
 
-	WidgetStyle* WidgetTypes::findWidgetStyle(const std::string& _type)
+	WidgetStyle* WidgetTypes::findWidgetStyle(std::string_view _type)
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
+		for (auto& widgetType : mWidgetTypes)
 		{
-			if ((*iter)->name == _type)
+			if (widgetType->name == _type)
 			{
-				return *iter;
+				return widgetType;
 			}
 		}
 		return findWidgetStyle("Widget");
 	}
 
-	WidgetTypes::VectorString WidgetTypes::findPossibleValues(const std::string& _name)
+	WidgetTypes::VectorString WidgetTypes::findPossibleValues(std::string_view _name)
 	{
-		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
+		for (auto& possibleValue : mPossibleValues)
 		{
-			if ((*iter)->name == _name)
+			if (possibleValue->name == _name)
 			{
-				return (*iter)->values;
+				return possibleValue->values;
 			}
 		}
-		return VectorString();
+		return {};
 	}
 
-	WidgetStyle* WidgetTypes::getWidgetType(const std::string& _name)
+	WidgetStyle* WidgetTypes::getWidgetType(std::string_view _name)
 	{
 		// ищем тип, если нет, то создаем
-		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
+		for (auto& widgetType : mWidgetTypes)
 		{
-			if ((*iter)->name == _name)
-				return (*iter);
+			if (widgetType->name == _name)
+				return widgetType;
 		}
 
 		WidgetStyle* type = new WidgetStyle(_name);
@@ -64,15 +65,23 @@ namespace tools
 		return type;
 	}
 
-	void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name)
+	void WidgetTypes::addWidgetSkinType(
+		std::string_view _type,
+		std::string_view _skin,
+		std::string_view _group,
+		std::string_view _button_name)
 	{
 		WidgetStyle* widget_type = getWidgetType(_type);
-
-		mSkinGroups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(SkinInfo(_skin, widget_type->name, _button_name));
-		widget_type->skin.push_back(_skin);
+		if (_group.empty())
+			_group = DEFAULT_GROUP_NAME;
+		auto it = mSkinGroups.find(_group);
+		if (it == mSkinGroups.end())
+			it = mSkinGroups.emplace(_group, VectorSkinInfo()).first;
+		it->second.emplace_back(_skin, widget_type->name, _button_name);
+		widget_type->skin.emplace_back(_skin);
 	}
 
-	void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 		while (widgets.next("Widget"))
@@ -85,7 +94,9 @@ namespace tools
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
 			while (field.next())
 			{
-				std::string key, value, group;
+				std::string key;
+				std::string value;
+				std::string group;
 
 				if (field->getName() == "Property")
 				{
@@ -96,13 +107,13 @@ namespace tools
 					field->findAttribute("group", group);
 					if (key == "Skin")
 					{
-						std::string button_name = field->findAttribute("name");
+						std::string_view button_name = field->findAttribute("name");
 						if (button_name.empty())
 							button_name = value;
 
 						if (group.empty())
-							group = DEFAULT_GOROUP_NAME;
-						mSkinGroups[group].push_back(SkinInfo(value, widget_type->name, button_name));
+							group = DEFAULT_GROUP_NAME;
+						mSkinGroups[group].emplace_back(value, widget_type->name, button_name);
 						widget_type->skin.push_back(value);
 					}
 					else if (key == "DefaultSkin")
@@ -124,7 +135,7 @@ namespace tools
 						continue;
 					if (!field->findAttribute("value", value))
 						continue;
-					widget_type->parameter.push_back(MyGUI::PairString(key, value));
+					widget_type->parameter.emplace_back(key, value);
 				}
 				else if (field->getName() == "TemplateData")
 				{
@@ -132,7 +143,7 @@ namespace tools
 						continue;
 					if (!field->findAttribute("value", value))
 						continue;
-					widget_type->templateData.push_back(MyGUI::PairString(key, value));
+					widget_type->templateData.emplace_back(key, value);
 				}
 				else if (field->getName() == "ParameterData")
 				{
@@ -140,7 +151,7 @@ namespace tools
 						continue;
 					if (!field->findAttribute("value", value))
 						continue;
-					widget_type->parameterData.push_back(MyGUI::PairString(key, value));
+					widget_type->parameterData.emplace_back(key, value);
 				}
 			}
 
@@ -151,7 +162,7 @@ namespace tools
 		updateDepth();
 	}
 
-	PossibleValue* WidgetTypes::getPossibleValue(const std::string& _name)
+	PossibleValue* WidgetTypes::getPossibleValue(std::string_view _name)
 	{
 		for (const auto& value : mPossibleValues)
 		{
@@ -161,23 +172,23 @@ namespace tools
 			}
 		}
 
-        PossibleValue* possible_value = new PossibleValue();
-        possible_value->name = _name;
-        mPossibleValues.push_back(possible_value);
+		PossibleValue* possible_value = new PossibleValue();
+		possible_value->name = _name;
+		mPossibleValues.push_back(possible_value);
 
 		return possible_value;
 	}
 
-	void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 		while (widgets.next("Value"))
 		{
-			std::string name = widgets->findAttribute("name");
+			std::string_view name = widgets->findAttribute("name");
 			PossibleValue* possible_value = getPossibleValue(name);
 
 			// тип мерджа переменных
-			std::string merge = widgets->findAttribute("merge");
+			std::string_view merge = widgets->findAttribute("merge");
 			// дополняем своими данными, по дефолту
 			if (merge == "add")
 			{
@@ -206,8 +217,8 @@ namespace tools
 
 	void WidgetTypes::clearAllSkins()
 	{
-		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
-			(*iter)->skin.clear();
+		for (auto& widgetType : mWidgetTypes)
+			widgetType->skin.clear();
 
 		mSkinGroups.clear();
 	}
@@ -222,14 +233,14 @@ namespace tools
 		return mWidgetTypes;
 	}
 
-	WidgetStyle* WidgetTypes::findWidgetStyleBySkin(const std::string& _skinName)
+	WidgetStyle* WidgetTypes::findWidgetStyleBySkin(std::string_view _skinName)
 	{
-		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++item)
+		for (auto& widgetType : mWidgetTypes)
 		{
-			for (WidgetStyle::VectorString::const_iterator skin = (*item)->skin.begin(); skin != (*item)->skin.end(); ++skin)
+			for (const auto& skin : widgetType->skin)
 			{
-				if ((*skin) == _skinName)
-					return (*item);
+				if (skin == _skinName)
+					return widgetType;
 			}
 		}
 
@@ -238,8 +249,8 @@ namespace tools
 
 	void WidgetTypes::updateDepth()
 	{
-		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++ item)
-			(*item)->depth = updateDepth(*item);
+		for (auto& widgetType : mWidgetTypes)
+			widgetType->depth = updateDepth(widgetType);
 	}
 
 	size_t WidgetTypes::updateDepth(WidgetStyle* _style)
@@ -249,7 +260,7 @@ namespace tools
 		while (_style != nullptr && !_style->base.empty())
 		{
 			_style = findWidgetStyle(_style->base);
-			++ result;
+			++result;
 		}
 
 		return result;

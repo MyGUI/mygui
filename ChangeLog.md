@@ -1,14 +1,72 @@
-#Changelog
+## MyGUI v3.4.4
+
+### Widgets
+- Fixed TabItem child widgets not being clickable in some cases (regression introduced in v3.4.3)
+- Fixed MenuControl popup positioning issue when it is unable to fit into screen height
+- Guard against division by zero in ScrollBar::TrackMove
+
+### Resources
+- ResourceTrueTypeFont: preserve explicit 0.0 advance in ResourceManualFont::deserialization
+
+### Platforms
+- OpenGL platforms: removed glew dependency
+
+### Other
+- Fixed build with MYGUI_USE_FREETYPE=OFF
+- Fixed build with static Ogre
+- CMake fixes
+
+## MyGUI v3.4.3
+
+### Core
+- Allow passing lambdas into MyGUI::newDelegate without explicitly wrapping them into std::function
+
+### Widgets
+- Add missing eventClipboardChanged when trying to cut/copy with no text selected
+- Fixed rare crash when changing widget style after it was clicked in the same frame
+- Fixed TabItem left disabled when rapidly switching between tabs
+- Improve performance of the TabControl tabs switching
+- Fixed ignoring "FontHeight" property when "FontName" is also set
+- Move MyGUI::DEFAULT to deprecated, add TabControl::DEFAULT_WIDTH instead
+
+### Platforms
+- Fix build with Ogre 14
+
+### Tools
+- Minor fixes for macOS
+- Use macOS Command key in tools
+
+### Other
+- Switch to C++17
+- Use string_view, unique_ptr and some other stuff
+- Various code improvements, including range base for migration and some other minor stuff
+- Add some missing MYGUI_DONT_USE_OBSOLETE checks for deprecated stuff
+- Remove MYGUI_DEBUG_MODE from headers to avoid issues with mixed debug/release builds
 
 ## MyGUI v3.4.2
 ### Core
 - Add missing MYGUI_EXPORT for ControllerRepeatClick (was not linking in non-static builds)
+- Use commands for key combinations on EditBox, provide macOS proper bindings
+- Add support for string_view in UString
 
 ### Widgets
 - ComboBox and ListBox: make "AddItem" use LanguageManager::replaceTags same way it is done for caption properties
+- EditBox: Allow text input while holding Ctrl (Allow key combinations involving CTRL that produce printable characters)
+
+### Platforms
+- OpenGL: Fix build with libX11-free wayland setup
+- Ogre: Correct vertex color order for ogre 13
+
+### Demos and Tools
+- Use SDL_WINDOWEVENT_FOCUS_GAINED/SDL_WINDOWEVENT_FOCUS_LOST events for better detection when window should have low FPS
+- Fix macOS resources paths, do not use MACOSX_BUNDLE
+- Fix various deprecated or incorrect resources usage
 
 ### Other
 - Add missing MYGUI_EXPORT to fix C4275 warnings
+- Various minor build fixes and improvements
+- Enable more warnings in MYGUI_HIGH_LEVEL_WARNINGS mode
+- Use GNUInstallDirs to install includes
 
 ## MyGUI v3.4.1
 ### Core

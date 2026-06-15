@@ -15,10 +15,8 @@ namespace tools
 	class AnimationInfo
 	{
 	public:
-		AnimationInfo();
-
 		const std::string& getTextureName() const;
-		void setTextureName(const std::string& _value);
+		void setTextureName(std::string_view _value);
 
 		const MyGUI::IntSize& getSize() const;
 		void setSize(const MyGUI::IntSize& _value);
@@ -26,8 +24,8 @@ namespace tools
 		float getRate() const;
 		void setRate(float _value);
 
-		typedef std::pair<MyGUI::IntPoint, size_t> PairFrame;
-		typedef std::vector<PairFrame> VectorFrame;
+		using PairFrame = std::pair<MyGUI::IntPoint, size_t>;
+		using VectorFrame = std::vector<PairFrame>;
 		const VectorFrame& getFrames() const;
 		void addFrame(const MyGUI::IntPoint& _frame, size_t _count);
 		void clearFrames();
@@ -35,7 +33,7 @@ namespace tools
 	private:
 		std::string mAnimationName;
 		MyGUI::IntSize mSize;
-		float mRate;
+		float mRate{0};
 		VectorFrame mFrames;
 	};
 

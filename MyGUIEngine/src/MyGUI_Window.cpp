@@ -12,6 +12,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
+#include <array>
 
 namespace MyGUI
 {
@@ -21,17 +22,6 @@ namespace MyGUI
 	const float WINDOW_SPEED_COEF = 3.0f;
 
 	const int WINDOW_SNAP_DISTANSE = 10;
-
-	Window::Window() :
-		mWidgetCaption(nullptr),
-		mMouseRootFocus(false),
-		mKeyRootFocus(false),
-		mIsAutoAlpha(false),
-		mSnap(false),
-		mAnimateSmooth(false),
-		mMovable(true)
-	{
-	}
 
 	void Window::initialiseOverride()
 	{
@@ -76,38 +66,42 @@ namespace MyGUI
 		}
 
 		VectorWidgetPtr buttons = getSkinWidgetsByName("Button");
-		for (VectorWidgetPtr::iterator iter = buttons.begin(); iter != buttons.end(); ++iter)
+		for (auto& button : buttons)
 		{
-			(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
+			button->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
 		}
 
 		VectorWidgetPtr actions = getSkinWidgetsByName("Action");
-		for (VectorWidgetPtr::iterator iter = actions.begin(); iter != actions.end(); ++iter)
+		for (auto& action : actions)
 		{
-			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-			(*iter)->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-			(*iter)->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
+			action->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+			action->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
+			action->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+			action->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
 		}
 
-		const size_t countNames = 8;
-		const char* resizers[2][countNames] =
-		{
-			{"ResizeLeftTop", "ResizeTop", "ResizeRightTop", "ResizeRight", "ResizeRightBottom", "ResizeBottom", "ResizeLeftBottom", "ResizeLeft"},
-			{"Left Top", "Top", "Right Top", "Right", "Right Bottom", "Bottom", "Left Bottom", "Left"}
-		};
+		constexpr size_t countNames = 8;
+		const std::array<std::pair<std::string_view, std::string_view>, countNames> resizers{
+			{{"ResizeLeftTop", "Left Top"},
+			 {"ResizeTop", "Top"},
+			 {"ResizeRightTop", "Right Top"},
+			 {"ResizeRight", "Right"},
+			 {"ResizeRightBottom", "Right Bottom"},
+			 {"ResizeBottom", "Bottom"},
+			 {"ResizeLeftBottom", "Left Bottom"},
+			 {"ResizeLeft", "Left"}}};
 
-		for (size_t index = 0; index < countNames; ++ index)
+		for (const auto& resizer : resizers)
 		{
 			Widget* widget = nullptr;
-			assignWidget(widget, resizers[0][index]);
+			assignWidget(widget, resizer.first);
 			if (widget != nullptr)
 			{
 				widget->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 				widget->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 				widget->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 				widget->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
-				widget->setUserString("Action", resizers[1][index]);
+				widget->setUserString("Action", resizer.second);
 			}
 		}
 	}
@@ -462,7 +456,7 @@ namespace MyGUI
 
 	IntSize Window::getMinSize() const
 	{
-		return IntSize(mMinmax.left, mMinmax.top);
+		return {mMinmax.left, mMinmax.top};
 	}
 
 	void Window::setMaxSize(const IntSize& _value)
@@ -473,10 +467,10 @@ namespace MyGUI
 
 	IntSize Window::getMaxSize() const
 	{
-		return IntSize(mMinmax.right, mMinmax.bottom);
+		return {mMinmax.right, mMinmax.bottom};
 	}
 
-	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void Window::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{Window, AutoAlpha, bool} Режим регулировки прозрачности опираясь на фокус ввода.
 		if (_key == "AutoAlpha")
@@ -561,15 +555,14 @@ namespace MyGUI
 
 			return result;
 		}
-		else if (_widget->isUserString("Action"))
+		if (_widget->isUserString("Action"))
 		{
-			const std::string& action = _widget->getUserString("Action");
+			std::string_view action = _widget->getUserString("Action");
 			if (action == "Move")
 			{
 				if (mMovable)
-					return IntCoord(1, 1, 0, 0);
-				else
-					return IntCoord();
+					return {1, 1, 0, 0};
+				return {};
 			}
 
 			IntCoord coord;
@@ -598,7 +591,7 @@ namespace MyGUI
 			return coord;
 		}
 
-		return IntCoord();
+		return {};
 	}
 
 	void Window::setMovable(bool _value)

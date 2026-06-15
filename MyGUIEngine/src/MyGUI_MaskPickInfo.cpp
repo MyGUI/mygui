@@ -13,12 +13,6 @@
 namespace MyGUI
 {
 
-	MaskPickInfo::MaskPickInfo() :
-		mWidth(0),
-		mHeight(0)
-	{
-	}
-
 	bool MaskPickInfo::load(const std::string& _file)
 	{
 		if (!DataManager::getInstance().isDataExist(_file))
@@ -66,7 +60,8 @@ namespace MyGUI
 
 	bool MaskPickInfo::pick(const IntPoint& _point, const IntCoord& _coord) const
 	{
-		if ((0 == _coord.width) || (0 == _coord.height)) return false;
+		if ((0 == _coord.width) || (0 == _coord.height))
+			return false;
 
 		int x = ((_point.left * mWidth) - 1) / _coord.width;
 		int y = ((_point.top * mHeight) - 1) / _coord.height;

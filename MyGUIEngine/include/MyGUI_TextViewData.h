@@ -45,7 +45,8 @@ namespace MyGUI
 		CharInfo(uint32 _colour) :
 			mIsColour(true),
 			mColour(_colour)
-		{ }
+		{
+		}
 
 		bool isColour() const
 		{
@@ -88,7 +89,6 @@ namespace MyGUI
 		}
 
 	private:
-
 		bool mIsColour;
 		FloatRect mUVRect;
 
@@ -106,20 +106,12 @@ namespace MyGUI
 			Metrics mMetrics;
 			uint32 mColour;
 		};
-
 	};
 
-	typedef std::vector<CharInfo> VectorCharInfo;
+	using VectorCharInfo = std::vector<CharInfo>;
 
 	struct LineInfo
 	{
-		LineInfo() :
-			width(0),
-			offset(0),
-			count(0)
-		{
-		}
-
 		void clear()
 		{
 			width = 0;
@@ -128,13 +120,13 @@ namespace MyGUI
 			offset = 0;
 		}
 
-		int width;
-		int offset;
-		size_t count;
+		int width{0};
+		int offset{0};
+		size_t count{0};
 		VectorCharInfo symbols;
 	};
 
-	typedef std::vector<LineInfo> VectorLineInfo;
+	using VectorLineInfo = std::vector<LineInfo>;
 
 } // namespace MyGUI
 

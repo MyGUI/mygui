@@ -48,7 +48,7 @@ namespace MyGUI
 			}
 			mIndexFace.insert(mIndexFace.begin() + _index, index);
 
-			count ++;
+			count++;
 			mIndexBack.push_back(0);
 			for (size_t pos = 0; pos < count; ++pos)
 			{
@@ -139,13 +139,11 @@ namespace MyGUI
 		std::swap(mIndexFace[mIndexBack[_index1]], mIndexFace[mIndexBack[_index2]]);
 	}
 
-#if MYGUI_DEBUG_MODE == 1
-
 	void BiIndexBase::checkIndexes()
 	{
 		assert(mIndexFace.size() == mIndexBack.size());
 
-		// проверяем на уникальность каждого индекса в маппинге
+		// check that index is unique
 		std::vector<bool> vec;
 		size_t count = mIndexFace.size();
 
@@ -155,36 +153,22 @@ namespace MyGUI
 
 		for (size_t pos = 0; pos < count; ++pos)
 		{
-			// максимум
 			size_t index = mIndexBack[pos];
-			if (index >= count)
-				throw new std::exception();
+			MYGUI_ASSERT(index < count, "Invalid index");
 
-			// максимум
 			index = mIndexFace[pos];
-			if (index >= count)
-				throw new std::exception();
+			MYGUI_ASSERT(index < count, "Invalid index");
 
-			if (vec[index])
-				throw new std::exception();
+			MYGUI_ASSERT(!vec[index], "Invalid index");
 			vec[index] = true;
 		}
 
-		for (size_t pos = 0; pos < count; ++pos)
-		{
-			if (!vec[pos])
-				throw new std::exception();
-		}
-
-		// проверяем на взаимоссылаемость индексов
+		// check for index cross-reference
 		for (size_t pos = 0; pos < count; ++pos)
 		{
 			size_t index = mIndexFace[pos];
-			if (mIndexBack[index] != pos)
-				throw new std::exception();
+			MYGUI_ASSERT(mIndexBack[index] == pos, "Invalid index: cross-reference");
 		}
 	}
-
-#endif
 
 } // namespace MyGUI

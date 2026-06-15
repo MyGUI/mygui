@@ -10,46 +10,26 @@
 namespace MyGUI
 {
 
-	Any::AnyEmpty Any::Null;
+	const Any Any::Null{};
 
-	Any::Any() :
-		mContent(nullptr)
-	{
-	}
-
-	Any::Any(const Any::AnyEmpty& value) :
-		mContent(nullptr)
-	{
-	}
+	Any::Any() = default;
 
 	Any::Any(const Any& other) :
 		mContent(other.mContent ? other.mContent->clone() : nullptr)
 	{
 	}
 
-	Any::~Any()
-	{
-		delete mContent;
-	}
+	Any::Any(Any&& other) noexcept = default;
 
-	Any& Any::swap(Any& rhs)
+	Any::~Any() = default;
+
+	Any& Any::operator=(const Any& rhs)
 	{
-		std::swap(mContent, rhs.mContent);
+		mContent = rhs.mContent ? rhs.mContent->clone() : nullptr;
 		return *this;
 	}
 
-	Any& Any::operator = (const Any::AnyEmpty& rhs)
-	{
-		delete mContent;
-		mContent = nullptr;
-		return *this;
-	}
-
-	Any& Any::operator = (const Any& rhs)
-	{
-		Any(rhs).swap(*this);
-		return *this;
-	}
+	Any& Any::operator=(Any&& rhs) noexcept = default;
 
 	bool Any::empty() const
 	{
@@ -59,15 +39,6 @@ namespace MyGUI
 	const std::type_info& Any::getType() const
 	{
 		return mContent ? mContent->getType() : typeid(void);
-	}
-
-#if defined(__clang__)
-	// That's the point of unsafe cast
-	__attribute__((no_sanitize("vptr")))
-#endif
-	void* Any::castUnsafe() const
-	{
-		return mContent ? static_cast<Any::Holder<void*> *>(this->mContent)->held : nullptr;
 	}
 
 	bool Any::compare(const Any& other) const

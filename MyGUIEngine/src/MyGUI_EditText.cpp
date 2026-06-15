@@ -21,34 +21,7 @@ namespace MyGUI
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VertexQuad::VertexCount;
 
 	EditText::EditText() :
-		ISubWidgetText(),
-		mEmptyView(false),
-		mCurrentColourNative(0xFFFFFFFF),
-		mInverseColourNative(0xFF000000),
-		mShadowColourNative(0x00000000),
-		mTextOutDate(false),
-		mTextAlign(Align::Default),
-		mColour(Colour::White),
-		mShadowColour(Colour::Black),
-		mAlpha(ALPHA_MAX),
-		mFont(nullptr),
-		mTexture(nullptr),
-		mFontHeight(0),
-		mBackgroundNormal(true),
-		mStartSelect(0),
-		mEndSelect(0),
-		mCursorPosition(0),
-		mVisibleCursor(false),
-		mInvertSelect(true),
-		mShadow(false),
-		mNode(nullptr),
-		mRenderItem(nullptr),
-		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
-		mIsAddCursorWidth(true),
-		mShiftText(false),
-		mWordWrap(false),
-		mManualColour(false),
-		mOldWidth(0)
+		mCountVertex(SIMPLETEXT_COUNT_VERTEX)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
@@ -117,8 +90,8 @@ namespace MyGUI
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
-        mCurrentCoord = mCoord;
-        _updateView();
+		mCurrentCoord = mCoord;
+		_updateView();
 	}
 
 	void EditText::_updateView()
@@ -234,7 +207,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::setFontName(const std::string& _value)
+	void EditText::setFontName(std::string_view _value)
 	{
 		mTexture = nullptr;
 		mFont = FontManager::getInstance().getByName(_value);
@@ -242,8 +215,8 @@ namespace MyGUI
 		{
 			mTexture = mFont->getTextureFont();
 
-			// если надо, устанавливаем дефолтный размер шрифта
-			if (mFont->getDefaultHeight() != 0)
+			// set default font height
+			if (mFont->getDefaultHeight() != 0 && !mCustomFontHeight)
 			{
 				mFontHeight = mFont->getDefaultHeight();
 			}
@@ -269,14 +242,18 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	const std::string& EditText::getFontName() const
+	std::string_view EditText::getFontName() const
 	{
 		return mFont->getResourceName();
 	}
 
 	void EditText::setFontHeight(int _value)
 	{
-		mFontHeight = _value;
+		mCustomFontHeight = _value;
+		if (!mCustomFontHeight && mFont)
+			mFontHeight = mFont->getDefaultHeight();
+		else
+			mFontHeight = _value;
 		mTextOutDate = true;
 
 		if (nullptr != mNode)
@@ -402,8 +379,8 @@ namespace MyGUI
 		if (mShadow)
 		{
 			if (!mIsAddCursorWidth)
-				size.width ++;
-			size.height ++;
+				size.width++;
+			size.height++;
 		}
 
 		return size;
@@ -446,7 +423,7 @@ namespace MyGUI
 	IntCoord EditText::getCursorCoord(size_t _position) const
 	{
 		if (nullptr == mFont)
-			return IntCoord();
+			return {};
 
 		if (mTextOutDate)
 			updateRawData();
@@ -456,7 +433,7 @@ namespace MyGUI
 		point -= mViewOffset;
 		point += mCoord.point();
 
-		return IntCoord(point.left, point.top, 2, mFontHeight);
+		return {point.left, point.top, 2, mFontHeight};
 	}
 
 	void EditText::setShiftText(bool _value)
@@ -531,19 +508,20 @@ namespace MyGUI
 
 		FloatRect vertexRect;
 
-		const FloatRect& selectedUVRect = mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack)->uvRect;
+		const FloatRect& selectedUVRect =
+			mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack)->uvRect;
 
 		size_t index = 0;
 
-		for (VectorLineInfo::const_iterator line = textViewData.begin(); line != textViewData.end(); ++line)
+		for (const auto& line : textViewData)
 		{
-			float left = (float)(line->offset - mViewOffset.left + mCoord.left);
+			float left = (float)(line.offset - mViewOffset.left + mCoord.left);
 
-			for (VectorCharInfo::const_iterator sim = line->symbols.begin(); sim != line->symbols.end(); ++sim)
+			for (const auto& sym : line.symbols)
 			{
-				if (sim->isColour())
+				if (sym.isColour())
 				{
-					colour = sim->getColour() | (colour & 0xFF000000);
+					colour = sym.getColour() | (colour & 0xFF000000);
 					inverseColour = colour ^ 0x00FFFFFF;
 					selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
 					continue;
@@ -552,7 +530,7 @@ namespace MyGUI
 				// смещение текстуры для фона
 				bool select = index >= mStartSelect && index < mEndSelect;
 
-				float fullAdvance = sim->getBearingX() + sim->getAdvance();
+				float fullAdvance = sym.getBearingX() + sym.getAdvance();
 
 				// Render the selection, if any, first.
 				if (select)
@@ -565,21 +543,27 @@ namespace MyGUI
 				// Render the glyph shadow, if any.
 				if (mShadow)
 				{
-					vertexRect.left = left + sim->getBearingX() + 1.0f;
-					vertexRect.top = top + sim->getBearingY() + 1.0f;
-					vertexRect.right = vertexRect.left + sim->getWidth();
-					vertexRect.bottom = vertexRect.top + sim->getHeight();
+					vertexRect.left = left + sym.getBearingX() + 1.0f;
+					vertexRect.top = top + sym.getBearingY() + 1.0f;
+					vertexRect.right = vertexRect.left + sym.getWidth();
+					vertexRect.bottom = vertexRect.top + sym.getHeight();
 
-					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sim->getUVRect(), mShadowColourNative);
+					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sym.getUVRect(), mShadowColourNative);
 				}
 
 				// Render the glyph itself.
-				vertexRect.left = left + sim->getBearingX();
-				vertexRect.top = top + sim->getBearingY();
-				vertexRect.right = vertexRect.left + sim->getWidth();
-				vertexRect.bottom = vertexRect.top + sim->getHeight();
+				vertexRect.left = left + sym.getBearingX();
+				vertexRect.top = top + sym.getBearingY();
+				vertexRect.right = vertexRect.left + sym.getWidth();
+				vertexRect.bottom = vertexRect.top + sym.getHeight();
 
-				drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sim->getUVRect(), (!select || !mInvertSelect) ? colour : inverseColour);
+				drawGlyph(
+					renderTargetInfo,
+					vertex,
+					vertexCount,
+					vertexRect,
+					sym.getUVRect(),
+					(!select || !mInvertSelect) ? colour : inverseColour);
 
 				left += fullAdvance;
 				++index;
@@ -594,9 +578,19 @@ namespace MyGUI
 		{
 			IntPoint point = mTextView.getCursorPoint(mCursorPosition) - mViewOffset + mCoord.point();
 			const GlyphInfo* cursorGlyph = mFont->getGlyphInfo(static_cast<Char>(FontCodeType::Cursor));
-			vertexRect.set((float)point.left, (float)point.top, (float)point.left + cursorGlyph->width, (float)(point.top + mFontHeight));
+			vertexRect.set(
+				(float)point.left,
+				(float)point.top,
+				(float)point.left + cursorGlyph->width,
+				(float)(point.top + mFontHeight));
 
-			drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, cursorGlyph->uvRect, mCurrentColourNative | 0x00FFFFFF);
+			drawGlyph(
+				renderTargetInfo,
+				vertex,
+				vertexCount,
+				vertexRect,
+				cursorGlyph->uvRect,
+				mCurrentColourNative | 0x00FFFFFF);
 		}
 
 		// колличество реально отрисованных вершин
@@ -773,13 +767,16 @@ namespace MyGUI
 		}
 
 		float pix_left = mCroppedParent->getAbsoluteLeft() - _renderTargetInfo.leftOffset + _vertexRect.left;
-		float pix_top = mCroppedParent->getAbsoluteTop() - _renderTargetInfo.topOffset + (mShiftText ? 1.0f : 0.0f) + _vertexRect.top;
+		float pix_top = mCroppedParent->getAbsoluteTop() - _renderTargetInfo.topOffset + (mShiftText ? 1.0f : 0.0f) +
+			_vertexRect.top;
 
 		FloatRect vertexRect(
 			((_renderTargetInfo.pixScaleX * pix_left + _renderTargetInfo.hOffset) * 2.0f) - 1.0f,
 			-(((_renderTargetInfo.pixScaleY * pix_top + _renderTargetInfo.vOffset) * 2.0f) - 1.0f),
-			((_renderTargetInfo.pixScaleX * (pix_left + _vertexRect.width()) + _renderTargetInfo.hOffset) * 2.0f) - 1.0f,
-			-(((_renderTargetInfo.pixScaleY * (pix_top + _vertexRect.height()) + _renderTargetInfo.vOffset) * 2.0f) - 1.0f));
+			((_renderTargetInfo.pixScaleX * (pix_left + _vertexRect.width()) + _renderTargetInfo.hOffset) * 2.0f) -
+				1.0f,
+			-(((_renderTargetInfo.pixScaleY * (pix_top + _vertexRect.height()) + _renderTargetInfo.vOffset) * 2.0f) -
+			  1.0f));
 
 		drawQuad(_vertex, _vertexCount, vertexRect, mNode->getNodeDepth(), _textureRect, _colour);
 	}

@@ -13,8 +13,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT DataStream :
-		public IDataStream
+	class MYGUI_EXPORT DataStream : public IDataStream
 	{
 	public:
 		DataStream();

@@ -17,13 +17,7 @@
 namespace MyGUI
 {
 
-	SubSkin::SubSkin() :
-		ISubWidgetRect(),
-		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
-		mNode(nullptr),
-		mRenderItem(nullptr),
-		mSeparate(false)
+	SubSkin::SubSkin()
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
@@ -90,8 +84,8 @@ namespace MyGUI
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
-        mCurrentCoord = mCoord;
-        _updateView();
+		mCurrentCoord = mCoord;
+		_updateView();
 	}
 
 	void SubSkin::_updateView()
@@ -222,9 +216,17 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float vertex_left =
+			((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
+			  info.hOffset) *
+			 2) -
+			1;
 		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
+		float vertex_top =
+			-(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) +
+				info.vOffset) *
+			   2) -
+			  1);
 		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		quad->set(

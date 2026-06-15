@@ -13,12 +13,9 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL SelectorControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL SelectorControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		SelectorControl();
 		~SelectorControl() override;
 
 		void setVisible(bool _value);
@@ -43,8 +40,8 @@ namespace tools
 		MyGUI::Widget* getMainWidget();
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void setPropertyColour(const std::string& _propertyName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void setPropertyColour(std::string_view _propertyName);
 
 	private:
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
@@ -52,13 +49,13 @@ namespace tools
 		void setColour(MyGUI::Colour _value);
 		void updateCoord();
 
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 	private:
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::IntCoord mCoordReal;
-		double mScaleValue;
-		MyGUI::Widget* mProjection;
+		double mScaleValue{1.0};
+		MyGUI::Widget* mProjection{nullptr};
 		MyGUI::IntCoord mProjectionDiff;
 		std::string mPropertyColour;
 	};

@@ -16,19 +16,7 @@ namespace tools
 {
 
 	PanelUserData::PanelUserData() :
-		BasePanelViewItem("PanelUserData.layout"),
-		mEditKey(nullptr),
-		mEditValue(nullptr),
-		mButtonAdd(nullptr),
-		mButtonDelete(nullptr),
-		mMultilist(nullptr),
-		mCurrentWidget(nullptr),
-		mEditLeft(0),
-		mEditRight(0),
-		mEditSpace(0),
-		mButtonLeft(0),
-		mButtonRight(0),
-		mButtonSpace(0)
+		BasePanelViewItem("PanelUserData.layout")
 	{
 	}
 
@@ -76,7 +64,10 @@ namespace tools
 			if (checkUserData(widgetContainer, userData.current().first))
 			{
 				mMultilist->addItem(userData.current().first);
-				mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, MyGUI::TextIterator::toTagsString(userData.current().second));
+				mMultilist->setSubItemNameAt(
+					1,
+					mMultilist->getItemCount() - 1,
+					MyGUI::TextIterator::toTagsString(userData.current().second));
 			}
 		}
 	}
@@ -87,17 +78,25 @@ namespace tools
 
 		int half_width = (width - (mEditLeft + mEditRight + mEditSpace)) / 2;
 		mEditKey->setSize(half_width, mEditKey->getHeight());
-		mEditValue->setCoord(mEditKey->getRight() + mEditSpace, mEditValue->getTop(), width - (mEditKey->getRight() + mEditSpace + mEditRight), mEditValue->getHeight());
+		mEditValue->setCoord(
+			mEditKey->getRight() + mEditSpace,
+			mEditValue->getTop(),
+			width - (mEditKey->getRight() + mEditSpace + mEditRight),
+			mEditValue->getHeight());
 
 		half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
 		mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
-		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
+		mButtonDelete->setCoord(
+			mButtonAdd->getRight() + mButtonSpace,
+			mButtonDelete->getTop(),
+			width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight),
+			mButtonDelete->getHeight());
 	}
 
 	void PanelUserData::notifyAddUserData(MyGUI::Widget* _sender)
 	{
-		std::string key = mEditKey->getOnlyText();
-		std::string value = mEditValue->getOnlyText();
+		MyGUI::UString key = mEditKey->getOnlyText();
+		MyGUI::UString value = mEditValue->getOnlyText();
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		if (!widgetContainer->existUserData(key))
 		{
@@ -111,7 +110,8 @@ namespace tools
 	void PanelUserData::notifyDeleteUserData(MyGUI::Widget* _sender)
 	{
 		size_t item = mMultilist->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item) return;
+		if (MyGUI::ITEM_NONE == item)
+			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		widgetContainer->clearUserData(mMultilist->getItemNameAt(item));
@@ -127,9 +127,9 @@ namespace tools
 			notifyAddUserData();
 			return;
 		}
-		std::string key = mEditKey->getOnlyText();
-		std::string value = mEditValue->getOnlyText();
-		std::string lastkey = mMultilist->getItemNameAt(item);
+		MyGUI::UString key = mEditKey->getOnlyText();
+		MyGUI::UString value = mEditValue->getOnlyText();
+		MyGUI::UString lastkey = mMultilist->getItemNameAt(item);
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		mMultilist->removeItemAt(mMultilist->findSubItemWith(0, lastkey));
@@ -147,25 +147,26 @@ namespace tools
 	void PanelUserData::notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index)
 	{
 		size_t item = mMultilist->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item) return;
-		std::string key = mMultilist->getSubItemNameAt(0, item);
-		std::string value = mMultilist->getSubItemNameAt(1, item);
+		if (MyGUI::ITEM_NONE == item)
+			return;
+		const MyGUI::UString& key = mMultilist->getSubItemNameAt(0, item);
+		const MyGUI::UString& value = mMultilist->getSubItemNameAt(1, item);
 		mEditKey->setOnlyText(key);
 		mEditValue->setCaption(value);
 	}
 
-	bool PanelUserData::checkUserData(WidgetContainer* _widgetContainer, const std::string& _key)
+	bool PanelUserData::checkUserData(WidgetContainer* _widgetContainer, std::string_view _key)
 	{
 		if (_key == "LE_TargetWidgetType")
 			return false;
 
-		std::string widgetTypeName = _widgetContainer->getUserData("LE_TargetWidgetType");
+		std::string_view widgetTypeName = _widgetContainer->getUserData("LE_TargetWidgetType");
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_widgetContainer->getType());
 
-		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
+		for (auto& iter : widgetType->parameterData)
 		{
-			if ((*iter).first == _key)
+			if (iter.first == _key)
 				return false;
 		}
 
@@ -173,9 +174,9 @@ namespace tools
 		{
 			WidgetStyle* widgetTargetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
 
-			for (MyGUI::VectorStringPairs::iterator iter = widgetTargetType->templateData.begin(); iter != widgetTargetType->templateData.end(); ++iter)
+			for (auto& iter : widgetTargetType->templateData)
 			{
-				if ((*iter).first == _key)
+				if (iter.first == _key)
 					return false;
 			}
 		}

@@ -11,12 +11,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 

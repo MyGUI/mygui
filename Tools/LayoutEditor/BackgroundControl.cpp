@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	BackgroundControl::BackgroundControl() :
+	BackgroundControlLE::BackgroundControlLE() :
 		wraps::BaseLayout("Background.layout")
 	{
 	}

@@ -9,11 +9,6 @@
 
 namespace tools
 {
-	Action::Action() :
-		mMerge(false)
-	{
-	}
-
 	void Action::doAction()
 	{
 	}

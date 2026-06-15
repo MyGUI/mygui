@@ -50,10 +50,9 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& DummyDataManager::getDataPath(const std::string& _name) const
+	std::string DummyDataManager::getDataPath(const std::string& _name) const
 	{
-		static std::string result;
-		return result;
+		return {};
 	}
 
 } // namespace MyGUI

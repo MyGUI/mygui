@@ -14,10 +14,10 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ColourManager :
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL ColourManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(ColourManager);
+
 	public:
 		ColourManager();
 
@@ -38,7 +38,7 @@ namespace tools
 		MyGUI::Colour getColour();
 
 	private:
-		ColourPanel* mColourPanel;
+		ColourPanel* mColourPanel{nullptr};
 		MyGUI::Colour mPreviewColour;
 		std::string mCurrentColourType;
 	};

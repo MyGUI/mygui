@@ -25,10 +25,10 @@
 #import "PROGID:ShockwaveFlash.ShockwaveFlash" named_guids
 
 #ifndef max
-#define max(a, b)	(((a) > (b)) ? (a) : (b))
+	#define max(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 #ifndef min
-#define min(a, b)	(((a) < (b)) ? (a) : (b))
+	#define min(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
 namespace Hikari
@@ -37,11 +37,13 @@ namespace Hikari
 	class FlashSite : public IOleInPlaceSiteWindowless, public IOleClientSite
 	{
 	public:
-		int	refCount;
+		int refCount;
 		FlashControl* owner;
 
 	public:
-		FlashSite() : refCount(0), owner(0)
+		FlashSite() :
+			refCount(0),
+			owner(0)
 		{
 		}
 
@@ -134,17 +136,17 @@ namespace Hikari
 			return E_NOINTERFACE;
 		}
 
-		virtual HRESULT  STDMETHODCALLTYPE ShowObject(void)
+		virtual HRESULT STDMETHODCALLTYPE ShowObject(void)
 		{
 			return E_NOTIMPL;
 		}
 
-		virtual HRESULT  STDMETHODCALLTYPE OnShowWindow(BOOL)
+		virtual HRESULT STDMETHODCALLTYPE OnShowWindow(BOOL)
 		{
 			return E_NOTIMPL;
 		}
 
-		virtual HRESULT  STDMETHODCALLTYPE RequestNewObjectLayout(void)
+		virtual HRESULT STDMETHODCALLTYPE RequestNewObjectLayout(void)
 		{
 			return E_NOTIMPL;
 		}
@@ -174,8 +176,12 @@ namespace Hikari
 			return S_OK;
 		}
 
-		HRESULT STDMETHODCALLTYPE GetWindowContext(IOleInPlaceFrame __RPC_FAR* __RPC_FAR* ppFrame, IOleInPlaceUIWindow __RPC_FAR* __RPC_FAR* ppDoc,
-			LPRECT lprcPosRect, LPRECT lprcClipRect, LPOLEINPLACEFRAMEINFO lpFrameInfo)
+		HRESULT STDMETHODCALLTYPE GetWindowContext(
+			IOleInPlaceFrame __RPC_FAR* __RPC_FAR* ppFrame,
+			IOleInPlaceUIWindow __RPC_FAR* __RPC_FAR* ppDoc,
+			LPRECT lprcPosRect,
+			LPRECT lprcClipRect,
+			LPOLEINPLACEFRAMEINFO lpFrameInfo)
 		{
 			RECT rect;
 			rect.left = 0;
@@ -302,8 +308,8 @@ namespace Hikari
 				}
 			}
 
-			if (owner->dirtyBounds.left < 0 || owner->dirtyBounds.top < 0 ||
-				owner->dirtyBounds.right > owner->width || owner->dirtyBounds.bottom > owner->height || !pRect)
+			if (owner->dirtyBounds.left < 0 || owner->dirtyBounds.top < 0 || owner->dirtyBounds.right > owner->width ||
+				owner->dirtyBounds.bottom > owner->height || !pRect)
 			{
 				owner->invalidateTotally();
 			}
@@ -331,7 +337,8 @@ namespace Hikari
 			return S_OK;
 		}
 
-		HRESULT STDMETHODCALLTYPE OnDefWindowMessage(UINT msg, WPARAM wParam, LPARAM lParam, LRESULT __RPC_FAR* plResult)
+		HRESULT STDMETHODCALLTYPE
+		OnDefWindowMessage(UINT msg, WPARAM wParam, LPARAM lParam, LRESULT __RPC_FAR* plResult)
 		{
 			return S_FALSE;
 		}

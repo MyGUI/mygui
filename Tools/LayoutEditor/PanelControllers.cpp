@@ -15,16 +15,7 @@ namespace tools
 {
 
 	PanelControllers::PanelControllers() :
-		BasePanelViewItem("PanelControllers.layout"),
-		mControllerName(nullptr),
-		mButtonAdd(nullptr),
-		mButtonDelete(nullptr),
-		mList(nullptr),
-		mCurrentWidget(nullptr),
-		mButtonLeft(0),
-		mButtonRight(0),
-		mButtonSpace(0),
-		mIndexSelected(MyGUI::ITEM_NONE)
+		BasePanelViewItem("PanelControllers.layout")
 	{
 	}
 
@@ -45,7 +36,8 @@ namespace tools
 		mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();
 		mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") = MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") =
+			MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
 		MyGUI::ResourceManager::getInstance().load("Controllers.xml");
 	}
 
@@ -65,9 +57,9 @@ namespace tools
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		mList->removeAllItems();
-		for (std::vector<ControllerInfo*>::iterator iter = widgetContainer->mController.begin(); iter != widgetContainer->mController.end(); ++iter)
+		for (auto& iter : widgetContainer->mController)
 		{
-			mList->addItem((*iter)->mType, *iter);
+			mList->addItem(iter->mType, iter);
 		}
 
 		mPanelCell->setClientHeight(mButtonDelete->getCoord().bottom());
@@ -79,12 +71,16 @@ namespace tools
 
 		int half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
 		mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
-		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
+		mButtonDelete->setCoord(
+			mButtonAdd->getRight() + mButtonSpace,
+			mButtonDelete->getTop(),
+			width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight),
+			mButtonDelete->getHeight());
 	}
 
 	void PanelControllers::notifyAdd(MyGUI::Widget* _sender)
 	{
-		std::string key = mControllerName->getOnlyText();
+		auto key = mControllerName->getOnlyText();
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		ControllerInfo* controllerInfo = new ControllerInfo();
@@ -102,7 +98,10 @@ namespace tools
 			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(index));
+		std::vector<ControllerInfo*>::iterator iter = std::find(
+			widgetContainer->mController.begin(),
+			widgetContainer->mController.end(),
+			*mList->getItemDataAt<ControllerInfo*>(index));
 		if (iter != widgetContainer->mController.end())
 		{
 			delete *iter;
@@ -124,22 +123,23 @@ namespace tools
 		if (MyGUI::ITEM_NONE == mIndexSelected)
 			return;
 
-		std::string key = mList->getItemNameAt(mIndexSelected);
+		const MyGUI::UString& key = mList->getItemNameAt(mIndexSelected);
 		mControllerName->setOnlyText(key);
+		auto property = mControllersProperties.find(key.asUTF8());
 
-		if (mControllersProperties.find(key) != mControllersProperties.end())
+		if (property != mControllersProperties.end())
 		{
 			ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(mIndexSelected);
 
-			for (MyGUI::MapString::iterator iter = mControllersProperties[key].begin(); iter != mControllersProperties[key].end(); ++iter)
+			for (const auto& [pKey, pValue] : property->second)
 			{
-				std::string value = "";
-				if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
-					value = controllerInfo->mProperty[iter->first];
+				std::string_view value;
+				if (controllerInfo->mProperty.find(pKey) != controllerInfo->mProperty.end())
+					value = controllerInfo->mProperty[pKey];
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
+				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, pValue);
 				field->setTarget(mCurrentWidget);
-				field->setName(iter->first);
+				field->setName(pKey);
 				field->setValue(value);
 				field->eventAction = MyGUI::newDelegate(this, &PanelControllers::notifyAction);
 				mFields.push_back(field);
@@ -153,46 +153,54 @@ namespace tools
 	{
 		int height = mButtonDelete->getCoord().bottom() + 3;
 
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			MyGUI::IntSize size = (*item)->getContentSize();
-			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			MyGUI::IntSize size = field->getContentSize();
+			field->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 			height += size.height;
 		}
 
 		mPanelCell->setClientHeight(height);
 	}
 
-	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void PanelControllers::loadControllerTypes(
+		MyGUI::xml::ElementPtr _node,
+		std::string_view /*_file*/,
+		MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator controller = _node->getElementEnumerator();
 		while (controller.next("Controller"))
 		{
 			MyGUI::MapString controllerProperties;
-			std::string name = controller->findAttribute("name");
-			mControllerName->addItem(name);
+			std::string_view name = controller->findAttribute("name");
+			mControllerName->addItem(MyGUI::UString(name));
 			MyGUI::xml::ElementEnumerator prop = controller->getElementEnumerator();
 			while (prop.next("Property"))
-				controllerProperties[prop->findAttribute("key")] = prop->findAttribute("type");
-			mControllersProperties[name] = controllerProperties;
+			{
+				std::string_view key = prop->findAttribute("key");
+				std::string_view value = prop->findAttribute("type");
+				MyGUI::mapSet(controllerProperties, key, value);
+			}
+			MyGUI::mapSet(mControllersProperties, name, controllerProperties);
 		}
 	}
 
 	void PanelControllers::destroyPropertyFields()
 	{
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item);
+		for (auto& field : mFields)
+			delete field;
 		mFields.clear();
 	}
 
-	void PanelControllers::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelControllers::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
 			if (mIndexSelected != MyGUI::ITEM_NONE)
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-				widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+				auto& prop = widgetContainer->mController[mIndexSelected]->mProperty;
+				MyGUI::mapSet(prop, _name, _value);
 
 				UndoManager::getInstance().addValue(PR_PROPERTIES);
 			}

@@ -18,15 +18,11 @@ namespace MyGUI
 	/** \brief @wpage{ImageBox}
 		ImageBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ImageBox :
-		public Widget,
-		public MemberObsolete<ImageBox>
+	class MYGUI_EXPORT ImageBox : public Widget, public MemberObsolete<ImageBox>
 	{
-		MYGUI_RTTI_DERIVED( ImageBox )
+		MYGUI_RTTI_DERIVED(ImageBox)
 
 	public:
-		ImageBox();
-
 		//------------------------------------------------------------------------------//
 		// The simple interface
 		//------------------------------------------------------------------------------//
@@ -36,21 +32,21 @@ namespace MyGUI
 			@param _coord - part of texture where we take tiles
 			@param _tile size
 		*/
-		void setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile);
+		void setImageInfo(std::string_view _texture, const IntCoord& _coord, const IntSize& _tile);
 
 		/* Set texture
 			@param _texture file name or texture name
 		*/
-		void setImageTexture(const std::string& _value);
+		void setImageTexture(std::string_view _texture);
 
 		/** Set _rect - part of texture where we take tiles */
-		void setImageRect(const IntRect& _value);
+		void setImageRect(const IntRect& _rect);
 
 		/** Set _coord - part of texture where we take tiles */
-		void setImageCoord(const IntCoord& _value);
+		void setImageCoord(const IntCoord& _coord);
 
 		/** Set _tile size */
-		void setImageTile(const IntSize& _value);
+		void setImageTile(const IntSize& _tile);
 
 		/** Set current tile index
 			@param _index - tile index
@@ -161,12 +157,12 @@ namespace MyGUI
 			@param _name Resource name
 			@return false if resource with such name not exist
 		*/
-		bool setItemResource(const std::string& _name);
+		bool setItemResource(std::string_view _name);
 
 		/** Select current item group */
-		void setItemGroup(const std::string& _value);
+		void setItemGroup(std::string_view _group);
 		/** Select current item mane */
-		void setItemName(const std::string& _value);
+		void setItemName(std::string_view _name);
 
 		/** Select current items resource used in ImageBox
 			@param _resource Resource pointer
@@ -178,12 +174,12 @@ namespace MyGUI
 		/** Get current items resource used in ImageBox */
 		ResourceImageSetPtr getItemResource() const;
 		/** Select current item resource, group and name */
-		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
+		void setItemResourceInfo(ResourceImageSetPtr _resource, std::string_view _group, std::string_view _name);
 
 	protected:
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void frameEntered(float _frame);
@@ -203,15 +199,15 @@ namespace MyGUI
 		// размер текстуры
 		IntSize mSizeTexture;
 		// текущая картинка
-		size_t mIndexSelect;
+		size_t mIndexSelect{ITEM_NONE};
 
 		VectorImages mItems;
 
-		bool mFrameAdvise;
-		float mCurrentTime;
-		size_t mCurrentFrame;
+		bool mFrameAdvise{false};
+		float mCurrentTime{0};
+		size_t mCurrentFrame{0};
 
-		ResourceImageSetPtr mResource;
+		ResourceImageSetPtr mResource{nullptr};
 		std::string mItemName;
 		std::string mItemGroup;
 		std::string mCurrentTextureName;

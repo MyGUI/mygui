@@ -15,14 +15,11 @@ namespace MyGUI
 {
 
 	/** This controller used for smooth changing alpha of widget in time */
-	class MYGUI_EXPORT ControllerFadeAlpha :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerFadeAlpha : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerFadeAlpha )
+		MYGUI_RTTI_DERIVED(ControllerFadeAlpha)
 
 	public:
-		ControllerFadeAlpha();
-
 		/**
 			@param _value Alpha that will be as result of changing
 		*/
@@ -40,12 +37,12 @@ namespace MyGUI
 
 		bool addTime(Widget* _widget, float _time) override;
 		void prepareItem(Widget* _widget) override;
-		void setProperty(const std::string& _key, const std::string& _value) override;
+		void setProperty(std::string_view _key, std::string_view _value) override;
 
 	private:
-		float mAlpha;
-		float mCoef;
-		bool mEnabled;
+		float mAlpha{1};
+		float mCoef{1};
+		bool mEnabled{true};
 	};
 
 } // namespace MyGUI

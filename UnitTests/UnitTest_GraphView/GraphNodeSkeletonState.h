@@ -13,21 +13,11 @@
 namespace demo
 {
 
-	class GraphNodeSkeletonState :
-		public BaseAnimationNode
+	class GraphNodeSkeletonState : public BaseAnimationNode
 	{
 	public:
-		GraphNodeSkeletonState(const std::string& _name) :
-			BaseAnimationNode("GraphNodeSkeletonState.layout", "SkeletonState", _name),
-			mStartIn(nullptr),
-			mStopIn(nullptr),
-			mPositionIn(nullptr),
-			mWeightIn(nullptr),
-			mComboStates(nullptr),
-			mWeightValue(nullptr),
-			mPositionValue(nullptr),
-			mStartValue(nullptr),
-			mStopValue(nullptr)
+		GraphNodeSkeletonState(std::string_view _name) :
+			BaseAnimationNode("GraphNodeSkeletonState.layout", "SkeletonState", _name)
 		{
 		}
 
@@ -46,12 +36,14 @@ namespace demo
 			assignWidget(mStopValue, "StopValue");
 
 			mComboStates->eventComboAccept += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyComboAccept);
-			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
+			MyGUI::Gui::getInstance().eventFrameStart +=
+				MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
 		void shutdown() override
 		{
-			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
+			MyGUI::Gui::getInstance().eventFrameStart -=
+				MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
 		void deserialization(MyGUI::xml::ElementPtr _node) override
@@ -59,12 +51,12 @@ namespace demo
 			MyGUI::xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
 			{
-				const std::string& key = prop->findAttribute("key");
-				const std::string& value = prop->findAttribute("value");
+				std::string_view key = prop->findAttribute("key");
+				std::string_view value = prop->findAttribute("value");
 
 				if (key == "StateName")
 				{
-					setStateName(value);
+					setStateName(MyGUI::UString(value));
 				}
 			}
 		}
@@ -76,7 +68,7 @@ namespace demo
 			prop->addAttribute("value", mStateName);
 		}
 
-		void setStateName(const std::string& _name)
+		void setStateName(const MyGUI::UString& _name)
 		{
 			size_t index = mComboStates->findItemIndexWith(_name);
 			if (index != MyGUI::ITEM_NONE)
@@ -130,11 +122,9 @@ namespace demo
 			{
 				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
 				Ogre::AnimationStateSet* set = entity->getAllAnimationStates();
-				Ogre::AnimationStateIterator iter = set->getAnimationStateIterator();
-				while (iter.hasMoreElements())
+				for (const auto& state : set->getAnimationStates())
 				{
-					Ogre::AnimationState* state = iter.getNext();
-					mComboStates->addItem(state->getAnimationName());
+					mComboStates->addItem(state.second->getAnimationName());
 				}
 			}
 
@@ -157,16 +147,15 @@ namespace demo
 
 	private:
 		std::string mStateName;
-		wraps::BaseGraphConnection* mStartIn;
-		wraps::BaseGraphConnection* mStopIn;
-		wraps::BaseGraphConnection* mPositionIn;
-		wraps::BaseGraphConnection* mWeightIn;
-		MyGUI::ComboBox* mComboStates;
-		MyGUI::TextBox* mWeightValue;
-		MyGUI::TextBox* mPositionValue;
-		MyGUI::TextBox* mStartValue;
-		MyGUI::TextBox* mStopValue;
-
+		wraps::BaseGraphConnection* mStartIn{nullptr};
+		wraps::BaseGraphConnection* mStopIn{nullptr};
+		wraps::BaseGraphConnection* mPositionIn{nullptr};
+		wraps::BaseGraphConnection* mWeightIn{nullptr};
+		MyGUI::ComboBox* mComboStates{nullptr};
+		MyGUI::TextBox* mWeightValue{nullptr};
+		MyGUI::TextBox* mPositionValue{nullptr};
+		MyGUI::TextBox* mStartValue{nullptr};
+		MyGUI::TextBox* mStopValue{nullptr};
 	};
 
 } // namespace demo

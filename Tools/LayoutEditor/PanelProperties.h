@@ -16,8 +16,7 @@
 namespace tools
 {
 
-	class PanelProperties :
-		public wraps::BasePanelViewItem
+	class PanelProperties : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelProperties();
@@ -31,7 +30,7 @@ namespace tools
 		size_t getDepth() const;
 
 	private:
-		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
+		void notifyAction(std::string_view _name, std::string_view _value, bool _final);
 
 		size_t addParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
@@ -39,13 +38,13 @@ namespace tools
 
 		void updateSize();
 
-		IPropertyField* getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type);
+		IPropertyField* getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type);
 
 	private:
-		typedef std::map<std::string, IPropertyField*> MapPropertyField;
+		using MapPropertyField = std::map<std::string, IPropertyField*, std::less<>>;
 		MapPropertyField mFields;
-		size_t mDepth;
-		MyGUI::Widget* mCurrentWidget;
+		size_t mDepth{0};
+		MyGUI::Widget* mCurrentWidget{nullptr};
 	};
 
 }

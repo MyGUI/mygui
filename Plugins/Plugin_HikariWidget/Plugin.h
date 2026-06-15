@@ -16,8 +16,7 @@
 namespace plugin
 {
 
-	class Plugin :
-		public MyGUI::IPlugin
+	class Plugin : public MyGUI::IPlugin
 	{
 	public:
 		Plugin();
@@ -44,13 +43,12 @@ namespace plugin
 		}
 
 	public:
-		static const std::string LogSection;
+		static const std::string_view LogSection;
 
 	private:
 		static HMODULE msFlashLib;
 		HookListenerImpl mHookListenerImpl;
 		KeyboardHook* mKeyboardHook;
-
 	};
 
 } // namespace plugin

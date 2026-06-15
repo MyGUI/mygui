@@ -11,12 +11,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -24,15 +21,13 @@ namespace demo
 		void setupResources() override;
 
 	private:
-
 		void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
 		void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new);
 
 		void createSuccesScene();
 		void createFailedScene();
 
-		MyGUI::TextBox* mTextBoxTest;
-
+		MyGUI::TextBox* mTextBoxTest{nullptr};
 	};
 
 } // namespace demo

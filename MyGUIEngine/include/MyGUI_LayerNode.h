@@ -16,13 +16,12 @@ namespace MyGUI
 {
 
 	class LayerItem;
-	typedef std::vector<RenderItem*> VectorRenderItem;
-	typedef std::vector<ILayerItem*> VectorLayerItem;
+	using VectorRenderItem = std::vector<RenderItem*>;
+	using VectorLayerItem = std::vector<ILayerItem*>;
 
-	class MYGUI_EXPORT LayerNode :
-		public ILayerNode
+	class MYGUI_EXPORT LayerNode : public ILayerNode
 	{
-		MYGUI_RTTI_DERIVED( LayerNode )
+		MYGUI_RTTI_DERIVED(LayerNode)
 
 	public:
 		explicit LayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
@@ -34,15 +33,13 @@ namespace MyGUI
 		// возвращает отца или nullptr
 		ILayerNode* getParent() const override;
 
-		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;
-		// удаляем дочерний нод
 		void destroyChildItemNode(ILayerNode* _node) override;
 
-		// поднимаем дочерний нод
-		void upChildItemNode(ILayerNode* _node) override;
+		// up child item (make it draw and pick above others)
+		void upChildItemNode(ILayerNode* _item) override;
 
-		// список детей
+		// child items list
 		EnumeratorILayerNode getEnumerator() const override;
 
 		size_t getLayerNodeCount() const override;
@@ -76,6 +73,7 @@ namespace MyGUI
 		void updateCompression();
 		RenderItem* addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender);
 		RenderItem* addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender);
+
 	protected:
 		// two render queues, for subskins and text
 		// first queue keep render order based on order of creation
@@ -83,7 +81,7 @@ namespace MyGUI
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
 
-		size_t mLastNotEmptyItem;
+		size_t mLastNotEmptyItem{0};
 
 		// root widgets list
 		// overlapping layers have only one item here
@@ -93,9 +91,9 @@ namespace MyGUI
 
 		ILayerNode* mParent;
 		ILayer* mLayer;
-		bool mOutOfDate;
-		bool mOutOfDateCompression;
-		float mDepth;
+		bool mOutOfDate{false};
+		bool mOutOfDateCompression{false};
+		float mDepth{0.0f};
 	};
 
 } // namespace MyGUI

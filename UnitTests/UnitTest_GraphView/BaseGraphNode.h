@@ -13,14 +13,12 @@
 namespace wraps
 {
 
-	class BaseGraphNode :
-		public BaseLayout
+	class BaseGraphNode : public BaseLayout
 	{
 	public:
-		BaseGraphNode(const std::string& _layout) :
-			BaseLayout("", nullptr),
-			mLayout(_layout),
-			mView(nullptr)
+		BaseGraphNode(std::string_view _layout) :
+			BaseLayout({}, nullptr),
+			mLayout(_layout)
 		{
 		}
 
@@ -41,7 +39,7 @@ namespace wraps
 			return false;
 		}
 
-		BaseGraphConnection* getConnectionByName(const std::string& _name, const std::string& _type = "")
+		BaseGraphConnection* getConnectionByName(std::string_view _name, std::string_view _type = {})
 		{
 			EnumeratorConnection point = getConnectionEnumerator();
 			while (point.next())
@@ -83,14 +81,16 @@ namespace wraps
 
 		void setAbsolutePosition(const MyGUI::IntPoint& _point)
 		{
-			setPosition(MyGUI::IntPoint(_point.left - mMainWidget->getParent()->getAbsoluteLeft(), _point.top - mMainWidget->getParent()->getAbsoluteTop()));
+			setPosition(MyGUI::IntPoint(
+				_point.left - mMainWidget->getParent()->getAbsoluteLeft(),
+				_point.top - mMainWidget->getParent()->getAbsoluteTop()));
 		}
 
-	/*internal:*/
+		/*internal:*/
 		void _initialise(MyGUI::Widget* _parent, IGraphController* _view)
 		{
 			mView = _view;
-			if ( ! mLayout.empty())
+			if (!mLayout.empty())
 			{
 				BaseLayout::initialise(mLayout, _parent);
 			}
@@ -122,24 +122,26 @@ namespace wraps
 			MyGUI::IntCoord coord = _sender->getCoord();
 			if ((coord.left < 0) || (coord.top < 0))
 			{
-				if (coord.left < 0) coord.left = 0;
-				if (coord.top < 0) coord.top = 0;
+				if (coord.left < 0)
+					coord.left = 0;
+				if (coord.top < 0)
+					coord.top = 0;
 				_sender->setCoord(coord);
 			}
 
 			mView->changePosition(this);
 		}
 
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 		{
 			if (_name == "close")
 				mView->close(this);
 		}
 
-		template <typename T>
-		void assignBase(T * & _widget, const std::string& _name, bool _throw = true)
+		template<typename T>
+		void assignBase(T*& _widget, const std::string& _name, bool _throw = true)
 		{
-			BaseLayout::assignBase<T>(_widget, _name, _throw);
+			BaseLayout::assignBase(_widget, _name, _throw);
 			mListConnection.push_back(_widget);
 			addConnection(_widget);
 		}
@@ -148,8 +150,10 @@ namespace wraps
 		void addConnection(BaseGraphConnection* _connection)
 		{
 			_connection->_setOwnerNode(this);
-			_connection->_getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonPressed);
-			_connection->_getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonReleased);
+			_connection->_getMainWidget()->eventMouseButtonPressed +=
+				MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonPressed);
+			_connection->_getMainWidget()->eventMouseButtonReleased +=
+				MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonReleased);
 			_connection->_getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseDrag);
 			_connection->_getMainWidget()->setUserData(_connection);
 		}
@@ -174,7 +178,7 @@ namespace wraps
 	private:
 		std::string mLayout;
 		VectorConnection mListConnection;
-		IGraphController* mView;
+		IGraphController* mView{nullptr};
 	};
 
 } // namespace wraps

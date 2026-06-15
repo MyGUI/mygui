@@ -17,7 +17,6 @@
 #include "StateManager.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
-#include "SettingsManager.h"
 #include "ColourManager.h"
 #include "Localise.h"
 #include "GridManager.h"
@@ -52,7 +51,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
-		setResourceFilename("");
+		setResourceFilename(std::string_view{});
 	}
 
 	void Application::createScene()
@@ -130,13 +129,16 @@ namespace tools
 		setWindowMaximized(maximized);
 		if (!maximized)
 		{
-			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");
+			MyGUI::IntCoord windowCoord =
+				SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");
 			setWindowCoord(windowCoord);
 		}
 
 		CommandManager::getInstance().getEvent("Command_ScreenShot")->connect(this, &Application::command_ScreenShot);
 		CommandManager::getInstance().getEvent("Command_QuitApp")->connect(this, &Application::command_QuitApp);
-		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &Application::command_UpdateAppCaption);
+		CommandManager::getInstance()
+			.getEvent("Command_UpdateAppCaption")
+			->connect(this, &Application::command_UpdateAppCaption);
 
 		CreateControls();
 		LoadStates();
@@ -204,7 +206,7 @@ namespace tools
 	{
 		// устанавливаем локаль из переменной окружения
 		// без этого не будут открываться наши файлы
-		mLocale = ::setlocale( LC_ALL, "" );
+		mLocale = ::setlocale(LC_ALL, "");
 		// erase everything after '_' to get language name
 		mLocale.erase(std::find(mLocale.begin(), mLocale.end(), '_'), mLocale.end());
 		if (mLocale == "ru")
@@ -243,17 +245,17 @@ namespace tools
 				// имена могут быть в ковычках
 				if (tmp.size() > 2)
 				{
-					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
+					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
 					{
 						tmp = tmp.substr(1, tmp.size() - 2);
 					}
 				}
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
 				stream.open(tmp.c_str());
-#else
+	#else
 				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
-#endif
+	#endif
 				if (stream.is_open())
 				{
 					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
@@ -272,17 +274,17 @@ namespace tools
 				// имена могут быть в ковычках
 				if (tmp.size() > 2)
 				{
-					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
+					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
 					{
 						tmp = tmp.substr(1, tmp.size() - 2);
 					}
 				}
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
 				stream.open(tmp.c_str());
-#else
+	#else
 				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
-#endif
+	#endif
 				if (stream.is_open())
 				{
 					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
@@ -326,7 +328,8 @@ namespace tools
 
 		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
-		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key))
+		bool controlPressed = input.isControlPressed() || input.isMetaPressed();
+		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), controlPressed, _key))
 			input.injectKeyPress(_key, _text);
 	}
 
@@ -379,20 +382,20 @@ namespace tools
 	void Application::LoadStates()
 	{
 		SettingsManager::VectorString values = SettingsManager::getInstance().getValueList("Editor/States/State.List");
-		for (SettingsManager::VectorString::const_iterator value = values.begin(); value != values.end(); value ++)
+		for (const auto& value : values)
 		{
-			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(*value);
+			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(value);
 			if (state != nullptr)
-				StateManager::getInstance().registerState(state, *value);
+				StateManager::getInstance().registerState(state, value);
 		}
 
 		pugi::xpath_node_set events = SettingsManager::getInstance().getValueNodeList("Editor/States/Event.List");
-		for (pugi::xpath_node_set::const_iterator event = events.begin(); event != events.end(); event ++)
+		for (const auto& event : events)
 		{
 			StateManager::getInstance().registerEventState(
-				(*event).node().child("From").child_value(),
-				(*event).node().child("Name").child_value(),
-				(*event).node().child("To").child_value());
+				event.node().child("From").child_value(),
+				event.node().child("Name").child_value(),
+				event.node().child("To").child_value());
 		}
 
 		std::string firstState = SettingsManager::getInstance().getValue("Editor/States/FirstState/Name");
@@ -404,25 +407,29 @@ namespace tools
 
 	void Application::LoadGuiSettings()
 	{
-		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueList("Resources/Resource.List");
-		for (SettingsManager::VectorString::const_iterator iter = resources.begin(); iter != resources.end(); ++iter)
-			MyGUI::ResourceManager::getInstance().load(*iter);
+		const SettingsManager::VectorString& resources =
+			SettingsManager::getInstance().getValueList("Resources/Resource.List");
+		for (const auto& resource : resources)
+			MyGUI::ResourceManager::getInstance().load(resource);
 
-		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
-		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
-			addResourceLocation(*iter);
+		const SettingsManager::VectorString& additionalPaths =
+			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
+		for (const auto& additionalPath : additionalPaths)
+			addResourceLocation(additionalPath);
 
-		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
-		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
-			MyGUI::ResourceManager::getInstance().load(*iter);
+		const SettingsManager::VectorString& additionalResources =
+			SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
+		for (const auto& additionalResource : additionalResources)
+			MyGUI::ResourceManager::getInstance().load(additionalResource);
 	}
 
 	void Application::CreateControls()
 	{
-		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Control.List");
-		for (SettingsManager::VectorString::const_iterator controlType = controls.begin(); controlType != controls.end(); controlType ++)
+		const SettingsManager::VectorString& controls =
+			SettingsManager::getInstance().getValueList("Editor/Control.List");
+		for (const auto& controlType : controls)
 		{
-			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(*controlType);
+			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);
 			if (control != nullptr)
 			{
 				control->Initialise();
@@ -433,8 +440,8 @@ namespace tools
 
 	void Application::DestroyControls()
 	{
-		for (VectorControl::iterator control = mControls.begin(); control != mControls.end(); control ++)
-			delete *control;
+		for (auto& control : mControls)
+			delete control;
 		mControls.clear();
 	}
 

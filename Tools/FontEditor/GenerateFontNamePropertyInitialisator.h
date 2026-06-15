@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class GenerateFontNamePropertyInitialisator :
-		public IPropertyInitialisator
+	class GenerateFontNamePropertyInitialisator : public IPropertyInitialisator
 	{
 	public:
 		void initialise(PropertyPtr _property) override;

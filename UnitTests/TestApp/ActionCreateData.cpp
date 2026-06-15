@@ -18,11 +18,7 @@ namespace tools
 
 	ActionCreateData::~ActionCreateData()
 	{
-		if (mData != nullptr && !mComplete)
-		{
-			delete mData;
-			mData = nullptr;
-		}
+		delete mData;
 	}
 
 	void ActionCreateData::doAction()
@@ -48,7 +44,7 @@ namespace tools
 		mComplete = false;
 	}
 
-	void ActionCreateData::setName(const std::string& _value)
+	void ActionCreateData::setName(std::string_view _value)
 	{
 		mName = _value;
 	}

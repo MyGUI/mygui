@@ -22,14 +22,15 @@ namespace demo
 		{
 		}
 
-		ItemData(const std::string& _resource, size_t _count) :
+		ItemData(std::string_view _resource, size_t _count) :
 			count(_count),
 			mResourceInfo(nullptr),
 			mResourceImage(nullptr)
 		{
 			MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 			mResourceInfo = manager.getByName(_resource)->castType<demo::ResourceItemInfo>();
-			mResourceImage = manager.getByName(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
+			mResourceImage =
+				manager.getByName(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
 		}
 
 		bool isEmpty() const

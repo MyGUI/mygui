@@ -13,17 +13,15 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyColourControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyColourControl : public PropertyControl
 	{
 	public:
-		PropertyColourControl();
 		~PropertyColourControl() override;
 
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyEditTextChange(MyGUI::EditBox* _sender);
@@ -43,11 +41,11 @@ namespace tools
 		void updateSetProperty();
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::EditBox* mEdit;
-		MyGUI::Widget* mColour;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::EditBox* mEdit{nullptr};
+		MyGUI::Widget* mColour{nullptr};
 
-		ColourPanel* mColourPanel;
+		ColourPanel* mColourPanel{nullptr};
 
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mPreviewColour;

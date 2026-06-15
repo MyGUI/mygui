@@ -19,10 +19,9 @@ namespace demo
 		EVENT_COUNT_DYNAMIC
 	};
 
-	typedef MyGUI::delegates::CDelegate2<int, size_t> EventHandle_EventDirector;
+	using EventHandle_EventDirector = MyGUI::delegates::Delegate<int, size_t>;
 
-	class PanelDirector :
-		public wraps::BasePanelViewItem
+	class PanelDirector : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelDirector();
@@ -34,12 +33,12 @@ namespace demo
 
 	private:
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index) const;
 
 	private:
-		MyGUI::Button* mCheckShowStatic;
-		MyGUI::Button* mCheckShowDynamic;
-		MyGUI::ComboBox* mComboCount;
+		MyGUI::Button* mCheckShowStatic{nullptr};
+		MyGUI::Button* mCheckShowDynamic{nullptr};
+		MyGUI::ComboBox* mComboCount{nullptr};
 	};
 
 } // namespace demo

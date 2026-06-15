@@ -51,7 +51,8 @@ namespace MyGUI
 
 	void DirectX11VertexBuffer::unlock()
 	{
-		if (mBuffer) mManager->mpD3DContext->Unmap(mBuffer, 0);
+		if (mBuffer)
+			mManager->mpD3DContext->Unmap(mBuffer, 0);
 	}
 
 	void DirectX11VertexBuffer::create()

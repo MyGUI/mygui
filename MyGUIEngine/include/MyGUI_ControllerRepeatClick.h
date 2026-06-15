@@ -18,14 +18,11 @@ namespace MyGUI
 {
 
 	/** This controller can be used to repeatedly trigger an event at specific time steps. */
-	class MYGUI_EXPORT ControllerRepeatClick :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerRepeatClick : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRepeatClick )
+		MYGUI_RTTI_DERIVED(ControllerRepeatClick)
 
 	public:
-		ControllerRepeatClick();
-
 		/** Change initial delay and time step
 			@param init The delay before the first event will be triggered.
 			@param step The delay after each event before the next event is triggered.
@@ -34,9 +31,9 @@ namespace MyGUI
 
 		bool addTime(Widget* _widget, float _time) override;
 		void prepareItem(Widget* _widget) override;
-		void setProperty(const std::string& _key, const std::string& _value) override;
+		void setProperty(std::string_view _key, std::string_view _value) override;
 
-		typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_RepeatClick;
+		using EventHandle_RepeatClick = delegates::MultiDelegate<Widget*, ControllerItem*>;
 
 		/** Event : Repeat Click.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::ControllerItem *_controller)\n
@@ -44,9 +41,9 @@ namespace MyGUI
 		EventHandle_RepeatClick eventRepeatClick;
 
 	private:
-		float mInit;
-		float mStep;
-		float mTimeLeft;
+		float mInit{0.5f};
+		float mStep{0.1f};
+		float mTimeLeft{0};
 	};
 
 }

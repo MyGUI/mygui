@@ -13,8 +13,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(WidgetSelectorManager);
 
 	WidgetSelectorManager::WidgetSelectorManager() :
-		mCurrentWidget(nullptr),
-		mSelectDepth(0),
 		mStoreWidgetTag("LE_StoreWidgetTag"),
 		mSingletonHolder(this)
 	{
@@ -80,7 +78,7 @@ namespace tools
 			// found widget
 			if (nullptr != item)
 			{
-				depth =  mSelectDepth;
+				depth = mSelectDepth;
 				WidgetSelectorManager::getInstance().setSelectedWidget(item);
 				mSelectDepth = depth + 1;
 			}
@@ -106,7 +104,10 @@ namespace tools
 		return result;
 	}
 
-	void WidgetSelectorManager::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
+	void WidgetSelectorManager::checkContainer(
+		WidgetContainer* _container,
+		MyGUI::Widget*& _result,
+		const MyGUI::IntPoint& _point)
 	{
 		if (!_container->getWidget()->getVisible())
 			return;
@@ -125,11 +126,14 @@ namespace tools
 			_result = _container->getWidget();
 		}
 
-		for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+		for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin();
+			 item != _container->childContainers.end();
+			 ++item)
 		{
 			if (_container->getWidget()->isType<MyGUI::TabControl>() && (*item)->getWidget()->isType<MyGUI::TabItem>())
 			{
-				if (_container->getWidget()->castType<MyGUI::TabControl>()->getItemSelected() != (*item)->getWidget()->castType<MyGUI::TabItem>())
+				if (_container->getWidget()->castType<MyGUI::TabControl>()->getItemSelected() !=
+					(*item)->getWidget()->castType<MyGUI::TabItem>())
 					continue;
 			}
 
@@ -186,9 +190,9 @@ namespace tools
 
 		if (result == nullptr)
 		{
-			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+			for (auto& childContainer : _container->childContainers)
 			{
-				MyGUI::Widget* widget = findWidgetSelected(*item);
+				MyGUI::Widget* widget = findWidgetSelected(childContainer);
 				if (widget != nullptr)
 				{
 					result = widget;

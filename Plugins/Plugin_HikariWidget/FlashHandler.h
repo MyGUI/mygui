@@ -31,7 +31,8 @@ namespace Hikari
 
 	inline void replaceAll(std::wstring& sourceStr, const std::wstring& replaceWhat, const std::wstring& replaceWith)
 	{
-		for (size_t i = sourceStr.find(replaceWhat); i != std::wstring::npos; i = sourceStr.find(replaceWhat, i + replaceWith.length()))
+		for (size_t i = sourceStr.find(replaceWhat); i != std::wstring::npos;
+			 i = sourceStr.find(replaceWhat, i + replaceWith.length()))
 		{
 			sourceStr.erase(i, replaceWhat.length());
 			sourceStr.insert(i, replaceWith);
@@ -42,10 +43,8 @@ namespace Hikari
 	{
 		switch (value.getType())
 		{
-		case FT_NULL:
-			return L"<null/>";
-		case FT_BOOLEAN:
-			return value.getBool() ? L"<true/>" : L"<false/>";
+		case FT_NULL: return L"<null/>";
+		case FT_BOOLEAN: return value.getBool() ? L"<true/>" : L"<false/>";
 		case FT_NUMBER:
 		{
 			static std::wstringstream converter;
@@ -152,7 +151,7 @@ namespace Hikari
 			if ((indexB = argString.find(L">", indexA)) == std::wstring::npos)
 				break;
 
-			if (argString[indexB-1] != L'/')
+			if (argString[indexB - 1] != L'/')
 			{
 				if ((indexB = argString.find(L">", indexB + 1)) == std::wstring::npos)
 					break;
@@ -173,7 +172,11 @@ namespace Hikari
 		FlashControl* owner;
 
 	public:
-		FlashHandler() : cookie(0), connectionPoint(0), refCount(0), owner(0)
+		FlashHandler() :
+			cookie(0),
+			connectionPoint(0),
+			refCount(0),
+			owner(0)
 		{
 		}
 
@@ -190,8 +193,11 @@ namespace Hikari
 			HRESULT result = NOERROR;
 			LPCONNECTIONPOINTCONTAINER cPointContainer = 0;
 
-			if ((owner->flashInterface->QueryInterface(IID_IConnectionPointContainer, (void**)&cPointContainer) == S_OK) &&
-					(cPointContainer->FindConnectionPoint(__uuidof(ShockwaveFlashObjects::_IShockwaveFlashEvents), &connectionPoint) == S_OK))
+			if ((owner->flashInterface->QueryInterface(IID_IConnectionPointContainer, (void**)&cPointContainer) ==
+				 S_OK) &&
+				(cPointContainer->FindConnectionPoint(
+					 __uuidof(ShockwaveFlashObjects::_IShockwaveFlashEvents),
+					 &connectionPoint) == S_OK))
 			{
 				IDispatch* dispatch = nullptr;
 				QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
@@ -246,7 +252,7 @@ namespace Hikari
 			}
 			else if (riid == __uuidof(ShockwaveFlashObjects::_IShockwaveFlashEvents))
 			{
-				*ppv = (ShockwaveFlashObjects::_IShockwaveFlashEvents*) this;
+				*ppv = (ShockwaveFlashObjects::_IShockwaveFlashEvents*)this;
 				AddRef();
 				return S_OK;
 			}
@@ -281,54 +287,59 @@ namespace Hikari
 			return E_NOTIMPL;
 		}
 
-		virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR* rgszNames, UINT cNames, LCID lcid, DISPID* rgDispId)
+		virtual HRESULT STDMETHODCALLTYPE
+		GetIDsOfNames(REFIID riid, LPOLESTR* rgszNames, UINT cNames, LCID lcid, DISPID* rgDispId)
 		{
 			return E_NOTIMPL;
 		}
 
-		virtual HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
-			WORD wFlags, ::DISPPARAMS __RPC_FAR* pDispParams, VARIANT __RPC_FAR* pVarResult,
-			::EXCEPINFO __RPC_FAR* pExcepInfo, UINT __RPC_FAR* puArgErr)
+		virtual HRESULT STDMETHODCALLTYPE Invoke(
+			DISPID dispIdMember,
+			REFIID riid,
+			LCID lcid,
+			WORD wFlags,
+			::DISPPARAMS __RPC_FAR* pDispParams,
+			VARIANT __RPC_FAR* pVarResult,
+			::EXCEPINFO __RPC_FAR* pExcepInfo,
+			UINT __RPC_FAR* puArgErr)
 		{
 			switch (dispIdMember)
 			{
-			case 0x7a6:
-				break;
+			case 0x7a6: break;
 			case 0x96:
-				if ((pDispParams->cArgs == 2) && (pDispParams->rgvarg[0].vt == VT_BSTR) && (pDispParams->rgvarg[1].vt == VT_BSTR))
+				if ((pDispParams->cArgs == 2) && (pDispParams->rgvarg[0].vt == VT_BSTR) &&
+					(pDispParams->rgvarg[1].vt == VT_BSTR))
 					FSCommand(pDispParams->rgvarg[1].bstrVal, pDispParams->rgvarg[0].bstrVal);
 				break;
 			case 0xC5:
 				if ((pDispParams->cArgs == 1) && (pDispParams->rgvarg[0].vt == VT_BSTR))
 					FlashCall(pDispParams->rgvarg[0].bstrVal);
 				break;
-			case DISPID_READYSTATECHANGE:
-				break;
-			default:
-				return DISP_E_MEMBERNOTFOUND;
+			case DISPID_READYSTATECHANGE: break;
+			default: return DISP_E_MEMBERNOTFOUND;
 			}
 
 			return NOERROR;
 		}
 
-		HRESULT OnReadyStateChange (long newState)
+		HRESULT OnReadyStateChange(long newState)
 		{
 			return S_OK;
 		}
 
-		HRESULT OnProgress(long percentDone )
+		HRESULT OnProgress(long percentDone)
 		{
 			return S_OK;
 		}
 
-		HRESULT FSCommand (_bstr_t command, _bstr_t args)
+		HRESULT FSCommand(_bstr_t command, _bstr_t args)
 		{
 			// TODO: Handle FSCommand
 
 			return S_OK;
 		}
 
-		HRESULT FlashCall (_bstr_t request)
+		HRESULT FlashCall(_bstr_t request)
 		{
 			owner->handleFlashCall((wchar_t*)request);
 

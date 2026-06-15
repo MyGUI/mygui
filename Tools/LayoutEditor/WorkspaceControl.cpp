@@ -13,12 +13,7 @@ namespace tools
 {
 
 	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
-		TextureToolControlLE(_parent),
-		mAreaSelectorControl(nullptr),
-		mCurrentWidget(nullptr),
-		mMoveableWidget(false),
-		mPositionSelectorCreatorControl(nullptr),
-		mFreeChildMode(false)
+		TextureToolControlLE(_parent)
 	{
 		MyGUI::IntSize size = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 
@@ -34,36 +29,66 @@ namespace tools
 		mPositionSelectorCreatorControl->setEnabled(false);
 		mPositionSelectorCreatorControl->setVisible(false);
 
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget +=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
 		notifyChangeSelectedWidget(nullptr);
 
-		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
+		EditorWidgets::getInstance().eventChangeWidgetCoord +=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 
 		CommandManager::getInstance().getEvent("Command_MoveLeft")->connect(this, &WorkspaceControl::Command_MoveLeft);
-		CommandManager::getInstance().getEvent("Command_MoveRight")->connect(this, &WorkspaceControl::Command_MoveRight);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveRight")
+			->connect(this, &WorkspaceControl::Command_MoveRight);
 		CommandManager::getInstance().getEvent("Command_MoveTop")->connect(this, &WorkspaceControl::Command_MoveTop);
-		CommandManager::getInstance().getEvent("Command_MoveBottom")->connect(this, &WorkspaceControl::Command_MoveBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveBottom")
+			->connect(this, &WorkspaceControl::Command_MoveBottom);
 		CommandManager::getInstance().getEvent("Command_SizeLeft")->connect(this, &WorkspaceControl::Command_SizeLeft);
-		CommandManager::getInstance().getEvent("Command_SizeRight")->connect(this, &WorkspaceControl::Command_SizeRight);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeRight")
+			->connect(this, &WorkspaceControl::Command_SizeRight);
 		CommandManager::getInstance().getEvent("Command_SizeTop")->connect(this, &WorkspaceControl::Command_SizeTop);
-		CommandManager::getInstance().getEvent("Command_SizeBottom")->connect(this, &WorkspaceControl::Command_SizeBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeBottom")
+			->connect(this, &WorkspaceControl::Command_SizeBottom);
 
-		CommandManager::getInstance().getEvent("Command_GridMoveLeft")->connect(this, &WorkspaceControl::Command_GridMoveLeft);
-		CommandManager::getInstance().getEvent("Command_GridMoveRight")->connect(this, &WorkspaceControl::Command_GridMoveRight);
-		CommandManager::getInstance().getEvent("Command_GridMoveTop")->connect(this, &WorkspaceControl::Command_GridMoveTop);
-		CommandManager::getInstance().getEvent("Command_GridMoveBottom")->connect(this, &WorkspaceControl::Command_GridMoveBottom);
-		CommandManager::getInstance().getEvent("Command_GridSizeLeft")->connect(this, &WorkspaceControl::Command_GridSizeLeft);
-		CommandManager::getInstance().getEvent("Command_GridSizeRight")->connect(this, &WorkspaceControl::Command_GridSizeRight);
-		CommandManager::getInstance().getEvent("Command_GridSizeTop")->connect(this, &WorkspaceControl::Command_GridSizeTop);
-		CommandManager::getInstance().getEvent("Command_GridSizeBottom")->connect(this, &WorkspaceControl::Command_GridSizeBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveLeft")
+			->connect(this, &WorkspaceControl::Command_GridMoveLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveRight")
+			->connect(this, &WorkspaceControl::Command_GridMoveRight);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveTop")
+			->connect(this, &WorkspaceControl::Command_GridMoveTop);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveBottom")
+			->connect(this, &WorkspaceControl::Command_GridMoveBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeLeft")
+			->connect(this, &WorkspaceControl::Command_GridSizeLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeRight")
+			->connect(this, &WorkspaceControl::Command_GridSizeRight);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeTop")
+			->connect(this, &WorkspaceControl::Command_GridSizeTop);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeBottom")
+			->connect(this, &WorkspaceControl::Command_GridSizeBottom);
 
 		CommandManager::getInstance().getEvent("Command_Delete")->connect(this, &WorkspaceControl::Command_Delete);
 		CommandManager::getInstance().getEvent("Command_NextItem")->connect(this, &WorkspaceControl::Command_NextItem);
 
-		CommandManager::getInstance().getEvent("Command_FreeChildMode")->connect(this, &WorkspaceControl::Command_FreeChildMode);
+		CommandManager::getInstance()
+			.getEvent("Command_FreeChildMode")
+			->connect(this, &WorkspaceControl::Command_FreeChildMode);
 
-		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
-		WidgetCreatorManager::getInstance().eventChangeSelector += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
+		WidgetCreatorManager::getInstance().eventChangeCreatorMode +=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
+		WidgetCreatorManager::getInstance().eventChangeSelector +=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
 
 		updateCaption();
 
@@ -74,10 +99,14 @@ namespace tools
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &WorkspaceControl::notifyFrameStart);
 
-		WidgetCreatorManager::getInstance().eventChangeSelector -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
-		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
-		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
+		WidgetCreatorManager::getInstance().eventChangeSelector -=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
+		WidgetCreatorManager::getInstance().eventChangeCreatorMode -=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
+		EditorWidgets::getInstance().eventChangeWidgetCoord -=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -=
+			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangePosition);
 	}
@@ -173,7 +202,10 @@ namespace tools
 		}
 	}
 
-	void WorkspaceControl::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
+	void WorkspaceControl::notifyPropertyChangeCoord(
+		MyGUI::Widget* _widget,
+		const MyGUI::IntCoord& _coordValue,
+		std::string_view _owner)
 	{
 		if (_owner == "WorkspaceControl" || _widget != mCurrentWidget)
 			return;
@@ -198,7 +230,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.left --;
+		mCoordValue.left--;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -214,7 +246,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.left ++;
+		mCoordValue.left++;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -230,7 +262,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.top --;
+		mCoordValue.top--;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -246,7 +278,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.top ++;
+		mCoordValue.top++;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -326,7 +358,8 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
+		mCoordValue.width =
+			GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -342,7 +375,8 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
+		mCoordValue.width =
+			GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -358,7 +392,8 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
+		mCoordValue.height =
+			GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -374,7 +409,8 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
+		mCoordValue.height =
+			GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -390,7 +426,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width --;
+		mCoordValue.width--;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -406,7 +442,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width ++;
+		mCoordValue.width++;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -422,7 +458,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height --;
+		mCoordValue.height--;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -438,7 +474,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height ++;
+		mCoordValue.height++;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -616,20 +652,20 @@ namespace tools
 		}
 	}
 
-	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord)
+	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord) const
 	{
 		if (mFreeChildMode)
 		{
-			typedef std::pair<MyGUI::Widget*, MyGUI::IntCoord> PairWidgetCoord;
-			typedef std::vector<PairWidgetCoord> VectorPairWidgetCoord;
+			using PairWidgetCoord = std::pair<MyGUI::Widget*, MyGUI::IntCoord>;
+			using VectorPairWidgetCoord = std::vector<PairWidgetCoord>;
 			VectorPairWidgetCoord coords;
 
 			// запоминаем позиции детей
-			for (size_t index = 0; index < _widget->getChildCount(); ++ index)
+			for (size_t index = 0; index < _widget->getChildCount(); ++index)
 			{
 				MyGUI::Widget* child = _widget->getChildAt(index);
 				if (!child->isRootWidget())
-					coords.push_back(PairWidgetCoord(child, child->getCoord()));
+					coords.emplace_back(child, child->getCoord());
 			}
 
 			// на сколько сдвинут виджет
@@ -637,13 +673,14 @@ namespace tools
 			_widget->setCoord(_coord);
 
 			// восттанавливаем обсолютное положение детей
-			for (VectorPairWidgetCoord::iterator item = coords.begin(); item != coords.end(); ++ item)
+			for (auto& item : coords)
 			{
-				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find((*item).first);
+				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(item.first);
 				if (widgetContainer != nullptr)
 				{
-					MyGUI::IntCoord coord = (*item).second;
-					(*item).first->setCoord(coord.left - coordDiff.left, coord.top - coordDiff.top, coord.width, coord.height);
+					MyGUI::IntCoord coord = item.second;
+					item.first
+						->setCoord(coord.left - coordDiff.left, coord.top - coordDiff.top, coord.width, coord.height);
 				}
 			}
 		}

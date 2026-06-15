@@ -16,11 +16,11 @@ namespace MyGUI
 	class MYGUI_EXPORT IUnlinkWidget
 	{
 	public:
-		virtual ~IUnlinkWidget() { }
+		virtual ~IUnlinkWidget() = default;
 		virtual void _unlinkWidget(Widget* _widget) = 0;
 	};
 
-	typedef std::vector<IUnlinkWidget*> VectorIUnlinkWidget;
+	using VectorIUnlinkWidget = std::vector<IUnlinkWidget*>;
 
 } // namespace MyGUI
 

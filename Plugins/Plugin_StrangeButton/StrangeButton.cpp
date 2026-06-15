@@ -11,10 +11,6 @@
 namespace plugin
 {
 
-	StrangeButton::StrangeButton()
-	{
-	}
-
 	void StrangeButton::onMouseSetFocus(MyGUI::Widget* _old)
 	{
 		Base::onMouseSetFocus(_old);
@@ -22,7 +18,8 @@ namespace plugin
 		if (getSubWidgetText() == nullptr)
 			return;
 
-		std::string s, str = getSubWidgetText()->getCaption();
+		std::string s;
+		std::string str = getSubWidgetText()->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 
@@ -36,7 +33,8 @@ namespace plugin
 		if (getSubWidgetText() == nullptr)
 			return;
 
-		std::string s, str = getSubWidgetText()->getCaption();
+		std::string s;
+		std::string str = getSubWidgetText()->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 

@@ -17,7 +17,6 @@ namespace tools
 
 	PanelMainProperties::PanelMainProperties() :
 		BasePanelViewItem("PanelMainProperties.layout"),
-		mCurrentWidget(nullptr),
 		mUserDataTargetType("LE_TargetWidgetType")
 	{
 	}
@@ -59,7 +58,7 @@ namespace tools
 		field->setTarget(_currentWidget);
 		if (existTargetType)
 		{
-			std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
+			std::string_view targetType = widgetContainer->getUserData(mUserDataTargetType);
 			field->setValue(targetType);
 		}
 		else
@@ -93,12 +92,12 @@ namespace tools
 	{
 		int height = 0;
 
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			if ((*item).second->getVisible())
+			if (field.second->getVisible())
 			{
-				MyGUI::IntSize size = (*item).second->getContentSize();
-				(*item).second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+				MyGUI::IntSize size = field.second->getContentSize();
+				field.second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 				height += size.height;
 			}
 		}
@@ -108,12 +107,12 @@ namespace tools
 
 	void PanelMainProperties::destroyPropertyFields()
 	{
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item).second;
+		for (auto& field : mFields)
+			delete field.second;
 		mFields.clear();
 	}
 
-	void PanelMainProperties::notifyActionSkin(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionSkin(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -133,7 +132,10 @@ namespace tools
 			}
 			else
 			{
-				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->getSkin(), "' not found. This value will be saved.");
+				std::string mess = MyGUI::utility::toString(
+					"Skin '",
+					widgetContainer->getSkin(),
+					"' not found. This value will be saved.");
 				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 			}
 
@@ -141,22 +143,21 @@ namespace tools
 		}
 	}
 
-	bool PanelMainProperties::isSkinExist(const std::string& _skinName)
+	bool PanelMainProperties::isSkinExist(std::string_view _skinName)
 	{
-		return _skinName == "Default" ||
-			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
 
-	bool PanelMainProperties::checkTemplate(const std::string& _skinName)
+	bool PanelMainProperties::checkTemplate(std::string_view _skinName)
 	{
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
 		if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			for (const auto& container : data)
 			{
-				if (container->name == "Root")
+				if (container.name == "Root")
 					return true;
 			}
 		}
@@ -164,7 +165,7 @@ namespace tools
 		return false;
 	}
 
-	void PanelMainProperties::notifyActionLayer(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionLayer(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -175,7 +176,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionName(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionName(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -186,7 +187,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionType(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionType(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -224,7 +225,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionAlign(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionAlign(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -237,7 +238,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionTemplate(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionTemplate(std::string_view /*_type*/, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -265,7 +266,7 @@ namespace tools
 			{
 				if (widgetContainer->existUserData(mUserDataTargetType))
 				{
-					std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
+					std::string_view targetType = widgetContainer->getUserData(mUserDataTargetType);
 					widgetContainer->clearUserData(mUserDataTargetType);
 					widgetContainer->setType(targetType);
 
@@ -284,7 +285,10 @@ namespace tools
 		}
 	}
 
-	IPropertyField* PanelMainProperties::getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type)
+	IPropertyField* PanelMainProperties::getPropertyField(
+		MyGUI::Widget* _client,
+		std::string_view _name,
+		std::string_view _type)
 	{
 		MapPropertyField::iterator item = mFields.find(_name);
 		if (item != mFields.end())
@@ -297,18 +301,18 @@ namespace tools
 		result->setName(_name);
 		result->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyAction);
 
-		mFields[_name] = result;
+		mFields.emplace(_name, result);
 
 		return result;
 	}
 
 	void PanelMainProperties::hidePropertyFields()
 	{
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			(*item).second->setVisible(false);
+		for (auto& field : mFields)
+			field.second->setVisible(false);
 	}
 
-	void PanelMainProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_name == "Skin")
 			notifyActionSkin(_name, _value, _final);

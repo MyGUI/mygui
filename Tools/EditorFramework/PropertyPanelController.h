@@ -15,25 +15,21 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyPanelController :
-		public IControlController,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL PropertyPanelController : public IControlController, public sigslot::has_slots<>
 	{
 	public:
-		PropertyPanelController();
-
 		void setTarget(Control* _control) override;
 
 		void activate() override;
 		void deactivate() override;
 
 	private:
-		void notifyChangeScope(const std::string& _scope);
+		void notifyChangeScope(std::string_view _scope);
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 
 	private:
-		PropertyPanelControl* mControl;
-		DataTypePtr mParentType;
+		PropertyPanelControl* mControl{nullptr};
+		DataTypePtr mParentType{nullptr};
 	};
 
 }

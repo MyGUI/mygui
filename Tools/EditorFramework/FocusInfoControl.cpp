@@ -12,18 +12,12 @@
 namespace tools
 {
 
-	FocusInfoControl::FocusInfoControl() :
-		mMouseView(nullptr),
-		mKeyView(nullptr)
-	{
-	}
-
 	FocusInfoControl::~FocusInfoControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &FocusInfoControl::notifyFrameStart);
 	}
 
-	void FocusInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void FocusInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "FocusInfoControl.layout");
 
@@ -35,7 +29,9 @@ namespace tools
 		mKeyView->setVisible(false);
 		mKeyView->setCoord(MyGUI::IntCoord());
 
-		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &FocusInfoControl::Command_FocusVisible);
+		CommandManager::getInstance()
+			.getEvent("Command_FocusVisible")
+			->connect(this, &FocusInfoControl::Command_FocusVisible);
 
 		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/FocusInfoControl/Visible"));
 

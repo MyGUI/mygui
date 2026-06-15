@@ -16,6 +16,7 @@ namespace MyGUI
 	class MYGUI_EXPORT SubWidgetManager
 	{
 		MYGUI_SINGLETON_DECLARATION(SubWidgetManager);
+
 	public:
 		SubWidgetManager();
 
@@ -26,7 +27,7 @@ namespace MyGUI
 		const std::string& getStateCategoryName() const;
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 		std::string mStateCategoryName;
 	};

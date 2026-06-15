@@ -16,39 +16,43 @@ namespace tools
 	class MYGUI_EXPORT_DLL StateManager
 	{
 		MYGUI_SINGLETON_DECLARATION(StateManager);
+
 	public:
-		StateManager() : mSingletonHolder(this) { }
+		StateManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
 		void pushState(StateController* _state);
-		void pushState(const std::string& _stateName);
+		void pushState(std::string_view _stateName);
 		void popState();
 
 		bool getStateActivate(StateController* _state);
 		StateController* getCurentState();
 		void rollbackToState(StateController* _state);
 
-		void stateEvent(StateController* _state, const std::string& _event);
-		void stateEvent(const std::string& _stateName, const std::string& _event);
+		void stateEvent(StateController* _state, std::string_view _event);
+		void stateEvent(std::string_view _stateName, std::string_view _event);
 
-		void registerState(StateController* _state, const std::string& _name);
-		void registerEventState(const std::string& _stateName, const std::string& _eventName, const std::string& _toState);
-
-	private:
-		std::string getNameState(StateController* _state);
-		std::string getEventToState(const std::string& _currentStateName, const std::string& _eventName);
-		StateController* getStateByName(const std::string& _stateName);
+		void registerState(StateController* _state, std::string_view _name);
+		void registerEventState(std::string_view _stateName, std::string_view _eventName, std::string_view _toState);
 
 	private:
-		typedef std::vector<StateController*> VectorStateController;
+		std::string_view getNameState(StateController* _state);
+		std::string_view getEventToState(std::string_view _currentStateName, std::string_view _eventName);
+		StateController* getStateByName(std::string_view _stateName);
+
+	private:
+		using VectorStateController = std::vector<StateController*>;
 		VectorStateController mStates;
 
-		typedef std::map<std::string, StateController*> MapStateController;
+		using MapStateController = std::map<std::string, StateController*, std::less<>>;
 		MapStateController mStateName;
 
-		typedef std::pair< std::string, std::pair<std::string, std::string> > PairPairString;
-		typedef std::vector<PairPairString> VectorPairPairString;
+		using PairPairString = std::pair<std::string, std::pair<std::string, std::string>>;
+		using VectorPairPairString = std::vector<PairPairString>;
 		VectorPairPairString mLinks;
 	};
 

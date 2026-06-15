@@ -15,11 +15,6 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer() :
-		mTexture(nullptr)
-	{
-	}
-
 	RTTLayer::~RTTLayer()
 	{
 		if (mTexture)
@@ -36,14 +31,19 @@ namespace MyGUI
 		MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
 		while (propert.next("Property"))
 		{
-			const std::string& key = propert->findAttribute("key");
-			const std::string& value = propert->findAttribute("value");
-			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
+			std::string_view key = propert->findAttribute("key");
+			std::string_view value = propert->findAttribute("value");
+			if (key == "TextureSize")
+				setTextureSize(utility::parseValue<IntSize>(value));
 #ifdef MYGUI_OGRE_PLATFORM
-			else if (key == "Entity") setEntity(value);
-			else if (key == "Material") setMaterial(value);
-			else if (key == "SceneManager") setSceneManager(value);
-			else if (key == "Camera") setCamera(value);
+			else if (key == "Entity")
+				setEntity(value);
+			else if (key == "Material")
+				setMaterial(value);
+			else if (key == "SceneManager")
+				setSceneManager(value);
+			else if (key == "Camera")
+				setCamera(value);
 #endif
 		}
 	}
@@ -54,9 +54,9 @@ namespace MyGUI
 
 		if (!_update)
 		{
-			for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+			for (auto& childItem : mChildItems)
 			{
-				if ((*iter)->castType<LayerNode>()->isOutOfDate())
+				if (childItem->castType<LayerNode>()->isOutOfDate())
 				{
 					out_date = true;
 					break;
@@ -71,14 +71,13 @@ namespace MyGUI
 			{
 				target->begin();
 
-				for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+				for (auto& childItem : mChildItems)
 				{
-					(*iter)->renderToTarget(target, _update);
+					childItem->renderToTarget(target, _update);
 				}
 
 				target->end();
 			}
-
 		}
 	}
 
@@ -89,7 +88,8 @@ namespace MyGUI
 
 #ifdef MYGUI_OGRE_PLATFORM
 		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
-		bool result = pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
+		bool result =
+			pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
 		if (result)
 		{
 			return Base::getLayerItemByPoint(_left, _top);
@@ -106,7 +106,8 @@ namespace MyGUI
 
 #ifdef MYGUI_OGRE_PLATFORM
 		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
-		bool result = pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
+		bool result =
+			pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
 		if (result)
 		{
 			mOldPoint.set(_left, _top);
@@ -118,7 +119,8 @@ namespace MyGUI
 
 	void RTTLayer::setTextureSize(const IntSize& _size)
 	{
-		if (mTextureSize == _size) return;
+		if (mTextureSize == _size)
+			return;
 		mTextureSize = _size;
 		if (mTexture)
 		{
@@ -126,10 +128,16 @@ namespace MyGUI
 			mTexture = nullptr;
 		}
 
-		MYGUI_ASSERT(mTextureSize.width && mTextureSize.height, "RTTLayer texture size must have non-zero width and height");
+		MYGUI_ASSERT(
+			mTextureSize.width && mTextureSize.height,
+			"RTTLayer texture size must have non-zero width and height");
 		std::string name = MyGUI::utility::toString((size_t)this, getClassTypeName());
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
-		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+		mTexture->createManual(
+			mTextureSize.width,
+			mTextureSize.height,
+			MyGUI::TextureUsage::RenderTarget,
+			MyGUI::PixelFormat::R8G8B8A8);
 
 #ifdef MYGUI_OGRE_PLATFORM
 		setTextureName(mTexture->getName());

@@ -7,7 +7,7 @@ namespace tools
 {
 
 	struct PossibleValue;
-	typedef std::vector<PossibleValue*> VectorPossibleValue;
+	using VectorPossibleValue = std::vector<PossibleValue*>;
 
 	struct PossibleValue
 	{

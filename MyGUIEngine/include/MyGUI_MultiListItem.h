@@ -18,14 +18,11 @@ namespace MyGUI
 	/** \brief @wpage{MultiListItem}
 		MultiListItem widget description should be here.
 	*/
-	class MYGUI_EXPORT MultiListItem :
-		public TextBox
+	class MYGUI_EXPORT MultiListItem : public TextBox
 	{
-		MYGUI_RTTI_DERIVED( MultiListItem )
+		MYGUI_RTTI_DERIVED(MultiListItem)
 
 	public:
-		MultiListItem();
-
 		/** Set item caption */
 		void setCaption(const UString& _value) override;
 		/** Get item caption */
@@ -39,11 +36,10 @@ namespace MyGUI
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		MultiListBox* getOwner() const;
-
 	};
 
 } // namespace MyGUI

@@ -9,15 +9,6 @@ namespace MyGUI
 
 	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
-	OpenGLESVertexBuffer::OpenGLESVertexBuffer() :
-		mVAOID(0),
-		mBufferID(0),
-		mVertexCount(0),
-		mNeedVertexCount(0),
-		mSizeInBytes(0)
-	{
-	}
-
 	OpenGLESVertexBuffer::~OpenGLESVertexBuffer()
 	{
 		destroy();
@@ -46,11 +37,8 @@ namespace MyGUI
 		// Discard the buffer
 		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
 
-		Vertex* pBuffer = (Vertex*)glMapBufferRange(
-			GL_ARRAY_BUFFER,
-			0,
-			mSizeInBytes,
-			GL_MAP_INVALIDATE_BUFFER_BIT | GL_MAP_WRITE_BIT);
+		Vertex* pBuffer = (Vertex*)
+			glMapBufferRange(GL_ARRAY_BUFFER, 0, mSizeInBytes, GL_MAP_INVALIDATE_BUFFER_BIT | GL_MAP_WRITE_BIT);
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
 
@@ -97,7 +85,13 @@ namespace MyGUI
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)nullptr);
-		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, colour));
+		glVertexAttribPointer(
+			1,
+			4,
+			GL_UNSIGNED_BYTE,
+			GL_TRUE,
+			sizeof(Vertex),
+			(GLubyte*)offsetof(struct Vertex, colour));
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, u));
 
 		glBindVertexArray(0);

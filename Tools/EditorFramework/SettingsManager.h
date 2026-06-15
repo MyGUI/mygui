@@ -11,27 +11,77 @@
 #include "pugixml.hpp"
 #include "StringUtility.h"
 #include "sigslot.h"
+#include <type_traits>
 
 namespace tools
 {
+	class NullTerminatedStringView
+	{
+		std::string_view mValue;
+
+	public:
+		NullTerminatedStringView(const std::string& string) :
+			mValue(string)
+		{
+		}
+		template<size_t num>
+		NullTerminatedStringView(const char (&str)[num]) :
+			mValue(str, num)
+		{
+		}
+		NullTerminatedStringView(const MyGUI::UString& string) :
+			mValue(string)
+		{
+		}
+
+		std::string_view c_str() const
+		{
+			return mValue;
+		}
+	};
+
+	class CString
+	{
+		const char* mValue;
+
+	public:
+		CString(const std::string& string) :
+			mValue(string.data())
+		{
+		}
+		CString(const char* string) :
+			mValue(string)
+		{
+		}
+		CString(NullTerminatedStringView string) :
+			mValue(string.c_str().data())
+		{
+		}
+
+		const char* c_str() const
+		{
+			return mValue;
+		}
+	};
 
 	class MYGUI_EXPORT_DLL SettingsManager
 	{
 		MYGUI_SINGLETON_DECLARATION(SettingsManager);
+
 	public:
 		SettingsManager();
 		virtual ~SettingsManager();
 
-		bool loadSettingsFile(const std::string& _fileName);
-		void saveSettingsFile(const std::string& _fileName);
+		bool loadSettingsFile(CString _fileName);
+		void saveSettingsFile(CString _fileName);
 
-		bool loadUserSettingsFile(const std::string& _fileName);
+		bool loadUserSettingsFile(std::string_view _fileName);
 		void saveUserSettingsFile();
 
-		bool getExistValue(const std::string& _path);
+		bool getExistValue(CString _path);
 
-		template <typename Type>
-		bool tryGetValue(const std::string& _path, Type& _result)
+		template<typename Type>
+		bool tryGetValue(CString _path, Type& _result)
 		{
 			_result = Type();
 			if (getExistValue(_path))
@@ -42,62 +92,71 @@ namespace tools
 			return false;
 		}
 
-		std::string getValue(const std::string& _path);
-		void setValue(const std::string& _path, const std::string& _value);
+		std::string getValue(CString _path);
 
-		template <typename Type>
-		Type getValue(const std::string& _path)
+		template<typename Type>
+		Type getValue(CString _path)
 		{
 			return MyGUI::utility::parseValue<Type>(getValue(_path));
 		}
 
-		template <typename Type>
-		void setValue(const std::string& _path, const Type& value)
+		void setValue(NullTerminatedStringView _path, NullTerminatedStringView _value)
 		{
-			setValue(_path, MyGUI::utility::toString(value));
+			setValueImpl(_path.c_str(), _value);
 		}
 
-		typedef std::vector<std::string> VectorString;
-		VectorString getValueList(const std::string& _path);
+		template<class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		void setValue(NullTerminatedStringView _path, const Type& value)
+		{
+			setValueImpl(_path.c_str(), MyGUI::utility::toString(value));
+		}
 
-		template <typename Type>
-		std::vector<Type> getValueList(const std::string& _path)
+		using VectorString = std::vector<std::string>;
+		VectorString getValueList(std::string_view _path);
+
+		template<typename Type>
+		std::vector<Type> getValueList(std::string_view _path)
 		{
 			VectorString resultString = getValueList(_path);
 			std::vector<Type> result;
 			result.reserve(resultString.size());
 
-			for (VectorString::const_iterator item = resultString.begin(); item != resultString.end(); item ++)
-				result.push_back(MyGUI::utility::parseValue<Type>(*item));
+			for (const auto& item : resultString)
+				result.push_back(MyGUI::utility::parseValue<Type>(item));
 
 			return result;
 		}
 
-		void setValueList(const std::string& _path, const VectorString& _values);
+		void setValueList(NullTerminatedStringView _path, const VectorString& _values)
+		{
+			setValueListImpl(_path.c_str(), _values);
+		}
 
-		template <typename Type>
-		void setValueList(const std::string& _path, const std::vector<Type>& _values)
+		template<typename Type>
+		void setValueList(NullTerminatedStringView _path, const std::vector<Type>& _values)
 		{
 			VectorString values;
 			values.reserve(_values.size());
 
-			for (typename std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item ++)
+			for (typename std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item++)
 				values.push_back(MyGUI::utility::toString(*item));
 
 			setValueList(_path, values);
 		}
 
-		pugi::xpath_node_set getValueNodeList(const std::string& _path);
+		pugi::xpath_node_set getValueNodeList(std::string_view _path);
 
-		sigslot::signal1<const std::string&> eventSettingsChanged;
-
-	private:
-		void mergeNodes(pugi::xml_node _node1, pugi::xml_node _node2);
-		void mergeAttributes(pugi::xml_node _node1, pugi::xml_node _node2);
+		sigslot::signal1<std::string_view> eventSettingsChanged;
 
 	private:
-		pugi::xml_document* mDocument;
-		pugi::xml_document* mUserDocument;
+		void setValueImpl(std::string_view _path, CString _value);
+		void setValueListImpl(std::string_view _path, const VectorString& _values);
+		void mergeNodes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource);
+		void mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource);
+
+	private:
+		pugi::xml_document* mDocument{nullptr};
+		pugi::xml_document* mUserDocument{nullptr};
 		std::string mUserSettingsFileName;
 	};
 

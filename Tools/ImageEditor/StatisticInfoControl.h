@@ -13,23 +13,20 @@
 namespace tools
 {
 
-	class StatisticInfoControl :
-		public Control,
-		public sigslot::has_slots<>
+	class StatisticInfoControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		StatisticInfoControl();
 		~StatisticInfoControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void notifyFrameStart(float _time);
 
 	private:
-		MyGUI::TextBox* mText;
+		MyGUI::TextBox* mText{nullptr};
 	};
 
 }

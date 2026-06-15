@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FrameTextureController)
 
-	FrameTextureController::FrameTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void FrameTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
@@ -72,7 +65,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
@@ -103,7 +98,7 @@ namespace tools
 		}
 	}
 
-	void FrameTextureController::notifyChangeValue(const std::string& _value)
+	void FrameTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -117,7 +112,7 @@ namespace tools
 		}
 	}
 
-	void FrameTextureController::notifyChangeScope(const std::string& _scope)
+	void FrameTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -129,7 +124,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &FrameTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FrameTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &FrameTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -148,10 +145,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -162,7 +159,7 @@ namespace tools
 		}
 	}
 
-	void FrameTextureController::updateCoords(const std::string& _value)
+	void FrameTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
@@ -180,7 +177,9 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			DataPtr selected = mParentData->getChildSelected();
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if (selected == *child)
 				{
@@ -190,7 +189,7 @@ namespace tools
 				else
 				{
 					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-					mFrames.push_back(std::make_pair(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition));
+					mFrames.emplace_back(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);
 				}
 			}
 

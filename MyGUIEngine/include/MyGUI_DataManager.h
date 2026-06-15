@@ -18,6 +18,7 @@ namespace MyGUI
 	class MYGUI_EXPORT DataManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DataManager);
+
 	public:
 		DataManager();
 		virtual ~DataManager() = default;
@@ -47,7 +48,7 @@ namespace MyGUI
 			@return Return full path to specified data.
 			For example getDataPath("My.layout") might return "C:\path\to\project\data\My.layout"
 		*/
-		virtual const std::string& getDataPath(const std::string& _name) const = 0;
+		virtual std::string getDataPath(const std::string& _name) const = 0;
 	};
 
 } // namespace MyGUI

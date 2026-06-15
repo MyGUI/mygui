@@ -10,10 +10,7 @@ namespace demo
 {
 
 	PanelDirector::PanelDirector() :
-		BasePanelViewItem("PanelDirector.layout"),
-		mCheckShowStatic(nullptr),
-		mCheckShowDynamic(nullptr),
-		mComboCount(nullptr)
+		BasePanelViewItem("PanelDirector.layout")
 	{
 	}
 
@@ -39,17 +36,17 @@ namespace demo
 	{
 		if (_sender == mCheckShowStatic)
 		{
-			mCheckShowStatic->setStateSelected( ! mCheckShowStatic->getStateSelected());
-			eventChangePanels(EVENT_SHOW_STATIC, (size_t)mCheckShowStatic->getStateSelected());
+			mCheckShowStatic->setStateSelected(!mCheckShowStatic->getStateSelected());
+			eventChangePanels(EVENT_SHOW_STATIC, static_cast<size_t>(mCheckShowStatic->getStateSelected()));
 		}
 		else if (_sender == mCheckShowDynamic)
 		{
-			mCheckShowDynamic->setStateSelected( ! mCheckShowDynamic->getStateSelected());
-			eventChangePanels(EVENT_SHOW_DYNAMIC, (size_t)mCheckShowDynamic->getStateSelected());
+			mCheckShowDynamic->setStateSelected(!mCheckShowDynamic->getStateSelected());
+			eventChangePanels(EVENT_SHOW_DYNAMIC, static_cast<size_t>(mCheckShowDynamic->getStateSelected()));
 		}
 	}
 
-	void PanelDirector::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
+	void PanelDirector::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index) const
 	{
 		eventChangePanels(EVENT_COUNT_DYNAMIC, MyGUI::utility::parseInt(_sender->getOnlyText()));
 	}

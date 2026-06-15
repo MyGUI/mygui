@@ -13,8 +13,7 @@
 namespace MyGUI
 {
 
-	class DirectXDataManager :
-		public DataManager
+	class DirectXDataManager : public DataManager
 	{
 	public:
 		DirectXDataManager();
@@ -44,9 +43,9 @@ namespace MyGUI
 		virtual const VectorString& getDataListNames(const std::string& _pattern) const;
 
 		/** @see DataManager::getDataPath(const std::string& _name) */
-		virtual const std::string& getDataPath(const std::string& _name) const;
+		std::string getDataPath(const std::string& _name) const override;
 
-	/*internal:*/
+		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:
@@ -55,7 +54,7 @@ namespace MyGUI
 			std::wstring name;
 			bool recursive;
 		};
-		typedef std::vector<ArhivInfo> VectorArhivInfo;
+		using VectorArhivInfo = std::vector<ArhivInfo>;
 		VectorArhivInfo mPaths;
 
 		bool mIsInitialise;

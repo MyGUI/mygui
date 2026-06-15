@@ -11,12 +11,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 		void setupResources() override;
@@ -27,7 +24,7 @@ namespace demo
 
 	private:
 #ifdef MYGUI_OGRE_PLATFORM
-		Ogre::SceneNode* mNode;
+		Ogre::SceneNode* mNode{nullptr};
 #endif // MYGUI_OGRE_PLATFORM
 	};
 

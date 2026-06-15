@@ -1,0 +1,4 @@
+# apply clang-tidy modernize-concat-nested-namespaces
+3eb430ff539a61ea58a984a2284f4a3ade6ce6f4
+# apply clang-format
+e19a011076024ad0c05e8413e6129879099216e8

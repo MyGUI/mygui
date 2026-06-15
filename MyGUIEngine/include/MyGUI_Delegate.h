@@ -9,374 +9,338 @@
 
 #include "MyGUI_Diagnostic.h"
 #include "MyGUI_Any.h"
+#include <algorithm>
 #include <list>
-
+#include <memory>
 #include <functional>
 
 namespace MyGUI
 {
 
-namespace delegates
-{
-	// base class for unsubscribing from multi delegates
-	class MYGUI_EXPORT IDelegateUnlink
+	namespace delegates
 	{
-	public:
-		virtual ~IDelegateUnlink() = default;
-
-		IDelegateUnlink()
+		// base class for unsubscribing from multi delegates
+		class MYGUI_EXPORT IDelegateUnlink
 		{
-			m_baseDelegateUnlink = this;
-		}
-		bool compare(IDelegateUnlink* _unlink) const
-		{
-			return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink;
-		}
+		public:
+			virtual ~IDelegateUnlink() = default;
 
-	private:
-		IDelegateUnlink* m_baseDelegateUnlink;
+			IDelegateUnlink() :
+				m_baseDelegateUnlink(this)
+			{
+			}
+			bool compare(IDelegateUnlink* _unlink) const
+			{
+				return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink;
+			}
+
+		private:
+			IDelegateUnlink* m_baseDelegateUnlink;
+		};
+
+		template<typename... Args>
+		class DelegateFunction
+		{
+		public:
+			using Function = std::function<void(Args...)>;
+
+			// function or static class method
+			DelegateFunction(Function _function, Any _functionPointer) :
+				mFunction(_function),
+				mFunctionPointer(_functionPointer)
+			{
+			}
+
+			// non-static class method
+			DelegateFunction(Function _function, Any _functionPointer, const IDelegateUnlink* _object) :
+				mFunction(_function),
+				mUnlink(_object),
+				mObject(_object),
+				mFunctionPointer(_functionPointer)
+			{
+			}
+
+			// non-static class method
+			DelegateFunction(Function _function, Any _functionPointer, const void* _object) :
+				mFunction(_function),
+				mObject(_object),
+				mFunctionPointer(_functionPointer)
+			{
+			}
+
+			void invoke(Args... args)
+			{
+				mFunction(args...);
+			}
+
+			bool compare(DelegateFunction<Args...>* _delegate) const
+			{
+				if (nullptr == _delegate)
+					return false;
+				return _delegate->mObject == mObject && _delegate->mFunctionPointer.compare(mFunctionPointer);
+			}
+
+			bool compare(IDelegateUnlink* _unlink) const
+			{
+				return mUnlink == _unlink;
+			}
+
+		private:
+			Function mFunction;
+
+			const IDelegateUnlink* mUnlink = nullptr;
+			const void* mObject = nullptr;
+			Any mFunctionPointer;
+		};
+
+	} // namespace delegates
+
+	// Creates delegate from a function or a static class method
+	template<typename... Args>
+	inline delegates::DelegateFunction<Args...>* newDelegate(void (*_func)(Args... args))
+	{
+		return new delegates::DelegateFunction<Args...>(_func, _func);
+	}
+
+	// Creates delegate from a non-static class method
+	template<typename T, typename... Args>
+	inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
+	{
+		return new delegates::DelegateFunction<Args...>(
+			[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
+			_method,
+			_object);
+	}
+	template<typename T, typename... Args>
+	inline delegates::DelegateFunction<Args...>* newDelegate(const T* _object, void (T::*_method)(Args... args) const)
+	{
+		return new delegates::DelegateFunction<Args...>(
+			[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
+			_method,
+			_object);
+	}
+
+	// Creates delegate from std::function
+	// Require some user-defined delegateId, that should be used if operator-= is called to remove delegate.
+	// delegateId need to be unique within single delegate.
+	template<typename... Args>
+	inline delegates::DelegateFunction<Args...>* newDelegate(
+		const std::function<void(Args...)>& _function,
+		int64_t delegateId)
+	{
+		return new delegates::DelegateFunction<Args...>(_function, delegateId);
+	}
+
+
+	template<typename>
+	struct GetDelegateFunctionFromLambda;
+	template<typename R, typename C, typename... Args>
+	struct GetDelegateFunctionFromLambda<R (C::*)(Args...) const>
+	{
+		using type = MyGUI::delegates::DelegateFunction<Args...>;
 	};
 
-	template <typename ...Args>
-	class DelegateFunction
+	// Creates delegate from lambda
+	// Require some user-defined delegateId, that should be used if operator-= is called to remove delegate.
+	// delegateId need to be unique within single delegate.
+	template<typename TLambda>
+	inline auto newDelegate(const TLambda& _function, int64_t delegateId)
 	{
-	public:
-		using Function = std::function<void(Args...)>;
+		using DelegateType = typename GetDelegateFunctionFromLambda<decltype(&TLambda::operator())>::type;
+		return new DelegateType(_function, delegateId);
+	}
 
-		// function or static class method
-		DelegateFunction(Function _function, Any _functionPointer) :
-			mFunction(_function),
-			mFunctionPointer(_functionPointer)
-		{
-		}
-
-		// non-static class method
-		DelegateFunction(Function _function, Any _functionPointer, const IDelegateUnlink* _object) :
-			mFunction(_function),
-			mUnlink(_object),
-			mObject(_object),
-			mFunctionPointer(_functionPointer)
-		{
-		}
-
-		// non-static class method
-		DelegateFunction(Function _function, Any _functionPointer, const void* _object) :
-			mFunction(_function),
-			mUnlink(nullptr),
-			mObject(_object),
-			mFunctionPointer(_functionPointer)
-		{
-		}
-
-		void invoke(Args... args)
-		{
-			mFunction(args...);
-		}
-
-		bool compare(DelegateFunction<Args...>* _delegate) const
-		{
-			if (nullptr == _delegate) return false;
-			return _delegate->mObject == mObject && _delegate->mFunctionPointer.compare(mFunctionPointer);
-		}
-
-		bool compare(IDelegateUnlink* _unlink) const
-		{
-			return mUnlink == _unlink;
-		}
-
-	private:
-		Function mFunction;
-
-        const IDelegateUnlink* mUnlink = nullptr;
-		const void* mObject = nullptr;
-		Any mFunctionPointer;
-	};
-
-} // namespace delegates
-
-// Creates delegate from a function or a static class method
-template <typename ...Args>
-inline delegates::DelegateFunction<Args...>* newDelegate(void(*_func)(Args... args))
-{
-	return new delegates::DelegateFunction<Args...>(_func, _func);
-}
-
-// Creates delegate from a non-static class method
-template <typename T, typename ...Args>
-inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
-{
-	return new delegates::DelegateFunction<Args...>(
-		[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
-		_method,
-		_object);
-}
-template <typename T, typename ...Args>
-inline delegates::DelegateFunction<Args...>* newDelegate(const T* _object, void (T::*_method)(Args... args) const)
-{
-    return new delegates::DelegateFunction<Args...>(
-        [=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
-        _method,
-        _object);
-}
-
-// Creates delegate from std::function
-// Require some user-defined delegateId, that should be used if operator-= is called to remove delegate.
-// delegateId need to be unique within single delegate.
-template <typename ...Args>
-inline delegates::DelegateFunction<Args...>* newDelegate(const std::function<void(Args...)>& _function, int64_t delegateId)
-{
-	return new delegates::DelegateFunction<Args...>(_function, delegateId);
-}
-
-namespace delegates
-{
-
-	template <typename ...Args>
-	class Delegate
+	namespace delegates
 	{
-	public:
-		using IDelegate = DelegateFunction<Args...>;
 
-		Delegate() : mDelegate(nullptr) { }
-		Delegate(const Delegate& _event) : mDelegate(nullptr)
+		template<typename... Args>
+		class Delegate
 		{
-			// take ownership
-			mDelegate = _event.mDelegate;
-			const_cast<Delegate&>(_event).mDelegate = nullptr;
-		}
+		public:
+			using IDelegate = DelegateFunction<Args...>;
 
-		~Delegate()
-		{
-			clear();
-		}
+			bool empty() const
+			{
+				return !mDelegate;
+			}
 
-		bool empty() const
-		{
-			return mDelegate == nullptr;
-		}
+			void clear()
+			{
+				mDelegate.reset();
+			}
 
-		void clear()
-		{
-			delete mDelegate;
-			mDelegate = nullptr;
-		}
-
-		Delegate& operator=(IDelegate* _delegate)
-		{
-			delete mDelegate;
-			mDelegate = _delegate;
-			return *this;
-		}
-
-		Delegate& operator=(const Delegate<Args...>& _event)
-		{
-			if (this == &_event)
+			Delegate& operator=(IDelegate* _delegate)
+			{
+				mDelegate.reset(_delegate);
 				return *this;
-
-			// take ownership
-			IDelegate* del = _event.mDelegate;
-			const_cast<Delegate&>(_event).mDelegate = nullptr;
-
-			if (mDelegate != nullptr && !mDelegate->compare(del))
-				delete mDelegate;
-
-			mDelegate = del;
-
-			return *this;
-		}
-
-		void operator()(Args... args) const
-		{
-			if (mDelegate == nullptr) return;
-			mDelegate->invoke(args...);
-		}
-
-	private:
-		IDelegate* mDelegate;
-	};
-
-	template <typename ...Args>
-	class MultiDelegate
-	{
-	public:
-		using IDelegate = DelegateFunction<Args...>;
-		using ListDelegate = typename std::list<IDelegate*>;
-
-		MultiDelegate() { }
-		~MultiDelegate()
-		{
-			clear();
-		}
-
-		bool empty() const
-		{
-			for (const auto& delegate : mListDelegates)
-			{
-				if (delegate) return false;
 			}
-			return true;
-		}
 
-		void clear()
-		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			void operator()(Args... args) const
 			{
-				if (*iter)
+				if (mDelegate)
+					mDelegate->invoke(args...);
+			}
+
+		private:
+			std::unique_ptr<IDelegate> mDelegate;
+		};
+
+		template<typename... Args>
+		class MultiDelegate
+		{
+		public:
+			using IDelegate = DelegateFunction<Args...>;
+			using ListDelegate = typename std::list<std::unique_ptr<IDelegate>>;
+
+			// These shouldn't be necessary, but MSVC (17.6.5) requires them anyway
+			MultiDelegate() = default;
+			MultiDelegate(MultiDelegate&&) noexcept = default;
+
+			bool empty() const
+			{
+				for (const auto& delegate : mListDelegates)
 				{
-					delete (*iter);
-					(*iter) = nullptr;
+					if (delegate)
+						return false;
 				}
+				return true;
 			}
-		}
 
-		void clear(IDelegateUnlink* _unlink)
-		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			void clear()
 			{
-				if ((*iter) && (*iter)->compare(_unlink))
+				if (mRunning)
 				{
-					delete (*iter);
-					(*iter) = nullptr;
-				}
-			}
-		}
-
-		void operator+=(IDelegate* _delegate)
-		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
-			{
-				if ((*iter) && (*iter)->compare(_delegate))
-				{
-					MYGUI_EXCEPT("Trying to add same delegate twice.");
-				}
-			}
-			mListDelegates.push_back(_delegate);
-		}
-
-		void operator-=(IDelegate* _delegate)
-		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
-			{
-				if ((*iter) && (*iter)->compare(_delegate))
-				{
-					if ((*iter) != _delegate) delete (*iter);
-					(*iter) = nullptr;
-					break;
-				}
-			}
-			delete _delegate;
-		}
-
-		void operator()(Args... args) const
-		{
-			auto iter = mListDelegates.begin();
-			while (iter != mListDelegates.end())
-			{
-				if (nullptr == (*iter))
-				{
-					iter = mListDelegates.erase(iter);
+					for (auto& delegate : mListDelegates)
+						delegate.reset();
 				}
 				else
-				{
-					(*iter)->invoke(args...);
-					++iter;
-				}
+					mListDelegates.clear();
 			}
-		}
 
-		MultiDelegate(const MultiDelegate& _event)
-		{
-			// take ownership
-			ListDelegate del = _event.mListDelegates;
-			const_cast<MultiDelegate&>(_event).mListDelegates.clear();
-
-			safe_clear(del);
-
-			mListDelegates = del;
-		}
-
-		MultiDelegate& operator=(const MultiDelegate& _event)
-		{
-			// take ownership
-			ListDelegate del = _event.mListDelegates;
-			const_cast<MultiDelegate&>(_event).mListDelegates.clear();
-
-			safe_clear(del);
-
-			mListDelegates = del;
-
-			return *this;
-		}
-
-		MYGUI_OBSOLETE("use : operator += ")
-		MultiDelegate& operator=(IDelegate* _delegate)
-		{
-			clear();
-			*this += _delegate;
-			return *this;
-		}
-
-	private:
-		void safe_clear(ListDelegate& _delegates)
-		{
-			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			void clear(IDelegateUnlink* _unlink)
 			{
-				if (*iter)
-				{
-					IDelegate* del = (*iter);
-					(*iter) = nullptr;
-					delete_is_not_found(del, _delegates);
-				}
-			}
-		}
-
-		void delete_is_not_found(IDelegate* _del, ListDelegate& _delegates)
-		{
-			for (auto iter = _delegates.begin(); iter != _delegates.end(); ++iter)
-			{
-				if ((*iter) && (*iter)->compare(_del))
-				{
+				if (!_unlink)
 					return;
+				for (auto& delegate : mListDelegates)
+				{
+					if (delegate && delegate->compare(_unlink))
+						delegate.reset();
 				}
 			}
 
-			delete _del;
-		}
+			void operator+=(IDelegate* _delegate)
+			{
+				if (!_delegate)
+					return;
+				auto found = std::find_if(
+					mListDelegates.begin(),
+					mListDelegates.end(),
+					[=](const auto& delegate) { return delegate && delegate->compare(_delegate); });
+				if (found != mListDelegates.end())
+					MYGUI_EXCEPT("Trying to add same delegate twice.");
+				mListDelegates.emplace_back(_delegate);
+			}
 
-	private:
-		mutable ListDelegate mListDelegates;
-	};
+			void operator-=(IDelegate* _delegate)
+			{
+				if (!_delegate)
+					return;
+				auto found = std::find_if(
+					mListDelegates.begin(),
+					mListDelegates.end(),
+					[=](const auto& delegate) { return delegate && delegate->compare(_delegate); });
+				if (found != mListDelegates.end())
+				{
+					if (found->get() == _delegate)
+						_delegate = nullptr;
+					found->reset();
+				}
+				delete _delegate;
+			}
 
-//#ifndef MYGUI_DONT_USE_OBSOLETE // TODO
-	using CDelegate0 = Delegate<>;
-	template <typename ...Args>
-	using CDelegate1 = Delegate<Args...>;
-	template <typename ...Args>
-	using CDelegate2 = Delegate<Args...>;
-	template <typename ...Args>
-	using CDelegate3 = Delegate<Args...>;
-	template <typename ...Args>
-	using CDelegate4 = Delegate<Args...>;
-	template <typename ...Args>
-	using CDelegate5 = Delegate<Args...>;
-	template <typename ...Args>
-	using CDelegate6 = Delegate<Args...>;
+			void operator()(Args... args) const
+			{
+				bool canErase = !mRunning;
+				InvocationModificationGuard guard(*this);
+				for (auto it = mListDelegates.begin(); it != mListDelegates.end();)
+				{
+					if (*it)
+						(*it)->invoke(args...);
+					else if (canErase)
+					{
+						it = mListDelegates.erase(it);
+						continue;
+					}
+					++it;
+				}
+			}
 
-	using CMultiDelegate0 = MultiDelegate<>;
-	template <typename ...Args>
-	using CMultiDelegate1 = MultiDelegate<Args...>;
-	template <typename ...Args>
-	using CMultiDelegate2 = MultiDelegate<Args...>;
-	template <typename ...Args>
-	using CMultiDelegate3 = MultiDelegate<Args...>;
-	template <typename ...Args>
-	using CMultiDelegate4 = MultiDelegate<Args...>;
-	template <typename ...Args>
-	using CMultiDelegate5 = MultiDelegate<Args...>;
-	template <typename ...Args>
-	using CMultiDelegate6 = MultiDelegate<Args...>;
-//#endif
-}
+			MYGUI_OBSOLETE("use : operator += ")
+			MultiDelegate& operator=(IDelegate* _delegate)
+			{
+				clear();
+				*this += _delegate;
+				return *this;
+			}
+
+		private:
+			mutable ListDelegate mListDelegates;
+			mutable bool mRunning{false};
+
+			class InvocationModificationGuard
+			{
+				const MultiDelegate* mDelegate;
+
+			public:
+				InvocationModificationGuard(const MultiDelegate& delegate)
+				{
+					if (delegate.mRunning)
+						mDelegate = nullptr;
+					else
+					{
+						mDelegate = &delegate;
+						mDelegate->mRunning = true;
+					}
+				}
+				~InvocationModificationGuard()
+				{
+					if (mDelegate)
+						mDelegate->mRunning = false;
+				}
+			};
+			friend class InvocationModificationGuard;
+		};
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		using CDelegate0 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate<>") = Delegate<>;
+		template<typename... Args>
+		using CDelegate1 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
+		template<typename... Args>
+		using CDelegate2 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
+		template<typename... Args>
+		using CDelegate3 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
+		template<typename... Args>
+		using CDelegate4 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
+		template<typename... Args>
+		using CDelegate5 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
+		template<typename... Args>
+		using CDelegate6 MYGUI_OBSOLETE("use : MyGUI::delegates::Delegate") = Delegate<Args...>;
+
+		using CMultiDelegate0 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate<>") = MultiDelegate<>;
+		template<typename... Args>
+		using CMultiDelegate1 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+		template<typename... Args>
+		using CMultiDelegate2 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+		template<typename... Args>
+		using CMultiDelegate3 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+		template<typename... Args>
+		using CMultiDelegate4 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+		template<typename... Args>
+		using CMultiDelegate5 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+		template<typename... Args>
+		using CMultiDelegate6 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
+#endif
+	}
 
 } // namespace MyGUI
 

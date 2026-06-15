@@ -10,15 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mMenu1(nullptr),
-		mMenu2(nullptr),
-		mMenu3(nullptr),
-		mMenu4(nullptr),
-		mIsAnim(false)
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -32,7 +23,8 @@ namespace demo
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("ControllerFadeAlpha and ControllerPosition examples.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"ControllerFadeAlpha and ControllerPosition examples.");
 
 		mIsAnim = false;
 
@@ -72,20 +64,29 @@ namespace demo
 			return;
 		}
 
-		if (mType == _type || mIsAnim) return;
+		if (mType == _type || mIsAnim)
+			return;
 		mIsAnim = true;
 
-		if (mType == ControllerType::Inertional) mMenu1->setVisible(false);
-		else if (mType == ControllerType::Accelerated) mMenu2->setVisible(false);
-		else if (mType == ControllerType::Slowed) mMenu3->setVisible(false);
-		else if (mType == ControllerType::Jump) mMenu4->setVisible(false);
+		if (mType == ControllerType::Inertional)
+			mMenu1->setVisible(false);
+		else if (mType == ControllerType::Accelerated)
+			mMenu2->setVisible(false);
+		else if (mType == ControllerType::Slowed)
+			mMenu3->setVisible(false);
+		else if (mType == ControllerType::Jump)
+			mMenu4->setVisible(false);
 
 		mType = _type;
 
-		if (mType == ControllerType::Inertional) mMenu1->setVisible(true);
-		else if (mType == ControllerType::Accelerated) mMenu2->setVisible(true);
-		else if (mType == ControllerType::Slowed) mMenu3->setVisible(true);
-		else if (mType == ControllerType::Jump) mMenu4->setVisible(true);
+		if (mType == ControllerType::Inertional)
+			mMenu1->setVisible(true);
+		else if (mType == ControllerType::Accelerated)
+			mMenu2->setVisible(true);
+		else if (mType == ControllerType::Slowed)
+			mMenu3->setVisible(true);
+		else if (mType == ControllerType::Jump)
+			mMenu4->setVisible(true);
 	}
 
 } // namespace demo

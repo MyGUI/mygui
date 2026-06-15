@@ -10,10 +10,6 @@
 namespace MyGUI
 {
 
-	TabItem::TabItem()
-	{
-	}
-
 	void TabItem::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -55,7 +51,7 @@ namespace MyGUI
 			owner->setButtonWidth(this, _width);
 	}
 
-	void TabItem::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void TabItem::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{TabItem, ButtonWidth, int} Ширина кнопки.
 		if (_key == "ButtonWidth")

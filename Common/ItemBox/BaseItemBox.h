@@ -15,15 +15,14 @@
 namespace wraps
 {
 	template<typename CellType>
-	class BaseItemBox :
-		public BaseLayout
+	class BaseItemBox : public BaseLayout
 	{
 	public:
-		typedef typename CellType::Type DataType;
+		using DataType = typename CellType::Type;
 
 	public:
 		BaseItemBox(MyGUI::Widget* _parent) :
-			BaseLayout("", _parent)
+			BaseLayout(std::string_view{}, _parent)
 		{
 			mBoxItems = mMainWidget->castType<MyGUI::ItemBox>();
 			mBoxItems->setUserData(static_cast<BaseLayout*>(this));
@@ -82,7 +81,7 @@ namespace wraps
 			mBoxItems->setItemDataAt(_index, _data);
 		}
 
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return mBoxItems->getItemDataAt<ValueType>(_index, _throw);
@@ -141,13 +140,13 @@ namespace wraps
 		}
 
 	public:
-		MyGUI::delegates::CDelegate3<BaseLayout*, DDItemInfo, bool&> eventStartDrag;
-		MyGUI::delegates::CDelegate3<BaseLayout*, DDItemInfo, bool&> eventRequestDrop;
-		MyGUI::delegates::CDelegate3<BaseLayout*, DDItemInfo, bool> eventDropResult;
-		MyGUI::delegates::CDelegate2<BaseLayout*, MyGUI::DDItemState> eventChangeDDState;
-		MyGUI::delegates::CDelegate2<BaseLayout*, const MyGUI::IBNotifyItemData& > eventNotifyItem;
+		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool&> eventStartDrag;
+		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool&> eventRequestDrop;
+		MyGUI::delegates::Delegate<BaseLayout*, DDItemInfo, bool> eventDropResult;
+		MyGUI::delegates::Delegate<BaseLayout*, MyGUI::DDItemState> eventChangeDDState;
+		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::IBNotifyItemData&> eventNotifyItem;
 
-		MyGUI::delegates::CDelegate3<BaseLayout*, const MyGUI::ToolTipInfo&, DataType> eventToolTip;
+		MyGUI::delegates::Delegate<BaseLayout*, const MyGUI::ToolTipInfo&, DataType> eventToolTip;
 
 		MyGUI::ItemBox* getItemBox() const
 		{
@@ -155,7 +154,7 @@ namespace wraps
 		}
 
 	private:
-		typedef std::vector<CellType*> VectorCellView;
+		using VectorCellView = std::vector<CellType*>;
 		VectorCellView mListCellView;
 		MyGUI::ItemBox* mBoxItems;
 	};

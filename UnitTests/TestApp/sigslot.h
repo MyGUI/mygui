@@ -1,22 +1,22 @@
 // sigslot.h: Signal/Slot classes
-// 
+//
 // Written by Sarah Thompson (sarah@telergy.com) 2002.
 //
 // License: Public domain. You are free to use this code however you like, with the proviso that
 //          the author takes on no responsibility or liability for any use.
 //
-// QUICK DOCUMENTATION 
-//		
+// QUICK DOCUMENTATION
+//
 //				(see also the full documentation at http://sigslot.sourceforge.net/)
 //
 //		#define switches
 //			SIGSLOT_PURE_ISO			- Define this to force ISO C++ compliance. This also disables
-//										  all of the thread safety support on platforms where it is 
+//										  all of the thread safety support on platforms where it is
 //										  available.
 //
 //			SIGSLOT_USE_POSIX_THREADS	- Force use of Posix threads when using a C++ compiler other than
 //										  gcc on a platform that supports Posix threads. (When using gcc,
-//										  this is the default - use SIGSLOT_PURE_ISO to disable this if 
+//										  this is the default - use SIGSLOT_PURE_ISO to disable this if
 //										  necessary)
 //
 //			SIGSLOT_DEFAULT_MT_POLICY	- Where thread support is enabled, this defaults to multi_threaded_global.
@@ -40,12 +40,12 @@
 //			ISO C++						- If none of the supported platforms are detected, or if
 //										  SIGSLOT_PURE_ISO is defined, all multithreading support is turned off,
 //										  along with any code that might cause a pure ISO C++ environment to
-//										  complain. Before you ask, gcc -ansi -pedantic won't compile this 
+//										  complain. Before you ask, gcc -ansi -pedantic won't compile this
 //										  library, but gcc -ansi is fine. Pedantic mode seems to throw a lot of
 //										  errors that aren't really there. If you feel like investigating this,
 //										  please contact the author.
 //
-//		
+//
 //		THREADING MODES
 //
 //			single_threaded				- Your program is assumed to be single threaded from the point of view
@@ -63,10 +63,10 @@
 //										  than are strictly necessary.
 //
 //			multi_threaded_local		- Behaviour in this mode is essentially the same as multi_threaded_global,
-//										  except that each signal, and each object that inherits has_slots, all 
+//										  except that each signal, and each object that inherits has_slots, all
 //										  have their own mutex/critical section. In practice, this means that
 //										  mutex collisions (and hence context switches) only happen if they are
-//										  absolutely essential. However, on some platforms, creating a lot of 
+//										  absolutely essential. However, on some platforms, creating a lot of
 //										  mutexes can slow down the whole OS, so use this option with care.
 //
 //		USING THE LIBRARY
@@ -82,23 +82,23 @@
 #include <list>
 
 #if defined(SIGSLOT_PURE_ISO) || (!defined(WIN32) && !defined(__GNUG__) && !defined(SIGSLOT_USE_POSIX_THREADS))
-#	define _SIGSLOT_SINGLE_THREADED
+	#define _SIGSLOT_SINGLE_THREADED
 #elif defined(WIN32)
-#	define _SIGSLOT_HAS_WIN32_THREADS
-#	include <windows.h>
+	#define _SIGSLOT_HAS_WIN32_THREADS
+	#include <windows.h>
 #elif defined(__GNUG__) || defined(SIGSLOT_USE_POSIX_THREADS)
-#	define _SIGSLOT_HAS_POSIX_THREADS
-#	include <pthread.h>
+	#define _SIGSLOT_HAS_POSIX_THREADS
+	#include <pthread.h>
 #else
-#	define _SIGSLOT_SINGLE_THREADED
+	#define _SIGSLOT_SINGLE_THREADED
 #endif
 
 #ifndef SIGSLOT_DEFAULT_MT_POLICY
-#	ifdef _SIGSLOT_SINGLE_THREADED
-#		define SIGSLOT_DEFAULT_MT_POLICY single_threaded
-#	else
-#		define SIGSLOT_DEFAULT_MT_POLICY multi_threaded_local
-#	endif
+	#ifdef _SIGSLOT_SINGLE_THREADED
+		#define SIGSLOT_DEFAULT_MT_POLICY single_threaded
+	#else
+		#define SIGSLOT_DEFAULT_MT_POLICY multi_threaded_local
+	#endif
 #endif
 
 
@@ -269,13 +269,13 @@ namespace sigslot
 	};
 #endif
 
-	template <typename mt_policy>
+	template<typename mt_policy>
 	class lock_block
 	{
 	public:
-		mt_policy *m_mutex;
+		mt_policy* m_mutex;
 
-		lock_block(mt_policy *mtx) :
+		lock_block(mt_policy* mtx) :
 			m_mutex(mtx)
 		{
 			m_mutex->lock();
@@ -287,10 +287,10 @@ namespace sigslot
 		}
 	};
 
-	template <typename mt_policy>
+	template<typename mt_policy>
 	class has_slots;
 
-	template <typename mt_policy>
+	template<typename mt_policy>
 	class _connection_base0
 	{
 	public:
@@ -301,7 +301,7 @@ namespace sigslot
 		virtual _connection_base0* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename mt_policy>
+	template<typename arg1_type, typename mt_policy>
 	class _connection_base1
 	{
 	public:
@@ -312,7 +312,7 @@ namespace sigslot
 		virtual _connection_base1<arg1_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename mt_policy>
+	template<typename arg1_type, typename arg2_type, typename mt_policy>
 	class _connection_base2
 	{
 	public:
@@ -323,7 +323,7 @@ namespace sigslot
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy>
+	template<typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy>
 	class _connection_base3
 	{
 	public:
@@ -331,10 +331,11 @@ namespace sigslot
 		virtual void emit(arg1_type, arg2_type, arg3_type) = 0;
 		virtual bool exist(_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* conn) = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* clone() = 0;
-		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* duplicate(
+			has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename mt_policy>
+	template<typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename mt_policy>
 	class _connection_base4
 	{
 	public:
@@ -342,68 +343,151 @@ namespace sigslot
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type) = 0;
 		virtual bool exist(_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn) = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* clone() = 0;
-		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* duplicate(
+			has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename mt_policy>
 	class _connection_base5
 	{
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type) = 0;
-		virtual bool exist(_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn) = 0;
+		virtual bool exist(
+			_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn) = 0;
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* clone() = 0;
-		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* duplicate(
+			has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename mt_policy>
 	class _connection_base6
 	{
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type) = 0;
-		virtual bool exist(_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn) = 0;
-		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* clone() = 0;
-		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+		virtual bool exist(
+			_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn) = 0;
+		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>*
+		clone() = 0;
+		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>*
+		duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename mt_policy>
 	class _connection_base7
 	{
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type) = 0;
-		virtual bool exist(_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* conn) = 0;
-		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* clone() = 0;
-		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+		virtual bool exist(
+			_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>*
+				conn) = 0;
+		virtual _connection_base7<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			mt_policy>*
+		clone() = 0;
+		virtual _connection_base7<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			mt_policy>*
+		duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename arg8_type, typename mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename arg8_type,
+		typename mt_policy>
 	class _connection_base8
 	{
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type) = 0;
-		virtual bool exist(_connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* conn) = 0;
-		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* clone() = 0;
-		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+		virtual bool exist(_connection_base8<
+						   arg1_type,
+						   arg2_type,
+						   arg3_type,
+						   arg4_type,
+						   arg5_type,
+						   arg6_type,
+						   arg7_type,
+						   arg8_type,
+						   mt_policy>* conn) = 0;
+		virtual _connection_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>*
+		clone() = 0;
+		virtual _connection_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>*
+		duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
 
-	template <typename mt_policy>
-	class _signal_base :
-		public mt_policy
+	template<typename mt_policy>
+	class _signal_base : public mt_policy
 	{
 	public:
 		virtual void slot_disconnect(has_slots<mt_policy>* pslot) = 0;
 		virtual void slot_duplicate(const has_slots<mt_policy>* poldslot, has_slots<mt_policy>* pnewslot) = 0;
 	};
 
-	template <typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class has_slots :
-		public mt_policy 
+	template<typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class has_slots : public mt_policy
 	{
 	private:
-		typedef std::set<_signal_base<mt_policy> *> sender_set;
+		typedef std::set<_signal_base<mt_policy>*> sender_set;
 		typedef typename sender_set::const_iterator const_iterator;
 
 	public:
@@ -411,8 +495,8 @@ namespace sigslot
 		{
 		}
 
-		has_slots(const has_slots& hs)
-			: mt_policy(hs)
+		has_slots(const has_slots& hs) :
+			mt_policy(hs)
 		{
 			lock_block<mt_policy> lockblock(this);
 			const_iterator it = hs.m_senders.begin();
@@ -424,7 +508,7 @@ namespace sigslot
 				m_senders.insert(*it);
 				++it;
 			}
-		} 
+		}
 
 		void signal_connect(_signal_base<mt_policy>* sender)
 		{
@@ -462,19 +546,18 @@ namespace sigslot
 		sender_set m_senders;
 	};
 
-	template <typename mt_policy>
-	class _signal_base0 :
-		public _signal_base<mt_policy>
+	template<typename mt_policy>
+	class _signal_base0 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base0<mt_policy> *>  connections_list;
+		typedef std::list<_connection_base0<mt_policy>*> connections_list;
 
 		_signal_base0()
 		{
 		}
 
-		_signal_base0(const _signal_base0& s)
-			: _signal_base<mt_policy>(s)
+		_signal_base0(const _signal_base0& s) :
+			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -570,22 +653,21 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename mt_policy>
-	class _signal_base1 :
-		public _signal_base<mt_policy>
+	template<typename arg1_type, typename mt_policy>
+	class _signal_base1 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base1<arg1_type, mt_policy> *>  connections_list;
+		typedef std::list<_connection_base1<arg1_type, mt_policy>*> connections_list;
 
 		_signal_base1()
 		{
 		}
 
-		_signal_base1(const _signal_base1<arg1_type, mt_policy>& s)
-			: _signal_base<mt_policy>(s)
+		_signal_base1(const _signal_base1<arg1_type, mt_policy>& s) :
+			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -682,22 +764,21 @@ namespace sigslot
 
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename mt_policy>
-	class _signal_base2 :
-		public _signal_base<mt_policy>
+	template<typename arg1_type, typename arg2_type, typename mt_policy>
+	class _signal_base2 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base2<arg1_type, arg2_type, mt_policy> *> connections_list;
+		typedef std::list<_connection_base2<arg1_type, arg2_type, mt_policy>*> connections_list;
 
 		_signal_base2()
 		{
 		}
 
-		_signal_base2(const _signal_base2<arg1_type, arg2_type, mt_policy>& s)
-			: _signal_base<mt_policy>(s)
+		_signal_base2(const _signal_base2<arg1_type, arg2_type, mt_policy>& s) :
+			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -793,22 +874,21 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy>
-	class _signal_base3 :
-		public _signal_base<mt_policy>
+	template<typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy>
+	class _signal_base3 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy> *> connections_list;
+		typedef std::list<_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>*> connections_list;
 
 		_signal_base3()
 		{
 		}
 
-		_signal_base3(const _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>& s)
-			: _signal_base<mt_policy>(s)
+		_signal_base3(const _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>& s) :
+			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -904,15 +984,14 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename mt_policy>
-	class _signal_base4 :
-		public _signal_base<mt_policy>
+	template<typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename mt_policy>
+	class _signal_base4 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy> *>  connections_list;
+		typedef std::list<_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>*> connections_list;
 
 		_signal_base4()
 		{
@@ -1015,15 +1094,21 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename mt_policy>
-	class _signal_base5 :
-		public _signal_base<mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename mt_policy>
+	class _signal_base5 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy> *>  connections_list;
+		typedef std::list<_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>*>
+			connections_list;
 
 		_signal_base5()
 		{
@@ -1126,21 +1211,30 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename mt_policy>
-	class _signal_base6 :
-		public _signal_base<mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename mt_policy>
+	class _signal_base6 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy> *>  connections_list;
+		typedef std::list<
+			_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>*>
+			connections_list;
 
 		_signal_base6()
 		{
 		}
 
-		_signal_base6(const _signal_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>& s) :
+		_signal_base6(
+			const _signal_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>& s) :
 			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
@@ -1237,21 +1331,32 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename mt_policy>
-	class _signal_base7 :
-		public _signal_base<mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename mt_policy>
+	class _signal_base7 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> *>  connections_list;
+		typedef std::list<
+			_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>*>
+			connections_list;
 
 		_signal_base7()
 		{
 		}
 
-		_signal_base7(const _signal_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>& s) :
+		_signal_base7(
+			const _signal_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>&
+				s) :
 			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
@@ -1348,21 +1453,48 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename arg8_type, typename mt_policy>
-	class _signal_base8 :
-		public _signal_base<mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename arg8_type,
+		typename mt_policy>
+	class _signal_base8 : public _signal_base<mt_policy>
 	{
 	public:
-		typedef std::list<_connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> *> connections_list;
+		typedef std::list<_connection_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>*>
+			connections_list;
 
 		_signal_base8()
 		{
 		}
 
-		_signal_base8(const _signal_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>& s) :
+		_signal_base8(const _signal_base8<
+					  arg1_type,
+					  arg2_type,
+					  arg3_type,
+					  arg4_type,
+					  arg5_type,
+					  arg6_type,
+					  arg7_type,
+					  arg8_type,
+					  mt_policy>& s) :
 			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
@@ -1459,13 +1591,12 @@ namespace sigslot
 		}
 
 	protected:
-		connections_list m_connected_slots;   
+		connections_list m_connected_slots;
 	};
 
 
-	template <typename dest_type, typename mt_policy>
-	class _connection0 :
-		public _connection_base0<mt_policy>
+	template<typename dest_type, typename mt_policy>
+	class _connection0 : public _connection_base0<mt_policy>
 	{
 	public:
 		typedef _connection_base0<mt_policy> base_type;
@@ -1490,7 +1621,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit()
@@ -1511,12 +1642,11 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)();
+		void (dest_type::*m_pmemfun)();
 	};
 
-	template <typename dest_type, typename arg1_type, typename mt_policy>
-	class _connection1 :
-		public _connection_base1<arg1_type, mt_policy>
+	template<typename dest_type, typename arg1_type, typename mt_policy>
+	class _connection1 : public _connection_base1<arg1_type, mt_policy>
 	{
 	public:
 		typedef _connection_base1<arg1_type, mt_policy> base_type;
@@ -1541,7 +1671,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1)
@@ -1562,12 +1692,11 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type);
+		void (dest_type::*m_pmemfun)(arg1_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename mt_policy>
-	class _connection2 :
-		public _connection_base2<arg1_type, arg2_type, mt_policy>
+	template<typename dest_type, typename arg1_type, typename arg2_type, typename mt_policy>
+	class _connection2 : public _connection_base2<arg1_type, arg2_type, mt_policy>
 	{
 	public:
 		typedef _connection_base2<arg1_type, arg2_type, mt_policy> base_type;
@@ -1579,8 +1708,7 @@ namespace sigslot
 			m_pmemfun = nullptr;
 		}
 
-		_connection2(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
-			arg2_type))
+		_connection2(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type, arg2_type))
 		{
 			m_pobject = pobject;
 			m_pmemfun = pmemfun;
@@ -1593,7 +1721,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2)
@@ -1614,12 +1742,11 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type);
+		void (dest_type::*m_pmemfun)(arg1_type, arg2_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy>
-	class _connection3 :
-		public _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>
+	template<typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy>
+	class _connection3 : public _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>
 	{
 	public:
 		typedef _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy> base_type;
@@ -1644,7 +1771,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3)
@@ -1665,12 +1792,17 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type, arg3_type);
+		void (dest_type::*m_pmemfun)(arg1_type, arg2_type, arg3_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename mt_policy>
-	class _connection4 :
-		public _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>
+	template<
+		typename dest_type,
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename mt_policy>
+	class _connection4 : public _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>
 	{
 	public:
 		typedef _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy> base_type;
@@ -1695,7 +1827,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4)
@@ -1716,13 +1848,18 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type, arg3_type,
-			arg4_type);
+		void (dest_type::*m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename mt_policy>
-	class _connection5 :
-		public _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>
+	template<
+		typename dest_type,
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename mt_policy>
+	class _connection5 : public _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>
 	{
 	public:
 		typedef _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy> base_type;
@@ -1734,7 +1871,9 @@ namespace sigslot
 			m_pmemfun = nullptr;
 		}
 
-		_connection5(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type))
+		_connection5(
+			dest_type* pobject,
+			void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type))
 		{
 			m_pobject = pobject;
 			m_pmemfun = pmemfun;
@@ -1747,7 +1886,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5)
@@ -1768,16 +1907,26 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type);
+		void (dest_type::*m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename mt_policy>
+	template<
+		typename dest_type,
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename mt_policy>
 	class _connection6 :
 		public _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>
 	{
 	public:
-		typedef _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy> base_type;
-		typedef _connection6<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy> this_type;
+		typedef _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>
+			base_type;
+		typedef _connection6<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>
+			this_type;
 
 		_connection6()
 		{
@@ -1785,7 +1934,9 @@ namespace sigslot
 			m_pmemfun = nullptr;
 		}
 
-		_connection6(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type))
+		_connection6(
+			dest_type* pobject,
+			void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type))
 		{
 			m_pobject = pobject;
 			m_pmemfun = pmemfun;
@@ -1798,7 +1949,7 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6)
@@ -1819,16 +1970,44 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type);
+		void (dest_type::*m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename mt_policy>
+	template<
+		typename dest_type,
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename mt_policy>
 	class _connection7 :
 		public _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>
 	{
 	public:
-		typedef _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> base_type;
-		typedef _connection7<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> this_type;
+		typedef _connection_base7<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			mt_policy>
+			base_type;
+		typedef _connection7<
+			dest_type,
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			mt_policy>
+			this_type;
 
 		_connection7()
 		{
@@ -1836,7 +2015,9 @@ namespace sigslot
 			m_pmemfun = nullptr;
 		}
 
-		_connection7(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type))
+		_connection7(
+			dest_type* pobject,
+			void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type))
 		{
 			m_pobject = pobject;
 			m_pmemfun = pmemfun;
@@ -1849,10 +2030,17 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
-		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7)
+		virtual void emit(
+			arg1_type a1,
+			arg2_type a2,
+			arg3_type a3,
+			arg4_type a4,
+			arg5_type a5,
+			arg6_type a6,
+			arg7_type a7)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6, a7);
 		}
@@ -1870,16 +2058,56 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type);
+		void (dest_type::*m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type);
 	};
 
-	template <typename dest_type, typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename arg8_type, typename mt_policy>
+	template<
+		typename dest_type,
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename arg8_type,
+		typename mt_policy>
 	class _connection8 :
-		public _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>
+		public _connection_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>
 	{
 	public:
-		typedef _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> base_type;
-		typedef _connection8<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> this_type;
+		typedef _connection_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>
+			base_type;
+		typedef _connection8<
+			dest_type,
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>
+			this_type;
 
 		_connection8()
 		{
@@ -1887,7 +2115,10 @@ namespace sigslot
 			m_pmemfun = nullptr;
 		}
 
-		_connection8(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type))
+		_connection8(
+			dest_type* pobject,
+			void (dest_type::*
+					  pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type))
 		{
 			m_pobject = pobject;
 			m_pmemfun = pmemfun;
@@ -1900,10 +2131,18 @@ namespace sigslot
 
 		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new this_type((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
-		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7, arg8_type a8)
+		virtual void emit(
+			arg1_type a1,
+			arg2_type a2,
+			arg3_type a3,
+			arg4_type a4,
+			arg5_type a5,
+			arg6_type a6,
+			arg7_type a7,
+			arg8_type a8)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6, a7, a8);
 		}
@@ -1921,12 +2160,12 @@ namespace sigslot
 
 	private:
 		dest_type* m_pobject;
-		void (dest_type::* m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type);
+		void (dest_type::*
+				  m_pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type);
 	};
 
-	template <typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal0 :
-		public _signal_base0<mt_policy>
+	template<typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal0 : public _signal_base0<mt_policy>
 	{
 	public:
 		typedef _signal_base0<mt_policy> base_type;
@@ -1940,7 +2179,7 @@ namespace sigslot
 		{
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		void connect(desttype* pclass, void (desttype::*pmemfun)())
 		{
 			lock_block<mt_policy> lockblock(this);
@@ -1984,9 +2223,8 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal1 :
-		public _signal_base1<arg1_type, mt_policy>
+	template<typename arg1_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal1 : public _signal_base1<arg1_type, mt_policy>
 	{
 	public:
 		typedef _signal_base1<arg1_type, mt_policy> base_type;
@@ -2000,20 +2238,22 @@ namespace sigslot
 		{
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection1<desttype, arg1_type, mt_policy>* conn = new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
+			_connection1<desttype, arg1_type, mt_policy>* conn =
+				new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		bool exist(desttype* pclass, void (desttype::*pmemfun)(arg1_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection1<desttype, arg1_type, mt_policy>* conn = new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
+			_connection1<desttype, arg1_type, mt_policy>* conn =
+				new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
 			typename base_type::connections_list::const_iterator it = base_type::m_connected_slots.begin();
 			typename base_type::connections_list::const_iterator itEnd = base_type::m_connected_slots.end();
 
@@ -2069,9 +2309,8 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename arg2_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal2 :
-		public _signal_base2<arg1_type, arg2_type, mt_policy>
+	template<typename arg1_type, typename arg2_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal2 : public _signal_base2<arg1_type, arg2_type, mt_policy>
 	{
 	public:
 		typedef _signal_base2<arg1_type, arg2_type, mt_policy> base_type;
@@ -2080,16 +2319,17 @@ namespace sigslot
 		{
 		}
 
-		signal2(const signal2<arg1_type, arg2_type, mt_policy>& s)
-			: _signal_base2<arg1_type, arg2_type, mt_policy>(s)
+		signal2(const signal2<arg1_type, arg2_type, mt_policy>& s) :
+			_signal_base2<arg1_type, arg2_type, mt_policy>(s)
 		{
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection2<desttype, arg1_type, arg2_type, mt_policy>* conn = new _connection2<desttype, arg1_type, arg2_type, mt_policy>(pclass, pmemfun);
+			_connection2<desttype, arg1_type, arg2_type, mt_policy>* conn =
+				new _connection2<desttype, arg1_type, arg2_type, mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
@@ -2129,9 +2369,8 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal3 :
-		public _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>
+	template<typename arg1_type, typename arg2_type, typename arg3_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal3 : public _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>
 	{
 	public:
 		typedef _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy> base_type;
@@ -2140,16 +2379,17 @@ namespace sigslot
 		{
 		}
 
-		signal3(const signal3<arg1_type, arg2_type, arg3_type, mt_policy>& s)
-			: _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>(s)
+		signal3(const signal3<arg1_type, arg2_type, arg3_type, mt_policy>& s) :
+			_signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>(s)
 		{
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection3<desttype, arg1_type, arg2_type, arg3_type, mt_policy>* conn = new _connection3<desttype, arg1_type, arg2_type, arg3_type, mt_policy>(pclass, pmemfun);
+			_connection3<desttype, arg1_type, arg2_type, arg3_type, mt_policy>* conn =
+				new _connection3<desttype, arg1_type, arg2_type, arg3_type, mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
@@ -2189,9 +2429,13 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal4 :
-		public _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal4 : public _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>
 	{
 	public:
 		typedef _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy> base_type;
@@ -2205,11 +2449,12 @@ namespace sigslot
 		{
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection4<desttype, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn = new _connection4<desttype, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>(pclass, pmemfun);
+			_connection4<desttype, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn =
+				new _connection4<desttype, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
@@ -2249,9 +2494,14 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal5 :
-		public _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal5 : public _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>
 	{
 	public:
 		typedef _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy> base_type;
@@ -2265,17 +2515,19 @@ namespace sigslot
 		{
 		}
 
-		template <typename desttype>
+		template<typename desttype>
 		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection5<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn = new _connection5<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>(pclass, pmemfun);
+			_connection5<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn =
+				new _connection5<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>(
+					pclass,
+					pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
 
-		void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4,
-			arg5_type a5)
+		void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename base_type::connections_list::const_iterator itNext, it = base_type::m_connected_slots.begin();
@@ -2292,8 +2544,7 @@ namespace sigslot
 			}
 		}
 
-		void operator()(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4,
-			arg5_type a5)
+		void operator()(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename base_type::connections_list::const_iterator itNext, it = base_type::m_connected_slots.begin();
@@ -2312,9 +2563,15 @@ namespace sigslot
 	};
 
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class signal6 :
-		public _signal_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	class signal6 : public _signal_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>
 	{
 	public:
 		typedef _signal_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy> base_type;
@@ -2328,11 +2585,16 @@ namespace sigslot
 		{
 		}
 
-		template <typename desttype>
-		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type))
+		template<typename desttype>
+		void connect(
+			desttype* pclass,
+			void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection6<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn = new _connection6<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>(pclass, pmemfun);
+			_connection6<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn =
+				new _connection6<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>(
+					pclass,
+					pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
@@ -2372,27 +2634,58 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
 	class signal7 :
 		public _signal_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>
 	{
 	public:
-		typedef _signal_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> base_type;
+		typedef _signal_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>
+			base_type;
 
 		signal7()
 		{
 		}
 
-		signal7(const signal7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>& s) :
+		signal7(
+			const signal7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>& s) :
 			_signal_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>(s)
 		{
 		}
 
-		template <typename desttype>
-		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type))
+		template<typename desttype>
+		void connect(
+			desttype* pclass,
+			void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection7<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* conn = new _connection7<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>(pclass, pmemfun);
+			_connection7<
+				desttype,
+				arg1_type,
+				arg2_type,
+				arg3_type,
+				arg4_type,
+				arg5_type,
+				arg6_type,
+				arg7_type,
+				mt_policy>* conn =
+				new _connection7<
+					desttype,
+					arg1_type,
+					arg2_type,
+					arg3_type,
+					arg4_type,
+					arg5_type,
+					arg6_type,
+					arg7_type,
+					mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
@@ -2414,7 +2707,14 @@ namespace sigslot
 			}
 		}
 
-		void operator()(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7)
+		void operator()(
+			arg1_type a1,
+			arg2_type a2,
+			arg3_type a3,
+			arg4_type a4,
+			arg5_type a5,
+			arg6_type a6,
+			arg7_type a7)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename base_type::connections_list::const_iterator itNext, it = base_type::m_connected_slots.begin();
@@ -2432,32 +2732,110 @@ namespace sigslot
 		}
 	};
 
-	template <typename arg1_type, typename arg2_type, typename arg3_type, typename arg4_type, typename arg5_type, typename arg6_type, typename arg7_type, typename arg8_type, typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
+	template<
+		typename arg1_type,
+		typename arg2_type,
+		typename arg3_type,
+		typename arg4_type,
+		typename arg5_type,
+		typename arg6_type,
+		typename arg7_type,
+		typename arg8_type,
+		typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
 	class signal8 :
-		public _signal_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>
+		public _signal_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>
 	{
 	public:
-		typedef _signal_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> base_type;
+		typedef _signal_base8<
+			arg1_type,
+			arg2_type,
+			arg3_type,
+			arg4_type,
+			arg5_type,
+			arg6_type,
+			arg7_type,
+			arg8_type,
+			mt_policy>
+			base_type;
 
 		signal8()
 		{
 		}
 
-		signal8(const signal8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>& s) :
-			_signal_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>(s)
+		signal8(const signal8<
+				arg1_type,
+				arg2_type,
+				arg3_type,
+				arg4_type,
+				arg5_type,
+				arg6_type,
+				arg7_type,
+				arg8_type,
+				mt_policy>& s) :
+			_signal_base8<
+				arg1_type,
+				arg2_type,
+				arg3_type,
+				arg4_type,
+				arg5_type,
+				arg6_type,
+				arg7_type,
+				arg8_type,
+				mt_policy>(s)
 		{
 		}
 
-		template <typename desttype>
-		void connect(desttype* pclass, void (desttype::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type))
+		template<typename desttype>
+		void connect(
+			desttype* pclass,
+			void (desttype::*
+					  pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type))
 		{
 			lock_block<mt_policy> lockblock(this);
-			_connection8<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* conn = new _connection8<desttype, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>(pclass, pmemfun);
+			_connection8<
+				desttype,
+				arg1_type,
+				arg2_type,
+				arg3_type,
+				arg4_type,
+				arg5_type,
+				arg6_type,
+				arg7_type,
+				arg8_type,
+				mt_policy>* conn =
+				new _connection8<
+					desttype,
+					arg1_type,
+					arg2_type,
+					arg3_type,
+					arg4_type,
+					arg5_type,
+					arg6_type,
+					arg7_type,
+					arg8_type,
+					mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
 
-		void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7, arg8_type a8)
+		void emit(
+			arg1_type a1,
+			arg2_type a2,
+			arg3_type a3,
+			arg4_type a4,
+			arg5_type a5,
+			arg6_type a6,
+			arg7_type a7,
+			arg8_type a8)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename base_type::connections_list::const_iterator itNext, it = base_type::m_connected_slots.begin();
@@ -2474,7 +2852,15 @@ namespace sigslot
 			}
 		}
 
-		void operator()(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7, arg8_type a8)
+		void operator()(
+			arg1_type a1,
+			arg2_type a2,
+			arg3_type a3,
+			arg4_type a4,
+			arg5_type a5,
+			arg6_type a6,
+			arg7_type a7,
+			arg8_type a8)
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename base_type::connections_list::const_iterator itNext, it = base_type::m_connected_slots.begin();

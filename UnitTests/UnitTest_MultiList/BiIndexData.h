@@ -11,8 +11,7 @@
 namespace unittest
 {
 
-	class BiIndexData :
-		public MyGUI::BiIndexBase
+	class BiIndexData : public MyGUI::BiIndexBase
 	{
 	public:
 		size_t getItemCount() const
@@ -20,9 +19,9 @@ namespace unittest
 			return mItemsInfo.size();
 		}
 
-		void insertItemAt(size_t _index, const std::string& _name, size_t _data);
+		void insertItemAt(size_t _index, std::string_view _name, size_t _data);
 
-		void addItem(const std::string& _name, size_t _data)
+		void addItem(std::string_view _name, size_t _data)
 		{
 			insertItemAt(MyGUI::ITEM_NONE, _name, _data);
 		}
@@ -39,11 +38,10 @@ namespace unittest
 		void swapSortItemsAt(size_t _index1, size_t _index2);
 
 	private:
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 
 		// тестовые данные
 		VectorString mItemsInfo;
-
 	};
 
 } // namespace unittest

@@ -19,9 +19,7 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(TestState)
 
-	TestState::TestState() :
-		mTestLayout(nullptr),
-		mBackgroundControl(nullptr)
+	TestState::TestState()
 	{
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);
 		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &TestState::command_Test);
@@ -41,7 +39,7 @@ namespace tools
 		EditorWidgets::getInstance().clear();
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
 
-		mBackgroundControl = new BackgroundControl();
+		mBackgroundControl = new BackgroundControlLE();
 	}
 
 	void TestState::cleanupState()
@@ -80,11 +78,8 @@ namespace tools
 
 	void TestState::deleteTestLayout()
 	{
-		if (mTestLayout != nullptr)
-		{
-			delete mTestLayout;
-			mTestLayout = nullptr;
-		}
+		delete mTestLayout;
+		mTestLayout = nullptr;
 	}
 
 	void TestState::command_Test(const MyGUI::UString& _commandName, bool& _result)

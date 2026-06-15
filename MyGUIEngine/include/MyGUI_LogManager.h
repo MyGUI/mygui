@@ -11,13 +11,19 @@
 #include "MyGUI_LogStream.h"
 #include "MyGUI_LogSource.h"
 #include "MyGUI_Diagnostic.h"
+#include <memory>
 #include <vector>
 
 namespace MyGUI
 {
 
 #define MYGUI_LOGGING(section, level, text) \
-		MyGUI::LogManager::getInstance().log(section, MyGUI::LogLevel::level, MyGUI::LogStream() << text << MyGUI::LogStream::End(), __FILE__, __LINE__)
+	MyGUI::LogManager::getInstance().log( \
+		section, \
+		MyGUI::LogLevel::level, \
+		MyGUI::LogStream() << text << MyGUI::LogStream::End(), \
+		__FILE__, \
+		__LINE__)
 
 	class ConsoleLogListener;
 	class FileLogListener;
@@ -35,10 +41,15 @@ namespace MyGUI
 		/** Call LogSource::flush() for all log sources. */
 		void flush();
 		/** Call LogSource::log for all log sources. */
-		void log(const std::string& _section, LogLevel _level, const std::string& _message, const char* _file, int _line);
+		void log(
+			std::string_view _section,
+			LogLevel _level,
+			std::string_view _message,
+			std::string_view _file,
+			int _line);
 
 		/** Create default LevelLogFilter, FileLogListener and ConsoleLogListener. */
-		void createDefaultSource(const std::string& _logname);
+		void createDefaultSource(std::string_view _logname);
 
 		/** Enable or disable default ConsoleLogListener that writes log into std::cout.\n
 			Enabled (true) by default.
@@ -64,13 +75,13 @@ namespace MyGUI
 		using VectorLogSource = std::vector<LogSource*>;
 		VectorLogSource mSources;
 
-		ConsoleLogListener* mConsole;
-		FileLogListener* mFile;
-		LevelLogFilter* mFilter;
-		LogSource* mDefaultSource;
+		std::unique_ptr<ConsoleLogListener> mConsole;
+		std::unique_ptr<FileLogListener> mFile;
+		std::unique_ptr<LevelLogFilter> mFilter;
+		std::unique_ptr<LogSource> mDefaultSource;
 
-		LogLevel mLevel;
-		bool mConsoleEnable;
+		LogLevel mLevel{LogLevel::Info};
+		bool mConsoleEnable{true};
 	};
 
 } // namespace MyGUI

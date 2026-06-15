@@ -9,7 +9,6 @@
 #include "Base/BaseDemoManager.h"
 #include "GraphView.h"
 #include "AnimationGraph.h"
-#include "AnimationGraphFactory.h"
 #include "AnimationNodeFactory.h"
 #include "GraphNodeFactory.h"
 #include "OpenSaveFileDialog.h"
@@ -18,12 +17,8 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
-	public:
-		DemoKeeper();
-
 	private:
 		void createScene() override;
 		void destroyScene() override;
@@ -32,11 +27,17 @@ namespace demo
 
 		void createGrapView();
 		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
-		void notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
-		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
+		void notifyConnectPoint(
+			wraps::BaseGraphView* _sender,
+			wraps::BaseGraphConnection* _from,
+			wraps::BaseGraphConnection* _to);
+		void notifyDisconnectPoint(
+			wraps::BaseGraphView* _sender,
+			wraps::BaseGraphConnection* _from,
+			wraps::BaseGraphConnection* _to);
 		void notifyInvalidateNode(BaseAnimationNode* _sender);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
-		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id);
+		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, std::string_view _id);
 
 		void SaveGraph();
 		void LoadGraph();
@@ -46,26 +47,33 @@ namespace demo
 		void saveToFile(const std::string& _filename);
 		void loadFromFile(const std::string& _filename);
 
-		BaseAnimationNode* createNode(const std::string& _type, const std::string& _name);
-		BaseAnimationNode* getNodeByName(const std::string& _name);
+		BaseAnimationNode* createNode(std::string_view _type, std::string_view _name);
+		BaseAnimationNode* getNodeByName(std::string_view _name);
 
-		void connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to);
-		void disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to);
+		void connectPoints(
+			BaseAnimationNode* _node_from,
+			BaseAnimationNode* _node_to,
+			std::string_view _name_from,
+			std::string_view _name_to);
+		void disconnectPoints(
+			BaseAnimationNode* _node_from,
+			BaseAnimationNode* _node_to,
+			std::string_view _name_from,
+			std::string_view _name_to);
 
 	private:
-		GraphView* mGraphView;
+		GraphView* mGraphView{nullptr};
 
-		animation::AnimationGraphFactory mGraphFactory;
 		animation::AnimationNodeFactory mNodeFactory;
-		animation::AnimationGraph* mGraph;
+		animation::AnimationGraph* mGraph{nullptr};
 
 		GraphNodeFactory mGraphNodeFactory;
 
-		tools::OpenSaveFileDialog* mFileDialog;
-		bool mFileDialogSave;
-		wraps::ContextMenu* mContextMenu;
+		tools::OpenSaveFileDialog* mFileDialog{nullptr};
+		bool mFileDialogSave{false};
+		wraps::ContextMenu* mContextMenu{nullptr};
 
-		typedef std::vector<BaseAnimationNode*> VectorBaseAnimationNode;
+		using VectorBaseAnimationNode = std::vector<BaseAnimationNode*>;
 		VectorBaseAnimationNode mNodes;
 
 		MyGUI::IntPoint mClickPosition;

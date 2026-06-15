@@ -16,10 +16,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SubSkinStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT SubSkinStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( SubSkinStateInfo )
+		MYGUI_RTTI_DERIVED(SubSkinStateInfo)
 
 	public:
 		const FloatRect& getRect() const
@@ -30,7 +29,7 @@ namespace MyGUI
 	private:
 		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
-			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
+			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
 
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
@@ -39,7 +38,7 @@ namespace MyGUI
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
+			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 		}
 
@@ -47,18 +46,11 @@ namespace MyGUI
 		FloatRect mRect;
 	};
 
-	class MYGUI_EXPORT TileRectStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT TileRectStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( TileRectStateInfo )
+		MYGUI_RTTI_DERIVED(TileRectStateInfo)
 
 	public:
-		TileRectStateInfo() :
-			mTileH(true),
-			mTileV(true)
-		{
-		}
-
 		const FloatRect& getRect() const
 		{
 			return mRect;
@@ -82,7 +74,7 @@ namespace MyGUI
 	private:
 		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
-			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
+			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
 
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
@@ -91,38 +83,35 @@ namespace MyGUI
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
+			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 
 			xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
 			{
-				const std::string& key = prop->findAttribute("key");
-				const std::string& value = prop->findAttribute("value");
-				if (key == "TileH") mTileH = utility::parseBool(value);
-				else if (key == "TileV") mTileV = utility::parseBool(value);
-				else if (key == "TileSize") mTileSize = IntSize::parse(value);
+				std::string_view key = prop->findAttribute("key");
+				std::string_view value = prop->findAttribute("value");
+				if (key == "TileH")
+					mTileH = utility::parseBool(value);
+				else if (key == "TileV")
+					mTileV = utility::parseBool(value);
+				else if (key == "TileSize")
+					mTileSize = IntSize::parse(value);
 			}
 		}
 
 	private:
 		FloatRect mRect;
 		IntSize mTileSize;
-		bool mTileH;
-		bool mTileV;
+		bool mTileH{true};
+		bool mTileV{true};
 	};
 
-	class MYGUI_EXPORT RotatingSkinStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT RotatingSkinStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( RotatingSkinStateInfo )
+		MYGUI_RTTI_DERIVED(RotatingSkinStateInfo)
 
 	public:
-		RotatingSkinStateInfo() :
-			mAngle(0)
-		{
-		}
-
 		float getAngle() const
 		{
 			return mAngle;
@@ -144,13 +133,15 @@ namespace MyGUI
 			xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
 			{
-				const std::string& key = prop->findAttribute("key");
-				const std::string& value = prop->findAttribute("value");
-				if (key == "Angle") mAngle = utility::parseFloat(value);
-				if (key == "Center") mCenter = IntPoint::parse(value);
+				std::string_view key = prop->findAttribute("key");
+				std::string_view value = prop->findAttribute("value");
+				if (key == "Angle")
+					mAngle = utility::parseFloat(value);
+				if (key == "Center")
+					mCenter = IntPoint::parse(value);
 			}
 
-			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
+			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
 
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
@@ -159,29 +150,22 @@ namespace MyGUI
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
+			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 		}
 
 	private:
 		FloatRect mRect;
 		IntPoint mCenter;
-		float mAngle; // Angle in radians
+		float mAngle{0}; // Angle in radians
 	};
 
 
-	class MYGUI_EXPORT EditTextStateInfo :
-		public IStateInfo
+	class MYGUI_EXPORT EditTextStateInfo : public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( EditTextStateInfo )
+		MYGUI_RTTI_DERIVED(EditTextStateInfo)
 
 	public:
-		EditTextStateInfo() :
-			mColour(Colour::White),
-			mShift(false)
-		{
-		}
-
 		const Colour& getColour() const
 		{
 			return mColour;
@@ -197,7 +181,7 @@ namespace MyGUI
 		{
 			mShift = utility::parseBool(_node->findAttribute("shift"));
 
-			std::string colour = _node->findAttribute("colour");
+			std::string colour{_node->findAttribute("colour")};
 			if (_version >= Version(1, 1))
 			{
 				colour = LanguageManager::getInstance().replaceTags(colour);
@@ -207,8 +191,8 @@ namespace MyGUI
 		}
 
 	private:
-		Colour mColour;
-		bool mShift;
+		Colour mColour{Colour::White};
+		bool mShift{false};
 	};
 
 } // namespace MyGUI

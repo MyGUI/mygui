@@ -12,7 +12,7 @@ namespace attribute
 {
 
 	// класс обертка для удаления данных из статического вектора
-	template <typename Type>
+	template<typename Type>
 	struct DataHolder
 	{
 		~DataHolder()
@@ -25,41 +25,44 @@ namespace attribute
 	};
 
 	// интерфейс для обертки поля
-	template <typename OwnerType, typename SetterType>
+	template<typename OwnerType, typename SetterType>
 	struct Field
 	{
-		virtual ~Field() { }
+		virtual ~Field() = default;
 		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
-		virtual const std::string& getFieldTypeName() const = 0;
+		virtual std::string_view getFieldTypeName() const = 0;
 	};
 
 	// шаблон для обертки поля
-	template <typename OwnerType, typename FieldType, typename SetterType>
+	template<typename OwnerType, typename FieldType, typename SetterType>
 	struct FieldHolder : public Field<OwnerType, SetterType>
 	{
-		FieldHolder(FieldType* OwnerType::* offset) : m_offset(offset) {  }
-		FieldType* OwnerType::* const m_offset;
+		FieldHolder(FieldType* OwnerType::*offset) :
+			m_offset(offset)
+		{
+		}
+		FieldType* OwnerType::*const m_offset;
 
 		bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) override
 		{
 			_target->*m_offset = SetterType::template convert<FieldType>(_value);
 			return _target->*m_offset != nullptr;
 		}
-		const std::string& getFieldTypeName() const override
+		std::string_view getFieldTypeName() const override
 		{
 			return FieldType::getClassTypeName();
 		}
 	};
 
 	// шаблон для атрибута поля
-	template <typename OwnerType, typename ValueType, typename SetterType>
+	template<typename OwnerType, typename ValueType, typename SetterType>
 	struct AttributeField
 	{
-		typedef std::pair<Field<OwnerType, SetterType>*, ValueType> BindPair;
-		typedef std::vector<BindPair> VectorBindPair;
+		using BindPair = std::pair<Field<OwnerType, SetterType>*, ValueType>;
+		using VectorBindPair = std::vector<BindPair>;
 
-		template <typename FieldType>
-		AttributeField(FieldType* OwnerType::* _offset, const ValueType& _value)
+		template<typename FieldType>
+		AttributeField(FieldType* OwnerType::*_offset, const ValueType& _value)
 		{
 			getData().push_back(BindPair(new FieldHolder<OwnerType, FieldType, SetterType>(_offset), _value));
 		}
@@ -72,12 +75,14 @@ namespace attribute
 
 	// макрос для инстансирования атрибута поля
 #define DECLARE_ATTRIBUTE_FIELD(_name, _type, _setter) \
-	template <typename OwnerType, typename ValueType = _type, typename SetterType = _setter> \
+	template<typename OwnerType, typename ValueType = _type, typename SetterType = _setter> \
 	struct _name : public attribute::AttributeField<OwnerType, ValueType, SetterType> \
 	{ \
-		template <typename FieldType> \
-		_name(FieldType* OwnerType::* _offset, const ValueType& _value) : \
-			AttributeField<OwnerType, ValueType, SetterType>(_offset, _value) { } \
+		template<typename FieldType> \
+		_name(FieldType* OwnerType::*_offset, const ValueType& _value) : \
+			AttributeField<OwnerType, ValueType, SetterType>(_offset, _value) \
+		{ \
+		} \
 	}
 
 	// макрос для инстансирования экземпляра атрибута
@@ -92,7 +97,7 @@ namespace attribute
 
 
 	// шаблон для атрибута класса
-	template <typename Type, typename ValueType>
+	template<typename Type, typename ValueType>
 	struct ClassAttribute
 	{
 		ClassAttribute(const ValueType& _value)
@@ -108,11 +113,13 @@ namespace attribute
 
 	// макрос для инстансирования атрибута класса
 #define DECLARE_ATTRIBUTE_CLASS(_name, _type) \
-	template <typename Type, typename ValueType = _type> \
+	template<typename Type, typename ValueType = _type> \
 	struct _name : public attribute::ClassAttribute<_name<Type>, ValueType> \
 	{ \
 		_name(const ValueType& _value) : \
-			ClassAttribute<_name<Type>, ValueType>(_value) { } \
+			ClassAttribute<_name<Type>, ValueType>(_value) \
+		{ \
+		} \
 	}
 
 	// макрос для инстансирования экземпляра класса

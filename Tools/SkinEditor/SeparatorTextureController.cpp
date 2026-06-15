@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SeparatorTextureController)
 
-	SeparatorTextureController::SeparatorTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void SeparatorTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
@@ -51,7 +44,7 @@ namespace tools
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
-		std::string texture;
+		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
@@ -61,7 +54,7 @@ namespace tools
 				property->eventChangeProperty.connect(this, &SeparatorTextureController::notifyChangeProperty);
 		}
 
-		std::string coord;
+		std::string_view coord;
 		property = PropertyUtility::getPropertyByName("Skin", "Size");
 		if (property != nullptr)
 		{
@@ -73,7 +66,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
@@ -88,7 +83,7 @@ namespace tools
 			}
 		}
 
-		mControl->setTextureValue(texture);
+		mControl->setTextureValue(MyGUI::UString(texture));
 		updateCoords(coord);
 	}
 
@@ -113,7 +108,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorTextureController::notifyChangeValue(const std::string& _value)
+	void SeparatorTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -128,7 +123,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorTextureController::notifyChangeScope(const std::string& _scope)
+	void SeparatorTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -140,7 +135,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &SeparatorTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &SeparatorTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &SeparatorTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -159,10 +156,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -173,7 +170,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorTextureController::updateCoords(const std::string& _value)
+	void SeparatorTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
@@ -193,7 +190,9 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			DataPtr selected = mParentData->getChildSelected();
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
@@ -216,7 +215,7 @@ namespace tools
 				{
 					if (visible)
 					{
-						mFrames.push_back(std::make_pair(value, type));
+						mFrames.emplace_back(value, type);
 					}
 				}
 			}
@@ -231,39 +230,39 @@ namespace tools
 			mControl->setViewSelectors(mFrames);
 	}
 
-	ScopeTextureControl::SelectorType SeparatorTextureController::getTypeByName(const std::string& _name)
+	ScopeTextureControl::SelectorType SeparatorTextureController::getTypeByName(std::string_view _name)
 	{
 		if (_name == "Left" || _name == "Right")
 			return ScopeTextureControl::SelectorOffsetV;
-		else if (_name == "Top" || _name == "Bottom")
+		if (_name == "Top" || _name == "Bottom")
 			return ScopeTextureControl::SelectorOffsetH;
 
 		return ScopeTextureControl::SelectorPosition;
 	}
 
-	MyGUI::IntCoord SeparatorTextureController::getCoordByName(const std::string& _name, int _offset)
+	MyGUI::IntCoord SeparatorTextureController::getCoordByName(std::string_view _name, int _offset) const
 	{
 		if (_name == "Left")
-			return MyGUI::IntCoord(_offset, 0, 1, mTextureCoord.height);
-		else if (_name == "Right")
-			return MyGUI::IntCoord(mTextureCoord.width - _offset, 0, 1, mTextureCoord.height);
-		else if (_name == "Top")
-			return MyGUI::IntCoord(0, _offset, mTextureCoord.width, 1);
-		else if (_name == "Bottom")
-			return MyGUI::IntCoord(0, mTextureCoord.height - _offset, mTextureCoord.width, 1);
+			return {_offset, 0, 1, mTextureCoord.height};
+		if (_name == "Right")
+			return {mTextureCoord.width - _offset, 0, 1, mTextureCoord.height};
+		if (_name == "Top")
+			return {0, _offset, mTextureCoord.width, 1};
+		if (_name == "Bottom")
+			return {0, mTextureCoord.height - _offset, mTextureCoord.width, 1};
 
-		return MyGUI::IntCoord();
+		return {};
 	}
 
-	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, const std::string& _name)
+	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name) const
 	{
 		if (_name == "Left")
 			return _coord.left;
-		else if (_name == "Right")
+		if (_name == "Right")
 			return mTextureCoord.width - _coord.left;
-		else if (_name == "Top")
+		if (_name == "Top")
 			return _coord.top;
-		else if (_name == "Bottom")
+		if (_name == "Bottom")
 			return mTextureCoord.height - _coord.top;
 
 		return 0;

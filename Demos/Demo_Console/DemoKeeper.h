@@ -13,12 +13,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -29,8 +26,8 @@ namespace demo
 		void setupResources() override;
 
 	private:
-		Console* mConsole;
-		MyGUI::EditBox* mEdit;
+		Console* mConsole{nullptr};
+		MyGUI::EditBox* mEdit{nullptr};
 	};
 
 } // namespace demo

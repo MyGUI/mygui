@@ -12,13 +12,11 @@
 namespace demo
 {
 
-	class PanelViewWindow :
-		public wraps::BaseLayout
+	class PanelViewWindow : public wraps::BaseLayout
 	{
 	public:
 		PanelViewWindow() :
-			BaseLayout("PanelView.layout"),
-			mPanelView(nullptr)
+			BaseLayout("PanelView.layout")
 		{
 			assignBase(mPanelView, "scroll_View");
 		}
@@ -29,7 +27,7 @@ namespace demo
 		}
 
 	private:
-		PanelView* mPanelView;
+		PanelView* mPanelView{nullptr};
 	};
 
 } // namespace demo

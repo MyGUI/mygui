@@ -17,10 +17,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(WidgetCreatorManager);
 
 	WidgetCreatorManager::WidgetCreatorManager() :
-		mCreateMode(false),
-		mStartNewWidget(false),
-		mNewWidget(nullptr),
-		mPopupMode(false),
 		mSingletonHolder(this)
 	{
 	}
@@ -34,7 +30,7 @@ namespace tools
 		resetWidget();
 	}
 
-	void WidgetCreatorManager::setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin)
+	void WidgetCreatorManager::setCreatorInfo(std::string_view _widgetType, std::string_view _widgetSkin)
 	{
 		mWidgetType = _widgetType;
 		mWidgetSkin = _widgetSkin;
@@ -45,8 +41,8 @@ namespace tools
 
 	void WidgetCreatorManager::resetCreatorInfo()
 	{
-		mWidgetType = "";
-		mWidgetSkin = "";
+		mWidgetType.clear();
+		mWidgetSkin.clear();
 		mCreateMode = false;
 
 		eventChangeCreatorMode(mCreateMode);
@@ -54,8 +50,8 @@ namespace tools
 
 	void WidgetCreatorManager::resetAllCreatorInfo()
 	{
-		mWidgetType = "";
-		mWidgetSkin = "";
+		mWidgetType.clear();
+		mWidgetSkin.clear();
 		mCreateMode = false;
 		mPopupMode = false;
 
@@ -157,7 +153,7 @@ namespace tools
 				mNewWidget->setCoord(coord);
 
 				// создали виджет, все счастливы
-				WidgetContainer * widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
+				WidgetContainer* widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
 				if (mPopupMode)
 					widgetContainer->setStyle(mNewWidget->getWidgetStyle().print());
 				mNewWidget = nullptr;

@@ -15,14 +15,13 @@ namespace tools
 
 	class SelectorControlLE;
 
-	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangePosition;
+	using EventHandle_ChangePosition = MyGUI::delegates::MultiDelegate<>;
 
-	class SelectorControlLE :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+
+	class SelectorControlLE : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
-		SelectorControlLE(const std::string& _layout, MyGUI::Widget* _parent);
+		SelectorControlLE(std::string_view _layout, MyGUI::Widget* _parent);
 		~SelectorControlLE() override;
 
 		void setVisible(bool _value);
@@ -45,7 +44,7 @@ namespace tools
 		MyGUI::Widget* getMainWidget();
 
 	protected:
-		void setPropertyColour(const std::string& _propertyName);
+		void setPropertyColour(std::string_view _propertyName);
 
 	private:
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
@@ -53,12 +52,12 @@ namespace tools
 		void setColour(MyGUI::Colour _value);
 		void updateCoord();
 
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 	private:
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::IntCoord mCoordReal;
-		double mScaleValue;
+		double mScaleValue{1.0};
 		MyGUI::Widget* mProjection;
 		MyGUI::IntCoord mProjectionDiff;
 		std::string mPropertyColour;

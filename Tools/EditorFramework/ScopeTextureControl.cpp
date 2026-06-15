@@ -22,42 +22,64 @@
 namespace tools
 {
 
-	ScopeTextureControl::ScopeTextureControl() :
-		mCurrentSelectorControl(nullptr),
-		mCurrentSelectorType(SelectorNone)
-	{
-	}
-
 	ScopeTextureControl::~ScopeTextureControl()
 	{
-		for (VectorSelector::iterator selector = mSelectors.begin(); selector != mSelectors.end(); selector ++)
-			(*selector).first->eventChangePosition.disconnect(this);
+		for (auto& selector : mSelectors)
+			selector.first->eventChangePosition.disconnect(this);
 	}
 
-	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_MoveLeft")->connect(this, &ScopeTextureControl::CommandMoveLeft);
-		CommandManager::getInstance().getEvent("Command_MoveRight")->connect(this, &ScopeTextureControl::CommandMoveRight);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveLeft")
+			->connect(this, &ScopeTextureControl::CommandMoveLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveRight")
+			->connect(this, &ScopeTextureControl::CommandMoveRight);
 		CommandManager::getInstance().getEvent("Command_MoveTop")->connect(this, &ScopeTextureControl::CommandMoveTop);
-		CommandManager::getInstance().getEvent("Command_MoveBottom")->connect(this, &ScopeTextureControl::CommandMoveBottom);
-		CommandManager::getInstance().getEvent("Command_SizeLeft")->connect(this, &ScopeTextureControl::CommandSizeLeft);
-		CommandManager::getInstance().getEvent("Command_SizeRight")->connect(this, &ScopeTextureControl::CommandSizeRight);
+		CommandManager::getInstance()
+			.getEvent("Command_MoveBottom")
+			->connect(this, &ScopeTextureControl::CommandMoveBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeLeft")
+			->connect(this, &ScopeTextureControl::CommandSizeLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeRight")
+			->connect(this, &ScopeTextureControl::CommandSizeRight);
 		CommandManager::getInstance().getEvent("Command_SizeTop")->connect(this, &ScopeTextureControl::CommandSizeTop);
-		CommandManager::getInstance().getEvent("Command_SizeBottom")->connect(this, &ScopeTextureControl::CommandSizeBottom);
-		CommandManager::getInstance().getEvent("Command_GridMoveLeft")->connect(this, &ScopeTextureControl::CommandGridMoveLeft);
-		CommandManager::getInstance().getEvent("Command_GridMoveRight")->connect(this, &ScopeTextureControl::CommandGridMoveRight);
-		CommandManager::getInstance().getEvent("Command_GridMoveTop")->connect(this, &ScopeTextureControl::CommandGridMoveTop);
-		CommandManager::getInstance().getEvent("Command_GridMoveBottom")->connect(this, &ScopeTextureControl::CommandGridMoveBottom);
-		CommandManager::getInstance().getEvent("Command_GridSizeLeft")->connect(this, &ScopeTextureControl::CommandGridSizeLeft);
-		CommandManager::getInstance().getEvent("Command_GridSizeRight")->connect(this, &ScopeTextureControl::CommandGridSizeRight);
-		CommandManager::getInstance().getEvent("Command_GridSizeTop")->connect(this, &ScopeTextureControl::CommandGridSizeTop);
-		CommandManager::getInstance().getEvent("Command_GridSizeBottom")->connect(this, &ScopeTextureControl::CommandGridSizeBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_SizeBottom")
+			->connect(this, &ScopeTextureControl::CommandSizeBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveLeft")
+			->connect(this, &ScopeTextureControl::CommandGridMoveLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveRight")
+			->connect(this, &ScopeTextureControl::CommandGridMoveRight);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveTop")
+			->connect(this, &ScopeTextureControl::CommandGridMoveTop);
+		CommandManager::getInstance()
+			.getEvent("Command_GridMoveBottom")
+			->connect(this, &ScopeTextureControl::CommandGridMoveBottom);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeLeft")
+			->connect(this, &ScopeTextureControl::CommandGridSizeLeft);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeRight")
+			->connect(this, &ScopeTextureControl::CommandGridSizeRight);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeTop")
+			->connect(this, &ScopeTextureControl::CommandGridSizeTop);
+		CommandManager::getInstance()
+			.getEvent("Command_GridSizeBottom")
+			->connect(this, &ScopeTextureControl::CommandGridSizeBottom);
 
 		updateCaption();
 
-		setTextureValue("");
+		setTextureValue(MyGUI::UString());
 		clearCoordValue();
 	}
 
@@ -82,7 +104,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left --;
+		mCoordValue.left--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -93,7 +115,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left ++;
+		mCoordValue.left++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -104,7 +126,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top --;
+		mCoordValue.top--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -115,7 +137,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top ++;
+		mCoordValue.top++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -170,7 +192,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
+		mCoordValue.width =
+			GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -181,7 +204,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
+		mCoordValue.width =
+			GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -192,7 +216,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
+		mCoordValue.height =
+			GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -203,7 +228,8 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
+		mCoordValue.height =
+			GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -214,7 +240,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width --;
+		mCoordValue.width--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -225,7 +251,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width ++;
+		mCoordValue.width++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -236,7 +262,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height --;
+		mCoordValue.height--;
 		updateFromCoordValue();
 
 		_result = true;
@@ -247,7 +273,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height ++;
+		mCoordValue.height++;
 		updateFromCoordValue();
 
 		_result = true;
@@ -318,7 +344,7 @@ namespace tools
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
 
-	void ScopeTextureControl::setValue(const std::string& _value)
+	void ScopeTextureControl::setValue(std::string_view _value)
 	{
 		eventChangeValue(_value);
 	}
@@ -346,13 +372,13 @@ namespace tools
 
 	void ScopeTextureControl::clearCoordValue()
 	{
-		for (VectorSelector::iterator selector = mSelectors.begin(); selector != mSelectors.end(); selector ++)
-			(*selector).first->setVisible(false);
+		for (auto& selector : mSelectors)
+			selector.first->setVisible(false);
 	}
 
 	void ScopeTextureControl::clearAll()
 	{
-		setTextureValue("");
+		setTextureValue(MyGUI::UString());
 		clearCoordValue();
 		clearViewSelectors();
 	}
@@ -362,10 +388,10 @@ namespace tools
 		clearViewSelectors();
 
 		bool changes = false;
-		for (VectorCoord::const_iterator selectorCoord = _selectors.begin(); selectorCoord != _selectors.end(); selectorCoord ++)
+		for (const auto& _selector : _selectors)
 		{
-			SelectorControl* selector = getFreeSelector(mBlackSelectors, true, (*selectorCoord).second, changes);
-			selector->setCoord((*selectorCoord).first);
+			SelectorControl* selector = getFreeSelector(mBlackSelectors, true, _selector.second, changes);
+			selector->setCoord(_selector.first);
 		}
 
 		// FIXME
@@ -383,20 +409,24 @@ namespace tools
 
 	void ScopeTextureControl::clearViewSelectors()
 	{
-		for (VectorSelector::iterator selector = mBlackSelectors.begin(); selector != mBlackSelectors.end(); selector ++)
-			(*selector).first->setVisible(false);
+		for (auto& blackSelector : mBlackSelectors)
+			blackSelector.first->setVisible(false);
 	}
 
-	SelectorControl* ScopeTextureControl::getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes)
+	SelectorControl* ScopeTextureControl::getFreeSelector(
+		VectorSelector& _selectors,
+		bool _backType,
+		SelectorType _type,
+		bool& _changes)
 	{
-		for (VectorSelector::iterator selector = _selectors.begin(); selector != _selectors.end(); selector ++)
+		for (auto& selector : _selectors)
 		{
-			if (!(*selector).first->getVisible())
+			if (!selector.first->getVisible())
 			{
-				if ((*selector).second == _type)
+				if (selector.second == _type)
 				{
-					(*selector).first->setVisible(true);
-					return (*selector).first;
+					selector.first->setVisible(true);
+					return selector.first;
 				}
 			}
 		}
@@ -437,7 +467,7 @@ namespace tools
 		if (_type == SelectorPositionReadOnly)
 			control->setEnabled(false);
 
-		_selectors.push_back(std::make_pair(control, _type));
+		_selectors.emplace_back(control, _type);
 
 		return control;
 	}

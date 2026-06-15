@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SkinTextureController)
 
-	SkinTextureController::SkinTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void SkinTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
@@ -88,14 +81,14 @@ namespace tools
 		}
 	}
 
-	void SkinTextureController::notifyChangeValue(const std::string& _value)
+	void SkinTextureController::notifyChangeValue(std::string_view _value)
 	{
 		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Size");
 		if (property != nullptr)
 			PropertyUtility::executeAction(property, _value, true);
 	}
 
-	void SkinTextureController::notifyChangeScope(const std::string& _scope)
+	void SkinTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -107,7 +100,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &SkinTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &SkinTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &SkinTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -126,10 +121,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -140,7 +135,7 @@ namespace tools
 		}
 	}
 
-	void SkinTextureController::updateCoords(const std::string& _value)
+	void SkinTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
@@ -153,9 +148,9 @@ namespace tools
 		}
 	}
 
-	void SkinTextureController::updateTexture(const std::string& _value)
+	void SkinTextureController::updateTexture(std::string_view _value)
 	{
-		mControl->setTextureValue(_value);
+		mControl->setTextureValue(MyGUI::UString(_value));
 		mControl->resetTextureRegion();
 	}
 

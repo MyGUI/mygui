@@ -7,12 +7,13 @@
 namespace base
 {
 
-	class BaseManager :
-		public SdlBaseManager,
-		public MyGUI::OpenGLImageLoader
+	class BaseManager : public SdlBaseManager, public MyGUI::OpenGLImageLoader
 	{
 	public:
-        BaseManager() : SdlBaseManager(true) { }
+		BaseManager() :
+			SdlBaseManager(true)
+		{
+		}
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;
@@ -21,9 +22,14 @@ namespace base
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
 
-//		/*internal:*/
+		//		/*internal:*/
 		void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename) override;
-		void saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename) override;
+		void saveImage(
+			int _width,
+			int _height,
+			MyGUI::PixelFormat _format,
+			void* _texture,
+			const std::string& _filename) override;
 
 	private:
 		MyGUI::OpenGLPlatform* mPlatform = nullptr;

@@ -5,13 +5,12 @@
 */
 
 #include "MyGUI_OpenGL3Platform.h"
-#include <assert.h>
+#include <cassert>
 
 namespace MyGUI
 {
 
-	OpenGL3Platform::OpenGL3Platform() :
-		mIsInitialise(false)
+	OpenGL3Platform::OpenGL3Platform()
 	{
 		mRenderManager = new OpenGL3RenderManager();
 		mDataManager = new OpenGL3DataManager();
@@ -26,7 +25,7 @@ namespace MyGUI
 		delete mLogManager;
 	}
 
-	void OpenGL3Platform::initialise(OpenGL3ImageLoader* _loader, const std::string& _logName)
+	void OpenGL3Platform::initialise(OpenGL3ImageLoader* _loader, std::string_view _logName)
 	{
 		assert(!mIsInitialise);
 		mIsInitialise = true;

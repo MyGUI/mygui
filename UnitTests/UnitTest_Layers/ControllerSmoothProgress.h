@@ -14,18 +14,11 @@
 namespace demo
 {
 
-	class ControllerSmoothProgress :
-		public MyGUI::ControllerItem
+	class ControllerSmoothProgress : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerSmoothProgress )
+		MYGUI_RTTI_DERIVED(ControllerSmoothProgress)
 
 	public:
-		ControllerSmoothProgress() :
-			mTime(0),
-			mCurrentPosition(0),
-			mNeedPosition(0)
-		{ }
-
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			const float slice = 0.04f;
@@ -48,7 +41,8 @@ namespace demo
 			MyGUI::ProgressBar* progress = _widget->castType<MyGUI::ProgressBar>(false);
 			if (progress != nullptr)
 			{
-				_widget->eventChangeProperty += MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
+				_widget->eventChangeProperty +=
+					MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
 			}
 		}
 
@@ -74,7 +68,7 @@ namespace demo
 			}
 		}
 
-		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
+		void notifyChangeProperty(MyGUI::Widget* _sender, std::string_view _key, std::string_view _value)
 		{
 			if (_key == "RangePosition")
 			{
@@ -88,10 +82,9 @@ namespace demo
 		}
 
 	private:
-		float mTime;
-		size_t mCurrentPosition;
-		size_t mNeedPosition;
-
+		float mTime{0};
+		size_t mCurrentPosition{0};
+		size_t mNeedPosition{0};
 	};
 
 }

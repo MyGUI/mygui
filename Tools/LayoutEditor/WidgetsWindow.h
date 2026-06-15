@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class WidgetsWindow :
-		public wraps::BaseLayout
+	class WidgetsWindow : public wraps::BaseLayout
 	{
 	public:
 		WidgetsWindow(MyGUI::Widget* _parent = nullptr);
@@ -22,7 +21,7 @@ namespace tools
 
 	private:
 		void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item);
-		void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag);
+		void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag) const;
 		void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info);
 
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
@@ -36,17 +35,17 @@ namespace tools
 		bool getCellSelected(MyGUI::Widget* _widget);
 
 	private:
-		MyGUI::TabControl* mTabSkins;
-		MyGUI::Button* mPopupMode;
+		MyGUI::TabControl* mTabSkins{nullptr};
+		MyGUI::Button* mPopupMode{nullptr};
 
-		int mWidgetsButtonWidth;
-		int mWidgetsButtonHeight;
-		int mWidgetsButtonOffset;
+		int mWidgetsButtonWidth{0};
+		int mWidgetsButtonHeight{0};
+		int mWidgetsButtonOffset{0};
 
 		std::string mSkinSheetName;
 		std::string mButtonSkinName;
 
-		typedef std::vector<MyGUI::ItemBox*> VectorItemBox;
+		using VectorItemBox = std::vector<MyGUI::ItemBox*>;
 		VectorItemBox mItemBoxs;
 	};
 

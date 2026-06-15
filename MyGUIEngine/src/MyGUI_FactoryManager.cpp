@@ -14,7 +14,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(FactoryManager);
 
 	FactoryManager::FactoryManager() :
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}
@@ -37,13 +36,22 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void FactoryManager::registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate)
+	void FactoryManager::registerFactory(
+		std::string_view _category,
+		std::string_view _type,
+		Delegate::IDelegate* _delegate)
 	{
 		//FIXME
-		mRegisterFactoryItems[_category][_type] = _delegate;
+		auto category = mRegisterFactoryItems.find(_category);
+		if (category == mRegisterFactoryItems.end())
+			category = mRegisterFactoryItems.emplace(_category, MapFactoryItem()).first;
+		auto type = category->second.find(_type);
+		if (type == category->second.end())
+			type = category->second.emplace(_type, Delegate()).first;
+		type->second = _delegate;
 	}
 
-	void FactoryManager::unregisterFactory(const std::string& _category, const std::string& _type)
+	void FactoryManager::unregisterFactory(std::string_view _category, std::string_view _type)
 	{
 		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
 		if (category == mRegisterFactoryItems.end())
@@ -59,7 +67,7 @@ namespace MyGUI
 		category->second.erase(type);
 	}
 
-	void FactoryManager::unregisterFactory(const std::string& _category)
+	void FactoryManager::unregisterFactory(std::string_view _category)
 	{
 		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
 		if (category == mRegisterFactoryItems.end())
@@ -69,7 +77,7 @@ namespace MyGUI
 		mRegisterFactoryItems.erase(category);
 	}
 
-	IObject* FactoryManager::createObject(const std::string& _category, const std::string& _type)
+	IObject* FactoryManager::createObject(std::string_view _category, std::string_view _type)
 	{
 		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
 		if (category == mRegisterFactoryItems.end())
@@ -77,7 +85,7 @@ namespace MyGUI
 			return nullptr;
 		}
 
-		std::string typeName = BackwardCompatibility::getFactoryRename(_category, _type);
+		std::string_view typeName = BackwardCompatibility::getFactoryRename(_category, _type);
 		MapFactoryItem::iterator type = category->second.find(typeName);
 		if (type == category->second.end())
 		{
@@ -115,20 +123,14 @@ namespace MyGUI
 		type->second(_object, nullptr, _version);*/
 	}
 
-	bool FactoryManager::isFactoryExist(const std::string& _category, const std::string& _type)
+	bool FactoryManager::isFactoryExist(std::string_view _category, std::string_view _type)
 	{
 		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
 		if (category == mRegisterFactoryItems.end())
 		{
 			return false;
 		}
-		MapFactoryItem::iterator type = category->second.find(_type);
-		if (type == category->second.end())
-		{
-			return false;
-		}
-
-		return true;
+		return category->second.find(_type) != category->second.end();
 	}
 
 } // namespace MyGUI

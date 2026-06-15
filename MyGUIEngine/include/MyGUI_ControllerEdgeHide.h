@@ -21,14 +21,11 @@ namespace MyGUI
 		till only small part of widget be visible. Widget will move
 		inside screen if it have any focus.
 	*/
-	class MYGUI_EXPORT ControllerEdgeHide :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerEdgeHide : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerEdgeHide )
+		MYGUI_RTTI_DERIVED(ControllerEdgeHide)
 
 	public:
-		ControllerEdgeHide();
-
 		/**
 			@param _value in which widget will be hidden or shown
 		*/
@@ -46,15 +43,15 @@ namespace MyGUI
 
 		bool addTime(Widget* _widget, float _time) override;
 		void prepareItem(Widget* _widget) override;
-		void setProperty(const std::string& _key, const std::string& _value) override;
+		void setProperty(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void recalculateTime(Widget* _widget);
 
-		float mTime;
-		int mRemainPixels;
-		int mShadowSize;
-		float mElapsedTime;
+		float mTime{1.0};
+		int mRemainPixels{0};
+		int mShadowSize{0};
+		float mElapsedTime{0};
 		// for checking if widget was moved
 		MyGUI::IntCoord mLastCoord;
 	};

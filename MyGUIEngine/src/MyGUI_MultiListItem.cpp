@@ -11,10 +11,6 @@
 namespace MyGUI
 {
 
-	MultiListItem::MultiListItem()
-	{
-	}
-
 	void MultiListItem::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -57,7 +53,7 @@ namespace MyGUI
 			owner->setColumnWidth(this, _value);
 	}
 
-	void MultiListItem::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MultiListItem::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{MultiListItem, ItemResizingPolicy, ResizingPolicy} Поведение при изменении размера.
 		if (_key == "ItemResizingPolicy")
@@ -82,7 +78,7 @@ namespace MyGUI
 		{
 			if (getParent()->isType<MultiListBox>())
 				return getParent()->castType<MultiListBox>();
-			else if ((getParent()->getParent() != nullptr) && (getParent()->getParent()->getClientWidget() == getParent()))
+			if ((getParent()->getParent() != nullptr) && (getParent()->getParent()->getClientWidget() == getParent()))
 			{
 				if (getParent()->getParent()->isType<MultiListBox>())
 					return getParent()->getParent()->castType<MultiListBox>();

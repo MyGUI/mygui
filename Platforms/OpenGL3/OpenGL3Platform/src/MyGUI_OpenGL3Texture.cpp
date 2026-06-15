@@ -10,28 +10,14 @@
 #include "MyGUI_OpenGL3Platform.h"
 #include "MyGUI_OpenGL3RTTexture.h"
 
-#include <GL/glew.h>
+#include <GL/gl.h>
 
 namespace MyGUI
 {
 
 	OpenGL3Texture::OpenGL3Texture(const std::string& _name, OpenGL3ImageLoader* _loader) :
 		mName(_name),
-		mWidth(0),
-		mHeight(0),
-		mPixelFormat(0),
-		mInternalPixelFormat(0),
-		mUsage(0),
-		mAccess(0),
-		mNumElemBytes(0),
-		mDataSize(0),
-		mTextureId(0),
-		mProgramId(0),
-		mPboID(0),
-		mLock(false),
-		mBuffer(nullptr),
-		mImageLoader(_loader),
-		mRenderTarget(nullptr)
+		mImageLoader(_loader)
 	{
 	}
 
@@ -204,11 +190,8 @@ namespace MyGUI
 
 	void OpenGL3Texture::destroy()
 	{
-		if (mRenderTarget != nullptr)
-		{
-			delete mRenderTarget;
-			mRenderTarget = nullptr;
-		}
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
 
 		if (mTextureId != 0)
 		{

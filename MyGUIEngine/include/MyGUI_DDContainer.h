@@ -15,23 +15,23 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
-	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
-	typedef delegates::CMultiDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
-	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
+	using EventHandle_DDContainerPtrCDDItemInfoRefBoolRef =
+		delegates::MultiDelegate<DDContainer*, const DDItemInfo&, bool&>;
+	using EventHandle_DDContainerPtrCDDItemInfoRefBool =
+		delegates::MultiDelegate<DDContainer*, const DDItemInfo&, bool>;
+	using EventHandle_EventHandle_DDContainerPtrDDItemState = delegates::MultiDelegate<DDContainer*, DDItemState>;
+	using EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef =
+		delegates::Delegate<DDContainer*, Widget*&, IntCoord&>;
 
 
 	/** \brief @wpage{DDContainer}
 		DDContainer widget description should be here.
 	*/
-	class MYGUI_EXPORT DDContainer :
-		public Widget
+	class MYGUI_EXPORT DDContainer : public Widget
 	{
-		MYGUI_RTTI_DERIVED( DDContainer )
+		MYGUI_RTTI_DERIVED(DDContainer)
 
 	public:
-		DDContainer();
-
 		/** Set drag'n'drop mode flag.
 			Disabled (false) by default.
 		*/
@@ -90,7 +90,7 @@ namespace MyGUI
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
 		*/
-		delegates::CMultiDelegate1<DDContainer*> _eventInvalideContainer;
+		delegates::MultiDelegate<DDContainer*> _eventInvalideContainer;
 
 		/** Event : [Internal event] !!обновить виджеты дропа DD_FIXME наверное internal.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget* _item, const MyGUI::DDWidgetState& _state)
@@ -98,14 +98,14 @@ namespace MyGUI
 			@param _items
 			@param _state
 		*/
-		delegates::CMultiDelegate3<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;
+		delegates::MultiDelegate<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;
 
 	protected:
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
 		void onMouseDrag(int _left, int _top, MouseButton _id) override;
 
-        virtual void notifyInvalideDrop(DDContainer* _sender);
+		virtual void notifyInvalideDrop(DDContainer* _sender);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
@@ -117,30 +117,29 @@ namespace MyGUI
 
 		void endDrop(bool _reset);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	protected:
-		bool mDropResult;
-		bool mNeedDrop;
-		bool mStartDrop;
+		bool mDropResult{false};
+		bool mNeedDrop{false};
+		bool mStartDrop{false};
 
-		Widget* mOldDrop;
-		Widget* mCurrentSender;
+		Widget* mOldDrop{nullptr};
 
 		DDItemInfo mDropInfo;
 
-		size_t mDropSenderIndex;
+		size_t mDropSenderIndex{ITEM_NONE};
 
 		// список виджетов для дропа
-		Widget* mDropItem;
+		Widget* mDropItem{nullptr};
 		IntCoord mDropDimension;
 
 		IntPoint mClickInWidget;
 
 		// нужно и виджету поддержка драг энд дропа
-		bool mNeedDragDrop;
+		bool mNeedDragDrop{false};
 
-		DDContainer* mReseiverContainer;
+		DDContainer* mReseiverContainer{nullptr};
 	};
 
 } // namespace MyGUI

@@ -12,21 +12,19 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL MessageBoxFadeControl :
-		public Control
+	class MYGUI_EXPORT_DLL MessageBoxFadeControl : public Control
 	{
 	public:
-		MessageBoxFadeControl();
 		~MessageBoxFadeControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyFrameStart(float _time);
 
 	private:
-		float mMaxAlpha;
+		float mMaxAlpha{1};
 	};
 
 }

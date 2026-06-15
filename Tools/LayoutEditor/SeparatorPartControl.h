@@ -6,11 +6,10 @@
 namespace tools
 {
 
-	class SeparatorPartControl :
-		public wraps::BaseLayout
+	class SeparatorPartControl : public wraps::BaseLayout
 	{
 	public:
-		SeparatorPartControl(const std::string& _layout, MyGUI::Widget* _parent);
+		SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent);
 		~SeparatorPartControl() override;
 
 	private:
@@ -18,12 +17,12 @@ namespace tools
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 
 	private:
-		MyGUI::Widget* mLeftPanel;
-		MyGUI::Widget* mRightPanel;
-		MyGUI::Widget* mSeparatorH;
+		MyGUI::Widget* mLeftPanel{nullptr};
+		MyGUI::Widget* mRightPanel{nullptr};
+		MyGUI::Widget* mSeparatorH{nullptr};
 
-		int mMinSizeLeft;
-		int mMinSizeRight;
+		int mMinSizeLeft{0};
+		int mMinSizeRight{0};
 
 		MyGUI::IntCoord mStartLeftPanel;
 		MyGUI::IntCoord mStartRightPanel;

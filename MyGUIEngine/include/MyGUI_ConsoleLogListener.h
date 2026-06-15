@@ -13,14 +13,17 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ConsoleLogListener :
-		public ILogListener
+	class MYGUI_EXPORT ConsoleLogListener : public ILogListener
 	{
 	public:
-		ConsoleLogListener();
-
-		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
-		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) override;
+		//! @copydoc ILogListener::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
+		void log(
+			std::string_view _section,
+			LogLevel _level,
+			const struct tm* _time,
+			std::string_view _message,
+			std::string_view _file,
+			int _line) override;
 
 		/** Is log listener enabled. */
 		bool getEnabled() const;
@@ -28,7 +31,7 @@ namespace MyGUI
 		void setEnabled(bool _value);
 
 	private:
-		bool mEnabled;
+		bool mEnabled{true};
 	};
 
 } // namespace MyGUI

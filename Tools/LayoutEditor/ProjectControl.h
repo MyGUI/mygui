@@ -17,9 +17,7 @@
 namespace tools
 {
 
-	class ProjectControl :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+	class ProjectControl : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
 		ProjectControl(MyGUI::Widget* _parent = nullptr);
@@ -61,19 +59,19 @@ namespace tools
 		void loadLastProject();
 
 		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
-		bool checkItem(const std::string& _name, const MyGUI::VectorString& _items);
-		bool checkTemplate(const std::string& _skinName);
+		bool checkItem(std::string_view _name, const MyGUI::VectorString& _items);
+		bool checkTemplate(std::string_view _skinName);
 
 		void updateProjectSkins();
 
 	private:
-		OpenSaveFileDialog* mOpenSaveFileDialog;
-		TextFieldControl* mTextFieldControl;
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
+		TextFieldControl* mTextFieldControl{nullptr};
 
 		MyGUI::UString mProjectName;
 		MyGUI::UString mProjectPath;
 
-		MyGUI::ListBox* mList;
+		MyGUI::ListBox* mList{nullptr};
 		MyGUI::TextBox* mProjectNameText;
 	};
 

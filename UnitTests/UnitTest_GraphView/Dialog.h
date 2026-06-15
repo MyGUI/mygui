@@ -11,15 +11,14 @@
 
 namespace tools
 {
-	class Dialog :
-		public wraps::BaseLayout
+	class Dialog : public wraps::BaseLayout
 	{
 	public:
-		typedef MyGUI::delegates::CDelegate2<Dialog*, bool> EventHandle_Result;
+		using EventHandle_Result = MyGUI::delegates::Delegate<Dialog*, bool>;
 
 	public:
 		Dialog();
-		Dialog(const std::string& _layout);
+		Dialog(std::string_view _layout);
 
 		void doModal();
 		void endModal();
@@ -27,8 +26,12 @@ namespace tools
 		EventHandle_Result eventEndDialog;
 
 	protected:
-		virtual void onDoModal() { }
-		virtual void onEndModal() { }
+		virtual void onDoModal()
+		{
+		}
+		virtual void onEndModal()
+		{
+		}
 
 	private:
 		bool mModal;

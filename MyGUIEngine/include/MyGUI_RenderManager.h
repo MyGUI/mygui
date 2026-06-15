@@ -20,6 +20,7 @@ namespace MyGUI
 	class MYGUI_EXPORT RenderManager
 	{
 		MYGUI_SINGLETON_DECLARATION(RenderManager);
+
 	public:
 		RenderManager();
 		virtual ~RenderManager() = default;
@@ -48,7 +49,7 @@ namespace MyGUI
 		/** Check if texture format supported by hardware */
 		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
-        /** Set render view size. Should be called on every window resize */
+		/** Set render view size. Should be called on every window resize */
 		virtual void setViewSize(int _width, int _height) = 0;
 
 		/** Register shader, that can set with ITexture::setShader.
@@ -59,10 +60,8 @@ namespace MyGUI
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile) = 0;
 
-#if MYGUI_DEBUG_MODE == 1
-		/** Check if texture is valid */
+		/** Check if texture is valid, used only in debug build */
 		virtual bool checkTexture(ITexture* _texture);
-#endif
 
 	protected:
 		virtual void onResizeView(const IntSize& _viewSize);

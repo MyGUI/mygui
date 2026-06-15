@@ -18,22 +18,17 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<ListBox*, size_t> EventHandle_ListPtrSizeT;
-	typedef delegates::CMultiDelegate2<ListBox*, const IBNotifyItemData&> EventHandle_ListBoxPtrCIBNotifyCellDataRef;
+	using EventHandle_ListPtrSizeT = delegates::MultiDelegate<ListBox*, size_t>;
+	using EventHandle_ListBoxPtrCIBNotifyCellDataRef = delegates::MultiDelegate<ListBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{ListBox}
 		ListBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ListBox :
-		public Widget,
-		public IItemContainer,
-		public MemberObsolete<ListBox>
+	class MYGUI_EXPORT ListBox : public Widget, public IItemContainer, public MemberObsolete<ListBox>
 	{
-		MYGUI_RTTI_DERIVED( ListBox )
+		MYGUI_RTTI_DERIVED(ListBox)
 
 	public:
-		ListBox();
-
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -95,7 +90,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
@@ -160,12 +155,12 @@ namespace MyGUI
 			Methods used to manipulate the widget's settings.
 		*/
 		//@{
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -239,7 +234,7 @@ namespace MyGUI
 		void _checkAlign();
 
 		// вспомогательные методы для составных списков
-		void _setItemFocus(size_t _position, bool _focus);
+		void _setItemFocus(size_t _index, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
 		// IItemContainer impl
@@ -260,7 +255,7 @@ namespace MyGUI
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 		void onKeyButtonReleased(KeyCode _key) override;
 
-		void notifyScrollChangePosition(ScrollBar* _sender, size_t _rel);
+		void notifyScrollChangePosition(ScrollBar* _sender, size_t _position);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseClick(Widget* _sender);
 		void notifyMouseDoubleClick(Widget* _sender);
@@ -290,38 +285,36 @@ namespace MyGUI
 		// метод для запроса номера айтема и контейнера
 		size_t _getItemIndex(Widget* _item) const override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
-		void _checkMapping(const std::string& _owner);
-
 		size_t getIndexByWidget(Widget* _widget) const;
 
 	private:
 		std::string mSkinLine;
-		ScrollBar* mWidgetScroll;
+		ScrollBar* mWidgetScroll{nullptr};
 
 		// наши дети в строках
-		typedef std::vector<Button*> VectorButton;
+		using VectorButton = std::vector<Button*>;
 		VectorButton mWidgetLines;
 
-		bool mActivateOnClick; // Require a full mouse click rather than only mouse press to activate an item
+		bool mActivateOnClick{false}; // Require a full mouse click rather than only mouse press to activate an item
 
-		int mHeightLine; // высота одной строки
-		int mTopIndex; // индекс самого верхнего элемента
-		int mOffsetTop; // текущее смещение
-		int mRangeIndex; // размерность скрола
-		size_t mLastRedrawLine; // последняя перерисованная линия
+		int mHeightLine{1}; // высота одной строки
+		int mTopIndex{0}; // индекс самого верхнего элемента
+		int mOffsetTop{0}; // текущее смещение
+		int mRangeIndex{-1}; // размерность скрола
+		size_t mLastRedrawLine{0}; // последняя перерисованная линия
 
-		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
-		size_t mLineActive; // текущий виджет над которым мыша
+		size_t mIndexSelect{ITEM_NONE}; // текущий выделенный элемент или ITEM_NONE
+		size_t mLineActive{ITEM_NONE}; // текущий виджет над которым мыша
 
-		typedef std::pair<UString, Any> PairItem;
-		typedef std::vector<PairItem> VectorItemInfo;
+		using PairItem = std::pair<UString, Any>;
+		using VectorItemInfo = std::vector<PairItem>;
 		VectorItemInfo mItemsInfo;
 
 		// имеем ли мы фокус ввода
-		bool mNeedVisibleScroll;
+		bool mNeedVisibleScroll{true};
 
 		IntSize mOldSize;
 	};

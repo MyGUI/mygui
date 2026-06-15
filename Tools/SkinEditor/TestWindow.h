@@ -16,9 +16,7 @@
 namespace tools
 {
 
-	class TestWindow :
-		public Dialog,
-		public Control
+	class TestWindow : public Dialog, public Control
 	{
 	public:
 		TestWindow();
@@ -27,13 +25,13 @@ namespace tools
 		void setSkinItem(DataPtr _item);
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 		void onDoModal() override;
 		void onEndModal() override;
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 
 		void createSkin();
@@ -42,11 +40,11 @@ namespace tools
 		void generateSkin();
 
 	private:
-		BackgroundControl* mBackgroundControl;
-		DataPtr mSkinItem;
-		MyGUI::Button* mSkinButton;
+		BackgroundControl* mBackgroundControl{nullptr};
+		DataPtr mSkinItem{nullptr};
+		MyGUI::Button* mSkinButton{nullptr};
 		std::string mSkinName;
-		MyGUI::Widget* mBack;
+		MyGUI::Widget* mBack{nullptr};
 		std::string mTestSkinFileName;
 		std::string mDefaultFontName;
 	};

@@ -16,22 +16,17 @@ namespace tools
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldColour::PropertyFieldColour(MyGUI::Widget* _parent) :
-		BaseLayout("PropertyFieldColour.layout", _parent),
-		mText(nullptr),
-		mField(nullptr),
-		mColourPlace(nullptr),
-		mCurrentWidget(nullptr),
-		mColourPanel(nullptr),
-		mGoodData(false)
+		BaseLayout("PropertyFieldColour.layout", _parent)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
 		assignWidget(mColourPlace, "ColourPlace");
 
-		mField->eventEditTextChange += newDelegate (this, &PropertyFieldColour::notifyTryApplyProperties);
-		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldColour::notifyForceApplyProperties);
+		mField->eventEditTextChange += newDelegate(this, &PropertyFieldColour::notifyTryApplyProperties);
+		mField->eventEditSelectAccept += newDelegate(this, &PropertyFieldColour::notifyForceApplyProperties);
 
-		mColourPlace->eventMouseButtonPressed += MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
+		mColourPlace->eventMouseButtonPressed +=
+			MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
 
 		mColourPanel = new ColourPanel();
 		mColourPanel->Initialise();
@@ -45,7 +40,7 @@ namespace tools
 		mColourPanel = nullptr;
 	}
 
-	void PropertyFieldColour::initialise(const std::string& _type)
+	void PropertyFieldColour::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -65,13 +60,13 @@ namespace tools
 
 			std::string value = mField->getOnlyText();
 			if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-				value = "";
+				value.clear();
 
 			onAction(value, true);
 		}
 	}
 
-	void PropertyFieldColour::onAction(const std::string& _value, bool _final)
+	void PropertyFieldColour::onAction(std::string_view _value, bool _final)
 	{
 		eventAction(mName, _value, _final);
 	}
@@ -111,7 +106,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldColour::getContentSize()
 	{
-		return MyGUI::IntSize(0, mMainWidget->getHeight());
+		return {0, mMainWidget->getHeight()};
 	}
 
 	void PropertyFieldColour::setCoord(const MyGUI::IntCoord& _coord)
@@ -119,29 +114,33 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldColour::setValue(const std::string& _value)
+	void PropertyFieldColour::setValue(std::string_view _value)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		if (_value.empty())
 		{
+			std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
 			mField->setCaption(DEFAULT_VALUE);
 			updateColourPlace(false);
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 			onCheckValue();
 		}
 	}
 
-	void PropertyFieldColour::setName(const std::string& _value)
+	void PropertyFieldColour::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
-	void PropertyFieldColour::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void PropertyFieldColour::notifyMouseButtonPressed(
+		MyGUI::Widget* _sender,
+		int _left,
+		int _top,
+		MyGUI::MouseButton _id)
 	{
 		showColourDialog();
 	}
@@ -170,7 +169,7 @@ namespace tools
 				std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 				mField->setCaption(DEFAULT_VALUE);
 				updateColourPlace(false);
-				onAction("", true);
+				onAction(std::string_view{}, true);
 			}
 		}
 	}

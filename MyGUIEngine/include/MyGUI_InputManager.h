@@ -12,7 +12,6 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_IUnlinkWidget.h"
-#include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"
@@ -24,11 +23,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT InputManager :
-		public IUnlinkWidget,
-		public MemberObsolete<InputManager>
+	class MYGUI_EXPORT InputManager : public IUnlinkWidget, public MemberObsolete<InputManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(InputManager);
+
 	public:
 		InputManager();
 
@@ -102,6 +100,10 @@ namespace MyGUI
 		bool isControlPressed() const;
 		/** Is shift button pressed */
 		bool isShiftPressed() const;
+		/** Is alt button pressed */
+		bool isAltPressed() const;
+		/** Is meta ("Windows key" or macOS "Command" key) button pressed */
+		bool isMetaPressed() const;
 
 		/** Reset mouse capture.
 			For example when we dragging and application
@@ -116,13 +118,13 @@ namespace MyGUI
 			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
-		delegates::CMultiDelegate1<Widget*> eventChangeMouseFocus;
+		delegates::MultiDelegate<Widget*> eventChangeMouseFocus;
 
 		/** Event : MultiDelegate. Key focus was changed.\n
 			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
-		delegates::CMultiDelegate1<Widget*> eventChangeKeyFocus;
+		delegates::MultiDelegate<Widget*> eventChangeKeyFocus;
 
 		/*internal:*/
 		void _resetMouseFocusWidget();
@@ -143,17 +145,19 @@ namespace MyGUI
 
 	private:
 		// виджеты которым принадлежит фокус
-		Widget* mWidgetMouseFocus;
-		Widget* mWidgetKeyFocus;
-		ILayer* mLayerMouseFocus;
+		Widget* mWidgetMouseFocus{nullptr};
+		Widget* mWidgetKeyFocus{nullptr};
+		ILayer* mLayerMouseFocus{nullptr};
 
 		//used for double click timing
 		float mTimerDoubleClick; // time since the last click
 
 		// нажат ли шифт
-		bool mIsShiftPressed;
+		bool mIsShiftPressed{false};
 		// нажат ли контрол
-		bool mIsControlPressed;
+		bool mIsControlPressed{false};
+		bool mIsAltPressed{false};
+		bool mIsMetaPressed{false};
 
 		IntPoint mMousePosition;
 
@@ -164,16 +168,16 @@ namespace MyGUI
 		bool mMouseCapture[MouseButton::MAX];
 
 		// клавиша для повтора
-		KeyCode mHoldKey;
-		Char mHoldChar;
-		bool mFirstPressKey;
-		float mTimerKey;
-		int mOldAbsZ;
+		KeyCode mHoldKey{KeyCode::None};
+		Char mHoldChar{0};
+		bool mFirstPressKey{false};
+		float mTimerKey{0.0f};
+		int mOldAbsZ{0};
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

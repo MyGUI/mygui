@@ -8,11 +8,7 @@
 namespace demo
 {
 
-	FadeNodeAnimator::FadeNodeAnimator() :
-		mFadeDuration(0),
-		mFadeType(0),
-		mDestroy(true),
-		mAlpha(0)
+	FadeNodeAnimator::FadeNodeAnimator()
 	{
 		mSpeed.resize(getCount());
 	}
@@ -22,11 +18,13 @@ namespace demo
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Property"))
 		{
-			const std::string& key = node->findAttribute("key");
-			const std::string& value = node->findAttribute("value");
+			std::string_view key = node->findAttribute("key");
+			std::string_view value = node->findAttribute("value");
 
-			if (key == "FadeDuration") mFadeDuration = MyGUI::utility::parseFloat(value);
-			else if (key == "FadeType") mFadeType = MyGUI::utility::parseInt(value);//FIXME
+			if (key == "FadeDuration")
+				mFadeDuration = MyGUI::utility::parseFloat(value);
+			else if (key == "FadeType")
+				mFadeType = MyGUI::utility::parseInt(value); //FIXME
 		}
 	}
 
@@ -39,10 +37,8 @@ namespace demo
 		MyGUI::ITexture* _texture,
 		const MyGUI::RenderTargetInfo& _info,
 		const MyGUI::IntCoord& _coord,
-		bool& _isAnimate
-	)
+		bool& _isAnimate)
 	{
-
 		addTime(_time);
 
 		if (mDestroy && mAlpha == 0)
@@ -52,12 +48,7 @@ namespace demo
 
 		_isAnimate = true;
 
-		_quad_count = tesselation(
-			_quad_count,
-			_data,
-			_texture,
-			_info,
-			_coord);
+		_quad_count = tesselation(_quad_count, _data, _texture, _info, _coord);
 
 		size_t index = 0;
 		switch (mFadeType)
@@ -90,24 +81,28 @@ namespace demo
 					}
 					if (mFadeType == 2) // from center
 					{
-						float x1 = float(x - getCountX() / 2) / getCountX() * 2;
-						float y1 = float(y - getCountY() / 2) / getCountY() * 2;
+						float x1 = float(x - getCountX() / 2.0f) / getCountX() * 2;
+						float y1 = float(y - getCountY() / 2.0f) / getCountY() * 2;
 						speed = std::sqrt(x1 * x1 + y1 * y1);
 					}
 					if (mFadeType == 3) // TV
 					{
-						float x1 = float(x - getCountX() / 2) / getCountX() * 2;
-						float y1 = float(y - getCountY() / 2) / getCountY() * 2;
+						float x1 = float(x - getCountX() / 2.0f) / getCountX() * 2;
+						float y1 = float(y - getCountY() / 2.0f) / getCountY() * 2;
 						speed = std::sqrt(x1 * x1 * x1 * x1 + y1 * y1);
 					}
 					float alpha = std::pow(mAlpha, speed);
 
 					unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
-					if ( x < getCountX() && y < getCountY() ) _data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
-					if ( x > 0       && y < getCountY() ) _data[index - 1].vertex[MyGUI::QuadData::CornerRT].colour = colour;
-					if ( x < getCountX() && y > 0       ) _data[index - getCountX()].vertex[MyGUI::QuadData::CornerLB].colour = colour;
-					if ( x > 0       && y > 0       ) _data[index - getCountX() - 1].vertex[MyGUI::QuadData::CornerRB].colour = colour;
+					if (x < getCountX() && y < getCountY())
+						_data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
+					if (x > 0 && y < getCountY())
+						_data[index - 1].vertex[MyGUI::QuadData::CornerRT].colour = colour;
+					if (x < getCountX() && y > 0)
+						_data[index - getCountX()].vertex[MyGUI::QuadData::CornerLB].colour = colour;
+					if (x > 0 && y > 0)
+						_data[index - getCountX() - 1].vertex[MyGUI::QuadData::CornerRB].colour = colour;
 				}
 			}
 			break;
@@ -123,7 +118,8 @@ namespace demo
 			if (mAlpha > 0)
 			{
 				mAlpha -= _time / mFadeDuration;
-				if (mAlpha < 0) mAlpha = 0;
+				if (mAlpha < 0)
+					mAlpha = 0;
 			}
 		}
 		else
@@ -131,10 +127,10 @@ namespace demo
 			if (mAlpha < 1)
 			{
 				mAlpha += _time / mFadeDuration;
-				if (mAlpha > 1) mAlpha = 1;
+				if (mAlpha > 1)
+					mAlpha = 1;
 			}
 		}
-
 	}
 
 	void FadeNodeAnimator::create()

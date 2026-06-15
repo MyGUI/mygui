@@ -10,8 +10,7 @@ namespace demo
 {
 
 	InformationWindow::InformationWindow(MyGUI::Widget* _parent) :
-		BaseLayout("InformationWindow.layout", _parent),
-		mFocus(nullptr)
+		BaseLayout("InformationWindow.layout", _parent)
 	{
 		assignWidget(mInfo, "Info");
 
@@ -21,7 +20,8 @@ namespace demo
 		{
 			const MyGUI::IntCoord& coord = _parent->getClientCoord();
 			const MyGUI::IntSize& size = mMainWidget->getSize();
-			mMainWidget->setPosition(MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
+			mMainWidget->setPosition(
+				MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
 		}
 	}
 
@@ -50,8 +50,8 @@ namespace demo
 			return;
 		mFocus = focus;
 
-		const std::string tag = "Info";
-		std::string info;
+		const std::string_view tag = "Info";
+		std::string_view info;
 		if (mFocus != nullptr)
 		{
 			while (true)
@@ -69,7 +69,7 @@ namespace demo
 			}
 		}
 
-		mInfo->setCaption(info);
+		mInfo->setCaption(MyGUI::UString(info));
 	}
 
 } // namespace demo

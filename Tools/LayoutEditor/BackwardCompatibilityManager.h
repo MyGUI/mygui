@@ -13,10 +13,10 @@
 namespace tools
 {
 
-	class BackwardCompatibilityManager :
-		public sigslot::has_slots<>
+	class BackwardCompatibilityManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(BackwardCompatibilityManager);
+
 	public:
 		BackwardCompatibilityManager();
 
@@ -27,12 +27,16 @@ namespace tools
 		const std::string& getDefaultVersion() const;
 
 		const std::string& getCurrentVersion() const;
-		void setCurrentVersion(const std::string& _value);
+		void setCurrentVersion(std::string_view _value);
 
-		void serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility);
+		void serialiseProperty(
+			MyGUI::xml::Element* _node,
+			std::string_view _widgetType,
+			const MyGUI::PairString& _property,
+			bool _compatibility);
 
 	private:
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 	private:
 		MyGUI::VectorString mVersions;

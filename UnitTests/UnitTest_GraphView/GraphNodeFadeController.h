@@ -12,17 +12,11 @@
 namespace demo
 {
 
-	class GraphNodeFadeController :
-		public BaseAnimationNode
+	class GraphNodeFadeController : public BaseAnimationNode
 	{
 	public:
-		GraphNodeFadeController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeFadeController.layout", "FadeController", _name),
-			mStartIn(nullptr),
-			mStopIn(nullptr),
-			mStartOut(nullptr),
-			mStopOut(nullptr),
-			mWeightOut(nullptr)
+		GraphNodeFadeController(std::string_view _name) :
+			BaseAnimationNode("GraphNodeFadeController.layout", "FadeController", _name)
 		{
 		}
 
@@ -43,11 +37,11 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mStartIn;
-		wraps::BaseGraphConnection* mStopIn;
-		wraps::BaseGraphConnection* mStartOut;
-		wraps::BaseGraphConnection* mStopOut;
-		wraps::BaseGraphConnection* mWeightOut;
+		wraps::BaseGraphConnection* mStartIn{nullptr};
+		wraps::BaseGraphConnection* mStopIn{nullptr};
+		wraps::BaseGraphConnection* mStartOut{nullptr};
+		wraps::BaseGraphConnection* mStopOut{nullptr};
+		wraps::BaseGraphConnection* mWeightOut{nullptr};
 	};
 
 } // namespace demo

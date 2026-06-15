@@ -10,10 +10,6 @@
 namespace MyGUI
 {
 
-	Panel::Panel()
-	{
-	}
-
 	void Panel::setPosition(const IntPoint& _value)
 	{
 		Base::setPosition(_value);
@@ -83,7 +79,7 @@ namespace MyGUI
 		if (sizePtr != nullptr)
 			return *sizePtr;
 
-		return IntSize();
+		return {};
 	}
 
 	/*void Panel::invalidateMeasure(Widget* _widget)

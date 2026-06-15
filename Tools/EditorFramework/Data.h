@@ -9,6 +9,7 @@
 
 #include "DataType.h"
 #include <map>
+#include <type_traits>
 #include "Property.h"
 
 namespace tools
@@ -17,10 +18,9 @@ namespace tools
 	class MYGUI_EXPORT_DLL Data
 	{
 	public:
-		typedef std::shared_ptr<Data> DataPtr;
-		typedef std::weak_ptr<Data> DataWeak;
+		using DataPtr = std::shared_ptr<Data>;
+		using DataWeak = std::weak_ptr<Data>;
 
-		Data();
 		~Data();
 
 		static DataPtr CreateInstance();
@@ -30,7 +30,7 @@ namespace tools
 
 		DataPtr getParent();
 
-		typedef std::vector<DataPtr> VectorData;
+		using VectorData = std::vector<DataPtr>;
 		const VectorData& getChilds() const;
 
 		void addChild(DataPtr _child);
@@ -40,30 +40,25 @@ namespace tools
 		size_t getChildIndex(DataPtr _child);
 		DataPtr getChildByIndex(size_t _index);
 
-		typedef std::map<std::string, PropertyPtr> MapProperty;
+		using MapProperty = std::map<std::string, PropertyPtr, std::less<>>;
 		const MapProperty& getProperties() const;
 
-		const std::string& getPropertyValue(const std::string& _name) const;
-		void setPropertyValue(const std::string& _name, const std::string& _value) const;
+		const std::string& getPropertyValue(std::string_view _name) const;
+		void setPropertyValue(std::string_view _name, std::string_view _value) const;
 
-		template <typename Type>
-		Type getPropertyValue(const std::string& _name) const
+		template<typename Type>
+		Type getPropertyValue(std::string_view _name) const
 		{
 			return MyGUI::utility::parseValue<Type>(getPropertyValue(_name));
 		}
 
-		template <typename Type>
-		void setPropertyValue(const std::string& _name, const Type& _value) const
+		template<class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		void setPropertyValue(std::string_view _name, const Type& _value) const
 		{
 			setPropertyValue(_name, MyGUI::utility::toString(_value));
 		}
 
-		void setPropertyValue(const std::string& _name, const bool& _value) const
-		{
-			setPropertyValue(_name, std::string(_value ? "True" : "False"));
-		}
-
-		PropertyPtr getProperty(const std::string& _name) const;
+		PropertyPtr getProperty(std::string_view _name) const;
 
 		DataPtr getChildSelected();
 		void setChildSelected(DataPtr _child);
@@ -72,15 +67,15 @@ namespace tools
 		void clear();
 
 	private:
-		DataTypePtr mType;
-		DataPtr mParent;
+		DataTypePtr mType{nullptr};
+		DataPtr mParent{nullptr};
 		VectorData mChilds;
 		MapProperty mProperties;
-		size_t mIndexSelected;
+		size_t mIndexSelected{MyGUI::ITEM_NONE};
 		DataWeak mWeakThis;
 	};
 
-	typedef Data::DataPtr DataPtr;
+	using DataPtr = Data::DataPtr;
 
 }
 

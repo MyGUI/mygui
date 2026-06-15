@@ -8,17 +8,13 @@
 #include "MyGUI_OpenGL3RenderManager.h"
 #include "MyGUI_OpenGL3Diagnostic.h"
 
-#include <GL/glew.h>
+#include <GL/gl.h>
 
 namespace MyGUI
 {
 
 	OpenGL3RTTexture::OpenGL3RTTexture(unsigned int _texture) :
-		mTextureId(_texture),
-		mWidth(0),
-		mHeight(0),
-		mFBOID(0),
-		mRBOID(0)
+		mTextureId(_texture)
 	{
 		int miplevel = 0;
 		glBindTexture(GL_TEXTURE_2D, mTextureId);

@@ -18,13 +18,11 @@ namespace MyGUI
 {
 
 	// вспомогательный класс для инициализации одного скина
-	class MYGUI_EXPORT ResourceSkin :
-		public IResource
+	class MYGUI_EXPORT ResourceSkin : public IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourceSkin )
+		MYGUI_RTTI_DERIVED(ResourceSkin)
 
 	public:
-		ResourceSkin();
 		~ResourceSkin() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -38,14 +36,14 @@ namespace MyGUI
 		const std::string& getSkinName() const;
 
 	private:
-		void setInfo(const IntSize& _size, const std::string& _texture);
+		void setInfo(const IntSize& _size, std::string_view _texture);
 		void addInfo(const SubWidgetBinding& _bind);
-		void addProperty(const std::string& _key, const std::string& _value);
+		void addProperty(std::string_view _key, std::string_view _value);
 		void addChild(const ChildSkinInfo& _child);
 		void clear();
 
 		void checkState(const MapStateInfo& _states);
-		void checkState(const std::string& _name);
+		void checkState(std::string_view _name);
 		void checkBasis();
 		void fillState(const MapStateInfo& _states, size_t _index);
 

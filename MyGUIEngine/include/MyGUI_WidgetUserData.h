@@ -20,19 +20,19 @@ namespace MyGUI
 		virtual ~UserData() = default;
 
 		/** Set user string */
-		void setUserString(const std::string& _key, const std::string& _value);
+		void setUserString(std::string_view _key, std::string_view _value);
 
 		/** Get user string or "" if not found */
-		const std::string& getUserString(const std::string& _key) const;
+		std::string_view getUserString(std::string_view _key) const;
 
 		/** Get map of all user strings */
 		const MapString& getUserStrings() const;
 
 		/** Delete user string */
-		bool clearUserString(const std::string& _key);
+		bool clearUserString(std::string_view _key);
 
 		/** Return true if user string with such key exist */
-		bool isUserString(const std::string& _key) const;
+		bool isUserString(std::string_view _key) const;
 
 		/** Delete all user strings */
 		void clearUserStrings();
@@ -41,7 +41,7 @@ namespace MyGUI
 		void setUserData(Any _data);
 
 		/** Get user data and cast it to ValueType */
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getUserData(bool _throw = true) const
 		{
 			return mUserData.castType<ValueType>(_throw);
@@ -50,7 +50,7 @@ namespace MyGUI
 		/*internal:*/
 		void _setInternalData(Any _data);
 
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* _getInternalData(bool _throw = true) const
 		{
 			return mInternalData.castType<ValueType>(_throw);

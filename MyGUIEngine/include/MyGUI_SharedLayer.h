@@ -15,10 +15,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SharedLayer :
-		public ILayer
+	class MYGUI_EXPORT SharedLayer : public ILayer
 	{
-		MYGUI_RTTI_DERIVED( SharedLayer )
+		MYGUI_RTTI_DERIVED(SharedLayer)
 
 	public:
 		SharedLayer();
@@ -29,10 +28,10 @@ namespace MyGUI
 		void setPick(bool _pick);
 
 		ILayerNode* createChildItemNode() override;
-		void destroyChildItemNode(ILayerNode* _node) override;
+		void destroyChildItemNode(ILayerNode* _item) override;
 
-		// up child item (make it draw and pick above other)
-		void upChildItemNode(ILayerNode* _node) override;
+		// up child item (make it draw and pick above others)
+		void upChildItemNode(ILayerNode* _item) override;
 
 		// child items list
 		EnumeratorILayerNode getEnumerator() const override;
@@ -58,9 +57,9 @@ namespace MyGUI
 		bool isOutOfDate() const;
 
 	protected:
-		bool mIsPick;
-		SharedLayerNode* mChildItem;
-		bool mOutOfDate;
+		bool mIsPick{false};
+		SharedLayerNode* mChildItem{nullptr};
+		bool mOutOfDate{false};
 		IntSize mViewSize;
 	};
 

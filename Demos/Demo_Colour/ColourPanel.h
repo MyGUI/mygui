@@ -13,8 +13,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
-	class ColourPanel :
-		public wraps::BaseLayout
+	class ColourPanel : public wraps::BaseLayout
 	{
 	public:
 		ColourPanel();
@@ -23,7 +22,7 @@ namespace demo
 		void setColour(const MyGUI::Colour& _colour);
 		const MyGUI::Colour& getColour() const;
 
-		MyGUI::delegates::CDelegate1<ColourPanel*> eventColourAccept;
+		MyGUI::delegates::Delegate<ColourPanel*> eventColourAccept;
 
 	private:
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);

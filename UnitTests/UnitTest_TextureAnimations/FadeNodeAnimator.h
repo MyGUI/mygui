@@ -15,11 +15,9 @@
 namespace demo
 {
 
-	class FadeNodeAnimator :
-		public MyGUI::LayerNodeAnimation,
-		public Tesselator
+	class FadeNodeAnimator : public MyGUI::LayerNodeAnimation, public Tesselator
 	{
-		MYGUI_RTTI_DERIVED( FadeNodeAnimator )
+		MYGUI_RTTI_DERIVED(FadeNodeAnimator)
 
 	public:
 		FadeNodeAnimator();
@@ -38,8 +36,7 @@ namespace demo
 			MyGUI::ITexture* _texture,
 			const MyGUI::RenderTargetInfo& _info,
 			const MyGUI::IntCoord& _coord,
-			bool& _isAnimate
-		) override;
+			bool& _isAnimate) override;
 
 	private:
 		void addTime(float _time);
@@ -47,13 +44,12 @@ namespace demo
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 	private:
-		float mFadeDuration;
-		int mFadeType;
+		float mFadeDuration{0};
+		int mFadeType{0};
 
-		bool mDestroy;
-		float mAlpha;
+		bool mDestroy{true};
+		float mAlpha{0};
 		std::vector<int> mSpeed;
-
 	};
 
 }

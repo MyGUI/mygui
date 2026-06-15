@@ -16,7 +16,6 @@ namespace MyGUI
 	class OpenGL3VertexBuffer : public IVertexBuffer
 	{
 	public:
-		OpenGL3VertexBuffer();
 		~OpenGL3VertexBuffer() override;
 
 		void setVertexCount(size_t _count) override;
@@ -25,7 +24,7 @@ namespace MyGUI
 		Vertex* lock() override;
 		void unlock() override;
 
-	/*internal:*/
+		/*internal:*/
 		unsigned int getBufferID() const
 		{
 			return mVAOID;
@@ -37,11 +36,11 @@ namespace MyGUI
 		void resize();
 
 	private:
-		unsigned int mVAOID;
-		unsigned int mBufferID;
-		size_t mVertexCount;
-		size_t mNeedVertexCount;
-		size_t mSizeInBytes;
+		unsigned int mVAOID{0};
+		unsigned int mBufferID{0};
+		size_t mVertexCount{0};
+		size_t mNeedVertexCount{0};
+		size_t mSizeInBytes{0};
 	};
 
 } // namespace MyGUI

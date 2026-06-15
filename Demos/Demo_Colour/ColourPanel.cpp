@@ -27,12 +27,12 @@ namespace demo
 
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClick);
 
-		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
-		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 0, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 1, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 1, 0));
-		mColourRange.push_back(MyGUI::Colour(1, 1, 0));
+		mColourRange.emplace_back(1, 0, 0);
+		mColourRange.emplace_back(1, 0, 1);
+		mColourRange.emplace_back(0, 0, 1);
+		mColourRange.emplace_back(0, 1, 1);
+		mColourRange.emplace_back(0, 1, 0);
+		mColourRange.emplace_back(1, 1, 0);
 		mColourRange.push_back(mColourRange[0]);
 
 		createTexture();
@@ -54,7 +54,8 @@ namespace demo
 	{
 		notifyScrollChangePosition(nullptr, mScrollRange->getScrollPosition());
 
-		notifyMouseDrag(nullptr,
+		notifyMouseDrag(
+			nullptr,
 			mImageColourPicker->getAbsoluteLeft() + (mColourRect->getWidth() / 2),
 			mImageColourPicker->getAbsoluteTop() + (mColourRect->getHeight() / 2),
 			MyGUI::MouseButton::Left);
@@ -64,7 +65,9 @@ namespace demo
 	{
 		int size = 32;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient");
-		mTexture->createManual(size, size,
+		mTexture->createManual(
+			size,
+			size,
 			MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Write,
 			MyGUI::PixelFormat::R8G8B8A8);
 
@@ -73,7 +76,7 @@ namespace demo
 
 	void ColourPanel::destroyTexture()
 	{
-		MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
+		MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
 		mTexture = nullptr;
 	}
 
@@ -88,9 +91,9 @@ namespace demo
 			{
 				float x = (float)i / size;
 				float y = (float)j / size;
-				*pDest++ = MyGUI::uint8((1.0f - y) * (_colour.blue  * x + (1.0f - x)) * 255); // B
+				*pDest++ = MyGUI::uint8((1.0f - y) * (_colour.blue * x + (1.0f - x)) * 255); // B
 				*pDest++ = MyGUI::uint8((1.0f - y) * (_colour.green * x + (1.0f - x)) * 255); // G
-				*pDest++ = MyGUI::uint8((1.0f - y) * (_colour.red   * x + (1.0f - x)) * 255); // R
+				*pDest++ = MyGUI::uint8((1.0f - y) * (_colour.red * x + (1.0f - x)) * 255); // R
 				*pDest++ = 255; // A
 			}
 
@@ -106,12 +109,18 @@ namespace demo
 		MyGUI::Widget* parent = mImageColourPicker->getParent();
 		MyGUI::IntPoint point(_left - parent->getAbsoluteLeft(), _top - parent->getAbsoluteTop());
 
-		if (point.left < 0) point.left = 0;
-		if (point.top < 0) point.top = 0;
-		if (point.left > mColourRect->getWidth()) point.left = mColourRect->getWidth();
-		if (point.top > mColourRect->getHeight()) point.top = mColourRect->getHeight();
+		if (point.left < 0)
+			point.left = 0;
+		if (point.top < 0)
+			point.top = 0;
+		if (point.left > mColourRect->getWidth())
+			point.left = mColourRect->getWidth();
+		if (point.top > mColourRect->getHeight())
+			point.top = mColourRect->getHeight();
 
-		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
+		mImageColourPicker->setPosition(
+			point.left - (mImageColourPicker->getWidth() / 2),
+			point.top - (mImageColourPicker->getHeight() / 2));
 
 		updateFromPoint(point);
 	}
@@ -127,10 +136,14 @@ namespace demo
 		// get colour by cursor position Altren 09.2008
 		float x = 1.0f * _point.left / mColourRect->getWidth();
 		float y = 1.0f * _point.top / mColourRect->getHeight();
-		if (x > 1) x = 1;
-		else if (x < 0) x = 0;
-		if (y > 1) y = 1;
-		else if (y < 0) y = 0;
+		if (x > 1)
+			x = 1;
+		else if (x < 0)
+			x = 0;
+		if (y > 1)
+			y = 1;
+		else if (y < 0)
+			y = 0;
 
 		mCurrentColour.red = (1 - y) * (mBaseColour.red * x + MyGUI::Colour::White.red * (1 - x));
 		mCurrentColour.green = (1 - y) * (mBaseColour.green * x + MyGUI::Colour::White.green * (1 - x));
@@ -138,9 +151,9 @@ namespace demo
 
 		mColourView->setColour(mCurrentColour);
 
-		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.green * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.blue * 255)));
 	}
 
 	void ColourPanel::notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
@@ -175,9 +188,11 @@ namespace demo
 		MyGUI::EditBox* edit = static_cast<MyGUI::EditBox*>(_sender);
 		size_t cursor = edit->getTextCursor();
 		size_t num = MyGUI::utility::parseSizeT(edit->getOnlyText());
-		if (num > 255) num = 255;
+		if (num > 255)
+			num = 255;
 		edit->setCaption(MyGUI::utility::toString(num));
-		if (cursor < edit->getTextLength()) edit->setTextCursor(cursor);
+		if (cursor < edit->getTextLength())
+			edit->setTextCursor(cursor);
 
 		MyGUI::Colour colour(
 			MyGUI::utility::parseFloat(mEditRed->getOnlyText()) / 255.0f,
@@ -190,9 +205,9 @@ namespace demo
 	void ColourPanel::setColour(const MyGUI::Colour& _colour)
 	{
 		MyGUI::Colour colour = getSaturate(_colour);
-		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.red * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.green * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.blue * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString(static_cast<int>(colour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString(static_cast<int>(colour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString(static_cast<int>(colour.blue * 255)));
 
 		updateFromColour(colour);
 	}
@@ -207,8 +222,12 @@ namespace demo
 		vec.push_back(_colour.blue);
 		std::sort(vec.begin(), vec.end());
 
-		MyGUI::IntPoint point((int)((1 - vec[0] / vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
-		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
+		MyGUI::IntPoint point(
+			static_cast<int>((1 - vec[0] / vec[2]) * mColourRect->getWidth()),
+			static_cast<int>((1 - vec[2]) * mColourRect->getHeight()));
+		mImageColourPicker->setPosition(
+			point.left - (mImageColourPicker->getWidth() / 2),
+			point.top - (mImageColourPicker->getHeight() / 2));
 
 		int iMax = (_colour.red == vec[2]) ? 0 : (_colour.green == vec[2]) ? 1 : 2;
 		int iMin = (_colour.red == vec[0]) ? 0 : (_colour.green == vec[0]) ? 1 : 2;
@@ -236,8 +255,8 @@ namespace demo
 		{
 			if ((std::abs(byIndex(mColourRange[i], iMin) - byIndex(mBaseColour, iMin)) < 0.001f) &&
 				(std::abs(byIndex(mColourRange[i], iMax) - byIndex(mBaseColour, iMax)) < 0.001f) &&
-				(std::abs(byIndex(mColourRange[i+1], iMin) - byIndex(mBaseColour, iMin)) < 0.001f) &&
-				(std::abs(byIndex(mColourRange[i+1], iMax) - byIndex(mBaseColour, iMax)) < 0.001f))
+				(std::abs(byIndex(mColourRange[i + 1], iMin) - byIndex(mBaseColour, iMin)) < 0.001f) &&
+				(std::abs(byIndex(mColourRange[i + 1], iMax) - byIndex(mBaseColour, iMax)) < 0.001f))
 				break;
 		}
 
@@ -245,16 +264,17 @@ namespace demo
 		size_t current = i;
 
 		float offset = byIndex(mBaseColour, iAvg);
-		if (byIndex(mColourRange[i+1], iAvg) < byIndex(mColourRange[i], iAvg)) offset = 1 - byIndex(mBaseColour, iAvg);
+		if (byIndex(mColourRange[i + 1], iAvg) < byIndex(mColourRange[i], iAvg))
+			offset = 1 - byIndex(mBaseColour, iAvg);
 
 		size_t pos = size_t((current + offset) * sector_size);
 
 		mScrollRange->setScrollPosition(pos);
 
 		// бонус для обрезки цвета под шкалу
-		mBaseColour.red = mColourRange[i].red + offset * (mColourRange[i+1].red - mColourRange[i].red);
-		mBaseColour.green = mColourRange[i].green + offset * (mColourRange[i+1].green - mColourRange[i].green);
-		mBaseColour.blue = mColourRange[i].blue + offset * (mColourRange[i+1].blue - mColourRange[i].blue);
+		mBaseColour.red = mColourRange[i].red + offset * (mColourRange[i + 1].red - mColourRange[i].red);
+		mBaseColour.green = mColourRange[i].green + offset * (mColourRange[i + 1].green - mColourRange[i].green);
+		mBaseColour.blue = mColourRange[i].blue + offset * (mColourRange[i + 1].blue - mColourRange[i].blue);
 
 		updateTexture(mBaseColour);
 
@@ -284,10 +304,13 @@ namespace demo
 
 	float& ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
 	{
-		if (_index == 0) return _colour.red;
-		else if (_index == 1) return _colour.green;
-		else if (_index == 2) return _colour.blue;
-		else return _colour.alpha;
+		if (_index == 0)
+			return _colour.red;
+		if (_index == 1)
+			return _colour.green;
+		if (_index == 2)
+			return _colour.blue;
+		return _colour.alpha;
 	}
 
 	const MyGUI::Colour& ColourPanel::getColour() const

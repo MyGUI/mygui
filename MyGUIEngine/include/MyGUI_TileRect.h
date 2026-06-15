@@ -19,10 +19,9 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class MYGUI_EXPORT TileRect :
-		public ISubWidgetRect
+	class MYGUI_EXPORT TileRect : public ISubWidgetRect
 	{
-		MYGUI_RTTI_DERIVED( TileRect )
+		MYGUI_RTTI_DERIVED(TileRect)
 
 	public:
 		TileRect();
@@ -49,28 +48,28 @@ namespace MyGUI
 		void _setColour(const Colour& _value) override;
 
 	protected:
-		bool mEmptyView;
+		bool mEmptyView{false};
 
 		VertexColourType mVertexFormat;
-		uint32 mCurrentColour;
+		uint32 mCurrentColour{0xFFFFFFFF};
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
 
-		ILayerNode* mNode;
-		RenderItem* mRenderItem;
+		ILayerNode* mNode{nullptr};
+		RenderItem* mRenderItem{nullptr};
 
 		IntSize mTileSize;
 		size_t mCountVertex;
 
-		float mRealTileWidth;
-		float mRealTileHeight;
+		float mRealTileWidth{0};
+		float mRealTileHeight{0};
 
-		float mTextureHeightOne;
-		float mTextureWidthOne;
+		float mTextureHeightOne{0};
+		float mTextureWidthOne{0};
 
-		bool mTileH;
-		bool mTileV;
+		bool mTileH{true};
+		bool mTileV{true};
 	};
 
 } // namespace MyGUI

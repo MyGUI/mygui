@@ -27,8 +27,8 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		typedef sigslot::signal2<DataPtr, bool> EventType;
-		EventType* getEvent(const std::string& _dataType);
+		using EventType = sigslot::signal2<DataPtr, bool>;
+		EventType* getEvent(std::string_view _dataType);
 
 		// у родителя полностью изменились дети
 		void changeParent(DataPtr _parent);
@@ -42,7 +42,7 @@ namespace tools
 
 	private:
 		static DataSelectorManager* mInstance;
-		typedef std::map<std::string, EventType*> MapEvent;
+		using MapEvent = std::map<std::string, EventType*, std::less<>>;
 		MapEvent mEvents;
 	};
 

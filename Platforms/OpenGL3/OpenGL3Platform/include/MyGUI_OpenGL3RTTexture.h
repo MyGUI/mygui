@@ -15,8 +15,7 @@
 namespace MyGUI
 {
 
-	class OpenGL3RTTexture :
-		public IRenderTarget
+	class OpenGL3RTTexture : public IRenderTarget
 	{
 	public:
 		OpenGL3RTTexture(unsigned int _texture);
@@ -35,13 +34,13 @@ namespace MyGUI
 	private:
 		RenderTargetInfo mRenderTargetInfo;
 		unsigned int mTextureId;
-		int mWidth;
-		int mHeight;
+		int mWidth{0};
+		int mHeight{0};
 
 		int mSavedViewport[4];
 
-		unsigned int mFBOID;
-		unsigned int mRBOID;
+		unsigned int mFBOID{0};
+		unsigned int mRBOID{0};
 	};
 
 } // namespace MyGUI

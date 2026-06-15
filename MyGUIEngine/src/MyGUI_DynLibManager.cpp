@@ -15,7 +15,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(DynLibManager);
 
 	DynLibManager::DynLibManager() :
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}
@@ -45,7 +44,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	DynLib* DynLibManager::load(const std::string& fileName)
+	DynLib* DynLibManager::load(std::string_view fileName)
 	{
 		StringDynLibMap::iterator it = mLibsMap.find(fileName);
 
@@ -61,7 +60,7 @@ namespace MyGUI
 			return nullptr;
 		}
 
-		mLibsMap[fileName] = pLib;
+		mLibsMap[pLib->getName()] = pLib;
 		return pLib;
 	}
 
@@ -78,9 +77,9 @@ namespace MyGUI
 	void DynLibManager::unloadAll()
 	{
 		// unload and delete resources
-		for (StringDynLibMap::iterator it = mLibsMap.begin(); it != mLibsMap.end(); ++it)
+		for (const auto& it : mLibsMap)
 		{
-			mDelayDynLib.push_back(it->second);
+			mDelayDynLib.push_back(it.second);
 		}
 		// Empty the list
 		mLibsMap.clear();
@@ -99,10 +98,10 @@ namespace MyGUI
 			if (manager != nullptr)
 				manager->_deleteDelayWidgets();
 
-			for (VectorDynLib::iterator entry = mDelayDynLib.begin(); entry != mDelayDynLib.end(); ++entry)
+			for (auto& entry : mDelayDynLib)
 			{
-				(*entry)->unload();
-				delete (*entry);
+				entry->unload();
+				delete entry;
 			}
 			mDelayDynLib.clear();
 		}

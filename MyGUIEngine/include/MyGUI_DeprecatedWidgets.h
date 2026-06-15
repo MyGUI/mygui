@@ -9,17 +9,16 @@
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-#include "MyGUI_DeprecatedTypes.h"
-#include "MyGUI_ScrollBar.h"
-#include "MyGUI_EventPair.h"
+	#include "MyGUI_DeprecatedTypes.h"
+	#include "MyGUI_ScrollBar.h"
+	#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT VScroll :
-		public ScrollBar
+	class MYGUI_EXPORT VScroll : public ScrollBar
 	{
-		MYGUI_RTTI_DERIVED( VScroll )
+		MYGUI_RTTI_DERIVED(VScroll)
 
 	public:
 		VScroll()
@@ -28,10 +27,9 @@ namespace MyGUI
 		}
 	};
 
-	class MYGUI_EXPORT HScroll :
-		public VScroll
+	class MYGUI_EXPORT HScroll : public VScroll
 	{
-		MYGUI_RTTI_DERIVED( HScroll )
+		MYGUI_RTTI_DERIVED(HScroll)
 
 	public:
 		HScroll()

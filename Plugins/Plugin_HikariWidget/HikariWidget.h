@@ -13,10 +13,9 @@
 namespace Hikari
 {
 
-	class MYGUI_EXPORT_DLL HikariWidget :
-		public MyGUI::Canvas
+	class MYGUI_EXPORT_DLL HikariWidget : public MyGUI::Canvas
 	{
-		MYGUI_RTTI_DERIVED( HikariWidget )
+		MYGUI_RTTI_DERIVED(HikariWidget)
 
 	public:
 		HikariWidget();
@@ -144,7 +143,7 @@ namespace Hikari
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);

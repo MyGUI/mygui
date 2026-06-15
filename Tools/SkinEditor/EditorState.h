@@ -17,9 +17,7 @@
 namespace tools
 {
 
-	class EditorState :
-		public StateController,
-		public sigslot::has_slots<>
+	class EditorState : public StateController, public sigslot::has_slots<>
 	{
 	public:
 		EditorState();
@@ -68,9 +66,9 @@ namespace tools
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
 
-		Control* mMainPane;
-		OpenSaveFileDialog* mOpenSaveFileDialog;
-		SettingsWindow* mSettingsWindow;
+		Control* mMainPane{nullptr};
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
+		SettingsWindow* mSettingsWindow{nullptr};
 	};
 
 }

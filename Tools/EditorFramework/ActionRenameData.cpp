@@ -15,7 +15,7 @@ namespace tools
 
 	void ActionRenameData::doAction()
 	{
-		mOldValues.push_back(std::make_pair(getProperty(), getProperty()->getValue()));
+		mOldValues.emplace_back(getProperty(), getProperty()->getValue());
 		getProperty()->setValue(getValue());
 
 		DataPtr parent = getProperty()->getOwner()->getParent();

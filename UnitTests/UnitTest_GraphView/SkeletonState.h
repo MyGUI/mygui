@@ -13,8 +13,7 @@
 namespace animation
 {
 
-	class SkeletonState :
-		public IAnimationNode
+	class SkeletonState : public IAnimationNode
 	{
 	public:
 		SkeletonState() :
@@ -22,7 +21,7 @@ namespace animation
 		{
 		}
 
-		SkeletonState(const std::string& _name, IAnimationGraph* _graph) :
+		SkeletonState(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph),
 			mState(nullptr)
 		{
@@ -30,33 +29,40 @@ namespace animation
 
 		~SkeletonState() override
 		{
-			if (mState != nullptr) mState->setEnabled(false);
+			if (mState != nullptr)
+				mState->setEnabled(false);
 		}
 
-		void setEvent(const std::string& _name, float _value = 0) override
+		void setEvent(std::string_view _name, float _value = 0) override
 		{
 			if (!mState)
 			{
 				updateState();
-				if (!mState) return;
+				if (!mState)
+					return;
 			}
 
-			if (_name == "Start") mState->setEnabled(true);
-			else if (_name == "Stop") mState->setEnabled(false);
-			else if (_name == "Position") mState->setTimePosition(_value);
-			else if (_name == "Weight") mState->setWeight(_value);
+			if (_name == "Start")
+				mState->setEnabled(true);
+			else if (_name == "Stop")
+				mState->setEnabled(false);
+			else if (_name == "Position")
+				mState->setTimePosition(_value);
+			else if (_name == "Weight")
+				mState->setWeight(_value);
 		}
 
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnections.emplace_back(_eventout, PairIn(_node, _eventin));
 		}
 
-		void setProperty(const std::string& _key, const std::string& _value) override
+		void setProperty(std::string_view _key, std::string_view _value) override
 		{
 			if (_key == "StateName")
 			{
-				if (mState != nullptr) mState->setEnabled(false);
+				if (mState != nullptr)
+					mState->setEnabled(false);
 				mState = nullptr;
 				mStateName = _value;
 			}
@@ -67,26 +73,30 @@ namespace animation
 			if (!mState)
 			{
 				updateState();
-				if (!mState) return 0;
+				if (!mState)
+					return 0;
 			}
 			return mState->getLength();
 		}
 
 		float getWeight()
 		{
-			if (mState == nullptr) return 0;
+			if (mState == nullptr)
+				return 0;
 			return mState->getWeight();
 		}
 
 		float getPosition()
 		{
-			if (mState == nullptr) return 0;
+			if (mState == nullptr)
+				return 0;
 			return mState->getTimePosition();
 		}
 
 		bool isEnabled()
 		{
-			if (mState == nullptr) return false;
+			if (mState == nullptr)
+				return false;
 			return mState->getEnabled();
 		}
 
@@ -104,9 +114,9 @@ namespace animation
 
 	private:
 		Ogre::AnimationState* mState;
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
+		using PairIn = std::pair<IAnimationNode*, std::string>;
+		using PairOut = std::pair<std::string, PairIn>;
+		using VectorPairOut = std::vector<PairOut>;
 		VectorPairOut mConnections;
 
 		std::string mStateName;

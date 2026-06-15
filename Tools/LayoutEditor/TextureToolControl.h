@@ -13,9 +13,7 @@
 namespace tools
 {
 
-	class TextureToolControlLE :
-		public TextureControlLE,
-		public sigslot::has_slots<>
+	class TextureToolControlLE : public TextureControlLE, public sigslot::has_slots<>
 	{
 	public:
 		TextureToolControlLE(MyGUI::Widget* _parent);
@@ -33,7 +31,7 @@ namespace tools
 		bool checkMenuCommand();
 
 	private:
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
 		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
@@ -43,11 +41,11 @@ namespace tools
 		bool doNextScale();
 
 	private:
-		typedef std::vector<size_t> VectorSizeT;
+		using VectorSizeT = std::vector<size_t>;
 		VectorSizeT mScaleValue;
-		size_t mCurrentScaleValue;
+		size_t mCurrentScaleValue{100};
 
-		bool mActivate;
+		bool mActivate{true};
 	};
 
 }

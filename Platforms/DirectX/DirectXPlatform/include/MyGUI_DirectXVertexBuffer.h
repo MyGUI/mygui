@@ -29,7 +29,7 @@ namespace MyGUI
 		Vertex* lock() override;
 		void unlock() override;
 
-	/*internal:*/
+		/*internal:*/
 		virtual bool setToStream(size_t stream);
 
 	private:

@@ -12,12 +12,9 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL Action :
-		public components::IFactoryItem
+	class MYGUI_EXPORT_DLL Action : public components::IFactoryItem
 	{
 	public:
-		Action();
-
 		virtual void doAction();
 		virtual void undoAction();
 		virtual bool doMerge(Action* _action);
@@ -26,7 +23,7 @@ namespace tools
 		bool getMerge() const;
 
 	private:
-		bool mMerge;
+		bool mMerge{false};
 	};
 
 }

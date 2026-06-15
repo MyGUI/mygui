@@ -12,13 +12,9 @@
 namespace plugin
 {
 
-	class MYGUI_EXPORT_DLL StrangeButton :
-		public MyGUI::Button
+	class MYGUI_EXPORT_DLL StrangeButton : public MyGUI::Button
 	{
-		MYGUI_RTTI_DERIVED( StrangeButton )
-
-	public:
-		StrangeButton();
+		MYGUI_RTTI_DERIVED(StrangeButton)
 
 	protected:
 		void onMouseLostFocus(MyGUI::Widget* _new) override;

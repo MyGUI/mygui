@@ -13,17 +13,15 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyStringControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyStringControl : public PropertyControl
 	{
 	public:
-		PropertyStringControl();
 		~PropertyStringControl() override;
 
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyEditTextChange(MyGUI::EditBox* _sender);
@@ -31,8 +29,8 @@ namespace tools
 		MyGUI::UString getClearValue();
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::EditBox* mEdit;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::EditBox* mEdit{nullptr};
 	};
 
 }

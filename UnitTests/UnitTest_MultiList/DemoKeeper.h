@@ -11,8 +11,7 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
 		void createScene() override;
@@ -21,7 +20,6 @@ namespace demo
 	private:
 		void setupResources() override;
 		void notifyFrameStarted(float _time);
-
 	};
 
 } // namespace demo

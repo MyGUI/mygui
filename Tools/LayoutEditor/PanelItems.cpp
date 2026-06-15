@@ -16,15 +16,7 @@ namespace tools
 {
 
 	PanelItems::PanelItems() :
-		BasePanelViewItem("PanelItems.layout"),
-		mEdit(nullptr),
-		mList(nullptr),
-		mButtonAdd(nullptr),
-		mButtonDelete(nullptr),
-		mCurrentWidget(nullptr),
-		mButtonLeft(0),
-		mButtonRight(0),
-		mButtonSpace(0)
+		BasePanelViewItem("PanelItems.layout")
 	{
 	}
 
@@ -57,7 +49,11 @@ namespace tools
 
 		int half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
 		mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
-		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
+		mButtonDelete->setCoord(
+			mButtonAdd->getRight() + mButtonSpace,
+			mButtonDelete->getTop(),
+			width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight),
+			mButtonDelete->getHeight());
 	}
 
 	void PanelItems::update(MyGUI::Widget* _currentWidget)
@@ -82,7 +78,7 @@ namespace tools
 
 			updateList();
 
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			//обновляем кнопки
 			notifyChangeWidth(0);
 		}
@@ -111,12 +107,12 @@ namespace tools
 		if (itemContainer != nullptr)
 		{
 			size_t count = itemContainer->_getItemCount();
-			for (size_t index = 0; index < count; ++ index)
+			for (size_t index = 0; index < count; ++index)
 				mList->addItem(MyGUI::TextIterator::toTagsString(itemContainer->_getItemNameAt(index)));
 		}
 	}
 
-	void PanelItems::setContainerProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
+	void PanelItems::setContainerProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
@@ -126,19 +122,20 @@ namespace tools
 			widgetContainer->setProperty(_key, _value);
 	}
 
-	void PanelItems::addItem(const std::string& _value)
+	void PanelItems::addItem(std::string_view _value)
 	{
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
 
 		if (itemContainer != nullptr)
 		{
-			itemContainer->_addItem(_value);
+			itemContainer->_addItem(MyGUI::UString(_value));
 
 			MyGUI::Widget* item = itemContainer->_getItemAt(itemContainer->_getItemCount() - 1);
 
 			if (item != nullptr)
 			{
-				WidgetContainer* container = new WidgetContainer(item->getTypeName(), "", item, "");
+				WidgetContainer* container =
+					new WidgetContainer(item->getTypeName(), std::string_view{}, item, std::string_view{});
 				EditorWidgets::getInstance().add(container);
 
 				setContainerProperty(item, "Caption", _value);
@@ -195,7 +192,7 @@ namespace tools
 			return;
 		}
 
-		std::string value = mEdit->getOnlyText();
+		MyGUI::UString value = mEdit->getOnlyText();
 		mList->setItemNameAt(item, MyGUI::TextIterator::toTagsString(value));
 
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
@@ -232,19 +229,26 @@ namespace tools
 		}
 	}
 
-	void PanelItems::setPropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName, const std::string& _propertyValue)
+	void PanelItems::setPropertyValue(
+		MyGUI::Widget* _widget,
+		size_t _index,
+		std::string_view _propertyName,
+		std::string_view _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 		widgetContainer->setPropertyByIndex(_index, _propertyName, _propertyValue);
 	}
 
-	void PanelItems::erasePropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName)
+	void PanelItems::erasePropertyValue(MyGUI::Widget* _widget, size_t _index, std::string_view _propertyName)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 		widgetContainer->clearPropertyByIndex(_index, _propertyName);
 	}
 
-	void PanelItems::addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue)
+	void PanelItems::addPropertyValue(
+		MyGUI::Widget* _widget,
+		std::string_view _propertyName,
+		std::string_view _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 		widgetContainer->setProperty(_propertyName, _propertyValue, false);

@@ -20,13 +20,12 @@ namespace MyGUI
 
 	class ResourceManager;
 
-	class MYGUI_EXPORT IResource :
-		public ISerializable
+	class MYGUI_EXPORT IResource : public ISerializable
 	{
 		// для серелизации и удаления
 		friend class ResourceManager;
 
-		MYGUI_RTTI_DERIVED( IResource )
+		MYGUI_RTTI_DERIVED(IResource)
 
 	public:
 		const std::string& getResourceName() const
@@ -34,16 +33,17 @@ namespace MyGUI
 			return mResourceName;
 		}
 
-		void setResourceName(const std::string& _value)
+		void setResourceName(std::string_view _value)
 		{
 			mResourceName = _value;
 		}
 
+		IResource(IResource const&) = delete;
+		IResource& operator=(IResource const&) = delete;
+
 	protected:
 		IResource() = default;
 		~IResource() override = default;
-		IResource(IResource const&) = delete;
-		IResource& operator = (IResource const&) = delete;
 
 		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
 		{

@@ -9,11 +9,12 @@ include_directories(
 
 include(${PROJECTNAME}.list)
 add_definitions(-DGL_GLEXT_PROTOTYPES)
-add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${OPENGL_opengl_LIBRARY} MyGUIEngine)
+target_link_libraries(${PROJECTNAME} OpenGL::GL MyGUIEngine)
+
 link_directories(${OPENGL_LIB_DIR})
 
 # installation rules

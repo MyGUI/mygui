@@ -9,11 +9,6 @@
 namespace demo
 {
 
-	ResourcePointerContext::ResourcePointerContext() :
-		mHighLevel(false)
-	{
-	}
-
 	void ResourcePointerContext::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
 	{
 		Base::deserialization(_node, _version);
@@ -23,7 +18,7 @@ namespace demo
 		{
 			if (info->getName() == "Property")
 			{
-				const std::string& key = info->findAttribute("key");
+				std::string_view key = info->findAttribute("key");
 
 				if (key == "Level")
 					mHighLevel = info->getContent() == "High";
@@ -33,18 +28,18 @@ namespace demo
 				MyGUI::xml::ElementEnumerator item = info->getElementEnumerator();
 				while (item.next("Item"))
 				{
-					mPointers[item->findAttribute("name")] = item->getContent();
+					MyGUI::mapSet(mPointers, item->findAttribute("name"), item->getContent());
 				}
 			}
 		}
 	}
 
-	std::string ResourcePointerContext::getPointer(const std::string& _type)
+	std::string_view ResourcePointerContext::getPointer(std::string_view _type)
 	{
 		MyGUI::MapString::iterator item = mPointers.find(_type);
 		if (item != mPointers.end())
 			return item->second;
-		return "";
+		return {};
 	}
 
 	bool ResourcePointerContext::isHighLevel() const

@@ -18,21 +18,19 @@ namespace MyGUI
 		Widget wrapper over Texture - shows the texture.
 		Implemented: resizing of texture (see TextureResizeMode); recovery after loosing device;
 	*/
-	class MYGUI_EXPORT Canvas :
-		public Widget,
-		public ITextureInvalidateListener
+	class MYGUI_EXPORT Canvas : public Widget, public ITextureInvalidateListener
 	{
-		MYGUI_RTTI_DERIVED( Canvas )
+		MYGUI_RTTI_DERIVED(Canvas)
 
 	public:
 		Canvas();
 
 		struct Event
 		{
-			Event( bool _textureChanged, bool _widgetResized, bool _requested ) :
-				textureChanged( _textureChanged ),
-				widgetResized( _widgetResized ),
-				requested( _requested )
+			Event(bool _textureChanged, bool _widgetResized, bool _requested) :
+				textureChanged(_textureChanged),
+				widgetResized(_widgetResized),
+				requested(_requested)
 			{
 			}
 
@@ -43,8 +41,8 @@ namespace MyGUI
 			bool requested;
 		};
 
-		typedef delegates::CMultiDelegate1<Canvas*> EventHandle_CanvasPtr;
-		typedef delegates::CDelegate2<Canvas*, Event> EventHandle_CanvasPtrEvent;
+		using EventHandle_CanvasPtr = delegates::MultiDelegate<Canvas*>;
+		using EventHandle_CanvasPtrEvent = delegates::Delegate<Canvas*, Event>;
 
 		/**
 			Available resize and view modes of texture
@@ -90,13 +88,25 @@ namespace MyGUI
 
 	public:
 		/// Creates texture
-		void createTexture(TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat());
+		void createTexture(
+			TextureResizeMode _resizeMode,
+			TextureUsage _usage = getDefaultTextureUsage(),
+			PixelFormat _format = getDefaultTextureFormat());
 
 		/// Creates texture
-		void createTexture(int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat());
+		void createTexture(
+			int _width,
+			int _height,
+			TextureResizeMode _resizeMode,
+			TextureUsage _usage = getDefaultTextureUsage(),
+			PixelFormat _format = getDefaultTextureFormat());
 
 		/// Creates texture
-		void createTexture(const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat());
+		void createTexture(
+			const IntSize& _size,
+			TextureResizeMode _resizeMode,
+			TextureUsage _usage = getDefaultTextureUsage(),
+			PixelFormat _format = getDefaultTextureFormat());
 
 		/// Destroys texture
 		void destroyTexture();
@@ -137,10 +147,10 @@ namespace MyGUI
 		/// Returns name of the current texture.
 		const std::string& getTextureName() const;
 
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -221,7 +231,7 @@ namespace MyGUI
 
 	protected:
 		/// Current texture
-		ITexture* mTexture;
+		ITexture* mTexture{nullptr};
 
 		/// Requested bu user sizes
 		IntSize mReqTexSize;
@@ -230,18 +240,18 @@ namespace MyGUI
 		std::string mGenTexName;
 
 		/// Texture resize mode \sa TextureResizeMode
-		TextureResizeMode mTexResizeMode;
+		TextureResizeMode mTexResizeMode{TRM_PT_CONST_SIZE};
 
 		/// Saved pointer from last calling lock. \sa lock
-		uint8* mTexData;
+		uint8* mTexData{nullptr};
 
 		/// true if we own the texture (can delete it or replace by another instance), otherwise false
-		bool mTexManaged;
+		bool mTexManaged{true};
 
 		/// For updating once per frame. True state means updating before next frame starts.
-		bool mFrameAdvise;
+		bool mFrameAdvise{false};
 
-		bool mInvalidateData;
+		bool mInvalidateData{false};
 	};
 
 } // namespace MyGUI

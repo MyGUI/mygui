@@ -60,7 +60,7 @@ namespace tools
 	{
 		return mRoot;
 	}
-	
+
 	void DataManager::invalidateDatas()
 	{
 		eventChangeData();

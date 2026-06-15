@@ -13,17 +13,14 @@
 namespace tools
 {
 
-	class SettingsResourcePathsControl :
-		public Control,
-		public sigslot::has_slots<>
+	class SettingsResourcePathsControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		SettingsResourcePathsControl();
 		~SettingsResourcePathsControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void OnCommand(const std::string& _command) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void OnCommand(std::string_view _command) override;
 
 	private:
 		void loadSettings();
@@ -35,11 +32,11 @@ namespace tools
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
 
 	private:
-		MyGUI::Button* mResourcePathAdd;
-		MyGUI::Button* mResourcePathDelete;
-		MyGUI::ListBox* mResourcePaths;
+		MyGUI::Button* mResourcePathAdd{nullptr};
+		MyGUI::Button* mResourcePathDelete{nullptr};
+		MyGUI::ListBox* mResourcePaths{nullptr};
 
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
 	};
 
 }

@@ -9,16 +9,10 @@
 
 namespace MyGUI
 {
-	ControllerRepeatClick::ControllerRepeatClick() :
-		mInit(0.5f),
-		mStep(0.1f),
-		mTimeLeft(0)
-	{
-	}
 
 	bool ControllerRepeatClick::addTime(MyGUI::Widget* _widget, float _time)
 	{
-		if(mTimeLeft == 0)
+		if (mTimeLeft == 0)
 			mTimeLeft = mInit;
 
 		if (mStep <= 0)
@@ -39,7 +33,7 @@ namespace MyGUI
 		mStep = step;
 	}
 
-	void ControllerRepeatClick::setProperty(const std::string& _key, const std::string& _value)
+	void ControllerRepeatClick::setProperty(std::string_view _key, std::string_view _value)
 	{
 	}
 
@@ -47,4 +41,3 @@ namespace MyGUI
 	{
 	}
 }
-

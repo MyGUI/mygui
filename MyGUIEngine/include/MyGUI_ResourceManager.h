@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
+#include "MyGUI_EventPair.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
@@ -18,10 +19,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ResourceManager :
-		public MemberObsolete<ResourceManager>
+	class MYGUI_EXPORT ResourceManager : public MemberObsolete<ResourceManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(ResourceManager);
+
 	public:
 		ResourceManager();
 
@@ -32,7 +33,7 @@ namespace MyGUI
 		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string& _file);
 
-		void loadFromXmlNode(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void loadFromXmlNode(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 		/** Add resource item to resources */
 		void addResource(IResourcePtr _item);
@@ -40,29 +41,31 @@ namespace MyGUI
 		/** Remove resource item from resources */
 		void removeResource(IResourcePtr _item);
 
-		typedef delegates::CDelegate3<xml::ElementPtr, const std::string&, Version> LoadXmlDelegate;
+		using LoadXmlDelegate = EventPairConvertStringView<
+			delegates::Delegate<xml::ElementPtr, const std::string&, Version>,
+			delegates::Delegate<xml::ElementPtr, std::string_view, Version>>;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
-		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
+		LoadXmlDelegate& registerLoadXmlDelegate(std::string_view _key);
 
 		/** Unregister delegate that parse XML node with specified tag (_key) */
-		void unregisterLoadXmlDelegate(const std::string& _key);
+		void unregisterLoadXmlDelegate(std::string_view _key);
 
 		/** Check is resource exist */
-		bool isExist(const std::string& _name) const;
+		bool isExist(std::string_view _name) const;
 
 		/** Find resource by name*/
-		IResource* findByName(const std::string& _name) const;
+		IResource* findByName(std::string_view _name) const;
 
 		/** Get resource by name*/
-		IResource* getByName(const std::string& _name, bool _throw = true) const;
+		IResource* getByName(std::string_view _name, bool _throw = true) const;
 
-		bool removeByName(const std::string& _name);
+		bool removeByName(std::string_view _name);
 
 		void clear();
 
-		typedef std::map<std::string, IResource*> MapResource;
-		typedef Enumerator<MapResource> EnumeratorPtr;
+		using MapResource = std::map<std::string, IResource*, std::less<>>;
+		using EnumeratorPtr = Enumerator<MapResource>;
 
 		EnumeratorPtr getEnumerator() const;
 
@@ -71,20 +74,20 @@ namespace MyGUI
 		const std::string& getCategoryName() const;
 
 	private:
-		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
-		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
+		void _loadList(xml::ElementPtr _node, std::string_view _file, Version _version);
+		bool _loadImplement(const std::string& _file, bool _match, std::string_view _type, std::string_view _instance);
 
 	private:
 		// карта с делегатами для парсинга хмл блоков
-		typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
+		using MapLoadXmlDelegate = std::map<std::string, LoadXmlDelegate, std::less<>>;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		MapResource mResources;
 
-		typedef std::vector<IResource*> VectorResource;
-		VectorResource mRemovedResoures;
+		using VectorResource = std::vector<IResource*>;
+		VectorResource mRemovedResources;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 		std::string mXmlListTagName;
 	};

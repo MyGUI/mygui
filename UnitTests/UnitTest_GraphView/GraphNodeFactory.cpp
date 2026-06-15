@@ -23,12 +23,12 @@ namespace demo
 
 	GraphNodeFactory::~GraphNodeFactory()
 	{
-		for (MapConstruct::iterator item = mConstructs.begin(); item != mConstructs.end(); ++ item)
-			delete (*item).second;
+		for (auto& mConstruct : mConstructs)
+			delete mConstruct.second;
 		mConstructs.clear();
 	}
 
-	BaseAnimationNode* GraphNodeFactory::createNode(const std::string& _type, const std::string& _name)
+	BaseAnimationNode* GraphNodeFactory::createNode(std::string_view _type, std::string_view _name)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
 		if (item == mConstructs.end())
@@ -36,9 +36,9 @@ namespace demo
 		return (*item).second->create(_name);
 	}
 
-	void GraphNodeFactory::addConstruct(const std::string& _type, IGraphNodeConstruct* _construct)
+	void GraphNodeFactory::addConstruct(std::string_view _type, IGraphNodeConstruct* _construct)
 	{
-		mConstructs[_type] = _construct;
+		MyGUI::mapSet(mConstructs, _type, _construct);
 	}
 
 } // namespace demo

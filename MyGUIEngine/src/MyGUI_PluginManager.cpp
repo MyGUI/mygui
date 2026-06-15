@@ -17,7 +17,6 @@ namespace MyGUI
 	using DLL_STOP_PLUGIN = void (*)();
 
 	PluginManager::PluginManager() :
-		mIsInitialise(false),
 		mXmlPluginTagName("Plugin"),
 		mSingletonHolder(this)
 	{
@@ -28,7 +27,8 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPluginTagName) = newDelegate(this, &PluginManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPluginTagName) =
+			newDelegate(this, &PluginManager::_load);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -46,7 +46,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool PluginManager::loadPlugin(const std::string& _file)
+	bool PluginManager::loadPlugin(std::string_view _file)
 	{
 #ifdef EMSCRIPTEN
 		return false;
@@ -70,7 +70,7 @@ namespace MyGUI
 		}
 
 		// Store for later unload
-		mLibs[_file] = lib;
+		mLibs[lib->getName()] = lib;
 
 		// This must call installPlugin
 		pFunc();
@@ -78,7 +78,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void PluginManager::unloadPlugin(const std::string& _file)
+	void PluginManager::unloadPlugin(std::string_view _file)
 	{
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");
 
@@ -88,7 +88,9 @@ namespace MyGUI
 			// Call plugin shutdown
 			DLL_STOP_PLUGIN pFunc = reinterpret_cast<DLL_STOP_PLUGIN>((*it).second->getSymbol("dllStopPlugin"));
 
-			MYGUI_ASSERT(nullptr != pFunc, getClassTypeName() << "Cannot find symbol 'dllStopPlugin' in library " << _file);
+			MYGUI_ASSERT(
+				nullptr != pFunc,
+				getClassTypeName() << "Cannot find symbol 'dllStopPlugin' in library " << _file);
 
 			// this must call uninstallPlugin
 			pFunc();
@@ -98,7 +100,7 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void PluginManager::_load(xml::ElementPtr _node, std::string_view /*_file*/, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
@@ -111,12 +113,12 @@ namespace MyGUI
 			}
 			else if (node->getName() == "Plugin")
 			{
-				std::string source;
+				std::string_view source;
 
 				xml::ElementEnumerator source_node = node->getElementEnumerator();
 				while (source_node.next("Source"))
 				{
-					std::string build = source_node->findAttribute("build");
+					std::string_view build = source_node->findAttribute("build");
 #if MYGUI_DEBUG_MODE == 1
 					if (build == "Debug")
 						source = source_node->getContent();

@@ -25,21 +25,25 @@ namespace animation
 
 	AnimationNodeFactory::~AnimationNodeFactory()
 	{
-		for (MapConstruct::iterator item = mConstructs.begin(); item != mConstructs.end(); ++item)
-			delete (*item).second;
+		for (auto& mConstruct : mConstructs)
+			delete mConstruct.second;
 		mConstructs.clear();
 	}
 
-	IAnimationNode* AnimationNodeFactory::createNode(const std::string& _type, const std::string& _name, IAnimationGraph* _holder)
+	IAnimationNode* AnimationNodeFactory::createNode(
+		std::string_view _type,
+		std::string_view _name,
+		IAnimationGraph* _holder)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
-		if (item == mConstructs.end()) return nullptr;
+		if (item == mConstructs.end())
+			return nullptr;
 		return (*item).second->create(_name, _holder);
 	}
 
-	void AnimationNodeFactory::addConstruct(const std::string& _type, IAnimationNodeConstruct* _construct)
+	void AnimationNodeFactory::addConstruct(std::string_view _type, IAnimationNodeConstruct* _construct)
 	{
-		mConstructs[_type] = _construct;
+		MyGUI::mapSet(mConstructs, _type, _construct);
 	}
 
 } // namespace animation

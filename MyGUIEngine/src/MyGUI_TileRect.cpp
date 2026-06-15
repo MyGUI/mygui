@@ -20,17 +20,7 @@ namespace MyGUI
 	const size_t TILERECT_COUNT_VERTEX = 16 * VertexQuad::VertexCount;
 
 	TileRect::TileRect() :
-		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
-		mNode(nullptr),
-		mRenderItem(nullptr),
-		mCountVertex(TILERECT_COUNT_VERTEX),
-		mRealTileWidth(0),
-		mRealTileHeight(0),
-		mTextureHeightOne(0),
-		mTextureWidthOne(0),
-		mTileH(true),
-		mTileV(true)
+		mCountVertex(TILERECT_COUNT_VERTEX)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
@@ -97,10 +87,12 @@ namespace MyGUI
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
-        mCurrentCoord = mCoord;
-        if (!mTileH) mTileSize.width = mCoord.width;
-        if (!mTileV) mTileSize.height = mCoord.height;
-        _updateView();
+		mCurrentCoord = mCoord;
+		if (!mTileH)
+			mTileSize.width = mCoord.width;
+		if (!mTileV)
+			mTileSize.height = mCoord.height;
+		_updateView();
 	}
 
 	void TileRect::_updateView()
@@ -122,11 +114,11 @@ namespace MyGUI
 			{
 				size_t count_x = mCoord.width / mTileSize.width;
 				if ((mCoord.width % mTileSize.width) > 0)
-					count_x ++;
+					count_x++;
 
 				size_t count_y = mCoord.height / mTileSize.height;
 				if ((mCoord.height % mTileSize.height) > 0)
-					count_y ++;
+					count_y++;
 
 				count = count_y * count_x * VertexQuad::VertexCount;
 			}
@@ -189,31 +181,43 @@ namespace MyGUI
 		float vertex_z = mNode->getNodeDepth();
 
 		// абсолютный размер окна
-		float window_left = ((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
-		float window_top = -(((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
+		float window_left =
+			((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
+			  info.hOffset) *
+			 2) -
+			1;
+		float window_top = -(
+			((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) *
+			 2) -
+			1);
 
 		// размер вьюпорта
-		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float real_left =
+			((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
+			  info.hOffset) *
+			 2) -
+			1;
 		float real_right = real_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
+		float real_top =
+			-(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) +
+				info.vOffset) *
+			   2) -
+			  1);
 		float real_bottom = real_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		size_t count = 0;
 
-		float left = window_left;
-		float right = window_left;
-		float top = window_top;
 		float bottom = window_top;
 
 		for (int y = 0; y < mCoord.height; y += mTileSize.height)
 		{
-			top = bottom;
+			float top = bottom;
 			bottom -= mRealTileHeight;
-			right = window_left;
+			float right = window_left;
 
 			float vertex_top = top;
 			float vertex_bottom = bottom;
-			bool texture_crop_height  = false;
+			bool texture_crop_height = false;
 
 			if (vertex_top > real_top)
 			{
@@ -240,7 +244,7 @@ namespace MyGUI
 
 			for (int x = 0; x < mCoord.width; x += mTileSize.width)
 			{
-				left = right;
+				float left = right;
 				right += mRealTileWidth;
 
 				float vertex_left = left;
@@ -308,7 +312,7 @@ namespace MyGUI
 					texture_bottom,
 					mCurrentColour);
 
-				count ++;
+				count++;
 			}
 		}
 

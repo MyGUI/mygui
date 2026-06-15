@@ -20,6 +20,7 @@ namespace MyGUI
 	class MYGUI_EXPORT DynLibManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DynLibManager);
+
 	public:
 		DynLibManager();
 
@@ -27,7 +28,7 @@ namespace MyGUI
 		void shutdown();
 
 		//!	Load library
-		DynLib* load(const std::string& fileName);
+		DynLib* load(std::string_view fileName);
 		//!	Unload library
 		void unload(DynLib* library);
 
@@ -41,13 +42,13 @@ namespace MyGUI
 
 	private:
 		//! Dynamic libraries map
-		typedef std::map <std::string, DynLib*> StringDynLibMap;
+		using StringDynLibMap = std::map<std::string, DynLib*, std::less<>>;
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 
-		typedef std::vector<DynLib*> VectorDynLib;
+		using VectorDynLib = std::vector<DynLib*>;
 		VectorDynLib mDelayDynLib;
 	};
 

@@ -11,23 +11,11 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
-#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
 
-	RenderItem::RenderItem() :
-		mTexture(nullptr),
-		mNeedVertexCount(0),
-		mOutOfDate(false),
-		mCountVertex(0),
-		mCurrentUpdate(true),
-		mCurrentVertex(nullptr),
-		mLastVertexCount(0),
-		mVertexBuffer(nullptr),
-		mRenderTarget(nullptr),
-		mNeedCompression(false),
-		mManualRender(false)
+	RenderItem::RenderItem()
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
 	}
@@ -53,16 +41,14 @@ namespace MyGUI
 			Vertex* buffer = mVertexBuffer->lock();
 			if (buffer != nullptr)
 			{
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+				for (auto& item : mDrawItems)
 				{
-					// перед вызовом запоминаем позицию в буфере
 					mCurrentVertex = buffer;
 					mLastVertexCount = 0;
 
-					(*iter).first->doRender();
+					item.first->doRender();
 
-					// колличество отрисованных вершин
-					MYGUI_DEBUG_ASSERT(mLastVertexCount <= (*iter).second, "It is too much vertexes");
+					MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
 					buffer += mLastVertexCount;
 					mCountVertex += mLastVertexCount;
 				}
@@ -79,16 +65,17 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 			if (!RenderManager::getInstance().checkTexture(mTexture))
 			{
+				auto textureName = mTexture->getName();
 				mTexture = nullptr;
-				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << mTextureName << "'");
+				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << textureName << "'");
 				return;
 			}
 #endif
 			// непосредственный рендринг
 			if (mManualRender)
 			{
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
-					(*iter).first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
+				for (auto& item : mDrawItems)
+					item.first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
 			}
 			else
 			{
@@ -124,16 +111,15 @@ namespace MyGUI
 
 	void RenderItem::addDrawItem(ISubWidget* _item, size_t _count)
 	{
-
 // проверяем только в дебаге
 #if MYGUI_DEBUG_MODE == 1
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (const auto& item : mDrawItems)
 		{
-			MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
+			MYGUI_ASSERT(item.first != _item, "DrawItem exist");
 		}
 #endif
 
-		mDrawItems.push_back(DrawItemInfo(_item, _count));
+		mDrawItems.emplace_back(_item, _count);
 		mNeedVertexCount += _count;
 		mOutOfDate = true;
 
@@ -142,16 +128,16 @@ namespace MyGUI
 
 	void RenderItem::reallockDrawItem(ISubWidget* _item, size_t _count)
 	{
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (auto& item : mDrawItems)
 		{
-			if ((*iter).first == _item)
+			if (item.first == _item)
 			{
 				// если нужно меньше, то ниче не делаем
-				if ((*iter).second < _count)
+				if (item.second < _count)
 				{
-					mNeedVertexCount -= (*iter).second;
+					mNeedVertexCount -= item.second;
 					mNeedVertexCount += _count;
-					(*iter).second = _count;
+					item.second = _count;
 					mOutOfDate = true;
 
 					mVertexBuffer->setVertexCount(mNeedVertexCount);
@@ -171,10 +157,6 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
 
 		mTexture = _value;
-
-#if MYGUI_DEBUG_MODE == 1
-		mTextureName = mTexture == nullptr ? "" : mTexture->getName();
-#endif
 	}
 
 	ITexture* RenderItem::getTexture() const

@@ -21,13 +21,13 @@ namespace MyGUI
 
 	public:
 		SubWidgetBinding();
-		SubWidgetBinding(const IntCoord& _coord, Align _aligin, const std::string& _type);
+		SubWidgetBinding(const IntCoord& _coord, Align _aligin, std::string_view _type);
 
-		void create(const IntCoord& _coord, Align _aligin, const std::string& _type);
+		void create(const IntCoord& _coord, Align _aligin, std::string_view _type);
 
 		void clear();
 
-		void add(const std::string& _name, IStateInfo* _data, const std::string& _skin);
+		void add(std::string_view _name, IStateInfo* _data, std::string_view _skin);
 
 	private:
 		IntCoord mOffset;

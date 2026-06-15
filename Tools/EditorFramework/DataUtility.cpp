@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	DataPtr DataUtility::getSelectedDataByType(const std::string& _type)
+	DataPtr DataUtility::getSelectedDataByType(std::string_view _type)
 	{
 		DataTypePtr info = DataTypeManager::getInstance().getType(_type);
 
@@ -29,7 +29,7 @@ namespace tools
 		return getSelectedDataByType(_data->getChildSelected(), _info);
 	}
 
-	DataPtr DataUtility::getSelectedParentDataByType(const std::string& _type)
+	DataPtr DataUtility::getSelectedParentDataByType(std::string_view _type)
 	{
 		DataTypePtr info = DataTypeManager::getInstance().getType(_type);
 
@@ -41,7 +41,9 @@ namespace tools
 		if (_data == nullptr)
 			return nullptr;
 
-		for (DataType::VectorString::const_iterator child = _data->getType()->getChilds().begin(); child != _data->getType()->getChilds().end(); child ++)
+		for (DataType::VectorString::const_iterator child = _data->getType()->getChilds().begin();
+			 child != _data->getType()->getChilds().end();
+			 child++)
 		{
 			if ((*child) == _info->getName())
 				return _data;
@@ -54,11 +56,13 @@ namespace tools
 	{
 		MYGUI_ASSERT(_target != _prototype, "Error clone self");
 		MYGUI_ASSERT(_target->getType() == _prototype->getType(), "Error clone different types");
-		MYGUI_ASSERT(_target->getChilds().size() == 0, "Target not empty");
+		MYGUI_ASSERT(_target->getChilds().empty(), "Target not empty");
 
 		copyProperty(_target, _prototype);
-		
-		for (Data::VectorData::const_iterator child = _prototype->getChilds().begin(); child != _prototype->getChilds().end(); child ++)
+
+		for (Data::VectorData::const_iterator child = _prototype->getChilds().begin();
+			 child != _prototype->getChilds().end();
+			 child++)
 		{
 			DataPtr data = Data::CreateInstance();
 			data->setType((*child)->getType());
@@ -71,15 +75,17 @@ namespace tools
 
 	void DataUtility::copyProperty(DataPtr _target, DataPtr _prototype)
 	{
-		for (Data::MapProperty::const_iterator property = _prototype->getProperties().begin(); property != _prototype->getProperties().end(); property ++)
+		for (Data::MapProperty::const_iterator property = _prototype->getProperties().begin();
+			 property != _prototype->getProperties().end();
+			 property++)
 			_target->setPropertyValue((*property).first, (*property).second->getValue());
 	}
 
-	std::string DataUtility::getUniqueName(DataPtr _parent, const std::string& _pattern)
+	std::string DataUtility::getUniqueName(DataPtr _parent, std::string_view _pattern)
 	{
-		std::string result = _pattern;
+		std::string result{_pattern};
 
-		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index ++)
+		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index++)
 		{
 			std::string name = MyGUI::utility::toString(_pattern, index);
 			bool unique = checkUniqueName(_parent, name);
@@ -93,9 +99,10 @@ namespace tools
 		return result;
 	}
 
-	bool DataUtility::checkUniqueName(DataPtr _parent, const std::string& _name)
+	bool DataUtility::checkUniqueName(DataPtr _parent, std::string_view _name)
 	{
-		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getPropertyValue("Name") == _name)
 				return false;
@@ -104,12 +111,13 @@ namespace tools
 		return true;
 	}
 
-	Data::VectorData DataUtility::getChildsByType(DataPtr _parent, const std::string& _type, bool _friend)
+	Data::VectorData DataUtility::getChildsByType(DataPtr _parent, std::string_view _type, bool _friend)
 	{
 		Data::VectorData result;
 		result.reserve(_parent->getChilds().size());
 
-		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() == _type || (_friend && (*child)->getType()->getFriend() == _type))
 				result.push_back((*child));

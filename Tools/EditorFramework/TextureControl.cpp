@@ -11,16 +11,6 @@
 namespace tools
 {
 
-	TextureControl::TextureControl() :
-		mView(nullptr),
-		mTexture(nullptr),
-		mBackground(nullptr),
-		mScaleValue(1.0),
-		mMouseCapture(false),
-		mMouseLeftPressed(false)
-	{
-	}
-
 	TextureControl::~TextureControl()
 	{
 		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
@@ -30,7 +20,7 @@ namespace tools
 		mTexture->eventMouseMove -= MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
 	}
 
-	void TextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void TextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -52,8 +42,8 @@ namespace tools
 
 		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
 
-		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
-			(*item)->setScale(mScaleValue);
+		for (auto& selector : mSelectors)
+			selector->setScale(mScaleValue);
 	}
 
 	void TextureControl::setTextureValue(const MyGUI::UString& _value)
@@ -140,9 +130,9 @@ namespace tools
 		if (mMouseCapture)
 			return true;
 
-		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
+		for (auto& selector : mSelectors)
 		{
-			if ((*item)->getCapture())
+			if (selector->getCapture())
 				return true;
 		}
 
@@ -166,8 +156,10 @@ namespace tools
 		mSelectors.push_back(_control);
 		_control->setScale(mScaleValue);
 		_control->getMainWidget()->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
-		_control->getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		_control->getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		_control->getMainWidget()->eventMouseButtonPressed +=
+			MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		_control->getMainWidget()->eventMouseButtonReleased +=
+			MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
 		_control->getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
 		_control->getMainWidget()->eventMouseMove += MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
 	}
@@ -243,7 +235,9 @@ namespace tools
 		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
 		MyGUI::IntPoint mouseOffset = mousePoint - mTexture->getAbsolutePosition();
 
-		mMouseRelative.set((float)mouseOffset.left / (float)canvasSize.width, (float)mouseOffset.top / (float)canvasSize.height);
+		mMouseRelative.set(
+			(float)mouseOffset.left / (float)canvasSize.width,
+			(float)mouseOffset.top / (float)canvasSize.height);
 	}
 
 	void TextureControl::loadMouseRelative()
@@ -255,7 +249,9 @@ namespace tools
 		// смещение мыши относительно вью
 		MyGUI::IntPoint mouseOffset = mousePoint - mView->getAbsolutePosition() - viewCoord.point();
 		// смещение нужной точки внутри текстуры в пикселях
-		MyGUI::IntPoint canvasPointOffset((int)(mMouseRelative.left * (float)canvasSize.width), (int)(mMouseRelative.top * (float)canvasSize.height));
+		MyGUI::IntPoint canvasPointOffset(
+			(int)(mMouseRelative.left * (float)canvasSize.width),
+			(int)(mMouseRelative.top * (float)canvasSize.height));
 		// смещение вью в пикселях
 		MyGUI::IntPoint canvasOffset = canvasPointOffset - mouseOffset;
 

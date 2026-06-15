@@ -12,19 +12,17 @@ namespace MyGUI
 {
 	class TreeControlItem;
 
-	class TreeControl :
-		public Widget
+	class TreeControl : public Widget
 	{
-		MYGUI_RTTI_DERIVED( TreeControl )
+		MYGUI_RTTI_DERIVED(TreeControl)
 
 	public:
 		class Node;
 
-		typedef delegates::CMultiDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
-		typedef delegates::CMultiDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
+		using EventHandle_TreeControlPtrNodePtr = delegates::MultiDelegate<TreeControl*, Node*>;
+		using EventHandle_TreeControlPtrSizeT = delegates::MultiDelegate<TreeControl*, size_t>;
 
-		class Node :
-			public GenericNode<Node, TreeControl>
+		class Node : public GenericNode<Node, TreeControl>
 		{
 		public:
 			Node();
@@ -44,7 +42,7 @@ namespace MyGUI
 			void setImage(const UString& strImage);
 
 			void setData(Any Data);
-			template <typename TYPE>
+			template<typename TYPE>
 			TYPE* getData() const;
 
 		private:
@@ -54,9 +52,7 @@ namespace MyGUI
 			Any mData;
 		};
 
-		typedef Node::VectorGenericNodePtr VectorNodePtr;
-
-		TreeControl();
+		using VectorNodePtr = Node::VectorGenericNodePtr;
 
 		Node* getRoot() const;
 		void setRootVisible(bool bValue);
@@ -95,7 +91,7 @@ namespace MyGUI
 		void onKeyButtonPressed(KeyCode Key, Char Character) override;
 
 	private:
-		typedef std::vector<TreeControlItem*> VectorTreeItemPtr;
+		using VectorTreeItemPtr = std::vector<TreeControlItem*>;
 
 		void validate();
 
@@ -106,28 +102,29 @@ namespace MyGUI
 		void sendScrollingEvents(size_t nPosition);
 
 	private:
-		ScrollBar* mpWidgetScroll;
+		ScrollBar* mpWidgetScroll{nullptr};
 		VectorTreeItemPtr mItemWidgets;
 		UString mstrSkinLine;
-		bool mbScrollAlwaysVisible;
-		bool mbInvalidated;
-		bool mbRootVisible;
-		int mnItemHeight;
-		int mnScrollRange;
-		int mnTopIndex;
-		int mnTopOffset;
-		size_t mnFocusIndex;
-		Node* mpSelection;
-		Node* mpRoot;
-		size_t mnExpandedNodes;
-		int mnLevelOffset;
+		bool mbScrollAlwaysVisible{true};
+		bool mbInvalidated{false};
+		bool mbRootVisible{false};
+		int mnItemHeight{1};
+		int mnScrollRange{-1};
+		int mnTopIndex{0};
+		int mnTopOffset{0};
+		size_t mnFocusIndex{ITEM_NONE};
+		Node* mpSelection{nullptr};
+		Node* mpRoot{nullptr};
+		size_t mnExpandedNodes{0};
+		int mnLevelOffset{0};
 	};
 
 
 	inline TreeControl::Node::Node() :
 		mbIsPrepared(false),
 		mbIsExpanded(true)
-	{ }
+	{
+	}
 	inline bool TreeControl::Node::isPrepared() const
 	{
 		return mbIsPrepared;
@@ -146,9 +143,9 @@ namespace MyGUI
 	}
 	inline void TreeControl::Node::setData(Any Data)
 	{
-		mData = Data;
+		mData = std::move(Data);
 	}
-	template <typename TYPE>
+	template<typename TYPE>
 	TYPE* TreeControl::Node::getData() const
 	{
 		return mData.castType<TYPE>(true);

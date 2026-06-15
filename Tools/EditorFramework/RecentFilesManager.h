@@ -15,8 +15,9 @@ namespace tools
 	class MYGUI_EXPORT_DLL RecentFilesManager
 	{
 		MYGUI_SINGLETON_DECLARATION(RecentFilesManager);
+
 	public:
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 
 		RecentFilesManager();
 
@@ -38,9 +39,9 @@ namespace tools
 	private:
 		MyGUI::UString mRecentFolder;
 		VectorUString mRecentFolders;
-		size_t mMaxRecentFolders;
+		size_t mMaxRecentFolders{0};
 		VectorUString mRecentFiles;
-		size_t mMaxRecentFiles;
+		size_t mMaxRecentFiles{0};
 	};
 
 }

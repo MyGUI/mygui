@@ -13,17 +13,9 @@
 namespace MyGUI
 {
 
-	ResourceSkin::ResourceSkin()
-	{
-	}
-
 	ResourceSkin::~ResourceSkin()
 	{
-		for (MapWidgetStateInfo::iterator item = mStates.begin(); item != mStates.end(); ++ item)
-		{
-			for (VectorStateInfo::iterator info = (*item).second.begin(); info != (*item).second.end(); ++ info)
-				delete (*info);
-		}
+		clear();
 		mStates.clear();
 	}
 
@@ -31,14 +23,17 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
+		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
 		// парсим атрибуты скина
-		std::string name, texture, tmp;
+		std::string name;
+		std::string texture;
+		std::string tmp;
 		IntSize size;
 		_node->findAttribute("name", name);
 		_node->findAttribute("texture", texture);
-		if (_node->findAttribute("size", tmp)) size = IntSize::parse(tmp);
+		if (_node->findAttribute("size", tmp))
+			size = IntSize::parse(tmp);
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -64,7 +59,8 @@ namespace MyGUI
 			if (basis->getName() == "Property")
 			{
 				// загружаем свойства
-				std::string key, value;
+				std::string key;
+				std::string value;
 				if (!basis->findAttribute("key", key))
 					continue;
 				if (!basis->findAttribute("value", value))
@@ -100,7 +96,8 @@ namespace MyGUI
 			else if (basis->getName() == "BasisSkin")
 			{
 				// парсим атрибуты
-				std::string basisSkinType, tmp_str;
+				std::string basisSkinType;
+				std::string tmp_str;
 				IntCoord offset;
 				Align align = Align::Default;
 				basis->findAttribute("type", basisSkinType);
@@ -123,7 +120,7 @@ namespace MyGUI
 					{
 						if (state->getName() == "State")
 						{
-							const std::string& name_state = state->findAttribute("name");
+							std::string_view name_state = state->findAttribute("name");
 							if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check"))
 							{
 								new_format = true;
@@ -187,11 +184,10 @@ namespace MyGUI
 				// теперь всё вместе добавляем в скин
 				addInfo(bind);
 			}
-
 		}
 	}
 
-	void ResourceSkin::setInfo(const IntSize& _size, const std::string& _texture)
+	void ResourceSkin::setInfo(const IntSize& _size, std::string_view _texture)
 	{
 		mSize = _size;
 		mTexture = _texture;
@@ -200,14 +196,14 @@ namespace MyGUI
 	void ResourceSkin::addInfo(const SubWidgetBinding& _bind)
 	{
 		checkState(_bind.mStates);
-		mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
+		mBasis.emplace_back(_bind.mType, _bind.mOffset, _bind.mAlign);
 		checkBasis();
 		fillState(_bind.mStates, mBasis.size() - 1);
 	}
 
-	void ResourceSkin::addProperty(const std::string& _key, const std::string& _value)
+	void ResourceSkin::addProperty(std::string_view _key, std::string_view _value)
 	{
-		mProperties[_key] = _value;
+		mapSet(mProperties, _key, _value);
 	}
 
 	void ResourceSkin::addChild(const ChildSkinInfo& _child)
@@ -217,48 +213,46 @@ namespace MyGUI
 
 	void ResourceSkin::clear()
 	{
-		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
+		for (auto& state : mStates)
 		{
-			for (VectorStateInfo::iterator iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
-			{
-				delete *iter2;
-			}
+			for (auto& info : state.second)
+				delete info;
 		}
 	}
 
 	void ResourceSkin::checkState(const MapStateInfo& _states)
 	{
-		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
+		for (const auto& state : _states)
 		{
-			checkState(iter->first);
+			checkState(state.first);
 		}
 	}
 
-	void ResourceSkin::checkState(const std::string& _name)
+	void ResourceSkin::checkState(std::string_view _name)
 	{
 		// ищем такой же ключ
 		MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
 		if (iter == mStates.end())
 		{
 			// добавляем новый стейт
-			mStates[_name] = VectorStateInfo();
+			mStates.emplace(_name, VectorStateInfo());
 		}
 	}
 
 	void ResourceSkin::checkBasis()
 	{
 		// и увеличиваем размер смещений по колличеству сабвиджетов
-		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
+		for (auto& state : mStates)
 		{
-			iter->second.resize(mBasis.size());
+			state.second.resize(mBasis.size());
 		}
 	}
 
 	void ResourceSkin::fillState(const MapStateInfo& _states, size_t _index)
 	{
-		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
+		for (const auto& state : _states)
 		{
-			mStates[iter->first][_index] = iter->second;
+			mStates[state.first][_index] = state.second;
 		}
 	}
 

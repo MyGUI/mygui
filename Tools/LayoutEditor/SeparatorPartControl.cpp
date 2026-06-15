@@ -4,13 +4,8 @@
 namespace tools
 {
 
-	SeparatorPartControl::SeparatorPartControl(const std::string& _layout, MyGUI::Widget* _parent) :
-		wraps::BaseLayout(_layout, _parent),
-		mLeftPanel(nullptr),
-		mRightPanel(nullptr),
-		mSeparatorH(nullptr),
-		mMinSizeLeft(0),
-		mMinSizeRight(0)
+	SeparatorPartControl::SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent) :
+		wraps::BaseLayout(_layout, _parent)
 	{
 		assignWidget(mLeftPanel, "Left");
 		assignWidget(mRightPanel, "Right");
@@ -19,17 +14,23 @@ namespace tools
 		mMinSizeLeft = MyGUI::utility::parseValue<int>(mLeftPanel->getUserString("MinSize"));
 		mMinSizeRight = MyGUI::utility::parseValue<int>(mRightPanel->getUserString("MinSize"));
 
-		mSeparatorH->eventMouseButtonPressed += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
+		mSeparatorH->eventMouseButtonPressed +=
+			MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
 		mSeparatorH->eventMouseDrag += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseDrag);
 	}
 
 	SeparatorPartControl::~SeparatorPartControl()
 	{
-		mSeparatorH->eventMouseButtonPressed -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
+		mSeparatorH->eventMouseButtonPressed -=
+			MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
 		mSeparatorH->eventMouseDrag -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseDrag);
 	}
 
-	void SeparatorPartControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void SeparatorPartControl::notifyMouseButtonPressed(
+		MyGUI::Widget* _sender,
+		int _left,
+		int _top,
+		MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Left)
 		{

@@ -16,7 +16,11 @@ namespace tools
 	{
 	}
 
-	WidgetContainer::WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name):
+	WidgetContainer::WidgetContainer(
+		std::string_view _type,
+		std::string_view _skin,
+		MyGUI::Widget* _widget,
+		std::string_view _name) :
 		mRelativeMode(false),
 		mType(_type),
 		mSkin(_skin),
@@ -27,12 +31,12 @@ namespace tools
 
 	WidgetContainer::~WidgetContainer()
 	{
-		for (std::vector<WidgetContainer*>::iterator iter = childContainers.begin(); iter != childContainers.end(); ++iter)
-			delete *iter;
+		for (auto& childContainer : childContainers)
+			delete childContainer;
 		childContainers.clear();
 
-		for (std::vector<ControllerInfo*>::iterator iter = mController.begin(); iter != mController.end(); ++iter)
-			delete *iter;
+		for (auto& iter : mController)
+			delete iter;
 		mController.clear();
 	}
 
@@ -40,11 +44,13 @@ namespace tools
 	{
 		if (mRelativeMode)
 		{
-			MyGUI::DoubleCoord coord = MyGUI::CoordConverter::convertToRelativeD(mWidget->getCoord(), mWidget->getParentSize());
+			MyGUI::DoubleCoord coord =
+				MyGUI::CoordConverter::convertToRelativeD(mWidget->getCoord(), mWidget->getParentSize());
 			std::ostringstream stream;
 			stream.precision(17);
 			if (_percent)
-				stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " " << coord.height * 100;
+				stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " "
+					   << coord.height * 100;
 			else
 				stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
 			return stream.str();
@@ -52,37 +58,37 @@ namespace tools
 		return mWidget->getCoord().print();
 	}
 
-	void WidgetContainer::setUserData(const std::string& _key, const std::string& _value)
+	void WidgetContainer::setUserData(std::string_view _key, std::string_view _value)
 	{
 		bool found = false;
 
-		for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (auto& item : mUserString)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 			{
 				found = true;
-				(*item).second = _value;
+				item.second = _value;
 				break;
 			}
 		}
 
 		if (!found)
-			mUserString.push_back(MyGUI::PairString(_key, _value));
+			mUserString.emplace_back(_key, _value);
 	}
 
-	std::string WidgetContainer::getUserData(const std::string& _key)
+	std::string_view WidgetContainer::getUserData(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (const auto& item : mUserString)
 		{
-			if ((*item).first == _key)
-				return (*item).second;
+			if (item.first == _key)
+				return item.second;
 		}
-		return "";
+		return {};
 	}
 
-	void WidgetContainer::clearUserData(const std::string& _key)
+	void WidgetContainer::clearUserData(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++item)
 		{
 			if ((*item).first == _key)
 			{
@@ -92,11 +98,11 @@ namespace tools
 		}
 	}
 
-	bool WidgetContainer::existUserData(const std::string& _key) const
+	bool WidgetContainer::existUserData(std::string_view _key) const
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (const auto& item : mUserString)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 				return true;
 		}
 		return false;
@@ -107,40 +113,40 @@ namespace tools
 		return UserDataEnumerator(mUserString);
 	}
 
-	void WidgetContainer::setProperty(const std::string& _key, const std::string& _value, bool _eraseExist)
+	void WidgetContainer::setProperty(std::string_view _key, std::string_view _value, bool _eraseExist)
 	{
 		bool found = false;
 
 		if (_eraseExist)
 		{
-			for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+			for (auto& item : mProperty)
 			{
-				if ((*item).first == _key)
+				if (item.first == _key)
 				{
 					found = true;
-					(*item).second = _value;
+					item.second = _value;
 					break;
 				}
 			}
 		}
 
 		if (!found)
-			mProperty.push_back(MyGUI::PairString(_key, _value));
+			mProperty.emplace_back(_key, _value);
 	}
 
-	std::string WidgetContainer::getProperty(const std::string& _key)
+	std::string_view WidgetContainer::getProperty(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		for (const auto& item : mProperty)
 		{
-			if ((*item).first == _key)
-				return (*item).second;
+			if (item.first == _key)
+				return item.second;
 		}
-		return "";
+		return {};
 	}
 
-	void WidgetContainer::clearProperty(const std::string& _key)
+	void WidgetContainer::clearProperty(std::string_view _key)
 	{
-		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++item)
 		{
 			if ((*item).first == _key)
 			{
@@ -150,11 +156,11 @@ namespace tools
 		}
 	}
 
-	bool WidgetContainer::existProperty(const std::string& _key) const
+	bool WidgetContainer::existProperty(std::string_view _key) const
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		for (const auto& item : mProperty)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 				return true;
 		}
 		return false;
@@ -165,7 +171,7 @@ namespace tools
 		return PropertyEnumerator(mProperty);
 	}
 
-	void WidgetContainer::setLayerName(const std::string& _value)
+	void WidgetContainer::setLayerName(std::string_view _value)
 	{
 		mLayer = _value;
 	}
@@ -190,7 +196,7 @@ namespace tools
 		return mName;
 	}
 
-	void WidgetContainer::setName(const std::string& _value)
+	void WidgetContainer::setName(std::string_view _value)
 	{
 		mName = _value;
 	}
@@ -200,7 +206,7 @@ namespace tools
 		return mSkin;
 	}
 
-	void WidgetContainer::setSkin(const std::string& _value)
+	void WidgetContainer::setSkin(std::string_view _value)
 	{
 		mSkin = _value;
 	}
@@ -210,7 +216,7 @@ namespace tools
 		return mType;
 	}
 
-	void WidgetContainer::setType(const std::string& _value)
+	void WidgetContainer::setType(std::string_view _value)
 	{
 		mType = _value;
 	}
@@ -220,7 +226,7 @@ namespace tools
 		return mAlign;
 	}
 
-	void WidgetContainer::setAlign(const std::string& _value)
+	void WidgetContainer::setAlign(std::string_view _value)
 	{
 		mAlign = _value;
 	}
@@ -230,7 +236,7 @@ namespace tools
 		return mStyle;
 	}
 
-	void WidgetContainer::setStyle(const std::string& _value)
+	void WidgetContainer::setStyle(std::string_view _value)
 	{
 		mStyle = _value;
 	}
@@ -245,23 +251,23 @@ namespace tools
 		mRelativeMode = _value;
 	}
 
-	void WidgetContainer::setPropertyByIndex(size_t _index, const std::string& _key, const std::string& _value)
+	void WidgetContainer::setPropertyByIndex(size_t _index, std::string_view _key, std::string_view _value)
 	{
-		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++item)
+		for (auto& item : mProperty)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 			{
 				if (_index == 0)
 				{
-					(*item).second = _value;
+					item.second = _value;
 					break;
 				}
-				-- _index;
+				--_index;
 			}
 		}
 	}
 
-	void WidgetContainer::clearPropertyByIndex(size_t _index, const std::string& _key)
+	void WidgetContainer::clearPropertyByIndex(size_t _index, std::string_view _key)
 	{
 		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++item)
 		{
@@ -272,7 +278,7 @@ namespace tools
 					mProperty.erase(item);
 					break;
 				}
-				-- _index;
+				--_index;
 			}
 		}
 	}

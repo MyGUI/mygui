@@ -54,7 +54,3 @@ if (UNIX)
   # configure additional packages
   
 endif ()
-
-if (MYGUI_STANDALONE_BUILD)
-  set(CMAKE_SUPPRESS_REGENERATION true)
-endif()

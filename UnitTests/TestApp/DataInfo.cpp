@@ -14,7 +14,7 @@ namespace tools
 
 	DataInfo::~DataInfo()
 	{
-		for (VectorProperty::iterator property = mProperties.begin(); property != mProperties.end(); property ++)
+		for (VectorProperty::iterator property = mProperties.begin(); property != mProperties.end(); property++)
 			delete *property;
 		mProperties.clear();
 	}
@@ -24,11 +24,12 @@ namespace tools
 		mType = _node.select_single_node("Type").node().child_value();
 
 		pugi::xpath_node_set childs = _node.select_nodes("Childs/Child/Type");
-		for (pugi::xpath_node_set::const_iterator child = childs.begin(); child != childs.end(); child ++)
+		for (pugi::xpath_node_set::const_iterator child = childs.begin(); child != childs.end(); child++)
 			mChilds.push_back((*child).node().child_value());
 
 		pugi::xpath_node_set properties = _node.select_nodes("Properties/Property");
-		for (pugi::xpath_node_set::const_iterator property = properties.begin(); property != properties.end(); property ++)
+		for (pugi::xpath_node_set::const_iterator property = properties.begin(); property != properties.end();
+			 property++)
 		{
 			DataPropertyInfo* info = new DataPropertyInfo();
 			info->deserialization((*property).node());

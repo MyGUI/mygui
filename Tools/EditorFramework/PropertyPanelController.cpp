@@ -15,12 +15,6 @@
 namespace tools
 {
 
-	PropertyPanelController::PropertyPanelController() :
-		mControl(nullptr),
-		mParentType(nullptr)
-	{
-	}
-
 	void PropertyPanelController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<PropertyPanelControl>();
@@ -37,7 +31,7 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void PropertyPanelController::notifyChangeScope(const std::string& _scope)
+	void PropertyPanelController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mParentType != nullptr)
 		{
@@ -49,7 +43,9 @@ namespace tools
 
 		if (mParentType != nullptr)
 		{
-			DataSelectorManager::getInstance().getEvent(mParentType->getName())->connect(this, &PropertyPanelController::notifyChangeDataSelector);
+			DataSelectorManager::getInstance()
+				.getEvent(mParentType->getName())
+				->connect(this, &PropertyPanelController::notifyChangeDataSelector);
 
 			DataPtr parentData = DataUtility::getSelectedDataByType(mParentType->getName());
 			notifyChangeDataSelector(parentData, false);
@@ -67,7 +63,7 @@ namespace tools
 			{
 				if (selected->getType()->getName() != ScopeManager::getInstance().getCurrentScope() &&
 					selected->getType()->getFriend() != ScopeManager::getInstance().getCurrentScope())
-				selected = nullptr;
+					selected = nullptr;
 			}
 
 			mControl->setCurrentData(selected);

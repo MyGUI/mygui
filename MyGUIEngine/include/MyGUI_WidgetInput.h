@@ -45,21 +45,20 @@ namespace MyGUI
 	*/
 
 	// делегаты для событий виджета
-	typedef delegates::CMultiDelegate1<Widget*> EventHandle_WidgetVoid;
-	typedef delegates::CMultiDelegate2<Widget*, Widget*> EventHandle_WidgetWidget;
-	typedef delegates::CMultiDelegate2<Widget*, bool> EventHandle_WidgetBool;
-	typedef delegates::CMultiDelegate2<Widget*, int> EventHandle_WidgetInt;
-	typedef delegates::CMultiDelegate2<Widget*, size_t> EventHandle_WidgetSizeT;
-	typedef delegates::CMultiDelegate3<Widget*, int, int> EventHandle_WidgetIntInt;
-	typedef delegates::CMultiDelegate4<Widget*, int, int, MouseButton> EventHandle_WidgetIntIntButton;
-	typedef delegates::CMultiDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
-	typedef delegates::CMultiDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
-	typedef delegates::CMultiDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
+	using EventHandle_WidgetVoid = delegates::MultiDelegate<Widget*>;
+	using EventHandle_WidgetWidget = delegates::MultiDelegate<Widget*, Widget*>;
+	using EventHandle_WidgetBool = delegates::MultiDelegate<Widget*, bool>;
+	using EventHandle_WidgetInt = delegates::MultiDelegate<Widget*, int>;
+	using EventHandle_WidgetSizeT = delegates::MultiDelegate<Widget*, size_t>;
+	using EventHandle_WidgetIntInt = delegates::MultiDelegate<Widget*, int, int>;
+	using EventHandle_WidgetIntIntButton = delegates::MultiDelegate<Widget*, int, int, MouseButton>;
+	using EventHandle_WidgetKeyCode = delegates::MultiDelegate<Widget*, KeyCode>;
+	using EventHandle_WidgetKeyCodeChar = delegates::MultiDelegate<Widget*, KeyCode, Char>;
+	using EventHandle_WidgetToolTip = delegates::MultiDelegate<Widget*, const ToolTipInfo&>;
 
 	class MYGUI_EXPORT WidgetInput
 	{
 	public:
-		WidgetInput();
 		virtual ~WidgetInput() = default;
 
 		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
@@ -68,7 +67,7 @@ namespace MyGUI
 		bool getNeedToolTip() const;
 
 		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _value);
+		void setPointer(std::string_view _value);
 		/** Get mouse pointer name for this widget */
 		const std::string& getPointer() const;
 
@@ -267,13 +266,13 @@ namespace MyGUI
 		std::string mPointer;
 		MaskPickInfo mOwnMaskPickInfo;
 
-		bool mNeedToolTip;
-		bool mInheritsPick;
-		bool mNeedKeyFocus;
-		bool mNeedMouseFocus;
+		bool mNeedToolTip{false};
+		bool mInheritsPick{false};
+		bool mNeedKeyFocus{false};
+		bool mNeedMouseFocus{true};
 
-		bool mRootMouseFocus;
-		bool mRootKeyFocus;
+		bool mRootMouseFocus{false};
+		bool mRootKeyFocus{false};
 	};
 
 } // namespace MyGUI

@@ -21,11 +21,13 @@ typedef HINSTANCE__* HINSTANCE;
 namespace base
 {
 
-	class BaseManager :
-		public SdlBaseManager
+	class BaseManager : public SdlBaseManager
 	{
 	public:
-        BaseManager() : SdlBaseManager(false) { }
+		BaseManager() :
+			SdlBaseManager(false)
+		{
+		}
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;

@@ -25,10 +25,6 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(EditorState)
 
 	EditorState::EditorState() :
-		mSettingsWindow(nullptr),
-		mCodeGenerator(nullptr),
-		mOpenSaveFileDialog(nullptr),
-		mMainPaneControl(nullptr),
 		mFileName("unnamed.layout"),
 		mDefaultFileName("unnamed.layout")
 	{
@@ -38,12 +34,20 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_ClearAll")->connect(this, &EditorState::command_Clear);
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &EditorState::command_Quit);
 		CommandManager::getInstance().getEvent("Command_Settings")->connect(this, &EditorState::command_Settings);
-		CommandManager::getInstance().getEvent("Command_CodeGenerator")->connect(this, &EditorState::command_CodeGenerator);
-		CommandManager::getInstance().getEvent("Command_OpenRecentFile")->connect(this, &EditorState::command_OpenRecentFile);
+		CommandManager::getInstance()
+			.getEvent("Command_CodeGenerator")
+			->connect(this, &EditorState::command_CodeGenerator);
+		CommandManager::getInstance()
+			.getEvent("Command_OpenRecentFile")
+			->connect(this, &EditorState::command_OpenRecentFile);
 		CommandManager::getInstance().getEvent("Command_FileDrop")->connect(this, &EditorState::command_FileDrop);
 		CommandManager::getInstance().getEvent("Command_SaveItemAs")->connect(this, &EditorState::command_SaveItemAs);
-		CommandManager::getInstance().getEvent("Command_UpdateItemName")->connect(this, &EditorState::command_UpdateItemName);
-		CommandManager::getInstance().getEvent("Command_UpdateResources")->connect(this, &EditorState::command_UpdateResources);
+		CommandManager::getInstance()
+			.getEvent("Command_UpdateItemName")
+			->connect(this, &EditorState::command_UpdateItemName);
+		CommandManager::getInstance()
+			.getEvent("Command_UpdateResources")
+			->connect(this, &EditorState::command_UpdateResources);
 	}
 
 	void EditorState::initState()
@@ -61,7 +65,8 @@ namespace tools
 		mCodeGenerator->eventEndDialog.connect(this, &EditorState::notifyEndDialogCodeGenerator);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->Initialise(
+			SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setFileMask("*.layout");
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &EditorState::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
@@ -147,10 +152,8 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoad);
 		}
 		else
@@ -197,10 +200,8 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultClear);
 		}
 		else
@@ -221,10 +222,8 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
 		}
 		else
@@ -249,11 +248,10 @@ namespace tools
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No |
+					MyGUI::MessageBoxStyle::Cancel);
+			message->eventMessageBoxResult +=
+				MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
 		}
 		else
 		{
@@ -316,11 +314,10 @@ namespace tools
 		}
 		else
 		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageFailedLoadFile"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 
 			setFileName(mDefaultFileName);
 
@@ -339,20 +336,21 @@ namespace tools
 			UndoManager::getInstance().setUnsaved(false);
 			return true;
 		}
-		else
-		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				replaceTags("MessageFailedSaveFile"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
-		}
+
+		/*MyGUI::Message* message = */ MessageBoxManager::getInstance().create(
+			replaceTags("Error"),
+			replaceTags("MessageFailedSaveFile"),
+			MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
+
 		return false;
 	}
 
 	void EditorState::updateCaption()
 	{
-		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
+		MyGUI::UString tag;
+		if (UndoManager::getInstance().isUnsaved())
+			tag = "*";
+		addUserTag("HasChanged", tag);
 
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
@@ -419,7 +417,9 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
+				setFileName(common::concatenatePath(
+					mOpenSaveFileDialog->getCurrentFolder(),
+					mOpenSaveFileDialog->getFileName()));
 
 				save();
 				updateCaption();
@@ -429,7 +429,9 @@ namespace tools
 				clear();
 
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
+				setFileName(common::concatenatePath(
+					mOpenSaveFileDialog->getCurrentFolder(),
+					mOpenSaveFileDialog->getFileName()));
 
 				load();
 				updateCaption();
@@ -560,14 +562,12 @@ namespace tools
 					if (itemIndex == 0)
 					{
 						// поменять на теги
-						std::string resourceName = element->findAttribute("name");
-						addUserTag("ResourceName", resourceName);
+						std::string_view resourceName = element->findAttribute("name");
+						addUserTag("ResourceName", MyGUI::UString(resourceName));
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}
-					else
-					{
-						itemIndex --;
-					}
+
+					itemIndex--;
 				}
 			}
 		}
@@ -586,12 +586,13 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		SettingsManager::VectorString resources = SettingsManager::getInstance().getValueList("Resources/UpdateResource.List");
+		SettingsManager::VectorString resources =
+			SettingsManager::getInstance().getValueList("Resources/UpdateResource.List");
 		if (resources.empty())
 			return;
 
-		for (SettingsManager::VectorString::iterator resource = resources.begin(); resource != resources.end(); ++resource)
-			MyGUI::ResourceManager::getInstance().load(*resource);
+		for (auto& resource : resources)
+			MyGUI::ResourceManager::getInstance().load(resource);
 
 		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();

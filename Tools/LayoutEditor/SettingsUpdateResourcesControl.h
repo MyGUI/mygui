@@ -13,17 +13,14 @@
 namespace tools
 {
 
-	class SettingsUpdateResourcesControl :
-		public Control,
-		public sigslot::has_slots<>
+	class SettingsUpdateResourcesControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		SettingsUpdateResourcesControl();
 		~SettingsUpdateResourcesControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void OnCommand(const std::string& _command) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void OnCommand(std::string_view _command) override;
 
 	private:
 		void loadSettings();
@@ -35,11 +32,11 @@ namespace tools
 		void notifyEndDialog(Dialog* _sender, bool _result);
 
 	private:
-		MyGUI::Button* mResourceAdd;
-		MyGUI::Button* mResourceDelete;
-		MyGUI::ListBox* mResources;
+		MyGUI::Button* mResourceAdd{nullptr};
+		MyGUI::Button* mResourceDelete{nullptr};
+		MyGUI::ListBox* mResources{nullptr};
 
-		TextFieldControl* mTextFieldControl;
+		TextFieldControl* mTextFieldControl{nullptr};
 	};
 
 }

@@ -14,14 +14,11 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ResourceImageSetPointer :
-		public IPointer
+	class MYGUI_EXPORT ResourceImageSetPointer : public IPointer
 	{
-		MYGUI_RTTI_DERIVED( ResourceImageSetPointer )
+		MYGUI_RTTI_DERIVED(ResourceImageSetPointer)
 
 	public:
-		ResourceImageSetPointer();
-
 		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		void setImage(ImageBox* _image) override;
@@ -30,7 +27,7 @@ namespace MyGUI
 	private:
 		IntPoint mPoint;
 		IntSize mSize;
-		ResourceImageSetPtr mImageSet;
+		ResourceImageSetPtr mImageSet{nullptr};
 	};
 
 } // namespace MyGUI

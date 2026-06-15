@@ -12,8 +12,7 @@
 namespace demo
 {
 
-	class InformationWindow :
-		public wraps::BaseLayout
+	class InformationWindow : public wraps::BaseLayout
 	{
 	public:
 		InformationWindow(MyGUI::Widget* _parent);
@@ -25,7 +24,7 @@ namespace demo
 
 	private:
 		MyGUI::EditBox* mInfo;
-		MyGUI::Widget* mFocus;
+		MyGUI::Widget* mFocus{nullptr};
 	};
 
 } // namespace demo

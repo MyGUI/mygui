@@ -18,22 +18,21 @@ namespace MyGUI
 
 	class ControllerItem;
 
-	using EventHandle_WidgetPtr = delegates::CMultiDelegate1<Widget*>;
-	typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_WidgetPtrControllerItemPtr;
+	using EventHandle_WidgetPtr = delegates::MultiDelegate<Widget*>;
+	using EventHandle_WidgetPtrControllerItemPtr = delegates::MultiDelegate<Widget*, ControllerItem*>;
 
 	/** Base interface for controllers */
-	class MYGUI_EXPORT ControllerItem :
-		public IObject
+	class MYGUI_EXPORT ControllerItem : public IObject
 	{
-		MYGUI_RTTI_DERIVED( ControllerItem )
+		MYGUI_RTTI_DERIVED(ControllerItem)
 
 	public:
-		~ControllerItem() override = default;
-
 		virtual void prepareItem(Widget* _widget) = 0;
 		virtual bool addTime(Widget* _widget, float _time) = 0;
 
-		virtual void setProperty(const std::string& /*_key*/, const std::string& /*_value*/) { }
+		virtual void setProperty(std::string_view /*_key*/, std::string_view /*_value*/)
+		{
+		}
 
 		/** Event : Before controller started working.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::ControllerItem* _controller)\n
@@ -52,7 +51,6 @@ namespace MyGUI
 			@param _sender widget under control
 		*/
 		EventPairAddParameter<EventHandle_WidgetPtr, EventHandle_WidgetPtrControllerItemPtr> eventPostAction;
-
 	};
 
 } // namespace MyGUI

@@ -15,10 +15,10 @@ void main(
 	float h;
 	sampleTexture.GetDimensions(w, h);
 	float2 msdfUnit = pxRange/float2(w, h);
-	float3 textureColor = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0).rgb;
+	float4 textureColor = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0);
 	float sigDist = median(textureColor.r, textureColor.g, textureColor.b) - 0.5;
 	sigDist *= dot(msdfUnit, 0.5/fwidth(inTexcoord));
 	float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
 
-	Out = float4(inColor.rgb, inColor.a * opacity);
+	Out = float4(inColor.rgb, inColor.a * opacity * textureColor.a);
 }

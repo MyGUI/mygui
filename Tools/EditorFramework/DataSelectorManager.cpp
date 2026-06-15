@@ -44,19 +44,19 @@ namespace tools
 
 	void DataSelectorManager::clear()
 	{
-		for (MapEvent::iterator event = mEvents.begin(); event != mEvents.end(); event ++)
-			delete (*event).second;
+		for (auto& event : mEvents)
+			delete event.second;
 		mEvents.clear();
 	}
 
-	DataSelectorManager::EventType* DataSelectorManager::getEvent(const std::string& _dataType)
+	DataSelectorManager::EventType* DataSelectorManager::getEvent(std::string_view _dataType)
 	{
 		MapEvent::iterator event = mEvents.find(_dataType);
 		if (event != mEvents.end())
 			return (*event).second;
 
 		EventType* type = new EventType();
-		mEvents[_dataType] = type;
+		mEvents.emplace(_dataType, type);
 		return type;
 	}
 
@@ -85,9 +85,9 @@ namespace tools
 			childSelected = _parent->getChildSelected();
 
 		const DataType::VectorString& childs = _type->getChilds();
-		for (DataType::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
+		for (const auto& childName : childs)
 		{
-			DataTypePtr childType = DataTypeManager::getInstance().getType(*childName);
+			DataTypePtr childType = DataTypeManager::getInstance().getType(childName);
 			if (childType != nullptr)
 			{
 				DataPtr child = childSelected;
@@ -99,7 +99,7 @@ namespace tools
 					DataPtr subChildSelected = child->getChildSelected();
 					if (subChildSelected == nullptr)
 					{
-						if (child->getChilds().size() != 0)
+						if (!child->getChilds().empty())
 						{
 							DataPtr childData = child->getChildByIndex(0);
 							child->setChildSelected(childData);

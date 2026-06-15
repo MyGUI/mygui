@@ -14,17 +14,15 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyTexturesControl :
-		public PropertyControl
+	class MYGUI_EXPORT_DLL PropertyTexturesControl : public PropertyControl
 	{
 	public:
-		PropertyTexturesControl();
 		~PropertyTexturesControl() override;
 
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
@@ -38,12 +36,12 @@ namespace tools
 		void updateTexture();
 
 	private:
-		MyGUI::ImageBox* mImage;
-		MyGUI::TextBox* mName;
-		MyGUI::ComboBox* mComboBox;
-		MyGUI::Button* mBrowse;
+		MyGUI::ImageBox* mImage{nullptr};
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ComboBox* mComboBox{nullptr};
+		MyGUI::Button* mBrowse{nullptr};
 
-		TextureBrowseControl* mTextureBrowseControl;
+		TextureBrowseControl* mTextureBrowseControl{nullptr};
 		MyGUI::VectorString mTextures;
 		MyGUI::IntSize mTextureSize;
 	};

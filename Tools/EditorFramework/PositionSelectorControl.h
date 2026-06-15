@@ -12,11 +12,10 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PositionSelectorControl :
-		public SelectorControl
+	class MYGUI_EXPORT_DLL PositionSelectorControl : public SelectorControl
 	{
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 	};
 
 }

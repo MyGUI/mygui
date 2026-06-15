@@ -18,29 +18,37 @@ namespace MyGUI
 	class MYGUI_EXPORT IItemContainer
 	{
 	public:
-		virtual ~IItemContainer() { }
+		virtual ~IItemContainer() = default;
 
 		virtual size_t _getItemCount() const
 		{
 			return 0;
 		}
 
-		virtual void _addItem(const MyGUI::UString& /*_name*/) { }
+		virtual void _addItem(const MyGUI::UString& /*_name*/)
+		{
+		}
 
-		virtual void _removeItemAt(size_t /*_index*/) { }
+		virtual void _removeItemAt(size_t /*_index*/)
+		{
+		}
 
 		virtual Widget* _getItemAt(size_t _index) const
 		{
 			return nullptr;
 		}
 
-		virtual void _setItemNameAt(size_t /*_index*/, const UString& /*_name*/) { }
+		virtual void _setItemNameAt(size_t /*_index*/, const UString& /*_name*/)
+		{
+		}
 		virtual const UString& _getItemNameAt(size_t _index) const
 		{
 			return Constants::getEmptyUString();
 		}
 
-		virtual void _setItemSelected(IItem* /*_item*/) { }
+		virtual void _setItemSelected(IItem* /*_item*/)
+		{
+		}
 	};
 
 } // namespace MyGUI

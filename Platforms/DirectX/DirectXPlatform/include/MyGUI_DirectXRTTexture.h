@@ -19,8 +19,7 @@ struct IDirect3DSurface9;
 namespace MyGUI
 {
 
-	class DirectXRTTexture :
-		public IRenderTarget
+	class DirectXRTTexture : public IRenderTarget
 	{
 	public:
 		DirectXRTTexture(IDirect3DDevice9* _device, IDirect3DTexture9* _texture);

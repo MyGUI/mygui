@@ -9,20 +9,20 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataStream.h"
+#include <memory>
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT DataFileStream :
-		public DataStream
+	class MYGUI_EXPORT DataFileStream : public DataStream
 	{
 	public:
-		DataFileStream();
-		DataFileStream(std::ifstream* _stream);
+		DataFileStream() = default;
+		DataFileStream(std::unique_ptr<std::ifstream>&& _stream);
 		~DataFileStream() override;
 
 	private:
-		std::ifstream* mFileStream;
+		std::unique_ptr<std::ifstream> mFileStream;
 	};
 
 } // namespace MyGUI

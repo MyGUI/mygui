@@ -17,21 +17,19 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ItemBox*, Widget*> EventHandle_ItemBoxPtrWidgetPtr;
-	typedef delegates::CDelegate3<ItemBox*, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
-	typedef delegates::CDelegate3<ItemBox*, Widget*, const IBDrawItemInfo&> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
-	typedef delegates::CMultiDelegate2<ItemBox*, size_t> EventHandle_ItemBoxPtrSizeT;
-	typedef delegates::CMultiDelegate2<ItemBox*, const IBNotifyItemData&> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
+	using EventHandle_ItemBoxPtrWidgetPtr = delegates::Delegate<ItemBox*, Widget*>;
+	using EventHandle_ItemBoxPtrIntCoordRefBool = delegates::Delegate<ItemBox*, IntCoord&, bool>;
+	using EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef =
+		delegates::Delegate<ItemBox*, Widget*, const IBDrawItemInfo&>;
+	using EventHandle_ItemBoxPtrSizeT = delegates::MultiDelegate<ItemBox*, size_t>;
+	using EventHandle_ItemBoxPtrCIBNotifyCellDataRef = delegates::MultiDelegate<ItemBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{ItemBox}
 		ItemBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ItemBox :
-		public DDContainer,
-		protected ScrollViewBase,
-		public MemberObsolete<ItemBox>
+	class MYGUI_EXPORT ItemBox : public DDContainer, protected ScrollViewBase, public MemberObsolete<ItemBox>
 	{
-		MYGUI_RTTI_DERIVED( ItemBox )
+		MYGUI_RTTI_DERIVED(ItemBox)
 
 	public:
 		ItemBox();
@@ -84,7 +82,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::getItemDataAt");
@@ -93,7 +91,7 @@ namespace MyGUI
 
 
 		/** Set vertical alignment grid mode */
-		void setVerticalAlignment(bool _value);
+		void setVerticalAlignment(bool _vert);
 		/** Get vertical alignment grid mode flag */
 		bool getVerticalAlignment() const;
 
@@ -113,12 +111,12 @@ namespace MyGUI
 		/** Interrupt drag as if widget was dropped into empty space */
 		void resetDrag();
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -203,10 +201,12 @@ namespace MyGUI
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
-				data(_data) { }
+				data(_data)
+			{
+			}
 			Any data;
 		};
-		typedef std::vector<ItemDataInfo> VectorItemInfo;
+		using VectorItemInfo = std::vector<ItemDataInfo>;
 
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
@@ -256,7 +256,7 @@ namespace MyGUI
 		// запрашиваем у конейтера айтем по позиции мыши
 		size_t _getContainerIndex(const IntPoint& _point) const override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		size_t calcIndexByWidget(Widget* _widget) const;
@@ -284,35 +284,35 @@ namespace MyGUI
 		IntPoint mContentPosition;
 
 		// колличество айтемов в одной строке
-		int mCountItemInLine;
+		int mCountItemInLine{0};
 		// колличество линий
-		int mCountLines;
+		int mCountLines{0};
 
 		// самая верхняя строка
-		int mFirstVisibleIndex;
+		int mFirstVisibleIndex{0};
 		// текущее смещение верхнего элемента в пикселях
 		// сколько его пикселей не видно сверху
-		int mFirstOffsetIndex;
+		int mFirstOffsetIndex{0};
 
 		// текущий выделенный элемент или ITEM_NONE
-		size_t mIndexSelect;
+		size_t mIndexSelect{ITEM_NONE};
 		// подсвеченный элемент или ITEM_NONE
-		size_t mIndexActive;
+		size_t mIndexActive{ITEM_NONE};
 		// индекс со свойством приема или ITEM_NONE
-		size_t mIndexAccept;
+		size_t mIndexAccept{ITEM_NONE};
 		// индекс со свойством отказа или ITEM_NONE
-		size_t mIndexRefuse;
+		size_t mIndexRefuse{ITEM_NONE};
 
 		// имеем ли мы фокус ввода
-		bool mIsFocus;
+		bool mIsFocus{false};
 
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
 
-		Widget* mItemDrag;
+		Widget* mItemDrag{nullptr};
 		IntPoint mPointDragOffset;
 
-		bool mAlignVert;
+		bool mAlignVert{true};
 
 		std::string mDragLayer;
 	};

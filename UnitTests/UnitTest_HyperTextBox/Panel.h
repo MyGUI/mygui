@@ -12,14 +12,11 @@
 namespace MyGUI
 {
 
-	class Panel :
-		public Widget
+	class Panel : public Widget
 	{
-		MYGUI_RTTI_DERIVED( Panel )
+		MYGUI_RTTI_DERIVED(Panel)
 
 	public:
-		Panel();
-
 		/** Set widget position (position of left top corner) */
 		void setPosition(const IntPoint& _value) override;
 		/** Set widget size */

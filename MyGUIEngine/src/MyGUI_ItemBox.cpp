@@ -16,18 +16,7 @@
 namespace MyGUI
 {
 
-	ItemBox::ItemBox() :
-		mCountItemInLine(0),
-		mCountLines(0),
-		mFirstVisibleIndex(0),
-		mFirstOffsetIndex(0),
-		mIndexSelect(ITEM_NONE),
-		mIndexActive(ITEM_NONE),
-		mIndexAccept(ITEM_NONE),
-		mIndexRefuse(ITEM_NONE),
-		mIsFocus(false),
-		mItemDrag(nullptr),
-		mAlignVert(true)
+	ItemBox::ItemBox()
 	{
 		mChangeContentByResize = true;
 	}
@@ -109,7 +98,9 @@ namespace MyGUI
 		requestCoordItem(this, coord, false);
 
 		mSizeItem = coord.size();
-		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordWidgetItem");
+		MYGUI_ASSERT(
+			(mSizeItem.width > 0 && mSizeItem.height > 0),
+			"(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordWidgetItem");
 	}
 
 	void ItemBox::updateFromResize()
@@ -142,17 +133,20 @@ namespace MyGUI
 		for (size_t pos = start; pos < count; ++pos, ++index)
 		{
 			// дальше нет айтемов
-			if (pos >= mItemsInfo.size()) break;
+			if (pos >= mItemsInfo.size())
+				break;
 
 			Widget* item = getItemWidget(index);
 			if (mAlignVert)
 			{
-				item->setPosition(((int)index % mCountItemInLine) * mSizeItem.width - mContentPosition.left,
-					(((int)index / mCountItemInLine) * mSizeItem.height)  - mFirstOffsetIndex);
+				item->setPosition(
+					((int)index % mCountItemInLine) * mSizeItem.width - mContentPosition.left,
+					(((int)index / mCountItemInLine) * mSizeItem.height) - mFirstOffsetIndex);
 			}
 			else
 			{
-				item->setPosition((((int)index / mCountItemInLine) * mSizeItem.width)  - mFirstOffsetIndex,
+				item->setPosition(
+					(((int)index / mCountItemInLine) * mSizeItem.width) - mFirstOffsetIndex,
 					((int)index % mCountItemInLine) * mSizeItem.height - mContentPosition.top);
 			}
 
@@ -164,14 +158,13 @@ namespace MyGUI
 				IBDrawItemInfo data(pos, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
 				requestDrawItem(this, item, data);
 			}
-
 		}
 
 		// все виджеты еще есть, то их надо бы скрыть
 		while (index < mVectorItems.size())
 		{
 			mVectorItems[index]->setVisible(false);
-			index ++;
+			index++;
 		}
 	}
 
@@ -182,7 +175,10 @@ namespace MyGUI
 		{
 			requestItemSize();
 
-			Widget* item = _getClientWidget()->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
+			Widget* item = _getClientWidget()->createWidget<Widget>(
+				"Default",
+				IntCoord(0, 0, mSizeItem.width, mSizeItem.height),
+				Align::Default);
 
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
@@ -256,23 +252,22 @@ namespace MyGUI
 
 		// сначала проверяем клиентскую зону
 		const IntRect& rect = _getClientWidget()->getAbsoluteRect();
-		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) || (point.top > rect.bottom))
+		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) ||
+			(point.top > rect.bottom))
 		{
 			return;
 		}
 
-		for (size_t pos = 0; pos < mVectorItems.size(); ++pos)
+		for (const auto& item : mVectorItems)
 		{
-			Widget* item = mVectorItems[pos];
 			const IntRect& abs_rect = item->getAbsoluteRect();
-			if ((point.left >= abs_rect.left) && (point.left <= abs_rect.right) && (point.top >= abs_rect.top) && (point.top <= abs_rect.bottom))
+			if ((point.left >= abs_rect.left) && (point.left <= abs_rect.right) && (point.top >= abs_rect.top) &&
+				(point.top <= abs_rect.bottom))
 			{
-
 				size_t index = calcIndexByWidget(item);
 				// при переборе индекс может быть больше, так как может создасться сколько угодно
 				if (index < mItemsInfo.size())
 				{
-
 					mIndexActive = index;
 					IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 
@@ -296,10 +291,11 @@ namespace MyGUI
 
 	void ItemBox::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
 	{
-		if (_index == ITEM_NONE) return;
+		if (_index == ITEM_NONE)
+			return;
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::_setContainerItemInfo");
 
-		mIndexAccept = (_set && _accept ) ? _index : ITEM_NONE;
+		mIndexAccept = (_set && _accept) ? _index : ITEM_NONE;
 		mIndexRefuse = (_set && !_accept) ? _index : ITEM_NONE;
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
@@ -313,7 +309,7 @@ namespace MyGUI
 	void ItemBox::setItemDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::setItemData");
-		mItemsInfo[_index].data = _data;
+		mItemsInfo[_index].data = std::move(_data);
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
@@ -328,7 +324,8 @@ namespace MyGUI
 	void ItemBox::insertItemAt(size_t _index, Any _data, bool update)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ItemBox::insertItemAt");
-		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+		if (_index == ITEM_NONE)
+			_index = mItemsInfo.size();
 
 		_resetContainer(false);
 		resetCurrentActiveItem();
@@ -340,7 +337,7 @@ namespace MyGUI
 		{
 			if (mIndexSelect >= _index)
 			{
-				mIndexSelect ++;
+				mIndexSelect++;
 			}
 		}
 
@@ -373,7 +370,7 @@ namespace MyGUI
 			}
 			else if ((mIndexSelect > _index) || (mIndexSelect == mItemsInfo.size()))
 			{
-				mIndexSelect --;
+				mIndexSelect--;
 			}
 		}
 
@@ -420,7 +417,8 @@ namespace MyGUI
 	void ItemBox::setIndexSelected(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ItemBox::setIndexSelected");
-		if (_index == mIndexSelect) return;
+		if (_index == mIndexSelect)
+			return;
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 
@@ -446,7 +444,6 @@ namespace MyGUI
 				requestDrawItem(this, mVectorItems[_index - start], data);
 			}
 		}
-
 	}
 
 	void ItemBox::notifyMouseButtonDoubleClick(Widget* _sender)
@@ -479,7 +476,8 @@ namespace MyGUI
 	size_t ItemBox::getIndexByWidget(Widget* _widget) const
 	{
 		MYGUI_ASSERT(_widget, "ItemBox::getIndexByWidget : Widget == nullptr");
-		if (_widget == _getClientWidget()) return ITEM_NONE;
+		if (_widget == _getClientWidget())
+			return ITEM_NONE;
 		MYGUI_ASSERT(_widget->getParent() == _getClientWidget(), "ItemBox::getIndexByWidget : Widget is not child");
 
 		size_t index = calcIndexByWidget(_widget);
@@ -508,25 +506,26 @@ namespace MyGUI
 		// обязательно у базового
 		Base::_resetContainer(_update);
 
-		if ( ! _update)
+		if (!_update)
 		{
 			WidgetManager& instance = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
+			for (auto& vectorItem : mVectorItems)
 			{
-				instance.unlinkFromUnlinkers(*iter);
+				instance.unlinkFromUnlinkers(vectorItem);
 			}
 		}
 	}
 
 	Widget* ItemBox::getWidgetByIndex(size_t _index)
 	{
-		for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
+		for (const auto& vectorItem : mVectorItems)
 		{
-			if ((*iter)->getVisible())
+			if (vectorItem->getVisible())
 			{
-				size_t index = getIndexByWidget(*iter);
+				size_t index = getIndexByWidget(vectorItem);
 
-				if (index == _index) return (*iter);
+				if (index == _index)
+					return vectorItem;
 			}
 		}
 		return nullptr;
@@ -549,7 +548,8 @@ namespace MyGUI
 
 	void ItemBox::removeDropItems()
 	{
-		if (mItemDrag) mItemDrag->setVisible(false);
+		if (mItemDrag)
+			mItemDrag->setVisible(false);
 	}
 
 	void ItemBox::updateDropItems()
@@ -564,13 +564,19 @@ namespace MyGUI
 			mPointDragOffset = coord.point();
 
 			// создаем и запрашиваем детей
-			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, mDragLayer);
+			mItemDrag = Gui::getInstance().createWidget<Widget>(
+				"Default",
+				IntCoord(0, 0, coord.width, coord.height),
+				Align::Default,
+				mDragLayer);
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
 
-		mItemDrag->setPosition(point.left - mClickInWidget.left + mPointDragOffset.left, point.top - mClickInWidget.top + mPointDragOffset.top);
+		mItemDrag->setPosition(
+			point.left - mClickInWidget.left + mPointDragOffset.left,
+			point.top - mClickInWidget.top + mPointDragOffset.top);
 		mItemDrag->setVisible(true);
 	}
 
@@ -599,7 +605,7 @@ namespace MyGUI
 	{
 		mouseButtonPressed(_id);
 
-		if ( MouseButton::Left == _id)
+		if (MouseButton::Left == _id)
 		{
 			size_t old = mIndexSelect;
 
@@ -618,15 +624,19 @@ namespace MyGUI
 			}
 
 			// смещение внутри виджета, куда кликнули мышкой
-			mClickInWidget = InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - _sender->getAbsolutePosition();
+			mClickInWidget =
+				InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - _sender->getAbsolutePosition();
 
 			// отсылаем событие
 			eventMouseItemActivate(this, mIndexSelect);
 			// смену позиции отсылаем только при реальном изменении
-			if (old != mIndexSelect) eventChangeItemPosition(this, mIndexSelect);
+			if (old != mIndexSelect)
+				eventChangeItemPosition(this, mIndexSelect);
 		}
 
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
+		eventNotifyItem(
+			this,
+			IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
@@ -635,7 +645,9 @@ namespace MyGUI
 		mouseButtonReleased(_id);
 
 		if (needEvent)
-			eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
+			eventNotifyItem(
+				this,
+				IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ItemBox::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
@@ -684,11 +696,13 @@ namespace MyGUI
 			mCountItemInLine = _getClientWidget()->getHeight() / mSizeItem.height;
 		}
 
-		if (1 > mCountItemInLine) mCountItemInLine = 1;
+		if (1 > mCountItemInLine)
+			mCountItemInLine = 1;
 
 		// колличество строк
-		mCountLines = mItemsInfo.size() / mCountItemInLine;
-		if (0 != (mItemsInfo.size() % mCountItemInLine)) mCountLines ++;
+		mCountLines = int(mItemsInfo.size() / mCountItemInLine);
+		if (0 != (mItemsInfo.size() % mCountItemInLine))
+			mCountLines++;
 
 		if (mAlignVert)
 		{
@@ -913,7 +927,7 @@ namespace MyGUI
 		return mVisibleHScroll;
 	}
 
-	void ItemBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ItemBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ItemBox, VerticalAlignment, bool} Vertical or horizontal alignment.
 		if (_key == "VerticalAlignment")

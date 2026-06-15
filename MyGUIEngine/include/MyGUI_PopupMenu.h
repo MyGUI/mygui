@@ -16,10 +16,9 @@ namespace MyGUI
 	/** \brief @wpage{PopupMenu}
 		PopupMenu widget description should be here.
 	*/
-	class MYGUI_EXPORT PopupMenu :
-		public MenuControl
+	class MYGUI_EXPORT PopupMenu : public MenuControl
 	{
-		MYGUI_RTTI_DERIVED( PopupMenu )
+		MYGUI_RTTI_DERIVED(PopupMenu)
 
 	public:
 		PopupMenu();

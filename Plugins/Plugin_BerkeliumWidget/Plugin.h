@@ -12,8 +12,7 @@
 namespace plugin
 {
 
-	class Plugin :
-		public MyGUI::IPlugin
+	class Plugin : public MyGUI::IPlugin
 	{
 	public:
 		//!	Initialization
@@ -35,7 +34,7 @@ namespace plugin
 		void update(float _time);
 
 	private:
-		static const std::string LogSection;
+		static const std::string_view LogSection;
 	};
 
 } // namespace plugin

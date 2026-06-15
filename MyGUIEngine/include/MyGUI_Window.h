@@ -16,10 +16,14 @@ namespace MyGUI
 {
 
 	// OBSOLETE
-	typedef delegates::CMultiDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
+	using EventHandle_WidgetString = EventPairConvertStringView<
+		delegates::MultiDelegate<Widget*, const std::string&>,
+		delegates::MultiDelegate<Widget*, std::string_view>>;
 
-	typedef delegates::CMultiDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
-	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
+	using EventHandle_WindowPtrCStringRef = EventPairConvertStringView<
+		delegates::MultiDelegate<Window*, const std::string&>,
+		delegates::MultiDelegate<Window*, std::string_view>>;
+	using EventHandle_WindowPtr = delegates::MultiDelegate<Window*>;
 
 	/** \brief @wpage{Window}
 		Window widget description should be here.
@@ -28,26 +32,24 @@ namespace MyGUI
 		public TextBox, // FIXME пока для кэпшена вместо виджета текст (Bug #190)
 		public MemberObsolete<Window>
 	{
-		MYGUI_RTTI_DERIVED( Window )
+		MYGUI_RTTI_DERIVED(Window)
 
 	public:
-		Window();
-
 		/** @copydoc Widget::setVisible */
-		void setVisible(bool _value) override;
+		void setVisible(bool _visible) override;
 
 		/** Hide or show window smooth */
-		void setVisibleSmooth(bool _value);
+		void setVisibleSmooth(bool _visible);
 		/** Hide window smooth and then destroy it */
 		void destroySmooth();
 
 		/** Enable or disable auto alpha mode */
-		void setAutoAlpha(bool _value);
+		void setAutoAlpha(bool _auto);
 		/** Get auto alpha mode flag */
 		bool getAutoAlpha() const;
 
 		/** Set window caption */
-		void setCaption(const UString& _value) override;
+		void setCaption(const UString& _caption) override;
 		/** Get window caption */
 		const UString& getCaption() const override;
 
@@ -68,12 +70,12 @@ namespace MyGUI
 		/** Get maximal possible window size */
 		IntSize getMaxSize() const;
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -94,7 +96,7 @@ namespace MyGUI
 
 		/*events:*/
 		/** Event : Window button pressed.\n
-			signature : void method(MyGUI::Window* _sender, const std::string& _name)
+			signature : void method(MyGUI::Window* _sender, std::string_view _name)
 			@param _sender widget that called this event
 			@param _name of pressed button
 		*/
@@ -127,38 +129,42 @@ namespace MyGUI
 
 		void animateStop(Widget* _widget, ControllerItem* _controller);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		float getAlphaVisible() const;
-		enum class Snap {Position, Size};
+		enum class Snap
+		{
+			Position,
+			Size
+		};
 		void getSnappedCoord(IntCoord& _coord, Snap snapMode) const;
 		IntCoord _getActionScale(Widget* _widget) const;
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
-		TextBox* mWidgetCaption;
+		TextBox* mWidgetCaption{nullptr};
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;
 
 		// наши главные фокусы
-		bool mMouseRootFocus;
-		bool mKeyRootFocus;
+		bool mMouseRootFocus{false};
+		bool mKeyRootFocus{false};
 
 		// автоматическое или ручное управление альфой
-		bool mIsAutoAlpha;
+		bool mIsAutoAlpha{false};
 
 		// минимальные и максимальные размеры окна
 		IntRect mMinmax;
 
-		bool mSnap; // прилеплять ли к краям
+		bool mSnap{false}; // прилеплять ли к краям
 
 		IntCoord mCurrentActionScale;
-		bool mAnimateSmooth;
+		bool mAnimateSmooth{false};
 
-		bool mMovable;
+		bool mMovable{true};
 	};
 
 } // namespace MyGUI

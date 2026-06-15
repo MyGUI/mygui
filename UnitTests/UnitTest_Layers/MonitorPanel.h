@@ -13,15 +13,14 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(MonitorPanel, "Monitor.layout");
-	class MonitorPanel :
-		public wraps::BaseLayout
+	class MonitorPanel : public wraps::BaseLayout
 	{
 	public:
 		MonitorPanel();
 		~MonitorPanel() override;
 
 	private:
-		void notifyCommand(const std::string& _name, MyGUI::Any _data);
+		void notifyCommand(std::string_view _name, MyGUI::Any _data);
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mShipImage, "Ship");

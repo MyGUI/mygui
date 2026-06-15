@@ -6,19 +6,16 @@
 
 namespace demo
 {
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
 	private:
 		void setupResources() override;
 
-		void OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url);
+		void OnClickUrl(MyGUI::HyperTextBox* _sender, std::string_view _url);
 	};
 
 } // namespace demo

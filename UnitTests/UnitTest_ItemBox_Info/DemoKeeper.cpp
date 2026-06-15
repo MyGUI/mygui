@@ -12,7 +12,10 @@ namespace demo
 
 	static void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
-		MyGUI::TextBox* text = _item->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
+		MyGUI::TextBox* text = _item->createWidget<MyGUI::TextBox>(
+			"TextBox",
+			MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()),
+			MyGUI::Align::Stretch);
 		text->setNeedMouseFocus(false);
 		_item->setUserData(text);
 	}
@@ -29,14 +32,19 @@ namespace demo
 		if (_info.drag)
 		{
 			text->setCaption(MyGUI::utility::toString(
-				_info.drop_accept ? "#00FF00drag accept" : (_info.drop_refuse ? "#FF0000drag refuse" : "#0000FFdrag miss"),
-				"\n#000000data : ", data));
+				_info.drop_accept ? "#00FF00drag accept"
+								  : (_info.drop_refuse ? "#FF0000drag refuse" : "#0000FFdrag miss"),
+				"\n#000000data : ",
+				data));
 		}
 		else
 		{
 			text->setCaption(MyGUI::utility::toString(
-				_info.drop_accept ? "#00FF00" : (_info.drop_refuse ? "#FF0000" : "#000000"), "index : ", _info.index,
-				"\n#000000data : ", data,
+				_info.drop_accept ? "#00FF00" : (_info.drop_refuse ? "#FF0000" : "#000000"),
+				"index : ",
+				_info.index,
+				"\n#000000data : ",
+				data,
 				_info.active ? "\n#00FF00focus" : "\n#800000focus",
 				_info.select ? "\n#00FF00select" : "\n#800000select"));
 		}
@@ -93,7 +101,11 @@ namespace demo
 
 	static void init()
 	{
-		MyGUI::ItemBox* box1 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box1 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>(
+			"ItemBox",
+			MyGUI::IntCoord(10, 10, 300, 300),
+			MyGUI::Align::Default,
+			"Overlapped");
 		box1->setVerticalAlignment(true);
 		box1->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box1->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
@@ -106,7 +118,11 @@ namespace demo
 		box1->addItem((int)43);
 		box1->addItem((int)54);
 
-		MyGUI::ItemBox* box2 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box2 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>(
+			"ItemBox",
+			MyGUI::IntCoord(410, 10, 300, 300),
+			MyGUI::Align::Default,
+			"Overlapped");
 		box2->setVerticalAlignment(true);
 		box2->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box2->requestCoordItem = MyGUI::newDelegate(requestCoordItem);

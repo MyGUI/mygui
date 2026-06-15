@@ -11,13 +11,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mToolTip(nullptr),
-		mItemBoxV(nullptr),
-		mItemBoxH(nullptr)
-	{
-	}
-
 	void DemoKeeper::notifyStartDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE)
@@ -44,7 +37,8 @@ namespace demo
 		}
 
 		ItemData* sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-		ItemData* receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
+		ItemData* receiver_data =
+			*static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 		_result = receiver_data->isEmpty() || receiver_data->compare(sender_data);
 	}
@@ -54,7 +48,8 @@ namespace demo
 		if (_result)
 		{
 			ItemData* sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-			ItemData* receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
+			ItemData* receiver_data =
+				*static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 			receiver_data->add(sender_data);
 			sender_data->clear();
@@ -99,10 +94,12 @@ namespace demo
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize "
+				"windows to see vertical and horizontal ItebBox alignments.");
 
 		// регестрируем тип нашего ресурса
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>(resourceCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
@@ -152,7 +149,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		// тип нашего ресурса
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceItemInfo>(resourceCategory);
 
 		delete mItemBoxH;

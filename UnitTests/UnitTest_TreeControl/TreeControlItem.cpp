@@ -9,11 +9,6 @@
 
 namespace MyGUI
 {
-	TreeControlItem::TreeControlItem() :
-		mpButtonExpandCollapse(nullptr),
-		mpIcon(nullptr)
-	{
-	}
 
 	void TreeControlItem::initialiseOverride()
 	{
@@ -29,7 +24,9 @@ namespace MyGUI
 
 		assignWidget(mpIcon, "Image");
 
-		MYGUI_ASSERT(nullptr != mpButtonExpandCollapse, "Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
+		MYGUI_ASSERT(
+			nullptr != mpButtonExpandCollapse,
+			"Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
 	}
 
 	void TreeControlItem::shutdownOverride()

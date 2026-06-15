@@ -11,16 +11,6 @@
 namespace MyGUI
 {
 
-	WidgetInput::WidgetInput() :
-		mNeedToolTip(false),
-		mInheritsPick(false),
-		mNeedKeyFocus(false),
-		mNeedMouseFocus(true),
-		mRootMouseFocus(false),
-		mRootKeyFocus(false)
-	{
-	}
-
 	void WidgetInput::setMaskPick(const std::string& _filename)
 	{
 		if (_filename.empty())
@@ -139,7 +129,7 @@ namespace MyGUI
 		return mNeedToolTip;
 	}
 
-	void WidgetInput::setPointer(const std::string& _value)
+	void WidgetInput::setPointer(std::string_view _value)
 	{
 		mPointer = _value;
 	}

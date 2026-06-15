@@ -5,7 +5,7 @@
 # and provide build configuration options.
 ######################################################################
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.8)
 if(POLICY CMP0048)
 	cmake_policy(SET CMP0048 NEW)
 endif()
@@ -23,11 +23,12 @@ endif()
 project(MYGUI)
 
 # Include necessary submodules
-set(CMAKE_MODULE_PATH
-	"${MYGUI_SOURCE_DIR}/CMake"
-	"${MYGUI_SOURCE_DIR}/CMake/Utils"
-	"${MYGUI_SOURCE_DIR}/CMake/Packages"
+list(APPEND CMAKE_MODULE_PATH
+    "${MYGUI_SOURCE_DIR}/CMake"
+    "${MYGUI_SOURCE_DIR}/CMake/Utils"
+    "${MYGUI_SOURCE_DIR}/CMake/Packages"
 )
+
 include(CMakeDependentOption)
 include(MacroLogFeature)
 include(MyGUIConfigTargets)
@@ -35,8 +36,10 @@ include(PreprocessorUtils)
 include(GNUInstallDirs)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
-SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
+# Prevent CMake from adding "#pragma clang system_header" to the precompiled headers (otherwise all warnings are suppressed)
+set(CMAKE_PCH_PROLOGUE "")
 
 #####################################################################
 # Set up the basic build environment
@@ -63,23 +66,9 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
 	if (MYGUI_GCC_VISIBILITY)
-		# determine gcc version
-		execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE MYGUI_GCC_VERSION)
-		message(STATUS "Detected g++ ${MYGUI_GCC_VERSION}")
-		message(STATUS "Enabling GCC visibility flags")
-		set(MYGUI_GCC_VISIBILITY_FLAGS "-DMYGUI_GCC_VISIBILITY -fvisibility=hidden")
-
-		# check if we can safely add -fvisibility-inlines-hidden
-		string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
-		if (MYGUI_BUILD_TYPE STREQUAL "debug")
-			if(MYGUI_GCC_VERSION VERSION_LESS "4.2")
-				message(STATUS "Skipping -fvisibility-inlines-hidden due to possible bug in g++ < 4.2")
-			else() # double if because of bug in CMake 2.6
-				set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
-			endif()
-		else ()
-			set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
-		endif ()
+		message(STATUS "Enabling visibility flags")
+		set(MYGUI_GCC_VISIBILITY_DEFINITIONS "MYGUI_GCC_VISIBILITY")
+		set(MYGUI_GCC_VISIBILITY_OPTIONS "-fvisibility-inlines-hidden;-fvisibility=hidden")
 	endif (MYGUI_GCC_VISIBILITY)
 
 	# Fix x64 issues on Linux
@@ -148,10 +137,6 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "
 )
 
-if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7)
-	option(MYGUI_USE_SYSTEM_GLEW "Use system OpenGL Extension Wrangler Library (GLEW)" FALSE)
-endif()
-
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 cmake_dependent_option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE "NOT MYGUI_DISABLE_PLUGINS" FALSE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
@@ -163,13 +148,12 @@ cmake_dependent_option(MYGUI_INSTALL_DEMOS "Install MyGUI demos." FALSE "MYGUI_B
 cmake_dependent_option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE "MYGUI_BUILD_TOOLS" FALSE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;NOT MYGUI_STATIC" FALSE)
-option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (should be used only from Scripts/prepareRelease.py)" FALSE)
-MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 option(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT "Generate .list files from visual studio project files" FALSE)
 MARK_AS_ADVANCED(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")
 endif ()
 
 # Used to not annoy users with high level warnings (should be TRUE for developers)
@@ -203,6 +187,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			)
 			# not useful
 			add_compile_options(
+				-Wno-unsafe-buffer-usage
 				-Wno-unknown-warning-option
 				-Wno-documentation
 				-Wno-documentation-unknown-command
@@ -218,42 +203,41 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wno-exit-time-destructors
 				-Wno-unused-parameter
 				-Wno-global-constructors
+				-Wno-switch-default # conflicts with Wcovered-switch-default
 			)
 		else ()
-			# TODO: the warnings below have'nt been checked for a while
 			add_compile_options(
 				-Wno-deprecated
 				-Wall
-				-Wno-reorder
 				-Winit-self
-				-Woverloaded-virtual
 				-Wcast-qual
 				-Wwrite-strings
 				-Wextra
 				-pedantic
+				-Wshadow
 			)
+			add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-reorder;-Woverloaded-virtual;-Wsuggest-override>")
 			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-				add_compile_definitions(-Wctor-dtor-privacy)
-				add_compile_definitions(-fdiagnostics-show-option)
+				add_compile_options(-fdiagnostics-show-option)
 			endif ()
 			# disable some
-			add_compile_definitions(
+			add_compile_options(
 				-Wno-unused-parameter
 			)
-
-			# MyGUI_UString.h ignored from warnings because of this
-			add_compile_definitions(-Wshadow)
 		endif ()
 	endif ()
 endif ()
+
+option(MYGUI_CLANG_TIDY_BUILD "Hack some things for clang-tidy runs, f.e. disable PCH" FALSE)
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	# usage:
 	# UBSAN_OPTIONS=print_stacktrace=1,suppressions=sanitizers/UBSanitizer.supp <command>
 	option(MYGUI_UB_SANITIZER "Compile with undefined behaviour sanitizer" FALSE)
 	if (MYGUI_UB_SANITIZER)
-		add_compile_definitions(-fno-omit-frame-pointer -fno-optimize-sibling-calls)
-		add_compile_definitions(-fsanitize=undefined -fno-sanitize-recover=undefined)
+		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
+		add_compile_options("-fsanitize=undefined" "-fno-sanitize-recover=undefined")
+		link_libraries("-fsanitize=undefined")
 	endif()
 
 	# usage:
@@ -261,8 +245,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	# alloc_dealloc_mismatch is here due to issues with Ogre and no clear way to suppress the issue
 	option(MYGUI_ADDRESS_SANITIZER "Compile with address sanitizer" FALSE)
 	if (MYGUI_ADDRESS_SANITIZER)
-		add_compile_definitions(-fno-omit-frame-pointer -fno-optimize-sibling-calls)
-		add_compile_definitions(-fsanitize=address -fsanitize-address-use-after-scope)
+		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
+		add_compile_options("-fsanitize=address" "-fsanitize-address-use-after-scope")
+		link_libraries("-fsanitize=address")
 	endif()
 endif ()
 
@@ -336,6 +321,10 @@ endif ()
 
 # Setup tests
 if (MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
+	# Enable CMake testing infrastructure when building unit tests
+	if (MYGUI_BUILD_UNITTESTS)
+		enable_testing()
+	endif()
 	add_subdirectory(UnitTests)
 endif ()
 

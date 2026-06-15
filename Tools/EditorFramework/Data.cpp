@@ -6,17 +6,12 @@
 
 #include "Precompiled.h"
 #include "Data.h"
+
+#include <memory>
 #include "MyGUI.h"
 
 namespace tools
 {
-
-	Data::Data() :
-		mType(nullptr),
-		mParent(nullptr),
-		mIndexSelected(MyGUI::ITEM_NONE)
-	{
-	}
 
 	Data::~Data()
 	{
@@ -32,12 +27,12 @@ namespace tools
 		if (mType != nullptr)
 		{
 			const DataType::VectorProperty& properties = mType->getProperties();
-			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
+			for (const auto& property : properties)
 			{
-				PropertyPtr data = Property::CreateInstance(*property, mWeakThis.lock());
+				PropertyPtr data = Property::CreateInstance(property, mWeakThis.lock());
 				data->initialise();
 
-				mProperties[(*property)->getName()] = data;
+				mProperties[property->getName()] = data;
 			}
 		}
 	}
@@ -92,7 +87,7 @@ namespace tools
 	{
 		insertChild(MyGUI::ITEM_NONE, _child);
 	}
-	
+
 	void Data::removeChild(DataPtr _child)
 	{
 		MYGUI_ASSERT(_child->getParent() == mWeakThis.lock(), "Child not found");
@@ -104,12 +99,12 @@ namespace tools
 		_child->mParent = nullptr;
 	}
 
-	const std::string& Data::getPropertyValue(const std::string& _name) const
+	const std::string& Data::getPropertyValue(std::string_view _name) const
 	{
 		return getProperty(_name)->getValue();
 	}
-	
-	void Data::setPropertyValue(const std::string& _name, const std::string& _value) const
+
+	void Data::setPropertyValue(std::string_view _name, std::string_view _value) const
 	{
 		getProperty(_name)->setValue(_value);
 	}
@@ -119,7 +114,7 @@ namespace tools
 		if (_child == nullptr)
 			return MyGUI::ITEM_NONE;
 
-		for (size_t index = 0; index < mChilds.size(); index ++)
+		for (size_t index = 0; index < mChilds.size(); index++)
 		{
 			if (_child == mChilds[index])
 				return index;
@@ -147,7 +142,7 @@ namespace tools
 		mIndexSelected = getChildIndex(_child);
 	}
 
-	PropertyPtr Data::getProperty(const std::string& _name) const
+	PropertyPtr Data::getProperty(std::string_view _name) const
 	{
 		MapProperty::const_iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
@@ -157,7 +152,7 @@ namespace tools
 
 	DataPtr Data::CreateInstance()
 	{
-		DataPtr result = DataPtr(new Data());
+		DataPtr result = std::make_shared<Data>();
 		result->mWeakThis = DataWeak(result);
 		return result;
 	}

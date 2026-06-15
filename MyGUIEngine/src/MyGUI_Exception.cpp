@@ -8,43 +8,35 @@
 #include "MyGUI_Exception.h"
 #include "MyGUI_StringUtility.h"
 
+#include <utility>
+
 namespace MyGUI
 {
 
-	Exception::Exception(const std::string& _description, const std::string& _source, const char* _file, long _line ) :
-		mDescription(_description),
-		mSource(_source),
-		mFile(_file),
+	Exception::Exception(std::string _description, std::string _source, std::string _file, long _line) :
+		mDescription(std::move(_description)),
+		mSource(std::move(_source)),
+		mFile(std::move(_file)),
 		mLine(_line)
 	{
-	}
-
-	Exception::Exception(const Exception& _rhs) :
-		mDescription(_rhs.mDescription),
-		mSource(_rhs.mSource),
-		mFile(_rhs.mFile),
-		mLine(_rhs.mLine),
-		mFullDesc(_rhs.mFullDesc)
-	{
-	}
-
-	Exception& Exception::operator = (const Exception& _rhs)
-	{
-		mDescription = _rhs.mDescription;
-		mSource = _rhs.mSource;
-		mFile = _rhs.mFile;
-		mLine = _rhs.mLine;
-		mFullDesc = _rhs.mFullDesc;
-		return *this;
 	}
 
 	const std::string& Exception::getFullDescription() const
 	{
 		if (mFullDesc.empty())
 		{
-			if ( mLine > 0 )
+			if (mLine > 0)
 			{
-				mFullDesc = utility::toString("MyGUI EXCEPTION : ", mDescription, " in ", mSource, " at ", mFile, " (line ", mLine, ")");
+				mFullDesc = utility::toString(
+					"MyGUI EXCEPTION : ",
+					mDescription,
+					" in ",
+					mSource,
+					" at ",
+					mFile,
+					" (line ",
+					mLine,
+					")");
 			}
 			else
 			{

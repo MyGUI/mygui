@@ -15,9 +15,7 @@
 namespace tools
 {
 
-	class MainMenuControlLE :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+	class MainMenuControlLE : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
 		MainMenuControlLE(MyGUI::Widget* _parent = nullptr);
@@ -30,12 +28,17 @@ namespace tools
 		void notifyPopupMenuAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 
 		void widgetsUpdate();
-		void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+		void createWidgetPopup(
+			WidgetContainer* _container,
+			MyGUI::MenuControl* _parentPopup,
+			bool _print_name,
+			bool _print_type,
+			bool _print_skin);
 		void notifyWidgetsSelect(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 		std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 		void notifyChangeWidgets();
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 		void updateRecentFilesMenu();
 		void updateRecentProjectsMenu();
@@ -44,8 +47,8 @@ namespace tools
 		void CommandOnChangeScale(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
-		MyGUI::MenuBar* mBar;
-		MyGUI::MenuControl* mPopupMenuWidgets;
+		MyGUI::MenuBar* mBar{nullptr};
+		MyGUI::MenuControl* mPopupMenuWidgets{nullptr};
 	};
 
 }

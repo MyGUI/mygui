@@ -1,6 +1,5 @@
 set (HEADER_FILES
   AnimationGraph.h
-  AnimationGraphFactory.h
   AnimationNodeFactory.h
   BaseAnimationNode.h
   BaseGraphConnection.h
@@ -37,7 +36,6 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
-  AnimationGraphFactory.cpp
   AnimationNodeFactory.cpp
   DemoKeeper.cpp
   Dialog.cpp
@@ -47,7 +45,6 @@ set (SOURCE_FILES
 )
 SOURCE_GROUP("Animation\\Header Files" FILES
   AnimationGraph.h
-  AnimationGraphFactory.h
   AnimationNodeFactory.h
   ConnectionReceiver.h
   EventController.h
@@ -62,7 +59,6 @@ SOURCE_GROUP("Animation\\Header Files" FILES
   WeightController.h
 )
 SOURCE_GROUP("Animation\\Source" FILES
-  AnimationGraphFactory.cpp
   AnimationNodeFactory.cpp
 )
 SOURCE_GROUP("Common\\Header Files" FILES

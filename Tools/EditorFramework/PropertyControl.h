@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL PropertyControl : public Control, public sigslot::has_slots<>
 	{
 	public:
 		PropertyControl();
@@ -24,7 +22,7 @@ namespace tools
 		void setProperty(PropertyPtr _value);
 		PropertyPtr getProperty();
 
-		void executeAction(const std::string& _value, bool _merge = false);
+		void executeAction(std::string_view _value, bool _merge = false);
 
 	protected:
 		virtual void updateProperty();

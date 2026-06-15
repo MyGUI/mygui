@@ -13,21 +13,7 @@ namespace MyGUI
 
 	OpenGLESTexture::OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader) :
 		mName(_name),
-		mTextureId(0),
-		mProgramId(0),
-		mPboID(0),
-		mWidth(0),
-		mHeight(0),
-		mLock(false),
-		mPixelFormat(0),
-		mDataSize(0),
-		mUsage(0),
-		mBuffer(nullptr),
-		mInternalPixelFormat(0),
-		mAccess(0),
-		mNumElemBytes(0),
-		mImageLoader(_loader),
-		mRenderTarget(nullptr)
+		mImageLoader(_loader)
 	{
 	}
 
@@ -100,13 +86,13 @@ namespace MyGUI
 
 		// Set unpack alignment to one byte
 		int alignment = 0;
-		glGetIntegerv(GL_UNPACK_ALIGNMENT, (GLint*) &alignment);
+		glGetIntegerv(GL_UNPACK_ALIGNMENT, (GLint*)&alignment);
 		CHECK_GL_ERROR_DEBUG();
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		CHECK_GL_ERROR_DEBUG();
 
 		// создаем тукстуру
-		glGenTextures(1, (GLuint*) &mTextureId);
+		glGenTextures(1, (GLuint*)&mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		CHECK_GL_ERROR_DEBUG();
@@ -155,18 +141,14 @@ namespace MyGUI
 			CHECK_GL_ERROR_DEBUG();
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 			CHECK_GL_ERROR_DEBUG();
-
 		}
 #endif
 	}
 
 	void OpenGLESTexture::destroy()
 	{
-		if (mRenderTarget != nullptr)
-		{
-			delete mRenderTarget;
-			mRenderTarget = nullptr;
-		}
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
 
 		if (mTextureId != 0)
 		{
@@ -175,7 +157,7 @@ namespace MyGUI
 		}
 		if (mPboID != 0)
 		{
-            glDeleteBuffers(1, (GLuint*)&mPboID);
+			glDeleteBuffers(1, (GLuint*)&mPboID);
 			mPboID = 0;
 		}
 

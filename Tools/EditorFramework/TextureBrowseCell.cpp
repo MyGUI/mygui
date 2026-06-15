@@ -41,11 +41,16 @@ namespace tools
 
 				float k1 = (float)targetSize.width / textureSize.width;
 				float k2 = (float)targetSize.height / textureSize.height;
-				float k = std::min( k1, k2);
-				MyGUI::IntSize size = MyGUI::IntSize((int)(k *  (float)textureSize.width), (int)(k *  (float)textureSize.height));
+				float k = std::min(k1, k2);
+				MyGUI::IntSize size =
+					MyGUI::IntSize((int)(k * (float)textureSize.width), (int)(k * (float)textureSize.height));
 
 				MyGUI::IntSize parentSize = mBack->getParent()->getSize();
-				mBack->setCoord((parentSize.width - size.width) / 2, (parentSize.height - size.height) / 2, size.width, size.height);
+				mBack->setCoord(
+					(parentSize.width - size.width) / 2,
+					(parentSize.height - size.height) / 2,
+					size.width,
+					size.height);
 			}
 			else
 			{

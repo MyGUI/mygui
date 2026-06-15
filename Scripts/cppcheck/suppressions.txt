@@ -2,22 +2,30 @@ noExplicitConstructor
 useStlAlgorithm
 unusedFunction
 shadowFunction
+cstyleCast
+constParameterPointer
+constParameterReference
+constParameterCallback
+missingIncludeSystem
+constVariablePointer
+normalCheckLevelMaxBranches
+// buggy with range-based for
+constVariableReference
 
 // false positive:
 nullPointer:*/MyGUI_Widget.cpp:197
+knownConditionTrueFalse:*/MyGUI_InputManager.cpp
+nullPointerRedundantCheck:*/MyGUI_InputManager.cpp
 uninitStructMember:*/Mirror_MultiList.h
 
 // thirdparty
 *:*/MyGUI_UString*
-*:*/include/GL/glew*
 *:*/pugixml*
 *:*/sigslot*
 
 // TODO: minor
-unreadVariable
 useInitializationList
-postfixOperator
-constVariable
 noCopyConstructor
 noOperatorEq
 uninitMemberVar
+duplInheritedMember

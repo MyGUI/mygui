@@ -13,7 +13,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(GridManager);
 
 	GridManager::GridManager() :
-		mGridStep(0),
 		mSingletonHolder(this)
 	{
 	}
@@ -29,7 +28,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void GridManager::notifySettingsChanged(const std::string& _path)
+	void GridManager::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == "Settings/GridStep")
 		{
@@ -44,9 +43,9 @@ namespace tools
 
 		if (_line == Closest)
 			return (_value + mGridStep / 2) / mGridStep * mGridStep;
-		else if (_line == Previous)
+		if (_line == Previous)
 			return (_value - 1) / mGridStep * mGridStep;
-		else if (_line == Next)
+		if (_line == Next)
 			return (_value + mGridStep) / mGridStep * mGridStep;
 
 		return _value;

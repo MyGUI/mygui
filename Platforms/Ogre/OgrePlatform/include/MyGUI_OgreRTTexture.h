@@ -16,8 +16,7 @@
 namespace MyGUI
 {
 
-	class OgreRTTexture :
-		public IRenderTarget
+	class OgreRTTexture : public IRenderTarget
 	{
 	public:
 		OgreRTTexture(Ogre::TexturePtr _texture);
@@ -34,8 +33,8 @@ namespace MyGUI
 
 	private:
 		RenderTargetInfo mRenderTargetInfo;
-		Ogre::Viewport* mViewport;
-		Ogre::Viewport* mSaveViewport;
+		Ogre::Viewport* mViewport{nullptr};
+		Ogre::Viewport* mSaveViewport{nullptr};
 		Ogre::TexturePtr mTexture;
 	};
 

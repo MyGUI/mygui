@@ -14,10 +14,9 @@ namespace MyGUI
 {
 	class Message;
 
-	typedef delegates::CMultiDelegate2<Message*, MessageBoxStyle> EventHandle_MessageBoxPtrMessageStyle;
+	using EventHandle_MessageBoxPtrMessageStyle = delegates::MultiDelegate<Message*, MessageBoxStyle>;
 
-	class Message :
-		public wraps::BaseLayout
+	class Message : public wraps::BaseLayout
 	{
 	public:
 		Message() :
@@ -33,7 +32,7 @@ namespace MyGUI
 			initialise();
 		}
 
-		Message(const std::string& _layoutName) :
+		Message(std::string_view _layoutName) :
 			wraps::BaseLayout(_layoutName),
 			mWidgetText(nullptr),
 			mInfoOk(MessageBoxStyle::None),
@@ -69,20 +68,22 @@ namespace MyGUI
 		/** Create button with specific name*/
 		MessageBoxStyle addButtonName(const UString& _name)
 		{
-			if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons)
+			if (mVectorButton.size() >= MessageBoxStyle::_countUserButtons)
 			{
 				MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 				return MessageBoxStyle::None;
 			}
 			// бит, номер кнопки + смещение до Button1
-			MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_IndexUserButton1)));
+			MessageBoxStyle info = MessageBoxStyle(
+				MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_indexUserButton1)));
 
 			// запоминаем кнопки для отмены и подтверждения
 			if (mVectorButton.empty())
 				mInfoOk = info;
 			mInfoCancel = info;
 
-			Widget* widget = mMainWidget->createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
+			Widget* widget =
+				mMainWidget->createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
 			Button* button = widget->castType<Button>();
 			button->eventMouseButtonClick += newDelegate(this, &Message::notifyButtonClick);
 			button->setCaption(_name);
@@ -140,21 +141,14 @@ namespace MyGUI
 
 			std::vector<MessageBoxStyle> buttons = _value.getButtons();
 
-			for (size_t index = 0; index < buttons.size(); ++index)
+			for (const auto& info : buttons)
 			{
-				// корректируем ее номер
-				MessageBoxStyle info = buttons[index];
-
-				// если бит есть то ставим кнопку
 				addButtonName(getButtonName(info));
 
-				// внутри адд сбрасывается
 				mVectorButton.back()->_setInternalData(info);
 
-				// первая кнопка
 				if (mVectorButton.size() == 1)
 					mInfoOk = info;
-				// последняя кнопка
 				mInfoCancel = info;
 			}
 
@@ -189,12 +183,12 @@ namespace MyGUI
 			const UString& _caption,
 			const UString& _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
-			const std::string& _layer = "",
+			std::string_view _layer = {},
 			bool _modal = true,
-			const std::string& _button1 = "",
-			const std::string& _button2 = "",
-			const std::string& _button3 = "",
-			const std::string& _button4 = "")
+			std::string_view _button1 = {},
+			std::string_view _button2 = {},
+			std::string_view _button3 = {},
+			std::string_view _button4 = {})
 		{
 			Message* mess = new Message();
 
@@ -207,13 +201,13 @@ namespace MyGUI
 
 			if (!_button1.empty())
 			{
-				mess->addButtonName(_button1);
+				mess->addButtonName(UString(_button1));
 				if (!_button2.empty())
 				{
-					mess->addButtonName(_button2);
+					mess->addButtonName(UString(_button2));
 					if (!_button3.empty())
 					{
-						mess->addButtonName(_button3);
+						mess->addButtonName(UString(_button3));
 					}
 				}
 			}
@@ -224,14 +218,13 @@ namespace MyGUI
 			return mess;
 		}
 
-	/*events:*/
+		/*events:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(tools::Message* _sender, MessageBoxStyle _result)\n
 			@param _sender widget that called this event
 			@param _result - id of pressed button
 		*/
-		EventHandle_MessageBoxPtrMessageStyle
-			eventMessageBoxResult;
+		EventHandle_MessageBoxPtrMessageStyle eventMessageBoxResult;
 
 	protected:
 		void updateSize()
@@ -250,7 +243,8 @@ namespace MyGUI
 			size += mOffsetText;
 			size.width += 3;
 
-			int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size() + 1) * mButtonOffset.width);
+			int width = ((int)mVectorButton.size() * mButtonSize.width) +
+				(((int)mVectorButton.size() + 1) * mButtonOffset.width);
 			if (size.width < width)
 				size.width = width;
 
@@ -261,22 +255,35 @@ namespace MyGUI
 			size.height += mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
 
 			const IntSize& view = RenderManager::getInstance().getViewSize();
-			mMainWidget->setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
+			mMainWidget
+				->setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
 
 			if (nullptr != mIcon)
 			{
 				if (mWidgetText != nullptr)
 				{
 					if (mIcon->getImageIndex() != ITEM_NONE)
-						mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+						mWidgetText->setCoord(
+							mLeftOffset2,
+							mWidgetText->getTop(),
+							mWidgetText->getWidth(),
+							mWidgetText->getHeight());
 					else
-						mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+						mWidgetText->setCoord(
+							mLeftOffset1,
+							mWidgetText->getTop(),
+							mWidgetText->getWidth(),
+							mWidgetText->getHeight());
 				}
 			}
 
-			for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
+			for (auto& iter : mVectorButton)
 			{
-				(*iter)->setCoord(offset, mMainWidget->getClientCoord().height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
+				iter->setCoord(
+					offset,
+					mMainWidget->getClientCoord().height - mButtonOffset.height,
+					mButtonSize.width,
+					mButtonSize.height);
 				offset += mButtonOffset.width + mButtonSize.width;
 			}
 		}
@@ -288,8 +295,8 @@ namespace MyGUI
 
 		void clearButton()
 		{
-			for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
-				WidgetManager::getInstance().destroyWidget(*iter);
+			for (auto& iter : mVectorButton)
+				WidgetManager::getInstance().destroyWidget(iter);
 			mVectorButton.clear();
 		}
 
@@ -313,35 +320,47 @@ namespace MyGUI
 		UString getButtonName(MessageBoxStyle _style) const
 		{
 			size_t index = _style.getButtonIndex();
-			const char* tag = getButtonTag(index);
+			std::string_view tag = getButtonTag(index);
 			UString result = LanguageManager::getInstance().replaceTags(utility::toString("#{", tag, "}"));
 			if (result == tag)
-				return getButtonName(index);
+				result.assign(getButtonName(index));
 			return result;
 		}
 
-		const char* getIconName(size_t _index) const
+		std::string_view getIconName(size_t _index) const
 		{
 			static const size_t CountIcons = 4;
-			static const char* IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
+			static const std::string_view IconNames[CountIcons + 1] =
+				{"Info", "Quest", "Error", "Warning", std::string_view{}};
 			if (_index >= CountIcons)
 				return IconNames[CountIcons];
 			return IconNames[_index];
 		}
 
-		const char* getButtonName(size_t _index) const
+		std::string_view getButtonName(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const char * Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
+			static const std::string_view Names[Count + 1] =
+				{"Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", std::string_view{}};
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
 		}
 
-		const char* getButtonTag(size_t _index) const
+		std::string_view getButtonTag(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const char* Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", "" };
+			static const std::string_view Names[Count + 1] = {
+				"MessageBox_Ok",
+				"MessageBox_Yes",
+				"MessageBox_No",
+				"MessageBox_Abort",
+				"MessageBox_Retry",
+				"MessageBox_Ignore",
+				"MessageBox_Cancel",
+				"MessageBox_Try",
+				"MessageBox_Continue",
+				std::string_view{}};
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
@@ -353,7 +372,9 @@ namespace MyGUI
 			assignWidget(mWidgetText, "Text", false);
 			if (mWidgetText != nullptr)
 			{
-				mOffsetText.set(mMainWidget->getClientCoord().width - mWidgetText->getWidth(), mMainWidget->getClientCoord().height - mWidgetText->getHeight());
+				mOffsetText.set(
+					mMainWidget->getClientCoord().width - mWidgetText->getWidth(),
+					mMainWidget->getClientCoord().height - mWidgetText->getHeight());
 				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 			}
 
@@ -387,7 +408,7 @@ namespace MyGUI
 				window->eventWindowButtonPressed += newDelegate(this, &Message::notifyWindowButtonPressed);
 		}
 
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 		{
 			if (_name == "close")
 				endMessage();

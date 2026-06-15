@@ -29,7 +29,6 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_LanguageManager.h"
-#include "MyGUI_LayoutManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
@@ -483,9 +482,9 @@ namespace MyGUI
 	{
 		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::RightToLeft)
 			return Align::Right;
-		else if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
+		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
 			return Align::Top;
-		else if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
+		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
 			return Align::Bottom;
 
 		return Align::Left;
@@ -643,11 +642,11 @@ namespace MyGUI
 	}
 	IntRect MemberObsolete<Window>::getMinMax() const
 	{
-		return IntRect(
+		return {
 			static_cast<const Window*>(this)->getMinSize().width,
 			static_cast<const Window*>(this)->getMinSize().height,
 			static_cast<const Window*>(this)->getMaxSize().width,
-			static_cast<const Window*>(this)->getMaxSize().height);
+			static_cast<const Window*>(this)->getMaxSize().height};
 	}
 
 	bool MemberObsolete<FontManager>::load(const std::string& _file)
@@ -655,7 +654,11 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node2, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<FontManager>::loadOldFontFormat(
+		xml::ElementPtr _node2,
+		std::string_view _file,
+		Version _version,
+		std::string_view _tag)
 	{
 		xml::ElementEnumerator _node = _node2->getElementEnumerator();
 		while (_node.next())
@@ -666,14 +669,11 @@ namespace MyGUI
 				if (!_node->findAttribute("name", name))
 					return;
 
-				std::string type;
-				if (type.empty())
-				{
-					if (_node->findAttribute("resolution").empty())
-						type = "ResourceManualFont";
-					else
-						type = "ResourceTrueTypeFont";
-				}
+				std::string_view type;
+				if (_node->findAttribute("resolution").empty())
+					type = "ResourceManualFont";
+				else
+					type = "ResourceTrueTypeFont";
 
 				xml::Document doc;
 				xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -782,15 +782,15 @@ namespace MyGUI
 		static_cast<Gui*>(this)->destroyWidgets(_widgets);
 	}
 
-	bool MemberObsolete<Gui>::injectMouseMove( int _absx, int _absy, int _absz)
+	bool MemberObsolete<Gui>::injectMouseMove(int _absx, int _absy, int _absz)
 	{
 		return InputManager::getInstance().injectMouseMove(_absx, _absy, _absz);
 	}
-	bool MemberObsolete<Gui>::injectMousePress( int _absx, int _absy, MouseButton _id )
+	bool MemberObsolete<Gui>::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
 		return InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 	}
-	bool MemberObsolete<Gui>::injectMouseRelease( int _absx, int _absy, MouseButton _id )
+	bool MemberObsolete<Gui>::injectMouseRelease(int _absx, int _absy, MouseButton _id)
 	{
 		return InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
 	}
@@ -873,7 +873,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	VectorWidgetPtr MemberObsolete<LayoutManager>::load(const std::string& _file)
+	VectorWidgetPtr MemberObsolete<LayoutManager>::load(std::string_view _file)
 	{
 		return static_cast<LayoutManager*>(this)->loadLayout(_file);
 	}
@@ -883,7 +883,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<PointerManager>::setDeafultPointer(const std::string& _value)
+	void MemberObsolete<PointerManager>::setDeafultPointer(std::string_view _value)
 	{
 		static_cast<PointerManager*>(this)->setDefaultPointer(_value);
 	}
@@ -903,10 +903,14 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<PointerManager>::loadOldPointerFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<PointerManager>::loadOldPointerFormat(
+		xml::ElementPtr _node,
+		std::string_view _file,
+		Version _version,
+		std::string_view _tag)
 	{
-		std::string pointer;
-		std::string layer;
+		std::string_view pointer;
+		std::string_view layer;
 
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
@@ -917,19 +921,20 @@ namespace MyGUI
 				pointer = node->findAttribute("default");
 
 				// сохраняем
-				std::string shared_text = node->findAttribute("texture");
+				std::string_view shared_text = node->findAttribute("texture");
 
 				// берем детей и крутимся, основной цикл
 				xml::ElementEnumerator info = node->getElementEnumerator();
 				while (info.next("Info"))
 				{
-					std::string name = info->findAttribute("name");
+					std::string_view name = info->findAttribute("name");
 					if (name.empty())
 						continue;
 
-					std::string texture = info->findAttribute("texture");
+					std::string_view texture = info->findAttribute("texture");
 
-					std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+					std::string_view type =
+						(shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
 
 					xml::Document doc;
 					xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -970,7 +975,7 @@ namespace MyGUI
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Texture");
-						prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
+						prop->addAttribute("value", shared_text.empty() ? texture : shared_text);
 					}
 
 					ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
@@ -989,12 +994,12 @@ namespace MyGUI
 	{
 		return static_cast<const ResourceManager*>(this)->getCount();
 	}
-	IResourcePtr MemberObsolete<ResourceManager>::getResource(const std::string& _name, bool _throw) const
+	IResourcePtr MemberObsolete<ResourceManager>::getResource(std::string_view _name, bool _throw) const
 	{
 		return static_cast<const ResourceManager*>(this)->getByName(_name, _throw);
 	}
 
-	ResourceSkin* MemberObsolete<SkinManager>::getSkin(const std::string& _name) const
+	ResourceSkin* MemberObsolete<SkinManager>::getSkin(std::string_view _name) const
 	{
 		return static_cast<const SkinManager*>(this)->getByName(_name);
 	}
@@ -1002,15 +1007,19 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<SkinManager>::loadOldSkinFormat(
+		xml::ElementPtr _node,
+		std::string_view /*_file*/,
+		Version _version,
+		std::string_view _tag)
 	{
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 
 		// берем детей и крутимся, основной цикл со скинами
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(_tag))
 		{
-			std::string type = skin->findAttribute("type");
+			std::string_view type = skin->findAttribute("type");
 			if (type.empty())
 				type = "ResourceSkin";
 
@@ -1030,15 +1039,15 @@ namespace MyGUI
 	{
 		static_cast<WidgetManager*>(this)->destroyWidgets(_widgets);
 	}
-	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, bool _throw)
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _throw);
 	}
-	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
 	}
-	void MemberObsolete<WidgetManager>::parse(Widget* _widget, const std::string& _key, const std::string& _value)
+	void MemberObsolete<WidgetManager>::parse(Widget* _widget, std::string_view _key, std::string_view _value)
 	{
 		_widget->setProperty(_key, _value);
 	}
@@ -1048,39 +1057,39 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	static std::string convertAlignToDirection(const std::string& _value)
+	static std::string_view convertAlignToDirection(std::string_view _value)
 	{
 		Align align = utility::parseValue<Align>(_value);
 		if (align == Align::Right)
 			return FlowDirection(FlowDirection::RightToLeft).print();
-		else if (align == Align::Top)
+		if (align == Align::Top)
 			return FlowDirection(FlowDirection::TopToBottom).print();
-		else if (align == Align::Bottom)
+		if (align == Align::Bottom)
 			return FlowDirection(FlowDirection::BottomToTop).print();
 		return FlowDirection(FlowDirection::LeftToRight).print();
 	}
 
-	static std::string convertRectToCoord(const std::string& _value)
+	static std::string convertRectToCoord(std::string_view _value)
 	{
 		IntRect rect = IntRect::parse(_value);
 		IntCoord coord(rect.left, rect.top, rect.width(), rect.height());
 		return coord.print();
 	}
 
-	using SetString = std::set<std::string>;
+	using SetString = std::set<std::string, std::less<>>;
 	static MapString mPropertyRename;
 	static SetString mPropertyIgnore;
 	static MapString mSkinRename;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-	bool BackwardCompatibility::isIgnoreProperty(const std::string& _key)
+	bool BackwardCompatibility::isIgnoreProperty(std::string_view _key)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
-			return true;
-#endif // MYGUI_DONT_USE_OBSOLETE
+		return mPropertyIgnore.find(_key) != mPropertyIgnore.end();
+#else
 		return false;
+#endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)
@@ -1092,18 +1101,27 @@ namespace MyGUI
 		MapString::iterator item = mPropertyRename.find(_key);
 		if (item != mPropertyRename.end())
 		{
-			MYGUI_LOG(Warning, (*item).first << " is deprecated, use " << (*item).second << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				(*item).first << " is deprecated, use " << (*item).second << " ["
+							  << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = (*item).second;
 		}
 		else if (_key == "Progress_StartPoint")
 		{
-			MYGUI_LOG(Warning, "Progress_StartPoint is deprecated, use Progress_FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Progress_StartPoint is deprecated, use Progress_FlowDirection"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Progress_FlowDirection";
 			_value = convertAlignToDirection(_value);
 		}
 		else if (_key == "ComboBox_AddItem")
 		{
-			MYGUI_LOG(Warning, "ComboBox_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"ComboBox_AddItem is deprecated"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			ComboBox* widget = _owner->castType<ComboBox>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1111,7 +1129,10 @@ namespace MyGUI
 		}
 		else if (_key == "List_AddItem")
 		{
-			MYGUI_LOG(Warning, "List_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"List_AddItem is deprecated"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			ListBox* widget = _owner->castType<ListBox>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1119,7 +1140,10 @@ namespace MyGUI
 		}
 		else if (_key == "Tab_AddSheet")
 		{
-			MYGUI_LOG(Warning, "Tab_AddSheet is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Tab_AddSheet is deprecated"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			TabControl* widget = _owner->castType<TabControl>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1127,7 +1151,10 @@ namespace MyGUI
 		}
 		else if (_key == "Tab_AddItem")
 		{
-			MYGUI_LOG(Warning, "Tab_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Tab_AddItem is deprecated"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			TabControl* widget = _owner->castType<TabControl>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1135,7 +1162,10 @@ namespace MyGUI
 		}
 		else if (_key == "Window_MinMax")
 		{
-			MYGUI_LOG(Warning, "Window_MinMax is deprecated, use Window_MinSize or Window_MaxSize" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Window_MinMax is deprecated, use Window_MinSize or Window_MaxSize"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			Window* widget = _owner->castType<Window>(false);
 			if (widget != nullptr)
 			{
@@ -1147,13 +1177,19 @@ namespace MyGUI
 		}
 		else if (_key == "ImageRect")
 		{
-			MYGUI_LOG(Warning, "ImageRect is deprecated, use ImageCoord" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"ImageRect is deprecated, use ImageCoord"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "ImageCoord";
 			_value = convertRectToCoord(_value);
 		}
 		else if (_key == "StartPoint")
 		{
-			MYGUI_LOG(Warning, "StartPoint is deprecated, use FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"StartPoint is deprecated, use FlowDirection"
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "FlowDirection";
 			_value = convertAlignToDirection(_value);
 		}
@@ -1271,7 +1307,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
-	std::string BackwardCompatibility::getPropertyRename(const std::string& _propertyName)
+	std::string_view BackwardCompatibility::getPropertyRename(std::string_view _propertyName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::const_iterator item = mPropertyRename.find(_propertyName);
@@ -1281,71 +1317,113 @@ namespace MyGUI
 		return _propertyName;
 	}
 
-	std::string BackwardCompatibility::getFactoryRename(const std::string& _categoryName, const std::string& _factoryName)
+	std::string_view BackwardCompatibility::getFactoryRename(
+		std::string_view _categoryName,
+		std::string_view _factoryName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (_categoryName == "Widget")
 		{
 			if (_factoryName == "HScroll")
 			{
-				MYGUI_LOG(Warning, "HScroll factory is deprecated, use " << ScrollBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"HScroll factory is deprecated, use " << ScrollBar::getClassTypeName() << " ["
+														  << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "VScroll")
 			{
-				MYGUI_LOG(Warning, "VScroll factory is deprecated, use " << ScrollBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"VScroll factory is deprecated, use " << ScrollBar::getClassTypeName() << " ["
+														  << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "RenderBox")
 			{
-				MYGUI_LOG(Warning, "RenderBox factory is deprecated, use " << Canvas::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"RenderBox factory is deprecated, use " << Canvas::getClassTypeName() << " ["
+															<< LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "Sheet")
 			{
-				MYGUI_LOG(Warning, "Sheet factory is deprecated, use " << TabItem::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"Sheet factory is deprecated, use " << TabItem::getClassTypeName() << " ["
+														<< LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "StaticImage")
 			{
-				MYGUI_LOG(Warning, "StaticImage factory is deprecated, use " << ImageBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"StaticImage factory is deprecated, use "
+						<< ImageBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout()
+						<< "]");
 			}
 			else if (_factoryName == "StaticText")
 			{
-				MYGUI_LOG(Warning, "StaticText factory is deprecated, use " << TextBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"StaticText factory is deprecated, use " << TextBox::getClassTypeName() << " ["
+															 << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "Progress")
 			{
-				MYGUI_LOG(Warning, "Progress factory is deprecated, use " << ProgressBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"Progress factory is deprecated, use " << ProgressBar::getClassTypeName() << " ["
+														   << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "List")
 			{
-				MYGUI_LOG(Warning, "List factory is deprecated, use " << ListBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"List factory is deprecated, use " << ListBox::getClassTypeName() << " ["
+													   << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "Edit")
 			{
-				MYGUI_LOG(Warning, "Edit factory is deprecated, use " << EditBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"Edit factory is deprecated, use " << EditBox::getClassTypeName() << " ["
+													   << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "Tab")
 			{
-				MYGUI_LOG(Warning, "Tab factory is deprecated, use " << TabControl::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"Tab factory is deprecated, use " << TabControl::getClassTypeName() << " ["
+													  << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "MultiList")
 			{
-				MYGUI_LOG(Warning, "MultiList factory is deprecated, use " << MultiListBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"MultiList factory is deprecated, use " << MultiListBox::getClassTypeName() << " ["
+															<< LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 			else if (_factoryName == "MenuCtrl")
 			{
-				MYGUI_LOG(Warning, "MenuCtrl factory is deprecated, use " << MenuControl::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(
+					Warning,
+					"MenuCtrl factory is deprecated, use " << MenuControl::getClassTypeName() << " ["
+														   << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
 	}
 
-	std::string BackwardCompatibility::getSkinRename(const std::string& _skinName)
+	std::string_view BackwardCompatibility::getSkinRename(std::string_view _skinName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::iterator item = mSkinRename.find(_skinName);
 		if (item != mSkinRename.end())
 		{
-			MYGUI_LOG(Warning, (*item).first << " skin is deprecated, use " << (*item).second << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				(*item).first << " skin is deprecated, use " << (*item).second << " ["
+							  << LayoutManager::getInstance().getCurrentLayout() << "]");
 			return (*item).second;
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
@@ -1363,7 +1441,7 @@ namespace MyGUI
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		FactoryManager& factory = FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.registerFactory<HScroll>(widgetCategory);
 		factory.registerFactory<VScroll>(widgetCategory);
 		factory.registerFactory<Canvas>(widgetCategory, "RenderBox");

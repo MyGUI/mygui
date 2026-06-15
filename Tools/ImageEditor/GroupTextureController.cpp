@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(GroupTextureController)
 
-	GroupTextureController::GroupTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void GroupTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
@@ -88,14 +81,14 @@ namespace tools
 		}
 	}
 
-	void GroupTextureController::notifyChangeValue(const std::string& _value)
+	void GroupTextureController::notifyChangeValue(std::string_view _value)
 	{
 		PropertyPtr property = PropertyUtility::getPropertyByName("Group", "Size");
 		if (property != nullptr)
 			PropertyUtility::executeAction(property, _value, true);
 	}
 
-	void GroupTextureController::notifyChangeScope(const std::string& _scope)
+	void GroupTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -107,7 +100,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &GroupTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -126,10 +121,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -140,7 +135,7 @@ namespace tools
 		}
 	}
 
-	void GroupTextureController::updateCoords(const std::string& _value)
+	void GroupTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

@@ -14,23 +14,25 @@
 namespace tools
 {
 
-	class FontExportSerializer :
-		public IExportSerializer
+	class FontExportSerializer : public IExportSerializer
 	{
 	public:
 		void serialization(pugi::xml_document& _doc) override;
 		bool deserialization(pugi::xml_document& _doc) override;
 
 		static bool exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName);
-		static void generateFont(DataPtr _font);
+		static void generateFont(DataPtr _data);
 
 	private:
 		void parseFont(pugi::xml_node _node);
 		void writeFont(pugi::xml_node _parent, DataPtr _data);
 
-		static void generateFontManualXml(MyGUI::xml::ElementPtr _root, const MyGUI::UString& _folderName, DataPtr _data);
-		static void removeFont(const std::string& _fontName);
-		//static void generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data);
+		static void generateFontManualXml(
+			MyGUI::xml::ElementPtr _root,
+			const MyGUI::UString& _folderName,
+			DataPtr _data);
+		static void removeFont(std::string_view _fontName);
+		//static void generateFontTTFXml(MyGUI::xml::ElementPtr _root, std::string_view _fontName, DataPtr _data);
 	};
 
 }

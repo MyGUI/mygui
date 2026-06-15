@@ -12,16 +12,14 @@
 namespace tools
 {
 
-	class SettingsGeneralControl :
-		public Control
+	class SettingsGeneralControl : public Control
 	{
 	public:
-		SettingsGeneralControl();
 		~SettingsGeneralControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void OnCommand(const std::string& _command) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void OnCommand(std::string_view _command) override;
 
 	private:
 		void loadSettings();
@@ -33,15 +31,15 @@ namespace tools
 
 		int getGridStep();
 		void setGridStep();
-		void setLanguageValue(const std::string& _value);
+		void setLanguageValue(std::string_view _value);
 		std::string getLanguageValue();
 
 	private:
-		int mGridStep;
+		int mGridStep{0};
 
-		MyGUI::EditBox* mGridEdit;
-		MyGUI::Button* mSaveLastTexture;
-		MyGUI::ComboBox* mInterfaceLanguage;
+		MyGUI::EditBox* mGridEdit{nullptr};
+		MyGUI::Button* mSaveLastTexture{nullptr};
+		MyGUI::ComboBox* mInterfaceLanguage{nullptr};
 	};
 
 }

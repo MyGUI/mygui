@@ -10,14 +10,6 @@
 namespace MyGUI
 {
 
-	MenuItem::MenuItem() :
-		mOwner(nullptr),
-		mMinSize(10, 10),
-		mCheck(nullptr),
-		mCheckValue(false)
-	{
-	}
-
 	void MenuItem::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -72,7 +64,7 @@ namespace MyGUI
 		mOwner->_notifyUpdateName(this);
 	}
 
-	void MenuItem::setFontName(const std::string& _value)
+	void MenuItem::setFontName(std::string_view _value)
 	{
 		Button::setFontName(_value);
 		if (!getCaption().empty())
@@ -106,7 +98,7 @@ namespace MyGUI
 		mOwner->removeItem(this);
 	}
 
-	void MenuItem::setItemId(const std::string& _id)
+	void MenuItem::setItemId(std::string_view _id)
 	{
 		mOwner->setItemId(this, _id);
 	}
@@ -146,7 +138,7 @@ namespace MyGUI
 		return mOwner->getItemChild(this);
 	}
 
-	void MenuItem::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MenuItem::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{MenuItem, MenuItemId, string} Идентификатор строки меню.
 		if (_key == "MenuItemId")

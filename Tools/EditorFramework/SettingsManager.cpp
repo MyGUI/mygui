@@ -12,8 +12,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(SettingsManager);
 
 	SettingsManager::SettingsManager() :
-		mDocument(nullptr),
-		mUserDocument(nullptr),
 		mSingletonHolder(this)
 	{
 		mDocument = new pugi::xml_document();
@@ -40,14 +38,14 @@ namespace tools
 		mUserDocument = nullptr;
 	}
 
-	bool SettingsManager::loadSettingsFile(const std::string& _fileName)
+	bool SettingsManager::loadSettingsFile(CString _fileName)
 	{
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_file(_fileName.c_str());
 
 		if (result)
 		{
-			if (std::string(doc.first_child().name()) == std::string(mDocument->document_element().name()))
+			if (std::string_view(doc.first_child().name()) == std::string_view(mDocument->document_element().name()))
 				mergeNodes(mDocument->document_element(), doc.first_child());
 		}
 		else
@@ -58,25 +56,22 @@ namespace tools
 		return result;
 	}
 
-	void SettingsManager::saveSettingsFile(const std::string& _fileName)
+	void SettingsManager::saveSettingsFile(CString _fileName)
 	{
 		mDocument->save_file(_fileName.c_str());
 	}
 
-	bool SettingsManager::getExistValue(const std::string& _path)
+	bool SettingsManager::getExistValue(CString _path)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
 			return true;
 
 		node = mDocument->document_element().select_single_node(_path.c_str());
-		if (!node.node().empty())
-			return true;
-
-		return false;
+		return !node.node().empty();
 	}
 
-	std::string SettingsManager::getValue(const std::string& _path)
+	std::string SettingsManager::getValue(CString _path)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
@@ -86,12 +81,13 @@ namespace tools
 		if (!node.node().empty())
 			return node.node().child_value();
 
-		return "";
+		return {};
 	}
 
-	void SettingsManager::setValue(const std::string& _path, const std::string& _value)
+	void SettingsManager::setValueImpl(std::string_view _path, CString _value)
 	{
-		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		const char* path = _path.empty() ? "" : _path.data();
+		pugi::xpath_node node = mUserDocument->document_element().select_single_node(path);
 		if (!node.node().empty())
 		{
 			node.node().text().set(_value.c_str());
@@ -99,15 +95,14 @@ namespace tools
 		else
 		{
 			std::vector<std::string> names;
-			std::string delims("/");
-			names = MyGUI::utility::split(_path, delims);
+			names = MyGUI::utility::split(_path, "/");
 
 			pugi::xml_node currentNode = mUserDocument->document_element();
-			for (std::vector<std::string>::const_iterator name = names.begin(); name != names.end(); name ++)
+			for (const auto& name : names)
 			{
-				pugi::xml_node childNode = currentNode.child((*name).c_str());
+				pugi::xml_node childNode = currentNode.child(name.data());
 				if (childNode.empty())
-					childNode = currentNode.append_child((*name).c_str());
+					childNode = currentNode.append_child(name.data());
 
 				currentNode = childNode;
 			}
@@ -118,22 +113,23 @@ namespace tools
 		eventSettingsChanged(_path);
 	}
 
-	SettingsManager::VectorString SettingsManager::getValueList(const std::string& _path)
+	SettingsManager::VectorString SettingsManager::getValueList(std::string_view _path)
 	{
 		SettingsManager::VectorString result;
-		std::string path = _path + "/Value";
+		std::string path{_path};
+		path += "/Value";
 
-		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.c_str());
+		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.data());
 		if (!nodes.empty())
 		{
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-				result.push_back((*node).node().child_value());
+			for (const auto& node : nodes)
+				result.emplace_back(node.node().child_value());
 		}
 		else
 		{
-			nodes = mDocument->document_element().select_nodes(path.c_str());
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-				result.push_back((*node).node().child_value());
+			nodes = mDocument->document_element().select_nodes(path.data());
+			for (const auto& node : nodes)
+				result.emplace_back(node.node().child_value());
 		}
 
 		return result;
@@ -157,32 +153,34 @@ namespace tools
 			targetTextNode.set_value(sourceTextNode.value());
 		}
 
-		for (pugi::xml_node::iterator child = _nodeSource.begin(); child != _nodeSource.end(); child ++)
+		for (auto& child : _nodeSource)
 		{
-			if ((*child).type() != pugi::node_element)
+			if (child.type() != pugi::node_element)
 				continue;
 
 			pugi::xml_node targetChildNode;
 
 			if (listElement)
 			{
-				targetChildNode = _nodeTarget.append_child((*child).name());
+				targetChildNode = _nodeTarget.append_child(child.name());
 			}
 			else
 			{
-				targetChildNode = _nodeTarget.child((*child).name());
+				targetChildNode = _nodeTarget.child(child.name());
 				if (targetChildNode.empty())
-					targetChildNode = _nodeTarget.append_child((*child).name());
+					targetChildNode = _nodeTarget.append_child(child.name());
 			}
 
-			mergeAttributes(targetChildNode, (*child));
-			mergeNodes(targetChildNode, (*child));
+			mergeAttributes(targetChildNode, child);
+			mergeNodes(targetChildNode, child);
 		}
 	}
 
 	void SettingsManager::mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
 	{
-		for (pugi::xml_node::attribute_iterator attribute = _nodeSource.attributes_begin(); attribute != _nodeSource.attributes_end(); attribute ++)
+		for (pugi::xml_node::attribute_iterator attribute = _nodeSource.attributes_begin();
+			 attribute != _nodeSource.attributes_end();
+			 attribute++)
 		{
 			pugi::xml_attribute attributeNode = _nodeTarget.attribute((*attribute).name());
 			if (attributeNode.empty())
@@ -191,16 +189,17 @@ namespace tools
 		}
 	}
 
-	bool SettingsManager::loadUserSettingsFile(const std::string& _fileName)
+	bool SettingsManager::loadUserSettingsFile(std::string_view _fileName)
 	{
 		mUserSettingsFileName = _fileName;
 
 		pugi::xml_document doc;
-		pugi::xml_parse_result result = doc.load_file(_fileName.c_str());
+		pugi::xml_parse_result result = doc.load_file(mUserSettingsFileName.data());
 
 		if (result)
 		{
-			if (std::string(doc.first_child().name()) == std::string(mUserDocument->document_element().name()))
+			if (std::string_view(doc.first_child().name()) ==
+				std::string_view(mUserDocument->document_element().name()))
 				mergeNodes(mUserDocument->document_element(), doc.first_child());
 		}
 		else
@@ -214,19 +213,17 @@ namespace tools
 	void SettingsManager::saveUserSettingsFile()
 	{
 		if (!mUserSettingsFileName.empty())
-			mUserDocument->save_file(mUserSettingsFileName.c_str());
+			mUserDocument->save_file(mUserSettingsFileName.data());
 	}
 
-	void SettingsManager::setValueList(const std::string& _path, const VectorString& _values)
+	void SettingsManager::setValueListImpl(std::string_view _path, const VectorString& _values)
 	{
 		if (!MyGUI::utility::endWith(_path, ".List"))
 			return;
 
-		std::string itemName = "Value";
-
 		pugi::xml_node targetNode;
 
-		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.data());
 		if (!node.node().empty())
 		{
 			targetNode = node.node();
@@ -236,15 +233,14 @@ namespace tools
 		else
 		{
 			std::vector<std::string> names;
-			std::string delims("/");
-			names = MyGUI::utility::split(_path, delims);
+			names = MyGUI::utility::split(_path, "/");
 
 			pugi::xml_node currentNode = mUserDocument->document_element();
-			for (std::vector<std::string>::const_iterator name = names.begin(); name != names.end(); name ++)
+			for (const auto& name : names)
 			{
-				pugi::xml_node childNode = currentNode.child((*name).c_str());
+				pugi::xml_node childNode = currentNode.child(name.data());
 				if (childNode.empty())
-					childNode = currentNode.append_child((*name).c_str());
+					childNode = currentNode.append_child(name.data());
 
 				currentNode = childNode;
 			}
@@ -252,21 +248,22 @@ namespace tools
 			targetNode = currentNode;
 		}
 
-		for (VectorString::const_iterator value = _values.begin(); value != _values.end(); value ++)
-			targetNode.append_child(itemName.c_str()).text().set((*value).c_str());
+		for (const auto& _value : _values)
+			targetNode.append_child("Value").text().set(_value.data());
 
 		eventSettingsChanged(_path);
 	}
 
-	pugi::xpath_node_set SettingsManager::getValueNodeList(const std::string& _path)
+	pugi::xpath_node_set SettingsManager::getValueNodeList(std::string_view _path)
 	{
-		std::string path = _path + "/Value";
+		std::string path{_path};
+		path += "/Value";
 
-		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.c_str());
+		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.data());
 		if (!nodes.empty())
 			return nodes;
 
-		nodes = mDocument->document_element().select_nodes(path.c_str());
+		nodes = mDocument->document_element().select_nodes(path.data());
 		return nodes;
 	}
 

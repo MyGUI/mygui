@@ -12,23 +12,21 @@ namespace tools
 {
 	namespace
 	{
-		const MyGUI::VectorString fileTypes{ "*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt" };
+		const MyGUI::VectorString fileTypes{"*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt"};
 	}
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontSourceControl)
 
-	PropertyFontSourceControl::PropertyFontSourceControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyFontSourceControl::~PropertyFontSourceControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
 	}
 
-	void PropertyFontSourceControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyFontSourceControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
@@ -37,12 +35,13 @@ namespace tools
 
 		fillResources();
 
-		for (MyGUI::VectorString::const_iterator item = mResources.begin(); item != mResources.end(); ++item)
-			mComboBox->addItem((*item));
+		for (const auto& resource : mResources)
+			mComboBox->addItem(resource);
 
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyFontSourceControl::notifyComboChangePosition);
 	}
 
 	void PropertyFontSourceControl::updateCaption()
@@ -74,7 +73,9 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			std::string_view value;
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

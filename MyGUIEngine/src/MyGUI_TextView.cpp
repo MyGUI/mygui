@@ -32,15 +32,11 @@ namespace MyGUI
 	class RollBackPoint
 	{
 	public:
-		RollBackPoint() :
-			position(0),
-			count(0),
-			width(0),
-			rollback(false)
-		{
-		}
-
-		void set(size_t _position, const UString::utf32string::const_iterator& _space_point, size_t _count, float _width)
+		void set(
+			size_t _position,
+			const UString::utf32string::const_iterator& _space_point,
+			size_t _count,
+			float _width)
 		{
 			position = _position;
 			space_point = _space_point;
@@ -84,31 +80,27 @@ namespace MyGUI
 		}
 
 	private:
-		size_t position;
+		size_t position{0};
 		UString::utf32string::const_iterator space_point;
-		size_t count;
-		float width;
-		bool rollback;
+		size_t count{0};
+		float width{0};
+		bool rollback{false};
 	};
 
-	TextView::TextView() :
-		mLength(0),
-		mFontHeight(0)
-	{
-	}
-
-	void TextView::update(const UString::utf32string& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth)
+	void TextView::update(
+		const UString::utf32string& _text,
+		IFont* _font,
+		int _height,
+		Align _align,
+		VertexColourType _format,
+		int _maxWidth)
 	{
 		mFontHeight = _height;
 
 		// массив для быстрой конвертации цветов
-		static const char convert_colour[64] =
-		{
-			0,  1,  2,  3,  4,  5,  6, 7, 8, 9, 0, 0, 0, 0, 0, 0,
-			0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		};
+		static const char convert_colour[64] = {
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 		mViewSize.clear();
 
@@ -134,9 +126,7 @@ namespace MyGUI
 			Char character = *index;
 
 			// new line
-			if (character == FontCodeType::CR
-				|| character == FontCodeType::NEL
-				|| character == FontCodeType::LF)
+			if (character == FontCodeType::CR || character == FontCodeType::NEL || character == FontCodeType::LF)
 			{
 				if (character == FontCodeType::CR)
 				{
@@ -163,7 +153,7 @@ namespace MyGUI
 				continue;
 			}
 			// tag
-			else if (character == L'#')
+			if (character == L'#')
 			{
 				// check next character
 				++index;
@@ -183,20 +173,20 @@ namespace MyGUI
 					// and 5 more after '#'
 					for (char i = 0; i < 5; i++)
 					{
-						++ index;
+						++index;
 						if (index == end)
 						{
 							--index;
 							continue;
 						}
 						colour <<= 4;
-						colour += convert_colour[ ((*index) - 48) & 0x3F ];
+						colour += convert_colour[((*index) - 48) & 0x3F];
 					}
 
 					// convert to ABGR if we use that colour format
 					texture_utility::convertColour(colour, _format);
 
-					line_info.symbols.push_back( CharInfo(colour) );
+					line_info.symbols.emplace_back(colour);
 
 					continue;
 				}
@@ -232,15 +222,16 @@ namespace MyGUI
 			float char_fullAdvance = char_bearingX + char_advance;
 
 			// перенос слов
-			if (_maxWidth != -1
-				&& (width + char_fullAdvance) > _maxWidth
-				&& !roll_back.empty())
+			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth)
 			{
-				// откатываем до последнего пробела
-				width = roll_back.getWidth();
-				count = roll_back.getCount();
-				index = roll_back.getTextIter();
-				line_info.symbols.erase(line_info.symbols.begin() + roll_back.getPosition(), line_info.symbols.end());
+				if (!roll_back.empty())
+				{
+					// откатываем до последнего пробела
+					width = roll_back.getWidth();
+					count = roll_back.getCount();
+					index = roll_back.getTextIter();
+					line_info.symbols.erase(line_info.symbols.begin() + roll_back.getPosition(), line_info.symbols.end());
+				}
 
 				// запоминаем место отката, как полную строку
 				line_info.width = (int)std::ceil(width);
@@ -256,14 +247,16 @@ namespace MyGUI
 				line_info.clear();
 
 				// отменяем откат
-				roll_back.clear();
+				if (!roll_back.empty())
+					roll_back.clear();
 
 				continue;
 			}
 
-			line_info.symbols.push_back(CharInfo(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY));
+			line_info.symbols
+				.emplace_back(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY);
 			width += char_fullAdvance;
-			count ++;
+			count++;
 		}
 
 		line_info.width = (int)std::ceil(width);
@@ -275,12 +268,12 @@ namespace MyGUI
 		setMax(result.width, line_info.width);
 
 		// теперь выравниванием строки
-		for (VectorLineInfo::iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
+		for (auto& line : mLineInfo)
 		{
 			if (_align.isRight())
-				line->offset = result.width - line->width;
+				line.offset = result.width - line.width;
 			else if (_align.isHCenter())
-				line->offset = (result.width - line->width) / 2;
+				line.offset = (result.width - line.width) / 2;
 		}
 
 		mViewSize = result;
@@ -307,18 +300,18 @@ namespace MyGUI
 				int count = 0;
 
 				// ищем символ
-				for (const auto& sim : line->symbols)
+				for (const auto& sym : line->symbols)
 				{
-					if (sim.isColour())
+					if (sym.isColour())
 						continue;
 
-					float fullAdvance = sim.getAdvance() + sim.getBearingX();
+					float fullAdvance = sym.getAdvance() + sym.getBearingX();
 					if (left + fullAdvance / 2.0f > _value.left)
 					{
 						break;
 					}
 					left += fullAdvance;
-					count ++;
+					count++;
 				}
 
 				result += count;
@@ -336,29 +329,29 @@ namespace MyGUI
 		size_t position = 0;
 		int top = 0;
 		float left = 0.0f;
-		for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
+		for (const auto& line : mLineInfo)
 		{
-			left = (float)line->offset;
-			if (position + line->count >= _position)
+			left = (float)line.offset;
+			if (position + line.count >= _position)
 			{
-				for (VectorCharInfo::const_iterator sim = line->symbols.begin(); sim != line->symbols.end(); ++sim)
+				for (const auto& sym : line.symbols)
 				{
-					if (sim->isColour())
+					if (sym.isColour())
 						continue;
 
 					if (position == _position)
 						break;
 
-					position ++;
-					left += sim->getBearingX() + sim->getAdvance();
+					position++;
+					left += sym.getBearingX() + sym.getAdvance();
 				}
 				break;
 			}
-			position += line->count + 1;
+			position += line.count + 1;
 			top += mFontHeight;
 		}
 
-		return IntPoint((int)left, top);
+		return {(int)left, top};
 	}
 
 	const IntSize& TextView::getViewSize() const

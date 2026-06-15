@@ -14,14 +14,22 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl)
 
-	void ImageListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void ImageListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_CreateImageData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateData);
-		CommandManager::getInstance().getEvent("Command_CloneImageData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
-		CommandManager::getInstance().getEvent("Command_DestroyImageData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
-		CommandManager::getInstance().getEvent("Command_RenameImageData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameData);
+		CommandManager::getInstance()
+			.getEvent("Command_CreateImageData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateData);
+		CommandManager::getInstance()
+			.getEvent("Command_CloneImageData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
+		CommandManager::getInstance()
+			.getEvent("Command_DestroyImageData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
+		CommandManager::getInstance()
+			.getEvent("Command_RenameImageData")
+			->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameData);
 
 		setDataInfo("Root", "Image", "Name", "UniqueName");
 	}

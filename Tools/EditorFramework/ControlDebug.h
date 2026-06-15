@@ -11,14 +11,10 @@
 
 namespace tools
 {
-	class MYGUI_EXPORT_DLL ControlDebug :
-		public Control
+	class MYGUI_EXPORT_DLL ControlDebug : public Control
 	{
-	public:
-		ControlDebug();
-
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		using Control::OnInitialise;
 	};
 
 }

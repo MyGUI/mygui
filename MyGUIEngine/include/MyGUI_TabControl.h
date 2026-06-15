@@ -18,25 +18,20 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<TabControl*, size_t> EventHandle_TabPtrSizeT;
+	using EventHandle_TabPtrSizeT = delegates::MultiDelegate<TabControl*, size_t>;
 
 	/** \brief @wpage{TabControl}
 		TabControl widget description should be here.
 	*/
-	class MYGUI_EXPORT TabControl :
-		public Widget,
-		public IItemContainer,
-		public MemberObsolete<TabControl>
+	class MYGUI_EXPORT TabControl : public Widget, public IItemContainer, public MemberObsolete<TabControl>
 	{
 		// для уведобления об удалении
 		//FIXME
 		friend class TabItem;
 
-		MYGUI_RTTI_DERIVED( TabControl )
+		MYGUI_RTTI_DERIVED(TabControl)
 
 	public:
-		TabControl();
-
 		struct TabItemInfo
 		{
 			TabItemInfo(int _width, const UString& _name, TabItem* _item, Any _data) :
@@ -53,14 +48,16 @@ namespace MyGUI
 			Any data;
 		};
 
-		typedef std::vector<TabItemInfo> VectorTabItemInfo;
+		using VectorTabItemInfo = std::vector<TabItemInfo>;
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		static constexpr int DEFAULT_WIDTH = -1;
+
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -136,14 +133,14 @@ namespace MyGUI
 		void clearItemData(TabItem* _item);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemData(TabItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
@@ -186,9 +183,9 @@ namespace MyGUI
 		// остальные манипуляции
 
 		//! Set button width at a specified position
-		void setButtonWidthAt(size_t _index, int _width = DEFAULT);
+		void setButtonWidthAt(size_t _index, int _width = DEFAULT_WIDTH);
 		//! Set button width
-		void setButtonWidth(TabItem* _item, int _width = DEFAULT);
+		void setButtonWidth(TabItem* _item, int _width = DEFAULT_WIDTH);
 
 		//! Get button width at a specified position
 		int getButtonWidthAt(size_t _index) const;
@@ -198,12 +195,12 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		/** Set default button width and disable autowidth mode */
-		void setButtonDefaultWidth(int _value);
+		void setButtonDefaultWidth(int _width);
 		/** Get default button width */
 		int getButtonDefaultWidth() const;
 
 		/** Enable or disable button auto width */
-		void setButtonAutoWidth(bool _value);
+		void setButtonAutoWidth(bool _auto);
 		/** Get button auto width flag */
 		bool getButtonAutoWidth() const;
 
@@ -240,18 +237,18 @@ namespace MyGUI
 
 		int _getTextWidth(const UString& _text);
 
-		void _showItem(TabItem* _sheet, bool _show, bool _smooth);
+		void _showItem(TabItem* _item, bool _show, bool _smooth);
 
 		void _createItemButton();
 
 		void _insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data);
 
 		// вкладка при удалении уведомляет таб
-		void _notifyDeleteItem(TabItem* _item);
+		void _notifyDeleteItem(TabItem* _sheet);
 
 		void onWidgetCreated(Widget* _widget) override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void actionWidgetHide(Widget* _widget, ControllerItem* _controller);
@@ -266,36 +263,36 @@ namespace MyGUI
 		void updateBarNew();
 
 	private:
-		int mOffsetTab; // смещение бара при показе кнопок
-		bool mButtonShow;
-		int mWidthBar; // ширина в которую помещаються все кнопки
+		int mOffsetTab{0}; // смещение бара при показе кнопок
+		bool mButtonShow{true};
+		int mWidthBar{0}; // ширина в которую помещаються все кнопки
 		std::vector<Button*> mItemButton; // список кнопок, не должно равно списку страниц
 		std::string mButtonSkinName;
 		std::string mEmptySkinName;
 
-		Widget* mWidgetBar;
-		Button* mButtonLeft;
-		Button* mButtonRight;
-		Widget* mButtonDecor;
+		Widget* mWidgetBar{nullptr};
+		Button* mButtonLeft{nullptr};
+		Button* mButtonRight{nullptr};
+		Widget* mButtonDecor{nullptr};
 		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
-		Widget* mEmptyBarWidget;
-		Widget* mItemTemplate;
+		Widget* mEmptyBarWidget{nullptr};
+		Widget* mItemTemplate{nullptr};
 
 		// информация о вкладках
 		VectorTabItemInfo mItemsInfo;
-		size_t mStartIndex;
-		size_t mIndexSelect;
+		size_t mStartIndex{0};
+		size_t mIndexSelect{ITEM_NONE};
 
-		int mButtonDefaultWidth;
-		bool mSmoothShow;
-		bool mButtonAutoWidth;
+		int mButtonDefaultWidth{1};
+		bool mSmoothShow{true};
+		bool mButtonAutoWidth{true};
 
 		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
-		bool mShutdown;
+		bool mShutdown{false};
 
-		Widget* mHeaderPlace;
-		Widget* mControls;
-		Widget* mEmpty;
+		Widget* mHeaderPlace{nullptr};
+		Widget* mControls{nullptr};
+		Widget* mEmpty{nullptr};
 	};
 
 } // namespace MyGUI

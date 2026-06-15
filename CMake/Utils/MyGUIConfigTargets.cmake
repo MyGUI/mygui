@@ -311,11 +311,11 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} OpenGL::GL ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} OpenGL::GL ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 9)
@@ -351,7 +351,11 @@ function(mygui_tool PROJECTNAME)
 
 	include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
 	if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
-		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		if (NOT MYGUI_CLANG_TIDY_BUILD)
+			target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		else ()
+			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
+		endif ()
 	endif ()
 
 	target_link_libraries(${PROJECTNAME}
@@ -362,6 +366,15 @@ endfunction(mygui_tool)
 
 function(mygui_unit_test PROJECTNAME)
 	mygui_app(${PROJECTNAME} UnitTest)
+	
+	# Register the unit test with CTest when unit tests are enabled
+	# This allows running tests via 'ctest' or 'make check'
+	if (MYGUI_BUILD_UNITTESTS)
+		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
+		# Set working directory to binary directory so tests can find resources
+		set_tests_properties(${PROJECTNAME} PROPERTIES 
+			WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	endif()
 endfunction(mygui_unit_test)
 
 
@@ -369,7 +382,11 @@ function(mygui_tool_dll PROJECTNAME)
 	mygui_dll(${PROJECTNAME} Tools)
 
 	if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
-		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		if (NOT MYGUI_CLANG_TIDY_BUILD)
+			target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
+		else ()
+			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
+		endif ()
 	endif ()
 endfunction(mygui_tool_dll)
 
@@ -415,12 +432,6 @@ function(mygui_plugin PROJECTNAME)
 	install(FILES ${HEADER_FILES}
 		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 	)
-
-	if (MYGUI_HIGH_LEVEL_WARNINGS)
-		if (NOT MSVC)
-			target_compile_options(${PROJECTNAME} PRIVATE -Wno-missing-prototypes)
-		endif ()
-	endif ()
 endfunction(mygui_plugin)
 
 
@@ -433,16 +444,8 @@ function(mygui_config_lib PROJECTNAME)
 	else (MYGUI_STATIC)
 		if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 			# add GCC visibility flags to shared library build
-			set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
-			if (APPLE)
-				# deal with Mac OS X's framework system
-				set_target_properties(${PROJECTNAME} PROPERTIES FRAMEWORK TRUE)
-				set_target_properties(${PROJECTNAME} PROPERTIES PUBLIC_HEADER "${${PROJECTNAME}_HEADERS}")
-				set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME})
-				set_target_properties(${PROJECTNAME} PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE)
-				set_target_properties(${PROJECTNAME} PROPERTIES BUILD_WITH_INSTALL_NAME_DIR TRUE)
-				set_target_properties(${PROJECTNAME} PROPERTIES INSTALL_NAME_DIR "@executable_path/../lib")
-			endif (APPLE)
+			target_compile_options(${PROJECTNAME} PRIVATE ${MYGUI_GCC_VISIBILITY_OPTIONS})
+			target_compile_definitions(${PROJECTNAME} PRIVATE ${MYGUI_GCC_VISIBILITY_DEFINITIONS})
 		endif ()
 	endif (MYGUI_STATIC)
 	mygui_install_target(${PROJECTNAME} "")

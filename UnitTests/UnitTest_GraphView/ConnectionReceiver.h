@@ -15,26 +15,16 @@ namespace animation
 	class ConnectionReceiver
 	{
 	public:
-		ConnectionReceiver()
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin)
 		{
+			mConnections.emplace_back(_eventout, PairIn(_node, _eventin));
 		}
 
-		~ConnectionReceiver()
-		{
-		}
-
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
-		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
-		}
-
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin)
 		{
 			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
 			{
-				if (_eventout == item->first
-					&& _node == item->second.first
-					&& _eventin == item->second.second)
+				if (_eventout == item->first && _node == item->second.first && _eventin == item->second.second)
 				{
 					mConnections.erase(item);
 					return;
@@ -43,21 +33,20 @@ namespace animation
 			assert(!"connection not found");
 		}
 
-		void forceEvent(const std::string& _name, float _value = 0)
+		void forceEvent(std::string_view _name, float _value = 0)
 		{
-			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
+			for (auto& mConnection : mConnections)
 			{
-				if (_name == item->first)
-					item->second.first->setEvent(item->second.second, _value);
+				if (_name == mConnection.first)
+					mConnection.second.first->setEvent(mConnection.second.second, _value);
 			}
 		}
 
 	private:
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
+		using PairIn = std::pair<IAnimationNode*, std::string>;
+		using PairOut = std::pair<std::string, PairIn>;
+		using VectorPairOut = std::vector<PairOut>;
 		VectorPairOut mConnections;
-
 	};
 
 } // namespace animation

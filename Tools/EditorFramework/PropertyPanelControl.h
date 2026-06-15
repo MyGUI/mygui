@@ -15,18 +15,15 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL PropertyPanelControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL PropertyPanelControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		PropertyPanelControl();
 		~PropertyPanelControl() override;
 
 		void setCurrentData(DataPtr _data);
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyChangeCoord(MyGUI::Widget* _sender);
@@ -37,12 +34,12 @@ namespace tools
 		void updateView();
 
 	private:
-		DataPtr mCurrentData;
-		typedef std::vector<std::pair<std::string, PropertyControl*> > VectorPairControl;
+		DataPtr mCurrentData{nullptr};
+		using VectorPairControl = std::vector<std::pair<std::string, PropertyControl*>>;
 		VectorPairControl mPropertyControls;
-		int mDistance;
-		MyGUI::ScrollView* mScrollView;
-		int mContentHeight;
+		int mDistance{0};
+		MyGUI::ScrollView* mScrollView{nullptr};
+		int mContentHeight{0};
 	};
 
 }

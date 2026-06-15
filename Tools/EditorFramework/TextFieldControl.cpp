@@ -10,13 +10,6 @@
 namespace tools
 {
 
-	TextFieldControl::TextFieldControl() :
-		mText(nullptr),
-		mOk(nullptr),
-		mCancel(nullptr)
-	{
-	}
-
 	TextFieldControl::~TextFieldControl()
 	{
 		mMainWidget->eventRootKeyChangeFocus -= MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
@@ -30,7 +23,7 @@ namespace tools
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 	}
 
-	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "TextField.layout");
 
@@ -43,7 +36,7 @@ namespace tools
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
 		mText->eventEditSelectAccept += MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
-		
+
 		mMainWidget->eventRootKeyChangeFocus += MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
@@ -80,7 +73,7 @@ namespace tools
 		return mText->getOnlyText();
 	}
 
-	void TextFieldControl::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName)
+	void TextFieldControl::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _buttonName)
 	{
 		if (_buttonName == "close")
 			eventEndDialog(this, false);

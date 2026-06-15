@@ -15,18 +15,6 @@ namespace MyGUI
 	struct MYGUI_EXPORT RenderTargetInfo
 	{
 	public:
-		RenderTargetInfo() :
-			maximumDepth(0),
-			pixScaleX(1),
-			pixScaleY(1),
-			hOffset(0),
-			vOffset(0),
-			aspectCoef(1),
-			leftOffset(0),
-			topOffset(0)
-		{
-		}
-
 		void setOffset(int _left, int _top) const
 		{
 			leftOffset = _left;
@@ -34,15 +22,15 @@ namespace MyGUI
 		}
 
 	public:
-		float maximumDepth;
-		float pixScaleX;
-		float pixScaleY;
-		float hOffset;
-		float vOffset;
-		float aspectCoef;
+		float maximumDepth{0};
+		float pixScaleX{1};
+		float pixScaleY{1};
+		float hOffset{0};
+		float vOffset{0};
+		float aspectCoef{1};
 
-		mutable int leftOffset;
-		mutable int topOffset;
+		mutable int leftOffset{0};
+		mutable int topOffset{0};
 	};
 
 

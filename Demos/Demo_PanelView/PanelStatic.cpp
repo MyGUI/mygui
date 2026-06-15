@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	PanelStatic::PanelStatic() : BasePanelViewItem("PanelStatic.layout")
+	PanelStatic::PanelStatic() :
+		BasePanelViewItem("PanelStatic.layout")
 	{
 	}
 

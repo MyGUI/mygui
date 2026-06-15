@@ -14,16 +14,21 @@ namespace tools
 {
 
 	TextureToolControlLE::TextureToolControlLE(MyGUI::Widget* _parent) :
-		TextureControlLE("TextureControl.layout", _parent),
-		mCurrentScaleValue(100),
-		mActivate(true)
+		TextureControlLE("TextureControl.layout", _parent)
 	{
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
+		MyGUI::Colour colour =
+			SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
 		setColour(colour);
 
-		CommandManager::getInstance().getEvent("Command_ChangeNextScale")->connect(this, &TextureToolControlLE::CommandChangeNextScale);
-		CommandManager::getInstance().getEvent("Command_ChangePrevScale")->connect(this, &TextureToolControlLE::CommandChangePrevScale);
-		CommandManager::getInstance().getEvent("Command_ChangeScale")->connect(this, &TextureToolControlLE::CommandChangeScale);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeNextScale")
+			->connect(this, &TextureToolControlLE::CommandChangeNextScale);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangePrevScale")
+			->connect(this, &TextureToolControlLE::CommandChangePrevScale);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeScale")
+			->connect(this, &TextureToolControlLE::CommandChangeScale);
 
 		mScaleValue = SettingsManager::getInstance().getValueList<size_t>("Workspace/TextureScale/ScaleValue.List");
 
@@ -35,11 +40,12 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void TextureToolControlLE::notifySettingsChanged(const std::string& _path)
+	void TextureToolControlLE::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == "Workspace/Colours/ColourBackground")
 		{
-			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
+			MyGUI::Colour colour =
+				SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
 			setColour(colour);
 		}
 	}
@@ -84,15 +90,12 @@ namespace tools
 
 	bool TextureToolControlLE::checkMenuCommand()
 	{
-		return mActivate &&
-			!getSelectorsCapture();
+		return mActivate && !getSelectorsCapture();
 	}
 
 	bool TextureToolControlLE::checkCommand()
 	{
-		return mMainWidget->getRootKeyFocus() &&
-			mActivate &&
-			!getSelectorsCapture();
+		return mMainWidget->getRootKeyFocus() && mActivate && !getSelectorsCapture();
 	}
 
 	void TextureToolControlLE::onMouseWheel(int _rel)

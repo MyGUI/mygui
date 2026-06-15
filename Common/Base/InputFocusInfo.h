@@ -16,24 +16,21 @@ namespace diagnostic
 	class InputFocusInfo
 	{
 	public:
-		InputFocusInfo() :
-			mFocusVisible(false),
-			mMouseHelper(nullptr),
-			mKeyHelper(nullptr),
-			mWidgetMouseFocus(nullptr),
-			mWidgetKeyFocus(nullptr),
-			mOldMouseFocus(nullptr),
-			mOldKeyFocus(nullptr)
+		InputFocusInfo()
 		{
-			MyGUI::InputManager::getInstance().eventChangeMouseFocus += MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
-			MyGUI::InputManager::getInstance().eventChangeKeyFocus += MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
+			MyGUI::InputManager::getInstance().eventChangeMouseFocus +=
+				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
+			MyGUI::InputManager::getInstance().eventChangeKeyFocus +=
+				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &InputFocusInfo::notifyFrameStart);
 		}
 
 		~InputFocusInfo()
 		{
-			MyGUI::InputManager::getInstance().eventChangeMouseFocus -= MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
-			MyGUI::InputManager::getInstance().eventChangeKeyFocus -= MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
+			MyGUI::InputManager::getInstance().eventChangeMouseFocus -=
+				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
+			MyGUI::InputManager::getInstance().eventChangeKeyFocus -=
+				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &InputFocusInfo::notifyFrameStart);
 
 			if (mKeyHelper != nullptr)
@@ -86,22 +83,27 @@ namespace diagnostic
 
 		void updateFocusWidgetHelpers(bool _updateinfo = true)
 		{
-			const std::string layer = "Statistic";
-			const std::string skin_mouse = "RectGreen";
-			const std::string skin_key = "RectBlue";
+			const std::string_view layer = "Statistic";
+			const std::string_view skin_mouse = "RectGreen";
+			const std::string_view skin_key = "RectBlue";
 
-			if ((mWidgetMouseFocus != mOldMouseFocus)
-				|| ((mWidgetMouseFocus != nullptr)
-				&& (mMouseHelper != nullptr)
-				&& mWidgetMouseFocus->getAbsoluteCoord() != mMouseHelper->getAbsoluteCoord()))
+			if ((mWidgetMouseFocus != mOldMouseFocus) ||
+				((mWidgetMouseFocus != nullptr) && (mMouseHelper != nullptr) &&
+				 mWidgetMouseFocus->getAbsoluteCoord() != mMouseHelper->getAbsoluteCoord()))
 			{
 				mOldMouseFocus = mWidgetMouseFocus;
 
 				if (mMouseHelper == nullptr)
 				{
-					if (!MyGUI::LayerManager::getInstance().isExist(layer)) return;
-					if (!MyGUI::SkinManager::getInstance().isExist(skin_mouse)) return;
-					mMouseHelper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin_mouse, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+					if (!MyGUI::LayerManager::getInstance().isExist(layer))
+						return;
+					if (!MyGUI::SkinManager::getInstance().isExist(skin_mouse))
+						return;
+					mMouseHelper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
+						skin_mouse,
+						MyGUI::IntCoord(),
+						MyGUI::Align::Default,
+						layer);
 					mMouseHelper->setNeedMouseFocus(false);
 				}
 
@@ -120,18 +122,23 @@ namespace diagnostic
 				}
 			}
 
-			if ((mWidgetKeyFocus != mOldKeyFocus)
-				|| ((mWidgetKeyFocus != nullptr)
-				&& (mKeyHelper != nullptr)
-				&& mWidgetKeyFocus->getAbsoluteCoord() != mKeyHelper->getAbsoluteCoord()))
+			if ((mWidgetKeyFocus != mOldKeyFocus) ||
+				((mWidgetKeyFocus != nullptr) && (mKeyHelper != nullptr) &&
+				 mWidgetKeyFocus->getAbsoluteCoord() != mKeyHelper->getAbsoluteCoord()))
 			{
 				mOldKeyFocus = mWidgetKeyFocus;
 
 				if (mKeyHelper == nullptr)
 				{
-					if (!MyGUI::LayerManager::getInstance().isExist(layer)) return;
-					if (!MyGUI::SkinManager::getInstance().isExist(skin_key)) return;
-					mKeyHelper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin_key, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+					if (!MyGUI::LayerManager::getInstance().isExist(layer))
+						return;
+					if (!MyGUI::SkinManager::getInstance().isExist(skin_key))
+						return;
+					mKeyHelper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
+						skin_key,
+						MyGUI::IntCoord(),
+						MyGUI::Align::Default,
+						layer);
 					mKeyHelper->setNeedMouseFocus(false);
 				}
 				if (mWidgetKeyFocus)
@@ -151,15 +158,14 @@ namespace diagnostic
 		}
 
 	private:
-		bool mFocusVisible;
-		MyGUI::Widget* mMouseHelper;
-		MyGUI::Widget* mKeyHelper;
+		bool mFocusVisible{false};
+		MyGUI::Widget* mMouseHelper{nullptr};
+		MyGUI::Widget* mKeyHelper{nullptr};
 
-		MyGUI::Widget* mWidgetMouseFocus;
-		MyGUI::Widget* mWidgetKeyFocus;
-		MyGUI::Widget* mOldMouseFocus;
-		MyGUI::Widget* mOldKeyFocus;
-
+		MyGUI::Widget* mWidgetMouseFocus{nullptr};
+		MyGUI::Widget* mWidgetKeyFocus{nullptr};
+		MyGUI::Widget* mOldMouseFocus{nullptr};
+		MyGUI::Widget* mOldKeyFocus{nullptr};
 	};
 
 } // namespace diagnostic

@@ -13,14 +13,9 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer() :
-		mData(nullptr)
-	{
-	}
-
 	RTTLayer::~RTTLayer()
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); )
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end();)
 		{
 			if ((*iter) != nullptr)
 			{
@@ -41,8 +36,6 @@ namespace MyGUI
 				iter = mChildItems.erase(iter);
 			}
 		}
-
-		delete mData;
 	}
 
 	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
@@ -67,7 +60,8 @@ namespace MyGUI
 			while (controller.next())
 			{
 				IObject* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
-				if (object == nullptr) continue;
+				if (object == nullptr)
+					continue;
 
 				LayerNodeAnimation* data = object->castType<LayerNodeAnimation>(false);
 				if (data == nullptr)
@@ -94,9 +88,9 @@ namespace MyGUI
 		}
 
 		// айтем рутовый, мы удаляем
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+		for (auto& childItem : mChildItems)
 		{
-			if ((*iter) == _item)
+			if (childItem == _item)
 			{
 				RTTLayerNode* node = _item->castType<RTTLayerNode>();
 				node->setDestroy(true);
@@ -109,7 +103,7 @@ namespace MyGUI
 
 	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); )
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end();)
 		{
 			if ((*iter) != nullptr)
 			{
@@ -146,14 +140,16 @@ namespace MyGUI
 
 	ILayerItem* RTTLayer::getLayerItemByPoint(int _left, int _top) const
 	{
-		if (false == mIsPick) return nullptr;
+		if (!mIsPick)
+			return nullptr;
 		VectorILayerNode::const_reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
 			if ((*iter) != nullptr)
 			{
 				ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
-				if (item != nullptr) return item;
+				if (item != nullptr)
+					return item;
 			}
 			++iter;
 		}

@@ -13,9 +13,7 @@
 namespace MyGUI
 {
 
-	OverlappedLayer::OverlappedLayer() :
-		mIsPick(false),
-		mOutOfDate(false)
+	OverlappedLayer::OverlappedLayer()
 	{
 		mViewSize = RenderManager::getInstance().getViewSize();
 	}
@@ -34,8 +32,8 @@ namespace MyGUI
 			MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
 			while (propert.next("Property"))
 			{
-				const std::string& key = propert->findAttribute("key");
-				const std::string& value = propert->findAttribute("value");
+				std::string_view key = propert->findAttribute("key");
+				std::string_view value = propert->findAttribute("value");
 				if (key == "Pick")
 					setPick(utility::parseValue<bool>(value));
 			}
@@ -146,21 +144,21 @@ namespace MyGUI
 
 	IntPoint OverlappedLayer::getPosition(int _left, int _top) const
 	{
-		return IntPoint(_left, _top);
+		return {_left, _top};
 	}
 
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-			(*iter)->renderToTarget(_target, _update);
+		for (auto& childItem : mChildItems)
+			childItem->renderToTarget(_target, _update);
 
 		mOutOfDate = false;
 	}
 
 	void OverlappedLayer::resizeView(const IntSize& _viewSize)
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-			(*iter)->resizeView(_viewSize);
+		for (auto& childItem : mChildItems)
+			childItem->resizeView(_viewSize);
 
 		mViewSize = _viewSize;
 	}
@@ -189,9 +187,9 @@ namespace MyGUI
 
 	bool OverlappedLayer::isOutOfDate() const
 	{
-		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+		for (const auto& childItem : mChildItems)
 		{
-			if (static_cast<const LayerNode*>(*iter)->isOutOfDate())
+			if (static_cast<const LayerNode*>(childItem)->isOutOfDate())
 				return true;
 		}
 

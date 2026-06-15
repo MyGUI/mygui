@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PanelItems :
-		public wraps::BasePanelViewItem
+	class PanelItems : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelItems();
@@ -27,7 +26,7 @@ namespace tools
 
 	private:
 		void updateList();
-		void addItem(const std::string& _value);
+		void addItem(std::string_view _value);
 		void removeItem(size_t _index);
 
 		void notifyAddItem(MyGUI::Widget* _sender = nullptr);
@@ -38,23 +37,27 @@ namespace tools
 
 		void selectItem(MyGUI::Widget* _widget);
 
-		void setContainerProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value);
+		void setContainerProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value);
 
-		void setPropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName, const std::string& _propertyValue);
-		void erasePropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName);
-		void addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue);
+		void setPropertyValue(
+			MyGUI::Widget* _widget,
+			size_t _index,
+			std::string_view _propertyName,
+			std::string_view _propertyValue);
+		void erasePropertyValue(MyGUI::Widget* _widget, size_t _index, std::string_view _propertyName);
+		void addPropertyValue(MyGUI::Widget* _widget, std::string_view _propertyName, std::string_view _propertyValue);
 
 	private:
-		MyGUI::EditBox* mEdit;
-		MyGUI::ListBox* mList;
-		MyGUI::Button* mButtonAdd;
-		MyGUI::Button* mButtonDelete;
+		MyGUI::EditBox* mEdit{nullptr};
+		MyGUI::ListBox* mList{nullptr};
+		MyGUI::Button* mButtonAdd{nullptr};
+		MyGUI::Button* mButtonDelete{nullptr};
 
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 
-		int mButtonLeft;
-		int mButtonRight;
-		int mButtonSpace;
+		int mButtonLeft{0};
+		int mButtonRight{0};
+		int mButtonSpace{0};
 	};
 
 }

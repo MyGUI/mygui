@@ -12,8 +12,7 @@
 namespace tools
 {
 	class Control;
-	class MYGUI_EXPORT_DLL IControlController :
-		public components::IFactoryItem
+	class MYGUI_EXPORT_DLL IControlController : public components::IFactoryItem
 	{
 	public:
 		virtual void setTarget(Control* _control) = 0;

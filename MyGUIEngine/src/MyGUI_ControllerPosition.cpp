@@ -15,13 +15,9 @@
 namespace MyGUI
 {
 
-	ControllerPosition::ControllerPosition() :
-		mTime(1),
-		mElapsedTime(0),
-		mCalcPosition(false),
-		mCalcSize(false)
+	ControllerPosition::ControllerPosition()
 	{
-        setFunction("Linear");
+		setFunction("Linear");
 	}
 
 	void ControllerPosition::setCoord(const IntCoord& _destCoord)
@@ -67,10 +63,13 @@ namespace MyGUI
 			eventFrameAction(mStartCoord, mDestCoord, coord, mElapsedTime / mTime);
 			if (mCalcPosition)
 			{
-				if (mCalcSize) _widget->setCoord(coord);
-				else _widget->setPosition(coord.point());
+				if (mCalcSize)
+					_widget->setCoord(coord);
+				else
+					_widget->setPosition(coord.point());
 			}
-			else if (mCalcSize) _widget->setSize(coord.size());
+			else if (mCalcSize)
+				_widget->setSize(coord.size());
 
 			// вызываем пользовательский делегат обновления
 			eventUpdateAction(_widget, this);
@@ -83,10 +82,13 @@ namespace MyGUI
 		eventFrameAction(mStartCoord, mDestCoord, coord, 1.0f);
 		if (mCalcPosition)
 		{
-			if (mCalcSize) _widget->setCoord(coord);
-			else _widget->setPosition(coord.point());
+			if (mCalcSize)
+				_widget->setCoord(coord);
+			else
+				_widget->setPosition(coord.point());
 		}
-		else if (mCalcSize) _widget->setSize(coord.size());
+		else if (mCalcSize)
+			_widget->setSize(coord.size());
 
 		// вызываем пользовательский делегат обновления
 		eventUpdateAction(_widget, this);
@@ -97,7 +99,7 @@ namespace MyGUI
 		return false;
 	}
 
-	void ControllerPosition::setProperty(const std::string& _key, const std::string& _value)
+	void ControllerPosition::setProperty(std::string_view _key, std::string_view _value)
 	{
 		if (_key == "Time")
 			setTime(utility::parseValue<float>(_value));
@@ -111,7 +113,7 @@ namespace MyGUI
 			setFunction(_value);
 	}
 
-	void ControllerPosition::setFunction(const std::string& _value)
+	void ControllerPosition::setFunction(std::string_view _value)
 	{
 		if (_value == "Linear")
 			setAction(MyGUI::newDelegate(action::linearMoveFunction));

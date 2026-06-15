@@ -14,8 +14,6 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(RecentFilesManager);
 
 	RecentFilesManager::RecentFilesManager() :
-		mMaxRecentFolders(0),
-		mMaxRecentFiles(0),
 		mSingletonHolder(this)
 	{
 	}
@@ -77,7 +75,7 @@ namespace tools
 
 	void RecentFilesManager::checkArray(VectorUString& _array, size_t _maxElements)
 	{
-		for (size_t index = 0; index < _array.size(); ++ index)
+		for (size_t index = 0; index < _array.size(); ++index)
 			_array.erase(std::remove(_array.begin() + index + 1, _array.end(), _array[index]), _array.end());
 
 		while (_array.size() > _maxElements)

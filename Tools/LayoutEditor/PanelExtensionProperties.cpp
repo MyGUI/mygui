@@ -15,8 +15,7 @@ namespace tools
 {
 
 	PanelExtensionProperties::PanelExtensionProperties() :
-		BasePanelViewItem("PanelExtensionProperties.layout"),
-		mCurrentWidget(nullptr)
+		BasePanelViewItem("PanelExtensionProperties.layout")
 	{
 	}
 
@@ -30,17 +29,21 @@ namespace tools
 		destroyPropertyFields();
 	}
 
-	void PanelExtensionProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
+	void PanelExtensionProperties::AddParametrs(
+		WidgetStyle* widgetType,
+		WidgetContainer* widgetContainer,
+		MyGUI::Widget* _currentWidget)
 	{
 		if (widgetType != nullptr)
 		{
-			for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
+			for (auto& iter : widgetType->parameterData)
 			{
-				std::string value = widgetContainer->getUserData(iter->first);
+				std::string_view value = widgetContainer->getUserData(iter.first);
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
+				IPropertyField* field =
+					PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter.second);
 				field->setTarget(_currentWidget);
-				field->setName(iter->first);
+				field->setName(iter.first);
 				field->setValue(value);
 				field->eventAction = MyGUI::newDelegate(this, &PanelExtensionProperties::notifyAction);
 				mFields.push_back(field);
@@ -71,10 +74,10 @@ namespace tools
 	{
 		int height = 0;
 
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			MyGUI::IntSize size = (*item)->getContentSize();
-			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			MyGUI::IntSize size = field->getContentSize();
+			field->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 			height += size.height;
 		}
 
@@ -83,12 +86,12 @@ namespace tools
 
 	void PanelExtensionProperties::destroyPropertyFields()
 	{
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item);
+		for (auto& field : mFields)
+			delete field;
 		mFields.clear();
 	}
 
-	void PanelExtensionProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelExtensionProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{

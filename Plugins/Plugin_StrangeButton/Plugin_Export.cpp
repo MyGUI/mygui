@@ -9,6 +9,9 @@
 
 static plugin::Plugin* plugin_item = nullptr;
 
+extern "C" MYGUI_EXPORT_DLL void dllStartPlugin(void);
+extern "C" MYGUI_EXPORT_DLL void dllStopPlugin(void);
+
 extern "C" MYGUI_EXPORT_DLL void dllStartPlugin(void)
 {
 	plugin_item = new plugin::Plugin();

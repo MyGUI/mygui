@@ -9,16 +9,15 @@
 namespace tools
 {
 
-	class ToolsControl :
-		public wraps::BaseLayout
+	class ToolsControl : public wraps::BaseLayout
 	{
 	public:
 		ToolsControl(MyGUI::Widget* _parent = nullptr);
 
 	private:
-		PropertiesPanelView* mPropertiesPanelView;
-		WidgetsWindow* mWidgetsWindow;
-		ProjectControl* mProjectControl;
+		PropertiesPanelView* mPropertiesPanelView{nullptr};
+		WidgetsWindow* mWidgetsWindow{nullptr};
+		ProjectControl* mProjectControl{nullptr};
 	};
 
 }

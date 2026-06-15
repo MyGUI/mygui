@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PanelUserData :
-		public wraps::BasePanelViewItem
+	class PanelUserData : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelUserData();
@@ -33,23 +32,23 @@ namespace tools
 		void notifyUpdateUserData(MyGUI::EditBox* _widget);
 		void notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index);
 
-		bool checkUserData(WidgetContainer* _widgetContainer, const std::string& _key);
+		bool checkUserData(WidgetContainer* _widgetContainer, std::string_view _key);
 
 	private:
-		MyGUI::EditBox* mEditKey;
-		MyGUI::EditBox* mEditValue;
-		MyGUI::Button* mButtonAdd;
-		MyGUI::Button* mButtonDelete;
-		MyGUI::MultiListBox* mMultilist;
+		MyGUI::EditBox* mEditKey{nullptr};
+		MyGUI::EditBox* mEditValue{nullptr};
+		MyGUI::Button* mButtonAdd{nullptr};
+		MyGUI::Button* mButtonDelete{nullptr};
+		MyGUI::MultiListBox* mMultilist{nullptr};
 
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 
-		int mEditLeft;
-		int mEditRight;
-		int mEditSpace;
-		int mButtonLeft;
-		int mButtonRight;
-		int mButtonSpace;
+		int mEditLeft{0};
+		int mEditRight{0};
+		int mEditSpace{0};
+		int mButtonLeft{0};
+		int mButtonRight{0};
+		int mButtonSpace{0};
 	};
 
 }

@@ -14,8 +14,7 @@
 namespace plugin
 {
 
-	class Plugin :
-		public MyGUI::IPlugin
+	class Plugin : public MyGUI::IPlugin
 	{
 	public:
 		//!	Initialization
@@ -34,7 +33,7 @@ namespace plugin
 		const std::string& getName() const override;
 
 	private:
-		static const std::string LogSection;
+		static const std::string_view LogSection;
 	};
 
 } // namespace plugin

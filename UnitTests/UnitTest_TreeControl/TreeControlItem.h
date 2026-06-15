@@ -12,14 +12,11 @@
 namespace MyGUI
 {
 
-	class TreeControlItem :
-		public Button
+	class TreeControlItem : public Button
 	{
-		MYGUI_RTTI_DERIVED( TreeControlItem )
+		MYGUI_RTTI_DERIVED(TreeControlItem)
 
 	public:
-		TreeControlItem();
-
 		TreeControl::Node* getNode() const;
 		Button* getButtonExpandCollapse() const
 		{
@@ -39,8 +36,8 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* pSender, int nValue);
 
 	private:
-		Button* mpButtonExpandCollapse;
-		ImageBox* mpIcon;
+		Button* mpButtonExpandCollapse{nullptr};
+		ImageBox* mpIcon{nullptr};
 		//int mnLevelOffset;
 	};
 

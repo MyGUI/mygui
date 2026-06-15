@@ -23,8 +23,7 @@ namespace MyGUI
 	class OgrePlatform
 	{
 	public:
-		OgrePlatform() :
-			mIsInitialise(false)
+		OgrePlatform()
 		{
 			mLogManager = new LogManager();
 			mDataManager = new OgreDataManager();
@@ -43,7 +42,7 @@ namespace MyGUI
 			Ogre::RenderWindow* _window,
 			Ogre::SceneManager* _scene,
 			const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
+			std::string_view _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
@@ -75,7 +74,7 @@ namespace MyGUI
 		}
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		OgreRenderManager* mRenderManager;
 		OgreDataManager* mDataManager;
 		LogManager* mLogManager;

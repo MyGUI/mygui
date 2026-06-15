@@ -9,8 +9,12 @@ namespace tools
 	class GroupMessage
 	{
 		MYGUI_SINGLETON_DECLARATION(GroupMessage);
+
 	public:
-		GroupMessage() : mSingletonHolder(this) { }
+		GroupMessage() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
@@ -21,7 +25,7 @@ namespace tools
 		void notifyFrameStarted(float _time);
 
 	private:
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 		VectorUString mErrorMessages;
 		VectorUString mWarningMessages;
 	};

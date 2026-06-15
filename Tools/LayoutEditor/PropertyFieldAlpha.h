@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class PropertyFieldAlpha :
-		public PropertyFieldEditBox
+	class PropertyFieldAlpha : public PropertyFieldEditBox
 	{
 	public:
 		PropertyFieldAlpha(MyGUI::Widget* _parent);

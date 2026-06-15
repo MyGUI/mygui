@@ -1,0 +1,87 @@
+Checks: '\
+  -*,\ # definitely good checks
+  modernize-*,\
+  performance-*,\
+  readability-*,\
+  cppcoreguidelines-*,\
+  hicpp-*,\
+  google-*,\
+  bugprone-*,\
+  \ # intentionally disabled checks (sorted alphabetically)
+  -bugprone-branch-clone,\
+  -bugprone-easily-swappable-parameters,\
+  -bugprone-exception-escape,\ # TODO?
+  -bugprone-implicit-widening-of-multiplication-result,\ # TODO?
+  -bugprone-macro-parentheses,\
+  -bugprone-misplaced-widening-cast,\
+  -bugprone-narrowing-conversions,\
+  -bugprone-reserved-identifier,\
+  -bugprone-signed-char-misuse,\ # TODO?
+  -cppcoreguidelines-avoid-c-arrays,\
+  -cppcoreguidelines-avoid-const-or-ref-data-members,\
+  -cppcoreguidelines-avoid-do-while,\
+  -cppcoreguidelines-avoid-magic-numbers,\
+  -cppcoreguidelines-avoid-non-const-global-variables,\
+  -cppcoreguidelines-c-copy-assignment-signature,\
+  -cppcoreguidelines-init-variables,\
+  -cppcoreguidelines-macro-usage,\
+  -cppcoreguidelines-narrowing-conversions,\
+  -cppcoreguidelines-non-private-member-variables-in-classes,\
+  -cppcoreguidelines-owning-memory,\ # TODO
+  -cppcoreguidelines-prefer-member-initializer,\
+  -cppcoreguidelines-pro-bounds-constant-array-index,\
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,\ # false positive?
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,\
+  -cppcoreguidelines-pro-type-const-cast,\
+  -cppcoreguidelines-pro-type-cstyle-cast,\
+  -cppcoreguidelines-pro-type-member-init,\
+  -cppcoreguidelines-pro-type-reinterpret-cast,\
+  -cppcoreguidelines-pro-type-static-cast-downcast,\
+  -cppcoreguidelines-pro-type-union-access,\
+  -cppcoreguidelines-pro-type-vararg,\
+  -cppcoreguidelines-special-member-functions,\ # TODO (mostly fixed)
+  -cppcoreguidelines-virtual-class-destructor,\
+  -google-explicit-constructor,\
+  -google-readability-braces-around-statements,\
+  -google-readability-casting,\
+  -google-readability-namespace-comments,\
+  -google-readability-todo,\
+  -google-runtime-int,\ # TODO
+  -google-default-arguments,\
+  -hicpp-special-member-functions,\
+  -hicpp-braces-around-statements,\
+  -hicpp-explicit-conversions,\
+  -hicpp-use-auto,\
+  -hicpp-uppercase-literal-suffix,\
+  -hicpp-avoid-c-arrays,\
+  -hicpp-member-init,-hicpp-vararg,\
+  -hicpp-no-array-decay,\
+  -hicpp-signed-bitwise,\
+  -modernize-pass-by-value,\
+  -modernize-use-auto,\
+  -modernize-use-nodiscard,\
+  -modernize-use-trailing-return-type,\
+  -performance-unnecessary-value-param,\
+  -readability-braces-around-statements,\
+  -readability-convert-member-functions-to-static,\
+  -readability-function-cognitive-complexity,\
+  -readability-identifier-length,\
+  -readability-implicit-bool-conversion,\
+  -readability-magic-numbers,\
+  -readability-redundant-access-specifiers,\
+  -readability-suspicious-call-argument,\
+  -readability-uppercase-literal-suffix,\
+  \ # TODO
+  -modernize-avoid-c-arrays,\
+  -readability-use-anyofallof,\
+  '
+
+WarningsAsErrors: "*"
+HeaderFilterRegex: '.*'
+FormatStyle: file
+UseColor: true
+CheckOptions:
+  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value: 1
+  - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctionsWhenCopyIsDeleted
+    value: 1

@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class TestState :
-		public StateController,
-		public sigslot::has_slots<>
+	class TestState : public StateController, public sigslot::has_slots<>
 	{
 	public:
 		TestState();
@@ -34,8 +32,8 @@ namespace tools
 		void deleteTestLayout();
 
 	private:
-		MyGUI::xml::Document* mTestLayout;
-		BackgroundControl* mBackgroundControl;
+		MyGUI::xml::Document* mTestLayout{nullptr};
+		BackgroundControlLE* mBackgroundControl{nullptr};
 	};
 
 }

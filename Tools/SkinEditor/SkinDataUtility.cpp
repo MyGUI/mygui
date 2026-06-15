@@ -169,22 +169,47 @@ namespace tools
 		_skinData->addChild(region);
 	}
 
-	SkinDataUtility::VectorCoord SkinDataUtility::getRegions(const MyGUI::IntSize& _size, const MyGUI::IntRect& _separators)
+	SkinDataUtility::VectorCoord SkinDataUtility::getRegions(
+		const MyGUI::IntSize& _size,
+		const MyGUI::IntRect& _separators)
 	{
 		VectorCoord result;
 		result.resize(RegionMax);
 
 		result[RegionLeftTop] = MyGUI::IntCoord(0, 0, _separators.left, _separators.top);
-		result[RegionTop] = MyGUI::IntCoord(_separators.left, 0, _size.width - (_separators.left + _separators.right), _separators.top);
-		result[RegionRightTop] = MyGUI::IntCoord(_size.width - _separators.right, 0, _separators.right, _separators.top);
+		result[RegionTop] =
+			MyGUI::IntCoord(_separators.left, 0, _size.width - (_separators.left + _separators.right), _separators.top);
+		result[RegionRightTop] =
+			MyGUI::IntCoord(_size.width - _separators.right, 0, _separators.right, _separators.top);
 
-		result[RegionLeft] = MyGUI::IntCoord(0, _separators.top, _separators.left, _size.height - (_separators.top + _separators.bottom));
-		result[RegionCenter] = MyGUI::IntCoord(_separators.left, _separators.top, _size.width - (_separators.left + _separators.right), _size.height - (_separators.top + _separators.bottom));
-		result[RegionRight] = MyGUI::IntCoord(_size.width - _separators.right, _separators.top, _separators.right, _size.height - (_separators.top + _separators.bottom));
+		result[RegionLeft] = MyGUI::IntCoord(
+			0,
+			_separators.top,
+			_separators.left,
+			_size.height - (_separators.top + _separators.bottom));
+		result[RegionCenter] = MyGUI::IntCoord(
+			_separators.left,
+			_separators.top,
+			_size.width - (_separators.left + _separators.right),
+			_size.height - (_separators.top + _separators.bottom));
+		result[RegionRight] = MyGUI::IntCoord(
+			_size.width - _separators.right,
+			_separators.top,
+			_separators.right,
+			_size.height - (_separators.top + _separators.bottom));
 
-		result[RegionLeftBottom] = MyGUI::IntCoord(0, _size.height - _separators.bottom, _separators.left, _separators.bottom);
-		result[RegionBottom] = MyGUI::IntCoord(_separators.left, _size.height - _separators.bottom, _size.width - (_separators.left + _separators.right), _separators.bottom);
-		result[RegionRightBottom] = MyGUI::IntCoord(_size.width - _separators.right, _size.height - _separators.bottom, _separators.right, _separators.bottom);
+		result[RegionLeftBottom] =
+			MyGUI::IntCoord(0, _size.height - _separators.bottom, _separators.left, _separators.bottom);
+		result[RegionBottom] = MyGUI::IntCoord(
+			_separators.left,
+			_size.height - _separators.bottom,
+			_size.width - (_separators.left + _separators.right),
+			_separators.bottom);
+		result[RegionRightBottom] = MyGUI::IntCoord(
+			_size.width - _separators.right,
+			_size.height - _separators.bottom,
+			_separators.right,
+			_separators.bottom);
 
 		return result;
 	}
@@ -198,12 +223,14 @@ namespace tools
 	{
 		MyGUI::IntRect result;
 
-		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin();
+			 child != _skinData->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() != "Separator")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 			int offset = (*child)->getPropertyValue<int>("Offset");
 			bool visible = (*child)->getPropertyValue<bool>("Visible");
 			if (!visible)
@@ -226,12 +253,14 @@ namespace tools
 	{
 		const VectorString& names = getRegionNames();
 
-		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin();
+			 child != _skinData->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() != "Region")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 
 			if (name == names[RegionLeftTop])
 				(*child)->setPropertyValue("Coord", _value[RegionLeftTop]);
@@ -258,12 +287,14 @@ namespace tools
 	{
 		RectVisible result;
 
-		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin();
+			 child != _skinData->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() != "Separator")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 			bool visible = (*child)->getPropertyValue<bool>("Visible");
 
 			if (name == "Left")
@@ -283,12 +314,14 @@ namespace tools
 	{
 		const VectorString& names = getRegionNames();
 
-		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin();
+			 child != _skinData->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() != "Region")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 
 			if (name == names[RegionLeftTop])
 				(*child)->setPropertyValue("Enable", _value.left && _value.top);
@@ -313,7 +346,9 @@ namespace tools
 
 	void SkinDataUtility::ShowRegions(DataPtr _skinData)
 	{
-		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin();
+			 child != _skinData->getChilds().end();
+			 child++)
 		{
 			if ((*child)->getType()->getName() != "Region")
 				continue;

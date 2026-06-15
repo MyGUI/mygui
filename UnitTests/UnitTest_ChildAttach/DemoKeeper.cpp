@@ -10,11 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mTextBoxTest(nullptr)
-	{
-	}
-
 	void DemoKeeper::notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
 	{
 		MyGUI::ImageBox* image = _sender->castType<MyGUI::ImageBox>();
@@ -56,7 +51,8 @@ namespace demo
 	void DemoKeeper::createSuccesScene()
 	{
 		const MyGUI::VectorWidgetPtr& squad_roots = MyGUI::LayoutManager::getInstance().loadLayout("Squad.layout");
-		const MyGUI::VectorWidgetPtr& squad_slot_roots = MyGUI::LayoutManager::getInstance().loadLayout("SquadSlot.layout");
+		const MyGUI::VectorWidgetPtr& squad_slot_roots =
+			MyGUI::LayoutManager::getInstance().loadLayout("SquadSlot.layout");
 
 		squad_roots.at(0)->setPosition(100, 100);
 
@@ -74,7 +70,8 @@ namespace demo
 	void DemoKeeper::createFailedScene()
 	{
 		const MyGUI::VectorWidgetPtr& squad_roots = MyGUI::LayoutManager::getInstance().loadLayout("Squad.layout");
-		const MyGUI::VectorWidgetPtr& squad_slot_roots = MyGUI::LayoutManager::getInstance().loadLayout("SquadSlotFailed.layout");
+		const MyGUI::VectorWidgetPtr& squad_slot_roots =
+			MyGUI::LayoutManager::getInstance().loadLayout("SquadSlotFailed.layout");
 
 		squad_roots.at(0)->setPosition(500, 100);
 

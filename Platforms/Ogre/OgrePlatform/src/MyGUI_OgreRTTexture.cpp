@@ -14,8 +14,6 @@ namespace MyGUI
 {
 
 	OgreRTTexture::OgreRTTexture(Ogre::TexturePtr _texture) :
-		mViewport(nullptr),
-		mSaveViewport(nullptr),
 		mTexture(_texture)
 	{
 		Ogre::Root* root = Ogre::Root::getSingletonPtr();
@@ -53,7 +51,8 @@ namespace MyGUI
 		system->_setViewport(mViewport);
 		system->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::ZERO);
 
-		OgreRenderManager::getInstance().beginRttRender(mTexture->getBuffer()->getRenderTarget()->requiresTextureFlipping());
+		OgreRenderManager::getInstance().beginRttRender(
+			mTexture->getBuffer()->getRenderTarget()->requiresTextureFlipping());
 	}
 
 	void OgreRTTexture::end()
@@ -66,7 +65,8 @@ namespace MyGUI
 
 	void OgreRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OgreRenderManager::getInstance().doRenderRtt(_buffer, _texture, _count, mTexture->getBuffer()->getRenderTarget());
+		OgreRenderManager::getInstance()
+			.doRenderRtt(_buffer, _texture, _count, mTexture->getBuffer()->getRenderTarget());
 	}
 
 } // namespace MyGUI

@@ -16,8 +16,7 @@
 namespace tools
 {
 
-	class PanelExtensionProperties :
-		public wraps::BasePanelViewItem
+	class PanelExtensionProperties : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelExtensionProperties();
@@ -28,7 +27,7 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
+		void notifyAction(std::string_view _name, std::string_view _value, bool _final);
 
 		void AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
@@ -36,9 +35,9 @@ namespace tools
 		void updateSize();
 
 	private:
-		typedef std::vector<IPropertyField*> VectorPropertyField;
+		using VectorPropertyField = std::vector<IPropertyField*>;
 		VectorPropertyField mFields;
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 	};
 
 }

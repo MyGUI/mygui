@@ -7,7 +7,9 @@
 #ifndef POINTER_MANAGER_H_
 #define POINTER_MANAGER_H_
 
+#include <map>
 #include <string>
+#include <string_view>
 #include <SDL.h>
 
 namespace input
@@ -16,28 +18,27 @@ namespace input
 	class PointerManager
 	{
 	public:
-		PointerManager();
 		virtual ~PointerManager();
 
 		void createPointerManager();
 		void destroyPointerManager();
 
 		void setPointerVisible(bool _value);
-		void setPointerName(const std::string& _name);
+		void setPointerName(std::string_view _name);
 
 		void loadPointerResources();
 
 	private:
-		void notifyChangeMousePointer(const std::string& _name);
+		void notifyChangeMousePointer(std::string_view _name);
 		void updateSDLPointer(SDL_SystemCursor _newCursor);
 		bool isMouseInClient();
-		void setPointer(const std::string& _name);
+		void setPointer(std::string_view _name);
 
 	private:
-		typedef std::map<std::string, SDL_SystemCursor> MapPointer;
+		using MapPointer = std::map<std::string, SDL_SystemCursor, std::less<>>;
 		MapPointer mMapPointer;
-		bool mManagerPointer;
-		SDL_Cursor* mCursor;
+		bool mManagerPointer{true};
+		SDL_Cursor* mCursor{nullptr};
 	};
 
 } // namespace input

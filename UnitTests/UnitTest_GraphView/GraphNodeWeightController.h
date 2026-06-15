@@ -13,20 +13,15 @@
 namespace demo
 {
 
-	class GraphNodeWeightController :
-		public BaseAnimationNode
+	class GraphNodeWeightController : public BaseAnimationNode
 	{
 	public:
-		GraphNodeWeightController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name),
-			mConnectionOut(nullptr),
-			mEditPosition(nullptr),
-			mScrollPosition(nullptr),
-			mPosition(0)
+		GraphNodeWeightController(std::string_view _name) :
+			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name)
 		{
 		}
 
-		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			onChangePosition(mPosition);
@@ -40,8 +35,10 @@ namespace demo
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept += MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition += MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept +=
+				MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition +=
+				MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}
@@ -68,8 +65,10 @@ namespace demo
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender)
 		{
 			mPosition = MyGUI::utility::parseValue<float>(_sender->getCaption());
-			if (mPosition < 0) mPosition = 0;
-			else if (mPosition > 1) mPosition = 1;
+			if (mPosition < 0)
+				mPosition = 0;
+			else if (mPosition > 1)
+				mPosition = 1;
 
 			updateWidgets();
 		}
@@ -91,11 +90,10 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::EditBox* mEditPosition;
-		MyGUI::ScrollBar* mScrollPosition;
-		float mPosition;
-
+		wraps::BaseGraphConnection* mConnectionOut{nullptr};
+		MyGUI::EditBox* mEditPosition{nullptr};
+		MyGUI::ScrollBar* mScrollPosition{nullptr};
+		float mPosition{0};
 	};
 
 } // namespace demo

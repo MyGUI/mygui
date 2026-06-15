@@ -17,10 +17,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ControllerManager :
-		public IUnlinkWidget
+	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
 	{
 		MYGUI_SINGLETON_DECLARATION(ControllerManager);
+
 	public:
 		ControllerManager();
 
@@ -30,12 +30,12 @@ namespace MyGUI
 		/** Create controller.
 			@param _type Controller type name. Should be on of internal controllers or registered by user.
 		*/
-		ControllerItem* createItem(const std::string& _type);
+		ControllerItem* createItem(std::string_view _type);
 
 		/** Add controller over widget.
 			If specified widget already have controller with same type previous controller removed.
 			@param _widget to be controlled
-			@param _item controller created through createItem(const std::string& _type)
+			@param _item controller created through createItem(std::string_view _type)
 			@note _item will be deleted automatically at end of controller lifetime
 				(if not removed by removeItem(Widget* _widget) before)
 		*/
@@ -54,11 +54,11 @@ namespace MyGUI
 		void clear();
 
 	private:
-		typedef std::pair<Widget*, ControllerItem*> PairControllerItem;
-		typedef std::list<PairControllerItem> ListControllerItem;
+		using PairControllerItem = std::pair<Widget*, ControllerItem*>;
+		using ListControllerItem = std::list<PairControllerItem>;
 		ListControllerItem mListItem;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mCategoryName;
 	};
 

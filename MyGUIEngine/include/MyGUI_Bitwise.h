@@ -9,35 +9,28 @@
 
 #include "MyGUI_Prerequest.h"
 
-namespace MyGUI
+namespace MyGUI::Bitwise
 {
-
-	namespace Bitwise
+	/** Returns the closest power-of-two number greater or equal to value. */
+	template<typename Type>
+	static inline Type firstPO2From(Type _value)
 	{
-		/** Returns the closest power-of-two number greater or equal to value.
-		*/
-		template<typename Type>
-		static inline Type firstPO2From(Type _value)
-		{
-			--_value;
-			_value |= _value >> 16;
-			_value |= _value >> 8;
-			_value |= _value >> 4;
-			_value |= _value >> 2;
-			_value |= _value >> 1;
-			++_value;
-			return _value;
-		}
+		--_value;
+		_value |= _value >> 16;
+		_value |= _value >> 8;
+		_value |= _value >> 4;
+		_value |= _value >> 2;
+		_value |= _value >> 1;
+		++_value;
+		return _value;
+	}
 
-		/** Determines whether the number is power-of-two or not. */
-		template<typename Type>
-		static inline bool isPO2(Type _value)
-		{
-			return (_value & (_value - 1)) == 0;
-		}
-
-	};
-
-} // namespace MyGUI
+	/** Determines whether the number is power-of-two or not. */
+	template<typename Type>
+	static inline bool isPO2(Type _value)
+	{
+		return (_value & (_value - 1)) == 0;
+	}
+}
 
 #endif // MYGUI_BITWISE_H_

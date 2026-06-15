@@ -12,13 +12,6 @@
 namespace tools
 {
 
-	ActionChangePositionData::ActionChangePositionData() :
-		mData1(nullptr),
-		mData2(nullptr),
-		mIndex(MyGUI::ITEM_NONE)
-	{
-	}
-
 	void ActionChangePositionData::doAction()
 	{
 		if (mData1 != mData2 && mData1->getParent() == mData2->getParent())

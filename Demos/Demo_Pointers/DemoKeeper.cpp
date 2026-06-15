@@ -8,7 +8,7 @@
 #include "Base/Main.h"
 #include "ResourcePointerContext.h"
 #ifdef MYGUI_OGRE_PLATFORM
-#include <Ogre.h>
+	#include <Ogre.h>
 #endif
 
 namespace demo
@@ -19,17 +19,6 @@ namespace demo
 	static float gAngleH = 90;
 	static float gAngleV = -25;
 #endif
-
-	DemoKeeper::DemoKeeper() :
-		mEnemyPanel(nullptr),
-		mFriendPanel(nullptr),
-		mControlPanel(nullptr),
-		mPointerContextManager(nullptr),
-		mRightButtonPressed(false),
-		mSaveCursorX(0),
-		mSaveCursorY(0)
-	{
-	}
 
 	void DemoKeeper::setupResources()
 	{
@@ -46,9 +35,10 @@ namespace demo
 
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>(resourceCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Contexts.xml");
@@ -87,7 +77,7 @@ namespace demo
 		delete mPointerContextManager;
 		mPointerContextManager = nullptr;
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourcePointerContext>(resourceCategory);
 
 		destroyEntities();
@@ -119,7 +109,7 @@ namespace demo
 			if (!MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz))
 			{
 				// пикаем сцену
-				std::string pointer = getCursorFromScene(_absx, _absy);
+				std::string_view pointer = getCursorFromScene(_absx, _absy);
 				mPointerContextManager->setPointer(pointer);
 			}
 		}
@@ -164,10 +154,10 @@ namespace demo
 		// для горячих клавиш
 		mControlPanel->injectKeyPress(_key);
 
-		base::BaseManager::injectKeyPress(_key, _text);
+		base::BaseDemoManager::injectKeyPress(_key, _text);
 	}
 
-	void DemoKeeper::setPointer(const std::string& _name)
+	void DemoKeeper::setPointer(std::string_view _name)
 	{
 		setPointerName(_name);
 	}
@@ -206,8 +196,18 @@ namespace demo
 		//node->showBoundingBox(true);
 
 		Ogre::MeshManager::getSingleton().createPlane(
-			"FloorPlane", MyGuiResourceGroup,
-			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 2000, 2000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+			"FloorPlane",
+			MyGuiResourceGroup,
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0),
+			2000,
+			2000,
+			1,
+			1,
+			true,
+			1,
+			1,
+			1,
+			Ogre::Vector3::UNIT_Z);
 
 		entity = getSceneManager()->createEntity("floor", "FloorPlane", MyGuiResourceGroup);
 		entity->setMaterialName("Ground", MyGuiResourceGroup);
@@ -227,30 +227,28 @@ namespace demo
 #endif
 	}
 
-	std::string DemoKeeper::getCursorFromScene(int _x, int _y)
+	std::string_view DemoKeeper::getCursorFromScene(int _x, int _y)
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		MyGUI::IntSize size = MyGUI::RenderManager::getInstance().getViewSize();
-		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
-			_x / float(size.width),
-			_y / float(size.height));
+		Ogre::Ray ray = getCamera()->getCameraToViewportRay(_x / float(size.width), _y / float(size.height));
 		gRaySceneQuery->setRay(ray);
 		gRaySceneQuery->setSortByDistance(true);
 		Ogre::RaySceneQueryResult& result = gRaySceneQuery->execute();
-		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter != result.end(); ++iter)
+		for (auto& iter : result)
 		{
-			if (iter->movable != nullptr)
+			if (iter.movable != nullptr)
 			{
-				if (iter->movable->getName() == "enemy")
+				if (iter.movable->getName() == "enemy")
 					return "enemy";
-				else if (iter->movable->getName() == "friend")
+				else if (iter.movable->getName() == "friend")
 					return "friend";
 			}
 		}
 #else
 		if (mEnemyPanel->isIntersect(_x, _y))
 			return "enemy";
-		else if (mFriendPanel->isIntersect(_x, _y))
+		if (mFriendPanel->isIntersect(_x, _y))
 			return "friend";
 #endif
 

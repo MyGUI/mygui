@@ -16,14 +16,12 @@ namespace MyGUI
 	struct MYGUI_EXPORT Colour
 	{
 	public:
-		Colour();
+		Colour() = default;
 		Colour(float _red, float _green, float _blue, float _alpha = 1);
-		Colour(const Colour& _value) = default;
-		explicit Colour(const std::string& _value);
+		explicit Colour(std::string_view _value);
 
-		Colour& operator = (Colour const& _value);
-		bool operator == (Colour const& _value) const;
-		bool operator != (Colour const& _value) const;
+		bool operator==(Colour const& _value) const;
+		bool operator!=(Colour const& _value) const;
 
 		void set(float _red, float _green, float _blue, float _alpha = 1);
 
@@ -31,26 +29,26 @@ namespace MyGUI
 
 		std::string print() const;
 
-		static Colour parse(const std::string& _value);
+		static Colour parse(std::string_view _value);
 
-		friend std::ostream& operator << (std::ostream& _stream, const Colour&  _value)
+		friend std::ostream& operator<<(std::ostream& _stream, const Colour& _value)
 		{
 			return operatorShiftLeft(_stream, _value);
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, Colour&  _value)
+		friend std::istream& operator>>(std::istream& _stream, Colour& _value)
 		{
 			return operatorShiftRight(_stream, _value);
 		}
 
-		static std::ostream& operatorShiftLeft(std::ostream& _stream, const Colour&  _value);
-		static std::istream& operatorShiftRight(std::istream& _stream, Colour&  _value);
+		static std::ostream& operatorShiftLeft(std::ostream& _stream, const Colour& _value);
+		static std::istream& operatorShiftRight(std::istream& _stream, Colour& _value);
 
 	public:
-		float red;
-		float green;
-		float blue;
-		float alpha;
+		float red{1.0f};
+		float green{1.0f};
+		float blue{1.0f};
+		float alpha{1.0f};
 
 		static const Colour Zero;
 		static const Colour Black;

@@ -21,12 +21,16 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&> EventHandle_WidgetIntUTFStringUTFStringBool;
+	using EventHandle_WidgetIntUTFStringUTFStringBool =
+		delegates::MultiDelegate<Widget*, size_t, const UString&, const UString&, bool&>;
 
-	typedef delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
-	typedef delegates::CDelegate5<MultiListBox*, size_t, size_t, size_t, bool&> EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef;
-	typedef delegates::CMultiDelegate2<MultiListBox*, size_t> EventHandle_MultiListPtrSizeT;
-	typedef delegates::CMultiDelegate2<MultiListBox*, const IBNotifyItemData&> EventHandle_MultiListPtrCIBNotifyCellDataRef;
+	using EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef =
+		delegates::Delegate<MultiListBox*, size_t, const UString&, const UString&, bool&>;
+	using EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef =
+		delegates::Delegate<MultiListBox*, size_t, size_t, size_t, bool&>;
+	using EventHandle_MultiListPtrSizeT = delegates::MultiDelegate<MultiListBox*, size_t>;
+	using EventHandle_MultiListPtrCIBNotifyCellDataRef =
+		delegates::MultiDelegate<MultiListBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{MultiListBox}
 		MultiListBox widget description should be here.
@@ -37,17 +41,15 @@ namespace MyGUI
 		public IItemContainer,
 		public MemberObsolete<MultiListBox>
 	{
-		MYGUI_RTTI_DERIVED( MultiListBox )
+		MYGUI_RTTI_DERIVED(MultiListBox)
 
 	public:
-		MultiListBox();
-
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -148,7 +150,7 @@ namespace MyGUI
 		void clearColumnDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getColumnDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::getItemDataAt");
@@ -217,7 +219,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return getSubItemDataAt<ValueType>(0, _index, _throw);
@@ -252,10 +254,13 @@ namespace MyGUI
 		void clearSubItemDataAt(size_t _column, size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getSubItemDataAt(size_t _column, size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemDataAt");
+			MYGUI_ASSERT_RANGE(
+				_index,
+				mVectorColumnInfo.begin()->list->getItemCount(),
+				"MultiListBox::getSubItemDataAt");
 
 			size_t index = BiIndexBase::convertToBack(_index);
 			return getSubItemAt(_column)->getItemDataAt<ValueType>(index, _throw);
@@ -284,7 +289,10 @@ namespace MyGUI
 			@param _index2 Index of row for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventPair<EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef, EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef> requestOperatorLess;
+		EventPair<
+			EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef,
+			EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef>
+			requestOperatorLess;
 
 		/** Event : Notify about event in item widget.\n
 		signature : void method(MyGUI::MultiList* _sender, const MyGUI::IBNotifyItemData& _info)
@@ -341,7 +349,7 @@ namespace MyGUI
 			ResizingPolicy sizeType;
 		};
 
-		typedef std::vector<ColumnInfo> VectorColumnInfo;
+		using VectorColumnInfo = std::vector<ColumnInfo>;
 
 		void frameEntered(float _frame);
 		void frameAdvise(bool _advise);
@@ -353,33 +361,34 @@ namespace MyGUI
 		void _unwrapItem(MultiListItem* _item);
 		void _swapColumnsAt(size_t _index1, size_t _index2);
 
-		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth) const;
+		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth)
+			const;
 		bool getUpdateByResize() const;
 		int updateWidthColumns(size_t& _countStars, size_t& _lastIndexStar);
 
 	private:
-		int mHeightButton;
-		int mWidthBar;
+		int mHeightButton{0};
+		int mWidthBar{0};
 		std::string mSkinButton;
 		std::string mSkinList;
-		Widget* mWidgetEmpty;
+		Widget* mWidgetEmpty{nullptr};
 
 		VectorColumnInfo mVectorColumnInfo;
 
 		VectorWidgetPtr mSeparators;
 
-		size_t mLastMouseFocusIndex;
+		size_t mLastMouseFocusIndex{ITEM_NONE};
 
-		bool mSortUp;
-		size_t mSortColumnIndex;
+		bool mSortUp{true};
+		size_t mSortColumnIndex{ITEM_NONE};
 
-		int mWidthSeparator;
+		int mWidthSeparator{0};
 		std::string mSkinSeparator;
 
-		size_t mItemSelected;
+		size_t mItemSelected{ITEM_NONE};
 
-		bool mFrameAdvise;
-		Widget* mHeaderPlace;
+		bool mFrameAdvise{false};
+		Widget* mHeaderPlace{nullptr};
 	};
 
 } // namespace MyGUI

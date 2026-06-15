@@ -10,13 +10,6 @@
 namespace tools
 {
 
-	TextureBrowseControl::TextureBrowseControl() :
-		mOk(nullptr),
-		mCancel(nullptr),
-		mTextures(nullptr)
-	{
-	}
-
 	TextureBrowseControl::~TextureBrowseControl()
 	{
 		MyGUI::ItemBox* box = mTextures->getItemBox();
@@ -24,7 +17,7 @@ namespace tools
 		box->eventSelectItemAccept -= MyGUI::newDelegate(this, &TextureBrowseControl::notifySelectItemAccept);
 	}
 
-	void TextureBrowseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void TextureBrowseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, GetLayoutName(this));
 
@@ -39,7 +32,8 @@ namespace tools
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TextureBrowseControl::notifyWindowButtonPressed);
+			window->eventWindowButtonPressed +=
+				MyGUI::newDelegate(this, &TextureBrowseControl::notifyWindowButtonPressed);
 
 		MyGUI::ItemBox* box = mTextures->getItemBox();
 		box->eventChangeItemPosition += MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
@@ -53,7 +47,9 @@ namespace tools
 		MyGUI::IntSize windowSize = mMainWidget->getSize();
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+		mMainWidget->setPosition(
+			(parentSize.width - windowSize.width) / 2,
+			(parentSize.height - windowSize.height) / 2);
 	}
 
 	void TextureBrowseControl::onEndModal()
@@ -70,7 +66,7 @@ namespace tools
 		eventEndDialog(this, true);
 	}
 
-	void TextureBrowseControl::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void TextureBrowseControl::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view /*_name*/)
 	{
 		eventEndDialog(this, false);
 	}
@@ -80,7 +76,7 @@ namespace tools
 		return mCurrentTextureName;
 	}
 
-	void TextureBrowseControl::setTextureName(const std::string& _value)
+	void TextureBrowseControl::setTextureName(std::string_view _value)
 	{
 		mCurrentTextureName = _value;
 
@@ -103,8 +99,8 @@ namespace tools
 	{
 		mTextures->removeAllItems();
 
-		for (MyGUI::VectorString::const_iterator item = _textures.begin(); item != _textures.end(); ++item)
-			mTextures->addItem((*item));
+		for (const auto& _texture : _textures)
+			mTextures->addItem(_texture);
 	}
 
 	void TextureBrowseControl::notifyChangeItemPosition(MyGUI::ItemBox* _sender, size_t _index)
@@ -112,12 +108,12 @@ namespace tools
 		if (_index != MyGUI::ITEM_NONE)
 			mCurrentTextureName = *_sender->getItemDataAt<std::string>(_index);
 		else
-			mCurrentTextureName = "";
+			mCurrentTextureName.clear();
 	}
 
 	void TextureBrowseControl::notifySelectItemAccept(MyGUI::ItemBox* _sender, size_t _index)
 	{
-		if (mCurrentTextureName != "")
+		if (!mCurrentTextureName.empty())
 			eventEndDialog(this, true);
 	}
 

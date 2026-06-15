@@ -12,8 +12,7 @@
 namespace tools
 {
 
-	class ApplicationState :
-		public StateController
+	class ApplicationState : public StateController
 	{
 	public:
 		void initState() override;

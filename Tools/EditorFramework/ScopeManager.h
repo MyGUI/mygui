@@ -13,18 +13,21 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ScopeManager :
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL ScopeManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(ScopeManager);
+
 	public:
-		ScopeManager() : mSingletonHolder(this) { }
+		ScopeManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
 		const std::string& getCurrentScope() const;
 
-		sigslot::signal1<const std::string&> eventChangeScope;
+		sigslot::signal1<std::string_view> eventChangeScope;
 
 	private:
 		void commandChangeScope(const MyGUI::UString& _commandName, bool& _result);

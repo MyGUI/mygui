@@ -50,12 +50,12 @@ namespace tools
 		mParent = _parent;
 	}
 
-	void ActionCreateData::setType(const std::string& _value)
+	void ActionCreateData::setType(std::string_view _value)
 	{
 		mType = _value;
 	}
 
-	void ActionCreateData::setUniqueProperty(const std::string& _value)
+	void ActionCreateData::setUniqueProperty(std::string_view _value)
 	{
 		mUniqueProperty = _value;
 	}

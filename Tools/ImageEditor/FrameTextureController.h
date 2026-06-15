@@ -13,13 +13,9 @@
 namespace tools
 {
 
-	class FrameTextureController :
-		public IControlController,
-		public sigslot::has_slots<>
+	class FrameTextureController : public IControlController, public sigslot::has_slots<>
 	{
 	public:
-		FrameTextureController();
-
 		void setTarget(Control* _control) override;
 
 		void activate() override;
@@ -28,18 +24,18 @@ namespace tools
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 		void notifyChangeProperty(PropertyPtr _sender);
-		void notifyChangeScope(const std::string& _scope);
-		void notifyChangeValue(const std::string& _value);
+		void notifyChangeScope(std::string_view _scope);
+		void notifyChangeValue(std::string_view _value);
 
-		void updateCoords(const std::string& _value);
+		void updateCoords(std::string_view _value);
 		void updateFrames();
 
 	private:
-		ScopeTextureControl* mControl;
+		ScopeTextureControl* mControl{nullptr};
 		std::string mParentTypeName;
 		std::string mScopeName;
-		DataPtr mParentData;
-		bool mActivated;
+		DataPtr mParentData{nullptr};
+		bool mActivated{false};
 		MyGUI::IntSize mSize;
 		ScopeTextureControl::VectorCoord mFrames;
 	};

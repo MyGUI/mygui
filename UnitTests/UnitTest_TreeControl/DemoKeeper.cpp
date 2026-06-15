@@ -14,10 +14,9 @@
 
 // рутовая папка всей медиа
 static MyGUI::UString gMediaBase;
-typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
+using PairFileInfo = std::pair<std::wstring, common::FileInfo>;
 
-class SampleLayout :
-	public wraps::BaseLayout
+class SampleLayout : public wraps::BaseLayout
 {
 public:
 	SampleLayout();
@@ -31,7 +30,8 @@ private:
 
 static SampleLayout* mSampleLayout;
 
-SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
+SampleLayout::SampleLayout() :
+	BaseLayout("SampleLayout.layout")
 {
 	assignWidget(mpResourcesTree, "ResourcesTree");
 	mpResourcesTree->eventTreeNodePrepare += newDelegate(this, &SampleLayout::notifyTreeNodePrepare);
@@ -39,7 +39,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 
 	MyGUI::TreeControl::Node* pRoot = mpResourcesTree->getRoot();
 
-/*#ifdef MYGUI_OGRE_PLATFORM
+	/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::ArchiveManager::ArchiveMapIterator ArchiveIterator = Ogre::ArchiveManager::getSingleton().getArchiveIterator();
 	while (ArchiveIterator.hasMoreElements())
 	{
@@ -53,17 +53,17 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 	common::VectorFileInfo result;
 	common::getSystemFileList(result, gMediaBase, L"*.*");
 
-	for (common::VectorFileInfo::iterator item = result.begin(); item != result.end(); ++item)
+	for (auto& item : result)
 	{
-		if ((*item).name == L".." || (*item).name == L".")
+		if (item.name == L".." || item.name == L".")
 			continue;
-		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node((*item).name, "Data");
+		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node(item.name, "Data");
 
-		pNode->setData(PairFileInfo(gMediaBase, *item));
+		pNode->setData(PairFileInfo(gMediaBase, item));
 		pRoot->add(pNode);
 	}
 
-//#endif
+	//#endif
 }
 
 void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI::TreeControl::Node* pNode)
@@ -73,7 +73,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 
 	pNode->removeAll();
 
-/*#ifdef MYGUI_OGRE_PLATFORM
+	/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::Archive* pArchive = *(pNode->getData<Ogre::Archive*>());
 
 	MyGUI::UString strPath(getPath(pNode));
@@ -137,29 +137,34 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		common::VectorFileInfo result;
 		common::getSystemFileList(result, path, L"*.*");
 
-		for (common::VectorFileInfo::iterator item = result.begin(); item != result.end(); ++item)
+		for (auto& item : result)
 		{
-			if ((*item).name == L".." || (*item).name == L".")
+			if (item.name == L".." || item.name == L".")
 				continue;
-			if ((*item).folder)
+			if (item.folder)
 			{
-				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node((*item).name, "Folder");
-				pChild->setData(PairFileInfo(path, *item));
+				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(item.name, "Folder");
+				pChild->setData(PairFileInfo(path, item));
 				pNode->add(pChild);
 			}
 			else
 			{
-				MyGUI::UString strName((*item).name);
+				MyGUI::UString strName(item.name);
 				std::string strExtension;
 				size_t nPosition = strName.rfind(".");
 				if (nPosition != MyGUI::UString::npos)
 				{
 					strExtension = strName.substr(nPosition + 1);
-					std::transform(strExtension.begin(), strExtension.end(), strExtension.begin(), [](unsigned char c) { return tolower(c); });
+					std::transform(
+						strExtension.begin(),
+						strExtension.end(),
+						strExtension.begin(),
+						[](unsigned char c) { return tolower(c); });
 				}
 
 				MyGUI::UString strImage;
-				if (strExtension == "png" || strExtension == "tif" || strExtension == "tiff" || strExtension == "jpg" || strExtension == "jpeg")
+				if (strExtension == "png" || strExtension == "tif" || strExtension == "tiff" || strExtension == "jpg" ||
+					strExtension == "jpeg")
 					strImage = "Image";
 				else if (strExtension == "mat" || strExtension == "material")
 					strImage = "Material";
@@ -178,20 +183,20 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 				else
 					strImage = "Unknown";
 
-				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node((*item).name, strImage);
+				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(item.name, strImage);
 				pChild->setPrepared(true);
 				pNode->add(pChild);
 			}
 		}
 	}
 
-//#endif
+	//#endif
 }
 
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
 {
 	if (!pNode || pNode == mpResourcesTree->getRoot())
-		return MyGUI::UString();
+		return {};
 
 	MyGUI::UString strPath;
 	while (pNode->getParent() != mpResourcesTree->getRoot())
@@ -218,7 +223,7 @@ namespace demo
 	{
 		base::BaseDemoManager::createScene();
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.registerFactory<MyGUI::TreeControl>(widgetCategory);
 		factory.registerFactory<MyGUI::TreeControlItem>(widgetCategory);
 
@@ -235,7 +240,7 @@ namespace demo
 		mSampleLayout = nullptr;
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.unregisterFactory<MyGUI::TreeControl>(widgetCategory);
 		factory.unregisterFactory<MyGUI::TreeControlItem>(widgetCategory);
 	}

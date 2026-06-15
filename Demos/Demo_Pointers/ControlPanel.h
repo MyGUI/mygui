@@ -14,8 +14,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(ControlPanel, "ControlPanel.layout");
-	class ControlPanel :
-		public wraps::BaseLayout
+	class ControlPanel : public wraps::BaseLayout
 	{
 	public:
 		ControlPanel(PointerContextManager* _manager);

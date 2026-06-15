@@ -21,10 +21,10 @@ namespace MyGUI
 
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
-	class MYGUI_EXPORT PluginManager :
-		public MemberObsolete<PluginManager>
+	class MYGUI_EXPORT PluginManager : public MemberObsolete<PluginManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(PluginManager);
+
 	public:
 		PluginManager();
 
@@ -32,10 +32,10 @@ namespace MyGUI
 		void shutdown();
 
 		//!	Load plugin
-		bool loadPlugin(const std::string& _file);
+		bool loadPlugin(std::string_view _file);
 
 		//!	Unload plugin
-		void unloadPlugin(const std::string& _file);
+		void unloadPlugin(std::string_view _file);
 
 		/*!	Install plugin
 			@remarks Calls from plugin
@@ -51,14 +51,14 @@ namespace MyGUI
 		void unloadAllPlugins();
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 	private:
 		//!	List of dynamic libraries
-		typedef std::map <std::string, DynLib*> DynLibList;
+		using DynLibList = std::map<std::string, DynLib*, std::less<>>;
 
 		//!	List of plugins
-		typedef std::set <IPlugin*> PluginList;
+		using PluginList = std::set<IPlugin*>;
 
 		//!	Loaded libraries
 		DynLibList mLibs;
@@ -66,7 +66,7 @@ namespace MyGUI
 		//!	Installed plugins
 		PluginList mPlugins;
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		std::string mXmlPluginTagName;
 	};
 

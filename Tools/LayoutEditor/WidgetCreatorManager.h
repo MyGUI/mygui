@@ -13,12 +13,13 @@
 namespace tools
 {
 
-	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_ChangeCreatorMode;
-	typedef MyGUI::delegates::CMultiDelegate2<bool, const MyGUI::IntCoord&> Event_ChangeSelector;
+	using Event_ChangeCreatorMode = MyGUI::delegates::MultiDelegate<bool>;
+	using Event_ChangeSelector = MyGUI::delegates::MultiDelegate<bool, const MyGUI::IntCoord&>;
 
 	class WidgetCreatorManager
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetCreatorManager);
+
 	public:
 		WidgetCreatorManager();
 
@@ -29,7 +30,7 @@ namespace tools
 		void moveNewWidget(const MyGUI::IntPoint& _point);
 		void finishNewWidget(const MyGUI::IntPoint& _point);
 
-		void setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin);
+		void setCreatorInfo(std::string_view _widgetType, std::string_view _widgetSkin);
 		void resetCreatorInfo();
 
 		void setPopupMode(bool _value);
@@ -49,13 +50,13 @@ namespace tools
 		void resetAllCreatorInfo();
 
 	private:
-		bool mCreateMode;
+		bool mCreateMode{false};
 		std::string mWidgetType;
 		std::string mWidgetSkin;
-		bool mStartNewWidget;
+		bool mStartNewWidget{false};
 		MyGUI::IntPoint mStartPoint;
-		MyGUI::Widget* mNewWidget;
-		bool mPopupMode;
+		MyGUI::Widget* mNewWidget{nullptr};
+		bool mPopupMode{false};
 	};
 
 }

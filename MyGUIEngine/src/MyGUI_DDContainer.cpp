@@ -12,19 +12,6 @@
 namespace MyGUI
 {
 
-	DDContainer::DDContainer() :
-		mDropResult(false),
-		mNeedDrop(false),
-		mStartDrop(false),
-		mOldDrop(nullptr),
-		mCurrentSender(nullptr),
-		mDropSenderIndex(ITEM_NONE),
-		mDropItem(nullptr),
-		mNeedDragDrop(false),
-		mReseiverContainer(nullptr)
-	{
-	}
-
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		// смещение внутри виджета, куда кликнули мышкой
@@ -60,9 +47,7 @@ namespace MyGUI
 			mReseiverContainer = nullptr;
 
 			// сбрасываем, чтобы обновился дропный виджет
-			mCurrentSender = nullptr;
 			mStartDrop = false;
-
 		}
 		// если нажата другая клавиша и был дроп то сбрасываем
 		else
@@ -123,16 +108,17 @@ namespace MyGUI
 		updateDropItems();
 
 		// если равно, значит уже спрашивали
-		if (mOldDrop == item) return;
+		if (mOldDrop == item)
+			return;
 		mOldDrop = item;
 
 		// сбрасываем старую подсветку
-		if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
+		if (mReseiverContainer)
+			mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
 
 		mDropResult = false;
 		mReseiverContainer = nullptr;
 		Widget* receiver = nullptr;
-		size_t receiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item)
 		{
@@ -141,14 +127,13 @@ namespace MyGUI
 			// работаем только с контейнерами
 			if (receiver && receiver->isType<DDContainer>())
 			{
-				receiver_index = receiver->_getItemIndex(item);
-
 				// подписываемся на информацию о валидности дропа
 				mReseiverContainer = static_cast<DDContainer*>(receiver);
 				mReseiverContainer->_eventInvalideContainer.clear();
 				mReseiverContainer->_eventInvalideContainer += newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
+				size_t receiver_index = receiver->_getItemIndex(item);
 				mDropInfo.set(this, mDropSenderIndex, mReseiverContainer, receiver_index);
 
 				eventRequestDrop(this, mDropInfo, mDropResult);
@@ -203,9 +188,11 @@ namespace MyGUI
 			removeDropItems();
 
 			// сбрасываем старую подсветку
-			if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
+			if (mReseiverContainer)
+				mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
 
-			if (_reset) mDropResult = false;
+			if (_reset)
+				mDropResult = false;
 			eventDropResult(this, mDropInfo, mDropResult);
 			eventChangeDDState(this, DDItemState::End);
 
@@ -227,7 +214,6 @@ namespace MyGUI
 
 	void DDContainer::updateDropItems()
 	{
-
 		if (mDropItem == nullptr)
 		{
 			requestDragWidgetInfo(this, mDropItem, mDropDimension);
@@ -237,7 +223,11 @@ namespace MyGUI
 
 		if (mDropItem)
 		{
-			mDropItem->setCoord(point.left - mClickInWidget.left + mDropDimension.left, point.top - mClickInWidget.top + mDropDimension.top, mDropDimension.width, mDropDimension.height);
+			mDropItem->setCoord(
+				point.left - mClickInWidget.left + mDropDimension.left,
+				point.top - mClickInWidget.top + mDropDimension.top,
+				mDropDimension.width,
+				mDropDimension.height);
 			mDropItem->setVisible(true);
 		}
 	}
@@ -252,7 +242,7 @@ namespace MyGUI
 		mouseDrag(MouseButton::Left);
 	}
 
-	void DDContainer::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void DDContainer::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{DDContainer, NeedDragDrop, bool} Поддержка Drag and Drop.
 		if (_key == "NeedDragDrop")

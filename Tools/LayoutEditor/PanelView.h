@@ -13,12 +13,11 @@
 namespace tools
 {
 
-	class PanelView :
-		public wraps::BasePanelView<PanelViewCell>
+	class PanelView : public wraps::BasePanelView<PanelViewCell>
 	{
 	public:
 		PanelView(MyGUI::Widget* _parent) :
-			wraps::BasePanelView<PanelViewCell>("", _parent)
+			wraps::BasePanelView<PanelViewCell>(std::string_view{}, _parent)
 		{
 		}
 	};

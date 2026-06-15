@@ -17,15 +17,11 @@ namespace MyGUI
 
 	class ITexture;
 
-	class MYGUI_EXPORT IFont :
-		public IResource
+	class MYGUI_EXPORT IFont : public IResource
 	{
-		MYGUI_RTTI_DERIVED( IFont )
+		MYGUI_RTTI_DERIVED(IFont)
 
 	public:
-		IFont() = default;
-		~IFont() override = default;
-
 		virtual const GlyphInfo* getGlyphInfo(Char _id) const = 0;
 
 		virtual ITexture* getTextureFont() const = 0;

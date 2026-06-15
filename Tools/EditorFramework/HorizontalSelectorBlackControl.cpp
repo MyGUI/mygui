@@ -10,11 +10,10 @@
 namespace tools
 {
 
-	HorizontalSelectorBlackControl::HorizontalSelectorBlackControl()
-	{
-	}
-
-	void HorizontalSelectorBlackControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void HorizontalSelectorBlackControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "HorizontalSelectorControl.layout");
 		setPropertyColour("ColourSelectorInactive");

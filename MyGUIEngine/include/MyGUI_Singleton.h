@@ -12,21 +12,16 @@
 namespace MyGUI
 {
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	template <class T>
-	class Singleton
-#else
-	template <class T>
-	class MYGUI_EXPORT MYGUI_OBSOLETE("Singleton class is deprecated. Do not use singletons.") Singleton
-#endif
+#ifndef MYGUI_DONT_USE_OBSOLETE
+	template<class T>
+	class MYGUI_OBSOLETE("Singleton class is deprecated. Do not use singletons.") Singleton
 	{
 	public:
-
-		#if defined(__clang__)
-			// This constructor is called before the `T` object is fully constructed, and
-			// pointers are not dereferenced anyway, so UBSan shouldn't check vptrs.
-			__attribute__((no_sanitize("vptr")))
-		#endif
+	#if defined(__clang__)
+		// This constructor is called before the `T` object is fully constructed, and
+		// pointers are not dereferenced anyway, so UBSan shouldn't check vptrs.
+		__attribute__((no_sanitize("vptr")))
+	#endif
 		Singleton()
 		{
 			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist");
@@ -36,13 +31,17 @@ namespace MyGUI
 		virtual ~Singleton()
 		{
 			if (nullptr == msInstance)
-				MYGUI_LOG(Critical, "Destroying Singleton instance " << getClassTypeName() << " before constructing it.");
+				MYGUI_LOG(
+					Critical,
+					"Destroying Singleton instance " << getClassTypeName() << " before constructing it.");
 			msInstance = nullptr;
 		}
 
 		static T& getInstance()
 		{
-			MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << getClassTypeName() << " was not created");
+			MYGUI_ASSERT(
+				nullptr != getInstancePtr(),
+				"Singleton instance " << getClassTypeName() << " was not created");
 			return (*getInstancePtr());
 		}
 
@@ -51,17 +50,18 @@ namespace MyGUI
 			return msInstance;
 		}
 
-		static const char* getClassTypeName()
+		static std::string_view getClassTypeName()
 		{
 			return mClassTypeName;
 		}
 
 	private:
 		static T* msInstance;
-		static const char* mClassTypeName;
+		static std::string_view mClassTypeName;
 	};
+#endif
 
-/*
+	/*
     // Template Singleton class was replaces with a set of macroses, because there were too many issues with it,
     // all appearing in different compilers:
     //   - incorrect exporting template class;
@@ -104,51 +104,56 @@ namespace MyGUI
 		{
 			mInstance->shutdownSingleton();
 		}
+
 	private:
 		T* mInstance;
 	};
 
 #define MYGUI_SINGLETON_DECLARATION(ClassName) \
-	private: \
+private: \
 	friend MyGUI::SingletonHolder<ClassName>; \
 	MyGUI::SingletonHolder<ClassName> mSingletonHolder; \
 	void initialiseSingleton(); \
 	void shutdownSingleton(); \
-	 \
-	public: \
+\
+public: \
 	static ClassName& getInstance(); \
 	static ClassName* getInstancePtr(); \
-	static const char* getClassTypeName()
+	static std::string_view getClassTypeName(); \
+	ClassName(const ClassName&) = delete; \
+	ClassName& operator=(const ClassName&) = delete
 
 #define MYGUI_SINGLETON_DEFINITION(ClassName) \
 	static ClassName* ClassName##Instance = nullptr; \
-	static const char* ClassName##ClassTypeName = #ClassName; \
-	 \
+	static std::string_view ClassName##ClassTypeName = #ClassName; \
+\
 	void ClassName::initialiseSingleton() \
 	{ \
-		MYGUI_ASSERT(nullptr == ClassName##Instance, "Singleton instance " << getClassTypeName() << " already exsist"); \
+		MYGUI_ASSERT( \
+			nullptr == ClassName##Instance, \
+			"Singleton instance " << getClassTypeName() << " already exsist"); \
 		ClassName##Instance = this; \
 	} \
-	 \
+\
 	void ClassName::shutdownSingleton() \
 	{ \
 		if (nullptr == ClassName##Instance) \
 			MYGUI_LOG(Critical, "Destroying Singleton instance " << getClassTypeName() << " before constructing it."); \
 		ClassName##Instance = nullptr; \
 	} \
-	 \
+\
 	ClassName& ClassName::getInstance() \
 	{ \
 		MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << getClassTypeName() << " was not created"); \
 		return (*getInstancePtr()); \
 	} \
-	 \
+\
 	ClassName* ClassName::getInstancePtr() \
 	{ \
 		return ClassName##Instance; \
 	} \
-	 \
-	const char* ClassName::getClassTypeName() \
+\
+	std::string_view ClassName::getClassTypeName() \
 	{ \
 		return ClassName##ClassTypeName; \
 	} \

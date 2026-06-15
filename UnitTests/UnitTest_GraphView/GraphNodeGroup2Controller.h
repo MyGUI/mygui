@@ -12,18 +12,11 @@
 namespace demo
 {
 
-	class GraphNodeGroup2Controller :
-		public BaseAnimationNode
+	class GraphNodeGroup2Controller : public BaseAnimationNode
 	{
 	public:
-		GraphNodeGroup2Controller(const std::string& _name) :
-			BaseAnimationNode("GraphNodeGroup2Controller.layout", "Group2Controller", _name),
-			mStart1In(nullptr),
-			mStart2In(nullptr),
-			mStart1Out(nullptr),
-			mStop1Out(nullptr),
-			mStart2Out(nullptr),
-			mStop2Out(nullptr)
+		GraphNodeGroup2Controller(std::string_view _name) :
+			BaseAnimationNode("GraphNodeGroup2Controller.layout", "Group2Controller", _name)
 		{
 		}
 
@@ -38,7 +31,6 @@ namespace demo
 			assignBase(mStop1Out, "Stop1Out");
 			assignBase(mStart2Out, "Start2Out");
 			assignBase(mStop2Out, "Stop2Out");
-
 		}
 
 		void shutdown() override
@@ -46,12 +38,12 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mStart1In;
-		wraps::BaseGraphConnection* mStart2In;
-		wraps::BaseGraphConnection* mStart1Out;
-		wraps::BaseGraphConnection* mStop1Out;
-		wraps::BaseGraphConnection* mStart2Out;
-		wraps::BaseGraphConnection* mStop2Out;
+		wraps::BaseGraphConnection* mStart1In{nullptr};
+		wraps::BaseGraphConnection* mStart2In{nullptr};
+		wraps::BaseGraphConnection* mStart1Out{nullptr};
+		wraps::BaseGraphConnection* mStop1Out{nullptr};
+		wraps::BaseGraphConnection* mStart2Out{nullptr};
+		wraps::BaseGraphConnection* mStop2Out{nullptr};
 	};
 
 } // namespace demo

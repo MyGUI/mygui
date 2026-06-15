@@ -13,18 +13,16 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyRegionTypeControl)
 
-	PropertyRegionTypeControl::PropertyRegionTypeControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyRegionTypeControl::~PropertyRegionTypeControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
 	}
 
-	void PropertyRegionTypeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyRegionTypeControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
@@ -38,7 +36,8 @@ namespace tools
 
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
 	}
 
 	void PropertyRegionTypeControl::updateCaption()
@@ -69,7 +68,9 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			std::string_view value;
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

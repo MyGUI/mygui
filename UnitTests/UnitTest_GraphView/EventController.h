@@ -8,29 +8,22 @@
 namespace animation
 {
 
-	class EventController :
-		public IAnimationNode
+	class EventController : public IAnimationNode
 	{
 	public:
-		EventController()
-		{
-		}
+		EventController() = default;
 
-		EventController(const std::string& _name, IAnimationGraph* _graph) :
+		EventController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
 		{
 		}
 
-		~EventController() override
-		{
-		}
-
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
@@ -42,7 +35,6 @@ namespace animation
 
 	private:
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

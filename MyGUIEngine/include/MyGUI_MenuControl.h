@@ -13,7 +13,6 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
-#include "MyGUI_MenuItemType.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_IItem.h"
 #include "MyGUI_IItemContainer.h"
@@ -21,32 +20,32 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<MenuControl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
-	typedef delegates::CMultiDelegate1<MenuControl*> EventHandle_MenuCtrlPtr;
+	using EventHandle_MenuCtrlPtrMenuItemPtr = delegates::MultiDelegate<MenuControl*, MenuItem*>;
+	using EventHandle_MenuCtrlPtr = delegates::MultiDelegate<MenuControl*>;
 
 	/** \brief @wpage{MenuControl}
 		MenuControl widget description should be here.
 	*/
-	class MYGUI_EXPORT MenuControl :
-		public Widget,
-		public IItemContainer,
-		public MemberObsolete<MenuControl>
+	class MYGUI_EXPORT MenuControl : public Widget, public IItemContainer, public MemberObsolete<MenuControl>
 	{
-		MYGUI_RTTI_DERIVED( MenuControl )
+		MYGUI_RTTI_DERIVED(MenuControl)
 
 	public:
-		MenuControl();
-
 		struct ItemInfo
 		{
-			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuControl* _submenu, const std::string& _id, Any _data) :
+			ItemInfo(
+				MenuItem* _item,
+				const UString& _name,
+				MenuItemType _type,
+				MenuControl* _submenu,
+				std::string_view _id,
+				Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
 				submenu(_submenu),
 				id(_id),
-				data(_data),
-				width(0)
+				data(_data)
 			{
 			}
 
@@ -63,17 +62,17 @@ namespace MyGUI
 			/** User data */
 			Any data;
 			/** Item width */
-			int width;
+			int width{0};
 		};
 
-		typedef std::vector<ItemInfo> VectorMenuItemInfo;
+		using VectorMenuItemInfo = std::vector<ItemInfo>;
 
 	public:
 		/** @copydoc Widget::setVisible */
-		void setVisible(bool _value) override;
+		void setVisible(bool _visible) override;
 
 		/** Hide or show Menu smooth */
-		void setVisibleSmooth(bool _value);
+		void setVisibleSmooth(bool _visible);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -82,12 +81,26 @@ namespace MyGUI
 		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
-		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* insertItemAt(
+			size_t _index,
+			const UString& _name,
+			MenuItemType _type = MenuItemType::Normal,
+			std::string_view _id = {},
+			Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItem* insertItem(MenuItem* _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* insertItem(
+			MenuItem* _to,
+			const UString& _name,
+			MenuItemType _type = MenuItemType::Normal,
+			std::string_view _id = {},
+			Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		MenuItem* addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* addItem(
+			const UString& _name,
+			MenuItemType _type = MenuItemType::Normal,
+			std::string_view _id = {},
+			Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -124,23 +137,23 @@ namespace MyGUI
 		void clearItemData(MenuItem* _item);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemData(MenuItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
 
 		//! Replace an item id at a specified position
-		void setItemIdAt(size_t _index, const std::string& _id);
+		void setItemIdAt(size_t _index, std::string_view _id);
 		//! Replace an item id
-		void setItemId(MenuItem* _item, const std::string& _id);
+		void setItemId(MenuItem* _item, std::string_view _id);
 
 		//! Get item id from specified position
 		const std::string& getItemIdAt(size_t _index) const;
@@ -148,13 +161,13 @@ namespace MyGUI
 		const std::string& getItemId(const MenuItem* _item) const;
 
 		/** Get item by id */
-		MenuItem* getItemById(const std::string& _id) const;
+		MenuItem* getItemById(std::string_view _id) const;
 
 		/** Find item by id */
-		MenuItem* findItemById(const std::string& _id, bool _recursive = false);
+		MenuItem* findItemById(std::string_view _id, bool _recursive = false);
 
 		/** Get item index by id */
-		size_t getItemIndexById(const std::string& _id) const;
+		size_t getItemIndexById(std::string_view _id) const;
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
 
@@ -180,14 +193,14 @@ namespace MyGUI
 		// остальные манипуляции
 
 		/** Create specific type child item (submenu) for item by index */
-		template <typename Type>
+		template<typename Type>
 		Type* createItemChildTAt(size_t _index)
 		{
 			return static_cast<Type*>(createItemChildByType(_index, Type::getClassTypeName()));
 		}
 
 		/** Create specific type child item (submenu) for item */
-		template <typename Type>
+		template<typename Type>
 		Type* createItemChildT(MenuItem* _item)
 		{
 			return createItemChildTAt<Type>(getItemIndex(_item));
@@ -278,7 +291,7 @@ namespace MyGUI
 
 		void onWidgetCreated(Widget* _widget) override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus) const;
@@ -286,7 +299,7 @@ namespace MyGUI
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
 		const std::string& getSkinByType(MenuItemType _type) const;
-		std::string getIconIndexByType(MenuItemType _type) const;
+		std::string_view getIconIndexByType(MenuItemType _type) const;
 
 		void update();
 
@@ -294,21 +307,27 @@ namespace MyGUI
 
 		void notifyMenuCtrlAccept(MenuItem* _item);
 
-		Widget* createItemChildByType(size_t _index, const std::string& _type);
+		Widget* createItemChildByType(size_t _index, std::string_view _type);
 
-		void _wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data);
+		void _wrapItem(
+			MenuItem* _item,
+			size_t _index,
+			const UString& _name,
+			MenuItemType _type,
+			std::string_view _id,
+			Any _data);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 		void _setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth);
 
 	protected:
-		bool mHideByAccept;
+		bool mHideByAccept{true};
 		// нужно ли выбрасывать по нажатию
-		bool mMenuDropMode;
-		bool mIsMenuDrop;
-		bool mHideByLostKey;
-		bool mResizeToContent;
+		bool mMenuDropMode{false};
+		bool mIsMenuDrop{true};
+		bool mHideByLostKey{false};
+		bool mResizeToContent{true};
 
 	private:
 		VectorMenuItemInfo mItemsInfo;
@@ -321,16 +340,16 @@ namespace MyGUI
 		std::string mSubMenuLayer;
 
 		// флаг, чтобы отсеч уведомления от айтемов, при общем шутдауне виджета
-		bool mShutdown;
+		bool mShutdown{false};
 
-		bool mVerticalAlignment;
-		int mDistanceButton;
-		bool mPopupAccept;
-		MenuItem* mOwner;
-		bool mAnimateSmooth;
+		bool mVerticalAlignment{true};
+		int mDistanceButton{0};
+		bool mPopupAccept{false};
+		MenuItem* mOwner{nullptr};
+		bool mAnimateSmooth{false};
 
-		bool mChangeChildSkin;
-		bool mInternalCreateChild;
+		bool mChangeChildSkin{false};
+		bool mInternalCreateChild{false};
 	};
 
 } // namespace MyGUI

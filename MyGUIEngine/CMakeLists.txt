@@ -39,7 +39,7 @@ endif()
 if (MYGUI_USE_FREETYPE)
 	if (MYGUI_MSDF_FONTS)
 		add_subdirectory(src/msdfgen)
-		target_link_libraries(${PROJECTNAME} msdfgen)
+		target_link_libraries(${PROJECTNAME} msdfgen-full)
 	endif ()
 
 	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
@@ -48,13 +48,12 @@ if (MYGUI_USE_FREETYPE)
 	endif()
 endif()
 
-# platform specific dependencies
-if (APPLE)
-	include_directories(/usr/local/include /usr/include)
-endif ()
-
 if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
-	target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
+	if (NOT MYGUI_CLANG_TIDY_BUILD)
+		target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
+	else ()
+		target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
+	endif ()
 endif ()
 
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X

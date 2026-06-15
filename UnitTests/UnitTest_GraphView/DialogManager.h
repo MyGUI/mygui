@@ -14,8 +14,12 @@ namespace tools
 	class DialogManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DialogManager);
+
 	public:
-		DialogManager() : mSingletonHolder(this) { }
+		DialogManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
@@ -27,7 +31,7 @@ namespace tools
 		void _removeDialog(Dialog* _modal);
 
 	private:
-		typedef std::vector<Dialog*> VectorDialog;
+		using VectorDialog = std::vector<Dialog*>;
 		VectorDialog mDialogs;
 	};
 

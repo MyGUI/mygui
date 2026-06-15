@@ -14,10 +14,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT OverlappedLayer :
-		public ILayer
+	class MYGUI_EXPORT OverlappedLayer : public ILayer
 	{
-		MYGUI_RTTI_DERIVED( OverlappedLayer )
+		MYGUI_RTTI_DERIVED(OverlappedLayer)
 
 	public:
 		OverlappedLayer();
@@ -28,10 +27,10 @@ namespace MyGUI
 		void setPick(bool _pick);
 
 		ILayerNode* createChildItemNode() override;
-		void destroyChildItemNode(ILayerNode* _node) override;
+		void destroyChildItemNode(ILayerNode* _item) override;
 
-		// up child item (make it draw and pick above other)
-		void upChildItemNode(ILayerNode* _node) override;
+		// up child item (make it draw and pick above others)
+		void upChildItemNode(ILayerNode* _item) override;
 
 		// child items list
 		EnumeratorILayerNode getEnumerator() const override;
@@ -57,9 +56,9 @@ namespace MyGUI
 		bool isOutOfDate() const;
 
 	protected:
-		bool mIsPick;
+		bool mIsPick{false};
 		VectorILayerNode mChildItems;
-		bool mOutOfDate;
+		bool mOutOfDate{false};
 		IntSize mViewSize;
 	};
 

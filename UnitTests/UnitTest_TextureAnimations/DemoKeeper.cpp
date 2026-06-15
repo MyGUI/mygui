@@ -14,10 +14,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper()
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -32,7 +28,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().registerFactory<FadeNodeAnimator>("NodeAnimator");
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Layers.xml");
@@ -45,11 +41,11 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<FadeNodeAnimator>("NodeAnimator");
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 	}
 
-	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
 		{
@@ -74,7 +70,8 @@ namespace demo
 
 	void DemoKeeper::createNewWindow()
 	{
-		MyGUI::Window* widget = MyGUI::LayoutManager::getInstance().loadLayout("Window.layout")[0]->castType<MyGUI::Window>();
+		MyGUI::Window* widget =
+			MyGUI::LayoutManager::getInstance().loadLayout("Window.layout")[0]->castType<MyGUI::Window>();
 		widget->eventWindowButtonPressed += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowButtonPressed);
 
 		mWidgets.insert(widget);
@@ -88,7 +85,7 @@ namespace demo
 		}
 		else if (_key == MyGUI::KeyCode::V)
 		{
-			for (auto widget : mWidgets)
+			for (auto* widget : mWidgets)
 			{
 				const MyGUI::IntCoord coord(0, 0, 1024, 768);
 				const MyGUI::IntSize size(300, 300);
@@ -99,7 +96,11 @@ namespace demo
 				}
 				else
 				{
-					widget->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+					widget->setCoord(
+						coord.width / 2 - size.width / 2,
+						coord.height / 2 - size.height / 2,
+						size.width,
+						size.height);
 				}
 			}
 		}
@@ -145,7 +146,7 @@ namespace demo
 			}
 		}
 
-		return base::BaseDemoManager::injectKeyPress( _key, _text );
+		return base::BaseDemoManager::injectKeyPress(_key, _text);
 	}
 
 } // namespace demo

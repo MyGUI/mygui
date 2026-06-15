@@ -14,9 +14,7 @@
 namespace tools
 {
 
-	class TestState :
-		public StateController,
-		public sigslot::has_slots<>
+	class TestState : public StateController, public sigslot::has_slots<>
 	{
 	public:
 		TestState();
@@ -34,8 +32,8 @@ namespace tools
 		void notifyEndDialogTest(Dialog* _sender, bool _result);
 
 	private:
-		TestWindow* mTestWindow;
-		Control* mBack;
+		TestWindow* mTestWindow{nullptr};
+		Control* mBack{nullptr};
 	};
 
 }

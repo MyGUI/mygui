@@ -13,10 +13,7 @@
 namespace MyGUI
 {
 
-	SharedLayer::SharedLayer() :
-		mIsPick(false),
-		mChildItem(nullptr),
-		mOutOfDate(false)
+	SharedLayer::SharedLayer()
 	{
 		mViewSize = RenderManager::getInstance().getViewSize();
 	}
@@ -35,8 +32,8 @@ namespace MyGUI
 			MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
 			while (propert.next("Property"))
 			{
-				const std::string& key = propert->findAttribute("key");
-				const std::string& value = propert->findAttribute("value");
+				std::string_view key = propert->findAttribute("key");
+				std::string_view value = propert->findAttribute("value");
 				if (key == "Pick")
 					setPick(utility::parseValue<bool>(value));
 			}
@@ -113,7 +110,7 @@ namespace MyGUI
 
 	IntPoint SharedLayer::getPosition(int _left, int _top) const
 	{
-		return IntPoint(_left, _top);
+		return {_left, _top};
 	}
 
 	void SharedLayer::renderToTarget(IRenderTarget* _target, bool _update)

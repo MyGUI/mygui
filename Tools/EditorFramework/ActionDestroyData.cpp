@@ -13,13 +13,6 @@
 namespace tools
 {
 
-	ActionDestroyData::ActionDestroyData() :
-		mData(nullptr),
-		mParent(nullptr),
-		mIndex(MyGUI::ITEM_NONE)
-	{
-	}
-
 	void ActionDestroyData::doAction()
 	{
 		mParent = mData->getParent();
@@ -46,7 +39,7 @@ namespace tools
 		mData = _data;
 	}
 
-	void ActionDestroyData::setUniqueProperty(const std::string& _value)
+	void ActionDestroyData::setUniqueProperty(std::string_view _value)
 	{
 		mUniqueProperty = _value;
 	}

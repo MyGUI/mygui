@@ -17,27 +17,24 @@ namespace MyGUI
 	/** \brief @wpage{TabItem}
 		TabItem widget description should be here.
 	*/
-	class MYGUI_EXPORT TabItem :
-        public TextBox // FIXME temporary use TextBox instead of Widget for caption
+	class MYGUI_EXPORT TabItem : public TextBox // FIXME temporary use TextBox instead of Widget for caption
 	{
-		MYGUI_RTTI_DERIVED( TabItem )
+		MYGUI_RTTI_DERIVED(TabItem)
 
 	public:
-		TabItem();
-
 		/** Set item caption */
 		void setCaption(const UString& _value) override;
 		/** Get item caption */
 		const UString& getCaption() const override;
 
 		//! Set button width
-		void setButtonWidth(int _value = DEFAULT);
+		void setButtonWidth(int _width = TabControl::DEFAULT_WIDTH);
 
 	protected:
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 	};
 
 } // namespace MyGUI

@@ -41,7 +41,8 @@ namespace MyGUI
 
 	size_t OgreDataStream::read(void* _buf, size_t _count)
 	{
-		if (!mStream) return 0;
+		if (!mStream)
+			return 0;
 		return mStream->read(_buf, _count);
 	}
 

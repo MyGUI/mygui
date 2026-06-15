@@ -10,12 +10,6 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mDemoView(nullptr),
-		mComboSkins(nullptr)
-	{
-	}
-
 	void DemoKeeper::createDemo(size_t _index)
 	{
 		destroyDemo();
@@ -100,7 +94,8 @@ namespace demo
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)
-			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Select skin theme in combobox to see default MyGUI themes.");
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption(
+				"Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);
 	}

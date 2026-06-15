@@ -14,12 +14,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -37,14 +34,14 @@ namespace demo
 		void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id) override;
 
 	private:
-		KeyboardPanel* mKeyboardPanel;
-		MonitorPanel* mMonitorPanel;
+		KeyboardPanel* mKeyboardPanel{nullptr};
+		MonitorPanel* mMonitorPanel{nullptr};
 
-		CommandManager* mCommandManager;
+		CommandManager* mCommandManager{nullptr};
 
-		bool mRightButtonPressed;
-		int mSaveCursorX;
-		int mSaveCursorY;
+		bool mRightButtonPressed{false};
+		int mSaveCursorX{0};
+		int mSaveCursorY{0};
 	};
 
 } // namespace demo

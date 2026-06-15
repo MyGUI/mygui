@@ -17,11 +17,9 @@
 namespace MyGUI
 {
 
-	class OgreVertexBuffer :
-		public IVertexBuffer
+	class OgreVertexBuffer : public IVertexBuffer
 	{
 	public:
-		OgreVertexBuffer();
 		~OgreVertexBuffer() override;
 
 		void setVertexCount(size_t _count) override;
@@ -41,8 +39,8 @@ namespace MyGUI
 		void resize();
 
 	private:
-		size_t mVertexCount;
-		size_t mNeedVertexCount;
+		size_t mVertexCount{0};
+		size_t mNeedVertexCount{0};
 
 		Ogre::RenderOperation mRenderOperation;
 		Ogre::HardwareVertexBufferSharedPtr mVertexBuffer;

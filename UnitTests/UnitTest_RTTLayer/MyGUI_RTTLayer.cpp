@@ -16,12 +16,6 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer() :
-		mTexture(nullptr),
-		mOutOfDateRtt(false)
-	{
-	}
-
 	RTTLayer::~RTTLayer()
 	{
 		if (mTexture)
@@ -38,8 +32,8 @@ namespace MyGUI
 		MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
 		while (propert.next("Property"))
 		{
-			const std::string& key = propert->findAttribute("key");
-			const std::string& value = propert->findAttribute("value");
+			std::string_view key = propert->findAttribute("key");
+			std::string_view value = propert->findAttribute("value");
 			if (key == "TextureSize")
 				setTextureSize(utility::parseValue<IntSize>(value));
 			if (key == "TextureName")
@@ -58,8 +52,8 @@ namespace MyGUI
 			{
 				target->begin();
 
-				for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-					(*iter)->renderToTarget(target, _update);
+				for (auto& childItem : mChildItems)
+					childItem->renderToTarget(target, _update);
 
 				target->end();
 			}
@@ -80,15 +74,22 @@ namespace MyGUI
 			mTexture = nullptr;
 		}
 
-		MYGUI_ASSERT(mTextureSize.width && mTextureSize.height, "RTTLayer texture size must have non-zero width and height");
-		std::string name = mTextureName.empty() ? MyGUI::utility::toString((size_t)this, getClassTypeName()) : mTextureName;
+		MYGUI_ASSERT(
+			mTextureSize.width && mTextureSize.height,
+			"RTTLayer texture size must have non-zero width and height");
+		std::string name =
+			mTextureName.empty() ? MyGUI::utility::toString((size_t)this, getClassTypeName()) : mTextureName;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
-		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+		mTexture->createManual(
+			mTextureSize.width,
+			mTextureSize.height,
+			MyGUI::TextureUsage::RenderTarget,
+			MyGUI::PixelFormat::R8G8B8A8);
 
 		mOutOfDateRtt = true;
 	}
 
-	void RTTLayer::setTextureName(const std::string& _name)
+	void RTTLayer::setTextureName(std::string_view _name)
 	{
 		mTextureName = _name;
 

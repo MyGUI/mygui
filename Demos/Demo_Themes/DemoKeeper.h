@@ -11,11 +11,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
 		void createScene() override;
 		void destroyScene() override;
 
@@ -28,8 +26,8 @@ namespace demo
 		void colourWidgets(MyGUI::Widget* _widget, const MyGUI::Colour& _colour);
 
 	private:
-		MyGUI::Widget* mDemoView;
-		MyGUI::ComboBox* mComboSkins;
+		MyGUI::Widget* mDemoView{nullptr};
+		MyGUI::ComboBox* mComboSkins{nullptr};
 	};
 
 } // namespace demo

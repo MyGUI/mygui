@@ -13,14 +13,11 @@
 namespace demo
 {
 
-	class GraphNodeEventController :
-		public BaseAnimationNode
+	class GraphNodeEventController : public BaseAnimationNode
 	{
 	public:
-		GraphNodeEventController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name),
-			mConnectionOut(nullptr),
-			mButtonEvent(nullptr)
+		GraphNodeEventController(std::string_view _name) :
+			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name)
 		{
 		}
 
@@ -31,7 +28,8 @@ namespace demo
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mButtonEvent, "ButtonEvent");
 
-			mButtonEvent->eventMouseButtonClick += MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
+			mButtonEvent->eventMouseButtonClick +=
+				MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
 		}
 
 		void shutdown() override
@@ -51,9 +49,8 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::Button* mButtonEvent;
-
+		wraps::BaseGraphConnection* mConnectionOut{nullptr};
+		MyGUI::Button* mButtonEvent{nullptr};
 	};
 
 } // namespace demo

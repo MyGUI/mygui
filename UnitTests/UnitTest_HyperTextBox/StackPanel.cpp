@@ -9,16 +9,12 @@
 namespace MyGUI
 {
 
-	StackPanel::StackPanel()
-	{
-	}
-
 	IntSize StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		IntSize result;
 
 		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++ index)
+		for (size_t index = 0; index < count; ++index)
 		{
 			Widget* child = getChildAt(index);
 			Panel::updateMeasure(child, _sizeAvailable);

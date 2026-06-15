@@ -18,21 +18,16 @@ namespace MyGUI
 	/** \brief @wpage{MenuItem}
 		MenuItem widget description should be here.
 	*/
-	class MYGUI_EXPORT MenuItem :
-		public Button,
-		public IItem,
-		public MemberObsolete<MenuItem>
+	class MYGUI_EXPORT MenuItem : public Button, public IItem, public MemberObsolete<MenuItem>
 	{
-		MYGUI_RTTI_DERIVED( MenuItem )
+		MYGUI_RTTI_DERIVED(MenuItem)
 
 	public:
-		MenuItem();
-
 		/** @copydoc TextBox::setCaption(const UString& _value) */
 		void setCaption(const UString& _value) override;
 
-		/** @copydoc TextBox::setFontName(const std::string& _value) */
-		void setFontName(const std::string& _value) override;
+		/** @copydoc TextBox::setFontName(std::string_view _value) */
+		void setFontName(std::string_view _value) override;
 
 		/** @copydoc TextBox::setFontHeight(int _value) */
 		void setFontHeight(int _value) override;
@@ -43,10 +38,10 @@ namespace MyGUI
 		const UString& getItemName() const;
 
 		//! Replace an item name
-		void setItemData(Any _value);
+		void setItemData(Any _data);
 
 		//! Get item data
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemData(bool _throw = true)
 		{
 			return mOwner->getItemData<ValueType>(this, _throw);
@@ -56,7 +51,7 @@ namespace MyGUI
 		void removeItem();
 
 		//! Replace an item id at a specified position
-		void setItemId(const std::string& _value);
+		void setItemId(std::string_view _id);
 		//! Get item id from specified position
 		const std::string& getItemId() const;
 
@@ -67,19 +62,19 @@ namespace MyGUI
 		MenuControl* createItemChild();
 
 		/** Create specific type child item (submenu), MenuItem can have only one child */
-		template <typename Type>
+		template<typename Type>
 		Type* createItemChildT()
 		{
 			return mOwner->createItemChildT<Type>(this);
 		}
 
 		/** Set item type (see MenuItemType) */
-		void setItemType(MenuItemType _value);
+		void setItemType(MenuItemType _type);
 		/** Get item type (see MenuItemType) */
 		MenuItemType getItemType() const;
 
 		/** Hide or show child item (submenu) */
-		void setItemChildVisible(bool _value);
+		void setItemChildVisible(bool _visible);
 
 		/** Get parent MenuControl */
 		MenuControl* getMenuCtrlParent() const;
@@ -98,7 +93,7 @@ namespace MyGUI
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		void onWidgetCreated(Widget* _widget) override;
 
@@ -106,10 +101,10 @@ namespace MyGUI
 		void updateCheck();
 
 	private:
-		MenuControl* mOwner;
-		IntSize mMinSize;
-		Widget* mCheck;
-		bool mCheckValue;
+		MenuControl* mOwner{nullptr};
+		IntSize mMinSize{10, 10};
+		Widget* mCheck{nullptr};
+		bool mCheckValue{false};
 	};
 
 } // namespace MyGUI

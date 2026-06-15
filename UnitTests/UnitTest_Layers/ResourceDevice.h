@@ -14,23 +14,13 @@
 namespace demo
 {
 
-	class ResourceDevice :
-		public MyGUI::IResource,
-		public MyGUI::GenericFactory<ResourceDevice>
+	class ResourceDevice : public MyGUI::IResource, public MyGUI::GenericFactory<ResourceDevice>
 	{
 		friend class MyGUI::GenericFactory<ResourceDevice>;
 
-		MYGUI_RTTI_DERIVED( ResourceDevice )
+		MYGUI_RTTI_DERIVED(ResourceDevice)
 
 	private:
-		ResourceDevice() :
-			mValueEnergy(0),
-			mValueExplosion(0),
-			mValueTarget(0),
-			mValueHP(0)
-		{
-		}
-
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override
 		{
 			Base::deserialization(_node, _version);
@@ -38,12 +28,18 @@ namespace demo
 			MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 			while (node.next())
 			{
-				if (node->getName() == "Name") mDeviceName = node->getContent();
-				else if (node->getName() == "Description") mDeviceDescription = node->getContent();
-				else if (node->getName() == "ValueEnergy") mValueEnergy = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueExplosion") mValueExplosion = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueTarget") mValueTarget = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueHP") mValueHP = MyGUI::utility::parseValue<size_t>(node->getContent());
+				if (node->getName() == "Name")
+					mDeviceName = node->getContent();
+				else if (node->getName() == "Description")
+					mDeviceDescription = node->getContent();
+				else if (node->getName() == "ValueEnergy")
+					mValueEnergy = MyGUI::utility::parseValue<size_t>(node->getContent());
+				else if (node->getName() == "ValueExplosion")
+					mValueExplosion = MyGUI::utility::parseValue<size_t>(node->getContent());
+				else if (node->getName() == "ValueTarget")
+					mValueTarget = MyGUI::utility::parseValue<size_t>(node->getContent());
+				else if (node->getName() == "ValueHP")
+					mValueHP = MyGUI::utility::parseValue<size_t>(node->getContent());
 			}
 		}
 
@@ -56,19 +52,19 @@ namespace demo
 		{
 			return mDeviceDescription;
 		}
-		size_t getValueEnergy()
+		size_t getValueEnergy() const
 		{
 			return mValueEnergy;
 		}
-		size_t getValueExplosion()
+		size_t getValueExplosion() const
 		{
 			return mValueExplosion;
 		}
-		size_t getValueTarget()
+		size_t getValueTarget() const
 		{
 			return mValueTarget;
 		}
-		size_t getValueHP()
+		size_t getValueHP() const
 		{
 			return mValueHP;
 		}
@@ -76,11 +72,10 @@ namespace demo
 	private:
 		std::string mDeviceName;
 		std::string mDeviceDescription;
-		size_t mValueEnergy;
-		size_t mValueExplosion;
-		size_t mValueTarget;
-		size_t mValueHP;
-
+		size_t mValueEnergy{0};
+		size_t mValueExplosion{0};
+		size_t mValueTarget{0};
+		size_t mValueHP{0};
 	};
 
 } // namespace demo

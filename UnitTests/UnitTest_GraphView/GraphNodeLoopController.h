@@ -13,24 +13,15 @@
 namespace demo
 {
 
-	class GraphNodeLoopController :
-		public BaseAnimationNode
+	class GraphNodeLoopController : public BaseAnimationNode
 	{
 	public:
-		GraphNodeLoopController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeLoopController.layout", "LoopController", _name),
-			mStartIn(nullptr),
-			mStopIn(nullptr),
-			mWeightIn(nullptr),
-			mStartOut(nullptr),
-			mStopOut(nullptr),
-			mWeightOut(nullptr),
-			mPositionOut(nullptr),
-			mLength(1)
+		GraphNodeLoopController(std::string_view _name) :
+			BaseAnimationNode("GraphNodeLoopController.layout", "LoopController", _name)
 		{
 		}
 
-		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")
@@ -40,7 +31,7 @@ namespace demo
 			}
 		}
 
-		void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::removeConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")
@@ -88,7 +79,6 @@ namespace demo
 			assignBase(mStopOut, "StopOut");
 			assignBase(mWeightOut, "WeightOut");
 			assignBase(mPositionOut, "PositionOut");
-
 		}
 
 		void shutdown() override
@@ -96,15 +86,15 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection* mStartIn;
-		wraps::BaseGraphConnection* mStopIn;
-		wraps::BaseGraphConnection* mWeightIn;
-		wraps::BaseGraphConnection* mStartOut;
-		wraps::BaseGraphConnection* mStopOut;
-		wraps::BaseGraphConnection* mWeightOut;
-		wraps::BaseGraphConnection* mPositionOut;
+		wraps::BaseGraphConnection* mStartIn{nullptr};
+		wraps::BaseGraphConnection* mStopIn{nullptr};
+		wraps::BaseGraphConnection* mWeightIn{nullptr};
+		wraps::BaseGraphConnection* mStartOut{nullptr};
+		wraps::BaseGraphConnection* mStopOut{nullptr};
+		wraps::BaseGraphConnection* mWeightOut{nullptr};
+		wraps::BaseGraphConnection* mPositionOut{nullptr};
 
-		float mLength;
+		float mLength{1};
 		std::string mStateName;
 	};
 

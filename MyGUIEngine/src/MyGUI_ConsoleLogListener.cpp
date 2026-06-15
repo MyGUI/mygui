@@ -10,12 +10,13 @@
 namespace MyGUI
 {
 
-	ConsoleLogListener::ConsoleLogListener() :
-		mEnabled(true)
-	{
-	}
-
-	void ConsoleLogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
+	void ConsoleLogListener::log(
+		std::string_view /*_section*/,
+		LogLevel /*unused*/,
+		const struct tm* /*unused*/,
+		std::string_view _message,
+		std::string_view /*unused*/,
+		int /*unused*/)
 	{
 		if (mEnabled)
 			std::cout << _message << std::endl;

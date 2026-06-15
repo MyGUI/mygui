@@ -4,13 +4,7 @@
 namespace input
 {
 
-	InputManager::InputManager() :
-		mMouseX(0),
-		mMouseY(0),
-		mMouseZ(0),
-		mMouseMove(false),
-		mWidth(0),
-		mHeight(0)
+	InputManager::InputManager()
 	{
 		// build the virtual key map and mouse button between SDL and MyGUI
 		buildVKeyMap();
@@ -22,8 +16,7 @@ namespace input
 		int sdlKey;
 		MyGUI::KeyCode myguiKey;
 	};
-	static KeyMapItem mapItems[] =
-	{
+	static KeyMapItem mapItems[] = {
 		{0, MyGUI::KeyCode::None},
 		{SDLK_UNKNOWN, MyGUI::KeyCode::None},
 		{SDLK_ESCAPE, MyGUI::KeyCode::Escape},
@@ -158,14 +151,13 @@ namespace input
 		{SDLK_LGUI, MyGUI::KeyCode::LeftWindows},
 		//{, MyGUI::KeyCode::RightWindow},
 		{SDLK_RGUI, MyGUI::KeyCode::RightWindows},
-		{SDLK_APPLICATION, MyGUI::KeyCode::AppMenu}
-	};
+		{SDLK_APPLICATION, MyGUI::KeyCode::AppMenu}};
 
 	void InputManager::buildVKeyMap()
 	{
 		mSDLVKeyMap.clear();
-		for (size_t i = 0; i < sizeof(mapItems) / sizeof(KeyMapItem); ++i)
-			mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(mapItems[i].sdlKey, mapItems[i].myguiKey));
+		for (const auto& mapItem : mapItems)
+			mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(mapItem.sdlKey, mapItem.myguiKey));
 	}
 
 	void InputManager::buildMouseButtonMap()
@@ -184,14 +176,18 @@ namespace input
 		MyGUI::ClipboardManager::getInstance().eventClipboardChanged.clear();
 		MyGUI::ClipboardManager::getInstance().eventClipboardRequested.clear();
 		// Set the cross-platform SDL system clipboard handler
-		MyGUI::ClipboardManager::getInstance().eventClipboardChanged += MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
-		MyGUI::ClipboardManager::getInstance().eventClipboardRequested += MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged +=
+			MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested +=
+			MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
 	}
 
 	void InputManager::destroyInput()
 	{
-		MyGUI::ClipboardManager::getInstance().eventClipboardChanged -= MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
-		MyGUI::ClipboardManager::getInstance().eventClipboardRequested -= MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged -=
+			MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested -=
+			MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
 	}
 
 	void InputManager::updateCursorPosition()
@@ -212,7 +208,7 @@ namespace input
 		}
 	}
 
-	bool InputManager::mouseMoved(const SDL_MouseMotionEvent &evt)
+	bool InputManager::mouseMoved(const SDL_MouseMotionEvent& evt)
 	{
 		mMouseX = evt.x;
 		mMouseY = evt.y;
@@ -220,14 +216,14 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::mousePressed(const SDL_MouseButtonEvent &evt)
+	bool InputManager::mousePressed(const SDL_MouseButtonEvent& evt)
 	{
 		computeMouseMove();
 		injectMousePress(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
 		return true;
 	}
 
-	bool InputManager::mouseReleased(const SDL_MouseButtonEvent &evt )
+	bool InputManager::mouseReleased(const SDL_MouseButtonEvent& evt)
 	{
 		computeMouseMove();
 		injectMouseRelease(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
@@ -236,35 +232,38 @@ namespace input
 
 	bool InputManager::keyPressed(SDL_Keycode key, const SDL_TextInputEvent* evt)
 	{
-		if (mSDLVKeyMap.count(key) == 0) {
+		if (mSDLVKeyMap.count(key) == 0)
+		{
 			return false;
 		}
 		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
-		if (evt == nullptr) {
+		if (evt == nullptr)
+		{
 			injectKeyPress(myGuiKeyCode, 0);
 		}
 		else
 		{
 			MyGUI::UString ustring(evt->text);
 			MyGUI::UString::utf32string utf32string = ustring.asUTF32();
-			for (MyGUI::UString::utf32string::const_iterator it = utf32string.begin(); it != utf32string.end(); ++it)
+			for (unsigned int it : utf32string)
 			{
-				injectKeyPress(myGuiKeyCode, *it);
+				injectKeyPress(myGuiKeyCode, it);
 			}
 		}
 		return true;
 	}
 
-	bool InputManager::keyReleased(const SDL_KeyboardEvent &key)
+	bool InputManager::keyReleased(const SDL_KeyboardEvent& key)
 	{
-		if (mSDLVKeyMap.count(key.keysym.sym) == 0) {
+		if (mSDLVKeyMap.count(key.keysym.sym) == 0)
+		{
 			return false;
 		}
 		injectKeyRelease(mSDLVKeyMap[key.keysym.sym]);
 		return true;
 	}
 
-	bool InputManager::mouseWheelMoved(const SDL_MouseWheelEvent &evt)
+	bool InputManager::mouseWheelMoved(const SDL_MouseWheelEvent& evt)
 	{
 		mMouseZ += evt.y;
 		mMouseMove = true;
@@ -272,8 +271,8 @@ namespace input
 	}
 
 	void InputManager::captureInput()
-    {
-    }
+	{
+	}
 
 	void InputManager::setInputViewSize(int _width, int _height)
 	{
@@ -303,13 +302,13 @@ namespace input
 			mMouseY = mHeight - 1;
 	}
 
-	void InputManager::onClipboardChanged(const std::string &_type, const std::string &_data)
+	void InputManager::onClipboardChanged(std::string_view _type, std::string_view _data)
 	{
 		if (_type == "Text")
 			SDL_SetClipboardText(MyGUI::TextIterator::getOnlyText(MyGUI::UString(_data)).asUTF8().c_str());
 	}
 
-	void InputManager::onClipboardRequested(const std::string &_type, std::string &_data)
+	void InputManager::onClipboardRequested(std::string_view _type, std::string& _data)
 	{
 		if (_type != "Text")
 			return;

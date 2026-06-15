@@ -11,18 +11,12 @@
 namespace tools
 {
 
-	PropertyIntControl::PropertyIntControl() :
-		mName(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	PropertyIntControl::~PropertyIntControl()
 	{
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyIntControl::notifyEditTextChange);
 	}
 
-	void PropertyIntControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyIntControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
@@ -53,7 +47,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 		}
 	}
@@ -76,10 +70,7 @@ namespace tools
 		MyGUI::UString value = mEdit->getOnlyText();
 
 		int value1 = 0;
-		if (!MyGUI::utility::parseComplex(value, value1))
-			return false;
-
-		return true;
+		return MyGUI::utility::parseComplex(value, value1);
 	}
 
 	MyGUI::UString PropertyIntControl::getClearValue()
@@ -90,7 +81,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, value1))
 			return MyGUI::utility::toString(value1);
 
-		return "";
+		return {};
 	}
 
 	void PropertyIntControl::setColour(bool _validate)

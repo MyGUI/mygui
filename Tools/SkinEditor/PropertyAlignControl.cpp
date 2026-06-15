@@ -13,18 +13,13 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyAlignControl)
 
-	PropertyAlignControl::PropertyAlignControl() :
-		mName(nullptr),
-		mComboBox(nullptr)
-	{
-	}
-
 	PropertyAlignControl::~PropertyAlignControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -=
+			MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 
-	void PropertyAlignControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyAlignControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
@@ -55,7 +50,8 @@ namespace tools
 		mComboBox->addItem("HCenter VCenter");
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 
 	void PropertyAlignControl::updateCaption()
@@ -86,7 +82,9 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			std::string_view value;
+			if (_index != MyGUI::ITEM_NONE)
+				value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

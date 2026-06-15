@@ -16,11 +16,7 @@
 namespace MyGUI
 {
 
-	ResourceLayout::ResourceLayout()
-	{
-	}
-
-	ResourceLayout::ResourceLayout(xml::ElementPtr _node, const std::string& _fileName)
+	ResourceLayout::ResourceLayout(xml::ElementPtr _node, std::string_view _fileName)
 	{
 		// FIXME hardcoded version
 		deserialization(_node, Version(1, 0, 0));
@@ -48,13 +44,14 @@ namespace MyGUI
 		_widget->findAttribute("skin", widgetInfo.skin);
 		_widget->findAttribute("layer", widgetInfo.layer);
 
-		if (_widget->findAttribute("align", tmp)) widgetInfo.align = Align::parse(tmp);
+		if (_widget->findAttribute("align", tmp))
+			widgetInfo.align = Align::parse(tmp);
 
 		_widget->findAttribute("name", widgetInfo.name);
 
-		if (_widget->findAttribute("style", tmp)) widgetInfo.style = WidgetStyle::parse(tmp);
+		if (_widget->findAttribute("style", tmp))
+			widgetInfo.style = WidgetStyle::parse(tmp);
 
-		IntCoord coord;
 		if (_widget->findAttribute("position", tmp))
 		{
 			widgetInfo.intCoord = IntCoord::parse(tmp);
@@ -76,11 +73,13 @@ namespace MyGUI
 			}
 			else if (node->getName() == "Property")
 			{
-				widgetInfo.properties.push_back(PairString(node->findAttribute("key"), node->findAttribute("value")));
+				widgetInfo.properties.emplace_back(node->findAttribute("key"), node->findAttribute("value"));
 			}
 			else if (node->getName() == "UserString")
 			{
-				widgetInfo.userStrings[node->findAttribute("key")] = node->findAttribute("value");
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
+				mapSet(widgetInfo.userStrings, key, value);
 			}
 			else if (node->getName() == "Controller")
 			{
@@ -89,7 +88,11 @@ namespace MyGUI
 
 				xml::ElementEnumerator prop = node->getElementEnumerator();
 				while (prop.next("Property"))
-					controllerInfo.properties[prop->findAttribute("key")] = prop->findAttribute("value");
+				{
+					std::string_view key = prop->findAttribute("key");
+					std::string_view value = prop->findAttribute("value");
+					mapSet(controllerInfo.properties, key, value);
+				}
 
 				widgetInfo.controllers.push_back(controllerInfo);
 			}
@@ -98,82 +101,118 @@ namespace MyGUI
 		return widgetInfo;
 	}
 
-	VectorWidgetPtr ResourceLayout::createLayout(const std::string& _prefix, Widget* _parent)
+	VectorWidgetPtr ResourceLayout::createLayout(std::string_view _prefix, Widget* _parent)
 	{
 		VectorWidgetPtr widgets;
 
-		for (VectorWidgetInfo::iterator iter = mLayoutData.begin(); iter != mLayoutData.end(); ++iter)
+		for (auto& iter : mLayoutData)
 		{
-			Widget* widget = createWidget(*iter, _prefix, _parent);
+			Widget* widget = createWidget(iter, _prefix, _parent);
 			widgets.push_back(widget);
 		}
 
 		return widgets;
 	}
 
-	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, const std::string& _prefix, Widget* _parent, bool _template)
+	Widget* ResourceLayout::createWidget(
+		const WidgetInfo& _widgetInfo,
+		std::string_view _prefix,
+		Widget* _parent,
+		bool _template)
 	{
-		std::string widgetName = _widgetInfo.name;
+		std::string widgetName;
 		WidgetStyle style = _widgetInfo.style;
-		std::string widgetLayer = _widgetInfo.layer;
+		std::string_view widgetLayer = _widgetInfo.layer;
 
-		if (!widgetName.empty()) widgetName = _prefix + widgetName;
+		if (!_widgetInfo.name.empty())
+		{
+			widgetName = _prefix;
+			widgetName += _widgetInfo.name;
+		}
 
-		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
+		if (_parent != nullptr && style != WidgetStyle::Popup)
+			widgetLayer = {};
 		if (_parent == nullptr && widgetLayer.empty())
 		{
-			MYGUI_LOG(Warning, "Root widget's layer is not specified, widget won't be visible. Specify layer or parent or attach it to another widget after load." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(
+				Warning,
+				"Root widget's layer is not specified, widget won't be visible. Specify layer or parent or attach it "
+				"to another widget after load."
+					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
 
 		IntCoord coord;
-		if (_widgetInfo.positionType == WidgetInfo::Pixels) coord = _widgetInfo.intCoord;
+		if (_widgetInfo.positionType == WidgetInfo::Pixels)
+			coord = _widgetInfo.intCoord;
 		else if (_widgetInfo.positionType == WidgetInfo::Relative)
 		{
 			if (_parent == nullptr || style == WidgetStyle::Popup)
-				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, RenderManager::getInstance().getViewSize());
+				coord = CoordConverter::convertFromRelative(
+					_widgetInfo.floatCoord,
+					RenderManager::getInstance().getViewSize());
 			else
 				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, _parent->getClientCoord().size());
 		}
 
 		Widget* wid;
 		if (nullptr == _parent)
-			wid = Gui::getInstance().createWidgetT(_widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+			wid = Gui::getInstance().createWidgetT(
+				_widgetInfo.type,
+				_widgetInfo.skin,
+				coord,
+				_widgetInfo.align,
+				widgetLayer,
+				widgetName);
 		else if (_template)
-			wid = _parent->_createSkinWidget(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+			wid = _parent->_createSkinWidget(
+				style,
+				_widgetInfo.type,
+				_widgetInfo.skin,
+				coord,
+				_widgetInfo.align,
+				widgetLayer,
+				widgetName);
 		else
-			wid = _parent->createWidgetT(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+			wid = _parent->createWidgetT(
+				style,
+				_widgetInfo.type,
+				_widgetInfo.skin,
+				coord,
+				_widgetInfo.align,
+				widgetLayer,
+				widgetName);
 
-		for (VectorStringPairs::const_iterator iter = _widgetInfo.properties.begin(); iter != _widgetInfo.properties.end(); ++iter)
+		for (const auto& property : _widgetInfo.properties)
 		{
-			wid->setProperty(iter->first, iter->second);
+			wid->setProperty(property.first, property.second);
 		}
 
-		for (MapString::const_iterator iter = _widgetInfo.userStrings.begin(); iter != _widgetInfo.userStrings.end(); ++iter)
+		for (const auto& userString : _widgetInfo.userStrings)
 		{
-			wid->setUserString(iter->first, iter->second);
+			wid->setUserString(userString.first, userString.second);
 			if (!_template)
-				LayoutManager::getInstance().eventAddUserString(wid, iter->first, iter->second);
+				LayoutManager::getInstance().eventAddUserString(wid, userString.first, userString.second);
 		}
 
-		for (VectorWidgetInfo::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
+		for (const auto& iter : _widgetInfo.childWidgetsInfo)
 		{
-			createWidget(*iter, _prefix, wid);
+			createWidget(iter, _prefix, wid);
 		}
 
-		for (std::vector<ControllerInfo>::const_iterator iter = _widgetInfo.controllers.begin(); iter != _widgetInfo.controllers.end(); ++iter)
+		for (const auto& iter : _widgetInfo.controllers)
 		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(iter->type);
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(iter.type);
 			if (item)
 			{
-				for (MapString::const_iterator iterProp = iter->properties.begin(); iterProp != iter->properties.end(); ++iterProp)
+				for (const auto& property : iter.properties)
 				{
-					item->setProperty(iterProp->first, iterProp->second);
+					item->setProperty(property.first, property.second);
 				}
 				MyGUI::ControllerManager::getInstance().addItem(wid, item);
 			}
 			else
 			{
-				MYGUI_LOG(Warning, "Controller '" << iter->type << "' not found");
+				MYGUI_LOG(Warning, "Controller '" << iter.type << "' not found");
 			}
 		}
 

@@ -14,11 +14,10 @@
 namespace tools
 {
 
-	class Application :
-		public base::BaseManager,
-		public sigslot::has_slots<>
+	class Application : public base::BaseManager, public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(Application);
+
 	public:
 		Application();
 		~Application() override;
@@ -30,7 +29,7 @@ namespace tools
 		bool onWindowClose(size_t _handle) override;
 		void prepare() override;
 
-		typedef std::vector<std::wstring> VectorWString;
+		using VectorWString = std::vector<std::wstring>;
 		const VectorWString& getParams();
 
 	protected:
@@ -54,7 +53,7 @@ namespace tools
 	private:
 		std::string mLocale;
 		VectorWString mParams;
-		typedef std::vector<Control*> VectorControl;
+		using VectorControl = std::vector<Control*>;
 		VectorControl mControls;
 	};
 

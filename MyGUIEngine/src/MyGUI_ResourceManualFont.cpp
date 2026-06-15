@@ -13,13 +13,6 @@
 namespace MyGUI
 {
 
-	ResourceManualFont::ResourceManualFont() :
-		mDefaultHeight(0),
-		mSubstituteGlyphInfo(nullptr),
-		mTexture(nullptr)
-	{
-	}
-
 	const GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id) const
 	{
 		CharMap::const_iterator iter = mCharMap.find(_id);
@@ -54,11 +47,14 @@ namespace MyGUI
 		{
 			if (node->getName() == "Property")
 			{
-				const std::string& key = node->findAttribute("key");
-				const std::string& value = node->findAttribute("value");
-				if (key == "Source") mSource = value;
-				else if (key == "DefaultHeight") mDefaultHeight = utility::parseInt(value);
-				else if (key == "Shader") mShader = value;
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
+				if (key == "Source")
+					mSource = value;
+				else if (key == "DefaultHeight")
+					mDefaultHeight = utility::parseInt(value);
+				else if (key == "Shader")
+					mShader = value;
 			}
 		}
 
@@ -95,7 +91,6 @@ namespace MyGUI
 							else
 								id = utility::parseUInt(value);
 
-							float advance(utility::parseValue<float>(element->findAttribute("advance")));
 							FloatPoint bearing(utility::parseValue<FloatPoint>(element->findAttribute("bearing")));
 
 							// texture coordinates
@@ -109,25 +104,28 @@ namespace MyGUI
 								size = utility::parseValue<FloatSize>(sizeString);
 							}
 
-							if (advance == 0.0f)
-								advance = size.width;
+							auto advanceAttribute = element->findAttribute("advance");
+							float advance = size.width;
+							if (!advanceAttribute.empty())
+								advance = utility::parseValue<float>(advanceAttribute);
 
-							GlyphInfo& glyphInfo = mCharMap.insert(CharMap::value_type(id, GlyphInfo(
+							mCharMap.emplace(
 								id,
-								size.width,
-								size.height,
-								advance,
-								bearing.left,
-								bearing.top,
-								FloatRect(
-									coord.left / textureWidth,
-									coord.top / textureHeight,
-									coord.right() / textureWidth,
-									coord.bottom() / textureHeight)
-								))).first->second;
+								GlyphInfo{
+									id,
+									size.width,
+									size.height,
+									advance,
+									bearing.left,
+									bearing.top,
+									FloatRect{
+										coord.left / textureWidth,
+										coord.top / textureHeight,
+										coord.right() / textureWidth,
+										coord.bottom() / textureHeight}});
 
 							if (id == FontCodeType::NotDefined)
-								mSubstituteGlyphInfo = &glyphInfo;
+								mSubstituteGlyphInfo = &mCharMap.at(FontCodeType::NotDefined);
 						}
 					}
 				}
@@ -145,21 +143,21 @@ namespace MyGUI
 		return mDefaultHeight;
 	}
 
-	void ResourceManualFont::setSource(const std::string& value)
+	void ResourceManualFont::setSource(std::string_view value)
 	{
 		mTexture = nullptr;
 		mSource = value;
 		loadTexture();
 	}
 
-	void ResourceManualFont::setShader(const std::string& value)
+	void ResourceManualFont::setShader(std::string_view value)
 	{
 		mShader = value;
 		if (mTexture != nullptr)
 			mTexture->setShader(mShader);
 	}
 
-	void ResourceManualFont::setTexture(ITexture *texture)
+	void ResourceManualFont::setTexture(ITexture* texture)
 	{
 		mTexture = texture;
 		mSource.clear();

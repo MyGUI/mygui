@@ -16,18 +16,15 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SkinItem :
-		public LayerItem
+	class MYGUI_EXPORT SkinItem : public LayerItem
 	{
 	public:
-		SkinItem();
-
 		/** Get text sub widget or nullptr if no text sub widget */
 		ISubWidgetText* getSubWidgetText() const;
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
 		ISubWidgetRect* getSubWidgetMain() const;
 
-		void _setTextureName(const std::string& _texture);
+		void _setTextureName(std::string_view _texture);
 		const std::string& _getTextureName() const;
 
 	protected:
@@ -41,23 +38,23 @@ namespace MyGUI
 		void _correctSkinItemView();
 		void _updateSkinItemView();
 
-		bool _setSkinItemState(const std::string& _state);
+		bool _setSkinItemState(std::string_view _state);
 		void _setSubSkinVisible(bool _visible);
 
 	private:
 		// вектор всех детей сабскинов
 		VectorSubWidget mSubSkinChild;
 		// указатель на окно текста
-		ISubWidgetText* mText;
+		ISubWidgetText* mText{nullptr};
 		// указатель на первый не текстовой сабскин
-		ISubWidgetRect* mMainSkin;
+		ISubWidgetRect* mMainSkin{nullptr};
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
 
 		std::string mTextureName;
-		ITexture* mTexture;
+		ITexture* mTexture{nullptr};
 
-		bool mSubSkinsVisible;
+		bool mSubSkinsVisible{true};
 	};
 
 } // namespace MyGUI

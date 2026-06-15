@@ -16,17 +16,13 @@ namespace MyGUI
 	/** \brief @wpage{Button}
 		Button widget description should be here.
 	*/
-	class MYGUI_EXPORT Button :
-		public TextBox,
-		public MemberObsolete<Button>
+	class MYGUI_EXPORT Button : public TextBox, public MemberObsolete<Button>
 	{
-		MYGUI_RTTI_DERIVED( Button )
+		MYGUI_RTTI_DERIVED(Button)
 
 	public:
-		Button();
-
 		//! Set button selected state
-		void setStateSelected(bool _value);
+		void setStateSelected(bool _check);
 		//! Get buton selected
 		bool getStateSelected() const;
 
@@ -38,11 +34,11 @@ namespace MyGUI
 		/** Get Image mode flag */
 		bool getModeImage() const;
 
-		void setImageResource(const std::string& _name);
+		void setImageResource(std::string_view _name);
 
-		void setImageGroup(const std::string& _name);
+		void setImageGroup(std::string_view _name);
 
-		void setImageName(const std::string& _name);
+		void setImageName(std::string_view _name);
 
 		/*internal:*/
 		void _setKeyFocus(bool _focus);
@@ -63,22 +59,22 @@ namespace MyGUI
 
 		void baseUpdateEnable() override;
 
-		bool _setState(const std::string& _value);
+		bool _setState(std::string_view _value);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void updateButtonState();
 
 	private:
-		bool mIsMousePressed;
-		bool mIsKeyFocus;
-		bool mIsMouseFocus;
+		bool mIsMousePressed{false};
+		bool mIsKeyFocus{false};
+		bool mIsMouseFocus{false};
 		// is fixed in pressed position
-		bool mStateSelected;
+		bool mStateSelected{false};
 
-		ImageBox* mImage;
-		bool mModeImage;
+		ImageBox* mImage{nullptr};
+		bool mModeImage{false};
 	};
 
 } // namespace MyGUI

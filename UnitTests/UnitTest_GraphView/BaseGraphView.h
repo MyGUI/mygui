@@ -14,21 +14,14 @@
 namespace wraps
 {
 
-	class BaseGraphView :
-		public BaseLayout,
-		public IGraphController
+	class BaseGraphView : public BaseLayout, public IGraphController
 	{
 	public:
-		typedef std::vector<BaseGraphNode*> VectorGraphNode;
-		typedef MyGUI::Enumerator<VectorGraphNode> EnumeratorNode;
+		using VectorGraphNode = std::vector<BaseGraphNode*>;
+		using EnumeratorNode = MyGUI::Enumerator<VectorGraphNode>;
 
-		BaseGraphView(const std::string& _layout, MyGUI::Widget* _parent) :
-			BaseLayout(_layout, _parent),
-			mCanvas(nullptr),
-			mIsDrug(false),
-			mConnectionStart(nullptr),
-			mInvalidate(false),
-			mCurrentIndexConnection(0)
+		BaseGraphView(std::string_view _layout, MyGUI::Widget* _parent) :
+			BaseLayout(_layout, _parent)
 		{
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
 		}
@@ -70,11 +63,11 @@ namespace wraps
 
 		void removeAllItems()
 		{
-			for (VectorGraphNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
+			for (auto& mNode : mNodes)
 			{
-				removeAllConnections((*item));
-				(*item)->_shutdown();
-				(*item) = nullptr;
+				removeAllConnections(mNode);
+				mNode->_shutdown();
+				mNode = nullptr;
 			}
 			mNodes.clear();
 
@@ -104,7 +97,7 @@ namespace wraps
 			return mCanvas;
 		}
 
-	/*event:*/
+		/*event:*/
 		/** Request : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
 			@param _sender
@@ -112,7 +105,8 @@ namespace wraps
 			@param _to
 			@param _result
 		*/
-		MyGUI::delegates::CDelegate4<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestConnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&>
+			requestConnectPoint;
 
 		/** Request : Disconnection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
@@ -121,7 +115,8 @@ namespace wraps
 			@param _to
 			@param _result
 		*/
-		MyGUI::delegates::CDelegate4<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestDisconnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&>
+			requestDisconnectPoint;
 
 		/** Event : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -129,7 +124,7 @@ namespace wraps
 			@param _from
 			@param _to
 		*/
-		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventConnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventConnectPoint;
 
 		/** Event : Disconnection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -137,21 +132,21 @@ namespace wraps
 			@param _from
 			@param _to
 		*/
-		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventDisconnectPoint;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventDisconnectPoint;
 
 		/** Event : Change size.\n
 			signature : void method(wraps::BaseGraphView* _sender, MyGUI::IntSize _size)
 			@param _sender
 			@param _size
 		*/
-		MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
+		MyGUI::delegates::Delegate<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
 
 		/** Event : Node closed.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
 			@param _sender
 			@param _id
 		*/
-		MyGUI::delegates::CDelegate2<BaseGraphView*, BaseGraphNode*> eventNodeClosed;
+		MyGUI::delegates::Delegate<BaseGraphView*, BaseGraphNode*> eventNodeClosed;
 
 	protected:
 		void setCanvasWidget(const std::string& _widgetName)
@@ -200,7 +195,7 @@ namespace wraps
 
 		void startDrag(BaseGraphConnection* _connection) override
 		{
-			if ( ! mIsDrug )
+			if (!mIsDrug)
 			{
 				bool result = false;
 				requestConnectPoint(this, _connection, nullptr, result);
@@ -217,8 +212,7 @@ namespace wraps
 					mDrugLine.end_offset.clear();
 					mDrugLine.point_start.set(
 						coord.left + (coord.width / 2) - mCanvas->getAbsoluteLeft(),
-						coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop()
-					);
+						coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop());
 					mDrugLine.point_end = mDrugLine.point_start;
 
 					mConnectionStart = _connection;
@@ -279,8 +273,7 @@ namespace wraps
 						mDrugLine.end_offset.clear();
 						mDrugLine.point_start.set(
 							coord.left + (coord.width / 2) - mCanvas->getAbsoluteLeft(),
-							coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop()
-						);
+							coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop());
 						mDrugLine.point_end = mDrugLine.point_start;
 
 						mConnectionStart = drag_node;
@@ -289,7 +282,6 @@ namespace wraps
 
 						updateDrag(nullptr);
 					}
-
 				}
 			}
 		}
@@ -322,25 +314,33 @@ namespace wraps
 				mDrugLine.point_end.set(mouse.left - mCanvas->getAbsoluteLeft(), mouse.top - mCanvas->getAbsoluteTop());
 
 				// устанавлваем длинну загиба от дистанции
-				double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) * (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
-					((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
+				double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) *
+								   (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
+					((mDrugLine.point_end.top - mDrugLine.point_start.top) *
+					 (mDrugLine.point_end.top - mDrugLine.point_start.top));
 				distance = std::sqrt(distance);
 
 				mDrugLine.start_offset = _connection->getOffset();
 
 				const int offset = 30;
 				distance *= 0.5;
-				if (distance < 1) distance = 1;
-				else if (distance > offset) distance = offset;
+				if (distance < 1)
+					distance = 1;
+				else if (distance > offset)
+					distance = offset;
 				if (mDrugLine.start_offset.height != 0)
 				{
-					if (mDrugLine.start_offset.height < 0) mDrugLine.start_offset.height = -(int)distance;
-					else  mDrugLine.start_offset.height = (int)distance;
+					if (mDrugLine.start_offset.height < 0)
+						mDrugLine.start_offset.height = -(int)distance;
+					else
+						mDrugLine.start_offset.height = (int)distance;
 				}
 				if (mDrugLine.start_offset.width != 0)
 				{
-					if (mDrugLine.start_offset.width < 0) mDrugLine.start_offset.width = -(int)distance;
-					else  mDrugLine.start_offset.width = (int)distance;
+					if (mDrugLine.start_offset.width < 0)
+						mDrugLine.start_offset.width = -(int)distance;
+					else
+						mDrugLine.start_offset.width = (int)distance;
 				}
 
 				// пикаем виджет под нами
@@ -387,9 +387,9 @@ namespace wraps
 			clearCanvas();
 
 			// проходим по всем нодам и перерисовываем связи
-			for (size_t index = 0; index < mNodes.size(); ++index)
+			for (auto& mNode : mNodes)
 			{
-				EnumeratorConnection node_point = mNodes[index]->getConnectionEnumerator();
+				EnumeratorConnection node_point = mNode->getConnectionEnumerator();
 				while (node_point.next())
 				{
 					const MyGUI::IntCoord& coord_from = node_point->getAbsoluteCoord();
@@ -399,8 +399,10 @@ namespace wraps
 						const MyGUI::IntCoord& coord_to = connect_point->getAbsoluteCoord();
 
 						ConnectionInfo info(
-							coord_from.point() - mCanvas->getAbsolutePosition() + MyGUI::IntPoint(coord_from.width / 2, coord_from.height / 2),
-							coord_to.point() - mCanvas->getAbsolutePosition() + MyGUI::IntPoint(coord_to.width / 2, coord_to.height / 2),
+							coord_from.point() - mCanvas->getAbsolutePosition() +
+								MyGUI::IntPoint(coord_from.width / 2, coord_from.height / 2),
+							coord_to.point() - mCanvas->getAbsolutePosition() +
+								MyGUI::IntPoint(coord_to.width / 2, coord_to.height / 2),
 							MyGUI::Colour::White,
 							node_point->getOffset(),
 							connect_point->getOffset());
@@ -451,8 +453,8 @@ namespace wraps
 
 		void clearCanvas()
 		{
-			for (MyGUI::VectorWidgetPtr::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
-				(*item)->setVisible(false);
+			for (auto& mConnection : mConnections)
+				mConnection->setVisible(false);
 			mCurrentIndexConnection = 0;
 		}
 
@@ -466,7 +468,8 @@ namespace wraps
 			}
 			else
 			{
-				result = mCanvas->createWidget<MyGUI::Widget>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
+				result =
+					mCanvas->createWidget<MyGUI::Widget>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
 				result->setNeedMouseFocus(false);
 				mConnections.push_back(result);
 			}
@@ -488,22 +491,26 @@ namespace wraps
 
 			const size_t PointsNumber = 16;
 			std::vector<MyGUI::FloatPoint> basePoints;
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_start.left, (float)_info.point_start.top + _offset));
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_start.left + _info.start_offset.width, (float)_info.point_start.top + _info.start_offset.height + _offset));
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_end.left + _info.end_offset.width, (float)_info.point_end.top + _info.end_offset.height + _offset));
-			basePoints.push_back(
-				MyGUI::FloatPoint((float)_info.point_end.left, (float)_info.point_end.top + _offset));
+			basePoints.emplace_back((float)_info.point_start.left, (float)_info.point_start.top + _offset);
+			basePoints.emplace_back(
+				(float)_info.point_start.left + _info.start_offset.width,
+				(float)_info.point_start.top + _info.start_offset.height + _offset);
+			basePoints.emplace_back(
+				(float)_info.point_end.left + _info.end_offset.width,
+				(float)_info.point_end.top + _info.end_offset.height + _offset);
+			basePoints.emplace_back((float)_info.point_end.left, (float)_info.point_end.top + _offset);
 			std::vector<MyGUI::FloatPoint> splinePoints;
 			splinePoints.reserve(PointsNumber);
 			for (size_t i = 0; i < PointsNumber; ++i)
 			{
 				float t = float(i) / (PointsNumber - 1);
-				float left = basePoints[0].left * std::pow(1 - t, 3.0f) + 3 * basePoints[1].left * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].left * (1 - t) * t * t + t * t * t * basePoints[3].left;
-				float top = basePoints[0].top * std::pow(1 - t, 3.0f) + 3 * basePoints[1].top * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].top * (1 - t) * t * t + t * t * t * basePoints[3].top;
-				splinePoints.push_back(MyGUI::FloatPoint(left, top));
+				float left = basePoints[0].left * std::pow(1 - t, 3.0f) +
+					3 * basePoints[1].left * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].left * (1 - t) * t * t +
+					t * t * t * basePoints[3].left;
+				float top = basePoints[0].top * std::pow(1 - t, 3.0f) +
+					3 * basePoints[1].top * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].top * (1 - t) * t * t +
+					t * t * t * basePoints[3].top;
+				splinePoints.emplace_back(left, top);
 			}
 			polygonalSkin->setPoints(splinePoints);
 		}
@@ -517,11 +524,13 @@ namespace wraps
 		MyGUI::IntSize getViewSize()
 		{
 			MyGUI::IntSize result;
-			for (size_t index = 0; index < mNodes.size(); ++index)
+			for (auto& mNode : mNodes)
 			{
-				const MyGUI::IntCoord& coord = mNodes[index]->getCoord();
-				if (coord.right() > result.width) result.width = coord.right();
-				if (coord.bottom() > result.height) result.height = coord.bottom();
+				const MyGUI::IntCoord& coord = mNode->getCoord();
+				if (coord.right() > result.width)
+					result.width = coord.right();
+				if (coord.bottom() > result.height)
+					result.height = coord.bottom();
 			}
 
 			// для соединений справа
@@ -534,13 +543,13 @@ namespace wraps
 	private:
 		VectorGraphNode mNodes;
 
-		MyGUI::Widget* mCanvas;
-		bool mIsDrug;
+		MyGUI::Widget* mCanvas{nullptr};
+		bool mIsDrug{false};
 		ConnectionInfo mDrugLine;
-		BaseGraphConnection* mConnectionStart;
-		bool mInvalidate;
+		BaseGraphConnection* mConnectionStart{nullptr};
+		bool mInvalidate{false};
 		MyGUI::VectorWidgetPtr mConnections;
-		size_t mCurrentIndexConnection;
+		size_t mCurrentIndexConnection{0};
 	};
 
 } // namespace wraps

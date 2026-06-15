@@ -62,7 +62,7 @@ namespace Export
 	MYGUIEXPORT void MYGUICALL ExportGui_WrapWidget(MyGUI::Widget* _widget )
 	{
 		//_widget->setUserData(_wrapper);
-		_widget->setUserString("Internal__HasManagedParent", "");
+		_widget->setUserString("Internal__HasManagedParent", std::string_view{});
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_UnwrapWidget( MyGUI::Widget* _widget )

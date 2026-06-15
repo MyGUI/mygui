@@ -20,13 +20,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FontTextureController)
 
-	FontTextureController::FontTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void FontTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
@@ -40,7 +33,9 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.connect(this, &FontTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
 
-		CommandManager::getInstance().getEvent("Command_GenerateFont")->connect(this, &FontTextureController::commandGenerateFont);
+		CommandManager::getInstance()
+			.getEvent("Command_GenerateFont")
+			->connect(this, &FontTextureController::commandGenerateFont);
 	}
 
 	void FontTextureController::deactivate()
@@ -55,7 +50,7 @@ namespace tools
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
-		std::string texture;
+		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Font", "FontName");
 		if (property != nullptr)
 		{
@@ -65,19 +60,19 @@ namespace tools
 		updateTexture(texture);
 	}
 
-//	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
-//	{
-//		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
-//			return;
-//
-//		if (_sender->getOwner()->getType()->getName() == "Font")
-//		{
-//			if (_sender->getType()->getName() == "FontName")
-//				updateTexture(_sender->getValue());
-//		}
-//	}
+	//	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
+	//	{
+	//		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
+	//			return;
+	//
+	//		if (_sender->getOwner()->getType()->getName() == "Font")
+	//		{
+	//			if (_sender->getType()->getName() == "FontName")
+	//				updateTexture(_sender->getValue());
+	//		}
+	//	}
 
-	void FontTextureController::notifyChangeScope(const std::string& _scope)
+	void FontTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -88,7 +83,9 @@ namespace tools
 			{
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FontTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &FontTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -105,10 +102,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -119,13 +116,16 @@ namespace tools
 		}
 	}
 
-	void FontTextureController::updateTexture(const std::string& _value)
+	void FontTextureController::updateTexture(std::string_view _value)
 	{
 		MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().findByName(_value);
-		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
-		
+		MyGUI::ResourceTrueTypeFont* font =
+			resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
+
 		MyGUI::ITexture* texture = font != nullptr ? font->getTextureFont() : nullptr;
-		std::string value = texture != nullptr ? texture->getName() : "";
+		MyGUI::UString value;
+		if (texture != nullptr)
+			value = texture->getName();
 
 		mControl->setTextureValue(value);
 		mControl->resetTextureRegion();
@@ -149,12 +149,16 @@ namespace tools
 
 	void FontTextureController::updateResultPropery(DataPtr _data)
 	{
-		MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().findByName(_data->getPropertyValue("FontName"));
-		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
+		MyGUI::IResource* resource =
+			MyGUI::ResourceManager::getInstance().findByName(_data->getPropertyValue("FontName"));
+		MyGUI::ResourceTrueTypeFont* font =
+			resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
 		MyGUI::ITexture* texture = font != nullptr ? font->getTextureFont() : nullptr;
 
 		if (texture != nullptr)
-			_data->setPropertyValue("TextureSizeResult", MyGUI::utility::toString(texture->getWidth(), " ", texture->getHeight()));
+			_data->setPropertyValue(
+				"TextureSizeResult",
+				MyGUI::utility::toString(texture->getWidth(), " ", texture->getHeight()));
 		else
 			_data->setPropertyValue("TextureSizeResult", "0 0");
 

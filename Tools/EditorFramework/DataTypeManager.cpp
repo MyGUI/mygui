@@ -6,6 +6,8 @@
 
 #include "Precompiled.h"
 #include "DataTypeManager.h"
+
+#include <memory>
 #include "pugixml.hpp"
 #include "MyGUI_DataManager.h"
 
@@ -51,10 +53,10 @@ namespace tools
 		if (result)
 		{
 			pugi::xpath_node_set nodes = doc.select_nodes("Document/DataTypes/DataType");
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
+			for (const auto& node : nodes)
 			{
-				DataTypePtr data = DataTypePtr(new DataType());
-				data->deserialization((*node).node());
+				DataTypePtr data = std::make_shared<DataType>();
+				data->deserialization(node.node());
 				mDataInfos.push_back(data);
 			}
 		}
@@ -65,23 +67,23 @@ namespace tools
 		mDataInfos.clear();
 	}
 
-	DataTypePtr DataTypeManager::getType(const std::string& _type)
+	DataTypePtr DataTypeManager::getType(std::string_view _type)
 	{
-		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
+		for (const auto& dataInfo : mDataInfos)
 		{
-			if ((*data)->getName() == _type)
-				return *data;
+			if (dataInfo->getName() == _type)
+				return dataInfo;
 		}
 
 		return nullptr;
 	}
 
-	DataTypePtr DataTypeManager::getParentType(const std::string& _type)
+	DataTypePtr DataTypeManager::getParentType(std::string_view _type)
 	{
-		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
+		for (const auto& dataInfo : mDataInfos)
 		{
-			if ((*data)->isChild(_type))
-				return *data;
+			if (dataInfo->isChild(_type))
+				return dataInfo;
 		}
 
 		return nullptr;

@@ -13,16 +13,13 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL FocusInfoControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL FocusInfoControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		FocusInfoControl();
 		~FocusInfoControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void Command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
@@ -31,8 +28,8 @@ namespace tools
 		void updateFocusWidgetHelpers();
 
 	private:
-		MyGUI::Widget* mMouseView;
-		MyGUI::Widget* mKeyView;
+		MyGUI::Widget* mMouseView{nullptr};
+		MyGUI::Widget* mKeyView{nullptr};
 		MyGUI::IntCoord mKeyCoord;
 		MyGUI::IntCoord mMouseCoord;
 	};

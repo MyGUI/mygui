@@ -16,14 +16,11 @@ namespace MyGUI
 	/** \brief @wpage{TextBox}
 		TextBox widget description should be here.
 	*/
-	class MYGUI_EXPORT TextBox :
-		public Widget
+	class MYGUI_EXPORT TextBox : public Widget
 	{
-		MYGUI_RTTI_DERIVED( TextBox )
+		MYGUI_RTTI_DERIVED(TextBox)
 
 	public:
-		TextBox();
-
 		/** Get text region coordinate */
 		virtual IntCoord getTextRegion() const;
 
@@ -31,17 +28,17 @@ namespace MyGUI
 		virtual IntSize getTextSize() const;
 
 		/** Set widget caption */
-		virtual void setCaption(const UString& _value);
+		virtual void setCaption(const UString& _caption);
 		/** Get widget caption */
 		virtual const UString& getCaption() const;
 
 		/** Set widget text font */
-		virtual void setFontName(const std::string& _value);
+		virtual void setFontName(std::string_view _value);
 		/** Get widget text font name */
-		const std::string& getFontName() const;
+		std::string_view getFontName() const;
 
-		/** Set widget text font height */
-		virtual void setFontHeight(int _value);
+		/** Set widget text font height. If set to 0 then default height from selected font is used */
+		virtual void setFontHeight(int _height);
 		/** Get widget text font height */
 		virtual int getFontHeight() const;
 
@@ -60,7 +57,7 @@ namespace MyGUI
 			"#{Keyword}" replaced with string from LanguageManager or
 			left as it is if kayword wasn't found.
 		*/
-		void setCaptionWithReplacing(const std::string& _value);
+		void setCaptionWithReplacing(std::string_view _value);
 
 		/** Set widget text shadow colour */
 		virtual void setTextShadowColour(const Colour& _value);
@@ -73,7 +70,7 @@ namespace MyGUI
 		bool getTextShadow() const;
 
 	protected:
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 	};
 
 } // namespace MyGUI

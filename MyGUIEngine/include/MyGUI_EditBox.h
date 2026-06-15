@@ -17,17 +17,14 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate1<EditBox*> EventHandle_EditPtr;
+	using EventHandle_EditPtr = delegates::MultiDelegate<EditBox*>;
 
 	/** \brief @wpage{EditBox}
 		EditBox widget description should be here.
 	*/
-	class MYGUI_EXPORT EditBox :
-		public TextBox,
-		public ScrollViewBase,
-		public MemberObsolete<EditBox>
+	class MYGUI_EXPORT EditBox : public TextBox, public ScrollViewBase, public MemberObsolete<EditBox>
 	{
-		MYGUI_RTTI_DERIVED( EditBox )
+		MYGUI_RTTI_DERIVED(EditBox)
 
 	public:
 		EditBox();
@@ -64,7 +61,7 @@ namespace MyGUI
 		bool isTextSelection() const;
 
 		/** Colour selected text */
-		void setTextSelectionColour(const Colour& _value);
+		void setTextSelectionColour(const Colour& _colour);
 
 		/** Set text cursor position */
 		void setTextCursor(size_t _index);
@@ -78,7 +75,7 @@ namespace MyGUI
 		const UString& getCaption() const override;
 
 		/** Set edit text without tags */
-		void setOnlyText(const UString& _value);
+		void setOnlyText(const UString& _text);
 		/** Get edit text without tags */
 		UString getOnlyText() const;
 
@@ -117,7 +114,7 @@ namespace MyGUI
 			Password mode: you see password chars (*** by default) instead text.\n
 			Disabled (false) by default.
 		*/
-		void setEditPassword(bool _value);
+		void setEditPassword(bool _password);
 		/** Get edit password mode flag */
 		bool getEditPassword() const;
 
@@ -139,9 +136,9 @@ namespace MyGUI
 		bool getEditStatic() const;
 
 		/** Set edit password character ('*' by default) */
-		void setPasswordChar(Char _value);
+		void setPasswordChar(Char _char);
 		/** Set edit password character ('*' by default). First character of string used. */
-		void setPasswordChar(const UString& _char);
+		void setPasswordChar(const UString& _value);
 		/** Get edit password character */
 		Char getPasswordChar() const;
 
@@ -170,12 +167,12 @@ namespace MyGUI
 		*/
 		void setInvertSelected(bool _value);
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -214,7 +211,7 @@ namespace MyGUI
 
 
 		//! @copydoc TextBox::setFontName
-		void setFontName(const std::string& _value) override;
+		void setFontName(std::string_view _value) override;
 		//! @copydoc TextBox::setFontHeight
 		void setFontHeight(int _value) override;
 		//! @copydoc TextBox::getFontHeight
@@ -276,15 +273,15 @@ namespace MyGUI
 
 		void eraseView();
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		// устанавливает текст
-		void setText(const UString& _text, bool _history);
+		void setText(const UString& _caption, bool _history);
 		// удаляет все что выделенно
 		bool deleteTextSelect(bool _history);
 		// вставляет текст в указанную позицию
-		void insertText(const UString& _text, size_t _index, bool _history);
+		void insertText(const UString& _text, size_t _start, bool _history);
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
@@ -314,10 +311,10 @@ namespace MyGUI
 		void commandResetHistory();
 		void saveInHistory(VectorChangeInfo* _info = nullptr);
 
-		// работа с буфером обмена
+		// clipboard commands
 		void commandCut();
-		void commandCopy();
-		void commandPast();
+		void commandCopy() const;
+		void commandPaste();
 
 		const UString& getRealString() const;
 
@@ -340,36 +337,36 @@ namespace MyGUI
 
 	protected:
 		// нажата ли кнопка
-		bool mIsPressed;
+		bool mIsPressed{false};
 		// в фокусе ли кнопка
-		bool mIsFocus;
+		bool mIsFocus{false};
 
-		bool mCursorActive;
-		float mCursorTimer;
-		float mActionMouseTimer;
+		bool mCursorActive{false};
+		float mCursorTimer{0};
+		float mActionMouseTimer{0};
 
 		// позиция курсора
-		size_t mCursorPosition;
+		size_t mCursorPosition{0};
 		// максимальное колличество
-		size_t mTextLength;
+		size_t mTextLength{0};
 
 		// выделение
-		size_t mStartSelect;
-		size_t mEndSelect;
+		size_t mStartSelect{ITEM_NONE};
+		size_t mEndSelect{0};
 
 		// списоки изменений для отмены и повтора
 		DequeUndoRedoInfo mVectorUndoChangeInfo;
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
 
-		bool mMouseLeftPressed;
+		bool mMouseLeftPressed{false};
 
-		bool mModeReadOnly;
-		bool mModePassword;
-		bool mModeMultiline;
-		bool mModeStatic;
-		bool mModeWordWrap;
+		bool mModeReadOnly{false};
+		bool mModePassword{false};
+		bool mModeMultiline{false};
+		bool mModeStatic{false};
+		bool mModeWordWrap{false};
 
-		bool mTabPrinting;
+		bool mTabPrinting{false};
 
 		// настоящий текст, закрытый за звездочками
 		UString mPasswordText;
@@ -377,12 +374,12 @@ namespace MyGUI
 		// для поддержки режима статик, где курсор не нужен
 		std::string mOriginalPointer;
 
-		Char mCharPassword;
+		Char mCharPassword{'*'};
 
-		bool mOverflowToTheLeft;
+		bool mOverflowToTheLeft{false};
 		size_t mMaxTextLength;
 
-		ISubWidgetText* mClientText;
+		ISubWidgetText* mClientText{nullptr};
 	};
 
 } // namespace MyGUI

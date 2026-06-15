@@ -6,6 +6,8 @@
 
 #include "Precompiled.h"
 #include "Property.h"
+
+#include <memory>
 #include "Data.h"
 #include "IPropertyInitialisator.h"
 #include "FactoryManager.h"
@@ -24,7 +26,7 @@ namespace tools
 		return mValue;
 	}
 
-	void Property::setValue(const std::string& _value)
+	void Property::setValue(std::string_view _value)
 	{
 		if (mValue != _value)
 		{
@@ -47,7 +49,8 @@ namespace tools
 	{
 		if (!mType->getInitialisator().empty())
 		{
-			IPropertyInitialisator* initialisator = components::FactoryManager::GetInstance().CreateItem<IPropertyInitialisator>(mType->getInitialisator());
+			IPropertyInitialisator* initialisator =
+				components::FactoryManager::GetInstance().CreateItem<IPropertyInitialisator>(mType->getInitialisator());
 			if (initialisator != nullptr)
 				initialisator->initialise(mWeakThis.lock());
 		}
@@ -59,7 +62,7 @@ namespace tools
 
 	PropertyPtr Property::CreateInstance(DataTypePropertyPtr _type, DataPtr _owner)
 	{
-		PropertyPtr result = PropertyPtr(new Property(_type, _owner));
+		PropertyPtr result = std::make_shared<Property>(_type, _owner);
 		result->mWeakThis = PropertyWeak(result);
 		return result;
 	}

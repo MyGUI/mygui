@@ -20,21 +20,16 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
+	using EventHandle_ComboBoxPtrSizeT = delegates::MultiDelegate<ComboBox*, size_t>;
 
 	/** \brief @wpage{ComboBox}
 		ComboBox widget description should be here.
 	*/
-	class MYGUI_EXPORT ComboBox :
-		public EditBox,
-		public IItemContainer,
-		public MemberObsolete<ComboBox>
+	class MYGUI_EXPORT ComboBox : public EditBox, public IItemContainer, public MemberObsolete<ComboBox>
 	{
-		MYGUI_RTTI_DERIVED( ComboBox )
+		MYGUI_RTTI_DERIVED(ComboBox)
 
 	public:
-		ComboBox();
-
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -42,7 +37,7 @@ namespace MyGUI
 		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
+		void insertItemAt(size_t _index, const UString& _item, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
 		void addItem(const UString& _name, Any _data = Any::Null);
@@ -81,7 +76,7 @@ namespace MyGUI
 		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
-		template <typename ValueType>
+		template<typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return mList->getItemDataAt<ValueType>(_index, _throw);
@@ -118,7 +113,7 @@ namespace MyGUI
 		// методы для управления отображением
 
 		//! Set drop list mode (text can not be edited)
-		void setComboModeDrop(bool _value);
+		void setComboModeDrop(bool _drop);
 		//! Get drop list mode flag
 		bool getComboModeDrop() const;
 
@@ -145,7 +140,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _index item
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
+		EventPairAddParameter<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
 			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
@@ -170,7 +165,7 @@ namespace MyGUI
 
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -192,17 +187,17 @@ namespace MyGUI
 		IntCoord calculateListPosition();
 
 	private:
-		Button* mButton;
-		ListBox* mList;
+		Button* mButton{nullptr};
+		ListBox* mList{nullptr};
 
-		bool mListShow;
-		int mMaxListLength;
-		size_t mItemIndex;
-		bool mModeDrop;
-		bool mDropMouse;
-		bool mShowSmooth;
+		bool mListShow{false};
+		int mMaxListLength{-1};
+		size_t mItemIndex{ITEM_NONE};
+		bool mModeDrop{false};
+		bool mDropMouse{false};
+		bool mShowSmooth{false};
 
-		FlowDirection mFlowDirection;
+		FlowDirection mFlowDirection{FlowDirection::TopToBottom};
 	};
 
 } // namespace MyGUI

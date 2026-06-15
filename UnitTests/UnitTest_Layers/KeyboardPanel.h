@@ -13,8 +13,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(KeyboardPanel, "Keyboard.layout");
-	class KeyboardPanel :
-		public wraps::BaseLayout
+	class KeyboardPanel : public wraps::BaseLayout
 	{
 	public:
 		KeyboardPanel();

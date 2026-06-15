@@ -15,28 +15,25 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ListBoxDataControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL ListBoxDataControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		ListBoxDataControl();
 		~ListBoxDataControl() override;
 
 		void OnRenameData();
 
 		void setEnableChangePosition(bool _value);
 
-		void setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName);
-		void setReplaceColourName(const std::string& _value);
+		void setDataInfo(std::string_view _parentType, std::string_view _thisType, std::string_view _propertyName);
+		void setReplaceColourName(std::string_view _value);
 
-		void addPropertyNameEnabled(const std::string& _propertyName);
+		void addPropertyNameEnabled(std::string_view _propertyName);
 
 		sigslot::signal2<DataPtr, DataPtr> eventChangePosition;
-		sigslot::signal2<DataPtr, const std::string&> eventChangeName;
+		sigslot::signal2<DataPtr, std::string_view> eventChangeName;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
@@ -54,18 +51,18 @@ namespace tools
 		void selectListItemByData(DataPtr _data);
 
 	private:
-		MyGUI::ListBox* mListBox;
-		MyGUI::EditBox* mHelpPanel;
-		DataPtr mParentData;
-		size_t mLastIndex;
+		MyGUI::ListBox* mListBox{nullptr};
+		MyGUI::EditBox* mHelpPanel{nullptr};
+		DataPtr mParentData{nullptr};
+		size_t mLastIndex{MyGUI::ITEM_NONE};
 		std::string mPropertyForName;
 		std::string mThisType;
-		MyGUI::PopupMenu* mContextMenu;
-		TextFieldControl* mTextFieldControl;
-		bool mEnableChangePosition;
+		MyGUI::PopupMenu* mContextMenu{nullptr};
+		TextFieldControl* mTextFieldControl{nullptr};
+		bool mEnableChangePosition{false};
 		std::string mColourName;
 
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		VectorString mPropertyNamesEnable;
 	};
 

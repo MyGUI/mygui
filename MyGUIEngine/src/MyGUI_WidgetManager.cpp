@@ -30,7 +30,6 @@
 #include "MyGUI_TextBox.h"
 #include "MyGUI_TabControl.h"
 #include "MyGUI_TabItem.h"
-#include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
 
 #include "MyGUI_BackwardCompatibility.h"
@@ -41,7 +40,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(WidgetManager);
 
 	WidgetManager::WidgetManager() :
-		mIsInitialise(false),
 		mCategoryName("Widget"),
 		mSingletonHolder(this)
 	{
@@ -101,7 +99,14 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, const std::string& _name)
+	Widget* WidgetManager::createWidget(
+		WidgetStyle _style,
+		std::string_view _type,
+		std::string_view _skin,
+		const IntCoord& _coord,
+		Widget* _parent,
+		ICroppedRectangle* _cropeedParent,
+		std::string_view _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject(mCategoryName, _type);
 		if (object != nullptr)
@@ -138,27 +143,23 @@ namespace MyGUI
 
 	void WidgetManager::unregisterUnlinker(IUnlinkWidget* _unlink)
 	{
-		VectorIUnlinkWidget::iterator iter = std::remove(mVectorIUnlinkWidget.begin(), mVectorIUnlinkWidget.end(), _unlink);
+		VectorIUnlinkWidget::iterator iter =
+			std::remove(mVectorIUnlinkWidget.begin(), mVectorIUnlinkWidget.end(), _unlink);
 		if (iter != mVectorIUnlinkWidget.end())
 			mVectorIUnlinkWidget.erase(iter);
 	}
 
 	void WidgetManager::unlinkFromUnlinkers(Widget* _widget)
 	{
-		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter != mVectorIUnlinkWidget.end(); ++iter)
+		for (auto& iter : mVectorIUnlinkWidget)
 		{
-			(*iter)->_unlinkWidget(_widget);
+			iter->_unlinkWidget(_widget);
 		}
 	}
 
-	bool WidgetManager::isFactoryExist(const std::string& _type)
+	bool WidgetManager::isFactoryExist(std::string_view _type)
 	{
-		if (FactoryManager::getInstance().isFactoryExist(mCategoryName, _type))
-		{
-			return true;
-		}
-
-		return false;
+		return FactoryManager::getInstance().isFactoryExist(mCategoryName, _type);
 	}
 
 	void WidgetManager::notifyEventFrameStart(float _time)
@@ -170,11 +171,11 @@ namespace MyGUI
 	{
 		_widget->_shutdown();
 
-		for (VectorWidgetPtr::iterator entry = mDestroyWidgets.begin(); entry != mDestroyWidgets.end(); ++entry)
+		for (auto& widget : mDestroyWidgets)
 		{
 			/*if ((*entry) == _widget)
 				return;*/
-			MYGUI_ASSERT((*entry) != _widget, "double delete widget");
+			MYGUI_ASSERT(widget != _widget, "double delete widget");
 		}
 
 		mDestroyWidgets.push_back(_widget);
@@ -184,8 +185,8 @@ namespace MyGUI
 	{
 		if (!mDestroyWidgets.empty())
 		{
-			for (VectorWidgetPtr::iterator entry = mDestroyWidgets.begin(); entry != mDestroyWidgets.end(); ++entry)
-				delete (*entry);
+			for (auto& widget : mDestroyWidgets)
+				delete widget;
 			mDestroyWidgets.clear();
 		}
 	}

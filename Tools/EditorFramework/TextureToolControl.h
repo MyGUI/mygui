@@ -12,16 +12,13 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TextureToolControl :
-		public TextureControl,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL TextureToolControl : public TextureControl, public sigslot::has_slots<>
 	{
 	public:
-		TextureToolControl();
 		~TextureToolControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 		void onMouseWheel(int _rel) override;
 
@@ -29,7 +26,7 @@ namespace tools
 		bool checkMenuCommand();
 
 	private:
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
 		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
@@ -39,9 +36,9 @@ namespace tools
 		bool doNextScale();
 
 	private:
-		typedef std::vector<size_t> VectorSizeT;
+		using VectorSizeT = std::vector<size_t>;
 		VectorSizeT mScaleValue;
-		size_t mCurrentScaleValue;
+		size_t mCurrentScaleValue{100};
 		std::string mColourValueName;
 	};
 

@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 
+#include <cstdint>
 #include <vector>
 #include <map>
 #include <string>
@@ -36,9 +37,9 @@ namespace MyGUI
 	using FloatCoord = types::TCoord<float>;
 	using DoubleCoord = types::TCoord<double>;
 
-	typedef std::map<std::string, std::string> MapString;
+	using MapString = std::map<std::string, std::string, std::less<>>;
 	using VectorString = std::vector<std::string>;
-	typedef std::pair<std::string, std::string> PairString;
+	using PairString = std::pair<std::string, std::string>;
 	using VectorStringPairs = std::vector<PairString>;
 
 	// TODO: remove this types

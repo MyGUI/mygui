@@ -22,23 +22,6 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuControl::MenuControl() :
-		mHideByAccept(true),
-		mMenuDropMode(false),
-		mIsMenuDrop(true),
-		mHideByLostKey(false),
-		mResizeToContent(true),
-		mShutdown(false),
-		mVerticalAlignment(true),
-		mDistanceButton(0),
-		mPopupAccept(false),
-		mOwner(nullptr),
-		mAnimateSmooth(false),
-		mChangeChildSkin(false),
-		mInternalCreateChild(false)
-	{
-	}
-
 	void MenuControl::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -108,14 +91,20 @@ namespace MyGUI
 		MenuItem* child = _widget->castType<MenuItem>(false);
 		if (child != nullptr && !mInternalCreateChild)
 		{
-			_wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
+			_wrapItem(child, mItemsInfo.size(), UString(), MenuItemType::Normal, std::string_view{}, Any::Null);
 		}
 	}
 
-	MenuItem* MenuControl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::insertItemAt(
+		size_t _index,
+		const UString& _name,
+		MenuItemType _type,
+		std::string_view _id,
+		Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuControl::insertItemAt");
-		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+		if (_index == ITEM_NONE)
+			_index = mItemsInfo.size();
 
 		mInternalCreateChild = true;
 		MenuItem* item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
@@ -162,10 +151,10 @@ namespace MyGUI
 
 		if (mVerticalAlignment)
 		{
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			for (auto& iter : mItemsInfo)
 			{
-				IntSize contentSize = iter->item->_getContentSize();
-				iter->item->setCoord(0, size.height, _getClientWidget()->getWidth(), contentSize.height);
+				IntSize contentSize = iter.item->_getContentSize();
+				iter.item->setCoord(0, size.height, _getClientWidget()->getWidth(), contentSize.height);
 				size.height += contentSize.height + mDistanceButton;
 
 				if (contentSize.width > size.width)
@@ -177,17 +166,17 @@ namespace MyGUI
 		else
 		{
 			int maxHeight = 0;
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			for (const auto& iter : mItemsInfo)
 			{
-				IntSize contentSize = iter->item->_getContentSize();
+				IntSize contentSize = iter.item->_getContentSize();
 				if (maxHeight < contentSize.height)
 					maxHeight = contentSize.height;
 			}
 
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			for (auto& iter : mItemsInfo)
 			{
-				IntSize contentSize = iter->item->_getContentSize();
-				iter->item->setCoord(size.width, 0, contentSize.width, maxHeight);
+				IntSize contentSize = iter.item->_getContentSize();
+				iter.item->setCoord(size.width, 0, contentSize.width, maxHeight);
 				size.width += contentSize.width + mDistanceButton;
 			}
 
@@ -202,7 +191,7 @@ namespace MyGUI
 	void MenuControl::setItemDataAt(size_t _index, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemDataAt");
-		mItemsInfo[_index].data = _data;
+		mItemsInfo[_index].data = std::move(_data);
 	}
 
 	MenuControl* MenuControl::getItemChildAt(size_t _index) const
@@ -235,7 +224,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuControl::setItemIdAt(size_t _index, const std::string& _id)
+	void MenuControl::setItemIdAt(size_t _index, std::string_view _id)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemIdAt");
 		mItemsInfo[_index].id = _id;
@@ -299,7 +288,7 @@ namespace MyGUI
 		info.item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
 
-		info.item->setImageName(getIconIndexByType(_type ));
+		info.item->setImageName(getIconIndexByType(_type));
 		info.item->setCaption(info.name);
 
 		update();
@@ -355,18 +344,18 @@ namespace MyGUI
 					if (point.left + menu->getWidth() > menu->getParentSize().width)
 					{
 						// move to the left side if possible
-						if (point.left - menu->getWidth() - getWidth() > 0)
+						if (point.left - menu->getWidth() - getWidth() >= 0)
 							point.left -= menu->getWidth() + getWidth();
 						// or put near right parent border (window) if too wide for left side too
 						else
 							point.left = menu->getParentSize().width - menu->getWidth();
 					}
-					// too high (same logic as for too wide)
+					// too high
 					if (point.top + menu->getHeight() > menu->getParentSize().height)
 					{
 						// move to the top side if possible
-						if (point.top - menu->getHeight() - getHeight() > 0)
-							point.top -= menu->getHeight() + getHeight();
+						if (getBottom() - menu->getHeight() >= 0)
+							point.top = getBottom() - menu->getHeight();
 						// or put near bottom parent border (window) if too high for top side too
 						else
 							point.top = menu->getParentSize().height - menu->getHeight();
@@ -419,11 +408,17 @@ namespace MyGUI
 		}
 	}
 
-	Widget* MenuControl::createItemChildByType(size_t _index, const std::string& _type)
+	Widget* MenuControl::createItemChildByType(size_t _index, std::string_view _type)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::createItemChildByType");
 		removeItemChildAt(_index);
-		Widget* child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+		Widget* child = mItemsInfo[_index].item->createWidgetT(
+			WidgetStyle::Popup,
+			_type,
+			mSubMenuSkin,
+			IntCoord(),
+			Align::Default,
+			mSubMenuLayer);
 		MYGUI_ASSERT(child->isType<MenuControl>(), "child must have MenuControl base type");
 		return child;
 	}
@@ -498,20 +493,26 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuControl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	void MenuControl::_wrapItem(
+		MenuItem* _item,
+		size_t _index,
+		const UString& _name,
+		MenuItemType _type,
+		std::string_view _id,
+		Any _data)
 	{
 		_item->setAlign(mVerticalAlignment ? Align::Top | Align::HStretch : Align::Default);
 		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuControl::notifyRootKeyChangeFocus);
 		_item->eventMouseButtonClick += newDelegate(this, &MenuControl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus += newDelegate(this, &MenuControl::notifyMouseSetFocus);
 
-		_item->setImageName(getIconIndexByType(_type ));
+		_item->setImageName(getIconIndexByType(_type));
 
 		MenuControl* submenu = nullptr;
 
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
-		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
+		mItemsInfo.insert(mItemsInfo.begin() + _index, std::move(info));
 
 		mChangeChildSkin = true;
 		_item->changeWidgetSkin(getSkinByType(_type));
@@ -584,12 +585,17 @@ namespace MyGUI
 		return controller;
 	}
 
-	MenuItem* MenuControl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::insertItem(
+		MenuItem* _to,
+		const UString& _name,
+		MenuItemType _type,
+		std::string_view _id,
+		Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 	}
 
-	MenuItem* MenuControl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::addItem(const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
 	{
 		return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 	}
@@ -617,25 +623,25 @@ namespace MyGUI
 
 	MenuItem* MenuControl::findItemWith(const UString& _name)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (const auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[pos].name == _name)
-				return mItemsInfo[pos].item;
+			if (info.name == _name)
+				return info.item;
 		}
 		return nullptr;
 	}
 
-	MenuItem* MenuControl::getItemById(const std::string& _id) const
+	MenuItem* MenuControl::getItemById(std::string_view _id) const
 	{
-		for (size_t index = 0; index < mItemsInfo.size(); index++)
+		for (const auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[index].id == _id)
-				return mItemsInfo[index].item;
+			if (info.id == _id)
+				return info.item;
 		}
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	size_t MenuControl::getItemIndexById(const std::string& _id) const
+	size_t MenuControl::getItemIndexById(std::string_view _id) const
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -645,16 +651,16 @@ namespace MyGUI
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	MenuItem* MenuControl::findItemById(const std::string& _id, bool _recursive)
+	MenuItem* MenuControl::findItemById(std::string_view _id, bool _recursive)
 	{
-		for (size_t index = 0; index < mItemsInfo.size(); index++)
+		for (const auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[index].id == _id)
-				return mItemsInfo[index].item;
+			if (info.id == _id)
+				return info.item;
 
-			if (_recursive && mItemsInfo[index].submenu != nullptr)
+			if (_recursive && info.submenu != nullptr)
 			{
-				MenuItem* find = mItemsInfo[index].submenu->findItemById(_id, _recursive);
+				MenuItem* find = info.submenu->findItemById(_id, _recursive);
 				if (find != nullptr)
 					return find;
 			}
@@ -702,7 +708,7 @@ namespace MyGUI
 		clearItemDataAt(getItemIndex(_item));
 	}
 
-	void MenuControl::setItemId(MenuItem* _item, const std::string& _id)
+	void MenuControl::setItemId(MenuItem* _item, std::string_view _id)
 	{
 		setItemIdAt(getItemIndex(_item), _id);
 	}
@@ -776,12 +782,12 @@ namespace MyGUI
 	{
 		if (_type == MenuItemType::Popup)
 			return mItemPopupSkin;
-		else if (_type == MenuItemType::Separator)
+		if (_type == MenuItemType::Separator)
 			return mItemSeparatorSkin;
 		return mItemNormalSkin;
 	}
 
-	std::string MenuControl::getIconIndexByType(MenuItemType _type) const
+	std::string_view MenuControl::getIconIndexByType(MenuItemType _type) const
 	{
 		if (_type == MenuItemType::Popup)
 			return "Popup";
@@ -792,7 +798,7 @@ namespace MyGUI
 	{
 		if (_submenu)
 			return MenuItemType::Popup;
-		else if (_separator)
+		if (_separator)
 			return MenuItemType::Separator;
 		return MenuItemType::Normal;
 	}
@@ -832,14 +838,14 @@ namespace MyGUI
 	void MenuControl::_setItemSelected(IItem* _item)
 	{
 		MenuItem* item = static_cast<MenuItem*>(_item);
-		for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+		for (auto& iter : mItemsInfo)
 		{
-			if ((*iter).type == MenuItemType::Popup)
+			if (iter.type == MenuItemType::Popup)
 			{
-				(*iter).item->setStateSelected(false);
+				iter.item->setStateSelected(false);
 
-				if ((*iter).submenu != nullptr)
-					(*iter).submenu->setVisible(false);
+				if (iter.submenu != nullptr)
+					iter.submenu->setVisible(false);
 			}
 		}
 
@@ -878,7 +884,7 @@ namespace MyGUI
 		return mVerticalAlignment;
 	}
 
-	void MenuControl::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MenuControl::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{MenuControl, VerticalAlignment, bool} Вертикальное выравнивание.
 		if (_key == "VerticalAlignment")

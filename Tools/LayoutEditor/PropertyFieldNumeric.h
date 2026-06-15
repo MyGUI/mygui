@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class PropertyFieldNumeric :
-		public PropertyFieldEditBox
+	class PropertyFieldNumeric : public PropertyFieldEditBox
 	{
 	public:
 		PropertyFieldNumeric(MyGUI::Widget* _parent);

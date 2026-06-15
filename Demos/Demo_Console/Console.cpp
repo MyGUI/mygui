@@ -20,13 +20,14 @@ namespace demo
 		assignWidget(mButtonSubmit, "button_Submit");
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr) window->eventWindowButtonPressed += newDelegate(this, &Console::notifyWindowButtonPressed);
+		if (window != nullptr)
+			window->eventWindowButtonPressed += newDelegate(this, &Console::notifyWindowButtonPressed);
 
-		mStringCurrent = mMainWidget->getUserString("Current");
-		mStringError = mMainWidget->getUserString("Error");
-		mStringSuccess = mMainWidget->getUserString("Success");
-		mStringUnknow = mMainWidget->getUserString("Unknown");
-		mStringFormat = mMainWidget->getUserString("Format");
+		mStringCurrent.assign(mMainWidget->getUserString("Current"));
+		mStringError.assign(mMainWidget->getUserString("Error"));
+		mStringSuccess.assign(mMainWidget->getUserString("Success"));
+		mStringUnknow.assign(mMainWidget->getUserString("Unknown"));
+		mStringFormat.assign(mMainWidget->getUserString("Format"));
 
 		mAutocomleted = false;
 
@@ -37,10 +38,10 @@ namespace demo
 
 		mMainWidget->setVisible(false);
 
-        registerConsoleDelegate("clear", MyGUI::newDelegate(this, &Console::internalCommand));
+		registerConsoleDelegate("clear", MyGUI::newDelegate(this, &Console::internalCommand));
 	}
 
-	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _button)
+	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _button)
 	{
 		if (_button == "close")
 		{
@@ -56,7 +57,8 @@ namespace demo
 	void Console::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		const MyGUI::UString& command = _sender->getOnlyText();
-		if (command == "") return;
+		if (command.empty())
+			return;
 
 		MyGUI::UString key = command;
 		MyGUI::UString value;
@@ -85,7 +87,7 @@ namespace demo
 			}
 		}
 
-		_sender->setCaption("");
+		_sender->setCaption(MyGUI::UString());
 	}
 
 
@@ -104,13 +106,14 @@ namespace demo
 		if (command.length() == 0)
 			return;
 
-		for (MapDelegate::iterator iter = mDelegates.begin(); iter != mDelegates.end(); ++iter)
+		for (auto& delegate : mDelegates)
 		{
-			if (iter->first.find(command) == 0)
+			if (delegate.first.find(command) == 0)
 			{
-				if (command == iter->first) break;
-				edit->setCaption(iter->first);
-				edit->setTextSelection(command.length(), iter->first.length());
+				if (command == delegate.first)
+					break;
+				edit->setCaption(delegate.first);
+				edit->setTextSelection(command.length(), delegate.first.length());
 				mAutocomleted = true;
 				return;
 			}
@@ -131,7 +134,7 @@ namespace demo
 
 	void Console::clearConsole()
 	{
-		mListHistory->setCaption("");
+		mListHistory->setCaption(MyGUI::UString());
 	}
 
 	void Console::registerConsoleDelegate(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)

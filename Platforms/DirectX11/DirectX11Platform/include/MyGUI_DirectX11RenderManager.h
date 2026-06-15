@@ -31,9 +31,7 @@ namespace MyGUI
 		ID3D11InputLayout* inputLayout = nullptr;
 	};
 
-	class DirectX11RenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class DirectX11RenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		DirectX11RenderManager();
@@ -132,7 +130,7 @@ namespace MyGUI
 		RenderTargetInfo mInfo;
 		bool mUpdate;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 
 		MapTexture mTextures;
 		bool mIsInitialise;

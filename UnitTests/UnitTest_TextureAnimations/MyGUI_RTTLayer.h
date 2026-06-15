@@ -14,13 +14,11 @@
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */RTTLayer :
-		public OverlappedLayer
+	class /*MYGUI_EXPORT */ RTTLayer : public OverlappedLayer
 	{
-		MYGUI_RTTI_DERIVED( RTTLayer )
+		MYGUI_RTTI_DERIVED(RTTLayer)
 
 	public:
-		RTTLayer();
 		~RTTLayer() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -28,7 +26,7 @@ namespace MyGUI
 		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;
 		// удаляем дочерний нод
-		void destroyChildItemNode(ILayerNode* _node) override;
+		void destroyChildItemNode(ILayerNode* _item) override;
 
 		// возвращает виджет по позиции
 		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
@@ -38,7 +36,7 @@ namespace MyGUI
 
 	private:
 		Version mVersion;
-		xml::ElementPtr mData;
+		std::unique_ptr<xml::Element> mData;
 	};
 
 } // namespace MyGUI

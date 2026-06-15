@@ -12,12 +12,9 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
-		DemoKeeper();
-
 		void createScene() override;
 		void destroyScene() override;
 
@@ -26,12 +23,12 @@ namespace demo
 		void setupResources() override;
 
 	private:
-		State* mMenu1;
-		State* mMenu2;
-		State* mMenu3;
-		State* mMenu4;
+		State* mMenu1{nullptr};
+		State* mMenu2{nullptr};
+		State* mMenu3{nullptr};
+		State* mMenu4{nullptr};
 		ControllerType mType;
-		bool mIsAnim;
+		bool mIsAnim{false};
 	};
 
 } // namespace demo

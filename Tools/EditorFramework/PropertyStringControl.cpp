@@ -11,18 +11,12 @@
 namespace tools
 {
 
-	PropertyStringControl::PropertyStringControl() :
-		mName(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	PropertyStringControl::~PropertyStringControl()
 	{
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyStringControl::notifyEditTextChange);
 	}
 
-	void PropertyStringControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyStringControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
@@ -50,7 +44,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 		}
 	}

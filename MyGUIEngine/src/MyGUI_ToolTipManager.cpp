@@ -16,13 +16,6 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(ToolTipManager);
 
 	ToolTipManager::ToolTipManager() :
-		mDelayVisible(0.5f),
-		mOldFocusWidget(nullptr),
-		mToolTipVisible(false),
-		mCurrentTime(0),
-		mOldIndex(ITEM_NONE),
-		mNeedToolTip(false),
-		mIsInitialise(false),
 		mSingletonHolder(this)
 	{
 	}

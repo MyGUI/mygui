@@ -19,22 +19,9 @@
 namespace MyGUI
 {
 
-	const float COMBO_ALPHA_MAX  = ALPHA_MAX;
-	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
+	const float COMBO_ALPHA_MAX = ALPHA_MAX;
+	const float COMBO_ALPHA_MIN = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
-
-	ComboBox::ComboBox() :
-		mButton(nullptr),
-		mList(nullptr),
-		mListShow(false),
-		mMaxListLength(-1),
-		mItemIndex(ITEM_NONE),
-		mModeDrop(false),
-		mDropMouse(false),
-		mShowSmooth(false),
-		mFlowDirection(FlowDirection::TopToBottom)
-	{
-	}
 
 	void ComboBox::initialiseOverride()
 	{
@@ -52,10 +39,16 @@ namespace MyGUI
 
 		if (mList == nullptr)
 		{
-			std::string list_skin = getUserString("ListSkin");
-			std::string list_layer = getUserString("ListLayer");
+			std::string_view list_skin = getUserString("ListSkin");
+			std::string_view list_layer = getUserString("ListLayer");
 
-			mList = static_cast<ListBox*>(_createSkinWidget(WidgetStyle::Popup, ListBox::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
+			mList = static_cast<ListBox*>(_createSkinWidget(
+				WidgetStyle::Popup,
+				ListBox::getClassTypeName(),
+				list_skin,
+				IntCoord(),
+				Align::Default,
+				list_layer));
 		}
 
 		if (mList != nullptr)
@@ -129,7 +122,7 @@ namespace MyGUI
 	void ComboBox::notifyListSelectAccept(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
-		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
+		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : UString());
 
 		mDropMouse = false;
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -138,8 +131,7 @@ namespace MyGUI
 		{
 			_resetContainer(false);
 
-			eventComboAccept.m_eventObsolete(this);
-			eventComboAccept.m_event(this, mItemIndex);
+			eventComboAccept(this, mItemIndex);
 		}
 	}
 
@@ -170,15 +162,14 @@ namespace MyGUI
 		{
 			_resetContainer(false);
 
-			eventComboAccept.m_eventObsolete(this);
-			eventComboAccept.m_event(this, mItemIndex);
+			eventComboAccept(this, mItemIndex);
 		}
 	}
 
 	void ComboBox::notifyListMouseItemActivate(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
-		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
+		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : UString());
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
@@ -186,8 +177,7 @@ namespace MyGUI
 		{
 			_resetContainer(false);
 
-			eventComboAccept.m_eventObsolete(this);
-			eventComboAccept.m_event(this, mItemIndex);
+			eventComboAccept(this, mItemIndex);
 		}
 	}
 
@@ -207,7 +197,7 @@ namespace MyGUI
 				if (mItemIndex == ITEM_NONE)
 					mItemIndex = 0;
 				else
-					mItemIndex --;
+					mItemIndex--;
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
 				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
@@ -224,7 +214,7 @@ namespace MyGUI
 				if (mItemIndex == ITEM_NONE)
 					mItemIndex = 0;
 				else
-					mItemIndex ++;
+					mItemIndex++;
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
 				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
@@ -320,7 +310,7 @@ namespace MyGUI
 		mList->setIndexSelected(_index);
 		if (_index == ITEM_NONE)
 		{
-			Base::setCaption("");
+			Base::setCaption(UString());
 			return;
 		}
 		Base::setCaption(mList->getItemNameAt(_index));
@@ -330,35 +320,35 @@ namespace MyGUI
 	void ComboBox::setItemNameAt(size_t _index, const UString& _name)
 	{
 		mList->setItemNameAt(_index, _name);
-		mItemIndex = ITEM_NONE;//FIXME
-		mList->setIndexSelected(mItemIndex);//FIXME
+		mItemIndex = ITEM_NONE; //FIXME
+		mList->setIndexSelected(mItemIndex); //FIXME
 	}
 
 	void ComboBox::setItemDataAt(size_t _index, Any _data)
 	{
 		mList->setItemDataAt(_index, _data);
-		mItemIndex = ITEM_NONE;//FIXME
-		mList->setIndexSelected(mItemIndex);//FIXME
+		mItemIndex = ITEM_NONE; //FIXME
+		mList->setIndexSelected(mItemIndex); //FIXME
 	}
 
 	void ComboBox::insertItemAt(size_t _index, const UString& _item, Any _data)
 	{
 		mList->insertItemAt(_index, _item, _data);
-		mItemIndex = ITEM_NONE;//FIXME
-		mList->setIndexSelected(mItemIndex);//FIXME
+		mItemIndex = ITEM_NONE; //FIXME
+		mList->setIndexSelected(mItemIndex); //FIXME
 	}
 
 	void ComboBox::removeItemAt(size_t _index)
 	{
 		mList->removeItemAt(_index);
-		mItemIndex = ITEM_NONE;//FIXME
-		mList->clearIndexSelected();//FIXME
+		mItemIndex = ITEM_NONE; //FIXME
+		mList->clearIndexSelected(); //FIXME
 	}
 
 	void ComboBox::removeAllItems()
 	{
-		mItemIndex = ITEM_NONE;//FIXME
-		mList->removeAllItems();//FIXME заново созданные строки криво стоят
+		mItemIndex = ITEM_NONE; //FIXME
+		mList->removeAllItems(); //FIXME заново созданные строки криво стоят
 	}
 
 	void ComboBox::setComboModeDrop(bool _drop)
@@ -400,9 +390,8 @@ namespace MyGUI
 		if (mMaxListLength > 0 && length > mMaxListLength)
 			length = mMaxListLength;
 
-		// берем глобальные координаты выджета
 		IntCoord coord = getAbsoluteCoord();
-		// размер леера
+		// layer size
 		IntSize sizeView = mList->getParentSize();
 
 		if (mFlowDirection == FlowDirection::TopToBottom)
@@ -441,7 +430,7 @@ namespace MyGUI
 		return coord;
 	}
 
-	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ComboBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ComboBox, ModeDrop, bool} Режим выпадающего списка, в этом режиме значение в поля поменять нельзя.
 		if (_key == "ModeDrop")
@@ -461,7 +450,7 @@ namespace MyGUI
 
 		// не коментировать
 		else if (_key == "AddItem")
-			addItem(LanguageManager::getInstance().replaceTags(_value));
+			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 
 		else
 		{

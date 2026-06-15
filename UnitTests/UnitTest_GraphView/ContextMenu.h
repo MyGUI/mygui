@@ -12,11 +12,10 @@
 namespace wraps
 {
 
-	class ContextMenu :
-		public BaseLayout
+	class ContextMenu : public BaseLayout
 	{
 	public:
-		ContextMenu(const std::string& _layout) :
+		ContextMenu(std::string_view _layout) :
 			BaseLayout(_layout, nullptr)
 		{
 			assignWidget(mMenu, "_Main");
@@ -36,11 +35,11 @@ namespace wraps
 		}
 
 		/** Event : Menu accept.\n
-			signature : void method(wraps::ContextMenu* _sender, const std::string& _id)
+			signature : void method(wraps::ContextMenu* _sender, std::string_view _id)
 			@param _sender
 			@param _id
 		*/
-		MyGUI::delegates::CDelegate2<ContextMenu*, const std::string&> eventMenuAccept;
+		MyGUI::delegates::Delegate<ContextMenu*, std::string_view> eventMenuAccept;
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
@@ -50,7 +49,6 @@ namespace wraps
 
 	private:
 		MyGUI::PopupMenu* mMenu;
-
 	};
 
 } // namespace wraps

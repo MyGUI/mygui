@@ -17,12 +17,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayerItem :
-		public ILayerItem
+	class MYGUI_EXPORT LayerItem : public ILayerItem
 	{
 	public:
-		LayerItem();
-
 		ILayer* getLayer() const;
 		ILayerNode* getLayerNode() const;
 
@@ -45,17 +42,17 @@ namespace MyGUI
 		void restoreLayerItem();
 
 	protected:
-		void attachToLayerItemNode(ILayerNode* _node, bool _deep);
+		void attachToLayerItemNode(ILayerNode* _item, bool _deep);
 		void detachFromLayerItemNode(bool _deep);
 
 	private:
 		// актуально для рутового виджета
-		ILayer* mLayer;
+		ILayer* mLayer{nullptr};
 		// конкретный айтем находящийся в слое
-		ILayerNode* mLayerNode;
-		ILayerNode* mSaveLayerNode;
+		ILayerNode* mLayerNode{nullptr};
+		ILayerNode* mSaveLayerNode{nullptr};
 
-		typedef std::vector<LayerItem*> VectorLayerItem;
+		using VectorLayerItem = std::vector<LayerItem*>;
 		// список наших детей айтемов
 		VectorLayerItem mLayerItems;
 		// список наших узлов
@@ -64,7 +61,7 @@ namespace MyGUI
 		// вектор всех детей сабскинов
 		VectorSubWidget mDrawItems;
 
-		ITexture* mTexture;
+		ITexture* mTexture{nullptr};
 	};
 
 } // namespace MyGUI

@@ -14,16 +14,11 @@
 namespace wraps
 {
 
-	class BasePanelViewCell :
-		public BaseLayout
+	class BasePanelViewCell : public BaseLayout
 	{
 	public:
-
-		BasePanelViewCell(const std::string& _layout, MyGUI::Widget* _parent) :
-			BaseLayout(_layout, _parent),
-			mTextCaption(nullptr),
-			mWidgetClient(nullptr),
-			m_minimized(false)
+		BasePanelViewCell(std::string_view _layout, MyGUI::Widget* _parent) :
+			BaseLayout(_layout, _parent)
 		{
 			mMainWidget->setPosition(0, 0);
 
@@ -86,7 +81,7 @@ namespace wraps
 			return mMainWidget->getVisible();
 		}
 
-		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
+		MyGUI::delegates::Delegate<BasePanelViewCell*> eventUpdatePanel;
 
 	private:
 		void notifyUpdateAction(MyGUI::Widget* _widget, MyGUI::ControllerItem* _controller)
@@ -100,22 +95,32 @@ namespace wraps
 			if (!m_minimized)
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
-				MyGUI::ControllerPosition* controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition* controller = createControllerPosition(
+					size,
+					POSITION_CONTROLLER_TIME,
+					MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 			else
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
-				MyGUI::ControllerPosition* controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition* controller = createControllerPosition(
+					size,
+					POSITION_CONTROLLER_TIME,
+					MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 		}
 
-		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntSize& _size, float _time, MyGUI::ControllerPosition::FrameAction::IDelegate* _action)
+		MyGUI::ControllerPosition* createControllerPosition(
+			const MyGUI::IntSize& _size,
+			float _time,
+			MyGUI::ControllerPosition::FrameAction::IDelegate* _action)
 		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
+			MyGUI::ControllerItem* item =
+				MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
 			MyGUI::ControllerPosition* controller = item->castType<MyGUI::ControllerPosition>();
 
 			controller->setSize(_size);
@@ -126,9 +131,9 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::TextBox* mTextCaption;
-		MyGUI::Widget* mWidgetClient;
-		bool m_minimized;
+		MyGUI::TextBox* mTextCaption{nullptr};
+		MyGUI::Widget* mWidgetClient{nullptr};
+		bool m_minimized{false};
 
 		int m_minHeight;
 		int m_maxHeight;

@@ -17,13 +17,9 @@ namespace tools
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
-	class CodeGenerator :
-		public wraps::BaseLayout,
-		public Dialog,
-		public sigslot::has_slots<>
+	class CodeGenerator : public wraps::BaseLayout, public Dialog, public sigslot::has_slots<>
 	{
 	public:
-
 		CodeGenerator();
 		~CodeGenerator() override;
 
@@ -31,12 +27,12 @@ namespace tools
 		void saveTemplate();
 
 	private:
-		void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-		std::string stringToUpperCase(const std::string& _str);
+		void parseTemplate(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		std::string stringToUpperCase(std::string_view _str);
 		void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 		void notifyGeneratePressed(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 		void notifyBrowseHeader(MyGUI::Widget* _sender);
 		void notifyBrowseSource(MyGUI::Widget* _sender);
 
@@ -66,7 +62,7 @@ namespace tools
 		MyGUI::MapString mTemplateFiles;
 		MyGUI::MapString mTemplateStrings;
 
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
 	};
 
 }

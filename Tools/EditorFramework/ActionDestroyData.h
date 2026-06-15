@@ -13,26 +13,23 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionDestroyData :
-		public Action
+	class MYGUI_EXPORT_DLL ActionDestroyData : public Action
 	{
 	public:
-		ActionDestroyData();
-
 		void doAction() override;
 		void undoAction() override;
 
 		void setData(DataPtr _data);
-		void setUniqueProperty(const std::string& _value);
+		void setUniqueProperty(std::string_view _value);
 
 	private:
-		DataPtr mData;
-		DataPtr mParent;
-		size_t mIndex;
+		DataPtr mData{nullptr};
+		DataPtr mParent{nullptr};
+		size_t mIndex{MyGUI::ITEM_NONE};
 		std::string mUniqueProperty;
 
-		typedef std::pair<PropertyPtr, std::string> PairProprty;
-		typedef std::vector<PairProprty> VectorPairProperty;
+		using PairProprty = std::pair<PropertyPtr, std::string>;
+		using VectorPairProperty = std::vector<PairProprty>;
 		VectorPairProperty mOldValues;
 	};
 

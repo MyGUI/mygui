@@ -14,18 +14,13 @@
 namespace tools
 {
 
-	class SeparatorListControl :
-		public Control,
-		public sigslot::has_slots<>
+	class SeparatorListControl : public Control, public sigslot::has_slots<>
 	{
-	public:
-		SeparatorListControl();
-
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
-		ListBoxDataControl* mListBoxControl;
+		ListBoxDataControl* mListBoxControl{nullptr};
 	};
 
 }

@@ -11,11 +11,19 @@ namespace tools
 	class Action
 	{
 	public:
-		Action() { }
-		virtual ~Action() { }
+		Action()
+		{
+		}
+		virtual ~Action()
+		{
+		}
 
-		virtual void doAction()  { }
-		virtual void undoAction() { }
+		virtual void doAction()
+		{
+		}
+		virtual void undoAction()
+		{
+		}
 	};
 }
 

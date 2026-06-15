@@ -12,7 +12,7 @@
 namespace plugin
 {
 
-	const std::string Plugin::LogSection = "Plugin";
+	const std::string_view Plugin::LogSection = "Plugin";
 
 	void Plugin::install()
 	{

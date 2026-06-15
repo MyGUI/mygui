@@ -22,13 +22,12 @@ namespace MyGUI
 
 	class RenderItem;
 
-	typedef std::vector<ILayerNode*> VectorILayerNode;
-	typedef Enumerator<VectorILayerNode> EnumeratorILayerNode;
+	using VectorILayerNode = std::vector<ILayerNode*>;
+	using EnumeratorILayerNode = Enumerator<VectorILayerNode>;
 
-	class MYGUI_EXPORT ILayerNode :
-		public IObject
+	class MYGUI_EXPORT ILayerNode : public IObject
 	{
-		MYGUI_RTTI_DERIVED( ILayerNode )
+		MYGUI_RTTI_DERIVED(ILayerNode)
 
 	public:
 		// леер, которому мы принадлежим
@@ -37,15 +36,13 @@ namespace MyGUI
 		// возвращает отца или nullptr
 		virtual ILayerNode* getParent() const = 0;
 
-		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// поднимаем дочерний нод
-		virtual void upChildItemNode(ILayerNode* _node) = 0;
+		// up child item (make it draw and pick above others)
+		virtual void upChildItemNode(ILayerNode* _item) = 0;
 
-		// список детей
+		// child items list
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		virtual size_t getLayerNodeCount() const = 0;

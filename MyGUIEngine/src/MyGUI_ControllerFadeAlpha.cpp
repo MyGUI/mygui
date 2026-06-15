@@ -14,17 +14,11 @@
 namespace MyGUI
 {
 
-	ControllerFadeAlpha::ControllerFadeAlpha() :
-		mAlpha(1),
-		mCoef(1),
-		mEnabled(true)
-	{
-	}
-
 	void ControllerFadeAlpha::prepareItem(Widget* _widget)
 	{
 		// подготовка виджета, блокируем если только нужно
-		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
+		if (!mEnabled)
+			_widget->setEnabledSilent(mEnabled);
 
 		if ((ALPHA_MIN != mAlpha) && (!_widget->getVisible()))
 		{
@@ -33,7 +27,8 @@ namespace MyGUI
 		}
 
 		// отписываем его от ввода
-		if (!mEnabled) InputManager::getInstance().unlinkWidget(_widget);
+		if (!mEnabled)
+			InputManager::getInstance().unlinkWidget(_widget);
 
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget, this);
@@ -53,10 +48,8 @@ namespace MyGUI
 				eventUpdateAction(_widget, this);
 				return true;
 			}
-			else
-			{
-				_widget->setAlpha(mAlpha);
-			}
+
+			_widget->setAlpha(mAlpha);
 		}
 		else if (mAlpha < alpha)
 		{
@@ -67,10 +60,8 @@ namespace MyGUI
 				eventUpdateAction(_widget, this);
 				return true;
 			}
-			else
-			{
-				_widget->setAlpha(mAlpha);
-			}
+
+			_widget->setAlpha(mAlpha);
 		}
 
 		// вызываем пользовательский делегат пост обработки
@@ -79,7 +70,7 @@ namespace MyGUI
 		return false;
 	}
 
-	void ControllerFadeAlpha::setProperty(const std::string& _key, const std::string& _value)
+	void ControllerFadeAlpha::setProperty(std::string_view _key, std::string_view _value)
 	{
 		if (_key == "Alpha")
 			setAlpha(utility::parseValue<float>(_value));

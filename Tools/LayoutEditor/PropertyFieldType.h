@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class PropertyFieldType :
-		public PropertyFieldComboBox
+	class PropertyFieldType : public PropertyFieldComboBox
 	{
 	public:
 		PropertyFieldType(MyGUI::Widget* _parent);

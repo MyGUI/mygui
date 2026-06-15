@@ -14,17 +14,12 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL OpenSaveFileDialog :
-		public Dialog,
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL OpenSaveFileDialog : public Dialog, public Control, public sigslot::has_slots<>
 	{
 	public:
-		OpenSaveFileDialog();
-
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
-		void setCurrentFolder(const MyGUI::UString& _value);
+		void setCurrentFolder(const MyGUI::UString& _folder);
 		const MyGUI::UString& getCurrentFolder() const;
 
 		void setFileName(const MyGUI::UString& _value);
@@ -33,7 +28,7 @@ namespace tools
 		const MyGUI::UString& getMode() const;
 		void setMode(const MyGUI::UString& _value);
 
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 		void setRecentFolders(const VectorUString& _listFolders);
 
 		void setFileMask(const MyGUI::UString& _value);
@@ -43,7 +38,7 @@ namespace tools
 		void onDoModal() override;
 		void onEndModal() override;
 
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		bool checkCommand();
@@ -62,17 +57,17 @@ namespace tools
 		void upFolder();
 
 	private:
-		MyGUI::ListBox* mListFiles;
-		MyGUI::EditBox* mEditFileName;
-		MyGUI::ComboBox* mCurrentFolderField;
-		MyGUI::Button* mButtonOpenSave;
+		MyGUI::ListBox* mListFiles{nullptr};
+		MyGUI::EditBox* mEditFileName{nullptr};
+		MyGUI::ComboBox* mCurrentFolderField{nullptr};
+		MyGUI::Button* mButtonOpenSave{nullptr};
 
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;
-		MyGUI::UString mFileMask;
+		MyGUI::UString mFileMask{"*.*"};
 
 		MyGUI::UString mMode;
-		bool mFolderMode;
+		bool mFolderMode{false};
 	};
 
 }

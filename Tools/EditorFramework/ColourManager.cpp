@@ -14,12 +14,17 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(ColourManager);
 
 	ColourManager::ColourManager() :
-		mColourPanel(nullptr),
 		mSingletonHolder(this)
 	{
-		CommandManager::getInstance().getEvent("Command_ChangeColourBackground")->connect(this, &ColourManager::commandChangeColourBackground);
-		CommandManager::getInstance().getEvent("Command_ChangeColourSelector")->connect(this, &ColourManager::commandChangeColourSelector);
-		CommandManager::getInstance().getEvent("Command_ChangeColourSelectorInactive")->connect(this, &ColourManager::commandChangeColourSelectorInactive);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeColourBackground")
+			->connect(this, &ColourManager::commandChangeColourBackground);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeColourSelector")
+			->connect(this, &ColourManager::commandChangeColourSelector);
+		CommandManager::getInstance()
+			.getEvent("Command_ChangeColourSelectorInactive")
+			->connect(this, &ColourManager::commandChangeColourSelectorInactive);
 	}
 
 	void ColourManager::initialise()

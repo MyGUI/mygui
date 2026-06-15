@@ -17,8 +17,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL DataTypeProperty
 	{
 	public:
-		DataTypeProperty();
-
 		void deserialization(pugi::xml_node _node);
 
 		const std::string& getName() const;
@@ -34,12 +32,12 @@ namespace tools
 		std::string mType;
 		std::string mDefaultValue;
 		std::string mInitialisator;
-		bool mReadOnly;
-		bool mVisible;
+		bool mReadOnly{false};
+		bool mVisible{false};
 		std::string mAction;
 	};
 
-	typedef std::shared_ptr<DataTypeProperty> DataTypePropertyPtr;
+	using DataTypePropertyPtr = std::shared_ptr<DataTypeProperty>;
 
 }
 

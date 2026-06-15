@@ -16,12 +16,13 @@ namespace tools
 	PropertyFieldSkin::PropertyFieldSkin(MyGUI::Widget* _parent) :
 		PropertyFieldComboBox(_parent)
 	{
-		mField->eventToolTip += newDelegate (this, &PropertyFieldSkin::notifyToolTip);
+		mField->eventToolTip += newDelegate(this, &PropertyFieldSkin::notifyToolTip);
 	}
 
 	void PropertyFieldSkin::onFillValues()
 	{
-		WidgetStyle::VectorString values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
+		WidgetStyle::VectorString values =
+			WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
 		// добавляем скины и шаблоны
 		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
@@ -46,8 +47,8 @@ namespace tools
 		}
 
 		mField->removeAllItems();
-		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
-			mField->addItem(*iter);
+		for (auto& value : values)
+			mField->addItem(value);
 		mField->beginToItemFirst();
 	}
 
@@ -74,13 +75,11 @@ namespace tools
 		if (_index != MyGUI::ITEM_NONE)
 		{
 			MyGUI::UString name = mField->getItemNameAt(_index);
-			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
+			return {MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{}};
 		}
-		else
-		{
-			MyGUI::UString name = mField->getCaption();
-			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
-		}
+
+		MyGUI::UString name = mField->getCaption();
+		return {MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{}};
 	}
 
 }

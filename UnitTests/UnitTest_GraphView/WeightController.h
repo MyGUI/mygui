@@ -8,29 +8,22 @@
 namespace animation
 {
 
-	class WeightController :
-		public IAnimationNode
+	class WeightController : public IAnimationNode
 	{
 	public:
-		WeightController()
-		{
-		}
+		WeightController() = default;
 
-		WeightController(const std::string& _name, IAnimationGraph* _graph) :
+		WeightController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
 		{
 		}
 
-		~WeightController() override
-		{
-		}
-
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
@@ -42,7 +35,6 @@ namespace animation
 
 	private:
 		ConnectionReceiver mConnection;
-
 	};
 
 } // namespace animation

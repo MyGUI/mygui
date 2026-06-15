@@ -11,20 +11,12 @@
 namespace tools
 {
 
-	PropertyPanelControl::PropertyPanelControl() :
-		mCurrentData(nullptr),
-		mDistance(0),
-		mScrollView(nullptr),
-		mContentHeight(0)
-	{
-	}
-
 	PropertyPanelControl::~PropertyPanelControl()
 	{
 		mMainWidget->eventChangeCoord -= MyGUI::newDelegate(this, &PropertyPanelControl::notifyChangeCoord);
 	}
 
-	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -36,10 +28,10 @@ namespace tools
 
 	void PropertyPanelControl::HideControls()
 	{
-		for (VectorPairControl::iterator control = mPropertyControls.begin(); control != mPropertyControls.end(); control ++)
+		for (auto& control : mPropertyControls)
 		{
-			(*control).second->setProperty(nullptr);
-			(*control).second->getRoot()->setVisible(false);
+			control.second->setProperty(nullptr);
+			control.second->getRoot()->setVisible(false);
 		}
 
 		mScrollView->setCanvasSize(0, 0);
@@ -48,14 +40,14 @@ namespace tools
 
 	void PropertyPanelControl::InitialiseProperty(PropertyPtr _property, int& _height)
 	{
-		std::string type = _property->getType()->getType();
+		const std::string& type = _property->getType()->getType();
 		PropertyControl* control = nullptr;
 
-		for (VectorPairControl::iterator child = mPropertyControls.begin(); child != mPropertyControls.end(); child ++)
+		for (auto& child : mPropertyControls)
 		{
-			if ((*child).first == type && !(*child).second->getRoot()->getVisible())
+			if (child.first == type && !child.second->getRoot()->getVisible())
 			{
-				control = (*child).second;
+				control = child.second;
 				control->getRoot()->setVisible(true);
 				break;
 			}
@@ -63,12 +55,13 @@ namespace tools
 
 		if (control == nullptr)
 		{
-			control = components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
+			control =
+				components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
 			if (control != nullptr)
 			{
-				control->Initialise(this, mScrollView, "");
+				control->Initialise(this, mScrollView, std::string_view{});
 
-				mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
+				mPropertyControls.emplace_back(_property->getType()->getType(), control);
 			}
 		}
 
@@ -91,12 +84,12 @@ namespace tools
 		{
 			mContentHeight = 0;
 			const DataType::VectorProperty& properties = mCurrentData->getType()->getProperties();
-			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property ++)
+			for (const auto& property : properties)
 			{
-				if ((*property)->getVisible())
+				if (property->getVisible())
 				{
-					PropertyPtr pr = mCurrentData->getProperty((*property)->getName());
-						InitialiseProperty(pr, mContentHeight);
+					PropertyPtr pr = mCurrentData->getProperty(property->getName());
+					InitialiseProperty(pr, mContentHeight);
 				}
 			}
 

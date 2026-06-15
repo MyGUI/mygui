@@ -15,14 +15,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL HotKeyCommand
 	{
 	public:
-		HotKeyCommand() :
-			mPressed(true),
-			mShift(false),
-			mControl(false),
-			mKey(MyGUI::KeyCode::None)
-		{
-		}
-
 		bool getPressed() const
 		{
 			return mPressed;
@@ -69,10 +61,10 @@ namespace tools
 		}
 
 	private:
-		bool mPressed;
-		bool mShift;
-		bool mControl;
-		MyGUI::KeyCode mKey;
+		bool mPressed{true};
+		bool mShift{false};
+		bool mControl{false};
+		MyGUI::KeyCode mKey{MyGUI::KeyCode::None};
 		MyGUI::UString mCommand;
 	};
 

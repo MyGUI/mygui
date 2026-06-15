@@ -19,26 +19,21 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper() :
-		mGraphView(nullptr),
-		mGraph(nullptr),
-		mFileDialog(nullptr),
-		mFileDialogSave(false),
-		mContextMenu(nullptr)
-	{
-	}
-
-	bool isConnectionOut(const std::string& _type)
+	static bool isConnectionOut(std::string_view _type)
 	{
 		return _type == "EventOut" || _type == "PositionOut";
 	}
 
-	bool isConnectionTypeSimple(const std::string& _type)
+	static bool isConnectionTypeSimple(std::string_view _type)
 	{
 		return _type == "EventIn" || _type == "EventOut";
 	}
 
-	void requestConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+	static void requestConnectPoint(
+		wraps::BaseGraphView* _sender,
+		wraps::BaseGraphConnection* _from,
+		wraps::BaseGraphConnection* _to,
+		bool& _result)
 	{
 		if (_to == nullptr)
 		{
@@ -49,19 +44,20 @@ namespace demo
 		}
 		else
 		{
-			if (
-				_from != _to
-				&& isConnectionTypeSimple(_from->getType()) == isConnectionTypeSimple(_to->getType())
-				&& isConnectionOut(_from->getType()) && !isConnectionOut(_to->getType())
-				&& !_sender->isConnecting(_from, _to)
-				)
+			if (_from != _to && isConnectionTypeSimple(_from->getType()) == isConnectionTypeSimple(_to->getType()) &&
+				isConnectionOut(_from->getType()) && !isConnectionOut(_to->getType()) &&
+				!_sender->isConnecting(_from, _to))
 			{
 				_result = true;
 			}
 		}
 	}
 
-	void requestDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+	static void requestDisconnectPoint(
+		wraps::BaseGraphView* _sender,
+		wraps::BaseGraphConnection* _from,
+		wraps::BaseGraphConnection* _to,
+		bool& _result)
 	{
 		_result = true;
 	}
@@ -109,11 +105,11 @@ namespace demo
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
-		for (VectorBaseAnimationNode::iterator item = mNodes.begin(); item != mNodes.end(); ++ item)
+		for (auto& mNode : mNodes)
 		{
-			animation::IAnimationNode* anim_node = (*item)->getAnimationNode();
+			animation::IAnimationNode* anim_node = mNode->getAnimationNode();
 			delete anim_node;
-			delete (*item);
+			delete mNode;
 		}
 		mNodes.clear();
 
@@ -133,7 +129,7 @@ namespace demo
 		delete tools::DialogManager::getInstancePtr();
 	}
 
-	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
+	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, std::string_view _id)
 	{
 		if (_id == "SaveGraph")
 		{
@@ -151,13 +147,15 @@ namespace demo
 			return;
 		}
 
-		std::string name = _id;
+		std::string name{_id};
 		size_t index = name.find("Controller");
-		if (index != MyGUI::ITEM_NONE) name.erase(index);
+		if (index != MyGUI::ITEM_NONE)
+			name.erase(index);
 		else
 		{
 			index = name.find("State");
-			if (index != MyGUI::ITEM_NONE) name.erase(index);
+			if (index != MyGUI::ITEM_NONE)
+				name.erase(index);
 		}
 
 		static size_t name_index = 0;
@@ -167,9 +165,9 @@ namespace demo
 		createNode(_id, name);
 	}
 
-	BaseAnimationNode* DemoKeeper::createNode(const std::string& _type, const std::string& _name)
+	BaseAnimationNode* DemoKeeper::createNode(std::string_view _type, std::string_view _name)
 	{
-		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _type, _name);
+		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + std::string{_type}, _name);
 		assert(node);
 
 		mNodes.push_back(node);
@@ -225,7 +223,10 @@ namespace demo
 		delete _node;
 	}
 
-	void DemoKeeper::notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
+	void DemoKeeper::notifyConnectPoint(
+		wraps::BaseGraphView* _sender,
+		wraps::BaseGraphConnection* _from,
+		wraps::BaseGraphConnection* _to)
 	{
 		BaseAnimationNode* node_from = dynamic_cast<BaseAnimationNode*>(_from->getOwnerNode());
 		const std::string& name_from = _from->getName();
@@ -235,7 +236,10 @@ namespace demo
 		connectPoints(node_from, node_to, name_from, name_to);
 	}
 
-	void DemoKeeper::notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
+	void DemoKeeper::notifyDisconnectPoint(
+		wraps::BaseGraphView* _sender,
+		wraps::BaseGraphConnection* _from,
+		wraps::BaseGraphConnection* _to)
 	{
 		BaseAnimationNode* node_from = dynamic_cast<BaseAnimationNode*>(_from->getOwnerNode());
 		const std::string& name_from = _from->getName();
@@ -254,7 +258,8 @@ namespace demo
 		mGraphView->eventDisconnectPoint = MyGUI::newDelegate(this, &DemoKeeper::notifyDisconnectPoint);
 
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
-		mGraphView->getClient()->eventMouseButtonReleased += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		mGraphView->getClient()->eventMouseButtonReleased +=
+			MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
 	}
 
 	void DemoKeeper::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
@@ -409,16 +414,21 @@ namespace demo
 						if (anim_node2)
 						{
 							//соединить точки в ноде
-							const std::string& from_point = conn.current()->findAttribute("from");
-							const std::string& to_point = conn.current()->findAttribute("to");
+							std::string_view from_point = conn.current()->findAttribute("from");
+							std::string_view to_point = conn.current()->findAttribute("to");
 
-							wraps::BaseGraphConnection* from_conn = anim_node->getConnectionByName(from_point, "EventOut");
-							if (!from_conn) from_conn = anim_node->getConnectionByName(from_point, "PositionOut");
-							if (!from_conn) from_conn = anim_node->getConnectionByName(from_point, "WeightOut");
+							wraps::BaseGraphConnection* from_conn =
+								anim_node->getConnectionByName(from_point, "EventOut");
+							if (!from_conn)
+								from_conn = anim_node->getConnectionByName(from_point, "PositionOut");
+							if (!from_conn)
+								from_conn = anim_node->getConnectionByName(from_point, "WeightOut");
 
 							wraps::BaseGraphConnection* to_conn = anim_node2->getConnectionByName(to_point, "EventIn");
-							if (!to_conn) to_conn = anim_node2->getConnectionByName(to_point, "PositionIn");
-							if (!to_conn) to_conn = anim_node2->getConnectionByName(to_point, "WeightIn");
+							if (!to_conn)
+								to_conn = anim_node2->getConnectionByName(to_point, "PositionIn");
+							if (!to_conn)
+								to_conn = anim_node2->getConnectionByName(to_point, "WeightIn");
 
 							if (from_conn && to_conn)
 							{
@@ -442,10 +452,9 @@ namespace demo
 				}
 			}
 		}
-
 	}
 
-	BaseAnimationNode* DemoKeeper::getNodeByName(const std::string& _name)
+	BaseAnimationNode* DemoKeeper::getNodeByName(std::string_view _name)
 	{
 		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
 		while (node.next())
@@ -459,13 +468,21 @@ namespace demo
 		return nullptr;
 	}
 
-	void DemoKeeper::connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to)
+	void DemoKeeper::connectPoints(
+		BaseAnimationNode* _node_from,
+		BaseAnimationNode* _node_to,
+		std::string_view _name_from,
+		std::string_view _name_to)
 	{
 		_node_from->getAnimationNode()->addConnection(_name_from, _node_to->getAnimationNode(), _name_to);
 		_node_from->addConnection(_name_from, _node_to, _name_to);
 	}
 
-	void DemoKeeper::disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to)
+	void DemoKeeper::disconnectPoints(
+		BaseAnimationNode* _node_from,
+		BaseAnimationNode* _node_to,
+		std::string_view _name_from,
+		std::string_view _name_to)
 	{
 		_node_from->removeConnection(_name_from, _node_to, _name_to);
 		_node_from->getAnimationNode()->removeConnection(_name_from, _node_to->getAnimationNode(), _name_to);

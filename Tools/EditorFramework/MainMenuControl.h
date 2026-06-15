@@ -13,16 +13,13 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL MainMenuControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL MainMenuControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		MainMenuControl();
 		~MainMenuControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
@@ -31,8 +28,8 @@ namespace tools
 		void updateRecentFilesMenu();
 
 	private:
-		MyGUI::MenuBar* mMainMenu;
-		MyGUI::MenuItem* mScaleMenu;
+		MyGUI::MenuBar* mMainMenu{nullptr};
+		MyGUI::MenuItem* mScaleMenu{nullptr};
 	};
 
 }

@@ -14,18 +14,11 @@
 namespace demo
 {
 
-	class ControllerSmoothCaption :
-		public MyGUI::ControllerItem
+	class ControllerSmoothCaption : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerSmoothCaption )
+		MYGUI_RTTI_DERIVED(ControllerSmoothCaption)
 
 	public:
-		ControllerSmoothCaption() :
-			mTime(0),
-			mCurrentPosition(0)
-		{ }
-		~ControllerSmoothCaption() override { }
-
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			const float slice = 0.04f;
@@ -52,7 +45,7 @@ namespace demo
 		{
 			if (mCurrentPosition < mNeedCaption.size())
 			{
-				mCurrentPosition ++;
+				mCurrentPosition++;
 				MyGUI::TextBox* text = _widget->castType<MyGUI::TextBox>(false);
 				if (text != nullptr)
 				{
@@ -64,7 +57,7 @@ namespace demo
 			}
 		}
 
-		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
+		void notifyChangeProperty(MyGUI::Widget* _sender, std::string_view _key, std::string_view _value)
 		{
 			if (_key == "Caption")
 			{
@@ -73,15 +66,14 @@ namespace demo
 
 				MyGUI::TextBox* text = _sender->castType<MyGUI::TextBox>(false);
 				if (text != nullptr)
-					text->setCaption("");
+					text->setCaption(MyGUI::UString{});
 			}
 		}
 
 	private:
-		float mTime;
+		float mTime{0};
 		std::string mNeedCaption;
-		size_t mCurrentPosition;
-
+		size_t mCurrentPosition{0};
 	};
 
 }

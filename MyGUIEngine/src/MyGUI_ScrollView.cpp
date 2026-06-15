@@ -107,11 +107,15 @@ namespace MyGUI
 		{
 			IntPoint point = getClientWidget()->getPosition();
 			int offset = -point.top;
-			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
+			if (_rel < 0)
+				offset += SCROLL_VIEW_MOUSE_WHEEL;
+			else
+				offset -= SCROLL_VIEW_MOUSE_WHEEL;
 
-			if (offset < 0) offset = 0;
-			else if (offset > (int)mVRange) offset = mVRange;
+			if (offset < 0)
+				offset = 0;
+			else if (offset > (int)mVRange)
+				offset = mVRange;
 
 			if (offset != point.top)
 			{
@@ -127,11 +131,15 @@ namespace MyGUI
 		{
 			IntPoint point = getClientWidget()->getPosition();
 			int offset = -point.left;
-			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
+			if (_rel < 0)
+				offset += SCROLL_VIEW_MOUSE_WHEEL;
+			else
+				offset -= SCROLL_VIEW_MOUSE_WHEEL;
 
-			if (offset < 0) offset = 0;
-			else if (offset > (int)mHRange) offset = mHRange;
+			if (offset < 0)
+				offset = 0;
+			else if (offset > (int)mHRange)
+				offset = mHRange;
 
 			if (offset != point.left)
 			{
@@ -210,7 +218,7 @@ namespace MyGUI
 		return getClientWidget()->getSize();
 	}
 
-	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ScrollView::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ScrollView, VisibleVScroll, bool} Horizontal scroll bar visibility.
 		if (_key == "VisibleVScroll")

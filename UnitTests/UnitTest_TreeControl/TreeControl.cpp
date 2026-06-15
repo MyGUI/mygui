@@ -48,10 +48,8 @@ namespace MyGUI
 		prepare();
 
 		size_t nResult = 0;
-		for (VectorNodePtr::iterator Iterator = getChildren().begin(); Iterator != getChildren().end(); ++Iterator)
+		for (auto* pChild : getChildren())
 		{
-			TreeControl::Node* pChild = *Iterator;
-
 			nResult++;
 
 			pChild->prepare();
@@ -79,23 +77,6 @@ namespace MyGUI
 		invalidate();
 	}
 
-	TreeControl::TreeControl() :
-		mpWidgetScroll(nullptr),
-		mbScrollAlwaysVisible(true),
-		mbInvalidated(false),
-		mbRootVisible(false),
-		mnItemHeight(1),
-		mnScrollRange(-1),
-		mnTopIndex(0),
-		mnTopOffset(0),
-		mnFocusIndex(ITEM_NONE),
-		mpSelection(nullptr),
-		mpRoot(nullptr),
-		mnExpandedNodes(0),
-		mnLevelOffset(0)
-	{
-	}
-
 	void TreeControl::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -119,10 +100,12 @@ namespace MyGUI
 		}
 
 		MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
-		MYGUI_ASSERT(nullptr != getClientWidget(), "Child Widget Client not found in skin (TreeControl must have Client)");
+		MYGUI_ASSERT(
+			nullptr != getClientWidget(),
+			"Child Widget Client not found in skin (TreeControl must have Client)");
 
 		if (isUserString("SkinLine"))
-			mstrSkinLine = getUserString("SkinLine");
+			mstrSkinLine.assign(getUserString("SkinLine"));
 		if (isUserString("HeightLine"))
 			mnItemHeight = utility::parseValue<int>(getUserString("HeightLine"));
 		if (isUserString("LevelOffset"))
@@ -228,19 +211,24 @@ namespace MyGUI
 			if (mpWidgetScroll->getVisible())
 			{
 				mpWidgetScroll->setVisible(false);
-				getClientWidget()->setSize(getClientWidget()->getWidth() + mpWidgetScroll->getWidth(), getClientWidget()->getHeight());
+				getClientWidget()->setSize(
+					getClientWidget()->getWidth() + mpWidgetScroll->getWidth(),
+					getClientWidget()->getHeight());
 			}
 		}
 		else if (!mpWidgetScroll->getVisible())
 		{
-			getClientWidget()->setSize(getClientWidget()->getWidth() - mpWidgetScroll->getWidth(), getClientWidget()->getHeight());
+			getClientWidget()->setSize(
+				getClientWidget()->getWidth() - mpWidgetScroll->getWidth(),
+				getClientWidget()->getHeight());
 			mpWidgetScroll->setVisible(true);
 		}
 
 		mpWidgetScroll->setScrollRange(mnScrollRange + 1);
 
 		if (mnExpandedNodes)
-			mpWidgetScroll->setTrackSize(mpWidgetScroll->getLineSize() * getClientWidget()->getHeight() / mnItemHeight / mnExpandedNodes);
+			mpWidgetScroll->setTrackSize(
+				mpWidgetScroll->getLineSize() * getClientWidget()->getHeight() / mnItemHeight / mnExpandedNodes);
 	}
 
 	void TreeControl::updateItems()
@@ -251,12 +239,12 @@ namespace MyGUI
 		while ((nHeight <= (getClientWidget()->getHeight() + mnItemHeight)) && mItemWidgets.size() < mnExpandedNodes)
 		{
 			TreeControlItem* pItem = getClientWidget()->createWidget<TreeControlItem>(
-					mstrSkinLine,
-					0,
-					nHeight,
-					getClientWidget()->getWidth(),
-					mnItemHeight,
-					Align::Top | Align::HStretch);
+				mstrSkinLine,
+				0,
+				nHeight,
+				getClientWidget()->getWidth(),
+				mnItemHeight,
+				Align::Top | Align::HStretch);
 
 			pItem->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
 			pItem->eventMouseButtonDoubleClick += newDelegate(this, &TreeControl::notifyMouseDoubleClick);
@@ -264,7 +252,8 @@ namespace MyGUI
 			pItem->eventMouseSetFocus += newDelegate(this, &TreeControl::notifyMouseSetFocus);
 			pItem->eventMouseLostFocus += newDelegate(this, &TreeControl::notifyMouseLostFocus);
 			pItem->_setInternalData((size_t)mItemWidgets.size());
-			pItem->getButtonExpandCollapse()->eventMouseButtonClick += newDelegate(this, &TreeControl::notifyExpandCollapse);
+			pItem->getButtonExpandCollapse()->eventMouseButtonClick +=
+				newDelegate(this, &TreeControl::notifyExpandCollapse);
 
 			mItemWidgets.push_back(pItem);
 
@@ -303,8 +292,8 @@ namespace MyGUI
 
 	void TreeControl::validate()
 	{
-		typedef std::pair<VectorNodePtr::iterator, VectorNodePtr::iterator> PairNodeEnumeration;
-		typedef std::list<PairNodeEnumeration> ListNodeEnumeration;
+		using PairNodeEnumeration = std::pair<VectorNodePtr::iterator, VectorNodePtr::iterator>;
+		using ListNodeEnumeration = std::list<PairNodeEnumeration>;
 		ListNodeEnumeration EnumerationStack;
 		PairNodeEnumeration Enumeration;
 		VectorNodePtr vectorNodePtr;

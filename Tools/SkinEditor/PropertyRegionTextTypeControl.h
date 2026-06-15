@@ -12,17 +12,15 @@
 namespace tools
 {
 
-	class PropertyRegionTextTypeControl :
-		public PropertyControl
+	class PropertyRegionTextTypeControl : public PropertyControl
 	{
 	public:
-		PropertyRegionTextTypeControl();
 		~PropertyRegionTextTypeControl() override;
 
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
@@ -30,8 +28,8 @@ namespace tools
 		size_t getComboIndex(const MyGUI::UString& _name);
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::ComboBox* mComboBox;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ComboBox* mComboBox{nullptr};
 	};
 
 }

@@ -11,8 +11,7 @@
 namespace demo
 {
 
-	class PanelViewCell :
-		public wraps::BasePanelViewCell
+	class PanelViewCell : public wraps::BasePanelViewCell
 	{
 	public:
 		PanelViewCell(MyGUI::Widget* _parent) :
@@ -22,8 +21,10 @@ namespace demo
 			assignWidget(mButtonMinimize, "button_Minimize");
 			assignWidget(mWidgetClient, "widget_Client");
 
-			mTextCaption->eventMouseButtonDoubleClick += MyGUI::newDelegate(this, &PanelViewCell::notifyMouseButtonDoubleClick);
-			mButtonMinimize->eventMouseButtonPressed += MyGUI::newDelegate(this, &PanelViewCell::notfyMouseButtonPressed);
+			mTextCaption->eventMouseButtonDoubleClick +=
+				MyGUI::newDelegate(this, &PanelViewCell::notifyMouseButtonDoubleClick);
+			mButtonMinimize->eventMouseButtonPressed +=
+				MyGUI::newDelegate(this, &PanelViewCell::notfyMouseButtonPressed);
 		}
 
 		void setMinimized(bool _minimized) override

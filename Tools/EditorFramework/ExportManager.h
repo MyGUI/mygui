@@ -18,6 +18,7 @@ namespace tools
 	class MYGUI_EXPORT_DLL ExportManager
 	{
 		MYGUI_SINGLETON_DECLARATION(ExportManager);
+
 	public:
 		ExportManager();
 
@@ -28,7 +29,7 @@ namespace tools
 		bool deserialization(pugi::xml_document& _doc);
 
 	private:
-		IExportSerializer* mExportSerializer;
+		IExportSerializer* mExportSerializer{nullptr};
 	};
 
 }

@@ -16,13 +16,9 @@
 namespace MyGUI
 {
 
-	class OpenGL3RenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class OpenGL3RenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
-		OpenGL3RenderManager();
-
 		void initialise(OpenGL3ImageLoader* _loader = nullptr);
 		void shutdown();
 
@@ -71,19 +67,21 @@ namespace MyGUI
 		/* for use with RTT, flips Y coordinate when rendering */
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
-	/*internal:*/
+		/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
 		unsigned int getShaderProgramId(const std::string& _shaderName) const;
 
 	private:
 		std::string loadFileContent(const std::string& _file);
-		unsigned int createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
+		unsigned int createShaderProgram(
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
 
 	private:
 		IntSize mViewSize;
-		bool mUpdate;
+		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 		unsigned int mDefaultProgramId;
@@ -91,12 +89,12 @@ namespace MyGUI
 		unsigned int mReferenceCount; // for nested rendering
 		int mYScaleUniformLocation;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
-		OpenGL3ImageLoader* mImageLoader;
-		bool mPboIsSupported;
+		OpenGL3ImageLoader* mImageLoader{nullptr};
+		bool mPboIsSupported{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

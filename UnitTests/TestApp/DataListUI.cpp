@@ -18,7 +18,7 @@ namespace demo
 	{
 		initialiseByAttributes(this);
 
-		mTextBox->setCaption("");
+		mTextBox->setCaption(MyGUI::UString());
 
 		bindEvents(mMainWidget);
 
@@ -31,18 +31,18 @@ namespace demo
 		MyGUI::Button* button = _widget->castType<MyGUI::Button>(false);
 		if (button != nullptr)
 		{
-			std::string event = button->getUserString("Event");
-			if (event != "")
+			std::string_view event = button->getUserString("Event");
+			if (!event.empty())
 				button->eventMouseButtonClick += MyGUI::newDelegate(this, &DataListUI::notifyMouseButtonClick);
 		}
 
-		for (size_t index = 0; index < _widget->getChildCount(); index ++)
+		for (size_t index = 0; index < _widget->getChildCount(); index++)
 			bindEvents(_widget->getChildAt(index));
 	}
 
 	void DataListUI::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		std::string event = _sender->getUserString("Event");
+		std::string_view event = _sender->getUserString("Event");
 
 		if (event == "Undo")
 		{
@@ -59,7 +59,7 @@ namespace demo
 
 			tools::ActionManager::getInstance().doAction(command);
 
-			mIndex ++;
+			mIndex++;
 		}
 		else if (event == "Remove")
 		{
@@ -79,7 +79,10 @@ namespace demo
 
 	void DataListUI::updateActions()
 	{
-		mTextBox->setCaption(tools::ActionManager::getInstance().getChanges() ? "*" : "");
+		MyGUI::UString caption;
+		if (tools::ActionManager::getInstance().getChanges())
+			caption = "*";
+		mTextBox->setCaption(caption);
 	}
 
 	void DataListUI::updateListData()
@@ -87,7 +90,7 @@ namespace demo
 		mListBox->removeAllItems();
 
 		const tools::Data::VectorData& childs = tools::DataManager::getInstance().getRoot()->getChilds();
-		for (tools::Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child ++)
+		for (tools::Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			tools::Data* data = *(child);
 			mListBox->addItem((*child)->getPropertyValue("Name"), data);

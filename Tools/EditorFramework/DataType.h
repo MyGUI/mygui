@@ -23,13 +23,13 @@ namespace tools
 		const std::string& getName() const;
 		const std::string& getFriend() const;
 
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		const VectorString& getChilds() const;
 
-		typedef std::vector<DataTypePropertyPtr> VectorProperty;
+		using VectorProperty = std::vector<DataTypePropertyPtr>;
 		const VectorProperty& getProperties() const;
 
-		bool isChild(const std::string& _child) const;
+		bool isChild(std::string_view _child) const;
 
 	private:
 		std::string mName;
@@ -38,7 +38,7 @@ namespace tools
 		VectorProperty mProperties;
 	};
 
-	typedef std::shared_ptr<DataType> DataTypePtr;
+	using DataTypePtr = std::shared_ptr<DataType>;
 
 }
 

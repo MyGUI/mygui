@@ -11,14 +11,6 @@
 namespace tools
 {
 
-	PropertyColourControl::PropertyColourControl() :
-		mName(nullptr),
-		mEdit(nullptr),
-		mColour(nullptr),
-		mColourPanel(nullptr)
-	{
-	}
-
 	PropertyColourControl::~PropertyColourControl()
 	{
 		delete mColourPanel;
@@ -28,7 +20,7 @@ namespace tools
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyColourControl::notifyEditTextChange);
 	}
 
-	void PropertyColourControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyColourControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyColourControl.layout");
 
@@ -75,7 +67,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 
 			mCurrentColour = MyGUI::Colour::Zero;
@@ -163,7 +155,10 @@ namespace tools
 						item = stream.get();
 					}
 
-					_resultValue = MyGUI::Colour( (unsigned char)( result >> 16 ) / 256.0f, (unsigned char)( result >> 8 ) / 256.0f, (unsigned char)( result ) / 256.0f );
+					_resultValue = MyGUI::Colour(
+						(unsigned char)(result >> 16) / 256.0f,
+						(unsigned char)(result >> 8) / 256.0f,
+						(unsigned char)(result) / 256.0f);
 					return true;
 				}
 			}
@@ -176,7 +171,9 @@ namespace tools
 	{
 		if (!_value.empty())
 		{
-			float red, green, blue;
+			float red;
+			float green;
+			float blue;
 			std::istringstream stream(_value);
 			stream >> red >> green >> blue;
 			if (!stream.fail())
@@ -201,7 +198,10 @@ namespace tools
 	{
 		if (!_value.empty())
 		{
-			float red, green, blue, alpha;
+			float red;
+			float green;
+			float blue;
+			float alpha;
 			std::istringstream stream(_value);
 			stream >> red >> green >> blue >> alpha;
 			if (!stream.fail())
@@ -260,7 +260,9 @@ namespace tools
 	{
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
-			executeAction(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), true);
+			executeAction(
+				MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue),
+				true);
 	}
 
 }

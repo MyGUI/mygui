@@ -12,8 +12,7 @@
 
 namespace demo
 {
-	class ColourWindowCellView :
-		public wraps::BaseCellView<ColourWindowCellData*>
+	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData*>
 	{
 	public:
 		ColourWindowCellView(MyGUI::Widget* _parent);

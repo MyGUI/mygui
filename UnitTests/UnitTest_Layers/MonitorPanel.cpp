@@ -17,7 +17,9 @@ namespace demo
 
 		mMainWidget->setPosition(0, 0);
 
-		CommandManager::getInstance().registerCommand("KeyboardClick", MyGUI::newDelegate(this, &MonitorPanel::notifyCommand));
+		CommandManager::getInstance().registerCommand(
+			"KeyboardClick",
+			MyGUI::newDelegate(this, &MonitorPanel::notifyCommand));
 	}
 
 	MonitorPanel::~MonitorPanel()
@@ -25,7 +27,7 @@ namespace demo
 		CommandManager::getInstance().unregisterCommand("KeyboardClick");
 	}
 
-	void MonitorPanel::notifyCommand(const std::string& _name, MyGUI::Any _data)
+	void MonitorPanel::notifyCommand(std::string_view /*_name*/, MyGUI::Any _data)
 	{
 		std::string* data = _data.castType<std::string>(false);
 		if (data != nullptr)
@@ -44,7 +46,6 @@ namespace demo
 					mHP->setProperty("RangePosition", MyGUI::utility::toString(device->getValueHP()));
 				}
 			}
-
 		}
 	}
 

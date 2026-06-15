@@ -17,21 +17,20 @@ namespace MyGUI
 {
 
 	/** This controller used for smooth changing position of widget in time */
-	class MYGUI_EXPORT ControllerPosition :
-		public ControllerItem
+	class MYGUI_EXPORT ControllerPosition : public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerPosition )
+		MYGUI_RTTI_DERIVED(ControllerPosition)
 
 	public:
-		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
+		using FrameAction = delegates::Delegate<const IntCoord&, const IntCoord&, IntCoord&, float>;
 
 		ControllerPosition();
 
-		void setCoord(const IntCoord& _value);
+		void setCoord(const IntCoord& _destCoord);
 
-		void setSize(const IntSize& _value);
+		void setSize(const IntSize& _destSize);
 
-		void setPosition(const IntPoint& _value);
+		void setPosition(const IntPoint& _destPoint);
 
 		/**
 		 * Set acceleration behavior, same as calling controller->setAction(MyGUI::newDelegate(chosen by value))
@@ -42,7 +41,7 @@ namespace MyGUI
 		 * 	    "Slowed" @see action::acceleratedMoveFunction<4>
 		 * 	    "Jump" @see action::jumpMoveFunction<5>
 		 */
-		void setFunction(const std::string& _value);
+		void setFunction(std::string_view _value);
 
 		/**
 			@param _value seconds in which widget planned to reach destination coordinate
@@ -56,18 +55,18 @@ namespace MyGUI
 
 		bool addTime(Widget* _widget, float _time) override;
 		void prepareItem(Widget* _widget) override;
-		void setProperty(const std::string& _key, const std::string& _value) override;
+		void setProperty(std::string_view _key, std::string_view _value) override;
 
 	private:
 		IntCoord mStartCoord;
 		IntCoord mDestCoord;
-		float mTime;
-		float mElapsedTime;
+		float mTime{1};
+		float mElapsedTime{0};
 
 		// controller changing position
-		bool mCalcPosition;
+		bool mCalcPosition{false};
 		// controller changing size
-		bool mCalcSize;
+		bool mCalcSize{false};
 
 		/** Event : Every frame action while controller exist.\n
 			signature : void method(const IntRect& _startRect, const IntRect& _destRect, IntRect& _result, float _current_time)\n

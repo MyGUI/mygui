@@ -11,17 +11,12 @@
 namespace tools
 {
 
-	MessageBoxFadeControl::MessageBoxFadeControl() :
-		mMaxAlpha(1)
-	{
-	}
-
 	MessageBoxFadeControl::~MessageBoxFadeControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &MessageBoxFadeControl::notifyFrameStart);
 	}
 
-	void MessageBoxFadeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void MessageBoxFadeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "MessageBoxFadeControl.layout");
 

@@ -16,16 +16,20 @@ namespace tools
 	class PropertyFieldManager
 	{
 		MYGUI_SINGLETON_DECLARATION(PropertyFieldManager);
+
 	public:
-		PropertyFieldManager() : mSingletonHolder(this) { }
+		PropertyFieldManager() :
+			mSingletonHolder(this)
+		{
+		}
 		void initialise();
 		void shutdown();
 
-		IPropertyField* createPropertyField(MyGUI::Widget* _window, const std::string& _type);
+		IPropertyField* createPropertyField(MyGUI::Widget* _window, std::string_view _type);
 
 	private:
-		typedef MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*> Delegate;
-		typedef std::map<std::string, Delegate> MapFactoryItem;
+		using Delegate = MyGUI::delegates::Delegate<IPropertyField*&, MyGUI::Widget*>;
+		using MapFactoryItem = std::map<std::string, Delegate, std::less<>>;
 		MapFactoryItem mFactories;
 	};
 

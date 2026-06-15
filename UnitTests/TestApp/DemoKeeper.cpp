@@ -14,8 +14,7 @@ namespace demo
 		sigslot::signal1<A*> event;
 	};
 
-	class B :
-		public sigslot::has_slots<>
+	class B : public sigslot::has_slots<>
 	{
 	public:
 		void advise(A* _a)
@@ -47,7 +46,7 @@ namespace demo
 		new tools::DataInfoManager();
 		new tools::DataManager();
 		new tools::ActionManager();
-		
+
 		tools::DataInfoManager::getInstance().initialise();
 		tools::DataManager::getInstance().initialise();
 		tools::ActionManager::getInstance().initialise();
@@ -74,8 +73,9 @@ namespace demo
 		group.size = MyGUI::texture_utility::getTextureSize(group.texture, false);
 		group.indexes.push_back(index);
 
-		std::string category = MyGUI::ResourceManager::getInstance().getCategoryName();
-		MyGUI::ResourceImageSet* imageSet = MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceImageSet>(category);
+		const std::string& category = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::ResourceImageSet* imageSet =
+			MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceImageSet>(category);
 		imageSet->setResourceName("ResourceImageSet_Manual1");
 		imageSet->AddGroupImage(group);
 

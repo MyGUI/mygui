@@ -12,21 +12,11 @@
 #include "ControllerSmoothCaption.h"
 #include "ResourceDevice.h"
 #ifdef MYGUI_OGRE_PLATFORM
-#include <Ogre.h>
+	#include <Ogre.h>
 #endif
 
 namespace demo
 {
-
-	DemoKeeper::DemoKeeper() :
-		mKeyboardPanel(nullptr),
-		mMonitorPanel(nullptr),
-		mCommandManager(nullptr),
-		mRightButtonPressed(false),
-		mSaveCursorX(0),
-		mSaveCursorY(0)
-	{
-	}
 
 	void DemoKeeper::setupResources()
 	{
@@ -38,16 +28,16 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseDemoManager::createScene();
-		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
+		const std::string& controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomSelected>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothCaption>(controllerCategory);
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceDevice>(resourceCategory);
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
 
 		createGround();
@@ -64,16 +54,16 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
+		const std::string& controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomSelected>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothCaption>(controllerCategory);
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceDevice>(resourceCategory);
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 
 		delete mKeyboardPanel;
@@ -87,7 +77,6 @@ namespace demo
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-
 #ifdef MYGUI_OGRE_PLATFORM
 		if (_key == MyGUI::KeyCode::One)
 		{
@@ -103,15 +92,25 @@ namespace demo
 		}
 #endif
 
-		return BaseManager::injectKeyPress( _key, _text );
+		return base::BaseDemoManager::injectKeyPress(_key, _text);
 	}
 
 	void DemoKeeper::createGround()
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		Ogre::MeshManager::getSingleton().createPlane(
-			"FloorPlane", MyGuiResourceGroup,
-			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+			"FloorPlane",
+			MyGuiResourceGroup,
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0),
+			200,
+			200,
+			1,
+			1,
+			true,
+			1,
+			1,
+			1,
+			Ogre::Vector3::UNIT_Z);
 
 		Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane", MyGuiResourceGroup);
 		entity->setMaterialName("Ground", MyGuiResourceGroup);

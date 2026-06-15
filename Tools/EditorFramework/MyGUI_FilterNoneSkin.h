@@ -13,17 +13,16 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT_DLL FilterNone :
-		public SubSkin
+	class MYGUI_EXPORT_DLL FilterNone : public SubSkin
 	{
-		MYGUI_RTTI_DERIVED( FilterNone )
+		MYGUI_RTTI_DERIVED(FilterNone)
 
 	public:
 		FilterNone();
 
 		void doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
-	/*internal:*/
+		/*internal:*/
 		void _setAlign(const IntSize& _oldsize) override;
 	};
 

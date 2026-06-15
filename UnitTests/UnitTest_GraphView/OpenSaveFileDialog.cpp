@@ -12,14 +12,7 @@ namespace tools
 {
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		Dialog("OpenSaveFileDialog.layout"),
-		mWindow(nullptr),
-		mListFiles(nullptr),
-		mEditFileName(nullptr),
-		mButtonUp(nullptr),
-		mCurrentFolderField(nullptr),
-		mButtonOpenSave(nullptr),
-		mFileMask("*.*"),
-		mFolderMode(false)
+		mFileMask("*.*")
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
@@ -31,8 +24,10 @@ namespace tools
 		mListFiles->eventListSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
 		mEditFileName->eventEditSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
 		mButtonUp->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyUpButtonClick);
-		mCurrentFolderField->eventComboAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboAccept);
-		mCurrentFolderField->eventComboChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
+		mCurrentFolderField->eventComboAccept +=
+			MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboAccept);
+		mCurrentFolderField->eventComboChangePosition +=
+			MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
 		mButtonOpenSave->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
 
 		mWindow = mMainWidget->castType<MyGUI::Window>();
@@ -45,7 +40,7 @@ namespace tools
 		update();
 	}
 
-	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
 			eventEndDialog(this, false);
@@ -66,7 +61,10 @@ namespace tools
 		upFolder();
 	}
 
-	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode)
+	void OpenSaveFileDialog::setDialogInfo(
+		const MyGUI::UString& _caption,
+		const MyGUI::UString& _button,
+		bool _folderMode)
 	{
 		mFolderMode = _folderMode;
 		mWindow->setCaption(_caption);
@@ -78,7 +76,7 @@ namespace tools
 	{
 		if (_index == MyGUI::ITEM_NONE)
 		{
-			mEditFileName->setCaption("");
+			mEditFileName->setCaption(MyGUI::UString());
 		}
 		else
 		{
@@ -90,7 +88,8 @@ namespace tools
 
 	void OpenSaveFileDialog::notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index)
 	{
-		if (_index == MyGUI::ITEM_NONE) return;
+		if (_index == MyGUI::ITEM_NONE)
+			return;
 
 		common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 		if (info.folder)
@@ -101,7 +100,7 @@ namespace tools
 			}
 			else
 			{
-				mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
+				mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
 				update();
 			}
 		}
@@ -125,7 +124,7 @@ namespace tools
 			{
 				common::FileInfo info = *mListFiles->getItemDataAt<common::FileInfo>(mListFiles->getIndexSelected());
 				if (!common::isParentDir(info.name.c_str()))
-					mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
+					mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
 			}
 			eventEndDialog(this, true);
 		}
@@ -160,10 +159,10 @@ namespace tools
 		common::VectorFileInfo infos;
 		getSystemFileList(infos, mCurrentFolder, L"*.*");
 
-		for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
+		for (auto& info : infos)
 		{
-			if ((*item).folder)
-				mListFiles->addItem(L"[" + (*item).name + L"]", *item);
+			if (info.folder)
+				mListFiles->addItem(L"[" + info.name + L"]", info);
 		}
 
 		if (!mFolderMode)
@@ -172,10 +171,10 @@ namespace tools
 			infos.clear();
 			getSystemFileList(infos, mCurrentFolder, mFileMask);
 
-			for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
+			for (auto& info : infos)
 			{
-				if (!(*item).folder)
-					mListFiles->addItem((*item).name, *item);
+				if (!info.folder)
+					mListFiles->addItem(info.name, info);
 			}
 		}
 	}
@@ -204,7 +203,9 @@ namespace tools
 		MyGUI::IntSize windowSize = mMainWidget->getSize();
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+		mMainWidget->setPosition(
+			(parentSize.width - windowSize.width) / 2,
+			(parentSize.height - windowSize.height) / 2);
 	}
 
 	void OpenSaveFileDialog::onEndModal()
@@ -240,8 +241,8 @@ namespace tools
 	{
 		mCurrentFolderField->removeAllItems();
 
-		for (VectorUString::const_iterator item = _listFolders.begin(); item != _listFolders.end(); ++ item)
-			mCurrentFolderField->addItem((*item));
+		for (const auto& _listFolder : _listFolders)
+			mCurrentFolderField->addItem(_listFolder);
 	}
 
 	void OpenSaveFileDialog::notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)

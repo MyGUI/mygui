@@ -14,13 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(SettingsWidgetsControl)
 
-	SettingsWidgetsControl::SettingsWidgetsControl() :
-		mCheckShowName(nullptr),
-		mCheckShowType(nullptr),
-		mCheckShowSkin(nullptr)
-	{
-	}
-
 	SettingsWidgetsControl::~SettingsWidgetsControl()
 	{
 		mCheckShowName->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
@@ -28,7 +21,7 @@ namespace tools
 		mCheckShowSkin->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
 	}
 
-	void SettingsWidgetsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SettingsWidgetsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -61,7 +54,7 @@ namespace tools
 		checkbox->setStateSelected(!checkbox->getStateSelected());
 	}
 
-	void SettingsWidgetsControl::OnCommand(const std::string& _command)
+	void SettingsWidgetsControl::OnCommand(std::string_view _command)
 	{
 		Control::OnCommand(_command);
 

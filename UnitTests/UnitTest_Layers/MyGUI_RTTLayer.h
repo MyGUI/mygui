@@ -18,13 +18,13 @@ namespace MyGUI
 	class RTTLayer :
 		public OverlappedLayer
 #ifdef MYGUI_OGRE_PLATFORM
-		, public demo::SceneObject
+		,
+		public demo::SceneObject
 #endif
 	{
-		MYGUI_RTTI_DERIVED( RTTLayer )
+		MYGUI_RTTI_DERIVED(RTTLayer)
 
 	public:
-		RTTLayer();
 		~RTTLayer() override;
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
@@ -38,7 +38,7 @@ namespace MyGUI
 		void setTextureSize(const IntSize& _size);
 
 	private:
-		MyGUI::ITexture* mTexture;
+		MyGUI::ITexture* mTexture{nullptr};
 		mutable IntPoint mOldPoint;
 		IntSize mTextureSize;
 	};

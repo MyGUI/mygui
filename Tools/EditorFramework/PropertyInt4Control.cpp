@@ -11,18 +11,12 @@
 namespace tools
 {
 
-	PropertyInt4Control::PropertyInt4Control() :
-		mName(nullptr),
-		mEdit(nullptr)
-	{
-	}
-
 	PropertyInt4Control::~PropertyInt4Control()
 	{
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
 	}
 
-	void PropertyInt4Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyInt4Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
@@ -53,7 +47,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 		}
 	}
@@ -79,10 +73,7 @@ namespace tools
 		int value2 = 0;
 		int value3 = 0;
 		int value4 = 0;
-		if (!MyGUI::utility::parseComplex(value, value1, value2, value3, value4))
-			return false;
-
-		return true;
+		return MyGUI::utility::parseComplex(value, value1, value2, value3, value4);
 	}
 
 	MyGUI::UString PropertyInt4Control::getClearValue()
@@ -96,7 +87,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, value1, value2, value3, value4))
 			return MyGUI::utility::toString(value1, " ", value2, " ", value3, " ", value4);
 
-		return "";
+		return {};
 	}
 
 	void PropertyInt4Control::setColour(bool _validate)

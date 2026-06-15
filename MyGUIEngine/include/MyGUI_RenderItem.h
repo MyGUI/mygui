@@ -16,8 +16,8 @@
 namespace MyGUI
 {
 
-	typedef std::pair<ISubWidget*, size_t> DrawItemInfo;
-	typedef std::vector<DrawItemInfo> VectorDrawItem;
+	using DrawItemInfo = std::pair<ISubWidget*, size_t>;
+	using VectorDrawItem = std::vector<DrawItemInfo>;
 
 	class MYGUI_EXPORT RenderItem
 	{
@@ -54,29 +54,25 @@ namespace MyGUI
 		bool getNeedCompression() const;
 
 	private:
-#if MYGUI_DEBUG_MODE == 1
-		std::string mTextureName;
-#endif
+		ITexture* mTexture{nullptr};
 
-		ITexture* mTexture;
+		size_t mNeedVertexCount{0};
 
-		size_t mNeedVertexCount;
-
-		bool mOutOfDate;
+		bool mOutOfDate{false};
 		VectorDrawItem mDrawItems;
 
 		// колличество отрендренных реально вершин
-		size_t mCountVertex;
+		size_t mCountVertex{0};
 
-		bool mCurrentUpdate;
-		Vertex* mCurrentVertex;
-		size_t mLastVertexCount;
+		bool mCurrentUpdate{true};
+		Vertex* mCurrentVertex{nullptr};
+		size_t mLastVertexCount{0};
 
-		IVertexBuffer* mVertexBuffer;
-		IRenderTarget* mRenderTarget;
+		IVertexBuffer* mVertexBuffer{nullptr};
+		IRenderTarget* mRenderTarget{nullptr};
 
-		bool mNeedCompression;
-		bool mManualRender;
+		bool mNeedCompression{false};
+		bool mManualRender{false};
 	};
 
 } // namespace MyGUI

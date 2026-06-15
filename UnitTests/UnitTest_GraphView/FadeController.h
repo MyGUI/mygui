@@ -13,8 +13,7 @@
 namespace animation
 {
 
-	class FadeController :
-		public IAnimationNode
+	class FadeController : public IAnimationNode
 	{
 	public:
 		FadeController() :
@@ -24,18 +23,14 @@ namespace animation
 		{
 		}
 
-		FadeController(const std::string& _name, IAnimationGraph* _graph) :
+		FadeController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph),
 			mIsAnimationRun(false),
 			mWeight(0)
 		{
 		}
 
-		~FadeController() override
-		{
-		}
-
-		void setEvent(const std::string& _name, float _value = 0) override
+		void setEvent(std::string_view _name, float _value = 0) override
 		{
 			if (_name == "Start")
 			{
@@ -43,15 +38,16 @@ namespace animation
 				if (mWeight == 0)
 					mConnection.forceEvent("Start");
 			}
-			else if (_name == "Stop") mIsAnimationRun = false;
+			else if (_name == "Stop")
+				mIsAnimationRun = false;
 		}
 
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
@@ -64,7 +60,8 @@ namespace animation
 				if (mWeight != 1)
 				{
 					mWeight += _value * (1 / fade_time);
-					if (mWeight > 1) mWeight = 1;
+					if (mWeight > 1)
+						mWeight = 1;
 					mConnection.forceEvent("Weight", mWeight);
 				}
 			}
@@ -73,7 +70,8 @@ namespace animation
 				if (mWeight != 0)
 				{
 					mWeight -= _value * (1 / fade_time);
-					if (mWeight < 0) mWeight = 0;
+					if (mWeight < 0)
+						mWeight = 0;
 					mConnection.forceEvent("Weight", mWeight);
 
 					if (mWeight == 0)

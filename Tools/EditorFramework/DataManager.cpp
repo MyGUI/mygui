@@ -58,5 +58,5 @@ namespace tools
 	{
 		return mRoot;
 	}
-	
+
 }

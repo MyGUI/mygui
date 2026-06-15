@@ -26,31 +26,31 @@ namespace MyGUI
 			Try = MYGUI_FLAG(7),
 			Continue = MYGUI_FLAG(8),
 
-			_IndexUserButton1 = 9, // индекс первой кнопки юзера
+			_indexUserButton1 = 9, // индекс первой кнопки юзера
 
-			Button1 = MYGUI_FLAG(_IndexUserButton1),
-			Button2 = MYGUI_FLAG(_IndexUserButton1 + 1),
-			Button3 = MYGUI_FLAG(_IndexUserButton1 + 2),
-			Button4 = MYGUI_FLAG(_IndexUserButton1 + 3),
+			Button1 = MYGUI_FLAG(_indexUserButton1),
+			Button2 = MYGUI_FLAG(_indexUserButton1 + 1),
+			Button3 = MYGUI_FLAG(_indexUserButton1 + 2),
+			Button4 = MYGUI_FLAG(_indexUserButton1 + 3),
 
-			_CountUserButtons = 4, // колличество кнопок юзера
-			_IndexIcon1 = _IndexUserButton1 + _CountUserButtons, // индекс первой иконки
+			_countUserButtons = 4, // колличество кнопок юзера
+			_indexIcon1 = _indexUserButton1 + _countUserButtons, // индекс первой иконки
 
-			IconDefault = MYGUI_FLAG(_IndexIcon1),
+			IconDefault = MYGUI_FLAG(_indexIcon1),
 
-			IconInfo = MYGUI_FLAG(_IndexIcon1),
-			IconQuest = MYGUI_FLAG(_IndexIcon1 + 1),
-			IconError = MYGUI_FLAG(_IndexIcon1 + 2),
-			IconWarning = MYGUI_FLAG(_IndexIcon1 + 3),
+			IconInfo = MYGUI_FLAG(_indexIcon1),
+			IconQuest = MYGUI_FLAG(_indexIcon1 + 1),
+			IconError = MYGUI_FLAG(_indexIcon1 + 2),
+			IconWarning = MYGUI_FLAG(_indexIcon1 + 3),
 
-			Icon1 = MYGUI_FLAG(_IndexIcon1),
-			Icon2 = MYGUI_FLAG(_IndexIcon1 + 1),
-			Icon3 = MYGUI_FLAG(_IndexIcon1 + 2),
-			Icon4 = MYGUI_FLAG(_IndexIcon1 + 3),
-			Icon5 = MYGUI_FLAG(_IndexIcon1 + 4),
-			Icon6 = MYGUI_FLAG(_IndexIcon1 + 5),
-			Icon7 = MYGUI_FLAG(_IndexIcon1 + 6),
-			Icon8 = MYGUI_FLAG(_IndexIcon1 + 7)
+			Icon1 = MYGUI_FLAG(_indexIcon1),
+			Icon2 = MYGUI_FLAG(_indexIcon1 + 1),
+			Icon3 = MYGUI_FLAG(_indexIcon1 + 2),
+			Icon4 = MYGUI_FLAG(_indexIcon1 + 3),
+			Icon5 = MYGUI_FLAG(_indexIcon1 + 4),
+			Icon6 = MYGUI_FLAG(_indexIcon1 + 5),
+			Icon7 = MYGUI_FLAG(_indexIcon1 + 6),
+			Icon8 = MYGUI_FLAG(_indexIcon1 + 7)
 		};
 
 		MessageBoxStyle(Enum _value = None) :
@@ -58,28 +58,28 @@ namespace MyGUI
 		{
 		}
 
-		MessageBoxStyle& operator |= (MessageBoxStyle const& _other)
+		MessageBoxStyle& operator|=(MessageBoxStyle const& _other)
 		{
-			mValue = Enum(int(mValue) | int(_other.mValue));
+			mValue = (mValue | _other.mValue).mValue;
 			return *this;
 		}
 
-		friend MessageBoxStyle operator | (Enum const& a, Enum const& b)
+		friend MessageBoxStyle operator|(Enum const& a, Enum const& b)
 		{
-			return MessageBoxStyle(Enum(int(a) | int(b)));
+			return {Enum((unsigned int)a | (unsigned int)b)};
 		}
 
-		MessageBoxStyle operator | (Enum const& a)
+		MessageBoxStyle operator|(Enum const& a)
 		{
-			return MessageBoxStyle(Enum(int(mValue) | int(a)));
+			return mValue | a;
 		}
 
-		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b)
+		friend bool operator==(MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b)
+		friend bool operator!=(MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
 			return a.mValue != b.mValue;
 		}
@@ -90,7 +90,7 @@ namespace MyGUI
 			return _stream;
 		}*/
 
-		friend std::istream& operator >> (std::istream& _stream, MessageBoxStyle&  _value)
+		friend std::istream& operator>>(std::istream& _stream, MessageBoxStyle& _value)
 		{
 			std::string value;
 			_stream >> value;
@@ -102,7 +102,7 @@ namespace MyGUI
 		size_t getIconIndex()
 		{
 			size_t index = 0;
-			int num = mValue >> _IndexIcon1;
+			int num = mValue >> _indexIcon1;
 
 			while (num != 0)
 			{
@@ -141,11 +141,11 @@ namespace MyGUI
 
 			size_t index = 0;
 			int num = mValue;
-			while (index < _IndexIcon1)
+			while (index < _indexIcon1)
 			{
 				if ((num & 1) == 1)
 				{
-					buttons.push_back(MessageBoxStyle::Enum( MYGUI_FLAG(index)));
+					buttons.emplace_back(MessageBoxStyle::Enum(MYGUI_FLAG(index)));
 				}
 
 				++index;
@@ -155,23 +155,23 @@ namespace MyGUI
 			return buttons;
 		}
 
-		typedef std::map<std::string, int> MapAlign;
+		using MapAlign = std::map<std::string, int>;
 
-		static MessageBoxStyle parse(const std::string& _value)
+		static MessageBoxStyle parse(std::string_view _value)
 		{
 			MessageBoxStyle result(MessageBoxStyle::Enum(0));
 			const MapAlign& map_names = result.getValueNames();
 			const std::vector<std::string>& vec = utility::split(_value);
-			for (size_t pos = 0; pos < vec.size(); pos++)
+			for (const auto& type : vec)
 			{
-				MapAlign::const_iterator iter = map_names.find(vec[pos]);
+				MapAlign::const_iterator iter = map_names.find(type);
 				if (iter != map_names.end())
 				{
 					result.mValue = Enum(int(result.mValue) | int(iter->second));
 				}
 				else
 				{
-					MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'");
+					MYGUI_LOG(Warning, "Cannot parse type '" << type << "'");
 				}
 			}
 			return result;

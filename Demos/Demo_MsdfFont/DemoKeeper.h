@@ -8,8 +8,7 @@
 namespace demo
 {
 
-	class DemoKeeper :
-		public base::BaseDemoManager
+	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:
 		void createScene() override;
@@ -20,6 +19,7 @@ namespace demo
 
 		void increaseFontHeight(MyGUI::Widget* _sender);
 		void decreaseFontHeight(MyGUI::Widget* _sender);
+
 	private:
 		std::array<MyGUI::EditBox*, 5> mEditBoxes;
 	};

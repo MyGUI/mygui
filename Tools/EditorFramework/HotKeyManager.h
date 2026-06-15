@@ -16,9 +16,9 @@ namespace tools
 	class MYGUI_EXPORT_DLL HotKeyManager
 	{
 		MYGUI_SINGLETON_DECLARATION(HotKeyManager);
+
 	public:
 		HotKeyManager();
-		virtual ~HotKeyManager();
 
 		void initialise();
 		void shutdown();
@@ -26,16 +26,16 @@ namespace tools
 		bool onKeyEvent(bool _pressed, bool _shift, bool _control, MyGUI::KeyCode _key);
 
 	private:
-		void loadXml(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadXml(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 
 		void addCommand(HotKeyCommand& _command);
 
 	private:
-		typedef std::map<std::string, MyGUI::KeyCode> MapKeys;
+		using MapKeys = std::map<std::string, MyGUI::KeyCode>;
 		MapKeys mKeyNames;
 
-		typedef std::vector<HotKeyCommand> VectorCommand;
-		typedef std::map<MyGUI::KeyCode, VectorCommand> MapCommand;
+		using VectorCommand = std::vector<HotKeyCommand>;
+		using MapCommand = std::map<MyGUI::KeyCode, VectorCommand>;
 		MapCommand mCommands;
 	};
 

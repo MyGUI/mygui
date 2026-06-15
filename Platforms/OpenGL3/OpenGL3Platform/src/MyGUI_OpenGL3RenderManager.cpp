@@ -13,7 +13,7 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_DataManager.h"
 
-#include <GL/glew.h>
+#include <GL/gl.h>
 
 namespace MyGUI
 {
@@ -28,18 +28,10 @@ namespace MyGUI
 		return static_cast<OpenGL3RenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	OpenGL3RenderManager::OpenGL3RenderManager() :
-		mUpdate(false),
-		mImageLoader(nullptr),
-		mPboIsSupported(false),
-		mIsInitialise(false)
-	{
-	}
-
-	GLuint buildShader(const std::string& text, GLenum type)
+	static GLuint buildShader(const std::string& text, GLenum type)
 	{
 		GLuint id = glCreateShader(type);
-		const char *c_str = text.c_str();
+		const char* c_str = text.c_str();
 		glShaderSource(id, 1, &c_str, nullptr);
 		glCompileShader(id);
 
@@ -64,7 +56,7 @@ namespace MyGUI
 
 	std::string OpenGL3RenderManager::loadFileContent(const std::string& _file)
 	{
-		const std::string& fullPath = DataManager::getInstance().getDataPath(_file);
+		std::string fullPath = DataManager::getInstance().getDataPath(_file);
 		if (fullPath.empty())
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
@@ -76,7 +68,9 @@ namespace MyGUI
 		return buffer.str();
 	}
 
-	GLuint OpenGL3RenderManager::createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile)
+	GLuint OpenGL3RenderManager::createShaderProgram(
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
 	{
 		GLuint vsID = buildShader(loadFileContent(_vertexProgramFile), GL_VERTEX_SHADER);
 		GLuint fsID = buildShader(loadFileContent(_fragmentProgramFile), GL_FRAGMENT_SHADER);
@@ -140,15 +134,17 @@ namespace MyGUI
 
 		mReferenceCount = 0;
 
-		glewInit();
-
-		if (!(GLEW_VERSION_3_0))
+		int major = 0, minor = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &major);
+		glGetIntegerv(GL_MINOR_VERSION, &minor);
+		if (major < 3)
 		{
 			const char* version = (const char*)glGetString(GL_VERSION);
 			MYGUI_PLATFORM_EXCEPT(std::string("OpenGL 3.0 or newer not available, current version is ") + version);
 		}
 
-		mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
+		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
+		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
 
 		registerShader("Default", "MyGUI_OpenGL3_VP.glsl", "MyGUI_OpenGL3_FP.glsl");
 
@@ -252,8 +248,7 @@ namespace MyGUI
 
 	bool OpenGL3RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		if (_format == PixelFormat::R8G8B8 ||
-			_format == PixelFormat::R8G8B8A8)
+		if (_format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8)
 			return true;
 
 		return false;
@@ -326,7 +321,9 @@ namespace MyGUI
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())
 			return iter->second;
-		MYGUI_PLATFORM_LOG(Error, "Failed to get program ID for shader '" << _shaderName << "'. Did you forgot to register shader?");
+		MYGUI_PLATFORM_LOG(
+			Error,
+			"Failed to get program ID for shader '" << _shaderName << "'. Did you forgot to register shader?");
 		return 0;
 	}
 

@@ -16,10 +16,9 @@
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */RTTLayerNode :
-		public LayerNode
+	class /*MYGUI_EXPORT */ RTTLayerNode : public LayerNode
 	{
-		MYGUI_RTTI_DERIVED( RTTLayerNode )
+		MYGUI_RTTI_DERIVED(RTTLayerNode)
 
 	public:
 		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
@@ -62,20 +61,20 @@ namespace MyGUI
 		void checkTexture();
 
 	private:
-		IVertexBuffer* mVertexBuffer;
-		ITexture* mTexture;
+		IVertexBuffer* mVertexBuffer{nullptr};
+		ITexture* mTexture{nullptr};
 
 		IntSize mTextureSize;
 		IntCoord mCurrentCoord;
 
-		bool mOutOfDateRtt;
+		bool mOutOfDateRtt{false};
 
-		bool mMajorUpdate;
-		bool mChacheUsing;
-		bool mDestroy;
-		bool mIsAnimate;
+		bool mMajorUpdate{false};
+		bool mChacheUsing{true};
+		bool mDestroy{false};
+		bool mIsAnimate{false};
 
-		typedef std::vector<LayerNodeAnimation*> VectorLayerNodeAnimation;
+		using VectorLayerNodeAnimation = std::vector<LayerNodeAnimation*>;
 		VectorLayerNodeAnimation mLayerNodeAnimation;
 
 		VectorQuadData mData;

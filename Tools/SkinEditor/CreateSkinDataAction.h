@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class CreateSkinDataAction :
-		public Action
+	class CreateSkinDataAction : public Action
 	{
 	public:
 		CreateSkinDataAction();
@@ -24,8 +23,8 @@ namespace tools
 		void undoAction() override;
 
 		void setParent(DataPtr _parent);
-		void setType(const std::string& _value);
-		void setUniqueProperty(const std::string& _value);
+		void setType(std::string_view _value);
+		void setUniqueProperty(std::string_view _value);
 
 	private:
 		std::string mType;
@@ -33,8 +32,8 @@ namespace tools
 		DataPtr mParent;
 		std::string mUniqueProperty;
 
-		typedef std::pair<PropertyPtr, std::string> PairProprty;
-		typedef std::vector<PairProprty> VectorPairProperty;
+		using PairProprty = std::pair<PropertyPtr, std::string>;
+		using VectorPairProperty = std::vector<PairProprty>;
 		VectorPairProperty mOldValues;
 	};
 

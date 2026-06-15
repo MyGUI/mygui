@@ -12,14 +12,14 @@
 
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#	define MYGUI_DYNLIB_HANDLE hInstance
+	#define MYGUI_DYNLIB_HANDLE hInstance
 struct HINSTANCE__;
 typedef struct HINSTANCE__* hInstance;
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-#	define MYGUI_DYNLIB_HANDLE void*
+	#define MYGUI_DYNLIB_HANDLE void*
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-#	include <CoreFoundation/CFBundle.h>
-#	define MYGUI_DYNLIB_HANDLE CFBundleRef
+	#include <CoreFoundation/CFBundle.h>
+	#define MYGUI_DYNLIB_HANDLE CFBundleRef
 #endif
 
 namespace MyGUI
@@ -36,10 +36,9 @@ namespace MyGUI
 		friend class DynLibManager;
 
 	protected:
-		DynLib(const std::string& name);
+		DynLib(std::string_view name);
 
 	public:
-
 		/*! Load the library
 		*/
 		bool load();
@@ -49,17 +48,17 @@ namespace MyGUI
 		void unload();
 
 		//! Get the name of the library
-		std::string getName(void) const;
+		const std::string& getName() const;
 
 		/**
 			Returns the address of the given symbol from the loaded library.
 			@param
-				strName The name of the symbol to search for
+				strName The null terminated name of the symbol to search for
 			@returns
 				If the function succeeds, the returned value is a handle to the symbol.
 				If the function fails, the returned value is <b>nullptr</b>.
 		*/
-		void* getSymbol( const std::string& strName ) const noexcept;
+		void* getSymbol(const char* strName) const noexcept;
 
 	protected:
 		//! Gets the last loading error

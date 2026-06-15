@@ -21,11 +21,11 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(PropertyFieldManager);
 
-	template <typename Type>
+	template<typename Type>
 	class GenericFactory
 	{
 	public:
-		typedef MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*> Delegate;
+		using Delegate = MyGUI::delegates::Delegate<IPropertyField*&, MyGUI::Widget*>;
 		static typename Delegate::IDelegate* getFactory()
 		{
 			return MyGUI::newDelegate(createFromFactory);
@@ -69,7 +69,7 @@ namespace tools
 	{
 	}
 
-	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _type)
+	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, std::string_view _type)
 	{
 		IPropertyField* result = nullptr;
 

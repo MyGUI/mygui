@@ -10,8 +10,7 @@
 namespace tools
 {
 
-	class WorkspaceControl :
-		public TextureToolControlLE
+	class WorkspaceControl : public TextureToolControlLE
 	{
 	public:
 		WorkspaceControl(MyGUI::Widget* _parent = nullptr);
@@ -29,7 +28,10 @@ namespace tools
 	private:
 		void notifyChangePosition();
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
-		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
+		void notifyPropertyChangeCoord(
+			MyGUI::Widget* _widget,
+			const MyGUI::IntCoord& _coordValue,
+			std::string_view _owner);
 		void notifyChangeCreatorMode(bool _createMode);
 		void notifyChangeSelectorCreator(bool _visible, const MyGUI::IntCoord& _coord);
 		void notifyFrameStart(float _time);
@@ -65,17 +67,17 @@ namespace tools
 
 		void Command_FreeChildMode(const MyGUI::UString& _commandName, bool& _result);
 
-		void setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord);
+		void setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord) const;
 
 		void setRttLayerSize(const MyGUI::IntSize& _size);
 
 	private:
-		AreaSelectorControlLE* mAreaSelectorControl;
+		AreaSelectorControlLE* mAreaSelectorControl{nullptr};
 		MyGUI::IntCoord mCoordValue;
-		MyGUI::Widget* mCurrentWidget;
-		bool mMoveableWidget;
-		PositionSelectorControlLE* mPositionSelectorCreatorControl;
-		bool mFreeChildMode;
+		MyGUI::Widget* mCurrentWidget{nullptr};
+		bool mMoveableWidget{false};
+		PositionSelectorControlLE* mPositionSelectorCreatorControl{nullptr};
+		bool mFreeChildMode{false};
 	};
 
 }

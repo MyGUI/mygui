@@ -84,7 +84,9 @@ namespace MyGUI
 
 		void insert(UString::utf32string::iterator& _start, const UString::utf32string& _insert);
 
-		UString::utf32string::iterator erase(UString::utf32string::iterator _start, UString::utf32string::iterator _end);
+		UString::utf32string::iterator erase(
+			UString::utf32string::iterator _start,
+			UString::utf32string::iterator _end);
 
 		void clear();
 

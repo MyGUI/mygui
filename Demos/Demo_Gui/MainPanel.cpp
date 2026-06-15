@@ -25,12 +25,12 @@ namespace demo
 		mComboCreate->eventComboAccept += MyGUI::newDelegate(this, &MainPanel::notifyComboAccept);
 	}
 
-	void MainPanel::addObject(const MyGUI::UString& _name)
+	void MainPanel::addObject(const MyGUI::UString& _name) const
 	{
 		mComboCreate->addItem(_name);
 	}
 
-	void MainPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	void MainPanel::notifyMouseButtonClick(MyGUI::Widget* _sender) const
 	{
 		if (_sender == mButtonNew)
 			eventAction(EventNew, 0);
@@ -40,7 +40,7 @@ namespace demo
 			eventAction(EventQuit, 0);
 	}
 
-	void MainPanel::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
+	void MainPanel::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index) const
 	{
 		eventAction(EventCreate, _index);
 

@@ -24,14 +24,29 @@ namespace input
 		void setInputViewSize(int _width, int _height);
 
 		// following five methods are to be implemented in BaseManager class
-		virtual void injectMouseMove(int _absx, int _absy, int _absz){}
-		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id){}
-		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id){}
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text){}
-		virtual void injectKeyRelease(MyGUI::KeyCode _key){}
+		virtual void injectMouseMove(int _absx, int _absy, int _absz)
+		{
+		}
+		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+		{
+		}
+		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+		{
+		}
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+		{
+		}
+		virtual void injectKeyRelease(MyGUI::KeyCode _key)
+		{
+		}
 
-		virtual void onFileDrop(const std::wstring& _filename) { }
-		virtual bool onWindowClose(size_t _handle) { return true; }
+		virtual void onFileDrop(const std::wstring& _filename)
+		{
+		}
+		virtual bool onWindowClose(size_t _handle)
+		{
+			return true;
+		}
 
 		void setMousePosition(int _x, int _y);
 		void updateCursorPosition();
@@ -40,27 +55,28 @@ namespace input
 		void frameEvent(float _time);
 		void computeMouseMove();
 
-		void onClipboardChanged(const std::string& _type, const std::string& _data);
-		void onClipboardRequested(const std::string& _type, std::string& _data);
+		void onClipboardChanged(std::string_view _type, std::string_view _data);
+		void onClipboardRequested(std::string_view _type, std::string& _data);
 
-		virtual bool mouseMoved(const SDL_MouseMotionEvent &evt);
-		virtual bool mousePressed(const SDL_MouseButtonEvent &evt);
-		virtual bool mouseReleased(const SDL_MouseButtonEvent &evt);
+		virtual bool mouseMoved(const SDL_MouseMotionEvent& evt);
+		virtual bool mousePressed(const SDL_MouseButtonEvent& evt);
+		virtual bool mouseReleased(const SDL_MouseButtonEvent& evt);
 		virtual bool keyPressed(SDL_Keycode key, const SDL_TextInputEvent* evt);
-		virtual bool keyReleased(const SDL_KeyboardEvent &key);
-		virtual bool mouseWheelMoved(const SDL_MouseWheelEvent &evt);
+		virtual bool keyReleased(const SDL_KeyboardEvent& key);
+		virtual bool mouseWheelMoved(const SDL_MouseWheelEvent& evt);
 
 		void checkPosition();
 
 		void buildVKeyMap();
 		void buildMouseButtonMap();
+
 	private:
-		int mMouseX;
-		int mMouseY;
-		int mMouseZ;
-		bool mMouseMove;
-		int mWidth;
-		int mHeight;
+		int mMouseX{0};
+		int mMouseY{0};
+		int mMouseZ{0};
+		bool mMouseMove{false};
+		int mWidth{0};
+		int mHeight{0};
 		std::map<int, MyGUI::KeyCode> mSDLVKeyMap;
 		std::map<int, MyGUI::MouseButton> mSDLMouseMap;
 	};

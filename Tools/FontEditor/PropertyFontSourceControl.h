@@ -14,17 +14,15 @@
 namespace tools
 {
 
-	class PropertyFontSourceControl :
-		public PropertyControl
+	class PropertyFontSourceControl : public PropertyControl
 	{
 	public:
-		PropertyFontSourceControl();
 		~PropertyFontSourceControl() override;
 
 	protected:
 		void updateCaption() override;
 		void updateProperty() override;
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
@@ -34,8 +32,8 @@ namespace tools
 		void fillResources();
 
 	private:
-		MyGUI::TextBox* mName;
-		MyGUI::ComboBox* mComboBox;
+		MyGUI::TextBox* mName{nullptr};
+		MyGUI::ComboBox* mComboBox{nullptr};
 
 		MyGUI::VectorString mResources;
 	};

@@ -16,23 +16,20 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(StatisticInfoControl)
 
-	StatisticInfoControl::StatisticInfoControl() :
-		mText(nullptr)
-	{
-	}
-
 	StatisticInfoControl::~StatisticInfoControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &StatisticInfoControl::notifyFrameStart);
 	}
 
-	void StatisticInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void StatisticInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "StatisticInfoControl.layout");
 
 		assignWidget(mText, "Text");
 
-		CommandManager::getInstance().getEvent("Command_StatisticInfo")->connect(this, &StatisticInfoControl::command_StatisticInfo);
+		CommandManager::getInstance()
+			.getEvent("Command_StatisticInfo")
+			->connect(this, &StatisticInfoControl::command_StatisticInfo);
 
 		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/StatisticInfoControl/Visible"));
 
@@ -58,7 +55,7 @@ namespace tools
 			std::string value;
 
 			MyGUI::MapString statistic = Application::getInstance().getStatistic();
-			for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info ++)
+			for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info++)
 			{
 				if (!value.empty())
 					value += "\n";

@@ -14,22 +14,22 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL DataListBaseControl :
-		public Control,
-		public sigslot::has_slots<>
+	class MYGUI_EXPORT_DLL DataListBaseControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		DataListBaseControl();
-
 		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
 		void commandCloneData(const MyGUI::UString& _commandName, bool& _result);
 		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
 
-		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique);
+		void setDataInfo(
+			std::string_view _parentType,
+			std::string_view _currentType,
+			std::string_view _propertyName,
+			std::string_view _propertyUnique);
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 		bool checkCommand(bool _result);
 
@@ -39,10 +39,10 @@ namespace tools
 
 	private:
 		void notifyChangePosition(DataPtr _data1, DataPtr _data2);
-		void notifyChangeName(DataPtr _data, const std::string& _name);
+		void notifyChangeName(DataPtr _data, std::string_view _name);
 
 	private:
-		ListBoxDataControl* mListBoxControl;
+		ListBoxDataControl* mListBoxControl{nullptr};
 		std::string mParentType;
 		std::string mCurrentType;
 		std::string mPropertyForName;

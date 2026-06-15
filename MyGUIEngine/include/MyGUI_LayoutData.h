@@ -24,8 +24,7 @@ namespace MyGUI
 	public:
 		WidgetInfo() :
 			align(Align::Default),
-			style(WidgetStyle::Child),
-			positionType(None)
+			style(WidgetStyle::Child)
 		{
 		}
 
@@ -42,13 +41,18 @@ namespace MyGUI
 		std::string name;
 		std::string layer;
 
-		enum PositionType { Pixels, Relative, None };
-		PositionType positionType;
+		enum PositionType
+		{
+			Pixels,
+			Relative,
+			None
+		};
+		PositionType positionType{None};
 		IntCoord intCoord;
 		FloatCoord floatCoord;
 	};
 
-	typedef std::vector<WidgetInfo> VectorWidgetInfo;
+	using VectorWidgetInfo = std::vector<WidgetInfo>;
 
 } // namespace MyGUI
 

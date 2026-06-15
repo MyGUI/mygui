@@ -14,14 +14,13 @@
 namespace wraps
 {
 	template<typename DataType>
-	class BaseCellView :
-		public BaseLayout
+	class BaseCellView : public BaseLayout
 	{
 	public:
-		typedef DataType Type;
+		using Type = DataType;
 
 	protected:
-		BaseCellView(const std::string& _layout, MyGUI::Widget* _parent) :
+		BaseCellView(std::string_view _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent)
 		{
 		}

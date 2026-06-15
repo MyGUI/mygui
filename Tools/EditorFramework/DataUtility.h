@@ -15,19 +15,19 @@ namespace tools
 	class MYGUI_EXPORT_DLL DataUtility
 	{
 	public:
-		static DataPtr getSelectedDataByType(const std::string& _type);
-		static DataPtr getSelectedParentDataByType(const std::string& _type);
+		static DataPtr getSelectedDataByType(std::string_view _type);
+		static DataPtr getSelectedParentDataByType(std::string_view _type);
 
 		static void cloneData(DataPtr _target, DataPtr _prototype);
-		static std::string getUniqueName(DataPtr _parent, const std::string& _pattern);
+		static std::string getUniqueName(DataPtr _parent, std::string_view _pattern);
 
-		static Data::VectorData getChildsByType(DataPtr _parent, const std::string& _type, bool _friend = true);
+		static Data::VectorData getChildsByType(DataPtr _parent, std::string_view _type, bool _friend = true);
 
 	private:
 		static DataPtr getSelectedDataByType(DataPtr _data, DataTypePtr _info);
 		static DataPtr getSelectedParentDataByType(DataPtr _data, DataTypePtr _info);
 		static void copyProperty(DataPtr _target, DataPtr _prototype);
-		static bool checkUniqueName(DataPtr _parent, const std::string& _name);
+		static bool checkUniqueName(DataPtr _parent, std::string_view _name);
 	};
 
 }

@@ -15,8 +15,7 @@ namespace components
 	class MYGUI_EXPORT_DLL IFactory
 	{
 	public:
-		IFactory() { }
-		virtual ~IFactory() { }
+		virtual ~IFactory() = default;
 
 		virtual IFactoryItem* CreateItem() = 0;
 	};

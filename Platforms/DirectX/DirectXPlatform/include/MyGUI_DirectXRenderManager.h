@@ -17,9 +17,7 @@ struct IDirect3DDevice9;
 namespace MyGUI
 {
 
-	class DirectXRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class DirectXRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
 		DirectXRenderManager();
@@ -102,7 +100,7 @@ namespace MyGUI
 		RenderTargetInfo mInfo;
 		bool mUpdate;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
 
 		bool mIsInitialise;

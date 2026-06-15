@@ -18,14 +18,6 @@ namespace wraps
 	class RenderBox
 	{
 	public:
-		RenderBox() :
-			mCanvas(nullptr),
-			mCamera(nullptr),
-			mRenderTarget(nullptr),
-			mColour(Ogre::ColourValue::ZERO)
-		{
-		}
-
 		virtual ~RenderBox()
 		{
 			destroy();
@@ -96,7 +88,8 @@ namespace wraps
 				mRenderTarget->removeAllViewports();
 				mRenderTarget = nullptr;
 				if (mCanvas)
-					Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(mCanvas->getTexture()->getName());
+					Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(
+						mCanvas->getTexture()->getName());
 			}
 		}
 
@@ -116,9 +109,7 @@ namespace wraps
 			Ogre::TexturePtr texture = static_cast<MyGUI::OgreTexture*>(mCanvas->getTexture())->getOgreTexture();
 			Ogre::RenderTexture* target = texture->getBuffer()->getRenderTarget();
 
-			if (mRenderTarget != target
-				&& target != nullptr
-				&& mCamera != nullptr )
+			if (mRenderTarget != target && target != nullptr && mCamera != nullptr)
 			{
 				mRenderTarget = target;
 
@@ -127,15 +118,14 @@ namespace wraps
 				viewport->setBackgroundColour(mColour);
 				viewport->setClearEveryFrame(true);
 				viewport->setOverlaysEnabled(false);
-
 			}
 		}
 
 	protected:
-		MyGUI::Canvas* mCanvas;
-		Ogre::Camera* mCamera;
-		Ogre::RenderTarget* mRenderTarget;
-		Ogre::ColourValue mColour;
+		MyGUI::Canvas* mCanvas{nullptr};
+		Ogre::Camera* mCamera{nullptr};
+		Ogre::RenderTarget* mRenderTarget{nullptr};
+		Ogre::ColourValue mColour{Ogre::ColourValue::ZERO};
 	};
 
 } // namespace wraps

@@ -8,19 +8,25 @@
 namespace tools
 {
 
-	enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
+	enum
+	{
+		PR_DEFAULT,
+		PR_POSITION,
+		PR_PROPERTIES,
+		PR_KEY_POSITION
+	};
 
-	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
+	using Event_Changes = MyGUI::delegates::MultiDelegate<bool>;
 
-	class UndoManager :
-		public sigslot::has_slots<>
+	class UndoManager : public sigslot::has_slots<>
 	{
 		MYGUI_SINGLETON_DECLARATION(UndoManager);
+
 	public:
 		UndoManager();
 
 	public:
-		void initialise(EditorWidgets* mEditorWidgets);
+		void initialise(EditorWidgets* _ew);
 		void shutdown();
 
 		void undo();
@@ -36,7 +42,7 @@ namespace tools
 		{
 			return mUnsaved;
 		}
-		void setUnsaved(bool _unsaved);
+		void setUnsaved(bool _value);
 
 		Event_Changes eventChanges;
 
@@ -46,14 +52,14 @@ namespace tools
 
 	private:
 		// position in the bufer (0 - newest element)
-		size_t mPosition;
+		size_t mPosition{0};
 
 		CyclicBuffer<MyGUI::xml::Document*> mOperations;
-		int mLastProperty;
+		int mLastProperty{0};
 
-		EditorWidgets* mEditorWidgets;
+		EditorWidgets* mEditorWidgets{nullptr};
 
-		bool mUnsaved;
+		bool mUnsaved{false};
 	};
 
 }

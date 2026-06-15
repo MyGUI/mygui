@@ -14,8 +14,7 @@
 namespace tools
 {
 
-	class PanelControllers :
-		public wraps::BasePanelViewItem
+	class PanelControllers : public wraps::BasePanelViewItem
 	{
 	public:
 		PanelControllers();
@@ -26,7 +25,7 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
+		void notifyAction(std::string_view _name, std::string_view _value, bool _final);
 
 		void notifyChangeWidth(int _width) override;
 
@@ -34,30 +33,30 @@ namespace tools
 		void notifyDelete(MyGUI::Widget* _sender);
 		void notifySelectItem(MyGUI::ListBox* _sender, size_t _index);
 
-		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 		void destroyPropertyFields();
 
 		void updateSize();
 
 	private:
-		MyGUI::ComboBox* mControllerName;
-		MyGUI::Button* mButtonAdd;
-		MyGUI::Button* mButtonDelete;
-		MyGUI::ListBox* mList;
+		MyGUI::ComboBox* mControllerName{nullptr};
+		MyGUI::Button* mButtonAdd{nullptr};
+		MyGUI::Button* mButtonDelete{nullptr};
+		MyGUI::ListBox* mList{nullptr};
 
-		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Widget* mCurrentWidget{nullptr};
 
-		int mButtonLeft;
-		int mButtonRight;
-		int mButtonSpace;
+		int mButtonLeft{0};
+		int mButtonRight{0};
+		int mButtonSpace{0};
 
-		typedef std::map<std::string, MyGUI::MapString> MapMapString;
+		using MapMapString = std::map<std::string, MyGUI::MapString, std::less<>>;
 		MapMapString mControllersProperties;
 
-		typedef std::vector<IPropertyField*> VectorPropertyField;
+		using VectorPropertyField = std::vector<IPropertyField*>;
 		VectorPropertyField mFields;
 
-		size_t mIndexSelected;
+		size_t mIndexSelected{MyGUI::ITEM_NONE};
 	};
 
 }

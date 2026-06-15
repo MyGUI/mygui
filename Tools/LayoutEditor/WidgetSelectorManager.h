@@ -13,11 +13,12 @@
 namespace tools
 {
 
-	typedef MyGUI::delegates::CMultiDelegate1<MyGUI::Widget*> Event_ChangeSelectedWidget;
+	using Event_ChangeSelectedWidget = MyGUI::delegates::MultiDelegate<MyGUI::Widget*>;
 
 	class WidgetSelectorManager
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetSelectorManager);
+
 	public:
 		WidgetSelectorManager();
 
@@ -43,8 +44,8 @@ namespace tools
 		MyGUI::Widget* findWidgetSelected(WidgetContainer* _container);
 
 	private:
-		MyGUI::Widget* mCurrentWidget;
-		size_t mSelectDepth;
+		MyGUI::Widget* mCurrentWidget{nullptr};
+		size_t mSelectDepth{0};
 		MyGUI::IntPoint mLastClickPoint;
 		std::string mStoreWidgetTag;
 	};

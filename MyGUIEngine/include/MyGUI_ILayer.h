@@ -18,20 +18,19 @@ namespace MyGUI
 
 	class ILayerItem;
 
-	class MYGUI_EXPORT ILayer :
-		public ISerializable
+	class MYGUI_EXPORT ILayer : public ISerializable
 	{
-		MYGUI_RTTI_DERIVED( ILayer )
+		MYGUI_RTTI_DERIVED(ILayer)
 
 	public:
-		ILayer() { }
+		ILayer() = default;
 
 		const std::string& getName() const
 		{
 			return mName;
 		}
 
-		void setName(const std::string& _name)
+		void setName(std::string_view _name)
 		{
 			mName = _name;
 		}
@@ -39,8 +38,8 @@ namespace MyGUI
 		virtual ILayerNode* createChildItemNode() = 0;
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// up child item (make it draw and pick above other)
-		virtual void upChildItemNode(ILayerNode* _node) = 0;
+		// up child item (make it draw and pick above others)
+		virtual void upChildItemNode(ILayerNode* _item) = 0;
 
 		// child items list
 		virtual EnumeratorILayerNode getEnumerator() const = 0;

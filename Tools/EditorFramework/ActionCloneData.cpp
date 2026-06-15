@@ -32,7 +32,9 @@ namespace tools
 			DataUtility::cloneData(mData, mPrototype);
 
 			if (!mUniqueProperty.empty())
-				mData->setPropertyValue("Name", DataUtility::getUniqueName(mParent, mPrototype->getPropertyValue("Name") + "_"));
+				mData->setPropertyValue(
+					"Name",
+					DataUtility::getUniqueName(mParent, mPrototype->getPropertyValue("Name") + "_"));
 		}
 
 		mParent->addChild(mData);
@@ -59,7 +61,7 @@ namespace tools
 		mType = _prototype->getType()->getName();
 	}
 
-	void ActionCloneData::setUniqueProperty(const std::string& _value)
+	void ActionCloneData::setUniqueProperty(std::string_view _value)
 	{
 		mUniqueProperty = _value;
 	}

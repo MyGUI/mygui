@@ -8,17 +8,13 @@
 #include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
-#include <GL/glew.h>
+#include <GL/gl.h>
 
 namespace MyGUI
 {
 
 	OpenGLRTTexture::OpenGLRTTexture(unsigned int _texture) :
-		mTextureId(_texture),
-		mWidth(0),
-		mHeight(0),
-		mFBOID(0),
-		mRBOID(0)
+		mTextureId(_texture)
 	{
 		int miplevel = 0;
 		glBindTexture(GL_TEXTURE_2D, mTextureId);
@@ -81,7 +77,7 @@ namespace MyGUI
 
 		OpenGLRenderManager::getInstance().begin();
 		glOrtho(-1, 1, 1, -1, -1, 1);
-		glClear(GL_COLOR_BUFFER_BIT/* | GL_DEPTH_BUFFER_BIT*/);
+		glClear(GL_COLOR_BUFFER_BIT /* | GL_DEPTH_BUFFER_BIT*/);
 	}
 
 	void OpenGLRTTexture::end()

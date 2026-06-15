@@ -15,10 +15,9 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IObject
 	{
-		MYGUI_RTTI_BASE( IObject )
+		MYGUI_RTTI_BASE(IObject)
 
 	public:
-		IObject() = default;
 		virtual ~IObject() = default;
 	};
 

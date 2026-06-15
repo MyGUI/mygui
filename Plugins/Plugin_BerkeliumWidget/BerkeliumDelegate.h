@@ -16,8 +16,7 @@ namespace MyGUI
 
 	class BerkeliumWidget;
 
-	class MYGUI_EXPORT_DLL BerkeliumDelegate :
-		public Berkelium::WindowDelegate
+	class MYGUI_EXPORT_DLL BerkeliumDelegate : public Berkelium::WindowDelegate
 	{
 	public:
 		BerkeliumDelegate();
@@ -28,15 +27,16 @@ namespace MyGUI
 
 	protected:
 		virtual void onPaint(
-			Berkelium::Window *win,
-			const unsigned char *sourceBuffer,
-			const Berkelium::Rect &sourceBufferRect,
+			Berkelium::Window* win,
+			const unsigned char* sourceBuffer,
+			const Berkelium::Rect& sourceBufferRect,
 			size_t numCopyRects,
-			const Berkelium::Rect *copyRects,
-			int dx, int dy,
-			const Berkelium::Rect &scrollRect);
+			const Berkelium::Rect* copyRects,
+			int dx,
+			int dy,
+			const Berkelium::Rect& scrollRect);
 
-		virtual void onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor);
+		virtual void onCursorUpdated(Berkelium::Window* win, const Berkelium::Cursor& newCursor);
 
 	private:
 		Berkelium::Window* mWindow;

@@ -16,12 +16,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ICroppedRectangle
 	{
 	public:
-		ICroppedRectangle() :
-			mIsMargin(false),
-			mCroppedParent(nullptr)
-		{ }
-
-		virtual ~ICroppedRectangle() { }
+		virtual ~ICroppedRectangle() = default;
 
 		/** Get parent ICroppedRectangle */
 		ICroppedRectangle* getCroppedParent()
@@ -71,12 +66,16 @@ namespace MyGUI
 		/** Get rectangle in screen coordinates */
 		IntRect getAbsoluteRect() const
 		{
-			return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left + mCoord.width, mAbsolutePosition.top + mCoord.height);
+			return {
+				mAbsolutePosition.left,
+				mAbsolutePosition.top,
+				mAbsolutePosition.left + mCoord.width,
+				mAbsolutePosition.top + mCoord.height};
 		}
 		/** Get coordinate in screen coordinates */
 		IntCoord getAbsoluteCoord() const
 		{
-			return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height);
+			return {mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height};
 		}
 
 		/** Get X in screen coordinates */
@@ -234,10 +233,11 @@ namespace MyGUI
 
 		bool _checkOutside() const // проверка на полный выход за границу
 		{
-			return ( (getRight() < mCroppedParent->mMargin.left ) || // совсем уехали налево
-				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right ) || // совсем уехали направо
-				(getBottom() < mCroppedParent->mMargin.top  ) || // совсем уехали вверх
-				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom ) );  // совсем уехали вниз
+			return (
+				(getRight() < mCroppedParent->mMargin.left) || // совсем уехали налево
+				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) || // совсем уехали направо
+				(getBottom() < mCroppedParent->mMargin.top) || // совсем уехали вверх
+				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom)); // совсем уехали вниз
 		}
 
 	protected:
@@ -245,8 +245,8 @@ namespace MyGUI
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
-		bool mIsMargin;
-		ICroppedRectangle* mCroppedParent;
+		bool mIsMargin{false};
+		ICroppedRectangle* mCroppedParent{nullptr};
 	};
 
 } // namespace MyGUI

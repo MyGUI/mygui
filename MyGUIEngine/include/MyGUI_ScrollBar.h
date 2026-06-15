@@ -15,32 +15,28 @@ namespace MyGUI
 
 	class ControllerItem;
 
-	typedef delegates::CMultiDelegate2<ScrollBar*, size_t> EventHandle_ScrollBarPtrSizeT;
+	using EventHandle_ScrollBarPtrSizeT = delegates::MultiDelegate<ScrollBar*, size_t>;
 
 	/** \brief @wpage{ScrollBar}
 		ScrollBar widget description should be here.
 	*/
-	class MYGUI_EXPORT ScrollBar :
-		public Widget,
-		public MemberObsolete<ScrollBar>
+	class MYGUI_EXPORT ScrollBar : public Widget, public MemberObsolete<ScrollBar>
 	{
-		MYGUI_RTTI_DERIVED( ScrollBar )
+		MYGUI_RTTI_DERIVED(ScrollBar)
 
 	public:
-		ScrollBar();
-
 		/** Set vertical alignment grid mode */
 		void setVerticalAlignment(bool _value);
 		/** Get vertical alignment grid mode flag */
 		bool getVerticalAlignment() const;
 
 		/** Set scroll range */
-		void setScrollRange(size_t _value);
+		void setScrollRange(size_t _range);
 		/** Get scroll range */
 		size_t getScrollRange() const;
 
 		/** Set scroll position (value from 0 to range - 1) */
-		void setScrollPosition(size_t _value);
+		void setScrollPosition(size_t _position);
 		/** Get scroll position (value from 0 to range - 1) */
 		size_t getScrollPosition() const;
 
@@ -71,7 +67,7 @@ namespace MyGUI
 		/** Set size of track in pixels
 			@param _value in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		void setTrackSize(int _value);
+		void setTrackSize(int _size);
 		/** Get size of track in pixels */
 		int getTrackSize() const;
 
@@ -107,16 +103,16 @@ namespace MyGUI
 		/** Get how much time between scrollbar button repeats. */
 		float getRepeatStepTime(float time) const;
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
-        using Widget::setPosition;
-        using Widget::setSize;
-        using Widget::setCoord;
+		using Widget::setPosition;
+		using Widget::setSize;
+		using Widget::setCoord;
 
 		/*events:*/
 		/** Event : scroll tracker position changed.\n
@@ -140,7 +136,7 @@ namespace MyGUI
 		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		int getTrackPlaceLength() const;
 
@@ -153,34 +149,34 @@ namespace MyGUI
 
 	protected:
 		// наши кнопки
-		Button* mWidgetStart;
-		Button* mWidgetEnd;
-		Button* mWidgetTrack;
+		Button* mWidgetStart{nullptr};
+		Button* mWidgetEnd{nullptr};
+		Button* mWidgetTrack{nullptr};
 		// куски между кнопками
-		Widget* mWidgetFirstPart;
-		Widget* mWidgetSecondPart;
+		Widget* mWidgetFirstPart{nullptr};
+		Widget* mWidgetSecondPart{nullptr};
 
 		// смещение внутри окна
 		IntPoint mPreActionOffset;
 
 		// диапазон на который трек может двигаться
-		size_t mSkinRangeStart;
-		size_t mSkinRangeEnd;
+		size_t mSkinRangeStart{0};
+		size_t mSkinRangeEnd{0};
 
-		size_t mScrollRange;
-		size_t mScrollPosition;
-		size_t mScrollPage; // track step, when clicking buttons
-		size_t mScrollViewPage; // track step, when clicking scroll line
-		size_t mScrollWheelPage; // track step, when scrolling with mouse wheel
+		size_t mScrollRange{0};
+		size_t mScrollPosition{0};
+		size_t mScrollPage{0}; // track step, when clicking buttons
+		size_t mScrollViewPage{0}; // track step, when clicking scroll line
+		size_t mScrollWheelPage{0}; // track step, when scrolling with mouse wheel
 
-		bool mEnableRepeat; // Repeat clicks on the scrollbar buttons when the mouse button remains pressed down
-		float mRepeatTriggerTime; // Time the mouse button needs to be held for repeating to start
-		float mRepeatStepTime; // Time between repeats
+		bool mEnableRepeat{true}; // Repeat clicks on the scrollbar buttons when the mouse button remains pressed down
+		float mRepeatTriggerTime{0.f}; // Time the mouse button needs to be held for repeating to start
+		float mRepeatStepTime{0.f}; // Time between repeats
 
-		int mMinTrackSize;
-		bool mMoveToClick;
+		int mMinTrackSize{0};
+		bool mMoveToClick{false};
 
-		bool mVerticalAlignment;
+		bool mVerticalAlignment{true};
 	};
 
 } // namespace MyGUI

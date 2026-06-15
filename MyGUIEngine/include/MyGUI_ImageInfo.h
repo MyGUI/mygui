@@ -15,23 +15,20 @@ namespace MyGUI
 
 	struct ImageItem
 	{
-	public:
-		ImageItem() :
-			frame_rate(0)
-		{
-		}
-
-	public:
-		float frame_rate;
+		float frame_rate{0};
 		std::vector<FloatRect> images;
 	};
 
-	typedef std::vector<ImageItem> VectorImages;
+	using VectorImages = std::vector<ImageItem>;
 
 	struct MYGUI_EXPORT ImageIndexInfo
 	{
 	public:
-		ImageIndexInfo(const std::string& _texture, const IntSize& _size, const float _rate, const std::vector<IntPoint>& _frames) :
+		ImageIndexInfo(
+			std::string_view _texture,
+			const IntSize& _size,
+			const float _rate,
+			const std::vector<IntPoint>& _frames) :
 			texture(_texture),
 			size(_size),
 			rate(_rate),
@@ -40,7 +37,7 @@ namespace MyGUI
 		}
 
 	public:
-		const std::string& texture;
+		std::string_view texture;
 		const IntSize& size;
 		const float rate;
 		const std::vector<IntPoint>& frames;

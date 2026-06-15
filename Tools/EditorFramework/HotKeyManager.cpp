@@ -15,7 +15,7 @@ namespace tools
 	HotKeyManager::HotKeyManager() :
 		mSingletonHolder(this)
 	{
-		#define BIND_KEY(name) mKeyNames[#name] = MyGUI::KeyCode::name
+#define BIND_KEY(name) mKeyNames[#name] = MyGUI::KeyCode::name
 
 		BIND_KEY(None);
 		BIND_KEY(Escape);
@@ -164,17 +164,13 @@ namespace tools
 		BIND_KEY(Mail);
 		BIND_KEY(MediaSelect);
 
-		#undef BIND_KEY
-	}
-
-	HotKeyManager::~HotKeyManager()
-	{
-		mKeyNames.clear();
+#undef BIND_KEY
 	}
 
 	void HotKeyManager::initialise()
 	{
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("HotKeys") = MyGUI::newDelegate(this, &HotKeyManager::loadXml);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("HotKeys") =
+			MyGUI::newDelegate(this, &HotKeyManager::loadXml);
 	}
 
 	void HotKeyManager::shutdown()
@@ -182,7 +178,7 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate("HotKeys");
 	}
 
-	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Command"))
@@ -241,12 +237,9 @@ namespace tools
 			return result;
 
 		const VectorCommand& commands = (*section).second;
-		for (VectorCommand::const_iterator item = commands.begin(); item != commands.end(); ++item)
+		for (const auto& command : commands)
 		{
-			const HotKeyCommand& command = (*item);
-			if (command.getPressed() == _pressed
-				&& command.getShift() == _shift
-				&& command.getControl() == _control)
+			if (command.getPressed() == _pressed && command.getShift() == _shift && command.getControl() == _control)
 			{
 				if (CommandManager::getInstance().executeCommand(command.getCommand()))
 					result = true;

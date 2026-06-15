@@ -13,9 +13,7 @@
 namespace demo
 {
 	ATTRIBUTE_CLASS_LAYOUT(DataListUI, "DataListUI.layout");
-	class DataListUI :
-		public wraps::BaseLayout,
-		public sigslot::has_slots<>
+	class DataListUI : public wraps::BaseLayout, public sigslot::has_slots<>
 	{
 	public:
 		DataListUI();

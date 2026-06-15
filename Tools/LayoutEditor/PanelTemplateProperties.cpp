@@ -15,8 +15,7 @@ namespace tools
 {
 
 	PanelTemplateProperties::PanelTemplateProperties() :
-		BasePanelViewItem("PanelTemplateProperties.layout"),
-		mCurrentWidget(nullptr)
+		BasePanelViewItem("PanelTemplateProperties.layout")
 	{
 	}
 
@@ -30,17 +29,21 @@ namespace tools
 		destroyPropertyFields();
 	}
 
-	void PanelTemplateProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
+	void PanelTemplateProperties::AddParametrs(
+		WidgetStyle* widgetType,
+		WidgetContainer* widgetContainer,
+		MyGUI::Widget* _currentWidget)
 	{
 		if (widgetType != nullptr)
 		{
-			for (MyGUI::VectorStringPairs::iterator iter = widgetType->templateData.begin(); iter != widgetType->templateData.end(); ++iter)
+			for (auto& iter : widgetType->templateData)
 			{
-				std::string value = widgetContainer->getUserData(iter->first);
+				std::string_view value = widgetContainer->getUserData(iter.first);
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
+				IPropertyField* field =
+					PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter.second);
 				field->setTarget(_currentWidget);
-				field->setName(iter->first);
+				field->setName(iter.first);
 				field->setValue(value);
 				field->eventAction = MyGUI::newDelegate(this, &PanelTemplateProperties::notifyAction);
 				mFields.push_back(field);
@@ -72,10 +75,10 @@ namespace tools
 	{
 		int height = 0;
 
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			MyGUI::IntSize size = (*item)->getContentSize();
-			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			MyGUI::IntSize size = field->getContentSize();
+			field->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 			height += size.height;
 		}
 
@@ -84,12 +87,12 @@ namespace tools
 
 	void PanelTemplateProperties::destroyPropertyFields()
 	{
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item);
+		for (auto& field : mFields)
+			delete field;
 		mFields.clear();
 	}
 
-	void PanelTemplateProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelTemplateProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{

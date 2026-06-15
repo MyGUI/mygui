@@ -17,22 +17,19 @@ namespace MyGUI
 	/** \brief @wpage{ScrollView}
 		ScrollView widget description should be here.
 	*/
-	class MYGUI_EXPORT ScrollView :
-		public Widget,
-		protected ScrollViewBase,
-		public MemberObsolete<ScrollView>
+	class MYGUI_EXPORT ScrollView : public Widget, protected ScrollViewBase, public MemberObsolete<ScrollView>
 	{
-		MYGUI_RTTI_DERIVED( ScrollView )
+		MYGUI_RTTI_DERIVED(ScrollView)
 
 	public:
 		ScrollView();
 
-		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		void setPosition(const IntPoint& _value) override;
-		//! @copydoc Widget::setSize(const IntSize& _value)
-		void setSize(const IntSize& _value) override;
-		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		void setCoord(const IntCoord& _value) override;
+		//! @copydoc Widget::setPosition(const IntPoint& _point)
+		void setPosition(const IntPoint& _point) override;
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		void setSize(const IntSize& _size) override;
+		//! @copydoc Widget::setCoord(const IntCoord& _coord)
+		void setCoord(const IntCoord& _coord) override;
 
 		using Widget::setPosition;
 		using Widget::setSize;
@@ -77,7 +74,7 @@ namespace MyGUI
 
 		void updateView();
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		ScrollBar* getVScroll() const;
 

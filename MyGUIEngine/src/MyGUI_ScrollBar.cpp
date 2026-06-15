@@ -15,28 +15,6 @@
 namespace MyGUI
 {
 
-	ScrollBar::ScrollBar() :
-		mWidgetStart(nullptr),
-		mWidgetEnd(nullptr),
-		mWidgetTrack(nullptr),
-		mWidgetFirstPart(nullptr),
-		mWidgetSecondPart(nullptr),
-		mSkinRangeStart(0),
-		mSkinRangeEnd(0),
-		mScrollRange(0),
-		mScrollPosition(0),
-		mScrollPage(0),
-		mScrollViewPage(0),
-		mScrollWheelPage(0),
-		mEnableRepeat(true),
-		mRepeatTriggerTime(0.f),
-		mRepeatStepTime(0.f),
-		mMinTrackSize(0),
-		mMoveToClick(false),
-		mVerticalAlignment(true)
-	{
-	}
-
 	void ScrollBar::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -141,7 +119,11 @@ namespace MyGUI
 				if (nullptr != mWidgetFirstPart)
 					mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos / 2);
 				if (nullptr != mWidgetSecondPart)
-					mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos / 2);
+					mWidgetSecondPart->setCoord(
+						mWidgetSecondPart->getLeft(),
+						pos / 2 + (int)mSkinRangeStart,
+						mWidgetSecondPart->getWidth(),
+						pos - pos / 2);
 				return;
 			}
 			// если скрыт то покажем
@@ -173,7 +155,11 @@ namespace MyGUI
 				if (nullptr != mWidgetFirstPart)
 					mWidgetFirstPart->setSize(pos / 2, mWidgetFirstPart->getHeight());
 				if (nullptr != mWidgetSecondPart)
-					mWidgetSecondPart->setCoord(pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos / 2, mWidgetSecondPart->getHeight());
+					mWidgetSecondPart->setCoord(
+						pos / 2 + (int)mSkinRangeStart,
+						mWidgetSecondPart->getTop(),
+						pos - pos / 2,
+						mWidgetSecondPart->getHeight());
 				return;
 			}
 			// если скрыт то покажем
@@ -216,11 +202,15 @@ namespace MyGUI
 			if (mWidgetTrack->getTop() != start)
 				mWidgetTrack->setPosition(mWidgetTrack->getLeft(), start);
 
-			// расчитываем положение соответствующее позиции
-			// плюс пол позиции
-			int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
-			// высчитываем ближайшее значение и обновляем
-			pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			int pos = 0;
+			if (mScrollRange >= 2)
+			{
+				// расчитываем положение соответствующее позиции
+				// плюс пол позиции
+				pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
+				// высчитываем ближайшее значение и обновляем
+				pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			}
 
 			// проверяем на выходы и изменения
 			if (pos < 0)
@@ -243,11 +233,15 @@ namespace MyGUI
 			if (mWidgetTrack->getLeft() != start)
 				mWidgetTrack->setPosition(IntPoint(start, mWidgetTrack->getTop()));
 
-			// расчитываем положение соответствующее позиции
-			// плюс пол позиции
-			int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
-			// высчитываем ближайшее значение и обновляем
-			pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			int pos = 0;
+			if (mScrollRange >= 2)
+			{
+				// расчитываем положение соответствующее позиции
+				// плюс пол позиции
+				pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
+				// высчитываем ближайшее значение и обновляем
+				pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
+			}
 
 			// проверяем на выходы и изменения
 			if (pos < 0)
@@ -274,25 +268,24 @@ namespace MyGUI
 		if (MouseButton::Left != _id)
 			return;
 
-		if (mEnableRepeat && _sender != mWidgetTrack
-			&& ((_sender != mWidgetFirstPart && _sender != mWidgetSecondPart) || !mMoveToClick))
+		if (mEnableRepeat && _sender != mWidgetTrack &&
+			((_sender != mWidgetFirstPart && _sender != mWidgetSecondPart) || !mMoveToClick))
 		{
-			ControllerItem* item = ControllerManager::getInstance().createItem(ControllerRepeatClick::getClassTypeName());
+			ControllerItem* item =
+				ControllerManager::getInstance().createItem(ControllerRepeatClick::getClassTypeName());
 			ControllerRepeatClick* controller = item->castType<ControllerRepeatClick>();
 			controller->eventRepeatClick += newDelegate(this, &ScrollBar::repeatClick);
 			controller->setRepeat(mRepeatTriggerTime, mRepeatStepTime);
 			ControllerManager::getInstance().addItem(_sender, controller);
 		}
 
-		if (mMoveToClick &&
-			_sender != mWidgetTrack &&
-			_sender != mWidgetStart &&
-			_sender != mWidgetEnd)
+		if (mMoveToClick && _sender != mWidgetTrack && _sender != mWidgetStart && _sender != mWidgetEnd)
 		{
 			if (mWidgetTrack != nullptr)
 			{
 				mPreActionOffset = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
-				const IntPoint& point = InputManager::getInstance().getMousePositionByLayer() - mWidgetTrack->getParent()->getAbsolutePosition();
+				const IntPoint& point = InputManager::getInstance().getMousePositionByLayer() -
+					mWidgetTrack->getParent()->getAbsolutePosition();
 
 				mPreActionOffset.left -= getTrackSize() / 2;
 				mPreActionOffset.top -= getTrackSize() / 2;
@@ -383,9 +376,13 @@ namespace MyGUI
 		if (mWidgetTrack != nullptr)
 		{
 			if (mVerticalAlignment)
-				mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size);
+				mWidgetTrack->setSize(
+					mWidgetTrack->getWidth(),
+					((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size);
 			else
-				mWidgetTrack->setSize(((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size, mWidgetTrack->getHeight());
+				mWidgetTrack->setSize(
+					((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size,
+					mWidgetTrack->getHeight());
 		}
 		updateTrack();
 	}
@@ -426,8 +423,7 @@ namespace MyGUI
 		{
 			if (mVerticalAlignment)
 				return mWidgetTrack->getHeight();
-			else
-				return mWidgetTrack->getWidth();
+			return mWidgetTrack->getWidth();
 		}
 		return 1;
 	}
@@ -469,7 +465,7 @@ namespace MyGUI
 		}
 	}
 
-	void ScrollBar::repeatClick(Widget *_widget, ControllerItem *_controller)
+	void ScrollBar::repeatClick(Widget* _widget, ControllerItem* _controller)
 	{
 		if (_widget == mWidgetStart)
 			widgetStartPressed();
@@ -549,7 +545,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void ScrollBar::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ScrollBar::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ScrollBar, Range, size_t} Диапазон прокрутки.
 		if (_key == "Range")
@@ -665,8 +661,7 @@ namespace MyGUI
 		{
 			if (mVerticalAlignment)
 				return mWidgetTrack->getParent()->getHeight();
-			else
-				return mWidgetTrack->getParent()->getWidth();
+			return mWidgetTrack->getParent()->getWidth();
 		}
 		return 0;
 	}

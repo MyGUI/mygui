@@ -13,13 +13,12 @@
 namespace demo
 {
 
-	class BaseAnimationNode :
-		public wraps::BaseGraphNode
+	class BaseAnimationNode : public wraps::BaseGraphNode
 	{
 	public:
-		BaseAnimationNode(const std::string& _layout, const std::string& _type, const std::string& _name) :
+		BaseAnimationNode(std::string_view _layout, std::string_view _type, std::string_view _name) :
 			BaseGraphNode(_layout),
-			mAnimationNode(nullptr),
+
 			mType(_type),
 			mName(_name)
 		{
@@ -36,11 +35,11 @@ namespace demo
 			return mAnimationNode;
 		}
 
-		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		virtual void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin)
 		{
 		}
 
-		virtual void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		virtual void removeConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin)
 		{
 		}
 
@@ -69,16 +68,17 @@ namespace demo
 			signature : void method(BaseAnimationNode* _sender)
 			@param _sender
 		*/
-		MyGUI::delegates::CDelegate1<BaseAnimationNode*> eventInvalidateNode;
+		MyGUI::delegates::Delegate<BaseAnimationNode*> eventInvalidateNode;
 
 	protected:
-		virtual void baseInitialiseAnimationNode() { }
+		virtual void baseInitialiseAnimationNode()
+		{
+		}
 
 	private:
-		animation::IAnimationNode* mAnimationNode;
+		animation::IAnimationNode* mAnimationNode{nullptr};
 		std::string mType;
 		std::string mName;
-
 	};
 
 } // namespace demo

@@ -42,16 +42,13 @@ namespace MyGUI
 		if (filepath.empty())
 			return nullptr;
 
-		std::ifstream* stream = new std::ifstream();
+		auto stream = std::make_unique<std::ifstream>();
 		stream->open(filepath.c_str(), std::ios_base::binary);
 
 		if (!stream->is_open())
-		{
-			delete stream;
 			return nullptr;
-		}
 
-		DataFileStream* data = new DataFileStream(stream);
+		DataFileStream* data = new DataFileStream(std::move(stream));
 
 		return data;
 	}
@@ -73,53 +70,50 @@ namespace MyGUI
 		common::VectorWString wresult;
 		result.clear();
 
-		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		for (const auto& path : mPaths)
 		{
-			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_pattern).asWStr(), false);
+			common::scanFolder(wresult, path.name, path.recursive, MyGUI::UString(_pattern).asWStr(), false);
 		}
 
-		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+		for (const auto& file : wresult)
 		{
-			result.push_back(MyGUI::UString(*item).asUTF8());
+			result.push_back(MyGUI::UString(file).asUTF8());
 		}
 
 		return result;
 	}
 
-	const std::string& DirectXDataManager::getDataPath(const std::string& _name) const
+	std::string DirectXDataManager::getDataPath(const std::string& _name) const
 	{
-		static std::string path;
 		VectorString result;
 		common::VectorWString wresult;
-		path.clear();
 
-		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		for (const auto& path : mPaths)
 		{
-			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_name).asWStr(), true);
+			common::scanFolder(wresult, path.name, path.recursive, MyGUI::UString(_name).asWStr(), true);
 		}
 
-		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+		for (const auto& file : wresult)
 		{
-			result.push_back(MyGUI::UString(*item).asUTF8());
+			result.push_back(MyGUI::UString(file).asUTF8());
 		}
 
 		if (!result.empty())
 		{
-			path = result[0];
+			const std::string& path = result[0];
 			if (result.size() > 1)
 			{
-				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << path << "' was used.");
+				MYGUI_PLATFORM_LOG(
+					Warning,
+					"There are several files with name '" << _name << "'. '" << path << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
 				for (size_t index = 1; index < result.size(); index++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
 			}
-		}
-		else
-		{
-			path.clear();
+			return path;
 		}
 
-		return path;
+		return {};
 	}
 
 	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)

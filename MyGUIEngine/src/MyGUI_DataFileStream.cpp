@@ -10,26 +10,16 @@
 namespace MyGUI
 {
 
-	DataFileStream::DataFileStream() :
-		DataStream(),
-		mFileStream(nullptr)
-	{
-	}
-
-	DataFileStream::DataFileStream(std::ifstream* _stream) :
-		DataStream(_stream),
-		mFileStream(_stream)
+	DataFileStream::DataFileStream(std::unique_ptr<std::ifstream>&& _stream) :
+		DataStream(_stream.get()),
+		mFileStream(std::move(_stream))
 	{
 	}
 
 	DataFileStream::~DataFileStream()
 	{
-		if (mFileStream != nullptr)
-		{
+		if (mFileStream)
 			mFileStream->close();
-			delete mFileStream;
-			mFileStream = nullptr;
-		}
 	}
 
 } // namespace MyGUI

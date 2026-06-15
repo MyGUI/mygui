@@ -13,12 +13,9 @@
 namespace MyGUI
 {
 
-	class OgreDataManager :
-		public DataManager
+	class OgreDataManager : public DataManager
 	{
 	public:
-		OgreDataManager();
-
 		void initialise(const std::string& _group);
 		void shutdown();
 
@@ -49,9 +46,9 @@ namespace MyGUI
 		const VectorString& getDataListNames(const std::string& _pattern) const override;
 
 		/** @see DataManager::getDataPath */
-		const std::string& getDataPath(const std::string& _name) const override;
+		std::string getDataPath(const std::string& _name) const override;
 
-	/*internal:*/
+		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:
@@ -59,9 +56,9 @@ namespace MyGUI
 
 	private:
 		std::string mGroup;
-		bool mAllGroups;
+		bool mAllGroups{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

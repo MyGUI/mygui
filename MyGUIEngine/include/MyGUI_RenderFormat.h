@@ -27,12 +27,12 @@ namespace MyGUI
 		{
 		}
 
-		friend bool operator == (VertexColourType const& a, VertexColourType const& b)
+		friend bool operator==(VertexColourType const& a, VertexColourType const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (VertexColourType const& a, VertexColourType const& b)
+		friend bool operator!=(VertexColourType const& a, VertexColourType const& b)
 		{
 			return a.mValue != b.mValue;
 		}
@@ -62,12 +62,12 @@ namespace MyGUI
 		{
 		}
 
-		friend bool operator == (PixelFormat const& a, PixelFormat const& b)
+		friend bool operator==(PixelFormat const& a, PixelFormat const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (PixelFormat const& a, PixelFormat const& b)
+		friend bool operator!=(PixelFormat const& a, PixelFormat const& b)
 		{
 			return a.mValue != b.mValue;
 		}
@@ -81,16 +81,11 @@ namespace MyGUI
 		{
 			switch (mValue)
 			{
-				case L8:
-					return 1;
-				case L8A8:
-					return 2;
-				case R8G8B8:
-					return 3;
-				case R8G8B8A8:
-					return 4;
-				case Unknow:
-					return 0;
+			case L8: return 1;
+			case L8A8: return 2;
+			case R8G8B8: return 3;
+			case R8G8B8A8: return 4;
+			case Unknow: return 0;
 			}
 			return 0;
 		}
@@ -117,30 +112,30 @@ namespace MyGUI
 		{
 		}
 
-		friend bool operator == (TextureUsage const& a, TextureUsage const& b)
+		friend bool operator==(TextureUsage const& a, TextureUsage const& b)
 		{
 			return a.mValue == b.mValue;
 		}
 
-		friend bool operator != (TextureUsage const& a, TextureUsage const& b)
+		friend bool operator!=(TextureUsage const& a, TextureUsage const& b)
 		{
 			return a.mValue != b.mValue;
 		}
 
-		TextureUsage& operator |= (TextureUsage const& _other)
+		TextureUsage& operator|=(TextureUsage const& _other)
 		{
-			mValue = Enum(int(mValue) | int(_other.mValue));
+			mValue = (mValue | _other.mValue).mValue;
 			return *this;
 		}
 
-		friend TextureUsage operator | (Enum const& a, Enum const& b)
+		friend TextureUsage operator|(Enum const& a, Enum const& b)
 		{
-			return TextureUsage(Enum(int(a) | int(b)));
+			return {Enum((unsigned int)a | (unsigned int)b)};
 		}
 
-		friend TextureUsage operator | (TextureUsage const& a, TextureUsage const& b)
+		friend TextureUsage operator|(TextureUsage const& a, TextureUsage const& b)
 		{
-			return TextureUsage(Enum(int(a.mValue) | int(b.mValue)));
+			return a.mValue | b.mValue;
 		}
 
 		bool isValue(Enum _value) const

@@ -13,8 +13,7 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL ActionCloneData :
-		public Action
+	class MYGUI_EXPORT_DLL ActionCloneData : public Action
 	{
 	public:
 		ActionCloneData();
@@ -23,7 +22,7 @@ namespace tools
 		void undoAction() override;
 
 		void setPrototype(DataPtr _prototype);
-		void setUniqueProperty(const std::string& _value);
+		void setUniqueProperty(std::string_view _value);
 
 	private:
 		std::string mType;
@@ -32,8 +31,8 @@ namespace tools
 		DataPtr mPrototype;
 		std::string mUniqueProperty;
 
-		typedef std::pair<PropertyPtr, std::string> PairProprty;
-		typedef std::vector<PairProprty> VectorPairProperty;
+		using PairProprty = std::pair<PropertyPtr, std::string>;
+		using VectorPairProperty = std::vector<PairProprty>;
 		VectorPairProperty mOldValues;
 	};
 

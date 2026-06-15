@@ -75,11 +75,11 @@
 namespace pugi
 {
 	// Character type used for all internal storage and operations; depends on PUGIXML_WCHAR_MODE
-	typedef PUGIXML_CHAR char_t;
+	using char_t = PUGIXML_CHAR;
 
 #ifndef PUGIXML_NO_STL
 	// String type used for operations that work with STL string; depends on PUGIXML_WCHAR_MODE
-	typedef std::basic_string<PUGIXML_CHAR, std::char_traits<PUGIXML_CHAR>, std::allocator<PUGIXML_CHAR> > string_t;
+	using string_t = std::basic_string<PUGIXML_CHAR, std::char_traits<PUGIXML_CHAR>, std::allocator<PUGIXML_CHAR>>;
 #endif
 }
 
@@ -220,7 +220,7 @@ namespace pugi
 	template <typename It> class xml_object_range
 	{
 	public:
-		typedef It const_iterator;
+		using const_iterator = It;
 
 		xml_object_range(It b, It e): _begin(b), _end(e)
 		{
@@ -237,7 +237,7 @@ namespace pugi
 	class PUGIXML_CLASS xml_writer
 	{
 	public:
-		virtual ~xml_writer() {}
+		virtual ~xml_writer() = default;
 
 		// Write memory chunk into stream/file/whatever
 		virtual void write(const void* data, size_t size) = 0;
@@ -282,7 +282,7 @@ namespace pugi
 	private:
 		xml_attribute_struct* _attr;
 	
-		typedef void (*unspecified_bool_type)(xml_attribute***);
+		using unspecified_bool_type = void (*)(xml_attribute ***);
 
 	public:
 		// Default constructor. Constructs an empty attribute.
@@ -368,7 +368,7 @@ namespace pugi
 	protected:
 		xml_node_struct* _root;
 
-		typedef void (*unspecified_bool_type)(xml_node***);
+		using unspecified_bool_type = void (*)(xml_node ***);
 
 	public:
 		// Default constructor. Constructs an empty node.
@@ -479,31 +479,34 @@ namespace pugi
 		// Find attribute using predicate. Returns first attribute for which predicate returned true.
 		template <typename Predicate> xml_attribute find_attribute(Predicate pred) const
 		{
-			if (!_root) return xml_attribute();
-			
+			if (!_root)
+				return {};
+
 			for (xml_attribute attrib = first_attribute(); attrib; attrib = attrib.next_attribute())
 				if (pred(attrib))
 					return attrib;
-		
-			return xml_attribute();
+
+			return {};
 		}
 
 		// Find child node using predicate. Returns first child for which predicate returned true.
 		template <typename Predicate> xml_node find_child(Predicate pred) const
 		{
-			if (!_root) return xml_node();
-	
+			if (!_root)
+				return {};
+
 			for (xml_node node = first_child(); node; node = node.next_sibling())
 				if (pred(node))
 					return node;
-		
-			return xml_node();
+
+			return {};
 		}
 
 		// Find node from subtree using predicate. Returns first node from subtree (depth-first), for which predicate returned true.
 		template <typename Predicate> xml_node find_node(Predicate pred) const
 		{
-			if (!_root) return xml_node();
+			if (!_root)
+				return {};
 
 			xml_node cur = first_child();
 			
@@ -521,7 +524,7 @@ namespace pugi
 				}
 			}
 
-			return xml_node();
+			return {};
 		}
 
 		// Find child node by attribute name/value
@@ -559,13 +562,13 @@ namespace pugi
 	#endif
 
 		// Child nodes iterators
-		typedef xml_node_iterator iterator;
+		using iterator = xml_node_iterator;
 
 		iterator begin() const;
 		iterator end() const;
 
 		// Attribute iterators
-		typedef xml_attribute_iterator attribute_iterator;
+		using attribute_iterator = xml_attribute_iterator;
 
 		attribute_iterator attributes_begin() const;
 		attribute_iterator attributes_end() const;
@@ -598,7 +601,7 @@ namespace pugi
 
 		xml_node_struct* _root;
 
-		typedef void (*unspecified_bool_type)(xml_text***);
+		using unspecified_bool_type = void (*)(xml_text ***);
 
 		explicit xml_text(xml_node_struct* root);
 
@@ -672,13 +675,13 @@ namespace pugi
 
 	public:
 		// Iterator traits
-		typedef ptrdiff_t difference_type;
-		typedef xml_node value_type;
-		typedef xml_node* pointer;
-		typedef xml_node& reference;
+		using difference_type = ptrdiff_t;
+		using value_type = xml_node;
+		using pointer = xml_node *;
+		using reference = xml_node &;
 
 	#ifndef PUGIXML_NO_STL
-		typedef std::bidirectional_iterator_tag iterator_category;
+		using iterator_category = std::bidirectional_iterator_tag;
 	#endif
 
 		// Default constructor
@@ -714,13 +717,13 @@ namespace pugi
 
 	public:
 		// Iterator traits
-		typedef ptrdiff_t difference_type;
-		typedef xml_attribute value_type;
-		typedef xml_attribute* pointer;
-		typedef xml_attribute& reference;
+		using difference_type = ptrdiff_t;
+		using value_type = xml_attribute;
+		using pointer = xml_attribute *;
+		using reference = xml_attribute &;
 
 	#ifndef PUGIXML_NO_STL
-		typedef std::bidirectional_iterator_tag iterator_category;
+		using iterator_category = std::bidirectional_iterator_tag;
 	#endif
 
 		// Default constructor
@@ -748,13 +751,13 @@ namespace pugi
 	{
 	public:
 		// Iterator traits
-		typedef ptrdiff_t difference_type;
-		typedef xml_node value_type;
-		typedef xml_node* pointer;
-		typedef xml_node& reference;
+		using difference_type = ptrdiff_t;
+		using value_type = xml_node;
+		using pointer = xml_node *;
+		using reference = xml_node &;
 
 	#ifndef PUGIXML_NO_STL
-		typedef std::forward_iterator_tag iterator_category;
+		using iterator_category = std::forward_iterator_tag;
 	#endif
 
 		// Default constructor
@@ -856,10 +859,6 @@ namespace pugi
 		char_t* _buffer;
 
 		char _memory[192];
-		
-		// Non-copyable semantics
-		xml_document(const xml_document&);
-		const xml_document& operator=(const xml_document&);
 
 		void create();
 		void destroy();
@@ -867,6 +866,10 @@ namespace pugi
 		xml_parse_result load_buffer_impl(void* contents, size_t size, unsigned int options, xml_encoding encoding, bool is_mutable, bool own);
 
 	public:
+		// Non-copyable semantics
+		xml_document(const xml_document&) = delete;
+		const xml_document& operator=(const xml_document&) = delete;
+
 		// Default constructor, makes empty document
 		xml_document();
 
@@ -991,13 +994,13 @@ namespace pugi
 	private:
 		xpath_variable* _data[64];
 
-		// Non-copyable semantics
-		xpath_variable_set(const xpath_variable_set&);
-		xpath_variable_set& operator=(const xpath_variable_set&);
-
 		xpath_variable* find(const char_t* name) const;
 
 	public:
+		// Non-copyable semantics
+		xpath_variable_set(const xpath_variable_set&) = delete;
+		xpath_variable_set& operator=(const xpath_variable_set&) = delete;
+
 		// Default constructor/destructor
 		xpath_variable_set();
 		~xpath_variable_set();
@@ -1023,13 +1026,13 @@ namespace pugi
 		void* _impl;
 		xpath_parse_result _result;
 
-		typedef void (*unspecified_bool_type)(xpath_query***);
-
-		// Non-copyable semantics
-		xpath_query(const xpath_query&);
-		xpath_query& operator=(const xpath_query&);
+		using unspecified_bool_type = void (*)(xpath_query ***);
 
 	public:
+		// Non-copyable semantics
+		xpath_query(const xpath_query&) = delete;
+		xpath_query& operator=(const xpath_query&) = delete;
+
 		// Construct a compiled object from XPath expression.
 		// If PUGIXML_NO_EXCEPTIONS is not defined, throws xpath_exception on compilation errors.
 		explicit xpath_query(const char_t* query, xpath_variable_set* variables = nullptr);
@@ -1101,7 +1104,7 @@ namespace pugi
 		xml_node _node;
 		xml_attribute _attribute;
 	
-		typedef void (*unspecified_bool_type)(xpath_node***);
+		using unspecified_bool_type = void (*)(xpath_node ***);
 
 	public:
 		// Default constructor; constructs empty XPath node
@@ -1148,7 +1151,7 @@ namespace pugi
 		};
 		
 		// Constant iterator type
-		typedef const xpath_node* const_iterator;
+		using const_iterator = const xpath_node *;
 	
 		// Default constructor. Constructs empty set.
 		xpath_node_set();
@@ -1208,10 +1211,10 @@ namespace pugi
 #endif
 
 	// Memory allocation function interface; returns pointer to allocated memory or nullptr on failure
-	typedef void* (*allocation_function)(size_t size);
+	using allocation_function = void *(*)(size_t);
 	
 	// Memory deallocation function interface
-	typedef void (*deallocation_function)(void* ptr);
+	using deallocation_function = void (*)(void *);
 
 	// Override default memory management functions. All subsequent allocations/deallocations will be performed via supplied functions.
 	void PUGIXML_FUNCTION set_memory_management_functions(allocation_function allocate, deallocation_function deallocate);

@@ -14,16 +14,11 @@ namespace MyGUI
 
 	struct IndexImage
 	{
-		IndexImage() :
-			rate(0)
-		{
-		}
-
 		std::string name;
-		float rate;
+		float rate{0};
 		std::vector<IntPoint> frames;
 	};
-	typedef std::vector<IndexImage> VectorIndexImage;
+	using VectorIndexImage = std::vector<IndexImage>;
 
 	struct GroupImage
 	{
@@ -32,8 +27,8 @@ namespace MyGUI
 		IntSize size;
 		VectorIndexImage indexes;
 	};
-	typedef std::vector<GroupImage> VectorGroupImage;
-	typedef Enumerator<VectorGroupImage> EnumeratorGroupImage;
+	using VectorGroupImage = std::vector<GroupImage>;
+	using EnumeratorGroupImage = Enumerator<VectorGroupImage>;
 
 } // namespace MyGUI
 

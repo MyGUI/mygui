@@ -18,13 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(StateTextureController)
 
-	StateTextureController::StateTextureController() :
-		mControl(nullptr),
-		mParentData(nullptr),
-		mActivated(false)
-	{
-	}
-
 	void StateTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
@@ -51,7 +44,7 @@ namespace tools
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
-		std::string texture;
+		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
@@ -61,7 +54,7 @@ namespace tools
 				property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
 		}
 
-		std::string coord;
+		std::string_view coord;
 		property = PropertyUtility::getPropertyByName("Skin", "Size");
 		if (property != nullptr)
 		{
@@ -73,7 +66,9 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
@@ -113,7 +108,7 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::notifyChangeValue(const std::string& _value)
+	void StateTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -127,7 +122,7 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::notifyChangeScope(const std::string& _scope)
+	void StateTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -139,7 +134,9 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &StateTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &StateTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance()
+					.getEvent(mParentTypeName)
+					->connect(this, &StateTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -158,10 +155,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -172,7 +169,7 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::updateCoords(const std::string& _value)
+	void StateTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
@@ -190,7 +187,9 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			DataPtr selected = mParentData->getChildSelected();
-			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
+				 child != mParentData->getChilds().end();
+				 child++)
 			{
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
@@ -208,7 +207,7 @@ namespace tools
 				else
 				{
 					if (visible)
-						mFrames.push_back(std::make_pair(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition));
+						mFrames.emplace_back(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);
 				}
 			}
 
@@ -222,9 +221,9 @@ namespace tools
 			mControl->setViewSelectors(mFrames);
 	}
 
-	void StateTextureController::updateTexture(const std::string& _value)
+	void StateTextureController::updateTexture(std::string_view _value)
 	{
-		mControl->setTextureValue(_value);
+		mControl->setTextureValue(MyGUI::UString(_value));
 		mControl->resetTextureRegion();
 	}
 

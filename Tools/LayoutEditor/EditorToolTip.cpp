@@ -16,10 +16,6 @@ namespace tools
 
 	EditorToolTip::EditorToolTip() :
 		BaseLayout("EditorToolTip.layout"),
-		mText(nullptr),
-		mLastWidget(nullptr),
-		mMinWidth(0),
-		mMinHeight(0),
 		mSingletonHolder(this)
 	{
 		assignWidget(mText, "Text");
@@ -42,8 +38,8 @@ namespace tools
 		const std::string& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const std::string& colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
 
-		std::string skin = _data.widget_skin;
-		std::string widget = _data.widget_type;
+		const std::string& skin = _data.widget_skin;
+		std::string_view widget = _data.widget_type;
 
 		MyGUI::ResourceSkin* skinInfo = MyGUI::SkinManager::getInstance().getByName(skin);
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(skin, false);
@@ -66,15 +62,15 @@ namespace tools
 		else if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			for (const auto& container : data)
 			{
-				if (container->name == "Root")
+				if (container.name == "Root")
 				{
-					skinDefaultSize = container->intCoord.size();
+					skinDefaultSize = container.intCoord.size();
 					templateRootFound = true;
 
-					MyGUI::MapString::const_iterator item = container->userStrings.find("LE_TargetWidgetType");
-					if (item != container->userStrings.end())
+					MyGUI::MapString::const_iterator item = container.userStrings.find("LE_TargetWidgetType");
+					if (item != container.userStrings.end())
 						widget = (*item).second;
 
 					break;
@@ -83,9 +79,11 @@ namespace tools
 		}
 
 		bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
-		std::string text = "Widget: " + (exist ? colour_success : colour_error) + widget + colour_success +
-			"\nSkin: " + skin +
-			"\nDefaultSize: " + (templateRootFound ? MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height) : (colour_error + "'Root' widget not found"));
+		std::string text = "Widget: " + (exist ? colour_success : colour_error);
+		text += widget;
+		text += colour_success + "\nSkin: " + skin + "\nDefaultSize: " +
+			(templateRootFound ? MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height)
+							   : (colour_error + "'Root' widget not found"));
 
 		mText->setCaption(text);
 
@@ -101,13 +99,13 @@ namespace tools
 			if (info != nullptr)
 			{
 				const MyGUI::VectorChildSkinInfo& child = info->getChild();
-				for (size_t pos = 0; pos < child.size(); ++pos)
+				for (const auto& childSkinInfo : child)
 				{
-					const std::string& child_skin = child[pos].skin;
+					const std::string& child_skin = childSkinInfo.skin;
 					if (!MyGUI::SkinManager::getInstance().isExist(child_skin))
 						continue;
 					const MyGUI::ResourceSkin* child_info = MyGUI::SkinManager::getInstance().getByName(child_skin);
-					const MyGUI::IntSize& child_size = child[pos].coord.size();
+					const MyGUI::IntSize& child_size = childSkinInfo.coord.size();
 					MyGUI::IntSize dif_size = child_info->getSize() - child_size;
 
 					if (max_size.width < dif_size.width)
@@ -126,7 +124,14 @@ namespace tools
 
 		MyGUI::IntSize widgetSize = skinDefaultSize;
 
-		mLastWidget = mMainWidget->createWidgetT("TextBox", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, widgetSize.width, widgetSize.height, MyGUI::Align::Default);
+		mLastWidget = mMainWidget->createWidgetT(
+			"TextBox",
+			skin,
+			MARGIN,
+			MARGIN + LINE_HEIGHT * LINES,
+			widgetSize.width,
+			widgetSize.height,
+			MyGUI::Align::Default);
 		MyGUI::TextBox* textBox = mLastWidget->castType<MyGUI::TextBox>();
 		textBox->setCaption(skin);
 

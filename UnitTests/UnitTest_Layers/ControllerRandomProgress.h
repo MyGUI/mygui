@@ -14,14 +14,11 @@
 namespace demo
 {
 
-	class ControllerRandomProgress :
-		public MyGUI::ControllerItem
+	class ControllerRandomProgress : public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRandomProgress )
+		MYGUI_RTTI_DERIVED(ControllerRandomProgress)
 
 	public:
-		ControllerRandomProgress() : mTime(0) { }
-
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			const float slice = 0.2f;
@@ -69,8 +66,7 @@ namespace demo
 		}
 
 	private:
-		float mTime;
-
+		float mTime{0};
 	};
 
 }

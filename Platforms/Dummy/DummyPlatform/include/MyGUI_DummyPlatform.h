@@ -39,7 +39,7 @@ namespace MyGUI
 			mLogManager = nullptr;
 		}
 
-		void initialise(const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(std::string_view _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			if (!_logName.empty())
 				LogManager::getInstance().createDefaultSource(_logName);

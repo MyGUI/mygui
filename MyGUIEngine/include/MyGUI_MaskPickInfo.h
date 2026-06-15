@@ -16,8 +16,6 @@ namespace MyGUI
 	class MYGUI_EXPORT MaskPickInfo
 	{
 	public:
-		MaskPickInfo();
-
 		bool load(const std::string& _file);
 
 		bool pick(const IntPoint& _point, const IntCoord& _coord) const;
@@ -26,8 +24,8 @@ namespace MyGUI
 
 	private:
 		std::vector<uint8> mData;
-		int mWidth;
-		int mHeight;
+		int mWidth{0};
+		int mHeight{0};
 	};
 
 } // namespace MyGUI

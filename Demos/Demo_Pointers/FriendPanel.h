@@ -13,8 +13,7 @@ namespace demo
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(FriendPanel, "FriendPanel.layout");
-	class FriendPanel :
-		public wraps::BaseLayout
+	class FriendPanel : public wraps::BaseLayout
 	{
 	public:
 		FriendPanel();

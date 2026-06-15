@@ -24,12 +24,10 @@ namespace MyGUI
 		return true;
 	}
 
-#if MYGUI_DEBUG_MODE == 1
 	bool RenderManager::checkTexture(ITexture* _texture)
 	{
 		return true;
 	}
-#endif
 
 	void RenderManager::onResizeView(const IntSize& _viewSize)
 	{

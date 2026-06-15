@@ -10,16 +10,15 @@ namespace animation
 	class IAnimationNodeConstruct
 	{
 	public:
-		virtual ~IAnimationNodeConstruct() { }
-		virtual IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder) = 0;
+		virtual ~IAnimationNodeConstruct() = default;
+		virtual IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) = 0;
 	};
 
-	template <typename Type>
-	class AnimationNodeConstruct :
-		public IAnimationNodeConstruct
+	template<typename Type>
+	class AnimationNodeConstruct : public IAnimationNodeConstruct
 	{
 	public:
-		IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder) override
+		IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) override
 		{
 			return new Type(_name, _holder);
 		}

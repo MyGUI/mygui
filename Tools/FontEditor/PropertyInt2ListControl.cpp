@@ -14,15 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyInt2ListControl)
 
-	PropertyInt2ListControl::PropertyInt2ListControl() :
-		mName(nullptr),
-		mList(nullptr),
-		mAdd(nullptr),
-		mDelete(nullptr),
-		mTextFieldControl(nullptr)
-	{
-	}
-
 	PropertyInt2ListControl::~PropertyInt2ListControl()
 	{
 		mAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyInt2ListControl::notifyClickAdd);
@@ -32,7 +23,10 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void PropertyInt2ListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyInt2ListControl::OnInitialise(
+		Control* _parent,
+		MyGUI::Widget* _place,
+		std::string_view /*_layoutName*/)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyListControl.layout");
 
@@ -77,7 +71,7 @@ namespace tools
 	{
 		std::string result;
 
-		for (size_t index = 0; index < mList->getItemCount(); index ++)
+		for (size_t index = 0; index < mList->getItemCount(); index++)
 		{
 			if (!result.empty())
 				result += "|";
@@ -87,25 +81,29 @@ namespace tools
 		return result;
 	}
 
-	void PropertyInt2ListControl::setValue(const std::string& _value)
+	void PropertyInt2ListControl::setValue(std::string_view _value)
 	{
 		mList->removeAllItems();
 		std::vector<std::string> values = MyGUI::utility::split(_value, "|");
-		for (size_t index = 0; index < values.size(); index ++)
-			mList->addItem(values[index]);
+		for (const auto& value : values)
+			mList->addItem(value);
 	}
 
 	void PropertyInt2ListControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
-		mList->addItem("");
+		mList->addItem(MyGUI::UString());
 		mList->beginToItemAt(mList->getItemCount() - 1);
 
 		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
-		mTextFieldControl->setTextField("");
+		mTextFieldControl->setTextField(MyGUI::UString());
 
 		MyGUI::Widget* widget = mList->getWidgetByIndex(mList->getItemCount() - 1);
 		if (widget != nullptr)
-			mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+			mTextFieldControl->setCoord(MyGUI::IntCoord(
+				widget->getAbsoluteLeft(),
+				widget->getAbsoluteTop(),
+				widget->getWidth(),
+				widget->getHeight()));
 
 		mTextFieldControl->doModal();
 	}
@@ -126,7 +124,7 @@ namespace tools
 
 		if (_result)
 		{
-			if (mTextFieldControl->getTextField() != "")
+			if (!mTextFieldControl->getTextField().empty())
 			{
 				mList->setItemNameAt(mList->getItemCount() - 1, mTextFieldControl->getTextField());
 				executeAction(getValue());

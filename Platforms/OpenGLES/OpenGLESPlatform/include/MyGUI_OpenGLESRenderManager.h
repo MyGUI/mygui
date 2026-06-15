@@ -9,13 +9,9 @@
 namespace MyGUI
 {
 
-	class OpenGLESRenderManager :
-		public RenderManager,
-		public IRenderTarget
+	class OpenGLESRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
-		OpenGLESRenderManager();
-
 		void initialise(OpenGLESImageLoader* _loader = nullptr);
 		void shutdown();
 
@@ -71,12 +67,14 @@ namespace MyGUI
 
 	private:
 		std::string loadFileContent(const std::string& _file);
-		unsigned int createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
+		unsigned int createShaderProgram(
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
 
 	private:
 		IntSize mViewSize;
-		bool mUpdate;
+		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 		unsigned int mDefaultProgramId;
@@ -84,12 +82,12 @@ namespace MyGUI
 		unsigned int mReferenceCount; // for nested rendering
 		int mYScaleUniformLocation;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
-		OpenGLESImageLoader* mImageLoader;
-		bool mPboIsSupported;
+		OpenGLESImageLoader* mImageLoader{nullptr};
+		bool mPboIsSupported{false};
 
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

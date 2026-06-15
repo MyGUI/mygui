@@ -12,16 +12,14 @@
 namespace tools
 {
 
-	class SettingsWidgetsControl :
-		public Control
+	class SettingsWidgetsControl : public Control
 	{
 	public:
-		SettingsWidgetsControl();
 		~SettingsWidgetsControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
-		void OnCommand(const std::string& _command) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+		void OnCommand(std::string_view _command) override;
 
 	private:
 		void loadSettings();
@@ -30,9 +28,9 @@ namespace tools
 		void notifyToggleCheck(MyGUI::Widget* _sender);
 
 	private:
-		MyGUI::Button* mCheckShowName;
-		MyGUI::Button* mCheckShowType;
-		MyGUI::Button* mCheckShowSkin;
+		MyGUI::Button* mCheckShowName{nullptr};
+		MyGUI::Button* mCheckShowType{nullptr};
+		MyGUI::Button* mCheckShowSkin{nullptr};
 	};
 
 }
