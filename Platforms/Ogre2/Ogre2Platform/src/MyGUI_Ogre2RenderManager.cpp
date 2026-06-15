@@ -213,8 +213,6 @@ namespace MyGUI
 
 		mCountBatch = 0;
 
-		setManualRender(true);
-
 		mSceneManager->getRenderQueue()->clear();
 
 		//get mygui to itterate through renderables and call 'doRender'
@@ -383,16 +381,6 @@ namespace MyGUI
 	Ogre::RenderWindow* Ogre2RenderManager::getRenderWindow()
 	{
 		return mWindow;
-	}
-
-	bool Ogre2RenderManager::getManualRender()
-	{
-		return mManualRender;
-	}
-
-	void Ogre2RenderManager::setManualRender(bool _value)
-	{
-		mManualRender = _value;
 	}
 
 	size_t Ogre2RenderManager::getBatchCount() const

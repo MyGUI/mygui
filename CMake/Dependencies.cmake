@@ -82,6 +82,7 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 	endif()
 elseif(MYGUI_RENDERSYSTEM EQUAL 8)
     # Find OGRE
+	set(OGRE_SDK "" CACHE PATH "Path to prebuilt OGRE SDK")
     find_package(OGRE_Old)
     macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" TRUE "" "")
 endif()
