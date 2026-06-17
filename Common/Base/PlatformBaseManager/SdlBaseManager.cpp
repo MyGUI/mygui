@@ -12,7 +12,9 @@ namespace base
 
 	void SdlBaseManager::_windowResized(int w, int h)
 	{
-		resizeRender(w, h);
+		int fbWidth, fbHeight;
+		SDL_GL_GetDrawableSize(mSdlWindow, &fbWidth, &fbHeight);
+		resizeRender(fbWidth, fbHeight);
 
 		if (mPlatformReady)
 			MyGUI::RenderManager::getInstance().setViewSize(w, h);
@@ -43,19 +45,25 @@ namespace base
 		int left = (currDisp.w - width) / 2;
 		int top = (currDisp.h - height) / 2;
 
+
 		mSdlWindow = SDL_CreateWindow(
-			"MyGUI Render Window",
-			left,
-			top,
-			width,
-			height,
-			(mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE);
+      "MyGUI Render Window", 
+      left, 
+      top, 
+      width, 
+      height, 
+      (mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
+    );
+    
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window.";
 			exit(1);
 		}
 		mWindowOn = true;
+		int realW, realH;
+		SDL_GL_GetDrawableSize(mSdlWindow, &realW, &realH);
+		mScale = (double)realW / (double)width;
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// set icon
@@ -81,7 +89,7 @@ namespace base
 			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIconBig);
 #endif
 
-		if (!createRender(width, height, windowed))
+		if (!createRender(realW, realH, windowed))
 		{
 			return false;
 		}
@@ -115,6 +123,9 @@ namespace base
 			{
 				switch (mEvent.type)
 				{
+				case SDL_QUIT:
+					mExit = true;
+					break;
 					// keyboard events
 				case SDL_KEYDOWN:
 					mKeyCode = mEvent.key.keysym.sym;
