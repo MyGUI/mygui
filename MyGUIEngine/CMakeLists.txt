@@ -38,9 +38,14 @@ endif()
 
 if (MYGUI_USE_FREETYPE)
 	if (MYGUI_MSDF_FONTS)
-		add_subdirectory(src/msdfgen)
-		target_link_libraries(${PROJECTNAME} msdfgen-full)
-	endif ()
+		if (MYGUI_USE_SYSTEM_MSDFGEN)
+			find_package(msdfgen)
+			target_link_libraries(${PROJECTNAME} msdfgen::msdfgen)
+		else()
+			add_subdirectory(src/msdfgen)
+			target_link_libraries(${PROJECTNAME} msdfgen-full)
+		endif()
+	endif()
 
 	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
 	if (ZLIB_FOUND) # hacky way to check if freetype was built with zlib
