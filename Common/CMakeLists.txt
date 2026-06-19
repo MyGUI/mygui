@@ -14,9 +14,6 @@ include_directories(
 set (HEADER_FILES "")
 set (SOURCE_FILES "")
 
-include_directories(SYSTEM ${SDL2_INCLUDE_DIRS})
-link_directories(${SDL2_LIB_DIR})
-
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 set (HEADER_FILES ${HEADER_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.h Base/PlatformBaseManager/SdlBaseManager.h)
 set (SOURCE_FILES ${SOURCE_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp Base/PlatformBaseManager/SdlBaseManager.cpp)
@@ -42,12 +39,10 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 	add_definitions("-DMYGUI_OPENGL_PLATFORM")
 	include_directories(SYSTEM
 		${OPENGL_INCLUDE_DIR}
-		${SDL2_IMAGE_INCLUDE_DIRS}
 		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
 	)
 	include_directories(SYSTEM include/GL)
 	link_directories(${OPENGL_LIB_DIR})
-	link_directories(${SDL2_IMAGE_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 	include_directories(SYSTEM
@@ -64,19 +59,15 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 	add_definitions("-DMYGUI_OPENGL3_PLATFORM")
 	include_directories(SYSTEM
 		${OPENGL_INCLUDE_DIR}
-		${SDL2_IMAGE_INCLUDE_DIRS}
 		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
 	)
 	link_directories(${OPENGL_LIB_DIR})
-	link_directories(${SDL2_IMAGE_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 	add_definitions("-DMYGUI_OPENGLES_PLATFORM")
 	include_directories(SYSTEM
 		${OPENGL_INCLUDE_DIR}
-		${SDL2_IMAGE_INCLUDE_DIRS}
 	)
 	link_directories(${OPENGL_LIB_DIR})
-	link_directories(${SDL2_IMAGE_LIB_DIR})
 endif()
 
 include_directories(Input/SDL)

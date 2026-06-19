@@ -20,7 +20,7 @@ function(install_dll_file DEBUG_FILEPATH RELEASE_FILEPATH FILENAME)
 			${RELEASE_FILEPATH}${FILENAME}.dll
 			DESTINATION bin/minsizerel CONFIGURATIONS MinSizeRel
 		)
-		
+
 		configure_file(${DEBUG_FILEPATH}${FILENAME}_d.dll ${MYGUI_BINARY_DIR}/bin/debug/${FILENAME}_d.dll COPYONLY)
 		configure_file(${RELEASE_FILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/release/${FILENAME}.dll COPYONLY)
 		configure_file(${RELEASE_FILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/${FILENAME}.dll COPYONLY)
@@ -39,9 +39,6 @@ option(MYGUI_TRY_TO_COPY_DLLS "Copy dlls needed for sample builds" TRUE)
 if (MYGUI_TRY_TO_COPY_DLLS)
 	# copy the dependency DLLs to the right places
 
-	# TODO copy SDL2.dll
-#	install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ SDL2)
-	
 	if (MYGUI_RENDERSYSTEM EQUAL 3)
 		if (EXISTS ${OGRE_LIB_DIR}/../bin/debug/OgreMain_d.dll)
 			set(DEBUG_DLLS_DIR ${OGRE_LIB_DIR}/../bin/debug)
@@ -64,7 +61,7 @@ if (MYGUI_TRY_TO_COPY_DLLS)
 			set(RELEASE_DLLS_DIR "")
 			MESSAGE(ERROR "    compiled OGRE DLL's wasn't found")
 		endif ()
-		
+
 		install_dll_file(${DEBUG_DLLS_DIR}/ ${RELEASE_DLLS_DIR}/ OgreMain)
 	endif ()
 endif ()
