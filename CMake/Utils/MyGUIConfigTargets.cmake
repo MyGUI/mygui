@@ -166,10 +166,13 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	if (NOT EMSCRIPTEN)
 		# exclude emscripten, because it link SDL in its own way
-		target_link_libraries(${PROJECTNAME} SDL2::SDL2)
-                if (TARGET SDL2::SDL2main)
-                  target_link_libraries(${PROJECTNAME} SDL2::SDL2main)
-                endif ()
+	        if (TARGET SDL2::SDL2main)
+			target_link_libraries(${PROJECTNAME} SDL2::SDL2main)
+                elseif (TARGET SDL2::SDL2-static)
+			target_link_libraries(${PROJECTNAME} SDL2::SDL2-static)
+                else()
+			target_link_libraries(${PROJECTNAME} SDL2::SDL2)
+		endif ()
 	endif ()
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
