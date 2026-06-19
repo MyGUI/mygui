@@ -90,9 +90,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS})
-	link_directories(${SDL2_LIB_DIR})
-
 	# Set up dependencies
 	mygui_add_base_manager_include(${MYGUI_RENDERSYSTEM})
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
@@ -111,11 +108,9 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
-			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 			${OPENGL_LIB_DIR}
-			${SDL2_IMAGE_LIB_DIR}
 		)
 
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
@@ -134,21 +129,17 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
 		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
-			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 			${OPENGL_LIB_DIR}
-			${SDL2_IMAGE_LIB_DIR}
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
 		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
-			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 			${OPENGL_LIB_DIR}
-			${SDL2_IMAGE_LIB_DIR}
 		)
 	endif()
 
@@ -175,9 +166,15 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	if (NOT EMSCRIPTEN)
 		# exclude emscripten, because it link SDL in its own way
-		target_link_libraries(${PROJECTNAME}
-			${SDL2_LIBRARIES}
-		)
+		if (TARGET SDL2::SDL2main)
+			target_link_libraries(${PROJECTNAME} SDL2::SDL2main)
+		endif()
+
+		if (TARGET SDL2::SDL2)
+			target_link_libraries(${PROJECTNAME} SDL2::SDL2)
+		else()
+			target_link_libraries(${PROJECTNAME} SDL2::SDL2-static)
+		endif()
 	endif ()
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
@@ -186,12 +183,12 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
 	endif()
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
@@ -215,9 +212,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
-
-	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS})
-	link_directories(${SDL2_LIB_DIR})
 
 	# Set up dependencies
 	mygui_add_base_manager_include(${MYGUI_RENDERSYSTEM})
@@ -297,13 +291,13 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		target_link_libraries(${PROJECTNAME} OpenGL::GL ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} OpenGL::GL SDL2_image::SDL2_image)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		target_link_libraries(${PROJECTNAME} OpenGL::GL ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} OpenGL::GL SDL2_image::SDL2_image)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
 	endif()
 
 	target_link_libraries(${PROJECTNAME}
@@ -350,13 +344,13 @@ endfunction(mygui_tool)
 
 function(mygui_unit_test PROJECTNAME)
 	mygui_app(${PROJECTNAME} UnitTest)
-	
+
 	# Register the unit test with CTest when unit tests are enabled
 	# This allows running tests via 'ctest' or 'make check'
 	if (MYGUI_BUILD_UNITTESTS)
 		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
 		# Set working directory to binary directory so tests can find resources
-		set_tests_properties(${PROJECTNAME} PROPERTIES 
+		set_tests_properties(${PROJECTNAME} PROPERTIES
 			WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 	endif()
 endfunction(mygui_unit_test)
