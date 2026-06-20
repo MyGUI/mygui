@@ -31,6 +31,7 @@ list(APPEND CMAKE_MODULE_PATH
 
 include(CMakeDependentOption)
 include(MacroLogFeature)
+include(Packages/SDL2FinderHelper)
 include(MyGUIConfigTargets)
 include(PreprocessorUtils)
 include(GNUInstallDirs)
