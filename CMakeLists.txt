@@ -5,20 +5,7 @@
 # and provide build configuration options.
 ######################################################################
 
-cmake_minimum_required(VERSION 3.8)
-if(POLICY CMP0048)
-	cmake_policy(SET CMP0048 NEW)
-endif()
-
-# for link time optimization, remove if cmake version is >= 3.9
-if(POLICY CMP0069) # LTO
-  cmake_policy(SET CMP0069 NEW)
-endif()
-
-# for position-independent executable, remove if cmake version is >= 3.14
-if(POLICY CMP0083)
-  cmake_policy(SET CMP0083 NEW)
-endif()
+cmake_minimum_required(VERSION 3.21)
 
 project(MYGUI)
 

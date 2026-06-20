@@ -53,12 +53,10 @@ if (MYGUI_USE_FREETYPE)
 	endif()
 endif()
 
-if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
-	if (NOT MYGUI_CLANG_TIDY_BUILD)
-		target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
-	else ()
-		target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
-	endif ()
+if (NOT MYGUI_CLANG_TIDY_BUILD)
+    target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
+else ()
+    target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
 endif ()
 
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
