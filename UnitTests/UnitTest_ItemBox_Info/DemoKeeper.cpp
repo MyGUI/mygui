@@ -31,22 +31,24 @@ namespace demo
 		int data = *_sender->getItemDataAt<int>(_info.index);
 		if (_info.drag)
 		{
-			text->setCaption(MyGUI::utility::toString(
-				_info.drop_accept ? "#00FF00drag accept"
-								  : (_info.drop_refuse ? "#FF0000drag refuse" : "#0000FFdrag miss"),
-				"\n#000000data : ",
-				data));
+			text->setCaption(
+				MyGUI::utility::toString(
+					_info.drop_accept ? "#00FF00drag accept"
+									  : (_info.drop_refuse ? "#FF0000drag refuse" : "#0000FFdrag miss"),
+					"\n#000000data : ",
+					data));
 		}
 		else
 		{
-			text->setCaption(MyGUI::utility::toString(
-				_info.drop_accept ? "#00FF00" : (_info.drop_refuse ? "#FF0000" : "#000000"),
-				"index : ",
-				_info.index,
-				"\n#000000data : ",
-				data,
-				_info.active ? "\n#00FF00focus" : "\n#800000focus",
-				_info.select ? "\n#00FF00select" : "\n#800000select"));
+			text->setCaption(
+				MyGUI::utility::toString(
+					_info.drop_accept ? "#00FF00" : (_info.drop_refuse ? "#FF0000" : "#000000"),
+					"index : ",
+					_info.index,
+					"\n#000000data : ",
+					data,
+					_info.active ? "\n#00FF00focus" : "\n#800000focus",
+					_info.select ? "\n#00FF00select" : "\n#800000select"));
 		}
 	}
 

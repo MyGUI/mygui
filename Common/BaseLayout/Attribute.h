@@ -37,11 +37,11 @@ namespace attribute
 	template<typename OwnerType, typename FieldType, typename SetterType>
 	struct FieldHolder : public Field<OwnerType, SetterType>
 	{
-		FieldHolder(FieldType* OwnerType::*offset) :
+		FieldHolder(FieldType* OwnerType::* offset) :
 			m_offset(offset)
 		{
 		}
-		FieldType* OwnerType::*const m_offset;
+		FieldType* OwnerType::* const m_offset;
 
 		bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) override
 		{
@@ -62,7 +62,7 @@ namespace attribute
 		using VectorBindPair = std::vector<BindPair>;
 
 		template<typename FieldType>
-		AttributeField(FieldType* OwnerType::*_offset, const ValueType& _value)
+		AttributeField(FieldType* OwnerType::* _offset, const ValueType& _value)
 		{
 			getData().push_back(BindPair(new FieldHolder<OwnerType, FieldType, SetterType>(_offset), _value));
 		}
@@ -79,7 +79,7 @@ namespace attribute
 	struct _name : public attribute::AttributeField<OwnerType, ValueType, SetterType> \
 	{ \
 		template<typename FieldType> \
-		_name(FieldType* OwnerType::*_offset, const ValueType& _value) : \
+		_name(FieldType* OwnerType::* _offset, const ValueType& _value) : \
 			AttributeField<OwnerType, ValueType, SetterType>(_offset, _value) \
 		{ \
 		} \

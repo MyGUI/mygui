@@ -417,9 +417,10 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				setFileName(common::concatenatePath(
-					mOpenSaveFileDialog->getCurrentFolder(),
-					mOpenSaveFileDialog->getFileName()));
+				setFileName(
+					common::concatenatePath(
+						mOpenSaveFileDialog->getCurrentFolder(),
+						mOpenSaveFileDialog->getFileName()));
 
 				save();
 				updateCaption();
@@ -429,9 +430,10 @@ namespace tools
 				clear();
 
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				setFileName(common::concatenatePath(
-					mOpenSaveFileDialog->getCurrentFolder(),
-					mOpenSaveFileDialog->getFileName()));
+				setFileName(
+					common::concatenatePath(
+						mOpenSaveFileDialog->getCurrentFolder(),
+						mOpenSaveFileDialog->getFileName()));
 
 				load();
 				updateCaption();

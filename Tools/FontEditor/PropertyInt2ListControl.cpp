@@ -99,11 +99,8 @@ namespace tools
 
 		MyGUI::Widget* widget = mList->getWidgetByIndex(mList->getItemCount() - 1);
 		if (widget != nullptr)
-			mTextFieldControl->setCoord(MyGUI::IntCoord(
-				widget->getAbsoluteLeft(),
-				widget->getAbsoluteTop(),
-				widget->getWidth(),
-				widget->getHeight()));
+			mTextFieldControl->setCoord(
+				{widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()});
 
 		mTextFieldControl->doModal();
 	}

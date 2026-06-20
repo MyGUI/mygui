@@ -51,8 +51,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE(
 			" is deprecated, use : void ImageBox::addItemFrameDuplicate(size_t _index, size_t _indexSourceFrame)")
 		void addItemFrameDublicate(size_t _index, size_t _indexSourceFrame);
-		MYGUI_OBSOLETE(" is deprecated, use : void ImageBox::insertItemFrameDuplicate(size_t _index, size_t "
-					   "_indexFrame, size_t _indexSourceFrame)")
+		MYGUI_OBSOLETE(
+			" is deprecated, use : void ImageBox::insertItemFrameDuplicate(size_t _index, size_t "
+			"_indexFrame, size_t _indexSourceFrame)")
 		void insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame);
 	};
 
@@ -103,8 +104,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : bool EditBox::isVisibleHScroll()")
 		bool isShowHScroll();
 
-		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setTextIntervalColour(size_t _start, size_t _count, const "
-					   "Colour& _colour)")
+		MYGUI_OBSOLETE(
+			" is deprecated, use : void EditBox::setTextIntervalColour(size_t _start, size_t _count, const "
+			"Colour& _colour)")
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour);
 		MYGUI_OBSOLETE(" is deprecated, use : size_t EditBox::getTextSelectionStart() , size_t getTextSelectionEnd()")
 		void getTextSelect(size_t& _start, size_t& _end) const;
@@ -255,8 +257,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE(
 			" is deprecated, use : const UString& MultiListBox::getSubItemNameAt(size_t _column, size_t _index)")
 		const UString& getSubItem(size_t _column, size_t _index) const;
-		MYGUI_OBSOLETE(" is deprecated, use : void MultiListBox::setSubItemNameAt(size_t _column, size_t _index, const "
-					   "UString& _name)")
+		MYGUI_OBSOLETE(
+			" is deprecated, use : void MultiListBox::setSubItemNameAt(size_t _column, size_t _index, const "
+			"UString& _name)")
 		void setSubItem(size_t _column, size_t _index, const UString& _name);
 		MYGUI_OBSOLETE(" is deprecated, use : void MultiListBox::removeColumnAt(size_t _column)")
 		void deleteColumn(size_t _column);
@@ -273,8 +276,9 @@ namespace MyGUI
 		void addColumn(int _width, const UString& _name);
 		MYGUI_OBSOLETE(" is deprecated, use : void MultiListBox::setColumnNameAt(size_t _column, const UString& _name)")
 		void setColumnName(size_t _column, const UString& _name);
-		MYGUI_OBSOLETE(" is deprecated, use : void MultiListBox::insertColumnAt(size_t _column, const UString& _name, "
-					   "int _width, Any _data)")
+		MYGUI_OBSOLETE(
+			" is deprecated, use : void MultiListBox::insertColumnAt(size_t _column, const UString& _name, "
+			"int _width, Any _data)")
 		void insertColumn(size_t _column, int _width, const UString& _name);
 		MYGUI_OBSOLETE(" is deprecated, use : size_t MultiListBox::getIndexSelected()")
 		size_t getItemSelect() const;
@@ -506,8 +510,9 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<LayoutManager>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : VectorWidgetPtr& LayoutManager::loadLayout(std::string_view _file, "
-					   "std::string_view _prefix, Widget* _parent)")
+		MYGUI_OBSOLETE(
+			" is deprecated, use : VectorWidgetPtr& LayoutManager::loadLayout(std::string_view _file, "
+			"std::string_view _prefix, Widget* _parent)")
 		VectorWidgetPtr load(std::string_view _file);
 	};
 

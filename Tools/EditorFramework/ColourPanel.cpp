@@ -296,8 +296,8 @@ namespace tools
 
 		updateTexture(mBaseColour);
 
-		mAlphaSlider->setScrollPosition(static_cast<size_t>(
-			static_cast<float>(mAlphaSlider->getScrollRange() - 1) * static_cast<float>(mCurrentColour.alpha)));
+		mAlphaSlider->setScrollPosition(
+			static_cast<size_t>(static_cast<float>(mAlphaSlider->getScrollRange() - 1) * mCurrentColour.alpha));
 
 		mColourView->setColour(mCurrentColour);
 		mColourView->setAlpha(mCurrentColour.alpha);

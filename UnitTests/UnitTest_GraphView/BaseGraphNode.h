@@ -81,9 +81,9 @@ namespace wraps
 
 		void setAbsolutePosition(const MyGUI::IntPoint& _point)
 		{
-			setPosition(MyGUI::IntPoint(
-				_point.left - mMainWidget->getParent()->getAbsoluteLeft(),
-				_point.top - mMainWidget->getParent()->getAbsoluteTop()));
+			setPosition(
+				{_point.left - mMainWidget->getParent()->getAbsoluteLeft(),
+				 _point.top - mMainWidget->getParent()->getAbsoluteTop()});
 		}
 
 		/*internal:*/

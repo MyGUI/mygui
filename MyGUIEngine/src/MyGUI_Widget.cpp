@@ -590,23 +590,23 @@ namespace MyGUI
 
 	void Widget::setRealPosition(const FloatPoint& _point)
 	{
-		setPosition(CoordConverter::convertFromRelative(
-			_point,
-			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
+		auto parentSize =
+			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize();
+		setPosition(CoordConverter::convertFromRelative(_point, parentSize));
 	}
 
 	void Widget::setRealSize(const FloatSize& _size)
 	{
-		setSize(CoordConverter::convertFromRelative(
-			_size,
-			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
+		auto parentSize =
+			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize();
+		setSize(CoordConverter::convertFromRelative(_size, parentSize));
 	}
 
 	void Widget::setRealCoord(const FloatCoord& _coord)
 	{
-		setCoord(CoordConverter::convertFromRelative(
-			_coord,
-			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
+		auto parentSize =
+			mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize();
+		setCoord(CoordConverter::convertFromRelative(_coord, parentSize));
 	}
 
 	void Widget::_setAlign(const IntSize& _oldsize, const IntSize& _newSize)

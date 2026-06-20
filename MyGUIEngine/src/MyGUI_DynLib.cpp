@@ -54,7 +54,7 @@ namespace MyGUI
 			name += extension;
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-				//APPLE SPECIFIC CODE HERE
+			//APPLE SPECIFIC CODE HERE
 	#else
 		mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD(name.c_str());
 	#endif

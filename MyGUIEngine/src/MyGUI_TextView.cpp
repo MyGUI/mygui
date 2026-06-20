@@ -230,7 +230,9 @@ namespace MyGUI
 					width = roll_back.getWidth();
 					count = roll_back.getCount();
 					index = roll_back.getTextIter();
-					line_info.symbols.erase(line_info.symbols.begin() + roll_back.getPosition(), line_info.symbols.end());
+					line_info.symbols.erase(
+						line_info.symbols.begin() + roll_back.getPosition(),
+						line_info.symbols.end());
 				}
 
 				// запоминаем место отката, как полную строку

@@ -198,11 +198,8 @@ namespace tools
 				mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
 				mTextFieldControl->setTextField(data->getPropertyValue(mPropertyForName));
 				mTextFieldControl->setUserData(data);
-				mTextFieldControl->setCoord(MyGUI::IntCoord(
-					widget->getAbsoluteLeft(),
-					widget->getAbsoluteTop(),
-					widget->getWidth(),
-					widget->getHeight()));
+				mTextFieldControl->setCoord(
+					{widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()});
 				mTextFieldControl->doModal();
 			}
 		}

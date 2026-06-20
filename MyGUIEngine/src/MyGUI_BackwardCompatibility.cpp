@@ -1120,8 +1120,7 @@ namespace MyGUI
 		{
 			MYGUI_LOG(
 				Warning,
-				"ComboBox_AddItem is deprecated"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				"ComboBox_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			ComboBox* widget = _owner->castType<ComboBox>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1131,8 +1130,7 @@ namespace MyGUI
 		{
 			MYGUI_LOG(
 				Warning,
-				"List_AddItem is deprecated"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				"List_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			ListBox* widget = _owner->castType<ListBox>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1142,8 +1140,7 @@ namespace MyGUI
 		{
 			MYGUI_LOG(
 				Warning,
-				"Tab_AddSheet is deprecated"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				"Tab_AddSheet is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			TabControl* widget = _owner->castType<TabControl>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
@@ -1153,8 +1150,7 @@ namespace MyGUI
 		{
 			MYGUI_LOG(
 				Warning,
-				"Tab_AddItem is deprecated"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				"Tab_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			TabControl* widget = _owner->castType<TabControl>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);

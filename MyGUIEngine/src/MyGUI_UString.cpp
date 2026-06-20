@@ -721,9 +721,9 @@ namespace MyGUI
 		const code_point* ptr = c_str();
 		unicode_char uc;
 		size_t l = _utf16_char_length(ptr[loc]);
-		code_point cp[2] = {/* blame the code beautifier */
-							0,
-							0};
+		code_point cp[2] = {
+			0,
+			0};
 		cp[0] = ptr[loc];
 
 		if (l == 2 && (loc + 1) < mData.length())
@@ -736,9 +736,9 @@ namespace MyGUI
 
 	int UString::setChar(size_type loc, unicode_char ch)
 	{
-		code_point cp[2] = {/* blame the code beautifier */
-							0,
-							0};
+		code_point cp[2] = {
+			0,
+			0};
 		size_t l = _utf32_to_utf16(ch, cp);
 		unicode_char existingChar = getChar(loc);
 		size_t existingSize = _utf16_char_length(existingChar);
@@ -1830,7 +1830,7 @@ namespace MyGUI
 		case 3: out_cp[0] = static_cast<unsigned char>(((c)&_lead2_mask) | _lead2); break;
 		case 2: out_cp[0] = static_cast<unsigned char>(((c)&_lead1_mask) | _lead1); break;
 		case 1:
-		default: out_cp[0] = static_cast<unsigned char>((c)&0x7F); break;
+		default: out_cp[0] = static_cast<unsigned char>((c) & 0x7F); break;
 		}
 
 		// return the byte length of the sequence

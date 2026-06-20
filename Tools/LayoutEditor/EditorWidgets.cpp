@@ -306,10 +306,11 @@ namespace tools
 					containerParent = find(parent);
 				}
 
-				containerParent->childContainers.erase(std::find(
-					containerParent->childContainers.begin(),
-					containerParent->childContainers.end(),
-					_container));
+				containerParent->childContainers.erase(
+					std::find(
+						containerParent->childContainers.begin(),
+						containerParent->childContainers.end(),
+						_container));
 			}
 
 			MyGUI::Gui::getInstance().destroyWidget(_container->getWidget());
@@ -354,10 +355,11 @@ namespace tools
 					containerParent = find(parent);
 				}
 
-				containerParent->childContainers.erase(std::find(
-					containerParent->childContainers.begin(),
-					containerParent->childContainers.end(),
-					_container));
+				containerParent->childContainers.erase(
+					std::find(
+						containerParent->childContainers.begin(),
+						containerParent->childContainers.end(),
+						_container));
 			}
 
 			delete _container;
