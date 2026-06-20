@@ -45,7 +45,12 @@ endif()
 # RenderSystem dependencies
 #######################################################################
 
-find_package(SDL2)
+if (NOT EMSCRIPTEN)
+  find_package(SDL2 REQUIRED)
+else()
+  find_package(SDL2)
+endif()
+
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 	# Find OGRE
 	find_package(ZLIB)

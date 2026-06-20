@@ -94,7 +94,17 @@ add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform SDL2::Main)
+
+if (TARGET SDL2::SDL2main)
+  target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform SDL2::SDL2main)
+endif()
+
+if (TARGET SDL2::SDL2)
+  target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform SDL2::SDL2)
+else()
+  target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform SDL2::SDL2-static)
+endif()
+
 if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
 	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
 	mygui_install_target(${PROJECTNAME} "")

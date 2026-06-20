@@ -278,13 +278,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		MyGUICommon
 	)
 
-	if (NOT EMSCRIPTEN)
-		# exclude emscripten, because it link SDL in its own way
-		target_link_libraries(${PROJECTNAME}
-			${SDL2_LIBRARIES}
-		)
-	endif ()
-
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
 	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
