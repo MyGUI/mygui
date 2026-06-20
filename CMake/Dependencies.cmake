@@ -45,11 +45,7 @@ endif()
 # RenderSystem dependencies
 #######################################################################
 
-if (NOT EMSCRIPTEN)
-  find_package(SDL2 REQUIRED)
-else()
-  find_package(SDL2)
-endif()
+find_package(SDL2)
 
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 	# Find OGRE
