@@ -30,8 +30,8 @@ namespace MyGUI
 		mRenderTargetInfo.pixScaleY = 1.0f / float(mHeight);
 
 		// create a framebuffer object, you need to delete them when program exits.
-		glGenFramebuffersEXT(1, &mFBOID);
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFBOID);
+		glGenFramebuffers(1, &mFBOID);
+		glBindFramebuffer(GL_FRAMEBUFFER, mFBOID);
 
 		// create a renderbuffer object to store depth info
 		// NOTE: A depth renderable image should be attached the FBO for depth test.
@@ -39,30 +39,30 @@ namespace MyGUI
 		// the rendering output will be corrupted because of missing depth test.
 		// If you also need stencil test for your rendering, then you must
 		// attach additional image to the stencil attachement point, too.
-		glGenRenderbuffersEXT(1, &mRBOID);
-		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, mRBOID);
-		glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, mWidth, mHeight);
-		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
+		glGenRenderbuffers(1, &mRBOID);
+		glBindRenderbuffer(GL_RENDERBUFFER, mRBOID);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, mWidth, mHeight);
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 		// attach a texture to FBO color attachement point
-		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, mTextureId, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTextureId, 0);
 
 		// attach a renderbuffer to depth attachment point
-		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, mRBOID);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mRBOID);
 
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	OpenGLRTTexture::~OpenGLRTTexture()
 	{
 		if (mFBOID != 0)
 		{
-			glDeleteFramebuffersEXT(1, &mFBOID);
+			glDeleteFramebuffers(1, &mFBOID);
 			mFBOID = 0;
 		}
 		if (mRBOID != 0)
 		{
-			glDeleteRenderbuffersEXT(1, &mRBOID);
+			glDeleteRenderbuffers(1, &mRBOID);
 			mRBOID = 0;
 		}
 	}
@@ -71,7 +71,7 @@ namespace MyGUI
 	{
 		glPushAttrib(GL_VIEWPORT_BIT);
 
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFBOID);
+		glBindFramebuffer(GL_FRAMEBUFFER, mFBOID);
 
 		glViewport(0, 0, mWidth, mHeight);
 
@@ -84,7 +84,7 @@ namespace MyGUI
 	{
 		OpenGLRenderManager::getInstance().end();
 
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0); // unbind
+		glBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
 
 		glPopAttrib();
 	}
