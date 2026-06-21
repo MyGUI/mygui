@@ -1,6 +1,6 @@
 ![MyGUI logo](http://mygui.info/images/MyGUI_Logo.png)
 
-[![Build Status](https://travis-ci.org/MyGUI/mygui.svg?branch=master)](https://travis-ci.org/MyGUI/mygui)
+[![CI](https://github.com/MyGUI/mygui/actions/workflows/build.yml/badge.svg)](https://github.com/MyGUI/mygui/actions)
 
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications.
 
