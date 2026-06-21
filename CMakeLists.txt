@@ -49,39 +49,14 @@ if (NOT APPLE)
 	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-	# Test for GCC visibility
-	include(CheckCXXCompilerFlag)
-	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
-	if (MYGUI_GCC_VISIBILITY)
-		message(STATUS "Enabling visibility flags")
-		set(MYGUI_GCC_VISIBILITY_DEFINITIONS "MYGUI_GCC_VISIBILITY")
-		set(MYGUI_GCC_VISIBILITY_OPTIONS "-fvisibility-inlines-hidden;-fvisibility=hidden")
-	endif (MYGUI_GCC_VISIBILITY)
-
-	# Fix x64 issues on Linux
-	if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" OR "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "amd64") AND NOT APPLE)
-		add_definitions(-fPIC)
-	endif()
-endif ()
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 # Specify build paths
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-if (WIN32 OR APPLE)
-	if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		if (UNIX)
-			# On Mac OS X and Linux, standard behavior is to install to /usr/local/lib
-			set(CMAKE_INSTALL_PREFIX "/usr/local")
-		elseif (WIN32)
-			# On Windows, we don't want to install in default system location, install is really for the SDK, so call it that
-			SET(CMAKE_INSTALL_PREFIX
-				"${MYGUI_BINARY_DIR}/sdk" CACHE PATH "MYGUI install prefix" FORCE
-			)
-		endif ()
-	endif (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-endif(WIN32 OR APPLE)
 
 ######################################################################
 # Provide user options to customise the build process
