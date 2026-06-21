@@ -65,7 +65,7 @@
 
 #if defined(__BORLANDC__) && defined(PUGIXML_HEADER_ONLY)
 	#pragma warn - \
-			8080 // symbol is declared but never used; disabling this inside push/pop bracket does not make the warning go away
+		8080 // symbol is declared but never used; disabling this inside push/pop bracket does not make the warning go away
 #endif
 
 #ifdef __BORLANDC__
@@ -7144,7 +7144,7 @@ PUGI__FN double convert_string_to_number(const char_t* string)
 	if (!check_string_to_number_format(string))
 		return gen_nan();
 
-		// parse string
+	// parse string
 	#ifdef PUGIXML_WCHAR_MODE
 	return wcstod(string, 0);
 	#else

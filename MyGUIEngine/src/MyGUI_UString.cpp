@@ -721,9 +721,7 @@ namespace MyGUI
 		const code_point* ptr = c_str();
 		unicode_char uc;
 		size_t l = _utf16_char_length(ptr[loc]);
-		code_point cp[2] = {
-			0,
-			0};
+		code_point cp[2] = {0, 0};
 		cp[0] = ptr[loc];
 
 		if (l == 2 && (loc + 1) < mData.length())
@@ -736,9 +734,7 @@ namespace MyGUI
 
 	int UString::setChar(size_type loc, unicode_char ch)
 	{
-		code_point cp[2] = {
-			0,
-			0};
+		code_point cp[2] = {0, 0};
 		size_t l = _utf32_to_utf16(ch, cp);
 		unicode_char existingChar = getChar(loc);
 		size_t existingSize = _utf16_char_length(existingChar);

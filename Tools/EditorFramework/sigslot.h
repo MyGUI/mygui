@@ -475,16 +475,17 @@ namespace sigslot
 		_connection_base8(const _connection_base8& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type) = 0;
-		virtual bool exist(_connection_base8<
-						   arg1_type,
-						   arg2_type,
-						   arg3_type,
-						   arg4_type,
-						   arg5_type,
-						   arg6_type,
-						   arg7_type,
-						   arg8_type,
-						   mt_policy>* conn) = 0;
+		virtual bool exist(
+			_connection_base8<
+				arg1_type,
+				arg2_type,
+				arg3_type,
+				arg4_type,
+				arg5_type,
+				arg6_type,
+				arg7_type,
+				arg8_type,
+				mt_policy>* conn) = 0;
 		virtual _connection_base8<
 			arg1_type,
 			arg2_type,
@@ -1519,16 +1520,17 @@ namespace sigslot
 		{
 		}
 
-		_signal_base8(const _signal_base8<
-					  arg1_type,
-					  arg2_type,
-					  arg3_type,
-					  arg4_type,
-					  arg5_type,
-					  arg6_type,
-					  arg7_type,
-					  arg8_type,
-					  mt_policy>& s) :
+		_signal_base8(
+			const _signal_base8<
+				arg1_type,
+				arg2_type,
+				arg3_type,
+				arg4_type,
+				arg5_type,
+				arg6_type,
+				arg7_type,
+				arg8_type,
+				mt_policy>& s) :
 			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lockblock(this);
@@ -2805,7 +2807,8 @@ namespace sigslot
 		{
 		}
 
-		signal8(const signal8<
+		signal8(
+			const signal8<
 				arg1_type,
 				arg2_type,
 				arg3_type,
