@@ -18,4 +18,4 @@ link_directories(${DirectX_LIBRARY_DIRS})
 install(FILES ${HEADER_FILES}
 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 )
-mygui_install_target(${PROJECTNAME} "")
+mygui_install_target(${PROJECTNAME})

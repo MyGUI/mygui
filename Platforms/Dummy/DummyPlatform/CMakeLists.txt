@@ -16,4 +16,4 @@ target_link_libraries(${PROJECTNAME} MyGUIEngine)
 install(FILES ${HEADER_FILES}
 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 )
-mygui_install_target(${PROJECTNAME} "")
+mygui_install_target(${PROJECTNAME})

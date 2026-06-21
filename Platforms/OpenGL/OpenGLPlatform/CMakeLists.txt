@@ -23,4 +23,4 @@ link_directories(${OPENGL_LIB_DIR})
 install(FILES ${HEADER_FILES}
 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 )
-mygui_install_target(${PROJECTNAME} "")
+mygui_install_target(${PROJECTNAME})
