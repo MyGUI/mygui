@@ -27,14 +27,7 @@ if (NOT ANDROID)
 	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
 endif()
 
-if (UNIX)
-	# some platforms require explicit linking to libdl, see if it's available
-	find_library(DL_LIBRARY NAMES dl dlsym)
-	mark_as_advanced(DL_LIBRARY)
-	if (DL_LIBRARY)
-		target_link_libraries(${PROJECTNAME} dl)
-	endif ()
-endif()
+#target_link_libraries(${PROJECTNAME} ${CMAKE_DL_LIBS})
 
 if (MYGUI_USE_FREETYPE)
 	if (MYGUI_MSDF_FONTS)
