@@ -1,11 +1,22 @@
-include(PreprocessorUtils)
+function(read_define HEADER NAME OUT_VAR)
+    file(
+            STRINGS "${HEADER}" line
+            REGEX "^#define[ \t]+${NAME}[ \t]+"
+    )
 
-macro(mygui_get_version HEADER)
-  file(READ ${HEADER} TEMP_VAR_CONTENTS)
-  get_preprocessor_entry(TEMP_VAR_CONTENTS MYGUI_VERSION_MAJOR MYGUI_VERSION_MAJOR)
-  get_preprocessor_entry(TEMP_VAR_CONTENTS MYGUI_VERSION_MINOR MYGUI_VERSION_MINOR)
-  get_preprocessor_entry(TEMP_VAR_CONTENTS MYGUI_VERSION_PATCH MYGUI_VERSION_PATCH)
-  get_preprocessor_entry(TEMP_VAR_CONTENTS MYGUI_VERSION_NAME MYGUI_VERSION_NAME)
-  get_preprocessor_entry(TEMP_VAR_CONTENTS MYGUI_VERSION_SUFFIX MYGUI_VERSION_SUFFIX)
-  set(MYGUI_VERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
-endmacro()
+    string(REPLACE "#define ${NAME} " "" value "${line}")
+    string(STRIP "${value}" value)
+
+    set(${OUT_VAR} "${value}" PARENT_SCOPE)
+endfunction()
+
+function(mygui_get_version HEADER)
+    read_define("${HEADER}" MYGUI_VERSION_MAJOR major)
+    read_define("${HEADER}" MYGUI_VERSION_MINOR minor)
+    read_define("${HEADER}" MYGUI_VERSION_PATCH patch)
+
+    set(MYGUI_VERSION_MAJOR "${major}" PARENT_SCOPE)
+    set(MYGUI_VERSION_MINOR "${minor}" PARENT_SCOPE)
+    set(MYGUI_VERSION_PATCH "${patch}" PARENT_SCOPE)
+    set(MYGUI_VERSION "${major}.${minor}.${patch}" PARENT_SCOPE)
+endfunction()

@@ -20,7 +20,6 @@ include(CMakeDependentOption)
 include(MacroLogFeature)
 include(Packages/SDL2FinderHelper)
 include(MyGUIConfigTargets)
-include(PreprocessorUtils)
 include(GNUInstallDirs)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
