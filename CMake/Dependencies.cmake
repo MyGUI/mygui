@@ -25,11 +25,6 @@ endif ()
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MYGUI_DEP_SEARCH_PATH})
 set(CMAKE_FRAMEWORK_PATH ${CMAKE_FRAMEWORK_PATH} ${MYGUI_DEP_SEARCH_PATH})
 
-if (WIN32)
-	include(MyGUIInstallDependencies)
-endif ()
-
-
 #######################################################################
 # Core dependencies
 #######################################################################
