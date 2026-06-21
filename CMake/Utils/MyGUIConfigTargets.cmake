@@ -108,14 +108,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-
-	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
-		add_custom_command(TARGET ${PROJECTNAME}
-			POST_BUILD
-			COMMAND ${MYGUI_BINARY_DIR}/updateListFiles.bat
-			COMMENT "Generating *.list files")
-	endif ()
-
 endfunction(mygui_app)
 
 #setup Tools dll builds
@@ -142,14 +134,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-
-	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
-		add_custom_command(TARGET ${PROJECTNAME}
-			POST_BUILD
-			COMMAND ${MYGUI_BINARY_DIR}/updateListFiles.bat
-			COMMENT "Generating *.list files")
-	endif ()
-
 endfunction(mygui_dll)
 
 function(mygui_demo PROJECTNAME)

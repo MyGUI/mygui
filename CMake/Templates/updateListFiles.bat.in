@@ -1,2 +1,0 @@
-chdir @MYGUI_SOURCE_DIR@/Scripts
-@MYGUI_SOURCE_DIR@/Scripts/ConvertVcxprojToList.exe @MYGUI_BINARY_DIR@
