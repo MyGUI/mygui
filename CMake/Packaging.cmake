@@ -27,18 +27,6 @@ if (MYGUI_CREATE_PACKAGE)
 		SET(CPACK_NSIS_MUI_ICON  "Common/Base\\\\MyGUI.ico")
 		SET(CPACK_NSIS_DISPLAY_NAME "MyGUI")
 		SET(CPACK_NSIS_HELP_LINK "http://my-gui.sourceforge.net/")
-
-	#	SET(CPACK_NSIS_MENU_LINKS
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/cmake-gui.html" "cmake-gui Help"
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/cmake.html" "CMake Help"
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/cmake-properties.html"
-	#		"CMake Properties and Variables Help"
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/ctest.html" "CTest Help"
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/cmake-modules.html" "CMake Modules Help"
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/cmake-commands.html" "CMake Commands Help"
-	#		"doc/cmake-@CMake_VERSION_MAJOR@.@CMake_VERSION_MINOR@/cpack.html" "CPack Help"
-	#		"http://MyGUI.info" "MyGUI Web Site"
-	#	)
 	endif ()
 
 	include(CPack)

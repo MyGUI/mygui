@@ -302,8 +302,5 @@ if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
 	add_subdirectory(Media)
 endif ()
 
-# Install CMake modules
-add_subdirectory(CMake)
-
 # Provide CPack packaging target
 include(Packaging)
