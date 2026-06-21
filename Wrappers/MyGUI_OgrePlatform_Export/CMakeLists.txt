@@ -4,7 +4,6 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 	function(mygui_orge_platform_export PROJECTNAME SOLUTIONFOLDER)
 		include_directories(
 			.
-			#${MYGUI_SOURCE_DIR}/Common
 			${MYGUI_SOURCE_DIR}/MyGUIEngine/include
 		)
 		# define the sources
@@ -16,20 +15,8 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 		link_directories(${OGRE_LIB_DIR})
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 		set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
-		
-		# add dependencies
-		add_dependencies(${PROJECTNAME} MyGUIEngine )
 
-		# link libraries against it
-		target_link_libraries(${PROJECTNAME}
-			MyGUIEngine
-		#	uuid
-		)
-
-		# add dependencies
-		add_dependencies(${PROJECTNAME} MyGUIEngine)
-		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
+		target_link_libraries(${PROJECTNAME} MyGUIEngine MyGUI.OgrePlatform)
 	endfunction(mygui_orge_platform_export)
 
 	mygui_orge_platform_export(MyGUI_OgrePlatform_Export Wrappers)

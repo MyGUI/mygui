@@ -2,8 +2,8 @@
 
 #include <MyGUI.h>
 
-#include "InputManager.h"
-#include "PointerManager.h"
+#include "Input/SDL/InputManager.h"
+#include "Input/SDL/PointerManager.h"
 
 #include <SDL.h>
 

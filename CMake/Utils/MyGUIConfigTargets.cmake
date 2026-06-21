@@ -83,65 +83,10 @@ endfunction(mygui_config_common)
 function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	include_directories(
 		.
-		${MYGUI_SOURCE_DIR}/Common
 		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-		${MYGUI_SOURCE_DIR}/Common/Input/SDL
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
-
-	# Set up dependencies
-	mygui_add_base_manager_include(${MYGUI_RENDERSYSTEM})
-	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	include_directories(
-		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
-	)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_definitions("-DMYGUI_DUMMY_PLATFORM")
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_definitions("-DMYGUI_OGRE_PLATFORM")
-		include_directories(SYSTEM
-			${OGRE_INCLUDE_DIR}
-		)
-		link_directories(${OGRE_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		add_definitions("-DMYGUI_OPENGL_PLATFORM")
-		include_directories(SYSTEM
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(
-			${OPENGL_LIB_DIR}
-		)
-
-	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-		include_directories(SYSTEM
-			${DirectX_INCLUDE_DIR}
-		)
-		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
-		include_directories(SYSTEM
-			${DirectX_INCLUDE_DIR}
-		)
-		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
-		include_directories(SYSTEM
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(
-			${OPENGL_LIB_DIR}
-		)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
-		include_directories(SYSTEM
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(
-			${OPENGL_LIB_DIR}
-		)
-	endif()
 
 	# setup demo target
 	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
@@ -155,37 +100,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
-	add_dependencies(${PROJECTNAME} MyGUIEngine MyGUICommon)
-
 	mygui_config_sample(${PROJECTNAME})
 
-	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
 		MyGUICommon
 	)
 
-	if (NOT EMSCRIPTEN)
-		# exclude emscripten, because it link SDL in its own way
-		mygui_get_sdl2_targets(SDL2_LINK_TARGETS)
-		target_link_libraries(${PROJECTNAME} ${SDL2_LINK_TARGETS})
-	endif ()
-
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
 	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
-	endif()
-	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
-	)
 
 	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
 		add_custom_command(TARGET ${PROJECTNAME}
@@ -206,64 +128,11 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	# Set up dependencies
-	mygui_add_base_manager_include(${MYGUI_RENDERSYSTEM})
-	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	include_directories(
-		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
-	)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_definitions("-DMYGUI_DUMMY_PLATFORM")
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_definitions("-DMYGUI_OGRE_PLATFORM")
-		include_directories(SYSTEM
-			${OGRE_INCLUDE_DIR}
-		)
-		link_directories(${OGRE_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		add_definitions("-DMYGUI_OPENGL_PLATFORM")
-		include_directories(SYSTEM
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(
-			${OPENGL_LIB_DIR}
-		)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-		include_directories(SYSTEM
-			${DirectX_INCLUDE_DIR}
-		)
-		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
-		include_directories(SYSTEM
-			${DirectX_INCLUDE_DIR}
-		)
-		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
-		include_directories(SYSTEM
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(${OPENGL_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
-		include_directories(SYSTEM
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(${OPENGL_LIB_DIR})
-	endif()
-
-
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
-	add_dependencies(${PROJECTNAME} MyGUIEngine)
-	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 
 	mygui_config_lib(${PROJECTNAME})
-
-	add_dependencies(${PROJECTNAME} MyGUIEngine MyGUICommon)
 
 	mygui_config_sample(${PROJECTNAME})
 
@@ -272,23 +141,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	)
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
 	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		target_link_libraries(${PROJECTNAME} OpenGL::GL SDL2_image::SDL2_image)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		target_link_libraries(${PROJECTNAME} OpenGL::GL SDL2_image::SDL2_image)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		target_link_libraries(${PROJECTNAME} SDL2_image::SDL2_image)
-	endif()
-
-	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
-	)
 
 	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
 		add_custom_command(TARGET ${PROJECTNAME}
@@ -377,7 +230,6 @@ function(mygui_plugin PROJECTNAME)
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
-	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 
 	mygui_config_lib(${PROJECTNAME})

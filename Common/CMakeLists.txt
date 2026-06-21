@@ -1,15 +1,4 @@
-function(mygui_add_base_manager_include PLATFORM_ID)
-	mygui_set_platform_name(${PLATFORM_ID})
-	include_directories(../../Common/Base/${MYGUI_PLATFORM_NAME})
-endfunction(mygui_add_base_manager_include)
-
 set (PROJECTNAME MyGUICommon)
-
-include_directories(
-	.
-	${MYGUI_SOURCE_DIR}/Common
-	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-)
 
 set (HEADER_FILES "")
 set (SOURCE_FILES "")
@@ -23,54 +12,7 @@ SOURCE_GROUP("Base" FILES
 	Base/PlatformBaseManager/SdlBaseManager.h
 	Base/PlatformBaseManager/SdlBaseManager.cpp
 )
-include_directories(
-	${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
-)
-if(MYGUI_RENDERSYSTEM EQUAL 1)
-	add_definitions("-DMYGUI_DUMMY_PLATFORM")
-	link_directories(${DUMMY_LIB_DIR})
-elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-	add_definitions("-DMYGUI_OGRE_PLATFORM")
-	include_directories(SYSTEM
-		${OGRE_INCLUDE_DIR}
-	)
-	link_directories(${OGRE_LIB_DIR})
-elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-	add_definitions("-DMYGUI_OPENGL_PLATFORM")
-	include_directories(SYSTEM
-		${OPENGL_INCLUDE_DIR}
-		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
-	)
-	include_directories(SYSTEM include/GL)
-	link_directories(${OPENGL_LIB_DIR})
-elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-	add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-	include_directories(SYSTEM
-		${DirectX_INCLUDE_DIR}
-	)
-	link_directories(${DIRECTX_LIB_DIR})
-elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-	add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
-	include_directories(SYSTEM
-		${DirectX_INCLUDE_DIR}
-	)
-	link_directories(${DIRECTX_LIB_DIR})
-elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-	add_definitions("-DMYGUI_OPENGL3_PLATFORM")
-	include_directories(SYSTEM
-		${OPENGL_INCLUDE_DIR}
-		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
-	)
-	link_directories(${OPENGL_LIB_DIR})
-elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-	add_definitions("-DMYGUI_OPENGLES_PLATFORM")
-	include_directories(SYSTEM
-		${OPENGL_INCLUDE_DIR}
-	)
-	link_directories(${OPENGL_LIB_DIR})
-endif()
 
-include_directories(Input/SDL)
 set (HEADER_FILES ${HEADER_FILES}
 	Input/SDL/InputManager.h
 	Input/SDL/PointerManager.h
@@ -92,15 +34,40 @@ SOURCE_GROUP("Base" FILES
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+if(MYGUI_RENDERSYSTEM EQUAL 3)
+	target_include_directories(${PROJECTNAME} SYSTEM
+		${OGRE_INCLUDE_DIR}
+	)
+	target_link_directories(${OGRE_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 5)
+	target_include_directories(${PROJECTNAME} SYSTEM
+		${DirectX_INCLUDE_DIR}
+	)
+	target_link_directories(${DIRECTX_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 6)
+	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC
+		${DirectX_INCLUDE_DIR}
+	)
+	target_link_directories(${DIRECTX_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
+	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
+endif()
+
+target_include_directories(${PROJECTNAME}
+	PUBLIC
+		.
+		Base/${MYGUI_PLATFORM_NAME}
+		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
+	PRIVATE
+		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+)
+string(TOUPPER "${MYGUI_PLATFORM_NAME}" MYGUI_PLATFORM_NAME_UPPER)
+target_compile_definitions(${PROJECTNAME} PUBLIC "MYGUI_${MYGUI_PLATFORM_NAME_UPPER}_PLATFORM")
 
 mygui_get_sdl2_targets(SDL2_LINK_TARGETS)
-target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform ${SDL2_LINK_TARGETS})
+target_link_libraries(${PROJECTNAME} PUBLIC MyGUI.${MYGUI_PLATFORM_NAME}Platform MyGUIEngine ${SDL2_LINK_TARGETS})
 
 if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
 	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
 	mygui_install_target(${PROJECTNAME} "")
 endif()
-
-add_dependencies(${PROJECTNAME} MyGUIEngine)
