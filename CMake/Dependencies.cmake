@@ -46,6 +46,7 @@ endif()
 #######################################################################
 
 find_package(SDL2)
+
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 	# Find OGRE
 	find_package(ZLIB)

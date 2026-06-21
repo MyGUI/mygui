@@ -166,15 +166,8 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	if (NOT EMSCRIPTEN)
 		# exclude emscripten, because it link SDL in its own way
-		if (TARGET SDL2::SDL2main)
-			target_link_libraries(${PROJECTNAME} SDL2::SDL2main)
-		endif()
-
-		if (TARGET SDL2::SDL2)
-			target_link_libraries(${PROJECTNAME} SDL2::SDL2)
-		else()
-			target_link_libraries(${PROJECTNAME} SDL2::SDL2-static)
-		endif()
+		mygui_get_sdl2_targets(SDL2_LINK_TARGETS)
+		target_link_libraries(${PROJECTNAME} ${SDL2_LINK_TARGETS})
 	endif ()
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
@@ -277,13 +270,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	target_link_libraries(${PROJECTNAME}
 		MyGUICommon
 	)
-
-	if (NOT EMSCRIPTEN)
-		# exclude emscripten, because it link SDL in its own way
-		target_link_libraries(${PROJECTNAME}
-			${SDL2_LIBRARIES}
-		)
-	endif ()
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
