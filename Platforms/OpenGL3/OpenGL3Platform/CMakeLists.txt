@@ -15,8 +15,6 @@ add_definitions(-DGL_GLEXT_PROTOTYPES)
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(${PROJECTNAME} MyGUIEngine)
-
 target_link_libraries(${PROJECTNAME} OpenGL::GL MyGUIEngine)
 
 link_directories(${OPENGL_LIB_DIR})

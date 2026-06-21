@@ -11,8 +11,6 @@ include(${PROJECTNAME}.list)
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(${PROJECTNAME} MyGUIEngine)
-
 target_link_libraries(${PROJECTNAME} ${DirectX_LIBRARIES} MyGUIEngine)
 link_directories(${DirectX_LIBRARY_DIRS})
 

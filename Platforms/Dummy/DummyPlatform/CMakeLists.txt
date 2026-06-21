@@ -10,8 +10,6 @@ include(${PROJECTNAME}.list)
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(${PROJECTNAME} MyGUIEngine)
-
 target_link_libraries(${PROJECTNAME} MyGUIEngine)
 
 # installation rules
