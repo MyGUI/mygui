@@ -1,3 +1,23 @@
+## MyGUI v3.5.0
+
+### CMake
+- Complete CMake modernization: use modern CMake targets, target_include_directories,
+  target_compile_definitions, target_compile_options instead of legacy commands and
+  other improvements
+- Provide modern CMake target support for MyGUI: target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform).
+- Deprecate MYGUI_STATIC in favor of BUILD_SHARED_LIBS
+- Allow using system msdfgen
+
+### Platforms
+- OpenGL: use non-EXT functions for FBO
+
+### Infrastructure
+- Replace Travis CI with GitHub Actions
+- Add Lint CI step (clang-format)
+
+### Plugins
+- Delete legacy plugins (Berkelium, Hikari)
+
 ## MyGUI v3.4.4
 
 ### Widgets
