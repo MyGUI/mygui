@@ -5,8 +5,8 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 		# define the sources
 		include(${PROJECTNAME}.list)
 		add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
-		target_include_directories(${PROJECTNAME} PRIVATE "${OGRE_INCLUDE_DIR}")
-		target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIB_DIR}")
+		target_include_directories(${PROJECTNAME} PRIVATE "${OGRE_INCLUDE_DIRS}")
+		target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
 		set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
 		target_link_libraries(${PROJECTNAME} PUBLIC MyGUI::MyGUI MyGUI::OgrePlatform)

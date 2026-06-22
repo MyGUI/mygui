@@ -9,10 +9,10 @@ target_include_directories(${PROJECTNAME}
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/MYGUI>
 	PRIVATE
-		"${OGRE_INCLUDE_DIR}"
+		"${OGRE_INCLUDE_DIRS}"
 )
 
-target_link_directories(${PROJECTNAME} PRIVATE "${OGRE_LIB_DIR}")
+target_link_directories(${PROJECTNAME} PRIVATE "${OGRE_LIBRARY_DIRS}")
 target_link_libraries(${PROJECTNAME} PUBLIC ${OGRE_LIBRARIES} MyGUI::MyGUI)
 
 # installation rules

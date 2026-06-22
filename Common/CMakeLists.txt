@@ -35,8 +35,8 @@ SOURCE_GROUP("Base" FILES
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 if(MYGUI_RENDERSYSTEM EQUAL 3)
-	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIR}")
-	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIB_DIR}")
+	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIRS}")
+	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
 elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	target_link_libraries(${PROJECTNAME} PUBLIC DirectX::D3D9)
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
