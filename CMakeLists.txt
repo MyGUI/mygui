@@ -243,9 +243,6 @@ include(ConfigureBuild)
 # Now setup targets
 ##################################################################
 
-# install resource files
-include(InstallResources)
-
 # Setup MyGUIEngine project
 add_subdirectory(MyGUIEngine)
 
@@ -279,7 +276,7 @@ if (MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(UnitTests)
 endif ()
 
-# Setup wrapers
+# Setup wrappers
 if (MYGUI_BUILD_WRAPPER)
 	add_subdirectory(Wrappers)
 endif ()
@@ -289,10 +286,7 @@ if (MYGUI_BUILD_DOCS)
 	add_subdirectory(Docs)
 endif ()
 
-# Install media files
-if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
-	add_subdirectory(Media)
-endif ()
+add_subdirectory(Media)
 
 # Provide CPack packaging target
 include(Packaging)
