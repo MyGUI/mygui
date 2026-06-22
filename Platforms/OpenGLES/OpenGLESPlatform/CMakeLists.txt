@@ -1,12 +1,14 @@
 set(PROJECTNAME MyGUI.OpenGLESPlatform)
 
-include_directories(
-	include
-	"${MYGUI_SOURCE_DIR}/Common"
-)
-
 include(${PROJECTNAME}.list)
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
+
+target_include_directories(${PROJECTNAME}
+	PUBLIC
+		include
+	PRIVATE
+		"${MYGUI_SOURCE_DIR}/Common"
+)
 target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
 
 target_link_libraries(${PROJECTNAME} OpenGL::GL MyGUIEngine)

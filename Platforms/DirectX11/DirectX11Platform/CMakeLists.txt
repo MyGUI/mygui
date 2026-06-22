@@ -1,14 +1,16 @@
 set(PROJECTNAME MyGUI.DirectX11Platform)
 
-include_directories(
-	include
-	"${DirectX_INCLUDE_DIR}"
-	"${MYGUI_SOURCE_DIR}/Common"
-)
-
 include(${PROJECTNAME}.list)
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
+
+target_include_directories(${PROJECTNAME}
+	PUBLIC
+		include
+	PRIVATE
+		"${DirectX_INCLUDE_DIR}"
+		"${MYGUI_SOURCE_DIR}/Common"
+)
 
 target_link_libraries(${PROJECTNAME} ${DirectX11_LIBRARIES} MyGUIEngine)
 link_directories(${DirectX_LIBRARY_DIRS})

@@ -102,7 +102,7 @@ function(mygui_tool PROJECTNAME)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
 
-	include_directories("${MYGUI_SOURCE_DIR}/Tools/EditorFramework")
+	target_include_directories(${PROJECTNAME} PRIVATE "${MYGUI_SOURCE_DIR}/Tools/EditorFramework")
 	if (NOT MYGUI_CLANG_TIDY_BUILD)
 		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
 	else ()

@@ -35,29 +35,22 @@ SOURCE_GROUP("Base" FILES
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 if(MYGUI_RENDERSYSTEM EQUAL 3)
-	target_include_directories(${PROJECTNAME} SYSTEM
-		"${OGRE_INCLUDE_DIR}"
-	)
-	target_link_directories("${OGRE_LIB_DIR}")
+	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIR}")
+	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIB_DIR}")
 elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-	target_include_directories(${PROJECTNAME} SYSTEM
-		"${DirectX_INCLUDE_DIR}"
-	)
-	target_link_directories("${DIRECTX_LIB_DIR}")
+	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${DirectX_INCLUDE_DIR}")
+	target_link_directories(${PROJECTNAME} PUBLIC "${DIRECTX_LIB_DIR}")
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC
-		"${DirectX_INCLUDE_DIR}"
-	)
-	target_link_directories("${DIRECTX_LIB_DIR}")
+	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${DirectX_INCLUDE_DIR}")
+	target_link_directories(${PROJECTNAME} PUBLIC "${DIRECTX_LIB_DIR}")
 elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
+	target_link_libraries(${PROJECTNAME} PUBLIC SDL2_image::SDL2_image)
 endif()
 
 target_include_directories(${PROJECTNAME}
 	PUBLIC
 		.
 		Base/${MYGUI_PLATFORM_NAME}
-		"${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include"
 )
 string(TOUPPER "${MYGUI_PLATFORM_NAME}" MYGUI_PLATFORM_NAME_UPPER)
 target_compile_definitions(${PROJECTNAME} PUBLIC "MYGUI_${MYGUI_PLATFORM_NAME_UPPER}_PLATFORM")

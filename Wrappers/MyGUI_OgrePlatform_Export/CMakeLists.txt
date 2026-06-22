@@ -4,12 +4,9 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 	function(mygui_orge_platform_export PROJECTNAME SOLUTIONFOLDER)
 		# define the sources
 		include(${PROJECTNAME}.list)
-		include_directories(
-			"${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include"
-			"${OGRE_INCLUDE_DIR}"
-		)
-		link_directories("${OGRE_LIB_DIR}")
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+		target_include_directories(${PROJECTNAME} PRIVATE "${OGRE_INCLUDE_DIR}")
+		link_directories("${OGRE_LIB_DIR}")
 		set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
 		target_link_libraries(${PROJECTNAME} MyGUIEngine MyGUI.OgrePlatform)
