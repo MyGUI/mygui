@@ -2,7 +2,6 @@ set(PROJECTNAME MyGUI.DummyPlatform)
 
 include_directories(
 	include
-	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
 	${MYGUI_SOURCE_DIR}/Common
 )
 

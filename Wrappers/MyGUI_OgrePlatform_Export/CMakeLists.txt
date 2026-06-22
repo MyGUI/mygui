@@ -2,10 +2,6 @@
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 
 	function(mygui_orge_platform_export PROJECTNAME SOLUTIONFOLDER)
-		include_directories(
-			.
-			${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-		)
 		# define the sources
 		include(${PROJECTNAME}.list)
 		include_directories(

@@ -233,11 +233,6 @@ endif ()
 
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
-# global configs
-include_directories(
-	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-)
-
 ###################################################################
 # configure global build settings based on selected build options
 ###################################################################

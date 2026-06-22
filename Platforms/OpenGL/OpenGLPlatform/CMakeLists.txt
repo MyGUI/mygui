@@ -2,12 +2,8 @@ set(PROJECTNAME MyGUI.OpenGLPlatform)
 
 include_directories(
 	include
-	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-	${OPENGL_INCLUDE_DIR}
 	${MYGUI_SOURCE_DIR}/Common
 )
-
-include_directories(SYSTEM include/GL)
 
 include(${PROJECTNAME}.list)
 
@@ -16,8 +12,6 @@ add_definitions(-DGL_GLEXT_PROTOTYPES)
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECTNAME} OpenGL::GL MyGUIEngine)
-
-link_directories(${OPENGL_LIB_DIR})
 
 # installation rules
 install(FILES ${HEADER_FILES}

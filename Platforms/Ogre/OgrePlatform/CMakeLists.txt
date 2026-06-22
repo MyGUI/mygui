@@ -2,7 +2,6 @@ set(PROJECTNAME MyGUI.OgrePlatform)
 
 include_directories(
 	include
-	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
 )
 
 include(${PROJECTNAME}.list)

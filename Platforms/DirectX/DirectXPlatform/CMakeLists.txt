@@ -2,7 +2,6 @@ set(PROJECTNAME MyGUI.DirectXPlatform)
 
 include_directories(
 	include
-	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
 	${DirectX_INCLUDE_DIR}
 	${MYGUI_SOURCE_DIR}/Common
 )

@@ -1,6 +1,4 @@
 function(mygui_plugin_berkelium PROJECTNAME)
-	include_directories(.)
-	
 	# define the sources
 	include(${PROJECTNAME}.list)
 	

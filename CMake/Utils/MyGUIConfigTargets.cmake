@@ -42,10 +42,6 @@ endfunction(mygui_config_common)
 
 #setup Demo builds
 function(mygui_app PROJECTNAME SOLUTIONFOLDER)
-	include_directories(
-		.
-		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-	)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
@@ -73,11 +69,6 @@ endfunction(mygui_app)
 
 #setup Tools dll builds
 function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
-	include_directories(
-		.
-		${MYGUI_SOURCE_DIR}/Common
-		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-	)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
@@ -162,8 +153,6 @@ endfunction(mygui_install_app)
 
 #setup Plugin builds
 function(mygui_plugin PROJECTNAME)
-	include_directories(.)
-
 	# define the sources
 	include(${PROJECTNAME}.list)
 
