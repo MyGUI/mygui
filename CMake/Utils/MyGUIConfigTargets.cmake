@@ -72,8 +72,8 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
 	mygui_config_lib(${PROJECTNAME})
@@ -156,8 +156,8 @@ function(mygui_plugin PROJECTNAME)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 

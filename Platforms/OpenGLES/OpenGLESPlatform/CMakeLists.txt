@@ -6,8 +6,8 @@ include_directories(
 )
 
 include(${PROJECTNAME}.list)
-add_definitions(-DGL_GLEXT_PROTOTYPES)
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
+target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
 
 target_link_libraries(${PROJECTNAME} OpenGL::GL MyGUIEngine)
 

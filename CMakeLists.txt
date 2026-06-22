@@ -120,7 +120,7 @@ if (MYGUI_USE_PROJECT_FOLDERS)
 endif ()
 
 if (MYGUI_DONT_USE_OBSOLETE)
-	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
+	add_compile_definitions(MYGUI_DONT_USE_OBSOLETE)
 endif ()
 # End of Global defines
 
@@ -208,7 +208,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif ()
 
 if (MSVC)
-	add_definitions("-D_CRT_SECURE_NO_WARNINGS")
+	add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
 
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
@@ -217,11 +217,11 @@ if (MSVC)
 		SET(WARNING_LEVEL "/W3")
 	endif ()
 	# disable: warning C4100: '***' : unreferenced formal parameter
-	add_definitions(/wd4100)
+	add_compile_options(/wd4100)
 
 	# TODO: move to Tools only
 	# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-	add_definitions(/wd4275)
+	add_compile_options(/wd4275)
 
 	if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
 		STRING(REGEX REPLACE "/W[0-4]" "${WARNING_LEVEL}" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")

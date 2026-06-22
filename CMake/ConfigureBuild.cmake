@@ -18,7 +18,7 @@ set(MYGUI_STATIC_LIB 0)
 
 if (MYGUI_STATIC)
   set(MYGUI_STATIC_LIB 1)
-  add_definitions(-DMYGUI_STATIC)
+  add_compile_definitions(MYGUI_STATIC)
 endif()
 
 # Create the pkg-config package files on Unix systems
