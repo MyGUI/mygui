@@ -34,14 +34,14 @@ if (UNIX)
 
   set(MYGUI_ADDITIONAL_LIBS "")
   set(MYGUI_CFLAGS "")
-  set(MYGUI_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
+  set(MYGUI_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
   set(MYGUI_ADDITIONAL_LIBS "${MYGUI_ADDITIONAL_LIBS}")
   if (MYGUI_STATIC)
-    configure_file(${MYGUI_TEMPLATES_DIR}/MYGUIStatic.pc.in ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc @ONLY)
+    configure_file("${MYGUI_TEMPLATES_DIR}/MYGUIStatic.pc.in" "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" @ONLY)
   else ()
-    configure_file(${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc @ONLY)
+    configure_file("${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in" "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" @ONLY)
   endif ()
-  install(FILES ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+  install(FILES "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
 
   # configure additional packages
   

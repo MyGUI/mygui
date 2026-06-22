@@ -5,8 +5,8 @@
 
 function(install_file FILENAME)
 	install(FILES
-		${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${FILENAME}
-		DESTINATION ${CMAKE_INSTALL_BINDIR}
+		"${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${FILENAME}"
+		DESTINATION "${CMAKE_INSTALL_BINDIR}"
 	)
 endfunction(install_file)
 
@@ -16,7 +16,7 @@ if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
 	if (MYGUI_RENDERSYSTEM EQUAL 3)
 		# copy plugins.cfg
 		if (DEFINED OGRE_CONFIG_DIR)
-			file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg DESTINATION ${MYGUI_BINARY_DIR}/bin/)
+			file(COPY "${OGRE_CONFIG_DIR}/plugins.cfg" DESTINATION "${MYGUI_BINARY_DIR}/bin/")
 			install_file (plugins.cfg)
 		endif()
 	endif ()
@@ -28,7 +28,7 @@ if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
 	endif ()
 
 	# create resources.xml
-	configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/resources.xml)
+	configure_file("${MYGUI_TEMPLATES_DIR}/resources.xml.in" "${MYGUI_BINARY_DIR}/bin/resources.xml")
 	install_file (resources.xml)
 else ()
 	set(MYGUI_MEDIA_DIR "${MYGUI_SOURCE_DIR}/Media")
@@ -37,5 +37,5 @@ else ()
 	endif ()
 
 	# create resources.xml
-	configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/resources.xml)
+	configure_file("${MYGUI_TEMPLATES_DIR}/resources.xml.in" "${MYGUI_BINARY_DIR}/bin/resources.xml")
 endif ()

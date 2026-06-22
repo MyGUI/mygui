@@ -2,7 +2,7 @@ set(PROJECTNAME MyGUI.DummyPlatform)
 
 include_directories(
 	include
-	${MYGUI_SOURCE_DIR}/Common
+	"${MYGUI_SOURCE_DIR}/Common"
 )
 
 include(${PROJECTNAME}.list)

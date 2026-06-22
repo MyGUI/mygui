@@ -24,19 +24,19 @@ endfunction(mygui_set_platform_name)
 function(mygui_install_target TARGETNAME)
 	install(
 		TARGETS ${TARGETNAME}
-		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-		FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+		LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+		ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+		FRAMEWORK DESTINATION "${CMAKE_INSTALL_LIBDIR}"
 	)
 endfunction(mygui_install_target)
 
 # setup common target settings
 function(mygui_config_common TARGETNAME)
 	set_target_properties(${TARGETNAME} PROPERTIES
-		ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
-		LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
-		RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
+		ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
+		LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
+		RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}"
 	)
 endfunction(mygui_config_common)
 
@@ -102,7 +102,7 @@ function(mygui_tool PROJECTNAME)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
 
-	include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
+	include_directories("${MYGUI_SOURCE_DIR}/Tools/EditorFramework")
 	if (NOT MYGUI_CLANG_TIDY_BUILD)
 		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
 	else ()
@@ -124,7 +124,7 @@ function(mygui_unit_test PROJECTNAME)
 		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
 		# Set working directory to binary directory so tests can find resources
 		set_tests_properties(${PROJECTNAME} PROPERTIES
-			WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+			WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	endif()
 endfunction(mygui_unit_test)
 
@@ -142,8 +142,8 @@ endfunction(mygui_tool_dll)
 
 function(mygui_install_app PROJECTNAME)
 	if (MYGUI_INSTALL_PDB)
-		install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb
-			DESTINATION ${CMAKE_INSTALL_BINDIR}
+		install(FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb"
+			DESTINATION "${CMAKE_INSTALL_BINDIR}"
 		)
 	endif ()
 
@@ -165,7 +165,7 @@ function(mygui_plugin PROJECTNAME)
 
 	# Plugins are loaded at runtime and not linked at buildtime, so they should go to the same
 	# output directory as the executables, so the plugin loader can find them there.
-	set_target_properties(${PROJECTNAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+	set_target_properties(${PROJECTNAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 	# Remove default library prefix (e.g. "lib" on Linux), as the plugin loader doesn't know about it
 	set_target_properties(${PROJECTNAME} PROPERTIES PREFIX "")
@@ -188,8 +188,8 @@ function(mygui_config_lib PROJECTNAME)
 	mygui_install_target(${PROJECTNAME})
 
 	if (MYGUI_INSTALL_PDB)
-		install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb
-			DESTINATION ${CMAKE_INSTALL_BINDIR}
+		install(FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb"
+			DESTINATION "${CMAKE_INSTALL_BINDIR}"
 		)
 	endif ()
 endfunction(mygui_config_lib)
@@ -202,7 +202,7 @@ function(mygui_config_sample PROJECTNAME)
 	# set install RPATH for Unix systems
 	if (UNIX AND MYGUI_FULL_RPATH)
 		set_property(TARGET ${PROJECTNAME} APPEND PROPERTY
-			INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+			INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 		set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 	endif ()
 endfunction(mygui_config_sample)

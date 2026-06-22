@@ -49,7 +49,7 @@ if(WIN32) # The only platform it makes sense to check for DirectX SDK
 
 	if(DirectX_INCLUDE_DIR)
 		if (NOT DIRECTX_DIR)
-			set(DIRECTX_DIR ${DirectX_INCLUDE_DIR}/.. CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
+			set(DIRECTX_DIR "${DirectX_INCLUDE_DIR}/.." CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
 		endif ()
 	endif(DirectX_INCLUDE_DIR)
 
@@ -106,7 +106,7 @@ if(WIN32) # The only platform it makes sense to check for DirectX11 SDK
 
 	if(DirectX11_INCLUDE_DIR)
 		if (NOT DIRECTX_DIR)
-			set(DIRECTX_DIR ${DirectX11_INCLUDE_DIR}/.. CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
+			set(DIRECTX_DIR "${DirectX11_INCLUDE_DIR}/.." CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
 		endif ()
 	endif(DirectX11_INCLUDE_DIR)
 

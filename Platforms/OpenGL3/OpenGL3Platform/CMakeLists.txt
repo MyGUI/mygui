@@ -2,7 +2,7 @@ set(PROJECTNAME MyGUI.OpenGL3Platform)
 
 include_directories(
 	include
-	${MYGUI_SOURCE_DIR}/Common
+	"${MYGUI_SOURCE_DIR}/Common"
 )
 
 include(${PROJECTNAME}.list)

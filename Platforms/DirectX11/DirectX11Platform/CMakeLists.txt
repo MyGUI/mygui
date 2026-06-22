@@ -2,8 +2,8 @@ set(PROJECTNAME MyGUI.DirectX11Platform)
 
 include_directories(
 	include
-	${DirectX_INCLUDE_DIR}
-	${MYGUI_SOURCE_DIR}/Common
+	"${DirectX_INCLUDE_DIR}"
+	"${MYGUI_SOURCE_DIR}/Common"
 )
 
 include(${PROJECTNAME}.list)
