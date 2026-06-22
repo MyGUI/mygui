@@ -1,19 +1,31 @@
-# Find MYGUI includes and library
+# Find MYGUI - CMake package configuration file
 #
-# This module defines
+# Targets provided:
+#   MyGUI::MyGUI           - MyGUI engine library
+#   MyGUI::OgrePlatform    - Ogre render platform     (when available)
+#   MyGUI::OpenGLPlatform  - OpenGL render platform   (when available)
+#   MyGUI::OpenGL3Platform - OpenGL 3.x render platform (when available)
+#   MyGUI::OpenGLESPlatform- OpenGL ES render platform (when available)
+#   MyGUI::DirectXPlatform - DirectX render platform   (when available)
+#   MyGUI::DirectX11Platform - DirectX 11 render platform (when available)
+#   MyGUI::DummyPlatform   - Dummy render platform     (when available)
+#
+# Variables defined (for compatibility):
 #  MYGUI_INCLUDE_DIRS
-#  MYGUI_LIBRARIES, the libraries to link against to use MYGUI.
-#  MYGUI_LIBRARY_DIRS, the location of the libraries
-#  MYGUI_FOUND, If false, do not try to use MYGUI
-#
+#  MYGUI_LIBRARIES
+#  MYGUI_LIBRARY_DIRS
 
-include(FindPackageMessage)
+@PACKAGE_INIT@
 
-set(MYGUI_PREFIX_DIR "@CMAKE_INSTALL_PREFIX@")
-get_filename_component(MYGUI_LIBRARY_DIRS "${MYGUI_PREFIX_DIR}/lib" ABSOLUTE)
-get_filename_component(MYGUI_INCLUDE_DIRS "${MYGUI_PREFIX_DIR}/include/MYGUI" ABSOLUTE)
+include(CMakeFindDependencyMacro)
+
+# Dependencies needed by the built platform target
+@MYGUI_CONFIG_FIND_DEPS@
+
+include("${CMAKE_CURRENT_LIST_DIR}/MyGUITargets.cmake")
+
+set(MYGUI_LIBRARY_DIRS "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
+set(MYGUI_INCLUDE_DIRS "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@/MYGUI")
 set(MYGUI_LIBRARIES "MyGUIEngine")
 
-message(STATUS "Found MYGUI")
-message(STATUS "  libraries : '${MYGUI_LIBRARIES}' from ${MYGUI_LIBRARY_DIRS}")
-message(STATUS "  includes  : ${MYGUI_INCLUDE_DIRS}")
+check_required_components(MyGUI)

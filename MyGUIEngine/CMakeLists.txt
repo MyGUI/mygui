@@ -6,7 +6,10 @@ include(${PROJECTNAME}.list)
 
 add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
-target_include_directories(${PROJECTNAME} PUBLIC include)
+target_include_directories(${PROJECTNAME} PUBLIC
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/MYGUI>
+)
 
 target_compile_definitions(${PROJECTNAME}
 	PUBLIC
@@ -43,6 +46,7 @@ endif ()
 
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
 mygui_config_lib(${PROJECTNAME})
+mygui_install_target(${PROJECTNAME})
 
 # install MyGUIEngine headers
 install(FILES ${HEADER_FILES}

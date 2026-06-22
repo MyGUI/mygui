@@ -24,6 +24,7 @@ endfunction(mygui_set_platform_name)
 function(mygui_install_target TARGETNAME)
 	install(
 		TARGETS ${TARGETNAME}
+		EXPORT MyGUITargets
 		RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
 		LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
 		ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -145,7 +146,13 @@ function(mygui_install_app PROJECTNAME)
 		)
 	endif ()
 
-	mygui_install_target(${PROJECTNAME})
+	install(
+		TARGETS ${PROJECTNAME}
+		RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+		LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+		ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+		FRAMEWORK DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+	)
 endfunction(mygui_install_app)
 
 
@@ -183,7 +190,6 @@ function(mygui_config_lib PROJECTNAME)
 	else (MYGUI_STATIC)
 		target_compile_definitions(${PROJECTNAME} PRIVATE MYGUI_GCC_VISIBILITY)
 	endif (MYGUI_STATIC)
-	mygui_install_target(${PROJECTNAME})
 
 	if (MYGUI_INSTALL_PDB)
 		install(FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb"

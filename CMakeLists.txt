@@ -20,7 +20,6 @@ include(CMakeDependentOption)
 include(MacroLogFeature)
 include(Packages/SDL2FinderHelper)
 include(MyGUIConfigTargets)
-include(GNUInstallDirs)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
 set(CMAKE_CXX_STANDARD 17)
@@ -238,12 +237,6 @@ endif ()
 
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
-###################################################################
-# configure global build settings based on selected build options
-###################################################################
-include(ConfigureBuild)
-
-
 ##################################################################
 # Now setup targets
 ##################################################################
@@ -293,5 +286,7 @@ endif ()
 
 add_subdirectory(Media)
 
-# Provide CPack packaging target
-include(Packaging)
+###################################################################
+# configure install rules, package configs, and export sets
+###################################################################
+include(InstallRules)
