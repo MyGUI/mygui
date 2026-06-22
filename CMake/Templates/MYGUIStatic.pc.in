@@ -1,4 +1,4 @@
-prefix=@MYGUI_PREFIX_PATH@
+prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${prefix}
 libdir=${prefix}/lib
 includedir=${prefix}/include
@@ -8,5 +8,5 @@ Description: Fast, flexible and simple GUI
 Version: @MYGUI_VERSION@
 URL: http://mygui.info
 Requires: freetype2
-Libs: -L${libdir} -lMyGUIEngine@MYGUI_LIB_SUFFIX@ @MYGUI_ADDITIONAL_LIBS@
-Cflags: -I${includedir} -I${includedir}/MYGUI @MYGUI_CFLAGS@
+Libs: -L${libdir} -lMyGUIEngine@MYGUI_LIB_SUFFIX@
+Cflags: -I${includedir} -I${includedir}/MYGUI
