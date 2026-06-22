@@ -15,7 +15,7 @@ target_include_directories(${PROJECTNAME}
 
 target_link_libraries(${PROJECTNAME}
 	PUBLIC
-		MyGUIEngine
+		MyGUI::MyGUI
 	PRIVATE
 		${DirectX11_LIBRARIES}
 )

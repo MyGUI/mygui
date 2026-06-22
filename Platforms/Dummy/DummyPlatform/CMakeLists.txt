@@ -12,7 +12,7 @@ target_include_directories(${PROJECTNAME}
 		"${MYGUI_SOURCE_DIR}/Common"
 )
 
-target_link_libraries(${PROJECTNAME} PUBLIC MyGUIEngine)
+target_link_libraries(${PROJECTNAME} PUBLIC MyGUI::MyGUI)
 
 # installation rules
 install(FILES ${HEADER_FILES}

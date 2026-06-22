@@ -9,7 +9,7 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 		target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIB_DIR}")
 		set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
-		target_link_libraries(${PROJECTNAME} PUBLIC MyGUIEngine MyGUI.OgrePlatform)
+		target_link_libraries(${PROJECTNAME} PUBLIC MyGUI::MyGUI MyGUI::OgrePlatform)
 	endfunction(mygui_orge_platform_export)
 
 	mygui_orge_platform_export(MyGUI_OgrePlatform_Export Wrappers)

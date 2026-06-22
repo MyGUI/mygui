@@ -16,7 +16,7 @@ target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
 
 target_link_libraries(${PROJECTNAME}
 	PUBLIC
-		MyGUIEngine
+		MyGUI::MyGUI
 	PRIVATE
 		OpenGL::GL
 )

@@ -64,7 +64,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	target_link_libraries(${PROJECTNAME}
 		PRIVATE
 			MyGUICommon
-			MyGUI.${MYGUI_PLATFORM_NAME}Platform
 	)
 endfunction(mygui_app)
 
@@ -85,7 +84,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	target_link_libraries(${PROJECTNAME}
 		PRIVATE
 			MyGUICommon
-			MyGUI.${MYGUI_PLATFORM_NAME}Platform
 	)
 endfunction(mygui_dll)
 
@@ -164,7 +162,7 @@ function(mygui_plugin PROJECTNAME)
 	add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
-	target_link_libraries(${PROJECTNAME} PUBLIC MyGUIEngine)
+	target_link_libraries(${PROJECTNAME} PUBLIC MyGUI::MyGUI)
 
 	mygui_config_lib(${PROJECTNAME})
 
