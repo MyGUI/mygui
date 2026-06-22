@@ -23,7 +23,7 @@ include(MyGUIConfigTargets)
 include(GNUInstallDirs)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
-SET(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 # Prevent CMake from adding "#pragma clang system_header" to the precompiled headers (otherwise all warnings are suppressed)
 set(CMAKE_PCH_PROLOGUE "")
@@ -65,14 +65,15 @@ if (EMSCRIPTEN)
 	set(MYGUI_STATIC True CACHE BOOL "")
 	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
 
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -O2 -s ALLOW_MEMORY_GROWTH=1")
+	add_compile_options(--std=c++11 -O2)
+	add_link_options("-s ALLOW_MEMORY_GROWTH=1")
 	# TODO: required only by demos and tools, not by MyGUIEngine or MyGUI.OpenGLESPlatform
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s FULL_ES3=1 -s USE_WEBGL2=1")
+	add_link_options("-s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s FULL_ES3=1 -s USE_WEBGL2=1")
 	# TODO: set preload-file flags for demos and tools only
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/Media")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --preload-file ${CMAKE_CURRENT_BINARY_DIR}/bin/resources.xml@/resources.xml")
+	add_link_options("--preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/Media")
+	add_link_options("--preload-file ${CMAKE_CURRENT_BINARY_DIR}/bin/resources.xml@/resources.xml")
 
-	SET(CMAKE_EXECUTABLE_SUFFIX ".html")
+	set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()
 
 # Customise what to build
@@ -109,7 +110,7 @@ cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;N
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")
+	add_compile_options(/Zc:__cplusplus)
 endif ()
 
 # Used to not annoy users with high level warnings (should be TRUE for developers)
@@ -193,7 +194,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	if (MYGUI_UB_SANITIZER)
 		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
 		add_compile_options("-fsanitize=undefined" "-fno-sanitize-recover=undefined")
-		link_libraries("-fsanitize=undefined")
+		add_link_options("-fsanitize=undefined")
 	endif()
 
 	# usage:
@@ -203,7 +204,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	if (MYGUI_ADDRESS_SANITIZER)
 		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
 		add_compile_options("-fsanitize=address" "-fsanitize-address-use-after-scope")
-		link_libraries("-fsanitize=address")
+		add_link_options("-fsanitize=address")
 	endif()
 endif ()
 
@@ -212,9 +213,9 @@ if (MSVC)
 
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
-		SET(WARNING_LEVEL "/W4")
+		set(WARNING_LEVEL "/W4")
 	else ()
-		SET(WARNING_LEVEL "/W3")
+		set(WARNING_LEVEL "/W3")
 	endif ()
 	# disable: warning C4100: '***' : unreferenced formal parameter
 	add_compile_options(/wd4100)
@@ -223,11 +224,9 @@ if (MSVC)
 	# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
 	add_compile_options(/wd4275)
 
-	if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
-		STRING(REGEX REPLACE "/W[0-4]" "${WARNING_LEVEL}" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-	else ()
-		add_compile_definitions(${WARNING_LEVEL})
-	endif ()
+	# Remove any default warning level from CMAKE_CXX_FLAGS and use add_compile_options instead
+	string(REGEX REPLACE "/W[0-4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+	add_compile_options(${WARNING_LEVEL})
 
 endif ()
 
