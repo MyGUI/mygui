@@ -1,2 +1,2 @@
 mygui_demo(Demo_PluginStrangeButton)
-target_link_libraries(Demo_PluginStrangeButton Plugin_StrangeButton)
+target_link_libraries(Demo_PluginStrangeButton PRIVATE Plugin_StrangeButton)

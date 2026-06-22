@@ -59,12 +59,12 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_config_sample(${PROJECTNAME})
 
-	target_link_libraries(${PROJECTNAME}
-		MyGUICommon
-	)
-
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+	target_link_libraries(${PROJECTNAME}
+		PRIVATE
+			MyGUICommon
+			MyGUI.${MYGUI_PLATFORM_NAME}Platform
+	)
 endfunction(mygui_app)
 
 #setup Tools dll builds
@@ -80,12 +80,12 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_config_sample(${PROJECTNAME})
 
-	target_link_libraries(${PROJECTNAME}
-		MyGUICommon
-	)
-
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+	target_link_libraries(${PROJECTNAME}
+		PRIVATE
+			MyGUICommon
+			MyGUI.${MYGUI_PLATFORM_NAME}Platform
+	)
 endfunction(mygui_dll)
 
 function(mygui_demo PROJECTNAME)
@@ -109,9 +109,7 @@ function(mygui_tool PROJECTNAME)
 		target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
 	endif ()
 
-	target_link_libraries(${PROJECTNAME}
-		EditorFramework
-	)
+	target_link_libraries(${PROJECTNAME} PRIVATE EditorFramework)
 endfunction(mygui_tool)
 
 
@@ -159,7 +157,7 @@ function(mygui_plugin PROJECTNAME)
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
-	target_link_libraries(${PROJECTNAME} MyGUIEngine)
+	target_link_libraries(${PROJECTNAME} PUBLIC MyGUIEngine)
 
 	mygui_config_lib(${PROJECTNAME})
 

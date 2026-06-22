@@ -20,10 +20,8 @@ if (NOT ANDROID)
 	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
 endif()
 
-#target_link_libraries(${PROJECTNAME} ${CMAKE_DL_LIBS})
-
 if (MYGUI_USE_FREETYPE)
-	target_link_libraries(${PROJECTNAME} Freetype::Freetype)
+	target_link_libraries(${PROJECTNAME} PRIVATE Freetype::Freetype)
 
 	if (MYGUI_MSDF_FONTS)
 		if (MYGUI_USE_SYSTEM_MSDFGEN)
@@ -31,7 +29,7 @@ if (MYGUI_USE_FREETYPE)
 		else()
 			add_subdirectory(src/msdfgen)
 		endif()
-		target_link_libraries(${PROJECTNAME} msdfgen::msdfgen)
+		target_link_libraries(${PROJECTNAME} PRIVATE msdfgen::msdfgen)
 	endif()
 endif()
 

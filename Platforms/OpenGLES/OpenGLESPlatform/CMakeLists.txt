@@ -11,7 +11,12 @@ target_include_directories(${PROJECTNAME}
 )
 target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
 
-target_link_libraries(${PROJECTNAME} OpenGL::GL MyGUIEngine)
+target_link_libraries(${PROJECTNAME}
+	PUBLIC
+		MyGUIEngine
+	PRIVATE
+		OpenGL::GL
+)
 
 # installation rules
 install(FILES ${HEADER_FILES}

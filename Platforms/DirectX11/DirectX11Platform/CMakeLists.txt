@@ -12,8 +12,13 @@ target_include_directories(${PROJECTNAME}
 		"${MYGUI_SOURCE_DIR}/Common"
 )
 
-target_link_libraries(${PROJECTNAME} ${DirectX11_LIBRARIES} MyGUIEngine)
-link_directories(${DirectX_LIBRARY_DIRS})
+target_link_libraries(${PROJECTNAME}
+	PUBLIC
+		MyGUIEngine
+	PRIVATE
+		${DirectX11_LIBRARIES}
+)
+target_link_directories(${PROJECTNAME} PRIVATE ${DirectX_LIBRARY_DIRS})
 
 # installation rules
 install(FILES ${HEADER_FILES}

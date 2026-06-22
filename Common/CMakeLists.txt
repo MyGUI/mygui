@@ -44,7 +44,7 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${DirectX_INCLUDE_DIR}")
 	target_link_directories(${PROJECTNAME} PUBLIC "${DIRECTX_LIB_DIR}")
 elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-	target_link_libraries(${PROJECTNAME} PUBLIC SDL2_image::SDL2_image)
+	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
 endif()
 
 target_include_directories(${PROJECTNAME}
