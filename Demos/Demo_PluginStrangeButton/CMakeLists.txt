@@ -1,2 +1,3 @@
 mygui_demo(Demo_PluginStrangeButton)
+target_include_directories(Demo_PluginStrangeButton PRIVATE "${MYGUI_SOURCE_DIR}/Plugins/Plugin_StrangeButton")
 target_link_libraries(Demo_PluginStrangeButton PRIVATE Plugin_StrangeButton)

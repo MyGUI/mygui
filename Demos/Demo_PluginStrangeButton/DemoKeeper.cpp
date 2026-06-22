@@ -9,20 +9,20 @@
 
 #ifdef MYGUI_STATIC
 	#include "Plugin.h"
-plugin::Plugin* plugin_item = nullptr;
-#endif
-
-#if MYGUI_DEBUG_MODE
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		#define plugin_name "Plugin_StrangeButton_d.dll"
-	#else
-		#define plugin_name "libPlugin_StrangeButton_d.so"
-	#endif
+static plugin::Plugin* plugin_item = nullptr;
 #else
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		#define plugin_name "Plugin_StrangeButton.dll"
+	#if MYGUI_DEBUG_MODE
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			#define plugin_name "Plugin_StrangeButton_d.dll"
+		#else
+			#define plugin_name "libPlugin_StrangeButton_d.so"
+		#endif
 	#else
-		#define plugin_name "libPlugin_StrangeButton.so"
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			#define plugin_name "Plugin_StrangeButton.dll"
+		#else
+			#define plugin_name "libPlugin_StrangeButton.so"
+		#endif
 	#endif
 #endif
 
