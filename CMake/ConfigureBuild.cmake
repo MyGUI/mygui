@@ -6,17 +6,6 @@
 
 include(GNUInstallDirs)
 
-# should we build static libs?
-if (MYGUI_STATIC)
-  set(MYGUI_LIB_TYPE STATIC)
-else ()
-  set(MYGUI_LIB_TYPE SHARED)
-endif ()
-
-if (MYGUI_STATIC)
-  add_compile_definitions(MYGUI_STATIC)
-endif()
-
 # Create the pkg-config package files on Unix systems
 if (UNIX)
   set(MYGUI_LIB_SUFFIX "")

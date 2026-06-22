@@ -4,11 +4,13 @@ project( ${PROJECTNAME} )
 
 include(${PROJECTNAME}.list)
 
-add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 target_include_directories(${PROJECTNAME} PUBLIC include)
 
 target_compile_definitions(${PROJECTNAME}
+	PUBLIC
+		$<$<BOOL:${MYGUI_STATIC}>:MYGUI_STATIC>
 	PRIVATE
 		MYGUI_BUILD
 		$<$<BOOL:${MYGUI_USE_FREETYPE}>:MYGUI_USE_FREETYPE>

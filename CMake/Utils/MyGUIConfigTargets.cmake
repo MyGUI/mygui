@@ -47,7 +47,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	# setup demo target
 	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
-		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+		add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 	else ()
 		# determine specific executable type
 		if (WIN32)
@@ -72,7 +72,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
@@ -154,7 +154,7 @@ function(mygui_plugin PROJECTNAME)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
 	target_link_libraries(${PROJECTNAME} PUBLIC MyGUIEngine)

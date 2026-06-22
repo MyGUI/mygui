@@ -78,6 +78,12 @@ endif ()
 
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
+if (MYGUI_STATIC)
+	message(DEPRECATION
+		"MYGUI_STATIC is deprecated. Use BUILD_SHARED_LIBS=OFF instead."
+	)
+	set(BUILD_SHARED_LIBS OFF)
+endif ()
 option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
