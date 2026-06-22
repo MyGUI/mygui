@@ -12,7 +12,7 @@ target_include_directories(${PROJECTNAME}
 		"${OGRE_INCLUDE_DIR}"
 )
 
-target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIB_DIR}" "${CMAKE_INSTALL_PREFIX}/lib")
+target_link_directories(${PROJECTNAME} PRIVATE "${OGRE_LIB_DIR}")
 target_link_libraries(${PROJECTNAME} PUBLIC ${OGRE_LIBRARIES} MyGUI::MyGUI)
 
 # installation rules
