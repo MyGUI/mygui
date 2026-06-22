@@ -31,18 +31,6 @@ endif ()
 # Set up modern CMake package support
 ###################################################################
 
-set_target_properties(MyGUIEngine PROPERTIES EXPORT_NAME MyGUI)
-
-mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-if (TARGET MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-	set_target_properties(MyGUI.${MYGUI_PLATFORM_NAME}Platform PROPERTIES EXPORT_NAME ${MYGUI_PLATFORM_NAME}Platform)
-endif()
-
-add_library(MyGUI::MyGUI ALIAS MyGUIEngine)
-if (TARGET MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-	add_library(MyGUI::${MYGUI_PLATFORM_NAME}Platform ALIAS MyGUI.${MYGUI_PLATFORM_NAME}Platform)
-endif()
-
 # Determine platform dependencies for the config file
 set(MYGUI_CONFIG_FIND_DEPS "")
 if(MYGUI_RENDERSYSTEM EQUAL 3)

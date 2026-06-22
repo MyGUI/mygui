@@ -52,3 +52,6 @@ mygui_install_target(${PROJECTNAME})
 install(FILES ${HEADER_FILES}
   DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 )
+
+set_target_properties(MyGUIEngine PROPERTIES EXPORT_NAME MyGUI)
+add_library(MyGUI::MyGUI ALIAS MyGUIEngine)
