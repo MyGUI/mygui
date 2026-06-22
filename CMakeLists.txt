@@ -61,7 +61,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}"
 ######################################################################
 
 if (EMSCRIPTEN)
-	set(MYGUI_STATIC True CACHE BOOL "")
+	set(BUILD_SHARED_LIBS OFF)
 	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
 
 	add_compile_options(--std=c++11 -O2)
@@ -76,6 +76,7 @@ if (EMSCRIPTEN)
 endif ()
 
 # Customise what to build
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(MYGUI_STATIC "Static build" FALSE)
 if (MYGUI_STATIC)
 	message(DEPRECATION
@@ -111,7 +112,7 @@ option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
 cmake_dependent_option(MYGUI_INSTALL_DEMOS "Install MyGUI demos." FALSE "MYGUI_BUILD_DEMOS" FALSE)
 cmake_dependent_option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE "MYGUI_BUILD_TOOLS" FALSE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
-cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;NOT MYGUI_STATIC" FALSE)
+cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;BUILD_SHARED_LIBS" FALSE)
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)

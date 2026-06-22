@@ -182,12 +182,12 @@ endfunction(mygui_plugin)
 # setup library build
 function(mygui_config_lib PROJECTNAME)
 	mygui_config_common(${PROJECTNAME})
-	if (MYGUI_STATIC)
+	if (NOT BUILD_SHARED_LIBS)
 		# add static prefix, if compiling static version
 		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
-	else (MYGUI_STATIC)
+	else()
 		target_compile_definitions(${PROJECTNAME} PRIVATE MYGUI_GCC_VISIBILITY)
-	endif (MYGUI_STATIC)
+	endif()
 
 	if (MYGUI_INSTALL_PDB)
 		install(FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb"
