@@ -1,8 +1,0 @@
-#ifndef __Custom_Config_H_
-#define __Custom_Config_H_
-
-// CMake auto-generated configuration options
-
-#cmakedefine MYGUI_STATIC_LIB
-
-#endif
