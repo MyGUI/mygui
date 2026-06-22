@@ -117,7 +117,7 @@ endif ()
 option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
 
 if (MYGUI_USE_PROJECT_FOLDERS)
-	SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif ()
 
 if (MYGUI_DONT_USE_OBSOLETE)
