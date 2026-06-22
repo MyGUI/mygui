@@ -1,123 +1,115 @@
 # -----------------------------------------------------------------------------
 # Find DirectX SDK
 # Define:
-# DirectX_FOUND
-# DirectX_INCLUDE_DIR
-# DirectX_LIBRARY
+#  DirectX_FOUND
+#  DirectX_INCLUDE_DIR
+#  DirectX_LIBRARIES
+#  DirectX_LIBRARY_DIRS
+# Imported targets:
+#  DirectX::D3D9
+#  DirectX::D3DX9
+#  DirectX::DXErr
+#  DirectX::DXGUID
 
-IF (NOT DIRECTX_DIR)
-	set(DIRECTX_DIR "" CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)")
-ENDIF ()
+if(WIN32)
+    if(NOT DIRECTX_DIR)
+        set(DIRECTX_DIR "" CACHE PATH "Path to DirectX SDK")
+    endif()
 
-if(WIN32) # The only platform it makes sense to check for DirectX SDK
-	include(FindPkgMacros)
-	findpkg_begin(DirectX)
+    set(DirectX_SEARCH_PATHS
+        "${DIRECTX_DIR}"
+        "$ENV{DXSDK_DIR}"
+        "C:/apps_x86/Microsoft DirectX SDK*"
+        "C:/Program Files (x86)/Microsoft DirectX SDK*"
+        "C:/apps/Microsoft DirectX SDK*"
+        "C:/Program Files/Microsoft DirectX SDK*"
+        "$ENV{ProgramFiles}/Microsoft DirectX SDK*"
+    )
 
-	# Get path, convert backslashes as ${ENV_DXSDK_DIR}
-	getenv_path(DXSDK_DIR)
+    find_path(DirectX_INCLUDE_DIR
+        NAMES d3d9.h
+        HINTS ${DirectX_SEARCH_PATHS}
+        PATH_SUFFIXES Include
+    )
 
-	# construct search paths
-	set(DirectX_PREFIX_PATH
-		"${DIRECTX_DIR}"
-		"${DXSDK_DIR}"
-		"${ENV_DXSDK_DIR}"
-		"C:/apps_x86/Microsoft DirectX SDK*"
-		"C:/Program Files (x86)/Microsoft DirectX SDK*"
-		"C:/apps/Microsoft DirectX SDK*"
-		"C:/Program Files/Microsoft DirectX SDK*"
-		"$ENV{ProgramFiles}/Microsoft DirectX SDK*"
-	)
-	create_search_paths(DirectX)
-	# redo search if prefix path changed
-	clear_if_changed(DirectX_PREFIX_PATH
-		DirectX_LIBRARY
-		DirectX_INCLUDE_DIR
-	)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(DirectX_LIBPATH_SUFFIX x64)
+    else()
+        set(DirectX_LIBPATH_SUFFIX x86)
+    endif()
 
-	find_path(DirectX_INCLUDE_DIR NAMES d3d9.h HINTS ${DirectX_INC_SEARCH_PATH})
-	# dlls are in DIRECTX_DIR/Developer Runtime/x64|x86
-	# lib files are in DIRECTX_DIR/Lib/x64|x86
-	if(CMAKE_CL_64)
-		set(DirectX_LIBPATH_SUFFIX "x64")
-	else(CMAKE_CL_64)
-		set(DirectX_LIBPATH_SUFFIX "x86")
-	endif(CMAKE_CL_64)
-	find_library(DirectX_LIBRARY NAMES d3d9 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX_D3DX9_LIBRARY NAMES d3dx9 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX_DXERR9_LIBRARY NAMES dxerr HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX_DXGUID_LIBRARY NAMES dxguid HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
+    foreach(_lib D3D9 D3DX9 DXErr DXGUID)
+        string(TOLOWER "${_lib}" _lib_lower)
+        if(_lib STREQUAL "DXErr")
+            set(_lib_name dxerr)
+        elseif(_lib STREQUAL "DXGUID")
+            set(_lib_name dxguid)
+        else()
+            set(_lib_name ${_lib_lower})
+        endif()
+        find_library(DirectX_${_lib}_LIBRARY
+            NAMES ${_lib_name}
+            HINTS ${DirectX_SEARCH_PATHS}
+            PATH_SUFFIXES Lib/${DirectX_LIBPATH_SUFFIX}
+        )
+    endforeach()
+    unset(_lib)
+    unset(_lib_lower)
+    unset(_lib_name)
 
-	if(DirectX_INCLUDE_DIR)
-		if (NOT DIRECTX_DIR)
-			set(DIRECTX_DIR "${DirectX_INCLUDE_DIR}/.." CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
-		endif ()
-	endif(DirectX_INCLUDE_DIR)
+    # Set DIRECTX_DIR if found
+    if(DirectX_INCLUDE_DIR)
+        if(NOT DIRECTX_DIR OR DIRECTX_DIR STREQUAL "")
+            get_filename_component(DIRECTX_DIR "${DirectX_INCLUDE_DIR}/.." ABSOLUTE
+                CACHE PATH "Path to DirectX SDK" FORCE)
+        endif()
+    endif()
 
+    include(FindPackageHandleStandardArgs)
+    find_package_handle_standard_args(DirectX
+        REQUIRED_VARS DirectX_INCLUDE_DIR DirectX_D3D9_LIBRARY
+    )
 
-	findpkg_finish(DirectX)
-	set(DirectX_LIBRARIES ${DirectX_LIBRARIES}
-	${DirectX_D3DX9_LIBRARY}
-	${DirectX_DXERR9_LIBRARY}
-	${DirectX_DXGUID_LIBRARY}
-	)
+    if(DirectX_FOUND)
+        set(DirectX_INCLUDE_DIRS "${DirectX_INCLUDE_DIR}")
 
-endif(WIN32)
+        set(DirectX_LIBRARIES
+            ${DirectX_D3D9_LIBRARY}
+            ${DirectX_D3DX9_LIBRARY}
+            ${DirectX_DXErr_LIBRARY}
+            ${DirectX_DXGUID_LIBRARY}
+        )
 
+        get_filename_component(DirectX_LIBRARY_DIRS "${DirectX_D3D9_LIBRARY}" DIRECTORY)
 
-if(WIN32) # The only platform it makes sense to check for DirectX11 SDK
-	include(FindPkgMacros)
-	findpkg_begin(DirectX11)
-
-	# Get path, convert backslashes as ${ENV_DXSDK_DIR}
-	getenv_path(DXSDK_DIR)
-
-	# construct search paths
-	set(DirectX_PREFIX_PATH
-		"${DIRECTX_DIR}"
-		"${DXSDK_DIR}"
-		"${ENV_DXSDK_DIR}"
-		"C:/apps_x86/Microsoft DirectX SDK*"
-		"C:/Program Files (x86)/Microsoft DirectX SDK*"
-		"C:/apps/Microsoft DirectX SDK*"
-		"C:/Program Files/Microsoft DirectX SDK*"
-		"$ENV{ProgramFiles}/Microsoft DirectX SDK*"
-	)
-	create_search_paths(DirectX)
-	# redo search if prefix path changed
-	clear_if_changed(DirectX_PREFIX_PATH
-		DirectX11_LIBRARY
-		DirectX11_INCLUDE_DIR
-	)
-
-	find_path(DirectX11_INCLUDE_DIR NAMES d3d11.h HINTS ${DirectX_INC_SEARCH_PATH})
-	# dlls are in DIRECTX_DIR/Developer Runtime/x64|x86
-	# lib files are in DIRECTX_DIR/Lib/x64|x86
-	if(CMAKE_CL_64)
-		set(DirectX_LIBPATH_SUFFIX "x64")
-	else(CMAKE_CL_64)
-		set(DirectX_LIBPATH_SUFFIX "x86")
-	endif(CMAKE_CL_64)
-	find_library(DirectX11_D3D11_LIBRARY NAMES d3d11 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX11_D3DX11_LIBRARY NAMES d3dx11 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX11_DXGUID_LIBRARY NAMES dxguid HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX11_DXGI_LIBRARY NAMES dxgi HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX11_DXERR_LIBRARY NAMES dxerr HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-	find_library(DirectX11_COMPILER_LIBRARY NAMES d3dcompiler HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-
-	if(DirectX11_INCLUDE_DIR)
-		if (NOT DIRECTX_DIR)
-			set(DIRECTX_DIR "${DirectX11_INCLUDE_DIR}/.." CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
-		endif ()
-	endif(DirectX11_INCLUDE_DIR)
-
-	findpkg_finish(DirectX11)
-	set(DirectX11_LIBRARIES ${DirectX11_LIBRARIES}
-	${DirectX11_D3D11_LIBRARY}
-	${DirectX11_D3DX11_LIBRARY}
-	${DirectX11_DXGI_LIBRARY}
-	${DirectX11_DXGUID_LIBRARY}
-	${DirectX11_DXERR_LIBRARY}
-	${DirectX11_COMPILER_LIBRARY}
-	)
-
-endif(WIN32)
+        # Create imported targets
+        if(NOT TARGET DirectX::D3D9)
+            add_library(DirectX::D3D9 UNKNOWN IMPORTED)
+            set_target_properties(DirectX::D3D9 PROPERTIES
+                IMPORTED_LOCATION "${DirectX_D3D9_LIBRARY}"
+                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_INCLUDE_DIR}"
+            )
+        endif()
+        if(NOT TARGET DirectX::D3DX9)
+            add_library(DirectX::D3DX9 UNKNOWN IMPORTED)
+            set_target_properties(DirectX::D3DX9 PROPERTIES
+                IMPORTED_LOCATION "${DirectX_D3DX9_LIBRARY}"
+                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_INCLUDE_DIR}"
+            )
+        endif()
+        if(NOT TARGET DirectX::DXErr)
+            add_library(DirectX::DXErr UNKNOWN IMPORTED)
+            set_target_properties(DirectX::DXErr PROPERTIES
+                IMPORTED_LOCATION "${DirectX_DXErr_LIBRARY}"
+                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_INCLUDE_DIR}"
+            )
+        endif()
+        if(NOT TARGET DirectX::DXGUID)
+            add_library(DirectX::DXGUID UNKNOWN IMPORTED)
+            set_target_properties(DirectX::DXGUID PROPERTIES
+                IMPORTED_LOCATION "${DirectX_DXGUID_LIBRARY}"
+                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_INCLUDE_DIR}"
+            )
+        endif()
+    endif()
+endif()

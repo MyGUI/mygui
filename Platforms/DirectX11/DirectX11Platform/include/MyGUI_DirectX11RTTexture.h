@@ -12,10 +12,6 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IRenderTarget.h"
 
-struct IDirect3DDevice9;
-struct IDirect3DTexture9;
-struct IDirect3DSurface9;
-
 namespace MyGUI
 {
 	class DirectX11Texture;
