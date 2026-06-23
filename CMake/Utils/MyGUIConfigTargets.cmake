@@ -60,7 +60,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_config_sample(${PROJECTNAME})
 
-	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	target_link_libraries(${PROJECTNAME}
 		PRIVATE
 			MyGUICommon
@@ -82,11 +81,7 @@ function(mygui_tool PROJECTNAME)
 	endif ()
 
 	target_include_directories(${PROJECTNAME} PRIVATE "${MYGUI_SOURCE_DIR}/Tools/EditorFramework")
-	if (NOT MYGUI_CLANG_TIDY_BUILD)
-		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
-	else ()
-		target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
-	endif ()
+	mygui_target_precompile_headers(${PROJECTNAME} "../../Common/Precompiled.h")
 
 	target_link_libraries(${PROJECTNAME} PRIVATE EditorFramework)
 endfunction(mygui_tool)
@@ -120,17 +115,12 @@ function(mygui_tool_dll PROJECTNAME)
 
 	mygui_config_lib(${PROJECTNAME})
 	mygui_config_sample(${PROJECTNAME})
-	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	target_link_libraries(${PROJECTNAME}
 		PRIVATE
 			MyGUICommon
 	)
 
-	if (NOT MYGUI_CLANG_TIDY_BUILD)
-		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
-	else ()
-		target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/../../Common/Precompiled.h")
-	endif ()
+	mygui_target_precompile_headers(${PROJECTNAME} "../../Common/Precompiled.h")
 endfunction(mygui_tool_dll)
 
 
@@ -205,3 +195,16 @@ function(mygui_config_sample PROJECTNAME)
 		set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 	endif ()
 endfunction(mygui_config_sample)
+
+
+function(mygui_target_precompile_headers PROJECTNAME HEADER)
+	if (NOT MYGUI_CLANG_TIDY_BUILD)
+		target_precompile_headers(${PROJECTNAME} PRIVATE "${HEADER}")
+	else ()
+		if(IS_ABSOLUTE "${HEADER}")
+			target_compile_options(${PROJECTNAME} PRIVATE -include "${HEADER}")
+		else()
+			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/${HEADER}")
+		endif()
+	endif ()
+endfunction()
