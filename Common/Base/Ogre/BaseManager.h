@@ -4,6 +4,12 @@
 
 #include <MyGUI_OgrePlatform.h>
 
+#include <Ogre.h>
+
+#ifdef OGRE_STATIC_LIB
+#include <Bites/OgreStaticPluginLoader.h>
+#endif
+
 namespace base
 {
 
@@ -38,6 +44,10 @@ namespace base
 		MyGUI::OgrePlatform* mPlatform = nullptr;
 
 		Ogre::Root* mRoot;
+
+#ifdef OGRE_STATIC_LIB
+		OgreBites::StaticPluginLoader mStaticPluginLoader;
+#endif
 		Ogre::Camera* mCamera;
 		Ogre::SceneNode* mCameraNode;
 		Ogre::SceneManager* mSceneManager;

@@ -3,6 +3,10 @@
 
 #include <Ogre.h>
 
+#ifdef OGRE_STATIC_LIB
+	#include <Bites/OgreStaticPluginLoader.h>
+#endif
+
 #include <SDL.h>
 #include <SDL_syswm.h>
 
@@ -13,13 +17,13 @@ namespace base
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		Ogre::String pluginsPath;
-
-#ifndef OGRE_STATIC_LIB
-		pluginsPath = "plugins.cfg";
+#ifdef OGRE_STATIC_LIB
+		mRoot = new Ogre::Root("", "ogre.cfg", "Ogre.log");
+		mStaticPluginLoader.load();
+#else
+		mRoot = new Ogre::Root(pluginsPath, "ogre.cfg", "Ogre.log");
 #endif
 
-		mRoot = new Ogre::Root(pluginsPath, "ogre.cfg", "Ogre.log");
 		auto renderSystem = mRoot->getRenderSystemByName(mRoot->getAvailableRenderers()[0]->getName());
 		mRoot->setRenderSystem(renderSystem);
 
@@ -95,6 +99,9 @@ namespace base
 
 		if (mRoot)
 		{
+#ifdef OGRE_STATIC_LIB
+			mStaticPluginLoader.unload();
+#endif
 			Ogre::RenderWindow* window = mRoot->getAutoCreatedWindow();
 			if (window)
 				window->removeAllViewports();
