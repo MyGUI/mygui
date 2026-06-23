@@ -7,7 +7,7 @@
 #include <Ogre.h>
 
 #ifdef OGRE_STATIC_LIB
-#include <Bites/OgreStaticPluginLoader.h>
+	#include <Bites/OgreStaticPluginLoader.h>
 #endif
 
 namespace base
