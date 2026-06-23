@@ -67,26 +67,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	)
 endfunction(mygui_app)
 
-#setup Tools dll builds
-function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
-	# define the sources
-	include(${PROJECTNAME}.list)
-
-	add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
-	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
-	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
-
-	mygui_config_lib(${PROJECTNAME})
-
-	mygui_config_sample(${PROJECTNAME})
-
-	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-	target_link_libraries(${PROJECTNAME}
-		PRIVATE
-			MyGUICommon
-	)
-endfunction(mygui_dll)
-
 function(mygui_demo PROJECTNAME)
 	mygui_app(${PROJECTNAME} Demos)
 	if (MYGUI_INSTALL_DEMOS)
@@ -127,7 +107,24 @@ endfunction(mygui_unit_test)
 
 
 function(mygui_tool_dll PROJECTNAME)
-	mygui_dll(${PROJECTNAME} Tools)
+	include(${PROJECTNAME}.list)
+
+	if(MYGUI_RENDERSYSTEM EQUAL 3 AND OGRE_STATIC)
+		add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
+	else()
+		add_library(${PROJECTNAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
+		target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
+	endif()
+
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER Tools)
+
+	mygui_config_lib(${PROJECTNAME})
+	mygui_config_sample(${PROJECTNAME})
+	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+	target_link_libraries(${PROJECTNAME}
+		PRIVATE
+			MyGUICommon
+	)
 
 	if (NOT MYGUI_CLANG_TIDY_BUILD)
 		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
