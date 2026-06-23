@@ -9,6 +9,13 @@ function(install_file FILENAME)
     )
 endfunction()
 
+if (MYGUI_RENDERSYSTEM EQUAL 3)
+    # copy plugins.cfg
+    if (DEFINED OGRE_CONFIG_DIR)
+        file(COPY "${OGRE_CONFIG_DIR}/plugins.cfg" DESTINATION "${MYGUI_BINARY_DIR}/bin/")
+    endif()
+endif ()
+
 if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
     if (UNIX)
         set(MYGUI_INSTALL_MEDIA_PATH "share/MYGUI/Media")
@@ -25,9 +32,7 @@ if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
     )
 
     if (MYGUI_RENDERSYSTEM EQUAL 3)
-        # copy plugins.cfg
         if (DEFINED OGRE_CONFIG_DIR)
-            file(COPY "${OGRE_CONFIG_DIR}/plugins.cfg" DESTINATION "${MYGUI_BINARY_DIR}/bin/")
             install_file (plugins.cfg)
         endif()
     endif ()
