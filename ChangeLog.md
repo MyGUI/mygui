@@ -10,6 +10,7 @@
 
 ### Platforms
 - OpenGL: use non-EXT functions for FBO
+- Fix tools and demos with statically-linked Ogre
 
 ### Infrastructure
 - Replace Travis CI with GitHub Actions
