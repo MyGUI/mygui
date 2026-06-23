@@ -52,10 +52,10 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7)
 	macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" TRUE "" "")
 elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	find_package(DirectX)
-	macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "http://msdn.microsoft.com/en-us/directx/" TRUE "" "")
+	macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "" TRUE "" "")
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-	find_package(DirectX11)
-	macro_log_feature(DirectX_FOUND "DirectX11" "Support for the DirectX11 render system" "http://msdn.microsoft.com/en-us/directx/" TRUE "" "")
+	find_package(DirectX)
+	macro_log_feature(DirectX_FOUND "DirectX11" "Support for the DirectX11 render system" "" TRUE "" "")
 #elseif for RENDERSYSTEM 7 is covered with RENDERSYSTEM 4
 endif()
 

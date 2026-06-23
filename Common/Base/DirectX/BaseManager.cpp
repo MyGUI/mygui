@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 
-#include <d3dx9.h>
+#include <d3d9.h>
 #include <MyGUI_DirectXPlatform.h>
 
 #include <SDL_syswm.h>
@@ -110,7 +110,7 @@ namespace base
 
 		if (SUCCEEDED(mDevice->BeginScene()))
 		{
-			mDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x001589FF, 1.0f, 0);
+			mDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 			mDevice->EndScene();
 		}

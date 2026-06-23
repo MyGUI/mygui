@@ -12,12 +12,15 @@ target_include_directories(${PROJECTNAME}
 		"${MYGUI_SOURCE_DIR}/Common"
 )
 
+target_compile_definitions(${PROJECTNAME} PUBLIC NOMINMAX)
+
 target_link_libraries(${PROJECTNAME}
 	PUBLIC
 		MyGUI::MyGUI
 	PRIVATE
 		DirectX::D3D9
-		DirectX::D3DX9
+		windowscodecs
+		ole32
 )
 
 # installation rules

@@ -4,7 +4,8 @@
 	@date		06/2009
 */
 
-#include <d3dx9.h>
+#include <d3d9.h>
+#include <wincodec.h>
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXRTTexture.h"
@@ -108,39 +109,142 @@ namespace MyGUI
 		mPixelFormat = PixelFormat::R8G8B8A8;
 		mNumElemBytes = 4;
 
-		std::string fullname = DirectXDataManager::getInstance().getDataPath(_filename);
+		std::string fullnameUtf8 = DirectXDataManager::getInstance().getDataPath(_filename);
+		int wideLen = MultiByteToWideChar(CP_UTF8, 0, fullnameUtf8.c_str(), -1, nullptr, 0);
+		std::wstring fullname(static_cast<size_t>(wideLen), L'\0');
+		MultiByteToWideChar(CP_UTF8, 0, fullnameUtf8.c_str(), -1, &fullname[0], wideLen);
 
-		D3DXIMAGE_INFO info;
-		D3DXGetImageInfoFromFile(fullname.c_str(), &info);
-
-		if (info.Format == D3DFMT_A8R8G8B8)
+		HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+		bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
+		if (FAILED(coInit) && coInit != RPC_E_CHANGED_MODE)
 		{
-			mPixelFormat = PixelFormat::R8G8B8A8;
-			mNumElemBytes = 4;
-		}
-		else if (info.Format == D3DFMT_R8G8B8)
-		{
-			mPixelFormat = PixelFormat::R8G8B8;
-			mNumElemBytes = 3;
-		}
-		else if (info.Format == D3DFMT_A8L8)
-		{
-			mPixelFormat = PixelFormat::L8A8;
-			mNumElemBytes = 2;
-		}
-		else if (info.Format == D3DFMT_L8)
-		{
-			mPixelFormat = PixelFormat::L8;
-			mNumElemBytes = 1;
+			MYGUI_PLATFORM_EXCEPT("Failed to initialize COM (error code " << coInit << ").");
 		}
 
-		mSize.set(info.Width, info.Height);
-		HRESULT result = D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture);
+		IWICImagingFactory* wicFactory = nullptr;
+		HRESULT result = CoCreateInstance(
+			CLSID_WICImagingFactory,
+			nullptr,
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(&wicFactory));
 		if (FAILED(result))
 		{
+			if (comInitialized)
+				CoUninitialize();
+			MYGUI_PLATFORM_EXCEPT("Failed to create WIC imaging factory (error code " << result << ").");
+		}
+
+		IWICBitmapDecoder* decoder = nullptr;
+		result = wicFactory->CreateDecoderFromFilename(
+			fullname.c_str(),
+			nullptr,
+			GENERIC_READ,
+			WICDecodeMetadataCacheOnLoad,
+			&decoder);
+		if (FAILED(result))
+		{
+			wicFactory->Release();
+			if (comInitialized)
+				CoUninitialize();
+			MYGUI_PLATFORM_EXCEPT("Failed to decode texture '" << _filename << "' (error code " << result << ").");
+		}
+
+		IWICBitmapFrameDecode* frame = nullptr;
+		result = decoder->GetFrame(0, &frame);
+		if (FAILED(result))
+		{
+			decoder->Release();
+			wicFactory->Release();
+			if (comInitialized)
+				CoUninitialize();
+			MYGUI_PLATFORM_EXCEPT("Failed to get frame from '" << _filename << "' (error code " << result << ").");
+		}
+
+		UINT width = 0, height = 0;
+		frame->GetSize(&width, &height);
+		mSize.set(width, height);
+
+		IWICFormatConverter* converter = nullptr;
+		result = wicFactory->CreateFormatConverter(&converter);
+		if (SUCCEEDED(result))
+		{
+			result = converter->Initialize(
+				frame,
+				GUID_WICPixelFormat32bppBGRA,
+				WICBitmapDitherTypeNone,
+				nullptr,
+				0.0f,
+				WICBitmapPaletteTypeCustom);
+		}
+		if (FAILED(result))
+		{
+			if (converter)
+				converter->Release();
+			frame->Release();
+			decoder->Release();
+			wicFactory->Release();
+			if (comInitialized)
+				CoUninitialize();
+			MYGUI_PLATFORM_EXCEPT("Failed to convert format for '" << _filename << "' (error code " << result << ").");
+		}
+
+		result = mpD3DDevice->CreateTexture(
+			width, height, 1,
+			0,
+			D3DFMT_A8R8G8B8,
+			D3DPOOL_MANAGED,
+			&mpTexture,
+			nullptr);
+		if (FAILED(result))
+		{
+			converter->Release();
+			frame->Release();
+			decoder->Release();
+			wicFactory->Release();
+			if (comInitialized)
+				CoUninitialize();
 			MYGUI_PLATFORM_EXCEPT(
-				"Failed to load texture '" << _filename << "' (error code " << result << "): size '" << mSize
-										   << "' format '" << info.Format << "'.");
+				"Failed to create texture '" << _filename << "' (error code " << result << "): size '"
+											 << mSize << "'.");
+		}
+
+		D3DLOCKED_RECT lockedRect;
+		result = mpTexture->LockRect(0, &lockedRect, nullptr, 0);
+		if (SUCCEEDED(result))
+		{
+			UINT stride = width * 4;
+			UINT imageSize = stride * height;
+			BYTE* pixels = static_cast<BYTE*>(lockedRect.pBits);
+
+			if (stride == static_cast<UINT>(lockedRect.Pitch))
+			{
+				converter->CopyPixels(nullptr, stride, imageSize, pixels);
+			}
+			else
+			{
+				BYTE* temp = new BYTE[imageSize];
+				converter->CopyPixels(nullptr, stride, imageSize, temp);
+				for (UINT y = 0; y < height; ++y)
+					memcpy(pixels + y * lockedRect.Pitch, temp + y * stride, stride);
+				delete[] temp;
+			}
+			mpTexture->UnlockRect(0);
+		}
+
+		converter->Release();
+		frame->Release();
+		decoder->Release();
+		wicFactory->Release();
+
+		if (comInitialized)
+			CoUninitialize();
+
+		if (FAILED(result))
+		{
+			mpTexture->Release();
+			mpTexture = nullptr;
+			MYGUI_PLATFORM_EXCEPT(
+				"Failed to lock texture '" << _filename << "' (error code " << result << ").");
 		}
 	}
 

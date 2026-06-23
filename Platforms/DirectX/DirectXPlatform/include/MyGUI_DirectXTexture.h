@@ -7,13 +7,12 @@
 #ifndef MYGUI_DIRECTX_TEXTURE_H_
 #define MYGUI_DIRECTX_TEXTURE_H_
 
+#include <d3d9.h>
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_DirectXDiagnostic.h"
-
-struct IDirect3DTexture9;
 
 namespace MyGUI
 {

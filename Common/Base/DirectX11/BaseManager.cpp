@@ -2,7 +2,7 @@
 #include "BaseManager.h"
 
 #pragma warning(push, 0)
-#include <d3dx11.h>
+#include <d3d11.h>
 #pragma warning(pop)
 #include <MyGUI_DirectX11Platform.h>
 

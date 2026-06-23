@@ -4,7 +4,7 @@
 	@date		06/2009
 */
 
-#include <d3dx9.h>
+#include <d3d9.h>
 #include "MyGUI_DirectXRenderManager.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXVertexBuffer.h"
@@ -142,8 +142,12 @@ namespace MyGUI
 
 		mpD3DDevice->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
-		D3DXMATRIX m;
-		D3DXMatrixIdentity(&m);
+		D3DMATRIX m = {
+			1.0f, 0, 0, 0,
+			0, 1.0f, 0, 0,
+			0, 0, 1.0f, 0,
+			0, 0, 0, 1.0f
+		};
 		mpD3DDevice->SetTransform(D3DTS_WORLD, &m);
 		mpD3DDevice->SetTransform(D3DTS_VIEW, &m);
 		mpD3DDevice->SetTransform(D3DTS_PROJECTION, &m);
@@ -187,13 +191,9 @@ namespace MyGUI
 	{
 		D3DFORMAT internalFormat = D3DFMT_UNKNOWN;
 		unsigned long internalUsage = 0;
-		D3DPOOL internalPool = D3DPOOL_MANAGED;
 
 		if (_usage == TextureUsage::RenderTarget)
-		{
 			internalUsage |= D3DUSAGE_RENDERTARGET;
-			internalPool = D3DPOOL_MANAGED;
-		}
 		else if (_usage == TextureUsage::Dynamic)
 			internalUsage |= D3DUSAGE_DYNAMIC;
 		else if (_usage == TextureUsage::Stream)
@@ -216,19 +216,33 @@ namespace MyGUI
 			internalFormat = D3DFMT_L8;
 		}
 
-		D3DFORMAT requestedlFormat = internalFormat;
-		D3DXCheckTextureRequirements(
-			mpD3DDevice,
-			nullptr,
-			nullptr,
-			nullptr,
-			internalUsage,
-			&internalFormat,
-			internalPool);
+		if (internalFormat == D3DFMT_UNKNOWN)
+			return false;
 
-		bool result = requestedlFormat == internalFormat;
+		IDirect3D9* d3d = nullptr;
+		if (FAILED(mpD3DDevice->GetDirect3D(&d3d)))
+			return false;
+
+		D3DDEVICE_CREATION_PARAMETERS params;
+		if (FAILED(mpD3DDevice->GetCreationParameters(&params)))
+		{
+			d3d->Release();
+			return false;
+		}
+
+		HRESULT hr = d3d->CheckDeviceFormat(
+			params.AdapterOrdinal,
+			params.DeviceType,
+			D3DFMT_X8R8G8B8,
+			internalUsage,
+			D3DRTYPE_TEXTURE,
+			internalFormat);
+
+		d3d->Release();
+
+		bool result = SUCCEEDED(hr);
 		if (!result)
-			MYGUI_PLATFORM_LOG(Warning, "Texture format '" << requestedlFormat << "'is not supported.");
+			MYGUI_PLATFORM_LOG(Warning, "Texture format '" << internalFormat << "' is not supported.");
 		return result;
 	}
 

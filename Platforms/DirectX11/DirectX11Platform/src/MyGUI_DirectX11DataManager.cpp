@@ -58,7 +58,7 @@ namespace MyGUI
 		delete _data;
 	}
 
-	bool DirectX11DataManager::isDataExist(const std::string& _name)
+	bool DirectX11DataManager::isDataExist(const std::string& _name) const
 	{
 		const VectorString& files = getDataListNames(_name);
 		return !files.empty();

@@ -4,7 +4,7 @@
 	@date		12/2009
 */
 
-#include <d3dx9.h>
+#include <d3d9.h>
 #include "MyGUI_DirectXRTTexture.h"
 #include "MyGUI_DirectXRenderManager.h"
 

@@ -5,7 +5,9 @@
 */
 
 #pragma warning(push, 0)
-#include <d3dx11.h>
+#include <d3d11.h>
+#include <wincodec.h>
+#include <vector>
 #pragma warning(pop)
 #include "MyGUI_DirectX11Texture.h"
 #include "MyGUI_DirectX11DataManager.h"
@@ -77,41 +79,96 @@ namespace MyGUI
 		destroy();
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
+		std::wstring wfullname(fullname.begin(), fullname.end());
 
-		D3DX11_IMAGE_INFO fileInfo;
-		D3DX11GetImageInfoFromFile(fullname.c_str(), nullptr, &fileInfo, nullptr);
-
-		mWidth = fileInfo.Width;
-		mHeight = fileInfo.Height;
-
-		D3DX11_IMAGE_LOAD_INFO loadInfo;
-		loadInfo.Width = fileInfo.Width;
-		loadInfo.Height = fileInfo.Height;
-		loadInfo.FirstMipLevel = 0;
-		loadInfo.MipLevels = fileInfo.MipLevels;
-		loadInfo.Usage = D3D11_USAGE_DEFAULT;
-		loadInfo.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-		loadInfo.CpuAccessFlags = 0;
-		loadInfo.MiscFlags = 0;
-		loadInfo.Format = fileInfo.Format;
-		loadInfo.Filter = D3DX11_FILTER_NONE;
-		loadInfo.MipFilter = D3DX11_FILTER_NONE;
-		loadInfo.pSrcInfo = &fileInfo;
-
-		HRESULT hr = D3DX11CreateTextureFromFileA(
-			mManager->mpD3DDevice,
-			fullname.c_str(),
-			&loadInfo,
+		IWICImagingFactory* wicFactory = nullptr;
+		HRESULT hr = CoCreateInstance(
+			CLSID_WICImagingFactory,
 			nullptr,
-			(ID3D11Resource**)&mTexture,
-			nullptr);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "CreateTextureFromFile failed!");
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(&wicFactory));
+		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to create WIC imaging factory!");
+
+		IWICBitmapDecoder* decoder = nullptr;
+		hr = wicFactory->CreateDecoderFromFilename(
+			wfullname.c_str(),
+			nullptr,
+			GENERIC_READ,
+			WICDecodeMetadataCacheOnLoad,
+			&decoder);
+		if (FAILED(hr))
+		{
+			wicFactory->Release();
+			MYGUI_PLATFORM_ASSERT(false, "Failed to decode image file!");
+		}
+
+		IWICBitmapFrameDecode* frame = nullptr;
+		hr = decoder->GetFrame(0, &frame);
+		if (FAILED(hr))
+		{
+			decoder->Release();
+			wicFactory->Release();
+			MYGUI_PLATFORM_ASSERT(false, "Failed to get image frame!");
+		}
+
+		IWICFormatConverter* converter = nullptr;
+		hr = wicFactory->CreateFormatConverter(&converter);
+		if (SUCCEEDED(hr))
+		{
+			hr = converter->Initialize(
+				frame,
+				GUID_WICPixelFormat32bppBGRA,
+				WICBitmapDitherTypeNone,
+				nullptr,
+				0.0f,
+				WICBitmapPaletteTypeMedianCut);
+		}
+		if (FAILED(hr))
+		{
+			frame->Release();
+			decoder->Release();
+			wicFactory->Release();
+			MYGUI_PLATFORM_ASSERT(false, "Failed to convert image format!");
+		}
+
+		UINT imageWidth = 0, imageHeight = 0;
+		converter->GetSize(&imageWidth, &imageHeight);
+		mWidth = imageWidth;
+		mHeight = imageHeight;
+
+		std::vector<unsigned char> pixels(imageWidth * imageHeight * 4);
+		hr = converter->CopyPixels(nullptr, imageWidth * 4, pixels.size(), pixels.data());
+
+		converter->Release();
+		frame->Release();
+		decoder->Release();
+		wicFactory->Release();
+
+		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to copy image pixels!");
 
 		D3D11_TEXTURE2D_DESC desc;
-		mTexture->GetDesc(&desc);
+		desc.ArraySize = 1;
+		desc.Width = mWidth;
+		desc.Height = mHeight;
+		desc.MipLevels = 1;
+		desc.SampleDesc.Count = 1;
+		desc.SampleDesc.Quality = 0;
+		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		desc.Usage = D3D11_USAGE_DEFAULT;
+		desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		desc.CPUAccessFlags = 0;
+		desc.MiscFlags = 0;
+
+		D3D11_SUBRESOURCE_DATA initData;
+		initData.pSysMem = pixels.data();
+		initData.SysMemPitch = imageWidth * 4;
+		initData.SysMemSlicePitch = 0;
+
+		hr = mManager->mpD3DDevice->CreateTexture2D(&desc, &initData, &mTexture);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed!");
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-		srvDesc.Format = desc.Format;
+		srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MipLevels = 1;
 		srvDesc.Texture2D.MostDetailedMip = 0;
