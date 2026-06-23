@@ -195,9 +195,9 @@ function(mygui_config_sample PROJECTNAME)
 	mygui_config_common(${PROJECTNAME})
 
 	# set install RPATH for Unix systems
-	if (UNIX AND MYGUI_FULL_RPATH)
+	if (UNIX)
 		set_property(TARGET ${PROJECTNAME} APPEND PROPERTY
-			INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+			INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
 		set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 	endif ()
 endfunction(mygui_config_sample)
