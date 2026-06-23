@@ -76,5 +76,16 @@ install(FILES
 	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/MyGUI"
 )
 
+if (WIN32 AND (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS))
+	install(IMPORTED_RUNTIME_ARTIFACTS SDL2::SDL2
+		DESTINATION ${CMAKE_INSTALL_BINDIR}
+	)
+	if (TARGET SDL2_image::SDL2_image)
+		install(IMPORTED_RUNTIME_ARTIFACTS SDL2_image::SDL2_image
+			DESTINATION ${CMAKE_INSTALL_BINDIR}
+		)
+	endif()
+endif()
+
 # Provide CPack packaging target
 include(Packaging)

@@ -64,6 +64,17 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		PRIVATE
 			MyGUICommon
 	)
+
+	if (WIN32)
+		# copy SDL2.dll and other dll's to bin
+		add_custom_command(
+			TARGET ${PROJECTNAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+				$<TARGET_RUNTIME_DLLS:${PROJECTNAME}>
+				$<TARGET_FILE_DIR:${PROJECTNAME}>
+			COMMAND_EXPAND_LISTS
+		)
+	endif()
 endfunction(mygui_app)
 
 function(mygui_demo PROJECTNAME)
