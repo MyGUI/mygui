@@ -122,11 +122,8 @@ namespace MyGUI
 		}
 
 		IWICImagingFactory* wicFactory = nullptr;
-		HRESULT result = CoCreateInstance(
-			CLSID_WICImagingFactory,
-			nullptr,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&wicFactory));
+		HRESULT result =
+			CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&wicFactory));
 		if (FAILED(result))
 		{
 			if (comInitialized)
@@ -188,13 +185,7 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Failed to convert format for '" << _filename << "' (error code " << result << ").");
 		}
 
-		result = mpD3DDevice->CreateTexture(
-			width, height, 1,
-			0,
-			D3DFMT_A8R8G8B8,
-			D3DPOOL_MANAGED,
-			&mpTexture,
-			nullptr);
+		result = mpD3DDevice->CreateTexture(width, height, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &mpTexture, nullptr);
 		if (FAILED(result))
 		{
 			converter->Release();
@@ -204,8 +195,8 @@ namespace MyGUI
 			if (comInitialized)
 				CoUninitialize();
 			MYGUI_PLATFORM_EXCEPT(
-				"Failed to create texture '" << _filename << "' (error code " << result << "): size '"
-											 << mSize << "'.");
+				"Failed to create texture '"
+				<< _filename << "' (error code " << result << "): size '" << mSize << "'.");
 		}
 
 		D3DLOCKED_RECT lockedRect;
@@ -243,8 +234,7 @@ namespace MyGUI
 		{
 			mpTexture->Release();
 			mpTexture = nullptr;
-			MYGUI_PLATFORM_EXCEPT(
-				"Failed to lock texture '" << _filename << "' (error code " << result << ").");
+			MYGUI_PLATFORM_EXCEPT("Failed to lock texture '" << _filename << "' (error code " << result << ").");
 		}
 	}
 

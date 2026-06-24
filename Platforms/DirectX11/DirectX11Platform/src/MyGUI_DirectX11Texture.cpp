@@ -82,11 +82,8 @@ namespace MyGUI
 		std::wstring wfullname(fullname.begin(), fullname.end());
 
 		IWICImagingFactory* wicFactory = nullptr;
-		HRESULT hr = CoCreateInstance(
-			CLSID_WICImagingFactory,
-			nullptr,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&wicFactory));
+		HRESULT hr =
+			CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&wicFactory));
 		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to create WIC imaging factory!");
 
 		IWICBitmapDecoder* decoder = nullptr;

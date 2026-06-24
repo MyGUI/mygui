@@ -142,12 +142,7 @@ namespace MyGUI
 
 		mpD3DDevice->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
-		D3DMATRIX m = {
-			1.0f, 0, 0, 0,
-			0, 1.0f, 0, 0,
-			0, 0, 1.0f, 0,
-			0, 0, 0, 1.0f
-		};
+		D3DMATRIX m = {1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f};
 		mpD3DDevice->SetTransform(D3DTS_WORLD, &m);
 		mpD3DDevice->SetTransform(D3DTS_VIEW, &m);
 		mpD3DDevice->SetTransform(D3DTS_PROJECTION, &m);
