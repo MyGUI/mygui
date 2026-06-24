@@ -21,34 +21,34 @@ namespace MyGUI
 	{
 	public:
 		DirectXTexture(const std::string& _name, IDirect3DDevice9* _device);
-		virtual ~DirectXTexture();
+		~DirectXTexture() override;
 
-		virtual const std::string& getName() const;
+		const std::string& getName() const override;
 
-		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
-		virtual void loadFromFile(const std::string& _filename);
-		virtual void saveToFile(const std::string& _filename)
+		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) override;
+		void loadFromFile(const std::string& _filename) override;
+		void saveToFile(const std::string& _filename) override
 		{
 			MYGUI_PLATFORM_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
 		}
-		virtual void setShader(const std::string& _shaderName)
+		void setShader(const std::string& _shaderName) override
 		{
 		}
 
-		virtual void destroy();
+		void destroy() override;
 
-		virtual void* lock(TextureUsage _access);
-		virtual void unlock();
-		virtual bool isLocked() const;
+		void* lock(TextureUsage _access) override;
+		void unlock() override;
+		bool isLocked() const override;
 
-		virtual int getWidth() const;
-		virtual int getHeight() const;
+		int getWidth() const override;
+		int getHeight() const override;
 
-		virtual PixelFormat getFormat() const;
-		virtual TextureUsage getUsage() const;
-		virtual size_t getNumElemBytes() const;
+		PixelFormat getFormat() const override;
+		TextureUsage getUsage() const override;
+		size_t getNumElemBytes() const override;
 
-		virtual IRenderTarget* getRenderTarget();
+		IRenderTarget* getRenderTarget() override;
 
 		/*internal:*/
 		IDirect3DTexture9* getDirectXTexture()

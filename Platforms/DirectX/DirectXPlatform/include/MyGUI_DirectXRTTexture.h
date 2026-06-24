@@ -23,14 +23,14 @@ namespace MyGUI
 	{
 	public:
 		DirectXRTTexture(IDirect3DDevice9* _device, IDirect3DTexture9* _texture);
-		virtual ~DirectXRTTexture();
+		~DirectXRTTexture() override;
 
-		virtual void begin();
-		virtual void end();
+		void begin() override;
+		void end() override;
 
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
-		virtual const RenderTargetInfo& getInfo() const override
+		const RenderTargetInfo& getInfo() const override
 		{
 			return mRenderTargetInfo;
 		}
