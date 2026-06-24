@@ -147,6 +147,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			# might be useful
 			add_compile_options(
 				-Wno-reorder
+				-Wno-nrvo
 			)
 			# not useful
 			add_compile_options(
