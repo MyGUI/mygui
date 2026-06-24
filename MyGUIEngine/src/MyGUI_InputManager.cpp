@@ -72,14 +72,11 @@ namespace MyGUI
 
 	bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		// запоминаем позицию
 		mMousePosition.set(_absx, _absy);
 
-		// вычисляем прирост по колеса
 		int relz = _absz - mOldAbsZ;
 		mOldAbsZ = _absz;
 
-		// проверка на скролл
 		if (relz != 0)
 		{
 			bool isFocus = isFocusMouse();
@@ -109,10 +106,9 @@ namespace MyGUI
 
 		Widget* old_mouse_focus = mWidgetMouseFocus;
 
-		// ищем активное окно
 		Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
-		// ничего не изменилось
+		// nothing changed
 		if (mWidgetMouseFocus == item)
 		{
 			bool isFocus = isFocusMouse();
@@ -129,12 +125,10 @@ namespace MyGUI
 
 		if (item)
 		{
-			// поднимаемся до рута
 			Widget* root = item;
 			while (root->getParent())
 				root = root->getParent();
 
-			// проверяем на модальность
 			if (!mVectorModalRootWidget.empty())
 			{
 				if (root != mVectorModalRootWidget.back())
@@ -149,11 +143,10 @@ namespace MyGUI
 			}
 		}
 
-		//-------------------------------------------------------------------------------------//
-		// новый вид рутового фокуса мыши
+		// new type of root mouse focus
 		Widget* save_widget = nullptr;
 
-		// спускаемся по новому виджету и устанавливаем рутовый фокус
+		// go down the new widget and set root focus
 		Widget* root_focus = item;
 		while (root_focus != nullptr)
 		{
@@ -168,7 +161,7 @@ namespace MyGUI
 			root_focus = root_focus->getParent();
 		}
 
-		// спускаемся по старому виджету и сбрасываем фокус
+		// go down the old widget and reset focus
 		root_focus = mWidgetMouseFocus;
 		while (root_focus != nullptr)
 		{
@@ -181,7 +174,7 @@ namespace MyGUI
 		}
 		//-------------------------------------------------------------------------------------//
 
-		// смена фокуса, проверяем на доступность виджета
+		// change focus, check widget availability
 		if (isFocusMouse() && mWidgetMouseFocus->getInheritedEnabled())
 		{
 			mWidgetMouseFocus->_riseMouseLostFocus(item);
@@ -196,7 +189,6 @@ namespace MyGUI
 			item->_riseMouseSetFocus(mWidgetMouseFocus);
 		}
 
-		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
 
 		if (old_mouse_focus != mWidgetMouseFocus)
@@ -219,7 +211,7 @@ namespace MyGUI
 			mMouseCapture[_id.getValue()] = true;
 		}
 
-		// если мы щелкнули не на гуй
+		// clicked outside GUI
 		if (!isFocusMouse())
 		{
 			resetKeyFocusWidget();
@@ -227,7 +219,7 @@ namespace MyGUI
 			return false;
 		}
 
-		// если активный элемент заблокирован
+		// if active element is blocked
 		//FIXME
 		if (!mWidgetMouseFocus->getInheritedEnabled())
 			return true;
@@ -242,12 +234,12 @@ namespace MyGUI
 			}
 		}
 
-		// ищем вверх тот виджет который может принимать фокус
+		// search up for widget that can accept focus
 		Widget* item = mWidgetMouseFocus;
 		while ((item != nullptr) && (!item->getNeedKeyFocus()))
 			item = item->getParent();
 
-		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
+		// set before call as something inside might change focus
 		setKeyFocusWidget(item);
 
 		if (isFocusMouse())
@@ -257,17 +249,16 @@ namespace MyGUI
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
 			mWidgetMouseFocus->_riseMouseButtonPressed(point.left, point.top, _id);
 
-			// после пресса может сброситься
+			// might get reset after press
 			if (mWidgetMouseFocus)
 			{
-				// поднимаем виджет, надо подумать что делать если поменялся фокус клавы
+				// raise widget, consider what to do if key focus changed
 				LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
 
-				// поднимаем пикинг Overlapped окон
+				// raise picking of Overlapped windows
 				Widget* pick = mWidgetMouseFocus;
 				do
 				{
-					// если оверлаппед, то поднимаем пикинг
 					if (pick->getWidgetStyle() == WidgetStyle::Overlapped)
 					{
 						if (pick->getParent())
@@ -295,7 +286,6 @@ namespace MyGUI
 
 		if (isFocusMouse())
 		{
-			// если активный элемент заблокирован
 			if (!mWidgetMouseFocus->getInheritedEnabled())
 				return true;
 
@@ -304,7 +294,7 @@ namespace MyGUI
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
 			mWidgetMouseFocus->_riseMouseButtonReleased(point.left, point.top, _id);
 
-			// после вызова, виджет может быть сброшен
+			// might get reset after release
 			if (nullptr != mWidgetMouseFocus)
 			{
 				if (MouseButton::Left == _id)
@@ -318,7 +308,7 @@ namespace MyGUI
 					}
 					else
 					{
-						// проверяем над тем ли мы окном сейчас что и были при нажатии
+						// check if we are over the same window as when pressed
 						Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 						if (item == mWidgetMouseFocus)
 						{
@@ -329,7 +319,6 @@ namespace MyGUI
 				}
 			}
 
-			// для корректного отображения
 			injectMouseMove(_absx, _absy, mOldAbsZ);
 
 			return true;
@@ -340,10 +329,8 @@ namespace MyGUI
 
 	bool InputManager::injectKeyPress(KeyCode _key, Char _text)
 	{
-		// проверка на переключение языков
 		firstEncoding(_key, true);
 
-		// запоминаем клавишу
 		storeKey(_key, _text);
 
 		bool wasFocusKey = isFocusKey();
@@ -359,10 +346,8 @@ namespace MyGUI
 
 	bool InputManager::injectKeyRelease(KeyCode _key)
 	{
-		// проверка на переключение языков
 		firstEncoding(_key, false);
 
-		// сбрасываем клавишу
 		resetKey();
 
 		bool wasFocusKey = isFocusKey();
@@ -476,7 +461,7 @@ namespace MyGUI
 			eventChangeMouseFocus(mWidgetMouseFocus);
 	}
 
-	// удаляем данный виджет из всех возможных мест
+	// remove the given widget from all possible places
 	void InputManager::_unlinkWidget(Widget* _widget)
 	{
 		if (nullptr == _widget)
@@ -488,7 +473,7 @@ namespace MyGUI
 		if (_widget == mWidgetKeyFocus)
 			resetKeyFocusWidget();
 
-		// ручками сбрасываем, чтобы не менять фокусы
+		// manually reset to not change focus
 		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end();
 			 ++iter)
 		{
@@ -528,7 +513,7 @@ namespace MyGUI
 				break;
 			}
 		}
-		// если еще есть модальные то их фокусируем и поднимаем
+		// if there are still modal widgets, focus and raise them
 		if (!mVectorModalRootWidget.empty())
 		{
 			setKeyFocusWidget(mVectorModalRootWidget.back());

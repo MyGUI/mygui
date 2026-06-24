@@ -67,7 +67,7 @@ namespace MyGUI
 
 	void SharedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		// айтем рутовый, мы удаляем
+		// item is root, we delete
 		if (mChildItem == _item)
 		{
 			mChildItem->removeUsing();
@@ -86,7 +86,7 @@ namespace MyGUI
 
 	void SharedLayer::upChildItemNode(ILayerNode* _item)
 	{
-		// если есть отец, то пусть сам рулит
+		// if has a parent, let it manage itself
 		ILayerNode* parent = _item->getParent();
 		if (parent != nullptr)
 			parent->upChildItemNode(_item);

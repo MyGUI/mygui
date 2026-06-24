@@ -26,7 +26,6 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// инициализируем овнера
 		Widget* parent = getParent();
 		if (parent)
 		{
@@ -42,7 +41,7 @@ namespace MyGUI
 			}
 		}
 
-		// FIXME нам нужен фокус клавы
+		// FIXME we need key focus
 		setNeedKeyFocus(true);
 
 		//OBSOLETE
@@ -70,7 +69,7 @@ namespace MyGUI
 		if (isUserString("SubMenuLayer"))
 			mSubMenuLayer = getUserString("SubMenuLayer");
 
-		// FIXME добавленно, так как шетдаун вызывается и при смене скина
+		// FIXME added because shutdown is also called on skin change
 		mShutdown = false;
 	}
 
@@ -238,11 +237,11 @@ namespace MyGUI
 
 	void MenuControl::_notifyDeleteItem(MenuItem* _item)
 	{
-		// дитю меняем скин
+		// changing child skin
 		if (mChangeChildSkin)
 			return;
 
-		// общий шутдаун виджета
+		// general widget shutdown
 		if (mShutdown)
 			return;
 
@@ -280,10 +279,9 @@ namespace MyGUI
 		if (info.type == _type)
 			return;
 
-		// сохраняем данные
 		info.type = _type;
 
-		// при смене скина дите отпишется
+		// on skin change, child will unsubscribe
 		mChangeChildSkin = true;
 		info.item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
@@ -479,7 +477,6 @@ namespace MyGUI
 
 	void MenuControl::_wrapItemChild(MenuItem* _item, MenuControl* _widget)
 	{
-		// заменяем
 		size_t index = getItemIndex(_item);
 		if (mItemsInfo[index].submenu != nullptr)
 		{
@@ -487,7 +484,6 @@ namespace MyGUI
 			mItemsInfo[index].submenu = nullptr;
 		}
 		mItemsInfo[index].submenu = _widget;
-		// скрываем менюшку
 		mItemsInfo[index].submenu->setVisible(false);
 
 		update();
@@ -518,7 +514,7 @@ namespace MyGUI
 		_item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
 
-		// его сет капшен, обновит размер
+		// its setCaption will update size
 		_item->setCaption(_name);
 
 		update();
@@ -886,7 +882,7 @@ namespace MyGUI
 
 	void MenuControl::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{MenuControl, VerticalAlignment, bool} Вертикальное выравнивание.
+		/// @wproperty{MenuControl, VerticalAlignment, bool} Vertical alignment.
 		if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
 

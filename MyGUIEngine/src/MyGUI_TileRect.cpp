@@ -52,38 +52,31 @@ namespace MyGUI
 
 	void TileRect::_setAlign(const IntSize& _oldsize)
 	{
-		// первоначальное выравнивание
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // recalculate everything on resize
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // recalculate everything on resize
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
@@ -106,7 +99,7 @@ namespace MyGUI
 		mCurrentCoord.width = _getViewWidth();
 		mCurrentCoord.height = _getViewHeight();
 
-		// подсчитываем необходимое колличество тайлов
+		// calculate required number of tiles
 		if (!mEmptyView)
 		{
 			size_t count = 0;
@@ -123,7 +116,7 @@ namespace MyGUI
 				count = count_y * count_x * VertexQuad::VertexCount;
 			}
 
-			// нужно больше вершин
+			// need more vertices
 			if (count > mCountVertex)
 			{
 				mCountVertex = count + TILERECT_COUNT_VERTEX;
@@ -132,23 +125,22 @@ namespace MyGUI
 			}
 		}
 
-		// вьюпорт стал битым
+		// viewport became invalid
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// запоминаем текущее состояние
+				// remember current state
 				mIsMargin = margin;
 
-				// обновить перед выходом
+				// update before exit
 				if (nullptr != mNode)
 					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
-		// запоминаем текущее состояние
+		// remember current state
 		mIsMargin = margin;
 
 		if (nullptr != mNode)
@@ -171,7 +163,7 @@ namespace MyGUI
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
-		// размер одного тайла
+		// size of one tile
 		mRealTileWidth = info.pixScaleX * (float)(mTileSize.width) * 2;
 		mRealTileHeight = info.pixScaleY * (float)(mTileSize.height) * 2;
 
@@ -180,7 +172,7 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		// абсолютный размер окна
+		// absolute window size
 		float window_left =
 			((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
 			  info.hOffset) *
@@ -191,7 +183,7 @@ namespace MyGUI
 			 2) -
 			1);
 
-		// размер вьюпорта
+		// viewport size
 		float real_left =
 			((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
 			  info.hOffset) *
@@ -221,23 +213,21 @@ namespace MyGUI
 
 			if (vertex_top > real_top)
 			{
-				// проверка на полный выход
+				// check for complete out-of-bounds
 				if (vertex_bottom > real_top)
 				{
 					continue;
 				}
-				// обрезаем
 				vertex_top = real_top;
 				texture_crop_height = true;
 			}
 			if (vertex_bottom < real_bottom)
 			{
-				// вообще вниз ушли
+				// went completely out at bottom
 				if (vertex_top < real_bottom)
 				{
 					continue;
 				}
-				// обрезаем
 				vertex_bottom = real_bottom;
 				texture_crop_height = true;
 			}
@@ -254,49 +244,47 @@ namespace MyGUI
 
 				if (vertex_left < real_left)
 				{
-					// проверка на полный выход
+					// check for complete out-of-bounds
 					if (vertex_right < real_left)
 					{
 						continue;
 					}
-					// обрезаем
 					vertex_left = real_left;
 					texture_crop_width = true;
 				}
 
 				if (vertex_right > real_right)
 				{
-					// вообще строку до конца не нуна
+					// don't need the full row
 					if (vertex_left > real_right)
 					{
 						continue;
 					}
-					// обрезаем
 					vertex_right = real_right;
 					texture_crop_width = true;
 				}
 
-				// текущие текстурные координаты
+				// current texture coordinates
 				float texture_left = mCurrentTexture.left;
 				float texture_right = mCurrentTexture.right;
 				float texture_top = mCurrentTexture.top;
 				float texture_bottom = mCurrentTexture.bottom;
 
-				// смещение текстуры по вертикили
+				// texture offset vertically
 				if (texture_crop_height)
 				{
-					// прибавляем размер смещения в текстурных координатах
+					// add offset size in texture coordinates
 					texture_top += (top - vertex_top) * mTextureHeightOne;
-					// отнимаем размер смещения в текстурных координатах
+					// subtract offset size in texture coordinates
 					texture_bottom -= (vertex_bottom - bottom) * mTextureHeightOne;
 				}
 
-				// смещение текстуры по горизонтали
+				// texture offset horizontally
 				if (texture_crop_width)
 				{
-					// прибавляем размер смещения в текстурных координатах
+					// add offset size in texture coordinates
 					texture_left += (vertex_left - left) * mTextureWidthOne;
-					// отнимаем размер смещения в текстурных координатах
+					// subtract offset size in texture coordinates
 					texture_right -= (right - vertex_right) * mTextureWidthOne;
 				}
 

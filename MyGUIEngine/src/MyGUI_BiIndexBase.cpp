@@ -29,7 +29,6 @@ namespace MyGUI
 
 		if (_index == mIndexFace.size())
 		{
-			// для вставки айтема
 			index = mIndexFace.size();
 
 			mIndexFace.push_back(_index);
@@ -37,7 +36,6 @@ namespace MyGUI
 		}
 		else
 		{
-			// для вставки айтема
 			index = mIndexFace[_index];
 
 			size_t count = mIndexFace.size();
@@ -70,7 +68,6 @@ namespace MyGUI
 		checkIndexes();
 #endif
 
-		// для удаления айтема
 		size_t index = mIndexFace[_index];
 
 		mIndexFace.erase(mIndexFace.begin() + _index);
@@ -97,7 +94,7 @@ namespace MyGUI
 		mIndexBack.clear();
 	}
 
-	// на входе индексы пользователя, на выходе реальные индексы
+	// input: user indices, output: real indices
 	size_t BiIndexBase::convertToBack(size_t _index) const
 	{
 #if MYGUI_DEBUG_MODE == 1
@@ -106,7 +103,7 @@ namespace MyGUI
 		return _index == ITEM_NONE ? ITEM_NONE : mIndexFace[_index];
 	}
 
-	// на входе индексы реальные, на выходе, то что видит пользователь
+	// input: real indices, output: what the user sees
 	size_t BiIndexBase::convertToFace(size_t _index) const
 	{
 #if MYGUI_DEBUG_MODE == 1
@@ -115,7 +112,7 @@ namespace MyGUI
 		return _index == ITEM_NONE ? ITEM_NONE : mIndexBack[_index];
 	}
 
-	// меняет местами два индекса, индексы со стороны пользователя
+	// swap two user-facing indices
 	void BiIndexBase::swapItemsFaceAt(size_t _index1, size_t _index2)
 	{
 #if MYGUI_DEBUG_MODE == 1
@@ -127,7 +124,7 @@ namespace MyGUI
 		std::swap(mIndexBack[mIndexFace[_index1]], mIndexBack[mIndexFace[_index2]]);
 	}
 
-	// меняет местами два индекса, индексы со сторонны данных
+	// swap two data-side indices
 	void BiIndexBase::swapItemsBackAt(size_t _index1, size_t _index2)
 	{
 #if MYGUI_DEBUG_MODE == 1

@@ -920,10 +920,9 @@ namespace MyGUI
 				layer = node->findAttribute("layer");
 				pointer = node->findAttribute("default");
 
-				// сохраняем
 				std::string_view shared_text = node->findAttribute("texture");
 
-				// берем детей и крутимся, основной цикл
+				// iterate children, main loop
 				xml::ElementEnumerator info = node->getElementEnumerator();
 				while (info.next("Info"))
 				{
@@ -1015,7 +1014,7 @@ namespace MyGUI
 	{
 		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 
-		// берем детей и крутимся, основной цикл со скинами
+		// iterate children, main loop with skins
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(_tag))
 		{

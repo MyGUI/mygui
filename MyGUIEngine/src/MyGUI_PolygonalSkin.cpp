@@ -115,38 +115,31 @@ namespace MyGUI
 
 	void PolygonalSkin::_setAlign(const IntSize& _oldsize)
 	{
-		// первоначальное выравнивание
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true;
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true;
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
@@ -165,30 +158,26 @@ namespace MyGUI
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
-		// вьюпорт стал битым
+		// viewport changed
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// запоминаем текущее состояние
 				mIsMargin = margin;
 
-				// обновить перед выходом
 				if (nullptr != mNode)
 					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
-		// мы обрезаны или были обрезаны
+		// we are clipped or were clipped
 		if (mIsMargin || margin)
 		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 		}
 
-		// запоминаем текущее состояние
 		mIsMargin = margin;
 
 		if (nullptr != mNode)

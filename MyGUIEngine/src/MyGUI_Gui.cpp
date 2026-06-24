@@ -47,7 +47,6 @@ namespace MyGUI
 			Info,
 			"* MyGUI version " << MYGUI_VERSION_MAJOR << "." << MYGUI_VERSION_MINOR << "." << MYGUI_VERSION_PATCH);
 
-		// создаем и инициализируем синглтоны
 		mResourceManager = new ResourceManager();
 		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
@@ -84,7 +83,7 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
-		// загружаем дефолтные настройки если надо
+		// load default settings if needed
 		if (!_core.empty())
 			mResourceManager->load(_core);
 
@@ -110,7 +109,6 @@ namespace MyGUI
 
 		_destroyAllChildWidget();
 
-		// деинициализируем и удаляем синглтоны
 		mPointerManager->shutdown();
 		mInputManager->shutdown();
 		mSkinManager->shutdown();
@@ -147,7 +145,7 @@ namespace MyGUI
 		delete mFactoryManager;
 		delete mToolTipManager;
 
-		// сбрасываем кеш
+		// reset cache
 		texture_utility::getTextureSize(std::string{}, false);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
@@ -169,7 +167,7 @@ namespace MyGUI
 
 		widget->setAlign(_align);
 
-		// присоединяем виджет с уровню
+		// attach widget to layer
 		if (!_layer.empty())
 			LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
@@ -187,7 +185,6 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	// удяляет неудачника
 	void Gui::_destroyChildWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
@@ -195,16 +192,16 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-			// сохраняем указатель
+			// save pointer
 			MyGUI::Widget* widget = *iter;
 
-			// удаляем из списка
+			// remove from list
 			mWidgetChild.erase(iter);
 
-			// отписываем от всех
+			// unsubscribe from all
 			mWidgetManager->unlinkFromUnlinkers(_widget);
 
-			// непосредственное удаление
+			// direct deletion
 			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 		else
@@ -213,19 +210,18 @@ namespace MyGUI
 		}
 	}
 
-	// удаляет всех детей
 	void Gui::_destroyAllChildWidget()
 	{
 		while (!mWidgetChild.empty())
 		{
-			// сразу себя отписывем, иначе вложенной удаление убивает все
+			// unsubscribe self immediately, otherwise nested deletion kills everything
 			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
+			// unsubscribe from all
 			mWidgetManager->unlinkFromUnlinkers(widget);
 
-			// и сами удалим, так как его больше в списке нет
+			// delete it ourselves since it's no longer in the list
 			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}

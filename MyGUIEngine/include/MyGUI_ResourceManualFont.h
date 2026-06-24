@@ -29,7 +29,7 @@ namespace MyGUI
 
 		ITexture* getTextureFont() const override;
 
-		// дефолтная высота, указанная в настройках шрифта
+		// Default height from font settings
 		int getDefaultHeight() const override;
 
 		// Manual loading methods, not needed when loading from XML

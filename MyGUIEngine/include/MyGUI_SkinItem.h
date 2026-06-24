@@ -42,13 +42,9 @@ namespace MyGUI
 		void _setSubSkinVisible(bool _visible);
 
 	private:
-		// вектор всех детей сабскинов
 		VectorSubWidget mSubSkinChild;
-		// указатель на окно текста
 		ISubWidgetText* mText{nullptr};
-		// указатель на первый не текстовой сабскин
 		ISubWidgetRect* mMainSkin{nullptr};
-		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
 
 		std::string mTextureName;

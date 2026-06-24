@@ -39,10 +39,10 @@ namespace MyGUI
 		if (mHeightButton < 0)
 			mHeightButton = 0;
 
-		///@wskin_child{MultiListBox, Widget, HeaderPlace} Место для заголовков колонок.
+		///@wskin_child{MultiListBox, Widget, HeaderPlace} Place for column headers.
 		assignWidget(mHeaderPlace, "HeaderPlace");
 
-		///@wskin_child{MultiListBox, Widget, Empty} Виджет для заголовка в месте где нет списков.
+		///@wskin_child{MultiListBox, Widget, Empty} Widget for header where there are no lists.
 		assignWidget(mWidgetEmpty, "Empty");
 
 		if (mWidgetEmpty == nullptr)
@@ -71,7 +71,6 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setColumnNameAt");
 		mVectorColumnInfo[_column].name = _name;
-		// обновляем кэпшен сначала
 		redrawButtons();
 		updateColumns();
 	}
@@ -108,7 +107,6 @@ namespace MyGUI
 		{
 			mSortUp = !mSortUp;
 			redrawButtons();
-			// если было недосортированно то сортируем
 			if (mFrameAdvise)
 				sortList();
 
@@ -180,7 +178,7 @@ namespace MyGUI
 		size_t index = BiIndexBase::convertToBack(_index);
 		getSubItemAt(_column)->setItemNameAt(index, _name);
 
-		// если мы попортили список с активным сортом, надо пересчитывать
+		// if we changed a sorted list, need to resort
 		if (_column == mSortColumnIndex)
 			frameAdvise(true);
 	}
@@ -211,7 +209,6 @@ namespace MyGUI
 		if (nullptr == mWidgetEmpty)
 			return;
 
-		// кнопка, для заполнения пустоты
 		if (mWidthBar >= _getClientWidget()->getWidth())
 			mWidgetEmpty->setVisible(false);
 		else
@@ -233,13 +230,11 @@ namespace MyGUI
 
 		mItemSelected = BiIndexBase::convertToFace(_position);
 
-		// наш евент
 		eventListChangePosition(this, mItemSelected);
 	}
 
 	void MultiListBox::notifyListSelectAccept(ListBox* _sender, size_t _position)
 	{
-		// наш евент
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
@@ -329,7 +324,6 @@ namespace MyGUI
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty())
 			return nullptr;
-		// последний столбик
 		if (_index == mVectorColumnInfo.size() - 1)
 			return nullptr;
 
@@ -451,14 +445,12 @@ namespace MyGUI
 		if (ITEM_NONE == _index)
 			_index = mVectorColumnInfo.front().list->getItemCount();
 
-		// если надо, то меняем выделенный элемент
-		// при сортировке, обновится
 		if ((mItemSelected != ITEM_NONE) && (_index <= mItemSelected))
 			mItemSelected++;
 
 		size_t index = BiIndexBase::insertItemAt(_index);
 
-		// вставляем во все поля пустые, а потом присваиваем первому
+		// insert empty into all columns, then assign to first one
 		for (auto& iter : mVectorColumnInfo)
 		{
 			iter.list->insertItemAt(index, UString());
@@ -481,7 +473,6 @@ namespace MyGUI
 			iter.list->removeItemAt(index);
 		}
 
-		// если надо, то меняем выделенный элемент
 		size_t count = mVectorColumnInfo.begin()->list->getItemCount();
 		if (count == 0)
 			mItemSelected = ITEM_NONE;
@@ -501,10 +492,10 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 		MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 
-		// при сортированном, меняем только индексы
+		// if sorted: only indices are changed
 		BiIndexBase::swapItemsFaceAt(_index1, _index2);
 
-		// при несортированном, нужно наоборот, поменять только данные
+		// if not sorted: only data can be changed
 		// FIXME
 	}
 
@@ -699,7 +690,7 @@ namespace MyGUI
 
 	void MultiListBox::_wrapItem(MultiListItem* _item)
 	{
-		// скрываем у крайнего скролл
+		// hide scroll of the edge item
 		if (!mVectorColumnInfo.empty())
 			mVectorColumnInfo.back().list->setScrollVisible(false);
 		else
@@ -728,7 +719,7 @@ namespace MyGUI
 
 		column.button->eventMouseButtonClick += newDelegate(this, &MultiListBox::notifyButtonClick);
 
-		// если уже были столбики, то делаем то же колличество полей
+		// if columns already exist, add same number of items
 		if (!mVectorColumnInfo.empty())
 		{
 			size_t count = mVectorColumnInfo.front().list->getItemCount();
@@ -740,7 +731,7 @@ namespace MyGUI
 
 		updateColumns();
 
-		// показываем скролл нового крайнего
+		// show scroll of the new edge item
 		mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
@@ -952,7 +943,6 @@ namespace MyGUI
 
 			mWidthBar += columnWidth;
 
-			// промежуток между листами
 			Widget* separator = getOrCreateSeparator(index);
 			if (separator)
 			{

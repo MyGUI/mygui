@@ -37,7 +37,6 @@ namespace MyGUI
 		{
 		}
 
-		// интенсивность выделенного текста
 		virtual bool getSelectBackground() const
 		{
 			return true;
@@ -47,7 +46,6 @@ namespace MyGUI
 		{
 		}
 
-		// нужно ли инвертировать выделение
 		virtual bool getInvertSelected() const
 		{
 			return true;
@@ -57,7 +55,6 @@ namespace MyGUI
 		{
 		}
 
-		// нужно ли показывать тень
 		virtual bool getShadow() const
 		{
 			return false;
@@ -67,7 +64,6 @@ namespace MyGUI
 		{
 		}
 
-		// управление видимостью курсора
 		virtual bool isVisibleCursor() const
 		{
 			return false;
@@ -77,7 +73,6 @@ namespace MyGUI
 		{
 		}
 
-		// управление положением курсора
 		virtual size_t getCursorPosition() const
 		{
 			return 0;
@@ -91,40 +86,37 @@ namespace MyGUI
 		{
 		}
 
-		// возвращает положение курсора по произвольному положению
-		// позиция абсолютная, без учета смещений
+		// Get cursor position (character index) from an absolute coordinates point
 		virtual size_t getCursorPosition(const IntPoint& /*_point*/) const
 		{
 			return 0;
 		}
 
-		// возвращает положение курсора в обсолютных координатах
+		// Get absolute coordinates for a cursor position (character index)
 		virtual IntCoord getCursorCoord(size_t /*_position*/) const
 		{
 			return {};
 		}
 
-		// возвращает положение курсора в обсолютных координатах
+		// Get absolute position for a cursor position (character index)
 		IntPoint getCursorPoint(size_t _position) const
 		{
 			const IntCoord& coord = getCursorCoord(_position);
 			return {coord.left + coord.width / 2, coord.top + coord.height / 2};
 		}
 
-		// возвращает положение курсора в обсолютных координатах
+		// @see getCursorCoord
 		IntRect getCursorRect(size_t _position) const
 		{
 			const IntCoord& coord = getCursorCoord(_position);
 			return {coord.left, coord.top, coord.left + coord.width, coord.top + coord.height};
 		}
 
-		// возвращает размер текста в пикселях
 		virtual IntSize getTextSize() const
 		{
 			return {};
 		}
 
-		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(const IntPoint& /*_point*/)
 		{
 		}

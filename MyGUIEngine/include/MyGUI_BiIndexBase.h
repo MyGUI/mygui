@@ -28,16 +28,16 @@ namespace MyGUI
 
 		void removeAllItems();
 
-		// на входе индексы пользователя, на выходе реальные индексы
+		// Convert from user-facing index to actual data index
 		size_t convertToBack(size_t _index) const;
 
-		// на входе индексы реальные, на выходе, то что видит пользователь
+		// Convert from actual data index to user-facing index
 		size_t convertToFace(size_t _index) const;
 
-		// меняет местами два индекса, индексы со стороны пользователя
+		// Swap two items by user-facing indices
 		void swapItemsFaceAt(size_t _index1, size_t _index2);
 
-		// меняет местами два индекса, индексы со сторонны данных
+		// Swap two items by actual data indices
 		void swapItemsBackAt(size_t _index1, size_t _index2);
 
 		void checkIndexes();
@@ -45,12 +45,11 @@ namespace MyGUI
 	private:
 		using VectorSizeT = std::vector<size_t>;
 
-		// маппинг с индексов, которые видны наружу
-		// на индексы которые реально используются данными
+		// Mapping from user-facing indices to actual data indices
 		VectorSizeT mIndexFace;
 
-		// маппинг с индексов, которые используют данные
-		// на индексы которые виндны наружу
+		// Mapping from actual data indices to user-facing indices
+		// to user-visible indices
 		VectorSizeT mIndexBack;
 	};
 

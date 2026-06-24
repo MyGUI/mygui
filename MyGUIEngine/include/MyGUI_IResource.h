@@ -22,7 +22,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IResource : public ISerializable
 	{
-		// для серелизации и удаления
+		// For serialization and deletion
 		friend class ResourceManager;
 
 		MYGUI_RTTI_DERIVED(IResource)

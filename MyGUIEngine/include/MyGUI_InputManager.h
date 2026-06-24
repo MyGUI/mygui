@@ -87,7 +87,6 @@ namespace MyGUI
 		*/
 		IntPoint getMousePositionByLayer() const;
 
-		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
 		void addWidgetModal(Widget* _widget);
 		/** Remove modal widget */
@@ -130,21 +129,20 @@ namespace MyGUI
 		void _resetMouseFocusWidget();
 
 	private:
-		// удаляем данный виджет из всех возможных мест
+		// Remove widget from all tracked places (focus, capture, modal, etc)
 		void _unlinkWidget(Widget* _widget) override;
 
 		void frameEntered(float _frame);
 
 		void firstEncoding(KeyCode _key, bool bIsKeyPressed);
 
-		// запоминает клавишу для поддержки повторения
+		// Store key for repeat support
 		void storeKey(KeyCode _key, Char _text);
 
-		// сбрасывает клавишу повторения
 		void resetKey();
 
 	private:
-		// виджеты которым принадлежит фокус
+		// Widgets that currently have focus
 		Widget* mWidgetMouseFocus{nullptr};
 		Widget* mWidgetKeyFocus{nullptr};
 		ILayer* mLayerMouseFocus{nullptr};
@@ -152,9 +150,7 @@ namespace MyGUI
 		//used for double click timing
 		float mTimerDoubleClick; // time since the last click
 
-		// нажат ли шифт
 		bool mIsShiftPressed{false};
-		// нажат ли контрол
 		bool mIsControlPressed{false};
 		bool mIsAltPressed{false};
 		bool mIsMetaPressed{false};
@@ -167,14 +163,14 @@ namespace MyGUI
 		// is mouse button captured by active widget
 		bool mMouseCapture[MouseButton::MAX];
 
-		// клавиша для повтора
+		// Key repeat state
 		KeyCode mHoldKey{KeyCode::None};
 		Char mHoldChar{0};
 		bool mFirstPressKey{false};
 		float mTimerKey{0.0f};
 		int mOldAbsZ{0};
 
-		// список виджетов с модальным режимом
+		// Modal widgets stack
 		VectorWidgetPtr mVectorModalRootWidget;
 
 		bool mIsInitialise{false};

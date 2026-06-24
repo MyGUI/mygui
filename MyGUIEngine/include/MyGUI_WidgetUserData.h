@@ -57,11 +57,11 @@ namespace MyGUI
 		}
 
 	private:
-		// пользовательские данные
+		// User data
 		MapString mMapUserString;
 		Any mUserData;
 
-		// для внутренниего использования
+		// For internal use
 		Any mInternalData;
 	};
 

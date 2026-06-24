@@ -31,7 +31,6 @@ namespace MyGUI
 
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		//! Get number of items
 		size_t getItemCount() const;
@@ -54,7 +53,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getIndexSelected() const;
@@ -67,7 +65,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -84,7 +81,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const UString& _name);
@@ -94,7 +90,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выдимостью
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index);
@@ -110,7 +105,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------------//
-		// методы для управления отображением
 
 		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _drop);

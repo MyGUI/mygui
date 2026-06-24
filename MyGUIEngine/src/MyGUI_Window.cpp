@@ -27,10 +27,9 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME нам нужен фокус клавы
+		// FIXME we need keyboard focus
 		setNeedKeyFocus(true);
 
-		// дефолтные размеры
 		mMinmax.set(
 			(std::numeric_limits<int>::min)(),
 			(std::numeric_limits<int>::min)(),
@@ -131,7 +130,7 @@ namespace MyGUI
 
 	void Window::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
-		// на тот случай, если двигать окно, можно за любое место виджета
+		// in case window can be moved by any widget area
 		notifyMouseDrag(this, _left, _top, _id);
 
 		Base::onMouseDrag(_left, _top, _id);
@@ -188,7 +187,7 @@ namespace MyGUI
 		else
 			setCoord(mPreActionCoord + coord);
 
-		// посылаем событие о изменении позиции и размере
+		// send event about position and size change
 		eventWindowChangeCoord(this);
 	}
 
@@ -228,7 +227,7 @@ namespace MyGUI
 	void Window::setPosition(const IntPoint& _point)
 	{
 		IntPoint point = _point;
-		// прилепляем к краям
+		// snap to edges
 		if (mSnap)
 		{
 			IntCoord coord(point, mCoord.size());
@@ -242,7 +241,7 @@ namespace MyGUI
 	void Window::setSize(const IntSize& _size)
 	{
 		IntSize size = _size;
-		// прилепляем к краям
+		// snap to edges
 
 		if (size.width < mMinmax.left)
 			size.width = mMinmax.left;
@@ -472,23 +471,23 @@ namespace MyGUI
 
 	void Window::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{Window, AutoAlpha, bool} Режим регулировки прозрачности опираясь на фокус ввода.
+		/// @wproperty{Window, AutoAlpha, bool} Transparency adjustment mode based on input focus.
 		if (_key == "AutoAlpha")
 			setAutoAlpha(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Window, Snap, bool} Режим прилипания к краям экрана.
+		/// @wproperty{Window, Snap, bool} Snap to screen edges mode.
 		else if (_key == "Snap")
 			setSnap(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Window, MinSize, int int} Минимальный размер окна.
+		/// @wproperty{Window, MinSize, int int} Minimum window size.
 		else if (_key == "MinSize")
 			setMinSize(utility::parseValue<IntSize>(_value));
 
-		/// @wproperty{Window, MaxSize, int int} Максимальный размер окна.
+		/// @wproperty{Window, MaxSize, int int} Maximum window size.
 		else if (_key == "MaxSize")
 			setMaxSize(utility::parseValue<IntSize>(_value));
 
-		/// @wproperty{Window, Movable, bool} Режим движения окна мышью за любой участок.
+		/// @wproperty{Window, Movable, bool} Window movement by mouse on any area mode.
 		else if (_key == "Movable")
 			setMovable(utility::parseValue<bool>(_value));
 

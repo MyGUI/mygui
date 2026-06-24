@@ -76,7 +76,7 @@ public: \
 	typedef RTTIBase Base; \
 	typedef DerivedType RTTIBase; \
 	/** Compare with selected type */ \
-	virtual bool isType(const std::type_info& _type) const override \
+	bool isType(const std::type_info& _type) const override \
 	{ \
 		return typeid(DerivedType) == _type || Base::isType(_type); \
 	} \

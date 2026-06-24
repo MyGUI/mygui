@@ -49,7 +49,6 @@ namespace MyGUI
 		FactoryManager::getInstance().unregisterFactory<SharedLayer>(mCategoryName);
 		FactoryManager::getInstance().unregisterFactory<OverlappedLayer>(mCategoryName);
 
-		// удаляем все хранители слоев
 		clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
@@ -71,7 +70,6 @@ namespace MyGUI
 	void LayerManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 		VectorLayer layers;
-		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator layer = _node->getElementEnumerator();
 		while (layer.next(mCategoryName))
 		{
@@ -101,7 +99,7 @@ namespace MyGUI
 			layers.push_back(item);
 		}
 
-		// теперь мержим новые и старые слои
+		// now merge new and old layers
 		merge(layers);
 	}
 
@@ -118,16 +116,14 @@ namespace MyGUI
 		detachFromLayer(_widget);
 	}
 
-	// поправить на виджет и проверять на рутовость
+	// check widget and verify it is root
 	void LayerManager::attachToLayerNode(std::string_view _name, Widget* _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
 
-		// сначала отсоединяем
 		_item->detachFromLayer();
 
-		// а теперь аттачим
 		for (auto& layerNode : mLayerNodes)
 		{
 			if (_name == layerNode->getName())
@@ -171,7 +167,7 @@ namespace MyGUI
 			{
 				if (name == layer->getName())
 				{
-					// заменяем новый слой, на уже существующий
+					// replace new layer with existing one
 					delete layer;
 					layer = layerNode;
 					layerNode = nullptr;
@@ -186,7 +182,6 @@ namespace MyGUI
 			}
 		}
 
-		// теперь в основной
 		mLayerNodes = _layers;
 	}
 

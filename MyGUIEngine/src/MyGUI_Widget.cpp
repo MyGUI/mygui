@@ -55,7 +55,7 @@ namespace MyGUI
 
 
 #if MYGUI_DEBUG_MODE == 1
-		// проверяем соответсвие входных данных
+		// check input data consistency
 		if (mWidgetStyle == WidgetStyle::Child)
 		{
 			MYGUI_ASSERT(mCroppedParent, "must be cropped");
@@ -72,7 +72,7 @@ namespace MyGUI
 		}
 #endif
 
-		// корректируем абсолютные координаты
+		// adjust absolute coordinates
 		mAbsolutePosition = _coord.point();
 
 		if (nullptr != mCroppedParent)
@@ -86,15 +86,13 @@ namespace MyGUI
 			if (mParent)
 				mParent->addChildItem(this);
 		}
-		// дочернее нуно перекрывающееся
 		else if (mWidgetStyle == WidgetStyle::Overlapped)
 		{
-			// дочернее перекрывающееся
 			if (mParent)
 				mParent->addChildNode(this);
 		}
 
-		// витр метод для наследников
+		// virtual method for subclasses
 		initialiseOverride();
 
 		if (skinInfo != nullptr)
@@ -115,23 +113,20 @@ namespace MyGUI
 
 		setUserData(Any::Null);
 
-		// витр метод для наследников
+		// virtual method for subclasses
 		shutdownOverride();
 
 		shutdownWidgetSkinBase();
 
 		_destroyAllChildWidget();
 
-		// дочернее окно обыкновенное
 		if (mWidgetStyle == WidgetStyle::Child)
 		{
 			if (mParent)
 				mParent->removeChildItem(this);
 		}
-		// дочернее нуно перекрывающееся
 		else if (mWidgetStyle == WidgetStyle::Overlapped)
 		{
-			// дочернее перекрывающееся
 			if (mParent)
 				mParent->removeChildNode(this);
 		}
@@ -208,7 +203,7 @@ namespace MyGUI
 			_createSkinItem(_skinInfo);
 		}
 
-		// выставляем альфу, корректировка по отцу автоматически
+		// set alpha, auto-adjusted from parent
 		_updateAlpha();
 		_updateEnabled();
 		_updateVisible();
@@ -252,7 +247,7 @@ namespace MyGUI
 
 		if (root != nullptr)
 		{
-			//FIXME - явный вызов
+			//FIXME - explicit call
 			Widget::setSize(root->intCoord.size());
 
 			for (const auto& userString : root->userStrings)
@@ -266,7 +261,7 @@ namespace MyGUI
 			}
 		}
 
-		//FIXME - явный вызов
+		//FIXME - explicit call
 		Widget::setSize(_size);
 
 		return root;
@@ -278,10 +273,10 @@ namespace MyGUI
 
 		_deleteSkinItem();
 
-		// удаляем виджеты чтобы ли в скине
+		// remove widgets that were in skin
 		for (auto& iter : mWidgetChildSkin)
 		{
-			// Добавляем себя чтобы удалилось
+			// add self so it gets deleted
 			mWidgetChild.push_back(iter);
 			_destroyChildWidget(iter);
 		}
@@ -337,7 +332,7 @@ namespace MyGUI
 
 		widget->setAlign(_align);
 
-		// присоединяем виджет с уровню
+		// attach widget to layer
 		if (!_layer.empty() && widget->isRootWidget())
 			LayerManager::getInstance().attachToLayerNode(_layer, widget);
 
@@ -360,19 +355,17 @@ namespace MyGUI
 	{
 		bool margin = mCroppedParent ? _checkMargin() : false;
 
-		// вьюпорт стал битым
+		// viewport became invalid
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// запоминаем текущее состояние
+				// remember current state
 				mIsMargin = margin;
 
-				// скрываем
 				_setSubSkinVisible(false);
 
-				// вся иерархия должна быть проверенна
+				// entire hierarchy must be checked
 				for (auto& widget : mWidgetChild)
 					widget->_updateView();
 				for (auto& widget : mWidgetChildSkin)
@@ -381,20 +374,20 @@ namespace MyGUI
 				return;
 			}
 		}
-		// мы не обрезаны и были нормальные
+		// we are not clipped and were normal
 		else if (!mIsMargin)
 		{
 			_updateSkinItemView();
 			return;
 		}
 
-		// запоминаем текущее состояние
+		// remember current state
 		mIsMargin = margin;
 
-		// если скин был скрыт, то покажем
+		// if skin was hidden, show it
 		_setSubSkinVisible(true);
 
-		// обновляем наших детей, а они уже решат обновлять ли своих детей
+		// update our children, they decide whether to update theirs
 		for (auto& widget : mWidgetChild)
 			widget->_updateView();
 		for (auto& widget : mWidgetChildSkin)
@@ -420,16 +413,16 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-			// сохраняем указатель
+			// save pointer
 			MyGUI::Widget* widget = *iter;
 
-			// удаляем из списка
+			// remove from list
 			mWidgetChild.erase(iter);
 
-			// отписываем от всех
+			// unsubscribe from all
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
 
-			// непосредственное удаление
+			// direct deletion
 			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 		else
@@ -438,20 +431,19 @@ namespace MyGUI
 		}
 	}
 
-	// удаляет всех детей
 	void Widget::_destroyAllChildWidget()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
 		while (!mWidgetChild.empty())
 		{
-			// сразу себя отписывем, иначе вложенной удаление убивает все
+			// unsubscribe self immediately, otherwise nested deletion kills everything
 			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
+			// unsubscribe from all
 			manager.unlinkFromUnlinkers(widget);
 
-			// и сами удалим, так как его больше в списке нет
+			// and delete it ourselves since it's no longer in the list
 			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}
@@ -495,18 +487,18 @@ namespace MyGUI
 
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
-		// проверяем попадание
+		// check point hit
 		if (!mEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
 			!_checkPoint(_left, _top)
-			// если есть маска, проверяем еще и по маске
+			// if there is a mask, also check by mask
 			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))
 			return nullptr;
 
-		// спрашиваем у детишек
+		// ask children
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend();
 			 ++widget)
 		{
-			// общаемся только с послушными детьми
+			// only talk to obedient children
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
 				continue;
 
@@ -514,7 +506,7 @@ namespace MyGUI
 			if (item != nullptr)
 				return item;
 		}
-		// спрашиваем у детишек скина
+		// ask skin children
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChildSkin.rbegin();
 			 widget != mWidgetChildSkin.rend();
 			 ++widget)
@@ -524,13 +516,13 @@ namespace MyGUI
 				return item;
 		}
 
-		// непослушные дети
+		// disobedient children
 		return getInheritsPick() ? nullptr : const_cast<Widget*>(this);
 	}
 
 	void Widget::_updateAbsolutePoint()
 	{
-		// мы рут, нам не надо
+		// we are root, not needed
 		if (!mCroppedParent)
 			return;
 
@@ -617,41 +609,34 @@ namespace MyGUI
 		bool need_size = false;
 		IntCoord coord = mCoord;
 
-		// первоначальное выравнивание
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
 			coord.width = mCoord.width + (size.width - _oldsize.width);
 			need_size = true;
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
 			coord.left = mCoord.left + (size.width - _oldsize.width);
 			need_move = true;
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
 			coord.left = (size.width - mCoord.width) / 2;
 			need_move = true;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
 			coord.height = mCoord.height + (size.height - _oldsize.height);
 			need_size = true;
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
 			coord.top = mCoord.top + (size.height - _oldsize.height);
 			need_move = true;
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
 			coord.top = (size.height - mCoord.height) / 2;
 			need_move = true;
 		}
@@ -669,13 +654,12 @@ namespace MyGUI
 		}
 		else
 		{
-			_updateView(); // только если не вызвано передвижение и сайз
+			_updateView(); // only if move and resize not called
 		}
 	}
 
 	void Widget::setPosition(const IntPoint& _point)
 	{
-		// обновляем абсолютные координаты
 		mAbsolutePosition += _point - mCoord.point();
 
 		for (auto& widget : mWidgetChild)
@@ -692,28 +676,25 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize& _size)
 	{
-		// устанавливаем новую координату а старую пускаем в расчеты
+		// set new coordinate, use old one in calculations
 		IntSize old = mCoord.size();
 		mCoord = _size;
 
 		bool visible = true;
 
-		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
 
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// скрываем
 				visible = false;
 			}
 		}
 
 		_setSubSkinVisible(visible);
 
-		// передаем старую координату , до вызова, текущая координата отца должна быть новой
+		// pass old coord, before call, current parent coord must be new
 		for (auto& widget : mWidgetChild)
 			widget->_setAlign(old, getSize());
 		for (auto& widget : mWidgetChildSkin)
@@ -721,7 +702,7 @@ namespace MyGUI
 
 		_setSkinItemAlign(old);
 
-		// запоминаем текущее состояние
+		// remember current state
 		mIsMargin = margin;
 
 		eventChangeCoord(this);
@@ -729,7 +710,7 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord& _coord)
 	{
-		// обновляем абсолютные координаты
+		// update absolute coordinates
 		mAbsolutePosition += _coord.point() - mCoord.point();
 
 		for (auto& widget : mWidgetChild)
@@ -737,28 +718,25 @@ namespace MyGUI
 		for (auto& widget : mWidgetChildSkin)
 			widget->_updateAbsolutePoint();
 
-		// устанавливаем новую координату а старую пускаем в расчеты
+		// set new coordinate, use old one in calculations
 		IntCoord old = mCoord;
 		mCoord = _coord;
 
 		bool visible = true;
 
-		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
 
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// скрываем
 				visible = false;
 			}
 		}
 
 		_setSubSkinVisible(visible);
 
-		// передаем старую координату , до вызова, текущая координата отца должна быть новой
+		// pass old coord, before call, current parent coord must be new
 		for (auto& widget : mWidgetChild)
 			widget->_setAlign(old.size(), getSize());
 		for (auto& widget : mWidgetChildSkin)
@@ -766,7 +744,7 @@ namespace MyGUI
 
 		_setSkinItemAlign(old.size());
 
-		// запоминаем текущее состояние
+		// remember current state
 		mIsMargin = margin;
 
 		eventChangeCoord(this);
@@ -786,7 +764,7 @@ namespace MyGUI
 		Widget* parent = getParent();
 		if (parent)
 		{
-			// отдетачиваемся от лееров
+			// detach from layers
 			if (!isRootWidget())
 			{
 				detachFromLayerItemNode(true);
@@ -804,7 +782,7 @@ namespace MyGUI
 
 				mCroppedParent = nullptr;
 
-				// обновляем координаты
+				// update coordinates
 				mAbsolutePosition = mCoord.point();
 
 				for (auto& widget : mWidgetChild)
@@ -812,13 +790,13 @@ namespace MyGUI
 				for (auto& widget : mWidgetChildSkin)
 					widget->_updateAbsolutePoint();
 
-				// сбрасываем обрезку
+				// reset clipping
 				mMargin.clear();
 
 				_updateView();
 			}
 
-			// нам нужен самый рутовый парент
+			// we need the most root parent
 			while (parent->getParent())
 				parent = parent->getParent();
 
@@ -938,7 +916,7 @@ namespace MyGUI
 
 		detachFromWidget();
 		attachToWidget(parent, _style, _layer);
-		// ищем леер к которому мы присоедененны
+		// find layer to which we are attached
 	}
 
 	Widget* Widget::createWidgetT(
@@ -1237,43 +1215,43 @@ namespace MyGUI
 		else if (_key == "Depth")
 			setDepth(utility::parseValue<int>(_value));
 
-		/// @wproperty{Widget, Alpha, float} Прозрачность виджета от 0 до 1.
+		/// @wproperty{Widget, Alpha, float} Widget transparency from 0 to 1.
 		else if (_key == "Alpha")
 			setAlpha(utility::parseValue<float>(_value));
 
-		/// @wproperty{Widget, Colour, Colour} Цвет виджета.
+		/// @wproperty{Widget, Colour, Colour} Widget colour.
 		else if (_key == "Colour")
 			setColour(utility::parseValue<Colour>(_value));
 
-		/// @wproperty{Widget, InheritsAlpha, bool} Режим наследования прозрачности.
+		/// @wproperty{Widget, InheritsAlpha, bool} Alpha inheritance mode.
 		else if (_key == "InheritsAlpha")
 			setInheritsAlpha(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, InheritsPick, bool} Режим наследования доступности мышью.
+		/// @wproperty{Widget, InheritsPick, bool} Mouse accessibility inheritance mode.
 		else if (_key == "InheritsPick")
 			setInheritsPick(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, MaskPick, string} Имя файла текстуры по которому генерится маска для доступности мышью.
+		/// @wproperty{Widget, MaskPick, string} Texture file name for mouse accessibility mask.
 		else if (_key == "MaskPick")
 			setMaskPick(std::string{_value});
 
-		/// @wproperty{Widget, NeedKey, bool} Режим доступности виджета для ввода с клавиатуры.
+		/// @wproperty{Widget, NeedKey, bool} Keyboard input accessibility mode.
 		else if (_key == "NeedKey")
 			setNeedKeyFocus(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, NeedMouse, bool} Режим доступности виджета для ввода мышью.
+		/// @wproperty{Widget, NeedMouse, bool} Mouse input accessibility mode.
 		else if (_key == "NeedMouse")
 			setNeedMouseFocus(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, Enabled, bool} Режим доступности виджета.
+		/// @wproperty{Widget, Enabled, bool} Widget enabled mode.
 		else if (_key == "Enabled")
 			setEnabled(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, NeedToolTip, bool} Режим поддержки тултипов.
+		/// @wproperty{Widget, NeedToolTip, bool} Tooltip support mode.
 		else if (_key == "NeedToolTip")
 			setNeedToolTip(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, Pointer, string} Указатель мыши для этого виджета.
+		/// @wproperty{Widget, Pointer, string} Mouse pointer for this widget.
 		else if (_key == "Pointer")
 			setPointer(_value);
 
@@ -1446,7 +1424,7 @@ namespace MyGUI
 
 	void Widget::addWidget(Widget* _widget)
 	{
-		// сортировка глубины от большого к меньшему
+		// sort depth from largest to smallest
 
 		int depth = _widget->getDepth();
 

@@ -36,7 +36,6 @@ namespace MyGUI
 
 	}
 
-	// информация об одном символе
 	struct GlyphInfo
 	{
 		GlyphInfo(

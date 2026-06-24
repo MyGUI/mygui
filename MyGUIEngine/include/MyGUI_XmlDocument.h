@@ -297,23 +297,21 @@ namespace MyGUI::xml
 	class MYGUI_EXPORT Document
 	{
 	public:
-		// открывает обычным файлом, имя файла в utf8
+		// Open as regular file, filename in UTF-8
 		bool open(const std::string& _filename);
 
-		// открывает обычным файлом, имя файла в utf16 или utf32
+		// Open as regular file, filename in UTF-16 or UTF-32
 		bool open(const std::wstring& _filename);
 
-		// открывает обычным потоком
+		// Open as regular stream
 		bool open(std::istream& _stream);
 
 		bool open(const UString& _filename);
 
 		bool open(IDataStream* _stream);
 
-		// сохраняет файл
 		bool save(const std::string& _filename);
 
-		// сохраняет файл
 		bool save(const std::wstring& _filename);
 
 		bool save(std::ostream& _stream);
@@ -353,7 +351,7 @@ namespace MyGUI::xml
 
 		bool parseLine(std::string& _line, ElementPtr& _element);
 
-		// ищет символ без учета ковычек
+		// Search character ignoring quotes
 		size_t find(std::string_view _text, char _char, size_t _start = 0);
 
 		void clearDeclaration();

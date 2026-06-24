@@ -13,10 +13,9 @@
 namespace MyGUI
 {
 
-	// вспомогательный класс для инициализации сабскинов
+	// Helper class
 	class MYGUI_EXPORT SubWidgetBinding
 	{
-		// для доступа к внутренним членам
 		friend class ResourceSkin;
 
 	public:

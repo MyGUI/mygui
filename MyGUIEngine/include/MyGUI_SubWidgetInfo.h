@@ -13,7 +13,6 @@
 namespace MyGUI
 {
 
-	// информация, об одном сабвиджете
 	struct SubWidgetInfo
 	{
 	public:

@@ -30,7 +30,6 @@ namespace MyGUI
 
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		/** @name Item Methods.
 			Methods used to manipulate items.
@@ -60,7 +59,6 @@ namespace MyGUI
 		//@}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
 
 		/** @name Item Selection Methods
 			Methods used to manipulate item selection.
@@ -77,7 +75,6 @@ namespace MyGUI
 		//@}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		/** @name Item Data Methods
 			Methods used to manipulate item user data.
@@ -99,7 +96,6 @@ namespace MyGUI
 		//@}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const UString& _name);
@@ -109,7 +105,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выдимостью
 
 		/** @name Item Visibility Methods
 			Methods used to determine and manipulate item visibility.
@@ -129,7 +124,6 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------//
 
-		// видим ли мы элемент, полностью или нет
 		/** Return true if item visible
 			@param
 				_index of item
@@ -230,10 +224,10 @@ namespace MyGUI
 			Internal use methods.
 		*/
 		//@{
-		// дебажная проверка на правильность выравнивания списка
+		// Debug check for proper list alignment
 		void _checkAlign();
 
-		// вспомогательные методы для составных списков
+		// Helper methods for compound/composite lists
 		void _setItemFocus(size_t _index, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
@@ -273,16 +267,15 @@ namespace MyGUI
 
 		void _setScrollView(size_t _position);
 
-		// перерисовывает от индекса до низа
+		// Redraw items from specified index to bottom
 		void _redrawItemRange(size_t _start = 0);
 
-		// перерисовывает индекс
 		void _redrawItem(size_t _index);
 
-		// ищет и выделяет елемент
+		// Find and select element
 		void _selectIndex(size_t _index, bool _select);
 
-		// метод для запроса номера айтема и контейнера
+		// Method for requesting item index from container
 		size_t _getItemIndex(Widget* _item) const override;
 
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
@@ -294,26 +287,25 @@ namespace MyGUI
 		std::string mSkinLine;
 		ScrollBar* mWidgetScroll{nullptr};
 
-		// наши дети в строках
+		// Button widgets representing list rows
 		using VectorButton = std::vector<Button*>;
 		VectorButton mWidgetLines;
 
 		bool mActivateOnClick{false}; // Require a full mouse click rather than only mouse press to activate an item
 
-		int mHeightLine{1}; // высота одной строки
-		int mTopIndex{0}; // индекс самого верхнего элемента
-		int mOffsetTop{0}; // текущее смещение
-		int mRangeIndex{-1}; // размерность скрола
-		size_t mLastRedrawLine{0}; // последняя перерисованная линия
+		int mHeightLine{1};
+		int mTopIndex{0};
+		int mOffsetTop{0};
+		int mRangeIndex{-1};
+		size_t mLastRedrawLine{0};
 
-		size_t mIndexSelect{ITEM_NONE}; // текущий выделенный элемент или ITEM_NONE
-		size_t mLineActive{ITEM_NONE}; // текущий виджет над которым мыша
+		size_t mIndexSelect{ITEM_NONE};
+		size_t mLineActive{ITEM_NONE};
 
 		using PairItem = std::pair<UString, Any>;
 		using VectorItemInfo = std::vector<PairItem>;
 		VectorItemInfo mItemsInfo;
 
-		// имеем ли мы фокус ввода
 		bool mNeedVisibleScroll{true};
 
 		IntSize mOldSize;

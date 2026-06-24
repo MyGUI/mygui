@@ -74,14 +74,14 @@ namespace MyGUI
 	{
 		mStateInfo = _info->getStateInfo();
 
-		// все что с текстурой можно тоже перенести в скин айтем и setRenderItemTexture
+		// everything with texture can be moved to SkinItem and setRenderItemTexture
 		mTextureName = _info->getTextureName();
 		mTexture = RenderManager::getInstance().getTexture(mTextureName);
 
 		setRenderItemTexture(mTexture);
 
 		const std::string& categoryName = SubWidgetManager::getInstance().getCategoryName();
-		// загружаем кирпичики виджета
+		// load widget subcomponents
 		FactoryManager& factory = FactoryManager::getInstance();
 		for (const auto& iter : _info->getBasisInfo())
 		{
@@ -97,7 +97,7 @@ namespace MyGUI
 			mSubSkinChild.push_back(sub);
 			addRenderItem(sub);
 
-			// ищем дефолтные сабвиджеты
+			// look for default subwidgets
 			if (mMainSkin == nullptr)
 				mMainSkin = sub->castType<ISubWidgetRect>(false);
 			if (mText == nullptr)
@@ -114,7 +114,6 @@ namespace MyGUI
 		mStateInfo.clear();
 
 		removeAllRenderItems();
-		// удаляем все сабскины
 		mMainSkin = nullptr;
 		mText = nullptr;
 

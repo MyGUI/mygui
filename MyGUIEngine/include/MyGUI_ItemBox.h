@@ -35,7 +35,6 @@ namespace MyGUI
 		ItemBox();
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		//! Get number of items
 		size_t getItemCount() const;
@@ -60,7 +59,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getIndexSelected() const;
@@ -73,7 +71,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -234,10 +231,10 @@ namespace MyGUI
 		void updateDropItems() override;
 		void updateDropItemsState(const DDWidgetState& _state) override;
 
-		// Обновляет данные о айтемах, при изменении размеров
+		// Update item metrics when dimensions change
 		void updateMetrics();
 
-		// просто обновляет все виджеты что видны
+		// Update all visible item widgets
 		void _updateAllVisible(bool _redraw);
 
 		void updateFromResize();
@@ -248,12 +245,10 @@ namespace MyGUI
 
 		void _setContainerItemInfo(size_t _index, bool _set, bool _accept) override;
 
-		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();
-		// ищет и устанавливает подсвеченный айтем
 		void findCurrentActiveItem();
 
-		// запрашиваем у конейтера айтем по позиции мыши
+		// Request item index from container by mouse position
 		size_t _getContainerIndex(const IntPoint& _point) const override;
 
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
@@ -272,41 +267,29 @@ namespace MyGUI
 		void setContentPosition(const IntPoint& _point) override;
 
 	private:
-		// наши дети в строках
+		// Item widget pool
 		VectorWidgetPtr mVectorItems;
 
-		// размер одного айтема
 		IntSize mSizeItem;
 
-		// размерность скролла в пикселях
 		IntSize mContentSize;
-		// позиция скролла п пикселях
 		IntPoint mContentPosition;
 
-		// колличество айтемов в одной строке
 		int mCountItemInLine{0};
-		// колличество линий
 		int mCountLines{0};
 
-		// самая верхняя строка
 		int mFirstVisibleIndex{0};
-		// текущее смещение верхнего элемента в пикселях
-		// сколько его пикселей не видно сверху
+		// Pixel offset of first visible item (how many pixels are hidden above)
 		int mFirstOffsetIndex{0};
 
-		// текущий выделенный элемент или ITEM_NONE
 		size_t mIndexSelect{ITEM_NONE};
-		// подсвеченный элемент или ITEM_NONE
 		size_t mIndexActive{ITEM_NONE};
-		// индекс со свойством приема или ITEM_NONE
 		size_t mIndexAccept{ITEM_NONE};
-		// индекс со свойством отказа или ITEM_NONE
 		size_t mIndexRefuse{ITEM_NONE};
 
-		// имеем ли мы фокус ввода
 		bool mIsFocus{false};
 
-		// структура данных об айтеме
+		// Item data storage
 		VectorItemInfo mItemsInfo;
 
 		Widget* mItemDrag{nullptr};

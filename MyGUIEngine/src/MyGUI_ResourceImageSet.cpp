@@ -17,7 +17,6 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator group_node = _node->getElementEnumerator();
 		while (group_node.next("Group"))
 		{

@@ -54,8 +54,6 @@ namespace MyGUI
 				@remarks
 				The size specified at creation of the texture increases to nearest power of two and doesn't change any more. Texture is always stretched on all widget.
 			*/
-			// Размер указаный при создании текстуры увеличиваеться до степени двойки и больше не меняется.
-			// Текстура всегда растягиваеться во весь виджет.
 			TRM_PT_CONST_SIZE,
 
 			/**
@@ -66,10 +64,6 @@ namespace MyGUI
 				The size specified at creation of the texture is ignored.
 				The texture is automatically recreated if the size of the widget becomes bigger.
 			*/
-			// Размер указаный при создании текстуры игнорируется.
-			// Текстура всегда больше размера окна и кратна степени двойки.
-			// Если размер виджета становится больше чем размер текстуры, текстура пересоздается.
-			// Текстура всегда отображатся пиксель в пиксель на виджет, образуя рабочую область текстуры.
 			TRM_PT_VIEW_REQUESTED,
 
 			/**	Mode when the texture stretched on all widget and automatically changes the size for nice look.
@@ -79,10 +73,6 @@ namespace MyGUI
 				The size specified at creation of the texture is ignored.
 				The texture is automatically recreated if the size of the widget becomes bigger.
 			*/
-			// Размер указаный при создании текстуры игнорируется.
-			// Текстура всегда больше размера окна и кратна степени двойки.
-			// Если размер виджета становится больше чем размер текстуры, текстура пересоздается.
-			// Текстура всегда растягиваеться во весь виджет.
 			TRM_PT_VIEW_ALL
 		};
 

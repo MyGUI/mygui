@@ -41,7 +41,6 @@ namespace MyGUI
 		/** Get length of selected text */
 		size_t getTextSelectionLength() const;
 
-		// возвращает текст с тегами
 		/** Get _count characters with tags from _start position */
 		UString getTextInterval(size_t _start, size_t _count) const;
 
@@ -256,7 +255,7 @@ namespace MyGUI
 		void onKeySetFocus(Widget* _old) override;
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 
-		// потом убрать все нотифи в сраку
+		// TODO: refactor these notify methods
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
 		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -267,7 +266,6 @@ namespace MyGUI
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _position);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 
-		// обновление представления
 		void updateView();
 		void updateViewWithCursor();
 
@@ -276,37 +274,29 @@ namespace MyGUI
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
-		// устанавливает текст
 		void setText(const UString& _caption, bool _history);
-		// удаляет все что выделенно
 		bool deleteTextSelect(bool _history);
-		// вставляет текст в указанную позицию
 		void insertText(const UString& _text, size_t _start, bool _history);
-		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
-		// выделяет цветом выделение
 		void setTextSelectColour(const Colour& _colour, bool _history);
-		// выделяет цветом диапазон
 		void _setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history);
 
 		void frameEntered(float _frame);
 
 		void updateEditState();
 
-		// обновляет курсор по координате
+		// Update text selection based on mouse coordinates
 		void updateSelectText();
 
 		void resetSelect();
 
-		// запись в историю данных о позиции
+		// Record position data in undo/redo history
 		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo* _info = nullptr);
 
-		// команнды отмена и повтор
 		bool commandRedo();
 		bool commandUndo();
-		// объединяет последние две комманды
+		// Merge last two commands in history
 		void commandMerge();
-		// очистка
 		void commandResetRedo();
 		void commandResetHistory();
 		void saveInHistory(VectorChangeInfo* _info = nullptr);
@@ -322,39 +312,30 @@ namespace MyGUI
 
 		void updateCursorPosition();
 
-		// размер данных
 		IntSize getContentSize() const override;
-		// смещение данных
 		IntPoint getContentPosition() const override;
 		void setContentPosition(const IntPoint& _point) override;
-		// размер окна, через которые видно данные
 		IntSize getViewSize() const override;
-		// размер на который прокручиваются данные при щелчке по скролу
 		size_t getVScrollPage() const override;
 		size_t getHScrollPage() const override;
 
 		Align getContentAlign() const override;
 
 	protected:
-		// нажата ли кнопка
 		bool mIsPressed{false};
-		// в фокусе ли кнопка
 		bool mIsFocus{false};
 
 		bool mCursorActive{false};
 		float mCursorTimer{0};
 		float mActionMouseTimer{0};
 
-		// позиция курсора
 		size_t mCursorPosition{0};
-		// максимальное колличество
 		size_t mTextLength{0};
 
-		// выделение
 		size_t mStartSelect{ITEM_NONE};
 		size_t mEndSelect{0};
 
-		// списоки изменений для отмены и повтора
+		// Undo/redo change history
 		DequeUndoRedoInfo mVectorUndoChangeInfo;
 		DequeUndoRedoInfo mVectorRedoChangeInfo;
 
@@ -368,10 +349,10 @@ namespace MyGUI
 
 		bool mTabPrinting{false};
 
-		// настоящий текст, закрытый за звездочками
+		// Actual text hidden behind password characters
 		UString mPasswordText;
 
-		// для поддержки режима статик, где курсор не нужен
+		// Original pointer name for static mode (where cursor is not needed)
 		std::string mOriginalPointer;
 
 		Char mCharPassword{'*'};

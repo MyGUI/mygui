@@ -76,7 +76,6 @@ namespace MyGUI
 					while (element.next("Code"))
 					{
 						std::string value;
-						// описане глифов
 						if (element->findAttribute("index", value))
 						{
 							Char id = 0;

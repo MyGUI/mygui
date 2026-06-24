@@ -20,7 +20,7 @@ namespace MyGUI
 		IntSize contentSize = getContentSize();
 		IntSize viewSize = getViewSize();
 
-		// вертикальный контент не помещается
+		// vertical content does not fit
 		if (contentSize.height > viewSize.height)
 		{
 			if (mVScroll != nullptr)
@@ -32,7 +32,6 @@ namespace MyGUI
 						mScrollViewClient->getWidth() - mVScroll->getWidth(),
 						mScrollViewClient->getHeight());
 
-					// размер может измениться
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -44,8 +43,8 @@ namespace MyGUI
 					{
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет показа
+						// if vertical scrollbar shown, view shrinks horizontally
+						// so recalculate horizontal scroll for showing
 						if ((contentSize.width > viewSize.width) && (!mHScroll->getVisible()) && (mVisibleHScroll))
 						{
 							mHScroll->setVisible(true);
@@ -54,7 +53,6 @@ namespace MyGUI
 								mScrollViewClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-							// размер может измениться
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -66,7 +64,7 @@ namespace MyGUI
 				}
 			}
 		}
-		// вертикальный контент помещается
+		// vertical content fits
 		else
 		{
 			if (mVScroll != nullptr)
@@ -78,7 +76,6 @@ namespace MyGUI
 						mScrollViewClient->getWidth() + mVScroll->getWidth(),
 						mScrollViewClient->getHeight());
 
-					// размер может измениться
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -90,8 +87,8 @@ namespace MyGUI
 					{
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет скрытия
+						// if vertical scrollbar hidden, view grows horizontally,
+						// so recalculate horizontal scroll for hiding
 						if ((contentSize.width <= viewSize.width) && (mHScroll->getVisible()))
 						{
 							mHScroll->setVisible(false);
@@ -100,7 +97,6 @@ namespace MyGUI
 								mScrollViewClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-							// размер может измениться
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -114,7 +110,7 @@ namespace MyGUI
 		}
 
 
-		// горизонтальный контент не помещается
+		// horizontal content does not fit
 		if (contentSize.width > viewSize.width)
 		{
 			if (mHScroll != nullptr)
@@ -126,7 +122,6 @@ namespace MyGUI
 						mScrollViewClient->getWidth(),
 						mScrollViewClient->getHeight() - mHScroll->getHeight());
 
-					// размер может измениться
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -138,8 +133,8 @@ namespace MyGUI
 					{
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет показа
+						// if horizontal scrollbar shown, view shrinks vertically,
+						// so recalculate vertical scroll for showing
 						if ((contentSize.height > viewSize.height) && (!mVScroll->getVisible()) && (mVisibleVScroll))
 						{
 							mVScroll->setVisible(true);
@@ -148,7 +143,6 @@ namespace MyGUI
 								mScrollViewClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер может измениться
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -160,7 +154,7 @@ namespace MyGUI
 				}
 			}
 		}
-		// горизонтальный контент помещается
+		// horizontal content fits
 		else
 		{
 			if (mHScroll != nullptr)
@@ -172,7 +166,6 @@ namespace MyGUI
 						mScrollViewClient->getWidth(),
 						mScrollViewClient->getHeight() + mHScroll->getHeight());
 
-					// размер может измениться
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -184,8 +177,8 @@ namespace MyGUI
 					{
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет скрытия
+						// if horizontal scrollbar hidden, view grows vertically,
+						// so recalculate vertical scroll for hiding
 						if ((contentSize.height <= viewSize.height) && (mVScroll->getVisible()))
 						{
 							mVScroll->setVisible(false);
@@ -194,7 +187,6 @@ namespace MyGUI
 								mScrollViewClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер может измениться
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -233,11 +225,8 @@ namespace MyGUI
 
 	void ScrollViewBase::updateScrollPosition()
 	{
-		// размер контекста
 		IntSize contentSize = getContentSize();
-		// текущее смещение контекста
 		IntPoint contentPoint = getContentPosition();
-		// расчетное смещение
 		IntPoint offset = contentPoint;
 
 		IntSize viewSize = getViewSize();
@@ -246,12 +235,10 @@ namespace MyGUI
 
 		if (contentSize.width > viewSize.width)
 		{
-			// максимальный выход влево
 			if ((offset.left + viewSize.width) > contentSize.width)
 			{
 				offset.left = contentSize.width - viewSize.width;
 			}
-			// максимальный выход вправо
 			else if (offset.left < 0)
 			{
 				offset.left = 0;
@@ -275,12 +262,10 @@ namespace MyGUI
 
 		if (contentSize.height > viewSize.height)
 		{
-			// максимальный выход вверх
 			if ((offset.top + viewSize.height) > contentSize.height)
 			{
 				offset.top = contentSize.height - viewSize.height;
 			}
-			// максимальный выход вниз
 			else if (offset.top < 0)
 			{
 				offset.top = 0;

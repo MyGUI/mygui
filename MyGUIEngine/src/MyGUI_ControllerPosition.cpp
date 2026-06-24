@@ -49,7 +49,6 @@ namespace MyGUI
 
 		mStartCoord = _widget->getCoord();
 
-		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget, this);
 	}
 
@@ -71,13 +70,12 @@ namespace MyGUI
 			else if (mCalcSize)
 				_widget->setSize(coord.size());
 
-			// вызываем пользовательский делегат обновления
 			eventUpdateAction(_widget, this);
 
 			return true;
 		}
 
-		// поставить точно в конец
+		// set exactly to the end
 		IntCoord coord;
 		eventFrameAction(mStartCoord, mDestCoord, coord, 1.0f);
 		if (mCalcPosition)
@@ -90,10 +88,8 @@ namespace MyGUI
 		else if (mCalcSize)
 			_widget->setSize(coord.size());
 
-		// вызываем пользовательский делегат обновления
 		eventUpdateAction(_widget, this);
 
-		// вызываем пользовательский делегат пост обработки
 		eventPostAction(_widget, this);
 
 		return false;

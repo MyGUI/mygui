@@ -75,7 +75,6 @@ namespace MyGUI
 		void setVisibleSmooth(bool _visible);
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		//! Get number of items
 		size_t getItemCount() const;
@@ -110,7 +109,6 @@ namespace MyGUI
 		//! Remove all items
 		void removeAllItems();
 
-
 		//! Get item from specified position
 		MenuItem* getItemAt(size_t _index) const;
 
@@ -124,7 +122,6 @@ namespace MyGUI
 		MenuItem* findItemWith(const UString& _name);
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -169,7 +166,6 @@ namespace MyGUI
 		/** Get item index by id */
 		size_t getItemIndexById(std::string_view _id) const;
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const UString& _name);
@@ -190,7 +186,6 @@ namespace MyGUI
 		void setItemChildVisible(MenuItem* _item, bool _visible);
 
 		//------------------------------------------------------------------------------//
-		// остальные манипуляции
 
 		/** Create specific type child item (submenu) for item by index */
 		template<typename Type>
@@ -323,7 +318,6 @@ namespace MyGUI
 
 	protected:
 		bool mHideByAccept{true};
-		// нужно ли выбрасывать по нажатию
 		bool mMenuDropMode{false};
 		bool mIsMenuDrop{true};
 		bool mHideByLostKey{false};
@@ -339,7 +333,7 @@ namespace MyGUI
 		std::string mSubMenuSkin;
 		std::string mSubMenuLayer;
 
-		// флаг, чтобы отсеч уведомления от айтемов, при общем шутдауне виджета
+		// Flag to ignore notifications from items during widget shutdown
 		bool mShutdown{false};
 
 		bool mVerticalAlignment{true};

@@ -89,14 +89,12 @@ namespace MyGUI
 			mOutOfDateCompression = false;
 		}
 
-		// сначала отрисовываем свое
 		for (auto& firstRenderItem : mFirstRenderItems)
 			firstRenderItem->renderToTarget(_target, _update);
 
 		for (auto& secondRenderItem : mSecondRenderItems)
 			secondRenderItem->renderToTarget(_target, _update);
 
-		// теперь отрисовываем дочерние узлы
 		for (auto& childItem : mChildItems)
 			childItem->renderToTarget(_target, _update);
 
@@ -113,7 +111,6 @@ namespace MyGUI
 
 	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top) const
 	{
-		// сначала пикаем детей
 		for (const auto& childItem : mChildItems)
 		{
 			ILayerItem* item = childItem->getLayerItemByPoint(_left, _top);

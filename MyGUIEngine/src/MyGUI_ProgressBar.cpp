@@ -22,7 +22,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		///@wskin_child{MultiListBox, Widget, TrackPlace} Место для трекера.
+		///@wskin_child{MultiListBox, Widget, TrackPlace} Place for the tracker.
 		assignWidget(mTrackPlace, "TrackPlace");
 
 		if (nullptr == mTrackPlace)
@@ -154,7 +154,6 @@ namespace MyGUI
 
 	void ProgressBar::updateTrack()
 	{
-		// все скрыто
 		if ((0 == mRange) || (0 == mEndPosition))
 		{
 			for (auto& iter : mVectorTrack)
@@ -164,7 +163,6 @@ namespace MyGUI
 			return;
 		}
 
-		// тут попроще расчеты
 		if (mFillTrack)
 		{
 			if (mVectorTrack.empty())
@@ -175,12 +173,11 @@ namespace MyGUI
 			}
 			else
 			{
-				// первый показываем и ставим норм альфу
+				// show first, hide the rest
 				VectorWidgetPtr::iterator iter = mVectorTrack.begin();
 				(*iter)->setVisible(true);
 				(*iter)->setAlpha(ALPHA_MAX);
 
-				// все начиная со второго скрываем
 				++iter;
 				for (; iter != mVectorTrack.end(); ++iter)
 				{
@@ -190,12 +187,10 @@ namespace MyGUI
 
 			Widget* wid = mVectorTrack.front();
 
-			// полностью виден
 			if ((0 == mStartPosition) && (mRange == mEndPosition))
 			{
 				setTrackPosition(wid, 0, 0, getClientWidth(), getClientHeight());
 			}
-			// эх
 			else
 			{
 				int pos = (int)mStartPosition * (getClientWidth() - mTrackMin) / (int)mRange;
@@ -210,7 +205,6 @@ namespace MyGUI
 			return;
 		}
 
-		// сначала проверяем виджеты для трека
 		int width = getClientWidth() - mTrackWidth + mTrackStep;
 		int count = width / mTrackStep;
 		int ost = (width % mTrackStep);
@@ -230,7 +224,6 @@ namespace MyGUI
 			mVectorTrack.push_back(widget);
 		}
 
-		// все видно
 		if ((0 == mStartPosition) && (mRange == mEndPosition))
 		{
 			int pos = 0;
@@ -242,13 +235,10 @@ namespace MyGUI
 				pos++;
 			}
 		}
-		// эх, придется считать
 		else
 		{
-			// сколько не видно
 			int hide_pix = (width * (int)mStartPosition / (int)mRange);
 			int hide_count = hide_pix / mTrackStep;
-			// сколько видно
 			int show_pix = (width * (int)mEndPosition / (int)mRange);
 			int show_count = show_pix / mTrackStep;
 
@@ -321,19 +311,19 @@ namespace MyGUI
 
 	void ProgressBar::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{ProgressBar, Range, size_t} Диапазон прогресса.
+		/// @wproperty{ProgressBar, Range, size_t} Progress range.
 		if (_key == "Range")
 			setProgressRange(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ProgressBar, RangePosition, size_t} Позиция в прогрессе.
+		/// @wproperty{ProgressBar, RangePosition, size_t} Position in the progress.
 		else if (_key == "RangePosition")
 			setProgressPosition(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ProgressBar, AutoTrack, bool} Режим занятости прогресса, в котором трекер просто ходит по кругу.
+		/// @wproperty{ProgressBar, AutoTrack, bool} Busy mode where the tracker loops.
 		else if (_key == "AutoTrack")
 			setProgressAutoTrack(utility::parseValue<bool>(_value));
 
-		/// @wproperty{ProgressBar, FlowDirection, FlowDirection} Напревление движения трекера.
+		/// @wproperty{ProgressBar, FlowDirection, FlowDirection} Tracker movement direction.
 		else if (_key == "FlowDirection")
 			setFlowDirection(utility::parseValue<FlowDirection>(_value));
 

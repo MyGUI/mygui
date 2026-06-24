@@ -45,7 +45,7 @@ namespace MyGUI
 
 		ITexture* getTextureFont() const override;
 
-		// получившаяся высота при генерации в пикселях
+		// Resulting height in pixels after generation
 		int getDefaultHeight() const override;
 
 		// update texture after render device lost event
@@ -59,7 +59,6 @@ namespace MyGUI
 		// code point is FontCodeType::NotDefined, but it can be customized in the font definition file.
 		Char getSubstituteCodePoint() const;
 
-		// создаение ресурса по текущим значениям
 		void initialise();
 
 		void setSource(std::string_view _value);

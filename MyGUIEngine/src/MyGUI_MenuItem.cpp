@@ -14,7 +14,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME проверить смену скина ибо должно один раз вызываться
+		// FIXME check skin change as it should be called only once
 		Widget* parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuControl");
 		if (!parent->isType<MenuControl>())
@@ -27,13 +27,13 @@ namespace MyGUI
 		}
 		mOwner = parent->castType<MenuControl>();
 
-		///@wskin_child{MenuItem, Widget, Check} Галочка для отмеченного состояния.
+		///@wskin_child{MenuItem, Widget, Check} Check mark for checked state.
 		assignWidget(mCheck, "Check");
 
 		//if (isUserString("MinSize"))
 		//	mMinSize = IntSize::parse(getUserString("MinSize"));
 
-		//FIXME нам нужен фокус клавы
+		//FIXME we need key focus
 		setNeedKeyFocus(true);
 
 		updateCheck();
@@ -41,7 +41,7 @@ namespace MyGUI
 
 	void MenuItem::shutdownOverride()
 	{
-		// FIXME проверить смену скина ибо должно один раз вызываться
+		// FIXME check skin change as it should be called only once
 		mOwner->_notifyDeleteItem(this);
 
 		Base::shutdownOverride();
@@ -140,15 +140,15 @@ namespace MyGUI
 
 	void MenuItem::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{MenuItem, MenuItemId, string} Идентификатор строки меню.
+		/// @wproperty{MenuItem, MenuItemId, string} Menu item identifier.
 		if (_key == "MenuItemId")
 			setItemId(_value);
 
-		/// @wproperty{MenuItem, MenuItemType, MenuItemType} Тип строки меню.
+		/// @wproperty{MenuItem, MenuItemType, MenuItemType} Menu item type.
 		else if (_key == "MenuItemType")
 			setItemType(utility::parseValue<MenuItemType>(_value));
 
-		/// @wproperty{MenuItem, MenuItemChecked, bool} Отмеченное состояние строки меню.
+		/// @wproperty{MenuItem, MenuItemChecked, bool} Checked state of the menu item.
 		else if (_key == "MenuItemChecked")
 			setItemChecked(utility::parseValue<bool>(_value));
 

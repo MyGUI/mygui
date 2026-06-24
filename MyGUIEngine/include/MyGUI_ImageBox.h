@@ -93,7 +93,7 @@ namespace MyGUI
 		//! Delete all items
 		void deleteAllItems();
 
-		// работа с фреймами анимированных индексов
+		// Work with animated frame indices
 		/** Add frame
 			@param _index Image item index
 			@param _item Frame coordinates at image texture
@@ -192,13 +192,10 @@ namespace MyGUI
 		void _setUVSet(const FloatRect& _rect);
 
 	private:
-		// кусок в текстуре наших картинок
+		// Part of texture where our images are
 		IntRect mRectImage;
-		// размер одной картинки
 		IntSize mSizeTile;
-		// размер текстуры
 		IntSize mSizeTexture;
-		// текущая картинка
 		size_t mIndexSelect{ITEM_NONE};
 
 		VectorImages mItems;

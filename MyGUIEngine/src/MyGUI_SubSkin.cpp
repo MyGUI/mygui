@@ -49,38 +49,31 @@ namespace MyGUI
 
 	void SubSkin::_setAlign(const IntSize& _oldsize)
 	{
-		// первоначальное выравнивание
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true;
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true;
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
@@ -98,23 +91,20 @@ namespace MyGUI
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
-		// вьюпорт стал битым
+		// viewport became broken
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// запоминаем текущее состояние
 				mIsMargin = margin;
 
-				// обновить перед выходом
 				if (nullptr != mNode)
 					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
-		// мы обрезаны или были обрезаны
+		// we are clipped or were clipped
 		if (mIsMargin || margin)
 		{
 			mCurrentCoord.width = _getViewWidth();
@@ -122,7 +112,6 @@ namespace MyGUI
 
 			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0))
 			{
-				// теперь смещаем текстуру
 				float UV_lft = mMargin.left / (float)mCoord.width;
 				float UV_top = mMargin.top / (float)mCoord.height;
 				float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
@@ -142,11 +131,10 @@ namespace MyGUI
 
 		if (mIsMargin && !margin)
 		{
-			// мы не обрезаны, но были, ставим базовые координаты
+			// we are not clipped but were, set base coordinates
 			mCurrentTexture = mRectTexture;
 		}
 
-		// запоминаем текущее состояние
 		mIsMargin = margin;
 
 		if (nullptr != mNode)
@@ -177,7 +165,7 @@ namespace MyGUI
 			return;
 		mRectTexture = _rect;
 
-		// если обрезаны, то просчитываем с учето обрезки
+		// if clipped, calculate with clipping
 		if (mIsMargin)
 		{
 			float UV_lft = mMargin.left / (float)mCoord.width;
@@ -195,7 +183,7 @@ namespace MyGUI
 
 			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 		}
-		// мы не обрезаны, базовые координаты
+		// we are not clipped, base coordinates
 		else
 		{
 			mCurrentTexture = mRectTexture;

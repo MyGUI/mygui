@@ -15,7 +15,6 @@
 namespace MyGUI
 {
 
-	// структура информации об отображении элемента
 	/** Info about ItemBox item*/
 	struct MYGUI_EXPORT IBDrawItemInfo
 	{

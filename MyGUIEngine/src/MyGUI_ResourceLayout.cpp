@@ -63,7 +63,6 @@ namespace MyGUI
 			widgetInfo.positionType = WidgetInfo::Relative;
 		}
 
-		// берем детей и крутимся
 		xml::ElementEnumerator node = _widget->getElementEnumerator();
 		while (node.next())
 		{

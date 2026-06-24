@@ -30,10 +30,10 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED(ILayerNode)
 
 	public:
-		// леер, которому мы принадлежим
+		// Layer we belong to
 		virtual ILayer* getLayer() const = 0;
 
-		// возвращает отца или nullptr
+		// Return parent or nullptr
 		virtual ILayerNode* getParent() const = 0;
 
 		virtual ILayerNode* createChildItemNode() = 0;
@@ -49,20 +49,14 @@ namespace MyGUI
 
 		virtual ILayerNode* getLayerNodeAt(size_t _index) const = 0;
 
-		// добавляем айтем к ноду
 		virtual void attachLayerItem(ILayerItem* _item) = 0;
-		// удаляем айтем из нода
 		virtual void detachLayerItem(ILayerItem* _root) = 0;
 
-		// добавляет саб айтем и возвращает рендер айтем
 		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _separate) = 0;
-		// необходимо обновление нода
 		virtual void outOfDate(RenderItem* _item) = 0;
 
-		// возвращает виджет по позиции
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 
-		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 		virtual void resizeView(const IntSize& _viewSize) = 0;

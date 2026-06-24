@@ -148,18 +148,17 @@ namespace MyGUI
 		void widgetSecondPartPressed();
 
 	protected:
-		// наши кнопки
 		Button* mWidgetStart{nullptr};
 		Button* mWidgetEnd{nullptr};
 		Button* mWidgetTrack{nullptr};
-		// куски между кнопками
+		// Background parts between buttons and track
 		Widget* mWidgetFirstPart{nullptr};
 		Widget* mWidgetSecondPart{nullptr};
 
-		// смещение внутри окна
+		// Offset within window for drag operations
 		IntPoint mPreActionOffset;
 
-		// диапазон на который трек может двигаться
+		// Range that track can move within
 		size_t mSkinRangeStart{0};
 		size_t mSkinRangeEnd{0};
 

@@ -27,14 +27,14 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		///@wskin_child{ComboBox, Button, Button} Кнопка для выпадающего списка.
+		///@wskin_child{ComboBox, Button, Button} Drop-down list button.
 		assignWidget(mButton, "Button");
 		if (mButton != nullptr)
 		{
 			mButton->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyButtonPressed);
 		}
 
-		///@wskin_child{ComboBox, ListBox, List} Выпадающий список.
+		///@wskin_child{ComboBox, ListBox, List} Drop-down list.
 		assignWidget(mList, "List");
 
 		if (mList == nullptr)
@@ -65,7 +65,7 @@ namespace MyGUI
 			mList->eventToolTip += newDelegate(this, &ComboBox::notifyToolTip);
 		}
 
-		// подписываем дочерние классы на скролл
+		// subscribe child classes to scroll
 		if (mScrollViewClient != nullptr)
 		{
 			mScrollViewClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
@@ -75,7 +75,7 @@ namespace MyGUI
 			mScrollViewClient->eventToolTip += newDelegate(this, &ComboBox::notifyToolTip);
 		}
 
-		// подписываемся на изменения текста
+		// subscribe to text changes
 		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
 
@@ -107,11 +107,11 @@ namespace MyGUI
 			mDropMouse = false;
 			Widget* focus = InputManager::getInstance().getMouseFocusWidget();
 
-			// кнопка сама уберет список
+			// button itself will hide the list
 			if (focus == mButton)
 				return;
 
-			// в режиме дропа все окна учавствуют
+			// in drop mode all windows participate
 			if (mModeDrop && focus == mScrollViewClient)
 				return;
 		}
@@ -148,16 +148,14 @@ namespace MyGUI
 	{
 		Base::onKeyButtonPressed(_key, _char);
 
-		// при нажатии вниз, показываем лист
 		if (_key == KeyCode::ArrowDown)
 		{
-			// выкидываем список только если мыша свободна
+			// show list only if mouse is free
 			if (!InputManager::getInstance().isCaptureMouse())
 			{
 				showList();
 			}
 		}
-		// нажат ввод в окне редиктирования
 		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
 		{
 			_resetContainer(false);
@@ -228,19 +226,18 @@ namespace MyGUI
 
 	void ComboBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		// обязательно отдаем отцу, а то мы у него в наглую отняли
+		// must pass to parent, otherwise we stole focus from it
 		Base::notifyMousePressed(_sender, _left, _top, _id);
 
 		mDropMouse = true;
 
-		// показываем список
 		if (mModeDrop)
 			notifyButtonPressed(nullptr, _left, _top, _id);
 	}
 
 	void ComboBox::notifyEditTextChange(EditBox* _sender)
 	{
-		// сбрасываем выделенный элемент
+		// reset selected item
 		if (ITEM_NONE != mItemIndex)
 		{
 			mItemIndex = ITEM_NONE;
@@ -255,7 +252,7 @@ namespace MyGUI
 
 	void ComboBox::showList()
 	{
-		// пустой список не показываем
+		// don't show empty list
 		if (mList->getItemCount() == 0)
 			return;
 
@@ -347,8 +344,8 @@ namespace MyGUI
 
 	void ComboBox::removeAllItems()
 	{
-		mItemIndex = ITEM_NONE; //FIXME
-		mList->removeAllItems(); //FIXME заново созданные строки криво стоят
+		mItemIndex = ITEM_NONE;
+		mList->removeAllItems();
 	}
 
 	void ComboBox::setComboModeDrop(bool _drop)
@@ -432,23 +429,23 @@ namespace MyGUI
 
 	void ComboBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{ComboBox, ModeDrop, bool} Режим выпадающего списка, в этом режиме значение в поля поменять нельзя.
+		/// @wproperty{ComboBox, ModeDrop, bool} Drop-down mode; in this mode the field value cannot be changed.
 		if (_key == "ModeDrop")
 			setComboModeDrop(utility::parseValue<bool>(_value));
 
-		/// @wproperty{ComboBox, FlowDirection, FlowDirection} Направление выпадения списка.
+		/// @wproperty{ComboBox, FlowDirection, FlowDirection} Drop direction of the list.
 		else if (_key == "FlowDirection")
 			setFlowDirection(utility::parseValue<FlowDirection>(_value));
 
-		/// @wproperty{ComboBox, MaxListLength, int} Максимальная высота или ширина (зависит от направления) списка в пикселях.
+		/// @wproperty{ComboBox, MaxListLength, int} Maximum height or width (depending on direction) of the list in pixels.
 		else if (_key == "MaxListLength")
 			setMaxListLength(utility::parseValue<int>(_value));
 
-		/// @wproperty{ComboBox, SmoothShow, bool} Плавное раскрытие списка.
+		/// @wproperty{ComboBox, SmoothShow, bool} Smooth list reveal animation.
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
 
-		// не коментировать
+		// @wproperty{ComboBox, AddItem, string} Adds list item
 		else if (_key == "AddItem")
 			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 

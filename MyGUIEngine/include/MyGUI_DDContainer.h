@@ -83,16 +83,16 @@ namespace MyGUI
 
 
 		/*internal:*/
-		// метод для установления стейта айтема
+		// Method for setting item state in container
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
-		/** Event : [Internal event] невалидна информация для контейнера.\n
+		/** Event : [Internal event] Invalid container information.\n
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
 		*/
 		delegates::MultiDelegate<DDContainer*> _eventInvalideContainer;
 
-		/** Event : [Internal event] !!обновить виджеты дропа DD_FIXME наверное internal.\n
+		/** Event : [Internal event] Update drop widgets state.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget* _item, const MyGUI::DDWidgetState& _state)
 			@param _sender widget that called this event
 			@param _items
@@ -130,13 +130,11 @@ namespace MyGUI
 
 		size_t mDropSenderIndex{ITEM_NONE};
 
-		// список виджетов для дропа
 		Widget* mDropItem{nullptr};
 		IntCoord mDropDimension;
 
 		IntPoint mClickInWidget;
 
-		// нужно и виджету поддержка драг энд дропа
 		bool mNeedDragDrop{false};
 
 		DDContainer* mReseiverContainer{nullptr};

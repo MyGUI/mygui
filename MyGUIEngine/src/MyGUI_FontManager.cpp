@@ -89,7 +89,7 @@ namespace MyGUI
 	IFont* FontManager::getByName(std::string_view _name) const
 	{
 		IResource* result = nullptr;
-		//FIXME для совместимости шрифт может иметь имя Default
+		//FIXME for compatibility font may have name Default
 		if (!_name.empty() && _name != mXmlDefaultFontValue)
 			result = ResourceManager::getInstance().getByName(_name, false);
 

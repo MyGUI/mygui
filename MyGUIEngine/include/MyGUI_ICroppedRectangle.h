@@ -184,7 +184,7 @@ namespace MyGUI
 		bool _checkMargin()
 		{
 			bool margin = false;
-			//вылезли ли налево
+			// Check if clipped on the left
 			if (getLeft() < mCroppedParent->mMargin.left)
 			{
 				mMargin.left = mCroppedParent->mMargin.left - getLeft();
@@ -195,7 +195,7 @@ namespace MyGUI
 				mMargin.left = 0;
 			}
 
-			//вылезли ли направо
+			// Check if clipped on the right
 			if (getRight() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right)
 			{
 				mMargin.right = getRight() - (mCroppedParent->getWidth() - mCroppedParent->mMargin.right);
@@ -206,7 +206,7 @@ namespace MyGUI
 				mMargin.right = 0;
 			}
 
-			//вылезли ли вверх
+			// Check if clipped on the top
 			if (getTop() < mCroppedParent->mMargin.top)
 			{
 				mMargin.top = mCroppedParent->mMargin.top - getTop();
@@ -217,7 +217,7 @@ namespace MyGUI
 				mMargin.top = 0;
 			}
 
-			//вылезли ли вниз
+			// Check if clipped on the bottom
 			if (getBottom() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom)
 			{
 				mMargin.bottom = getBottom() - (mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom);
@@ -231,19 +231,20 @@ namespace MyGUI
 			return margin;
 		}
 
-		bool _checkOutside() const // проверка на полный выход за границу
+		// Check if completely outside parent bounds
+		bool _checkOutside() const
 		{
 			return (
-				(getRight() < mCroppedParent->mMargin.left) || // совсем уехали налево
-				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) || // совсем уехали направо
-				(getBottom() < mCroppedParent->mMargin.top) || // совсем уехали вверх
-				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom)); // совсем уехали вниз
+				(getRight() < mCroppedParent->mMargin.left) ||
+				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) ||
+				(getBottom() < mCroppedParent->mMargin.top) ||
+				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom));
 		}
 
 	protected:
-		IntRect mMargin; // перекрытие
-		IntCoord mCoord; // координаты
-		IntPoint mAbsolutePosition; // обсолютные координаты
+		IntRect mMargin;
+		IntCoord mCoord;
+		IntPoint mAbsolutePosition;
 
 		bool mIsMargin{false};
 		ICroppedRectangle* mCroppedParent{nullptr};

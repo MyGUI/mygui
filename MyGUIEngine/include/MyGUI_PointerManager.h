@@ -67,7 +67,6 @@ namespace MyGUI
 		void _unlinkWidget(Widget* _widget) override;
 		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
-		// создает виджет
 		Widget* baseCreateWidget(
 			WidgetStyle _style,
 			std::string_view _type,
@@ -77,7 +76,6 @@ namespace MyGUI
 			std::string_view _layer,
 			std::string_view _name);
 
-		// удаляет всех детей
 		void _destroyAllChildWidget();
 
 		void Update();
@@ -87,7 +85,6 @@ namespace MyGUI
 		void setPointer(std::string_view _name, Widget* _owner);
 
 	private:
-		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 
 		std::string mDefaultName;

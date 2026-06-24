@@ -33,7 +33,6 @@ namespace MyGUI
 		registerLoadXmlDelegate(mCategoryName) = newDelegate(this, &ResourceManager::loadFromXmlNode);
 		registerLoadXmlDelegate(mXmlListTagName) = newDelegate(this, &ResourceManager::_loadList);
 
-		// регестрируем дефолтные ресурсы
 		FactoryManager::getInstance().registerFactory<ResourceImageSet>(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
@@ -66,11 +65,9 @@ namespace MyGUI
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
 		while (root.next(mCategoryName))
 		{
-			// парсим атрибуты
 			std::string type;
 			std::string name;
 			root->findAttribute("type", type);
@@ -91,7 +88,7 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "duplicate resource name '" << name << "'");
 
-				// ресурсами могут пользоваться
+				// resources may be in use, keep for later cleanup
 				mRemovedResources.push_back((*item).second);
 				mResources.erase(item);
 			}
@@ -105,7 +102,6 @@ namespace MyGUI
 
 	void ResourceManager::_loadList(xml::ElementPtr _node, std::string_view /*unused*/, Version _version)
 	{
-		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next(mXmlListTagName))
 		{
@@ -179,7 +175,7 @@ namespace MyGUI
 				return false;
 			}
 		}
-		// предпологаем что будут вложенные
+		// assume there will be nested elements
 		else if (!_match)
 		{
 			xml::ElementEnumerator node = root->getElementEnumerator();

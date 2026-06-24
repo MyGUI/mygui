@@ -46,7 +46,7 @@ namespace MyGUI
 	{
 		if (mWordWrap)
 		{
-			// передается старая координата всегда
+			// old coord is passed
 			int width = mCroppedParent->getWidth();
 			if (mOldWidth != width)
 			{
@@ -55,38 +55,38 @@ namespace MyGUI
 			}
 		}
 
-		// первоначальное выравнивание
+		// initial alignment
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
+			// stretch
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // recalculate everything on resize
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
+			// align to right edge
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
+			// horizontal alignment without stretch
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
+			// stretch
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // recalculate everything on resize
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
+			// align to bottom edge
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
+			// vertical alignment without stretch
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 
@@ -103,30 +103,29 @@ namespace MyGUI
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
-		// вьюпорт стал битым
+		// viewport became invalid
 		if (margin)
 		{
-			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-				// запоминаем текущее состояние
+				// remember current state
 				mIsMargin = margin;
 
-				// обновить перед выходом
+				// update before exit
 				if (nullptr != mNode)
 					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
-		// мы обрезаны или были обрезаны
+		// we are clipped or were clipped
 		if (mIsMargin || margin)
 		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 		}
 
-		// запоминаем текущее состояние
+		// remember current state
 		mIsMargin = margin;
 
 		if (nullptr != mNode)
@@ -224,14 +223,14 @@ namespace MyGUI
 
 		mTextOutDate = true;
 
-		// если мы были приаттаченны, то удаляем себя
+		// if we were attached, remove ourselves
 		if (nullptr != mRenderItem)
 		{
 			mRenderItem->removeDrawItem(this);
 			mRenderItem = nullptr;
 		}
 
-		// если есть текстура, то приаттачиваемся
+		// if there is a texture, attach
 		if (nullptr != mTexture && nullptr != mNode)
 		{
 			mRenderItem = mNode->addToRenderItem(mTexture, false, false);
@@ -268,7 +267,7 @@ namespace MyGUI
 	void EditText::createDrawItem(ITexture* _texture, ILayerNode* _node)
 	{
 		mNode = _node;
-		// если уже есть текстура, то атачимся, актуально для смены леера
+		// if there is already a texture, attach (relevant for layer change)
 		if (nullptr != mTexture)
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
@@ -367,12 +366,12 @@ namespace MyGUI
 
 	IntSize EditText::getTextSize() const
 	{
-		// если нуно обновить, или изменились пропорции экрана
+		// if need to update, or screen proportions changed
 		if (mTextOutDate)
 			updateRawData();
 
 		IntSize size = mTextView.getViewSize();
-		// плюс размер курсора
+		// plus cursor size
 		if (mIsAddCursorWidth)
 			size.width += 2;
 
@@ -459,14 +458,14 @@ namespace MyGUI
 	{
 		if (nullptr == mFont)
 			return;
-		// сбрасывам флаги
+		// reset flags
 		mTextOutDate = false;
 
 		int width = -1;
 		if (mWordWrap)
 		{
 			width = mCoord.width;
-			// обрезать слова нужно по шарине, которую мы реально используем
+			// word wrap by the width we actually use
 			if (mIsAddCursorWidth)
 				width -= 2;
 		}
@@ -494,10 +493,10 @@ namespace MyGUI
 
 		const RenderTargetInfo& renderTargetInfo = mRenderItem->getRenderTarget()->getInfo();
 
-		// колличество отрисованных вершин
+		// number of rendered vertices
 		size_t vertexCount = 0;
 
-		// текущие цвета
+		// current colours
 		uint32 colour = mCurrentColourNative;
 		uint32 inverseColour = mInverseColourNative;
 		uint32 selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
@@ -527,7 +526,7 @@ namespace MyGUI
 					continue;
 				}
 
-				// смещение текстуры для фона
+				// texture offset for background
 				bool select = index >= mStartSelect && index < mEndSelect;
 
 				float fullAdvance = sym.getBearingX() + sym.getAdvance();
@@ -593,7 +592,7 @@ namespace MyGUI
 				mCurrentColourNative | 0x00FFFFFF);
 		}
 
-		// колличество реально отрисованных вершин
+		// number of actually rendered vertices
 		mRenderItem->setLastVertexCount(vertexCount);
 	}
 
@@ -706,7 +705,7 @@ namespace MyGUI
 		FloatRect _textureRect,
 		uint32 _colour) const
 	{
-		// символ залазиет влево
+		// character extends left
 		float leftClip = (float)mCurrentCoord.left - _vertexRect.left;
 		if (leftClip > 0.0f)
 		{
@@ -721,7 +720,7 @@ namespace MyGUI
 			}
 		}
 
-		// символ залазиет вправо
+		// character extends right
 		float rightClip = _vertexRect.right - (float)mCurrentCoord.right();
 		if (rightClip > 0.0f)
 		{
@@ -736,7 +735,7 @@ namespace MyGUI
 			}
 		}
 
-		// символ залазиет вверх
+		// character extends up
 		float topClip = (float)mCurrentCoord.top - _vertexRect.top;
 		if (topClip > 0.0f)
 		{
@@ -751,7 +750,7 @@ namespace MyGUI
 			}
 		}
 
-		// символ залазиет вниз
+		// character extends down
 		float bottomClip = _vertexRect.bottom - (float)mCurrentCoord.bottom();
 		if (bottomClip > 0.0f)
 		{

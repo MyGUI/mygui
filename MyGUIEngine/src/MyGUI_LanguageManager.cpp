@@ -51,21 +51,16 @@ namespace MyGUI
 		std::string default_lang;
 		bool event_change = false;
 
-		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
 		while (root.next(mXmlLanguageTagName))
 		{
-			// парсим атрибуты
 			root->findAttribute("default", default_lang);
 
-			// берем детей и крутимся
 			xml::ElementEnumerator info = root->getElementEnumerator();
 			while (info.next("Info"))
 			{
-				// парсим атрибуты
 				std::string name(info->findAttribute("name"));
 
-				// доюавляем в карту пользователя
 				if (name.empty())
 				{
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
@@ -74,17 +69,15 @@ namespace MyGUI
 						loadLanguage(source_info->getContent(), true);
 					}
 				}
-				// добавляем в карту языков
 				else
 				{
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
 					while (source_info.next("Source"))
 					{
 						const std::string& file_source = source_info->getContent();
-						// добавляем в карту
 						mMapFile[name].push_back(file_source);
 
-						// если добавляемый файл для текущего языка, то подгружаем и оповещаем
+						// if the added file is for the current language, load and notify
 						if (name == mCurrentLanguageName)
 						{
 							loadLanguage(file_source, false);
@@ -141,7 +134,6 @@ namespace MyGUI
 	void LanguageManager::_loadLanguageXML(IDataStream* _stream, bool _user)
 	{
 		xml::Document doc;
-		// формат xml
 		if (doc.open(_stream))
 		{
 			xml::ElementPtr root = doc.getRoot();
@@ -159,7 +151,7 @@ namespace MyGUI
 
 	void LanguageManager::_loadLanguage(IDataStream* _stream, bool _user)
 	{
-		// формат txt
+		// .txt format
 		std::string read;
 		while (!_stream->eof())
 		{
@@ -167,7 +159,7 @@ namespace MyGUI
 			if (read.empty())
 				continue;
 
-			// заголовок утф
+			// utf header
 			if ((uint8)read[0] == 0xEF && read.size() > 2)
 			{
 				read.erase(0, 3);

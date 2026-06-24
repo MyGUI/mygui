@@ -16,7 +16,7 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		// берем детей и крутимся, основной цикл
+		// iterate children, main loop
 		xml::ElementEnumerator info = _node->getElementEnumerator();
 		while (info.next("Property"))
 		{

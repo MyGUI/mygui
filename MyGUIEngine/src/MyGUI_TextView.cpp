@@ -97,7 +97,7 @@ namespace MyGUI
 	{
 		mFontHeight = _height;
 
-		// массив для быстрой конвертации цветов
+		// array for fast colour conversion
 		static const char convert_colour[64] = {
 			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -221,12 +221,12 @@ namespace MyGUI
 
 			float char_fullAdvance = char_bearingX + char_advance;
 
-			// перенос слов
+			// word wrap
 			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth)
 			{
 				if (!roll_back.empty())
 				{
-					// откатываем до последнего пробела
+					// roll back to last space
 					width = roll_back.getWidth();
 					count = roll_back.getCount();
 					index = roll_back.getTextIter();
@@ -235,7 +235,7 @@ namespace MyGUI
 						line_info.symbols.end());
 				}
 
-				// запоминаем место отката, как полную строку
+				// remember rollback point as full line
 				line_info.width = (int)std::ceil(width);
 				line_info.count = count;
 				mLength += line_info.count + 1;
@@ -248,7 +248,7 @@ namespace MyGUI
 				mLineInfo.push_back(line_info);
 				line_info.clear();
 
-				// отменяем откат
+				// cancel rollback
 				if (!roll_back.empty())
 					roll_back.clear();
 
@@ -269,7 +269,7 @@ namespace MyGUI
 
 		setMax(result.width, line_info.width);
 
-		// теперь выравниванием строки
+		// now align lines
 		for (auto& line : mLineInfo)
 		{
 			if (_align.isRight())
@@ -290,7 +290,6 @@ namespace MyGUI
 		{
 			bool lastline = line + 1 == mLineInfo.end();
 
-			// наша строчка
 			if (top + mFontHeight <= _value.top && !lastline)
 			{
 				top += mFontHeight;
@@ -301,7 +300,6 @@ namespace MyGUI
 				float left = (float)line->offset;
 				int count = 0;
 
-				// ищем символ
 				for (const auto& sym : line->symbols)
 				{
 					if (sym.isColour())

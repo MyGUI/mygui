@@ -22,7 +22,6 @@ namespace MyGUI
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
 		recalculateTime(_widget);
-		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget, this);
 	}
 

@@ -56,9 +56,8 @@ namespace MyGUI
 		using Widget::setCoord;
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with columns (RU:методы для работы со столбцами)
+		// Methods for work with columns
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		//! Get number of columns
 		size_t getColumnCount() const;
@@ -88,7 +87,6 @@ namespace MyGUI
 		void swapColumnsAt(size_t _index1, size_t _index2);
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
 
 		/** Set column name
 			@param _column Index of column
@@ -141,7 +139,6 @@ namespace MyGUI
 		void setColumnResizingPolicyAt(size_t _index, ResizingPolicy _value);
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setColumnDataAt(size_t _index, Any _data);
@@ -158,14 +155,13 @@ namespace MyGUI
 		}
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with lines (RU:методы для работы со строками)
+		// Methods for work with lines
 		/** @note
 		All indexes used here is indexes of unsorted Multilist. Even if you sorted
 			it - all items indexes will be same as before sort.
 		*/
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		/** Get number of items (lines) */
 		size_t getItemCount() const;
@@ -187,7 +183,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
 
 		//! Replace an item name
 		void setItemNameAt(size_t _index, const UString& _name);
@@ -197,7 +192,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
 
 		/** Get index of selected item (ITEM_NONE if none selected) */
 		size_t getIndexSelected() const;
@@ -210,7 +204,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -227,9 +220,8 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with sub lines (RU:методы для работы со саб строками)
+		// Methods for work with sub lines
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		/** Set sub item
 			@param _column Index of column
@@ -245,7 +237,6 @@ namespace MyGUI
 		size_t findSubItemWith(size_t _column, const UString& _name);
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setSubItemDataAt(size_t _column, size_t _index, Any _data);

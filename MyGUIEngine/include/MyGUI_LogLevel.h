@@ -19,10 +19,10 @@ namespace MyGUI
 	{
 		enum Enum
 		{
-			Info, // Информационное сообщение.
-			Warning, // Несущественная проблема.
-			Error, // Устранимая ошибка.
-			Critical, // Неустранимая ошибка или сбой в работе приложения.
+			Info, // Informational message.
+			Warning, // Non-critical issue.
+			Error, // Recoverable error.
+			Critical, // Critical error or application failure.
 			MAX
 		};
 

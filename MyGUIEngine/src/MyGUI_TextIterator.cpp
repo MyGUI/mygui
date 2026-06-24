@@ -45,7 +45,6 @@ namespace MyGUI
 		{
 			if ((*iter) == L'#')
 			{
-				// следующий символ
 				++iter;
 				if (iter == mEnd)
 				{
@@ -53,10 +52,9 @@ namespace MyGUI
 					return false;
 				}
 
-				// две решетки подряд
+				// two hashes in a row
 				if ((*iter) == L'#')
 				{
-					// следующий символ
 					mPosition++;
 					++iter;
 					if (iter == mEnd)
@@ -65,15 +63,13 @@ namespace MyGUI
 						return false;
 					}
 
-					// указатель на следующий символ
 					mCurrent = iter;
 					return true;
 				}
 
-				// остальные 5 символов цвета
+				// remaining 5 colour characters
 				for (size_t pos = 0; pos < 5; pos++)
 				{
-					// следующий символ
 					++iter;
 					if (iter == mEnd)
 					{
@@ -84,7 +80,6 @@ namespace MyGUI
 			}
 			else
 			{
-				// обыкновенный символ
 				mPosition++;
 				++iter;
 				if (iter == mEnd)
@@ -93,7 +88,6 @@ namespace MyGUI
 					return false;
 				}
 
-				// указатель на следующий символ
 				mCurrent = iter;
 				return true;
 			}
@@ -102,7 +96,6 @@ namespace MyGUI
 		return false;
 	}
 
-	// возвращает цвет
 	bool TextIterator::getTagColour(UString& _colour) const
 	{
 		if (mCurrent == mEnd)
@@ -110,7 +103,7 @@ namespace MyGUI
 
 		UString::utf32string::iterator iter = mCurrent;
 
-		// нам нужен последний цвет
+		// we need the last colour
 		bool ret = false;
 		while (getTagColour(_colour, iter))
 		{
@@ -175,7 +168,6 @@ namespace MyGUI
 		return setTagColour(_colour.asUTF32());
 	}
 
-	// возвращает размер строки
 	size_t TextIterator::getSize() const
 	{
 		if (mSize != ITEM_NONE)
@@ -186,15 +178,14 @@ namespace MyGUI
 		{
 			if ((*iter) == L'#')
 			{
-				// следующий символ
 				++iter;
 				if (iter == mEnd)
 					break;
 
-				// тэг цвета
+				// colour tag
 				if ((*iter) != L'#')
 				{
-					// остальные 5 символов цвета
+					// remaining 5 colour characters
 					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++iter;
@@ -208,14 +199,12 @@ namespace MyGUI
 				}
 			}
 
-			// обыкновенный символ
 			mSize++;
 		}
 
 		return mSize;
 	}
 
-	// возвращает текст без тегов
 	UString TextIterator::getOnlyText(const UString& _text)
 	{
 		UString::utf32string ret;
@@ -227,15 +216,14 @@ namespace MyGUI
 		{
 			if ((*iter) == L'#')
 			{
-				// следующий символ
 				++iter;
 				if (iter == end)
 					break;
 
-				// тэг цвета
+				// colour tag
 				if ((*iter) != L'#')
 				{
-					// остальные 5 символов цвета
+					// remaining 5 colour characters
 					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++iter;
@@ -249,25 +237,22 @@ namespace MyGUI
 				}
 			}
 
-			// обыкновенный символ
 			ret.push_back(*iter);
 		}
 
 		return UString(ret);
 	}
 
-	// возвращает цвет
 	bool TextIterator::getTagColour(UString& _colour, UString::utf32string::iterator& _iter) const
 	{
 		if ((_iter == mEnd) || ((*_iter) != L'#'))
 			return false;
 
-		// следующий символ
 		++_iter;
 		if ((_iter == mEnd) || ((*_iter) == L'#'))
 			return false;
 
-		// берем цвет
+		// take the colour
 		wchar_t buff[16] = L"#FFFFFF\0";
 		buff[1] = (wchar_t)(*_iter);
 		for (size_t pos = 2; pos < 7; pos++)
@@ -278,10 +263,9 @@ namespace MyGUI
 			buff[pos] = (wchar_t)(*_iter);
 		}
 
-		// ставим на следующий тег или символ
+		// move to next tag or character
 		++_iter;
 
-		// возвращаем цвет
 		_colour = buff;
 		return true;
 	}
@@ -337,13 +321,10 @@ namespace MyGUI
 
 	void TextIterator::setText(const UString& _text, bool _multiLine)
 	{
-		// сначала все очищаем
 		clear();
 
-		// а теперь вставляем
 		UString text = _text;
 
-		// нормализуем
 		normaliseNewLine(text);
 
 		if (!_multiLine)
@@ -387,11 +368,11 @@ namespace MyGUI
 
 	UString TextIterator::toTagsString(const UString& _text)
 	{
-		// преобразуем в строку с тегами
+		// convert to string with tags
 		UString text(_text);
 		for (UString::iterator iter = text.begin(); iter != text.end(); iter.moveNext())
 		{
-			// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+			// FIXME redo through TextIterator to decouple tag concept from edit
 			if (L'#' == (*iter))
 				iter = text.insert(iter.moveNext(), L'#');
 		}
@@ -400,17 +381,14 @@ namespace MyGUI
 
 	void TextIterator::insert(UString::utf32string::iterator& _start, const UString::utf32string& _insert)
 	{
-		// сбрасываем размер
 		mSize = ITEM_NONE;
-		// записываем в историю
+		// write to history
 		if (mHistory)
 			mHistory->push_back(TextCommandInfo(_insert, _start - mText.begin(), TextCommandInfo::COMMAND_INSERT));
-		// запоминаем позицию итератора
+		// remember iterator position
 		size_t pos = _start - mText.begin();
 		size_t pos_save = (mSave == mEnd) ? ITEM_NONE : _start - mText.begin();
-		// непосредственно вставляем
 		mText.insert(_start, _insert.begin(), _insert.end());
-		// возвращаем итераторы
 		_start = mText.begin() + pos;
 		mEnd = mText.end();
 		(pos_save == ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
@@ -420,14 +398,12 @@ namespace MyGUI
 		UString::utf32string::iterator _start,
 		UString::utf32string::iterator _end)
 	{
-		// сбрасываем размер
 		mSize = ITEM_NONE;
-		// сохраняем в историю
+		// save to history
 		size_t start = _start - mText.begin();
 		if (mHistory)
 			mHistory->push_back(
 				TextCommandInfo(mText.substr(start, _end - _start), start, TextCommandInfo::COMMAND_ERASE));
-		// возвращаем итератор
 		return mText.erase(_start, _end);
 	}
 
@@ -436,11 +412,10 @@ namespace MyGUI
 		if (mText.empty())
 			return;
 
-		// записываем в историю
+		// write to history
 		if (mHistory)
 			mHistory->push_back(TextCommandInfo(mText, 0, TextCommandInfo::COMMAND_ERASE));
 
-		// все сбрасываем
 		mText.clear();
 		mCurrent = mText.begin();
 		mEnd = mSave = mText.end();
@@ -453,7 +428,7 @@ namespace MyGUI
 			return;
 		if (mPosition > _max)
 		{
-			// придется считать сначала
+			// will have to count from start
 			mSize = mPosition = 0;
 			mCurrent = mText.begin();
 			mEnd = mSave = mText.end();
@@ -465,15 +440,14 @@ namespace MyGUI
 		{
 			if ((*iter) == L'#')
 			{
-				// следующий символ
 				++iter;
 				if (iter == mEnd)
 					break;
 
-				// тэг цвета
+				// colour tag
 				if ((*iter) != L'#')
 				{
-					// остальные 5 символов цвета
+					// remaining 5 colour characters
 					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++iter;
@@ -487,35 +461,33 @@ namespace MyGUI
 				}
 			}
 
-			// проверяем и обрезаем
+			// check and cut
 			if (mSize == _max)
 			{
-				mPosition = mSize; // сохраняем
+				mPosition = mSize; // save
 				mCurrent = erase(iter, mEnd);
 				mSave = mEnd = mText.end();
-				mSize = mPosition; // восстанавливаем
+				mSize = mPosition; // restore
 				return;
 			}
 
-			// увеличиваем
 			mSize++;
 		}
 	}
 
 	void TextIterator::cutMaxLengthFromBeginning(size_t _max)
 	{
-		// узнаем размер без тегов
+		// get size without tags
 		size_t size = getSize();
 		if (size <= _max)
 			return;
 
-		// разница
 		size_t diff = size - _max;
 
-		// последний цвет
+		// last colour
 		UString::utf32string::iterator iter_colour = mEnd;
 
-		// теперь пройдем от начала и узнаем реальную позицию разницы
+		// now traverse from start to find real difference position
 		UString::utf32string::iterator iter = mText.begin();
 		for (; iter != mEnd; ++iter)
 		{
@@ -523,15 +495,14 @@ namespace MyGUI
 			{
 				UString::utf32string::iterator save = iter;
 
-				// следующий символ
 				++iter;
 				if (iter == mEnd)
 					break;
 
-				// тэг цвета
+				// colour tag
 				if ((*iter) != L'#')
 				{
-					// остальные 5 символов цвета
+					// remaining 5 colour characters
 					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++iter;
@@ -541,19 +512,18 @@ namespace MyGUI
 							break;
 						}
 					}
-					// сохраняем цвет
+					// save colour
 					iter_colour = save;
 				}
 				continue;
 			}
-			// обычный символ был
 			if (diff == 0)
 				break;
 			--diff;
 		}
 
 		UString::utf32string colour;
-		// если бы цвет, то вставляем назад
+		// if there was a colour, insert it back
 		if (iter_colour != mEnd)
 		{
 			colour.append(iter_colour, iter_colour + size_t(7));
@@ -576,10 +546,10 @@ namespace MyGUI
 
 		UString::utf32string::iterator iter = mCurrent;
 		UString colour;
-		// нам нужен последний цвет
+		// we need the last colour
 		while (getTagColour(colour, iter))
 		{
-			// обязательно обновляем итераторы
+			// must update iterators
 			iter = mCurrent = erase(mCurrent, iter);
 			mEnd = mText.end();
 		}

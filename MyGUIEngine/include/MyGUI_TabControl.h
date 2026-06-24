@@ -25,7 +25,7 @@ namespace MyGUI
 	*/
 	class MYGUI_EXPORT TabControl : public Widget, public IItemContainer, public MemberObsolete<TabControl>
 	{
-		// для уведобления об удалении
+		// For deletion notification
 		//FIXME
 		friend class TabItem;
 
@@ -64,7 +64,6 @@ namespace MyGUI
 		using Widget::setCoord;
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
 
 		//! Get number of items
 		size_t getItemCount() const;
@@ -104,7 +103,6 @@ namespace MyGUI
 		void swapItems(size_t _index1, size_t _index2);
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getIndexSelected() const;
@@ -120,7 +118,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
@@ -148,7 +145,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const UString& _name);
@@ -164,7 +160,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции выдимостью
 
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index);
@@ -180,7 +175,6 @@ namespace MyGUI
 
 
 		//------------------------------------------------------------------------------//
-		// остальные манипуляции
 
 		//! Set button width at a specified position
 		void setButtonWidthAt(size_t _index, int _width = DEFAULT_WIDTH);
@@ -243,7 +237,7 @@ namespace MyGUI
 
 		void _insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data);
 
-		// вкладка при удалении уведомляет таб
+		// Tab item notifies TabControl when being deleted
 		void _notifyDeleteItem(TabItem* _sheet);
 
 		void onWidgetCreated(Widget* _widget) override;
@@ -263,10 +257,10 @@ namespace MyGUI
 		void updateBarNew();
 
 	private:
-		int mOffsetTab{0}; // смещение бара при показе кнопок
+		int mOffsetTab{0};
 		bool mButtonShow{true};
-		int mWidthBar{0}; // ширина в которую помещаються все кнопки
-		std::vector<Button*> mItemButton; // список кнопок, не должно равно списку страниц
+		int mWidthBar{0}; // Width where we try to fit buttons
+		std::vector<Button*> mItemButton; // Button list, not equal to pages list
 		std::string mButtonSkinName;
 		std::string mEmptySkinName;
 
@@ -274,11 +268,11 @@ namespace MyGUI
 		Button* mButtonLeft{nullptr};
 		Button* mButtonRight{nullptr};
 		Widget* mButtonDecor{nullptr};
-		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
+		VectorWidgetPtr mWidgetsPatch; // Widgets to show when button is shown
 		Widget* mEmptyBarWidget{nullptr};
 		Widget* mItemTemplate{nullptr};
 
-		// информация о вкладках
+		// Tab items information
 		VectorTabItemInfo mItemsInfo;
 		size_t mStartIndex{0};
 		size_t mIndexSelect{ITEM_NONE};
@@ -287,7 +281,7 @@ namespace MyGUI
 		bool mSmoothShow{true};
 		bool mButtonAutoWidth{true};
 
-		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
+		// Flag to ignore notifications from tabs during widget shutdown
 		bool mShutdown{false};
 
 		Widget* mHeaderPlace{nullptr};

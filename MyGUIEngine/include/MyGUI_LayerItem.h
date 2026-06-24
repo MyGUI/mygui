@@ -46,19 +46,19 @@ namespace MyGUI
 		void detachFromLayerItemNode(bool _deep);
 
 	private:
-		// актуально для рутового виджета
+		// Relevant only for root widget
 		ILayer* mLayer{nullptr};
-		// конкретный айтем находящийся в слое
+		// Specific item located in layer
 		ILayerNode* mLayerNode{nullptr};
 		ILayerNode* mSaveLayerNode{nullptr};
 
 		using VectorLayerItem = std::vector<LayerItem*>;
-		// список наших детей айтемов
+		// List of child items
 		VectorLayerItem mLayerItems;
-		// список наших узлов
+		// List of nodes
 		VectorLayerItem mLayerNodes;
 
-		// вектор всех детей сабскинов
+		// Vector of child subskins
 		VectorSubWidget mDrawItems;
 
 		ITexture* mTexture{nullptr};

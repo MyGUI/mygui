@@ -66,10 +66,10 @@ namespace MyGUI
 		bool mIsInitialise{false};
 		std::string mCategoryName;
 
-		// список менеджеров для отписки при удалении
+		// List of managers for unlink when deleting widget
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
-		// список виджетов для удаления
+		// List of widgets to remove
 		VectorWidgetPtr mDestroyWidgets;
 	};
 

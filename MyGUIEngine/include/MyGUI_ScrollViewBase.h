@@ -21,17 +21,14 @@ namespace MyGUI
 		void updateScrollSize();
 		void updateScrollPosition();
 
-		// размер данных
 		virtual IntSize getContentSize() const;
 
-		// смещение данных
 		virtual IntPoint getContentPosition() const;
 		virtual void setContentPosition(const IntPoint& _value);
 
-		// размер окна, через которые видно данные
 		virtual IntSize getViewSize() const;
 
-		// размер на который прокручиваются данные при щелчке по скролу
+		// Scroll change value, applied when clicking on a scroll
 		virtual size_t getHScrollPage() const;
 		virtual size_t getVScrollPage() const;
 
@@ -50,7 +47,7 @@ namespace MyGUI
 		size_t mVRange{0};
 		size_t mHRange{0};
 
-		// изменяется ли содержимое при ресайзе
+		// Whether content changes on resize
 		bool mChangeContentByResize{false};
 	};
 

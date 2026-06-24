@@ -32,7 +32,7 @@ namespace MyGUI
 		mLayerNodes.push_back(_item);
 		if (mLayerNode != nullptr)
 		{
-			// создаем оверлаппеду новый айтем
+			// create new item for overlapped node
 			ILayerNode* child_node = mLayerNode->createChildItemNode();
 			_item->attachToLayerItemNode(child_node, true);
 		}
@@ -65,7 +65,7 @@ namespace MyGUI
 		if (mLayerNode)
 		{
 			ILayerNode* node = mLayerNode;
-			// позже сделать детач без текста
+			// later implement detach without text
 			detachFromLayerItemNode(false);
 			attachToLayerItemNode(node, false);
 		}
@@ -95,23 +95,21 @@ namespace MyGUI
 
 	void LayerItem::detachFromLayer()
 	{
-		// мы уже отдетачены в доску
+		// we are already detached
 		if (nullptr == mLayer)
 			return;
 
-		// такого быть не должно
 		MYGUI_ASSERT(mLayerNode, "mLayerNode == nullptr");
 
-		// отписываемся от пиккинга
+		// unsubscribe from picking
 		mLayerNode->detachLayerItem(this);
 
-		// при детаче обнулиться
+		// will be zeroed on detach
 		ILayerNode* save = mLayerNode;
 
-		// физически отсоединяем
 		detachFromLayerItemNode(true);
 
-		// отсоединяем леер и обнуляем у рутового виджета
+		// detach layer and zero at root widget
 		mLayer->destroyChildItemNode(save);
 		mLayerNode = nullptr;
 		mLayer = nullptr;
@@ -131,7 +129,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(nullptr != _item, "attached item must be valid");
 
-		// сохраняем, чтобы последующие дети могли приаттачиться
+		// save so subsequent children can attach
 		mLayerNode = _item;
 
 		for (auto& drawItem : mDrawItems)
@@ -146,7 +144,7 @@ namespace MyGUI
 
 		for (auto& layerNode : mLayerNodes)
 		{
-			// создаем оверлаппеду новый айтем
+			// create new item for overlapped node
 			if (_deep)
 			{
 				ILayerNode* child_node = _item->createChildItemNode();
@@ -175,7 +173,7 @@ namespace MyGUI
 			}
 		}
 
-		// мы уже отаттачены
+		// we are already detached
 		ILayerNode* node = mLayerNode;
 		if (node)
 		{

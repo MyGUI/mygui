@@ -29,7 +29,7 @@ namespace MyGUI
 
 		if (GetParent(hWnd) == nullptr)
 		{
-			// Нашли. hWnd - то что надо
+			// Found. hWnd is what we need
 			g_hWnd = hWnd;
 			return FALSE;
 		}
@@ -47,7 +47,7 @@ namespace MyGUI
 
 		if (GetWindowLongPtr(hWnd, GWLP_HINSTANCE) == lParam)
 		{
-			// Нашли. hWnd - то что надо
+			// Found. hWnd is what we need
 			g_hWnd = hWnd;
 			return FALSE;
 		}
@@ -90,19 +90,20 @@ namespace MyGUI
 		{
 			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
 			size_t size = (mPutTextInClipboard.size() + 1) * 2;
-			//открываем буфер обмена
+			// open clipboard
 			if (OpenClipboard((HWND)mHwnd))
 			{
-				EmptyClipboard(); //очищаем буфер
-				HGLOBAL hgBuffer = GlobalAlloc(GMEM_DDESHARE, size); //выделяем память
+				EmptyClipboard();
+				HGLOBAL hgBuffer = GlobalAlloc(GMEM_DDESHARE, size);
 				wchar_t* chBuffer = hgBuffer ? (wchar_t*)GlobalLock(hgBuffer) : nullptr;
 				if (chBuffer)
 				{
 					memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
-					GlobalUnlock(hgBuffer); //разблокируем память
-					SetClipboardData(CF_UNICODETEXT, hgBuffer); //помещаем текст в буфер обмена
+					GlobalUnlock(hgBuffer);
+					// put text in clipboard
+					SetClipboardData(CF_UNICODETEXT, hgBuffer);
 				}
-				CloseClipboard(); //закрываем буфер обмена
+				CloseClipboard();
 			}
 		}
 	}
@@ -112,22 +113,22 @@ namespace MyGUI
 		if (_type == "Text")
 		{
 			UString buff;
-			//открываем буфер обмена
+			// open clipboard
 			if (OpenClipboard((HWND)mHwnd))
 			{
-				HANDLE hData = GetClipboardData(CF_UNICODETEXT); //извлекаем текст из буфера обмена
+				HANDLE hData = GetClipboardData(CF_UNICODETEXT); // extract text from clipboard
 				wchar_t* chBuffer = hData ? (wchar_t*)GlobalLock(hData) : nullptr;
 				if (chBuffer)
 				{
 					buff = chBuffer;
-					GlobalUnlock(hData); //разблокируем память
+					GlobalUnlock(hData);
 				}
-				CloseClipboard(); //закрываем буфер обмена
+				CloseClipboard();
 			}
-			// если в буфере не то что мы ложили, то берем из буфера
+			// if the buffer doesn't contain what we put, take from buffer
 			if (mPutTextInClipboard != buff)
 			{
-				// вставляем теги, если нуно
+				// insert tags if needed
 				const UString& text = TextIterator::toTagsString(buff);
 				_data = text.asUTF8();
 			}

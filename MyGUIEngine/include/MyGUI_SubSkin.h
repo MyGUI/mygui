@@ -36,7 +36,6 @@ namespace MyGUI
 		void createDrawItem(ITexture* _texture, ILayerNode* _node) override;
 		void destroyDrawItem() override;
 
-		// метод для отрисовки себя
 		void doRender() override;
 
 		/*internal:*/

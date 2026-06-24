@@ -27,10 +27,9 @@ namespace MyGUI
 		explicit LayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		~LayerNode() override;
 
-		// леер, которому мы принадлежим
+		// Layer we belong to
 		ILayer* getLayer() const override;
 
-		// возвращает отца или nullptr
 		ILayerNode* getParent() const override;
 
 		ILayerNode* createChildItemNode() override;
@@ -46,20 +45,19 @@ namespace MyGUI
 
 		ILayerNode* getLayerNodeAt(size_t _index) const override;
 
-		// добавляем айтем к ноду
+		// Add item to node
 		void attachLayerItem(ILayerItem* _item) override;
-		// удаляем айтем из нода
+		// Remove item from node
 		void detachLayerItem(ILayerItem* _item) override;
 
-		// добавляет саб айтем и возвращает рендер айтем
+		// Add sub-item and return render item
 		RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender) override;
-		// необходимо обновление нода
+		// Node needs updating
 		void outOfDate(RenderItem* _item) override;
 
-		// возвращает виджет по позиции
 		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
 
-		// рисует леер
+		// Render layer
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
 		void resizeView(const IntSize& _viewSize) override;

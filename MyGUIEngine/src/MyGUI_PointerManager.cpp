@@ -71,7 +71,6 @@ namespace MyGUI
 		FactoryManager::getInstance().unregisterFactory<ResourceManualPointer>(resourceCategory);
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSetPointer>(resourceCategory);
 
-		// удаляем все виджеты
 		_destroyAllChildWidget();
 
 		mWidgetOwner = nullptr;
@@ -159,7 +158,6 @@ namespace MyGUI
 		setPointer(mDefaultName, nullptr);
 	}
 
-	// создает виджет
 	Widget* PointerManager::baseCreateWidget(
 		WidgetStyle _style,
 		std::string_view _type,
@@ -176,26 +174,22 @@ namespace MyGUI
 
 		widget->setAlign(_align);
 
-		// присоединяем виджет с уровню
 		if (!_layer.empty())
 			LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
 	}
 
-	// удаляет всех детей
 	void PointerManager::_destroyAllChildWidget()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
 		while (!mWidgetChild.empty())
 		{
-			// сразу себя отписывем, иначе вложенной удаление убивает все
+			// unsubscribe immediately, otherwise nested deletion destroys everything
 			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			// отписываем от всех
 			manager.unlinkFromUnlinkers(widget);
 
-			// и сами удалим, так как его больше в списке нет
 			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}

@@ -19,7 +19,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// при нуле, будет игнорировать кнопки
+		// at zero, buttons will be ignored
 		mScrollPage = 1;
 		mScrollViewPage = 1;
 		mScrollWheelPage = 1;
@@ -30,7 +30,7 @@ namespace MyGUI
 		mRepeatTriggerTime = 0.5f;
 		mRepeatStepTime = 0.1f;
 
-		///@wskin_child{ScrollBar, Button, Start} Кнопка начала диапазона.
+		///@wskin_child{ScrollBar, Button, Start} Range start button.
 		assignWidget(mWidgetStart, "Start");
 		if (mWidgetStart != nullptr)
 		{
@@ -39,7 +39,7 @@ namespace MyGUI
 			mWidgetStart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
-		///@wskin_child{ScrollBar, Button, End} Кнопка конца диапазона.
+		///@wskin_child{ScrollBar, Button, End} Range end button.
 		assignWidget(mWidgetEnd, "End");
 		if (mWidgetEnd != nullptr)
 		{
@@ -48,7 +48,7 @@ namespace MyGUI
 			mWidgetEnd->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
-		///@wskin_child{ScrollBar, Button, Track} Кнопка трекера.
+		///@wskin_child{ScrollBar, Button, Track} Track button.
 		assignWidget(mWidgetTrack, "Track");
 		if (mWidgetTrack)
 		{
@@ -59,7 +59,7 @@ namespace MyGUI
 			mWidgetTrack->setVisible(false);
 		}
 
-		///@wskin_child{ScrollBar, Widget, FirstPart} Виджет первой половины прокрутки от начала до трекера, при нажатии восприницмается как прокрутка страницы.
+		///@wskin_child{ScrollBar, Widget, FirstPart} First half scroll widget from start to track, on press acts as page scroll.
 		assignWidget(mWidgetFirstPart, "FirstPart");
 		if (mWidgetFirstPart != nullptr)
 		{
@@ -68,7 +68,7 @@ namespace MyGUI
 			mWidgetFirstPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
-		///@wskin_child{ScrollBar, Widget, SecondPart} Виджет второй половины прокрутки от трекера до конца, при нажатии восприницмается как прокрутка страницы.
+		///@wskin_child{ScrollBar, Widget, SecondPart} Second half scroll widget from track to end, on press acts as page scroll.
 		assignWidget(mWidgetSecondPart, "SecondPart");
 		if (mWidgetSecondPart != nullptr)
 		{
@@ -107,12 +107,10 @@ namespace MyGUI
 			return;
 
 		_forcePick(mWidgetTrack);
-		// размер диапазана в пикселях
 		int pos = getLineSize();
 
 		if (mVerticalAlignment)
 		{
-			// скрываем если диапазан маленький или места мало
 			if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight()))
 			{
 				mWidgetTrack->setVisible(false);
@@ -126,11 +124,9 @@ namespace MyGUI
 						pos - pos / 2);
 				return;
 			}
-			// если скрыт то покажем
 			if (!mWidgetTrack->getVisible())
 				mWidgetTrack->setVisible(true);
 
-			// и обновляем позицию
 			pos = (int)(((size_t)(pos - getTrackSize()) * mScrollPosition) / (mScrollRange - 1) + mSkinRangeStart);
 
 			mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
@@ -148,7 +144,6 @@ namespace MyGUI
 		}
 		else
 		{
-			// скрываем если диапазан маленький или места мало
 			if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth()))
 			{
 				mWidgetTrack->setVisible(false);
@@ -162,11 +157,9 @@ namespace MyGUI
 						mWidgetSecondPart->getHeight());
 				return;
 			}
-			// если скрыт то покажем
 			if (!mWidgetTrack->getVisible())
 				mWidgetTrack->setVisible(true);
 
-			// и обновляем позицию
 			pos = (int)(((size_t)(pos - getTrackSize()) * mScrollPosition) / (mScrollRange - 1) + mSkinRangeStart);
 
 			mWidgetTrack->setPosition(pos, mWidgetTrack->getTop());
@@ -193,7 +186,6 @@ namespace MyGUI
 
 		if (mVerticalAlignment)
 		{
-			// расчитываем позицию виджета
 			int start = mPreActionOffset.top + (_top - point.top);
 			if (start < (int)mSkinRangeStart)
 				start = (int)mSkinRangeStart;
@@ -205,14 +197,10 @@ namespace MyGUI
 			int pos = 0;
 			if (mScrollRange >= 2)
 			{
-				// расчитываем положение соответствующее позиции
-				// плюс пол позиции
 				pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
-				// высчитываем ближайшее значение и обновляем
 				pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
 			}
 
-			// проверяем на выходы и изменения
 			if (pos < 0)
 				pos = 0;
 			else if (pos >= (int)mScrollRange)
@@ -224,7 +212,6 @@ namespace MyGUI
 		}
 		else
 		{
-			// расчитываем позицию виджета
 			int start = mPreActionOffset.left + (_left - point.left);
 			if (start < (int)mSkinRangeStart)
 				start = (int)mSkinRangeStart;
@@ -236,14 +223,10 @@ namespace MyGUI
 			int pos = 0;
 			if (mScrollRange >= 2)
 			{
-				// расчитываем положение соответствующее позиции
-				// плюс пол позиции
 				pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
-				// высчитываем ближайшее значение и обновляем
 				pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
 			}
 
-			// проверяем на выходы и изменения
 			if (pos < 0)
 				pos = 0;
 			else if (pos >= (int)mScrollRange)
@@ -256,13 +239,11 @@ namespace MyGUI
 
 		updateTrack();
 
-		// отсылаем событие
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
 	void ScrollBar::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		// диспечерезируем нажатие своих детей как свое
 		eventMouseButtonPressed(this, _left, _top, _id);
 
 		if (MouseButton::Left != _id)
@@ -360,14 +341,12 @@ namespace MyGUI
 	void ScrollBar::setSize(const IntSize& _size)
 	{
 		Base::setSize(_size);
-		// обновляем трек
 		updateTrack();
 	}
 
 	void ScrollBar::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
-		// обновляем трек
 		updateTrack();
 	}
 
@@ -459,7 +438,6 @@ namespace MyGUI
 		if ((size_t)offset != mScrollPosition)
 		{
 			mScrollPosition = offset;
-			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
 		}
@@ -479,99 +457,87 @@ namespace MyGUI
 
 	void ScrollBar::widgetStartPressed()
 	{
-		// минимальное значение
 		if (mScrollPosition == 0)
 			return;
 
-		// расчитываем следующее положение
 		if (mScrollPosition > mScrollPage)
 			mScrollPosition -= mScrollPage;
 		else
 			mScrollPosition = 0;
 
-		// оповещаем
 		eventScrollChangePosition(this, (int)mScrollPosition);
 		updateTrack();
 	}
 
 	void ScrollBar::widgetEndPressed()
 	{
-		// максимальное значение
 		if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
 			return;
 
-		// расчитываем следующее положение
 		if ((mScrollPosition + mScrollPage) < (mScrollRange - 1))
 			mScrollPosition += mScrollPage;
 		else
 			mScrollPosition = mScrollRange - 1;
 
-		// оповещаем
 		eventScrollChangePosition(this, (int)mScrollPosition);
 		updateTrack();
 	}
 
 	void ScrollBar::widgetFirstPartPressed()
 	{
-		// минимальное значение
 		if (mScrollPosition == 0)
 			return;
 
-		// расчитываем следующее положение
 		if (mScrollPosition > mScrollViewPage)
 			mScrollPosition -= mScrollViewPage;
 		else
 			mScrollPosition = 0;
 
-		// оповещаем
 		eventScrollChangePosition(this, (int)mScrollPosition);
 		updateTrack();
 	}
 
 	void ScrollBar::widgetSecondPartPressed()
 	{
-		// максимальное значение
 		if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
 			return;
 
-		// расчитываем следующее положение
 		if ((mScrollPosition + mScrollViewPage) < (mScrollRange - 1))
 			mScrollPosition += mScrollViewPage;
 		else
 			mScrollPosition = mScrollRange - 1;
 
-		// оповещаем
 		eventScrollChangePosition(this, (int)mScrollPosition);
 		updateTrack();
 	}
 
 	void ScrollBar::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{ScrollBar, Range, size_t} Диапазон прокрутки.
+		/// @wproperty{ScrollBar, Range, size_t} Scroll range.
 		if (_key == "Range")
 			setScrollRange(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, RangePosition, size_t} Положение прокрутки.
+		/// @wproperty{ScrollBar, RangePosition, size_t} Scroll position.
 		else if (_key == "RangePosition")
 			setScrollPosition(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, Page, size_t} Шаг прокрутки при нажатии на кнопку начала или конца.
+		/// @wproperty{ScrollBar, Page, size_t} Scroll step when pressing start or end button.
 		else if (_key == "Page")
 			setScrollPage(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, ViewPage, size_t} Шаг прокрутки при нажатии на одну из частей от кнопки до трекера.
+		/// @wproperty{ScrollBar, ViewPage, size_t} Scroll step when pressing one of the parts from button to track.
 		else if (_key == "ViewPage")
 			setScrollViewPage(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, WheelPage, size_t} Шаг прокрутки при прокрутке колесиком мыши.
+		/// @wproperty{ScrollBar, WheelPage, size_t} Scroll step when using mouse wheel.
 		else if (_key == "WheelPage")
 			setScrollWheelPage(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, MoveToClick, bool} Режим перескакивания бегунка к месту клика.
+		/// @wproperty{ScrollBar, MoveToClick, bool} Move track to click position mode.
 		else if (_key == "MoveToClick")
 			setMoveToClick(utility::parseValue<bool>(_value));
 
-		/// @wproperty{ScrollBar, VerticalAlignment, bool} Вертикальное выравнивание.
+		/// @wproperty{ScrollBar, VerticalAlignment, bool} Vertical alignment.
 		else if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
 

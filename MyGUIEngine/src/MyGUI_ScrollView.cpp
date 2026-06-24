@@ -13,8 +13,8 @@
 namespace MyGUI
 {
 
-	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
-	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
+	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // pixels for mouse wheel
+	const int SCROLL_VIEW_SCROLL_PAGE = 16; // pixels for scroll buttons
 
 	ScrollView::ScrollView() :
 		mContentAlign(Align::Center)
@@ -26,7 +26,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME нам нужен фокус клавы
+		// FIXME we need keyboard focus
 		setNeedKeyFocus(true);
 
 		assignWidget(mScrollViewClient, "Client");
@@ -40,14 +40,14 @@ namespace MyGUI
 		realClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 		setWidgetClient(realClient);
 
-		///@wskin_child{ScrollView, ScrollBar, VScroll} Вертикальная полоса прокрутки.
+		///@wskin_child{ScrollView, ScrollBar, VScroll} Vertical scroll bar.
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
 		}
 
-		///@wskin_child{ScrollView, ScrollBar, HScroll} Горизонтальная полоса прокрутки.
+		///@wskin_child{ScrollView, ScrollBar, HScroll} Horizontal scroll bar.
 		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
@@ -228,11 +228,11 @@ namespace MyGUI
 		else if (_key == "VisibleHScroll")
 			setVisibleHScroll(utility::parseValue<bool>(_value));
 
-		/// @wproperty{ScrollView, CanvasAlign, Align} Выравнивание содержимого.
+		/// @wproperty{ScrollView, CanvasAlign, Align} Content alignment.
 		else if (_key == "CanvasAlign")
 			setCanvasAlign(utility::parseValue<Align>(_value));
 
-		/// @wproperty{ScrollView, CanvasSize, int int} Размер содержимого.
+		/// @wproperty{ScrollView, CanvasSize, int int} Content size.
 		else if (_key == "CanvasSize")
 			setCanvasSize(utility::parseValue<IntSize>(_value));
 

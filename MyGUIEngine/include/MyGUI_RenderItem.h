@@ -61,7 +61,7 @@ namespace MyGUI
 		bool mOutOfDate{false};
 		VectorDrawItem mDrawItems;
 
-		// колличество отрендренных реально вершин
+		// Number of vertices actually rendered
 		size_t mCountVertex{0};
 
 		bool mCurrentUpdate{true};

@@ -59,7 +59,7 @@ namespace MyGUI
 			mOutOfDate = false;
 		}
 
-		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
+		// batch doesn't render with 0 count, but still avoid changing state
 		if (0 != mCountVertex)
 		{
 #if MYGUI_DEBUG_MODE == 1
@@ -71,7 +71,6 @@ namespace MyGUI
 				return;
 			}
 #endif
-			// непосредственный рендринг
 			if (mManualRender)
 			{
 				for (auto& item : mDrawItems)
@@ -96,7 +95,7 @@ namespace MyGUI
 
 				mVertexBuffer->setVertexCount(mNeedVertexCount);
 
-				// если все отдетачились, расскажем отцу
+				// if all detached, notify parent
 				if (mDrawItems.empty())
 				{
 					mTexture = nullptr;
@@ -111,7 +110,6 @@ namespace MyGUI
 
 	void RenderItem::addDrawItem(ISubWidget* _item, size_t _count)
 	{
-// проверяем только в дебаге
 #if MYGUI_DEBUG_MODE == 1
 		for (const auto& item : mDrawItems)
 		{
@@ -132,7 +130,7 @@ namespace MyGUI
 		{
 			if (item.first == _item)
 			{
-				// если нужно меньше, то ниче не делаем
+				// if smaller, keep as is
 				if (item.second < _count)
 				{
 					mNeedVertexCount -= item.second;

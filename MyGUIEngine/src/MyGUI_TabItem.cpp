@@ -14,7 +14,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME проверить смену скина ибо должно один раз вызываться
+		// FIXME check skin change, should be called once
 		//mOwner = getParent()->castType<TabControl>();
 	}
 
@@ -53,7 +53,7 @@ namespace MyGUI
 
 	void TabItem::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{TabItem, ButtonWidth, int} Ширина кнопки.
+		/// @wproperty{TabItem, ButtonWidth, int} Button width.
 		if (_key == "ButtonWidth")
 			setButtonWidth(utility::parseValue<int>(_value));
 

@@ -25,7 +25,6 @@ namespace MyGUI
 
 		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
-		// парсим атрибуты скина
 		std::string name;
 		std::string texture;
 		std::string tmp;
@@ -37,7 +36,7 @@ namespace MyGUI
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
-		// вспомогательный класс для биндинга сабскинов
+		// helper class for binding subskins
 		SubWidgetBinding bind;
 
 		// tags replacement support for Skins
@@ -48,17 +47,14 @@ namespace MyGUI
 
 		setInfo(size, texture);
 
-		// проверяем маску
 		if (_node->findAttribute("mask", tmp))
 			addProperty("MaskPick", tmp);
 
-		// берем детей и крутимся, цикл с саб скинами
 		xml::ElementEnumerator basis = _node->getElementEnumerator();
 		while (basis.next())
 		{
 			if (basis->getName() == "Property")
 			{
-				// загружаем свойства
 				std::string key;
 				std::string value;
 				if (!basis->findAttribute("key", key))
@@ -72,7 +68,6 @@ namespace MyGUI
 					value = localizator.replaceTags(value);
 				}
 
-				// добавляем свойство
 				addProperty(key, value);
 			}
 			else if (basis->getName() == "Child")
@@ -95,7 +90,6 @@ namespace MyGUI
 			}
 			else if (basis->getName() == "BasisSkin")
 			{
-				// парсим атрибуты
 				std::string basisSkinType;
 				std::string tmp_str;
 				IntCoord offset;
@@ -108,12 +102,11 @@ namespace MyGUI
 
 				bind.create(offset, align, basisSkinType);
 
-				// берем детей и крутимся, цикл со стейтами
 				xml::ElementEnumerator state = basis->getElementEnumerator();
 
-				// проверяем на новый формат стейтов
+				// check for new state format
 				bool new_format = false;
-				// если версия меньше 1.0 то переименовываем стейты
+				// if version < 1.0 rename states
 				if (_version < Version(1, 0))
 				{
 					while (state.next())
@@ -128,7 +121,6 @@ namespace MyGUI
 							}
 						}
 					}
-					// обновляем
 					state = basis->getElementEnumerator();
 				}
 
@@ -136,14 +128,13 @@ namespace MyGUI
 				{
 					if (state->getName() == "State")
 					{
-						// парсим атрибуты стейта
 						std::string basisStateName;
 						state->findAttribute("name", basisStateName);
 
-						// если версия меньше 1.0 то переименовываем стейты
+						// if version < 1.0 rename states
 						if (_version < Version(1, 0))
 						{
-							// это обсолет новых типов
+							// obsolete new types
 							if (basisStateName == "disable_check")
 								basisStateName = "disabled_checked";
 							else if (basisStateName == "normal_check")
@@ -167,7 +158,6 @@ namespace MyGUI
 							}
 						}
 
-						// конвертируем инфу о стейте
 						IStateInfo* data = nullptr;
 						IObject* object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
 						if (object != nullptr)
@@ -176,12 +166,10 @@ namespace MyGUI
 							data->deserialization(state.current(), _version);
 						}
 
-						// добавляем инфо о стайте
 						bind.add(basisStateName, data, name);
 					}
 				}
 
-				// теперь всё вместе добавляем в скин
 				addInfo(bind);
 			}
 		}
@@ -230,18 +218,16 @@ namespace MyGUI
 
 	void ResourceSkin::checkState(std::string_view _name)
 	{
-		// ищем такой же ключ
 		MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
 		if (iter == mStates.end())
 		{
-			// добавляем новый стейт
 			mStates.emplace(_name, VectorStateInfo());
 		}
 	}
 
 	void ResourceSkin::checkBasis()
 	{
-		// и увеличиваем размер смещений по колличеству сабвиджетов
+		// increase offset array size by number of subwidgets
 		for (auto& state : mStates)
 		{
 			state.second.resize(mBasis.size());

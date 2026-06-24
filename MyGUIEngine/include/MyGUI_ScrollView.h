@@ -79,14 +79,10 @@ namespace MyGUI
 		ScrollBar* getVScroll() const;
 
 	private:
-		// размер данных
 		IntSize getContentSize() const override;
-		// смещение данных
 		IntPoint getContentPosition() const override;
-		// размер окна, через которые видно данные
 		IntSize getViewSize() const override;
 		void setContentPosition(const IntPoint& _point) override;
-		// размер на который прокручиваются данные при щелчке по скролу
 		size_t getVScrollPage() const override;
 		size_t getHScrollPage() const override;
 

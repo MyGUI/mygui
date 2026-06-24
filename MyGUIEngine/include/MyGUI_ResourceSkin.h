@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	// вспомогательный класс для инициализации одного скина
+	// Helper class
 	class MYGUI_EXPORT ResourceSkin : public IResource
 	{
 		MYGUI_RTTI_DERIVED(ResourceSkin)
@@ -52,9 +52,8 @@ namespace MyGUI
 		std::string mTexture;
 		VectorSubWidgetInfo mBasis;
 		MapWidgetStateInfo mStates;
-		// дополнительные параметры скина
+		// Additional skin parameters
 		MapString mProperties;
-		// дети скина
 		VectorChildSkinInfo mChilds;
 		std::string mSkinName;
 	};

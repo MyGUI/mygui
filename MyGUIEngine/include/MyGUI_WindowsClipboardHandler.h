@@ -26,9 +26,9 @@ namespace MyGUI
 		void handleClipboardRequested(std::string_view _type, std::string& _data);
 
 	private:
-		// дескриптор нашего главного окна
+		// Main window descriptor
 		size_t mHwnd;
-		// строка, которую мы положили в буфер обмена винды
+		// String stored in Windows clipboard
 		UString mPutTextInClipboard;
 	};
 #endif // MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

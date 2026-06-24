@@ -23,7 +23,6 @@
 namespace MyGUI
 {
 
-	// определяем типы
 	using IntPoint = types::TPoint<int>;
 	using FloatPoint = types::TPoint<float>;
 

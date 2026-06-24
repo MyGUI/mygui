@@ -55,10 +55,10 @@ namespace MyGUI
 	const int EDIT_CURSOR_MIN_POSITION = -100000;
 	const size_t EDIT_MAX_UNDO = 128;
 	const size_t EDIT_DEFAULT_MAX_TEXT_LENGTH = 2048;
-	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // дополнительное смещение для курсора
-	const int EDIT_ACTION_MOUSE_ZONE = 1500; // область для восприятия мыши за пределом эдита
+	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // additional offset for cursor
+	const int EDIT_ACTION_MOUSE_ZONE = 1500; // mouse interaction zone outside the edit box
 	const std::string_view EDIT_CLIPBOARD_TYPE_TEXT = "Text";
-	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
+	const int EDIT_MOUSE_WHEEL = 50; // mouse interaction zone outside the edit box
 
 	EditBox::EditBox() :
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
@@ -72,7 +72,7 @@ namespace MyGUI
 
 		mOriginalPointer = getPointer();
 
-		// FIXME нам нужен фокус клавы
+		// FIXME we need keyboard focus
 		setNeedKeyFocus(true);
 
 		assignWidget(mScrollViewClient, "Client");
@@ -87,14 +87,14 @@ namespace MyGUI
 			getClientWidget()->eventMouseWheel += newDelegate(this, &EditBox::notifyMouseWheel);
 		}
 
-		///@wskin_child{EditBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
+		///@wskin_child{EditBox, ScrollBar, VScroll} Vertical scroll bar.
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &EditBox::notifyScrollChangePosition);
 		}
 
-		///@wskin_child{EditBox, ScrollBar, HScroll} Горизонтальная полоса прокрутки.
+		///@wskin_child{EditBox, ScrollBar, HScroll} Horizontal scroll bar.
 		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
@@ -111,7 +111,7 @@ namespace MyGUI
 
 		updateScrollSize();
 
-		// первоначальная инициализация курсора
+		// initial cursor initialization
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 
@@ -151,7 +151,7 @@ namespace MyGUI
 		if (mClientText == nullptr)
 			return;
 
-		// в статике все недоступно
+		// in static mode nothing is available
 		if (mModeStatic)
 			return;
 
@@ -168,7 +168,6 @@ namespace MyGUI
 
 	void EditBox::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		// сбрасываем всегда
 		mMouseLeftPressed = false;
 	}
 
@@ -180,14 +179,14 @@ namespace MyGUI
 		if (mClientText == nullptr)
 			return;
 
-		// в статике все недоступно
+		// in static mode nothing is available
 		if (mModeStatic)
 			return;
 
-		// останавливаем курсор
+		// stop cursor
 		mClientText->setVisibleCursor(true);
 
-		// сбрасываем все таймеры
+		// reset all timers
 		mCursorTimer = 0;
 		mActionMouseTimer = 0;
 
@@ -217,7 +216,7 @@ namespace MyGUI
 		if (mClientText == nullptr)
 			return;
 
-		// в статике все недоступно
+		// in static mode nothing is available
 		if (mModeStatic)
 			return;
 
@@ -394,7 +393,7 @@ namespace MyGUI
 			return;
 		}
 
-		// в статическом режиме ничего не доступно
+		// in static mode nothing is available
 		if (mModeStatic)
 		{
 			Base::onKeyButtonPressed(_key, _char);
@@ -414,22 +413,22 @@ namespace MyGUI
 		}
 		else if (editCmd == EditCommand::ErasePrevious)
 		{
-			// если нуно то удаляем выделенный текст
+			// if needed, delete selected text
 			if (!mModeReadOnly)
 			{
-				// сбрасываем повтор
+				// reset repeat
 				commandResetRedo();
 
 				if (!deleteTextSelect(true))
 				{
-					// прыгаем на одну назад и удаляем
+					// jump back one and delete
 					if (mCursorPosition != 0)
 					{
 						mCursorPosition--;
 						eraseText(mCursorPosition, 1, true);
 					}
 				}
-				// отсылаем событие о изменении
+				// fire change event
 				eventEditTextChange(this);
 			}
 		}
@@ -437,10 +436,10 @@ namespace MyGUI
 		{
 			if (!mModeReadOnly)
 			{
-				// сбрасываем повтор
+				// reset repeat
 				commandResetRedo();
 
-				// если нуно то удаляем выделенный текст
+				// if needed, delete selected text
 				if (!deleteTextSelect(true))
 				{
 					if (mCursorPosition != mTextLength)
@@ -448,13 +447,13 @@ namespace MyGUI
 						eraseText(mCursorPosition, 1, true);
 					}
 				}
-				// отсылаем событие о изменении
+				// fire change event
 				eventEditTextChange(this);
 			}
 		}
 		else if (editCmd == EditCommand::Paste)
 		{
-			// сбрасываем повтор
+			// reset repeat
 			commandResetRedo();
 
 			commandPaste();
@@ -483,26 +482,26 @@ namespace MyGUI
 		}
 		else if (editCmd == EditCommand::NewLine)
 		{
-			// работаем только в режиме редактирования
+			// only work in edit mode
 			if (!mModeReadOnly)
 			{
 				if (mModeMultiline)
 				{
-					// сбрасываем повтор
+					// reset repeat
 					commandResetRedo();
 
-					// попытка объединения двух комманд
+					// attempt to merge two commands
 					size_t size = mVectorUndoChangeInfo.size();
-					// непосредственно операции
+					// actual operations
 					deleteTextSelect(true);
 					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
-					// проверяем на возможность объединения
+					// check merge possibility
 					if ((size + 2) == mVectorUndoChangeInfo.size())
 						commandMerge();
-					// отсылаем событие о изменении
+					// fire change event
 					eventEditTextChange(this);
 				}
-				// при сингл лайн и и мульти+сонтрол шлем эвент
+				// for single line and multi+ctrl send event
 				else
 				{
 					eventEditSelectAccept(this);
@@ -543,7 +542,7 @@ namespace MyGUI
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
-			// сбрасываем выделение
+			// reset selection
 			else if (isTextSelection() && !input.isShiftPressed())
 			{
 				resetSelect();
@@ -579,7 +578,7 @@ namespace MyGUI
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
-			// сбрасываем выделение
+			// reset selection
 			else if (isTextSelection() && !input.isShiftPressed())
 			{
 				resetSelect();
@@ -591,7 +590,7 @@ namespace MyGUI
 			point.top -= mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
-			// самая верхняя строчка
+			// topmost line
 			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != 0)
@@ -600,7 +599,7 @@ namespace MyGUI
 					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// reset selection
 				else if (isTextSelection() && !input.isShiftPressed())
 				{
 					resetSelect();
@@ -618,7 +617,7 @@ namespace MyGUI
 			point.top += mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
-			// самая нижняя строчка
+			// bottommost line
 			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != mTextLength)
@@ -627,7 +626,7 @@ namespace MyGUI
 					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// reset selection
 				else if (isTextSelection() && !input.isShiftPressed())
 				{
 					resetSelect();
@@ -699,14 +698,14 @@ namespace MyGUI
 		}
 		else if (editCmd == EditCommand::MovePageUp)
 		{
-			// на размер окна, но не меньше одной строки
+			// window size, but at least one line
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 			point.top -= (getClientWidget()->getHeight() > mClientText->getFontHeight())
 				? getClientWidget()->getHeight()
 				: mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
-			// самая верхняя строчка
+			// topmost line
 			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != 0)
@@ -715,7 +714,7 @@ namespace MyGUI
 					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// reset selection
 				else if (isTextSelection() && !input.isShiftPressed())
 				{
 					resetSelect();
@@ -729,14 +728,14 @@ namespace MyGUI
 		}
 		else if (editCmd == EditCommand::MovePageDown)
 		{
-			// на размер окна, но не меньше одной строки
+			// window size, but at least one line
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 			point.top += (getClientWidget()->getHeight() > mClientText->getFontHeight())
 				? getClientWidget()->getHeight()
 				: mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
-			// самая нижняя строчка
+			// bottommost line
 			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != mTextLength)
@@ -745,7 +744,7 @@ namespace MyGUI
 					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				// сбрасываем выделение
+				// reset selection
 				else if (isTextSelection() && !input.isShiftPressed())
 				{
 					resetSelect();
@@ -759,7 +758,7 @@ namespace MyGUI
 		}
 		else if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
 		{
-			// для правильно выделения
+			// for correct selection
 			if (mStartSelect == ITEM_NONE)
 			{
 				mStartSelect = mEndSelect = mCursorPosition;
@@ -767,24 +766,24 @@ namespace MyGUI
 		}
 		else
 		{
-			// если не нажат контрл, то обрабатываем как текст
+			// if control is not pressed, process as text
 			if (!mModeReadOnly && _char != 0)
 			{
-				// сбрасываем повтор
+				// reset repeat
 				commandResetRedo();
 
-				// таб только если нужно
+				// tab only if needed
 				if (_char != '\t' || mTabPrinting)
 				{
-					// попытка объединения двух комманд
+					// attempt to merge two commands
 					size_t size = mVectorUndoChangeInfo.size();
-					// непосредственно операции
+					// actual operations
 					deleteTextSelect(true);
 					insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
-					// проверяем на возможность объединения
+					// check merge possibility
 					if ((size + 2) == mVectorUndoChangeInfo.size())
 						commandMerge();
-					// отсылаем событие о изменении
+					// fire change event
 					eventEditTextChange(this);
 				}
 			}
@@ -798,7 +797,7 @@ namespace MyGUI
 		if (mClientText == nullptr)
 			return;
 
-		// в статике все недоступно
+		// in static mode nothing is available
 		if (mModeStatic)
 			return;
 
@@ -814,7 +813,7 @@ namespace MyGUI
 			}
 		}
 
-		// сдвигаем курсор по положению мыши
+		// move cursor by mouse position
 		if (mMouseLeftPressed)
 		{
 			mActionMouseTimer += _frame;
@@ -829,7 +828,7 @@ namespace MyGUI
 
 				bool action = false;
 
-				// вверх на одну строчку
+				// up one line
 				if ((mouse.top < 0) && (mouse.top > -EDIT_ACTION_MOUSE_ZONE))
 				{
 					if ((mouse.left > 0) && (mouse.left <= getClientWidget()->getWidth()))
@@ -839,7 +838,7 @@ namespace MyGUI
 						action = true;
 					}
 				}
-				// вниз на одну строчку
+				// down one line
 				else if (
 					(mouse.top > getClientWidget()->getHeight()) &&
 					(mouse.top < (getClientWidget()->getHeight() + EDIT_ACTION_MOUSE_ZONE)))
@@ -852,14 +851,14 @@ namespace MyGUI
 					}
 				}
 
-				// влево на небольшое расстояние
+				// left by a small distance
 				if ((mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE))
 				{
 					point = mClientText->getCursorPoint(mCursorPosition);
 					point.left -= (int)EDIT_OFFSET_HORZ_CURSOR;
 					action = true;
 				}
-				// вправо на небольшое расстояние
+				// right by a small distance
 				else if (
 					(mouse.left > getClientWidget()->getWidth()) &&
 					(mouse.left < (getClientWidget()->getWidth() + EDIT_ACTION_MOUSE_ZONE)))
@@ -887,11 +886,11 @@ namespace MyGUI
 						else
 							mClientText->setTextSelection(mStartSelect, mEndSelect);
 
-						// пытаемся показать курсор
+						// try to show cursor
 						updateViewWithCursor();
 					}
 				}
-				// если в зону не попадает то сбрасываем
+				// if not in zone, reset
 				else
 				{
 					mActionMouseTimer = 0;
@@ -906,10 +905,9 @@ namespace MyGUI
 
 	void EditBox::setTextCursor(size_t _index)
 	{
-		// сбрасываем выделение
 		resetSelect();
 
-		// новая позиция
+		// new position
 		if (_index > mTextLength)
 			_index = mTextLength;
 
@@ -918,7 +916,6 @@ namespace MyGUI
 
 		mCursorPosition = _index;
 
-		// обновляем по позиции
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 
@@ -945,10 +942,10 @@ namespace MyGUI
 
 		if (mCursorPosition == mEndSelect)
 			return;
-		// курсор на конец выделения
+		// cursor at end of selection
 		mCursorPosition = mEndSelect;
 
-		// обновляем по позиции
+		// update by position
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 	}
@@ -958,7 +955,7 @@ namespace MyGUI
 		if (!isTextSelection())
 			return false;
 
-		// начало и конец выделения
+		// start and end of selection
 		size_t start = getTextSelectionStart();
 		size_t end = getTextSelectionEnd();
 
@@ -986,12 +983,12 @@ namespace MyGUI
 	void EditBox::commandMerge()
 	{
 		if (mVectorUndoChangeInfo.size() < 2)
-			return; // на всякий
-		// сохраняем последние набор отмен
+			return; // just in case
+		// save the last undo set
 		VectorChangeInfo info = mVectorUndoChangeInfo.back();
 		mVectorUndoChangeInfo.pop_back();
 
-		// объединяем последовательности
+		// merge sequences
 		for (const auto& iter : info)
 		{
 			mVectorUndoChangeInfo.back().push_back(iter);
@@ -1045,7 +1042,7 @@ namespace MyGUI
 		if (mVectorRedoChangeInfo.empty())
 			return false;
 
-		// сбрасываем выделение
+		// reset selection
 		resetSelect();
 
 		// save last undo info
@@ -1086,144 +1083,112 @@ namespace MyGUI
 	{
 		if (_info == nullptr)
 			return;
-		// если нет информации об изменении
+		// if no change information
 		if (_info->empty())
 			return;
 		if ((_info->size() == 1) && (_info->back().type == TextCommandInfo::COMMAND_POSITION))
 			return;
 
 		mVectorUndoChangeInfo.push_back(*_info);
-		// проверяем на максимальный размер
+		// check for maximum size
 		if (mVectorUndoChangeInfo.size() > EDIT_MAX_UNDO)
 			mVectorUndoChangeInfo.pop_front();
 	}
 
-	// возвращает текст
+	// returns text
 	UString EditBox::getTextInterval(size_t _start, size_t _count) const
 	{
-		// подстраховка
 		if (_start > mTextLength)
 			_start = mTextLength;
-		// конец диапазона
 		size_t end = _start + _count;
 
-		// итератор нашей строки
 		TextIterator iterator(getRealString());
 
-		// дефолтный цвет
 		UString colour;
 		if (mClientText != nullptr)
 			colour = TextIterator::convertTagColour(mClientText->getTextColour());
 
-		// нужно ли вставлять цвет
 		bool need_colour = true;
 
-		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
-			// еще рано
 			if (pos < _start)
 			{
-				// берем цвет из позиции и запоминаем
 				iterator.getTagColour(colour);
-
 				continue;
 			}
 
-			// проверяем на надобность начального тега
 			if (pos == _start)
 			{
 				need_colour = !iterator.getTagColour(colour);
-				// сохраняем место откуда начинается
 				iterator.saveStartPoint();
 			}
 
-			// а теперь просто до конца диапазона
 			else if (pos == end)
 				break;
 		}
 
-		// возвращаем строку
 		if (need_colour)
 			return colour + iterator.getFromStart();
 		return iterator.getFromStart();
 	}
 
-	// выделяет цветом диапазон
 	void EditBox::_setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history)
 	{
-		// история изменений
 		VectorChangeInfo* history = nullptr;
 		if (_history)
 			history = new VectorChangeInfo();
 
-		// конец диапазона
 		size_t end = _start + _count;
 
-		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
 
-		// дефолтный цвет
 		UString colour;
 		if (mClientText != nullptr)
 			colour = TextIterator::convertTagColour(mClientText->getTextColour());
 
-		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
-			// берем цвет из позиции и запоминаем
 			iterator.getTagColour(colour);
 
-			// еще рано
 			if (pos < _start)
 				continue;
 
-			// ставим начальный тег
 			if (pos == _start)
 				iterator.setTagColour(_colour);
 
-			// внутри диапазона очищаем все
 			else if (pos < end)
 				iterator.clearTagColour();
 
-			// на конец ставим последний найденный или дефолтный
 			else if (pos == end)
 			{
 				iterator.setTagColour(colour);
-				// и выходим из цикла
 				break;
 			}
 		}
 
-		// сохраняем позицию для восстановления курсора
 		commandPosition(_start, _start + _count, mTextLength, history);
 
-		// запоминаем в историю
 		if (_history)
 		{
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
 		else
 			commandResetHistory();
 
-		// и возвращаем строку на место
 		setRealString(iterator.getText());
 	}
 
 	void EditBox::setTextSelectColour(const Colour& _colour, bool _history)
 	{
-		// нужно выделение
 		if (!isTextSelection())
 			return;
-		// начало и конец выделения
+		// start and end of selection
 		size_t start = getTextSelectionStart();
 		size_t end = getTextSelectionEnd();
 		_setTextColour(start, end - start, _colour, _history);
@@ -1260,26 +1225,20 @@ namespace MyGUI
 				mPasswordText.clear();
 			}
 		}
-		// обновляем по размерам
 		updateView();
-		// сбрасываем историю
 		commandResetHistory();
 	}
 
 	void EditBox::setText(const UString& _caption, bool _history)
 	{
-		// сбрасываем выделение
 		resetSelect();
 
-		// история изменений
 		VectorChangeInfo* history = nullptr;
 		if (_history)
 			history = new VectorChangeInfo();
 
-		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
 
-		// вставляем текст
 		iterator.setText(_caption, mModeMultiline || mModeWordWrap);
 
 		if (mOverflowToTheLeft)
@@ -1288,32 +1247,24 @@ namespace MyGUI
 		}
 		else
 		{
-			// обрезаем по максимальной длинне
 			iterator.cutMaxLength(mMaxTextLength);
 		}
 
-		// запоминаем размер строки
 		size_t old = mTextLength;
-		// новая позиция и положение на конец вставки
 		mCursorPosition = mTextLength = iterator.getSize();
 
-		// сохраняем позицию для восстановления курсора
 		commandPosition(0, mTextLength, old, history);
 
-		// запоминаем в историю
 		if (_history)
 		{
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
 		else
 			commandResetHistory();
 
-		// и возвращаем строку на место
 		setRealString(iterator.getText());
 
-		// обновляем по позиции
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
@@ -1321,52 +1272,42 @@ namespace MyGUI
 
 	void EditBox::insertText(const UString& _text, size_t _start, bool _history)
 	{
-		// сбрасываем выделение
 		resetSelect();
 
-		// если строка пустая, или размер максимален
+		// if string is empty or max size reached
 		if (_text.empty())
 			return;
 
 		if ((!mOverflowToTheLeft) && (mTextLength == mMaxTextLength))
 			return;
 
-		// история изменений
 		VectorChangeInfo* history = nullptr;
 		if (_history)
 			history = new VectorChangeInfo();
 
-		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
 
-		// дефолтный цвет
 		UString colour;
 		if (mClientText != nullptr)
 			colour = TextIterator::convertTagColour(mClientText->getTextColour());
-		// нужен ли тег текста
-		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+		// whether text tag is needed
+		// TODO rework through TextIterator to decouple tag concept from edit
 		bool need_colour = ((_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#'));
 
-		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
-			// текущий цвет
 			if (need_colour)
 				iterator.getTagColour(colour);
 
-			// если дошли то выходим
 			if (pos == _start)
 				break;
 		}
 
-		// если нужен цвет то вставляем
 		if (need_colour)
 			iterator.setTagColour(colour);
 
-		// а теперь вставляем строку
 		iterator.insertText(_text, mModeMultiline || mModeWordWrap);
 
 		if (mOverflowToTheLeft)
@@ -1375,33 +1316,26 @@ namespace MyGUI
 		}
 		else
 		{
-			// обрезаем по максимальной длинне
 			iterator.cutMaxLength(mMaxTextLength);
 		}
 
-		// запоминаем размер строки
 		size_t old = mTextLength;
-		// новая позиция и положение на конец вставки
 		mTextLength = iterator.getSize();
 		mCursorPosition += mTextLength - old;
 
-		// сохраняем позицию для восстановления курсора
 		commandPosition(_start, _start + mTextLength - old, old, history);
 
-		// запоминаем в историю
 		if (_history)
 		{
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
 		else
 			commandResetHistory();
 
-		// и возвращаем строку на место
 		setRealString(iterator.getText());
 
-		// обновляем по позиции
+		// update by position
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
@@ -1409,66 +1343,49 @@ namespace MyGUI
 
 	void EditBox::eraseText(size_t _start, size_t _count, bool _history)
 	{
-		// чета маловато
 		if (_count == 0)
 			return;
 
-		// сбрасываем выделение
 		resetSelect();
 
-		// история изменений
 		VectorChangeInfo* history = nullptr;
 		if (_history)
 			history = new VectorChangeInfo();
 
-		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
 
-		// дефолтный цвет
 		UString colour;
-		// конец диапазона
 		size_t end = _start + _count;
 		bool need_colour = false;
 
-		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
-			// еще рано
 			if (pos < _start)
 			{
-				// берем цвет из позиции и запоминаем
 				iterator.getTagColour(colour);
 				continue;
 			}
 
-			// сохраняем место откуда начинается
 			if (pos == _start)
 			{
-				// если до диапазона был цвет, то нужно закрыть тег
 				if (!colour.empty())
 				{
 					need_colour = true;
 					colour.clear();
 				}
-				// берем цвет из позиции и запоминаем
 				iterator.getTagColour(colour);
 				iterator.saveStartPoint();
 			}
 
-			// внутри диапазона
 			else if (pos < end)
 			{
-				// берем цвет из позиции и запоминаем
 				iterator.getTagColour(colour);
 			}
 
-			// окончание диапазона
 			else if (pos == end)
 			{
-				// нужно ставить тег или нет
 				if (!colour.empty())
 					need_colour = true;
 				if (iterator.getTagColour(colour))
@@ -1478,33 +1395,26 @@ namespace MyGUI
 			}
 		}
 
-		// удаляем диапазон
 		iterator.eraseFromStart();
-		// и вставляем последний цвет
 		if (need_colour)
 			iterator.setTagColour(colour);
 
-		// сохраняем позицию для восстановления курсора
 		commandPosition(_start + _count, _start, mTextLength, history);
 
-		// на месте удаленного
 		mCursorPosition = _start;
 		mTextLength -= _count;
 
-		// запоминаем в историю
 		if (_history)
 		{
 			saveInHistory(history);
 			delete history;
 		}
-		// сбрасываем историю
 		else
 			commandResetHistory();
 
-		// и возвращаем строку на место
 		setRealString(iterator.getText());
 
-		// обновляем по позиции
+		// update by position
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
@@ -1533,15 +1443,13 @@ namespace MyGUI
 		std::string clipboard = ClipboardManager::getInstance().getClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 		if ((!mModeReadOnly) && (!clipboard.empty()))
 		{
-			// попытка объединения двух комманд
+			// attempt to merge two commands
 			size_t size = mVectorUndoChangeInfo.size();
-			// непосредственно операции
 			deleteTextSelect(true);
 			insertText(clipboard, mCursorPosition, true);
-			// проверяем на возможность объединения
+			// check merge possibility
 			if ((size + 2) == mVectorUndoChangeInfo.size())
 				commandMerge();
-			// отсылаем событие о изменении
 			eventEditTextChange(this);
 		}
 	}
@@ -1611,7 +1519,7 @@ namespace MyGUI
 
 	void EditBox::eraseView()
 	{
-		// если перенос, то сбрасываем размер текста
+		// if word wrap, reset text size
 		if (mModeWordWrap)
 		{
 			if (mClientText != nullptr)
@@ -1652,7 +1560,7 @@ namespace MyGUI
 			InputManager& input = InputManager::getInstance();
 			if ((input.isShiftPressed()) && (mStartSelect != ITEM_NONE))
 			{
-				// меняем выделение
+				// change selection
 				mEndSelect = (size_t)mCursorPosition;
 				if (mClientText != nullptr)
 				{
@@ -1664,14 +1572,14 @@ namespace MyGUI
 			}
 			else if (mStartSelect != ITEM_NONE)
 			{
-				// сбрасываем шифт
+				// reset shift
 				mStartSelect = ITEM_NONE;
 				if (mClientText != nullptr)
 					mClientText->setTextSelection(0, 0);
 			}
 		}
 
-		// пытаемся показать курсор
+		// try to show cursor
 		updateViewWithCursor();
 	}
 
@@ -1682,7 +1590,7 @@ namespace MyGUI
 		if (mClientText != nullptr)
 			mClientText->setTextAlign(_value);
 
-		// так как мы сами рулим смещениями
+		// since we manage offsets ourselves
 		updateView();
 	}
 
@@ -1824,44 +1732,40 @@ namespace MyGUI
 		if (mClientText == nullptr || getClientWidget() == nullptr)
 			return;
 
-		// размер контекста текста
+		// text context size
 		IntSize textSize = mClientText->getTextSize();
 
-		// текущее смещение контекста текста
 		IntPoint point = mClientText->getViewOffset();
-		// расчетное смещение
 		IntPoint offset = point;
 
-		// абсолютные координаты курсора
 		IntRect cursor = mClientText->getCursorRect(mCursorPosition);
 		cursor.right++;
 
-		// абсолютные координаты вью
 		const IntRect& view = getClientWidget()->getAbsoluteRect();
 
-		// проверяем и показываем курсор
+		// check and show cursor
 		if (!view.inside(cursor))
 		{
-			// горизонтальное смещение
+			// horizontal offset
 			if (textSize.width > view.width())
 			{
 				if (cursor.left < view.left)
 				{
 					offset.left = point.left - (view.left - cursor.left);
-					// добавляем смещение, только если курсор не перепрыгнет
+					// add offset only if cursor won't jump over
 					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR)
 						offset.left -= int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 				else if (cursor.right > view.right)
 				{
 					offset.left = point.left + (cursor.right - view.right);
-					// добавляем смещение, только если курсор не перепрыгнет
+					// add offset only if cursor won't jump over
 					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR)
 						offset.left += int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 			}
 
-			// вертикальное смещение
+			// vertical offset
 			if (textSize.height > view.height())
 			{
 				int delta = 0;
@@ -1885,7 +1789,6 @@ namespace MyGUI
 		if (offset != point)
 		{
 			mClientText->setViewOffset(offset);
-			// обновить скролы
 			if (mVScroll != nullptr)
 				mVScroll->setScrollPosition(offset.top);
 			if (mHScroll != nullptr)
@@ -2004,24 +1907,21 @@ namespace MyGUI
 	void EditBox::setEditReadOnly(bool _value)
 	{
 		mModeReadOnly = _value;
-		// сбрасываем историю
 		commandResetHistory();
 	}
 
 	void EditBox::setEditMultiLine(bool _value)
 	{
 		mModeMultiline = _value;
-		// на всякий, для убирания переносов
+		// just in case, to remove line breaks
 		if (!mModeMultiline)
 		{
 			setText(getRealString(), false);
 		}
-		// обновляем по размерам
 		else
 		{
 			updateView();
 		}
-		// сбрасываем историю
 		commandResetHistory();
 	}
 
@@ -2079,7 +1979,6 @@ namespace MyGUI
 		point.top = _index;
 
 		mClientText->setViewOffset(point);
-		// обновить скролы
 		if (mVScroll != nullptr)
 			mVScroll->setScrollPosition(point.top);
 	}
@@ -2106,7 +2005,6 @@ namespace MyGUI
 		point.left = _index;
 
 		mClientText->setViewOffset(point);
-		// обновить скролы
 		if (mHScroll != nullptr)
 			mHScroll->setScrollPosition(point.left);
 	}
@@ -2124,41 +2022,41 @@ namespace MyGUI
 
 	void EditBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{EditBox, CursorPosition, size_t} Позиция курсора.
+		/// @wproperty{EditBox, CursorPosition, size_t} Cursor position.
 		if (_key == "CursorPosition")
 			setTextCursor(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{EditBox, TextSelect, size_t size_t} Выделение текста.
+		/// @wproperty{EditBox, TextSelect, size_t size_t} Text selection.
 		else if (_key == "TextSelect")
 			setTextSelection(
 				utility::parseValue<types::TSize<size_t>>(_value).width,
 				utility::parseValue<types::TSize<size_t>>(_value).height);
 
-		/// @wproperty{EditBox, ReadOnly, bool} Режим только для чтения, в этом режиме нельзя изменять текст но которовать можно.
+		/// @wproperty{EditBox, ReadOnly, bool} Read-only mode; text cannot be edited but can be copied.
 		else if (_key == "ReadOnly")
 			setEditReadOnly(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, Password, bool} Режим ввода пароля, все символы заменяются на звездочки или другие указаные символы.
+		/// @wproperty{EditBox, Password, bool} Password mode; all characters are replaced with asterisks or other specified character.
 		else if (_key == "Password")
 			setEditPassword(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, MultiLine, bool} Режим много строчного ввода.
+		/// @wproperty{EditBox, MultiLine, bool} Multi-line input mode.
 		else if (_key == "MultiLine")
 			setEditMultiLine(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, PasswordChar, string} Символ для замены в режиме пароля.
+		/// @wproperty{EditBox, PasswordChar, string} Character to replace with in password mode.
 		else if (_key == "PasswordChar")
 			setPasswordChar(UString(_value));
 
-		/// @wproperty{EditBox, MaxTextLength, size_t} Максимальное длина текста.
+		/// @wproperty{EditBox, MaxTextLength, size_t} Maximum text length.
 		else if (_key == "MaxTextLength")
 			setMaxTextLength(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{EditBox, OverflowToTheLeft, bool} Режим обрезки текста в начале, после того как его колличество достигает максимального значения.
+		/// @wproperty{EditBox, OverflowToTheLeft, bool} Truncate text at the beginning when it reaches max length.
 		else if (_key == "OverflowToTheLeft")
 			setOverflowToTheLeft(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, Static, bool} Статический режим, поле ввода никак не реагирует на пользовательский ввод.
+		/// @wproperty{EditBox, Static, bool} Static mode; input field does not react to user input.
 		else if (_key == "Static")
 			setEditStatic(utility::parseValue<bool>(_value));
 
@@ -2170,15 +2068,15 @@ namespace MyGUI
 		else if (_key == "VisibleHScroll")
 			setVisibleHScroll(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, WordWrap, bool} Режим переноса по словам.
+		/// @wproperty{EditBox, WordWrap, bool} Word wrap mode.
 		else if (_key == "WordWrap")
 			setEditWordWrap(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, TabPrinting, bool} Воспринимать нажатие на Tab как символ табуляции.
+		/// @wproperty{EditBox, TabPrinting, bool} Treat Tab press as a tab character.
 		else if (_key == "TabPrinting")
 			setTabPrinting(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, InvertSelected, bool} При выделении цвета инвертируются.
+		/// @wproperty{EditBox, InvertSelected, bool} Invert colours on selection.
 		else if (_key == "InvertSelected")
 			setInvertSelected(utility::parseValue<bool>(_value));
 

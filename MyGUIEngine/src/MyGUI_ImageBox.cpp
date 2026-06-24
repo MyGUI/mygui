@@ -44,10 +44,9 @@ namespace MyGUI
 	{
 		mSizeTile = _tile;
 
-		// если размер еще не установлен, то ставим тот что у тайла
+		// use title size if mRectImage was not set yet
 		if (mRectImage.empty())
 			mRectImage.set(0, 0, _tile.width, _tile.height);
-		//если индекса еще нет, то ставим 0
 		if (mIndexSelect == ITEM_NONE)
 			mIndexSelect = 0;
 
@@ -69,10 +68,9 @@ namespace MyGUI
 	{
 		mRectImage = _rect;
 
-		// если тайл еще не установлен, то ставим тот что у координат
+		// use mRectImage size tile was not set yet
 		if (mSizeTile.empty())
 			mSizeTile.set(_rect.width(), _rect.height());
-		//если индекса еще нет, то ставим 0
 		if (mIndexSelect == ITEM_NONE)
 			mIndexSelect = 0;
 
@@ -85,7 +83,7 @@ namespace MyGUI
 		mCurrentTextureName = _texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
 
-		// если первый раз, то ставим во всю текстуру
+		// set entire texture on the first call
 		if (mItems.empty())
 		{
 			_setUVSet(FloatRect(0, 0, 1, 1));
@@ -364,7 +362,6 @@ namespace MyGUI
 		if (mResource == _resource)
 			return;
 
-		// если первый раз то устанавливаем дефолтное
 		if (mResource == nullptr)
 		{
 			if (mItemGroup.empty())
@@ -488,31 +485,31 @@ namespace MyGUI
 
 	void ImageBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
-		/// @wproperty{ImageBox, ImageTexture, string} Текстура для виджета.
+		/// @wproperty{ImageBox, ImageTexture, string} Texture for the widget.
 		if (_key == "ImageTexture")
 			setImageTexture(_value);
 
-		/// @wproperty{ImageBox, ImageCoord, int int int int} Координаты в текстуре.
+		/// @wproperty{ImageBox, ImageCoord, int int int int} Coordinates in the texture.
 		else if (_key == "ImageCoord")
 			setImageCoord(utility::parseValue<IntCoord>(_value));
 
-		/// @wproperty{ImageBox, ImageTile, int int} Размер тайла текстуры.
+		/// @wproperty{ImageBox, ImageTile, int int} Tile size of the texture.
 		else if (_key == "ImageTile")
 			setImageTile(utility::parseValue<IntSize>(_value));
 
-		/// @wproperty{ImageBox, ImageIndex, size_t} Индекс тайла в текстуре.
+		/// @wproperty{ImageBox, ImageIndex, size_t} Tile index in the texture.
 		else if (_key == "ImageIndex")
 			setItemSelect(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ImageBox, ImageResource, string} Имя ресурса картинки.
+		/// @wproperty{ImageBox, ImageResource, string} Image resource name.
 		else if (_key == "ImageResource")
 			setItemResource(_value);
 
-		/// @wproperty{ImageBox, ImageGroup, string} Имя группы картинки в ресурсе.
+		/// @wproperty{ImageBox, ImageGroup, string} Image group name in the resource.
 		else if (_key == "ImageGroup")
 			setItemGroup(_value);
 
-		/// @wproperty{ImageBox, ImageName, string} Имя картинки в группе ресурса.
+		/// @wproperty{ImageBox, ImageName, string} Image name in the resource group.
 		else if (_key == "ImageName")
 			setItemName(_value);
 

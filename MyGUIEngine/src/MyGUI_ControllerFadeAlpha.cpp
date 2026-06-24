@@ -16,7 +16,7 @@ namespace MyGUI
 
 	void ControllerFadeAlpha::prepareItem(Widget* _widget)
 	{
-		// подготовка виджета, блокируем если только нужно
+		// prepare widget, block if needed
 		if (!mEnabled)
 			_widget->setEnabledSilent(mEnabled);
 
@@ -26,11 +26,9 @@ namespace MyGUI
 			_widget->setVisible(true);
 		}
 
-		// отписываем его от ввода
 		if (!mEnabled)
 			InputManager::getInstance().unlinkWidget(_widget);
 
-		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget, this);
 	}
 
@@ -38,7 +36,7 @@ namespace MyGUI
 	{
 		float alpha = _widget->getAlpha();
 
-		// проверяем нужно ли к чему еще стремиться
+		// check if we need to approach target
 		if (mAlpha > alpha)
 		{
 			alpha += _time * mCoef;
@@ -64,7 +62,6 @@ namespace MyGUI
 			_widget->setAlpha(mAlpha);
 		}
 
-		// вызываем пользовательский делегат пост обработки
 		eventPostAction(_widget, this);
 
 		return false;

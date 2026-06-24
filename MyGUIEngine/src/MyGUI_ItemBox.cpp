@@ -25,7 +25,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME нам нужен фокус клавы
+		// FIXME we need key focus
 		setNeedKeyFocus(true);
 
 		mDragLayer = "DragAndDrop";
@@ -41,21 +41,21 @@ namespace MyGUI
 			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 		}
 
-		///@wskin_child{ItemBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
+		///@wskin_child{ItemBox, ScrollBar, VScroll} Vertical scroll bar.
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);
 		}
 
-		///@wskin_child{ItemBox, ScrollBar, HScroll} Горизонтальная полоса прокрутки.
+		///@wskin_child{ItemBox, ScrollBar, HScroll} Horizontal scroll bar.
 		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
 			mHScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);
 		}
 
-		// подписываем клиент для драгэндропа
+		// subscribe client to drag'n'drop
 		if (getClientWidget() != nullptr)
 			getClientWidget()->_setContainer(this);
 
@@ -94,7 +94,6 @@ namespace MyGUI
 	{
 		IntCoord coord(0, 0, 1, 1);
 
-		// спрашиваем размер иконок
 		requestCoordItem(this, coord, false);
 
 		mSizeItem = coord.size();
@@ -132,7 +131,6 @@ namespace MyGUI
 		size_t index = 0;
 		for (size_t pos = start; pos < count; ++pos, ++index)
 		{
-			// дальше нет айтемов
 			if (pos >= mItemsInfo.size())
 				break;
 
@@ -160,7 +158,7 @@ namespace MyGUI
 			}
 		}
 
-		// все виджеты еще есть, то их надо бы скрыть
+		// hide remaining widgets that are not needed
 		while (index < mVectorItems.size())
 		{
 			mVectorItems[index]->setVisible(false);
@@ -170,7 +168,7 @@ namespace MyGUI
 
 	Widget* ItemBox::getItemWidget(size_t _index)
 	{
-		// еще нет такого виджета, нуно создать
+		// create widget if it does not exist
 		if (_index == mVectorItems.size())
 		{
 			requestItemSize();
@@ -180,7 +178,6 @@ namespace MyGUI
 				IntCoord(0, 0, mSizeItem.width, mSizeItem.height),
 				Align::Default);
 
-			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
 
 			item->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
@@ -198,7 +195,6 @@ namespace MyGUI
 			mVectorItems.push_back(item);
 		}
 
-		// запрашивать только последовательно
 		MYGUI_ASSERT_RANGE(_index, mVectorItems.size(), "ItemBox::getItemWidget");
 
 		return mVectorItems[_index];
@@ -227,14 +223,12 @@ namespace MyGUI
 
 	void ItemBox::resetCurrentActiveItem()
 	{
-		// сбрасываем старую подсветку
 		if (mIndexActive != ITEM_NONE)
 		{
 			size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 			size_t index = mIndexActive;
 			mIndexActive = ITEM_NONE;
 
-			// если видим, то обновляем
 			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size())))
 			{
 				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
@@ -250,7 +244,6 @@ namespace MyGUI
 
 		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
 
-		// сначала проверяем клиентскую зону
 		const IntRect& rect = _getClientWidget()->getAbsoluteRect();
 		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) ||
 			(point.top > rect.bottom))
@@ -265,7 +258,7 @@ namespace MyGUI
 				(point.top <= abs_rect.bottom))
 			{
 				size_t index = calcIndexByWidget(item);
-				// при переборе индекс может быть больше, так как может создасться сколько угодно
+				// during iteration, index may be larger as many can be created
 				if (index < mItemsInfo.size())
 				{
 					mIndexActive = index;
@@ -332,7 +325,6 @@ namespace MyGUI
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemDataInfo(_data));
 
-		// расчитываем новый индекс выделения
 		if (mIndexSelect != ITEM_NONE)
 		{
 			if (mIndexSelect >= _index)
@@ -361,7 +353,6 @@ namespace MyGUI
 
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
 
-		// расчитываем новый индекс выделения
 		if (mIndexSelect != ITEM_NONE)
 		{
 			if (mItemsInfo.empty())
@@ -422,7 +413,6 @@ namespace MyGUI
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 
-		// сбрасываем старое выделение
 		if (mIndexSelect != ITEM_NONE)
 		{
 			size_t index = mIndexSelect;
@@ -503,7 +493,6 @@ namespace MyGUI
 
 	void ItemBox::_resetContainer(bool _update)
 	{
-		// обязательно у базового
 		Base::_resetContainer(_update);
 
 		if (!_update)
@@ -556,14 +545,12 @@ namespace MyGUI
 	{
 		if (nullptr == mItemDrag)
 		{
-			// спрашиваем размер иконок
 			IntCoord coord;
 
 			requestCoordItem(this, coord, true);
 
 			mPointDragOffset = coord.point();
 
-			// создаем и запрашиваем детей
 			mItemDrag = Gui::getInstance().createWidget<Widget>(
 				"Default",
 				IntCoord(0, 0, coord.width, coord.height),
@@ -611,25 +598,21 @@ namespace MyGUI
 
 			if (_sender == _getClientWidget())
 			{
-				// сбрасываем выделение
 				setIndexSelected(ITEM_NONE);
 			}
 			else
 			{
-				// индекс отправителя
 				mDropSenderIndex = getIndexByWidget(_sender);
 
-				// выделенный елемент
 				setIndexSelected(mDropSenderIndex);
 			}
 
-			// смещение внутри виджета, куда кликнули мышкой
+			// offset inside widget where mouse was clicked
 			mClickInWidget =
 				InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - _sender->getAbsolutePosition();
 
-			// отсылаем событие
 			eventMouseItemActivate(this, mIndexSelect);
-			// смену позиции отсылаем только при реальном изменении
+			// send position change only on actual change
 			if (old != mIndexSelect)
 				eventChangeItemPosition(this, mIndexSelect);
 		}
@@ -657,7 +640,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
 
-			// сбрасываем старый
+			// reset old
 			if (mIndexActive != ITEM_NONE)
 			{
 				size_t old_index = mIndexActive;
@@ -672,8 +655,8 @@ namespace MyGUI
 		}
 		else
 		{
-			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
-			// сбрасываем индекс, только если мы и есть актив
+			// on reset, widget may already be hidden, so index may be absent
+			// reset index only if we are the active one
 			if (index < mItemsInfo.size() && mIndexActive == index)
 			{
 				mIndexActive = ITEM_NONE;
@@ -687,19 +670,16 @@ namespace MyGUI
 	{
 		if (mAlignVert)
 		{
-			// колличество айтемов на одной строке
 			mCountItemInLine = _getClientWidget()->getWidth() / mSizeItem.width;
 		}
 		else
 		{
-			// колличество айтемов на одной строке
 			mCountItemInLine = _getClientWidget()->getHeight() / mSizeItem.height;
 		}
 
 		if (1 > mCountItemInLine)
 			mCountItemInLine = 1;
 
-		// колличество строк
 		mCountLines = int(mItemsInfo.size() / mCountItemInLine);
 		if (0 != (mItemsInfo.size() % mCountItemInLine))
 			mCountLines++;
@@ -753,8 +733,7 @@ namespace MyGUI
 			if (mContentPosition.top == offset)
 				return;
 
-			// сбрасываем старую подсветку
-			// так как при прокрутке, мышь может находиться над окном
+			// reset old highlight, during scroll the mouse may be over a window
 			resetCurrentActiveItem();
 
 			mContentPosition.top = offset;
@@ -780,8 +759,7 @@ namespace MyGUI
 			if (mContentPosition.left == offset)
 				return;
 
-			// сбрасываем старую подсветку
-			// так как при прокрутке, мышь может находиться над окном
+			// reset old highlight, during scroll the mouse may be over a window
 			resetCurrentActiveItem();
 
 			mContentPosition.left = offset;
@@ -789,7 +767,7 @@ namespace MyGUI
 
 		setContentPosition(mContentPosition);
 
-		// заново ищем и подсвечиваем айтем
+		// search and highlight item again
 		if (!mNeedDrop)
 			findCurrentActiveItem();
 
@@ -969,8 +947,7 @@ namespace MyGUI
 			if (mContentPosition.top == offset)
 				return;
 
-			// сбрасываем старую подсветку
-			// так как при прокрутке, мышь может находиться над окном
+			// reset old highlight, during scroll the mouse may be over a window
 			resetCurrentActiveItem();
 
 			mContentPosition.top = offset;
@@ -992,8 +969,7 @@ namespace MyGUI
 			if (mContentPosition.left == offset)
 				return;
 
-			// сбрасываем старую подсветку
-			// так как при прокрутке, мышь может находиться над окном
+			// reset old highlight, during scroll the mouse may be over a window
 			resetCurrentActiveItem();
 
 			mContentPosition.left = offset;
@@ -1001,7 +977,7 @@ namespace MyGUI
 
 		setContentPosition(mContentPosition);
 
-		// заново ищем и подсвечиваем айтем
+		// search and highlight item again
 		if (!mNeedDrop)
 			findCurrentActiveItem();
 

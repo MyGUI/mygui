@@ -38,7 +38,7 @@ namespace MyGUI
 		public SkinItem,
 		public MemberObsolete<Widget>
 	{
-		// для вызова закрытых деструкторов
+		// To call private destructors
 		friend class WidgetManager;
 
 		MYGUI_RTTI_DERIVED(Widget)
@@ -237,7 +237,6 @@ namespace MyGUI
 
 		void setColour(const Colour& _value);
 
-		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
 		bool isRootWidget() const;
 
@@ -314,7 +313,6 @@ namespace MyGUI
 		*/
 		void setProperty(std::string_view _key, std::string_view _value);
 
-
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, std::string_view _key, std::string_view _value);
 			@param _sender widget that called this event
@@ -336,10 +334,10 @@ namespace MyGUI
 		EventHandle_WidgetVoid eventWidgetDestroyed;
 
 		/*internal:*/
-		// метод для запроса номера айтема и контейнера
+		// Method for requesting item index from container
 		virtual size_t _getItemIndex(Widget* _item) const;
 
-		// дает приоритет виджету при пиккинге
+		// Gives priority to widget during picking
 		void _forcePick(Widget* _widget);
 
 		void _initialise(
@@ -351,7 +349,6 @@ namespace MyGUI
 			std::string_view _name);
 		void _shutdown();
 
-		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);
 
 		void _setContainer(Widget* _value);
@@ -369,24 +366,22 @@ namespace MyGUI
 			std::string_view _layer = {},
 			std::string_view _name = {});
 
-		// сброс всех данных контейнера, тултипы и все остальное
+		// Reset all container data including tooltips
 		virtual void _resetContainer(bool _update);
 
 		bool _setWidgetState(std::string_view _state);
 
-		// перерисовывает детей
 		void _updateChilds();
 
 	protected:
-		// все создание только через фабрику
+		// All creation is only through factory
 		~Widget() override = default;
 
 		virtual void shutdownOverride();
 		virtual void initialiseOverride();
 
-		void _updateView(); // обновления себя и детей
+		void _updateView();
 
-		// создает виджет
 		Widget* baseCreateWidget(
 			WidgetStyle _style,
 			std::string_view _type,
@@ -397,15 +392,13 @@ namespace MyGUI
 			std::string_view _name,
 			bool _template);
 
-		// удаляет всех детей
 		void _destroyAllChildWidget();
 
-		// запрашиваем у конейтера айтем по позиции мыши
+		// Request item index from container by mouse position
 		virtual size_t _getContainerIndex(const IntPoint& _point) const;
 
 		virtual void baseUpdateEnable();
 
-		// наследуемся он LayerInfo
 		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
 		const IntCoord& getLayerItemCoord() const override;
 
@@ -443,7 +436,6 @@ namespace MyGUI
 		void _updateAlpha();
 		void _updateAbsolutePoint();
 
-		// для внутреннего использования
 		void _updateVisible();
 
 		void _updateEnabled();
@@ -466,15 +458,13 @@ namespace MyGUI
 		void addWidget(Widget* _widget);
 
 	private:
-		// клиентская зона окна
-		// если виджет имеет пользовательские окна не в себе
-		// то обязательно проинициализировать Client
+		// Client area of the widget
+		// If widget has child windows not within itself, must initialize Client
 		Widget* mWidgetClient{nullptr};
 
-		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 
-		// вектор детей скина
+		// Child widgets created from skin
 		VectorWidgetPtr mWidgetChildSkin;
 
 		// availability for mouse/keyboard

@@ -73,38 +73,38 @@ namespace MyGUI
 
 	void RotatingSkin::_setAlign(const IntSize& _oldsize)
 	{
-		// первоначальное выравнивание
+		// initial alignment
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
+			// stretch
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // when sizes change all must be recalculated
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
+			// move along right edge
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
+			// horizontal alignment without stretching
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
+			// stretch
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // when sizes change all must be recalculated
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
+			// move along bottom edge
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
+			// vertical alignment without stretching
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 		}
 

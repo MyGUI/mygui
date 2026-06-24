@@ -34,7 +34,6 @@ namespace MyGUI
 		// use in const methods, but actually might update object
 		void updateRawData() const;
 
-		// метод для отрисовки себя
 		void doRender() override;
 
 		void setCaption(const UString& _value) override;
@@ -79,14 +78,11 @@ namespace MyGUI
 
 		IntSize getTextSize() const override;
 
-		// устанавливает смещение текста в пикселях
 		void setViewOffset(const IntPoint& _point) override;
 		IntPoint getViewOffset() const override;
 
-		// возвращает положение курсора по произвольному положению
 		size_t getCursorPosition(const IntPoint& _point) const override;
 
-		// возвращает положение курсора в обсолютных координатах
 		IntCoord getCursorCoord(size_t _position) const override;
 
 		bool getShadow() const override;
@@ -160,7 +156,7 @@ namespace MyGUI
 		bool mInvertSelect{true};
 		bool mShadow{false};
 
-		IntPoint mViewOffset; // смещение текста
+		IntPoint mViewOffset;
 
 		ILayerNode* mNode{nullptr};
 		RenderItem* mRenderItem{nullptr};

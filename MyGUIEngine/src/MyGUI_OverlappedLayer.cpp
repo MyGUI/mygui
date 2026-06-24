@@ -55,7 +55,6 @@ namespace MyGUI
 
 	ILayerNode* OverlappedLayer::createChildItemNode()
 	{
-		// создаем рутовый айтем
 		ILayerNode* node = new LayerNode(this);
 		mChildItems.push_back(node);
 
@@ -66,7 +65,7 @@ namespace MyGUI
 
 	void OverlappedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		// если есть отец, то русть сам и удаляет
+		// if has parent, let parent handle deletion
 		ILayerNode* parent = _item->getParent();
 		if (parent)
 		{
@@ -77,7 +76,6 @@ namespace MyGUI
 			return;
 		}
 
-		// айтем рутовый, мы удаляем
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
@@ -96,7 +94,7 @@ namespace MyGUI
 
 	void OverlappedLayer::upChildItemNode(ILayerNode* _item)
 	{
-		// если есть отец, то пусть сам рулит
+		// if has parent, let parent handle
 		ILayerNode* parent = _item->getParent();
 		if (parent != nullptr)
 		{

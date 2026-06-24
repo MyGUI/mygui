@@ -29,7 +29,7 @@ namespace MyGUI
 		Window widget description should be here.
 	*/
 	class MYGUI_EXPORT Window :
-		public TextBox, // FIXME пока для кэпшена вместо виджета текст (Bug #190)
+		public TextBox, // FIXME: For now using text for caption instead of widget (Bug #190)
 		public MemberObsolete<Window>
 	{
 		MYGUI_RTTI_DERIVED(Window)
@@ -124,7 +124,7 @@ namespace MyGUI
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseWheel(MyGUI::Widget* _sender, int _rel);
 
-		// просто обновляет альфу взависимости от флагов
+		// Update alpha based on focus and auto-alpha flags
 		void updateAlpha();
 
 		void animateStop(Widget* _widget, ControllerItem* _controller);
@@ -146,20 +146,20 @@ namespace MyGUI
 	private:
 		TextBox* mWidgetCaption{nullptr};
 
-		// размеры окна перед началом его изменений
+		// Window dimensions before starting move/resize operation
 		IntCoord mPreActionCoord;
 
-		// наши главные фокусы
+		// Root focus states
 		bool mMouseRootFocus{false};
 		bool mKeyRootFocus{false};
 
-		// автоматическое или ручное управление альфой
+		// Automatic or manual alpha control
 		bool mIsAutoAlpha{false};
 
-		// минимальные и максимальные размеры окна
+		// Minimum and maximum window dimensions
 		IntRect mMinmax;
 
-		bool mSnap{false}; // прилеплять ли к краям
+		bool mSnap{false}; // Whether to snap to screen edges
 
 		IntCoord mCurrentActionScale;
 		bool mAnimateSmooth{false};

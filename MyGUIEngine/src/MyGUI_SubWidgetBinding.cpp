@@ -37,7 +37,6 @@ namespace MyGUI
 
 	void SubWidgetBinding::add(std::string_view _name, IStateInfo* _data, std::string_view _skin)
 	{
-		// ищем такой же ключ
 		MapStateInfo::const_iterator iter = mStates.find(_name);
 		if (iter != mStates.end())
 		{
@@ -45,7 +44,6 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "state with name '" << _name << "' already exist in skin '" << _skin << "'");
 			return;
 		}
-		// добавляем
 		mStates.emplace(_name, _data);
 	}
 

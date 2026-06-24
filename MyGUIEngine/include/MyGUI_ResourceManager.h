@@ -78,7 +78,7 @@ namespace MyGUI
 		bool _loadImplement(const std::string& _file, bool _match, std::string_view _type, std::string_view _instance);
 
 	private:
-		// карта с делегатами для парсинга хмл блоков
+		// Map of delegates for parsing XML blocks
 		using MapLoadXmlDelegate = std::map<std::string, LoadXmlDelegate, std::less<>>;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 

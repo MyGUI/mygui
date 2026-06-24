@@ -25,26 +25,21 @@ namespace MyGUI
 
 		bool moveNext();
 
-		// возвращает цвет
 		bool getTagColour(UString& _colour) const;
 
-		// удаляет цвет
 		void clearTagColour();
 
 		bool setTagColour(const Colour& _colour);
 
 		bool setTagColour(const UString& _colour);
 
-		// сохраняет текущий итератор
 		bool saveStartPoint();
 
-		// возвращает строку от сохраненного итератора до текущего
 		UString getFromStart() const;
 
-		// удаляет от запомненной точки до текущей
+		// Delete from saved position to current
 		bool eraseFromStart();
 
-		// возвращает текущую псевдо позицию
 		size_t getPosition() const;
 
 		UString getText() const;
@@ -53,10 +48,8 @@ namespace MyGUI
 
 		void clearNewLine(UString& _text);
 
-		//очищает весь текст
 		void clearText();
 
-		// возвращает размер строки
 		size_t getSize() const;
 
 		void setText(const UString& _text, bool _multiLine);
@@ -65,14 +58,12 @@ namespace MyGUI
 
 		void cutMaxLengthFromBeginning(size_t _max);
 
-		// возвращает текст без тегов
 		static UString getOnlyText(const UString& _text);
 
 		static UString getTextNewLine();
 
 		static UString getTextCharInfo(Char _char);
 
-		// просто конвертируем цвет в строку
 		static UString convertTagColour(const Colour& _colour);
 
 		static UString toTagsString(const UString& _text);
@@ -96,7 +87,6 @@ namespace MyGUI
 		UString::utf32string mText;
 		UString::utf32string::iterator mCurrent, mEnd, mSave;
 
-		// позиция и размер
 		size_t mPosition;
 		mutable size_t mSize;
 		bool mFirst;

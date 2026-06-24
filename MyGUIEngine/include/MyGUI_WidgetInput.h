@@ -44,7 +44,7 @@ namespace MyGUI
 	@endcode
 	*/
 
-	// делегаты для событий виджета
+	// Delegates for widget events
 	using EventHandle_WidgetVoid = delegates::MultiDelegate<Widget*>;
 	using EventHandle_WidgetWidget = delegates::MultiDelegate<Widget*, Widget*>;
 	using EventHandle_WidgetBool = delegates::MultiDelegate<Widget*, bool>;

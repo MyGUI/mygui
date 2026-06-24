@@ -219,7 +219,6 @@ namespace MyGUI
 		void _unlinkChildWidget(Widget* _widget);
 
 	private:
-		// создает виджет
 		Widget* baseCreateWidget(
 			WidgetStyle _style,
 			std::string_view _type,
@@ -229,19 +228,16 @@ namespace MyGUI
 			std::string_view _layer,
 			std::string_view _name);
 
-		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);
 
-		// удаляет всех детей
 		void _destroyAllChildWidget();
 
 		void _unlinkWidget(Widget* _widget) override;
 
 	private:
-		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 
-		// синглтоны гуя
+		// GUI manager singletons
 		InputManager* mInputManager{nullptr};
 		SubWidgetManager* mSubWidgetManager{nullptr};
 		LayerManager* mLayerManager{nullptr};
