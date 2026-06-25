@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RotatingSkin.h"
+#include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
@@ -73,41 +74,10 @@ namespace MyGUI
 
 	void RotatingSkin::_setAlign(const IntSize& _oldsize)
 	{
-		// initial alignment
-		if (mAlign.isHStretch())
-		{
-			// stretch
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // when sizes change all must be recalculated
-		}
-		else if (mAlign.isRight())
-		{
-			// move along right edge
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
-		}
-		else if (mAlign.isHCenter())
-		{
-			// horizontal alignment without stretching
-			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
-		}
-
-		if (mAlign.isVStretch())
-		{
-			// stretch
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // when sizes change all must be recalculated
-		}
-		else if (mAlign.isBottom())
-		{
-			// move along bottom edge
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
-		}
-		else if (mAlign.isVCenter())
-		{
-			// vertical alignment without stretching
-			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
-		}
-
+		auto [coord, resize, move] = CoordConverter::applyAlign(mAlign, mCoord, mCroppedParent->getSize(), _oldsize);
+		mCoord = coord;
+		if (resize)
+			mIsMargin = true;
 		mCurrentCoord = mCoord;
 		_updateView();
 	}

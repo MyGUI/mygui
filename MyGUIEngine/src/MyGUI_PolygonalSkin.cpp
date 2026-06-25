@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_PolygonalSkin.h"
+#include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
@@ -115,34 +116,10 @@ namespace MyGUI
 
 	void PolygonalSkin::_setAlign(const IntSize& _oldsize)
 	{
-		if (mAlign.isHStretch())
-		{
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
+		auto [coord, resize, move] = CoordConverter::applyAlign(mAlign, mCoord, mCroppedParent->getSize(), _oldsize);
+		mCoord = coord;
+		if (resize)
 			mIsMargin = true;
-		}
-		else if (mAlign.isRight())
-		{
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
-		}
-		else if (mAlign.isHCenter())
-		{
-			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
-		}
-
-		if (mAlign.isVStretch())
-		{
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true;
-		}
-		else if (mAlign.isBottom())
-		{
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
-		}
-		else if (mAlign.isVCenter())
-		{
-			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
-		}
-
 		mCurrentCoord = mCoord;
 		_updateView();
 	}

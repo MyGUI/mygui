@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_EditText.h"
+#include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_RenderManager.h"
@@ -55,40 +56,10 @@ namespace MyGUI
 			}
 		}
 
-		// initial alignment
-		if (mAlign.isHStretch())
-		{
-			// stretch
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
-			mIsMargin = true; // recalculate everything on resize
-		}
-		else if (mAlign.isRight())
-		{
-			// align to right edge
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
-		}
-		else if (mAlign.isHCenter())
-		{
-			// horizontal alignment without stretch
-			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
-		}
-
-		if (mAlign.isVStretch())
-		{
-			// stretch
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
-			mIsMargin = true; // recalculate everything on resize
-		}
-		else if (mAlign.isBottom())
-		{
-			// align to bottom edge
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
-		}
-		else if (mAlign.isVCenter())
-		{
-			// vertical alignment without stretch
-			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
-		}
+		auto [coord, resize, move] = CoordConverter::applyAlign(mAlign, mCoord, mCroppedParent->getSize(), _oldsize);
+		mCoord = coord;
+		if (resize)
+			mIsMargin = true;
 
 		mCurrentCoord = mCoord;
 		_updateView();

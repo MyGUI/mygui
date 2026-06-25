@@ -24,6 +24,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_LayoutManager.h"
+#include "MyGUI_CoordConverter.h"
 
 namespace MyGUI
 {
@@ -603,59 +604,16 @@ namespace MyGUI
 
 	void Widget::_setAlign(const IntSize& _oldsize, const IntSize& _newSize)
 	{
-		const IntSize& size = _newSize; //getParentSize();
+		auto [coord, resize, move] = CoordConverter::applyAlign(mAlign, mCoord, _newSize, _oldsize);
 
-		bool need_move = false;
-		bool need_size = false;
-		IntCoord coord = mCoord;
-
-		if (mAlign.isHStretch())
-		{
-			coord.width = mCoord.width + (size.width - _oldsize.width);
-			need_size = true;
-		}
-		else if (mAlign.isRight())
-		{
-			coord.left = mCoord.left + (size.width - _oldsize.width);
-			need_move = true;
-		}
-		else if (mAlign.isHCenter())
-		{
-			coord.left = (size.width - mCoord.width) / 2;
-			need_move = true;
-		}
-
-		if (mAlign.isVStretch())
-		{
-			coord.height = mCoord.height + (size.height - _oldsize.height);
-			need_size = true;
-		}
-		else if (mAlign.isBottom())
-		{
-			coord.top = mCoord.top + (size.height - _oldsize.height);
-			need_move = true;
-		}
-		else if (mAlign.isVCenter())
-		{
-			coord.top = (size.height - mCoord.height) / 2;
-			need_move = true;
-		}
-
-		if (need_move)
-		{
-			if (need_size)
-				setCoord(coord);
-			else
-				setPosition(coord.point());
-		}
-		else if (need_size)
-		{
+		if (move && resize)
+			setCoord(coord);
+		else if (move)
+			setPosition(coord.point());
+		else if (resize)
 			setSize(coord.size());
-		}
 		else
-		{
-			_updateView(); // only if move and resize not called
-		}
+			_updateView();
 	}
 
 	void Widget::setPosition(const IntPoint& _point)

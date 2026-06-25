@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include <tuple>
 
 namespace MyGUI
 {
@@ -94,6 +95,51 @@ namespace MyGUI
 				_coord.top / (double)_view.height,
 				_coord.width / (double)_view.width,
 				_coord.height / (double)_view.height};
+		}
+
+		static std::tuple<IntCoord, bool, bool> applyAlign(
+			Align _align,
+			const IntCoord& _coord,
+			const IntSize& _parentSize,
+			const IntSize& _oldsize)
+		{
+			IntCoord result = _coord;
+			bool resize = false;
+			bool move = false;
+
+			if (_align.isHStretch())
+			{
+				result.width = _coord.width + (_parentSize.width - _oldsize.width);
+				resize = true;
+			}
+			else if (_align.isRight())
+			{
+				result.left = _coord.left + (_parentSize.width - _oldsize.width);
+				move = true;
+			}
+			else if (_align.isHCenter())
+			{
+				result.left = (_parentSize.width - _coord.width) / 2;
+				move = true;
+			}
+
+			if (_align.isVStretch())
+			{
+				result.height = _coord.height + (_parentSize.height - _oldsize.height);
+				resize = true;
+			}
+			else if (_align.isBottom())
+			{
+				result.top = _coord.top + (_parentSize.height - _oldsize.height);
+				move = true;
+			}
+			else if (_align.isVCenter())
+			{
+				result.top = (_parentSize.height - _coord.height) / 2;
+				move = true;
+			}
+
+			return {result, resize, move};
 		}
 	};
 
