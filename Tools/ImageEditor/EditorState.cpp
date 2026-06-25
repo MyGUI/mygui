@@ -446,8 +446,7 @@ namespace tools
 		bool result = doc.save_file(
 			mFileName.asWStr_c_str(),
 			"\t",
-			(pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) &
-				(~pugi::format_space_before_slash));
+			(pugi::format_indent | pugi::format_write_bom));
 
 		if (result)
 		{

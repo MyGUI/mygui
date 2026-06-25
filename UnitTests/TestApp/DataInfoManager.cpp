@@ -5,7 +5,6 @@
 */
 
 #include "DataInfoManager.h"
-#include "pugixml.hpp"
 #include "MyGUI_DataManager.h"
 
 namespace tools
