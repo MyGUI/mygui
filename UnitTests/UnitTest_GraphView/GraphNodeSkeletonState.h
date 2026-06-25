@@ -46,13 +46,12 @@ namespace demo
 				MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
-		void deserialization(MyGUI::xml::ElementPtr _node) override
+		void deserialization(pugi::xml_node _node) override
 		{
-			MyGUI::xml::ElementEnumerator prop = _node->getElementEnumerator();
-			while (prop.next("Property"))
+			for (auto prop : _node.children("Property"))
 			{
-				std::string_view key = prop->findAttribute("key");
-				std::string_view value = prop->findAttribute("value");
+				std::string_view key = prop.attribute("key").value();
+				std::string_view value = prop.attribute("value").value();
 
 				if (key == "StateName")
 				{
@@ -61,11 +60,11 @@ namespace demo
 			}
 		}
 
-		void serialization(MyGUI::xml::ElementPtr _node) override
+		void serialization(pugi::xml_node _node) override
 		{
-			MyGUI::xml::ElementPtr prop = _node->createChild("Property");
-			prop->addAttribute("key", "StateName");
-			prop->addAttribute("value", mStateName);
+			pugi::xml_node prop = _node.append_child("Property");
+			prop.append_attribute("key") = "StateName";
+			prop.append_attribute("value") = mStateName;
 		}
 
 		void setStateName(const MyGUI::UString& _name)

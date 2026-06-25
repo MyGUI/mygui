@@ -24,27 +24,26 @@ namespace MyGUI
 			MYGUI_LOG(Critical, "Layer '" << getName() << "' must be empty before destroy");
 	}
 
-	void SharedLayer::deserialization(xml::ElementPtr _node, Version _version)
+	void SharedLayer::deserialization(pugi::xml_node _node, Version _version)
 	{
-		mName = _node->findAttribute("name");
+		mName = _node.attribute("name").value();
 		if (_version >= Version(1, 2))
 		{
-			MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
-			while (propert.next("Property"))
+			for (auto propert : _node.children("Property"))
 			{
-				std::string_view key = propert->findAttribute("key");
-				std::string_view value = propert->findAttribute("value");
+				std::string_view key = propert.attribute("key").value();
+				std::string_view value = propert.attribute("value").value();
 				if (key == "Pick")
 					setPick(utility::parseValue<bool>(value));
 			}
 		}
 		else if (_version >= Version(1, 0))
 		{
-			setPick(utility::parseBool(_node->findAttribute("pick")));
+			setPick(utility::parseBool(_node.attribute("pick").value()));
 		}
 		else
 		{
-			setPick(utility::parseBool(_node->findAttribute("peek")));
+			setPick(utility::parseBool(_node.attribute("peek").value()));
 		}
 	}
 

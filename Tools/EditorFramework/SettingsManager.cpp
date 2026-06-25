@@ -63,21 +63,21 @@ namespace tools
 
 	bool SettingsManager::getExistValue(CString _path)
 	{
-		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		pugi::xpath_node node = mUserDocument->document_element().select_node(_path.c_str());
 		if (!node.node().empty())
 			return true;
 
-		node = mDocument->document_element().select_single_node(_path.c_str());
+		node = mDocument->document_element().select_node(_path.c_str());
 		return !node.node().empty();
 	}
 
 	std::string SettingsManager::getValue(CString _path)
 	{
-		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		pugi::xpath_node node = mUserDocument->document_element().select_node(_path.c_str());
 		if (!node.node().empty())
 			return node.node().child_value();
 
-		node = mDocument->document_element().select_single_node(_path.c_str());
+		node = mDocument->document_element().select_node(_path.c_str());
 		if (!node.node().empty())
 			return node.node().child_value();
 
@@ -87,7 +87,7 @@ namespace tools
 	void SettingsManager::setValueImpl(std::string_view _path, CString _value)
 	{
 		const char* path = _path.empty() ? "" : _path.data();
-		pugi::xpath_node node = mUserDocument->document_element().select_single_node(path);
+		pugi::xpath_node node = mUserDocument->document_element().select_node(path);
 		if (!node.node().empty())
 		{
 			node.node().text().set(_value.c_str());
@@ -223,7 +223,7 @@ namespace tools
 
 		pugi::xml_node targetNode;
 
-		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.data());
+		pugi::xpath_node node = mUserDocument->document_element().select_node(_path.data());
 		if (!node.node().empty())
 		{
 			targetNode = node.node();

@@ -27,9 +27,9 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
+		void deserialization(pugi::xml_node _node, Version _version) override
 		{
-			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
+			std::string texture{_node.parent().parent().attribute("texture").value()};
 
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
@@ -38,7 +38,7 @@ namespace MyGUI
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
+			IntCoord coord = IntCoord::parse(_node.attribute("offset").value());
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 		}
 
@@ -72,9 +72,9 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
+		void deserialization(pugi::xml_node _node, Version _version) override
 		{
-			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
+			std::string texture{_node.parent().parent().attribute("texture").value()};
 
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
@@ -83,14 +83,13 @@ namespace MyGUI
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
+			IntCoord coord = IntCoord::parse(_node.attribute("offset").value());
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 
-			xml::ElementEnumerator prop = _node->getElementEnumerator();
-			while (prop.next("Property"))
+			for (auto prop : _node.children("Property"))
 			{
-				std::string_view key = prop->findAttribute("key");
-				std::string_view value = prop->findAttribute("value");
+				std::string_view key = prop.attribute("key").value();
+				std::string_view value = prop.attribute("value").value();
 				if (key == "TileH")
 					mTileH = utility::parseBool(value);
 				else if (key == "TileV")
@@ -128,20 +127,19 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
+		void deserialization(pugi::xml_node _node, Version _version) override
 		{
-			xml::ElementEnumerator prop = _node->getElementEnumerator();
-			while (prop.next("Property"))
+			for (auto prop : _node.children("Property"))
 			{
-				std::string_view key = prop->findAttribute("key");
-				std::string_view value = prop->findAttribute("value");
+				std::string_view key = prop.attribute("key").value();
+				std::string_view value = prop.attribute("value").value();
 				if (key == "Angle")
 					mAngle = utility::parseFloat(value);
 				if (key == "Center")
 					mCenter = IntPoint::parse(value);
 			}
 
-			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
+			std::string texture{_node.parent().parent().attribute("texture").value()};
 
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
@@ -150,7 +148,7 @@ namespace MyGUI
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
+			IntCoord coord = IntCoord::parse(_node.attribute("offset").value());
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 		}
 
@@ -177,11 +175,11 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
+		void deserialization(pugi::xml_node _node, Version _version) override
 		{
-			mShift = utility::parseBool(_node->findAttribute("shift"));
+			mShift = utility::parseBool(_node.attribute("shift").value());
 
-			std::string colour{_node->findAttribute("colour")};
+			std::string colour{_node.attribute("colour").value()};
 			if (_version >= Version(1, 1))
 			{
 				colour = LanguageManager::getInstance().replaceTags(colour);

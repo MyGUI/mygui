@@ -13,37 +13,34 @@
 namespace MyGUI
 {
 
-	void ResourceImageSet::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceImageSet::deserialization(pugi::xml_node _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
 
-		xml::ElementEnumerator group_node = _node->getElementEnumerator();
-		while (group_node.next("Group"))
+		for (auto group_node : _node.children("Group"))
 		{
 			GroupImage group;
-			group.name = group_node->findAttribute("name");
+			group.name = group_node.attribute("name").value();
 
-			group.texture = group_node->findAttribute("texture");
+			group.texture = group_node.attribute("texture").value();
 			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
 			{
 				group.texture = LanguageManager::getInstance().replaceTags(group.texture);
 			}
 
-			group.size = IntSize::parse(group_node->findAttribute("size"));
+			group.size = IntSize::parse(group_node.attribute("size").value());
 
-			xml::ElementEnumerator index_node = group_node->getElementEnumerator();
-			while (index_node.next("Index"))
+			for (auto index_node : group_node.children("Index"))
 			{
 				IndexImage index;
-				index.name = index_node->findAttribute("name");
-				index.rate = utility::parseFloat(index_node->findAttribute("rate"));
+				index.name = index_node.attribute("name").value();
+				index.rate = utility::parseFloat(index_node.attribute("rate").value());
 
-				xml::ElementEnumerator frame_node = index_node->getElementEnumerator();
-				while (frame_node.next("Frame"))
+				for (auto frame_node : index_node.children("Frame"))
 				{
-					size_t count = utility::parseSizeT(frame_node->findAttribute("count"));
-					const IntPoint& point = IntPoint::parse(frame_node->findAttribute("point"));
+					size_t count = utility::parseSizeT(frame_node.attribute("count").value());
+					const IntPoint& point = IntPoint::parse(frame_node.attribute("point").value());
 					if ((count < 1) || (count > 256))
 						count = 1;
 					while (count > 0)

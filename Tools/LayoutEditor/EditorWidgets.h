@@ -61,11 +61,11 @@ namespace tools
 	private:
 		WidgetContainer* _find(MyGUI::Widget* _widget, std::string_view _name, std::vector<WidgetContainer*> _widgets);
 
-		void parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode = false);
-		void serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility = false);
+		void parseWidget(pugi::xml_node _widget, MyGUI::Widget* _parent, bool _testMode = false);
+		void serialiseWidget(WidgetContainer* _container, pugi::xml_node _node, bool _compatibility = false);
 
-		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
-		void loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		void loadIgnoreParameters(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version);
+		void loadSkinReplace(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version);
 
 		void notifyFrameStarted(float _time);
 
@@ -79,11 +79,11 @@ namespace tools
 
 		bool unbind(WidgetContainer* _container);
 
-		void loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode = false);
-		void saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility = false);
+		void loadWidgetsFromXmlNode(pugi::xml_node _root, bool _testMode = false);
+		void saveWidgetsToXmlNode(pugi::xml_node _root, bool _compatibility = false);
 
-		void loadCodeGeneratorSettings(MyGUI::xml::ElementPtr _sectorNode);
-		void saveCodeGeneratorSettings(MyGUI::xml::ElementPtr _rootNode);
+		void loadCodeGeneratorSettings(pugi::xml_node _sectorNode);
+		void saveCodeGeneratorSettings(pugi::xml_node _rootNode);
 
 	private:
 		bool mWidgetsChanged{false};

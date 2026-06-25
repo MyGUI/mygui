@@ -8,7 +8,6 @@
 #include "DataTypeManager.h"
 
 #include <memory>
-#include <pugixml.hpp>
 #include "MyGUI_DataManager.h"
 
 namespace tools

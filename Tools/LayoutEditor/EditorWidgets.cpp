@@ -70,14 +70,14 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : '" << _fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Layout")
+		if (std::string_view(root.attribute("type").value()) == "Layout")
 		{
 			loadWidgetsFromXmlNode(root);
 		}
@@ -101,26 +101,25 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : '" << _fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
 				{
 					if (_index == 0)
 					{
-						mCurrentItemName.assign(element->findAttribute("name"));
+						mCurrentItemName.assign(std::string_view(element.attribute("name").value()));
 
-						loadWidgetsFromXmlNode(element.current());
+						loadWidgetsFromXmlNode(element);
 
 						break;
 					}
@@ -154,8 +153,8 @@ namespace tools
 
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
-		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
-		root->addAttribute("type", "Layout");
+		pugi::xml_node root = doc.createRoot("MyGUI");
+		root.append_attribute("type") = "Layout";
 
 		saveWidgetsToXmlNode(root, true);
 
@@ -179,30 +178,29 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : '" << _fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
 				{
 					if (_index == 0)
 					{
-						mCurrentItemName.assign(element->findAttribute("name"));
+						mCurrentItemName.assign(std::string_view(element.attribute("name").value()));
 
-						element->clear();
-						element->addAttribute("type", "ResourceLayout");
-						element->addAttribute("name", mCurrentItemName);
+						element.remove_attributes();
+						element.append_attribute("type") = "ResourceLayout";
+						element.append_attribute("name") = mCurrentItemName.asUTF8_c_str();
 
-						saveWidgetsToXmlNode(element.current(), true);
+						saveWidgetsToXmlNode(element, true);
 
 						if (!doc.save(_fileName))
 						{
@@ -224,9 +222,9 @@ namespace tools
 
 	void EditorWidgets::loadxmlDocument(MyGUI::xml::Document* doc, bool _testMode)
 	{
-		MyGUI::xml::ElementPtr root = doc->getRoot();
+		pugi::xml_node root = doc->getRoot();
 
-		std::string_view type = root->findAttribute("type");
+		std::string_view type = root.attribute("type").value();
 		if (type == "Layout")
 		{
 			loadWidgetsFromXmlNode(root, _testMode);
@@ -239,8 +237,8 @@ namespace tools
 		MyGUI::xml::Document* doc = new MyGUI::xml::Document();
 
 		doc->createDeclaration();
-		MyGUI::xml::ElementPtr root = doc->createRoot("MyGUI");
-		root->addAttribute("type", "Layout");
+		pugi::xml_node root = doc->createRoot("MyGUI");
+		root.append_attribute("type") = "Layout";
 
 		saveWidgetsToXmlNode(root);
 
@@ -411,7 +409,7 @@ namespace tools
 		return nullptr;
 	}
 
-	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode)
+	void EditorWidgets::parseWidget(pugi::xml_node _widget, MyGUI::Widget* _parent, bool _testMode)
 	{
 		WidgetContainer* container = new WidgetContainer();
 		// парсим атрибуты виджета
@@ -420,25 +418,31 @@ namespace tools
 		MyGUI::WidgetStyle widgetStyle = MyGUI::WidgetStyle::Child;
 		std::string position;
 
-		container->setName(_widget->findAttribute("name"));
-		container->setType(_widget->findAttribute("type"));
-		container->setSkin(_widget->findAttribute("skin"));
-		container->setLayerName(_widget->findAttribute("layer"));
+		container->setName(_widget.attribute("name").value());
+		container->setType(_widget.attribute("type").value());
+		container->setSkin(_widget.attribute("skin").value());
+		container->setLayerName(_widget.attribute("layer").value());
 		std::string tmp;
-		if (_widget->findAttribute("style", tmp))
+		if (auto attr = _widget.attribute("style"))
 		{
+			tmp = attr.value();
 			container->setStyle(tmp);
 			widgetStyle = MyGUI::WidgetStyle::parse(tmp);
 		}
-		if (_widget->findAttribute("align", tmp))
+		if (auto attr = _widget.attribute("align"))
 		{
+			tmp = attr.value();
 			container->setAlign(tmp);
 			align = MyGUI::Align::parse(tmp);
 		}
-		if (_widget->findAttribute("position", position))
-			coord = MyGUI::IntCoord::parse(position);
-		if (_widget->findAttribute("position_real", position))
+		if (auto attr = _widget.attribute("position"))
 		{
+			position = attr.value();
+			coord = MyGUI::IntCoord::parse(position);
+		}
+		if (auto attr = _widget.attribute("position_real"))
+		{
+			position = attr.value();
 			container->setRelativeMode(true);
 			MyGUI::IntSize textureSize =
 				SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
@@ -499,23 +503,26 @@ namespace tools
 		add(container);
 
 		// берем детей и крутимся
-		MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
-		while (widget.next())
+		for (auto widget : _widget.children())
 		{
 			std::string key;
 			std::string value;
 			std::string type;
 
-			if (widget->getName() == "Widget")
+			if (std::string_view(widget.name()) == "Widget")
 			{
 				parseWidget(widget, container->getWidget(), _testMode);
 			}
-			else if (widget->getName() == "Property")
+			else if (std::string_view(widget.name()) == "Property")
 			{
 				// парсим атрибуты
-				if (!widget->findAttribute("key", key))
+				if (auto attr = widget.attribute("key"))
+					key = attr.value();
+				else
 					continue;
-				if (!widget->findAttribute("value", value))
+				if (auto attr = widget.attribute("value"))
+					value = attr.value();
+				else
 					continue;
 
 				// конвертим проперти в текущий вариант версии
@@ -530,20 +537,26 @@ namespace tools
 
 				container->setProperty(key, value, false);
 			}
-			else if (widget->getName() == "UserString")
+			else if (std::string_view(widget.name()) == "UserString")
 			{
 				// парсим атрибуты
-				if (!widget->findAttribute("key", key))
+				if (auto attr = widget.attribute("key"))
+					key = attr.value();
+				else
 					continue;
-				if (!widget->findAttribute("value", value))
+				if (auto attr = widget.attribute("value"))
+					value = attr.value();
+				else
 					continue;
 				//container->mUserString.insert(MyGUI::PairString(key, value));
 				container->setUserData(key, value);
 			}
-			else if (widget->getName() == "Controller")
+			else if (std::string_view(widget.name()) == "Controller")
 			{
 				// парсим атрибуты
-				if (!widget->findAttribute("type", type))
+				if (auto attr = widget.attribute("type"))
+					type = attr.value();
+				else
 					continue;
 				ControllerInfo* controllerInfo = new ControllerInfo();
 				controllerInfo->mType = type;
@@ -554,12 +567,15 @@ namespace tools
 					item = MyGUI::ControllerManager::getInstance().createItem(type);
 				}
 
-				MyGUI::xml::ElementEnumerator prop = widget->getElementEnumerator();
-				while (prop.next("Property"))
+				for (auto prop : widget.children("Property"))
 				{
-					if (!prop->findAttribute("key", key))
+					if (auto attr = prop.attribute("key"))
+						key = attr.value();
+					else
 						continue;
-					if (!prop->findAttribute("value", value))
+					if (auto attr = prop.attribute("value"))
+						value = attr.value();
+					else
 						continue;
 
 					controllerInfo->mProperty[key] = value;
@@ -618,29 +634,29 @@ namespace tools
 		return true;
 	}
 
-	void EditorWidgets::serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility)
+	void EditorWidgets::serialiseWidget(WidgetContainer* _container, pugi::xml_node _node, bool _compatibility)
 	{
-		MyGUI::xml::ElementPtr node = _node->createChild("Widget");
+		pugi::xml_node node = _node.append_child("Widget");
 
-		node->addAttribute("type", _container->getType());
-		node->addAttribute("skin", _container->getSkin());
+		node.append_attribute("type") = _container->getType().data();
+		node.append_attribute("skin") = _container->getSkin().data();
 
 		if (!_container->getRelativeMode())
-			node->addAttribute("position", _container->position());
+			node.append_attribute("position") = _container->position().c_str();
 		else
-			node->addAttribute("position_real", _container->position(false));
+			node.append_attribute("position_real") = _container->position(false).c_str();
 
 		if (!_container->getAlign().empty())
-			node->addAttribute("align", _container->getAlign());
+			node.append_attribute("align") = _container->getAlign().data();
 
 		if (!_container->getStyle().empty())
-			node->addAttribute("style", _container->getStyle());
+			node.append_attribute("style") = _container->getStyle().data();
 
 		if (!_container->getLayerName().empty())
-			node->addAttribute("layer", _container->getLayerName());
+			node.append_attribute("layer") = _container->getLayerName().data();
 
 		if (!_container->getName().empty())
-			node->addAttribute("name", _container->getName());
+			node.append_attribute("name") = _container->getName().data();
 
 		WidgetContainer::PropertyEnumerator propertyItem = _container->getPropertyEnumerator();
 		while (propertyItem.next())
@@ -652,20 +668,20 @@ namespace tools
 		WidgetContainer::UserDataEnumerator userData = _container->getUserDataEnumerator();
 		while (userData.next())
 		{
-			MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
-			nodeProp->addAttribute("key", userData.current().first);
-			nodeProp->addAttribute("value", userData.current().second);
+			pugi::xml_node nodeProp = node.append_child("UserString");
+			nodeProp.append_attribute("key") = userData.current().first.data();
+			nodeProp.append_attribute("value") = userData.current().second.data();
 		}
 
 		for (auto& iter : _container->mController)
 		{
-			MyGUI::xml::ElementPtr nodeController = node->createChild("Controller");
-			nodeController->addAttribute("type", iter->mType);
+			pugi::xml_node nodeController = node.append_child("Controller");
+			nodeController.append_attribute("type") = iter->mType.data();
 			for (auto& iterProp : iter->mProperty)
 			{
-				MyGUI::xml::ElementPtr nodeProp = nodeController->createChild("Property");
-				nodeProp->addAttribute("key", iterProp.first);
-				nodeProp->addAttribute("value", iterProp.second);
+				pugi::xml_node nodeProp = nodeController.append_child("Property");
+				nodeProp.append_attribute("key") = iterProp.first.data();
+				nodeProp.append_attribute("value") = iterProp.second.data();
 			}
 		}
 
@@ -676,14 +692,13 @@ namespace tools
 	}
 
 	void EditorWidgets::loadIgnoreParameters(
-		MyGUI::xml::ElementPtr _node,
+		pugi::xml_node _node,
 		std::string_view /*_file*/,
 		MyGUI::Version /*_version*/)
 	{
-		MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
-		while (parameter.next("Parameter"))
+		for (auto parameter : _node.children("Parameter"))
 		{
-			std::string_view name = parameter->findAttribute("key");
+			std::string_view name = parameter.attribute("key").value();
 			mIgnoreParameters.emplace_back(name);
 		}
 	}
@@ -715,15 +730,11 @@ namespace tools
 		return _skinName;
 	}
 
-	void EditorWidgets::loadSkinReplace(
-		MyGUI::xml::ElementPtr _node,
-		std::string_view /*_file*/,
-		MyGUI::Version /*_version*/)
+	void EditorWidgets::loadSkinReplace(pugi::xml_node _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
-		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next("Skin"))
+		for (auto node : _node.children("Skin"))
 		{
-			MyGUI::mapSet(mSkinReplaces, node->findAttribute("key"), node->getContent());
+			MyGUI::mapSet(mSkinReplaces, node.attribute("key").value(), node.child_value());
 		}
 	}
 
@@ -777,22 +788,21 @@ namespace tools
 		return mCodeGeneratorSettings;
 	}
 
-	void EditorWidgets::loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode)
+	void EditorWidgets::loadWidgetsFromXmlNode(pugi::xml_node _root, bool _testMode)
 	{
 		// берем детей и крутимся
-		MyGUI::xml::ElementEnumerator element = _root->getElementEnumerator();
-		while (element.next())
+		for (auto element : _root.children())
 		{
-			if (element->getName() == "Widget")
+			if (std::string_view(element.name()) == "Widget")
 				parseWidget(element, nullptr, _testMode);
-			else if (element->getName() == CodeGeneratorSettingsNodeName)
-				loadCodeGeneratorSettings(element.current());
+			else if (std::string_view(element.name()) == CodeGeneratorSettingsNodeName)
+				loadCodeGeneratorSettings(element);
 		}
 	}
 
-	void EditorWidgets::saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility)
+	void EditorWidgets::saveWidgetsToXmlNode(pugi::xml_node _root, bool _compatibility)
 	{
-		_root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
+		_root.append_attribute("version") = BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion().c_str();
 
 		for (auto& widget : mWidgets)
 		{
@@ -804,20 +814,23 @@ namespace tools
 		saveCodeGeneratorSettings(_root);
 	}
 
-	void EditorWidgets::loadCodeGeneratorSettings(MyGUI::xml::ElementPtr _sectorNode)
+	void EditorWidgets::loadCodeGeneratorSettings(pugi::xml_node _sectorNode)
 	{
-		MyGUI::xml::ElementEnumerator widget = _sectorNode->getElementEnumerator();
-		while (widget.next())
+		for (auto widget : _sectorNode.children())
 		{
-			if (widget->getName() == "Property")
+			if (std::string_view(widget.name()) == "Property")
 			{
 				std::string key;
 				std::string value;
 
 				// парсим атрибуты
-				if (!widget->findAttribute("key", key))
+				if (auto attr = widget.attribute("key"))
+					key = attr.value();
+				else
 					continue;
-				if (!widget->findAttribute("value", value))
+				if (auto attr = widget.attribute("value"))
+					value = attr.value();
+				else
 					continue;
 
 				mCodeGeneratorSettings[key] = value;
@@ -825,17 +838,17 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::saveCodeGeneratorSettings(MyGUI::xml::ElementPtr _rootNode)
+	void EditorWidgets::saveCodeGeneratorSettings(pugi::xml_node _rootNode)
 	{
-		MyGUI::xml::ElementPtr node = _rootNode->createChild(CodeGeneratorSettingsNodeName);
+		pugi::xml_node node = _rootNode.append_child(CodeGeneratorSettingsNodeName.data());
 
 		for (MyGUI::MapString::const_iterator iter = mCodeGeneratorSettings.begin();
 			 iter != mCodeGeneratorSettings.end();
 			 ++iter)
 		{
-			MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
-			nodeProp->addAttribute("key", iter->first);
-			nodeProp->addAttribute("value", iter->second);
+			pugi::xml_node nodeProp = node.append_child("Property");
+			nodeProp.append_attribute("key") = iter->first.data();
+			nodeProp.append_attribute("value") = iter->second.data();
 		}
 	}
 

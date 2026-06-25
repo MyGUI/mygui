@@ -50,7 +50,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void LayoutManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
+	void LayoutManager::_load(pugi::xml_node _node, std::string_view _file, Version _version)
 	{
 		ResourceLayout* resource = new ResourceLayout(_node, _file);
 		ResourceManager::getInstance().addResource(resource);

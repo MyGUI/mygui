@@ -33,7 +33,7 @@ namespace tools
 		void notifyDelete(MyGUI::Widget* _sender);
 		void notifySelectItem(MyGUI::ListBox* _sender, size_t _index);
 
-		void loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		void loadControllerTypes(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version);
 		void destroyPropertyFields();
 
 		void updateSize();

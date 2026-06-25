@@ -82,19 +82,18 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void PointerManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
+	void PointerManager::_load(pugi::xml_node _node, std::string_view _file, Version _version)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		loadOldPointerFormat(_node, _file, _version, mXmlPointerTagName);
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto node : _node)
 		{
-			if (node->getName() == mXmlPropertyTagName)
+			if (node.name() == mXmlPropertyTagName)
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = node.attribute("key").value();
+				std::string_view value = node.attribute("value").value();
 				if (key == "Default")
 					setDefaultPointer(value);
 				else if (key == "Layer")

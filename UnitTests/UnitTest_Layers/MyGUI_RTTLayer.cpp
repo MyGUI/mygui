@@ -24,15 +24,14 @@ namespace MyGUI
 		}
 	}
 
-	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
+	void RTTLayer::deserialization(pugi::xml_node _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
 
-		MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
-		while (propert.next("Property"))
+		for (auto propert : _node.children("Property"))
 		{
-			std::string_view key = propert->findAttribute("key");
-			std::string_view value = propert->findAttribute("value");
+			std::string_view key = propert.attribute("key").value();
+			std::string_view value = propert.attribute("value").value();
 			if (key == "TextureSize")
 				setTextureSize(utility::parseValue<IntSize>(value));
 #ifdef MYGUI_OGRE_PLATFORM

@@ -23,7 +23,7 @@ namespace MyGUI
 		SharedLayer();
 		~SharedLayer() override;
 
-		void deserialization(xml::ElementPtr _node, Version _version) override;
+		void deserialization(pugi::xml_node _node, Version _version) override;
 
 		void setPick(bool _pick);
 

@@ -24,7 +24,7 @@ namespace demo
 		MYGUI_RTTI_DERIVED(ResourceItemInfo)
 
 	private:
-		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
+		void deserialization(pugi::xml_node _node, MyGUI::Version _version) override;
 
 	public:
 		const std::string& getItemName();

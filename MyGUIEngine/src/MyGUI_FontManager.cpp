@@ -58,19 +58,18 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void FontManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
+	void FontManager::_load(pugi::xml_node _node, std::string_view _file, Version _version)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		loadOldFontFormat(_node, _file, _version, mXmlFontTagName);
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto node : _node)
 		{
-			if (node->getName() == mXmlPropertyTagName)
+			if (node.name() == mXmlPropertyTagName)
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = node.attribute("key").value();
+				std::string_view value = node.attribute("value").value();
 #ifdef MYGUI_USE_FREETYPE
 				if (key == "Default")
 #else

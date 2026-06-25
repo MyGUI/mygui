@@ -8,7 +8,6 @@
 #define _299713c3_291b_4d03_904d_4864ed846024_
 
 #include "IExportSerializer.h"
-#include <pugixml.hpp>
 #include "Data.h"
 
 namespace tools

@@ -443,10 +443,7 @@ namespace tools
 
 		ExportManager::getInstance().serialization(doc);
 
-		bool result = doc.save_file(
-			mFileName.asWStr_c_str(),
-			"\t",
-			(pugi::format_indent | pugi::format_write_bom));
+		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t", (pugi::format_indent | pugi::format_write_bom));
 
 		if (result)
 		{

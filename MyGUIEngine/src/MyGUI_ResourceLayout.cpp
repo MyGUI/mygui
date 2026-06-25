@@ -16,80 +16,82 @@
 namespace MyGUI
 {
 
-	ResourceLayout::ResourceLayout(xml::ElementPtr _node, std::string_view _fileName)
+	ResourceLayout::ResourceLayout(pugi::xml_node _node, std::string_view _fileName)
 	{
 		// FIXME hardcoded version
 		deserialization(_node, Version(1, 0, 0));
 		mResourceName = _fileName;
 	}
 
-	void ResourceLayout::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceLayout::deserialization(pugi::xml_node _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
 
 		mLayoutData.clear();
 
-		xml::ElementEnumerator widget = _node->getElementEnumerator();
-		while (widget.next("Widget"))
+		for (auto widget : _node.children("Widget"))
 			mLayoutData.push_back(parseWidget(widget));
 	}
 
-	WidgetInfo ResourceLayout::parseWidget(xml::ElementEnumerator& _widget)
+	WidgetInfo ResourceLayout::parseWidget(pugi::xml_node _widget)
 	{
 		WidgetInfo widgetInfo;
 
-		std::string tmp;
+		widgetInfo.type = _widget.attribute("type").value();
+		widgetInfo.skin = _widget.attribute("skin").value();
+		widgetInfo.layer = _widget.attribute("layer").value();
 
-		_widget->findAttribute("type", widgetInfo.type);
-		_widget->findAttribute("skin", widgetInfo.skin);
-		_widget->findAttribute("layer", widgetInfo.layer);
-
-		if (_widget->findAttribute("align", tmp))
+		std::string tmp{_widget.attribute("align").value()};
+		if (!tmp.empty())
 			widgetInfo.align = Align::parse(tmp);
 
-		_widget->findAttribute("name", widgetInfo.name);
+		widgetInfo.name = _widget.attribute("name").value();
 
-		if (_widget->findAttribute("style", tmp))
+		tmp = _widget.attribute("style").value();
+		if (!tmp.empty())
 			widgetInfo.style = WidgetStyle::parse(tmp);
 
-		if (_widget->findAttribute("position", tmp))
+		tmp = _widget.attribute("position").value();
+		if (!tmp.empty())
 		{
 			widgetInfo.intCoord = IntCoord::parse(tmp);
 			widgetInfo.positionType = WidgetInfo::Pixels;
 		}
-		else if (_widget->findAttribute("position_real", tmp))
+		else
 		{
-			widgetInfo.floatCoord = FloatCoord::parse(tmp);
-			widgetInfo.positionType = WidgetInfo::Relative;
+			tmp = _widget.attribute("position_real").value();
+			if (!tmp.empty())
+			{
+				widgetInfo.floatCoord = FloatCoord::parse(tmp);
+				widgetInfo.positionType = WidgetInfo::Relative;
+			}
 		}
 
-		xml::ElementEnumerator node = _widget->getElementEnumerator();
-		while (node.next())
+		for (auto node : _widget)
 		{
-			if (node->getName() == "Widget")
+			if (node.name() == std::string_view("Widget"))
 			{
 				widgetInfo.childWidgetsInfo.push_back(parseWidget(node));
 			}
-			else if (node->getName() == "Property")
+			else if (node.name() == std::string_view("Property"))
 			{
-				widgetInfo.properties.emplace_back(node->findAttribute("key"), node->findAttribute("value"));
+				widgetInfo.properties.emplace_back(node.attribute("key").value(), node.attribute("value").value());
 			}
-			else if (node->getName() == "UserString")
+			else if (node.name() == std::string_view("UserString"))
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = node.attribute("key").value();
+				std::string_view value = node.attribute("value").value();
 				mapSet(widgetInfo.userStrings, key, value);
 			}
-			else if (node->getName() == "Controller")
+			else if (node.name() == std::string_view("Controller"))
 			{
 				ControllerInfo controllerInfo;
-				controllerInfo.type = node->findAttribute("type");
+				controllerInfo.type = node.attribute("type").value();
 
-				xml::ElementEnumerator prop = node->getElementEnumerator();
-				while (prop.next("Property"))
+				for (auto prop : node.children("Property"))
 				{
-					std::string_view key = prop->findAttribute("key");
-					std::string_view value = prop->findAttribute("value");
+					std::string_view key = prop.attribute("key").value();
+					std::string_view value = prop.attribute("value").value();
 					mapSet(controllerInfo.properties, key, value);
 				}
 

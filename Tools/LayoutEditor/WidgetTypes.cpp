@@ -81,33 +81,36 @@ namespace tools
 		widget_type->skin.emplace_back(_skin);
 	}
 
-	void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version)
+	void WidgetTypes::loadWidgets(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version)
 	{
-		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
-		while (widgets.next("Widget"))
+		for (auto widgets : _node.children("Widget"))
 		{
-			WidgetStyle* widget_type = getWidgetType(widgets->findAttribute("name"));
+			WidgetStyle* widget_type = getWidgetType(widgets.attribute("name").value());
 
-			widget_type->internalType = widgets->findAttribute("internal") == "true";
+			widget_type->internalType = std::string_view(widgets.attribute("internal").value()) == "true";
 
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
-			while (field.next())
+			for (auto field : widgets.children())
 			{
 				std::string key;
 				std::string value;
 				std::string group;
 
-				if (field->getName() == "Property")
+				if (std::string_view(field.name()) == "Property")
 				{
-					if (!field->findAttribute("key", key))
+					if (auto attr = field.attribute("key"))
+						key = attr.value();
+					else
 						continue;
-					if (!field->findAttribute("value", value))
+					if (auto attr = field.attribute("value"))
+						value = attr.value();
+					else
 						continue;
-					field->findAttribute("group", group);
+					if (auto attr = field.attribute("group"))
+						group = attr.value();
 					if (key == "Skin")
 					{
-						std::string_view button_name = field->findAttribute("name");
+						std::string_view button_name = field.attribute("name").value();
 						if (button_name.empty())
 							button_name = value;
 
@@ -129,27 +132,39 @@ namespace tools
 					else if (key == "Base")
 						widget_type->base = value;
 				}
-				else if (field->getName() == "Parameter")
+				else if (std::string_view(field.name()) == "Parameter")
 				{
-					if (!field->findAttribute("key", key))
+					if (auto attr = field.attribute("key"))
+						key = attr.value();
+					else
 						continue;
-					if (!field->findAttribute("value", value))
+					if (auto attr = field.attribute("value"))
+						value = attr.value();
+					else
 						continue;
 					widget_type->parameter.emplace_back(key, value);
 				}
-				else if (field->getName() == "TemplateData")
+				else if (std::string_view(field.name()) == "TemplateData")
 				{
-					if (!field->findAttribute("key", key))
+					if (auto attr = field.attribute("key"))
+						key = attr.value();
+					else
 						continue;
-					if (!field->findAttribute("value", value))
+					if (auto attr = field.attribute("value"))
+						value = attr.value();
+					else
 						continue;
 					widget_type->templateData.emplace_back(key, value);
 				}
-				else if (field->getName() == "ParameterData")
+				else if (std::string_view(field.name()) == "ParameterData")
 				{
-					if (!field->findAttribute("key", key))
+					if (auto attr = field.attribute("key"))
+						key = attr.value();
+					else
 						continue;
-					if (!field->findAttribute("value", value))
+					if (auto attr = field.attribute("value"))
+						value = attr.value();
+					else
 						continue;
 					widget_type->parameterData.emplace_back(key, value);
 				}
@@ -179,16 +194,15 @@ namespace tools
 		return possible_value;
 	}
 
-	void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version)
+	void WidgetTypes::loadValues(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version)
 	{
-		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
-		while (widgets.next("Value"))
+		for (auto widgets : _node.children("Value"))
 		{
-			std::string_view name = widgets->findAttribute("name");
+			std::string_view name = widgets.attribute("name").value();
 			PossibleValue* possible_value = getPossibleValue(name);
 
 			// тип мерджа переменных
-			std::string_view merge = widgets->findAttribute("merge");
+			std::string_view merge = widgets.attribute("merge").value();
 			// дополняем своими данными, по дефолту
 			if (merge == "add")
 			{
@@ -200,14 +214,15 @@ namespace tools
 			}
 
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
-			while (field.next())
+			for (auto field : widgets.children())
 			{
 				std::string key;
 
-				if (field->getName() == "Property")
+				if (std::string_view(field.name()) == "Property")
 				{
-					if (!field->findAttribute("key", key))
+					if (auto attr = field.attribute("key"))
+						key = attr.value();
+					else
 						continue;
 					possible_value->values.push_back(key);
 				}

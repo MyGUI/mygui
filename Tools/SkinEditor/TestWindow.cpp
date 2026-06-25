@@ -129,7 +129,7 @@ namespace tools
 		serializer->writeSkin(root, mSkinItem);
 		delete serializer;
 
-		root.select_single_node("Resource/@name").attribute().set_value(mSkinName.c_str());
+		root.select_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
 		/*bool result = */ doc.save_file(
 			mTestSkinFileName.c_str(),
@@ -138,7 +138,7 @@ namespace tools
 
 		MyGUI::xml::Document docLoad;
 		docLoad.open(mTestSkinFileName);
-		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
+		pugi::xml_node resourceNode = docLoad.getRoot();
 
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(
 			resourceNode,

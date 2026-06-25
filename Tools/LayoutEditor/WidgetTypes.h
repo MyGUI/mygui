@@ -38,8 +38,8 @@ namespace tools
 		VectorWidgetType getWidgetTypes() const;
 
 	private:
-		void loadWidgets(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
-		void loadValues(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		void loadWidgets(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version);
+		void loadValues(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version);
 
 		WidgetStyle* getWidgetType(std::string_view _name);
 

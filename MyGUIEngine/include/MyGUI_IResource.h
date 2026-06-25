@@ -45,9 +45,11 @@ namespace MyGUI
 		IResource() = default;
 		~IResource() override = default;
 
-		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
+		void deserialization(pugi::xml_node _node, Version /*_version*/) override
 		{
-			_node->findAttribute("name", mResourceName);
+			auto attr = _node.attribute("name");
+			if (attr)
+				mResourceName = attr.value();
 		}
 
 	protected:

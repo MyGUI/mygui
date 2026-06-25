@@ -7,6 +7,6 @@ Name: MyGUI (static lib)
 Description: Fast, flexible and simple GUI
 Version: @MYGUI_VERSION@
 URL: http://mygui.info
-Requires: freetype2
+Requires: freetype2 pugixml
 Libs: -L${libdir} -lMyGUIEngine@MYGUI_LIB_SUFFIX@
 Cflags: -I${includedir} -I${includedir}/MYGUI

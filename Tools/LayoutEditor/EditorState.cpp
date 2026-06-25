@@ -549,22 +549,21 @@ namespace tools
 		if (!doc.open(fileName))
 			return _fileName;
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 			return _fileName;
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
 				{
 					if (itemIndex == 0)
 					{
 						// поменять на теги
-						std::string_view resourceName = element->findAttribute("name");
+						std::string_view resourceName = element.attribute("name").value();
 						addUserTag("ResourceName", MyGUI::UString(resourceName));
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}

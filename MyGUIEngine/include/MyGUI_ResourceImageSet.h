@@ -43,7 +43,7 @@ namespace MyGUI
 		void AddGroupImage(const GroupImage& _group);
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override;
+		void deserialization(pugi::xml_node _node, Version _version) override;
 
 		size_t getGroupIndex(std::string_view _name) const;
 		size_t getGroupIndex(const IntSize& _size) const;

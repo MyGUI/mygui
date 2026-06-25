@@ -164,21 +164,19 @@ namespace tools
 	}
 
 	void PanelControllers::loadControllerTypes(
-		MyGUI::xml::ElementPtr _node,
+		pugi::xml_node _node,
 		std::string_view /*_file*/,
 		MyGUI::Version /*_version*/)
 	{
-		MyGUI::xml::ElementEnumerator controller = _node->getElementEnumerator();
-		while (controller.next("Controller"))
+		for (auto controller : _node.children("Controller"))
 		{
 			MyGUI::MapString controllerProperties;
-			std::string_view name = controller->findAttribute("name");
+			std::string_view name = controller.attribute("name").value();
 			mControllerName->addItem(MyGUI::UString(name));
-			MyGUI::xml::ElementEnumerator prop = controller->getElementEnumerator();
-			while (prop.next("Property"))
+			for (auto prop : controller.children("Property"))
 			{
-				std::string_view key = prop->findAttribute("key");
-				std::string_view value = prop->findAttribute("type");
+				std::string_view key = prop.attribute("key").value();
+				std::string_view value = prop.attribute("type").value();
 				MyGUI::mapSet(controllerProperties, key, value);
 			}
 			MyGUI::mapSet(mControllersProperties, name, controllerProperties);

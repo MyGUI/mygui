@@ -26,7 +26,7 @@ namespace tools
 		bool onKeyEvent(bool _pressed, bool _shift, bool _control, MyGUI::KeyCode _key);
 
 	private:
-		void loadXml(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		void loadXml(pugi::xml_node _node, std::string_view _file, MyGUI::Version _version);
 
 		void addCommand(HotKeyCommand& _command);
 

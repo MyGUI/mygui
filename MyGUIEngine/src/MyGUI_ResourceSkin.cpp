@@ -19,19 +19,17 @@ namespace MyGUI
 		mStates.clear();
 	}
 
-	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceSkin::deserialization(pugi::xml_node _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
 
 		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
-		std::string name;
-		std::string texture;
-		std::string tmp;
+		std::string name{_node.attribute("name").value()};
+		std::string texture{_node.attribute("texture").value()};
 		IntSize size;
-		_node->findAttribute("name", name);
-		_node->findAttribute("texture", texture);
-		if (_node->findAttribute("size", tmp))
+		std::string tmp{_node.attribute("size").value()};
+		if (!tmp.empty())
 			size = IntSize::parse(tmp);
 
 		LanguageManager& localizator = LanguageManager::getInstance();
@@ -47,19 +45,19 @@ namespace MyGUI
 
 		setInfo(size, texture);
 
-		if (_node->findAttribute("mask", tmp))
+		tmp = _node.attribute("mask").value();
+		if (!tmp.empty())
 			addProperty("MaskPick", tmp);
 
-		xml::ElementEnumerator basis = _node->getElementEnumerator();
-		while (basis.next())
+		for (auto basis : _node)
 		{
-			if (basis->getName() == "Property")
+			if (basis.name() == std::string_view("Property"))
 			{
-				std::string key;
-				std::string value;
-				if (!basis->findAttribute("key", key))
+				std::string key{basis.attribute("key").value()};
+				if (key.empty())
 					continue;
-				if (!basis->findAttribute("value", value))
+				std::string value{basis.attribute("value").value()};
+				if (value.empty())
 					continue;
 
 				// tags replacement support for Skins
@@ -70,66 +68,60 @@ namespace MyGUI
 
 				addProperty(key, value);
 			}
-			else if (basis->getName() == "Child")
+			else if (basis.name() == std::string_view("Child"))
 			{
 				ChildSkinInfo child(
-					basis->findAttribute("type"),
-					WidgetStyle::parse(basis->findAttribute("style")),
-					basis->findAttribute("skin"),
-					IntCoord::parse(basis->findAttribute("offset")),
-					Align::parse(basis->findAttribute("align")),
-					basis->findAttribute("layer"),
-					basis->findAttribute("name"));
+					basis.attribute("type").value(),
+					WidgetStyle::parse(basis.attribute("style").value()),
+					basis.attribute("skin").value(),
+					IntCoord::parse(basis.attribute("offset").value()),
+					Align::parse(basis.attribute("align").value()),
+					basis.attribute("layer").value(),
+					basis.attribute("name").value());
 
-				xml::ElementEnumerator child_params = basis->getElementEnumerator();
-				while (child_params.next("Property"))
-					child.addParam(child_params->findAttribute("key"), child_params->findAttribute("value"));
+				for (auto child_params : basis.children("Property"))
+					child.addParam(child_params.attribute("key").value(), child_params.attribute("value").value());
 
 				addChild(child);
-				//continue;
 			}
-			else if (basis->getName() == "BasisSkin")
+			else if (basis.name() == std::string_view("BasisSkin"))
 			{
-				std::string basisSkinType;
-				std::string tmp_str;
+				std::string basisSkinType{basis.attribute("type").value()};
 				IntCoord offset;
 				Align align = Align::Default;
-				basis->findAttribute("type", basisSkinType);
-				if (basis->findAttribute("offset", tmp_str))
-					offset = IntCoord::parse(tmp_str);
-				if (basis->findAttribute("align", tmp_str))
-					align = Align::parse(tmp_str);
+				tmp = basis.attribute("offset").value();
+				if (!tmp.empty())
+					offset = IntCoord::parse(tmp);
+				tmp = basis.attribute("align").value();
+				if (!tmp.empty())
+					align = Align::parse(tmp);
 
 				bind.create(offset, align, basisSkinType);
-
-				xml::ElementEnumerator state = basis->getElementEnumerator();
 
 				// check for new state format
 				bool new_format = false;
 				// if version < 1.0 rename states
 				if (_version < Version(1, 0))
 				{
-					while (state.next())
+					for (auto state : basis)
 					{
-						if (state->getName() == "State")
+						if (state.name() == std::string_view("State"))
 						{
-							std::string_view name_state = state->findAttribute("name");
-							if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check"))
+							std::string_view name_state = state.attribute("name").value();
+							if (name_state == "normal_checked" || name_state == "normal_check")
 							{
 								new_format = true;
 								break;
 							}
 						}
 					}
-					state = basis->getElementEnumerator();
 				}
 
-				while (state.next())
+				for (auto state : basis)
 				{
-					if (state->getName() == "State")
+					if (state.name() == std::string_view("State"))
 					{
-						std::string basisStateName;
-						state->findAttribute("name", basisStateName);
+						std::string basisStateName{state.attribute("name").value()};
 
 						// if version < 1.0 rename states
 						if (_version < Version(1, 0))
@@ -163,7 +155,7 @@ namespace MyGUI
 						if (object != nullptr)
 						{
 							data = object->castType<IStateInfo>();
-							data->deserialization(state.current(), _version);
+							data->deserialization(state, _version);
 						}
 
 						bind.add(basisStateName, data, name);

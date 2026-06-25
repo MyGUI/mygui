@@ -33,7 +33,7 @@ if (MYGUI_USE_FREETYPE)
 	endif()
 endif()
 
-target_link_libraries(${PROJECTNAME} PRIVATE pugixml::pugixml)
+target_link_libraries(${PROJECTNAME} PUBLIC pugixml::pugixml)
 
 mygui_target_precompile_headers(${PROJECTNAME} "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
 

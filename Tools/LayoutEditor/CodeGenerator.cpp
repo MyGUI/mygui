@@ -51,27 +51,22 @@ namespace tools
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void CodeGenerator::parseTemplate(
-		MyGUI::xml::ElementPtr _node,
-		std::string_view /*_file*/,
-		MyGUI::Version /*unused*/)
+	void CodeGenerator::parseTemplate(pugi::xml_node _node, std::string_view /*_file*/, MyGUI::Version /*unused*/)
 	{
 		mTemplateFiles.clear();
 		mTemplateStrings.clear();
 
-		MyGUI::xml::ElementEnumerator file = _node->getElementEnumerator();
-		while (file.next("File"))
+		for (auto file : _node.children("File"))
 		{
-			std::string_view templateFile = file->findAttribute("template");
-			std::string_view outputFile = file->findAttribute("out_file");
+			std::string_view templateFile = file.attribute("template").value();
+			std::string_view outputFile = file.attribute("out_file").value();
 			mTemplateFiles.emplace(templateFile, outputFile);
 		}
 
-		MyGUI::xml::ElementEnumerator string = _node->getElementEnumerator();
-		while (string.next("String"))
+		for (auto string : _node.children("String"))
 		{
-			std::string_view key = string->findAttribute("key");
-			std::string_view value = string->findAttribute("value");
+			std::string_view key = string.attribute("key").value();
+			std::string_view value = string.attribute("value").value();
 			mTemplateStrings.emplace(key, value);
 		}
 	}

@@ -27,7 +27,7 @@ namespace MyGUI
 	public:
 		~RTTLayer() override;
 
-		void deserialization(xml::ElementPtr _node, Version _version) override;
+		void deserialization(pugi::xml_node _node, Version _version) override;
 
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 

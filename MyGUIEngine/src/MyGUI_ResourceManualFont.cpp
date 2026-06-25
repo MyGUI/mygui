@@ -38,17 +38,16 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManualFont::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceManualFont::deserialization(pugi::xml_node _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
 
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto node : _node)
 		{
-			if (node->getName() == "Property")
+			if (node.name() == std::string_view("Property"))
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = node.attribute("key").value();
+				std::string_view value = node.attribute("value").value();
 				if (key == "Source")
 					mSource = value;
 				else if (key == "DefaultHeight")
@@ -67,16 +66,14 @@ namespace MyGUI
 			int textureWidth = mTexture->getWidth();
 			int textureHeight = mTexture->getHeight();
 
-			node = _node->getElementEnumerator();
-			while (node.next())
+			for (auto node2 : _node)
 			{
-				if (node->getName() == "Codes")
+				if (node2.name() == std::string_view("Codes"))
 				{
-					xml::ElementEnumerator element = node->getElementEnumerator();
-					while (element.next("Code"))
+					for (auto element : node2.children("Code"))
 					{
-						std::string value;
-						if (element->findAttribute("index", value))
+						std::string value{element.attribute("index").value()};
+						if (!value.empty())
 						{
 							Char id = 0;
 							if (value == "cursor")
@@ -90,20 +87,20 @@ namespace MyGUI
 							else
 								id = utility::parseUInt(value);
 
-							FloatPoint bearing(utility::parseValue<FloatPoint>(element->findAttribute("bearing")));
+							FloatPoint bearing(utility::parseValue<FloatPoint>(element.attribute("bearing").value()));
 
 							// texture coordinates
-							FloatCoord coord(utility::parseValue<FloatCoord>(element->findAttribute("coord")));
+							FloatCoord coord(utility::parseValue<FloatCoord>(element.attribute("coord").value()));
 
 							// glyph size, default to texture coordinate size
-							std::string sizeString;
+							std::string sizeString{element.attribute("size").value()};
 							FloatSize size(coord.width, coord.height);
-							if (element->findAttribute("size", sizeString))
+							if (!sizeString.empty())
 							{
 								size = utility::parseValue<FloatSize>(sizeString);
 							}
 
-							auto advanceAttribute = element->findAttribute("advance");
+							std::string advanceAttribute{element.attribute("advance").value()};
 							float advance = size.width;
 							if (!advanceAttribute.empty())
 								advance = utility::parseValue<float>(advanceAttribute);

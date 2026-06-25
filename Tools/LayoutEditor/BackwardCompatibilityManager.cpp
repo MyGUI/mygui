@@ -139,7 +139,7 @@ namespace tools
 	}
 
 	void BackwardCompatibilityManager::serialiseProperty(
-		MyGUI::xml::Element* _node,
+		pugi::xml_node _node,
 		std::string_view _widgetType,
 		const MyGUI::PairString& _property,
 		bool _compatibility)
@@ -171,9 +171,9 @@ namespace tools
 			}
 		}
 
-		MyGUI::xml::ElementPtr nodeProp = _node->createChild("Property");
-		nodeProp->addAttribute("key", propertyName);
-		nodeProp->addAttribute("value", _property.second);
+		pugi::xml_node nodeProp = _node.append_child("Property");
+		nodeProp.append_attribute("key") = propertyName.data();
+		nodeProp.append_attribute("value") = _property.second.data();
 	}
 
 	const MyGUI::VectorString& BackwardCompatibilityManager::getVersions() const

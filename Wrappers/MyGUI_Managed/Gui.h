@@ -142,25 +142,24 @@ namespace MyGUI
 					return widgets;
 				}
 
-				MyGUI::xml::ElementPtr root = doc.getRoot();
-				if ( (nullptr == root) || (root->getName() != "MyGUI") )
+				pugi::xml_node root = doc.getRoot();
+				if ( !root || std::string_view(root.name()) != "MyGUI" )
 				{
 					MYGUI_LOG(Error, "MyGUI::Gui : '" << file << "', tag 'MyGUI' not found");
 					return widgets;
 				}
 
-				if (root->findAttribute("type") != "Layout")
+				if (root.attribute("type").value() != std::string_view("Layout"))
 				{
 					MYGUI_LOG(Error, "MyGUI::Gui : '" << file << "', attribute 'type' != 'Layout'");
 					return widgets;
 				}
 
-				MyGUI::Version version = MyGUI::Version::parse(root->findAttribute("version"));
+				MyGUI::Version version = MyGUI::Version::parse(root.attribute("version").value());
 
-				MyGUI::xml::ElementEnumerator widgets_array = root->getElementEnumerator();
-				while (widgets_array.next("Widget"))
+				for (auto widgets_array : root.children("Widget"))
 				{
-					ParseWidget(widgets_array.current(), version, widgets, _parent, prefix, true);
+					ParseWidget(widgets_array, version, widgets, _parent, prefix, true);
 				}
 
 				return widgets;
@@ -241,33 +240,33 @@ namespace MyGUI
 
 		private:
 			void ParseWidget(
-				MyGUI::xml::ElementPtr _widget,
+				pugi::xml_node _widget,
 				MyGUI::Version _version, System::Collections::Generic::List < Widget ^ > ^ _widgets,
 				Widget ^ _parent,
 				const std::string& _prefix, bool _root)
 			{
 				// парсим атрибуты виджета
-				std::string type, skin, name, layer, tmp;
+				std::string type, skin, name, layer;
 				MyGUI::IntCoord coord;
 				MyGUI::Align align = MyGUI::Align::Default;
 
-				_widget->findAttribute("type", type);
-				_widget->findAttribute("skin", skin);
-				_widget->findAttribute("name", name);
-				_widget->findAttribute("layer", layer);
-				if (_widget->findAttribute("align", tmp)) align = MyGUI::Align::parse(tmp);
+				if (auto attr = _widget.attribute("type")) type = attr.value();
+				if (auto attr = _widget.attribute("skin")) skin = attr.value();
+				if (auto attr = _widget.attribute("name")) name = attr.value();
+				if (auto attr = _widget.attribute("layer")) layer = attr.value();
+				if (auto attr = _widget.attribute("align")) align = MyGUI::Align::parse(attr.value());
 
 				MyGUI::WidgetStyle style = MyGUI::WidgetStyle::Child;
-				if (_widget->findAttribute("style", tmp)) style = MyGUI::WidgetStyle::parse(tmp);
+				if (auto attr = _widget.attribute("style")) style = MyGUI::WidgetStyle::parse(attr.value());
 				if (_parent != nullptr && style != MyGUI::WidgetStyle::Popup) layer.clear();
 
-				if (_widget->findAttribute("position", tmp)) coord = MyGUI::IntCoord::parse(tmp);
-				else if (_widget->findAttribute("position_real", tmp))
+				if (auto attr = _widget.attribute("position")) coord = MyGUI::IntCoord::parse(attr.value());
+				else if (auto attr = _widget.attribute("position_real"))
 				{
 					if (_parent == nullptr || style == MyGUI::WidgetStyle::Popup)
-						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), MyGUI::RenderManager::getInstance().getViewSize());
+						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(attr.value()), MyGUI::RenderManager::getInstance().getViewSize());
 					else
-						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), _parent->GetNativePtr()->getSize());
+						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(attr.value()), _parent->GetNativePtr()->getSize());
 				}
 
 				if (!name.empty()) name = _prefix + name;
@@ -282,28 +281,31 @@ namespace MyGUI
 				if (_root) _widgets->Add(wid);
 
 				// берем детей и крутимся
-				MyGUI::xml::ElementEnumerator widget_element = _widget->getElementEnumerator();
-				while (widget_element.next())
+				for (auto widget_element : _widget.children())
 				{
 					std::string key, value;
 
-					if (widget_element->getName() == "Widget")
+					if (std::string_view(widget_element.name()) == "Widget")
 					{
-						ParseWidget(widget_element.current(), _version, _widgets, wid, _prefix, false);
+						ParseWidget(widget_element, _version, _widgets, wid, _prefix, false);
 					}
-					else if (widget_element->getName() == "Property")
+					else if (std::string_view(widget_element.name()) == "Property")
 					{
 						// парсим атрибуты
-						if (false == widget_element->findAttribute("key", key)) continue;
-						if (false == widget_element->findAttribute("value", value)) continue;
+						if (!widget_element.attribute("key")) continue;
+						key = widget_element.attribute("key").value();
+						if (!widget_element.attribute("value")) continue;
+						value = widget_element.attribute("value").value();
 						// и парсим свойство
 						wid->GetNativePtr()->setProperty(key, value);
 					}
-					else if (widget_element->getName() == "UserString")
+					else if (std::string_view(widget_element.name()) == "UserString")
 					{
 						// парсим атрибуты
-						if (false == widget_element->findAttribute("key", key)) continue;
-						if (false == widget_element->findAttribute("value", value)) continue;
+						if (!widget_element.attribute("key")) continue;
+						key = widget_element.attribute("key").value();
+						if (!widget_element.attribute("value")) continue;
+						value = widget_element.attribute("value").value();
 						wid->GetNativePtr()->setUserString(key, value);
 
 						if (mDelegateParserUserData != nullptr) mDelegateParserUserData(wid, string_utility::utf8_to_managed(key), string_utility::utf8_to_managed(value));

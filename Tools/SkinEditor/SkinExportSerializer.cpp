@@ -43,7 +43,7 @@ namespace tools
 
 	bool SkinExportSerializer::deserialization(pugi::xml_document& _doc)
 	{
-		if (_doc.select_single_node("MyGUI[@type=\"Resource\"]").node().empty())
+		if (_doc.select_node("MyGUI[@type=\"Resource\"]").node().empty())
 			return false;
 
 		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceSkin\"]");
@@ -382,9 +382,9 @@ namespace tools
 			if (type == "TileRect")
 			{
 				bool vert = MyGUI::utility::parseValue<bool>(
-					region.node().select_single_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
+					region.node().select_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
 				bool horz = MyGUI::utility::parseValue<bool>(
-					region.node().select_single_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
+					region.node().select_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
 
 				if (vert && !horz)
 					type = "TileRect Vert";
@@ -395,7 +395,7 @@ namespace tools
 			regionData->setPropertyValue("Type", type);
 		}
 
-		pugi::xpath_node regionText = _node.select_single_node(R"(BasisSkin[@type="SimpleText"or@type="EditText"])");
+		pugi::xpath_node regionText = _node.select_node(R"(BasisSkin[@type="SimpleText"or@type="EditText"])");
 		if (!regionText.node().empty())
 		{
 			DataPtr regionData = getChildData(_data, "RegionText", "Text");

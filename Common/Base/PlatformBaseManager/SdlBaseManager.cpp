@@ -184,22 +184,21 @@ namespace base
 			exit(1);
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if (root == nullptr || root->getName() != "Paths")
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "Paths")
 			return;
 
-		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
-		while (node.next())
+		for (auto node : root.children())
 		{
-			if (node->getName() == "Path")
+			if (std::string_view(node.name()) == "Path")
 			{
-				if (!node->findAttribute("root").empty())
+				if (auto attr = node.attribute("root"))
 				{
-					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
+					bool rootAttribute = MyGUI::utility::parseBool(attr.value());
 					if (rootAttribute)
-						mRootMedia = node->getContent();
+						mRootMedia = node.text().as_string();
 				}
-				addResourceLocation(node->getContent(), false);
+				addResourceLocation(node.text().as_string(), false);
 			}
 		}
 

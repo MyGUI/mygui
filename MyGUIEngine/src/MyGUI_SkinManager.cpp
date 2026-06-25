@@ -61,7 +61,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void SkinManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
+	void SkinManager::_load(pugi::xml_node _node, std::string_view _file, Version _version)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		loadOldSkinFormat(_node, _file, _version, mXmlSkinTagName);

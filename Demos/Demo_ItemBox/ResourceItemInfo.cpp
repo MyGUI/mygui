@@ -10,19 +10,18 @@
 namespace demo
 {
 
-	void ResourceItemInfo::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
+	void ResourceItemInfo::deserialization(pugi::xml_node _node, MyGUI::Version _version)
 	{
 		Base::deserialization(_node, _version);
 
-		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto node : _node.children())
 		{
-			if (node->getName() == "Name")
-				mItemName = node->getContent();
-			else if (node->getName() == "Description")
-				mItemDescription = node->getContent();
-			else if (node->getName() == "Image")
-				mItemResourceImage = node->findAttribute("RefID");
+			if (std::string_view(node.name()) == "Name")
+				mItemName = node.text().as_string();
+			else if (std::string_view(node.name()) == "Description")
+				mItemDescription = node.text().as_string();
+			else if (std::string_view(node.name()) == "Image")
+				mItemResourceImage = node.attribute("RefID").value();
 		}
 	}
 
