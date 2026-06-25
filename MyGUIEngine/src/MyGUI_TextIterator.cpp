@@ -121,27 +121,7 @@ namespace MyGUI
 		if (mCurrent == mEnd)
 			return false;
 
-		const size_t SIZE = 16;
-		wchar_t buff[SIZE];
-
-#ifdef __MINGW32__
-		swprintf(
-			buff,
-			L"#%.2X%.2X%.2X\0",
-			(int)(_colour.red * 255),
-			(int)(_colour.green * 255),
-			(int)(_colour.blue * 255));
-#else
-		swprintf(
-			buff,
-			SIZE,
-			L"#%.2X%.2X%.2X\0",
-			(int)(_colour.red * 255),
-			(int)(_colour.green * 255),
-			(int)(_colour.blue * 255));
-#endif
-		UString tmpStr = UString(buff);
-		insert(mCurrent, tmpStr.asUTF32());
+		insert(mCurrent, convertTagColour(_colour).asUTF32());
 
 		return true;
 	}
@@ -346,7 +326,7 @@ namespace MyGUI
 	{
 		const size_t SIZE = 16;
 		wchar_t buff[SIZE];
-//FIXME
+
 #ifdef __MINGW32__
 		swprintf(
 			buff,
@@ -363,7 +343,7 @@ namespace MyGUI
 			(int)(_colour.green * 255),
 			(int)(_colour.blue * 255));
 #endif
-		return buff;
+		return {buff};
 	}
 
 	UString TextIterator::toTagsString(const UString& _text)
