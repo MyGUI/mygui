@@ -23,9 +23,6 @@ set (SOURCE_FILES
   DataManager.cpp
   DataPropertyInfo.cpp
   DemoKeeper.cpp
-  pugiconfig.hpp
-  pugixml.cpp
-  pugixml.hpp
 )
 SOURCE_GROUP("Header Files" FILES
   Action.h
@@ -39,8 +36,6 @@ SOURCE_GROUP("Header Files" FILES
   DataManager.h
   DataPropertyInfo.h
   DemoKeeper.h
-  pugiconfig.hpp
-  pugixml.hpp
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
@@ -57,5 +52,4 @@ SOURCE_GROUP("Source Files" FILES
   DataManager.cpp
   DataPropertyInfo.cpp
   DemoKeeper.cpp
-  pugixml.cpp
 )
