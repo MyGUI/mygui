@@ -34,6 +34,13 @@ SOURCE_GROUP("Base" FILES
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	target_compile_options(${PROJECTNAME}
+		# not useful for demos and tools
+		PUBLIC
+			-Wno-unique-object-duplication)
+endif()
+
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIRS}")
 	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
