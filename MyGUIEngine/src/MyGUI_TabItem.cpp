@@ -13,9 +13,6 @@ namespace MyGUI
 	void TabItem::initialiseOverride()
 	{
 		Base::initialiseOverride();
-
-		// FIXME check skin change, should be called once
-		//mOwner = getParent()->castType<TabControl>();
 	}
 
 	void TabItem::shutdownOverride()
