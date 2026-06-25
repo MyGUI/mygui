@@ -172,6 +172,7 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   src/MyGUI_ActionController.cpp
+  src/MyGUI_Align.cpp
   src/MyGUI_Any.cpp
   src/MyGUI_BackwardCompatibility.cpp
   src/MyGUI_BiIndexBase.cpp
@@ -546,6 +547,7 @@ SOURCE_GROUP("Source Files\\Core\\SubWidget" FILES
   src/MyGUI_TileRect.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Types" FILES
+  src/MyGUI_Align.cpp
   src/MyGUI_Any.cpp
   src/MyGUI_Colour.cpp
 )
