@@ -716,65 +716,14 @@ namespace MyGUI
 		{
 			if (mContentSize.height <= 0)
 				return;
-
-			int offset = mContentPosition.top;
-			if (_rel < 0)
-				offset += mSizeItem.height;
-			else
-				offset -= mSizeItem.height;
-
-			if (mContentSize.height <= _getClientWidget()->getHeight())
-				offset = 0;
-			else if (offset >= mContentSize.height - _getClientWidget()->getHeight())
-				offset = mContentSize.height - _getClientWidget()->getHeight();
-			else if (offset < 0)
-				offset = 0;
-
-			if (mContentPosition.top == offset)
-				return;
-
-			// reset old highlight, during scroll the mouse may be over a window
-			resetCurrentActiveItem();
-
-			mContentPosition.top = offset;
+			setViewOffset(IntPoint(0, mContentPosition.top + (_rel < 0 ? mSizeItem.height : -mSizeItem.height)));
 		}
 		else
 		{
 			if (mContentSize.width <= 0)
 				return;
-
-			int offset = mContentPosition.left;
-			if (_rel < 0)
-				offset += mSizeItem.width;
-			else
-				offset -= mSizeItem.width;
-
-			if (mContentSize.width <= _getClientWidget()->getWidth())
-				offset = 0;
-			else if (offset >= mContentSize.width - _getClientWidget()->getWidth())
-				offset = mContentSize.width - _getClientWidget()->getWidth();
-			else if (offset < 0)
-				offset = 0;
-
-			if (mContentPosition.left == offset)
-				return;
-
-			// reset old highlight, during scroll the mouse may be over a window
-			resetCurrentActiveItem();
-
-			mContentPosition.left = offset;
+			setViewOffset(IntPoint(mContentPosition.left + (_rel < 0 ? mSizeItem.width : -mSizeItem.width), 0));
 		}
-
-		setContentPosition(mContentPosition);
-
-		// search and highlight item again
-		if (!mNeedDrop)
-			findCurrentActiveItem();
-
-		if (nullptr != mVScroll)
-			mVScroll->setScrollPosition(mContentPosition.top);
-		if (nullptr != mHScroll)
-			mHScroll->setScrollPosition(mContentPosition.left);
 	}
 
 	void ItemBox::setContentPosition(const IntPoint& _point)
