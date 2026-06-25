@@ -8,7 +8,7 @@
 #define _fde958f2_c1bc_4976_8cff_8a45a828b009_
 
 #include <MyGUI.h>
-#include "pugixml.hpp"
+#include <pugixml.hpp>
 #include "Data.h"
 #include "IExportSerializer.h"
 

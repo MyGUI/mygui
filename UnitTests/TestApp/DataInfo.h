@@ -6,7 +6,7 @@
 #ifndef _dd541c2d_6b2d_440f_a2b3_a08454979c7b_
 #define _dd541c2d_6b2d_440f_a2b3_a08454979c7b_
 
-#include "pugixml.hpp"
+#include <pugixml.hpp>
 #include <vector>
 #include "DataPropertyInfo.h"
 

@@ -5,7 +5,7 @@
 */
 
 #include "ActionManager.h"
-#include "pugixml.hpp"
+#include <pugixml.hpp>
 #include "MyGUI_DataManager.h"
 #include "DataInfoManager.h"
 
