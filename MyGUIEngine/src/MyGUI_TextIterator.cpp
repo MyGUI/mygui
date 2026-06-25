@@ -30,6 +30,30 @@ namespace MyGUI
 	{
 	}
 
+	template<typename Iterator, typename EndIterator>
+	bool advanceColorTag(Iterator& _iter, const EndIterator& _end)
+	{
+		if (*_iter != L'#')
+			return false;
+		++_iter;
+		if (_iter == _end)
+			return false;
+		if (*_iter != L'#')
+		{
+			for (size_t pos = 0; pos < 5; ++pos)
+			{
+				++_iter;
+				if (_iter == _end)
+				{
+					--_iter;
+					break;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
 	bool TextIterator::moveNext()
 	{
 		if (mCurrent == mEnd)
@@ -45,54 +69,29 @@ namespace MyGUI
 		{
 			if ((*iter) == L'#')
 			{
-				++iter;
+				if (advanceColorTag(iter, mEnd))
+					continue;
+
 				if (iter == mEnd)
 				{
 					mCurrent = mEnd;
 					return false;
 				}
-
-				// two hashes in a row
-				if ((*iter) == L'#')
-				{
-					mPosition++;
-					++iter;
-					if (iter == mEnd)
-					{
-						mCurrent = mEnd;
-						return false;
-					}
-
-					mCurrent = iter;
-					return true;
-				}
-
-				// remaining 5 colour characters
-				for (size_t pos = 0; pos < 5; pos++)
-				{
-					++iter;
-					if (iter == mEnd)
-					{
-						mCurrent = mEnd;
-						return false;
-					}
-				}
 			}
-			else
+
+			mPosition++;
+			++iter;
+			if (iter == mEnd)
 			{
-				mPosition++;
-				++iter;
-				if (iter == mEnd)
-				{
-					mCurrent = mEnd;
-					return false;
-				}
-
-				mCurrent = iter;
-				return true;
+				mCurrent = mEnd;
+				return false;
 			}
+
+			mCurrent = iter;
+			return true;
 		}
 
+		mCurrent = mEnd;
 		return false;
 	}
 
@@ -156,28 +155,8 @@ namespace MyGUI
 
 		for (UString::utf32string::const_iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
-			if ((*iter) == L'#')
-			{
-				++iter;
-				if (iter == mEnd)
-					break;
-
-				// colour tag
-				if ((*iter) != L'#')
-				{
-					// remaining 5 colour characters
-					for (size_t pos = 0; pos < 5; pos++)
-					{
-						++iter;
-						if (iter == mEnd)
-						{
-							--iter;
-							break;
-						}
-					}
-					continue;
-				}
-			}
+			if (advanceColorTag(iter, mEnd))
+				continue;
 
 			mSize++;
 		}
@@ -194,28 +173,8 @@ namespace MyGUI
 		UString::utf32string::const_iterator end = text.end();
 		for (UString::utf32string::const_iterator iter = text.begin(); iter != end; ++iter)
 		{
-			if ((*iter) == L'#')
-			{
-				++iter;
-				if (iter == end)
-					break;
-
-				// colour tag
-				if ((*iter) != L'#')
-				{
-					// remaining 5 colour characters
-					for (size_t pos = 0; pos < 5; pos++)
-					{
-						++iter;
-						if (iter == end)
-						{
-							--iter;
-							break;
-						}
-					}
-					continue;
-				}
-			}
+			if (advanceColorTag(iter, end))
+				continue;
 
 			ret.push_back(*iter);
 		}
@@ -418,28 +377,8 @@ namespace MyGUI
 
 		for (UString::utf32string::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
-			if ((*iter) == L'#')
-			{
-				++iter;
-				if (iter == mEnd)
-					break;
-
-				// colour tag
-				if ((*iter) != L'#')
-				{
-					// remaining 5 colour characters
-					for (size_t pos = 0; pos < 5; pos++)
-					{
-						++iter;
-						if (iter == mEnd)
-						{
-							--iter;
-							break;
-						}
-					}
-					continue;
-				}
-			}
+			if (advanceColorTag(iter, mEnd))
+				continue;
 
 			// check and cut
 			if (mSize == _max)
@@ -471,30 +410,10 @@ namespace MyGUI
 		UString::utf32string::iterator iter = mText.begin();
 		for (; iter != mEnd; ++iter)
 		{
-			if ((*iter) == L'#')
+			UString::utf32string::iterator save = iter;
+			if (advanceColorTag(iter, mEnd))
 			{
-				UString::utf32string::iterator save = iter;
-
-				++iter;
-				if (iter == mEnd)
-					break;
-
-				// colour tag
-				if ((*iter) != L'#')
-				{
-					// remaining 5 colour characters
-					for (size_t pos = 0; pos < 5; pos++)
-					{
-						++iter;
-						if (iter == mEnd)
-						{
-							--iter;
-							break;
-						}
-					}
-					// save colour
-					iter_colour = save;
-				}
+				iter_colour = save;
 				continue;
 			}
 			if (diff == 0)
