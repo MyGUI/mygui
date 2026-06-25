@@ -9,6 +9,8 @@
 #include "MyGUI_DataFileStream.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
+#include <fstream>
+
 namespace MyGUI
 {
 
