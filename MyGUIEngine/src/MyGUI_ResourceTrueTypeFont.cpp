@@ -19,8 +19,8 @@
 	#include FT_WINFONTS_H
 
 	#ifdef MYGUI_MSDF_FONTS
-		#include "msdfgen/msdfgen.h"
-		#include "msdfgen/msdfgen-ext.h"
+		#include "msdfgen.h"
+		#include "msdfgen-ext.h"
 	#endif
 
 #endif // MYGUI_USE_FREETYPE

@@ -34,6 +34,45 @@ if (MYGUI_USE_FREETYPE)
 	find_package(Freetype)
 	macro_log_feature(FREETYPE_FOUND "freetype" "Portable font engine" "http://www.freetype.org" TRUE "" "")
 	find_package(ZLIB)
+
+	if (MYGUI_MSDF_FONTS)
+		if (MYGUI_USE_SYSTEM_MSDFGEN)
+			find_package(msdfgen)
+		else()
+			include(FetchContent)
+			FetchContent_Declare(msdfgen
+				GIT_REPOSITORY https://github.com/Chlumsky/msdfgen.git
+				GIT_TAG v1.13
+				GIT_SHALLOW TRUE
+			)
+			set(MSDFGEN_BUILD_STANDALONE OFF CACHE BOOL "" FORCE)
+			set(MSDFGEN_DISABLE_SVG ON CACHE BOOL "" FORCE)
+			set(MSDFGEN_DISABLE_PNG ON CACHE BOOL "" FORCE)
+			set(MSDFGEN_USE_VCPKG OFF CACHE BOOL "" FORCE)
+			set(MSDFGEN_USE_SKIA OFF CACHE BOOL "" FORCE)
+			set(MSDFGEN_INSTALL OFF CACHE BOOL "" FORCE)
+			set(MSDFGEN_BUILD_SHARED_LIBS_SAVE ${BUILD_SHARED_LIBS})
+			set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+			FetchContent_MakeAvailable(msdfgen)
+			set(BUILD_SHARED_LIBS ${MSDFGEN_BUILD_SHARED_LIBS_SAVE} CACHE BOOL "" FORCE)
+		endif()
+	endif()
+endif()
+
+#######################################################################
+# pugixml dependency
+#######################################################################
+
+if (MYGUI_USE_SYSTEM_PUGIXML)
+	find_package(pugixml REQUIRED)
+else()
+	include(FetchContent)
+	FetchContent_Declare(pugixml
+		GIT_REPOSITORY https://github.com/zeux/pugixml.git
+		GIT_TAG v1.16
+		GIT_SHALLOW TRUE
+	)
+	FetchContent_MakeAvailable(pugixml)
 endif()
 
 #######################################################################
