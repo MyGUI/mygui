@@ -1082,7 +1082,10 @@ namespace MyGUI
 	void EditBox::saveInHistory(VectorChangeInfo* _info)
 	{
 		if (_info == nullptr)
+		{
+			commandResetHistory();
 			return;
+		}
 		// if no change information
 		if (_info->empty())
 			return;
@@ -1173,13 +1176,8 @@ namespace MyGUI
 
 		commandPosition(_start, _start + _count, mTextLength, history);
 
-		if (_history)
-		{
-			saveInHistory(history);
-			delete history;
-		}
-		else
-			commandResetHistory();
+		saveInHistory(history);
+		delete history;
 
 		setRealString(iterator.getText());
 	}
@@ -1255,13 +1253,8 @@ namespace MyGUI
 
 		commandPosition(0, mTextLength, old, history);
 
-		if (_history)
-		{
-			saveInHistory(history);
-			delete history;
-		}
-		else
-			commandResetHistory();
+		saveInHistory(history);
+		delete history;
 
 		setRealString(iterator.getText());
 
@@ -1325,13 +1318,8 @@ namespace MyGUI
 
 		commandPosition(_start, _start + mTextLength - old, old, history);
 
-		if (_history)
-		{
-			saveInHistory(history);
-			delete history;
-		}
-		else
-			commandResetHistory();
+		saveInHistory(history);
+		delete history;
 
 		setRealString(iterator.getText());
 
@@ -1404,13 +1392,8 @@ namespace MyGUI
 		mCursorPosition = _start;
 		mTextLength -= _count;
 
-		if (_history)
-		{
-			saveInHistory(history);
-			delete history;
-		}
-		else
-			commandResetHistory();
+		saveInHistory(history);
+		delete history;
 
 		setRealString(iterator.getText());
 
