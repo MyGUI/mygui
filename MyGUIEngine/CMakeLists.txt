@@ -33,6 +33,8 @@ if (MYGUI_USE_FREETYPE)
 	endif()
 endif()
 
+target_link_libraries(${PROJECTNAME} PRIVATE pugixml::pugixml)
+
 mygui_target_precompile_headers(${PROJECTNAME} "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
 
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X

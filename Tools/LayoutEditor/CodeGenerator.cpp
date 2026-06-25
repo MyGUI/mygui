@@ -11,6 +11,8 @@
 #include "Localise.h"
 #include "SettingsManager.h"
 
+#include <fstream>
+
 namespace tools
 {
 
