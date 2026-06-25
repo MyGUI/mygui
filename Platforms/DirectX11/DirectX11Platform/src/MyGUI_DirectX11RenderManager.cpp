@@ -15,6 +15,8 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_DataManager.h"
 
+#include <fstream>
+
 namespace MyGUI
 {
 

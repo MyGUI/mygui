@@ -27,6 +27,8 @@
 #include "FactoryManager.h"
 #include "ComponentFactory.h"
 
+#include <fstream>
+
 namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(Application);

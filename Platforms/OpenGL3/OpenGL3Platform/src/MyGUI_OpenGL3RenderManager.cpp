@@ -15,6 +15,8 @@
 
 #include <MyGUI_GL.h>
 
+#include <fstream>
+
 namespace MyGUI
 {
 

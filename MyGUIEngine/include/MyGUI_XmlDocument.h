@@ -15,8 +15,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <cassert>
 #include <type_traits>
 #include <memory>
@@ -172,9 +170,6 @@ namespace MyGUI::xml
 			ElementType _type = ElementType::Normal,
 			std::string_view _content = {});
 		Element(Element&&) = default;
-
-	private:
-		void save(std::ostream& _stream, size_t _level);
 
 	public:
 		ElementPtr createChild(
@@ -342,18 +337,6 @@ namespace MyGUI::xml
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		void setLastFileError(std::string_view _filename);
-		void setLastFileError(const std::wstring& _filename);
-
-		bool parseTag(ElementPtr& _currentNode, std::string _content);
-
-		bool checkPair(std::string& _key, std::string& _value);
-
-		bool parseLine(std::string& _line, ElementPtr& _element);
-
-		// Search character ignoring quotes
-		size_t find(std::string_view _text, char _char, size_t _start = 0);
-
 		void clearDeclaration();
 		void clearRoot();
 

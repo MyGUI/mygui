@@ -8,92 +8,174 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_DataManager.h"
 
+#include <pugixml.hpp>
+#include <fstream>
+
 namespace MyGUI::xml
 {
 
-	namespace utility
+	namespace
 	{
-		static std::string convert_from_xml(std::string_view _string, bool& _ok)
+
+		// Map pugixml parse status to MyGUI ErrorType
+		ErrorType mapPugiError(pugi::xml_parse_status _status)
 		{
-			std::string ret;
-			_ok = true;
-
-			size_t pos = _string.find('&');
-			if (pos == std::string::npos)
-				return std::string{_string};
-
-			ret.reserve(_string.size());
-			size_t old = 0;
-			while (pos != std::string::npos)
+			switch (_status)
 			{
-				ret += _string.substr(old, pos - old);
-
-				size_t end = _string.find(';', pos + 1);
-				if (end == std::string::npos)
-				{
-					_ok = false;
-					return ret;
-				}
-
-				std::string_view tag = _string.substr(pos, end - pos + 1);
-				if (tag == "&amp;")
-					ret += '&';
-				else if (tag == "&lt;")
-					ret += '<';
-				else if (tag == "&gt;")
-					ret += '>';
-				else if (tag == "&apos;")
-					ret += '\'';
-				else if (tag == "&quot;")
-					ret += '\"';
-				else
-				{
-					_ok = false;
-					return ret;
-				}
-
-				old = end + 1;
-				pos = _string.find('&', old);
+				case pugi::status_file_not_found:
+					return ErrorType::OpenFileFail;
+				case pugi::status_end_element_mismatch:
+					return ErrorType::InconsistentOpenCloseElements;
+				case pugi::status_bad_attribute:
+					return ErrorType::IncorrectAttribute;
+				default:
+					return ErrorType::IncorrectContent;
 			}
-			ret += _string.substr(old, std::string::npos);
-
-			return ret;
 		}
 
-		static std::string convert_to_xml(std::string_view _string)
+		// Recursively build MyGUI Element tree from pugixml node tree
+		void buildElementTreeChildren(const pugi::xml_node& _pugiNode, Element* _myguiParent)
 		{
-			std::string ret;
-
-			size_t pos = _string.find_first_of("&<>'\"");
-			if (pos == std::string::npos)
-				return std::string{_string};
-
-			ret.reserve(_string.size() * 2);
-			size_t old = 0;
-			while (pos != std::string::npos)
+			for (const auto& child : _pugiNode)
 			{
-				ret += _string.substr(old, pos - old);
-
-				if (_string[pos] == '&')
-					ret += "&amp;";
-				else if (_string[pos] == '<')
-					ret += "&lt;";
-				else if (_string[pos] == '>')
-					ret += "&gt;";
-				else if (_string[pos] == '\'')
-					ret += "&apos;";
-				else if (_string[pos] == '\"')
-					ret += "&quot;";
-
-				old = pos + 1;
-				pos = _string.find_first_of("&<>'\"", old);
+				if (child.type() == pugi::node_element)
+				{
+					Element* newChild = _myguiParent->createChild(child.name());
+					for (const auto& attr : child.attributes())
+						newChild->addAttribute(attr.name(), attr.value());
+					buildElementTreeChildren(child, newChild);
+				}
+				else if (
+					(child.type() == pugi::node_pcdata || child.type() == pugi::node_cdata) &&
+					_myguiParent->getContent().empty())
+				{
+					std::string_view text = child.value();
+					// skip whitespace-only text (likely indentation between elements)
+					if (text.find_first_not_of(" \t\r\n") != std::string::npos)
+						_myguiParent->setContent(text);
+				}
 			}
-			ret += _string.substr(old, std::string::npos);
-
-			return ret;
 		}
 
-	}
+		// Build MyGUI Element tree from a pugi::xml_document
+		bool convertPugiToMyGUI(
+			const pugi::xml_document& _doc,
+			std::unique_ptr<Element>& _root,
+			std::unique_ptr<Element>& _declaration)
+		{
+			for (const auto& node : _doc)
+			{
+				if (node.type() == pugi::node_declaration)
+				{
+					_declaration = std::make_unique<Element>("xml", nullptr, ElementType::Declaration);
+					for (const auto& attr : node.attributes())
+						_declaration->addAttribute(attr.name(), attr.value());
+				}
+				else if (node.type() == pugi::node_element)
+				{
+					if (_root)
+					{
+						// multiple root elements — should not happen with valid XML
+						return false;
+					}
+					_root = std::make_unique<Element>(node.name(), nullptr, ElementType::Normal);
+					for (const auto& attr : node.attributes())
+						_root->addAttribute(attr.name(), attr.value());
+					buildElementTreeChildren(node, _root.get());
+				}
+			}
+			return true;
+		}
+
+		// Recursively build pugixml tree from MyGUI Element tree
+		void elementToPugiNode(Element* _myguiElem, pugi::xml_node& _pugiNode)
+		{
+			// set attributes
+			for (const auto& attr : _myguiElem->getAttributes())
+				_pugiNode.append_attribute(attr.first.c_str()) = attr.second.c_str();
+
+			// set text content
+			if (!_myguiElem->getContent().empty())
+				_pugiNode.text().set(_myguiElem->getContent().c_str());
+
+			// recurse children
+			ElementEnumerator children = _myguiElem->getElementEnumerator();
+			while (children.next())
+			{
+				ElementPtr child = children.current();
+				if (child->getType() == ElementType::Comment)
+				{
+					pugi::xml_node commentNode = _pugiNode.append_child(pugi::node_comment);
+					commentNode.set_value(child->getContent().c_str());
+					continue;
+				}
+				pugi::xml_node childNode = _pugiNode.append_child(child->getName().c_str());
+				elementToPugiNode(child, childNode);
+			}
+		}
+
+		// Convert MyGUI Element tree to pugi::xml_document and save
+		bool saveToPugiStream(
+			Element* _declaration,
+			Element* _root,
+			std::ostream& _stream)
+		{
+			pugi::xml_document doc;
+
+			// add declaration
+			if (_declaration)
+			{
+				pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
+				decl.set_name("xml");
+				for (const auto& attr : _declaration->getAttributes())
+					decl.append_attribute(attr.first.c_str()) = attr.second.c_str();
+			}
+
+			// add root element and its children
+			if (_root)
+			{
+				pugi::xml_node rootNode = doc.append_child(_root->getName().c_str());
+				elementToPugiNode(_root, rootNode);
+			}
+
+			doc.save(_stream, "    ", pugi::format_write_bom | pugi::format_default);
+			return true;
+		}
+
+		// compute line (1-indexed) from offset by counting newlines
+		size_t computeLine(const char* _data, ptrdiff_t _offset)
+		{
+			if (_offset <= 0)
+				return 1;
+			size_t line = 1;
+			for (ptrdiff_t i = 0; i < _offset; ++i)
+			{
+				if (_data[i] == '\n')
+					++line;
+			}
+			return line;
+		}
+
+		// compute column (1-indexed) from offset by scanning back to last newline
+		size_t computeColumn(const char* _data, ptrdiff_t _offset)
+		{
+			if (_offset <= 0)
+				return 0;
+			const char* pos = _data + _offset;
+			const char* start = pos;
+			while (start > _data && *(start - 1) != '\n')
+				--start;
+			return static_cast<size_t>(pos - start + 1);
+		}
+
+		// compute line and column from offset
+		void computeLineCol(const char* _data, ptrdiff_t _offset, size_t& _line, size_t& _col)
+		{
+			_line = computeLine(_data, _offset);
+			_col = computeColumn(_data, _offset);
+		}
+
+	} // anonymous namespace
 
 	//----------------------------------------------------------------------//
 	// class ElementEnumerator
@@ -148,70 +230,6 @@ namespace MyGUI::xml
 		mParent(_parent),
 		mType(_type)
 	{
-	}
-
-	void Element::save(std::ostream& _stream, size_t _level)
-	{
-		for (size_t tab = 0; tab < _level; ++tab)
-			_stream << "    ";
-
-		// now tag header
-		if (mType == ElementType::Declaration)
-			_stream << "<?";
-		else if (mType == ElementType::Comment)
-			_stream << "<!--";
-		else
-			_stream << "<";
-
-		_stream << mName;
-
-		for (auto& attribute : mAttributes)
-		{
-			_stream << " " << attribute.first << "=\"" << utility::convert_to_xml(attribute.second) << "\"";
-		}
-
-		bool empty = mChildren.empty();
-		// if no children, close
-		if (empty && mContent.empty())
-		{
-			if (mType == ElementType::Declaration)
-				_stream << "?>\n";
-			else if (mType == ElementType::Comment)
-				_stream << "-->\n";
-			else
-				_stream << "/>\n";
-		}
-		else
-		{
-			_stream << ">";
-			if (!empty)
-				_stream << "\n";
-			// if there is body content, do it first
-			if (!mContent.empty())
-			{
-				if (!empty)
-				{
-					for (size_t tab = 0; tab <= _level; ++tab)
-						_stream << "    ";
-				}
-				_stream << utility::convert_to_xml(mContent);
-
-				if (!empty)
-					_stream << "\n";
-			}
-			// save child items
-			for (const auto& child : mChildren)
-			{
-				child->save(_stream, _level + 1);
-			}
-
-			if (!empty)
-			{
-				for (size_t tab = 0; tab < _level; ++tab)
-					_stream << "    ";
-			}
-			_stream << "</" << mName << ">\n";
-		}
 	}
 
 	ElementPtr Element::createChild(std::string_view _name, std::string_view _content, ElementType _type)
@@ -354,167 +372,170 @@ namespace MyGUI::xml
 		return mType;
 	}
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
-	inline void open_stream(std::ofstream& _stream, const std::wstring& _wide)
-	{
-		_stream.open(_wide.c_str());
-	}
-	inline void open_stream(std::ifstream& _stream, const std::wstring& _wide)
-	{
-		_stream.open(_wide.c_str());
-	}
-#else
-	inline void open_stream(std::ofstream& _stream, const std::wstring& _wide)
-	{
-		_stream.open(UString(_wide).asUTF8_c_str());
-	}
-	inline void open_stream(std::ifstream& _stream, const std::wstring& _wide)
-	{
-		_stream.open(UString(_wide).asUTF8_c_str());
-	}
-#endif
-
 	//----------------------------------------------------------------------//
 	// class Document
 	//----------------------------------------------------------------------//
 
-	// opens with regular file, filename in utf8
 	bool Document::open(const std::string& _filename)
-	{
-		std::ifstream stream;
-		stream.open(_filename.c_str());
-
-		if (!stream.is_open())
-		{
-			mLastError = ErrorType::OpenFileFail;
-			setLastFileError(_filename);
-			return false;
-		}
-
-		bool result = open(stream);
-
-		stream.close();
-		return result;
-	}
-
-	// opens with regular file, filename in utf16 or utf32
-	bool Document::open(const std::wstring& _filename)
-	{
-		std::ifstream stream;
-		open_stream(stream, _filename);
-
-		if (!stream.is_open())
-		{
-			mLastError = ErrorType::OpenFileFail;
-			setLastFileError(_filename);
-			return false;
-		}
-
-		bool result = open(stream);
-
-		stream.close();
-		return result;
-	}
-
-	bool Document::open(std::istream& _stream)
-	{
-		auto data = std::make_unique<DataStream>(&_stream);
-
-		bool result = open(data.get());
-
-		return result;
-	}
-
-	// saves file, filename in utf8
-	bool Document::save(const std::string& _filename)
-	{
-		std::ofstream stream;
-		stream.open(_filename.c_str());
-
-		if (!stream.is_open())
-		{
-			mLastError = ErrorType::CreateFileFail;
-			setLastFileError(_filename);
-			return false;
-		}
-
-		bool result = save(stream);
-
-		if (!result)
-		{
-			setLastFileError(_filename);
-		}
-
-		stream.close();
-		return result;
-	}
-
-	// saves file, filename in utf16 or utf32
-	bool Document::save(const std::wstring& _filename)
-	{
-		std::ofstream stream;
-		open_stream(stream, _filename);
-
-		if (!stream.is_open())
-		{
-			mLastError = ErrorType::CreateFileFail;
-			setLastFileError(_filename);
-			return false;
-		}
-
-		bool result = save(stream);
-
-		if (!result)
-		{
-			setLastFileError(_filename);
-		}
-
-		stream.close();
-		return result;
-	}
-
-	// opens with regular stream
-	bool Document::open(IDataStream* _stream)
 	{
 		clear();
 
-		// this is the current line for parsing
-		std::string line;
-		// this is the line from file
-		std::string read;
-		// current node for parsing
-		ElementPtr currentNode = nullptr;
-
-		while (!_stream->eof())
+		// read file into buffer for line/col computation
+		std::ifstream file(_filename.c_str(), std::ios::binary | std::ios::ate);
+		if (!file.is_open())
 		{
-			_stream->readline(read, '\n');
-			if (read.empty())
-				continue;
-			if (read[read.size() - 1] == '\r')
-				read.erase(read.size() - 1, 1);
-			if (read.empty())
-				continue;
+			mLastError = ErrorType::OpenFileFail;
+			mLastErrorFile = _filename;
+			return false;
+		}
+		std::streamsize size = file.tellg();
+		file.seekg(0, std::ios::beg);
+		std::string data(static_cast<size_t>(size > 0 ? size : 0), '\0');
+		if (size > 0)
+			file.read(data.data(), size);
+		file.close();
 
-			mLine++;
-			mCol = 0; // check later for multiline tags
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_buffer(
+			data.data(),
+			data.size(),
+			pugi::parse_default | pugi::parse_declaration | pugi::parse_comments);
 
-			// current line for parsing and what we already read
-			line += read;
-
-			if (!parseLine(line, currentNode))
-			{
-				return false;
-			}
-
-		} // while (!stream.eof())
-
-		if (currentNode)
+		if (!result)
 		{
-			mLastError = ErrorType::NotClosedElements;
+			mLastError = mapPugiError(result.status);
+			mLastErrorFile = _filename;
+			computeLineCol(data.data(), result.offset, mLine, mCol);
+			return false;
+		}
+
+		if (!convertPugiToMyGUI(doc, mRoot, mDeclaration))
+		{
+			mLastError = ErrorType::MoreThanOneRootElement;
+			mLastErrorFile = _filename;
 			return false;
 		}
 
 		return true;
+	}
+
+	bool Document::open(const std::wstring& _filename)
+	{
+		return open(UString(_filename).asUTF8());
+	}
+
+	bool Document::open(std::istream& _stream)
+	{
+		clear();
+
+		// read all data into buffer for line/col computation
+		std::string data;
+		char buf[4096];
+		while (_stream)
+		{
+			_stream.read(buf, sizeof(buf));
+			std::streamsize readSize = _stream.gcount();
+			if (readSize > 0)
+				data.append(buf, static_cast<size_t>(readSize));
+		}
+
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_buffer(
+			data.data(),
+			data.size(),
+			pugi::parse_default | pugi::parse_declaration | pugi::parse_comments);
+
+		if (!result)
+		{
+			mLastError = mapPugiError(result.status);
+			computeLineCol(data.data(), result.offset, mLine, mCol);
+			return false;
+		}
+
+		if (!convertPugiToMyGUI(doc, mRoot, mDeclaration))
+		{
+			mLastError = ErrorType::MoreThanOneRootElement;
+			return false;
+		}
+
+		return true;
+	}
+
+	bool Document::open(IDataStream* _stream)
+	{
+		clear();
+
+		// read all data from stream
+		std::string data;
+		size_t streamSize = _stream->size();
+		if (streamSize > 0)
+		{
+			data.resize(streamSize);
+			streamSize = _stream->read(data.data(), streamSize);
+			data.resize(streamSize);
+		}
+		else
+		{
+			char buf[4096];
+			while (!_stream->eof())
+			{
+				size_t readSize = _stream->read(buf, sizeof(buf));
+				if (readSize == 0)
+					break;
+				data.append(buf, readSize);
+			}
+		}
+
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_buffer(
+			data.data(),
+			data.size(),
+			pugi::parse_default | pugi::parse_declaration | pugi::parse_comments);
+
+		if (!result)
+		{
+			mLastError = mapPugiError(result.status);
+			computeLineCol(data.data(), result.offset, mLine, mCol);
+			return false;
+		}
+
+		if (!convertPugiToMyGUI(doc, mRoot, mDeclaration))
+		{
+			mLastError = ErrorType::MoreThanOneRootElement;
+			return false;
+		}
+
+		return true;
+	}
+
+	bool Document::save(const std::string& _filename)
+	{
+		if (!mDeclaration)
+		{
+			mLastError = ErrorType::NoXMLDeclaration;
+			mLastErrorFile = _filename;
+			return false;
+		}
+
+		std::ofstream stream;
+		stream.open(_filename.c_str());
+
+		if (!stream.is_open())
+		{
+			mLastError = ErrorType::CreateFileFail;
+			mLastErrorFile = _filename;
+			return false;
+		}
+
+		bool result = save(stream);
+
+		stream.close();
+		return result;
+	}
+
+	bool Document::save(const std::wstring& _filename)
+	{
+		return save(UString(_filename).asUTF8());
 	}
 
 	bool Document::save(std::ostream& _stream)
@@ -525,14 +546,11 @@ namespace MyGUI::xml
 			return false;
 		}
 
-		// UTF-8 BOM header
-		_stream << (char)0xEFu;
-		_stream << (char)0xBBu;
-		_stream << (char)0xBFu;
-
-		mDeclaration->save(_stream, 0);
-		if (mRoot)
-			mRoot->save(_stream, 0);
+		if (!saveToPugiStream(mDeclaration.get(), mRoot.get(), _stream))
+		{
+			mLastError = ErrorType::CreateFileFail;
+			return false;
+		}
 
 		return true;
 	}
@@ -545,257 +563,24 @@ namespace MyGUI::xml
 		mCol = 0;
 	}
 
-	bool Document::parseTag(ElementPtr& _currentNode, std::string _content)
+	bool Document::open(const UString& _filename)
 	{
-		MyGUI::utility::trim(_content);
-
-		if (_content.empty())
-		{
-			// create empty tag
-			if (_currentNode)
-			{
-				_currentNode = _currentNode->createChild(std::string_view{});
-			}
-			else if (!mRoot)
-			{
-				mRoot = std::make_unique<Element>(std::string_view{}, nullptr);
-				_currentNode = mRoot.get();
-			}
-			return true;
-		}
-
-		char symbol = _content[0];
-		bool tagDeclaration = false;
-
-		// check for comments
-		if (symbol == '!')
-		{
-			if (_currentNode != nullptr)
-			{
-				//_currentNode->createChild(std::string_view{}, _content, ElementType::Comment);
-			}
-			return true;
-		}
-		// check for declaration tag
-		if (symbol == '?')
-		{
-			tagDeclaration = true;
-		}
-
-		size_t start = 0;
-		// check for closing tag
-		if (symbol == '/')
-		{
-			if (_currentNode == nullptr)
-			{
-				mLastError = ErrorType::CloseNotOpenedElement;
-				return false;
-			}
-			// trim tag name
-			start = _content.find_first_not_of(" \t", 1);
-			if (start == std::string::npos)
-			{
-				_content.clear();
-			}
-			else
-			{
-				size_t end = _content.find_last_not_of(" \t");
-				_content = _content.substr(start, end - start + 1);
-			}
-			// check opening and closing tags match
-			if (_currentNode->getName() != _content)
-			{
-				mLastError = ErrorType::InconsistentOpenCloseElements;
-				return false;
-			}
-			// move current node down
-			_currentNode = _currentNode->getParent();
-		}
-		else
-		{
-			// extract name before first space or closing tag
-			std::string cut = _content;
-			start = _content.find_first_of(" \t/?", 1); // << prevet
-			if (start != std::string::npos)
-			{
-				cut = _content.substr(0, start);
-				_content = _content.substr(start);
-			}
-			else
-			{
-				_content.clear();
-			}
-
-			if (_currentNode)
-			{
-				_currentNode = _currentNode->createChild(cut);
-			}
-			else
-			{
-				if (tagDeclaration)
-				{
-					// declaration tag
-					if (mDeclaration)
-					{
-						mLastError = ErrorType::MoreThanOneXMLDeclaration;
-						return false;
-					}
-					mDeclaration = std::make_unique<Element>(cut, nullptr, ElementType::Declaration);
-					_currentNode = mDeclaration.get();
-				}
-				else
-				{
-					// root tag
-					if (mRoot)
-					{
-						mLastError = ErrorType::MoreThanOneRootElement;
-						return false;
-					}
-					mRoot = std::make_unique<Element>(cut, nullptr, ElementType::Normal);
-					_currentNode = mRoot.get();
-				}
-			}
-
-			// check for emptiness
-			start = _content.find_last_not_of(" \t");
-			if (start == std::string::npos)
-				return true;
-
-			// separate closing tag
-			bool close = false;
-			if ((_content[start] == '/') || (_content[start] == '?'))
-			{
-				close = true;
-				// don't cut string, just put a space
-				_content[start] = ' ';
-				// check for emptiness
-				start = _content.find_last_not_of(" \t");
-				if (start == std::string::npos)
-				{
-					// return everything back and exit
-					_currentNode = _currentNode->getParent();
-					return true;
-				}
-			}
-
-			// split into attributes in a loop
-			while (true)
-			{
-				// look for equals sign
-				start = _content.find('=');
-				if (start == std::string::npos)
-				{
-					mLastError = ErrorType::IncorrectAttribute;
-					return false;
-				}
-				// look for second quote
-				size_t end = _content.find_first_of("\"\'", start + 1);
-				if (end == std::string::npos)
-				{
-					mLastError = ErrorType::IncorrectAttribute;
-					return false;
-				}
-				end = _content.find_first_of("\"\'", end + 1);
-				if (end == std::string::npos)
-				{
-					mLastError = ErrorType::IncorrectAttribute;
-					return false;
-				}
-
-				std::string key = _content.substr(0, start);
-				std::string value = _content.substr(start + 1, end - start);
-
-				// validity check
-				if (!checkPair(key, value))
-				{
-					mLastError = ErrorType::IncorrectAttribute;
-					return false;
-				}
-
-				// add pair to node
-				_currentNode->addAttribute(key, value);
-
-				_content = _content.substr(end + 1);
-
-				// no characters left in string
-				start = _content.find_first_not_of(" \t");
-				if (start == std::string::npos)
-					break;
-
-				mCol += start;
-			}
-
-			// was closing tag for current tag
-			if (close)
-			{
-				// don't check names because this is our tag
-				_currentNode = _currentNode->getParent();
-			}
-		}
-		return true;
+		return open(_filename.asWStr());
 	}
 
-	bool Document::checkPair(std::string& _key, std::string& _value)
+	bool Document::save(const UString& _filename)
 	{
-		// key should not have quotes or spaces
-		MyGUI::utility::trim(_key);
-		if (_key.empty())
-			return false;
-		size_t start = _key.find_first_of(" \t\"\'&");
-		if (start != std::string::npos)
-			return false;
-
-		// value should have quotes on both sides
-		MyGUI::utility::trim(_value);
-		if (_value.size() < 2)
-			return false;
-		if (((_value[0] != '"') || (_value[_value.length() - 1] != '"')) &&
-			((_value[0] != '\'') || (_value[_value.length() - 1] != '\'')))
-			return false;
-		bool ok = true;
-		_value = utility::convert_from_xml(_value.substr(1, _value.length() - 2), ok);
-		return ok;
+		return save(_filename.asWStr());
 	}
 
-	// find character ignoring quotes
-	size_t Document::find(std::string_view _text, char _char, size_t _start)
+	void Document::clearLastError()
 	{
-		bool kov = false;
+		mLastError = ErrorType::MAX;
+	}
 
-		// search buffer
-		char buff[16] = "\"_\0";
-		buff[1] = _char;
-
-		size_t pos = _start;
-
-		while (true)
-		{
-			pos = _text.find_first_of(buff, pos);
-
-			// if already at end, exit
-			if (pos == std::string::npos)
-			{
-				break;
-			}
-			// found a quote
-			if (_text[pos] == '"')
-			{
-				kov = !kov;
-				pos++;
-			}
-			// if we're in quotes, continue
-			else if (kov)
-			{
-				pos++;
-			}
-			// we're not in quotes
-			else
-			{
-				break;
-			}
-		}
-
-		return pos;
+	ElementPtr Document::getRoot() const
+	{
+		return mRoot.get();
 	}
 
 	void Document::clearDeclaration()
@@ -824,59 +609,6 @@ namespace MyGUI::xml
 		return mRoot.get();
 	}
 
-	bool Document::parseLine(std::string& _line, ElementPtr& _element)
-	{
-		// loop while there are tags in string
-		while (true)
-		{
-			// first look for angle brackets
-			size_t start = find(_line, '<');
-			if (start == std::string::npos)
-				break;
-			size_t end;
-
-			// try to extract multiline comment
-			if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') &&
-				(_line[start + 3] == '-'))
-			{
-				end = _line.find("-->", start + 4);
-				if (end == std::string::npos)
-					break;
-				end += 2;
-			}
-			else
-			{
-				end = find(_line, '>', start + 1);
-				if (end == std::string::npos)
-					break;
-			}
-			// check for presence of body
-			size_t body = _line.find_first_not_of(" \t<");
-			if (body < start)
-			{
-				std::string_view body_str = std::string_view{_line}.substr(0, start);
-				mCol = 0;
-
-				if (_element != nullptr)
-				{
-					bool ok = true;
-					_element->setContent(utility::convert_from_xml(body_str, ok));
-					if (!ok)
-					{
-						mLastError = ErrorType::IncorrectContent;
-						return false;
-					}
-				}
-			}
-			if (!parseTag(_element, _line.substr(start + 1, end - start - 1)))
-			{
-				return false;
-			}
-			_line = _line.substr(end + 1);
-		}
-		return true;
-	}
-
 	std::string Document::getLastError() const
 	{
 		std::string_view error = mLastError.print();
@@ -891,36 +623,6 @@ namespace MyGUI::xml
 			mLine,
 			" ,  col=",
 			mCol);
-	}
-
-	bool Document::open(const UString& _filename)
-	{
-		return open(_filename.asWStr());
-	}
-
-	bool Document::save(const UString& _filename)
-	{
-		return save(_filename.asWStr());
-	}
-
-	void Document::clearLastError()
-	{
-		mLastError = ErrorType::MAX;
-	}
-
-	ElementPtr Document::getRoot() const
-	{
-		return mRoot.get();
-	}
-
-	void Document::setLastFileError(std::string_view _filename)
-	{
-		mLastErrorFile = _filename;
-	}
-
-	void Document::setLastFileError(const std::wstring& _filename)
-	{
-		mLastErrorFile = UString(_filename).asUTF8();
 	}
 
 } // namespace MyGUI
