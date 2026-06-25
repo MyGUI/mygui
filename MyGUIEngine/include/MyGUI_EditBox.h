@@ -300,6 +300,7 @@ namespace MyGUI
 		void commandResetRedo();
 		void commandResetHistory();
 		void saveInHistory(VectorChangeInfo* _info = nullptr);
+		void moveCursorVertical(int _delta, size_t _clampTarget);
 
 		// clipboard commands
 		void commandCut();

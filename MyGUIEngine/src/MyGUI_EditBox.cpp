@@ -586,57 +586,11 @@ namespace MyGUI
 		}
 		else if (editCmd == EditCommand::MoveUp)
 		{
-			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top -= mClientText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mClientText->getCursorPosition(point);
-			// topmost line
-			if (old == mCursorPosition)
-			{
-				if (mCursorPosition != 0)
-				{
-					mCursorPosition = 0;
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// reset selection
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mClientText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
+			moveCursorVertical(-mClientText->getFontHeight(), 0);
 		}
 		else if (editCmd == EditCommand::MoveDown)
 		{
-			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top += mClientText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mClientText->getCursorPosition(point);
-			// bottommost line
-			if (old == mCursorPosition)
-			{
-				if (mCursorPosition != mTextLength)
-				{
-					mCursorPosition = mTextLength;
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// reset selection
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mClientText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
+			moveCursorVertical(mClientText->getFontHeight(), mTextLength);
 		}
 		else if (editCmd == EditCommand::MoveLineBeginning)
 		{
@@ -698,63 +652,17 @@ namespace MyGUI
 		}
 		else if (editCmd == EditCommand::MovePageUp)
 		{
-			// window size, but at least one line
-			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top -= (getClientWidget()->getHeight() > mClientText->getFontHeight())
+			int step = (getClientWidget()->getHeight() > mClientText->getFontHeight())
 				? getClientWidget()->getHeight()
 				: mClientText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mClientText->getCursorPosition(point);
-			// topmost line
-			if (old == mCursorPosition)
-			{
-				if (mCursorPosition != 0)
-				{
-					mCursorPosition = 0;
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// reset selection
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mClientText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
+			moveCursorVertical(-step, 0);
 		}
 		else if (editCmd == EditCommand::MovePageDown)
 		{
-			// window size, but at least one line
-			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top += (getClientWidget()->getHeight() > mClientText->getFontHeight())
+			int step = (getClientWidget()->getHeight() > mClientText->getFontHeight())
 				? getClientWidget()->getHeight()
 				: mClientText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mClientText->getCursorPosition(point);
-			// bottommost line
-			if (old == mCursorPosition)
-			{
-				if (mCursorPosition != mTextLength)
-				{
-					mCursorPosition = mTextLength;
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// reset selection
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mClientText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
+			moveCursorVertical(step, mTextLength);
 		}
 		else if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
 		{
@@ -1096,6 +1004,32 @@ namespace MyGUI
 		// check for maximum size
 		if (mVectorUndoChangeInfo.size() > EDIT_MAX_UNDO)
 			mVectorUndoChangeInfo.pop_front();
+	}
+
+	void EditBox::moveCursorVertical(int _delta, size_t _clampTarget)
+	{
+		IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+		point.top += _delta;
+		size_t old = mCursorPosition;
+		mCursorPosition = mClientText->getCursorPosition(point);
+		if (old == mCursorPosition)
+		{
+			if (mCursorPosition != _clampTarget)
+			{
+				mCursorPosition = _clampTarget;
+				mClientText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+			else if (isTextSelection() && !InputManager::getInstance().isShiftPressed())
+			{
+				resetSelect();
+			}
+		}
+		else
+		{
+			mClientText->setCursorPosition(mCursorPosition);
+			updateSelectText();
+		}
 	}
 
 	// returns text
