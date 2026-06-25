@@ -56,28 +56,10 @@ namespace MyGUI
 	{
 		mElapsedTime += _time;
 
-		if (mElapsedTime < mTime)
-		{
-			IntCoord coord;
-			eventFrameAction(mStartCoord, mDestCoord, coord, mElapsedTime / mTime);
-			if (mCalcPosition)
-			{
-				if (mCalcSize)
-					_widget->setCoord(coord);
-				else
-					_widget->setPosition(coord.point());
-			}
-			else if (mCalcSize)
-				_widget->setSize(coord.size());
+		float currentTime = std::min(1.0f, mElapsedTime / mTime);
 
-			eventUpdateAction(_widget, this);
-
-			return true;
-		}
-
-		// set exactly to the end
 		IntCoord coord;
-		eventFrameAction(mStartCoord, mDestCoord, coord, 1.0f);
+		eventFrameAction(mStartCoord, mDestCoord, coord, currentTime);
 		if (mCalcPosition)
 		{
 			if (mCalcSize)
@@ -90,8 +72,10 @@ namespace MyGUI
 
 		eventUpdateAction(_widget, this);
 
-		eventPostAction(_widget, this);
+		if (currentTime < 1.0f)
+			return true;
 
+		eventPostAction(_widget, this);
 		return false;
 	}
 
