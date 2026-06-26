@@ -91,7 +91,7 @@ namespace MyGUI
 			}
 
 			IResourcePtr resource = object->castType<IResource>();
-			resource->deserialization(root, _version);
+			resource->deserializationWrapper(root, _version);
 
 			mResources[name] = resource;
 		}

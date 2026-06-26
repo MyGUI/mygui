@@ -17,6 +17,10 @@
 #include <string>
 #include <iostream>
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+	#include "MyGUI_ObsoleteXmlTypes.h"
+#endif
+
 namespace MyGUI::xml
 {
 
@@ -72,8 +76,7 @@ namespace MyGUI::xml
 		pugi::xml_parse_result mResult;
 		std::string mLastError;
 		std::string mLastErrorFile;
-
-	}; // class Document
+	};
 
 	using xmlDocument MYGUI_OBSOLETE("use : class MyGUI::xml::Document") = Document;
 

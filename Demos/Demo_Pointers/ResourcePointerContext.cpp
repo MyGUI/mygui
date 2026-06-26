@@ -9,9 +9,9 @@
 namespace demo
 {
 
-	void ResourcePointerContext::deserialization(pugi::xml_node _node, MyGUI::Version _version)
+	void ResourcePointerContext::deserialize(pugi::xml_node _node, MyGUI::Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		for (auto info : _node.children())
 		{

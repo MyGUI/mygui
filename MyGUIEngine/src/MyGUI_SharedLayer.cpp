@@ -24,7 +24,7 @@ namespace MyGUI
 			MYGUI_LOG(Critical, "Layer '" << getName() << "' must be empty before destroy");
 	}
 
-	void SharedLayer::deserialization(pugi::xml_node _node, Version _version)
+	void SharedLayer::deserialize(pugi::xml_node _node, Version _version)
 	{
 		mName = _node.attribute("name").value();
 		if (_version >= Version(1, 2))

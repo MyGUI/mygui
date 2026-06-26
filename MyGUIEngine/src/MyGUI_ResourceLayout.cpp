@@ -19,13 +19,13 @@ namespace MyGUI
 	ResourceLayout::ResourceLayout(pugi::xml_node _node, std::string_view _fileName)
 	{
 		// FIXME hardcoded version
-		deserialization(_node, Version(1, 0, 0));
+		deserialize(_node, Version(1, 0, 0));
 		mResourceName = _fileName;
 	}
 
-	void ResourceLayout::deserialization(pugi::xml_node _node, Version _version)
+	void ResourceLayout::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		mLayoutData.clear();
 

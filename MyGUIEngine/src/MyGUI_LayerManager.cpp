@@ -92,7 +92,7 @@ namespace MyGUI
 			}
 
 			ILayer* item = _createLayerObject(type);
-			item->deserialization(layer, _version);
+			item->deserializationWrapper(layer, _version);
 
 			layers.push_back(item);
 		}

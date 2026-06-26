@@ -38,9 +38,9 @@ namespace MyGUI
 		}
 	}
 
-	void RTTLayer::deserialization(pugi::xml_node _node, Version _version)
+	void RTTLayer::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		mVersion = _version;
 		mDataDoc.reset();
@@ -69,7 +69,7 @@ namespace MyGUI
 					factory.destroyObject(object);
 					continue;
 				}
-				data->deserialization(controller, mVersion);
+				data->deserialize(controller, mVersion);
 				data->attach(node);
 			}
 		}

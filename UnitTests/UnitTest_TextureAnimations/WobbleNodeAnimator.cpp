@@ -33,7 +33,7 @@ namespace demo
 		return _value.left * _value.left + _value.top * _value.top;
 	}
 
-	void WobbleNodeAnimator::deserialization(pugi::xml_node _node, MyGUI::Version _version)
+	void WobbleNodeAnimator::deserialize(pugi::xml_node _node, MyGUI::Version _version)
 	{
 		for (auto node : _node.children("Property"))
 		{

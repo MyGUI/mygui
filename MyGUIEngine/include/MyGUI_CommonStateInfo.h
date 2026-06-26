@@ -27,7 +27,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(pugi::xml_node _node, Version _version) override
+		void deserialize(pugi::xml_node _node, Version _version) override
 		{
 			std::string texture{_node.parent().parent().attribute("texture").value()};
 
@@ -72,7 +72,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(pugi::xml_node _node, Version _version) override
+		void deserialize(pugi::xml_node _node, Version _version) override
 		{
 			std::string texture{_node.parent().parent().attribute("texture").value()};
 
@@ -127,7 +127,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(pugi::xml_node _node, Version _version) override
+		void deserialize(pugi::xml_node _node, Version _version) override
 		{
 			for (auto prop : _node.children("Property"))
 			{
@@ -175,7 +175,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(pugi::xml_node _node, Version _version) override
+		void deserialize(pugi::xml_node _node, Version _version) override
 		{
 			mShift = utility::parseBool(_node.attribute("shift").value());
 

@@ -21,7 +21,7 @@ namespace input
 		MYGUI_RTTI_DERIVED(ResourceSDLPointer)
 
 	public:
-		void deserialization(pugi::xml_node _node, MyGUI::Version _version) override;
+		void deserialize(pugi::xml_node _node, MyGUI::Version _version) override;
 
 		SDL_SystemCursor getPointerType()
 		{

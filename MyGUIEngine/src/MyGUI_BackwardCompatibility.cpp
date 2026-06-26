@@ -1038,7 +1038,7 @@ namespace MyGUI
 			if (object != nullptr)
 			{
 				ResourceSkin* data = object->castType<ResourceSkin>();
-				data->deserialization(skin, _version);
+				data->deserializationWrapper(skin, _version);
 
 				ResourceManager::getInstance().addResource(data);
 			}

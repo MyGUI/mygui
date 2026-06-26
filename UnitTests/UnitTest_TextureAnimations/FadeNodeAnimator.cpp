@@ -13,7 +13,7 @@ namespace demo
 		mSpeed.resize(getCount());
 	}
 
-	void FadeNodeAnimator::deserialization(pugi::xml_node _node, MyGUI::Version _version)
+	void FadeNodeAnimator::deserialize(pugi::xml_node _node, MyGUI::Version _version)
 	{
 		for (auto node : _node.children("Property"))
 		{

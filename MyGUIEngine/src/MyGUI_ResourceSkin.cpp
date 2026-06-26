@@ -19,9 +19,9 @@ namespace MyGUI
 		mStates.clear();
 	}
 
-	void ResourceSkin::deserialization(pugi::xml_node _node, Version _version)
+	void ResourceSkin::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
@@ -155,7 +155,7 @@ namespace MyGUI
 						if (object != nullptr)
 						{
 							data = object->castType<IStateInfo>();
-							data->deserialization(state, _version);
+							data->deserializationWrapper(state, _version);
 						}
 
 						bind.add(basisStateName, data, name);

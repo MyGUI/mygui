@@ -24,9 +24,9 @@ namespace MyGUI
 		}
 	}
 
-	void RTTLayer::deserialization(pugi::xml_node _node, Version _version)
+	void RTTLayer::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		for (auto propert : _node.children("Property"))
 		{

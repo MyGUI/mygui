@@ -21,7 +21,7 @@ namespace MyGUI
 	public:
 		~RTTLayer() override;
 
-		void deserialization(pugi::xml_node _node, Version _version) override;
+		void deserialize(pugi::xml_node _node, Version _version) override;
 
 		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;

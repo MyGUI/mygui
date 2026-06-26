@@ -21,9 +21,9 @@ namespace demo
 		MYGUI_RTTI_DERIVED(ResourceDevice)
 
 	private:
-		void deserialization(pugi::xml_node _node, MyGUI::Version _version) override
+		void deserialize(pugi::xml_node _node, MyGUI::Version _version) override
 		{
-			Base::deserialization(_node, _version);
+			Base::deserialize(_node, _version);
 
 			for (auto node : _node.children())
 			{

@@ -18,7 +18,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED(ResourceManualPointer)
 
 	public:
-		void deserialization(pugi::xml_node _node, Version _version) override;
+		void deserialize(pugi::xml_node _node, Version _version) override;
 
 		void setImage(ImageBox* _image) override;
 		void setPosition(ImageBox* _image, const IntPoint& _point) override;

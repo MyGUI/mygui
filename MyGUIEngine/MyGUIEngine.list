@@ -169,6 +169,7 @@ set (HEADER_FILES
   include/MyGUI_WidgetUserData.h
   include/MyGUI_Window.h
   include/MyGUI_XmlDocument.h
+  include/MyGUI_ObsoleteXmlTypes.h
 )
 set (SOURCE_FILES
   src/MyGUI_ActionController.cpp
@@ -269,6 +270,7 @@ set (SOURCE_FILES
   src/MyGUI_WidgetUserData.cpp
   src/MyGUI_Window.cpp
   src/MyGUI_XmlDocument.cpp
+  src/MyGUI_ObsoleteXmlTypes.cpp
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI.h
@@ -431,6 +433,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_UString.h
   include/MyGUI_WidgetTranslate.h
   include/MyGUI_XmlDocument.h
+  include/MyGUI_ObsoleteXmlTypes.h
 )
 SOURCE_GROUP("Header Files\\Utility\\Logging" FILES
   include/MyGUI_ConsoleLogListener.h
@@ -564,6 +567,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_Timer.cpp
   src/MyGUI_UString.cpp
   src/MyGUI_XmlDocument.cpp
+  src/MyGUI_ObsoleteXmlTypes.cpp
 )
 SOURCE_GROUP("Source Files\\Utility\\Logging" FILES
   src/MyGUI_ConsoleLogListener.cpp

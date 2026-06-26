@@ -31,9 +31,9 @@ namespace MyGUI
 #ifndef MYGUI_USE_FREETYPE
 	ResourceTrueTypeFont::~ResourceTrueTypeFont() = default;
 
-	void ResourceTrueTypeFont::deserialization(pugi::xml_node _node, Version _version)
+	void ResourceTrueTypeFont::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 		MYGUI_LOG(
 			Error,
 			"ResourceTrueTypeFont: TrueType font '"
@@ -237,9 +237,9 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceTrueTypeFont::deserialization(pugi::xml_node _node, Version _version)
+	void ResourceTrueTypeFont::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		for (auto node : _node)
 		{

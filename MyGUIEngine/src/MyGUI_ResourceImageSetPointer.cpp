@@ -12,9 +12,9 @@
 namespace MyGUI
 {
 
-	void ResourceImageSetPointer::deserialization(pugi::xml_node _node, Version _version)
+	void ResourceImageSetPointer::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		// iterate children, main loop
 		for (auto info : _node.children("Property"))

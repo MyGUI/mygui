@@ -23,7 +23,7 @@ namespace MyGUI
 		ResourceLayout() = default;
 		ResourceLayout(pugi::xml_node _node, std::string_view _file);
 
-		void deserialization(pugi::xml_node _node, Version _version) override;
+		void deserialize(pugi::xml_node _node, Version _version) override;
 
 		const VectorWidgetInfo& getLayoutData() const;
 
