@@ -44,6 +44,7 @@ if (MYGUI_USE_FREETYPE)
 				GIT_REPOSITORY https://github.com/Chlumsky/msdfgen.git
 				GIT_TAG v1.13
 				GIT_SHALLOW TRUE
+				SYSTEM
 			)
 			set(MSDFGEN_BUILD_STANDALONE OFF CACHE BOOL "" FORCE)
 			set(MSDFGEN_DISABLE_SVG ON CACHE BOOL "" FORCE)
@@ -71,6 +72,7 @@ else()
 		GIT_REPOSITORY https://github.com/zeux/pugixml.git
 		GIT_TAG v1.16
 		GIT_SHALLOW TRUE
+		SYSTEM
 	)
 	FetchContent_MakeAvailable(pugixml)
 endif()

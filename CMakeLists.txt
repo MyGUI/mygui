@@ -5,7 +5,7 @@
 # and provide build configuration options.
 ######################################################################
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.25)
 
 project(MYGUI)
 
@@ -172,7 +172,6 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			)
 		else ()
 			add_compile_options(
-				-Wno-deprecated
 				-Wall
 				-Winit-self
 				-Wcast-qual
