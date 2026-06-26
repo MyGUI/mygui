@@ -75,11 +75,18 @@
 //
 //
 
-#ifndef SIGSLOT_H__
-#define SIGSLOT_H__
+#ifndef SIGSLOT_H_
+#define SIGSLOT_H_
 
 #include <set>
 #include <list>
+
+#if defined(__clang__)
+	#pragma clang system_header
+#endif
+#if defined(__GNUC__)
+	#pragma GCC system_header
+#endif
 
 #if defined(SIGSLOT_PURE_ISO) || (!defined(WIN32) && !defined(__GNUG__) && !defined(SIGSLOT_USE_POSIX_THREADS))
 	#define _SIGSLOT_SINGLE_THREADED
@@ -87,7 +94,7 @@
 	#define _SIGSLOT_HAS_WIN32_THREADS
 	#include <windows.h>
 #elif defined(__GNUG__) || defined(SIGSLOT_USE_POSIX_THREADS)
-	#define _SIGSLOT_HAS_POSIX_THREADS
+	#define SIGSLOT_HAS_POSIX_THREADS_
 	#include <pthread.h>
 #else
 	#define _SIGSLOT_SINGLE_THREADED
@@ -200,7 +207,7 @@ namespace sigslot
 	};
 #endif
 
-#ifdef _SIGSLOT_HAS_POSIX_THREADS
+#ifdef SIGSLOT_HAS_POSIX_THREADS_
 	// The multi threading policies only get compiled in if they are enabled.
 	class multi_threaded_global
 	{
@@ -294,6 +301,9 @@ namespace sigslot
 	class _connection_base0
 	{
 	public:
+		virtual ~_connection_base0() = default;
+		_connection_base0() = default;
+		_connection_base0(const _connection_base0& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit() = 0;
 		virtual bool exist(_connection_base0<mt_policy>* conn) = 0;
@@ -305,6 +315,9 @@ namespace sigslot
 	class _connection_base1
 	{
 	public:
+		virtual ~_connection_base1() = default;
+		_connection_base1() = default;
+		_connection_base1(const _connection_base1& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type) = 0;
 		virtual bool exist(_connection_base1<arg1_type, mt_policy>* conn) = 0;
@@ -316,6 +329,9 @@ namespace sigslot
 	class _connection_base2
 	{
 	public:
+		virtual ~_connection_base2() = default;
+		_connection_base2() = default;
+		_connection_base2(const _connection_base2& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type) = 0;
 		virtual bool exist(_connection_base2<arg1_type, arg2_type, mt_policy>* conn) = 0;
@@ -327,6 +343,9 @@ namespace sigslot
 	class _connection_base3
 	{
 	public:
+		virtual ~_connection_base3() = default;
+		_connection_base3() = default;
+		_connection_base3(const _connection_base3& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type) = 0;
 		virtual bool exist(_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* conn) = 0;
@@ -339,6 +358,9 @@ namespace sigslot
 	class _connection_base4
 	{
 	public:
+		virtual ~_connection_base4() = default;
+		_connection_base4() = default;
+		_connection_base4(const _connection_base4& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type) = 0;
 		virtual bool exist(_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn) = 0;
@@ -357,6 +379,9 @@ namespace sigslot
 	class _connection_base5
 	{
 	public:
+		virtual ~_connection_base5() = default;
+		_connection_base5() = default;
+		_connection_base5(const _connection_base5& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type) = 0;
 		virtual bool exist(
@@ -377,6 +402,9 @@ namespace sigslot
 	class _connection_base6
 	{
 	public:
+		virtual ~_connection_base6() = default;
+		_connection_base6() = default;
+		_connection_base6(const _connection_base6& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type) = 0;
 		virtual bool exist(
@@ -399,6 +427,9 @@ namespace sigslot
 	class _connection_base7
 	{
 	public:
+		virtual ~_connection_base7() = default;
+		_connection_base7() = default;
+		_connection_base7(const _connection_base7& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type) = 0;
 		virtual bool exist(
@@ -439,6 +470,9 @@ namespace sigslot
 	class _connection_base8
 	{
 	public:
+		virtual ~_connection_base8() = default;
+		_connection_base8() = default;
+		_connection_base8(const _connection_base8& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type) = 0;
 		virtual bool exist(
@@ -523,7 +557,7 @@ namespace sigslot
 			m_senders.erase(sender);
 		}
 
-		virtual ~has_slots()
+		~has_slots() override
 		{
 			disconnect_all();
 		}
@@ -573,7 +607,7 @@ namespace sigslot
 			}
 		}
 
-		~_signal_base0()
+		~_signal_base0() override
 		{
 			disconnect_all();
 		}
@@ -615,7 +649,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_disconnect(has_slots<mt_policy>* pslot)
+		void slot_disconnect(has_slots<mt_policy>* pslot) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -636,7 +670,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget)
+		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -683,7 +717,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget)
+		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -700,7 +734,7 @@ namespace sigslot
 			}
 		}
 
-		~_signal_base1()
+		~_signal_base1() override
 		{
 			disconnect_all();
 		}
@@ -742,7 +776,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_disconnect(has_slots<mt_policy>* pslot)
+		void slot_disconnect(has_slots<mt_policy>* pslot) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -794,7 +828,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget)
+		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -811,7 +845,7 @@ namespace sigslot
 			}
 		}
 
-		~_signal_base2()
+		~_signal_base2() override
 		{
 			disconnect_all();
 		}
@@ -853,7 +887,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_disconnect(has_slots<mt_policy>* pslot)
+		void slot_disconnect(has_slots<mt_policy>* pslot) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -1666,28 +1700,28 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual base_type* clone()
+		base_type* clone() override
 		{
 			return new this_type(*this);
 		}
 
-		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
+		base_type* duplicate(has_slots<mt_policy>* pnewdest) override
 		{
 			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
-		virtual void emit(arg1_type a1)
+		void emit(arg1_type a1) override
 		{
 			(m_pobject->*m_pmemfun)(a1);
 		}
 
-		virtual bool exist(base_type* conn)
+		bool exist(base_type* conn) override
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
-		virtual has_slots<mt_policy>* getdest() const
+		has_slots<mt_policy>* getdest() const override
 		{
 			return m_pobject;
 		}
@@ -1716,28 +1750,28 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual base_type* clone()
+		base_type* clone() override
 		{
 			return new this_type(*this);
 		}
 
-		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
+		base_type* duplicate(has_slots<mt_policy>* pnewdest) override
 		{
 			return new this_type((dest_type*)pnewdest, m_pmemfun);
 		}
 
-		virtual void emit(arg1_type a1, arg2_type a2)
+		void emit(arg1_type a1, arg2_type a2) override
 		{
 			(m_pobject->*m_pmemfun)(a1, a2);
 		}
 
-		virtual bool exist(base_type* conn)
+		bool exist(base_type* conn) override
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
-		virtual has_slots<mt_policy>* getdest() const
+		has_slots<mt_policy>* getdest() const override
 		{
 			return m_pobject;
 		}

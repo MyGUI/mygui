@@ -16,10 +16,10 @@ namespace tools
 	{
 	public:
 		ActionCreateData();
-		virtual ~ActionCreateData();
+		~ActionCreateData() override;
 
-		virtual void doAction();
-		virtual void undoAction();
+		void doAction() override;
+		void undoAction() override;
 
 		void setName(std::string_view _value);
 
