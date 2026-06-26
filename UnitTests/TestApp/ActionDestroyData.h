@@ -15,10 +15,10 @@ namespace tools
 	{
 	public:
 		ActionDestroyData();
-		virtual ~ActionDestroyData();
+		~ActionDestroyData() override;
 
-		virtual void doAction();
-		virtual void undoAction();
+		void doAction() override;
+		void undoAction() override;
 
 		void setData(Data* _data);
 
