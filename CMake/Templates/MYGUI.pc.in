@@ -7,5 +7,6 @@ Name: MyGUI
 Description: Fast, flexible and simple GUI
 Version: @MYGUI_VERSION@
 URL: http://mygui.info
+Requires: pugixml
 Libs: -L${libdir} -lMyGUIEngine@MYGUI_LIB_SUFFIX@
 Cflags: -I${includedir} -I${includedir}/MYGUI

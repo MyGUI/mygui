@@ -33,7 +33,7 @@ namespace MyGUI
 		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string& _file);
 
-		void loadFromXmlNode(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void loadFromXmlNode(pugi::xml_node _node, std::string_view _file, Version _version);
 
 		/** Add resource item to resources */
 		void addResource(IResourcePtr _item);
@@ -42,8 +42,8 @@ namespace MyGUI
 		void removeResource(IResourcePtr _item);
 
 		using LoadXmlDelegate = EventPairConvertStringView<
-			delegates::Delegate<xml::ElementPtr, const std::string&, Version>,
-			delegates::Delegate<xml::ElementPtr, std::string_view, Version>>;
+			delegates::Delegate<pugi::xml_node, const std::string&, Version>,
+			delegates::Delegate<pugi::xml_node, std::string_view, Version>>;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(std::string_view _key);
@@ -74,7 +74,7 @@ namespace MyGUI
 		const std::string& getCategoryName() const;
 
 	private:
-		void _loadList(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _loadList(pugi::xml_node _node, std::string_view _file, Version _version);
 		bool _loadImplement(const std::string& _file, bool _match, std::string_view _type, std::string_view _instance);
 
 	private:

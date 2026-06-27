@@ -65,7 +65,7 @@ namespace MyGUI
 
 	private:
 		void _unlinkWidget(Widget* _widget) override;
-		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _load(pugi::xml_node _node, std::string_view _file, Version _version);
 
 		Widget* baseCreateWidget(
 			WidgetStyle _style,

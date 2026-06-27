@@ -330,21 +330,20 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
-					items.emplace_back(element->findAttribute("name"));
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
+					items.emplace_back(element.attribute("name").value());
 			}
 		}
 		else
@@ -428,24 +427,23 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
 				{
 					if (_index == 0)
 					{
-						root->removeChild(element.current());
+						root.remove_child(element);
 						deleted = true;
 						break;
 					}
@@ -473,24 +471,23 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
 				{
 					if (_index == 0)
 					{
-						element->setAttribute("name", _name);
+						element.attribute("name").set_value(_name.asUTF8_c_str());
 						renamed = true;
 						break;
 					}
@@ -567,8 +564,8 @@ namespace tools
 
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
-		root->addAttribute("type", "Resource");
+		pugi::xml_node root = doc.createRoot("MyGUI");
+		root.append_attribute("type") = "Resource";
 
 		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
 		doc.save(fileName);
@@ -639,25 +636,24 @@ namespace tools
 			return false;
 		}
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view(root.name()) != "MyGUI")
 		{
 			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		if (root->findAttribute("type") == "Resource")
+		if (std::string_view(root.attribute("type").value()) == "Resource")
 		{
-			MyGUI::xml::ElementPtr node = root->createChild("Resource");
-			node->addAttribute("type", "ResourceLayout");
-			node->addAttribute("name", _name);
+			pugi::xml_node node = root.append_child("Resource");
+			node.append_attribute("type") = "ResourceLayout";
+			node.append_attribute("name") = _name.asUTF8_c_str();
 
 			_index = 0;
 
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Resource"))
+			for (auto element : root.children("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout")
+				if (std::string_view(element.attribute("type").value()) == "ResourceLayout")
 				{
 					_index++;
 				}

@@ -21,7 +21,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED(ResourceManualFont)
 
 	public:
-		void deserialization(xml::ElementPtr _node, Version _version) override;
+		void deserialize(pugi::xml_node _node, Version _version) override;
 
 		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
 		// exist in this font. Returns nullptr if the code point does not exist and there is no substitute glyph available.

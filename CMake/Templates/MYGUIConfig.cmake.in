@@ -19,6 +19,8 @@
 
 include(CMakeFindDependencyMacro)
 
+find_dependency(pugixml)
+
 # Dependencies needed by the built platform target
 @MYGUI_CONFIG_FIND_DEPS@
 

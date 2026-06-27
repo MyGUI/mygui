@@ -13,13 +13,12 @@ namespace demo
 		mSpeed.resize(getCount());
 	}
 
-	void FadeNodeAnimator::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
+	void FadeNodeAnimator::deserialize(pugi::xml_node _node, MyGUI::Version _version)
 	{
-		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next("Property"))
+		for (auto node : _node.children("Property"))
 		{
-			std::string_view key = node->findAttribute("key");
-			std::string_view value = node->findAttribute("value");
+			std::string_view key = node.attribute("key").value();
+			std::string_view value = node.attribute("value").value();
 
 			if (key == "FadeDuration")
 				mFadeDuration = MyGUI::utility::parseFloat(value);

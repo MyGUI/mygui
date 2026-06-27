@@ -8,7 +8,6 @@
 #define _f620c4fc_5a1d_4280_86ca_ac59deeae6e0_
 
 #include <MyGUI.h>
-#include "pugixml.hpp"
 #include "StringUtility.h"
 #include "sigslot.h"
 #include <type_traits>

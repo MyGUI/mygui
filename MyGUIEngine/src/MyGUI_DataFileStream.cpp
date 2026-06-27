@@ -7,6 +7,8 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DataFileStream.h"
 
+#include <fstream>
+
 namespace MyGUI
 {
 

@@ -41,7 +41,7 @@ namespace demo
 		void addTime(float _time);
 		void buildQuadVertex(MyGUI::VectorQuadData& _data);
 
-		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
+		void deserialize(pugi::xml_node _node, MyGUI::Version _version) override;
 
 	private:
 		MyGUI::IntCoord mOldCoord;

@@ -47,11 +47,11 @@ namespace demo
 		{
 		}
 
-		virtual void serialization(MyGUI::xml::ElementPtr _node)
+		virtual void serialization(pugi::xml_node _node)
 		{
 		}
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node)
+		virtual void deserialization(pugi::xml_node _node)
 		{
 		}
 

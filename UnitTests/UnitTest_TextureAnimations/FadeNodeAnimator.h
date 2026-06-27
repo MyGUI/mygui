@@ -41,7 +41,7 @@ namespace demo
 	private:
 		void addTime(float _time);
 
-		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
+		void deserialize(pugi::xml_node _node, MyGUI::Version _version) override;
 
 	private:
 		float mFadeDuration{0};

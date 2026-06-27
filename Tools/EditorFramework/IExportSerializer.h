@@ -7,7 +7,7 @@
 #ifndef _57e7c8c1_09ed_420f_8a28_e487e0554438_
 #define _57e7c8c1_09ed_420f_8a28_e487e0554438_
 
-#include "pugixml.hpp"
+#include <pugixml.hpp>
 #include "IFactoryItem.h"
 
 namespace tools

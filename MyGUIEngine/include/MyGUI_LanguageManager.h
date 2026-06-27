@@ -65,7 +65,7 @@ namespace MyGUI
 		delegates::Delegate<const UString&, UString&> eventRequestTag;
 
 	private:
-		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _load(pugi::xml_node _node, std::string_view _file, Version _version);
 
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);

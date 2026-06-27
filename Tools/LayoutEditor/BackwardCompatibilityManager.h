@@ -30,7 +30,7 @@ namespace tools
 		void setCurrentVersion(std::string_view _value);
 
 		void serialiseProperty(
-			MyGUI::xml::Element* _node,
+			pugi::xml_node _node,
 			std::string_view _widgetType,
 			const MyGUI::PairString& _property,
 			bool _compatibility);

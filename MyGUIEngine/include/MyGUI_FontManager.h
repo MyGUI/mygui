@@ -41,7 +41,7 @@ namespace MyGUI
 		IFont* getByName(std::string_view _name) const;
 
 	private:
-		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _load(pugi::xml_node _node, std::string_view _file, Version _version);
 
 	private:
 		std::string mDefaultName;

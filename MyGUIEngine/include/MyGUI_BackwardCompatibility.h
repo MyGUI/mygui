@@ -422,7 +422,7 @@ namespace MyGUI
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
-		void loadOldFontFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag);
+		void loadOldFontFormat(pugi::xml_node _node, std::string_view _file, Version _version, std::string_view _tag);
 	};
 
 	template<>
@@ -540,7 +540,7 @@ namespace MyGUI
 		bool load(const std::string& _file);
 
 		void loadOldPointerFormat(
-			xml::ElementPtr _node,
+			pugi::xml_node _node,
 			std::string_view _file,
 			Version _version,
 			std::string_view _tag);
@@ -566,7 +566,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
 
-		void loadOldSkinFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag);
+		void loadOldSkinFormat(pugi::xml_node _node, std::string_view _file, Version _version, std::string_view _tag);
 	};
 
 	template<>

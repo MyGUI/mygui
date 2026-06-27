@@ -9,26 +9,24 @@
 namespace demo
 {
 
-	void ResourcePointerContext::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
+	void ResourcePointerContext::deserialize(pugi::xml_node _node, MyGUI::Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
-		MyGUI::xml::ElementEnumerator info = _node->getElementEnumerator();
-		while (info.next())
+		for (auto info : _node.children())
 		{
-			if (info->getName() == "Property")
+			if (std::string_view(info.name()) == "Property")
 			{
-				std::string_view key = info->findAttribute("key");
+				std::string_view key = info.attribute("key").value();
 
 				if (key == "Level")
-					mHighLevel = info->getContent() == "High";
+					mHighLevel = std::string_view(info.text().as_string()) == "High";
 			}
-			else if (info->getName() == "Map")
+			else if (std::string_view(info.name()) == "Map")
 			{
-				MyGUI::xml::ElementEnumerator item = info->getElementEnumerator();
-				while (item.next("Item"))
+				for (auto item : info.children("Item"))
 				{
-					MyGUI::mapSet(mPointers, item->findAttribute("name"), item->getContent());
+					MyGUI::mapSet(mPointers, item.attribute("name").value(), item.text().as_string());
 				}
 			}
 		}

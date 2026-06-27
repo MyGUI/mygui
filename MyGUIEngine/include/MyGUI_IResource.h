@@ -43,11 +43,14 @@ namespace MyGUI
 
 	protected:
 		IResource() = default;
-		~IResource() override = default;
+		// Default empty destructor, defined in .cpp as key function for typeinfo/vtable export
+		~IResource() override;
 
-		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
+		void deserialize(pugi::xml_node _node, Version /*_version*/) override
 		{
-			_node->findAttribute("name", mResourceName);
+			auto attr = _node.attribute("name");
+			if (attr)
+				mResourceName = attr.value();
 		}
 
 	protected:

@@ -51,7 +51,7 @@ namespace MyGUI
 		void unloadAllPlugins();
 
 	private:
-		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _load(pugi::xml_node _node, std::string_view _file, Version _version);
 
 	private:
 		//!	List of dynamic libraries

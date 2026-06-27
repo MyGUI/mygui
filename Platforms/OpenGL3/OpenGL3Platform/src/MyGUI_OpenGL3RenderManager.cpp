@@ -13,7 +13,9 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_DataManager.h"
 
-#include <GL/gl.h>
+#include <MyGUI_GL.h>
+
+#include <fstream>
 
 namespace MyGUI
 {

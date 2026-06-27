@@ -100,31 +100,29 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::_load(xml::ElementPtr _node, std::string_view /*_file*/, Version _version)
+	void PluginManager::_load(pugi::xml_node _node, std::string_view /*_file*/, Version _version)
 	{
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto node : _node)
 		{
-			if (node->getName() == "path")
+			if (node.name() == std::string_view("path"))
 			{
-				std::string source;
-				if (node->findAttribute("source", source))
+				std::string source{node.attribute("source").value()};
+				if (!source.empty())
 					loadPlugin(source);
 			}
-			else if (node->getName() == "Plugin")
+			else if (node.name() == std::string_view("Plugin"))
 			{
 				std::string_view source;
 
-				xml::ElementEnumerator source_node = node->getElementEnumerator();
-				while (source_node.next("Source"))
+				for (auto source_node : node.children("Source"))
 				{
-					std::string_view build = source_node->findAttribute("build");
+					std::string_view build = source_node.attribute("build").value();
 #if MYGUI_DEBUG_MODE == 1
 					if (build == "Debug")
-						source = source_node->getContent();
+						source = source_node.text().as_string();
 #else
 					if (build != "Debug")
-						source = source_node->getContent();
+						source = source_node.text().as_string();
 #endif
 				}
 				if (!source.empty())

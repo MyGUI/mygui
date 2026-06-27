@@ -178,27 +178,25 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate("HotKeys");
 	}
 
-	void HotKeyManager::loadXml(MyGUI::xml::ElementPtr _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
+	void HotKeyManager::loadXml(pugi::xml_node _node, std::string_view /*_file*/, MyGUI::Version /*_version*/)
 	{
-		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next("Command"))
+		for (auto node : _node.children("Command"))
 		{
 			HotKeyCommand command;
 
-			MyGUI::xml::ElementEnumerator nodeCommand = node->getElementEnumerator();
-			while (nodeCommand.next())
+			for (auto nodeCommand : node.children())
 			{
-				if (nodeCommand->getName() == "Name")
+				if (std::string(nodeCommand.name()) == "Name")
 				{
-					command.setCommand(nodeCommand->getContent());
+					command.setCommand(nodeCommand.text().as_string());
 				}
-				/*else if (nodeCommand->getName() == "Pressed")
+				/*else if (std::string(nodeCommand.name()) == "Pressed")
+			{
+				command.setPressed(MyGUI::utility::parseValue<bool>(nodeCommand.text().as_string()));
+			}*/
+				else if (std::string(nodeCommand.name()) == "KeyCode")
 				{
-					command.setPressed(MyGUI::utility::parseValue<bool>(nodeCommand->getContent()));
-				}*/
-				else if (nodeCommand->getName() == "KeyCode")
-				{
-					MapKeys::const_iterator item = mKeyNames.find(nodeCommand->getContent());
+					MapKeys::const_iterator item = mKeyNames.find(nodeCommand.text().as_string());
 					if (item != mKeyNames.end())
 					{
 						command.setKey((*item).second);
@@ -208,10 +206,11 @@ namespace tools
 						// log
 					}
 				}
-				else if (nodeCommand->getName() == "Modifier")
+				else if (std::string(nodeCommand.name()) == "Modifier")
 				{
-					command.setShift(nodeCommand->getContent().find("Shift") != std::string::npos);
-					command.setControl(nodeCommand->getContent().find("Control") != std::string::npos);
+					std::string content = nodeCommand.text().as_string();
+					command.setShift(content.find("Shift") != std::string::npos);
+					command.setControl(content.find("Control") != std::string::npos);
 				}
 			}
 

@@ -21,7 +21,7 @@ namespace MyGUI
 	public:
 		~RTTLayer() override;
 
-		void deserialization(xml::ElementPtr _node, Version _version) override;
+		void deserialize(pugi::xml_node _node, Version _version) override;
 
 		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;
@@ -36,7 +36,7 @@ namespace MyGUI
 
 	private:
 		Version mVersion;
-		std::unique_ptr<xml::Element> mData;
+		pugi::xml_document mDataDoc;
 	};
 
 } // namespace MyGUI

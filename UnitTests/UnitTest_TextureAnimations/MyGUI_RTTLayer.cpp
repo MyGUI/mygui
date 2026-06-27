@@ -38,12 +38,13 @@ namespace MyGUI
 		}
 	}
 
-	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
+	void RTTLayer::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		mVersion = _version;
-		mData = _node->createCopy();
+		mDataDoc.reset();
+		mDataDoc.append_copy(_node);
 	}
 
 	ILayerNode* RTTLayer::createChildItemNode()
@@ -52,14 +53,13 @@ namespace MyGUI
 		RTTLayerNode* node = new RTTLayerNode(this);
 		mChildItems.push_back(node);
 
-		if (mData != nullptr)
+		if (mDataDoc)
 		{
 			FactoryManager& factory = FactoryManager::getInstance();
 
-			MyGUI::xml::ElementEnumerator controller = mData->getElementEnumerator();
-			while (controller.next())
+			for (auto controller : mDataDoc.children())
 			{
-				IObject* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
+				IObject* object = factory.createObject(controller.name(), controller.attribute("type").value());
 				if (object == nullptr)
 					continue;
 
@@ -69,7 +69,7 @@ namespace MyGUI
 					factory.destroyObject(object);
 					continue;
 				}
-				data->deserialization(controller.current(), mVersion);
+				data->deserialize(controller, mVersion);
 				data->attach(node);
 			}
 		}

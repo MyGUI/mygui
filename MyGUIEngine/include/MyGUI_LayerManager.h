@@ -78,7 +78,7 @@ namespace MyGUI
 		const std::string& getCategoryName() const;
 
 	private:
-		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _load(pugi::xml_node _node, std::string_view _file, Version _version);
 		void _unlinkWidget(Widget* _widget) override;
 
 		ILayer* _createLayerObject(std::string_view _type);

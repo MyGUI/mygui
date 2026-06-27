@@ -21,7 +21,7 @@ namespace tools
 
 	void DataInfo::deserialization(pugi::xml_node _node)
 	{
-		mType = _node.select_single_node("Type").node().child_value();
+		mType = _node.select_node("Type").node().child_value();
 
 		pugi::xpath_node_set childs = _node.select_nodes("Childs/Child/Type");
 		for (pugi::xpath_node_set::const_iterator child = childs.begin(); child != childs.end(); child++)

@@ -5,7 +5,7 @@
 # and provide build configuration options.
 ######################################################################
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.25)
 
 project(MYGUI)
 
@@ -88,6 +88,7 @@ option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
 option(MYGUI_USE_SYSTEM_MSDFGEN FALSE)
+option(MYGUI_USE_SYSTEM_PUGIXML "Use system installed pugixml" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsolete functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
@@ -171,7 +172,6 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			)
 		else ()
 			add_compile_options(
-				-Wno-deprecated
 				-Wall
 				-Winit-self
 				-Wcast-qual

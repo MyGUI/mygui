@@ -12,16 +12,15 @@
 namespace MyGUI
 {
 
-	void ResourceImageSetPointer::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceImageSetPointer::deserialize(pugi::xml_node _node, Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
 		// iterate children, main loop
-		xml::ElementEnumerator info = _node->getElementEnumerator();
-		while (info.next("Property"))
+		for (auto info : _node.children("Property"))
 		{
-			std::string_view key = info->findAttribute("key");
-			std::string_view value = info->findAttribute("value");
+			std::string_view key = info.attribute("key").value();
+			std::string_view value = info.attribute("value").value();
 
 			if (key == "Point")
 				mPoint = IntPoint::parse(value);

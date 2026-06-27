@@ -10,16 +10,15 @@
 namespace input
 {
 
-	void ResourceSDLPointer::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
+	void ResourceSDLPointer::deserialize(pugi::xml_node _node, MyGUI::Version _version)
 	{
-		Base::deserialization(_node, _version);
+		Base::deserialize(_node, _version);
 
-		MyGUI::xml::ElementEnumerator info = _node->getElementEnumerator();
-		while (info.next())
+		for (auto info : _node.children())
 		{
-			if (info->getName() == "Property")
+			if (std::string_view(info.name()) == "Property")
 			{
-				std::string_view key = info->findAttribute("key");
+				std::string_view key = info.attribute("key").value();
 
 				if (key == "SourceFile")
 				{
@@ -28,7 +27,7 @@ namespace input
 				}
 				else if (key == "SourceSystem")
 				{
-					const std::string& value = info->getContent();
+					const std::string_view value = info.text().as_string();
 					if (value == "SDL_SYSTEM_CURSOR_ARROW")
 						mCursorType = SDL_SYSTEM_CURSOR_ARROW;
 					else if (value == "SDL_SYSTEM_CURSOR_IBEAM")

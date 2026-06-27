@@ -18,7 +18,7 @@ namespace demo
 		MYGUI_RTTI_DERIVED(ResourcePointerContext)
 
 	public:
-		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
+		void deserialize(pugi::xml_node _node, MyGUI::Version _version) override;
 
 		bool isHighLevel() const;
 		std::string_view getPointer(std::string_view _type);

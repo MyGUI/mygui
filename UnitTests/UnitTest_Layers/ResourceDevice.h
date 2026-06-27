@@ -21,25 +21,24 @@ namespace demo
 		MYGUI_RTTI_DERIVED(ResourceDevice)
 
 	private:
-		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override
+		void deserialize(pugi::xml_node _node, MyGUI::Version _version) override
 		{
-			Base::deserialization(_node, _version);
+			Base::deserialize(_node, _version);
 
-			MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
-			while (node.next())
+			for (auto node : _node.children())
 			{
-				if (node->getName() == "Name")
-					mDeviceName = node->getContent();
-				else if (node->getName() == "Description")
-					mDeviceDescription = node->getContent();
-				else if (node->getName() == "ValueEnergy")
-					mValueEnergy = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueExplosion")
-					mValueExplosion = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueTarget")
-					mValueTarget = MyGUI::utility::parseValue<size_t>(node->getContent());
-				else if (node->getName() == "ValueHP")
-					mValueHP = MyGUI::utility::parseValue<size_t>(node->getContent());
+				if (std::string_view{node.name()} == "Name")
+					mDeviceName = node.text().as_string();
+				else if (std::string_view{node.name()} == "Description")
+					mDeviceDescription = node.text().as_string();
+				else if (std::string_view{node.name()} == "ValueEnergy")
+					mValueEnergy = MyGUI::utility::parseValue<size_t>(node.text().as_string());
+				else if (std::string_view{node.name()} == "ValueExplosion")
+					mValueExplosion = MyGUI::utility::parseValue<size_t>(node.text().as_string());
+				else if (std::string_view{node.name()} == "ValueTarget")
+					mValueTarget = MyGUI::utility::parseValue<size_t>(node.text().as_string());
+				else if (std::string_view{node.name()} == "ValueHP")
+					mValueHP = MyGUI::utility::parseValue<size_t>(node.text().as_string());
 			}
 		}
 

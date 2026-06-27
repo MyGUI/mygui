@@ -321,7 +321,7 @@ namespace demo
 		}
 
 		doc.createDeclaration();
-		MyGUI::xml::ElementPtr root = doc.createRoot("AnimationGraph");
+		pugi::xml_node root = doc.createRoot("AnimationGraph");
 
 		// сохраняем сами ноды
 		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
@@ -330,9 +330,9 @@ namespace demo
 			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
 			if (anim_node)
 			{
-				MyGUI::xml::ElementPtr node_type = root->createChild("Node");
-				node_type->addAttribute("type", anim_node->getType());
-				node_type->addAttribute("name", anim_node->getName());
+				pugi::xml_node node_type = root.append_child("Node");
+				node_type.append_attribute("type") = anim_node->getType();
+				node_type.append_attribute("name") = anim_node->getName();
 				anim_node->serialization(node_type);
 			}
 		}
@@ -344,8 +344,8 @@ namespace demo
 			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
 			if (anim_node && anim_node->isAnyConnection())
 			{
-				MyGUI::xml::ElementPtr connection = root->createChild("Connections");
-				connection->addAttribute("node", anim_node->getName());
+				pugi::xml_node connection = root.append_child("Connections");
+				connection.append_attribute("node") = anim_node->getName();
 
 				wraps::EnumeratorConnection node_conn = anim_node->getConnectionEnumerator();
 				while (node_conn.next())
@@ -356,10 +356,10 @@ namespace demo
 						BaseAnimationNode* anim_node2 = dynamic_cast<BaseAnimationNode*>(conn->getOwnerNode());
 						if (anim_node2)
 						{
-							MyGUI::xml::ElementPtr item = connection->createChild("Connection");
-							item->addAttribute("node", anim_node2->getName());
-							item->addAttribute("from", node_conn->getName());
-							item->addAttribute("to", conn->getName());
+							pugi::xml_node item = connection.append_child("Connection");
+							item.append_attribute("node") = anim_node2->getName();
+							item.append_attribute("from") = node_conn->getName();
+							item.append_attribute("to") = conn->getName();
 						}
 					}
 				}
@@ -367,16 +367,16 @@ namespace demo
 		}
 
 		// сохраняем данные для редактора
-		MyGUI::xml::ElementPtr data = root->createChild("EditorData");
+		pugi::xml_node data = root.append_child("EditorData");
 		node = mGraphView->getNodeEnumerator();
 		while (node.next())
 		{
 			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
 			if (anim_node)
 			{
-				MyGUI::xml::ElementPtr item_data = data->createChild("Node");
-				item_data->addAttribute("name", anim_node->getName());
-				item_data->addAttribute("coord", anim_node->getCoord().print());
+				pugi::xml_node item_data = data.append_child("Node");
+				item_data.append_attribute("name") = anim_node->getName();
+				item_data.append_attribute("coord") = anim_node->getCoord().print();
 			}
 		}
 
@@ -390,32 +390,31 @@ namespace demo
 		if (!doc.open(_filename))
 			return;
 
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if (root == nullptr || root->getName() != "AnimationGraph")
+		pugi::xml_node root = doc.getRoot();
+		if (!root || std::string_view{root.name()} != "AnimationGraph")
 			return;
 
-		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
-		while (node.next())
+		for (auto node : root.children())
 		{
-			if (node->getName() == "Node")
+			if (std::string_view{node.name()} == "Node")
 			{
-				BaseAnimationNode* anim_node = createNode(node->findAttribute("type"), node->findAttribute("name"));
-				anim_node->deserialization(node.current());
+				BaseAnimationNode* anim_node =
+					createNode(node.attribute("type").value(), node.attribute("name").value());
+				anim_node->deserialization(node);
 			}
-			else if (node->getName() == "Connections")
+			else if (std::string_view{node.name()} == "Connections")
 			{
-				MyGUI::xml::ElementEnumerator conn = node->getElementEnumerator();
-				BaseAnimationNode* anim_node = getNodeByName(node.current()->findAttribute("node"));
+				BaseAnimationNode* anim_node = getNodeByName(node.attribute("node").value());
 				if (anim_node)
 				{
-					while (conn.next("Connection"))
+					for (auto conn : node.children("Connection"))
 					{
-						BaseAnimationNode* anim_node2 = getNodeByName(conn.current()->findAttribute("node"));
+						BaseAnimationNode* anim_node2 = getNodeByName(conn.attribute("node").value());
 						if (anim_node2)
 						{
 							//соединить точки в ноде
-							std::string_view from_point = conn.current()->findAttribute("from");
-							std::string_view to_point = conn.current()->findAttribute("to");
+							std::string_view from_point = conn.attribute("from").value();
+							std::string_view to_point = conn.attribute("to").value();
 
 							wraps::BaseGraphConnection* from_conn =
 								anim_node->getConnectionByName(from_point, "EventOut");
@@ -439,15 +438,14 @@ namespace demo
 					}
 				}
 			}
-			else if (node->getName() == "EditorData")
+			else if (std::string_view{node.name()} == "EditorData")
 			{
-				MyGUI::xml::ElementEnumerator item_data = node->getElementEnumerator();
-				while (item_data.next("Node"))
+				for (auto item_data : node.children("Node"))
 				{
-					BaseAnimationNode* anim_node = getNodeByName(item_data.current()->findAttribute("name"));
+					BaseAnimationNode* anim_node = getNodeByName(item_data.attribute("name").value());
 					if (anim_node)
 					{
-						anim_node->setCoord(MyGUI::IntCoord::parse(item_data.current()->findAttribute("coord")));
+						anim_node->setCoord(MyGUI::IntCoord::parse(item_data.attribute("coord").value()));
 					}
 				}
 			}

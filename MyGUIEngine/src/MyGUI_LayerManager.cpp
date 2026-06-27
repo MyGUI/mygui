@@ -67,15 +67,13 @@ namespace MyGUI
 		mLayerNodes.clear();
 	}
 
-	void LayerManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
+	void LayerManager::_load(pugi::xml_node _node, std::string_view _file, Version _version)
 	{
 		VectorLayer layers;
-		xml::ElementEnumerator layer = _node->getElementEnumerator();
-		while (layer.next(mCategoryName))
+		for (auto layer : _node.children(mCategoryName.c_str()))
 		{
-			std::string name;
-
-			if (!layer->findAttribute("name", name))
+			std::string name{layer.attribute("name").value()};
+			if (name.empty())
 			{
 				MYGUI_LOG(Warning, "Attribute 'name' not found (file : " << _file << ")");
 				continue;
@@ -86,15 +84,15 @@ namespace MyGUI
 				MYGUI_ASSERT(item->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
 			}
 
-			std::string_view type = layer->findAttribute("type");
+			std::string_view type = layer.attribute("type").value();
 			if (type.empty() && _version <= Version(1, 0))
 			{
-				bool overlapped = utility::parseBool(layer->findAttribute("overlapped"));
+				bool overlapped = utility::parseBool(layer.attribute("overlapped").value());
 				type = overlapped ? "OverlappedLayer" : "SharedLayer";
 			}
 
 			ILayer* item = _createLayerObject(type);
-			item->deserialization(layer.current(), _version);
+			item->deserializationWrapper(layer, _version);
 
 			layers.push_back(item);
 		}

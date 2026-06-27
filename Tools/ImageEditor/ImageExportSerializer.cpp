@@ -29,7 +29,7 @@ namespace tools
 
 	bool ImageExportSerializer::deserialization(pugi::xml_document& _doc)
 	{
-		if (_doc.select_single_node("MyGUI[@type=\"Resource\"]").node().empty())
+		if (_doc.select_node("MyGUI[@type=\"Resource\"]").node().empty())
 			return false;
 
 		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceImageSet\"]");

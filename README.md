@@ -38,7 +38,7 @@ Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 
 ### Requirements
 
-- CMake ≥ 3.21
+- CMake ≥ 3.25
 - C++17 compiler
 - SDL2 for tools and demos
 - FreeType (optional, enabled by default)

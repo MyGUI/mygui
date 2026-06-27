@@ -45,7 +45,7 @@ namespace MyGUI
 
 	private:
 		void createDefault(std::string_view _value);
-		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
+		void _load(pugi::xml_node _node, std::string_view _file, Version _version);
 
 	private:
 		std::string mDefaultName;
