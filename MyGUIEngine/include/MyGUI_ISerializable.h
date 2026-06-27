@@ -20,6 +20,9 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED(ISerializable)
 
 	public:
+		// Default empty destructor, defined in .cpp as key function for typeinfo/vtable export
+		virtual ~ISerializable() override;
+
 		virtual void serialization(xml::ElementPtr /*_node*/, Version /*_version*/)
 		{
 		}

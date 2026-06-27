@@ -205,6 +205,9 @@ set (SOURCE_FILES
   src/MyGUI_FontManager.cpp
   src/MyGUI_GeometryUtility.cpp
   src/MyGUI_Gui.cpp
+  src/MyGUI_IObject.cpp
+  src/MyGUI_IResource.cpp
+  src/MyGUI_ISerializable.cpp
   src/MyGUI_ImageBox.cpp
   src/MyGUI_InputManager.cpp
   src/MyGUI_ItemBox.cpp
@@ -479,6 +482,10 @@ SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
 )
+SOURCE_GROUP("Source Files\\Core\\Common\\Interfaces" FILES
+  src/MyGUI_IObject.cpp
+  src/MyGUI_ISerializable.cpp
+)
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
   src/MyGUI_BiIndexBase.cpp
   src/MyGUI_ScrollViewBase.cpp
@@ -524,6 +531,7 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_WidgetManager.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
+  src/MyGUI_IResource.cpp
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
   src/MyGUI_ResourceLayout.cpp
