@@ -7,7 +7,7 @@
 #include "MyGUI_OpenGLVertexBuffer.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
-#include <GL/gl.h>
+#include <MyGUI_GL.h>
 
 namespace MyGUI
 {
