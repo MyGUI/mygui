@@ -43,7 +43,8 @@ namespace MyGUI
 
 	protected:
 		IResource() = default;
-		~IResource() override = default;
+		// Default empty destructor, defined in .cpp as key function for typeinfo/vtable export
+		~IResource() override;
 
 		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
 		{
