@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <locale>
+#include <cwctype>
 
 namespace common
 {
@@ -42,9 +43,8 @@ namespace common
 	{
 		std::wstring result;
 		result.resize(_input.size());
-		static std::locale sLocale("");
 		for (unsigned int i = 0; i < _input.size(); ++i)
-			result[i] = std::tolower(_input[i], sLocale);
+			result[i] = std::towlower(_input[i]);
 		return result;
 	}
 
