@@ -18,7 +18,8 @@ namespace MyGUI
 		MYGUI_RTTI_BASE(IObject)
 
 	public:
-		virtual ~IObject() = default;
+		// Default empty destructor, defined in .cpp as key function for typeinfo/vtable export
+		virtual ~IObject();
 	};
 
 } // namespace MyGUI
