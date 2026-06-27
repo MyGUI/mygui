@@ -27,7 +27,7 @@ namespace input
 				}
 				else if (key == "SourceSystem")
 				{
-					const std::string& value = info.text().as_string();
+					const std::string_view value = info.text().as_string();
 					if (value == "SDL_SYSTEM_CURSOR_ARROW")
 						mCursorType = SDL_SYSTEM_CURSOR_ARROW;
 					else if (value == "SDL_SYSTEM_CURSOR_IBEAM")
