@@ -454,7 +454,7 @@ namespace tools
 				return index;
 		}
 
-		return -1;
+		MYGUI_EXCEPT("Index not found");
 	}
 
 	void SkinExportSerializer::moveToEnd(Data::VectorData& childs, size_t _index)
