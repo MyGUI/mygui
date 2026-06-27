@@ -118,7 +118,7 @@ function(mygui_tool_dll PROJECTNAME)
 	if(MYGUI_RENDERSYSTEM EQUAL 3 AND OGRE_STATIC)
 		add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 	else()
-		add_library(${PROJECTNAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
+		add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 		target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
 	endif()
 
