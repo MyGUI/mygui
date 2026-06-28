@@ -10,6 +10,8 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_WidgetManager.h"
 
+#include <pugixml.hpp>
+
 namespace MyGUI
 {
 
@@ -52,7 +54,7 @@ namespace MyGUI
 
 	void LayoutManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
-		ResourceLayout* resource = new ResourceLayout(_node, _file);
+		ResourceLayout* resource = new ResourceLayout(_node.node(), _file);
 		ResourceManager::getInstance().addResource(resource);
 	}
 

@@ -19,6 +19,8 @@
 #include "MyGUI_ResourceManualPointer.h"
 #include "MyGUI_ResourceImageSetPointer.h"
 
+#include <pugixml.hpp>
+
 namespace MyGUI
 {
 
@@ -85,16 +87,15 @@ namespace MyGUI
 	void PointerManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		loadOldPointerFormat(_node, _file, _version, mXmlPointerTagName);
+		loadOldPointerFormat(_node.node(), _file, _version, mXmlPointerTagName);
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto child : _node.node())
 		{
-			if (node->getName() == mXmlPropertyTagName)
+			if (child.name() == mXmlPropertyTagName)
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = child.attribute("key").value();
+				std::string_view value = child.attribute("value").value();
 				if (key == "Default")
 					setDefaultPointer(value);
 				else if (key == "Layer")

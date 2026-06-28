@@ -138,7 +138,7 @@ namespace tools
 
 		MyGUI::xml::Document docLoad;
 		docLoad.open(mTestSkinFileName);
-		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
+		MyGUI::xml::ElementPtr resourceNode = docLoad.getRoot();
 
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(
 			resourceNode,

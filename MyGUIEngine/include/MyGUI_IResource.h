@@ -8,7 +8,6 @@
 #define MYGUI_I_RESOURCE_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Version.h"
 #include "MyGUI_ISerializable.h"
 
@@ -46,10 +45,7 @@ namespace MyGUI
 		// Default empty destructor, defined in .cpp as key function for typeinfo/vtable export
 		~IResource() override;
 
-		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
-		{
-			_node->findAttribute("name", mResourceName);
-		}
+		void deserialization(xml::ElementPtr _node, Version /*_version*/) override;
 
 	protected:
 		std::string mResourceName;

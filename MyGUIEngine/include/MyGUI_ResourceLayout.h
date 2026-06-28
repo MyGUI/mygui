@@ -39,7 +39,7 @@ namespace MyGUI
 
 	protected:
 		// xml -> widget info
-		WidgetInfo parseWidget(xml::ElementEnumerator& _widget);
+		WidgetInfo parseWidget(xml::ElementPtr _widget);
 
 	protected:
 		VectorWidgetInfo mLayoutData;

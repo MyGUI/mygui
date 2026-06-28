@@ -10,7 +10,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_ObsoleteXmlTypes.h"
 #include "MyGUI_Version.h"
 
 namespace MyGUI
