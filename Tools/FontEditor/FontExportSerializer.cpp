@@ -11,7 +11,7 @@
 #include "DataTypeManager.h"
 #include "PropertyUtility.h"
 #include <MyGUI_ResourceTrueTypeFont.h>
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 
 namespace tools
 {

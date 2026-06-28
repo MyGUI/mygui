@@ -7,7 +7,7 @@
 #include "MyGUI_OpenGLDataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_DataFileStream.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 #include <fstream>
 
 namespace MyGUI

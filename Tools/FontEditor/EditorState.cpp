@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "EditorState.h"
 #include "Application.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 #include "Localise.h"
 #include "CommandManager.h"
 #include "ActionManager.h"

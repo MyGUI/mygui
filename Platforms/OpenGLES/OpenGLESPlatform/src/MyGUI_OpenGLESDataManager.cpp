@@ -1,7 +1,7 @@
 #include "MyGUI_OpenGLESDataManager.h"
 #include "MyGUI_OpenGLESDiagnostic.h"
 #include "MyGUI_DataFileStream.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 #include <fstream>
 
 #include "MyGUI_Diagnostic.h"

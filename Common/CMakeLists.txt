@@ -64,7 +64,6 @@ target_include_directories(${PROJECTNAME}
 	PUBLIC
 		.
 		Base/${MYGUI_PLATFORM_NAME}
-	PRIVATE
 		"${MYGUI_SOURCE_DIR}/Platforms/Utils"
 )
 string(TOUPPER "${MYGUI_PLATFORM_NAME}" MYGUI_PLATFORM_NAME_UPPER)

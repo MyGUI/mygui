@@ -6,7 +6,7 @@
 #include "Precompiled.h"
 #include "OpenSaveFileDialog.h"
 
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 
 namespace tools
 {

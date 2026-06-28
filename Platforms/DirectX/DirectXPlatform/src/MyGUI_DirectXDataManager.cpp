@@ -7,7 +7,7 @@
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXDiagnostic.h"
 #include "MyGUI_DataFileStream.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 #include <fstream>
 
 namespace MyGUI

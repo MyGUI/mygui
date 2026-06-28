@@ -10,7 +10,7 @@
 #include "CommandManager.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
 #include "WidgetSelectorManager.h"

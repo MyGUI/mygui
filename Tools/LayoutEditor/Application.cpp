@@ -6,7 +6,7 @@
 #include "UndoManager.h"
 #include "Base/Main.h"
 #include "GroupMessage.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"

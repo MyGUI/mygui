@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 
 namespace tools
 {

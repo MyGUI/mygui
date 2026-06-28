@@ -10,7 +10,7 @@
 #include "TreeControl.h"
 #include "TreeControlItem.h"
 
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "FileSystemInfo.h"
 
 // рутовая папка всей медиа
 static MyGUI::UString gMediaBase;
