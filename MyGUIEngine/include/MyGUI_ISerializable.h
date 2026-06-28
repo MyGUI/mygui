@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_ObsoleteXmlTypes.h"
 #include "MyGUI_Version.h"
 
 namespace MyGUI
@@ -23,9 +24,6 @@ namespace MyGUI
 		// Default empty destructor, defined in .cpp as key function for typeinfo/vtable export
 		virtual ~ISerializable() override;
 
-		virtual void serialization(xml::ElementPtr /*_node*/, Version /*_version*/)
-		{
-		}
 		virtual void deserialization(xml::ElementPtr /*_node*/, Version /*_version*/)
 		{
 		}
