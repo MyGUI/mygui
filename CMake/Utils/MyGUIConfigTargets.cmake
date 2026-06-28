@@ -191,6 +191,14 @@ function(mygui_config_lib PROJECTNAME)
 		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
 	else()
 		target_compile_definitions(${PROJECTNAME} PRIVATE MYGUI_GCC_VISIBILITY)
+
+		# set install RPATH for shared libraries so they can find dependencies
+		# in the same directory (e.g. pugixml from FetchContent)
+		if (UNIX)
+			set_property(TARGET ${PROJECTNAME} APPEND PROPERTY
+				INSTALL_RPATH "$ORIGIN")
+			set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
+		endif ()
 	endif()
 
 	if (MYGUI_INSTALL_PDB)
