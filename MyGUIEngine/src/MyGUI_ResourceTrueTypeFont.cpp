@@ -1225,7 +1225,7 @@ namespace MyGUI
 					renderGlyph<false, false, false>(
 						info,
 						charMaskWhite,
-						charMaskBlack,
+						charMaskWhite,
 						charMask.find(info.codePoint)->second,
 						glyphHeight,
 						_texBuffer,
