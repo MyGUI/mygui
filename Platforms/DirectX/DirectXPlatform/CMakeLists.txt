@@ -10,6 +10,7 @@ target_include_directories(${PROJECTNAME}
 		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/MYGUI>
 	PRIVATE
 		"${MYGUI_SOURCE_DIR}/Common"
+		"${MYGUI_SOURCE_DIR}/Platforms/Utils"
 )
 
 target_compile_definitions(${PROJECTNAME} PUBLIC NOMINMAX)

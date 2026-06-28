@@ -9,6 +9,7 @@
 #include <wincodec.h>
 #include <vector>
 #pragma warning(pop)
+#include "WICImageSaver.h"
 #include "MyGUI_DirectX11Texture.h"
 #include "MyGUI_DirectX11DataManager.h"
 #include "MyGUI_DirectX11RenderManager.h"
@@ -251,6 +252,70 @@ namespace MyGUI
 	TextureUsage DirectX11Texture::getUsage() const
 	{
 		return mTextureUsage;
+	}
+
+	void DirectX11Texture::saveToFile(const std::string& _filename)
+	{
+		if (!mTexture)
+		{
+			MYGUI_PLATFORM_LOG(Warning, "Can't save empty texture to file '" << _filename << "'.");
+			return;
+		}
+
+		D3D11_TEXTURE2D_DESC desc;
+		mTexture->GetDesc(&desc);
+
+		desc.Usage = D3D11_USAGE_STAGING;
+		desc.BindFlags = 0;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		desc.MiscFlags = 0;
+
+		ID3D11Texture2D* stagingTexture = nullptr;
+		HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, nullptr, &stagingTexture);
+		if (FAILED(hr))
+		{
+			MYGUI_PLATFORM_EXCEPT("Failed to create staging texture (error code " << hr << ").");
+		}
+
+		mManager->mpD3DContext->CopyResource(stagingTexture, mTexture);
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		hr = mManager->mpD3DContext->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapped);
+		if (FAILED(hr))
+		{
+			stagingTexture->Release();
+			MYGUI_PLATFORM_EXCEPT("Failed to map staging texture (error code " << hr << ").");
+		}
+
+		UINT width = desc.Width;
+		UINT height = desc.Height;
+		UINT dstStride = width * 4;
+
+		std::vector<BYTE> convertedData;
+		BYTE* pixels = static_cast<BYTE*>(mapped.pData);
+
+		if (mapped.RowPitch != dstStride)
+		{
+			convertedData.resize(height * dstStride);
+			for (UINT y = 0; y < height; ++y)
+			{
+				memcpy(convertedData.data() + y * dstStride, pixels + y * mapped.RowPitch, dstStride);
+			}
+			pixels = convertedData.data();
+		}
+
+		int wideLen = MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, nullptr, 0);
+		std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
+		MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, &wfilename[0], wideLen);
+		hr = MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, pixels);
+
+		mManager->mpD3DContext->Unmap(stagingTexture, 0);
+		stagingTexture->Release();
+
+		if (FAILED(hr))
+		{
+			MYGUI_PLATFORM_EXCEPT("Failed to save texture to file '" << _filename << "' (error code " << hr << ").");
+		}
 	}
 
 	IRenderTarget* DirectX11Texture::getRenderTarget()

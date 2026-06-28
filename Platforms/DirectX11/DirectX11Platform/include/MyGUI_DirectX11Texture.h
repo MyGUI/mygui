@@ -32,10 +32,7 @@ namespace MyGUI
 
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) override;
 		void loadFromFile(const std::string& _filename) override;
-		void saveToFile(const std::string& _filename) override
-		{
-			MYGUI_PLATFORM_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
-		}
+		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
 
 		void destroy() override;

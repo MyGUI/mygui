@@ -6,6 +6,8 @@
 
 #include <d3d9.h>
 #include <wincodec.h>
+#include <vector>
+#include "WICImageSaver.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXRTTexture.h"
@@ -313,6 +315,162 @@ namespace MyGUI
 	TextureUsage DirectXTexture::getUsage() const
 	{
 		return mTextureUsage;
+	}
+
+	void DirectXTexture::saveToFile(const std::string& _filename)
+	{
+		if (!mpTexture)
+		{
+			MYGUI_PLATFORM_LOG(Warning, "Can't save empty texture to file '" << _filename << "'.");
+			return;
+		}
+
+		D3DSURFACE_DESC desc;
+		mpTexture->GetLevelDesc(0, &desc);
+
+		IDirect3DSurface9* surface = nullptr;
+		mpTexture->GetSurfaceLevel(0, &surface);
+		if (!surface)
+		{
+			MYGUI_PLATFORM_LOG(Warning, "Failed to get surface level for saving.");
+			return;
+		}
+
+		IDirect3DSurface9* tempSurface = nullptr;
+		D3DLOCKED_RECT lockedRect;
+		HRESULT hr;
+
+		if (desc.Pool == D3DPOOL_DEFAULT)
+		{
+			hr = mpD3DDevice->CreateOffscreenPlainSurface(
+				desc.Width,
+				desc.Height,
+				desc.Format,
+				D3DPOOL_SYSTEMMEM,
+				&tempSurface,
+				nullptr);
+			if (FAILED(hr))
+			{
+				surface->Release();
+				MYGUI_PLATFORM_EXCEPT("Failed to create offscreen surface (error code " << hr << ").");
+			}
+			hr = mpD3DDevice->GetRenderTargetData(surface, tempSurface);
+			if (FAILED(hr))
+			{
+				tempSurface->Release();
+				surface->Release();
+				MYGUI_PLATFORM_EXCEPT("Failed to get render target data (error code " << hr << ").");
+			}
+			hr = tempSurface->LockRect(&lockedRect, nullptr, D3DLOCK_READONLY);
+		}
+		else
+		{
+			hr = surface->LockRect(&lockedRect, nullptr, D3DLOCK_READONLY);
+		}
+
+		if (FAILED(hr))
+		{
+			if (tempSurface)
+				tempSurface->Release();
+			surface->Release();
+			MYGUI_PLATFORM_EXCEPT("Failed to lock surface (error code " << hr << ").");
+		}
+
+		// Convert to 32-bit BGRA
+		UINT width = desc.Width;
+		UINT height = desc.Height;
+		UINT bpp = 4;
+		switch (desc.Format)
+		{
+		case D3DFMT_A8R8G8B8: bpp = 4; break;
+		case D3DFMT_R8G8B8: bpp = 3; break;
+		case D3DFMT_A8L8: bpp = 2; break;
+		case D3DFMT_L8: bpp = 1; break;
+		default: break;
+		}
+
+		BYTE* srcData = static_cast<BYTE*>(lockedRect.pBits);
+		UINT dstStride = width * 4;
+		std::vector<BYTE> convertedData;
+		BYTE* pixels = srcData;
+
+		if (bpp != 4 || lockedRect.Pitch != dstStride)
+		{
+			convertedData.resize(height * dstStride);
+			for (UINT y = 0; y < height; ++y)
+			{
+				BYTE* dst = convertedData.data() + y * dstStride;
+				BYTE* src = srcData + y * lockedRect.Pitch;
+				if (bpp == 4)
+				{
+					memcpy(dst, src, dstStride);
+				}
+				else if (bpp == 3)
+				{
+					for (UINT x = 0; x < width; ++x)
+					{
+						dst[x * 4 + 0] = src[x * 3 + 0];
+						dst[x * 4 + 1] = src[x * 3 + 1];
+						dst[x * 4 + 2] = src[x * 3 + 2];
+						dst[x * 4 + 3] = 255;
+					}
+				}
+				else if (bpp == 2)
+				{
+					for (UINT x = 0; x < width; ++x)
+					{
+						BYTE l = src[x * 2 + 0];
+						BYTE a = src[x * 2 + 1];
+						dst[x * 4 + 0] = l;
+						dst[x * 4 + 1] = l;
+						dst[x * 4 + 2] = l;
+						dst[x * 4 + 3] = a;
+					}
+				}
+				else
+				{
+					for (UINT x = 0; x < width; ++x)
+					{
+						dst[x * 4 + 0] = src[x];
+						dst[x * 4 + 1] = src[x];
+						dst[x * 4 + 2] = src[x];
+						dst[x * 4 + 3] = 255;
+					}
+				}
+			}
+			pixels = convertedData.data();
+		}
+
+		int wideLen = MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, nullptr, 0);
+		std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
+		MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, &wfilename[0], wideLen);
+
+		HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+		bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
+
+		hr = MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, pixels);
+
+		if (comInitialized)
+			CoUninitialize();
+
+		if (desc.Pool == D3DPOOL_DEFAULT)
+		{
+			if (tempSurface)
+			{
+				tempSurface->UnlockRect();
+				tempSurface->Release();
+			}
+		}
+		else
+		{
+			surface->UnlockRect();
+		}
+		surface->Release();
+
+		if (FAILED(hr))
+		{
+			MYGUI_PLATFORM_EXCEPT("Failed to save texture to file '" << _filename << "' (error code " << hr << ").");
+		}
 	}
 
 	IRenderTarget* DirectXTexture::getRenderTarget()
