@@ -5,26 +5,27 @@
 
 include(GNUInstallDirs)
 
+set(MYGUI_LIB_SUFFIX "")
+if (NOT BUILD_SHARED_LIBS)
+  set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}Static")
+endif ()
+string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
+if (MYGUI_BUILD_TYPE STREQUAL "debug")
+  set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}_d")
+endif ()
+
 # Create the pkg-config package files on Unix systems
 if (UNIX)
-  set(MYGUI_LIB_SUFFIX "")
+  set(MYGUI_PC_REQUIRES "")
   if (NOT BUILD_SHARED_LIBS)
-    set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}Static")
+    if (MYGUI_USE_FREETYPE)
+      list(APPEND MYGUI_PC_REQUIRES "freetype2")
+    endif ()
+    list(APPEND MYGUI_PC_REQUIRES "pugixml")
   endif ()
-  string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
-  if (MYGUI_BUILD_TYPE STREQUAL "debug")
-    set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}_d")
-  endif ()
-
-  if (NOT BUILD_SHARED_LIBS)
-    configure_file("${MYGUI_TEMPLATES_DIR}/MYGUIStatic.pc.in" "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" @ONLY)
-  else ()
-    configure_file("${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in" "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" @ONLY)
-  endif ()
+  string(REPLACE ";" " " MYGUI_PC_REQUIRES "${MYGUI_PC_REQUIRES}")
+  configure_file("${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in" "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" @ONLY)
   install(FILES "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
-
-  # configure additional packages
-
 endif ()
 
 ###################################################################
@@ -37,6 +38,15 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
 elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
 	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OpenGL)")
+endif()
+
+# For static builds, internal link dependencies become transitive
+# and must be found by consumers via find_dependency
+if(NOT BUILD_SHARED_LIBS)
+	if(MYGUI_USE_FREETYPE)
+		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(Freetype)")
+	endif()
+	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(pugixml)")
 endif()
 
 string(REPLACE ";" "\n" MYGUI_CONFIG_FIND_DEPS "${MYGUI_CONFIG_FIND_DEPS}")
