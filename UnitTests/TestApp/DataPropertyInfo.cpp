@@ -11,8 +11,8 @@ namespace tools
 
 	void DataPropertyInfo::deserialization(pugi::xml_node _node)
 	{
-		mName = _node.select_single_node("Name").node().child_value();
-		mType = _node.select_single_node("Type").node().child_value();
+		mName = _node.select_node("Name").node().child_value();
+		mType = _node.select_node("Type").node().child_value();
 	}
 
 	const std::string& DataPropertyInfo::getName() const

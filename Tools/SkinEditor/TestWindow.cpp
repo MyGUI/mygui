@@ -129,7 +129,7 @@ namespace tools
 		serializer->writeSkin(root, mSkinItem);
 		delete serializer;
 
-		root.select_single_node("Resource/@name").attribute().set_value(mSkinName.c_str());
+		root.select_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
 		/*bool result = */ doc.save_file(
 			mTestSkinFileName.c_str(),
