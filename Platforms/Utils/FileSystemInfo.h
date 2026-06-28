@@ -1,27 +1,11 @@
-/*!
-	@file
-	@author		Albert Semenov
-	@date		09/2009
-	@module
-*/
 #ifndef FILE_SYSTEM_INFO_H_
 #define FILE_SYSTEM_INFO_H_
 
 #include <MyGUI.h>
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	#include <windows.h>
-	#include <io.h>
-#else
-	#include <unistd.h>
-	#include <dirent.h>
-	#include <sys/types.h>
-	#include <sys/stat.h>
-	#include <fnmatch.h>
-#endif
-
+#include <filesystem>
 #include <string>
 #include <vector>
-#include <locale>
+#include <algorithm>
 #include <cwctype>
 
 namespace common
@@ -38,76 +22,51 @@ namespace common
 		bool folder;
 	};
 	using VectorFileInfo = std::vector<FileInfo>;
+	using VectorWString = std::vector<std::wstring>;
 
-	inline std::wstring toLower(const std::wstring& _input)
+	inline bool matchWildcard(const std::wstring& _pattern, const std::wstring& _str)
 	{
-		std::wstring result;
-		result.resize(_input.size());
-		for (unsigned int i = 0; i < _input.size(); ++i)
-			result[i] = std::towlower(_input[i]);
-		return result;
-	}
-
-	inline bool sortFiles(const common::FileInfo& left, const common::FileInfo& right)
-	{
-		if (left.folder < right.folder)
-			return true;
-		if (left.folder > right.folder)
-			return false;
-
-		return toLower(left.name) < toLower(right.name);
-	}
-
-	inline bool isAbsolutePath(const wchar_t* path)
-	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (IsCharAlphaW(path[0]) && path[1] == ':')
-			return true;
-#endif
-		return path[0] == '/' || path[0] == '\\';
-	}
-
-	inline bool endWith(const std::wstring& _source, const std::wstring& _value)
-	{
-		size_t count = _value.size();
-		if (_source.size() < count)
-			return false;
-		size_t offset = _source.size() - count;
-		for (size_t index = 0; index < count; ++index)
+		size_t pi = 0, si = 0, starPi = std::wstring::npos, starSi = 0;
+		while (si < _str.size())
 		{
-			if (_source[index + offset] != _value[index])
+			if (pi < _pattern.size() && (_pattern[pi] == _str[si] || _pattern[pi] == L'?'))
+			{
+				++pi;
+				++si;
+			}
+			else if (pi < _pattern.size() && _pattern[pi] == L'*')
+			{
+				starPi = pi++;
+				starSi = si;
+			}
+			else if (starPi != std::wstring::npos)
+			{
+				pi = starPi + 1;
+				si = ++starSi;
+			}
+			else
 				return false;
 		}
-		return true;
+		while (pi < _pattern.size() && _pattern[pi] == L'*')
+			++pi;
+		return pi == _pattern.size();
 	}
 
 	inline std::wstring concatenatePath(const std::wstring& _base, const std::wstring& _name)
 	{
-		if (_base.empty() || isAbsolutePath(_name.c_str()))
-		{
+		if (_base.empty())
 			return _name;
-		}
-
-		if (endWith(_base, L"\\") || endWith(_base, L"/"))
-			return _base + _name;
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		return _base + L'\\' + _name;
-#else
-		return _base + L'/' + _name;
-#endif
+		return (std::filesystem::path(_base) / _name).wstring();
 	}
 
-	inline bool isReservedDir(const wchar_t* _fn)
+	inline std::wstring getSystemCurrentFolder()
 	{
-		// if "."
-		return (_fn[0] == '.' && _fn[1] == 0);
+		return std::filesystem::current_path().wstring();
 	}
 
-	inline bool isParentDir(const wchar_t* _fn)
+	inline bool isParentDir(const std::wstring& _name)
 	{
-		// if ".."
-		return (_fn[0] == '.' && _fn[1] == '.' && _fn[2] == 0);
+		return _name == L"..";
 	}
 
 	inline void getSystemFileList(
@@ -116,87 +75,54 @@ namespace common
 		const std::wstring& _mask,
 		bool _sorted = true)
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		//FIXME add optional parameter?
-		bool ms_IgnoreHidden = true;
+		std::error_code ec;
 
-		intptr_t lHandle;
-		int res;
-		struct _wfinddata_t tagData;
+		const auto maskPath = std::filesystem::path(_mask);
 
-		// pattern can contain a directory name, separate it from mask
-		size_t pos = _mask.find_last_of(L"/\\");
-		std::wstring directory;
-		if (pos != _mask.npos)
-			directory = _mask.substr(0, pos);
+		const auto searchDir = std::filesystem::path(_folder) / maskPath.parent_path();
 
-		std::wstring full_mask = concatenatePath(_folder, _mask);
+		const auto pattern = maskPath.filename() == L"*.*" ? std::wstring{} : maskPath.filename().wstring();
 
-		lHandle = _wfindfirst(full_mask.c_str(), &tagData);
-		res = 0;
-		while (lHandle != -1 && res != -1)
+		auto iter = std::filesystem::directory_iterator(
+			searchDir,
+			std::filesystem::directory_options::skip_permission_denied,
+			ec);
+		if (ec)
 		{
-			if ((!ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0) && !isReservedDir(tagData.name))
-			{
-				_result.push_back(
-					FileInfo(concatenatePath(directory, tagData.name), (tagData.attrib & _A_SUBDIR) != 0));
-			}
-			res = _wfindnext(lHandle, &tagData);
-		}
-		// Close if we found any files
-		if (lHandle != -1)
-			_findclose(lHandle);
-#else
-		std::string folder = MyGUI::UString(_folder).asUTF8();
-		DIR* dir = opendir(folder.c_str());
-		struct dirent* dp;
-
-		if (dir == nullptr)
-		{
-			/* opendir() failed */
-			MYGUI_LOG(Error, "Can't open " + folder);
+			MYGUI_LOG(Error, "Can't open " + MyGUI::UString(searchDir.wstring()).asUTF8());
 			return;
 		}
 
-		rewinddir(dir);
+		// ".." is not returned by directory_iterator; add it manually so file dialogs can navigate up
+		_result.emplace_back(L"..", true);
 
-		while ((dp = readdir(dir)) != nullptr)
+		for (const auto& entry : iter)
 		{
-			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) &&
-				!isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
-			{
-				struct stat fInfo;
-				std::string path = folder + "/" + dp->d_name;
-				if (stat(path.c_str(), &fInfo) == -1)
-					perror("stat");
-				_result.emplace_back(MyGUI::UString(dp->d_name).asWStr_c_str(), (S_ISDIR(fInfo.st_mode)));
-			}
+			std::wstring name = entry.path().filename().wstring();
+
+			if (!pattern.empty() && !matchWildcard(pattern, name))
+				continue;
+
+			_result.emplace_back(name, entry.is_directory());
 		}
 
-		closedir(dir);
-#endif
 		if (_sorted)
-		{
-			std::sort(_result.begin(), _result.end(), sortFiles);
-		}
+			std::sort(
+				_result.begin(),
+				_result.end(),
+				[](const FileInfo& a, const FileInfo& b)
+				{
+					if (a.folder != b.folder)
+						return a.folder;
+					return std::lexicographical_compare(
+						a.name.begin(),
+						a.name.end(),
+						b.name.begin(),
+						b.name.end(),
+						[](wchar_t c1, wchar_t c2) { return std::towlower(c1) < std::towlower(c2); });
+				});
 	}
 
-	inline std::wstring getSystemCurrentFolder()
-	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		wchar_t buff[MAX_PATH + 1];
-		::GetCurrentDirectoryW(MAX_PATH, buff);
-		return buff;
-#else
-	#ifndef PATH_MAX
-		#define PATH_MAX 256
-	#endif
-		char buff[PATH_MAX + 1];
-		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr_c_str() : std::wstring();
-#endif
-	}
-
-	using VectorWString = std::vector<std::wstring>;
 	inline void scanFolder(
 		VectorWString& _result,
 		const std::wstring& _folder,
@@ -204,34 +130,49 @@ namespace common
 		const std::wstring& _mask,
 		bool _fullpath)
 	{
-		std::wstring folder = _folder;
-		if (!folder.empty() && *folder.rbegin() != '/' && *folder.rbegin() != '\\')
-			folder += L"/";
+		// Normalize DOS-style *.* (match all)
+		std::wstring pattern = (_mask == L"*.*") ? std::wstring() : _mask;
 
-		VectorFileInfo result;
-		getSystemFileList(result, folder, _mask);
+		std::error_code ec;
 
-		for (const auto& item : result)
+		auto iterate = [&](auto iter, auto end) -> void
 		{
-			if (item.folder)
-				continue;
+			for (; iter != end; ++iter)
+			{
+				const auto& entry = *iter;
+				std::wstring name = entry.path().filename().wstring();
+				if (entry.is_directory())
+					continue;
 
-			if (_fullpath)
-				_result.push_back(folder + item.name);
-			else
-				_result.push_back(item.name);
-		}
+				if (!pattern.empty() && !matchWildcard(pattern, name))
+					continue;
+
+				if (_fullpath)
+					_result.push_back(entry.path().wstring());
+				else
+					_result.push_back(std::move(name));
+			}
+		};
 
 		if (_recursive)
 		{
-			getSystemFileList(result, folder, L"*");
-
-			for (const auto& item : result)
-			{
-				if (!item.folder || item.name == L".." || item.name == L".")
-					continue;
-				scanFolder(_result, folder + item.name, _recursive, _mask, _fullpath);
-			}
+			auto iter = std::filesystem::recursive_directory_iterator(
+				_folder,
+				std::filesystem::directory_options::skip_permission_denied,
+				ec);
+			if (ec)
+				return;
+			iterate(iter, std::filesystem::recursive_directory_iterator());
+		}
+		else
+		{
+			auto iter = std::filesystem::directory_iterator(
+				_folder,
+				std::filesystem::directory_options::skip_permission_denied,
+				ec);
+			if (ec)
+				return;
+			iterate(iter, std::filesystem::directory_iterator());
 		}
 	}
 

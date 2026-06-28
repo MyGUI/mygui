@@ -113,7 +113,7 @@ namespace tools
 			if (mListFiles->getIndexSelected() != MyGUI::ITEM_NONE)
 			{
 				common::FileInfo info = *mListFiles->getItemDataAt<common::FileInfo>(mListFiles->getIndexSelected());
-				if (!common::isParentDir(info.name.c_str()))
+				if (!common::isParentDir(info.name))
 					mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
 			}
 			eventEndDialog(this, true);
