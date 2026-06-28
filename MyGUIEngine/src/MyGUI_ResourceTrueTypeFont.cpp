@@ -25,6 +25,8 @@
 
 #endif // MYGUI_USE_FREETYPE
 
+#include <pugixml.hpp>
+
 namespace MyGUI
 {
 
@@ -241,13 +243,12 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto node : _node.node())
 		{
-			if (node->getName() == "Property")
+			if (node.name() == std::string_view("Property"))
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = node.attribute("key").value();
+				std::string_view value = node.attribute("value").value();
 				if (key == "Source")
 					setSource(value);
 				else if (key == "Shader")
@@ -273,16 +274,16 @@ namespace MyGUI
 					mSpaceWidth = utility::parseFloat(value);
 					MYGUI_LOG(
 						Warning,
-						_node->findAttribute("type")
-							<< ": Property '" << key << "' in font '" << _node->findAttribute("name")
+						_node.node().attribute("type").value()
+							<< ": Property '" << key << "' in font '" << _node.node().attribute("name").value()
 							<< "' is deprecated; remove it to use automatic calculation.");
 				}
 				else if (key == "CursorWidth")
 				{
 					MYGUI_LOG(
 						Warning,
-						_node->findAttribute("type")
-							<< ": Property '" << key << "' in font '" << _node->findAttribute("name")
+						_node.node().attribute("type").value()
+							<< ": Property '" << key << "' in font '" << _node.node().attribute("name").value()
 							<< "' is deprecated; value ignored.");
 				}
 				else if (key == "MsdfMode")
@@ -294,14 +295,13 @@ namespace MyGUI
 					setMsdfRange(utility::parseInt(value));
 				}
 			}
-			else if (node->getName() == "Codes")
+			else if (node.name() == std::string_view("Codes"))
 			{
 				// Range of inclusions.
-				xml::ElementEnumerator range = node->getElementEnumerator();
-				while (range.next("Code"))
+				for (auto range : node.children("Code"))
 				{
-					std::string range_value;
-					if (range->findAttribute("range", range_value))
+					std::string_view range_value{range.attribute("range").value()};
+					if (!range_value.empty())
 					{
 						std::vector<std::string> parse_range = utility::split(range_value);
 						if (!parse_range.empty())
@@ -319,11 +319,10 @@ namespace MyGUI
 					addCodePointRange(0, 0xFFFF);
 
 				// Range of exclusions.
-				range = node->getElementEnumerator();
-				while (range.next("Code"))
+				for (auto range : node.children("Code"))
 				{
-					std::string range_value;
-					if (range->findAttribute("hide", range_value))
+					std::string_view range_value{range.attribute("hide").value()};
+					if (!range_value.empty())
 					{
 						std::vector<std::string> parse_range = utility::split(range_value);
 						if (!parse_range.empty())

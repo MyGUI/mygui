@@ -187,6 +187,7 @@ set (SOURCE_FILES
   src/MyGUI_Constants.cpp
   src/MyGUI_ControllerEdgeHide.cpp
   src/MyGUI_ControllerFadeAlpha.cpp
+  src/MyGUI_CommonStateInfo.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_ControllerPosition.cpp
   src/MyGUI_ControllerRepeatClick.cpp
@@ -546,6 +547,7 @@ SOURCE_GROUP("Source Files\\Core\\Resource\\Data" FILES
   src/MyGUI_SubWidgetBinding.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\SubWidget" FILES
+  src/MyGUI_CommonStateInfo.cpp
   src/MyGUI_EditText.cpp
   src/MyGUI_MainSkin.cpp
   src/MyGUI_PolygonalSkin.cpp

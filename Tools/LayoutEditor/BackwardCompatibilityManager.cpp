@@ -139,7 +139,7 @@ namespace tools
 	}
 
 	void BackwardCompatibilityManager::serialiseProperty(
-		MyGUI::xml::Element* _node,
+		MyGUI::xml::ElementPtr _node,
 		std::string_view _widgetType,
 		const MyGUI::PairString& _property,
 		bool _compatibility)

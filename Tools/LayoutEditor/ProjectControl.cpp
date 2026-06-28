@@ -567,7 +567,7 @@ namespace tools
 
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
+		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Resource");
 
 		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);

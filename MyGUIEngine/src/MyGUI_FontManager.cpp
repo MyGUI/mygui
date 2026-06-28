@@ -12,6 +12,8 @@
 #include "MyGUI_ResourceManualFont.h"
 #include "MyGUI_ResourceTrueTypeFont.h"
 
+#include <pugixml.hpp>
+
 namespace MyGUI
 {
 
@@ -64,13 +66,12 @@ namespace MyGUI
 		loadOldFontFormat(_node, _file, _version, mXmlFontTagName);
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next())
+		for (auto child : _node.node())
 		{
-			if (node->getName() == mXmlPropertyTagName)
+			if (child.name() == mXmlPropertyTagName)
 			{
-				std::string_view key = node->findAttribute("key");
-				std::string_view value = node->findAttribute("value");
+				std::string_view key = child.attribute("key").value();
+				std::string_view value = child.attribute("value").value();
 #ifdef MYGUI_USE_FREETYPE
 				if (key == "Default")
 #else

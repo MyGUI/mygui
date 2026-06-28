@@ -13,6 +13,8 @@
 #include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_ResourceImageSet.h"
 
+#include <pugixml.hpp>
+
 namespace MyGUI
 {
 
@@ -65,13 +67,10 @@ namespace MyGUI
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next(mCategoryName))
+		for (auto root : _node.node().children(mCategoryName.c_str()))
 		{
-			std::string type;
-			std::string name;
-			root->findAttribute("type", type);
-			root->findAttribute("name", name);
+			std::string_view type = root.attribute("type").value();
+			std::string name{root.attribute("name").value()};
 
 			if (name.empty())
 				continue;
@@ -94,7 +93,7 @@ namespace MyGUI
 			}
 
 			IResourcePtr resource = object->castType<IResource>();
-			resource->deserialization(root.current(), _version);
+			resource->deserialization(root, _version);
 
 			mResources[name] = resource;
 		}
@@ -102,11 +101,10 @@ namespace MyGUI
 
 	void ResourceManager::_loadList(xml::ElementPtr _node, std::string_view /*unused*/, Version _version)
 	{
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next(mXmlListTagName))
+		for (auto child : _node.node().children(mXmlListTagName.c_str()))
 		{
-			std::string source;
-			if (!node->findAttribute("file", source))
+			std::string source{child.attribute("file").value()};
+			if (source.empty())
 				continue;
 			MYGUI_LOG(Info, "Load ini file '" << source << "'");
 			_loadImplement(source, false, {}, getClassTypeName());
@@ -147,17 +145,17 @@ namespace MyGUI
 			return false;
 		}
 
-		xml::ElementPtr root = doc.getRoot();
-		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		pugi::xml_node root = doc.getRoot();
+		if ((!root) || (root.name() != std::string_view("MyGUI")))
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
 			return false;
 		}
 
-		std::string type;
-		if (root->findAttribute("type", type))
+		std::string_view type = root.attribute("type").value();
+		if (!type.empty())
 		{
-			Version version = Version::parse(root->findAttribute("version"));
+			Version version = Version::parse(root.attribute("version").value());
 			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 			if (iter != mMapLoadXmlDelegate.end())
 			{
@@ -178,16 +176,16 @@ namespace MyGUI
 		// assume there will be nested elements
 		else if (!_match)
 		{
-			xml::ElementEnumerator node = root->getElementEnumerator();
-			while (node.next("MyGUI"))
+			for (auto node : root.children("MyGUI"))
 			{
-				if (node->findAttribute("type", type))
+				type = node.attribute("type").value();
+				if (!type.empty())
 				{
-					Version version = Version::parse(root->findAttribute("version"));
+					Version version = Version::parse(root.attribute("version").value());
 					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 					if (iter != mMapLoadXmlDelegate.end())
 					{
-						(*iter).second(node.current(), _file, version);
+						(*iter).second(node, _file, version);
 					}
 					else
 					{

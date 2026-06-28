@@ -12,6 +12,8 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_DataStreamHolder.h"
 
+#include <pugixml.hpp>
+
 namespace MyGUI
 {
 
@@ -51,30 +53,30 @@ namespace MyGUI
 		std::string default_lang;
 		bool event_change = false;
 
-		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next(mXmlLanguageTagName))
+		for (auto root : _node.node().children(mXmlLanguageTagName.c_str()))
 		{
-			root->findAttribute("default", default_lang);
-
-			xml::ElementEnumerator info = root->getElementEnumerator();
-			while (info.next("Info"))
 			{
-				std::string name(info->findAttribute("name"));
+				auto attr = root.attribute("default");
+				if (attr)
+					default_lang = attr.value();
+			}
+
+			for (auto info : root.children("Info"))
+			{
+				std::string name(info.attribute("name").value());
 
 				if (name.empty())
 				{
-					xml::ElementEnumerator source_info = info->getElementEnumerator();
-					while (source_info.next("Source"))
+					for (auto source_info : info.children("Source"))
 					{
-						loadLanguage(source_info->getContent(), true);
+						loadLanguage(source_info.text().as_string(), true);
 					}
 				}
 				else
 				{
-					xml::ElementEnumerator source_info = info->getElementEnumerator();
-					while (source_info.next("Source"))
+					for (auto source_info : info.children("Source"))
 					{
-						const std::string& file_source = source_info->getContent();
+						std::string file_source = source_info.text().as_string();
 						mMapFile[name].push_back(file_source);
 
 						// if the added file is for the current language, load and notify
@@ -136,14 +138,13 @@ namespace MyGUI
 		xml::Document doc;
 		if (doc.open(_stream))
 		{
-			xml::ElementPtr root = doc.getRoot();
+			pugi::xml_node root = doc.getRoot();
 			if (root)
 			{
-				xml::ElementEnumerator tag = root->getElementEnumerator();
-				while (tag.next("Tag"))
+				for (auto tag : root.children("Tag"))
 				{
 					auto& map = _user ? mUserMapLanguage : mMapLanguage;
-					mapSet(map, tag->findAttribute("name"), tag->getContent());
+					mapSet(map, tag.attribute("name").value(), tag.text().as_string());
 				}
 			}
 		}

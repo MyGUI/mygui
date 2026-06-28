@@ -27,20 +27,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
-		{
-			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
-
-			// tags replacement support for Skins
-			if (_version >= Version(1, 1))
-			{
-				texture = LanguageManager::getInstance().replaceTags(texture);
-			}
-
-			const IntSize& size = texture_utility::getTextureSize(texture);
-			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
-			mRect = CoordConverter::convertTextureCoord(coord, size);
-		}
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 	private:
 		FloatRect mRect;
@@ -72,33 +59,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
-		{
-			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
-
-			// tags replacement support for Skins
-			if (_version >= Version(1, 1))
-			{
-				texture = LanguageManager::getInstance().replaceTags(texture);
-			}
-
-			const IntSize& size = texture_utility::getTextureSize(texture);
-			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
-			mRect = CoordConverter::convertTextureCoord(coord, size);
-
-			xml::ElementEnumerator prop = _node->getElementEnumerator();
-			while (prop.next("Property"))
-			{
-				std::string_view key = prop->findAttribute("key");
-				std::string_view value = prop->findAttribute("value");
-				if (key == "TileH")
-					mTileH = utility::parseBool(value);
-				else if (key == "TileV")
-					mTileV = utility::parseBool(value);
-				else if (key == "TileSize")
-					mTileSize = IntSize::parse(value);
-			}
-		}
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 	private:
 		FloatRect mRect;
@@ -128,31 +89,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
-		{
-			xml::ElementEnumerator prop = _node->getElementEnumerator();
-			while (prop.next("Property"))
-			{
-				std::string_view key = prop->findAttribute("key");
-				std::string_view value = prop->findAttribute("value");
-				if (key == "Angle")
-					mAngle = utility::parseFloat(value);
-				if (key == "Center")
-					mCenter = IntPoint::parse(value);
-			}
-
-			std::string texture{_node->getParent()->getParent()->findAttribute("texture")};
-
-			// tags replacement support for Skins
-			if (_version >= Version(1, 1))
-			{
-				texture = LanguageManager::getInstance().replaceTags(texture);
-			}
-
-			const IntSize& size = texture_utility::getTextureSize(texture);
-			IntCoord coord = IntCoord::parse(_node->findAttribute("offset"));
-			mRect = CoordConverter::convertTextureCoord(coord, size);
-		}
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 	private:
 		FloatRect mRect;
@@ -177,18 +114,7 @@ namespace MyGUI
 		}
 
 	private:
-		void deserialization(xml::ElementPtr _node, Version _version) override
-		{
-			mShift = utility::parseBool(_node->findAttribute("shift"));
-
-			std::string colour{_node->findAttribute("colour")};
-			if (_version >= Version(1, 1))
-			{
-				colour = LanguageManager::getInstance().replaceTags(colour);
-			}
-
-			mColour = Colour::parse(colour);
-		}
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 	private:
 		Colour mColour{Colour::White};
