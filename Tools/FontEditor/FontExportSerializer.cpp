@@ -31,7 +31,7 @@ namespace tools
 
 	bool FontExportSerializer::deserialization(pugi::xml_document& _doc)
 	{
-		if (_doc.select_single_node("MyGUI[@type=\"Resource\"]").node().empty())
+		if (_doc.select_node("MyGUI[@type=\"Resource\"]").node().empty())
 			return false;
 
 		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceTrueTypeFont\"]");
@@ -47,38 +47,38 @@ namespace tools
 		data->setType(DataTypeManager::getInstance().getType("Font"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
 
-		std::string value = _node.select_single_node("Property[@key=\"Source\"]/@value").attribute().value();
+		std::string value = _node.select_node("Property[@key=\"Source\"]/@value").attribute().value();
 		data->setPropertyValue("Source", value);
 
-		value = _node.select_single_node("Property[@key=\"Size\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"Size\"]/@value").attribute().value();
 		data->setPropertyValue("Size", MyGUI::utility::parseValue<float>(value));
 
-		value = _node.select_single_node("Property[@key=\"Hinting\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"Hinting\"]/@value").attribute().value();
 		if (value.empty())
 			value = "use_native";
 		data->setPropertyValue("Hinting", value);
 
-		value = _node.select_single_node("Property[@key=\"Resolution\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"Resolution\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Resolution", MyGUI::utility::parseValue<int>(value));
 
-		value = _node.select_single_node("Property[@key=\"Antialias\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"Antialias\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Antialias", MyGUI::utility::parseValue<bool>(value));
 
-		value = _node.select_single_node("Property[@key=\"TabWidth\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"TabWidth\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("TabWidth", MyGUI::utility::parseValue<float>(value));
 
-		value = _node.select_single_node("Property[@key=\"OffsetHeight\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"OffsetHeight\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("OffsetHeight", MyGUI::utility::parseValue<int>(value));
 
-		value = _node.select_single_node("Property[@key=\"SubstituteCode\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"SubstituteCode\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("SubstituteCode", MyGUI::utility::parseValue<int>(value));
 
-		value = _node.select_single_node("Property[@key=\"Distance\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"Distance\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Distance", MyGUI::utility::parseValue<int>(value));
 
@@ -97,15 +97,15 @@ namespace tools
 		}
 		data->setPropertyValue("FontCodeRanges", value);
 
-		value = _node.select_single_node("Property[@key=\"MsdfMode\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"MsdfMode\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("MsdfMode", MyGUI::utility::parseValue<bool>(value));
 
-		value = _node.select_single_node("Property[@key=\"MsdfRange\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"MsdfRange\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("MsdfRange", MyGUI::utility::parseValue<int>(value));
 
-		value = _node.select_single_node("Property[@key=\"Shader\"]/@value").attribute().value();
+		value = _node.select_node("Property[@key=\"Shader\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Shader", value);
 
@@ -203,12 +203,12 @@ namespace tools
 	}
 
 	static void addCode(
-		MyGUI::xml::Element* _node,
+		MyGUI::xml::ElementPtr _node,
 		MyGUI::Char _code,
 		MyGUI::ResourceTrueTypeFont* _font,
 		bool _isSubstitute)
 	{
-		MyGUI::xml::Element* codeNode = _node->createChild("Code");
+		MyGUI::xml::ElementPtr codeNode = _node->createChild("Code");
 
 		if (!_isSubstitute)
 		{
@@ -272,7 +272,7 @@ namespace tools
 			addProperty(node, "Shader", _data->getPropertyValue("Shader"));
 			addProperty(node, "DefaultHeight", font->getDefaultHeight());
 
-			MyGUI::xml::Element* codes = node->createChild("Codes");
+			MyGUI::xml::ElementPtr codes = node->createChild("Codes");
 
 			std::vector<std::pair<MyGUI::Char, MyGUI::Char>> codePointRanges = font->getCodePointRanges();
 			MyGUI::Char substituteCodePoint = font->getSubstituteCodePoint();
