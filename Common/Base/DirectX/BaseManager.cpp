@@ -2,6 +2,8 @@
 #include "BaseManager.h"
 
 #include <d3d9.h>
+#include <vector>
+#include "WICImageSaver.h"
 #include <MyGUI_DirectXPlatform.h>
 
 #include <SDL_syswm.h>
@@ -113,6 +115,60 @@ namespace base
 			mDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 			mDevice->EndScene();
+		}
+
+		if (mScreenShotRequested)
+		{
+			mScreenShotRequested = false;
+			IDirect3DSurface9* backSurface = nullptr;
+			HRESULT hr = mDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backSurface);
+			if (SUCCEEDED(hr))
+			{
+				D3DSURFACE_DESC desc;
+				backSurface->GetDesc(&desc);
+
+				IDirect3DSurface9* tempSurface = nullptr;
+				hr = mDevice->CreateOffscreenPlainSurface(
+					desc.Width,
+					desc.Height,
+					desc.Format,
+					D3DPOOL_SYSTEMMEM,
+					&tempSurface,
+					nullptr);
+				if (SUCCEEDED(hr))
+				{
+					hr = mDevice->GetRenderTargetData(backSurface, tempSurface);
+					if (SUCCEEDED(hr))
+					{
+						D3DLOCKED_RECT lockedRect;
+						hr = tempSurface->LockRect(&lockedRect, nullptr, D3DLOCK_READONLY);
+						if (SUCCEEDED(hr))
+						{
+							UINT width = desc.Width;
+							UINT height = desc.Height;
+							UINT dstStride = width * 4;
+							std::vector<BYTE> convertedData(height * dstStride);
+							BYTE* src = static_cast<BYTE*>(lockedRect.pBits);
+							for (UINT y = 0; y < height; ++y)
+								memcpy(convertedData.data() + y * dstStride, src + y * lockedRect.Pitch, dstStride);
+
+							int wideLen = MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, nullptr, 0);
+							std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
+							MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, &wfilename[0], wideLen);
+
+							HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+							bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
+							MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, convertedData.data());
+							if (comInitialized)
+								CoUninitialize();
+
+							tempSurface->UnlockRect();
+						}
+					}
+					tempSurface->Release();
+				}
+				backSurface->Release();
+			}
 		}
 
 		if (mDevice->Present(nullptr, nullptr, 0, nullptr) == D3DERR_DEVICELOST)

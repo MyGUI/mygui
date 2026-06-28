@@ -6,6 +6,8 @@
 #include <GLES3/gl3.h>
 #include <GLES3/gl2ext.h>
 
+#include <vector>
+
 namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
@@ -62,6 +64,23 @@ namespace base
 
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
+
+		if (mScreenShotRequested)
+		{
+			mScreenShotRequested = false;
+			int w, h;
+			SDL_GetWindowSize(mSdlWindow, &w, &h);
+			std::vector<unsigned char> pixels(w * h * 4);
+			glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+			// GLES returns RGBA, but saveImage expects BGRA, so swap R and B
+			for (size_t i = 0; i < pixels.size(); i += 4)
+			{
+				unsigned char tmp = pixels[i];
+				pixels[i] = pixels[i + 2];
+				pixels[i + 2] = tmp;
+			}
+			saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
+		}
 
 		SDL_GL_SwapWindow(mSdlWindow);
 	}

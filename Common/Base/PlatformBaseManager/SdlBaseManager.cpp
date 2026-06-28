@@ -3,6 +3,8 @@
 
 #include <SDL_syswm.h>
 
+#include <fstream>
+
 namespace base
 {
 	SdlBaseManager::SdlBaseManager(bool _isOpenGlWindow) :
@@ -310,11 +312,6 @@ namespace base
 			mExit = true;
 			return;
 		}
-		if (_key == MyGUI::KeyCode::SysRq)
-		{
-			makeScreenShot();
-			return;
-		}
 
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
@@ -379,6 +376,27 @@ namespace base
 	void SdlBaseManager::setResourceFilename(std::string_view _flename)
 	{
 		mResourceFileName = _flename;
+	}
+
+	void SdlBaseManager::makeScreenShot()
+	{
+		std::ifstream stream;
+		std::string file;
+		do
+		{
+			stream.close();
+			static size_t num = 0;
+			const size_t max_shot = 100;
+			if (num == max_shot)
+			{
+				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+				return;
+			}
+			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+			stream.open(file.c_str());
+		} while (stream.is_open());
+		mScreenShotFile = file;
+		mScreenShotRequested = true;
 	}
 
 } // namespace base

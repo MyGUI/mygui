@@ -23,10 +23,7 @@ namespace base
 		virtual void drawOneFrame() = 0;
 		virtual void resizeRender(int _width, int _height) = 0;
 		virtual void addResourceLocation(const std::string& _name, bool _recursive = false) = 0;
-		virtual void makeScreenShot()
-		{
-			MYGUI_LOG(Warning, "makeScreenShot not implemented");
-		}
+		virtual void makeScreenShot();
 
 		bool create(int _width = 1024, int _height = 768);
 		void destroy();
@@ -76,6 +73,8 @@ namespace base
 	protected:
 		SDL_Window* mSdlWindow = nullptr;
 		bool mEnableVSync = false;
+		bool mScreenShotRequested = false;
+		std::string mScreenShotFile;
 
 	private:
 		MyGUI::Gui* mGUI = nullptr;

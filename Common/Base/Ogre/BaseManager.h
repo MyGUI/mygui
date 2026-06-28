@@ -25,7 +25,6 @@ namespace base
 		void drawOneFrame() override;
 		void resizeRender(int _width, int _height) override;
 		void addResourceLocation(const std::string& _name, bool _recursive = false) override;
-		void makeScreenShot() override;
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
 

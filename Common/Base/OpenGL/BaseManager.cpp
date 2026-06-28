@@ -4,6 +4,8 @@
 #include <SDL_image.h>
 #include <MyGUI_GL.h>
 
+#include <vector>
+
 namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
@@ -54,6 +56,16 @@ namespace base
 
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
+
+		if (mScreenShotRequested)
+		{
+			mScreenShotRequested = false;
+			int w, h;
+			SDL_GetWindowSize(mSdlWindow, &w, &h);
+			std::vector<unsigned char> pixels(w * h * 4);
+			glReadPixels(0, 0, w, h, GL_BGRA, GL_UNSIGNED_BYTE, pixels.data());
+			saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
+		}
 
 		SDL_GL_SwapWindow(mSdlWindow);
 	}

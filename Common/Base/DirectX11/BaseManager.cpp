@@ -3,7 +3,9 @@
 
 #pragma warning(push, 0)
 #include <d3d11.h>
+#include <vector>
 #pragma warning(pop)
+#include "WICImageSaver.h"
 #include <MyGUI_DirectX11Platform.h>
 
 #include <SDL_syswm.h>
@@ -130,6 +132,57 @@ namespace base
 		const float clearColor[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		mDeviceContext->ClearRenderTargetView(mRenderTarget, clearColor);
 		mPlatform->getRenderManagerPtr()->drawOneFrame();
+
+		if (mScreenShotRequested)
+		{
+			mScreenShotRequested = false;
+			ID3D11Texture2D* backBuffer = nullptr;
+			HRESULT hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBuffer);
+			if (SUCCEEDED(hr))
+			{
+				D3D11_TEXTURE2D_DESC desc;
+				backBuffer->GetDesc(&desc);
+
+				desc.Usage = D3D11_USAGE_STAGING;
+				desc.BindFlags = 0;
+				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				desc.MiscFlags = 0;
+
+				ID3D11Texture2D* stagingTexture = nullptr;
+				hr = mDevice->CreateTexture2D(&desc, nullptr, &stagingTexture);
+				if (SUCCEEDED(hr))
+				{
+					mDeviceContext->CopyResource(stagingTexture, backBuffer);
+
+					D3D11_MAPPED_SUBRESOURCE mapped;
+					hr = mDeviceContext->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapped);
+					if (SUCCEEDED(hr))
+					{
+						UINT width = desc.Width;
+						UINT height = desc.Height;
+						UINT dstStride = width * 4;
+						std::vector<BYTE> convertedData(height * dstStride);
+						BYTE* src = static_cast<BYTE*>(mapped.pData);
+						for (UINT y = 0; y < height; ++y)
+							memcpy(convertedData.data() + y * dstStride, src + y * mapped.RowPitch, dstStride);
+
+						// Back buffer is R8G8B8A8 but WIC expects BGRA, swap R and B
+						for (size_t i = 0; i < convertedData.size(); i += 4)
+							std::swap(convertedData[i], convertedData[i + 2]);
+
+						int wideLen = MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, nullptr, 0);
+						std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
+						MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, &wfilename[0], wideLen);
+						MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, convertedData.data());
+
+						mDeviceContext->Unmap(stagingTexture, 0);
+					}
+					stagingTexture->Release();
+				}
+				backBuffer->Release();
+			}
+		}
+
 		mSwapChain->Present(0, 0);
 	}
 

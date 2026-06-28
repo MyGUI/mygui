@@ -135,13 +135,13 @@
 	</Command>
 	<Command>
 		<Name>Command_FocusVisible</Name>
-		<KeyCode>F12</KeyCode>
+		<KeyCode>F10</KeyCode>
 		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_ScreenShot</Name>
-		<KeyCode>SysRq</KeyCode>
+		<KeyCode>F12</KeyCode>
 		<Pressed>true</Pressed>
 		<Modifier/>
 	</Command>

@@ -10,8 +10,6 @@
 #include <SDL.h>
 #include <SDL_syswm.h>
 
-#include <fstream>
-
 namespace base
 {
 
@@ -133,6 +131,12 @@ namespace base
 	void BaseManager::drawOneFrame()
 	{
 		mRoot->renderOneFrame();
+
+		if (mScreenShotRequested)
+		{
+			mScreenShotRequested = false;
+			mWindow->writeContentsToFile(mScreenShotFile);
+		}
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)
@@ -145,26 +149,6 @@ namespace base
 	{
 		Ogre::ResourceGroupManager::getSingleton()
 			.addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
-	}
-
-	void BaseManager::makeScreenShot()
-	{
-		std::ifstream stream;
-		std::string file;
-		do
-		{
-			stream.close();
-			static size_t num = 0;
-			const size_t max_shot = 100;
-			if (num == max_shot)
-			{
-				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
-				return;
-			}
-			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
-			stream.open(file.c_str());
-		} while (stream.is_open());
-		mWindow->writeContentsToFile(file);
 	}
 
 	void BaseManager::setupResources()

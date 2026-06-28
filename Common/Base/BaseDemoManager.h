@@ -39,10 +39,15 @@ namespace base
 				bool visible = mInfo->getVisible();
 				mInfo->setVisible(!visible);
 			}
-			else if (_key == MyGUI::KeyCode::F12)
+			else if (_key == MyGUI::KeyCode::F10)
 			{
 				bool visible = mFocusInfo->getFocusVisible();
 				mFocusInfo->setFocusVisible(!visible);
+			}
+			else if (_key == MyGUI::KeyCode::F12)
+			{
+				makeScreenShot();
+				return;
 			}
 		}
 
