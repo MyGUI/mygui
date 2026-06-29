@@ -199,7 +199,10 @@ namespace MyGUI
 		/** Destroy all child widgets */
 		void destroyAllChildWidget();
 
-		/** Get root widgets Enumerator */
+		/** Get root widgets */
+		const VectorWidgetPtr& getRootWidgets() const;
+
+		MYGUI_OBSOLETE("use : getRootWidgets()")
 		EnumeratorWidgetPtr getEnumerator() const;
 
 		/** Inject frame entered event (called be renderer, do not call it manually).

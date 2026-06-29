@@ -932,6 +932,13 @@ namespace MyGUI
 		return {mWidgetChild.begin(), mWidgetChild.end()};
 	}
 
+	const VectorWidgetPtr& Widget::getChildWidgets() const
+	{
+		if (mWidgetClient != nullptr)
+			return mWidgetClient->getChildWidgets();
+		return mWidgetChild;
+	}
+
 	size_t Widget::getChildCount() const
 	{
 		if (mWidgetClient != nullptr)

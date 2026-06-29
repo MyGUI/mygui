@@ -362,6 +362,11 @@ namespace MyGUI
 		return EnumeratorWidgetPtr(mWidgetChild);
 	}
 
+	const VectorWidgetPtr& Gui::getRootWidgets() const
+	{
+		return mWidgetChild;
+	}
+
 	void Gui::frameEvent(float _time) const
 	{
 		eventFrameStart(_time);

@@ -269,6 +269,11 @@ namespace MyGUI
 		return EnumeratorPtr(mResources);
 	}
 
+	const ResourceManager::MapResource& ResourceManager::getResources() const
+	{
+		return mResources;
+	}
+
 	size_t ResourceManager::getCount() const
 	{
 		return mResources.size();

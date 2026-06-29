@@ -25,17 +25,16 @@ namespace tools
 			WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
 		// добавляем скины и шаблоны
-		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
-		while (resource.next())
+		for (const auto& resource : MyGUI::ResourceManager::getInstance().getResources())
 		{
-			MyGUI::ResourceSkin* resourceSkin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
+			MyGUI::ResourceSkin* resourceSkin = resource.second->castType<MyGUI::ResourceSkin>(false);
 			if (resourceSkin != nullptr)
 			{
 				if (!MyGUI::utility::startWith(resourceSkin->getResourceName(), "LE_"))
 					values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
 			}
 
-			MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
+			MyGUI::ResourceLayout* resourceLayout = resource.second->castType<MyGUI::ResourceLayout>(false);
 			if (resourceLayout != nullptr)
 			{
 				if (!MyGUI::utility::endWith(resourceLayout->getResourceName(), ".layout"))

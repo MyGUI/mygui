@@ -42,6 +42,9 @@ namespace MyGUI
 		virtual void upChildItemNode(ILayerNode* _item) = 0;
 
 		// child items list
+		virtual const VectorILayerNode& getChildItems() const = 0;
+
+		MYGUI_OBSOLETE("use : getChildItems()")
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		virtual size_t getLayerNodeCount() const = 0;

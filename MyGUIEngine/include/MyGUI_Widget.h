@@ -246,7 +246,10 @@ namespace MyGUI
 		/** Get parent widget size. If there is no parent get layer size */
 		IntSize getParentSize() const;
 
-		/** Get child widgets Enumerator */
+		/** Get child widgets */
+		const VectorWidgetPtr& getChildWidgets() const;
+
+		MYGUI_OBSOLETE("use : getChildWidgets()")
 		EnumeratorWidgetPtr getEnumerator() const;
 
 		/** Get child count */

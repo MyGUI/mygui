@@ -37,7 +37,10 @@ namespace MyGUI
 		ImageIndexInfo getIndexInfo(const IntSize& _group, size_t _index) const;
 		ImageIndexInfo getIndexInfo(const IntSize& _group, std::string_view _index) const;
 
-		/** Get groups Enumerator */
+		/** Get groups */
+		const VectorGroupImage& getGroups() const;
+
+		MYGUI_OBSOLETE("use : getGroups()")
 		EnumeratorGroupImage getEnumerator() const;
 
 		void AddGroupImage(const GroupImage& _group);

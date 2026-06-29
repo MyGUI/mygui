@@ -240,6 +240,11 @@ namespace MyGUI
 		return EnumeratorLayer(mLayerNodes);
 	}
 
+	const LayerManager::VectorLayer& LayerManager::getLayers() const
+	{
+		return mLayerNodes;
+	}
+
 	void LayerManager::resizeView(const IntSize& _viewSize)
 	{
 		for (const auto& node : mLayerNodes)

@@ -16,7 +16,7 @@ namespace demo
 
 	void EditorWindow::clearView()
 	{
-		MyGUI::WidgetManager::getInstance().destroyWidgets(mMainWidget->getEnumerator());
+		MyGUI::WidgetManager::getInstance().destroyWidgets(mMainWidget->getChildWidgets());
 	}
 
 	MyGUI::Widget* EditorWindow::getView()

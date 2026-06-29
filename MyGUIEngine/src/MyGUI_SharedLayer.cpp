@@ -63,6 +63,9 @@ namespace MyGUI
 
 		mOutOfDate = true;
 
+		mChildItems.clear();
+		mChildItems.push_back(mChildItem);
+
 		return mChildItem;
 	}
 
@@ -79,6 +82,8 @@ namespace MyGUI
 			}
 
 			mOutOfDate = true;
+
+			mChildItems.clear();
 
 			return;
 		}
@@ -132,20 +137,12 @@ namespace MyGUI
 
 	EnumeratorILayerNode SharedLayer::getEnumerator() const
 	{
-		static VectorILayerNode nodes;
-		if (mChildItem == nullptr)
-		{
-			nodes.clear();
-		}
-		else
-		{
-			if (nodes.empty())
-				nodes.push_back(mChildItem);
-			else
-				nodes[0] = mChildItem;
-		}
+		return EnumeratorILayerNode(mChildItems);
+	}
 
-		return EnumeratorILayerNode(nodes);
+	const VectorILayerNode& SharedLayer::getChildItems() const
+	{
+		return mChildItems;
 	}
 
 	size_t SharedLayer::getLayerNodeCount() const

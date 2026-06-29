@@ -54,10 +54,9 @@ namespace demo
 	void DemoKeeper::colourWidgets(MyGUI::Widget* _widget, const MyGUI::Colour& _colour)
 	{
 		_widget->setColour(_colour);
-		MyGUI::EnumeratorWidgetPtr enumerator = _widget->getEnumerator();
-		while (enumerator.next())
+		for (MyGUI::Widget* child : _widget->getChildWidgets())
 		{
-			colourWidgets(enumerator.current(), _colour);
+			colourWidgets(child, _colour);
 		}
 	}
 

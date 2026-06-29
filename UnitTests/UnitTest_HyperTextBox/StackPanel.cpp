@@ -34,16 +34,15 @@ namespace MyGUI
 	{
 		int offset = 0;
 
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
+		for (MyGUI::Widget* child : getChildWidgets())
 		{
-			const IntSize& childSize = Panel::getDesiredSize(child.current());
+			const IntSize& childSize = Panel::getDesiredSize(child);
 			IntCoord coord;
 
 			int height = childSize.height;
 			coord.set(0, offset, getWidth(), height);
 
-			Panel::updateArrange(child.current(), coord);
+			Panel::updateArrange(child, coord);
 
 			offset += height + mSpacer.height;
 		}

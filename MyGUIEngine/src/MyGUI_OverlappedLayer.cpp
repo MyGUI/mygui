@@ -167,6 +167,11 @@ namespace MyGUI
 		return EnumeratorILayerNode(mChildItems);
 	}
 
+	const VectorILayerNode& OverlappedLayer::getChildItems() const
+	{
+		return mChildItems;
+	}
+
 	size_t OverlappedLayer::getLayerNodeCount() const
 	{
 		return mChildItems.size();

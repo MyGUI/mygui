@@ -106,8 +106,7 @@ namespace demo
 		}
 		else if (_key == MyGUI::KeyCode::Four)
 		{
-			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
-			while (layer.next())
+			for (MyGUI::ILayer* layer : MyGUI::LayerManager::getInstance().getLayers())
 			{
 				if (layer->getName() == "RTT_Test")
 				{
@@ -117,13 +116,11 @@ namespace demo
 		}
 		else if (_key == MyGUI::KeyCode::Space)
 		{
-			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
-			while (layer.next())
+			for (MyGUI::ILayer* layer : MyGUI::LayerManager::getInstance().getLayers())
 			{
 				if (layer->getName() == "RTT_Test")
 				{
-					MyGUI::EnumeratorILayerNode node = layer->getEnumerator();
-					while (node.next())
+					for (MyGUI::ILayerNode* node : layer->getChildItems())
 					{
 						MyGUI::RTTLayerNode* rttnode = node->castType<MyGUI::RTTLayerNode>(false);
 						if (rttnode != nullptr)

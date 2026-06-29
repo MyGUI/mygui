@@ -29,10 +29,9 @@ namespace tools
 		values.emplace_back(replaceTags("ColourDefault") + DEFAULT_STRING);
 		values.emplace_back("Default");
 
-		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
-		while (resource.next())
+		for (const auto& resource : MyGUI::ResourceManager::getInstance().getResources())
 		{
-			MyGUI::IFont* resourceFont = resource.current().second->castType<MyGUI::IFont>(false);
+			MyGUI::IFont* resourceFont = resource.second->castType<MyGUI::IFont>(false);
 			if (resourceFont != nullptr)
 				values.push_back(resourceFont->getResourceName());
 		}

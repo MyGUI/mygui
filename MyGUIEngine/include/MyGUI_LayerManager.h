@@ -50,7 +50,10 @@ namespace MyGUI
 
 		/** Check is layer exist */
 		bool isExist(std::string_view _name) const;
-		/** Get layer nodes Enumerator */
+		/** Get layer nodes */
+		const VectorLayer& getLayers() const;
+
+		MYGUI_OBSOLETE("use : getLayers()")
 		EnumeratorLayer getEnumerator() const;
 
 		/** Create new layer;

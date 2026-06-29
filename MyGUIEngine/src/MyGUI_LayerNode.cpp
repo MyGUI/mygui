@@ -249,6 +249,11 @@ namespace MyGUI
 		return EnumeratorILayerNode(mChildItems);
 	}
 
+	const VectorILayerNode& LayerNode::getChildItems() const
+	{
+		return mChildItems;
+	}
+
 	size_t LayerNode::getLayerNodeCount() const
 	{
 		return mChildItems.size();

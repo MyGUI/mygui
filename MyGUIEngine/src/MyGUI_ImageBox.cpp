@@ -366,27 +366,26 @@ namespace MyGUI
 		{
 			if (mItemGroup.empty())
 			{
-				EnumeratorGroupImage iter_group = _resource->getEnumerator();
-				while (iter_group.next())
+				const auto& groups = _resource->getGroups();
+				if (!groups.empty())
 				{
-					mItemGroup = iter_group.current().name;
-					if (mItemName.empty() && !iter_group.current().indexes.empty())
+					const auto& group = groups.front();
+					mItemGroup = group.name;
+					if (mItemName.empty() && !group.indexes.empty())
 					{
-						mItemName = iter_group.current().indexes[0].name;
+						mItemName = group.indexes[0].name;
 					}
-					break;
 				}
 			}
 			else if (mItemName.empty())
 			{
-				EnumeratorGroupImage iter_group = _resource->getEnumerator();
-				while (iter_group.next())
+				for (const auto& group : _resource->getGroups())
 				{
-					if (mItemGroup == iter_group.current().name)
+					if (mItemGroup == group.name)
 					{
-						if (!iter_group.current().indexes.empty())
+						if (!group.indexes.empty())
 						{
-							mItemName = iter_group.current().indexes[0].name;
+							mItemName = group.indexes[0].name;
 							break;
 						}
 					}

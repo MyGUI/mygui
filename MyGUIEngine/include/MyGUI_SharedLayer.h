@@ -34,6 +34,9 @@ namespace MyGUI
 		void upChildItemNode(ILayerNode* _item) override;
 
 		// child items list
+		const VectorILayerNode& getChildItems() const override;
+
+		MYGUI_OBSOLETE("use : getChildItems()")
 		EnumeratorILayerNode getEnumerator() const override;
 
 		size_t getLayerNodeCount() const override;
@@ -61,6 +64,8 @@ namespace MyGUI
 		SharedLayerNode* mChildItem{nullptr};
 		bool mOutOfDate{false};
 		IntSize mViewSize;
+		// Shared can have only one child, it is here for clean getChildItems
+		VectorILayerNode mChildItems;
 	};
 
 } // namespace MyGUI

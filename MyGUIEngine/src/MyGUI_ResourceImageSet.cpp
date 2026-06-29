@@ -186,6 +186,11 @@ namespace MyGUI
 		return EnumeratorGroupImage(mGroups);
 	}
 
+	const VectorGroupImage& ResourceImageSet::getGroups() const
+	{
+		return mGroups;
+	}
+
 	void ResourceImageSet::AddGroupImage(const GroupImage& _group)
 	{
 		mGroups.push_back(_group);
