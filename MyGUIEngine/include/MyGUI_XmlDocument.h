@@ -107,6 +107,10 @@ namespace MyGUI::xml
 	class MYGUI_EXPORT ElementPtr
 	{
 	public:
+		ElementPtr() = default;
+		ElementPtr(std::nullptr_t)
+		{
+		}
 		ElementPtr(const pugi::xml_node& _node);
 
 		operator pugi::xml_node() const;
@@ -129,6 +133,12 @@ namespace MyGUI::xml
 		friend bool operator!=(std::nullptr_t, const ElementPtr& rhs)
 		{
 			return nullptr != rhs.mNode;
+		}
+
+		ElementPtr& operator=(std::nullptr_t)
+		{
+			mNode.reset();
+			return *this;
 		}
 
 		ElementPtr createChild(std::string_view _name, std::string_view _content = {});
