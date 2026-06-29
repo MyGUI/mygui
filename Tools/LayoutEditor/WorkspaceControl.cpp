@@ -661,9 +661,8 @@ namespace tools
 			VectorPairWidgetCoord coords;
 
 			// запоминаем позиции детей
-			for (size_t index = 0; index < _widget->getChildCount(); ++index)
+			for (MyGUI::Widget* child : _widget->getChildWidgets())
 			{
-				MyGUI::Widget* child = _widget->getChildAt(index);
 				if (!child->isRootWidget())
 					coords.emplace_back(child, child->getCoord());
 			}

@@ -36,8 +36,8 @@ namespace demo
 				button->eventMouseButtonClick += MyGUI::newDelegate(this, &DataListUI::notifyMouseButtonClick);
 		}
 
-		for (size_t index = 0; index < _widget->getChildCount(); index++)
-			bindEvents(_widget->getChildAt(index));
+		for (MyGUI::Widget* child : _widget->getChildWidgets())
+			bindEvents(child);
 	}
 
 	void DataListUI::notifyMouseButtonClick(MyGUI::Widget* _sender)

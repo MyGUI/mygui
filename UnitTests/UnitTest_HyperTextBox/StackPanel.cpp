@@ -13,10 +13,8 @@ namespace MyGUI
 	{
 		IntSize result;
 
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++index)
+		for (Widget* child : getChildWidgets())
 		{
-			Widget* child = getChildAt(index);
 			Panel::updateMeasure(child, _sizeAvailable);
 			IntSize size = Panel::getDesiredSize(child);
 
@@ -24,6 +22,7 @@ namespace MyGUI
 			result.height += size.height;
 		}
 
+		size_t count = getChildCount();
 		if (count > 0)
 			result.height += (count - 1) * mSpacer.height;
 

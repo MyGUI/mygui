@@ -57,8 +57,8 @@ namespace tools
 
 		AdviceWidget(mMainWidget);
 
-		for (size_t index = 0; index < getRoot()->getChildCount(); index++)
-			CreateChilds(this, getRoot()->getChildAt(index));
+		for (MyGUI::Widget* child : getRoot()->getChildWidgets())
+			CreateChilds(this, child);
 	}
 
 	void Control::CreateChilds(Control* _parent, MyGUI::Widget* _widget)
@@ -78,8 +78,8 @@ namespace tools
 			}
 		}
 
-		for (size_t index = 0; index < _widget->getChildCount(); index++)
-			CreateChilds(_parent, _widget->getChildAt(index));
+		for (MyGUI::Widget* child : _widget->getChildWidgets())
+			CreateChilds(_parent, child);
 	}
 
 	void Control::notifyMouseButtonClick(MyGUI::Widget* _sender)

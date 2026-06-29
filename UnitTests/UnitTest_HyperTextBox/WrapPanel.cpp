@@ -102,10 +102,8 @@ namespace MyGUI
 		int maxLineHeight = 0;
 		bool hasAnyWidget = false;
 
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++index)
+		for (Widget* child : getChildWidgets())
 		{
-			Widget* child = getChildAt(index);
 			Panel::updateMeasure(child, sizeAvailable);
 			IntSize size = Panel::getDesiredSize(child);
 
