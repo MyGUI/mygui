@@ -100,6 +100,29 @@ MyGUI ships with several visual editors under `Tools/`:
 - Website: http://mygui.info/
 - API docs: build with `cmake --build build --target api-docs` (requires Doxygen)
 
+## Code formatting
+
+This project uses `clang-format` to enforce a consistent C++ code style. Before committing, run the formatting check:
+
+```bash
+Scripts/run-clang-format.py
+```
+
+Use `--fix` to format files in-place:
+
+```bash
+Scripts/run-clang-format.py --fix
+```
+
+To run the check automatically on every commit, install [pre-commit](https://pre-commit.com):
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+The pre-commit hook is optional — it skips automatically if `clang-format` is not installed.
+
 ## License
 
 This project is licensed under the MIT License — see [COPYING.MIT](COPYING.MIT) for details.
