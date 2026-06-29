@@ -159,42 +159,6 @@ namespace MyGUI
 		setPointer(mDefaultName, nullptr);
 	}
 
-	Widget* PointerManager::baseCreateWidget(
-		WidgetStyle _style,
-		std::string_view _type,
-		std::string_view _skin,
-		const IntCoord& _coord,
-		Align _align,
-		std::string_view _layer,
-		std::string_view _name)
-	{
-		Widget* widget =
-			WidgetManager::getInstance()
-				.createWidget(_style, _type, _skin, _coord, /*_align, */ nullptr, nullptr, /*this, */ _name);
-		mWidgetChild.push_back(widget);
-
-		widget->setAlign(_align);
-
-		if (!_layer.empty())
-			LayerManager::getInstance().attachToLayerNode(_layer, widget);
-		return widget;
-	}
-
-	void PointerManager::_destroyAllChildWidget()
-	{
-		WidgetManager& manager = WidgetManager::getInstance();
-		while (!mWidgetChild.empty())
-		{
-			// unsubscribe immediately, otherwise nested deletion destroys everything
-			Widget* widget = mWidgetChild.back();
-			mWidgetChild.pop_back();
-
-			manager.unlinkFromUnlinkers(widget);
-
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
-	}
-
 	void PointerManager::setDefaultPointer(std::string_view _value)
 	{
 		Update();

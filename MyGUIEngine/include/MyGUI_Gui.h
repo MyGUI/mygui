@@ -12,6 +12,7 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_WidgetContainer.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_BackwardCompatibility.h"
 
@@ -20,7 +21,7 @@ namespace MyGUI
 
 	using EventHandle_FrameEventDelegate = delegates::MultiDelegate<float>;
 
-	class MYGUI_EXPORT Gui : public IUnlinkWidget, public MemberObsolete<Gui>
+	class MYGUI_EXPORT Gui : public WidgetContainer, public IUnlinkWidget, public MemberObsolete<Gui>
 	{
 		MYGUI_SINGLETON_DECLARATION(Gui);
 		friend class WidgetManager;
@@ -165,9 +166,7 @@ namespace MyGUI
 		*/
 		Widget* findWidgetT(std::string_view _name, bool _throw = true) const;
 
-		/** Find widget by name and prefix
-			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
-		*/
+		MYGUI_OBSOLETE("use : findWidgetT(_prefix + _name)")
 		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true) const;
 
 		/** Find widget by name and cast it to T type.
@@ -186,6 +185,7 @@ namespace MyGUI
 			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template<typename T>
+		MYGUI_OBSOLETE("use : findWidget(_prefix + _name)")
 		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true) const
 		{
 			std::string name{_prefix};
@@ -202,9 +202,6 @@ namespace MyGUI
 		/** Get root widgets */
 		const VectorWidgetPtr& getRootWidgets() const;
 
-		MYGUI_OBSOLETE("use : getRootWidgets()")
-		EnumeratorWidgetPtr getEnumerator() const;
-
 		/** Inject frame entered event (called be renderer, do not call it manually).
 			This function is called every frame by renderer.
 		*/
@@ -217,29 +214,10 @@ namespace MyGUI
 		*/
 		EventHandle_FrameEventDelegate eventFrameStart;
 
-		/*internal:*/
-		void _linkChildWidget(Widget* _widget);
-		void _unlinkChildWidget(Widget* _widget);
-
 	private:
-		Widget* baseCreateWidget(
-			WidgetStyle _style,
-			std::string_view _type,
-			std::string_view _skin,
-			const IntCoord& _coord,
-			Align _align,
-			std::string_view _layer,
-			std::string_view _name);
-
-		void _destroyChildWidget(Widget* _widget);
-
-		void _destroyAllChildWidget();
-
 		void _unlinkWidget(Widget* _widget) override;
 
 	private:
-		VectorWidgetPtr mWidgetChild;
-
 		// GUI manager singletons
 		InputManager* mInputManager{nullptr};
 		SubWidgetManager* mSubWidgetManager{nullptr};

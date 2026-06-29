@@ -160,6 +160,7 @@ set (HEADER_FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_Widget.h
+  include/MyGUI_WidgetContainer.h
   include/MyGUI_WidgetDefines.h
   include/MyGUI_WidgetInput.h
   include/MyGUI_WidgetManager.h
@@ -268,6 +269,7 @@ set (SOURCE_FILES
   src/MyGUI_ToolTipManager.cpp
   src/MyGUI_UString.cpp
   src/MyGUI_Widget.cpp
+  src/MyGUI_WidgetContainer.cpp
   src/MyGUI_WidgetInput.cpp
   src/MyGUI_WidgetManager.cpp
   src/MyGUI_WidgetUserData.cpp
@@ -293,6 +295,7 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
   include/MyGUI_BiIndexBase.h
   include/MyGUI_ScrollViewBase.h
+  include/MyGUI_WidgetContainer.h
   include/MyGUI_WidgetInput.h
   include/MyGUI_WidgetUserData.h
 )
@@ -490,6 +493,7 @@ SOURCE_GROUP("Source Files\\Core\\Common\\Interfaces" FILES
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
   src/MyGUI_BiIndexBase.cpp
   src/MyGUI_ScrollViewBase.cpp
+  src/MyGUI_WidgetContainer.cpp
   src/MyGUI_WidgetInput.cpp
   src/MyGUI_WidgetUserData.cpp
 )

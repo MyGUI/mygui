@@ -575,9 +575,9 @@ namespace MyGUI
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr& _widgets);
-		MYGUI_OBSOLETE(" is deprecated")
+		MYGUI_OBSOLETE(" is deprecated, use Gui::findWidgetT")
 		Widget* findWidgetT(std::string_view _name, bool _throw = true);
-		MYGUI_OBSOLETE(" is deprecated")
+		MYGUI_OBSOLETE(" is deprecated, use Gui::findWidgetT(_prefix + _name)")
 		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true);
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(std::string_view_key, std::string_view_value)")
 		void parse(Widget* _widget, std::string_view _key, std::string_view _value);

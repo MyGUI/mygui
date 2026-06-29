@@ -27,6 +27,7 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_TextureUtility.h"
+#include "MyGUI_CoordConverter.h"
 
 namespace MyGUI
 {
@@ -152,30 +153,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* Gui::baseCreateWidget(
-		WidgetStyle _style,
-		std::string_view _type,
-		std::string_view _skin,
-		const IntCoord& _coord,
-		Align _align,
-		std::string_view _layer,
-		std::string_view _name)
-	{
-		Widget* widget = WidgetManager::getInstance()
-							 .createWidget(_style, _type, _skin, _coord, /*_align, */ nullptr, nullptr, _name);
-		mWidgetChild.push_back(widget);
-
-		widget->setAlign(_align);
-
-		// attach widget to layer
-		if (!_layer.empty())
-			LayerManager::getInstance().attachToLayerNode(_layer, widget);
-		return widget;
-	}
-
 	Widget* Gui::findWidgetT(std::string_view _name, bool _throw) const
 	{
-		for (const auto& iter : mWidgetChild)
+		for (const auto& iter : getChildWidgets())
 		{
 			Widget* widget = iter->findWidget(_name);
 			if (widget != nullptr)
@@ -183,47 +163,6 @@ namespace MyGUI
 		}
 		MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
 		return nullptr;
-	}
-
-	void Gui::_destroyChildWidget(Widget* _widget)
-	{
-		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end())
-		{
-			// save pointer
-			MyGUI::Widget* widget = *iter;
-
-			// remove from list
-			mWidgetChild.erase(iter);
-
-			// unsubscribe from all
-			mWidgetManager->unlinkFromUnlinkers(_widget);
-
-			// direct deletion
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
-		else
-		{
-			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
-		}
-	}
-
-	void Gui::_destroyAllChildWidget()
-	{
-		while (!mWidgetChild.empty())
-		{
-			// unsubscribe self immediately, otherwise nested deletion kills everything
-			Widget* widget = mWidgetChild.back();
-			mWidgetChild.pop_back();
-
-			// unsubscribe from all
-			mWidgetManager->unlinkFromUnlinkers(widget);
-
-			// delete it ourselves since it's no longer in the list
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
 	}
 
 	void Gui::destroyWidget(Widget* _widget)
@@ -237,7 +176,9 @@ namespace MyGUI
 
 	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		for (auto* widget : _widgets)
+		// create copy to avoid UB when _widgets is mWidgetChild
+		VectorWidgetPtr copy{_widgets};
+		for (auto* widget : copy)
 			destroyWidget(widget);
 	}
 
@@ -252,20 +193,6 @@ namespace MyGUI
 	void Gui::_unlinkWidget(Widget* _widget)
 	{
 		eventFrameStart.clear(_widget);
-	}
-
-	void Gui::_linkChildWidget(Widget* _widget)
-	{
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
-		mWidgetChild.push_back(_widget);
-	}
-
-	void Gui::_unlinkChildWidget(Widget* _widget)
-	{
-		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
-		mWidgetChild.erase(iter);
 	}
 
 	Widget* Gui::createWidgetT(
@@ -302,17 +229,7 @@ namespace MyGUI
 		std::string_view _name)
 	{
 		IntSize size = RenderManager::getInstance().getViewSize();
-		return createWidgetT(
-			_type,
-			_skin,
-			IntCoord(
-				static_cast<int>(_coord.left * size.width),
-				static_cast<int>(_coord.top * size.height),
-				static_cast<int>(_coord.width * size.width),
-				static_cast<int>(_coord.height * size.height)),
-			_align,
-			_layer,
-			_name);
+		return createWidgetT(_type, _skin, CoordConverter::convertFromRelative(_coord, size), _align, _layer, _name);
 	}
 	/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
 	Widget* Gui::createWidgetRealT(
@@ -326,18 +243,7 @@ namespace MyGUI
 		std::string_view _layer,
 		std::string_view _name)
 	{
-		IntSize size = RenderManager::getInstance().getViewSize();
-		return createWidgetT(
-			_type,
-			_skin,
-			IntCoord(
-				static_cast<int>(_left * size.width),
-				static_cast<int>(_top * size.height),
-				static_cast<int>(_width * size.width),
-				static_cast<int>(_height * size.height)),
-			_align,
-			_layer,
-			_name);
+		return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _layer, _name);
 	}
 
 	Widget* Gui::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw) const
@@ -357,14 +263,9 @@ namespace MyGUI
 		_destroyAllChildWidget();
 	}
 
-	EnumeratorWidgetPtr Gui::getEnumerator() const
-	{
-		return EnumeratorWidgetPtr(mWidgetChild);
-	}
-
 	const VectorWidgetPtr& Gui::getRootWidgets() const
 	{
-		return mWidgetChild;
+		return getChildWidgets();
 	}
 
 	void Gui::frameEvent(float _time) const

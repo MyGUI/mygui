@@ -11,6 +11,7 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_WidgetContainer.h"
 #include "MyGUI_ImageBox.h"
 #include "MyGUI_IPointer.h"
 #include "MyGUI_BackwardCompatibility.h"
@@ -18,7 +19,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT PointerManager : public IUnlinkWidget, public MemberObsolete<PointerManager>
+	class MYGUI_EXPORT PointerManager :
+		private WidgetContainer,
+		public IUnlinkWidget,
+		public MemberObsolete<PointerManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(PointerManager);
 
@@ -67,17 +71,6 @@ namespace MyGUI
 		void _unlinkWidget(Widget* _widget) override;
 		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
-		Widget* baseCreateWidget(
-			WidgetStyle _style,
-			std::string_view _type,
-			std::string_view _skin,
-			const IntCoord& _coord,
-			Align _align,
-			std::string_view _layer,
-			std::string_view _name);
-
-		void _destroyAllChildWidget();
-
 		void Update();
 
 		void notifyFrameStart(float _time);
@@ -85,8 +78,6 @@ namespace MyGUI
 		void setPointer(std::string_view _name, Widget* _owner);
 
 	private:
-		VectorWidgetPtr mWidgetChild;
-
 		std::string mDefaultName;
 		IntPoint mPoint;
 		IntPoint mOldPoint;

@@ -17,6 +17,7 @@
 #include "MyGUI_ResourceLayout.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_SkinItem.h"
+#include "MyGUI_WidgetContainer.h"
 #include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
@@ -36,6 +37,7 @@ namespace MyGUI
 		public WidgetInput,
 		public delegates::IDelegateUnlink,
 		public SkinItem,
+		public WidgetContainer,
 		public MemberObsolete<Widget>
 	{
 		// To call private destructors
@@ -352,7 +354,7 @@ namespace MyGUI
 			std::string_view _name);
 		void _shutdown();
 
-		void _destroyChildWidget(Widget* _widget);
+		void _destroyChildWidget(Widget* _widget) override;
 
 		void _setContainer(Widget* _value);
 		Widget* _getContainer() const;
@@ -374,7 +376,7 @@ namespace MyGUI
 
 		bool _setWidgetState(std::string_view _state);
 
-		void _updateChilds();
+		void _updateChilds(bool _fullSort);
 
 	protected:
 		// All creation is only through factory
@@ -384,6 +386,8 @@ namespace MyGUI
 		virtual void initialiseOverride();
 
 		void _updateView();
+
+		using WidgetContainer::baseCreateWidget;
 
 		Widget* baseCreateWidget(
 			WidgetStyle _style,
@@ -395,7 +399,6 @@ namespace MyGUI
 			std::string_view _name,
 			bool _template);
 
-		void _destroyAllChildWidget();
 
 		// Request item index from container by mouse position
 		virtual size_t _getContainerIndex(const IntPoint& _point) const;
@@ -451,21 +454,16 @@ namespace MyGUI
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
 
-		void _linkChildWidget(Widget* _widget);
-		void _unlinkChildWidget(Widget* _widget);
+		void _linkChildWidget(Widget* _widget) override;
 
 		void setSkinProperty(ResourceSkin* _info);
 
 		void resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView) override;
 
-		void addWidget(Widget* _widget);
-
 	private:
 		// Client area of the widget
 		// If widget has child windows not within itself, must initialize Client
 		Widget* mWidgetClient{nullptr};
-
-		VectorWidgetPtr mWidgetChild;
 
 		// Child widgets created from skin
 		VectorWidgetPtr mWidgetChildSkin;

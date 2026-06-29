@@ -9,22 +9,17 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_ISubWidget.h"
-#include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_TextBox.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_LayoutManager.h"
-#include "MyGUI_CoordConverter.h"
 
 namespace MyGUI
 {
@@ -328,7 +323,7 @@ namespace MyGUI
 				this,
 				_style == WidgetStyle::Popup ? nullptr : this,
 				_name);
-			addWidget(widget);
+			_linkChildWidget(widget);
 		}
 
 		widget->setAlign(_align);
@@ -411,42 +406,7 @@ namespace MyGUI
 
 		onWidgetDestroy(_widget);
 
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end())
-		{
-			// save pointer
-			MyGUI::Widget* widget = *iter;
-
-			// remove from list
-			mWidgetChild.erase(iter);
-
-			// unsubscribe from all
-			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
-
-			// direct deletion
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
-		else
-		{
-			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
-		}
-	}
-
-	void Widget::_destroyAllChildWidget()
-	{
-		WidgetManager& manager = WidgetManager::getInstance();
-		while (!mWidgetChild.empty())
-		{
-			// unsubscribe self immediately, otherwise nested deletion kills everything
-			Widget* widget = mWidgetChild.back();
-			mWidgetChild.pop_back();
-
-			// unsubscribe from all
-			manager.unlinkFromUnlinkers(widget);
-
-			// and delete it ourselves since it's no longer in the list
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
+		WidgetContainer::_destroyChildWidget(_widget);
 	}
 
 	IntCoord Widget::getClientCoord() const
@@ -556,13 +516,7 @@ namespace MyGUI
 			else if (widget->getDepth() == -1)
 				widget->mDepth = 0;
 		}
-		// code below is an optimized way to setDepth for multiple widgets
-		// without calling slow Windget::_updateChilds multiple times
-		std::stable_sort(
-			mWidgetChild.begin(),
-			mWidgetChild.end(),
-			[](Widget* lhs, Widget* rhs) { return lhs->getDepth() > rhs->getDepth(); });
-		_updateChilds();
+		_updateChilds(true);
 	}
 
 	Widget* Widget::findWidget(std::string_view _name)
@@ -927,9 +881,8 @@ namespace MyGUI
 
 	EnumeratorWidgetPtr Widget::getEnumerator() const
 	{
-		if (mWidgetClient != nullptr)
-			return mWidgetClient->getEnumerator();
-		return {mWidgetChild.begin(), mWidgetChild.end()};
+		const auto& widgets = getChildWidgets();
+		return {widgets.begin(), widgets.end()};
 	}
 
 	const VectorWidgetPtr& Widget::getChildWidgets() const
@@ -941,17 +894,14 @@ namespace MyGUI
 
 	size_t Widget::getChildCount() const
 	{
-		if (mWidgetClient != nullptr)
-			return mWidgetClient->getChildCount();
-		return mWidgetChild.size();
+		return getChildWidgets().size();
 	}
 
 	Widget* Widget::getChildAt(size_t _index) const
 	{
-		if (mWidgetClient != nullptr)
-			return mWidgetClient->getChildAt(_index);
-		MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
-		return mWidgetChild[_index];
+		const auto& widgets = getChildWidgets();
+		MYGUI_ASSERT_RANGE(_index, widgets.size(), "Widget::getChildAt");
+		return widgets[_index];
 	}
 
 	void Widget::baseUpdateEnable()
@@ -1046,16 +996,8 @@ namespace MyGUI
 
 	void Widget::_linkChildWidget(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
-		addWidget(_widget);
-	}
-
-	void Widget::_unlinkChildWidget(Widget* _widget)
-	{
-		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
-		mWidgetChild.erase(iter);
+		WidgetContainer::_linkChildWidget(_widget);
+		_updateChilds(false);
 	}
 
 	void Widget::shutdownOverride()
@@ -1376,9 +1318,10 @@ namespace MyGUI
 
 		if (mParent != nullptr)
 		{
+			// move element to last position, then bubble sort it
 			mParent->_unlinkChildWidget(this);
 			mParent->_linkChildWidget(this);
-			mParent->_updateChilds();
+			mParent->_updateChilds(false);
 		}
 	}
 
@@ -1387,28 +1330,26 @@ namespace MyGUI
 		return mDepth;
 	}
 
-	void Widget::addWidget(Widget* _widget)
+	void Widget::_updateChilds(bool _fullSort)
 	{
-		// sort depth from largest to smallest
-
-		int depth = _widget->getDepth();
-
-		for (size_t index = 0; index < mWidgetChild.size(); ++index)
+		if (_fullSort)
 		{
-			Widget* widget = mWidgetChild[index];
-			if (widget->getDepth() < depth)
+			std::stable_sort(
+				mWidgetChild.begin(),
+				mWidgetChild.end(),
+				[](Widget* lhs, Widget* rhs) { return lhs->getDepth() > rhs->getDepth(); });
+		}
+		else
+		{
+			// raise newly added item if necessary
+			size_t index = mWidgetChild.size() - 1;
+			while (index > 0 && mWidgetChild[index]->getDepth() < mWidgetChild[index - 1]->getDepth())
 			{
-				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
-				_updateChilds();
-				return;
+				std::swap(mWidgetChild[index], mWidgetChild[index - 1]);
+				--index;
 			}
 		}
 
-		mWidgetChild.push_back(_widget);
-	}
-
-	void Widget::_updateChilds()
-	{
 		for (auto& widget : mWidgetChild)
 		{
 			if (widget->getWidgetStyle() == WidgetStyle::Child)
