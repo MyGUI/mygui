@@ -34,9 +34,6 @@ namespace MyGUI
 		size_t getChildCount() const;
 		Widget* getChildAt(size_t _index) const;
 
-		MYGUI_OBSOLETE("use : getChildWidgets()")
-		EnumeratorWidgetPtr getEnumerator() const;
-
 	protected:
 		virtual void _destroyChildWidget(Widget* _widget);
 		void _destroyAllChildWidget();

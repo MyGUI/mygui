@@ -65,12 +65,8 @@ namespace MyGUI
 		void clear();
 
 		using MapResource = std::map<std::string, IResource*, std::less<>>;
-		using EnumeratorPtr = Enumerator<MapResource>;
 
 		const MapResource& getResources() const;
-
-		MYGUI_OBSOLETE("use : getResources()")
-		EnumeratorPtr getEnumerator() const;
 
 		size_t getCount() const;
 

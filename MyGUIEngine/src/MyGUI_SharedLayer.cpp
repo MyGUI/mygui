@@ -135,11 +135,6 @@ namespace MyGUI
 		mViewSize = _viewSize;
 	}
 
-	EnumeratorILayerNode SharedLayer::getEnumerator() const
-	{
-		return EnumeratorILayerNode(mChildItems);
-	}
-
 	const VectorILayerNode& SharedLayer::getChildItems() const
 	{
 		return mChildItems;

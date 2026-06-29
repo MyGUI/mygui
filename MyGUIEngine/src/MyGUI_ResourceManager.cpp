@@ -264,11 +264,6 @@ namespace MyGUI
 		mRemovedResources.clear();
 	}
 
-	ResourceManager::EnumeratorPtr ResourceManager::getEnumerator() const
-	{
-		return EnumeratorPtr(mResources);
-	}
-
 	const ResourceManager::MapResource& ResourceManager::getResources() const
 	{
 		return mResources;

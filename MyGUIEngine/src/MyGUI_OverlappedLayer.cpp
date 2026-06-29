@@ -162,11 +162,6 @@ namespace MyGUI
 		mViewSize = _viewSize;
 	}
 
-	EnumeratorILayerNode OverlappedLayer::getEnumerator() const
-	{
-		return EnumeratorILayerNode(mChildItems);
-	}
-
 	const VectorILayerNode& OverlappedLayer::getChildItems() const
 	{
 		return mChildItems;

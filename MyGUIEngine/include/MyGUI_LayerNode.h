@@ -41,9 +41,6 @@ namespace MyGUI
 		// child items list
 		const VectorILayerNode& getChildItems() const override;
 
-		MYGUI_OBSOLETE("use : getChildItems()")
-		EnumeratorILayerNode getEnumerator() const override;
-
 		size_t getLayerNodeCount() const override;
 
 		ILayerNode* getLayerNodeAt(size_t _index) const override;

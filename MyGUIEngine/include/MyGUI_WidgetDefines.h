@@ -19,7 +19,6 @@ namespace MyGUI
 	class Widget;
 	using VectorWidgetPtr = std::vector<Widget*>;
 	using MapWidgetPtr = std::map<std::string, Widget*>;
-	using EnumeratorWidgetPtr = Enumerator<VectorWidgetPtr>;
 
 } // namespace MyGUI
 

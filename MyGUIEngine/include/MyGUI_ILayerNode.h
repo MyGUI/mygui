@@ -12,6 +12,7 @@
 #include "MyGUI_IObject.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -23,9 +24,8 @@ namespace MyGUI
 	class RenderItem;
 
 	using VectorILayerNode = std::vector<ILayerNode*>;
-	using EnumeratorILayerNode = Enumerator<VectorILayerNode>;
 
-	class MYGUI_EXPORT ILayerNode : public IObject
+	class MYGUI_EXPORT ILayerNode : public IObject, public MemberObsolete<ILayerNode>
 	{
 		MYGUI_RTTI_DERIVED(ILayerNode)
 
@@ -44,9 +44,6 @@ namespace MyGUI
 
 		// child items list
 		virtual const VectorILayerNode& getChildItems() const = 0;
-
-		MYGUI_OBSOLETE("use : getChildItems()")
-		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		virtual size_t getLayerNodeCount() const = 0;
 

@@ -24,7 +24,9 @@
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_ILayer.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_RenderManager.h"
@@ -623,6 +625,11 @@ namespace MyGUI
 		return static_cast<Widget*>(this)->getVisible();
 	}
 
+	EnumeratorWidgetPtr MemberObsolete<Widget>::getEnumerator() const
+	{
+		return EnumeratorWidgetPtr(static_cast<const Widget*>(this)->getChildWidgets());
+	}
+
 
 	void MemberObsolete<Window>::showSmooth(bool _reset)
 	{
@@ -790,6 +797,31 @@ namespace MyGUI
 		}
 	}
 
+	void MemberObsolete<Gui>::initialise(const std::string& _core, std::string_view _logFileName)
+	{
+		static_cast<Gui*>(this)->initialise(_core);
+	}
+
+	void MemberObsolete<Gui>::destroyWidgets(EnumeratorWidgetPtr& _widgets)
+	{
+		VectorWidgetPtr widgets;
+		while (_widgets.next())
+			widgets.push_back(_widgets.current());
+		static_cast<Gui*>(this)->destroyWidgets(widgets);
+	}
+
+	Widget* MemberObsolete<Gui>::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw) const
+	{
+		std::string name{_prefix};
+		name += _name;
+		return static_cast<const Gui*>(this)->findWidgetT(name, _throw);
+	}
+
+	Widget* MemberObsolete<Gui>::findWidgetHelper(std::string_view _name, bool _throw) const
+	{
+		return static_cast<const Gui*>(this)->findWidgetT(_name, _throw);
+	}
+
 	void MemberObsolete<Gui>::destroyWidgetsVector(VectorWidgetPtr& _widgets)
 	{
 		static_cast<Gui*>(this)->destroyWidgets(_widgets);
@@ -884,6 +916,11 @@ namespace MyGUI
 	bool MemberObsolete<LayerManager>::load(const std::string& _file)
 	{
 		return ResourceManager::getInstance().load(_file);
+	}
+
+	MemberObsolete<LayerManager>::EnumeratorLayer MemberObsolete<LayerManager>::getEnumerator() const
+	{
+		return EnumeratorLayer(static_cast<const LayerManager*>(this)->getLayers());
 	}
 
 	VectorWidgetPtr MemberObsolete<LayoutManager>::load(std::string_view _file)
@@ -1003,6 +1040,16 @@ namespace MyGUI
 			static_cast<PointerManager*>(this)->setDefaultPointer(pointer);
 	}
 
+	MemberObsolete<ResourceManager>::EnumeratorPtr MemberObsolete<ResourceManager>::getEnumerator() const
+	{
+		return EnumeratorPtr(static_cast<const ResourceManager*>(this)->getResources());
+	}
+
+	EnumeratorILayerNode MemberObsolete<ILayer>::getEnumerator() const
+	{
+		return EnumeratorILayerNode(static_cast<const ILayer*>(this)->getChildItems());
+	}
+
 	size_t MemberObsolete<ResourceManager>::getResourceCount() const
 	{
 		return static_cast<const ResourceManager*>(this)->getCount();
@@ -1047,6 +1094,11 @@ namespace MyGUI
 	}
 
 
+	void MemberObsolete<WidgetManager>::destroyWidgets(EnumeratorWidgetPtr _widgets)
+	{
+		Gui::getInstance().destroyWidgets(_widgets);
+	}
+
 	void MemberObsolete<WidgetManager>::destroyWidgetsVector(VectorWidgetPtr& _widgets)
 	{
 		static_cast<WidgetManager*>(this)->destroyWidgets(_widgets);
@@ -1057,11 +1109,28 @@ namespace MyGUI
 	}
 	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw)
 	{
-		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
+		std::string name{_prefix};
+		name += _name;
+		return Gui::getInstance().findWidgetT(name, _throw);
 	}
 	void MemberObsolete<WidgetManager>::parse(Widget* _widget, std::string_view _key, std::string_view _value)
 	{
 		_widget->setProperty(_key, _value);
+	}
+
+	Enumerator<std::vector<ILayerNode*>> MemberObsolete<ILayerNode>::getEnumerator() const
+	{
+		return EnumeratorILayerNode(static_cast<const ILayerNode*>(this)->getChildItems());
+	}
+
+	EnumeratorGroupImage MemberObsolete<ResourceImageSet>::getEnumerator() const
+	{
+		return EnumeratorGroupImage(static_cast<const ResourceImageSet*>(this)->getGroups());
+	}
+
+	xml::ElementPtr MemberObsolete<xml::Document>::createInfo(std::string_view _version, std::string_view _encoding)
+	{
+		return static_cast<xml::Document*>(this)->createDeclaration(_version, _encoding);
 	}
 
 

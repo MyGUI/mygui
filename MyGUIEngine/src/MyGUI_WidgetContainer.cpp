@@ -93,9 +93,4 @@ namespace MyGUI
 		return mWidgetChild[_index];
 	}
 
-	EnumeratorWidgetPtr WidgetContainer::getEnumerator() const
-	{
-		return EnumeratorWidgetPtr(mWidgetChild);
-	}
-
 } // namespace MyGUI

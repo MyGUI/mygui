@@ -235,11 +235,6 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	LayerManager::EnumeratorLayer LayerManager::getEnumerator() const
-	{
-		return EnumeratorLayer(mLayerNodes);
-	}
-
 	const LayerManager::VectorLayer& LayerManager::getLayers() const
 	{
 		return mLayerNodes;

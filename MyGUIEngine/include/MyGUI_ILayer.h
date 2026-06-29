@@ -12,13 +12,14 @@
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_ILayerNode.h"
 #include "MyGUI_ISerializable.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class ILayerItem;
 
-	class MYGUI_EXPORT ILayer : public ISerializable
+	class MYGUI_EXPORT ILayer : public ISerializable, public MemberObsolete<ILayer>
 	{
 		MYGUI_RTTI_DERIVED(ILayer)
 
@@ -43,9 +44,6 @@ namespace MyGUI
 
 		// child items list
 		virtual const VectorILayerNode& getChildItems() const = 0;
-
-		MYGUI_OBSOLETE("use : getChildItems()")
-		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		virtual size_t getLayerNodeCount() const = 0;
 

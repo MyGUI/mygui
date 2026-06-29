@@ -251,9 +251,6 @@ namespace MyGUI
 		/** Get child widgets */
 		const VectorWidgetPtr& getChildWidgets() const;
 
-		MYGUI_OBSOLETE("use : getChildWidgets()")
-		EnumeratorWidgetPtr getEnumerator() const;
-
 		/** Get child count */
 		size_t getChildCount() const;
 

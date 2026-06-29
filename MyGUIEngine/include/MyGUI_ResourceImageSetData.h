@@ -28,7 +28,6 @@ namespace MyGUI
 		VectorIndexImage indexes;
 	};
 	using VectorGroupImage = std::vector<GroupImage>;
-	using EnumeratorGroupImage = Enumerator<VectorGroupImage>;
 
 } // namespace MyGUI
 

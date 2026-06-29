@@ -9,20 +9,38 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Colour.h"
-#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"
 #include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_IResource.h"
+#include "MyGUI_ResourceImageSetData.h"
 #include <map>
-#include <set>
 
 namespace MyGUI
 {
+	class ILayer;
+	class ILayerNode;
+	class ResourceImageSet;
+	class ResourceSkin;
+	class UString;
+
+	namespace xml
+	{
+		class Document;
+		class ElementPtr;
+	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
+
+	template<>
+	class MYGUI_EXPORT MemberObsolete<xml::Document>
+	{
+	public:
+		MYGUI_OBSOLETE(
+			"use : ElementPtr Document::createDeclaration(std::string_view _version, std::string_view _encoding)")
+		xml::ElementPtr createInfo(std::string_view _version = "1.0", std::string_view _encoding = "UTF-8");
+	};
 
 	template<>
 	class MYGUI_EXPORT MemberObsolete<Button>
@@ -375,6 +393,8 @@ namespace MyGUI
 		void setItemSelectedAt(size_t _index);
 	};
 
+	using EnumeratorWidgetPtr = Enumerator<VectorWidgetPtr>;
+
 	template<>
 	class MYGUI_EXPORT MemberObsolete<Widget>
 	{
@@ -391,6 +411,8 @@ namespace MyGUI
 		bool isInheritsPick();
 		MYGUI_OBSOLETE(" is deprecated, use : bool Widget::getVisible() const")
 		bool isVisible();
+		MYGUI_OBSOLETE("use : getChildWidgets()")
+		EnumeratorWidgetPtr getEnumerator() const;
 	};
 
 	template<>
@@ -416,6 +438,7 @@ namespace MyGUI
 		IntRect getMinMax() const;
 	};
 
+	class Version;
 	template<>
 	class MYGUI_EXPORT MemberObsolete<FontManager>
 	{
@@ -429,6 +452,26 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<Gui>
 	{
 	public:
+		MYGUI_OBSOLETE(
+			" is deprecated, use : void Gui::initialise(const std::string& _core) and set log filename in Platform")
+		void initialise(const std::string& _core, std::string_view _logFileName);
+
+		MYGUI_OBSOLETE("use : destroyWidgets(const VectorWidgetPtr&)")
+		void destroyWidgets(EnumeratorWidgetPtr& _widgets);
+
+		MYGUI_OBSOLETE("use : findWidgetT(_prefix + _name)")
+		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true) const;
+		Widget* findWidgetHelper(std::string_view _name, bool _throw) const;
+
+		template<typename T>
+		MYGUI_OBSOLETE("use : findWidget(_prefix + _name)")
+		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true) const
+		{
+			std::string name{_prefix};
+			name += _name;
+			return static_cast<T*>(findWidgetHelper(name, _throw));
+		}
+
 		MYGUI_OBSOLETE(" is deprecated, use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr& _widgets);
 
@@ -502,8 +545,12 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<LayerManager>
 	{
 	public:
+		using EnumeratorLayer = Enumerator<std::vector<ILayer*>>;
+
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
+		MYGUI_OBSOLETE("use : getLayers()")
+		EnumeratorLayer getEnumerator() const;
 	};
 
 	template<>
@@ -546,15 +593,30 @@ namespace MyGUI
 			std::string_view _tag);
 	};
 
+	class IResource;
+	using IResourcePtr = IResource*;
 	template<>
 	class MYGUI_EXPORT MemberObsolete<ResourceManager>
 	{
 	public:
+		using EnumeratorPtr = Enumerator<std::map<std::string, IResource*, std::less<>>>;
+
+		MYGUI_OBSOLETE("use : getResources()")
+		EnumeratorPtr getEnumerator() const;
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ResourceManager::getCount()")
 		size_t getResourceCount() const;
 		MYGUI_OBSOLETE(
 			" is deprecated, use : IResourcePtr ResourceManager::getByName(std::string_view _name, bool _throw)")
 		IResourcePtr getResource(std::string_view _name, bool _throw = true) const;
+	};
+
+	using EnumeratorILayerNode = Enumerator<std::vector<ILayerNode*>>;
+	template<>
+	class MYGUI_EXPORT MemberObsolete<ILayer>
+	{
+	public:
+		MYGUI_OBSOLETE("use : getChildItems()")
+		EnumeratorILayerNode getEnumerator() const;
 	};
 
 	template<>
@@ -573,6 +635,8 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<WidgetManager>
 	{
 	public:
+		MYGUI_OBSOLETE("use : destroyWidgets(const VectorWidgetPtr&)")
+		void destroyWidgets(EnumeratorWidgetPtr _widgets);
 		MYGUI_OBSOLETE(" is deprecated, use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr& _widgets);
 		MYGUI_OBSOLETE(" is deprecated, use Gui::findWidgetT")
@@ -581,6 +645,24 @@ namespace MyGUI
 		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true);
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(std::string_view_key, std::string_view_value)")
 		void parse(Widget* _widget, std::string_view _key, std::string_view _value);
+	};
+
+	template<>
+	class MYGUI_EXPORT MemberObsolete<ILayerNode>
+	{
+	public:
+		MYGUI_OBSOLETE("use : getChildItems()")
+		EnumeratorILayerNode getEnumerator() const;
+	};
+
+	using EnumeratorGroupImage = Enumerator<VectorGroupImage>;
+
+	template<>
+	class MYGUI_EXPORT MemberObsolete<ResourceImageSet>
+	{
+	public:
+		MYGUI_OBSOLETE("use : getGroups()")
+		EnumeratorGroupImage getEnumerator() const;
 	};
 
 #endif // MYGUI_DONT_USE_OBSOLETE

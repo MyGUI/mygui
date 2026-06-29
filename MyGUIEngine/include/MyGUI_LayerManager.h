@@ -25,7 +25,6 @@ namespace MyGUI
 
 	public:
 		using VectorLayer = std::vector<ILayer*>;
-		using EnumeratorLayer = Enumerator<VectorLayer>;
 
 	public:
 		LayerManager();
@@ -52,9 +51,6 @@ namespace MyGUI
 		bool isExist(std::string_view _name) const;
 		/** Get layer nodes */
 		const VectorLayer& getLayers() const;
-
-		MYGUI_OBSOLETE("use : getLayers()")
-		EnumeratorLayer getEnumerator() const;
 
 		/** Create new layer;
 			@param _name Layer name

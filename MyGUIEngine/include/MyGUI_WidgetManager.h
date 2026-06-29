@@ -40,8 +40,10 @@ namespace MyGUI
 		void destroyWidget(Widget* _widget);
 		/** Destroy vector of widgets */
 		void destroyWidgets(const VectorWidgetPtr& _widgets);
-		/** Destroy Enumerator of widgets */
-		void destroyWidgets(EnumeratorWidgetPtr _widgets);
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		using MemberObsolete<WidgetManager>::destroyWidgets;
+#endif
 
 		/** Register unlinker (call unlink if for any destroyed widget)*/
 		void registerUnlinker(IUnlinkWidget* _unlink);

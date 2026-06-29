@@ -37,12 +37,6 @@ namespace MyGUI
 		*/
 		void initialise(const std::string& _core = "MyGUI_Core.xml");
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		MYGUI_OBSOLETE(
-			" is deprecated, use : void Gui::initialise(const std::string& _core) and set log filename in Platform")
-		void initialise(const std::string& _core, std::string_view _logFileName);
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
 
@@ -158,16 +152,16 @@ namespace MyGUI
 		/** Destroy vector of widgets */
 		void destroyWidgets(const VectorWidgetPtr& _widgets);
 
-		/** Destroy Enumerator of widgets */
-		void destroyWidgets(EnumeratorWidgetPtr& _widgets);
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		using MemberObsolete<Gui>::destroyWidgets;
+		using MemberObsolete<Gui>::findWidgetT;
+		using MemberObsolete<Gui>::findWidget;
+#endif
 
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		Widget* findWidgetT(std::string_view _name, bool _throw = true) const;
-
-		MYGUI_OBSOLETE("use : findWidgetT(_prefix + _name)")
-		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true) const;
 
 		/** Find widget by name and cast it to T type.
 			If widget not found or T and found widget have different types exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
@@ -179,18 +173,6 @@ namespace MyGUI
 			if (nullptr == widget)
 				return nullptr;
 			return widget->castType<T>(_throw);
-		}
-
-		/** Find widget by name and prefix and cast it to T type
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
-		*/
-		template<typename T>
-		MYGUI_OBSOLETE("use : findWidget(_prefix + _name)")
-		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true) const
-		{
-			std::string name{_prefix};
-			name += _name;
-			return findWidget<T>(name, _throw);
 		}
 
 		/** Destroy child widget or throw exception if this child widget not found */

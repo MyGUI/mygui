@@ -181,11 +181,6 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	EnumeratorGroupImage ResourceImageSet::getEnumerator() const
-	{
-		return EnumeratorGroupImage(mGroups);
-	}
-
 	const VectorGroupImage& ResourceImageSet::getGroups() const
 	{
 		return mGroups;

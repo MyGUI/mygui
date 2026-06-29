@@ -167,13 +167,6 @@ namespace MyGUI::xml
 		return mDoc->append_child(_name);
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-	ElementPtr Document::createInfo(std::string_view _version, std::string_view _encoding)
-	{
-		return createDeclaration(_version, _encoding);
-	}
-#endif
-
 	std::string Document::getLastError() const
 	{
 		if (!*mResult)

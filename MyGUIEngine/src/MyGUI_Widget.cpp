@@ -879,12 +879,6 @@ namespace MyGUI
 		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, false);
 	}
 
-	EnumeratorWidgetPtr Widget::getEnumerator() const
-	{
-		const auto& widgets = getChildWidgets();
-		return {widgets.begin(), widgets.end()};
-	}
-
 	const VectorWidgetPtr& Widget::getChildWidgets() const
 	{
 		if (mWidgetClient != nullptr)

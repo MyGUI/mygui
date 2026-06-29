@@ -11,6 +11,7 @@
 #include "MyGUI_UString.h"
 #include "MyGUI_Diagnostic.h"
 #include "MyGUI_DataStream.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 #include <string>
 #include <string_view>
@@ -34,7 +35,7 @@ namespace MyGUI::xml
 	class ElementPtr;
 	class Element;
 
-	class MYGUI_EXPORT Document
+	class MYGUI_EXPORT Document : public MyGUI::MemberObsolete<Document>
 	{
 	public:
 		Document();
@@ -70,15 +71,6 @@ namespace MyGUI::xml
 		ElementPtr createRoot(std::string_view _name);
 
 		ElementPtr getRoot() const;
-
-		/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE(
-			"use : ElementPtr Document::createDeclaration(std::string_view _version, std::string_view _encoding)")
-		ElementPtr createInfo(std::string_view _version = "1.0", std::string_view _encoding = "UTF-8");
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		std::shared_ptr<pugi::xml_document> mDoc;

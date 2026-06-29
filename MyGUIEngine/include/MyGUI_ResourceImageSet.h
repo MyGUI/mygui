@@ -16,6 +16,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_GenericFactory.h"
 #include "MyGUI_ResourceImageSetData.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -23,7 +24,7 @@ namespace MyGUI
 	class ResourceImageSet;
 	using ResourceImageSetPtr = ResourceImageSet*;
 
-	class MYGUI_EXPORT ResourceImageSet : public IResource
+	class MYGUI_EXPORT ResourceImageSet : public IResource, public MemberObsolete<ResourceImageSet>
 	{
 		friend class GenericFactory<ResourceImageSet>;
 
@@ -39,9 +40,6 @@ namespace MyGUI
 
 		/** Get groups */
 		const VectorGroupImage& getGroups() const;
-
-		MYGUI_OBSOLETE("use : getGroups()")
-		EnumeratorGroupImage getEnumerator() const;
 
 		void AddGroupImage(const GroupImage& _group);
 

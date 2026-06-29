@@ -94,13 +94,6 @@ namespace MyGUI
 		mIsInitialise = true;
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-	void Gui::initialise(const std::string& _core, std::string_view _logFileName)
-	{
-		initialise(_core);
-	}
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 	void Gui::shutdown()
 	{
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
@@ -182,14 +175,6 @@ namespace MyGUI
 			destroyWidget(widget);
 	}
 
-	void Gui::destroyWidgets(EnumeratorWidgetPtr& _widgets)
-	{
-		VectorWidgetPtr widgets;
-		while (_widgets.next())
-			widgets.push_back(_widgets.current());
-		destroyWidgets(widgets);
-	}
-
 	void Gui::_unlinkWidget(Widget* _widget)
 	{
 		eventFrameStart.clear(_widget);
@@ -244,13 +229,6 @@ namespace MyGUI
 		std::string_view _name)
 	{
 		return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _layer, _name);
-	}
-
-	Widget* Gui::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw) const
-	{
-		std::string name{_prefix};
-		name += _name;
-		return findWidgetT(name, _throw);
 	}
 
 	void Gui::destroyChildWidget(Widget* _widget)

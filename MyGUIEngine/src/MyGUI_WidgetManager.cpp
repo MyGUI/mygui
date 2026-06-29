@@ -130,11 +130,6 @@ namespace MyGUI
 		Gui::getInstance().destroyWidgets(_widgets);
 	}
 
-	void WidgetManager::destroyWidgets(EnumeratorWidgetPtr _widgets)
-	{
-		Gui::getInstance().destroyWidgets(_widgets);
-	}
-
 	void WidgetManager::registerUnlinker(IUnlinkWidget* _unlink)
 	{
 		unregisterUnlinker(_unlink);
