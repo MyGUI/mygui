@@ -7,7 +7,7 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_RTTLayer.h"
 #include "MyGUI_RTTLayerNode.h"
-#include "MyGUI_Enumerator.h"
+
 #include "MyGUI_FactoryManager.h"
 
 namespace MyGUI

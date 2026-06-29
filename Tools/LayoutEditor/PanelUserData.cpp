@@ -58,16 +58,15 @@ namespace tools
 		mMultilist->removeAllItems();
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
-		WidgetContainer::UserDataEnumerator userData = widgetContainer->getUserDataEnumerator();
-		while (userData.next())
+		for (const auto& userData : widgetContainer->getUserData())
 		{
-			if (checkUserData(widgetContainer, userData.current().first))
+			if (checkUserData(widgetContainer, userData.first))
 			{
-				mMultilist->addItem(userData.current().first);
+				mMultilist->addItem(userData.first);
 				mMultilist->setSubItemNameAt(
 					1,
 					mMultilist->getItemCount() - 1,
-					MyGUI::TextIterator::toTagsString(userData.current().second));
+					MyGUI::TextIterator::toTagsString(userData.second));
 			}
 		}
 	}

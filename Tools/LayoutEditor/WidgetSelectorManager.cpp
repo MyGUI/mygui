@@ -97,9 +97,8 @@ namespace tools
 	{
 		MyGUI::Widget* result = nullptr;
 
-		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
-		while (container.next())
-			checkContainer(container.current(), result, _point);
+		for (auto& container : EditorWidgets::getInstance().getWidgets())
+			checkContainer(container, result, _point);
 
 		return result;
 	}
@@ -165,10 +164,9 @@ namespace tools
 	MyGUI::Widget* WidgetSelectorManager::findWidgetSelected()
 	{
 		MyGUI::Widget* result = nullptr;
-		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
-		while (container.next())
+		for (auto& container : EditorWidgets::getInstance().getWidgets())
 		{
-			MyGUI::Widget* widget = findWidgetSelected(container.current());
+			MyGUI::Widget* widget = findWidgetSelected(container);
 			if (widget != nullptr)
 			{
 				result = widget;

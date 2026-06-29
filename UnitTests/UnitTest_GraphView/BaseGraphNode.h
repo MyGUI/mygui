@@ -23,15 +23,14 @@ namespace wraps
 		}
 
 		// энумератор всех точек узла
-		EnumeratorConnection getConnectionEnumerator() const
+		const VectorConnection& getConnectionEnumerator() const
 		{
-			return EnumeratorConnection(mListConnection);
+			return mListConnection;
 		}
 
 		bool isAnyConnection() const
 		{
-			EnumeratorConnection point = getConnectionEnumerator();
-			while (point.next())
+			for (auto& point : getConnectionEnumerator())
 			{
 				if (point->isAnyConnection())
 					return true;
@@ -41,12 +40,11 @@ namespace wraps
 
 		BaseGraphConnection* getConnectionByName(std::string_view _name, std::string_view _type = {})
 		{
-			EnumeratorConnection point = getConnectionEnumerator();
-			while (point.next())
+			for (auto& point : getConnectionEnumerator())
 			{
 				if (point->getName() == _name && (_type.empty() || point->getType() == _type))
 				{
-					return point.current();
+					return point;
 				}
 			}
 			return nullptr;

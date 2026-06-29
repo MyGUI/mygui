@@ -33,8 +33,10 @@ namespace tools
 		std::string_view getUserData(std::string_view _key);
 		void clearUserData(std::string_view _key);
 		bool existUserData(std::string_view _key) const;
-		using UserDataEnumerator = MyGUI::Enumerator<MyGUI::VectorStringPairs>;
-		UserDataEnumerator getUserDataEnumerator() const;
+		const MyGUI::VectorStringPairs& getUserData() const
+		{
+			return mUserString;
+		}
 
 		void setProperty(std::string_view _key, std::string_view _value, bool _eraseExist = true);
 		void setPropertyByIndex(size_t _index, std::string_view _key, std::string_view _value);
@@ -42,8 +44,10 @@ namespace tools
 		void clearPropertyByIndex(size_t _index, std::string_view _key);
 		std::string_view getProperty(std::string_view _key);
 		bool existProperty(std::string_view _key) const;
-		using PropertyEnumerator = MyGUI::Enumerator<MyGUI::VectorStringPairs>;
-		PropertyEnumerator getPropertyEnumerator() const;
+		const MyGUI::VectorStringPairs& getProperty() const
+		{
+			return mProperty;
+		}
 
 		void setLayerName(std::string_view _value);
 		const std::string& getLayerName() const;

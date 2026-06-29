@@ -108,11 +108,6 @@ namespace tools
 		return false;
 	}
 
-	WidgetContainer::UserDataEnumerator WidgetContainer::getUserDataEnumerator() const
-	{
-		return UserDataEnumerator(mUserString);
-	}
-
 	void WidgetContainer::setProperty(std::string_view _key, std::string_view _value, bool _eraseExist)
 	{
 		bool found = false;
@@ -164,11 +159,6 @@ namespace tools
 				return true;
 		}
 		return false;
-	}
-
-	WidgetContainer::PropertyEnumerator WidgetContainer::getPropertyEnumerator() const
-	{
-		return PropertyEnumerator(mProperty);
 	}
 
 	void WidgetContainer::setLayerName(std::string_view _value)

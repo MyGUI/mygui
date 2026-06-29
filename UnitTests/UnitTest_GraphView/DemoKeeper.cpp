@@ -200,10 +200,9 @@ namespace demo
 
 	void DemoKeeper::notifyInvalidateNode(BaseAnimationNode* _sender)
 	{
-		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
-		while (node.next())
+		for (auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node)
 			{
 				anim_node->invalidateNode(_sender);
@@ -324,10 +323,9 @@ namespace demo
 		MyGUI::xml::ElementPtr root = doc.createRoot("AnimationGraph");
 
 		// сохраняем сами ноды
-		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
-		while (node.next())
+		for (auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node)
 			{
 				MyGUI::xml::ElementPtr node_type = root->createChild("Node");
@@ -338,20 +336,17 @@ namespace demo
 		}
 
 		// сохраняем соединения
-		node = mGraphView->getNodeEnumerator();
-		while (node.next())
+		for (auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node && anim_node->isAnyConnection())
 			{
 				MyGUI::xml::ElementPtr connection = root->createChild("Connections");
 				connection->addAttribute("node", anim_node->getName());
 
-				wraps::EnumeratorConnection node_conn = anim_node->getConnectionEnumerator();
-				while (node_conn.next())
+				for (auto& node_conn : anim_node->getConnectionEnumerator())
 				{
-					wraps::EnumeratorConnection conn = node_conn->getConnectionEnumerator();
-					while (conn.next())
+					for (auto& conn : node_conn->getConnectionEnumerator())
 					{
 						BaseAnimationNode* anim_node2 = dynamic_cast<BaseAnimationNode*>(conn->getOwnerNode());
 						if (anim_node2)
@@ -368,10 +363,9 @@ namespace demo
 
 		// сохраняем данные для редактора
 		MyGUI::xml::ElementPtr data = root->createChild("EditorData");
-		node = mGraphView->getNodeEnumerator();
-		while (node.next())
+		for (auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node)
 			{
 				MyGUI::xml::ElementPtr item_data = data->createChild("Node");
@@ -456,10 +450,9 @@ namespace demo
 
 	BaseAnimationNode* DemoKeeper::getNodeByName(std::string_view _name)
 	{
-		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
-		while (node.next())
+		for (auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node && anim_node->getName() == _name)
 			{
 				return anim_node;

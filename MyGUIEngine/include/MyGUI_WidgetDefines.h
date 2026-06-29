@@ -8,7 +8,6 @@
 #define MYGUI_WIDGET_DEFINES_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Enumerator.h"
 #include <vector>
 #include <map>
 #include <string>

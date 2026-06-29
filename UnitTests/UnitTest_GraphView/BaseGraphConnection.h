@@ -14,7 +14,6 @@ namespace wraps
 	class BaseGraphNode;
 	class BaseGraphConnection;
 	using VectorConnection = std::vector<BaseGraphConnection*>;
-	using EnumeratorConnection = MyGUI::Enumerator<VectorConnection>;
 
 	class BaseGraphConnection : public BaseLayout
 	{
@@ -58,18 +57,18 @@ namespace wraps
 		{
 			return !mConnection.empty();
 		}
-		EnumeratorConnection getConnectionEnumerator() const
+		const VectorConnection& getConnectionEnumerator() const
 		{
-			return EnumeratorConnection(mConnection);
+			return mConnection;
 		}
 
 		bool isAnyReverseConnection() const
 		{
 			return !mReverseConnection.empty();
 		}
-		EnumeratorConnection getReverseConnectionEnumerator() const
+		const VectorConnection& getReverseConnectionEnumerator() const
 		{
-			return EnumeratorConnection(mReverseConnection);
+			return mReverseConnection;
 		}
 
 		void addConnectionPoint(BaseGraphConnection* _point)

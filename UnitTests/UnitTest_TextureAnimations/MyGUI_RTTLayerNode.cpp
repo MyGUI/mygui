@@ -132,8 +132,7 @@ namespace MyGUI
 		mData.resize(count_quad);
 		mData[0] = mDefaultData;
 
-		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
-		while (anim.next())
+		for (auto* anim : mLayerNodeAnimation)
 		{
 			count_quad = anim->animate(
 				_update,
@@ -251,8 +250,7 @@ namespace MyGUI
 
 	void RTTLayerNode::attachLayerItem(ILayerItem* _item)
 	{
-		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
-		while (anim.next())
+		for (auto* anim : mLayerNodeAnimation)
 			anim->create();
 
 		Base::attachLayerItem(_item);
@@ -260,8 +258,7 @@ namespace MyGUI
 
 	void RTTLayerNode::detachLayerItem(ILayerItem* _item)
 	{
-		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
-		while (anim.next())
+		for (auto* anim : mLayerNodeAnimation)
 			anim->destroy();
 
 		Base::detachLayerItem(_item);

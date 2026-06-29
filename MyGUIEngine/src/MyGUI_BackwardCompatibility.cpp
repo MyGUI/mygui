@@ -44,6 +44,13 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#pragma warning(push)
+		#pragma warning(disable : 4996)
+	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+	_Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
+	#endif
+
 	void MemberObsolete<Button>::setButtonPressed(bool _value)
 	{
 		static_cast<Button*>(this)->setStateSelected(_value);
@@ -1133,11 +1140,6 @@ namespace MyGUI
 		return static_cast<xml::Document*>(this)->createDeclaration(_version, _encoding);
 	}
 
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
 	static std::string_view convertAlignToDirection(std::string_view _value)
 	{
 		Align align = utility::parseValue<Align>(_value);
@@ -1161,6 +1163,12 @@ namespace MyGUI
 	static MapString mPropertyRename;
 	static SetString mPropertyIgnore;
 	static MapString mSkinRename;
+
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#pragma warning(pop)
+	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+	_Pragma("GCC diagnostic pop")
+	#endif
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

@@ -12,7 +12,6 @@ namespace tools
 		MyGUI::delegates::MultiDelegate<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view>;
 
 	using VectorWidgetContainer = std::vector<WidgetContainer*>;
-	using EnumeratorWidgetContainer = MyGUI::Enumerator<VectorWidgetContainer>;
 
 	class EditorWidgets : public MyGUI::IUnlinkWidget
 	{
@@ -44,7 +43,7 @@ namespace tools
 		void onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner) const;
 
 		void invalidateWidgets();
-		EnumeratorWidgetContainer getWidgets();
+		const VectorWidgetContainer& getWidgets() const;
 
 		std::string_view getSkinReplace(std::string_view _skinName);
 

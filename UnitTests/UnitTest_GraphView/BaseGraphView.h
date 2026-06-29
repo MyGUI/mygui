@@ -18,7 +18,6 @@ namespace wraps
 	{
 	public:
 		using VectorGraphNode = std::vector<BaseGraphNode*>;
-		using EnumeratorNode = MyGUI::Enumerator<VectorGraphNode>;
 
 		BaseGraphView(std::string_view _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent)
@@ -74,20 +73,17 @@ namespace wraps
 			changePosition(nullptr);
 		}
 
-		EnumeratorNode getNodeEnumerator() const
+		const VectorGraphNode& getNodeEnumerator() const
 		{
-			return EnumeratorNode(mNodes);
+			return mNodes;
 		}
 
 		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to) const
 		{
-			EnumeratorConnection conn = _from->getConnectionEnumerator();
-			while (conn.next())
+			for (auto& conn : _from->getConnectionEnumerator())
 			{
-				if (conn.current() == _to)
-				{
+				if (conn == _to)
 					return true;
-				}
 			}
 			return false;
 		}
@@ -159,29 +155,26 @@ namespace wraps
 	private:
 		void removeAllConnections(BaseGraphNode* _node)
 		{
-			EnumeratorConnection node_conn = _node->getConnectionEnumerator();
-			while (node_conn.next())
+			for (auto& node_conn : _node->getConnectionEnumerator())
 			{
 				// удаляем прямые соединения
-				while (node_conn.current()->isAnyConnection())
+				while (node_conn->isAnyConnection())
 				{
-					EnumeratorConnection conn = node_conn.current()->getConnectionEnumerator();
-					while (conn.next())
+					for (auto& conn : node_conn->getConnectionEnumerator())
 					{
-						eventDisconnectPoint(this, node_conn.current(), conn.current());
-						node_conn.current()->removeConnectionPoint(conn.current());
+						eventDisconnectPoint(this, node_conn, conn);
+						node_conn->removeConnectionPoint(conn);
 						break;
 					}
 				}
 
 				// удаляем обратные соединения
-				while (node_conn.current()->isAnyReverseConnection())
+				while (node_conn->isAnyReverseConnection())
 				{
-					EnumeratorConnection conn = node_conn.current()->getReverseConnectionEnumerator();
-					while (conn.next())
+					for (auto& conn : node_conn->getReverseConnectionEnumerator())
 					{
-						eventDisconnectPoint(this, conn.current(), node_conn.current());
-						conn.current()->removeConnectionPoint(node_conn.current());
+						eventDisconnectPoint(this, conn, node_conn);
+						conn->removeConnectionPoint(node_conn);
 						break;
 					}
 				}
@@ -227,16 +220,15 @@ namespace wraps
 					// прямое сочленение
 					if (_connection->isAnyConnection())
 					{
-						EnumeratorConnection conn = _connection->getConnectionEnumerator();
-						while (conn.next())
+						for (auto& conn : _connection->getConnectionEnumerator())
 						{
 							result = false;
-							requestDisconnectPoint(this, _connection, conn.current(), result);
+							requestDisconnectPoint(this, _connection, conn, result);
 							if (result)
 							{
 								drag_node = _connection;
-								eventDisconnectPoint(this, _connection, conn.current());
-								_connection->removeConnectionPoint(conn.current());
+								eventDisconnectPoint(this, _connection, conn);
+								_connection->removeConnectionPoint(conn);
 								disconect = true;
 							}
 							break;
@@ -245,16 +237,15 @@ namespace wraps
 					else
 					{
 						// обратное сочленение
-						EnumeratorConnection conn = _connection->getReverseConnectionEnumerator();
-						while (conn.next())
+						for (auto& conn : _connection->getReverseConnectionEnumerator())
 						{
 							result = false;
-							requestDisconnectPoint(this, conn.current(), _connection, result);
+							requestDisconnectPoint(this, conn, _connection, result);
 							if (result)
 							{
-								drag_node = conn.current();
-								eventDisconnectPoint(this, conn.current(), _connection);
-								conn.current()->removeConnectionPoint(_connection);
+								drag_node = conn;
+								eventDisconnectPoint(this, conn, _connection);
+								conn->removeConnectionPoint(_connection);
 								disconect = true;
 							}
 							break;
@@ -389,12 +380,10 @@ namespace wraps
 			// проходим по всем нодам и перерисовываем связи
 			for (auto& mNode : mNodes)
 			{
-				EnumeratorConnection node_point = mNode->getConnectionEnumerator();
-				while (node_point.next())
+				for (auto& node_point : mNode->getConnectionEnumerator())
 				{
 					const MyGUI::IntCoord& coord_from = node_point->getAbsoluteCoord();
-					EnumeratorConnection connect_point = node_point->getConnectionEnumerator();
-					while (connect_point.next())
+					for (auto& connect_point : node_point->getConnectionEnumerator())
 					{
 						const MyGUI::IntCoord& coord_to = connect_point->getAbsoluteCoord();
 

@@ -45,7 +45,7 @@ namespace MyGUI
 	*/
 
 	template<typename T>
-	class Enumerator
+	class MYGUI_OBSOLETE("use range-based for") Enumerator
 	{
 	public:
 		explicit Enumerator(const T& _container) :

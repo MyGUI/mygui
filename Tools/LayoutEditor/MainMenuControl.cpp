@@ -78,9 +78,8 @@ namespace tools
 
 		mPopupMenuWidgets->removeAllItems();
 
-		EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
-		while (widget.next())
-			createWidgetPopup(widget.current(), mPopupMenuWidgets, print_name, print_type, print_skin);
+		for (auto& widget : EditorWidgets::getInstance().getWidgets())
+			createWidgetPopup(widget, mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
 
 	void MainMenuControlLE::createWidgetPopup(

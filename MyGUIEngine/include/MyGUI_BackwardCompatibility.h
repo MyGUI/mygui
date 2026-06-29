@@ -15,6 +15,7 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ResourceImageSetData.h"
+#include "MyGUI_Enumerator.h"
 #include <map>
 
 namespace MyGUI
@@ -32,6 +33,13 @@ namespace MyGUI
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
+
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#pragma warning(push)
+		#pragma warning(disable : 4996)
+	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+	_Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
+	#endif
 
 	template<>
 	class MYGUI_EXPORT MemberObsolete<xml::Document>
@@ -664,6 +672,12 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : getGroups()")
 		EnumeratorGroupImage getEnumerator() const;
 	};
+
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#pragma warning(pop)
+	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+	_Pragma("GCC diagnostic pop")
+	#endif
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

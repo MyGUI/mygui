@@ -642,19 +642,17 @@ namespace tools
 		if (!_container->getName().empty())
 			node->addAttribute("name", _container->getName());
 
-		WidgetContainer::PropertyEnumerator propertyItem = _container->getPropertyEnumerator();
-		while (propertyItem.next())
+		for (const auto& propertyItem : _container->getProperty())
 		{
 			BackwardCompatibilityManager::getInstance()
-				.serialiseProperty(node, _container->getType(), propertyItem.current(), _compatibility);
+				.serialiseProperty(node, _container->getType(), propertyItem, _compatibility);
 		}
 
-		WidgetContainer::UserDataEnumerator userData = _container->getUserDataEnumerator();
-		while (userData.next())
+		for (const auto& userData : _container->getUserData())
 		{
 			MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
-			nodeProp->addAttribute("key", userData.current().first);
-			nodeProp->addAttribute("value", userData.current().second);
+			nodeProp->addAttribute("key", userData.first);
+			nodeProp->addAttribute("value", userData.second);
 		}
 
 		for (auto& iter : _container->mController)
@@ -702,9 +700,9 @@ namespace tools
 		mWidgetsChanged = true;
 	}
 
-	EnumeratorWidgetContainer EditorWidgets::getWidgets()
+	const VectorWidgetContainer& EditorWidgets::getWidgets() const
 	{
-		return EnumeratorWidgetContainer(mWidgets);
+		return mWidgets;
 	}
 
 	std::string_view EditorWidgets::getSkinReplace(std::string_view _skinName)

@@ -12,7 +12,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ImageInfo.h"
-#include "MyGUI_Enumerator.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_GenericFactory.h"
 #include "MyGUI_ResourceImageSetData.h"

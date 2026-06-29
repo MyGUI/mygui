@@ -163,9 +163,8 @@ namespace tools
 				input_file.getline(str, sizeof(str));
 				if (strstr(str, "//%LE Widget_Declaration list start") != nullptr)
 				{
-					EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
-					while (widget.next())
-						printWidgetDeclaration(widget.current(), output_file);
+					for (auto& widget : EditorWidgets::getInstance().getWidgets())
+						printWidgetDeclaration(widget, output_file);
 				}
 				else
 				{

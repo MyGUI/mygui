@@ -10,7 +10,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_EventPair.h"
-#include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_Delegate.h"

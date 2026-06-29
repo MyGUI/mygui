@@ -8,7 +8,6 @@
 #define MYGUI_FONT_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Enumerator.h"
 #include "MyGUI_IFont.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"

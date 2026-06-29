@@ -8,7 +8,6 @@
 #define MYGUI_I_LAYER_NODE_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Enumerator.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_Types.h"

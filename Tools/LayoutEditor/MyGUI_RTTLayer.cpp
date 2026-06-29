@@ -7,7 +7,6 @@
 #include "Precompiled.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_RTTLayer.h"
-#include "MyGUI_Enumerator.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Gui.h"
