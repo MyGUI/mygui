@@ -23,7 +23,7 @@ namespace MyGUI
 
 	void WidgetContainer::_unlinkChildWidget(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
 	}

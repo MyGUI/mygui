@@ -144,7 +144,7 @@ namespace MyGUI
 	void WidgetManager::unregisterUnlinker(IUnlinkWidget* _unlink)
 	{
 		VectorIUnlinkWidget::iterator iter =
-			std::remove(mVectorIUnlinkWidget.begin(), mVectorIUnlinkWidget.end(), _unlink);
+			std::find(mVectorIUnlinkWidget.begin(), mVectorIUnlinkWidget.end(), _unlink);
 		if (iter != mVectorIUnlinkWidget.end())
 			mVectorIUnlinkWidget.erase(iter);
 	}

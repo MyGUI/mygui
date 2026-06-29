@@ -22,7 +22,7 @@ namespace MyGUI
 
 	void LayerItem::removeChildItem(LayerItem* _item)
 	{
-		VectorLayerItem::iterator item = std::remove(mLayerItems.begin(), mLayerItems.end(), _item);
+		VectorLayerItem::iterator item = std::find(mLayerItems.begin(), mLayerItems.end(), _item);
 		MYGUI_ASSERT(item != mLayerItems.end(), "item not found");
 		mLayerItems.erase(item);
 	}
@@ -40,7 +40,7 @@ namespace MyGUI
 
 	void LayerItem::removeChildNode(LayerItem* _item)
 	{
-		VectorLayerItem::iterator item = std::remove(mLayerNodes.begin(), mLayerNodes.end(), _item);
+		VectorLayerItem::iterator item = std::find(mLayerNodes.begin(), mLayerNodes.end(), _item);
 		MYGUI_ASSERT(item != mLayerNodes.end(), "item not found");
 		mLayerNodes.erase(item);
 	}
