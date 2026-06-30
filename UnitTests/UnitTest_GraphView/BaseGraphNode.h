@@ -22,7 +22,7 @@ namespace wraps
 		{
 		}
 
-		// энумератор всех точек узла
+		// enumerator of all node points
 		const VectorConnection& getConnectionEnumerator() const
 		{
 			return mListConnection;
@@ -101,7 +101,7 @@ namespace wraps
 				window->eventWindowButtonPressed += MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowButtonPressed);
 			}
 
-			// перекрывающийся стиль
+			// overlapping style
 			mMainWidget->setWidgetStyle(MyGUI::WidgetStyle::Overlapped);
 		}
 

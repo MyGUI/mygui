@@ -27,7 +27,7 @@ namespace wraps
 		{
 			mScrollView = mMainWidget->castType<MyGUI::ScrollView>();
 
-			// потом перенести в лейаут
+			// move to layout later
 			mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
 			mScrollView->setVisibleHScroll(false);
 			mNeedUpdate = false;
@@ -62,11 +62,11 @@ namespace wraps
 				_index = mItems.size();
 			MYGUI_ASSERT(findItem(_item) == MyGUI::ITEM_NONE, "panel allready exist");
 
-			// создаем лейаут базовой ячейки
+			// create base cell layout
 			BasePanelViewCell* cell = new TypeCell(mScrollView);
 			cell->eventUpdatePanel = MyGUI::newDelegate(this, &BasePanelView::notifyUpdatePanel);
 
-			// теперь основной лейаут ячейки
+			// now main cell layout
 			_item->_initialise(cell);
 
 			mItems.insert(mItems.begin() + _index, _item);
@@ -134,7 +134,7 @@ namespace wraps
 
 		void updateView()
 		{
-			// вычисляем максимальную высоту всего добра
+			// compute maximum height of all items
 			int height = 0;
 			for (const auto& item : mItems)
 			{
@@ -144,9 +144,9 @@ namespace wraps
 					height += widget->getHeight();
 				}
 			}
-			// ставим высоту холста, и спрашиваем получившуюся ширину клиента
+			// set canvas height, and ask for resulting client width
 			mScrollView->setCanvasSize(0, height);
-			// ширина клиента могла поменятся
+			// client width could have changed
 			const MyGUI::IntSize& size = mScrollView->getViewCoord().size();
 			mScrollView->setCanvasSize(size.width, height);
 
@@ -157,7 +157,7 @@ namespace wraps
 				change = true;
 			}
 
-			// выравниваем все панели
+			// align all panels
 			int pos = 0;
 			for (auto& item : mItems)
 			{
@@ -167,7 +167,7 @@ namespace wraps
 					height = widget->getHeight();
 					widget->setCoord(MyGUI::IntCoord(0, pos, size.width, height));
 
-					// оповещаем, что мы обновили ширину
+					// notify that width was updated
 					if (change)
 						item->notifyChangeWidth(size.width);
 
@@ -180,8 +180,8 @@ namespace wraps
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEntered);
 		}
 
-		// изменились размеры
-		// необходимо обновить все панели
+		// size changed
+		// need to update all panels
 		void setNeedUpdate()
 		{
 			if (!mNeedUpdate)

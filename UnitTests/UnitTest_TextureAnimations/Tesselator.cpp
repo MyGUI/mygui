@@ -26,7 +26,7 @@ namespace demo
 		if (_count == count)
 			return count;
 
-		// запрашивам нужный размер вершин
+		// request needed vertex size
 		_data.resize(count);
 
 		float vertex_z = _info.maximumDepth;

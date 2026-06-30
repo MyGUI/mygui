@@ -52,7 +52,7 @@ namespace wraps
 			mWidgetClient = nullptr;
 		}
 
-		// реально изменилась ширина ячейки
+		// cell width actually changed
 		virtual void notifyChangeWidth(int _width)
 		{
 		}

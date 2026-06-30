@@ -14,7 +14,7 @@
 namespace Export
 {
 
-	// базовые шаблоны для конвертации переменных и типов
+	// basic templates for converting variables and types
 	template <typename T> struct Convert
 	{
 	};

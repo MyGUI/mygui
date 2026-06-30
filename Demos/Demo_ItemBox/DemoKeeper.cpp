@@ -22,14 +22,14 @@ namespace demo
 
 	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result)
 	{
-		// не на айтем кидаем
+		// not dropping on an item
 		if (_info.receiver_index == MyGUI::ITEM_NONE)
 		{
 			_result = false;
 			return;
 		}
 
-		// на себя и на тотже айтем
+		// onto itself and same item
 		if ((_info.sender == _info.receiver) && (_info.sender_index == _info.receiver_index))
 		{
 			_result = false;
@@ -98,7 +98,7 @@ namespace demo
 				"You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize "
 				"windows to see vertical and horizontal ItebBox alignments.");
 
-		// регестрируем тип нашего ресурса
+		// register our resource type
 		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>(resourceCategory);
 
@@ -148,7 +148,7 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		// тип нашего ресурса
+		// our resource type
 		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceItemInfo>(resourceCategory);
 

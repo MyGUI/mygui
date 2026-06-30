@@ -32,7 +32,7 @@ namespace tools
 
 	void WidgetSelectorManager::setSelectedWidget(MyGUI::Widget* _value)
 	{
-		// некоторые обновляют кей фокус
+		// some update key focus
 		//if (_value != mCurrentWidget)
 		{
 			mCurrentWidget = _value;
@@ -49,7 +49,7 @@ namespace tools
 			mLastClickPoint = _mousePosition;
 		}
 
-		// здесь кликать вглубь
+		// click deeper here
 		MyGUI::Widget* item = getTopWidget(_mousePosition);
 		if (nullptr != item)
 		{

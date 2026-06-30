@@ -47,8 +47,8 @@ namespace MyGUI
 				IntSize size = _widget->getSize();
 				_widget->_setInternalData(size);
 
-				// виджет оказался обычным, но у виджета нет overrideMeasure
-				// и нуна ручками спускаться вниз для обновления
+				// widget turned out to be normal, but widget has no overrideMeasure
+				// and need to manually go down for update
 				/*if (_widget->getChildCount() != 0)
 				{
 					IntCoord coord = _widget->getClientCoord();
@@ -101,7 +101,7 @@ namespace MyGUI
 			}
 			else
 			{
-				// тут походу второй косяк
+				// apparently second bug here
 				const IntSize& size = _widget->getSize();
 				Panel::updateArrange(_widget, IntCoord(0, 0, size.width, size.height));
 			}

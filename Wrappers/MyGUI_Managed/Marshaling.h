@@ -29,7 +29,7 @@ namespace MyGUI
 		};
 
 
-		// базовые шаблоны для конвертации переменных и типов
+		// basic templates for converting variables and types
 		template <typename T> struct Convert
 		{
 			typedef T Type;
@@ -43,7 +43,7 @@ namespace MyGUI
 			}
 		};
 
-		// перегрузка для базовых типов
+		// overload for basic types
 		template <> struct Convert<size_t>
 		{
 			typedef System::UInt32 Type;
@@ -65,7 +65,7 @@ namespace MyGUI
 			}
 		};
 
-		// перегрузка для строк
+		// overload for strings
 		template <> struct Convert<const std::string&>
 		{
 			typedef System::String ^ Type;
@@ -103,7 +103,7 @@ namespace MyGUI
 			}
 		};
 
-		// прегрузка для Any
+		// overload for Any
 		template <> struct Convert<MyGUI::Any>
 		{
 			typedef System::Object ^ Type;

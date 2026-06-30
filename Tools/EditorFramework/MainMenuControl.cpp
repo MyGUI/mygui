@@ -52,7 +52,7 @@ namespace tools
 		if (recentFilesMenu != nullptr)
 		{
 			recentFilesMenu->getItemChild()->removeAllItems();
-			// список последних открытых файлов
+			// list of recently opened files
 			const RecentFilesManager::VectorUString& recentFiles = RecentFilesManager::getInstance().getRecentFiles();
 			if (!recentFiles.empty())
 			{

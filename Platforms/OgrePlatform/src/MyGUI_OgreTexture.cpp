@@ -86,9 +86,9 @@ namespace MyGUI
 			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_WRITE_ONLY);
 		}
 
-		// здесь проверить режим создания, и возможно так залочить без пиксель бокса
+		// check creation mode here, and possibly lock without pixel box
 
-		// для чтения копируем в пиксель бокс
+		// for reading, copy to pixel box
 		delete[] (uint8*)mTmpData.data;
 		mTmpData.data = nullptr;
 

@@ -76,7 +76,7 @@ namespace MyGUI
 
 		const WidgetInfo* root = initialiseWidgetSkinBase(skinInfo, templateInfo);
 
-		// дочернее окно обыкновенное
+		// regular child window
 		if (mWidgetStyle == WidgetStyle::Child)
 		{
 			if (mParent)
@@ -193,7 +193,7 @@ namespace MyGUI
 
 		if (_skinInfo != nullptr)
 		{
-			//FIXME - явный вызов
+			//FIXME - explicit call
 			Widget::setSize(_skinInfo->getSize());
 
 			_createSkinItem(_skinInfo);

@@ -120,7 +120,7 @@ namespace tools
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 				mParentData = nullptr;
 
-				// мы еще владельцы контрола сбрасываем его
+				// we are still owner of the control, reset it
 				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{

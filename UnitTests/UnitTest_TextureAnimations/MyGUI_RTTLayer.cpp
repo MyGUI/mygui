@@ -19,7 +19,7 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
-				// удаляем те чтобы ли приостановленны на анимацию
+				// remove those paused for animation
 				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
 				if (node->getDestroy())
 				{
@@ -48,7 +48,7 @@ namespace MyGUI
 
 	ILayerNode* RTTLayer::createChildItemNode()
 	{
-		// создаем рутовый айтем
+		// create root item
 		RTTLayerNode* node = new RTTLayerNode(this);
 		mChildItems.push_back(node);
 
@@ -79,7 +79,7 @@ namespace MyGUI
 
 	void RTTLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		// если есть отец, то русть сам и удаляет
+		// if has parent, it handles and deletes
 		ILayerNode* parent = _item->getParent();
 		if (parent)
 		{
@@ -87,7 +87,7 @@ namespace MyGUI
 			return;
 		}
 
-		// айтем рутовый, мы удаляем
+		// root item, we delete
 		for (auto& childItem : mChildItems)
 		{
 			if (childItem == _item)
@@ -107,7 +107,7 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
-				// если полное обновление и нод был отложен от удаления то удаляем
+				// if full update and node was postponed for deletion, delete it
 				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
 
 				if (_update)

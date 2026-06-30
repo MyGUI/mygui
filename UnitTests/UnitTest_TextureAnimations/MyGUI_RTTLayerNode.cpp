@@ -44,8 +44,8 @@ namespace MyGUI
 		mTimer.reset();
 
 		float frameTime = (float)((double)(time) / (double)1000);
-		// скорее всего рендер таргет пересоздается,
-		// необходимо пересчитать смещение рендер таргета
+		// most likely render target is being recreated,
+		// need to recalculate render target offset
 		if (_update)
 		{
 			mOutOfDateRtt = true;
@@ -88,7 +88,7 @@ namespace MyGUI
 					MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
 					if (target != nullptr)
 					{
-						// смещение рендер таргета
+						// render target offset
 						target->getInfo().setOffset(mCurrentCoord.left, mCurrentCoord.top);
 					}
 				}
@@ -125,7 +125,7 @@ namespace MyGUI
 				0xFFFFFFFF);
 		}
 
-		// анимируем и проверяем, использовалась ли анимация
+		// animate and check if animation was used
 		bool need_update = mIsAnimate;
 		mIsAnimate = false;
 		size_t count_quad = 1;
@@ -148,13 +148,13 @@ namespace MyGUI
 
 		if (mIsAnimate)
 		{
-			// блитим анимацию
+			// blit animation
 			mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
 			VertexQuad* quad = reinterpret_cast<VertexQuad*>(mVertexBuffer->lock());
 
 			for (size_t index = 0; index < count_quad; ++index)
 			{
-				// копируем дефолтные данные
+				// copy default data
 				quad[index].vertex[VertexQuad::CornerLT] = mData[index].vertex[QuadData::CornerLT];
 				quad[index].vertex[VertexQuad::CornerRT] = mData[index].vertex[QuadData::CornerRT];
 				quad[index].vertex[VertexQuad::CornerLB] = mData[index].vertex[QuadData::CornerLB];
@@ -174,7 +174,7 @@ namespace MyGUI
 				mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
 				VertexQuad* quad = reinterpret_cast<VertexQuad*>(mVertexBuffer->lock());
 
-				// копируем дефолтные данные
+				// copy default data
 				quad->vertex[VertexQuad::CornerLT] = mDefaultData.vertex[QuadData::CornerLT];
 				quad->vertex[VertexQuad::CornerRT] = mDefaultData.vertex[QuadData::CornerRT];
 				quad->vertex[VertexQuad::CornerLB] = mDefaultData.vertex[QuadData::CornerLB];

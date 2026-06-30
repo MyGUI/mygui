@@ -73,11 +73,11 @@ namespace MyGUI
 				MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 				return MessageBoxStyle::None;
 			}
-			// бит, номер кнопки + смещение до Button1
+			// bit, button number + offset to Button1
 			MessageBoxStyle info = MessageBoxStyle(
 				MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_indexUserButton1)));
 
-			// запоминаем кнопки для отмены и подтверждения
+			// remember buttons for cancel and confirm
 			if (mVectorButton.empty())
 				mInfoOk = info;
 			mInfoCancel = info;
@@ -233,7 +233,7 @@ namespace MyGUI
 			if (mWidgetText != nullptr)
 				text = mWidgetText->getSubWidgetText();
 			IntSize size = text == nullptr ? IntSize() : text->getTextSize();
-			// минимум высота иконки
+			// minimum icon height
 			if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE))
 			{
 				if (size.height < mIcon->getHeight())

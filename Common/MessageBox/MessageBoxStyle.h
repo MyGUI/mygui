@@ -26,15 +26,15 @@ namespace MyGUI
 			Try = MYGUI_FLAG(7),
 			Continue = MYGUI_FLAG(8),
 
-			_indexUserButton1 = 9, // индекс первой кнопки юзера
+			_indexUserButton1 = 9, // index of first user button
 
 			Button1 = MYGUI_FLAG(_indexUserButton1),
 			Button2 = MYGUI_FLAG(_indexUserButton1 + 1),
 			Button3 = MYGUI_FLAG(_indexUserButton1 + 2),
 			Button4 = MYGUI_FLAG(_indexUserButton1 + 3),
 
-			_countUserButtons = 4, // колличество кнопок юзера
-			_indexIcon1 = _indexUserButton1 + _countUserButtons, // индекс первой иконки
+			_countUserButtons = 4, // number of user buttons
+			_indexIcon1 = _indexUserButton1 + _countUserButtons, // index of first icon
 
 			IconDefault = MYGUI_FLAG(_indexIcon1),
 
@@ -98,7 +98,6 @@ namespace MyGUI
 			return _stream;
 		}
 
-		// возвращает индекс иконки
 		size_t getIconIndex()
 		{
 			size_t index = 0;
@@ -116,7 +115,6 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		// возвращает индекс иконки
 		size_t getButtonIndex()
 		{
 			size_t index = 0;
@@ -134,7 +132,6 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		// возвращает список кнопок
 		std::vector<MessageBoxStyle> getButtons()
 		{
 			std::vector<MessageBoxStyle> buttons;

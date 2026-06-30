@@ -87,17 +87,17 @@ namespace tools
 	{
 		if (mNewWidget == nullptr)
 		{
-			// тип виджета может отсутсвовать
+			// widget type may be missing
 			if (!MyGUI::WidgetManager::getInstance().isFactoryExist(mWidgetType))
 				return;
 
-			// выделяем верний виджет
+			// select top widget
 			if (!mPopupMode)
 				WidgetSelectorManager::getInstance().selectWidget(mStartPoint);
 
 			MyGUI::Widget* parent = WidgetSelectorManager::getInstance().getSelectedWidget();
 
-			// пока не найдем ближайшего над нами способного быть родителем
+			// until we find the nearest above us capable of being a parent
 			while (parent != nullptr && !WidgetTypes::getInstance().findWidgetStyle(parent->getTypeName())->parent)
 				parent = parent->getParent();
 
@@ -120,7 +120,7 @@ namespace tools
 					MyGUI::Align::Default,
 					DEFAULT_EDITOR_LAYER);
 
-			// переводим старт поинт в координаты отца
+			// convert start point to parent coordinates
 			if (parent != nullptr && !mNewWidget->isRootWidget())
 			{
 				if (parent->getClientWidget())
@@ -152,7 +152,7 @@ namespace tools
 			{
 				mNewWidget->setCoord(coord);
 
-				// создали виджет, все счастливы
+				// widget created, everyone is happy
 				WidgetContainer* widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
 				if (mPopupMode)
 					widgetContainer->setStyle(mNewWidget->getWidgetStyle().print());
@@ -161,14 +161,14 @@ namespace tools
 				EditorWidgets::getInstance().add(widgetContainer);
 				UndoManager::getInstance().addValue();
 
-				// чтобы выделился созданый виджет
+				// to select the created widget
 				resetAllCreatorInfo();
 
 				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->getWidget());
 			}
 			else
 			{
-				// не удалось создать, т.к. размер нулевой
+				// failed to create, because size is zero
 				resetWidget();
 			}
 		}
@@ -180,7 +180,7 @@ namespace tools
 
 	void WidgetCreatorManager::resetWidget()
 	{
-		// подстрахуемся
+		// just in case
 		if (mNewWidget != nullptr)
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(mNewWidget);

@@ -50,7 +50,7 @@ namespace tools
 		}
 		else
 		{
-			// логировать если это ошибка формата xml
+			// log if this is an xml format error
 		}
 
 		return result;
@@ -139,7 +139,7 @@ namespace tools
 	{
 		bool listElement = MyGUI::utility::endWith(_nodeTarget.name(), ".List");
 
-		// затираем текст у цели потому что любое значение текста источника является конечным
+		// clear target text because any source text value is final
 		pugi::xml_node targetTextNode = _nodeTarget.first_child();
 		if (!targetTextNode.empty() && targetTextNode.type() == pugi::node_pcdata)
 			targetTextNode.set_value("");
@@ -204,7 +204,7 @@ namespace tools
 		}
 		else
 		{
-			// логировать если это ошибка формата xml
+			// log if this is an xml format error
 		}
 
 		return result;

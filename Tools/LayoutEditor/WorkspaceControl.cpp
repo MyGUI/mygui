@@ -118,7 +118,7 @@ namespace tools
 
 		mCoordValue = mAreaSelectorControl->getCoord();
 
-		// конвертируем в локальные координаты
+		// convert to local coordinates
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
@@ -126,7 +126,7 @@ namespace tools
 				mCoordValue = mCoordValue - parent->getAbsolutePosition();
 		}
 
-		// снапим к гриду
+		// snap to grid
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntCoord coord = mCoordValue;
@@ -192,7 +192,7 @@ namespace tools
 			updateSelectorEnabled();
 			updateSelectionFromValue();
 
-			// FIXME возвращаем себе кей фокус
+			// FIXME regain key focus
 			if (!mMainWidget->getRootKeyFocus())
 				MyGUI::InputManager::getInstance().setKeyFocusWidget(mMainWidget);
 		}
@@ -210,7 +210,7 @@ namespace tools
 		if (_owner == "WorkspaceControl" || _widget != mCurrentWidget)
 			return;
 
-		// тут приходит в абсолютных, конвертим в локальные
+		// comes in absolute, convert to local
 		mCoordValue = _coordValue;
 		if (mCurrentWidget != nullptr)
 		{
@@ -484,7 +484,7 @@ namespace tools
 
 	void WorkspaceControl::updateFromCoordValue()
 	{
-		// тут работаем с локальными координатами
+		// work with local coordinates here
 		if (mCurrentWidget != nullptr)
 			setWidgetCoord(mCurrentWidget, mCoordValue);
 
@@ -493,7 +493,7 @@ namespace tools
 
 	void WorkspaceControl::updateSelectionFromValue()
 	{
-		// саму рамку отображаем в глобальных
+		// display the frame itself in global
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
@@ -660,18 +660,18 @@ namespace tools
 			using VectorPairWidgetCoord = std::vector<PairWidgetCoord>;
 			VectorPairWidgetCoord coords;
 
-			// запоминаем позиции детей
+			// remember children positions
 			for (MyGUI::Widget* child : _widget->getChildWidgets())
 			{
 				if (!child->isRootWidget())
 					coords.emplace_back(child, child->getCoord());
 			}
 
-			// на сколько сдвинут виджет
+			// how much the widget is shifted
 			MyGUI::IntCoord coordDiff = _coord - _widget->getCoord();
 			_widget->setCoord(_coord);
 
-			// восттанавливаем обсолютное положение детей
+			// restore absolute position of children
 			for (auto& item : coords)
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(item.first);

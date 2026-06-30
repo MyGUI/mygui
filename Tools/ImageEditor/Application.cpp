@@ -206,8 +206,8 @@ namespace tools
 
 	void Application::prepare()
 	{
-		// устанавливаем локаль из переменной окружения
-		// без этого не будут открываться наши файлы
+		// set locale from environment variable
+		// without this our files won't open
 		mLocale = ::setlocale(LC_ALL, "");
 		// erase everything after '_' to get language name
 		mLocale.erase(std::find(mLocale.begin(), mLocale.end(), '_'), mLocale.end());
@@ -218,7 +218,7 @@ namespace tools
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 
-		// при дропе файл может быть запущен в любой дирректории
+		// on drop, file can be launched in any directory
 		wchar_t buff[MAX_PATH];
 		::GetModuleFileNameW(0, buff, MAX_PATH);
 
@@ -226,12 +226,11 @@ namespace tools
 		size_t pos = dir.find_last_of(L"\\/");
 		if (pos != dir.npos)
 		{
-			// устанавливаем правильную дирректорию
+			// set correct directory
 			::SetCurrentDirectoryW(dir.substr(0, pos + 1).c_str());
 		}
 
-		// имена могут содержать пробелы, необходимо
-		//склеивать и проверять файлы на существование
+		// names can contain spaces, need to join and check files for existence
 		std::wifstream stream;
 		std::wstring tmp;
 		std::wstring delims = L" ";
@@ -244,7 +243,7 @@ namespace tools
 			{
 				tmp += source.substr(start, end - start);
 
-				// имена могут быть в ковычках
+				// names can be in quotes
 				if (tmp.size() > 2)
 				{
 					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
@@ -273,7 +272,7 @@ namespace tools
 			{
 				tmp += source.substr(start);
 
-				// имена могут быть в ковычках
+				// names can be in quotes
 				if (tmp.size() > 2)
 				{
 					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))

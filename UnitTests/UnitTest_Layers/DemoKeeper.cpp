@@ -133,10 +133,10 @@ namespace demo
 		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
-		// при зажатой правой вращаем сцену
+		// rotate scene with right mouse button held
 		if (mRightButtonPressed)
 		{
-			// относительное смещение
+			// relative offset
 			int rel_x = _absx - mSaveCursorX;
 			int rel_y = _absy - mSaveCursorY;
 
@@ -145,12 +145,12 @@ namespace demo
 
 			setMousePosition(mSaveCursorX, mSaveCursorY);
 
-			// вращаем сцену
+			// rotate scene
 			updateCamera(rel_x, rel_y);
 		}
 		else
 		{
-			// ввод мыши находить вне гуя
+			// mouse input outside gui
 			if (!MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz))
 			{
 			}
@@ -164,7 +164,7 @@ namespace demo
 
 		if (!MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id))
 		{
-			// вращаем сцену только когда не над гуем
+			// rotate scene only when not over gui
 			if (_id == MyGUI::MouseButton::Right)
 			{
 				mRightButtonPressed = true;

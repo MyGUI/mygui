@@ -32,7 +32,6 @@ namespace demo
 		mTextDesc->setCaption(_data->getInfo()->getItemDescription());
 		mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
 
-		// вычисляем размер
 		MyGUI::ISubWidgetText* text = mTextDesc->getSubWidgetText();
 		const MyGUI::IntSize& text_size = text ? text->getTextSize() : MyGUI::IntSize();
 		mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);

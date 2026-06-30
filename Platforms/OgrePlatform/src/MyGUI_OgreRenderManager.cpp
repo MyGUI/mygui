@@ -82,7 +82,7 @@ namespace MyGUI
 
 	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render)
 	{
-		// отписываемся
+		// unsubscribe
 		if (mRenderSystem != nullptr)
 		{
 			mRenderSystem->removeListener(this);
@@ -91,7 +91,7 @@ namespace MyGUI
 
 		mRenderSystem = _render;
 
-		// подписываемся на рендер евент
+		// subscribe to render event
 		if (mRenderSystem != nullptr)
 		{
 			mRenderSystem->addListener(this);
@@ -160,7 +160,7 @@ namespace MyGUI
 					"Invalid active viewport index selected. There is no viewport with given index.");
 			}
 
-			// рассылка обновлений
+			// dispatch updates
 			windowResized(mWindow);
 		}
 	}
@@ -199,7 +199,7 @@ namespace MyGUI
 		onRenderToTarget(this, mUpdate);
 		end();
 
-		// сбрасываем флаг
+		// reset flag
 		mUpdate = false;
 	}
 
@@ -217,7 +217,6 @@ namespace MyGUI
 		}
 		else if (eventName == "DeviceRestored")
 		{
-			// обновить всех
 			mUpdate = true;
 		}
 	}

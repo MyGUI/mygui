@@ -145,7 +145,7 @@ namespace demo
 		MyGUI::UString mStringUnknow;
 		MyGUI::UString mStringFormat;
 
-		// если текущий текст автодополнен
+		// if current text is autocompleted
 		bool mAutocomleted;
 
 		static Console* m_instance;

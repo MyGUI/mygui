@@ -47,7 +47,7 @@ namespace tools
 		updateRecentFilesMenu();
 		updateRecentProjectsMenu();
 
-		// меню для виджетов
+		// menu for widgets
 		mPopupMenuWidgets = mBar->findItemById("Widgets", true)->getItemChild();
 
 		//FIXME
@@ -157,7 +157,7 @@ namespace tools
 		if (recentFilesMenu != nullptr)
 		{
 			recentFilesMenu->getItemChild()->removeAllItems();
-			// список последних открытых файлов
+			// list of recently opened files
 			const RecentFilesManager::VectorUString& recentFiles = RecentFilesManager::getInstance().getRecentFiles();
 			if (!recentFiles.empty())
 			{
@@ -184,7 +184,7 @@ namespace tools
 		if (recentProjectsMenu != nullptr)
 		{
 			recentProjectsMenu->getItemChild()->removeAllItems();
-			// список последних открытых проектов
+			// list of recently opened projects
 			const RecentFilesManager::VectorUString& recentProjects =
 				RecentFilesManager::getInstance().getRecentProjects();
 			if (!recentProjects.empty())

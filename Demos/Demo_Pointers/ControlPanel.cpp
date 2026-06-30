@@ -34,7 +34,7 @@ namespace demo
 		else
 			mPointerContextManager->addContext(context);
 
-		// сбрасываем радио
+		// reset radio
 		if (button == mRepair)
 		{
 			if (mAttack->getStateSelected())

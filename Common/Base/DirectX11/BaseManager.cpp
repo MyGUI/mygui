@@ -214,7 +214,7 @@ namespace base
 			// Set the new render target
 			mDeviceContext->OMSetRenderTargets(1, &mRenderTarget, nullptr);
 
-			// Устанавливаем новый вьюпорт
+			// Set new viewport
 			D3D11_VIEWPORT vp;
 			vp.Width = (float)_width;
 			vp.Height = (float)_height;

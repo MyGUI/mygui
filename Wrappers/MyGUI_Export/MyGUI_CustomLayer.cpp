@@ -14,7 +14,7 @@ namespace MyGUI
 
 	ILayerNode* CustomLayer::createChildItemNode()
 	{
-		// создаем рутовый айтем
+		// create root item
 		ILayerNode* node = new CustomLayerNode(this);
 		mChildItems.push_back(node);
 

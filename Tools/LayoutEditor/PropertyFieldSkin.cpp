@@ -24,7 +24,7 @@ namespace tools
 		WidgetStyle::VectorString values =
 			WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
-		// добавляем скины и шаблоны
+		// add skins and templates
 		for (const auto& resource : MyGUI::ResourceManager::getInstance().getResources())
 		{
 			MyGUI::ResourceSkin* resourceSkin = resource.second->castType<MyGUI::ResourceSkin>(false);

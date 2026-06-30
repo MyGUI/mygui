@@ -97,7 +97,7 @@ namespace wraps
 		{
 			mLayoutName = _layout;
 
-			// оборачиваем
+			// wrap
 			if (mLayoutName.empty())
 			{
 				mMainWidget = _parent;
@@ -107,7 +107,7 @@ namespace wraps
 					mPrefix = FindParentPrefix(mMainWidget);
 				}
 			}
-			// загружаем лейаут на виджет
+			// load layout on widget
 			else
 			{
 				mPrefix = MyGUI::utility::toString(this, "_");
@@ -146,12 +146,12 @@ namespace wraps
 
 		void shutdown()
 		{
-			// удаляем все классы
+			// remove all classes
 			for (VectorBasePtr::reverse_iterator iter = mListBase.rbegin(); iter != mListBase.rend(); ++iter)
 				delete (*iter);
 			mListBase.clear();
 
-			// удаляем все рутовые виджеты
+			// remove all root widgets
 			if (!mLayoutName.empty())
 				MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
 			mListWindowRoot.clear();

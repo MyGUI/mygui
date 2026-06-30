@@ -23,15 +23,12 @@ namespace MyGUI
 
 		void deserialization(xml::ElementPtr _node, Version _version) override;
 
-		// создаем дочерний нод
 		ILayerNode* createChildItemNode() override;
-		// удаляем дочерний нод
 		void destroyChildItemNode(ILayerNode* _item) override;
 
-		// возвращает виджет по позиции
+		// returns widget by position
 		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
 
-		// рисует леер
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
 	private:

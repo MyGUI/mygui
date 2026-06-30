@@ -24,15 +24,11 @@ namespace MyGUI
 		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		~RTTLayerNode() override;
 
-		// необходимо обновление нода
 		void outOfDate(RenderItem* _item) override;
 
-		// добавляем айтем к ноду
 		void attachLayerItem(ILayerItem* _item) override;
-		// удаляем айтем из нода
 		void detachLayerItem(ILayerItem* _item) override;
 
-		// рисует леер
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
 		bool getCacheUsing() const

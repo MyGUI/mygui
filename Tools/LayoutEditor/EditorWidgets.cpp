@@ -110,7 +110,6 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -188,7 +187,6 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -299,8 +297,8 @@ namespace tools
 					parent = parent->getParent();
 					if (parent == nullptr)
 					{
-						// такого не должно быть, или утечка памяти,
-						// так как удалять нельзя им пользуется код вызывающий данную функцию
+						// this should not happen, or memory leak,
+						// since it cannot be deleted, it is used by the code calling this function
 						return;
 					}
 					containerParent = find(parent);
@@ -348,8 +346,8 @@ namespace tools
 					parent = parent->getParent();
 					if (parent == nullptr)
 					{
-						// такого не должно быть, или утечка памяти,
-						// так как удалять нельзя им пользуется код вызывающий данную функцию
+						// this should not happen, or memory leak,
+						// since it cannot be deleted, it is used by the code calling this function
 						return result;
 					}
 					containerParent = find(parent);
@@ -414,7 +412,7 @@ namespace tools
 	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode)
 	{
 		WidgetContainer* container = new WidgetContainer();
-		// парсим атрибуты виджета
+		// parse widget attributes
 		MyGUI::IntCoord coord;
 		MyGUI::Align align = MyGUI::Align::Default;
 		MyGUI::WidgetStyle widgetStyle = MyGUI::WidgetStyle::Child;
@@ -448,7 +446,7 @@ namespace tools
 				_parent == nullptr ? size : _parent->getClientCoord().size());
 		}
 
-		// проверяем скин на присутствие
+		// check skin for presence
 		std::string_view skin = container->getSkin();
 		bool exist = isSkinExist(container->getSkin());
 		if (!exist && !container->getSkin().empty())
@@ -498,7 +496,7 @@ namespace tools
 
 		add(container);
 
-		// берем детей и крутимся
+		// take children and iterate
 		MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
 		while (widget.next())
 		{
@@ -512,19 +510,19 @@ namespace tools
 			}
 			else if (widget->getName() == "Property")
 			{
-				// парсим атрибуты
+				// parse attributes
 				if (!widget->findAttribute("key", key))
 					continue;
 				if (!widget->findAttribute("value", value))
 					continue;
 
-				// конвертим проперти в текущий вариант версии
+				// convert property to current version
 				key = MyGUI::BackwardCompatibility::getPropertyRename(key);
 				size_t indexSeparator = key.find('_');
 				if (indexSeparator != std::string::npos)
 					key = key.substr(indexSeparator + 1);
 
-				// и пытаемся парсить свойство
+				// and try to parse property
 				if (!tryToApplyProperty(container->getWidget(), key, value, _testMode))
 					continue;
 
@@ -532,7 +530,7 @@ namespace tools
 			}
 			else if (widget->getName() == "UserString")
 			{
-				// парсим атрибуты
+				// parse attributes
 				if (!widget->findAttribute("key", key))
 					continue;
 				if (!widget->findAttribute("value", value))
@@ -542,7 +540,7 @@ namespace tools
 			}
 			else if (widget->getName() == "Controller")
 			{
-				// парсим атрибуты
+				// parse attributes
 				if (!widget->findAttribute("type", type))
 					continue;
 				ControllerInfo* controllerInfo = new ControllerInfo();
@@ -777,7 +775,7 @@ namespace tools
 
 	void EditorWidgets::loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode)
 	{
-		// берем детей и крутимся
+		// take children and iterate
 		MyGUI::xml::ElementEnumerator element = _root->getElementEnumerator();
 		while (element.next())
 		{
@@ -794,7 +792,7 @@ namespace tools
 
 		for (auto& widget : mWidgets)
 		{
-			// в корень только сирот
+			// only orphans go to root
 			if (nullptr == widget->getWidget()->getParent())
 				serialiseWidget(widget, _root, _compatibility);
 		}
@@ -812,7 +810,7 @@ namespace tools
 				std::string key;
 				std::string value;
 
-				// парсим атрибуты
+				// parse attributes
 				if (!widget->findAttribute("key", key))
 					continue;
 				if (!widget->findAttribute("value", value))

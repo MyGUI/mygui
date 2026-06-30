@@ -246,7 +246,7 @@ namespace MyGUI
 				Widget ^ _parent,
 				const std::string& _prefix, bool _root)
 			{
-				// парсим атрибуты виджета
+				// parse widget attributes
 				std::string type, skin, name, layer, tmp;
 				MyGUI::IntCoord coord;
 				MyGUI::Align align = MyGUI::Align::Default;
@@ -278,10 +278,10 @@ namespace MyGUI
 				else
 					wid = CreateWidget(_parent, style, type, skin, coord, align, layer, name);
 
-				// составляем список рутов
+				// compile root list
 				if (_root) _widgets->Add(wid);
 
-				// берем детей и крутимся
+				// take children and iterate
 				MyGUI::xml::ElementEnumerator widget_element = _widget->getElementEnumerator();
 				while (widget_element.next())
 				{
@@ -293,15 +293,15 @@ namespace MyGUI
 					}
 					else if (widget_element->getName() == "Property")
 					{
-						// парсим атрибуты
+						// parse attributes
 						if (false == widget_element->findAttribute("key", key)) continue;
 						if (false == widget_element->findAttribute("value", value)) continue;
-						// и парсим свойство
+						// and parse property
 						wid->GetNativePtr()->setProperty(key, value);
 					}
 					else if (widget_element->getName() == "UserString")
 					{
-						// парсим атрибуты
+						// parse attributes
 						if (false == widget_element->findAttribute("key", key)) continue;
 						if (false == widget_element->findAttribute("value", value)) continue;
 						wid->GetNativePtr()->setUserString(key, value);

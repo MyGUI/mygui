@@ -42,7 +42,7 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_ASSERT(!mTextureId, "Texture already exist");
 
-		//FIXME перенести в метод
+		//FIXME move to method
 		mInternalPixelFormat = 0;
 		mPixelFormat = 0;
 		mNumElemBytes = 0;
@@ -91,7 +91,7 @@ namespace MyGUI
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		CHECK_GL_ERROR_DEBUG();
 
-		// создаем тукстуру
+		// create texture
 		glGenTextures(1, (GLuint*)&mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		glBindTexture(GL_TEXTURE_2D, mTextureId);
@@ -127,7 +127,7 @@ namespace MyGUI
 #ifdef PixelBufferObjectSupported
 		if (!_data && OpenGLESRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
-			//создаем текстурнный буфер
+			// create texture buffer
 			//glGenBuffersARB(1, (GLuint *)&mPboID);
 			//glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
 			//glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);

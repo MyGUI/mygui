@@ -253,12 +253,12 @@ namespace demo
 		const Ogre::Vector3& _corner1,
 		const Ogre::Vector3& _corner2) const
 	{
-		Ogre::Vector2 result; // результат
+		Ogre::Vector2 result; // result
 
 		Ogre::Vector3 dirX = _corner1 - _corner0;
 		Ogre::Vector3 dirY = _corner2 - _corner0;
 
-		_position -= _corner0; // расстояние от начала координат (от точки 0)
+		_position -= _corner0; // distance from origin (point 0)
 
 		Ogre::Vector3 div = (dirX.crossProduct(dirY));
 		if (div.x != 0.0f)
@@ -278,7 +278,7 @@ namespace demo
 		}
 		else
 		{
-			// пипец
+			// dead end
 		}
 
 		return result;
@@ -296,18 +296,18 @@ namespace demo
 
 		if (mUScale != 1)
 		{
-			float count = 1 / mUScale; // колличество тайлов
-			float x = result.x * count; // пропорцией узнаем положение
-			result.x = x + 0.5f; // смещаем на половину, чтобы центр тайла был в середине
-			result.x = fmod(result.x, 1); // отбрасываем до запятой получая от 0 до 1
+			float count = 1 / mUScale; // number of tiles
+			float x = result.x * count; // find position by proportion
+			result.x = x + 0.5f; // shift by half so tile center is in middle
+			result.x = fmod(result.x, 1); // discard integer part getting 0 to 1
 		}
 
 		if (mVScale != 1)
 		{
-			float count = 1 / mVScale; // колличество тайлов
-			float y = result.y * count; // пропорцией узнаем положение
-			result.y = y + 0.5f; // смещаем на половину, чтобы центр тайла был в середине
-			result.y = fmod(result.y, 1); // отбрасываем до запятой получая от 0 до 1
+			float count = 1 / mVScale; // number of tiles
+			float y = result.y * count; // find position by proportion
+			result.y = y + 0.5f; // shift by half so tile center is in middle
+			result.y = fmod(result.y, 1); // discard integer part getting 0 to 1
 		}
 
 		return result;

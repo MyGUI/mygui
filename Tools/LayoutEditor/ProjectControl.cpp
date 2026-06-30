@@ -249,7 +249,7 @@ namespace tools
 		delete savedDoc;
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
-		// перегружаем список
+		// reload list
 		load();
 
 		_result = true;
@@ -339,7 +339,6 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -437,7 +436,6 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -482,7 +480,6 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{

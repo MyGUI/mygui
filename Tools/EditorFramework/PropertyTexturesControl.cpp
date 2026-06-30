@@ -143,12 +143,12 @@ namespace tools
 
 	void PropertyTexturesControl::fillTextures()
 	{
-		// FIXME потом вынести в загружаемые настройки
+		// FIXME move to loadable settings later
 		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
 		for (const auto& path : paths)
 			mTextures.push_back(path);
 
-		// FIXME потом вынести в загружаемые настройки
+		// FIXME move to loadable settings later
 		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
 		for (const auto& path : paths)
 			mTextures.push_back(path);

@@ -132,7 +132,7 @@ namespace MyGUI
 		void setShaderProjectionMatrix(bool isFlipped);
 
 	private:
-		// флаг для обновления всех и вся
+		// flag for updating everything
 		bool mUpdate{false};
 
 		IntSize mViewSize;
@@ -141,10 +141,10 @@ namespace MyGUI
 
 		VertexColourType mVertexFormat;
 
-		// окно, на которое мы подписываемся для изменения размеров
+		// window we subscribe to for resize
 		Ogre::RenderWindow* mWindow{nullptr};
 
-		// вьюпорт, с которым работает система
+		// viewport the system works with
 		unsigned short mActiveViewport{0};
 
 		Ogre::RenderSystem* mRenderSystem{nullptr};

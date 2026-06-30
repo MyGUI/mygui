@@ -79,7 +79,7 @@ namespace tools
 			updateList();
 
 			mEdit->setCaption(MyGUI::UString());
-			//обновляем кнопки
+			// update buttons
 			notifyChangeWidth(0);
 		}
 		else
@@ -160,7 +160,7 @@ namespace tools
 			if (item == nullptr)
 				erasePropertyValue(mCurrentWidget, _index, "AddItem");
 
-			// при удалении виджета он сам удалит контейнер
+			// when deleting a widget, it will delete the container itself
 			itemContainer->_removeItemAt(_index);
 		}
 	}

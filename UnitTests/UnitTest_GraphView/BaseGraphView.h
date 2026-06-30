@@ -157,7 +157,7 @@ namespace wraps
 		{
 			for (auto& node_conn : _node->getConnectionEnumerator())
 			{
-				// удаляем прямые соединения
+				// remove direct connections
 				while (node_conn->isAnyConnection())
 				{
 					for (auto& conn : node_conn->getConnectionEnumerator())
@@ -168,7 +168,7 @@ namespace wraps
 					}
 				}
 
-				// удаляем обратные соединения
+				// remove reverse connections
 				while (node_conn->isAnyReverseConnection())
 				{
 					for (auto& conn : node_conn->getReverseConnectionEnumerator())
@@ -193,7 +193,7 @@ namespace wraps
 				bool result = false;
 				requestConnectPoint(this, _connection, nullptr, result);
 
-				// тащим новый конект
+				// drag new connection
 				if (result)
 				{
 					mIsDrug = true;
@@ -212,12 +212,12 @@ namespace wraps
 
 					updateCanvas();
 				}
-				// разрываем существующий
+				// break existing connection
 				else
 				{
 					BaseGraphConnection* drag_node = nullptr;
 					bool disconect = false;
-					// прямое сочленение
+					// direct connection
 					if (_connection->isAnyConnection())
 					{
 						for (auto& conn : _connection->getConnectionEnumerator())
@@ -236,7 +236,7 @@ namespace wraps
 					}
 					else
 					{
-						// обратное сочленение
+						// reverse connection
 						for (auto& conn : _connection->getReverseConnectionEnumerator())
 						{
 							result = false;
@@ -252,7 +252,7 @@ namespace wraps
 						}
 					}
 
-					// тащим разорваную связь
+					// drag broken connection
 					if (disconect)
 					{
 						mIsDrug = true;
@@ -281,7 +281,7 @@ namespace wraps
 		{
 			if (mIsDrug)
 			{
-				// нод откуда тянется не всегда может быть сендером
+				// node being dragged from may not always be the sender
 				_connection = mConnectionStart;
 
 				connectPoint(_connection);
@@ -297,14 +297,14 @@ namespace wraps
 		{
 			if (mIsDrug)
 			{
-				// нод откуда тянется не всегда может быть сендером
+				// node being dragged from may not always be the sender
 				_connection = mConnectionStart;
 
 				const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 				//const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
 				mDrugLine.point_end.set(mouse.left - mCanvas->getAbsoluteLeft(), mouse.top - mCanvas->getAbsoluteTop());
 
-				// устанавлваем длинну загиба от дистанции
+				// set bend length based on distance
 				double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) *
 								   (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
 					((mDrugLine.point_end.top - mDrugLine.point_start.top) *
@@ -334,7 +334,7 @@ namespace wraps
 						mDrugLine.start_offset.width = (int)distance;
 				}
 
-				// пикаем виджет под нами
+				// pick widget under us
 				MyGUI::Widget* widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
 				if (widget != nullptr)
 				{
@@ -377,7 +377,7 @@ namespace wraps
 		{
 			clearCanvas();
 
-			// проходим по всем нодам и перерисовываем связи
+			// iterate all nodes and redraw connections
 			for (auto& mNode : mNodes)
 			{
 				for (auto& node_point : mNode->getConnectionEnumerator())
@@ -401,7 +401,7 @@ namespace wraps
 				}
 			}
 
-			// ниточка для драга
+			// drag line
 			if (mIsDrug)
 				drawCurve(mDrugLine);
 		}
@@ -410,7 +410,7 @@ namespace wraps
 		{
 			const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 
-			// пикаем виджет под нами
+			// pick widget under us
 			MyGUI::Widget* widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
 			if (widget != nullptr)
 			{
@@ -522,7 +522,7 @@ namespace wraps
 					result.height = coord.bottom();
 			}
 
-			// для соединений справа
+			// for connections on the right
 			result.width += 10;
 			result.height += 10;
 

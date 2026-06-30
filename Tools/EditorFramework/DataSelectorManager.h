@@ -30,10 +30,10 @@ namespace tools
 		using EventType = sigslot::signal2<DataPtr, bool>;
 		EventType* getEvent(std::string_view _dataType);
 
-		// у родителя полностью изменились дети
+		// parent's children changed completely
 		void changeParent(DataPtr _parent);
 
-		// у родителя изменился только активный ребенок
+		// only active child of parent changed
 		void changeParentSelection(DataPtr _parent, DataPtr _selectedChild);
 
 	private:

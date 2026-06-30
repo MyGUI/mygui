@@ -555,7 +555,6 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -563,7 +562,7 @@ namespace tools
 				{
 					if (itemIndex == 0)
 					{
-						// поменять на теги
+						// change to tags
 						std::string_view resourceName = element->findAttribute("name");
 						addUserTag("ResourceName", MyGUI::UString(resourceName));
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");

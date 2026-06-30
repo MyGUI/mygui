@@ -33,7 +33,7 @@ namespace MyGUI
 
 	void ScrollViewPanel::updateContent()
 	{
-		// размер клиента с полосами
+		// client size with scrollbars
 		IntSize viewSize = mScrollViewClient->getSize();
 		if (!getVScroll()->getVisible())
 			viewSize.width -= getVScroll()->getWidth();
@@ -45,7 +45,7 @@ namespace MyGUI
 		Panel::updateMeasure(getChildAt(0), IntSize(viewSize.width, (std::numeric_limits<int>::max)()));
 		IntSize resultSize = Panel::getDesiredSize(getChildAt(0));
 
-		// содержимое влазиет по высоте, вертикального скрола не будет
+		// content fits vertically, no vertical scroll
 		if (viewSize.height >= resultSize.height)
 		{
 			viewSize = mScrollViewClient->getSize();
@@ -58,7 +58,7 @@ namespace MyGUI
 			Panel::updateArrange(getChildAt(0), IntCoord(0, 0, viewSize.width, resultSize.height));
 			setCanvasSize(IntSize(viewSize.width, resultSize.height));
 		}
-		// содержимое больше, будет виден вертикальный скрол
+		// content larger, vertical scroll will appear
 		else
 		{
 			Panel::updateArrange(getChildAt(0), IntCoord(0, 0, viewSize.width, resultSize.height));

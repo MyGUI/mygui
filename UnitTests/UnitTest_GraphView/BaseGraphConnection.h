@@ -52,7 +52,7 @@ namespace wraps
 			return mOffset;
 		}
 
-		// все присоединениые к нам точки
+		// all points connected to us
 		bool isAnyConnection() const
 		{
 			return !mConnection.empty();

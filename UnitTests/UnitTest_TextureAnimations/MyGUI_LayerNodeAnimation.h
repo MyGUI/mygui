@@ -59,13 +59,13 @@ namespace MyGUI
 	public:
 		virtual void attach(ILayerNode* _node) = 0;
 
-		// атачится айтем
+		// item being attached
 		virtual void create() = 0;
 
-		// детачится айтем
+		// item being detached
 		virtual void destroy() = 0;
 
-		// перерисовка буфера
+		// buffer redraw
 		virtual size_t animate(
 			bool _update,
 			size_t _quad_count,

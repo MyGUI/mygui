@@ -246,13 +246,13 @@ namespace tools
 		MyGUI::IntSize canvasSize = mView->getCanvasSize();
 		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
 
-		// смещение мыши относительно вью
+		// mouse offset relative to view
 		MyGUI::IntPoint mouseOffset = mousePoint - mView->getAbsolutePosition() - viewCoord.point();
-		// смещение нужной точки внутри текстуры в пикселях
+		// offset of target point inside texture in pixels
 		MyGUI::IntPoint canvasPointOffset(
 			(int)(mMouseRelative.left * (float)canvasSize.width),
 			(int)(mMouseRelative.top * (float)canvasSize.height));
-		// смещение вью в пикселях
+		// view offset in pixels
 		MyGUI::IntPoint canvasOffset = canvasPointOffset - mouseOffset;
 
 		mView->setViewOffset(MyGUI::IntPoint(-canvasOffset.left, -canvasOffset.top));

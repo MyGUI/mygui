@@ -40,7 +40,6 @@ namespace demo
 		MyGUI::ResourceManager::getInstance().load("SquadSlotPortraitIcons.xml");
 
 		createSuccesScene();
-		//	раскоментировать для того чтобы увидеть странное поведение (предыдущую строчку закоментить)
 		createFailedScene();
 	}
 

@@ -111,7 +111,7 @@ namespace tools
 		mList->removeItemAt(index);
 		UndoManager::getInstance().addValue();
 
-		// обновляем текущий индекс
+		// update current index
 		notifySelectItem(mList, mList->getIndexSelected());
 	}
 

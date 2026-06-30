@@ -6,7 +6,7 @@
 namespace tools::utility
 {
 
-	// это можно в методы гуи занести
+	// this can be moved to gui methods
 	inline MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::Widget* _widget)
 	{
 		MyGUI::IntCoord coord = _coord;
@@ -14,7 +14,7 @@ namespace tools::utility
 		while (nullptr != parent)
 		{
 			coord = coord - parent->getPosition();
-			// а может у нас и дедушка есть? а может и прадед...
+			// what if we have a grandparent? and great-grandparent...
 			parent = parent->getParent();
 		}
 		return coord;

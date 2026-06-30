@@ -237,7 +237,7 @@ namespace tools
 	{
 		MyGUI::IntPoint offset = _mousePosition - mMousePressedOffset - mMainWidget->getAbsolutePosition();
 
-		// сбрасываем дефолтный размер панели
+		// reset default panel size
 		mDefaultPanelSize.clear();
 
 		MyGUI::IntCoord firstPanel = mFirstPanel->getCoord();
@@ -276,7 +276,7 @@ namespace tools
 
 		invalidateSize(firstPanel, separatorH, separatorV, secondPanel);
 
-		// запоминаем дефолтный размер панели
+		// remember default panel size
 		mDefaultPanelSize = mFirstPanel->getSize();
 	}
 

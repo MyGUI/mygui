@@ -15,7 +15,7 @@ namespace unittest
 	{
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// item manipulation
 
 		//! Get number of items
 		size_t getItemCount() const
@@ -74,7 +74,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// data manipulation
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, MyGUI::Any _data)
@@ -99,7 +99,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// display manipulation
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const MyGUI::UString& _name)

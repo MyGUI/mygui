@@ -241,15 +241,13 @@ namespace wraps
 
 		void createScene()
 		{
-			// создаем новый сцен менеджер
 			mScene = Ogre::Root::getSingleton().createSceneManager();
 
-			// создаем нод к которуму будем всякую дрянь атачить
 			mNode = mScene->getRootSceneNode()->createChildSceneNode();
 
 			mScene->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
 
-			// главный источник света
+			// main light source
 			Ogre::Vector3 dir(-1, -1, 0.5);
 			dir.normalise();
 			Ogre::Light* light = mScene->createLight(MyGUI::utility::toString(this, "_LightRenderBox"));
@@ -275,16 +273,16 @@ namespace wraps
 
 		void updateViewport()
 		{
-			// при нуле вылетает
+			// crashes at zero
 			if ((mCanvas->getWidth() <= 1) || (mCanvas->getHeight() <= 1))
 				return;
 
 			if ((nullptr != mEntity) && (nullptr != mSceneCamera))
 			{
-				// не ясно, нужно ли растягивать камеру, установленную юзером
+				// unclear, do we need to stretch camera set by user?
 				mSceneCamera->setAspectRatio((float)mCanvas->getWidth() / (float)mCanvas->getHeight());
 
-				// вычисляем расстояние, чтобы был виден весь объект
+				// compute distance to see the entire object
 				Ogre::AxisAlignedBox box;
 
 				box.merge(
@@ -297,14 +295,14 @@ namespace wraps
 
 				Ogre::Vector3 vec = box.getSize();
 
-				float width = sqrt(vec.x * vec.x + vec.z * vec.z); // самое длинное - диагональ (если крутить модель)
+				float width = sqrt(vec.x * vec.x + vec.z * vec.z); // longest is diagonal (if rotating model)
 				float len2 = width / mSceneCamera->getAspectRatio();
 				float height = vec.y;
 				float len1 = height;
 				if (len1 < len2)
 					len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-				// центр объекта по вертикали + отъехать так, чтобы влезла ближняя грань BoundingBox'а + чуть вверх и еще назад для красоты
+				// object center vertically + move so that near face of BoundingBox fits + slightly up and back for aesthetics
 				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z / 2 + len1) +
 					Ogre::Vector3(0, height * 0.1f, len1 * 0.2f);
 				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);

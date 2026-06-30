@@ -81,7 +81,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME перенесенно из конструктора, проверить смену скина
+		// FIXME moved from constructor, check skin change
 		mpRoot = new Node(this);
 
 		//FIXME
@@ -125,7 +125,7 @@ namespace MyGUI
 	void TreeControl::shutdownOverride()
 	{
 		mpWidgetScroll = nullptr;
-		// FIXME перенесенно из деструктора, проверить смену скина
+		// FIXME moved from destructor, check skin change
 		delete mpRoot;
 
 		Base::shutdownOverride();
@@ -328,7 +328,7 @@ namespace MyGUI
 
 			if (nIndex >= (size_t)mnTopIndex)
 			{
-				// FIXME проверка вставлена так как падает индекс айтема больше чем всего айтемов
+				// FIXME check inserted because item index exceeds total item count
 				if (nItem >= mItemWidgets.size())
 					break;
 

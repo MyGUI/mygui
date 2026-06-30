@@ -6,17 +6,17 @@
 */
 #pragma once
 
-// дополнительная инициализация
+// additional initialization
 #define MMYGUI_INITIALISE
 
-// использовать некоторые внешние типы
+// use some external types
 //#define MMYGUI_USING_EXTERNAL_TYPE
 
 #ifdef MMYGUI_USING_EXTERNAL_TYPE
-// неймспейс внешних типов
+// namespace of external types
 #    define MMYGUI_EXTERNAL_NAMESPACE
 #else
-// неймспейс внешних типов
+// namespace of external types
 #    define MMYGUI_EXTERNAL_NAMESPACE
 #endif
 

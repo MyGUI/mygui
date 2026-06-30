@@ -52,7 +52,7 @@ namespace tools
 
 	WidgetStyle* WidgetTypes::getWidgetType(std::string_view _name)
 	{
-		// ищем тип, если нет, то создаем
+		// search for type, create if not found
 		for (auto& widgetType : mWidgetTypes)
 		{
 			if (widgetType->name == _name)
@@ -90,7 +90,6 @@ namespace tools
 
 			widget_type->internalType = widgets->findAttribute("internal") == "true";
 
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
 			while (field.next())
 			{
@@ -187,19 +186,18 @@ namespace tools
 			std::string_view name = widgets->findAttribute("name");
 			PossibleValue* possible_value = getPossibleValue(name);
 
-			// тип мерджа переменных
+			// variable merge type
 			std::string_view merge = widgets->findAttribute("merge");
-			// дополняем своими данными, по дефолту
+			// supplement with own data, by default
 			if (merge == "add")
 			{
 			}
-			// удаляем и добавляем свои
+			// delete and add own
 			else if (merge == "replace")
 			{
 				possible_value->values.clear();
 			}
 
-			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
 			while (field.next())
 			{

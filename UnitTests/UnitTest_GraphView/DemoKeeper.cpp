@@ -313,7 +313,7 @@ namespace demo
 	{
 		MyGUI::xml::Document doc;
 
-		// есть такой файл
+		// file exists
 		if (!doc.open(_filename))
 		{
 			doc.clear();
@@ -322,7 +322,7 @@ namespace demo
 		doc.createDeclaration();
 		MyGUI::xml::ElementPtr root = doc.createRoot("AnimationGraph");
 
-		// сохраняем сами ноды
+		// save nodes
 		for (auto& node : mGraphView->getNodeEnumerator())
 		{
 			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
@@ -335,7 +335,7 @@ namespace demo
 			}
 		}
 
-		// сохраняем соединения
+		// save connections
 		for (auto& node : mGraphView->getNodeEnumerator())
 		{
 			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
@@ -361,7 +361,7 @@ namespace demo
 			}
 		}
 
-		// сохраняем данные для редактора
+		// save editor data
 		MyGUI::xml::ElementPtr data = root->createChild("EditorData");
 		for (auto& node : mGraphView->getNodeEnumerator())
 		{
@@ -407,7 +407,7 @@ namespace demo
 						BaseAnimationNode* anim_node2 = getNodeByName(conn.current()->findAttribute("node"));
 						if (anim_node2)
 						{
-							//соединить точки в ноде
+							// connect points in node
 							std::string_view from_point = conn.current()->findAttribute("from");
 							std::string_view to_point = conn.current()->findAttribute("to");
 

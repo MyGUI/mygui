@@ -40,7 +40,7 @@ namespace unittest
 	private:
 		using VectorString = std::vector<std::string>;
 
-		// тестовые данные
+		// test data
 		VectorString mItemsInfo;
 	};
 

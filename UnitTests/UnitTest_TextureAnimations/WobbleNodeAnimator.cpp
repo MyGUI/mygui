@@ -64,7 +64,7 @@ namespace demo
 			return _quad_count;
 		}
 
-		// проверяем смещения виджета
+		// check widget offset
 		if (mOldCoord.empty())
 		{
 			// do nothing

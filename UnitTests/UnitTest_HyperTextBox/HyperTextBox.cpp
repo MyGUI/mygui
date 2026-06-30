@@ -71,14 +71,14 @@ namespace MyGUI
 		{
 			if ((*item) == '<')
 			{
-				// отрезаем текст
+				// cut text
 				if (textItem < item)
 				{
 					if (mCurrentWrapPanel != nullptr)
 						parseText(mCurrentWrapPanel, _value.substr(textItem - _value.begin(), item - textItem));
 				}
 
-				// ищем конец тега
+				// find end of tag
 				for (auto tagItem = item; tagItem != _value.end(); ++tagItem)
 				{
 					if ((*tagItem) == '>')
@@ -119,7 +119,7 @@ namespace MyGUI
 				IntCoord(0, 0, mImageSize.width, mImageSize.height),
 				Align::Default);
 			image->setItemResource(_value);
-			// картинка как урл
+			// image as url
 			if (mUrl)
 			{
 				image->setPointer(mLinkPoiner);

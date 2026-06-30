@@ -11,7 +11,7 @@
 namespace attribute
 {
 
-	// класс обертка для удаления данных из статического вектора
+	// wrapper class for removing data from a static vector
 	template<typename Type>
 	struct DataHolder
 	{
@@ -24,7 +24,7 @@ namespace attribute
 		Type data;
 	};
 
-	// интерфейс для обертки поля
+	// interface for field wrapper
 	template<typename OwnerType, typename SetterType>
 	struct Field
 	{
@@ -33,7 +33,7 @@ namespace attribute
 		virtual std::string_view getFieldTypeName() const = 0;
 	};
 
-	// шаблон для обертки поля
+	// template for field wrapper
 	template<typename OwnerType, typename FieldType, typename SetterType>
 	struct FieldHolder : public Field<OwnerType, SetterType>
 	{
@@ -54,7 +54,7 @@ namespace attribute
 		}
 	};
 
-	// шаблон для атрибута поля
+	// template for field attribute
 	template<typename OwnerType, typename ValueType, typename SetterType>
 	struct AttributeField
 	{
@@ -73,7 +73,7 @@ namespace attribute
 		}
 	};
 
-	// макрос для инстансирования атрибута поля
+	// macro for instantiating a field attribute
 #define DECLARE_ATTRIBUTE_FIELD(_name, _type, _setter) \
 	template<typename OwnerType, typename ValueType = _type, typename SetterType = _setter> \
 	struct _name : public attribute::AttributeField<OwnerType, ValueType, SetterType> \
@@ -85,7 +85,7 @@ namespace attribute
 		} \
 	}
 
-	// макрос для инстансирования экземпляра атрибута
+	// macro for instantiating an attribute instance
 #define ATTRIBUTE_FIELD(_attribute, _class, _field, _value) \
 	struct _attribute##_##_field \
 	{ \
@@ -96,7 +96,7 @@ namespace attribute
 	} _attribute##_##_field
 
 
-	// шаблон для атрибута класса
+	// template for class attribute
 	template<typename Type, typename ValueType>
 	struct ClassAttribute
 	{
@@ -111,7 +111,7 @@ namespace attribute
 		}
 	};
 
-	// макрос для инстансирования атрибута класса
+	// macro for instantiating a class attribute
 #define DECLARE_ATTRIBUTE_CLASS(_name, _type) \
 	template<typename Type, typename ValueType = _type> \
 	struct _name : public attribute::ClassAttribute<_name<Type>, ValueType> \
@@ -122,7 +122,7 @@ namespace attribute
 		} \
 	}
 
-	// макрос для инстансирования экземпляра класса
+	// macro for instantiating a class instance
 #define ATTRIBUTE_CLASS(_attribute, _class, _value) \
 	class _class; \
 	static attribute::_attribute<_class> _attribute##_##_class(_value)

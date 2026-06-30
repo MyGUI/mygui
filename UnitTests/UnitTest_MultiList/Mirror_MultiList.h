@@ -33,7 +33,7 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// item manipulation
 
 		//! Get number of columns
 		size_t getColumnCount() const
@@ -62,7 +62,7 @@ namespace unittest
 			column.name = _name;
 			column.data = std::move(_data);
 
-			// если уже были столбики, то делаем то же колличество полей
+			// if columns already exist, make the same number of fields
 			if (!mVectorColumnInfo.empty())
 			{
 				size_t count = mVectorColumnInfo.front().list->getItemCount();
@@ -99,7 +99,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// display manipulation
 
 		/** Set column name
 			@param _column Index of column
@@ -119,7 +119,7 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// data manipulation
 
 		//! Replace an item data at a specified position
 		void setColumnDataAt(size_t _index, MyGUI::Any _data)
@@ -143,13 +143,13 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with lines (RU:методы для работы со строками)
+		// Methods for work with lines
 		/** @note
 		All indexes used here is indexes of unsorted Multilist. Even if you sorted
 			it - all items indexes will be same as before sort.*/
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// item manipulation
 
 		/** Get number of items (lines) */
 		size_t getItemCount() const
@@ -170,7 +170,7 @@ namespace unittest
 			if (MyGUI::ITEM_NONE == _index)
 				_index = mVectorColumnInfo.front().list->getItemCount();
 
-			// вставляем во все поля пустые, а потом присваиваем первому
+			// insert empty into all fields, then assign to first
 			for (auto& iter : mVectorColumnInfo)
 			{
 				iter.list->insertItemAt(_index, MyGUI::UString());
@@ -217,7 +217,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// display manipulation
 
 		/** Set item string */
 		void setItemNameAt(size_t _index, const MyGUI::UString& _name)
@@ -232,7 +232,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// data manipulation
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, MyGUI::Any _data)
@@ -255,9 +255,9 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with sub lines (RU:методы для работы со саб строками)
+		// Methods for work with sub lines
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// data manipulation
 
 		/** Set sub item
 			@param _column Index of column
@@ -292,7 +292,7 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// data manipulation
 
 		//! Replace an item data at a specified position
 		void setSubItemDataAt(size_t _column, size_t _index, MyGUI::Any _data)

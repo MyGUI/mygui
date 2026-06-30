@@ -56,7 +56,7 @@ namespace demo
 					}
 					else
 					{
-						// вставляем перед первым хаем
+						// insert before first high level
 						for (VectorContext::iterator item = mContexts.begin(); item != mContexts.end(); ++item)
 						{
 							if ((*item)->isHighLevel())

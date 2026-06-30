@@ -58,7 +58,7 @@ namespace tools
 		{
 			DataPtr selected = _data != nullptr ? _data->getChildSelected() : nullptr;
 
-			// выделяем только данные с типом скопа
+			// select only data with scope type
 			if (selected != nullptr)
 			{
 				if (selected->getType()->getName() != ScopeManager::getInstance().getCurrentScope() &&

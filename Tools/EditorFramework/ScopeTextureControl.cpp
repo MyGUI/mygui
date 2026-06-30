@@ -283,7 +283,7 @@ namespace tools
 	{
 		mCoordValue = mCurrentSelectorControl->getCoord();
 
-		// снапим к гриду
+		// snap to grid
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntCoord coord = mCoordValue;
