@@ -44,6 +44,7 @@ namespace MyGUI
 	@endcode
 	*/
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
 	template<typename T>
 	class MYGUI_OBSOLETE("use range-based for") Enumerator
 	{
@@ -92,6 +93,8 @@ namespace MyGUI
 		typename T::const_iterator m_current;
 		typename T::const_iterator m_end;
 	};
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
 
