@@ -1,23 +1,40 @@
 ## MyGUI v3.5.0
 
 ### CMake
-- Complete CMake modernization: use modern CMake targets, target_include_directories,
+- **Complete CMake modernization**: use modern CMake targets, target_include_directories,
   target_compile_definitions, target_compile_options instead of legacy commands and
   other improvements
-- Provide modern CMake target support for MyGUI: target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform).
+- Provide modern CMake target support for MyGUI: `target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform)`.
 - Deprecate MYGUI_STATIC in favor of BUILD_SHARED_LIBS
 - Allow using system msdfgen
+- Use FetchContent to get internal/optional dependencies like msdfgen and pugixml
+
+### Core
+- Remove custom XML parser, use pugixml instead
+- Modernize and refactor source code: lots of duplicate places were refactored and simplified, some old APIs were marked deprecated
+- Store ImageIndexInfo properly, fix UB with reference of temporary variable
+- Fix RTTI cast failure across shared library boundary on macOS ARM64
+- Add vector and map getters for childs and other lists and deprecate Enumerator class and related code
 
 ### Platforms
 - OpenGL: use non-EXT functions for FBO
-- Fix tools and demos with statically-linked Ogre
+- OpenGL: Fix OpenGL build on macOS
+- Ogre: Fix tools and demos with statically-linked
+- Ogre: allow using same shader on Ogre with GL and GL3+ platforms
+- DirectX: Implement DirectX11Texture and DirectXTexture::saveToFile
+- DirectX: Fix selected text background with DirectX11 and MSDF shader (no zero division with 0.5/fwidth)
+- DirectX: Remove d3dx9 and d3dx11 usage, use Windows SDK version of DirectX9 and DirectX11
 
 ### Infrastructure
 - Replace Travis CI with GitHub Actions
 - Add Lint CI step (clang-format)
+- Add clang-format pre-commit hook
 
 ### Plugins
 - Delete legacy plugins (Berkelium, Hikari)
+
+### Demos
+- Allow saving screenshots on all platforms, using F12 key
 
 ## MyGUI v3.4.4
 
