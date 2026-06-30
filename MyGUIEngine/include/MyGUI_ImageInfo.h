@@ -23,24 +23,10 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT ImageIndexInfo
 	{
-	public:
-		ImageIndexInfo(
-			std::string_view _texture,
-			const IntSize& _size,
-			const float _rate,
-			const std::vector<IntPoint>& _frames) :
-			texture(_texture),
-			size(_size),
-			rate(_rate),
-			frames(_frames)
-		{
-		}
-
-	public:
 		std::string_view texture;
-		const IntSize& size;
-		const float rate;
-		const std::vector<IntPoint>& frames;
+		IntSize size;
+		float rate;
+		std::vector<IntPoint> frames;
 	};
 
 } // namespace MyGUI
