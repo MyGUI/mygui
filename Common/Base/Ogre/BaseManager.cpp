@@ -21,7 +21,7 @@ namespace base
 		mRoot = new Ogre::Root("", "ogre.cfg", "Ogre.log");
 		mStaticPluginLoader.load();
 #else
-		mRoot = new Ogre::Root(pluginsPath, "ogre.cfg", "Ogre.log");
+		mRoot = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
 #endif
 
 		auto renderSystem = mRoot->getRenderSystemByName(mRoot->getAvailableRenderers()[0]->getName());
@@ -99,15 +99,15 @@ namespace base
 
 		if (mRoot)
 		{
-#ifdef OGRE_STATIC_LIB
-			mStaticPluginLoader.unload();
-#endif
 			Ogre::RenderWindow* window = mRoot->getAutoCreatedWindow();
 			if (window)
 				window->removeAllViewports();
 			delete mRoot;
 			mRoot = nullptr;
 		}
+#ifdef OGRE_STATIC_LIB
+		mStaticPluginLoader.unload();
+#endif
 	}
 
 	void BaseManager::createGuiPlatform()
