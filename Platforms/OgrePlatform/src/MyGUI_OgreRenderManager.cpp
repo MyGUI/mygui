@@ -512,6 +512,17 @@ namespace MyGUI
 		return nullptr;
 	}
 
+	static std::string patchGLSLVersion(std::string source)
+	{
+		if (auto pos = source.find("#version"); pos != std::string::npos)
+		{
+			if (auto eol = source.find('\n', pos); eol != std::string::npos)
+				source = "#version 330\n" + source.substr(eol + 1);
+		}
+
+		return source;
+	}
+
 	OgreShaderInfo* OgreRenderManager::createShader(
 		const std::string& _shaderName,
 		const std::string& _vertexProgramFile,
@@ -519,53 +530,42 @@ namespace MyGUI
 	{
 		OgreShaderInfo* shaderInfo = new OgreShaderInfo();
 
-		std::string shaderLanguage = getShaderExtension();
+		const auto& group = OgreDataManager::getInstance().getGroup();
+		auto& programManager = Ogre::HighLevelGpuProgramManager::getSingleton();
 
-		shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(
-			_vertexProgramFile,
-			OgreDataManager::getInstance().getGroup());
-		if (!shaderInfo->vertexProgram)
+		const std::string shaderLanguage = getShaderExtension();
+		const bool isGL3Plus = mRenderSystem && mRenderSystem->getName().find("3+") != std::string::npos;
+
+		auto loadProgram = [&](const std::string& file, Ogre::GpuProgramType type, const char* hlslTarget)
 		{
-			MYGUI_ASSERT(
-				DataManager::getInstance().isDataExist(_vertexProgramFile),
-				"Shader file '" << _vertexProgramFile << "' is missing.");
-			shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-				_vertexProgramFile,
-				OgreDataManager::getInstance().getGroup(),
-				shaderLanguage,
-				Ogre::GPT_VERTEX_PROGRAM);
-			shaderInfo->vertexProgram->setSourceFile(_vertexProgramFile);
+			if (auto program = programManager.getByName(file, group))
+				return program;
+
+			MYGUI_ASSERT(DataManager::getInstance().isDataExist(file), "Shader file '" << file << "' is missing.");
+
+			auto program = programManager.createProgram(file, group, shaderLanguage, type);
+
+			if (shaderLanguage == "glsl" && isGL3Plus)
+			{
+				auto stream = Ogre::ResourceGroupManager::getSingleton().openResource(file, group);
+				program->setSource(patchGLSLVersion(stream->getAsString()));
+			}
+			else
+			{
+				program->setSourceFile(file);
+			}
 			if (shaderLanguage == "hlsl")
 			{
-				shaderInfo->vertexProgram->setParameter("target", "vs_3_0");
-				shaderInfo->vertexProgram->setParameter("entry_point", "main");
+				program->setParameter("target", hlslTarget);
+				program->setParameter("entry_point", "main");
 			}
 
-			shaderInfo->vertexProgram->load();
-		}
+			program->load();
+			return program;
+		};
 
-		shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(
-			_fragmentProgramFile,
-			OgreDataManager::getInstance().getGroup());
-		if (!shaderInfo->fragmentProgram)
-		{
-			MYGUI_ASSERT(
-				DataManager::getInstance().isDataExist(_fragmentProgramFile),
-				"Shader file '" << _fragmentProgramFile << "' is missing.");
-			shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-				_fragmentProgramFile,
-				OgreDataManager::getInstance().getGroup(),
-				shaderLanguage,
-				Ogre::GPT_FRAGMENT_PROGRAM);
-			shaderInfo->fragmentProgram->setSourceFile(_fragmentProgramFile);
-			if (shaderLanguage == "hlsl")
-			{
-				shaderInfo->fragmentProgram->setParameter("target", "ps_3_0");
-				shaderInfo->fragmentProgram->setParameter("entry_point", "main");
-			}
-
-			shaderInfo->fragmentProgram->load();
-		}
+		shaderInfo->vertexProgram = loadProgram(_vertexProgramFile, Ogre::GPT_VERTEX_PROGRAM, "vs_3_0");
+		shaderInfo->fragmentProgram = loadProgram(_fragmentProgramFile, Ogre::GPT_FRAGMENT_PROGRAM, "ps_3_0");
 
 		return shaderInfo;
 	}
