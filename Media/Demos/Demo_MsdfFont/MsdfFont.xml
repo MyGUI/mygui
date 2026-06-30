@@ -1,217 +1,110 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
     <Resource type="ResourceManualFont" name="MsdfFont">
-        <Property key="Source" value="MsdfFont.png"/>
-        <Property key="Shader" value="MsdfFontShader"/>
-        <Property key="DefaultHeight" value="43"/>
+        <Property key="Source" value="MsdfFont.png" />
+        <Property key="Shader" value="MsdfFontShader" />
+        <Property key="DefaultHeight" value="43" />
         <Codes>
-            <Code index="9" coord="1 1 0 0" advance="8"/>
-            <Code index="32" coord="1 1 0 0" bearing="0 34" advance="11"/>
-            <Code index="33" coord="78 47 5.5625 28" bearing="4.4375 7" advance="9.5625"/>
-            <Code index="34" coord="90 1 11.625 12" bearing="2.46875 7" advance="14.5313"/>
-            <Code index="35" coord="85 47 26.625 28" bearing="1.78125 7" advance="28.2188"/>
-            <Code index="36" coord="61 196 18.9375 34" bearing="1.98438 6" advance="21.0156"/>
-            <Code index="37" coord="113 47 32.2344 28" bearing="0.984375 7" advance="33.0156"/>
-            <Code index="38" coord="147 47 26.7031 28" bearing="1.26563 7" advance="26.7344"/>
-            <Code index="39" coord="103 1 4.98438 12" bearing="2.46875 7" advance="7.53125"/>
-            <Code index="40" coord="81 196 10.0625 34" bearing="2.09375 6" advance="11.9063"/>
-            <Code index="41" coord="93 196 10.0625 34" bearing="1.89063 6" advance="12.1094"/>
-            <Code index="42" coord="161 1 17.8438 18" bearing="0.078125 7" advance="17.9219"/>
-            <Code index="43" coord="43 47 24.5313 25" bearing="2.8125 10" advance="27.1875"/>
-            <Code index="44" coord="81 1 7.14063 11" bearing="1.78125 29" advance="9.21875"/>
-            <Code index="45" coord="1 1 11.4688 5" bearing="0.765625 22" advance="12.2344"/>
-            <Code index="46" coord="36 1 5.71875 6" bearing="2.84375 29" advance="8.15625"/>
-            <Code index="47" coord="1 196 14.125 32" bearing="-1 7" advance="13"/>
-            <Code index="48" coord="175 47 20.1406 28" bearing="1.375 7" advance="21.625"/>
-            <Code index="49" coord="197 47 17.625 28" bearing="2.95313 7" advance="20.0469"/>
-            <Code index="50" coord="216 47 18.6563 28" bearing="1.64063 7" advance="21.3594"/>
-            <Code index="51" coord="1 76 19.2656 28" bearing="1.75 7" advance="21.25"/>
-            <Code index="52" coord="22 76 21.125 28" bearing="0.765625 7" advance="22.2344"/>
-            <Code index="53" coord="45 76 18.9844 28" bearing="1.78125 7" advance="21.2188"/>
-            <Code index="54" coord="65 76 20.125 28" bearing="1.51563 7" advance="21.4844"/>
-            <Code index="55" coord="87 76 18.875 28" bearing="1.95313 7" advance="21.0469"/>
-            <Code index="56" coord="107 76 20 28" bearing="1.4375 7" advance="21.5625"/>
-            <Code index="57" coord="128 76 20.1094 28" bearing="1.26563 7" advance="21.7344"/>
-            <Code index="58" coord="180 1 5.70313 21" bearing="3.21875 14" advance="8.78125"/>
-            <Code index="59" coord="69 47 7.14063 26" bearing="1.78125 14" advance="10.2188"/>
-            <Code index="60" coord="187 1 24.5313 21" bearing="2.8125 12" advance="27.1875"/>
-            <Code index="61" coord="109 1 24.5313 12" bearing="2.8125 17" advance="27.1875"/>
-            <Code index="62" coord="213 1 24.5313 21" bearing="2.8125 12" advance="27.1875"/>
-            <Code index="63" coord="150 76 16.0156 28" bearing="1.57813 7" advance="17.4219"/>
-            <Code index="64" coord="105 196 33.1094 34" bearing="1.375 8" advance="34.625"/>
-            <Code index="65" coord="168 76 26.0469 28" bearing="-0.71875 7" advance="25.7188"/>
-            <Code index="66" coord="196 76 20.625 28" bearing="2.53125 7" advance="22.4688"/>
-            <Code index="67" coord="218 76 23.1719 28" bearing="1.01563 7" advance="23.9844"/>
-            <Code index="68" coord="1 105 24.0625 28" bearing="2.53125 7" advance="25.4688"/>
-            <Code index="69" coord="27 105 18.9063 28" bearing="2.53125 7" advance="20.4688"/>
-            <Code index="70" coord="47 105 17.0781 28" bearing="2.53125 7" advance="18.4688"/>
-            <Code index="71" coord="66 105 24.9219 28" bearing="1.01563 7" advance="26.9844"/>
-            <Code index="72" coord="92 105 22 28" bearing="2.53125 7" advance="24.4688"/>
-            <Code index="73" coord="115 105 5.54688 28" bearing="2.53125 7" advance="8.46875"/>
-            <Code index="74" coord="183 196 10.9375 35" bearing="-2.85938 7" advance="13.8594"/>
-            <Code index="75" coord="122 105 22.8281 28" bearing="2.53125 7" advance="21.4688"/>
-            <Code index="76" coord="146 105 18.3281 28" bearing="2.53125 7" advance="17.4688"/>
-            <Code index="77" coord="166 105 26.0156 28" bearing="2.53125 7" advance="28.4688"/>
-            <Code index="78" coord="194 105 21.8594 28" bearing="2.53125 7" advance="24.4688"/>
-            <Code index="79" coord="217 105 26.2969 28" bearing="1.01563 7" advance="26.9844"/>
-            <Code index="80" coord="1 134 18.9531 28" bearing="2.53125 7" advance="19.4688"/>
-            <Code index="81" coord="33 196 26.2969 33" bearing="1.01563 7" advance="26.9844"/>
-            <Code index="82" coord="21 134 22.4531 28" bearing="2.53125 7" advance="22.4688"/>
-            <Code index="83" coord="45 134 20.4688 28" bearing="1.375 7" advance="21.625"/>
-            <Code index="84" coord="67 134 24.2031 28" bearing="-1.10938 7" advance="23.1094"/>
-            <Code index="85" coord="93 134 22.0938 28" bearing="2.125 7" advance="23.875"/>
-            <Code index="86" coord="117 134 26.0469 28" bearing="-0.71875 7" advance="25.7188"/>
-            <Code index="87" coord="145 134 35.2188 28" bearing="0.203125 7" advance="35.7969"/>
-            <Code index="88" coord="182 134 24.4531 28" bearing="0.078125 7" advance="24.9219"/>
-            <Code index="89" coord="208 134 24.1406 28" bearing="-1.07813 7" advance="23.0781"/>
-            <Code index="90" coord="1 163 23.4219 28" bearing="0.625 7" advance="24.375"/>
-            <Code index="91" coord="140 196 9.45313 34" bearing="2.09375 6" advance="11.9063"/>
-            <Code index="92" coord="17 196 14.125 32" bearing="-1 7" advance="13"/>
-            <Code index="93" coord="151 196 9.45313 34" bearing="2.5 6" advance="11.5"/>
-            <Code index="94" coord="135 1 24.5313 12" bearing="2.8125 7" advance="27.1875"/>
-            <Code index="95" coord="14 1 20.7188 5" bearing="-1.35938 38" advance="19.3594"/>
-            <Code index="96" coord="43 1 10.4219 9" bearing="1.98438 4" advance="16.0156"/>
-            <Code index="97" coord="1 24 18.6406 22" bearing="1.15625 13" advance="20.8438"/>
-            <Code index="98" coord="42 163 19.625 29" bearing="2.26563 6" advance="20.7344"/>
-            <Code index="99" coord="21 24 17.5781 22" bearing="0.984375 13" advance="19.0156"/>
-            <Code index="100" coord="63 163 19.5938 29" bearing="0.984375 6" advance="22.0156"/>
-            <Code index="101" coord="40 24 20.25 22" bearing="0.984375 13" advance="21.0156"/>
-            <Code index="102" coord="84 163 14.5313 29" bearing="-0.171875 6" advance="13.1719"/>
-            <Code index="103" coord="100 163 19.5938 29" bearing="0.984375 13" advance="22.0156"/>
-            <Code index="104" coord="121 163 18.5 29" bearing="2.26563 6" advance="20.7344"/>
-            <Code index="105" coord="141 163 5.23438 29" bearing="2.39063 6" advance="7.60938"/>
-            <Code index="106" coord="229 196 9.28125 36" bearing="-1.65625 6" advance="11.6563"/>
-            <Code index="107" coord="148 163 19.4844 29" bearing="2.26563 6" advance="18.7344"/>
-            <Code index="108" coord="169 163 5.23438 29" bearing="2.39063 6" advance="7.60938"/>
-            <Code index="109" coord="62 24 30.75 22" bearing="2.26563 13" advance="32.7344"/>
-            <Code index="110" coord="94 24 18.5 22" bearing="2.26563 13" advance="20.7344"/>
-            <Code index="111" coord="114 24 20.0781 22" bearing="0.984375 13" advance="21.0156"/>
-            <Code index="112" coord="176 163 19.625 29" bearing="2.26563 13" advance="20.7344"/>
-            <Code index="113" coord="197 163 19.5938 29" bearing="0.984375 13" advance="22.0156"/>
-            <Code index="114" coord="136 24 13.5313 22" bearing="2.26563 13" advance="12.7344"/>
-            <Code index="115" coord="151 24 17.0469 22" bearing="0.953125 13" advance="18.0469"/>
-            <Code index="116" coord="26 163 14.2813 28" bearing="-0.03125 7" advance="14.0313"/>
-            <Code index="117" coord="170 24 18.4844 22" bearing="2.0625 13" advance="20.9375"/>
-            <Code index="118" coord="190 24 21.1563 22" bearing="0.078125 13" advance="20.9219"/>
-            <Code index="119" coord="213 24 28.4219 22" bearing="0.515625 13" advance="28.4844"/>
-            <Code index="120" coord="1 47 21.0938 22" bearing="0.03125 13" advance="20.9688"/>
-            <Code index="121" coord="218 163 21.1563 29" bearing="0.078125 13" advance="20.9219"/>
-            <Code index="122" coord="24 47 17.7969 22" bearing="0.546875 13" advance="18.4531"/>
-            <Code index="123" coord="195 196 15.9063 35" bearing="3.5 6" advance="19.5"/>
-            <Code index="124" coord="240 196 4.98438 38" bearing="3.57813 6" advance="8.42188"/>
-            <Code index="125" coord="212 196 15.9063 35" bearing="3.5 6" advance="19.5"/>
-            <Code index="126" coord="55 1 24.5313 8.23438" bearing="2.8125 18" advance="27.1875"/>
-            <Code index="selected" coord="246 196 0 43"/>
-            <Code index="selected_back" coord="248 196 0 43"/>
-            <Code index="cursor" coord="250 196 2 43" advance="0"/>
-            <Code index="substitute" coord="162 196 20 34" bearing="0.796875 8" advance="21.2031"/>
-        </Codes>
-    </Resource>
-    <Resource type="ResourceManualFont" name="MsdfFont_15">
-        <Property key="Source" value="MsdfFont_15.png"/>
-        <Property key="Shader" value="MsdfFontShader"/>
-        <Property key="DefaultHeight" value="17"/>
-        <Codes>
-            <Code index="9" coord="1 1 0 0" advance="8"/>
-            <Code index="32" coord="1 1 0 0" bearing="0 13" advance="4"/>
-            <Code index="33" coord="15 21 3.28125 11" bearing="0.96875 3" advance="4.03125"/>
-            <Code index="34" coord="47 1 5.48438 6" bearing="0.25 3" advance="5.75"/>
-            <Code index="35" coord="58 57 10.8906 12" bearing="0 2" advance="11"/>
-            <Code index="36" coord="115 57 8.10938 13" bearing="0.078125 3" advance="7.92188"/>
-            <Code index="37" coord="20 21 12.9219 11" bearing="-0.28125 3" advance="12.2813"/>
-            <Code index="38" coord="34 21 10.9219 11" bearing="-0.1875 3" advance="10.1875"/>
-            <Code index="39" coord="54 1 3.07813 6" bearing="0.25 3" advance="3.75"/>
-            <Code index="40" coord="106 71 4.90625 14" bearing="0.125 1" advance="4.875"/>
-            <Code index="41" coord="112 71 4.90625 14" bearing="0.046875 1" advance="4.95313"/>
-            <Code index="42" coord="83 1 7.71875 8" bearing="-0.609375 3" advance="7.60938"/>
-            <Code index="43" coord="46 21 10.1406 11" bearing="0.375 3" advance="10.625"/>
-            <Code index="44" coord="30 1 3.85938 5" bearing="0 10" advance="4"/>
-            <Code index="45" coord="1 1 5.42188 3" bearing="-0.359375 8" advance="5.35938"/>
-            <Code index="46" coord="18 1 3.34375 4" bearing="0.390625 10" advance="3.60938"/>
-            <Code index="47" coord="1 71 6.375 13" bearing="-1 3" advance="5"/>
-            <Code index="48" coord="58 21 8.54688 11" bearing="-0.140625 3" advance="8.14063"/>
-            <Code index="49" coord="68 21 7.65625 11" bearing="0.421875 3" advance="7.57813"/>
-            <Code index="50" coord="77 21 8.01563 11" bearing="-0.046875 3" advance="8.04688"/>
-            <Code index="51" coord="87 21 8.25 11" bearing="-0.015625 3" advance="8.01563"/>
-            <Code index="52" coord="97 21 8.90625 11" bearing="-0.359375 3" advance="8.35938"/>
-            <Code index="53" coord="107 21 8.14063 11" bearing="0 3" advance="8"/>
-            <Code index="54" coord="117 21 8.54688 11" bearing="-0.09375 3" advance="8.09375"/>
-            <Code index="55" coord="1 33 8.09375 11" bearing="0.0625 3" advance="7.9375"/>
-            <Code index="56" coord="11 33 8.5 11" bearing="-0.125 3" advance="8.125"/>
-            <Code index="57" coord="21 33 8.54688 11" bearing="-0.1875 3" advance="8.1875"/>
-            <Code index="58" coord="92 1 3.32813 9" bearing="0.53125 5" advance="3.46875"/>
-            <Code index="59" coord="10 21 3.85938 10" bearing="0 5" advance="4"/>
-            <Code index="60" coord="97 1 10.1406 9" bearing="0.375 4" advance="10.625"/>
-            <Code index="61" coord="59 1 10.1406 6" bearing="0.375 6" advance="10.625"/>
-            <Code index="62" coord="109 1 10.1406 9" bearing="0.375 4" advance="10.625"/>
-            <Code index="63" coord="31 33 7.0625 11" bearing="-0.0625 3"/>
-            <Code index="64" coord="9 71 13.2344 13" bearing="-0.140625 3" advance="13.1406"/>
-            <Code index="65" coord="40 33 10.6719 11" bearing="-0.890625 3" advance="9.89063"/>
-            <Code index="66" coord="52 33 8.71875 11" bearing="0.28125 3"/>
-            <Code index="67" coord="62 33 9.64063 11" bearing="-0.265625 3" advance="9.26563"/>
-            <Code index="68" coord="73 33 9.96875 11" bearing="0.28125 3" advance="9.71875"/>
-            <Code index="69" coord="84 33 8.09375 11" bearing="0.28125 3" advance="7.71875"/>
-            <Code index="70" coord="94 33 7.4375 11" bearing="0.28125 3" advance="6.71875"/>
-            <Code index="71" coord="103 33 10.2656 11" bearing="-0.265625 3"/>
-            <Code index="72" coord="115 33 9.21875 11" bearing="0.28125 3" advance="9.71875"/>
-            <Code index="73" coord="1 45 3.28125 11" bearing="0.28125 3" advance="3.71875"/>
-            <Code index="74" coord="118 71 5.23438 14" bearing="-1.67188 3" advance="5.67188"/>
-            <Code index="75" coord="6 45 9.51563 11" bearing="0.28125 3" advance="8.71875"/>
-            <Code index="76" coord="17 45 7.89063 11" bearing="0.28125 3" advance="6.71875"/>
-            <Code index="77" coord="26 45 10.6719 11" bearing="0.28125 3" advance="10.7188"/>
-            <Code index="78" coord="38 45 9.17188 11" bearing="0.28125 3" advance="9.71875"/>
-            <Code index="79" coord="49 45 10.7656 11" bearing="-0.265625 3" advance="10.2656"/>
-            <Code index="80" coord="61 45 8.10938 11" bearing="0.28125 3" advance="7.71875"/>
-            <Code index="81" coord="24 71 10.7656 13" bearing="-0.265625 3" advance="10.2656"/>
-            <Code index="82" coord="71 45 9.375 11" bearing="0.28125 3" advance="8.71875"/>
-            <Code index="83" coord="82 45 8.67188 11" bearing="-0.140625 3" advance="8.14063"/>
-            <Code index="84" coord="92 45 10.0156 11" bearing="-1.03125 3" advance="9.03125"/>
-            <Code index="85" coord="104 45 9.26563 11" bearing="0.125 3" advance="9.875"/>
-            <Code index="86" coord="115 45 10.6719 11" bearing="-0.890625 3" advance="9.89063"/>
-            <Code index="87" coord="1 57 13.9844 11" bearing="-0.5625 3" advance="13.5625"/>
-            <Code index="88" coord="16 57 10.1094 11" bearing="-0.609375 3" advance="9.60938"/>
-            <Code index="89" coord="28 57 10 11" bearing="-1.03125 3" advance="9.03125"/>
-            <Code index="90" coord="39 57 9.75 11" bearing="-0.421875 3" advance="9.42188"/>
-            <Code index="91" coord="1 86 4.6875 14" bearing="0.125 2" advance="4.875"/>
-            <Code index="92" coord="36 71 6.375 13" bearing="-1 3" advance="5"/>
-            <Code index="93" coord="7 86 4.6875 14" bearing="0.265625 2" advance="4.73438"/>
-            <Code index="94" coord="71 1 10.1406 6" bearing="0.375 3" advance="10.625"/>
-            <Code index="95" coord="8 1 8.75 3" bearing="-1.125 14" advance="8.125"/>
-            <Code index="96" coord="23 1 5.04688 4" bearing="0.078125 2" advance="6.92188"/>
-            <Code index="97" coord="1 11 8 9" bearing="-0.21875 5" advance="8.21875"/>
-            <Code index="98" coord="44 71 8.35938 13" bearing="0.1875 1" advance="7.8125"/>
-            <Code index="99" coord="10 11 7.625 9" bearing="-0.28125 5" advance="7.28125"/>
-            <Code index="100" coord="54 71 8.35938 13" bearing="-0.28125 1" advance="8.28125"/>
-            <Code index="101" coord="19 11 8.59375 9" bearing="-0.28125 5" advance="8.28125"/>
-            <Code index="102" coord="64 71 6.53125 13" bearing="-0.703125 1" advance="5.70313"/>
-            <Code index="103" coord="70 57 8.35938 12" bearing="-0.28125 5" advance="8.28125"/>
-            <Code index="104" coord="72 71 7.95313 13" bearing="0.1875 1" advance="7.8125"/>
-            <Code index="105" coord="80 57 3.17188 12" bearing="0.21875 2" advance="3.78125"/>
-            <Code index="106" coord="31 86 4.625 15" bearing="-1.23438 2" advance="5.23438"/>
-            <Code index="107" coord="81 71 8.29688 13" bearing="0.1875 1" advance="7.8125"/>
-            <Code index="108" coord="91 71 3.17188 13" bearing="0.21875 1" advance="3.78125"/>
-            <Code index="109" coord="29 11 12.375 9" bearing="0.1875 5" advance="12.8125"/>
-            <Code index="110" coord="43 11 7.95313 9" bearing="0.1875 5" advance="7.8125"/>
-            <Code index="111" coord="52 11 8.53125 9" bearing="-0.28125 5" advance="8.28125"/>
-            <Code index="112" coord="85 57 8.35938 12" bearing="0.1875 5" advance="7.8125"/>
-            <Code index="113" coord="95 57 8.35938 12" bearing="-0.28125 5" advance="8.28125"/>
-            <Code index="114" coord="62 11 6.15625 9" bearing="0.1875 5" advance="4.8125"/>
-            <Code index="115" coord="70 11 7.4375 9" bearing="-0.296875 5" advance="7.29688"/>
-            <Code index="116" coord="50 57 6.4375 11" bearing="-0.65625 3" advance="5.65625"/>
-            <Code index="117" coord="79 11 7.95313 9" bearing="0.109375 5" advance="7.89063"/>
-            <Code index="118" coord="88 11 8.92188 9" bearing="-0.609375 5" advance="8.60938"/>
-            <Code index="119" coord="98 11 11.5469 9" bearing="-0.453125 5" advance="11.4531"/>
-            <Code index="120" coord="111 11 8.89063 9" bearing="-0.625 5" advance="8.625"/>
-            <Code index="121" coord="105 57 8.92188 12" bearing="-0.609375 5" advance="8.60938"/>
-            <Code index="122" coord="1 21 7.70313 9" bearing="-0.4375 5" advance="7.4375"/>
-            <Code index="123" coord="13 86 7.01563 14" bearing="0.625 2" advance="7.375"/>
-            <Code index="124" coord="37 86 3.07813 15" bearing="0.65625 2" advance="3.34375"/>
-            <Code index="125" coord="22 86 7.01563 14" bearing="0.625 2" advance="7.375"/>
-            <Code index="126" coord="35 1 10.1406 4.17188" bearing="0.375 6" advance="10.625"/>
-            <Code index="selected" coord="42 86 0 17"/>
-            <Code index="selected_back" coord="44 86 0 17"/>
-            <Code index="cursor" coord="46 86 2 17" advance="0"/>
-            <Code index="substitute" coord="96 71 8.5 13" bearing="-0.359375 3" advance="8.35938"/>
+            <Code index="9" coord="1 1 0 0" advance="8" />
+            <Code index="32" coord="1 1 0 0" bearing="0 34" advance="11.4434" />
+            <Code index="33" coord="119 48 5.56836 28.2441" bearing="4.43164 6.75586" advance="10" />
+            <Code index="34" coord="90 1 11.6328 11.7559" bearing="2.46289 6.75586" advance="14.0957" />
+            <Code index="35" coord="75 48 26.627 27.8398" bearing="1.77734 7.16016" advance="28.3867" />
+            <Code index="36" coord="85 205 18.9277 34.6426" bearing="1.98828 5.64844" advance="20.916" />
+            <Code index="37" coord="1 139 32.2344 29.2285" bearing="0.986328 6.28125" advance="33.2207" />
+            <Code index="38" coord="35 139 26.6973 29.2285" bearing="1.26758 6.28125" advance="26.8047" />
+            <Code index="39" coord="103 1 4.98828 11.7559" bearing="2.46289 6.75586" advance="7.43359" />
+            <Code index="40" coord="105 205 10.0684 34.0625" bearing="2.09375 5.68359" advance="11.9512" />
+            <Code index="41" coord="117 205 10.0684 34.0625" bearing="1.88281 5.68359" advance="12.1621" />
+            <Code index="42" coord="161 1 17.8555 18.418" bearing="0.0722656 6.28125" advance="17.9277" />
+            <Code index="43" coord="40 48 24.5352 24.5703" bearing="2.81445 10.4297" advance="27.3496" />
+            <Code index="44" coord="81 1 7.15039 10.6484" bearing="1.77734 28.5352" advance="9.66602" />
+            <Code index="45" coord="1 1 11.4746 4.88281" bearing="0.757812 21.6973" advance="12.2324" />
+            <Code index="46" coord="36 1 5.70898 6.46484" bearing="2.84961 28.5352" advance="8.59375" />
+            <Code index="47" coord="222 170 14.1289 31.584" bearing="-1 6.75586" advance="13.1289" />
+            <Code index="48" coord="63 139 20.1406 29.2285" bearing="1.37305 6.28125" advance="21.5312" />
+            <Code index="49" coord="126 48 17.627 28.2441" bearing="2.95508 6.75586" advance="19.9492" />
+            <Code index="50" coord="145 48 18.6641 28.7188" bearing="1.63672 6.28125" advance="21.2676" />
+            <Code index="51" coord="85 139 19.2793 29.2285" bearing="1.74219 6.28125" advance="21.1621" />
+            <Code index="52" coord="165 48 21.125 28.2441" bearing="0.757812 6.75586" advance="22.1465" />
+            <Code index="53" coord="188 48 18.9805 28.7539" bearing="1.77734 6.75586" advance="21.127" />
+            <Code index="54" coord="106 139 20.123 29.2285" bearing="1.51367 6.28125" advance="21.3906" />
+            <Code index="55" coord="208 48 18.875 28.2441" bearing="1.95312 6.75586" advance="20.9512" />
+            <Code index="56" coord="128 139 20 29.2285" bearing="1.44336 6.28125" advance="21.4609" />
+            <Code index="57" coord="149 139 20.1055 29.2285" bearing="1.26758 6.28125" advance="21.6367" />
+            <Code index="58" coord="180 1 5.70898 20.6152" bearing="3.21875 14.3848" advance="8.91016" />
+            <Code index="59" coord="66 48 7.15039 24.7988" bearing="1.77734 14.3848" advance="10.3516" />
+            <Code index="60" coord="187 1 24.5352 21.2656" bearing="2.81445 12.082" advance="27.3496" />
+            <Code index="61" coord="135 1 24.5352 12.1602" bearing="2.81445 16.6523" advance="27.3496" />
+            <Code index="62" coord="213 1 24.5352 21.2656" bearing="2.81445 12.082" advance="27.3496" />
+            <Code index="63" coord="228 48 16.0098 28.7188" bearing="1.58398 6.28125" advance="17.5234" />
+            <Code index="64" coord="1 205 33.1133 33.6055" bearing="1.37305 7.65234" advance="34.627" />
+            <Code index="65" coord="1 78 26.0469 28.2441" bearing="-0.71875 6.75586" advance="25.3457" />
+            <Code index="66" coord="29 78 20.6152 28.2441" bearing="2.5332 6.75586" advance="22.1641" />
+            <Code index="67" coord="171 139 23.1641 29.2285" bearing="1.02148 6.28125" advance="24.1152" />
+            <Code index="68" coord="51 78 24.0605 28.2441" bearing="2.5332 6.75586" advance="25.1875" />
+            <Code index="69" coord="77 78 18.9102 28.2441" bearing="2.5332 6.75586" advance="20.2129" />
+            <Code index="70" coord="97 78 17.082 28.2441" bearing="2.5332 6.75586" advance="18.1738" />
+            <Code index="71" coord="196 139 24.9219 29.2285" bearing="1.02148 6.28125" advance="26.875" />
+            <Code index="72" coord="116 78 22.0039 28.2441" bearing="2.5332 6.75586" advance="24.5371" />
+            <Code index="73" coord="140 78 5.55078 28.2441" bearing="2.5332 6.75586" advance="8.08398" />
+            <Code index="74" coord="151 205 10.9473 35.4512" bearing="-2.86328 6.75586" advance="13.4805" />
+            <Code index="75" coord="147 78 22.8301 28.2441" bearing="2.5332 6.75586" advance="21.0742" />
+            <Code index="76" coord="171 78 18.3301 28.2441" bearing="2.5332 6.75586" advance="17.5234" />
+            <Code index="77" coord="191 78 26.0117 28.2441" bearing="2.5332 6.75586" advance="28.5273" />
+            <Code index="78" coord="219 78 21.8633 28.2441" bearing="2.5332 6.75586" advance="24.3965" />
+            <Code index="79" coord="222 139 26.293 29.2285" bearing="1.02148 6.28125" advance="27.3145" />
+            <Code index="80" coord="1 108 18.9453 28.2441" bearing="2.5332 6.75586" advance="19.1758" />
+            <Code index="81" coord="36 205 26.293 33.3594" bearing="1.02148 6.28125" advance="27.3145" />
+            <Code index="82" coord="21 108 22.4434 28.2441" bearing="2.5332 6.75586" advance="22.4805" />
+            <Code index="83" coord="1 170 20.4746 29.2285" bearing="1.37305 6.28125" advance="21.4785" />
+            <Code index="84" coord="45 108 24.2012 28.2441" bearing="-1.10547 6.75586" advance="23.0957" />
+            <Code index="85" coord="71 108 22.0918 28.7539" bearing="2.12891 6.75586" advance="24.2207" />
+            <Code index="86" coord="95 108 26.0469 28.2441" bearing="-0.71875 6.75586" advance="25.3457" />
+            <Code index="87" coord="123 108 35.2227 28.2441" bearing="0.195312 6.75586" advance="35.4004" />
+            <Code index="88" coord="160 108 24.4648 28.2441" bearing="0.0722656 6.75586" advance="24.5898" />
+            <Code index="89" coord="186 108 24.1309 28.2441" bearing="-1.07031 6.75586" advance="23.0605" />
+            <Code index="90" coord="212 108 23.4277 28.2441" bearing="0.617188 6.75586" advance="24.0449" />
+            <Code index="91" coord="129 205 9.45312 34.0977" bearing="2.09375 5.64844" advance="11.9512" />
+            <Code index="92" coord="238 170 14.1289 31.584" bearing="-1 6.75586" advance="13.1289" />
+            <Code index="93" coord="140 205 9.45312 34.0977" bearing="2.49805 5.64844" advance="11.5469" />
+            <Code index="94" coord="109 1 24.5352 11.791" bearing="2.81445 6.75586" advance="27.3496" />
+            <Code index="95" coord="14 1 20.7031 4.51367" bearing="-1.35156 38.9766" advance="19.3516" />
+            <Code index="96" coord="43 1 10.4199 8.57422" bearing="1.98828 4.20703" advance="16.0117" />
+            <Code index="97" coord="96 24 18.6289 22.6719" bearing="1.16211 12.8379" advance="20.8984" />
+            <Code index="98" coord="23 170 19.6133 29.8613" bearing="2.26953 5.64844" advance="20.582" />
+            <Code index="99" coord="116 24 17.5742 22.6719" bearing="0.986328 12.8379" advance="18.8066" />
+            <Code index="100" coord="44 170 19.5957 29.8613" bearing="0.986328 5.64844" advance="21.8652" />
+            <Code index="101" coord="135 24 20.2461 22.6719" bearing="0.986328 12.8379" advance="21.1621" />
+            <Code index="102" coord="65 170 14.5332 29.3516" bearing="-0.173828 5.64844" advance="12.8477" />
+            <Code index="103" coord="81 170 19.5957 29.6504" bearing="0.986328 12.8379" advance="21.8652" />
+            <Code index="104" coord="102 170 18.4883 29.3516" bearing="2.26953 5.64844" advance="20.5469" />
+            <Code index="105" coord="122 170 5.23438 29.3516" bearing="2.39258 5.64844" advance="7.60938" />
+            <Code index="106" coord="197 205 9.27734 36.8398" bearing="-1.65039 5.64844" advance="11.6523" />
+            <Code index="107" coord="129 170 19.4727 29.3516" bearing="2.26953 5.64844" advance="18.5781" />
+            <Code index="108" coord="150 170 5.23438 29.3516" bearing="2.39258 5.64844" advance="7.60938" />
+            <Code index="109" coord="157 24 30.7402 22.1621" bearing="2.26953 12.8379" advance="32.7988" />
+            <Code index="110" coord="189 24 18.4883 22.1621" bearing="2.26953 12.8379" advance="20.5469" />
+            <Code index="111" coord="209 24 20.0703 22.6719" bearing="0.986328 12.8379" advance="21.0391" />
+            <Code index="112" coord="157 170 19.6133 29.6504" bearing="2.26953 12.8379" advance="20.582" />
+            <Code index="113" coord="178 170 19.5957 29.6504" bearing="0.986328 12.8379" advance="21.8652" />
+            <Code index="114" coord="231 24 13.5312 22.1621" bearing="2.26953 12.8379" advance="12.5312" />
+            <Code index="115" coord="1 48 17.0469 22.6719" bearing="0.951172 12.8379" advance="17.8047" />
+            <Code index="116" coord="103 48 14.2871 27.2773" bearing="-0.0332031 7.72266" advance="14.1484" />
+            <Code index="117" coord="20 48 18.4883 22.1973" bearing="2.05859 13.3125" advance="20.7578" />
+            <Code index="118" coord="1 24 21.1602 21.6875" bearing="0.0722656 13.3125" advance="21.2324" />
+            <Code index="119" coord="24 24 28.4199 21.6875" bearing="0.511719 13.3125" advance="28.9316" />
+            <Code index="120" coord="54 24 21.0898 21.6875" bearing="0.0371094 13.3125" advance="21.2676" />
+            <Code index="121" coord="199 170 21.1602 29.1758" bearing="0.0722656 13.3125" advance="21.2324" />
+            <Code index="122" coord="77 24 17.8027 21.6875" bearing="0.546875 13.3125" advance="18.3496" />
+            <Code index="123" coord="163 205 15.9043 35.2227" bearing="3.5 5.64844" advance="19.4043" />
+            <Code index="124" coord="208 205 4.98828 38" bearing="3.57031 5.49023" advance="8.55859" />
+            <Code index="125" coord="180 205 15.9043 35.2227" bearing="3.5 5.64844" advance="19.4043" />
+            <Code index="126" coord="55 1 24.5352 8.15234" bearing="2.81445 18.6387" advance="27.3496" />
+            <Code index="selected" coord="214 205 0 43" />
+            <Code index="selected_back" coord="216 205 0 43" />
+            <Code index="cursor" coord="218 205 2 43" advance="0" />
+            <Code index="substitute" coord="64 205 20 33.7461" bearing="0.792969 7.61719" advance="20.8105" />
         </Codes>
     </Resource>
 </MyGUI>

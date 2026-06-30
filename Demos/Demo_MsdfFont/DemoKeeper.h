@@ -21,7 +21,7 @@ namespace demo
 		void decreaseFontHeight(MyGUI::Widget* _sender);
 
 	private:
-		std::array<MyGUI::EditBox*, 5> mEditBoxes;
+		std::vector<MyGUI::EditBox*> mEditBoxes;
 	};
 
 } // namespace demo

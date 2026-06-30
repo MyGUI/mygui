@@ -49,6 +49,11 @@ namespace demo
 #endif
 
 		MyGUI::ResourceManager::getInstance().load("MsdfFont.xml");
+		MyGUI::ResourceManager::getInstance().load("DejaVuSansFont_126.xml");
+
+#ifdef MYGUI_MSDF_FONTS
+		MyGUI::ResourceManager::getInstance().load("MsdfFont_Runtime.xml");
+#endif
 
 		base::BaseDemoManager::createScene();
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
@@ -81,50 +86,33 @@ namespace demo
 		fontTexture->setImageTexture("MsdfFont.png");
 
 		int index = 0;
+		auto createEditBox =
+			[&](const std::string& fontName, int fontHeight, const std::string& captionPrefix) -> MyGUI::EditBox*
 		{
+			std::string iStr = std::to_string(index);
 			const MyGUI::VectorWidgetPtr& widgets =
-				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", "4");
-			mEditBoxes[index] = widgets.at(0)->findWidget("4Edit")->castType<MyGUI::EditBox>();
-			widgets.at(0)->setPosition(50, 50);
-			mEditBoxes[index]->setCaption("Regular font. " + mEditBoxes[index]->getCaption());
+				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", iStr);
+			auto* edit = widgets.at(0)->findWidget(iStr + "Edit")->castType<MyGUI::EditBox>();
+			if (!fontName.empty())
+				edit->setFontName(fontName);
+			if (fontHeight)
+				edit->setFontHeight(fontHeight);
+			widgets.at(0)->setPosition((index + 1) * 100, (index + 1) * 75);
+			if (!captionPrefix.empty())
+				widgets.at(0)->castType<MyGUI::Window>()->setCaption(captionPrefix);
+			mEditBoxes.push_back(edit);
 			index++;
-		}
-		{
-			const MyGUI::VectorWidgetPtr& widgets =
-				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", "0");
-			mEditBoxes[index] = widgets.at(0)->findWidget("0Edit")->castType<MyGUI::EditBox>();
-			mEditBoxes[index]->setFontName("MsdfFont_15");
-			widgets.at(0)->setPosition(150, 150);
-			mEditBoxes[index]->setCaption("Optimized for small fonts. " + mEditBoxes[index]->getCaption());
-			index++;
-		}
-		{
-			const MyGUI::VectorWidgetPtr& widgets =
-				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", "1");
-			mEditBoxes[index] = widgets.at(0)->findWidget("1Edit")->castType<MyGUI::EditBox>();
-			mEditBoxes[index]->setFontName("MsdfFont");
-			mEditBoxes[index]->setFontHeight(15);
-			widgets.at(0)->setPosition(250, 250);
-			index++;
-		}
-		{
-			const MyGUI::VectorWidgetPtr& widgets =
-				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", "2");
-			mEditBoxes[index] = widgets.at(0)->findWidget("2Edit")->castType<MyGUI::EditBox>();
-			mEditBoxes[index]->setFontName("MsdfFont");
-			mEditBoxes[index]->setFontHeight(45);
-			widgets.at(0)->setPosition(350, 350);
-			index++;
-		}
-		{
-			const MyGUI::VectorWidgetPtr& widgets =
-				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", "3");
-			mEditBoxes[index] = widgets.at(0)->findWidget("3Edit")->castType<MyGUI::EditBox>();
-			mEditBoxes[index]->setFontName("MsdfFont");
-			mEditBoxes[index]->setFontHeight(85);
-			widgets.at(0)->setPosition(450, 450);
-			index++;
-		}
+			return edit;
+		};
+
+		createEditBox({}, 0, "Regular font.");
+		createEditBox("MsdfFont", 15, "Msdf is not optimal for small fonts.");
+		createEditBox("MsdfFont", 45, "MsdfFont 40 (one 256x256 texture for all sizes)");
+		createEditBox("MsdfFont", 126, "MsdfFont 126 (one 256x256 texture for all sizes)");
+		createEditBox("DejaVuSansFont_126", 0, "DejaVuSansFont_126 (1024x512 texture)");
+#ifdef MYGUI_MSDF_FONTS
+		createEditBox("MsdfFont_Runtime", 45, "Runtime generated MSDF font.");
+#endif
 	}
 
 	void DemoKeeper::destroyScene()
