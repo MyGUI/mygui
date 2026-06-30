@@ -10,23 +10,20 @@
 #include "MyGUI_DataManager.h"
 #include "MyGUI_Bitwise.h"
 #include "MyGUI_Constants.h"
+#include <unordered_map>
 
 namespace MyGUI::texture_utility
 {
 
 	const IntSize& getTextureSize(const std::string& _texture, bool _cache)
 	{
-		static std::string prevTexture;
-		static IntSize prevSize;
-
-		if (prevTexture == _texture && _cache)
-			return prevSize;
-
-		prevTexture.clear();
-		prevSize.clear();
+		static std::unordered_map<std::string, IntSize> textureSizes;
 
 		if (_texture.empty())
 			return Constants::getZeroIntSize();
+
+		if (_cache && textureSizes.count(_texture))
+			return textureSizes.at(_texture);
 
 		RenderManager& render = RenderManager::getInstance();
 
@@ -47,17 +44,15 @@ namespace MyGUI::texture_utility
 			}
 			texture->loadFromFile(_texture);
 #if MYGUI_DEBUG_MODE == 1
-			if (!Bitwise::isPO2(prevSize.width) || !Bitwise::isPO2(prevSize.height))
+			if (!Bitwise::isPO2(texture->getWidth()) || !Bitwise::isPO2(texture->getHeight()))
 			{
 				MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
 			}
 #endif
 		}
 
-		prevSize = IntSize(texture->getWidth(), texture->getHeight());
-		prevTexture = _texture;
-
-		return prevSize;
+		IntSize size{texture->getWidth(), texture->getHeight()};
+		return textureSizes[_texture] = size;
 	}
 
 	uint32 toNativeColour(const Colour& _colour, VertexColourType _format)

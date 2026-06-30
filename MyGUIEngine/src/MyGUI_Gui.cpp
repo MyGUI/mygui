@@ -139,9 +139,6 @@ namespace MyGUI
 		delete mFactoryManager;
 		delete mToolTipManager;
 
-		// reset cache
-		texture_utility::getTextureSize(std::string{}, false);
-
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
