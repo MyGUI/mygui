@@ -8,6 +8,9 @@
 #define MYGUI_RESIZING_POLICY_H_
 
 #include "MyGUI_Prerequest.h"
+#include <iostream>
+#include <string>
+#include <string_view>
 
 namespace MyGUI
 {

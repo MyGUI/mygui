@@ -8,6 +8,9 @@
 #define MYGUI_RESOURCE_IMAGE_SET_DATA_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
+#include <string>
+#include <vector>
 
 namespace MyGUI
 {

@@ -8,6 +8,7 @@
 #define MYGUI_CLIPBOARD_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Delegate.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_EventPair.h"

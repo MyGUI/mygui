@@ -9,7 +9,9 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_Macros.h"
 #include "MyGUI_Singleton.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

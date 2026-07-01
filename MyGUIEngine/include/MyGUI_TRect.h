@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_StringUtility.h"
+#include "MyGUI_TPoint.h"
 
 namespace MyGUI::types
 {

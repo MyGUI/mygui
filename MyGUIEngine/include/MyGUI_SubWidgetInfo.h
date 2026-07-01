@@ -8,6 +8,9 @@
 #define MYGUI_SUB_WIDGET_INFO_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Align.h"
+#include "MyGUI_Types.h"
+#include <string>
 #include <utility>
 
 namespace MyGUI

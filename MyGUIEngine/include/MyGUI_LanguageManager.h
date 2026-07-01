@@ -17,6 +17,8 @@
 namespace MyGUI
 {
 
+	class Version;
+
 	class MYGUI_EXPORT LanguageManager : public MemberObsolete<LanguageManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(LanguageManager);

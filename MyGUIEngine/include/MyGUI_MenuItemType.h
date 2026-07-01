@@ -8,6 +8,9 @@
 #define MYGUI_MENU_ITEM_TYPE_H_
 
 #include "MyGUI_Prerequest.h"
+#include <iostream>
+#include <string>
+#include <string_view>
 
 namespace MyGUI
 {

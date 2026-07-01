@@ -8,6 +8,9 @@
 #define MYGUI_EVENT_PAIR_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Diagnostic.h"
+#include <string>
+#include <utility>
 
 namespace MyGUI
 {
