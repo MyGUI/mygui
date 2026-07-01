@@ -12,8 +12,15 @@
 #include "MyGUI_IFont.h"
 
 #ifdef MYGUI_USE_FREETYPE
-	#include <ft2build.h>
-	#include FT_FREETYPE_H
+
+using FT_UInt = unsigned int;
+using FT_Int32 = signed int;
+struct FT_FaceRec_;
+using FT_Face = FT_FaceRec_*;
+struct FT_LibraryRec_;
+using FT_Library = FT_LibraryRec_*;
+struct FT_GlyphSlotRec_;
+using FT_GlyphSlot = FT_GlyphSlotRec_*;
 
 	#ifdef MYGUI_MSDF_FONTS
 namespace msdfgen
