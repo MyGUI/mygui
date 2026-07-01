@@ -22,7 +22,7 @@ jobs:
           - os: windows-latest
             name: use-system-msdf-fonts
             cmake_flags: -DMYGUI_MSDF_FONTS=TRUE -DMYGUI_USE_SYSTEM_MSDFGEN=TRUE
-            vcpkg_packages: msdfgen
+            vcpkg_packages: msdfgen[core,extensions]
 
           - os: ubuntu-latest
             name: dont-use-obsolete
