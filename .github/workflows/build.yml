@@ -31,7 +31,7 @@ jobs:
 
       - name: Install deps via vcpkg (windows)
         if: runner.os == 'Windows'
-        run: vcpkg install freetype sdl2
+        run: vcpkg install freetype
 
       - name: Configure
         shell: bash
@@ -43,6 +43,40 @@ jobs:
           -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
           -DMYGUI_BUILD_TOOLS=FALSE \
           -DMYGUI_BUILD_UNITTESTS=FALSE \
+          -DMYGUI_RENDERSYSTEM=1
+
+      - name: Build
+        run: cmake --build build --config RelWithDebInfo --parallel
+
+  build-dont-use-obsolete:
+    name: build with dont use obsolete (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install build dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev
+
+      - name: Configure
+        shell: bash
+        run: |
+          mkdir build
+          cd build
+          cmake .. \
+          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+          -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
+          -DMYGUI_BUILD_TOOLS=FALSE \
+          -DMYGUI_BUILD_UNITTESTS=FALSE \
+          -DMYGUI_DONT_USE_OBSOLETE=TRUE \
           -DMYGUI_RENDERSYSTEM=1
 
       - name: Build
