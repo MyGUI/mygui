@@ -4,13 +4,34 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: build (${{ matrix.os }})
+    name: build (${{ matrix.os }}, ${{ matrix.name || 'default' }})
     runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+
+          - os: ubuntu-latest
+            name: use-msdf-fonts
+            cmake_flags: -DMYGUI_MSDF_FONTS=TRUE
+
+          - os: windows-latest
+            name: use-system-msdf-fonts
+            cmake_flags: -DMYGUI_MSDF_FONTS=TRUE -DMYGUI_USE_SYSTEM_MSDFGEN=TRUE
+            vcpkg_packages: msdfgen[core,extensions]
+
+          - os: ubuntu-latest
+            name: dont-use-obsolete
+            cmake_flags: -DMYGUI_DONT_USE_OBSOLETE=TRUE
+
+          - os: ubuntu-latest
+            name: gl
+            rendersystem: 4
+            apt_packages: libsdl2-image-dev libgl1-mesa-dev
 
     steps:
       - uses: actions/checkout@v7
@@ -19,52 +40,19 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev
+          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev ${{ matrix.apt_packages }}
 
       - name: Install build dependencies (macOS)
         if: runner.os == 'macOS'
         run: brew install cmake freetype
 
-      - name: Install SDL2 via vcpkg (macOS/windows)
+      - name: Install SDL2 via vcpkg (macOS/Windows)
         if: runner.os != 'Linux'
         run: vcpkg install sdl2
 
-      - name: Install deps via vcpkg (windows)
+      - name: Install deps via vcpkg (Windows)
         if: runner.os == 'Windows'
-        run: vcpkg install freetype
-
-      - name: Configure
-        shell: bash
-        run: |
-          mkdir build
-          cd build
-          cmake .. -DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake" \
-          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-          -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
-          -DMYGUI_BUILD_TOOLS=FALSE \
-          -DMYGUI_BUILD_UNITTESTS=FALSE \
-          -DMYGUI_RENDERSYSTEM=1
-
-      - name: Build
-        run: cmake --build build --config RelWithDebInfo --parallel
-
-  build-dont-use-obsolete:
-    name: build with dont use obsolete (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Install build dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev
+        run: vcpkg install freetype ${{ matrix.vcpkg_packages }}
 
       - name: Configure
         shell: bash
@@ -72,45 +60,13 @@ jobs:
           mkdir build
           cd build
           cmake .. \
-          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-          -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
-          -DMYGUI_BUILD_TOOLS=FALSE \
-          -DMYGUI_BUILD_UNITTESTS=FALSE \
-          -DMYGUI_DONT_USE_OBSOLETE=TRUE \
-          -DMYGUI_RENDERSYSTEM=1
-
-      - name: Build
-        run: cmake --build build --config RelWithDebInfo --parallel
-
-  build-gl:
-    name: build with gl (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Install build dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev libsdl2-image-dev libgl1-mesa-dev
-
-      - name: Configure
-        shell: bash
-        run: |
-          mkdir build
-          cd build
-          cmake .. \
-          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-          -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
-          -DMYGUI_BUILD_TOOLS=FALSE \
-          -DMYGUI_BUILD_UNITTESTS=FALSE \
-          -DMYGUI_RENDERSYSTEM=4
+            ${{ runner.os != 'Linux' && '-DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"' || '' }} \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
+            -DMYGUI_BUILD_TOOLS=FALSE \
+            -DMYGUI_BUILD_UNITTESTS=FALSE \
+            -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem || 1 }} \
+            ${{ matrix.cmake_flags }}
 
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel
