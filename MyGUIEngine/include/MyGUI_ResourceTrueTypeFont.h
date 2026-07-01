@@ -196,6 +196,8 @@ namespace MyGUI
 		GlyphMap mGlyphMap; // A map of code points to glyph info objects.
 
 	#ifdef MYGUI_MSDF_FONTS
+		double mMsdfScale{1.0};
+
 		GlyphInfo createMsdfFaceGlyphInfo(
 			Char _codePoint,
 			const msdfgen::Shape& _shape,

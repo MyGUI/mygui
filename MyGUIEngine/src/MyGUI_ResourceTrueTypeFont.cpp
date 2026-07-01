@@ -491,6 +491,7 @@ namespace MyGUI
 		if (mMsdfMode)
 		{
 			msdfFont = msdfgen::adoptFreetypeFont(ftFace);
+			mMsdfScale = (double)ftFace->size->metrics.x_ppem;
 		}
 	#endif
 
@@ -1152,15 +1153,15 @@ namespace MyGUI
 			range = 0;
 		}
 
-		double bearingX = bounds.l;
+		double bearingX = bounds.l * mMsdfScale;
 
 		return GlyphInfo(
 			_codePoint,
-			bounds.r - bounds.l + 2 * range,
-			bounds.t - bounds.b + 2 * range,
-			_advance - bearingX + range,
+			(bounds.r - bounds.l) * mMsdfScale + 2 * range,
+			(bounds.t - bounds.b) * mMsdfScale + 2 * range,
+			_advance * mMsdfScale - bearingX + range,
 			bearingX - range,
-			std::floor(_fontAscent - bounds.t - mOffsetHeight - range));
+			_fontAscent - bounds.t * mMsdfScale - mOffsetHeight - range);
 	}
 
 	int ResourceTrueTypeFont::createMsdfGlyph(const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
@@ -1185,7 +1186,7 @@ namespace MyGUI
 		{
 			msdfgen::Shape shape;
 			double advance;
-			if (msdfgen::loadGlyph(shape, _fontHandle, _codePoint, &advance))
+			if (msdfgen::loadGlyph(shape, _fontHandle, _codePoint, msdfgen::FONT_SCALING_EM_NORMALIZED, &advance))
 				createMsdfGlyph(createMsdfFaceGlyphInfo(_codePoint, shape, advance, _fontAscent), _glyphHeightMap);
 			else
 				MYGUI_LOG(
@@ -1262,7 +1263,7 @@ namespace MyGUI
 
 				default:
 					msdfgen::Shape shape;
-					if (loadGlyph(shape, _fontHandle, info.codePoint))
+					if (msdfgen::loadGlyph(shape, _fontHandle, info.codePoint, msdfgen::FONT_SCALING_EM_NORMALIZED))
 					{
 						msdfgen::Shape::Bounds bounds = shape.getBounds();
 						double range = mMsdfRange / 2.0;
@@ -1273,17 +1274,17 @@ namespace MyGUI
 						}
 
 						shape.normalize();
-						edgeColoringSimple(shape, 3.0);
+						msdfgen::edgeColoringSimple(shape, 3.0);
 
-						msdfgen::Bitmap<float, 3> msdf(
-							std::ceil(bounds.r - bounds.l + 2 * range),
-							std::ceil(bounds.t - bounds.b + 2 * range));
+						int w = (int)std::ceil((bounds.r - bounds.l) * mMsdfScale + 2 * range);
+						int h = (int)std::ceil((bounds.t - bounds.b) * mMsdfScale + 2 * range);
+						msdfgen::Bitmap<float, 3> msdf(w, h);
 						msdfgen::generateMSDF(
 							msdf,
 							shape,
-							mMsdfRange,
-							1,
-							msdfgen::Vector2(-bounds.l + range, -bounds.b + range));
+							mMsdfRange / mMsdfScale,
+							msdfgen::Vector2(mMsdfScale, mMsdfScale),
+							msdfgen::Vector2(-bounds.l + range / mMsdfScale, -bounds.b + range / mMsdfScale));
 						//							double error = msdfgen::estimateSDFError(
 						//								msdfgen::BitmapConstRef<float, 3>{(float*)msdf, msdf.width(), msdf.height()},
 						//								shape,
