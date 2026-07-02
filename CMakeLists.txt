@@ -127,11 +127,6 @@ if (MYGUI_USE_PROJECT_FOLDERS)
 	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif ()
 
-if (MYGUI_DONT_USE_OBSOLETE)
-	add_compile_definitions(MYGUI_DONT_USE_OBSOLETE)
-endif ()
-# End of Global defines
-
 # Find dependencies
 include(Dependencies)
 
