@@ -63,8 +63,7 @@ jobs:
             ${{ runner.os != 'Linux' && '-DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"' || '' }} \
             -DCMAKE_BUILD_TYPE=RelWithDebInfo \
             -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
-            -DMYGUI_BUILD_TOOLS=FALSE \
-            -DMYGUI_BUILD_UNITTESTS=FALSE \
+            -DMYGUI_NO_APPS=TRUE \
             -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem || 1 }} \
             ${{ matrix.cmake_flags }}
 
