@@ -115,13 +115,63 @@ cmake_dependent_option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE "MYGUI_B
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;BUILD_SHARED_LIBS" FALSE)
 
+# Used to not annoy users with high level warnings (should be TRUE for developers)
+option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
+# Internal options mostly designed for quick local tests where min/max build need to be performed
+option(MYGUI_ALL_FEATURES "Enable all engine features" FALSE)
+option(MYGUI_ALL_APPS "Enable all applications (demos, tools, tests)" FALSE)
+option(MYGUI_NO_FEATURES "Disable all optional engine features" FALSE)
+option(MYGUI_NO_APPS "Disable all applications" FALSE)
+mark_as_advanced(
+	MYGUI_ALL_FEATURES
+	MYGUI_ALL_APPS
+	MYGUI_NO_FEATURES
+	MYGUI_NO_APPS
+)
+
+if (MYGUI_ALL_FEATURES)
+	set(MYGUI_USE_FREETYPE ON CACHE BOOL "" FORCE)
+	set(MYGUI_MSDF_FONTS ON CACHE BOOL "" FORCE)
+	set(MYGUI_DONT_USE_OBSOLETE ON CACHE BOOL "" FORCE)
+
+	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
+endif ()
+
+if (MYGUI_ALL_APPS)
+	set(MYGUI_BUILD_DEMOS ON CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_PLUGINS ON CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_TOOLS ON CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_UNITTESTS ON CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_TEST_APP ON CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_WRAPPER ON CACHE BOOL "" FORCE)
+
+	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
+endif ()
+
+if (MYGUI_NO_FEATURES)
+	set(MYGUI_RENDERSYSTEM 1 CACHE STRING "" FORCE)
+	set(MYGUI_USE_FREETYPE OFF CACHE BOOL "" FORCE)
+	set(MYGUI_MSDF_FONTS OFF CACHE BOOL "" FORCE)
+	set(MYGUI_DONT_USE_OBSOLETE OFF CACHE BOOL "" FORCE)
+
+	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
+endif ()
+
+if (MYGUI_NO_APPS)
+	set(MYGUI_BUILD_DEMOS OFF CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_PLUGINS OFF CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_UNITTESTS OFF CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_TEST_APP OFF CACHE BOOL "" FORCE)
+	set(MYGUI_BUILD_WRAPPER OFF CACHE BOOL "" FORCE)
+
+	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
+endif ()
+
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
 	add_compile_options(/Zc:__cplusplus)
 endif ()
-
-# Used to not annoy users with high level warnings (should be TRUE for developers)
-option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
 
 if (MYGUI_USE_PROJECT_FOLDERS)
 	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
