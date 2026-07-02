@@ -92,15 +92,21 @@ namespace demo
 			std::string iStr = std::to_string(index);
 			const MyGUI::VectorWidgetPtr& widgets =
 				MyGUI::LayoutManager::getInstance().loadLayout("EditPanel.layout", iStr);
-			auto* edit = widgets.at(0)->findWidget(iStr + "Edit")->castType<MyGUI::EditBox>();
+			auto* window = widgets.at(0)->castType<MyGUI::Window>();
+			auto* edit = window->findWidget(iStr + "Edit")->castType<MyGUI::EditBox>();
 			if (!fontName.empty())
 				edit->setFontName(fontName);
 			if (fontHeight)
 				edit->setFontHeight(fontHeight);
-			widgets.at(0)->setPosition((index + 1) * 100, (index + 1) * 75);
+			window->setPosition((index + 1) * 100, (index + 1) * 75);
 			if (!captionPrefix.empty())
-				widgets.at(0)->castType<MyGUI::Window>()->setCaption(captionPrefix);
+				window->setCaption(captionPrefix);
 			mEditBoxes.push_back(edit);
+			if (index == 3)
+			{
+				mCycleEdit = edit;
+				mCycleWindow = window;
+			}
 			index++;
 			return edit;
 		};
@@ -108,15 +114,27 @@ namespace demo
 		createEditBox({}, 0, "Regular font.");
 		createEditBox("MsdfFont", 15, "Msdf is not optimal for small fonts.");
 		createEditBox("MsdfFont", 45, "MsdfFont 40 (one 256x256 texture for all sizes)");
+		createEditBox("MsdfFont", 63, "MsdfFont 63");
 		createEditBox("MsdfFont", 126, "MsdfFont 126 (one 256x256 texture for all sizes)");
 		createEditBox("DejaVuSansFont_126", 0, "DejaVuSansFont_126 (1024x512 texture)");
 #ifdef MYGUI_MSDF_FONTS
 		createEditBox("MsdfFont_Runtime", 45, "Runtime generated MSDF font.");
 #endif
+
+		if (mCycleEdit)
+		{
+			mFontList = {"MsdfFont", "DejaVuSansFont_63"};
+
+#ifdef MYGUI_MSDF_FONTS
+			mFontList.push_back("MsdfFont_Runtime");
+#endif
+			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
+		}
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 	}
 
 	void DemoKeeper::increaseFontHeight(MyGUI::Widget* _sender)
@@ -132,6 +150,21 @@ namespace demo
 		for (auto* edit : mEditBoxes)
 		{
 			edit->setFontHeight(edit->getFontHeight() - 1);
+		}
+	}
+
+	void DemoKeeper::notifyFrameStart(float _time)
+	{
+		if (!mCycleEdit)
+			return;
+
+		mFrameTimer += _time;
+		if (mFrameTimer >= 1.0f)
+		{
+			mFrameTimer -= 1.0f;
+			mFontIndex = (mFontIndex + 1) % mFontList.size();
+			mCycleEdit->setFontName(mFontList[mFontIndex]);
+			mCycleWindow->setCaption(mFontList[mFontIndex]);
 		}
 	}
 

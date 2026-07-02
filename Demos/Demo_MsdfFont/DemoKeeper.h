@@ -20,8 +20,15 @@ namespace demo
 		void increaseFontHeight(MyGUI::Widget* _sender);
 		void decreaseFontHeight(MyGUI::Widget* _sender);
 
+		void notifyFrameStart(float _time);
+
 	private:
 		std::vector<MyGUI::EditBox*> mEditBoxes;
+		MyGUI::EditBox* mCycleEdit{nullptr};
+		MyGUI::Window* mCycleWindow{nullptr};
+		std::vector<std::string> mFontList;
+		size_t mFontIndex{0};
+		float mFrameTimer{0};
 	};
 
 } // namespace demo
