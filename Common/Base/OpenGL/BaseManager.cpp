@@ -16,7 +16,7 @@ namespace base
 			std::cerr << "Failed to create SDL context: " << SDL_GetError();
 			exit(1);
 		}
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
 		if (IMG_Init(~0) == 0)
 		{
 			std::cerr << "Failed to initialize SDL_image: " << IMG_GetError();

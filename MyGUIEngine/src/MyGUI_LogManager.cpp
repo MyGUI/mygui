@@ -81,7 +81,7 @@ namespace MyGUI
 		mConsole->setEnabled(mConsoleEnable);
 		mDefaultSource->addLogListener(mConsole.get());
 
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
 		mFile = std::make_unique<FileLogListener>();
 		mFile->setFileName(_logname);
 		mDefaultSource->addLogListener(mFile.get());

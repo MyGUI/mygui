@@ -12,7 +12,7 @@ namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-#ifdef EMSCRIPTEN
+#ifdef __EMSCRIPTEN__
 		// Enable WebGL 2.0. MyGUI works with WebGL 1, butsome demos use es 300 shaders.
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
@@ -24,7 +24,7 @@ namespace base
 			std::cerr << "Failed to create SDL context: " << SDL_GetError();
 			exit(1);
 		}
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
 		if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
 		{
 			std::cerr << "Failed to initialize SDL_image: " << IMG_GetError();
