@@ -1,40 +1,11 @@
 set (HEADER_FILES
-  Action.h
-  ActionCreateData.h
-  ActionDestroyData.h
-  ActionManager.h
-  Data.h
-  DataInfo.h
-  DataInfoManager.h
-  DataListUI.h
-  DataManager.h
-  DataPropertyInfo.h
   DemoKeeper.h
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
-  ActionCreateData.cpp
-  ActionDestroyData.cpp
-  ActionManager.cpp
-  Data.cpp
-  DataInfo.cpp
-  DataInfoManager.cpp
-  DataListUI.cpp
-  DataManager.cpp
-  DataPropertyInfo.cpp
   DemoKeeper.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-  Action.h
-  ActionCreateData.h
-  ActionDestroyData.h
-  ActionManager.h
-  Data.h
-  DataInfo.h
-  DataInfoManager.h
-  DataListUI.h
-  DataManager.h
-  DataPropertyInfo.h
   DemoKeeper.h
 )
 SOURCE_GROUP("Resources" FILES
@@ -42,14 +13,5 @@ SOURCE_GROUP("Resources" FILES
   CMakeLists.txt
 )
 SOURCE_GROUP("Source Files" FILES
-  ActionCreateData.cpp
-  ActionDestroyData.cpp
-  ActionManager.cpp
-  Data.cpp
-  DataInfo.cpp
-  DataInfoManager.cpp
-  DataListUI.cpp
-  DataManager.cpp
-  DataPropertyInfo.cpp
   DemoKeeper.cpp
 )
