@@ -201,6 +201,8 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wno-unused-parameter
 				-Wno-global-constructors
 				-Wno-switch-default # conflicts with Wcovered-switch-default
+				-Wno-lifetime-safety-intra-tu-suggestions
+				-Wno-lifetime-safety-cross-tu-suggestions
 			)
 		else ()
 			add_compile_options(
