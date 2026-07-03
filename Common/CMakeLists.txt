@@ -77,6 +77,14 @@ target_link_libraries(${PROJECTNAME}
 		${SDL2_LINK_TARGETS}
 )
 
+if (EMSCRIPTEN)
+	target_link_options(${PROJECTNAME} INTERFACE "-s ALLOW_MEMORY_GROWTH=1")
+	target_link_options(${PROJECTNAME} INTERFACE "-s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s FULL_ES3=1 -s USE_WEBGL2=1")
+	target_link_options(${PROJECTNAME} INTERFACE "--preload-file ${CMAKE_CURRENT_SOURCE_DIR}/../Media/@/Media")
+	target_link_options(${PROJECTNAME} INTERFACE "--preload-file ${CMAKE_CURRENT_BINARY_DIR}/../bin/resources.xml@/resources.xml")
+	set(CMAKE_EXECUTABLE_SUFFIX ".html")
+endif()
+
 if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
 	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
 endif()
