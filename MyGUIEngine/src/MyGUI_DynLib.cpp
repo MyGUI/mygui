@@ -36,7 +36,7 @@ namespace MyGUI
 	bool DynLib::load()
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
-		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
+		MYGUI_LOG(Warning, "Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
 #else
 		// Log library load
 		MYGUI_LOG(Info, "Loading library " << mName);
@@ -67,7 +67,7 @@ namespace MyGUI
 	void DynLib::unload()
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
-		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
+		MYGUI_LOG(Warning, "Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
 #else
 		// Log library unload
 		MYGUI_LOG(Info, "Unloading library " << mName);
@@ -85,7 +85,8 @@ namespace MyGUI
 	void* DynLib::getSymbol(const char* strName) const noexcept
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
-		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
+		MYGUI_LOG(Warning, "Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
+		return nullptr;
 #else
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 		//APPLE SPECIFIC CODE HERE
@@ -99,7 +100,8 @@ namespace MyGUI
 	std::string DynLib::dynlibError() const
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
-		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
+		MYGUI_LOG(Warning, "Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
+		return {};
 #else
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		LPVOID lpMsgBuf;
