@@ -63,16 +63,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}"
 if (EMSCRIPTEN)
 	set(BUILD_SHARED_LIBS OFF)
 	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
-
-	add_compile_options(--std=c++11 -O2)
-	add_link_options("-s ALLOW_MEMORY_GROWTH=1")
-	# TODO: required only by demos and tools, not by MyGUIEngine or MyGUI.OpenGLESPlatform
-	add_link_options("-s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s FULL_ES3=1 -s USE_WEBGL2=1")
-	# TODO: set preload-file flags for demos and tools only
-	add_link_options("--preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/Media")
-	add_link_options("--preload-file ${CMAKE_CURRENT_BINARY_DIR}/bin/resources.xml@/resources.xml")
-
-	set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()
 
 # Customise what to build
