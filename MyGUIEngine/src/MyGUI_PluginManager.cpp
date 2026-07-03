@@ -50,7 +50,7 @@ namespace MyGUI
 
 	bool PluginManager::loadPlugin(std::string_view _file)
 	{
-#ifdef EMSCRIPTEN
+#ifdef __EMSCRIPTEN__
 		return false;
 #endif
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");

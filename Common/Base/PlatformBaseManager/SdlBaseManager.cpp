@@ -109,7 +109,7 @@ namespace base
 
 	void SdlBaseManager::run()
 	{
-#ifndef EMSCRIPTEN
+#ifndef __EMSCRIPTEN__
 		while (!mExit)
 #endif
 		{

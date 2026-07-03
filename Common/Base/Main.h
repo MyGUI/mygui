@@ -30,7 +30,7 @@
 		}
 #endif
 
-#ifdef EMSCRIPTEN
+#ifdef __EMSCRIPTEN__
 	#include <emscripten.h>
 
 template<class AppClass>
@@ -59,7 +59,7 @@ int startApp()
 		app->prepare();
 		if (app->create())
 		{
-#ifdef EMSCRIPTEN
+#ifdef __EMSCRIPTEN__
 			emscripten_set_main_loop_arg(run<AppClass>, app, 120, true);
 #else
 			app->run();
