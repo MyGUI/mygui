@@ -50,8 +50,7 @@ SampleLayout::SampleLayout() :
 		pRoot->add(pNode);
 	}
 #else*/
-	common::VectorFileInfo result;
-	common::getSystemFileList(result, gMediaBase, L"*.*");
+	common::VectorFileInfo result = common::getSystemFileList(gMediaBase, L"*.*");
 
 	for (auto& item : result)
 	{
@@ -134,8 +133,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 	if (info.second.folder)
 	{
 		std::wstring path = info.first + L"/" + info.second.name;
-		common::VectorFileInfo result;
-		common::getSystemFileList(result, path, L"*.*");
+		common::VectorFileInfo result = common::getSystemFileList(path, L"*.*");
 
 		for (auto& item : result)
 		{

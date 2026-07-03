@@ -69,11 +69,7 @@ namespace common
 		return _name == L"..";
 	}
 
-	inline void getSystemFileList(
-		VectorFileInfo& _result,
-		const std::wstring& _folder,
-		const std::wstring& _mask,
-		bool _sorted = true)
+	inline VectorFileInfo getSystemFileList(const std::wstring& _folder, const std::wstring& _mask, bool _sorted = true)
 	{
 		std::error_code ec;
 
@@ -90,11 +86,13 @@ namespace common
 		if (ec)
 		{
 			MYGUI_LOG(Error, "Can't open " + MyGUI::UString(searchDir.wstring()).asUTF8());
-			return;
+			return {};
 		}
 
+		VectorFileInfo result;
+
 		// ".." is not returned by directory_iterator; add it manually so file dialogs can navigate up
-		_result.emplace_back(L"..", true);
+		result.emplace_back(L"..", true);
 
 		for (const auto& entry : iter)
 		{
@@ -103,13 +101,13 @@ namespace common
 			if (!pattern.empty() && !matchWildcard(pattern, name))
 				continue;
 
-			_result.emplace_back(name, entry.is_directory());
+			result.emplace_back(name, entry.is_directory());
 		}
 
 		if (_sorted)
 			std::sort(
-				_result.begin(),
-				_result.end(),
+				result.begin(),
+				result.end(),
 				[](const FileInfo& a, const FileInfo& b)
 				{
 					if (a.folder != b.folder)
@@ -121,6 +119,7 @@ namespace common
 						b.name.end(),
 						[](wchar_t c1, wchar_t c2) { return std::towlower(c1) < std::towlower(c2); });
 				});
+		return result;
 	}
 
 	inline void scanFolder(
