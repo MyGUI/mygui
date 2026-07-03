@@ -37,7 +37,9 @@ set(MYGUI_CONFIG_FIND_DEPS "")
 if(MYGUI_RENDERSYSTEM EQUAL 3)
 	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
 elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OpenGL)")
+	if (NOT EMSCRIPTEN)
+		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OpenGL)")
+	endif()
 endif()
 
 # For static builds, internal link dependencies become transitive
