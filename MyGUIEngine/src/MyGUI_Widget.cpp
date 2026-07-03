@@ -1042,6 +1042,10 @@ namespace MyGUI
 		return result;
 	}
 
+#if defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wlifetime-safety-invalidation"
+#endif
 	void Widget::findWidgets(std::string_view _name, VectorWidgetPtr& _result)
 	{
 		if (_name == mName)
@@ -1057,6 +1061,9 @@ namespace MyGUI
 				widget->findWidgets(_name, _result);
 		}
 	}
+#if defined(__clang__)
+	#pragma clang diagnostic pop
+#endif
 
 	void Widget::onWidgetCreated(Widget* _widget)
 	{

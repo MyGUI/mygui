@@ -13,7 +13,10 @@
 
 namespace MyGUI::utility
 {
-
+#if defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wlifetime-safety-invalidation"
+#endif
 	inline void trim(std::string& _str, bool _left = true, bool _right = true)
 	{
 		if (_right)
@@ -21,6 +24,9 @@ namespace MyGUI::utility
 		if (_left)
 			_str.erase(0, _str.find_first_not_of(" \t\r"));
 	}
+#if defined(__clang__)
+	#pragma clang diagnostic pop
+#endif
 
 	template<typename T>
 	inline std::string toString(T _value)
@@ -131,30 +137,37 @@ namespace MyGUI::utility
 
 	namespace templates
 	{
-		template<class ReturnType, class InputType = ReturnType>
-		inline void split(std::vector<ReturnType>& _ret, const InputType& _source, const InputType& _delims)
+		template<typename ReturnType, typename InputType = ReturnType>
+		std::vector<ReturnType> split(const InputType& _source, const InputType& _delims)
 		{
-			size_t start = _source.find_first_not_of(_delims);
-			while (start != _source.npos)
+			std::vector<ReturnType> result;
+
+			std::string_view source{_source};
+			std::string_view delims{_delims};
+
+			size_t start = source.find_first_not_of(delims);
+
+			while (start != std::string_view::npos)
 			{
-				size_t end = _source.find_first_of(_delims, start);
-				if (end != _source.npos)
-					_ret.emplace_back(_source.substr(start, end - start));
-				else
+				const auto end = source.find_first_of(delims, start);
+
+				if (end == std::string_view::npos)
 				{
-					_ret.emplace_back(_source.substr(start));
+					result.emplace_back(source.substr(start));
 					break;
 				}
-				start = _source.find_first_not_of(_delims, end + 1);
+
+				result.emplace_back(source.substr(start, end - start));
+				start = source.find_first_not_of(delims, end + 1);
 			}
+
+			return result;
 		}
 	} // namespace templates
 
 	inline std::vector<std::string> split(std::string_view _source, std::string_view _delims = "\t\n ")
 	{
-		std::vector<std::string> result;
-		templates::split<std::string, std::string_view>(result, _source, _delims);
-		return result;
+		return templates::split<std::string>(_source, _delims);
 	}
 
 	template<typename... Args>
