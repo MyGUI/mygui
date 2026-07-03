@@ -104,7 +104,7 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "" TRUE "" "")
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	find_package(DirectX)
-	macro_log_feature(DirectX_FOUND "DirectX11" "Support for the DirectX11 render system" "" TRUE "" "")
+	macro_log_feature(DirectX_D3D11_FOUND "DirectX11" "Support for the DirectX11 render system" "" TRUE "" "")
 #elseif for RENDERSYSTEM 7 is covered with RENDERSYSTEM 4
 endif()
 

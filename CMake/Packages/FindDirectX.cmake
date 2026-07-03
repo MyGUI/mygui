@@ -45,25 +45,95 @@ if(WIN32) # The only platform it makes sense to check for DirectX SDK
             DirectX_INCLUDE_DIR
     )
 
-    find_path(DirectX_INCLUDE_DIR NAMES d3d9.h HINTS ${DirectX_INC_SEARCH_PATH})
-    # dlls are in DirectX_ROOT_DIR/Developer Runtime/x64|x86
-    # lib files are in DirectX_ROOT_DIR/Lib/x64|x86
-    if(CMAKE_CL_64)
+    # ---- D3D11 detection via Windows Kits ----
+    if(MSVC AND NOT MSVC90)
+        get_filename_component(_kit10_dir "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots;KitsRoot10]" REALPATH)
+        if(EXISTS "${_kit10_dir}/Include")
+            file(GLOB _w10_versions RELATIVE ${_kit10_dir}/Include ${_kit10_dir}/Include/10.*)
+            list(APPEND _w10_versions "10.0.10240.0" "10.0.14393.0" "10.0.15063.0" "10.0.16299.0")
+            list(REMOVE_DUPLICATES _w10_versions)
+            list(SORT _w10_versions)
+            list(REVERSE _w10_versions)
+            if(CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION)
+                list(INSERT _w10_versions 0 ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION})
+            endif()
+            foreach(_ver ${_w10_versions})
+                find_path(DirectX_D3D11_INCLUDE_DIR NAMES d3d11.h
+                    HINTS "${_kit10_dir}/Include/${_ver}/um"
+                          "C:/Program Files (x86)/Windows Kits/10/Include/${_ver}/um"
+                          "C:/Program Files/Windows Kits/10/Include/${_ver}/um")
+            endforeach()
+        endif()
+        if(NOT DirectX_D3D11_INCLUDE_DIR)
+            find_path(DirectX_D3D11_INCLUDE_DIR NAMES d3d11.h
+                HINTS "C:/Program Files (x86)/Windows Kits/8.1/include/um"
+                      "C:/Program Files/Windows Kits/8.1/include/um")
+        endif()
+        if(NOT DirectX_D3D11_INCLUDE_DIR)
+            find_path(DirectX_D3D11_INCLUDE_DIR NAMES d3d11.h
+                HINTS "C:/Program Files (x86)/Windows Kits/8.0/include/um"
+                      "C:/Program Files/Windows Kits/8.0/include/um")
+        endif()
+    endif()
+
+    # Legacy DirectX SDK fallback for D3D11
+    if(NOT DirectX_D3D11_INCLUDE_DIR)
+        find_path(DirectX_D3D11_INCLUDE_DIR NAMES d3d11.h D3D11Shader.h HINTS ${DirectX_INC_SEARCH_PATH})
+    endif()
+
+    if(DirectX_D3D11_INCLUDE_DIR)
+        set(DirectX_D3D11_LIBRARY d3d11.lib)
+        set(DirectX_DXGI_LIBRARY dxgi.lib)
+        set(DirectX_D3DCOMPILER_LIBRARY d3dcompiler.lib)
+        set(DirectX_DXGUID_LIBRARY dxguid.lib)
+        set(DirectX_D3D11_FOUND TRUE)
+        message(STATUS "Found DirectX11: ${DirectX_D3D11_INCLUDE_DIR}")
+    endif()
+
+    # Create modern imported targets for D3D11 components
+    if(DirectX_D3D11_INCLUDE_DIR AND DirectX_D3D11_LIBRARY)
+        if(NOT TARGET DirectX11::D3D11)
+            add_library(DirectX11::D3D11 INTERFACE IMPORTED)
+            set_target_properties(DirectX11::D3D11 PROPERTIES
+                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_D3D11_INCLUDE_DIR}"
+                INTERFACE_LINK_LIBRARIES "${DirectX_D3D11_LIBRARY}"
+            )
+        endif()
+        if(DirectX_DXGI_LIBRARY AND NOT TARGET DirectX11::DXGI)
+            add_library(DirectX11::DXGI INTERFACE IMPORTED)
+            set_target_properties(DirectX11::DXGI PROPERTIES
+                INTERFACE_LINK_LIBRARIES "${DirectX_DXGI_LIBRARY}"
+            )
+        endif()
+        if(DirectX_DXGUID_LIBRARY AND NOT TARGET DirectX11::DXGUID)
+            add_library(DirectX11::DXGUID INTERFACE IMPORTED)
+            set_target_properties(DirectX11::DXGUID PROPERTIES
+                INTERFACE_LINK_LIBRARIES "${DirectX_DXGUID_LIBRARY}"
+            )
+        endif()
+        if(DirectX_D3DCOMPILER_LIBRARY AND NOT TARGET DirectX11::D3DCompiler)
+            add_library(DirectX11::D3DCompiler INTERFACE IMPORTED)
+            set_target_properties(DirectX11::D3DCompiler PROPERTIES
+                INTERFACE_LINK_LIBRARIES "${DirectX_D3DCOMPILER_LIBRARY}"
+            )
+        endif()
+    endif()
+
+    mark_as_advanced(DirectX_D3D11_INCLUDE_DIR DirectX_D3D11_LIBRARY
+            DirectX_DXGI_LIBRARY DirectX_D3DCOMPILER_LIBRARY DirectX_DXGUID_LIBRARY)
+
+    # ---- DirectX 9 components ----
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(DirectX_LIBPATH_SUFFIX "x64")
-    else(CMAKE_CL_64)
+    else()
         set(DirectX_LIBPATH_SUFFIX "x86")
-    endif(CMAKE_CL_64)
+    endif()
+
+    # find legacy DirectX 9 components
+    find_path(DirectX_INCLUDE_DIR NAMES d3d9.h HINTS ${DirectX_INC_SEARCH_PATH})
     find_library(DirectX_LIBRARY NAMES d3d9 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
     find_library(DirectX_D3DX9_LIBRARY NAMES d3dx9 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
     find_library(DirectX_DXERR_LIBRARY NAMES DxErr DxErr9 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-    find_library(DirectX_DXGUID_LIBRARY NAMES dxguid HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-
-
-    # look for dxgi (needed by both 10 and 11)
-    find_library(DirectX_DXGI_LIBRARY NAMES dxgi HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-
-    # look for d3dcompiler (needed by 11)
-    find_library(DirectX_D3DCOMPILER_LIBRARY NAMES d3dcompiler HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
 
     findpkg_finish(DirectX)
     set(DirectX_LIBRARIES ${DirectX_LIBRARIES}
@@ -72,61 +142,7 @@ if(WIN32) # The only platform it makes sense to check for DirectX SDK
             ${DirectX_DXGUID_LIBRARY}
     )
 
-    mark_as_advanced(DirectX_D3DX9_LIBRARY DirectX_DXERR_LIBRARY DirectX_DXGUID_LIBRARY
-            DirectX_DXGI_LIBRARY DirectX_D3DCOMPILER_LIBRARY)
-
-
-    # look for D3D11 components
-    if (DirectX_FOUND)
-        find_path(DirectX_D3D11_INCLUDE_DIR NAMES D3D11Shader.h HINTS ${DirectX_INC_SEARCH_PATH})
-        get_filename_component(DirectX_LIBRARY_DIR "${DirectX_LIBRARY}" PATH)
-        message(STATUS "DX lib dir: ${DirectX_LIBRARY_DIR}")
-        find_library(DirectX_D3D11_LIBRARY NAMES d3d11 HINTS ${DirectX_LIB_SEARCH_PATH} PATH_SUFFIXES ${DirectX_LIBPATH_SUFFIX})
-        if (DirectX_D3D11_INCLUDE_DIR AND DirectX_D3D11_LIBRARY)
-            set(DirectX_D3D11_FOUND TRUE)
-            set(DirectX_D3D11_INCLUDE_DIR ${DirectX_D3D11_INCLUDE_DIR})
-            set(DirectX_D3D11_LIBRARIES ${DirectX_D3D11_LIBRARIES}
-                    ${DirectX_D3D11_LIBRARY}
-                    ${DirectX_DXGI_LIBRARY}
-                    ${DirectX_DXERR_LIBRARY}
-                    ${DirectX_DXGUID_LIBRARY}
-                    ${DirectX_D3DCOMPILER_LIBRARY}
-            )
-        endif ()
-        mark_as_advanced(DirectX_D3D11_INCLUDE_DIR DirectX_D3D11_LIBRARY)
-    endif ()
-
-    # Create modern imported targets for D3D11 components
-    if(DirectX_D3D11_INCLUDE_DIR AND DirectX_D3D11_LIBRARY)
-        if(NOT TARGET DirectX11::D3D11)
-            add_library(DirectX11::D3D11 UNKNOWN IMPORTED)
-            set_target_properties(DirectX11::D3D11 PROPERTIES
-                IMPORTED_LOCATION "${DirectX_D3D11_LIBRARY}"
-                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_D3D11_INCLUDE_DIR}"
-            )
-        endif()
-        if(DirectX_DXGI_LIBRARY AND NOT TARGET DirectX11::DXGI)
-            add_library(DirectX11::DXGI UNKNOWN IMPORTED)
-            set_target_properties(DirectX11::DXGI PROPERTIES
-                IMPORTED_LOCATION "${DirectX_DXGI_LIBRARY}"
-                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_D3D11_INCLUDE_DIR}"
-            )
-        endif()
-        if(DirectX_DXGUID_LIBRARY AND NOT TARGET DirectX11::DXGUID)
-            add_library(DirectX11::DXGUID UNKNOWN IMPORTED)
-            set_target_properties(DirectX11::DXGUID PROPERTIES
-                IMPORTED_LOCATION "${DirectX_DXGUID_LIBRARY}"
-                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_D3D11_INCLUDE_DIR}"
-            )
-        endif()
-        if(DirectX_D3DCOMPILER_LIBRARY AND NOT TARGET DirectX11::D3DCompiler)
-            add_library(DirectX11::D3DCompiler UNKNOWN IMPORTED)
-            set_target_properties(DirectX11::D3DCompiler PROPERTIES
-                IMPORTED_LOCATION "${DirectX_D3DCOMPILER_LIBRARY}"
-                INTERFACE_INCLUDE_DIRECTORIES "${DirectX_D3D11_INCLUDE_DIR}"
-            )
-        endif()
-    endif()
+    mark_as_advanced(DirectX_D3DX9_LIBRARY DirectX_DXERR_LIBRARY)
 
     # Create modern imported targets for DirectX 9 components
     if(DirectX_INCLUDE_DIR AND DirectX_LIBRARY)
