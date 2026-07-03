@@ -1,15 +1,7 @@
-######################################################################
-# MYGUI BUILD SYSTEM
-# Welcome to the CMake build system for MYGUI.
-# This is the main file where we prepare the general build environment
-# and provide build configuration options.
-######################################################################
-
 cmake_minimum_required(VERSION 3.25)
 
 project(MYGUI)
 
-# Include necessary submodules
 list(APPEND CMAKE_MODULE_PATH
     "${MYGUI_SOURCE_DIR}/CMake"
     "${MYGUI_SOURCE_DIR}/CMake/Utils"
@@ -18,43 +10,12 @@ list(APPEND CMAKE_MODULE_PATH
 
 include(CMakeDependentOption)
 include(MacroLogFeature)
-include(Packages/SDL2FinderHelper)
 include(MyGUIConfigTargets)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
-# Prevent CMake from adding "#pragma clang system_header" to the precompiled headers (otherwise all warnings are suppressed)
-set(CMAKE_PCH_PROLOGUE "")
-
-#####################################################################
-# Set up the basic build environment
-#####################################################################
-
-if (CMAKE_BUILD_TYPE STREQUAL "")
-	# CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
-	# differentiation between debug and release builds.
-	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
-endif ()
-
-# determine MyGUI version numbers
-include(MyGUIGetVersion)
-mygui_get_version("${MYGUI_SOURCE_DIR}/MyGUIEngine/include/MyGUI_Prerequest.h")
-message(STATUS "Configuring MYGUI ${MYGUI_VERSION}")
-
-if (NOT APPLE)
-	# Create debug libraries with _d postfix
-	set(CMAKE_DEBUG_POSTFIX "_d")
-endif ()
-
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
-
-# Specify build paths
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 
 ######################################################################
 # Provide user options to customise the build process
@@ -62,7 +23,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}"
 
 if (EMSCRIPTEN)
 	set(BUILD_SHARED_LIBS OFF)
-	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
+	set(MYGUI_DISABLE_PLUGINS TRUE CACHE BOOL "")
 	set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()
 
@@ -106,196 +67,134 @@ cmake_dependent_option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE "MYGUI_B
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;BUILD_SHARED_LIBS" FALSE)
 
+### Internal options ###
+
 # Used to not annoy users with high level warnings (should be TRUE for developers)
 option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
+option(MYGUI_CLANG_TIDY_BUILD "Hack some things for clang-tidy runs, f.e. disable PCH" FALSE)
 # Internal options mostly designed for quick local tests where min/max build need to be performed
 option(MYGUI_ALL_FEATURES "Enable all engine features" FALSE)
 option(MYGUI_ALL_APPS "Enable all applications (demos, tools, tests)" FALSE)
 option(MYGUI_NO_FEATURES "Disable all optional engine features" FALSE)
 option(MYGUI_NO_APPS "Disable all applications" FALSE)
 mark_as_advanced(
+	MYGUI_HIGH_LEVEL_WARNINGS
+	MYGUI_CLANG_TIDY_BUILD
 	MYGUI_ALL_FEATURES
 	MYGUI_ALL_APPS
 	MYGUI_NO_FEATURES
 	MYGUI_NO_APPS
 )
 
-if (MYGUI_ALL_FEATURES)
-	set(MYGUI_USE_FREETYPE ON CACHE BOOL "" FORCE)
-	set(MYGUI_MSDF_FONTS ON CACHE BOOL "" FORCE)
-	set(MYGUI_DONT_USE_OBSOLETE ON CACHE BOOL "" FORCE)
-	set(MYGUI_DISABLE_PLUGINS OFF CACHE BOOL "" FORCE)
+#####################################################################
+# Set up the basic build environment
+#####################################################################
 
-	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
+if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
-if (MYGUI_ALL_APPS)
-	set(MYGUI_BUILD_DEMOS ON CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_PLUGINS ON CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_TOOLS ON CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_UNITTESTS ON CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_TEST_APP ON CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_WRAPPER ON CACHE BOOL "" FORCE)
+# determine MyGUI version numbers
+include(MyGUIGetVersion)
+mygui_get_version("${MYGUI_SOURCE_DIR}/MyGUIEngine/include/MyGUI_Prerequest.h")
+message(STATUS "Configuring MYGUI ${MYGUI_VERSION}")
 
-	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
+if (NOT APPLE)
+	# Create debug libraries with _d postfix
+	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-if (MYGUI_NO_FEATURES)
-	set(MYGUI_USE_FREETYPE OFF CACHE BOOL "" FORCE)
-	set(MYGUI_MSDF_FONTS OFF CACHE BOOL "" FORCE)
-	set(MYGUI_DONT_USE_OBSOLETE OFF CACHE BOOL "" FORCE)
-	set(MYGUI_DISABLE_PLUGINS ON CACHE BOOL "" FORCE)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
-	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
-endif ()
+# Specify build paths
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 
-if (MYGUI_NO_APPS)
-	set(MYGUI_BUILD_DEMOS OFF CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_PLUGINS OFF CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_UNITTESTS OFF CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_TEST_APP OFF CACHE BOOL "" FORCE)
-	set(MYGUI_BUILD_WRAPPER OFF CACHE BOOL "" FORCE)
-
-	set(MYGUI_HIGH_LEVEL_WARNINGS ON CACHE BOOL "" FORCE)
-endif ()
+######################################################################
+# Platform specific overrides
+######################################################################
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
-	add_compile_options(/Zc:__cplusplus)
 endif ()
 
 if (MYGUI_USE_PROJECT_FOLDERS)
 	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif ()
 
-# Find dependencies
+######################################################################
+# Build preset logic
+######################################################################
+
+function(mygui_force option value)
+	set(${option} ${value} CACHE BOOL "" FORCE)
+endfunction()
+
+if (MYGUI_ALL_FEATURES)
+	mygui_force(MYGUI_USE_FREETYPE ON)
+	mygui_force(MYGUI_MSDF_FONTS ON)
+	mygui_force(MYGUI_DONT_USE_OBSOLETE ON)
+	mygui_force(MYGUI_DISABLE_PLUGINS OFF)
+
+	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
+endif ()
+
+if (MYGUI_ALL_APPS)
+	mygui_force(MYGUI_BUILD_DEMOS ON)
+	mygui_force(MYGUI_BUILD_PLUGINS ON)
+	mygui_force(MYGUI_BUILD_TOOLS ON)
+	mygui_force(MYGUI_BUILD_UNITTESTS ON)
+	mygui_force(MYGUI_BUILD_TEST_APP ON)
+	mygui_force(MYGUI_BUILD_WRAPPER ON)
+
+	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
+endif ()
+
+if (MYGUI_NO_FEATURES)
+	mygui_force(MYGUI_USE_FREETYPE OFF)
+	mygui_force(MYGUI_MSDF_FONTS OFF)
+	mygui_force(MYGUI_DONT_USE_OBSOLETE OFF)
+	mygui_force(MYGUI_DISABLE_PLUGINS ON)
+
+	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
+endif ()
+
+if (MYGUI_NO_APPS)
+	mygui_force(MYGUI_BUILD_DEMOS OFF)
+	mygui_force(MYGUI_BUILD_PLUGINS OFF)
+	mygui_force(MYGUI_BUILD_TOOLS OFF)
+	mygui_force(MYGUI_BUILD_UNITTESTS OFF)
+	mygui_force(MYGUI_BUILD_TEST_APP OFF)
+	mygui_force(MYGUI_BUILD_WRAPPER OFF)
+
+	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
+endif ()
+
 include(Dependencies)
-
-# Set compiler specific build flags
-if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-	if (MYGUI_HIGH_LEVEL_WARNINGS)
-		add_compile_options(-Werror)
-		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-			add_compile_options(
-				-Weverything
-			)
-			# might be useful
-			add_compile_options(
-				-Wno-reorder
-				-Wno-nrvo
-			)
-			# not useful
-			add_compile_options(
-				-Wno-unsafe-buffer-usage
-				-Wno-unknown-warning-option
-				-Wno-documentation
-				-Wno-documentation-unknown-command
-				-Wno-conversion
-				-Wno-old-style-cast
-				-Wno-poison-system-directories
-				-Wno-c++98-compat-pedantic
-				-Wno-c++11-extensions
-				-Wno-float-equal
-				-Wno-padded
-				-Wno-weak-vtables
-				-Wno-duplicate-enum
-				-Wno-exit-time-destructors
-				-Wno-unused-parameter
-				-Wno-global-constructors
-				-Wno-switch-default # conflicts with Wcovered-switch-default
-				-Wno-lifetime-safety-intra-tu-suggestions
-				-Wno-lifetime-safety-cross-tu-suggestions
-			)
-		else ()
-			add_compile_options(
-				-Wall
-				-Winit-self
-				-Wcast-qual
-				-Wwrite-strings
-				-Wextra
-				-pedantic
-				-Wshadow
-			)
-			add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-reorder;-Woverloaded-virtual;-Wsuggest-override>")
-			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-				add_compile_options(-fdiagnostics-show-option)
-			endif ()
-			# disable some
-			add_compile_options(
-				-Wno-unused-parameter
-			)
-		endif ()
-	endif ()
-endif ()
-
-option(MYGUI_CLANG_TIDY_BUILD "Hack some things for clang-tidy runs, f.e. disable PCH" FALSE)
-
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-	# usage:
-	# UBSAN_OPTIONS=print_stacktrace=1,suppressions=sanitizers/UBSanitizer.supp <command>
-	option(MYGUI_UB_SANITIZER "Compile with undefined behaviour sanitizer" FALSE)
-	if (MYGUI_UB_SANITIZER)
-		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
-		add_compile_options("-fsanitize=undefined" "-fno-sanitize-recover=undefined")
-		add_link_options("-fsanitize=undefined")
-	endif()
-
-	# usage:
-	# ASAN_OPTIONS=alloc_dealloc_mismatch=0,check_initialization_order=1,detect_stack_use_after_return=1 LSAN_OPTIONS=suppressions=sanitizers/LeaksSanitizer.supp <command>
-	# alloc_dealloc_mismatch is here due to issues with Ogre and no clear way to suppress the issue
-	option(MYGUI_ADDRESS_SANITIZER "Compile with address sanitizer" FALSE)
-	if (MYGUI_ADDRESS_SANITIZER)
-		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
-		add_compile_options("-fsanitize=address" "-fsanitize-address-use-after-scope")
-		add_link_options("-fsanitize=address")
-	endif()
-endif ()
-
-if (MSVC)
-	add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
-
-	# Use the highest warning level for visual studio.
-	if (MYGUI_HIGH_LEVEL_WARNINGS)
-		set(WARNING_LEVEL "/W4")
-		add_compile_options("/WX")
-	else ()
-		set(WARNING_LEVEL "/W3")
-	endif ()
-	# disable: warning C4100: '***' : unreferenced formal parameter
-	add_compile_options(/wd4100)
-
-	# TODO: move to Tools only
-	# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-	add_compile_options(/wd4275)
-	# warning C4267: '=': conversion from '***' to '***', possible loss of data
-	add_compile_options(/wd4267)
-	# warning C4244: 'argument': conversion from '***' to '***', possible loss of data
-	add_compile_options(/wd4244)
-
-	# Remove any default warning level from CMAKE_CXX_FLAGS and use add_compile_options instead
-	string(REGEX REPLACE "/W[0-4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-	add_compile_options(${WARNING_LEVEL})
-
-endif ()
 
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
+######################################################################
+# Compiler toolchain settings
+######################################################################
+
+include(CompilerWarnings)
+include(Sanitizers)
+
 ##################################################################
-# Now setup targets
+# Setup targets
 ##################################################################
 
-# Setup MyGUIEngine project
 add_subdirectory(MyGUIEngine)
-
-# Setup Platforms
 add_subdirectory(Platforms)
 
 if (MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
 endif ()
 
-# Setup Plugins
 if (MYGUI_BUILD_PLUGINS)
 	add_subdirectory(Plugins)
 endif ()
@@ -304,33 +203,27 @@ if (MYGUI_BUILD_DEMOS)
 	add_subdirectory(Demos)
 endif ()
 
-# Setup command-line tools
 if (MYGUI_BUILD_TOOLS)
 	add_subdirectory(Tools)
 endif ()
 
-# Setup tests
 if (MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
-	# Enable CMake testing infrastructure when building unit tests
 	if (MYGUI_BUILD_UNITTESTS)
 		enable_testing()
 	endif()
 	add_subdirectory(UnitTests)
 endif ()
 
-# Setup wrappers
 if (MYGUI_BUILD_WRAPPER)
 	add_subdirectory(Wrappers)
 endif ()
 
-# Install documentation
 if (MYGUI_BUILD_DOCS)
 	add_subdirectory(Docs)
 endif ()
 
+###################################################################
+# Configure install rules, package configs, and export sets
+###################################################################
 add_subdirectory(Media)
-
-###################################################################
-# configure install rules, package configs, and export sets
-###################################################################
 include(InstallRules)
