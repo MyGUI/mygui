@@ -146,8 +146,7 @@ namespace tools
 		mListFiles->removeAllItems();
 
 		// add all folders first
-		common::VectorFileInfo infos;
-		getSystemFileList(infos, mCurrentFolder, L"*");
+		common::VectorFileInfo infos = common::getSystemFileList(mCurrentFolder, L"*");
 
 		for (const auto& info : infos)
 		{
@@ -158,8 +157,7 @@ namespace tools
 		if (!mFolderMode)
 		{
 			// add files by given mask
-			infos.clear();
-			getSystemFileList(infos, mCurrentFolder, mFileMask);
+			infos = common::getSystemFileList(mCurrentFolder, mFileMask);
 
 			for (const auto& info : infos)
 			{
