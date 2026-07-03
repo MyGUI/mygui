@@ -37,7 +37,7 @@ if (MYGUI_USE_FREETYPE)
 
 	if (MYGUI_MSDF_FONTS)
 		if (MYGUI_USE_SYSTEM_MSDFGEN)
-			find_package(msdfgen)
+			find_package(msdfgen REQUIRED)
 		else()
 			include(FetchContent)
 			FetchContent_Declare(msdfgen
