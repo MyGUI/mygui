@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: build (${{ matrix.os }}, ${{ matrix.name || 'default' }})
+    name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -12,26 +12,30 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
+            name: "Linux: GL3, all, shared"
+            rendersystem: 7
+            cmake_flags: >
+              -DMYGUI_ALL_FEATURES=ON
+              -DMYGUI_ALL_APPS=ON
+              -DBUILD_SHARED_LIBS=ON
+
+          - os: ubuntu-latest
+            name: "Linux: GL3, all, static"
+            rendersystem: 7
+            cmake_flags: >
+              -DMYGUI_ALL_FEATURES=ON
+              -DMYGUI_ALL_APPS=ON
+              -DBUILD_SHARED_LIBS=OFF
+
+          - os: windows-latest
+            name: "Windows: dx11, tools only"
+            rendersystem: 6
+            cmake_flags: -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_NO_FEATURES=ON
+
           - os: macos-latest
-          - os: windows-latest
-
-          - os: ubuntu-latest
-            name: use-msdf-fonts
-            cmake_flags: -DMYGUI_MSDF_FONTS=TRUE
-
-          - os: windows-latest
-            name: use-system-msdf-fonts
-            cmake_flags: -DMYGUI_MSDF_FONTS=TRUE -DMYGUI_USE_SYSTEM_MSDFGEN=TRUE
-            vcpkg_packages: msdfgen[core,extensions]
-
-          - os: ubuntu-latest
-            name: dont-use-obsolete
-            cmake_flags: -DMYGUI_DONT_USE_OBSOLETE=TRUE
-
-          - os: ubuntu-latest
-            name: gl
-            rendersystem: 4
-            apt_packages: libsdl2-image-dev libgl1-mesa-dev
+            name: "macOS: GL3, tools only"
+            rendersystem: 7
+            cmake_flags: -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_NO_FEATURES=ON
 
     steps:
       - uses: actions/checkout@v7
@@ -40,32 +44,24 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev ${{ matrix.apt_packages }}
+          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev libsdl2-image-dev libgl1-mesa-dev
 
       - name: Install build dependencies (macOS)
         if: runner.os == 'macOS'
-        run: brew install cmake freetype
-
-      - name: Install SDL2 via vcpkg (macOS/Windows)
-        if: runner.os != 'Linux'
-        run: vcpkg install sdl2
+        run: brew install cmake freetype sdl2 sdl2_image
 
       - name: Install deps via vcpkg (Windows)
         if: runner.os == 'Windows'
-        run: vcpkg install freetype ${{ matrix.vcpkg_packages }}
+        run: vcpkg install sdl2 freetype
 
       - name: Configure
-        shell: bash
-        run: |
-          mkdir build
-          cd build
-          cmake .. \
-            ${{ runner.os != 'Linux' && '-DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"' || '' }} \
-            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-            -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE \
-            -DMYGUI_NO_APPS=TRUE \
-            -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem || 1 }} \
-            ${{ matrix.cmake_flags }}
+        run: >
+          cmake -S . -B build
+          ${{ runner.os == 'Windows' && '-DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"' || '' }}
+          -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE
+          -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem }}
+          ${{ matrix.cmake_flags }}
 
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel
@@ -96,3 +92,22 @@ jobs:
           python3 Scripts/test_install.py \
             ${{ matrix.shared == 'OFF' && '--static' || '' }} \
             --prefix ${{ github.workspace }}/install
+
+  emscripten:
+    name: "emscripten: GLES, TestApp only"
+    runs-on: ubuntu-latest
+    container: emscripten/emsdk:latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Configure
+        run: |
+          emcmake cmake -S . -B build \
+            -DMYGUI_RENDERSYSTEM=8 \
+            -DMYGUI_USE_FREETYPE=OFF \
+            -DMYGUI_NO_APPS=ON \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build
+        run: cmake --build build --parallel
