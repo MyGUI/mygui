@@ -69,3 +69,30 @@ jobs:
 
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel
+
+  install-test:
+    name: install-test (${{ matrix.name }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: shared
+            shared: ON
+          - name: static
+            shared: OFF
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq cmake libfreetype6-dev libgl1-mesa-dev
+
+      - name: Test install
+        run: |
+          python3 Scripts/test_install.py \
+            ${{ matrix.shared == 'OFF' && '--static' || '' }} \
+            --prefix ${{ github.workspace }}/install
