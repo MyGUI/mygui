@@ -390,11 +390,11 @@ namespace MyGUI
 		}
 
 		BYTE* srcData = static_cast<BYTE*>(lockedRect.pBits);
-		UINT dstStride = width * 4;
+		INT dstStride = width * 4;
 		std::vector<BYTE> convertedData;
 		BYTE* pixels = srcData;
 
-		if (bpp != 4 || lockedRect.Pitch != dstStride)
+		if (bpp != 4u || lockedRect.Pitch != dstStride)
 		{
 			convertedData.resize(height * dstStride);
 			for (UINT y = 0; y < height; ++y)
