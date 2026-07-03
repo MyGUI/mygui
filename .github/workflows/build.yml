@@ -92,6 +92,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Install build dependencies
+        run: |
+          apt-get update -qq
+          apt-get install -qq cmake
+
       - name: Configure
         run: |
           emcmake cmake -S . -B build \
