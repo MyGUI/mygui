@@ -80,11 +80,14 @@ target_link_libraries(${PROJECTNAME}
 
 if (EMSCRIPTEN)
 	target_link_options(${PROJECTNAME} PUBLIC "-sALLOW_MEMORY_GROWTH=1")
+	target_link_options(${PROJECTNAME} PUBLIC "-sGROWABLE_ARRAYBUFFERS=0")
 	target_link_options(${PROJECTNAME} PUBLIC "-sFULL_ES3=1")
-	target_link_options(${PROJECTNAME} PUBLIC "-sUSE_WEBGL2=1")
 	target_link_options(${PROJECTNAME} PUBLIC "-sMIN_WEBGL_VERSION=2")
 	target_link_options(${PROJECTNAME} PUBLIC "SHELL:--preload-file ${MYGUI_SOURCE_DIR}/Media@/Media")
 	target_link_options(${PROJECTNAME} PUBLIC "SHELL:--preload-file ${CMAKE_CURRENT_BINARY_DIR}/../bin/resources.xml@/resources.xml")
+	# debug stuff
+	target_link_options(${PROJECTNAME} PUBLIC "-sASSERTIONS=1")
+	target_link_options(${PROJECTNAME} PUBLIC "-sNO_DISABLE_EXCEPTION_CATCHING")
 endif()
 
 if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)

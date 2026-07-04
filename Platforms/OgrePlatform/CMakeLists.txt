@@ -14,6 +14,9 @@ target_include_directories(${PROJECTNAME}
 
 target_link_directories(${PROJECTNAME} PRIVATE "${OGRE_LIBRARY_DIRS}")
 target_link_libraries(${PROJECTNAME} PUBLIC ${OGRE_LIBRARIES} MyGUI::MyGUI)
+if (OGRE_STATIC AND TARGET ZLIB::ZLIB)
+	target_link_libraries(${PROJECTNAME} PUBLIC ZLIB::ZLIB)
+endif()
 
 # installation rules
 install(FILES ${HEADER_FILES}

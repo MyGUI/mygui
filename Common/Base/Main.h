@@ -60,7 +60,7 @@ int startApp()
 		if (app->create())
 		{
 #ifdef __EMSCRIPTEN__
-			emscripten_set_main_loop_arg(run<AppClass>, app, 120, true);
+			emscripten_set_main_loop_arg(run<AppClass>, app, 0, true);
 #else
 			app->run();
 #endif

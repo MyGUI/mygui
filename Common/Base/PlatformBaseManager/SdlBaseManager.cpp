@@ -27,7 +27,7 @@ namespace base
 		// initialize SDL
 		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
-			std::cerr << "Failed to initialize SDL2.";
+			std::cerr << "Failed to initialize SDL2: " << SDL_GetError() << std::endl;
 			exit(1);
 		}
 
@@ -39,7 +39,7 @@ namespace base
 		SDL_DisplayMode currDisp;
 		if (SDL_GetCurrentDisplayMode(0, &currDisp) != 0)
 		{
-			std::cerr << "Failed to retrieve screen info.";
+			std::cerr << "Failed to retrieve screen info: " << SDL_GetError() << std::endl;
 			exit(1);
 		}
 		int left = (currDisp.w - width) / 2;
@@ -54,7 +54,7 @@ namespace base
 			(mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE);
 		if (mSdlWindow == nullptr)
 		{
-			std::cerr << "Failed to create SDL window.";
+			std::cerr << "Failed to create SDL window: " << SDL_GetError();
 			exit(1);
 		}
 		mWindowOn = true;
@@ -65,7 +65,7 @@ namespace base
 		SDL_VERSION(&wmInfo.version)
 		if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
 		{
-			std::cerr << "Failed to SDL_GetWindowWMInfo.";
+			std::cerr << "Failed to SDL_GetWindowWMInfo: " << SDL_GetError() << std::endl;
 			exit(1);
 		}
 		size_t handle = (size_t)wmInfo.info.win.window;

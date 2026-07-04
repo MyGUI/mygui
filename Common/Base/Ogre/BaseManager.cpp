@@ -29,17 +29,20 @@ namespace base
 
 		mWindow = mRoot->initialise(false);
 
+		Ogre::NameValuePairList params;
+#ifdef __EMSCRIPTEN__
+		SDL_GL_CreateContext(mSdlWindow);
+		params["currentGLContext"] = "true";
+#else
 		SDL_SysWMinfo wmInfo;
 		SDL_VERSION(&wmInfo.version)
 		if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
 		{
-			OGRE_EXCEPT(
-				Ogre::Exception::ERR_INTERNAL_ERROR,
-				"Couldn't get WM Info! (SDL2)",
-				"BaseManager::createRender");
+			std::cerr << "Couldn't get WM Info! (SDL2): " << SDL_GetError() << std::endl;
+			exit(1);
 		}
+#endif
 
-		Ogre::NameValuePairList params;
 		if (mEnableVSync)
 			params["vsync"] = "true";
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
