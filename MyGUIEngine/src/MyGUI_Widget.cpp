@@ -1340,7 +1340,7 @@ namespace MyGUI
 				mWidgetChild.end(),
 				[](Widget* lhs, Widget* rhs) { return lhs->getDepth() > rhs->getDepth(); });
 		}
-		else
+		else if (!mWidgetChild.empty())
 		{
 			// raise newly added item if necessary
 			size_t index = mWidgetChild.size() - 1;
