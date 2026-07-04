@@ -87,7 +87,9 @@ namespace base
 		{
 			return false;
 		}
+#ifndef __EMSCRIPTEN__
 		SDL_GL_SetSwapInterval(mEnableVSync ? 1 : 0);
+#endif
 
 		createGuiPlatform();
 		mPlatformReady = true;

@@ -16,7 +16,7 @@ target_link_libraries(${PROJECTNAME}
 	PUBLIC
 		MyGUI::MyGUI
 	PRIVATE
-		$<$<NOT:$<BOOL:${EMSCRIPTEN}>>:OpenGL::GL>
+		OpenGL::GL
 )
 
 # installation rules
