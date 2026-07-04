@@ -1,4 +1,4 @@
-#version 130
+OGRE_NATIVE_GLSL_VERSION_DIRECTIVE
 
 precision highp int;
 precision highp float;
@@ -11,7 +11,6 @@ uniform mat4 worldViewProj;
 out vec4 outUV0;
 out vec4 outColor;
 
-// Texturing vertex program for GLSL
 void main()
 {
 	gl_Position = worldViewProj * position;

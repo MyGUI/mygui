@@ -1,4 +1,4 @@
-#version 130
+OGRE_NATIVE_GLSL_VERSION_DIRECTIVE
 
 precision highp int;
 precision highp float;

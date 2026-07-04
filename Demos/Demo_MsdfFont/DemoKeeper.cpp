@@ -20,13 +20,11 @@ namespace demo
 	{
 		// MsdfFontShader uses custom fragment program and default vertex program
 #if defined(MYGUI_OGRE_PLATFORM)
-		auto& renderManager = MyGUI::OgreRenderManager::getInstance();
-		std::string vpFile = "MyGUI_Ogre_VP." + renderManager.getShaderExtension();
-		std::string fpFile = "Msdf_Ogre_FP." + renderManager.getShaderExtension();
-		// custom VP for glsles to match shader versions (Msdf fragment shader require glsl es 300, while default MyGUI shader use glsl es 100)
-		if (renderManager.getShaderExtension() == "glsles")
-			vpFile = "Msdf_Ogre_VP." + renderManager.getShaderExtension();
-		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", vpFile, fpFile);
+		auto shaderExtension = MyGUI::OgreRenderManager::getInstance().getShaderExtension(true);
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"MyGUI_Ogre_VP." + shaderExtension,
+			"Msdf_Ogre_FP." + shaderExtension);
 #elif defined(MYGUI_OPENGL_PLATFORM)
 		// TODO not implemented in RenderManager
 #elif defined(MYGUI_DIRECTX_PLATFORM)

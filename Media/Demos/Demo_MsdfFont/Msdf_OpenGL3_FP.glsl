@@ -1,4 +1,8 @@
 #version 130
+
+precision highp int;
+precision highp float;
+
 in vec4 Color;
 in vec2 TexCoord;
 uniform sampler2D Texture;

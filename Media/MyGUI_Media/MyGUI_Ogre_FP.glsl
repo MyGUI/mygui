@@ -1,4 +1,4 @@
-#version 130
+OGRE_NATIVE_GLSL_VERSION_DIRECTIVE
 
 precision highp int;
 precision highp float;
@@ -10,7 +10,6 @@ in vec4 outColor;
 
 out vec4 fragColor;
 
-// Texturing fragment program for GLSL
 void main()
 {
 	fragColor = outColor * texture(sampleTexture, outUV0.xy);

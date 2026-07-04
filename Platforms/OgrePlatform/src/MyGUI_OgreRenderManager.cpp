@@ -59,7 +59,8 @@ namespace MyGUI
 		tu->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 		mMaterial->touch();
 
-		registerShader("Default", "MyGUI_Ogre_VP." + getShaderExtension(), "MyGUI_Ogre_FP." + getShaderExtension());
+		auto extension = getShaderExtension(true);
+		registerShader("Default", "MyGUI_Ogre_VP." + extension, "MyGUI_Ogre_FP." + extension);
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -305,6 +306,10 @@ namespace MyGUI
 		{
 			mRenderSystem->bindGpuProgram(mDefaultShader->vertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(mDefaultShader->fragmentProgram->_getBindingDelegate());
+
+			auto params = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
+			params->copyConstantsFrom(*mDefaultShader->vertexProgram->getDefaultParameters());
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
 		}
 
 		++mCountBatch;
@@ -467,13 +472,13 @@ namespace MyGUI
 		}
 	}
 
-	std::string OgreRenderManager::getShaderExtension() const
+	std::string OgreRenderManager::getShaderExtension(bool glesToGl) const
 	{
 		std::string shaderLanguage;
 		if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsl"))
 			return "glsl";
 		else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsles"))
-			return "glsles";
+			return glesToGl ? "glsl" : "glsles";
 		else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("hlsl"))
 			return "hlsl";
 		MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.");
@@ -511,17 +516,6 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	static std::string patchGLSLVersion(std::string source)
-	{
-		if (auto pos = source.find("#version"); pos != std::string::npos)
-		{
-			if (auto eol = source.find('\n', pos); eol != std::string::npos)
-				source = "#version 330\n" + source.substr(eol + 1);
-		}
-
-		return source;
-	}
-
 	OgreShaderInfo* OgreRenderManager::createShader(
 		const std::string& _shaderName,
 		const std::string& _vertexProgramFile,
@@ -533,7 +527,6 @@ namespace MyGUI
 		auto& programManager = Ogre::HighLevelGpuProgramManager::getSingleton();
 
 		const std::string shaderLanguage = getShaderExtension();
-		const bool isGL3Plus = mRenderSystem && mRenderSystem->getName().find("3+") != std::string::npos;
 
 		auto loadProgram = [&](const std::string& file, Ogre::GpuProgramType type, const char* hlslTarget)
 		{
@@ -544,15 +537,7 @@ namespace MyGUI
 
 			auto program = programManager.createProgram(file, group, shaderLanguage, type);
 
-			if (shaderLanguage == "glsl" && isGL3Plus)
-			{
-				auto stream = Ogre::ResourceGroupManager::getSingleton().openResource(file, group);
-				program->setSource(patchGLSLVersion(stream->getAsString()));
-			}
-			else
-			{
-				program->setSourceFile(file);
-			}
+			program->setSourceFile(file);
 			if (shaderLanguage == "hlsl")
 			{
 				program->setParameter("target", hlslTarget);

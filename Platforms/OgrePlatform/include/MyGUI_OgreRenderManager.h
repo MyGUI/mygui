@@ -102,7 +102,7 @@ namespace MyGUI
 
 		bool checkTexture(ITexture* _texture) override;
 
-		std::string getShaderExtension() const;
+		std::string getShaderExtension(bool glesToGl = false) const;
 
 		/*internal:*/
 		/* for use with RTT */
