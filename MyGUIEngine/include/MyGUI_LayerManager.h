@@ -58,6 +58,9 @@ namespace MyGUI
 		*/
 		ILayer* createLayerAt(std::string_view _name, std::string_view _type, size_t _index);
 
+		/** Destroy layer by name */
+		void destroyLayer(std::string_view _name);
+
 		/** Get layer by name */
 		ILayer* getByName(std::string_view _name, bool _throw = true) const;
 

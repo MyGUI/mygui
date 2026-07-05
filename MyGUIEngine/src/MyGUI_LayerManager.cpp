@@ -8,6 +8,7 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_FactoryManager.h"
@@ -195,6 +196,29 @@ namespace MyGUI
 		mLayerNodes.insert(mLayerNodes.begin() + _index, item);
 
 		return item;
+	}
+
+	void LayerManager::destroyLayer(std::string_view _name)
+	{
+		ILayer* layer = getByName(_name);
+
+		auto iter = std::find(mLayerNodes.begin(), mLayerNodes.end(), layer);
+		if (iter != mLayerNodes.end())
+			mLayerNodes.erase(iter);
+
+		Gui* gui = Gui::getInstancePtr();
+		if (gui != nullptr)
+		{
+			VectorWidgetPtr toDestroy;
+			for (auto& widget : gui->getRootWidgets())
+			{
+				if (widget->getLayer() == layer)
+					toDestroy.push_back(widget);
+			}
+			gui->destroyWidgets(toDestroy);
+		}
+
+		destroy(layer);
 	}
 
 	void LayerManager::destroy(ILayer* _layer)
