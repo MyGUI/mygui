@@ -9,7 +9,7 @@ function(install_file FILENAME)
     )
 endfunction()
 
-if (MYGUI_RENDERSYSTEM EQUAL 3)
+if (MYGUI_RENDERSYSTEM EQUAL 3 OR MYGUI_RENDERSYSTEM EQUAL 9)
     # copy plugins.cfg
     if (DEFINED OGRE_CONFIG_DIR)
         file(COPY "${OGRE_CONFIG_DIR}/plugins.cfg" DESTINATION "${MYGUI_BINARY_DIR}/bin/")
@@ -31,7 +31,7 @@ if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
         PATTERN "Sources" EXCLUDE
     )
 
-    if (MYGUI_RENDERSYSTEM EQUAL 3)
+    if (MYGUI_RENDERSYSTEM EQUAL 3 OR MYGUI_RENDERSYSTEM EQUAL 9)
         if (DEFINED OGRE_CONFIG_DIR)
             install_file (plugins.cfg)
         endif()
