@@ -72,18 +72,9 @@ cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;B
 # Used to not annoy users with high level warnings (should be TRUE for developers)
 option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
 option(MYGUI_CLANG_TIDY_BUILD "Hack some things for clang-tidy runs, f.e. disable PCH" FALSE)
-# Internal options mostly designed for quick local tests where min/max build need to be performed
-option(MYGUI_ALL_FEATURES "Enable all engine features" FALSE)
-option(MYGUI_ALL_APPS "Enable all applications (demos, tools, tests)" FALSE)
-option(MYGUI_NO_FEATURES "Disable all optional engine features" FALSE)
-option(MYGUI_NO_APPS "Disable all applications" FALSE)
 mark_as_advanced(
 	MYGUI_HIGH_LEVEL_WARNINGS
 	MYGUI_CLANG_TIDY_BUILD
-	MYGUI_ALL_FEATURES
-	MYGUI_ALL_APPS
-	MYGUI_NO_FEATURES
-	MYGUI_NO_APPS
 )
 
 #####################################################################
@@ -113,10 +104,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 
-######################################################################
-# Platform specific overrides
-######################################################################
-
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
 endif ()
@@ -126,52 +113,8 @@ if (MYGUI_USE_PROJECT_FOLDERS)
 endif ()
 
 ######################################################################
-# Build preset logic
+# Dependencies and docs option
 ######################################################################
-
-function(mygui_force option value)
-	set(${option} ${value} CACHE BOOL "" FORCE)
-endfunction()
-
-if (MYGUI_ALL_FEATURES)
-	mygui_force(MYGUI_USE_FREETYPE ON)
-	mygui_force(MYGUI_MSDF_FONTS ON)
-	mygui_force(MYGUI_DONT_USE_OBSOLETE ON)
-	mygui_force(MYGUI_DISABLE_PLUGINS OFF)
-
-	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
-endif ()
-
-if (MYGUI_ALL_APPS)
-	mygui_force(MYGUI_BUILD_DEMOS ON)
-	mygui_force(MYGUI_BUILD_PLUGINS ON)
-	mygui_force(MYGUI_BUILD_TOOLS ON)
-	mygui_force(MYGUI_BUILD_UNITTESTS ON)
-	mygui_force(MYGUI_BUILD_TEST_APP ON)
-	mygui_force(MYGUI_BUILD_WRAPPER ON)
-
-	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
-endif ()
-
-if (MYGUI_NO_FEATURES)
-	mygui_force(MYGUI_USE_FREETYPE OFF)
-	mygui_force(MYGUI_MSDF_FONTS OFF)
-	mygui_force(MYGUI_DONT_USE_OBSOLETE OFF)
-	mygui_force(MYGUI_DISABLE_PLUGINS ON)
-
-	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
-endif ()
-
-if (MYGUI_NO_APPS)
-	mygui_force(MYGUI_BUILD_DEMOS OFF)
-	mygui_force(MYGUI_BUILD_PLUGINS OFF)
-	mygui_force(MYGUI_BUILD_TOOLS OFF)
-	mygui_force(MYGUI_BUILD_UNITTESTS OFF)
-	mygui_force(MYGUI_BUILD_TEST_APP OFF)
-	mygui_force(MYGUI_BUILD_WRAPPER OFF)
-
-	mygui_force(MYGUI_HIGH_LEVEL_WARNINGS ON)
-endif ()
 
 include(Dependencies)
 

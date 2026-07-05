@@ -1,0 +1,47 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default",
+      "description": "Default build"
+    },
+    {
+      "name": "full",
+      "displayName": "Full Build",
+      "description": "All optional features and all applications",
+      "inherits": "default",
+      "cacheVariables": {
+        "MYGUI_USE_FREETYPE": "ON",
+        "MYGUI_MSDF_FONTS": "ON",
+        "MYGUI_DONT_USE_OBSOLETE": "ON",
+        "MYGUI_BUILD_DEMOS": "ON",
+        "MYGUI_BUILD_PLUGINS": "ON",
+        "MYGUI_BUILD_TOOLS": "ON",
+        "MYGUI_BUILD_UNITTESTS": "ON",
+        "MYGUI_BUILD_TEST_APP": "ON",
+        "MYGUI_BUILD_WRAPPER": "ON",
+        "MYGUI_HIGH_LEVEL_WARNINGS": "ON"
+      }
+    },
+    {
+      "name": "minimal",
+      "displayName": "Minimal Build",
+      "description": "No optional features, no applications",
+      "inherits": "default",
+      "cacheVariables": {
+        "MYGUI_USE_FREETYPE": "OFF",
+        "MYGUI_MSDF_FONTS": "OFF",
+        "MYGUI_DONT_USE_OBSOLETE": "OFF",
+        "MYGUI_DISABLE_PLUGINS": "ON",
+        "MYGUI_BUILD_DEMOS": "OFF",
+        "MYGUI_BUILD_PLUGINS": "OFF",
+        "MYGUI_BUILD_TOOLS": "OFF",
+        "MYGUI_BUILD_UNITTESTS": "OFF",
+        "MYGUI_BUILD_TEST_APP": "OFF",
+        "MYGUI_BUILD_WRAPPER": "OFF",
+        "MYGUI_HIGH_LEVEL_WARNINGS": "ON"
+      }
+    }
+  ]
+}
