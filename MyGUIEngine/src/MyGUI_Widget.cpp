@@ -1344,7 +1344,7 @@ namespace MyGUI
 		{
 			// raise newly added item if necessary
 			size_t index = mWidgetChild.size() - 1;
-			while (index > 0 && mWidgetChild[index]->getDepth() < mWidgetChild[index - 1]->getDepth())
+			while (index > 0 && mWidgetChild[index]->getDepth() > mWidgetChild[index - 1]->getDepth())
 			{
 				std::swap(mWidgetChild[index], mWidgetChild[index - 1]);
 				--index;
