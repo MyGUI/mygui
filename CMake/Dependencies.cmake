@@ -114,6 +114,15 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	find_package(DirectX)
 	macro_log_feature(DirectX_D3D11_FOUND "DirectX11" "Support for the DirectX11 render system" "" TRUE "" "")
 #elseif for RENDERSYSTEM 7 is covered with RENDERSYSTEM 4
+elseif(MYGUI_RENDERSYSTEM EQUAL 9)
+	find_package(ZLIB)
+	find_package(PkgConfig REQUIRED)
+	if(DEFINED OGRE_DIR AND EXISTS "${OGRE_DIR}/lib/pkgconfig/OGRE-Next.pc")
+		set(ENV{PKG_CONFIG_PATH} "${OGRE_DIR}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+		set(OGRE_NEXT_MEDIA_DIR "${OGRE_DIR}/share/OGRE-Next/Media")
+	endif()
+	pkg_check_modules(OGRE REQUIRED IMPORTED_TARGET OGRE-Next-Hlms)
+	macro_log_feature(OGRE_FOUND "OGRE-Next" "Support for the OgreNext render system" "" TRUE "" "")
 endif()
 
 #######################################################################

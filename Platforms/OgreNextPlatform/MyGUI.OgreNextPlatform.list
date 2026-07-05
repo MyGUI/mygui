@@ -1,0 +1,60 @@
+set (HEADER_FILES
+  include/MyGUI_LastHeader.h
+  include/MyGUI_OgreNextCompositorPassMyGUI.h
+  include/MyGUI_OgreNextCompositorPassMyGUIDef.h
+  include/MyGUI_OgreNextCompositorPassMyGUIProvider.h
+  include/MyGUI_OgreNextDataManager.h
+  include/MyGUI_OgreNextDataStream.h
+  include/MyGUI_OgreNextDiagnostic.h
+  include/MyGUI_OgreNextManager.h
+  include/MyGUI_OgreNextPlatform.h
+  include/MyGUI_OgreNextPrerequisites.h
+  include/MyGUI_OgreNextRTTexture.h
+  include/MyGUI_OgreNextRenderManager.h
+  include/MyGUI_OgreNextRenderable.h
+  include/MyGUI_OgreNextTexture.h
+  include/MyGUI_OgreNextVertexBuffer.h
+)
+set (SOURCE_FILES
+  src/MyGUI_OgreNextCompositorPassMyGUI.cpp
+  src/MyGUI_OgreNextCompositorPassMyGUIProvider.cpp
+  src/MyGUI_OgreNextDataManager.cpp
+  src/MyGUI_OgreNextDataStream.cpp
+  src/MyGUI_OgreNextManager.cpp
+  src/MyGUI_OgreNextPlatform.cpp
+  src/MyGUI_OgreNextRTTexture.cpp
+  src/MyGUI_OgreNextRenderManager.cpp
+  src/MyGUI_OgreNextRenderable.cpp
+  src/MyGUI_OgreNextTexture.cpp
+  src/MyGUI_OgreNextVertexBuffer.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_LastHeader.h
+  include/MyGUI_OgreNextCompositorPassMyGUI.h
+  include/MyGUI_OgreNextCompositorPassMyGUIDef.h
+  include/MyGUI_OgreNextCompositorPassMyGUIProvider.h
+  include/MyGUI_OgreNextDataManager.h
+  include/MyGUI_OgreNextDataStream.h
+  include/MyGUI_OgreNextDiagnostic.h
+  include/MyGUI_OgreNextManager.h
+  include/MyGUI_OgreNextPlatform.h
+  include/MyGUI_OgreNextPrerequisites.h
+  include/MyGUI_OgreNextRTTexture.h
+  include/MyGUI_OgreNextRenderManager.h
+  include/MyGUI_OgreNextRenderable.h
+  include/MyGUI_OgreNextTexture.h
+  include/MyGUI_OgreNextVertexBuffer.h
+)
+SOURCE_GROUP("Source Files" FILES
+  src/MyGUI_OgreNextCompositorPassMyGUI.cpp
+  src/MyGUI_OgreNextCompositorPassMyGUIProvider.cpp
+  src/MyGUI_OgreNextDataManager.cpp
+  src/MyGUI_OgreNextDataStream.cpp
+  src/MyGUI_OgreNextManager.cpp
+  src/MyGUI_OgreNextPlatform.cpp
+  src/MyGUI_OgreNextRTTexture.cpp
+  src/MyGUI_OgreNextRenderManager.cpp
+  src/MyGUI_OgreNextRenderable.cpp
+  src/MyGUI_OgreNextTexture.cpp
+  src/MyGUI_OgreNextVertexBuffer.cpp
+)

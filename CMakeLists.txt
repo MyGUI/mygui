@@ -52,7 +52,8 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
   5 - Direct3D 9
   6 - Direct3D 11
   7 - OpenGL 3.x
-  8 - OpenGL ES 2.0 (Emscripten)"
+  8 - OpenGL ES 2.0 (Emscripten)
+  9 - OgreNext"
 )
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
