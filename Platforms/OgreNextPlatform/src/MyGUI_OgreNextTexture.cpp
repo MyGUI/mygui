@@ -65,9 +65,12 @@ namespace MyGUI
 			ensureMaterial();
 	}
 
-	void OgreNextTexture::saveToFile(const std::string& /*_filename*/)
+	void OgreNextTexture::saveToFile(const std::string& _filename)
 	{
-		MYGUI_PLATFORM_EXCEPT("OgreNextTexture::saveToFile is not implemented");
+		if (mTexture != nullptr)
+		{
+			mTexture->writeContentsToFile(_filename, 0u, 0u);
+		}
 	}
 
 	void OgreNextTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
