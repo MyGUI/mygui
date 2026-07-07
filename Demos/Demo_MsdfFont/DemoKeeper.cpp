@@ -4,6 +4,8 @@
 
 #if defined(MYGUI_OGRE_PLATFORM)
 	#include "MyGUI_OgreRenderManager.h"
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+	#include "MyGUI_OgreNextRenderManager.h"
 #endif
 
 namespace demo
@@ -25,6 +27,12 @@ namespace demo
 			"MsdfFontShader",
 			"MyGUI_Ogre_VP." + shaderExtension,
 			"Msdf_Ogre_FP." + shaderExtension);
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+		auto shaderExtension = MyGUI::OgreNextRenderManager::getInstance().getShaderExtension();
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"mygui/VP",
+			"Msdf_OgreNext_FP." + shaderExtension);
 #elif defined(MYGUI_OPENGL_PLATFORM)
 		// TODO not implemented in RenderManager
 #elif defined(MYGUI_DIRECTX_PLATFORM)
