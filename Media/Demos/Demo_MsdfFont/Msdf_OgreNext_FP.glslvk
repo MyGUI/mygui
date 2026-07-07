@@ -1,0 +1,30 @@
+vulkan_layout( ogre_t0 ) uniform texture2D sampler0;
+vulkan( layout( ogre_s0 ) uniform sampler texSampler; )
+
+vulkan_layout( location = 0 ) out vec4 fragColour;
+
+vulkan_layout( location = 1 )
+in block
+{
+    vec2 uv;
+    vec4 col;
+} inPs;
+
+float median(float r, float g, float b)
+{
+    return max(min(r, g), min(max(r, g), b));
+}
+
+void main()
+{
+    float pxRange = 2.0;
+
+    vec2 msdfUnit = pxRange / vec2(textureSize(vkSampler2D(sampler0, texSampler), 0));
+    vec4 texColour = texture(vkSampler2D(sampler0, texSampler), inPs.uv);
+
+    float sigDist = median(texColour.r, texColour.g, texColour.b) - 0.5;
+    sigDist *= dot(msdfUnit, 0.5 / fwidth(inPs.uv));
+
+    float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
+    fragColour = vec4(inPs.col.rgb, inPs.col.a * opacity * texColour.a);
+}
