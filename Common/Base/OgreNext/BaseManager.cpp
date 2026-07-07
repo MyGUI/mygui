@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include <OgreWindow.h>
 #include <OgreTextureGpuManager.h>
+#include <OgreImage2.h>
 #include <OgreCamera.h>
 #include <OgreFrameStats.h>
 #include <OgreArchive.h>
@@ -188,7 +189,23 @@ namespace base
 		if (mScreenShotRequested)
 		{
 			mScreenShotRequested = false;
-			MYGUI_EXCEPT("Screenshot not implemented for OGRE 4.x");
+
+			// OgreNext screenshot: need to prevent swap release so the backbuffer
+			// is available for download (required on Metal, harmless on others).
+			mWindow->setWantsToDownload(true);
+			mWindow->setManualSwapRelease(true);
+			mRoot->renderOneFrame();
+
+			if (mWindow->canDownloadData())
+			{
+				Ogre::Image2 img;
+				Ogre::TextureGpu* texture = mWindow->getTexture();
+				img.convertFromTexture(texture, 0u, texture->getNumMipmaps() - 1u);
+				img.save(mScreenShotFile, 0u, img.getNumMipmaps());
+			}
+
+			mWindow->performManualRelease();
+			mWindow->setManualSwapRelease(false);
 		}
 	}
 
