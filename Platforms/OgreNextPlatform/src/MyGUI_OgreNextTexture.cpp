@@ -332,8 +332,8 @@ namespace MyGUI
 		Ogre::HlmsBlendblock blendBlock;
 		blendBlock.mSourceBlendFactor = Ogre::SBF_SOURCE_ALPHA;
 		blendBlock.mDestBlendFactor = Ogre::SBF_ONE_MINUS_SOURCE_ALPHA;
-		blendBlock.mSourceBlendFactorAlpha = Ogre::SBF_ONE_MINUS_SOURCE_ALPHA;
-		blendBlock.mDestBlendFactorAlpha = Ogre::SBF_ZERO;
+		blendBlock.mSourceBlendFactorAlpha = Ogre::SBF_ONE;
+		blendBlock.mDestBlendFactorAlpha = Ogre::SBF_ONE_MINUS_SOURCE_ALPHA;
 		blendBlock.mBlendOperation = Ogre::SBO_ADD;
 		blendBlock.mBlendOperationAlpha = Ogre::SBO_ADD;
 		blendBlock.mSeparateBlend = true;
