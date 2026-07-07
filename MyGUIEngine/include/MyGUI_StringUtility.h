@@ -13,20 +13,7 @@
 
 namespace MyGUI::utility
 {
-#if defined(__clang__)
-	#pragma clang diagnostic push
-	#pragma clang diagnostic ignored "-Wlifetime-safety-invalidation"
-#endif
-	inline void trim(std::string& _str, bool _left = true, bool _right = true)
-	{
-		if (_right)
-			_str.erase(_str.find_last_not_of(" \t\r") + 1);
-		if (_left)
-			_str.erase(0, _str.find_first_not_of(" \t\r"));
-	}
-#if defined(__clang__)
-	#pragma clang diagnostic pop
-#endif
+	MYGUI_EXPORT void trim(std::string& _str, bool _left = true, bool _right = true);
 
 	template<typename T>
 	inline std::string toString(T _value)
@@ -36,10 +23,7 @@ namespace MyGUI::utility
 		return stream.str();
 	}
 
-	inline const std::string& toString(const std::string& _value)
-	{
-		return _value;
-	}
+	MYGUI_EXPORT const std::string& toString(const std::string& _value);
 
 	template<>
 	inline std::string toString(std::string_view _value)
@@ -105,70 +89,14 @@ namespace MyGUI::utility
 	}
 
 
-	inline int parseInt(std::string_view _value)
-	{
-		return parseValue<int>(_value);
-	}
+	MYGUI_EXPORT int parseInt(std::string_view _value);
+	MYGUI_EXPORT unsigned int parseUInt(std::string_view _value);
+	MYGUI_EXPORT size_t parseSizeT(std::string_view _value);
+	MYGUI_EXPORT float parseFloat(std::string_view _value);
+	MYGUI_EXPORT double parseDouble(std::string_view _value);
+	MYGUI_EXPORT bool parseBool(std::string_view _value);
 
-	inline unsigned int parseUInt(std::string_view _value)
-	{
-		return parseValue<unsigned int>(_value);
-	}
-
-	inline size_t parseSizeT(std::string_view _value)
-	{
-		return parseValue<size_t>(_value);
-	}
-
-	inline float parseFloat(std::string_view _value)
-	{
-		return parseValue<float>(_value);
-	}
-
-	inline double parseDouble(std::string_view _value)
-	{
-		return parseValue<double>(_value);
-	}
-
-	inline bool parseBool(std::string_view _value)
-	{
-		return parseValue<bool>(_value);
-	}
-
-	namespace templates
-	{
-		template<typename ReturnType, typename InputType = ReturnType>
-		std::vector<ReturnType> split(const InputType& _source, const InputType& _delims)
-		{
-			std::vector<ReturnType> result;
-
-			std::string_view source{_source};
-			std::string_view delims{_delims};
-
-			size_t start = source.find_first_not_of(delims);
-
-			while (start != std::string_view::npos)
-			{
-				const auto end = source.find_first_of(delims, start);
-
-				if (end == std::string_view::npos)
-				{
-					result.emplace_back(source.substr(start));
-					break;
-				}
-
-				result.emplace_back(source.substr(start, end - start));
-				start = source.find_first_not_of(delims, end + 1);
-			}
-
-			return result;
-		}
-	} // namespace templates
-
-	inline std::vector<std::string> split(std::string_view _source, std::string_view _delims = "\t\n ")
-	{
-		return templates::split<std::string>(_source, _delims);
-	}
+	MYGUI_EXPORT std::vector<std::string> split(std::string_view _source, std::string_view _delims = "\t\n ");
 
 	template<typename... Args>
 	inline bool parseComplex(std::string_view _value, Args&... args)
@@ -212,40 +140,8 @@ namespace MyGUI::utility
 		return false;
 	}
 
-	inline bool startWith(std::string_view _source, std::string_view _value)
-	{
-#if __cplusplus >= 202002L
-		return _source.starts_with(_value);
-#else
-		size_t count = _value.size();
-		if (_source.size() < count)
-			return false;
-		for (size_t index = 0; index < count; ++index)
-		{
-			if (_source[index] != _value[index])
-				return false;
-		}
-		return true;
-#endif
-	}
-
-	inline bool endWith(std::string_view _source, std::string_view _value)
-	{
-#if __cplusplus >= 202002L
-		return _source.ends_with(_value);
-#else
-		size_t count = _value.size();
-		if (_source.size() < count)
-			return false;
-		size_t offset = _source.size() - count;
-		for (size_t index = 0; index < count; ++index)
-		{
-			if (_source[index + offset] != _value[index])
-				return false;
-		}
-		return true;
-#endif
-	}
+	MYGUI_EXPORT bool startWith(std::string_view _source, std::string_view _value);
+	MYGUI_EXPORT bool endWith(std::string_view _source, std::string_view _value);
 
 } // namespace MyGUI
 

@@ -255,6 +255,7 @@ set (SOURCE_FILES
   src/MyGUI_SimpleText.cpp
   src/MyGUI_SkinItem.cpp
   src/MyGUI_SkinManager.cpp
+  src/MyGUI_StringUtility.cpp
   src/MyGUI_SubSkin.cpp
   src/MyGUI_SubWidgetBinding.cpp
   src/MyGUI_SubWidgetManager.cpp
@@ -572,6 +573,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
   src/MyGUI_GeometryUtility.cpp
+  src/MyGUI_StringUtility.cpp
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextView.cpp
   src/MyGUI_TextureUtility.cpp
