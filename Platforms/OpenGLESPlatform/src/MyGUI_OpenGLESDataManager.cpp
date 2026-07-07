@@ -55,11 +55,10 @@ namespace MyGUI
 		return files.size() == 1;
 	}
 
-	const VectorString& OpenGLESDataManager::getDataListNames(const std::string& _pattern) const
+	VectorString OpenGLESDataManager::getDataListNames(const std::string& _pattern) const
 	{
-		static VectorString result;
+		VectorString result;
 		common::VectorWString wresult;
-		result.clear();
 
 		for (const auto& path : mPaths)
 		{

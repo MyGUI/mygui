@@ -64,11 +64,10 @@ namespace MyGUI
 		return !files.empty();
 	}
 
-	const VectorString& DirectX11DataManager::getDataListNames(const std::string& _pattern) const
+	VectorString DirectX11DataManager::getDataListNames(const std::string& _pattern) const
 	{
-		static VectorString result;
+		VectorString result;
 		common::VectorWString wresult;
-		result.clear();
 
 		for (const auto& path : mPaths)
 		{

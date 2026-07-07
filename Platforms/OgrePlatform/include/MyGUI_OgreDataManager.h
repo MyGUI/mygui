@@ -43,7 +43,7 @@ namespace MyGUI
 		bool isDataExist(const std::string& _name) const override;
 
 		/** @see DataManager::getDataListNames */
-		const VectorString& getDataListNames(const std::string& _pattern) const override;
+		VectorString getDataListNames(const std::string& _pattern) const override;
 
 		/** @see DataManager::getDataPath */
 		std::string getDataPath(const std::string& _name) const override;
@@ -52,7 +52,7 @@ namespace MyGUI
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:
-		const VectorString& getDataListNames(const std::string& _pattern, bool _fullpath) const;
+		VectorString getDataListNames(const std::string& _pattern, bool _fullpath) const;
 
 	private:
 		std::string mGroup;

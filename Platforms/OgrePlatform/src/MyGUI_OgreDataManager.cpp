@@ -67,15 +67,14 @@ namespace MyGUI
 			return Ogre::ResourceGroupManager::getSingleton().resourceExists(mGroup, _name);
 	}
 
-	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern) const
+	VectorString OgreDataManager::getDataListNames(const std::string& _pattern) const
 	{
 		return getDataListNames(_pattern, false);
 	}
 
-	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern, bool _fullpath) const
+	VectorString OgreDataManager::getDataListNames(const std::string& _pattern, bool _fullpath) const
 	{
-		static VectorString result;
-		result.clear();
+		VectorString result;
 
 		VectorString search;
 		if (mAllGroups)

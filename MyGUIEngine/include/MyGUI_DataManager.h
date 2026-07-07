@@ -41,7 +41,7 @@ namespace MyGUI
 		/** Get all data names with names that matches pattern.
 			@param _pattern Pattern to match (for example "*.layout").
 		*/
-		virtual const VectorString& getDataListNames(const std::string& _pattern) const = 0;
+		virtual VectorString getDataListNames(const std::string& _pattern) const = 0;
 
 		/** Get full path to data.
 			@param _name Resource name.

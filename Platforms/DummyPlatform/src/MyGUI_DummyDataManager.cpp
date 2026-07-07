@@ -44,10 +44,9 @@ namespace MyGUI
 		return false;
 	}
 
-	const VectorString& DummyDataManager::getDataListNames(const std::string& _pattern) const
+	VectorString DummyDataManager::getDataListNames(const std::string& _pattern) const
 	{
-		static VectorString result;
-		return result;
+		return {};
 	}
 
 	std::string DummyDataManager::getDataPath(const std::string& _name) const
