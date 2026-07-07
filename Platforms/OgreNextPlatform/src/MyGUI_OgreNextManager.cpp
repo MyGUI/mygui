@@ -448,6 +448,63 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 		mRenderables.erase(it);
 	}
 
+	bool OgreNextManager::suspendBatch()
+	{
+		if (mActiveRPD == nullptr)
+			return false;
+
+		SavedBatchState saved;
+		saved.rpd = mActiveRPD;
+		saved.target = mActiveTarget;
+		saved.projMatrix = mActiveProjMatrix;
+		saved.passCache = mPassCache;
+		saved.hlms = mActiveHlms;
+		saved.baseInstanceAndIndirectBuffers = mBaseInstanceAndIndirectBuffers;
+		mSavedBatchStates.push_back(saved);
+
+		endBatch();
+		return true;
+	}
+
+	void OgreNextManager::resumeBatch()
+	{
+		if (mSavedBatchStates.empty())
+			return;
+
+		SavedBatchState saved = mSavedBatchStates.back();
+		mSavedBatchStates.pop_back();
+
+		mActiveRPD = saved.rpd;
+		mActiveTarget = saved.target;
+		mDrawIndex = 0;
+		mLastDrawCount = 0;
+
+		Ogre::RenderSystem* rs = Ogre::Root::getSingleton().getRenderSystem();
+		mCommandBuffer->setCurrentRenderSystem(rs);
+
+		ensureIndirectBuffer(INITIAL_INDIRECT_DRAWS);
+
+		if (rs->getVaoManager()->supportsIndirectBuffers())
+		{
+			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->map(0u, mIndirectBuffer->getNumElements()));
+		}
+		else
+		{
+			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->getSwBufferPtr());
+		}
+
+		mActiveProjMatrix = saved.projMatrix;
+
+		const Ogre::Vector4 viewportSize(0, 0, 1, 1);
+		const Ogre::Vector4 scissors(0, 0, 1, 1);
+		rs->beginRenderPassDescriptor(mActiveRPD, mActiveTarget, 0u, &viewportSize, &scissors, 1u, false, false);
+		rs->executeRenderPassDescriptorDelayedActions();
+
+		mActiveHlms = saved.hlms;
+		mPassCache = saved.passCache;
+		mBaseInstanceAndIndirectBuffers = saved.baseInstanceAndIndirectBuffers;
+	}
+
 	void OgreNextManager::beginBatch(Ogre::RenderPassDescriptor* rpd, Ogre::TextureGpu* target)
 	{
 		MYGUI_PLATFORM_ASSERT(mActiveRPD == nullptr, "beginBatch called while a batch is already active");

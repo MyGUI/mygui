@@ -9,6 +9,7 @@
 #include <OgreMatrix4.h>
 #include <OgreHlmsCommon.h>
 
+#include <vector>
 #include <unordered_map>
 
 #include "MyGUI_LastHeader.h"
@@ -36,6 +37,14 @@ namespace MyGUI
 		// matched by endBatch.
 		void beginBatch(Ogre::RenderPassDescriptor* rpd, Ogre::TextureGpu* target);
 
+		// Suspend the current batch (ends it and saves state for later resume).
+		// Returns true if a batch was active.
+		bool suspendBatch();
+
+		// Resume a previously suspended batch.
+		// Only call after suspendBatch returned true.
+		void resumeBatch();
+
 		// Queue one MyGUI draw call into the current batch.
 		void submitDraw(IVertexBuffer* buffer, ITexture* texture, size_t count);
 
@@ -58,6 +67,16 @@ namespace MyGUI
 		void destroyIndirectBuffer();
 		OgreNextRenderable* renderableFor(Ogre::TextureGpu* tex, const Ogre::MaterialPtr& material);
 
+		struct SavedBatchState
+		{
+			Ogre::RenderPassDescriptor* rpd{nullptr};
+			Ogre::TextureGpu* target{nullptr};
+			Ogre::Matrix4 projMatrix;
+			Ogre::HlmsCache passCache;
+			Ogre::Hlms* hlms{nullptr};
+			int baseInstanceAndIndirectBuffers{0};
+		};
+
 		Ogre::SceneManager* mScene{nullptr};
 		Ogre::CommandBuffer* mCommandBuffer{nullptr};
 		Ogre::IndirectBufferPacked* mIndirectBuffer{nullptr};
@@ -79,6 +98,9 @@ namespace MyGUI
 		int mBaseInstanceAndIndirectBuffers{0};
 
 		size_t mLastDrawCount{0};
+
+		// Nested batch support (for RTT texture rendering inside a batch)
+		std::vector<SavedBatchState> mSavedBatchStates;
 	};
 
 } // namespace MyGUI

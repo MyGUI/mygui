@@ -58,9 +58,17 @@ namespace MyGUI
 		mRenderPassDesc = rs->createRenderPassDescriptor();
 		mRenderPassDesc->mColour[0].texture = mTexture;
 		mRenderPassDesc->mColour[0].loadAction = Ogre::LoadAction::Clear;
-		mRenderPassDesc->mColour[0].storeAction = Ogre::StoreAction::StoreOrResolve;
 		mRenderPassDesc->mColour[0].clearColour = Ogre::ColourValue::ZERO;
-		mRenderPassDesc->mColour[0].resolveTexture = mTexture;
+		if (mTexture->isMultisample())
+		{
+			mRenderPassDesc->mColour[0].storeAction = Ogre::StoreAction::StoreOrResolve;
+			mRenderPassDesc->mColour[0].resolveTexture = mTexture;
+		}
+		else
+		{
+			mRenderPassDesc->mColour[0].storeAction = Ogre::StoreAction::Store;
+			mRenderPassDesc->mColour[0].resolveTexture = nullptr;
+		}
 		mRenderPassDesc->mDepth.texture = rs->getDepthBufferFor(
 			mTexture,
 			mTexture->getDepthBufferPoolId(),
@@ -85,6 +93,7 @@ namespace MyGUI
 		if (manager == nullptr)
 			return;
 
+		manager->suspendBatch();
 		manager->beginBatch(mRenderPassDesc, mTexture);
 	}
 
@@ -98,6 +107,7 @@ namespace MyGUI
 			return;
 
 		manager->endBatch();
+		manager->resumeBatch();
 	}
 
 	void OgreNextRTTexture::doRender(IVertexBuffer* buffer, ITexture* texture, size_t count)
