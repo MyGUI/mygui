@@ -25,6 +25,22 @@ endif ()
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MYGUI_DEP_SEARCH_PATH})
 set(CMAKE_FRAMEWORK_PATH ${CMAKE_FRAMEWORK_PATH} ${MYGUI_DEP_SEARCH_PATH})
 
+# Workaround for CMake < 3.25: marks a target's include directories as SYSTEM
+# to suppress compiler warnings.
+# Can be replaced with the SYSTEM keyword on FetchContent_Declare with CMake 3.25.
+function(mygui_system_workaround _target)
+	if(NOT TARGET ${_target})
+		return()
+	endif()
+	get_target_property(_inc ${_target} INTERFACE_INCLUDE_DIRECTORIES)
+	if(_inc)
+		set_target_properties(${_target} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "")
+		foreach(_dir IN LISTS _inc)
+			target_include_directories(${_target} SYSTEM BEFORE PUBLIC "${_dir}")
+		endforeach()
+	endif()
+endfunction()
+
 #######################################################################
 # Core dependencies
 #######################################################################
@@ -44,7 +60,6 @@ if (MYGUI_USE_FREETYPE)
 				GIT_REPOSITORY https://github.com/Chlumsky/msdfgen.git
 				GIT_TAG v1.13
 				GIT_SHALLOW TRUE
-				SYSTEM
 			)
 			set(MSDFGEN_BUILD_STANDALONE OFF CACHE BOOL "" FORCE)
 			set(MSDFGEN_DISABLE_SVG ON CACHE BOOL "" FORCE)
@@ -59,6 +74,8 @@ if (MYGUI_USE_FREETYPE)
 			set(MSDFGEN_BUILD_SHARED_LIBS_SAVE ${BUILD_SHARED_LIBS})
 			set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 			FetchContent_MakeAvailable(msdfgen)
+			mygui_system_workaround(msdfgen-core)
+			mygui_system_workaround(msdfgen-ext)
 			set(BUILD_SHARED_LIBS ${MSDFGEN_BUILD_SHARED_LIBS_SAVE} CACHE BOOL "" FORCE)
 		endif()
 	endif()
@@ -76,9 +93,10 @@ else()
 		GIT_REPOSITORY https://github.com/zeux/pugixml.git
 		GIT_TAG v1.16
 		GIT_SHALLOW TRUE
-		SYSTEM
 	)
 	FetchContent_MakeAvailable(pugixml)
+	mygui_system_workaround(pugixml-shared)
+	mygui_system_workaround(pugixml-static)
 endif()
 
 #######################################################################

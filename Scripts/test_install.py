@@ -63,7 +63,7 @@ def main():
         cmake_lists = os.path.join(test_dir, "CMakeLists.txt")
         with open(cmake_lists, "w") as f:
             f.write(
-                "cmake_minimum_required(VERSION 3.25)\n"
+                "cmake_minimum_required(VERSION 3.22)\n"
                 "project(TestInstall)\n"
                 f'list(APPEND CMAKE_MODULE_PATH "{MYGUI_SOURCE_DIR}/CMake")\n'
                 "include(TestInstall)\n"
