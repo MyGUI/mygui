@@ -26,7 +26,6 @@ SRC_DIRS = [
 EXTENSIONS = (".cpp", ".h")
 
 EXCLUDE_PREFIXES = (
-    "MyGUIEngine/src/msdfgen/",
 )
 
 EXCLUDE_FILENAMES = (
