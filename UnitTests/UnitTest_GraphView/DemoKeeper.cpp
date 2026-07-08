@@ -80,16 +80,20 @@ namespace demo
 		new tools::DialogManager();
 		tools::DialogManager::getInstance().initialise();
 
+#ifdef MYGUI_OGRE_PLATFORM
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "robot.mesh", MyGuiResourceGroup);
 		node->attachObject(entity);
 		getCameraNode()->setPosition(400, 400, 400);
+#endif
 
 		mFileDialog = new tools::OpenSaveFileDialog();
 		mFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
 
+#ifdef MYGUI_OGRE_PLATFORM
 		mGraph = new animation::AnimationGraph();
-		mGraph->addData("OwnerEntity", Ogre::Any(entity));
+		mGraph->addData("OwnerEntity", std::any(entity));
+#endif
 
 		createGrapView();
 
@@ -119,8 +123,10 @@ namespace demo
 		delete mGraphView;
 		mGraphView = nullptr;
 
+#ifdef MYGUI_OGRE_PLATFORM
 		delete mGraph;
 		mGraph = nullptr;
+#endif
 
 		delete mContextMenu;
 		mContextMenu = nullptr;
@@ -168,15 +174,26 @@ namespace demo
 	BaseAnimationNode* DemoKeeper::createNode(std::string_view _type, std::string_view _name)
 	{
 		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + std::string{_type}, _name);
-		assert(node);
+		if (!node)
+			return nullptr;
 
 		mNodes.push_back(node);
 
 		mGraphView->addItem(node);
 		node->setAbsolutePosition(mClickPosition);
 
-		animation::IAnimationNode* anim_node = mNodeFactory.createNode(_type, _name, mGraph);
+		animation::IAnimationNode* anim_node = mNodeFactory.createNode(
+			_type,
+			_name,
+#ifdef MYGUI_OGRE_PLATFORM
+			mGraph
+#else
+			nullptr
+#endif
+		);
+#ifdef MYGUI_OGRE_PLATFORM
 		mGraph->addNode(anim_node);
+#endif
 		node->setAnimationNode(anim_node);
 
 		node->eventInvalidateNode = MyGUI::newDelegate(this, &DemoKeeper::notifyInvalidateNode);
@@ -213,7 +230,9 @@ namespace demo
 	void DemoKeeper::notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
 	{
 		BaseAnimationNode* node = dynamic_cast<BaseAnimationNode*>(_node);
+#ifdef MYGUI_OGRE_PLATFORM
 		node->getAnimationNode()->getGraph()->removeNode(node->getAnimationNode());
+#endif
 		animation::IAnimationNode* anim_node = node->getAnimationNode();
 		_sender->removeItem(_node);
 		delete anim_node;
@@ -273,7 +292,9 @@ namespace demo
 
 	void DemoKeeper::notifyFrameStarted(float _time)
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		mGraph->addTime(_time);
+#endif
 	}
 
 	void DemoKeeper::notifyEndDialog(tools::Dialog* _dialog, bool _result)
@@ -394,7 +415,8 @@ namespace demo
 			if (node->getName() == "Node")
 			{
 				BaseAnimationNode* anim_node = createNode(node->findAttribute("type"), node->findAttribute("name"));
-				anim_node->deserialization(node.current());
+				if (anim_node)
+					anim_node->deserialization(node.current());
 			}
 			else if (node->getName() == "Connections")
 			{
@@ -467,7 +489,8 @@ namespace demo
 		std::string_view _name_from,
 		std::string_view _name_to)
 	{
-		_node_from->getAnimationNode()->addConnection(_name_from, _node_to->getAnimationNode(), _name_to);
+		if (_node_from->getAnimationNode() && _node_to->getAnimationNode())
+			_node_from->getAnimationNode()->addConnection(_name_from, _node_to->getAnimationNode(), _name_to);
 		_node_from->addConnection(_name_from, _node_to, _name_to);
 	}
 
@@ -478,7 +501,8 @@ namespace demo
 		std::string_view _name_to)
 	{
 		_node_from->removeConnection(_name_from, _node_to, _name_to);
-		_node_from->getAnimationNode()->removeConnection(_name_from, _node_to->getAnimationNode(), _name_to);
+		if (_node_from->getAnimationNode() && _node_to->getAnimationNode())
+			_node_from->getAnimationNode()->removeConnection(_name_from, _node_to->getAnimationNode(), _name_to);
 	}
 
 } // namespace demo

@@ -5,7 +5,9 @@
 #include "EventController.h"
 #include "WeightController.h"
 #include "PositionController.h"
-#include "SkeletonState.h"
+#ifdef MYGUI_OGRE_PLATFORM
+	#include "SkeletonState.h"
+#endif
 //#include "SoundState.h"
 
 namespace animation
@@ -19,7 +21,9 @@ namespace animation
 		addConstruct("EventController", new AnimationNodeConstruct<EventController>());
 		addConstruct("WeightController", new AnimationNodeConstruct<WeightController>());
 		addConstruct("PositionController", new AnimationNodeConstruct<PositionController>());
+#ifdef MYGUI_OGRE_PLATFORM
 		addConstruct("SkeletonState", new AnimationNodeConstruct<SkeletonState>());
+#endif
 		//addConstruct("SoundState", new AnimationNodeConstruct<SoundState>());
 	}
 

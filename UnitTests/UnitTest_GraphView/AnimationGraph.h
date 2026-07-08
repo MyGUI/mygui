@@ -73,7 +73,7 @@ namespace animation
 			return nullptr;
 		}
 
-		Ogre::Any getData(std::string_view _name) override
+		std::any getData(std::string_view _name) override
 		{
 			MapAny::iterator item = mDatas.find(_name);
 			if (item != mDatas.end())
@@ -81,7 +81,7 @@ namespace animation
 			return {};
 		}
 
-		void addData(std::string_view _name, Ogre::Any _any) override
+		void addData(std::string_view _name, std::any _any) override
 		{
 			MyGUI::mapSet(mDatas, _name, _any);
 		}
@@ -92,7 +92,7 @@ namespace animation
 		using VectorNode = std::vector<IAnimationNode*>;
 		VectorNode mNodes;
 
-		using MapAny = std::map<std::string, Ogre::Any, std::less<>>;
+		using MapAny = std::map<std::string, std::any, std::less<>>;
 		MapAny mDatas;
 	};
 

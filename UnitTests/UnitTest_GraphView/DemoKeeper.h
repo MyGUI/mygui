@@ -8,7 +8,9 @@
 
 #include "Base/BaseDemoManager.h"
 #include "GraphView.h"
-#include "AnimationGraph.h"
+#ifdef MYGUI_OGRE_PLATFORM
+	#include "AnimationGraph.h"
+#endif
 #include "AnimationNodeFactory.h"
 #include "GraphNodeFactory.h"
 #include "OpenSaveFileDialog.h"
@@ -65,7 +67,9 @@ namespace demo
 		GraphView* mGraphView{nullptr};
 
 		animation::AnimationNodeFactory mNodeFactory;
+#ifdef MYGUI_OGRE_PLATFORM
 		animation::AnimationGraph* mGraph{nullptr};
+#endif
 
 		GraphNodeFactory mGraphNodeFactory;
 

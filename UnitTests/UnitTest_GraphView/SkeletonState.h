@@ -6,9 +6,11 @@
 #ifndef SKELETON_STATE_H_
 #define SKELETON_STATE_H_
 
-#include <Ogre.h>
-#include "IAnimationNode.h"
-#include "IAnimationGraph.h"
+#ifdef MYGUI_OGRE_PLATFORM
+
+	#include <Ogre.h>
+	#include "IAnimationNode.h"
+	#include "IAnimationGraph.h"
 
 namespace animation
 {
@@ -103,10 +105,10 @@ namespace animation
 	private:
 		void updateState()
 		{
-			Ogre::Any any = getGraph()->getData("OwnerEntity");
+			std::any any = getGraph()->getData("OwnerEntity");
 			if (any.has_value())
 			{
-				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
+				Ogre::Entity* entity = std::any_cast<Ogre::Entity*>(any);
 				entity->getSkeleton()->setBlendMode(Ogre::ANIMBLEND_CUMULATIVE);
 				mState = entity->getAnimationState(mStateName);
 			}
@@ -123,5 +125,7 @@ namespace animation
 	};
 
 } // namespace animation
+
+#endif // MYGUI_OGRE_PLATFORM
 
 #endif // SKELETON_STATE_H_

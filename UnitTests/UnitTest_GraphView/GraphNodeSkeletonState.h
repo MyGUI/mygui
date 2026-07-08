@@ -8,7 +8,9 @@
 
 #include <MyGUI.h>
 #include "BaseAnimationNode.h"
-#include "SkeletonState.h"
+#ifdef MYGUI_OGRE_PLATFORM
+	#include "SkeletonState.h"
+#endif
 
 namespace demo
 {
@@ -80,6 +82,7 @@ namespace demo
 
 		void notifyFrameStart(float _time)
 		{
+#ifdef MYGUI_OGRE_PLATFORM
 			animation::SkeletonState* state = dynamic_cast<animation::SkeletonState*>(getAnimationNode());
 			if (state)
 			{
@@ -113,14 +116,16 @@ namespace demo
 					mStopValue->setTextColour(colour);
 				}
 			}
+#endif
 		}
 
 		void baseInitialiseAnimationNode() override
 		{
-			Ogre::Any any = getAnimationNode()->getGraph()->getData("OwnerEntity");
+#ifdef MYGUI_OGRE_PLATFORM
+			std::any any = getAnimationNode()->getGraph()->getData("OwnerEntity");
 			if (any.has_value())
 			{
-				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
+				Ogre::Entity* entity = std::any_cast<Ogre::Entity*>(any);
 				Ogre::AnimationStateSet* set = entity->getAllAnimationStates();
 				for (const auto& state : set->getAnimationStates())
 				{
@@ -133,6 +138,7 @@ namespace demo
 				mComboStates->setIndexSelected(0);
 				notifyComboAccept(mComboStates, 0);
 			}
+#endif
 		}
 
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)

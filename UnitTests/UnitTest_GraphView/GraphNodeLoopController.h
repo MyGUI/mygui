@@ -24,7 +24,7 @@ namespace demo
 		void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
-			if (_eventout == "Position")
+			if (_eventout == "Position" && _node->getAnimationNode())
 			{
 				mStateName = _node->getAnimationNode()->getName();
 				updateStateLenght();
@@ -44,7 +44,7 @@ namespace demo
 		void invalidateNode(BaseAnimationNode* _sender) override
 		{
 			BaseAnimationNode::invalidateNode(_sender);
-			if (_sender->getAnimationNode()->getName() == mStateName)
+			if (_sender->getAnimationNode() && _sender->getAnimationNode()->getName() == mStateName)
 			{
 				updateStateLenght();
 			}
@@ -54,11 +54,12 @@ namespace demo
 		void updateStateLenght()
 		{
 			mLength = 1;
+			if (!getAnimationNode())
+				return;
 			animation::IAnimationNode* node = getAnimationNode()->getGraph()->getNodeByName(mStateName);
 			if (node)
 			{
 				mLength = node->getLength();
-				//if (mLength > 0.0001) mLength -= 0.0001;
 			}
 			else
 			{

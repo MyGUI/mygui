@@ -6,8 +6,7 @@
 #ifndef I_ANIMATION_GRAPH_H_
 #define I_ANIMATION_GRAPH_H_
 
-#include <OgrePrerequisites.h>
-#include <OgreAny.h>
+#include <any>
 #include <string>
 #include "IAnimationNode.h"
 
@@ -26,8 +25,8 @@ namespace animation
 		{
 		}
 
-		virtual Ogre::Any getData(std::string_view _name) = 0;
-		virtual void addData(std::string_view _name, Ogre::Any _any) = 0;
+		virtual std::any getData(std::string_view _name) = 0;
+		virtual void addData(std::string_view _name, std::any _any) = 0;
 
 		virtual void addNode(IAnimationNode* _node) = 0;
 		virtual void removeNode(IAnimationNode* _node) = 0;
