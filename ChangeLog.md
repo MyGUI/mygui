@@ -1,40 +1,50 @@
 ## MyGUI v3.5.0
 
 ### CMake
-- **Complete CMake modernization**: use modern CMake targets, target_include_directories,
-  target_compile_definitions, target_compile_options instead of legacy commands and
-  other improvements
-- Provide modern CMake target support for MyGUI: `target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform)`.
+- **Complete CMake modernization**:
+    - Provide modern CMake targets: `target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform)`
+    - Expose user-facing compile definitions through `MyGUI::MyGUI`
+    - Replace global CMake commands with target_include_directories, target_compile_definitions, and target_compile_options, along with other CMake code improvements
 - Deprecate MYGUI_STATIC in favor of BUILD_SHARED_LIBS
+- Use FetchContent to get internal/optional dependencies like pugixml and msdfgen
 - Allow using system msdfgen
-- Use FetchContent to get internal/optional dependencies like msdfgen and pugixml
+- Change the default value of MYGUI_RENDERSYSTEM to 7 (OpenGL 3.x)
 
 ### Core
-- Remove custom XML parser, use pugixml instead
-- Modernize and refactor source code: lots of duplicate places were refactored and simplified, some old APIs were marked deprecated
-- Store ImageIndexInfo properly, fix UB with reference of temporary variable
-- Fix RTTI cast failure across shared library boundary on macOS ARM64
-- Add vector and map getters for childs and other lists and deprecate Enumerator class and related code
+- Replace the custom XML parser with pugixml
+- Modernize and refactor source code: simplify duplicated code paths, some old APIs were marked as deprecated
+- Store ImageIndexInfo properly and fix UB caused by a reference to a temporary variable
+- Fix link error with hidden visibility across shared library boundary on macOS ARM64
+- Add std::vector and std::map getters for children and other collections, and deprecate the Enumerator class and related code
+- Add LayerManager::destroyLayer
 
 ### Platforms
-- OpenGL: use non-EXT functions for FBO
-- OpenGL: Fix OpenGL build on macOS
-- Ogre: Fix tools and demos with statically-linked
-- Ogre: allow using same shader on Ogre with GL and GL3+ platforms
+- Make DataManager::getDataListNames and getSystemFileList return by value
+- OpenGL: Use core framebuffer functions instead of EXT variants
+- OpenGL: Fix build on macOS
+- Ogre: Fix tools and demos when statically linked
+- Ogre: Allow using the same shader across GL, GL3+, and GLES render systems
 - DirectX: Implement DirectX11Texture and DirectXTexture::saveToFile
 - DirectX: Fix selected text background with DirectX11 and MSDF shader (no zero division with 0.5/fwidth)
-- DirectX: Remove d3dx9 and d3dx11 usage, use Windows SDK version of DirectX9 and DirectX11
+- DirectX: Remove D3DX9 and D3DX11 usage in favor of the Windows SDK versions of DirectX9 and DirectX11
+- OgreNext: Implement platform for pre-4.0 versions
+- Ogre: Fix Emscripten-related issues
 
 ### Infrastructure
 - Replace Travis CI with GitHub Actions
 - Add Lint CI step (clang-format)
 - Add clang-format pre-commit hook
+- Add CI builds for major operating systems and most render systems
+- Add header self-containment check (check_includes.py) to CI
+- Add CI step to test installation
 
 ### Plugins
 - Delete legacy plugins (Berkelium, Hikari)
 
 ### Demos
 - Allow saving screenshots on all platforms, using F12 key
+- Improve Demo_MsdfFont: runtime-generated MSDF fonts and font cycling
+- Compile UnitTest_GraphView on all platforms
 
 ## MyGUI v3.4.4
 
@@ -222,7 +232,7 @@
 ## MyGUI v3.2.1
 ### Core
 - Added events to clipboard manager: eventClipboardRequested, eventClipboardChanged.
-- Added API access to child LayerNodes. 
+- Added API access to child LayerNodes.
 - Added pointer to ControllerItem in all controller events.
 - Key focus will be reset when the key focus widget is hidden.
 - Fixed incorrectly detecting double click when clicking on different widgets.
@@ -481,7 +491,7 @@
 - UnitTest_TreeControl - sample implementation of tree control (author : Pavel Turin)
 
 ## MyGUI v2.2.3
-### SubWidgets 
+### SubWidgets
 - subwidget EditText was reimplemented
    * word wrap support in edit mode
    * cursor and text selecting with ManualFont
@@ -532,7 +542,7 @@
 - BaseItemBox - base class for ItemBox wrapper
 - added PanelView - made using wrappers
 
- 
+
 ### Tools
 - LayoutEditor - external resources support, several interface improvements
 - added ImageSetViewer for ResourceImageSet viewing
