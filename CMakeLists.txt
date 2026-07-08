@@ -43,7 +43,7 @@ option(MYGUI_USE_SYSTEM_MSDFGEN FALSE)
 option(MYGUI_USE_SYSTEM_PUGIXML "Use system installed pugixml" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsolete functions from build" FALSE)
 
-set(MYGUI_RENDERSYSTEM 3 CACHE STRING
+set(MYGUI_RENDERSYSTEM 7 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Dummy
   2 - Export (not used)
