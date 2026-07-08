@@ -133,6 +133,10 @@ namespace MyGUI
 	{
 	}
 
+	void ResourceTrueTypeFont::setKerningEnabled(bool _value)
+	{
+	}
+
 #else // MYGUI_USE_FREETYPE
 	namespace
 	{
@@ -295,6 +299,10 @@ namespace MyGUI
 				else if (key == "MsdfRange")
 				{
 					setMsdfRange(utility::parseInt(value));
+				}
+				else if (key == "Kerning")
+				{
+					setKerningEnabled(utility::parseBool(value));
 				}
 			}
 			else if (node.name() == std::string_view("Codes"))
@@ -644,6 +652,9 @@ namespace MyGUI
 		// Cache a pointer to the substitute glyph info for fast lookup.
 		mSubstituteGlyphInfo = &mGlyphMap.find(mSubstituteCodePoint)->second;
 
+		// Load kerning pairs from the font.
+		loadKerning(ftFace);
+
 		// Calculate the average height of all of the glyphs that are in use. This value will be used for estimating how large the
 		// texture needs to be.
 		double averageGlyphHeight = 0.0;
@@ -879,6 +890,42 @@ namespace MyGUI
 		return result;
 	}
 
+	float ResourceTrueTypeFont::getKerning(Char _left, Char _right) const
+	{
+		if (!mKerningEnabled)
+			return 0.0f;
+		KerningMap::const_iterator iter = mKerningMap.find(std::make_pair(_left, _right));
+		if (iter != mKerningMap.end())
+			return iter->second;
+		return 0.0f;
+	}
+
+	void ResourceTrueTypeFont::loadKerning(const FT_Face& _ftFace)
+	{
+		mKerningMap.clear();
+
+		if (!mKerningEnabled)
+			return;
+
+		if (!FT_HAS_KERNING(_ftFace))
+			return;
+
+		for (CharMap::const_iterator leftIter = mCharMap.begin(); leftIter != mCharMap.end(); ++leftIter)
+		{
+			for (CharMap::const_iterator rightIter = mCharMap.begin(); rightIter != mCharMap.end(); ++rightIter)
+			{
+				FT_Vector kerning;
+				if (FT_Get_Kerning(_ftFace, leftIter->second, rightIter->second, FT_KERNING_DEFAULT, &kerning) == 0)
+				{
+					if (kerning.x != 0)
+					{
+						mKerningMap[std::make_pair(leftIter->first, rightIter->first)] = kerning.x / 64.0f;
+					}
+				}
+			}
+		}
+	}
+
 	void ResourceTrueTypeFont::autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY)
 		const
 	{
@@ -891,18 +938,12 @@ namespace MyGUI
 
 	GlyphInfo ResourceTrueTypeFont::createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph) const
 	{
-		float bearingX = _glyph->metrics.horiBearingX / 64.0f;
-
-		// The following calculations aren't currently needed but are kept here for future use.
-		// float ascent = _glyph->metrics.horiBearingY / 64.0f;
-		// float descent = (_glyph->metrics.height / 64.0f) - ascent;
-
 		return {
 			_codePoint,
 			std::max((float)_glyph->bitmap.width, _glyph->metrics.width / 64.0f),
 			std::max((float)_glyph->bitmap.rows, _glyph->metrics.height / 64.0f),
-			(_glyph->advance.x / 64.0f) - bearingX,
-			bearingX,
+			_glyph->advance.x / 64.0f,
+			_glyph->metrics.horiBearingX / 64.0f,
 			std::floor(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight)};
 	}
 
@@ -1155,14 +1196,12 @@ namespace MyGUI
 			range = 0;
 		}
 
-		double bearingX = bounds.l * mMsdfScale;
-
 		return GlyphInfo(
 			_codePoint,
 			(bounds.r - bounds.l) * mMsdfScale + 2 * range,
 			(bounds.t - bounds.b) * mMsdfScale + 2 * range,
-			_advance * mMsdfScale - bearingX + range,
-			bearingX - range,
+			_advance * mMsdfScale + range,
+			bounds.l * mMsdfScale - range,
 			_fontAscent - bounds.t * mMsdfScale - mOffsetHeight - range);
 	}
 
@@ -1413,6 +1452,11 @@ namespace MyGUI
 	void ResourceTrueTypeFont::setMsdfRange(int _value)
 	{
 		mMsdfRange = _value;
+	}
+
+	void ResourceTrueTypeFont::setKerningEnabled(bool _value)
+	{
+		mKerningEnabled = _value;
 	}
 
 #endif // MYGUI_USE_FREETYPE

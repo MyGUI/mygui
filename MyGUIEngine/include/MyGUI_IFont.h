@@ -27,6 +27,11 @@ namespace MyGUI
 		virtual ITexture* getTextureFont() const = 0;
 
 		virtual int getDefaultHeight() const = 0;
+
+		virtual float getKerning(Char _left, Char _right) const
+		{
+			return 0.0f;
+		}
 	};
 
 } // namespace MyGUI

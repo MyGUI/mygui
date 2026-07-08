@@ -80,6 +80,7 @@ namespace MyGUI
 		void setDistance(int _value);
 		void setMsdfMode(bool _value);
 		void setMsdfRange(int _value);
+		void setKerningEnabled(bool _value);
 
 		void addCodePointRange(Char _first, Char _second);
 		void removeCodePointRange(Char _first, Char _second);
@@ -115,6 +116,7 @@ namespace MyGUI
 		bool mMsdfMode{
 			false}; // Signed distance field texture, designed to be used with shader (see https://github.com/Chlumsky/msdfgen)
 		int mMsdfRange{2}; // Gragient area range in pixels for msdf mode (higher range is required for thick outlines)
+		bool mKerningEnabled{true}; // Whether kerning is enabled for this font.
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight{0}; // The nominal height of the font in pixels.
@@ -140,6 +142,19 @@ namespace MyGUI
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
 		using GlyphHeightMap = std::map<int, std::map<FT_UInt, GlyphInfo*>>;
 
+		struct PairHash
+		{
+			size_t operator()(const std::pair<Char, Char>& p) const noexcept
+			{
+				// 32-bit fallback
+				if constexpr (sizeof(size_t) == 4)
+					return p.first ^ (p.second + 0x9e3779b9u + (p.first << 6) + (p.first >> 2));
+				return (static_cast<uint64_t>(p.first) << 32) | p.second;
+			}
+		};
+		// A map of kerning pairs (left code point, right code point) to kerning values in pixels.
+		using KerningMap = std::unordered_map<std::pair<Char, Char>, float, PairHash>;
+
 		template<bool LAMode, bool Antialias>
 		void initialiseFreeType();
 
@@ -149,6 +164,11 @@ namespace MyGUI
 		// Keeps the font file loaded in memory and stores its location in _fontBuffer. The caller is responsible for freeing this
 		// buffer when it is done using the face by calling delete[] on the buffer after calling FT_Done_Face() on the face itself.
 		FT_Face loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer);
+
+		float getKerning(Char _left, Char _right) const override;
+
+		// Loads kerning pairs from the font face.
+		void loadKerning(const FT_Face& _ftFace);
 
 		// Wraps the current texture coordinates _texX and _texY to the beginning of the next line if the specified glyph width
 		// doesn't fit at the end of the current line. Automatically takes the glyph spacing into account.
@@ -201,6 +221,7 @@ namespace MyGUI
 
 		CharMap mCharMap; // A map of code points to glyph indices.
 		GlyphMap mGlyphMap; // A map of code points to glyph info objects.
+		KerningMap mKerningMap; // A map of kerning pairs to kerning values.
 
 	#ifdef MYGUI_MSDF_FONTS
 		double mMsdfScale{1.0};

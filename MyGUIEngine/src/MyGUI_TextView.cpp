@@ -121,6 +121,8 @@ namespace MyGUI
 
 		result.height += _height;
 
+		Char previousChar = 0;
+
 		for (; index != end; ++index)
 		{
 			Char character = *index;
@@ -149,6 +151,7 @@ namespace MyGUI
 				line_info.clear();
 
 				roll_back.clear();
+				previousChar = 0;
 
 				continue;
 			}
@@ -195,7 +198,10 @@ namespace MyGUI
 			const GlyphInfo* info = _font->getGlyphInfo(character);
 
 			if (info == nullptr)
+			{
+				previousChar = 0;
 				continue;
+			}
 
 			if (FontCodeType::Space == character || FontCodeType::Tab == character)
 			{
@@ -207,6 +213,7 @@ namespace MyGUI
 			float char_advance = info->advance;
 			float char_bearingX = info->bearingX;
 			float char_bearingY = info->bearingY;
+			float kerning = (previousChar != 0) ? _font->getKerning(previousChar, character) : 0.0f;
 
 			if (_height != font_height)
 			{
@@ -217,9 +224,10 @@ namespace MyGUI
 				char_advance *= scale;
 				char_bearingX *= scale;
 				char_bearingY *= scale;
+				kerning *= scale;
 			}
 
-			float char_fullAdvance = char_bearingX + char_advance;
+			float char_fullAdvance = char_advance + kerning;
 
 			// word wrap
 			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth)
@@ -247,6 +255,7 @@ namespace MyGUI
 
 				mLineInfo.push_back(line_info);
 				line_info.clear();
+				previousChar = 0;
 
 				// cancel rollback
 				if (!roll_back.empty())
@@ -255,9 +264,16 @@ namespace MyGUI
 				continue;
 			}
 
-			line_info.symbols
-				.emplace_back(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY);
+			line_info.symbols.emplace_back(
+				info->uvRect,
+				char_width,
+				char_height,
+				char_advance,
+				char_bearingX,
+				char_bearingY,
+				kerning);
 			width += char_fullAdvance;
+			previousChar = character;
 			count++;
 		}
 
@@ -305,7 +321,7 @@ namespace MyGUI
 					if (sym.isColour())
 						continue;
 
-					float fullAdvance = sym.getAdvance() + sym.getBearingX();
+					float fullAdvance = sym.getAdvance() + sym.getKerning();
 					if (left + fullAdvance / 2.0f > _value.left)
 					{
 						break;
@@ -343,7 +359,7 @@ namespace MyGUI
 						break;
 
 					position++;
-					left += sym.getBearingX() + sym.getAdvance();
+					left += sym.getAdvance() + sym.getKerning();
 				}
 				break;
 			}

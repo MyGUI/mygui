@@ -105,6 +105,10 @@ namespace tools
 		if (!value.empty())
 			data->setPropertyValue("MsdfRange", MyGUI::utility::parseValue<int>(value));
 
+		value = _node.select_node("Property[@key=\"Kerning\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("Kerning", MyGUI::utility::parseValue<bool>(value));
+
 		value = _node.select_node("Property[@key=\"Shader\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Shader", value);
@@ -170,6 +174,11 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("MsdfRange");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("MsdfRange").c_str());
+
+		value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Kerning")));
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Kerning");
+		nodeProperty.append_attribute("value").set_value(value.c_str());
 
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Shader");
@@ -313,6 +322,7 @@ namespace tools
 		font->setDistance(_data->getPropertyValue<int>("Distance"));
 		font->setMsdfMode(_data->getPropertyValue<bool>("MsdfMode"));
 		font->setMsdfRange(_data->getPropertyValue<int>("MsdfRange"));
+		font->setKerningEnabled(_data->getPropertyValue<bool>("Kerning"));
 		font->setShader(_data->getPropertyValue("Shader"));
 
 		const std::string& ranges = _data->getPropertyValue("FontCodeRanges");

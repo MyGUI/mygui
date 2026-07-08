@@ -500,12 +500,13 @@ namespace MyGUI
 				// texture offset for background
 				bool select = index >= mStartSelect && index < mEndSelect;
 
-				float fullAdvance = sym.getBearingX() + sym.getAdvance();
+				// Apply kerning before positioning this glyph.
+				left += sym.getKerning();
 
 				// Render the selection, if any, first.
 				if (select)
 				{
-					vertexRect.set(left, top, left + fullAdvance, top + (float)mFontHeight);
+					vertexRect.set(left - sym.getKerning(), top, left + sym.getAdvance(), top + (float)mFontHeight);
 
 					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, selectedUVRect, selectedColour);
 				}
@@ -535,7 +536,7 @@ namespace MyGUI
 					sym.getUVRect(),
 					(!select || !mInvertSelect) ? colour : inverseColour);
 
-				left += fullAdvance;
+				left += sym.getAdvance();
 				++index;
 			}
 

@@ -24,6 +24,7 @@ namespace MyGUI
 			mMetrics.mAdvance = 0.0f;
 			mMetrics.mBearingX = 0.0f;
 			mMetrics.mBearingY = 0.0f;
+			mMetrics.mKerning = 0.0f;
 		}
 
 		CharInfo(
@@ -32,7 +33,8 @@ namespace MyGUI
 			float _height,
 			float _advance,
 			float _bearingX,
-			float _bearingY) :
+			float _bearingY,
+			float _kerning = 0.0f) :
 			mIsColour(false),
 			mUVRect(_rect)
 		{
@@ -41,6 +43,7 @@ namespace MyGUI
 			mMetrics.mAdvance = _advance;
 			mMetrics.mBearingX = _bearingX;
 			mMetrics.mBearingY = _bearingY;
+			mMetrics.mKerning = _kerning;
 		}
 
 		CharInfo(uint32 _colour) :
@@ -79,6 +82,11 @@ namespace MyGUI
 			return mMetrics.mBearingY;
 		}
 
+		float getKerning() const
+		{
+			return mMetrics.mKerning;
+		}
+
 		const FloatRect& getUVRect() const
 		{
 			return mUVRect;
@@ -100,6 +108,7 @@ namespace MyGUI
 			float mAdvance;
 			float mBearingX;
 			float mBearingY;
+			float mKerning;
 		};
 
 		union
