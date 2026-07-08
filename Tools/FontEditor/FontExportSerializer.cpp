@@ -187,8 +187,9 @@ namespace tools
 		DataPtr data = DataManager::getInstance().getRoot();
 		for (const auto& child : data->getChilds())
 		{
-			generateFont(child);
-			generateFontManualXml(root, _folderName, child);
+			const std::string tempName = "__MYGUI_EXPORT__" + child->getPropertyValue("FontName");
+			generateFont(child, tempName);
+			generateFontManualXml(root, _folderName, child, tempName);
 		}
 
 		return document.save(common::concatenatePath(_folderName, _fileName));
@@ -249,9 +250,10 @@ namespace tools
 	void FontExportSerializer::generateFontManualXml(
 		MyGUI::xml::ElementPtr _root,
 		const MyGUI::UString& _folderName,
-		DataPtr _data)
+		DataPtr _data,
+		std::string_view _fontName)
 	{
-		MyGUI::IFont* resource = MyGUI::FontManager::getInstance().getByName(_data->getPropertyValue("FontName"));
+		MyGUI::IFont* resource = MyGUI::FontManager::getInstance().getByName(_fontName);
 		MyGUI::ResourceTrueTypeFont* font =
 			resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
 
@@ -290,9 +292,8 @@ namespace tools
 		}
 	}
 
-	void FontExportSerializer::generateFont(DataPtr _data)
+	void FontExportSerializer::generateFont(DataPtr _data, std::string_view fontName)
 	{
-		std::string fontName = _data->getPropertyValue("FontName");
 		removeFont(fontName);
 
 		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();

@@ -21,7 +21,7 @@ namespace tools
 		bool deserialization(pugi::xml_document& _doc) override;
 
 		static bool exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName);
-		static void generateFont(DataPtr _data);
+		static void generateFont(DataPtr _data, std::string_view _fontName);
 
 	private:
 		void parseFont(pugi::xml_node _node);
@@ -30,7 +30,8 @@ namespace tools
 		static void generateFontManualXml(
 			MyGUI::xml::ElementPtr _root,
 			const MyGUI::UString& _folderName,
-			DataPtr _data);
+			DataPtr _data,
+			std::string_view _fontName);
 		static void removeFont(std::string_view _fontName);
 		//static void generateFontTTFXml(MyGUI::xml::ElementPtr _root, std::string_view _fontName, DataPtr _data);
 	};
