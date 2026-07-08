@@ -70,14 +70,21 @@ namespace base
 			mScreenShotRequested = false;
 			int w, h;
 			SDL_GetWindowSize(mSdlWindow, &w, &h);
-			std::vector<unsigned char> pixels(w * h * 4);
+			std::vector<std::uint8_t> pixels(w * h * 4);
+			glPixelStorei(GL_PACK_ALIGNMENT, 1);
 			glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
 			// GLES returns RGBA, but saveImage expects BGRA, so swap R and B
 			for (size_t i = 0; i < pixels.size(); i += 4)
 			{
-				unsigned char tmp = pixels[i];
-				pixels[i] = pixels[i + 2];
-				pixels[i + 2] = tmp;
+				std::swap(pixels[i], pixels[i + 2]);
+			}
+			// Flip vertically (OpenGL origin is bottom-left, images expect top-left)
+			const int stride = w * 4;
+			for (int y = 0; y < h / 2; ++y)
+			{
+				auto* top = pixels.data() + y * stride;
+				auto* bottom = pixels.data() + (h - 1 - y) * stride;
+				std::swap_ranges(top, top + stride, bottom);
 			}
 			saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
 		}
@@ -130,9 +137,12 @@ namespace base
 		void* _texture,
 		const std::string& _filename)
 	{
-		SDL_Surface* surface = SDL_CreateRGBSurface(0, _width, _height, _format.getBytesPerPixel() * 8, 0, 0, 0, 0);
-		std::memcpy(surface->pixels, _texture, _width * _height * _format.getBytesPerPixel());
+		int bpp = _format.getBytesPerPixel();
+		Uint32 fmt = (bpp == 3) ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_BGRA32;
+		SDL_Surface* surface =
+			SDL_CreateRGBSurfaceWithFormatFrom(_texture, _width, _height, bpp * 8, _width * bpp, fmt);
 		IMG_SavePNG(surface, _filename.c_str());
+		SDL_FreeSurface(surface);
 	}
 
 }
