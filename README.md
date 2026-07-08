@@ -9,12 +9,11 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 
 - **Wide widget set:** buttons, edit boxes, combo boxes, lists, tree controls, item boxes, tab controls, scroll bars,
   progress bars, windows, and more
-- **Multiple render backends:** Direct3D 9, Direct3D 11, OpenGL (legacy), OpenGL 3.x, OpenGL ES 2.0, and Ogre
+- **Multiple render backends:** Direct3D 9, Direct3D 11, OpenGL (legacy), OpenGL 3.x, OpenGL ES 2.0, Ogre and OgreNext
 - **Skin system:** fully customizable widget appearance via XML-based skin definitions
 - **Layout system:** load UI layouts from XML files at runtime; includes a visual **Layout Editor**
 - **Tools:** built-in editors for layouts, skins, images, and fonts
-- **Font rendering:** TrueType fonts via FreeType, bitmap fonts, and MSDF (multi-channel signed distance field) font
-  support
+- **Font rendering:** TrueType fonts via FreeType, bitmap fonts, and MSDF (multi-channel signed distance field) font support
 - **Platform support:** Windows, Linux, macOS; also runs in the browser via Emscripten
 - **Plugin system:** runtime-loadable plugins to extend functionality
 - **Localization:** built-in language string management
@@ -22,7 +21,7 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 
 ## Rendering Backends
 
-| Backend                    | CMake ID | 
+| Backend                    | CMake ID |
 |----------------------------|----------|
 | Dummy (no-op)              | 1        |
 | Ogre                       | 3        |
@@ -31,6 +30,7 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 | Direct3D 11                | 6        |
 | OpenGL 3.x                 | 7        |
 | OpenGL ES 2.0 (Emscripten) | 8        |
+| OgreNext                   | 9        |
 
 Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 
@@ -38,7 +38,7 @@ Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 
 ### Requirements
 
-- CMake ≥ 3.25
+- CMake ≥ 3.22
 - C++17 compiler
 - SDL2 for tools and demos
 - FreeType (optional, enabled by default)
@@ -73,17 +73,21 @@ Available targets:
 | `MyGUI::OpenGLES`         | OpenGLES backend    |
 | `MyGUI::DirectXPlatform`  | Direct3D 9 backend  |
 | `MyGUI::DirectX11Platform`| Direct3D 11 backend |
+| `MyGUI::OgreNextPlatform` | OgreNext backend    |
 
 Build options:
 
 | Option                  | Default        | Description                          |
 |-------------------------|----------------|--------------------------------------|
-| `MYGUI_RENDERSYSTEM`    | 7 (OpenGL 3.x) | Render backend (1-8)                 |
-| `MYGUI_BUILD_DEMOS`     | ON             | Build demo applications              |
-| `MYGUI_BUILD_TOOLS`     | ON             | Build layout/skin/font/image editors |
-| `MYGUI_BUILD_UNITTESTS` | OFF            | Build unit tests                     |
+| `MYGUI_RENDERSYSTEM`    | 7 (OpenGL 3.x) | Render backend                       |
 | `MYGUI_USE_FREETYPE`    | ON             | Enable FreeType font rendering       |
 | `MYGUI_MSDF_FONTS`      | OFF            | Enable MSDF font support             |
+| `MYGUI_BUILD_DEMOS`     | ON             | Build demo applications              |
+| `MYGUI_BUILD_TOOLS`     | ON             | Build layout/skin/font/image editors |
+| `MYGUI_BUILD_UNITTESTS` | OFF            | Build complex demos and tests        |
+| `MYGUI_BUILD_PLUGINS`   | ON             | Build runtime plugins                |
+| `MYGUI_BUILD_WRAPPER`   | OFF            | Build C# bindings (Windows only) |
+| `MYGUI_BUILD_TEST_APP`  | OFF            | Build test application               |
 | `MYGUI_DISABLE_PLUGINS` | OFF            | Disable plugin system                |
 
 ## Tools
