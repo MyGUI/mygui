@@ -191,7 +191,7 @@ namespace tools
 		document.createDeclaration();
 		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
 		root->addAttribute("type", "Resource");
-		root->addAttribute("version", "1.1");
+		root->addAttribute("version", "1.2");
 
 		DataPtr data = DataManager::getInstance().getRoot();
 		for (const auto& child : data->getChilds())

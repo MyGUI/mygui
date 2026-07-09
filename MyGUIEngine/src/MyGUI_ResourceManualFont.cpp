@@ -44,6 +44,16 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
+		const bool oldAdvanceFormat = _version <= Version{1, 1};
+		if (oldAdvanceFormat)
+		{
+			MYGUI_LOG(
+				Warning,
+				"ResourceManualFont: '" << mResourceName
+										<< "' have old format. Recreate with FontEditor or bump version to "
+										   "1.2 if your bearingX is always 0");
+		}
+
 		for (auto node : _node.node())
 		{
 			if (node.name() == std::string_view("Property"))
@@ -106,6 +116,9 @@ namespace MyGUI
 							float advance = size.width;
 							if (!advanceAttribute.empty())
 								advance = utility::parseValue<float>(advanceAttribute);
+
+							if (oldAdvanceFormat)
+								advance += bearing.left;
 
 							mCharMap.emplace(
 								id,
