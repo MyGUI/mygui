@@ -3,7 +3,7 @@
 	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_15">
 		<Property key="Source" value="DejaVuSans.ttf"/>
 		<Property key="Size" value="10"/>
-		<Property key="Hinting" value="use_native"/>
+		<Property key="Hinting" value="monochrome"/>
 		<Property key="Resolution" value="96"/>
 		<Property key="Antialias" value="false"/>
 		<Property key="TabWidth" value="8"/>

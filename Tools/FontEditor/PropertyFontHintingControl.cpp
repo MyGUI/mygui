@@ -33,6 +33,7 @@ namespace tools
 		mComboBox->addItem("force_auto");
 		mComboBox->addItem("disable_auto");
 		mComboBox->addItem("disable_all");
+		mComboBox->addItem("monochrome");
 
 		mComboBox->beginToItemFirst();
 

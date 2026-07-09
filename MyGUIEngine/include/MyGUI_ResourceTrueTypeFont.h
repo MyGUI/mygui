@@ -89,10 +89,16 @@ namespace MyGUI
 	private:
 		enum Hinting
 		{
+			// Use native hints with auto-hinter fallback (FT_LOAD_DEFAULT). Best default for most fonts
 			HintingUseNative,
+			// Always use FreeType's auto-hinter (FT_LOAD_FORCE_AUTOHINT). Override bad font hints
 			HintingForceAuto,
+			// Use only native hints, disable the auto-hinter (FT_LOAD_NO_AUTOHINT). For fonts where auto-hinter degrades quality
 			HintingDisableAuto,
-			HintingDisableAll
+			// Mono font with some anti-alBest for very small sizes (FT_LOAD_TARGET_MONO + FT_RENDER_MODE_NORMAL)
+			HintingMonochrome,
+			// Disable all hinting entirely (FT_LOAD_NO_HINTING). Use for large/display text where shape fidelity matters more than crispness
+			HintingDisableAll,
 		};
 
 		void addCodePoint(Char _codePoint);

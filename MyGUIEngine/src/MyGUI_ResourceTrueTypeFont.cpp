@@ -538,14 +538,15 @@ namespace MyGUI
 
 		switch (mHinting)
 		{
+		case HintingUseNative: ftLoadFlags = FT_LOAD_DEFAULT; break;
 		case HintingForceAuto: ftLoadFlags = FT_LOAD_FORCE_AUTOHINT; break;
 		case HintingDisableAuto: ftLoadFlags = FT_LOAD_NO_AUTOHINT; break;
+		case HintingMonochrome: ftLoadFlags = FT_LOAD_TARGET_MONO; break;
 		case HintingDisableAll:
 			// When hinting is completely disabled, glyphs must always be rendered -- even during layout calculations -- due to
 			// discrepancies between the glyph metrics and the actual rendered bitmap metrics.
 			ftLoadFlags = FT_LOAD_NO_HINTING | FT_LOAD_RENDER;
 			break;
-		case HintingUseNative: ftLoadFlags = FT_LOAD_DEFAULT; break;
 		}
 
 		//-------------------------------------------------------------------//
@@ -1057,7 +1058,24 @@ namespace MyGUI
 					break;
 
 				default:
-					if (FT_Load_Glyph(_ftFace, glyph.first, _ftLoadFlags | FT_LOAD_RENDER) == 0)
+					if (FT_Load_Glyph(_ftFace, glyph.first, _ftLoadFlags) != 0)
+					{
+						MYGUI_LOG(
+							Warning,
+							"ResourceTrueTypeFont: Cannot load glyph "
+								<< glyph.first << " for character " << info.codePoint << " in font '"
+								<< getResourceName() << "'.");
+						break;
+					}
+					if (FT_Render_Glyph(_ftFace->glyph, FT_RENDER_MODE_NORMAL) != 0)
+					{
+						MYGUI_LOG(
+							Warning,
+							"ResourceTrueTypeFont: Cannot render glyph "
+								<< glyph.first << " for character " << info.codePoint << " in font '"
+								<< getResourceName() << "'.");
+						break;
+					}
 					{
 						if (_ftFace->glyph->bitmap.buffer != nullptr)
 						{
@@ -1096,14 +1114,6 @@ namespace MyGUI
 									texY,
 									glyphBuffer);
 						}
-					}
-					else
-					{
-						MYGUI_LOG(
-							Warning,
-							"ResourceTrueTypeFont: Cannot render glyph "
-								<< glyph.first << " for character " << info.codePoint << " in font '"
-								<< getResourceName() << "'.");
 					}
 					break;
 				}
@@ -1408,6 +1418,8 @@ namespace MyGUI
 			mHinting = HintingDisableAuto;
 		else if (_value == "disable_all")
 			mHinting = HintingDisableAll;
+		else if (_value == "monochrome")
+			mHinting = HintingMonochrome;
 		else
 			mHinting = HintingUseNative;
 	}
