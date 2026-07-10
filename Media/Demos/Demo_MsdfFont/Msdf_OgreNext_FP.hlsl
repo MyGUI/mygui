@@ -24,7 +24,7 @@ float4 main(PS_INPUT input) : SV_Target
 
     float4 texColour = texture0.Sample(sampler0, input.uv);
     float sigDist = median(texColour.r, texColour.g, texColour.b) - 0.5;
-    sigDist *= dot(msdfUnit, 0.5 / fwidth(input.uv));
+    sigDist *= dot(msdfUnit, 0.5 / max(fwidth(input.uv), 1e-6));
 
     float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
     return float4(input.col.rgb, input.col.a * opacity * texColour.a);

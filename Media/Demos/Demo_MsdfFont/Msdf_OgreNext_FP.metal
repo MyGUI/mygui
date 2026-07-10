@@ -25,7 +25,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 
     float4 texColour = tex.sample(linearSampler, in.uv);
     float sigDist = median(texColour.r, texColour.g, texColour.b) - 0.5;
-    sigDist *= dot(msdfUnit, 0.5 / fwidth(in.uv));
+    sigDist *= dot(msdfUnit, 0.5 / max(fwidth(in.uv), 1e-6));
 
     float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
     return float4(in.col.rgb, in.col.a * opacity * texColour.a);

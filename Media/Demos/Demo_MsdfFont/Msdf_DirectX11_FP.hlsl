@@ -17,7 +17,7 @@ void main(
 	float2 msdfUnit = pxRange/float2(w, h);
 	float4 textureColor = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0);
 	float sigDist = median(textureColor.r, textureColor.g, textureColor.b) - 0.5;
-	sigDist *= dot(msdfUnit, 0.5/fwidth(inTexcoord));
+	sigDist *= dot(msdfUnit, 0.5/max(fwidth(inTexcoord), 1e-6));
 	float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
 
 	Out = float4(inColor.rgb, inColor.a * opacity * textureColor.a);

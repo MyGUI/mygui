@@ -20,7 +20,7 @@ void main()
     vec4 texColour = texture(sampler0, outUV);
 
     float sigDist = median(texColour.r, texColour.g, texColour.b) - 0.5;
-    sigDist *= dot(msdfUnit, 0.5 / fwidth(outUV));
+    sigDist *= dot(msdfUnit, 0.5 / max(fwidth(outUV), 1e-6));
 
     float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
     fragColour = vec4(outCol.rgb, outCol.a * opacity * texColour.a);
