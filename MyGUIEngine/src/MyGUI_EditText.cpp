@@ -487,29 +487,51 @@ namespace MyGUI
 		{
 			float left = (float)(line.offset - mViewOffset.left + mCoord.left);
 
+			// Pass 1: find selection bounds on this line.
+			float selLeft = 0, selRight = 0;
+			bool hasSelection = false;
+			{
+				float pos = left;
+				size_t charIndex = index;
+				for (const auto& sym : line.symbols)
+				{
+					if (sym.isColour())
+						continue;
+
+					pos += sym.getKerning();
+
+					if (charIndex >= mStartSelect && charIndex < mEndSelect)
+					{
+						if (!hasSelection)
+							selLeft = pos;
+						selRight = pos + sym.getAdvance();
+						hasSelection = true;
+					}
+					pos += sym.getAdvance();
+					charIndex++;
+				}
+			}
+
+			// Draw one selection rectangle for the entire line.
+			if (hasSelection)
+			{
+				vertexRect.set(selLeft, top, selRight, top + (float)mFontHeight);
+				drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, selectedUVRect, selectedColour);
+			}
+
+			// Pass 2: render glyphs.
 			for (const auto& sym : line.symbols)
 			{
 				if (sym.isColour())
 				{
 					colour = sym.getColour() | (colour & 0xFF000000);
 					inverseColour = colour ^ 0x00FFFFFF;
-					selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
 					continue;
 				}
 
-				// texture offset for background
 				bool select = index >= mStartSelect && index < mEndSelect;
 
-				// Apply kerning before positioning this glyph.
 				left += sym.getKerning();
-
-				// Render the selection, if any, first.
-				if (select)
-				{
-					vertexRect.set(left - sym.getKerning(), top, left + sym.getAdvance(), top + (float)mFontHeight);
-
-					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, selectedUVRect, selectedColour);
-				}
 
 				// Render the glyph shadow, if any.
 				if (mShadow)
