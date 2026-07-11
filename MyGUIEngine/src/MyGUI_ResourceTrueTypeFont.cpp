@@ -1293,6 +1293,11 @@ namespace MyGUI
 					{
 						glyphIter->second.width = 0.0f;
 						glyphIter->second.uvRect.right = glyphIter->second.uvRect.left;
+						// avoid using data from borders to fix 2 pixels gap between selected lines
+						glyphIter->second.height = glyphIter->second.height / 2;
+						float uvHeight = glyphIter->second.uvRect.bottom - glyphIter->second.uvRect.top;
+						glyphIter->second.uvRect.top += uvHeight / 4;
+						glyphIter->second.uvRect.bottom -= uvHeight / 4;
 					}
 				}
 				break;
