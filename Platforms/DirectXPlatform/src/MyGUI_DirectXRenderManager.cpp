@@ -89,8 +89,7 @@ namespace MyGUI
 
 	void DirectXRenderManager::drawOneFrame()
 	{
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
+		if (!Gui::getInstancePtr())
 			return;
 
 		static Timer timer;

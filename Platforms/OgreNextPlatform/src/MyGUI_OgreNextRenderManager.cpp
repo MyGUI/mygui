@@ -168,8 +168,7 @@ namespace MyGUI
 
 	void OgreNextRenderManager::renderIntoCurrentBatch()
 	{
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
+		if (!Gui::getInstancePtr())
 			return;
 
 		onRenderToTarget(this, mUpdate);

@@ -171,8 +171,7 @@ namespace MyGUI
 		const Ogre::String& invocation,
 		bool& skipThisInvocation)
 	{
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
+		if (!Gui::getInstancePtr())
 			return;
 
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId)

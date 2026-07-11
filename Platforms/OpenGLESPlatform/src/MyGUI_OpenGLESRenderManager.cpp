@@ -244,8 +244,7 @@ namespace MyGUI
 
 	void OpenGLESRenderManager::drawOneFrame()
 	{
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
+		if (!Gui::getInstancePtr())
 			return;
 
 		static Timer timer;

@@ -174,8 +174,7 @@ namespace MyGUI
 
 	void OpenGLRenderManager::drawOneFrame()
 	{
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
+		if (!Gui::getInstancePtr())
 			return;
 
 		static Timer timer;
