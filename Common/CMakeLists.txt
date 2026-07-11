@@ -53,12 +53,6 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 	if(OGRE_STATIC AND NOT MYGUI_HAVE_OGRE_BITES)
 		message(FATAL_ERROR "Static Ogre requires OgreBites (OgreStaticPluginLoader.h not found)")
 	endif()
-
-elseif(MYGUI_RENDERSYSTEM EQUAL 9)
-	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIRS}")
-	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
-	target_compile_definitions(${PROJECTNAME} PRIVATE "OGRE_NEXT_MEDIA_DIR=\"${OGRE_NEXT_MEDIA_DIR}\"")
-
 elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	target_link_libraries(${PROJECTNAME} PUBLIC DirectX::D3D9)
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
@@ -70,7 +64,9 @@ elseif(
 )
 	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
 elseif(MYGUI_RENDERSYSTEM EQUAL 9)
-	target_link_libraries(${PROJECTNAME} PRIVATE PkgConfig::OGRE)
+	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIRS}")
+	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
+	target_compile_definitions(${PROJECTNAME} PRIVATE "OGRE_NEXT_MEDIA_DIR=\"${OGRE_NEXT_MEDIA_DIR}\"")
 endif()
 
 target_include_directories(${PROJECTNAME}
