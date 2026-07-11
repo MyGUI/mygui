@@ -41,7 +41,7 @@ namespace MyGUI
 		MYGUI_LOG(
 			Error,
 			"ResourceTrueTypeFont: TrueType font '"
-				<< getResourceName() << "' disabled. Define MYGUI_USE_FREETYE if you need TrueType fonts.");
+				<< getResourceName() << "' disabled. Define MYGUI_USE_FREETYPE if you need TrueType fonts.");
 	}
 
 	const GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id) const
@@ -135,6 +135,11 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::setKerningEnabled(bool _value)
 	{
+	}
+
+	float ResourceTrueTypeFont::getKerning(Char _left, Char _right) const
+	{
+		return 0.0f;
 	}
 
 #else // MYGUI_USE_FREETYPE
