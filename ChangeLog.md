@@ -2,9 +2,10 @@
 
 ### CMake
 - **Complete CMake modernization**:
-    - Provide modern CMake targets: `target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform)`
-    - Expose user-facing compile definitions through `MyGUI::MyGUI`
-    - Replace global CMake commands with target_include_directories, target_compile_definitions, and target_compile_options, along with other CMake code improvements
+  - Provide modern CMake targets: `target_link_libraries(... MyGUI::MyGUI MyGUI::SomePlatform)`
+  - Expose user-facing compile definitions through `MyGUI::MyGUI`
+  - Replace global CMake commands with target_include_directories, target_compile_definitions, and
+    target_compile_options, along with other CMake code improvements
 - Deprecate MYGUI_STATIC in favor of BUILD_SHARED_LIBS
 - Use FetchContent to get internal/optional dependencies like pugixml and msdfgen
 - Allow using system msdfgen
@@ -17,6 +18,11 @@
 - Fix link error with hidden visibility across shared library boundary on macOS ARM64
 - Add std::vector and std::map getters for children and other collections, and deprecate the Enumerator class and related code
 - Add LayerManager::destroyLayer
+- Fonts improvements
+  - Implement dynamic kerning support
+  - Add "monochrome" hinting mode, good for small fonts
+  - Make text selection have one quad per line; colored glyphs selection is now same as non-colored glyphs
+  - Fix MSDF font selected area having 2 pixels gap between lines
 
 ### Platforms
 - Make DataManager::getDataListNames and getSystemFileList return by value
@@ -40,6 +46,11 @@
 
 ### Plugins
 - Delete legacy plugins (Berkelium, Hikari)
+
+### Tools
+
+- FontEditor: better text for the "try" area (kerning test)
+- FontEditor: fix crash when exporting fonts that are also used in the editor
 
 ### Demos
 - Allow saving screenshots on all platforms, using F12 key
