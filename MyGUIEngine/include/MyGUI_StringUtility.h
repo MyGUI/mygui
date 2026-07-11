@@ -49,8 +49,7 @@ namespace MyGUI::utility
 	template<typename T>
 	inline T parseValue(std::string_view _value)
 	{
-		std::stringstream stream;
-		stream << _value;
+		std::stringstream stream(std::string{_value});
 		T result;
 		stream >> result;
 		if (stream.fail())
@@ -101,8 +100,7 @@ namespace MyGUI::utility
 	template<typename... Args>
 	inline bool parseComplex(std::string_view _value, Args&... args)
 	{
-		std::stringstream stream;
-		stream << _value;
+		std::stringstream stream(std::string{_value});
 
 		((stream >> args), ...);
 

@@ -66,8 +66,7 @@ namespace MyGUI
 		{
 			if (_value[0] == '#')
 			{
-				std::stringstream stream;
-				stream << _value.substr(1);
+				std::stringstream stream{std::string{_value.substr(1)}};
 				int result = 0;
 				stream >> std::hex >> result;
 				if (!stream.fail())
@@ -83,8 +82,7 @@ namespace MyGUI
 				float red;
 				float green;
 				float blue;
-				std::stringstream stream;
-				stream << _value;
+				std::stringstream stream{std::string{_value}};
 				stream >> red >> green >> blue;
 				if (!stream.fail())
 				{

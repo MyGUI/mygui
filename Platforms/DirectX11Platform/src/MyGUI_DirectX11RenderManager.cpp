@@ -347,10 +347,8 @@ namespace MyGUI
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 			return {};
 		}
-		std::ifstream fileStream(DataManager::getInstance().getDataPath(_file));
-		std::stringstream buffer;
-		buffer << fileStream.rdbuf();
-		return buffer.str();
+		std::ifstream fileStream(fullPath);
+		return {std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>()};
 	}
 
 	DirectX11ShaderInfo* DirectX11RenderManager::createShader(

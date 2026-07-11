@@ -78,8 +78,7 @@ namespace tools
 		{
 			if (widgetContainer->getRelativeMode())
 			{
-				std::stringstream str;
-				str << _value;
+				std::stringstream str{std::string{_value}};
 				MyGUI::DoubleCoord double_coord;
 				str >> double_coord;
 				double_coord.left /= 100;
