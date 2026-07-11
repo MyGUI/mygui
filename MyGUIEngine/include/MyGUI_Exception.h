@@ -11,11 +11,8 @@
 #include <exception>
 #include <string>
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-	#pragma warning(push)
-	#pragma warning(disable : 4275)
-#endif
+// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+MYGUI_SUPPRESS_MSVC(4275)
 
 namespace MyGUI
 {
@@ -47,8 +44,6 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	#pragma warning(pop)
-#endif
+MYGUI_UNSUPPRESS_MSVC()
 
 #endif // MYGUI_EXCEPTION_H_

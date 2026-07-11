@@ -49,15 +49,6 @@ namespace MyGUI
 	{
 #if defined(MYGUI_OGRE_PLATFORM)
 
-	#if OGRE_COMPILER == OGRE_COMPILER_MSVC
-		#define OGRE_IGNORE_DEPRECATED_BEGIN __pragma(warning(push)) __pragma(warning(disable : 4996))
-		#define OGRE_IGNORE_DEPRECATED_END __pragma(warning(pop))
-	#else
-		#define OGRE_IGNORE_DEPRECATED_BEGIN \
-			_Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
-		#define OGRE_IGNORE_DEPRECATED_END _Pragma("GCC diagnostic pop")
-	#endif
-
 		if (OgreRenderManager::getInstancePtr()->getManualRender())
 			OgreRenderManager::getInstancePtr()->begin();
 
@@ -70,7 +61,9 @@ namespace MyGUI
 			if (texture_ptr)
 			{
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
-				OGRE_IGNORE_DEPRECATED_BEGIN
+
+				MYGUI_SUPPRESS_MSVC(4996)
+				MYGUI_SUPPRESS_GCC("-Wdeprecated-declarations")
 	#if OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0)
 				// TODO: use _setSampler
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(
@@ -79,7 +72,8 @@ namespace MyGUI
 					Ogre::FO_NONE,
 					Ogre::FO_NONE);
 	#endif
-				OGRE_IGNORE_DEPRECATED_END
+				MYGUI_UNSUPPRESS_GCC()
+				MYGUI_UNSUPPRESS_MSVC()
 			}
 		}
 

@@ -108,11 +108,8 @@ namespace MyGUI
 #endif // MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-		// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-	#pragma warning(push)
-	#pragma warning(disable : 4275)
-#endif
+	// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+	MYGUI_SUPPRESS_MSVC(4275)
 
 	//! A UTF-16 string with implicit conversion to/from std::string and std::wstring
 	/*! This class provides a complete 1 to 1 map of most std::string functions (at least to my
@@ -1126,9 +1123,7 @@ namespace MyGUI
 		return os << s.asWStr();
 	}
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	#pragma warning(pop)
-#endif
+	MYGUI_UNSUPPRESS_MSVC()
 
 } // namespace MyGUI
 
