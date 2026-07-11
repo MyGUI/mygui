@@ -45,7 +45,8 @@
 - Add CI step to test installation
 
 ### Plugins
-- Delete legacy plugins (Berkelium, Hikari)
+- Remove plugin support, as it was unused.
+- Remove legacy plugins (Berkelium, Hikari).
 
 ### Tools
 
