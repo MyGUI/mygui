@@ -160,31 +160,6 @@ function(mygui_install_app PROJECTNAME)
 endfunction(mygui_install_app)
 
 
-#setup Plugin builds
-function(mygui_plugin PROJECTNAME)
-	# define the sources
-	include(${PROJECTNAME}.list)
-
-	add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
-	target_compile_definitions(${PROJECTNAME} PRIVATE _USRDLL MYGUI_BUILD_DLL)
-	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
-	target_link_libraries(${PROJECTNAME} PUBLIC MyGUI::MyGUI)
-
-	mygui_config_lib(${PROJECTNAME})
-
-	# Plugins are loaded at runtime and not linked at buildtime, so they should go to the same
-	# output directory as the executables, so the plugin loader can find them there.
-	set_target_properties(${PROJECTNAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
-	# Remove default library prefix (e.g. "lib" on Linux), as the plugin loader doesn't know about it
-	set_target_properties(${PROJECTNAME} PROPERTIES PREFIX "")
-
-	install(FILES ${HEADER_FILES}
-		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
-	)
-endfunction(mygui_plugin)
-
-
 # setup library build
 function(mygui_config_lib PROJECTNAME)
 	mygui_config_common(${PROJECTNAME})

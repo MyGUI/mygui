@@ -42,8 +42,6 @@
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_PointerManager.h"
-#include "MyGUI_PluginManager.h"
-#include "MyGUI_DynLibManager.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"

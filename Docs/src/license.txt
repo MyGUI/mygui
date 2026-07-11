@@ -5,7 +5,6 @@
 
 \n	MyGUI is released under the [MIT License](http://opensource.org/licenses/mit-license.php), which is a permissive open source license. The only condition is that you distribute the license text included in our distribution with any software that uses MyGUI.
 \n
-\n	Plugins that based on some library are licensed under same license that librariy use.
 \n	All media except some Media pointed below licensed under MIT license.
 \n	Everything else (i.e. demos, tools, scripts, configuration files, etc.) is licenses under MIT license.
 \n

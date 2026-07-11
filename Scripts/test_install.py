@@ -43,7 +43,6 @@ def main():
             "-DMYGUI_MSDF_FONTS=ON",
             "-DMYGUI_DONT_USE_OBSOLETE=ON",
             "-DMYGUI_BUILD_DEMOS=OFF",
-            "-DMYGUI_BUILD_PLUGINS=OFF",
             "-DMYGUI_BUILD_TOOLS=OFF",
             "-DMYGUI_BUILD_UNITTESTS=OFF",
             "-DMYGUI_BUILD_TEST_APP=OFF",

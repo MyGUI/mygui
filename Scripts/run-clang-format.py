@@ -19,7 +19,6 @@ SRC_DIRS = [
     "Tools",
     "Common",
     "UnitTests",
-    "Plugins",
     #"Wrappers",
 ]
 

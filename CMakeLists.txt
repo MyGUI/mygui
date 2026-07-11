@@ -23,7 +23,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 
 if (EMSCRIPTEN)
 	set(BUILD_SHARED_LIBS OFF)
-	set(MYGUI_DISABLE_PLUGINS TRUE CACHE BOOL "")
 	set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()
 
@@ -36,7 +35,6 @@ if (MYGUI_STATIC)
 	)
 	set(BUILD_SHARED_LIBS OFF)
 endif ()
-option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
 option(MYGUI_USE_SYSTEM_MSDFGEN FALSE)
@@ -57,7 +55,6 @@ set(MYGUI_RENDERSYSTEM 7 CACHE STRING
 )
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
-cmake_dependent_option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE "NOT MYGUI_DISABLE_PLUGINS" FALSE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_UNITTESTS "Build the unit tests" FALSE)
 option(MYGUI_BUILD_TEST_APP "Build TestApp" FALSE)
@@ -137,10 +134,6 @@ add_subdirectory(Platforms)
 
 if (MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
-endif ()
-
-if (MYGUI_BUILD_PLUGINS)
-	add_subdirectory(Plugins)
 endif ()
 
 if (MYGUI_BUILD_DEMOS)

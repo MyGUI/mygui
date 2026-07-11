@@ -572,14 +572,6 @@ namespace MyGUI
 	};
 
 	template<>
-	class MYGUI_EXPORT MemberObsolete<PluginManager>
-	{
-	public:
-		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-	};
-
-	template<>
 	class MYGUI_EXPORT MemberObsolete<PointerManager>
 	{
 	public:

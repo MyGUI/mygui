@@ -211,8 +211,6 @@ namespace MyGUI
 		PointerManager* mPointerManager{nullptr};
 		ClipboardManager* mClipboardManager{nullptr};
 		LayoutManager* mLayoutManager{nullptr};
-		DynLibManager* mDynLibManager{nullptr};
-		PluginManager* mPluginManager{nullptr};
 		LanguageManager* mLanguageManager{nullptr};
 		ResourceManager* mResourceManager{nullptr};
 		FactoryManager* mFactoryManager{nullptr};

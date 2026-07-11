@@ -25,8 +25,6 @@ namespace MyGUI
 	class PointerManager;
 	class ClipboardManager;
 	class LayoutManager;
-	class PluginManager;
-	class DynLibManager;
 	class LanguageManager;
 	class ResourceManager;
 	class RenderManager;

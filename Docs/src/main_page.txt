@@ -43,7 +43,6 @@
 	\li \link MyGUI::LanguageManager LanguageManager \endlink
 	\li \link MyGUI::LayerManager LayerManager \endlink
 	\li \link MyGUI::LayoutManager LayoutManager \endlink
-	\li \link MyGUI::PluginManager PluginManager \endlink
 	\li \link MyGUI::PointerManager PointerManager \endlink
 	\li \link MyGUI::RenderManager RenderManager \endlink
 	\li \link MyGUI::ResourceManager ResourceManager \endlink

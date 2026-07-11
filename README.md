@@ -15,7 +15,6 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 - **Tools:** built-in editors for layouts, skins, images, and fonts
 - **Font rendering:** TrueType fonts via FreeType, bitmap fonts, and MSDF (multi-channel signed distance field) font support
 - **Platform support:** Windows, Linux, macOS; also runs in the browser via Emscripten
-- **Plugin system:** runtime-loadable plugins to extend functionality
 - **Localization:** built-in language string management
 - **Animation:** configurable widget controllers for fades, slides, and more
 
@@ -85,10 +84,8 @@ Build options:
 | `MYGUI_BUILD_DEMOS`     | ON             | Build demo applications              |
 | `MYGUI_BUILD_TOOLS`     | ON             | Build layout/skin/font/image editors |
 | `MYGUI_BUILD_UNITTESTS` | OFF            | Build complex demos and tests        |
-| `MYGUI_BUILD_PLUGINS`   | ON             | Build runtime plugins                |
 | `MYGUI_BUILD_WRAPPER`   | OFF            | Build C# bindings (Windows only) |
 | `MYGUI_BUILD_TEST_APP`  | OFF            | Build test application               |
-| `MYGUI_DISABLE_PLUGINS` | OFF            | Disable plugin system                |
 
 ## Tools
 

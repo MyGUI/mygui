@@ -31,7 +31,6 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_LanguageManager.h"
-#include "MyGUI_PluginManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_FactoryManager.h"
@@ -933,11 +932,6 @@ namespace MyGUI
 	VectorWidgetPtr MemberObsolete<LayoutManager>::load(std::string_view _file)
 	{
 		return static_cast<LayoutManager*>(this)->loadLayout(_file);
-	}
-
-	bool MemberObsolete<PluginManager>::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
 	}
 
 	void MemberObsolete<PointerManager>::setDeafultPointer(std::string_view _value)
