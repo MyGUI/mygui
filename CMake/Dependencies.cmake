@@ -8,18 +8,18 @@ set(MYGUI_DEPENDENCIES_DIR "Dependencies" CACHE PATH "Path to prebuilt MYGUI dep
 include(FindPkgMacros)
 getenv_path(MYGUI_DEPENDENCIES_DIR)
 set(MYGUI_DEP_SEARCH_PATH
-  ${MYGUI_DEPENDENCIES_DIR}
-  ${ENV_MYGUI_DEPENDENCIES_DIR}
-  "${MYGUI_BINARY_DIR}/Dependencies"
-  "${MYGUI_SOURCE_DIR}/Dependencies"
-  "${MYGUI_BINARY_DIR}/../Dependencies"
-  "${MYGUI_SOURCE_DIR}/../Dependencies"
+	${MYGUI_DEPENDENCIES_DIR}
+	${ENV_MYGUI_DEPENDENCIES_DIR}
+	"${MYGUI_BINARY_DIR}/Dependencies"
+	"${MYGUI_SOURCE_DIR}/Dependencies"
+	"${MYGUI_BINARY_DIR}/../Dependencies"
+	"${MYGUI_SOURCE_DIR}/../Dependencies"
 )
 
 # Set hardcoded path guesses for various platforms
-if (UNIX)
-  set(MYGUI_DEP_SEARCH_PATH ${MYGUI_DEP_SEARCH_PATH} /usr/local)
-endif ()
+if(UNIX)
+	set(MYGUI_DEP_SEARCH_PATH ${MYGUI_DEP_SEARCH_PATH} /usr/local)
+endif()
 
 # give guesses as hints to the find_package calls
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MYGUI_DEP_SEARCH_PATH})
@@ -45,14 +45,14 @@ endfunction()
 # Core dependencies
 #######################################################################
 
-if (MYGUI_USE_FREETYPE)
+if(MYGUI_USE_FREETYPE)
 	# Find FreeType
 	find_package(Freetype)
 	macro_log_feature(FREETYPE_FOUND "freetype" "Portable font engine" "http://www.freetype.org" TRUE "" "")
 	find_package(ZLIB)
 
-	if (MYGUI_MSDF_FONTS)
-		if (MYGUI_USE_SYSTEM_MSDFGEN)
+	if(MYGUI_MSDF_FONTS)
+		if(MYGUI_USE_SYSTEM_MSDFGEN)
 			find_package(msdfgen REQUIRED)
 		else()
 			include(FetchContent)
@@ -85,7 +85,7 @@ endif()
 # pugixml dependency
 #######################################################################
 
-if (MYGUI_USE_SYSTEM_PUGIXML)
+if(MYGUI_USE_SYSTEM_PUGIXML)
 	find_package(pugixml REQUIRED)
 else()
 	include(FetchContent)
@@ -103,7 +103,7 @@ endif()
 # RenderSystem dependencies
 #######################################################################
 
-if (EMSCRIPTEN)
+if(EMSCRIPTEN)
 	add_library(SDL2::SDL2 INTERFACE IMPORTED GLOBAL)
 	target_compile_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
 	target_link_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
@@ -115,8 +115,12 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 	find_package(ZLIB)
 	find_package(OGRE)
 	macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" TRUE "" "")
-elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-	if (EMSCRIPTEN)
+elseif(
+	MYGUI_RENDERSYSTEM EQUAL 4
+	OR MYGUI_RENDERSYSTEM EQUAL 7
+	OR MYGUI_RENDERSYSTEM EQUAL 8
+)
+	if(EMSCRIPTEN)
 		add_library(SDL2_image::SDL2_image INTERFACE IMPORTED GLOBAL)
 		target_compile_options(SDL2_image::SDL2_image INTERFACE "--use-port=sdl2_image:formats=png")
 		target_link_options(SDL2_image::SDL2_image INTERFACE "--use-port=sdl2_image:formats=png")
@@ -131,7 +135,6 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	find_package(DirectX)
 	macro_log_feature(DirectX_D3D11_FOUND "DirectX11" "Support for the DirectX11 render system" "" TRUE "" "")
-#elseif for RENDERSYSTEM 7 is covered with RENDERSYSTEM 4
 elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 	find_package(ZLIB)
 	find_package(PkgConfig REQUIRED)
@@ -150,6 +153,5 @@ endif()
 find_package(Doxygen)
 macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org" FALSE "" "")
 
-
 # Display results, terminate if anything required is missing
-MACRO_DISPLAY_FEATURE_LOG()
+macro_display_feature_log()

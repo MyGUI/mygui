@@ -6,27 +6,34 @@
 include(GNUInstallDirs)
 
 set(MYGUI_LIB_SUFFIX "")
-if (NOT BUILD_SHARED_LIBS)
-  set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}Static")
-endif ()
+if(NOT BUILD_SHARED_LIBS)
+	set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}Static")
+endif()
 string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
-if (MYGUI_BUILD_TYPE STREQUAL "debug")
-  set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}_d")
-endif ()
+if(MYGUI_BUILD_TYPE STREQUAL "debug")
+	set(MYGUI_LIB_SUFFIX "${MYGUI_LIB_SUFFIX}_d")
+endif()
 
 # Create the pkg-config package files on Unix systems
-if (UNIX)
-  set(MYGUI_PC_REQUIRES "")
-  if (NOT BUILD_SHARED_LIBS)
-    if (MYGUI_USE_FREETYPE)
-      list(APPEND MYGUI_PC_REQUIRES "freetype2")
-    endif ()
-    list(APPEND MYGUI_PC_REQUIRES "pugixml")
-  endif ()
-  string(REPLACE ";" " " MYGUI_PC_REQUIRES "${MYGUI_PC_REQUIRES}")
-  configure_file("${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in" "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" @ONLY)
-  install(FILES "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
-endif ()
+if(UNIX)
+	set(MYGUI_PC_REQUIRES "")
+	if(NOT BUILD_SHARED_LIBS)
+		if(MYGUI_USE_FREETYPE)
+			list(APPEND MYGUI_PC_REQUIRES "freetype2")
+		endif()
+		list(APPEND MYGUI_PC_REQUIRES "pugixml")
+	endif()
+	string(REPLACE ";" " " MYGUI_PC_REQUIRES "${MYGUI_PC_REQUIRES}")
+	configure_file(
+		"${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in"
+		"${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc"
+		@ONLY
+	)
+	install(
+		FILES "${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc"
+		DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
+	)
+endif()
 
 ###################################################################
 # Set up modern CMake package support
@@ -36,8 +43,12 @@ endif ()
 set(MYGUI_CONFIG_FIND_DEPS "")
 if(MYGUI_RENDERSYSTEM EQUAL 3 OR MYGUI_RENDERSYSTEM EQUAL 9)
 	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
-elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-	if (NOT EMSCRIPTEN)
+elseif(
+	MYGUI_RENDERSYSTEM EQUAL 4
+	OR MYGUI_RENDERSYSTEM EQUAL 7
+	OR MYGUI_RENDERSYSTEM EQUAL 8
+)
+	if(NOT EMSCRIPTEN)
 		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OpenGL)")
 	endif()
 endif()
@@ -91,11 +102,11 @@ install(FILES
 	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/MyGUI"
 )
 
-if (WIN32 AND (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS))
+if(WIN32 AND (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS))
 	install(IMPORTED_RUNTIME_ARTIFACTS SDL2::SDL2
 		DESTINATION ${CMAKE_INSTALL_BINDIR}
 	)
-	if (TARGET SDL2_image::SDL2_image)
+	if(TARGET SDL2_image::SDL2_image)
 		install(IMPORTED_RUNTIME_ARTIFACTS SDL2_image::SDL2_image
 			DESTINATION ${CMAKE_INSTALL_BINDIR}
 		)

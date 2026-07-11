@@ -1,0 +1,5 @@
+# it was used to format the code, but then many parts were reverted,
+# since I found no way to configure gersemi or cmakefmt the way I like
+indent: tabs
+line_length: 80
+warn_about_unknown_commands: false

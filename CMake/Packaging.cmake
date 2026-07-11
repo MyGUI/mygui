@@ -1,7 +1,6 @@
 option(MYGUI_CREATE_PACKAGE "Create package." FALSE)
 
-if (MYGUI_CREATE_PACKAGE)
-
+if(MYGUI_CREATE_PACKAGE)
 	set(CPACK_PACKAGE_VERSION ${MYGUI_VERSION})
 	set(CPACK_PACKAGE_VERSION_MAJOR ${MYGUI_VERSION_MAJOR})
 	set(CPACK_PACKAGE_VERSION_MINOR ${MYGUI_VERSION_MINOR})
@@ -17,18 +16,17 @@ if (MYGUI_CREATE_PACKAGE)
 
 	set(CPACK_PACKAGE_CONTACT "MYGUI Team <altren@gmail.com>")
 
-	if (WIN32 AND NOT UNIX)
+	if(WIN32 AND NOT UNIX)
 		set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "WriteRegStr \\\${WriteEnvStr_RegKey} \\\"MYGUI_HOME\\\" $INSTDIR")
-		
+
 		# There is a bug in NSIS that does not handle full unix paths properly. Make
 		# sure there is at least one set of four (4) backlasshes.
 		set(CPACK_PACKAGE_ICON "${MYGUI_SOURCE_DIR}/Media/Common/Sources\\\\MyGUI_Logo.bmp")
 		set(CPACK_NSIS_INSTALLED_ICON_NAME "bin/Debug\\\\LayoutEditor.exe")
-		set(CPACK_NSIS_MUI_ICON  "Common/Base\\\\MyGUI.ico")
+		set(CPACK_NSIS_MUI_ICON "Common/Base\\\\MyGUI.ico")
 		set(CPACK_NSIS_DISPLAY_NAME "MyGUI")
 		set(CPACK_NSIS_HELP_LINK "http://my-gui.sourceforge.net/")
-	endif ()
+	endif()
 
 	include(CPack)
-
-endif ()
+endif()

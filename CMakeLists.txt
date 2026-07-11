@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.22)
 project(MYGUI)
 
 list(APPEND CMAKE_MODULE_PATH
-    "${MYGUI_SOURCE_DIR}/CMake"
-    "${MYGUI_SOURCE_DIR}/CMake/Utils"
-    "${MYGUI_SOURCE_DIR}/CMake/Packages"
+	"${MYGUI_SOURCE_DIR}/CMake"
+	"${MYGUI_SOURCE_DIR}/CMake/Utils"
+	"${MYGUI_SOURCE_DIR}/CMake/Packages"
 )
 
 include(CMakeDependentOption)
@@ -21,20 +21,20 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 # Provide user options to customise the build process
 ######################################################################
 
-if (EMSCRIPTEN)
+if(EMSCRIPTEN)
 	set(BUILD_SHARED_LIBS OFF)
 	set(CMAKE_EXECUTABLE_SUFFIX ".html")
-endif ()
+endif()
 
 # Customise what to build
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(MYGUI_STATIC "Static build" FALSE)
-if (MYGUI_STATIC)
+if(MYGUI_STATIC)
 	message(DEPRECATION
 		"MYGUI_STATIC is deprecated. Use BUILD_SHARED_LIBS=OFF instead."
 	)
 	set(BUILD_SHARED_LIBS OFF)
-endif ()
+endif()
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
 option(MYGUI_USE_SYSTEM_MSDFGEN FALSE)
@@ -79,19 +79,19 @@ mark_as_advanced(
 # Set up the basic build environment
 #####################################################################
 
-if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
-endif ()
+endif()
 
 # determine MyGUI version numbers
 include(MyGUIGetVersion)
 mygui_get_version("${MYGUI_SOURCE_DIR}/MyGUIEngine/include/MyGUI_Prerequest.h")
 message(STATUS "Configuring MYGUI ${MYGUI_VERSION}")
 
-if (NOT APPLE)
+if(NOT APPLE)
 	# Create debug libraries with _d postfix
 	set(CMAKE_DEBUG_POSTFIX "_d")
-endif ()
+endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
@@ -102,13 +102,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 
-if (MSVC)
+if(MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
-endif ()
+endif()
 
-if (MYGUI_USE_PROJECT_FOLDERS)
+if(MYGUI_USE_PROJECT_FOLDERS)
 	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-endif ()
+endif()
 
 ######################################################################
 # Dependencies and docs option
@@ -132,32 +132,32 @@ include(Sanitizers)
 add_subdirectory(MyGUIEngine)
 add_subdirectory(Platforms)
 
-if (MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
+if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
-endif ()
+endif()
 
-if (MYGUI_BUILD_DEMOS)
+if(MYGUI_BUILD_DEMOS)
 	add_subdirectory(Demos)
-endif ()
+endif()
 
-if (MYGUI_BUILD_TOOLS)
+if(MYGUI_BUILD_TOOLS)
 	add_subdirectory(Tools)
-endif ()
+endif()
 
-if (MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
-	if (MYGUI_BUILD_UNITTESTS)
+if(MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
+	if(MYGUI_BUILD_UNITTESTS)
 		enable_testing()
 	endif()
 	add_subdirectory(UnitTests)
-endif ()
+endif()
 
-if (MYGUI_BUILD_WRAPPER)
+if(MYGUI_BUILD_WRAPPER)
 	add_subdirectory(Wrappers)
-endif ()
+endif()
 
-if (MYGUI_BUILD_DOCS)
+if(MYGUI_BUILD_DOCS)
 	add_subdirectory(Docs)
-endif ()
+endif()
 
 ###################################################################
 # Configure install rules, package configs, and export sets

@@ -14,7 +14,7 @@ target_include_directories(${PROJECTNAME}
 
 target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
 
-if (APPLE)
+if(APPLE)
 	target_compile_definitions(${PROJECTNAME} PUBLIC GL_SILENCE_DEPRECATION)
 endif()
 

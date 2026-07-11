@@ -1,6 +1,6 @@
-set (PROJECTNAME MyGUIEngine)
+set(PROJECTNAME MyGUIEngine)
 
-project( ${PROJECTNAME} )
+project(${PROJECTNAME})
 
 include(${PROJECTNAME}.list)
 
@@ -21,14 +21,18 @@ target_compile_definitions(${PROJECTNAME}
 		MYGUI_BUILD
 )
 
-if (NOT ANDROID)
-	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
+if(NOT ANDROID)
+	set_target_properties(${PROJECTNAME} PROPERTIES
+		VERSION ${MYGUI_VERSION}
+		SOVERSION
+			"${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}"
+	)
 endif()
 
-if (MYGUI_USE_FREETYPE)
+if(MYGUI_USE_FREETYPE)
 	target_link_libraries(${PROJECTNAME} PRIVATE Freetype::Freetype)
 
-	if (MYGUI_MSDF_FONTS)
+	if(MYGUI_MSDF_FONTS)
 		target_link_libraries(${PROJECTNAME} PRIVATE msdfgen::msdfgen)
 	endif()
 endif()

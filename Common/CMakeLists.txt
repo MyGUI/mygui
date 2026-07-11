@@ -1,11 +1,11 @@
-set (PROJECTNAME MyGUICommon)
+set(PROJECTNAME MyGUICommon)
 
-set (HEADER_FILES "")
-set (SOURCE_FILES "")
+set(HEADER_FILES "")
+set(SOURCE_FILES "")
 
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
-set (HEADER_FILES ${HEADER_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.h Base/PlatformBaseManager/SdlBaseManager.h)
-set (SOURCE_FILES ${SOURCE_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp Base/PlatformBaseManager/SdlBaseManager.cpp)
+set(HEADER_FILES ${HEADER_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.h Base/PlatformBaseManager/SdlBaseManager.h)
+set(SOURCE_FILES ${SOURCE_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp Base/PlatformBaseManager/SdlBaseManager.cpp)
 SOURCE_GROUP("Base" FILES
 	Base/${MYGUI_PLATFORM_NAME}/BaseManager.h
 	Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp
@@ -13,12 +13,12 @@ SOURCE_GROUP("Base" FILES
 	Base/PlatformBaseManager/SdlBaseManager.cpp
 )
 
-set (HEADER_FILES ${HEADER_FILES}
+set(HEADER_FILES ${HEADER_FILES}
 	Input/SDL/InputManager.h
 	Input/SDL/PointerManager.h
 	Input/SDL/ResourceSDLPointer.h
 )
-set (SOURCE_FILES ${SOURCE_FILES}
+set(SOURCE_FILES ${SOURCE_FILES}
 	Input/SDL/InputManager.cpp
 	Input/SDL/PointerManager.cpp
 	Input/SDL/ResourceSDLPointer.cpp
@@ -61,7 +61,11 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 	target_link_libraries(${PROJECTNAME} PUBLIC DirectX::D3D9)
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	target_link_libraries(${PROJECTNAME} PUBLIC DirectX11::D3D11)
-elseif(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
+elseif(
+	MYGUI_RENDERSYSTEM EQUAL 4
+	OR MYGUI_RENDERSYSTEM EQUAL 7
+	OR MYGUI_RENDERSYSTEM EQUAL 8
+)
 	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
 elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 	target_link_libraries(${PROJECTNAME} PRIVATE PkgConfig::OGRE)
@@ -85,7 +89,7 @@ target_link_libraries(${PROJECTNAME}
 		${SDL2_LINK_TARGETS}
 )
 
-if (EMSCRIPTEN)
+if(EMSCRIPTEN)
 	target_link_options(${PROJECTNAME} PUBLIC "-sALLOW_MEMORY_GROWTH=1")
 	target_link_options(${PROJECTNAME} PUBLIC "-sGROWABLE_ARRAYBUFFERS=0")
 	target_link_options(${PROJECTNAME} PUBLIC "-sFULL_ES3=1")
@@ -97,6 +101,10 @@ if (EMSCRIPTEN)
 	target_link_options(${PROJECTNAME} PUBLIC "-sNO_DISABLE_EXCEPTION_CATCHING")
 endif()
 
-if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
-	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
+if(MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
+	set_target_properties(${PROJECTNAME} PROPERTIES
+		VERSION ${MYGUI_VERSION}
+		SOVERSION
+			"${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}"
+	)
 endif()

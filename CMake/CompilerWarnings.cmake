@@ -6,10 +6,14 @@
 # (otherwise all warnings from PCH-included headers are suppressed)
 set(CMAKE_PCH_PROLOGUE "")
 
-if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-	if (MYGUI_HIGH_LEVEL_WARNINGS)
+if(
+	CMAKE_COMPILER_IS_GNUCXX
+	OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
+	OR CMAKE_CXX_COMPILER_ID MATCHES "Intel"
+)
+	if(MYGUI_HIGH_LEVEL_WARNINGS)
 		add_compile_options(-Werror)
-		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+		if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 			add_compile_options(
 				-Weverything
 			)
@@ -40,7 +44,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wno-lifetime-safety-intra-tu-suggestions
 				-Wno-lifetime-safety-cross-tu-suggestions
 			)
-		else ()
+		else()
 			add_compile_options(
 				-Wall
 				-Winit-self
@@ -51,27 +55,27 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 				-Wshadow
 			)
 			add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-Wno-reorder;-Woverloaded-virtual;-Wsuggest-override>")
-			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+			if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 				add_compile_options(-fdiagnostics-show-option)
-			endif ()
+			endif()
 			# disable some
 			add_compile_options(
 				-Wno-unused-parameter
 			)
-		endif ()
-	endif ()
-endif ()
+		endif()
+	endif()
+endif()
 
-if (MSVC)
+if(MSVC)
 	add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
 
 	# Use the highest warning level for visual studio.
-	if (MYGUI_HIGH_LEVEL_WARNINGS)
+	if(MYGUI_HIGH_LEVEL_WARNINGS)
 		set(WARNING_LEVEL "/W4")
 		add_compile_options("/WX")
-	else ()
+	else()
 		set(WARNING_LEVEL "/W3")
-	endif ()
+	endif()
 	# disable: warning C4100: '***' : unreferenced formal parameter
 	add_compile_options(/wd4100)
 
@@ -86,5 +90,4 @@ if (MSVC)
 	# Remove any default warning level from CMAKE_CXX_FLAGS and use add_compile_options instead
 	string(REGEX REPLACE "/W[0-4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 	add_compile_options(${WARNING_LEVEL})
-
-endif ()
+endif()

@@ -49,15 +49,15 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	include(${PROJECTNAME}.list)
 
 	# setup demo target
-	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
+	if(${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
-	else ()
+	else()
 		# determine specific executable type
-		if (WIN32)
+		if(WIN32)
 			set(MYGUI_EXEC_TYPE WIN32)
-		endif ()
+		endif()
 		add_executable(${PROJECTNAME} ${MYGUI_EXEC_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	endif ()
+	endif()
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
 	mygui_config_sample(${PROJECTNAME})
@@ -67,7 +67,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			MyGUICommon
 	)
 
-	if (WIN32)
+	if(WIN32)
 		# copy SDL2.dll and other dll's to bin
 		add_custom_command(
 			TARGET ${PROJECTNAME} POST_BUILD
@@ -81,17 +81,16 @@ endfunction(mygui_app)
 
 function(mygui_demo PROJECTNAME)
 	mygui_app(${PROJECTNAME} Demos)
-	if (MYGUI_INSTALL_DEMOS)
+	if(MYGUI_INSTALL_DEMOS)
 		mygui_install_app(${PROJECTNAME})
-	endif ()
+	endif()
 endfunction(mygui_demo)
-
 
 function(mygui_tool PROJECTNAME)
 	mygui_app(${PROJECTNAME} Tools)
-	if (MYGUI_INSTALL_TOOLS)
+	if(MYGUI_INSTALL_TOOLS)
 		mygui_install_app(${PROJECTNAME})
-	endif ()
+	endif()
 
 	target_include_directories(${PROJECTNAME} PRIVATE "${MYGUI_SOURCE_DIR}/Tools/EditorFramework")
 	mygui_target_precompile_headers(${PROJECTNAME} "../../Common/Precompiled.h")
@@ -99,20 +98,18 @@ function(mygui_tool PROJECTNAME)
 	target_link_libraries(${PROJECTNAME} PRIVATE EditorFramework)
 endfunction(mygui_tool)
 
-
 function(mygui_unit_test PROJECTNAME)
 	mygui_app(${PROJECTNAME} UnitTest)
 
 	# Register the unit test with CTest when unit tests are enabled
 	# This allows running tests via 'ctest' or 'make check'
-	if (MYGUI_BUILD_UNITTESTS)
+	if(MYGUI_BUILD_UNITTESTS)
 		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
 		# Set working directory to binary directory so tests can find resources
 		set_tests_properties(${PROJECTNAME} PROPERTIES
 			WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	endif()
 endfunction(mygui_unit_test)
-
 
 function(mygui_tool_dll PROJECTNAME)
 	include(${PROJECTNAME}.list)
@@ -142,13 +139,12 @@ function(mygui_tool_dll PROJECTNAME)
 	mygui_target_precompile_headers(${PROJECTNAME} "../../Common/Precompiled.h")
 endfunction(mygui_tool_dll)
 
-
 function(mygui_install_app PROJECTNAME)
-	if (MYGUI_INSTALL_PDB)
+	if(MYGUI_INSTALL_PDB)
 		install(FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb"
 			DESTINATION "${CMAKE_INSTALL_BINDIR}"
 		)
-	endif ()
+	endif()
 
 	install(
 		TARGETS ${PROJECTNAME}
@@ -159,11 +155,10 @@ function(mygui_install_app PROJECTNAME)
 	)
 endfunction(mygui_install_app)
 
-
 # setup library build
 function(mygui_config_lib PROJECTNAME)
 	mygui_config_common(${PROJECTNAME})
-	if (NOT BUILD_SHARED_LIBS)
+	if(NOT BUILD_SHARED_LIBS)
 		# add static prefix, if compiling static version
 		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
 	else()
@@ -171,42 +166,40 @@ function(mygui_config_lib PROJECTNAME)
 
 		# set install RPATH for shared libraries so they can find dependencies
 		# in the same directory (e.g. pugixml from FetchContent)
-		if (UNIX)
+		if(UNIX)
 			set_property(TARGET ${PROJECTNAME} APPEND PROPERTY
 				INSTALL_RPATH "$ORIGIN")
 			set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
-		endif ()
+		endif()
 	endif()
 
-	if (MYGUI_INSTALL_PDB)
+	if(MYGUI_INSTALL_PDB)
 		install(FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECTNAME}.pdb"
 			DESTINATION "${CMAKE_INSTALL_BINDIR}"
 		)
-	endif ()
+	endif()
 endfunction(mygui_config_lib)
-
 
 # setup demo build
 function(mygui_config_sample PROJECTNAME)
 	mygui_config_common(${PROJECTNAME})
 
 	# set install RPATH for Unix systems
-	if (UNIX)
+	if(UNIX)
 		set_property(TARGET ${PROJECTNAME} APPEND PROPERTY
 			INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
 		set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
-	endif ()
+	endif()
 endfunction(mygui_config_sample)
 
-
 function(mygui_target_precompile_headers PROJECTNAME HEADER)
-	if (NOT MYGUI_CLANG_TIDY_BUILD)
+	if(NOT MYGUI_CLANG_TIDY_BUILD)
 		target_precompile_headers(${PROJECTNAME} PRIVATE "${HEADER}")
-	else ()
+	else()
 		if(IS_ABSOLUTE "${HEADER}")
 			target_compile_options(${PROJECTNAME} PRIVATE -include "${HEADER}")
 		else()
 			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/${HEADER}")
 		endif()
-	endif ()
+	endif()
 endfunction()

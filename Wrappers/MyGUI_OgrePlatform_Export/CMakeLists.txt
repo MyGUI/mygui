@@ -1,6 +1,5 @@
 #only for ogre
 if(MYGUI_RENDERSYSTEM EQUAL 3)
-
 	function(mygui_orge_platform_export PROJECTNAME SOLUTIONFOLDER)
 		# define the sources
 		include(${PROJECTNAME}.list)
@@ -13,5 +12,4 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 	endfunction(mygui_orge_platform_export)
 
 	mygui_orge_platform_export(MyGUI_OgrePlatform_Export Wrappers)
-
 endif()
