@@ -34,12 +34,8 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-		#pragma warning(push)
-		#pragma warning(disable : 4996)
-	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-	_Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
-	#endif
+	MYGUI_SUPPRESS_MSVC(4996)
+	MYGUI_SUPPRESS_GCC("-Wdeprecated-declarations")
 
 	template<>
 	class MYGUI_EXPORT MemberObsolete<xml::Document>
@@ -665,11 +661,8 @@ namespace MyGUI
 		EnumeratorGroupImage getEnumerator() const;
 	};
 
-	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-		#pragma warning(pop)
-	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-	_Pragma("GCC diagnostic pop")
-	#endif
+	MYGUI_UNSUPPRESS_GCC()
+	MYGUI_UNSUPPRESS_MSVC()
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

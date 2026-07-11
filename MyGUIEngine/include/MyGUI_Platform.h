@@ -86,4 +86,20 @@
 	#define MYGUI_DEBUG_MODE 0
 #endif
 
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+	#define MYGUI_SUPPRESS_MSVC(msvcWarnings) __pragma(warning(push)) __pragma(warning(msvcWarnings))
+	#define MYGUI_UNSUPPRESS_MSVC() __pragma(warning(pop))
+	#define MYGUI_SUPPRESS_GCC(clangWarnings)
+	#define MYGUI_UNSUPPRESS_GCC(clangWarnings)
+#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+	#define DO_PRAGMA_(x) _Pragma(#x)
+	#define DO_PRAGMA(x) DO_PRAGMA_(x)
+
+	#define MYGUI_SUPPRESS_GCC(clangWarnings) \
+		_Pragma("GCC diagnostic push") DO_PRAGMA(GCC diagnostic ignored clangWarnings)
+	#define MYGUI_UNSUPPRESS_GCC() _Pragma("GCC diagnostic pop")
+	#define MYGUI_SUPPRESS_MSVC(msvcWarnings)
+	#define MYGUI_UNSUPPRESS_MSVC()
+#endif
+
 #endif // MYGUI_PLATFORM_H_

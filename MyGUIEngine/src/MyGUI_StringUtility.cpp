@@ -10,10 +10,7 @@
 namespace MyGUI::utility
 {
 
-#if defined(__clang__)
-	#pragma clang diagnostic push
-	#pragma clang diagnostic ignored "-Wlifetime-safety-invalidation"
-#endif
+	MYGUI_SUPPRESS_GCC("-Wlifetime-safety-invalidation")
 	void trim(std::string& _str, bool _left, bool _right)
 	{
 		if (_right)
@@ -21,9 +18,7 @@ namespace MyGUI::utility
 		if (_left)
 			_str.erase(0, _str.find_first_not_of(" \t\r"));
 	}
-#if defined(__clang__)
-	#pragma clang diagnostic pop
-#endif
+	MYGUI_UNSUPPRESS_GCC()
 
 	const std::string& toString(const std::string& _value)
 	{
