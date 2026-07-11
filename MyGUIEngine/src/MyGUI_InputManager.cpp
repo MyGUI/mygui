@@ -22,8 +22,8 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(InputManager);
 
 	InputManager::InputManager() :
-		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK),
-		mSingletonHolder(this)
+		mSingletonHolder(this),
+		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK)
 	{
 		resetMouseCaptureWidget();
 	}

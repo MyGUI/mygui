@@ -19,7 +19,6 @@ if(
 			)
 			# might be useful
 			add_compile_options(
-				-Wno-reorder
 				-Wno-nrvo
 			)
 			# not useful

@@ -21,9 +21,9 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(ResourceManager);
 
 	ResourceManager::ResourceManager() :
+		mSingletonHolder(this),
 		mCategoryName("Resource"),
-		mXmlListTagName("List"),
-		mSingletonHolder(this)
+		mXmlListTagName("List")
 	{
 	}
 

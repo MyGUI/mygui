@@ -13,8 +13,8 @@ namespace tools
 	MYGUI_SINGLETON_DEFINITION(WidgetSelectorManager);
 
 	WidgetSelectorManager::WidgetSelectorManager() :
-		mStoreWidgetTag("LE_StoreWidgetTag"),
-		mSingletonHolder(this)
+		mSingletonHolder(this),
+		mStoreWidgetTag("LE_StoreWidgetTag")
 	{
 	}
 	void WidgetSelectorManager::initialise()

@@ -23,9 +23,9 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(SubWidgetManager);
 
 	SubWidgetManager::SubWidgetManager() :
+		mSingletonHolder(this),
 		mCategoryName("BasisSkin"),
-		mStateCategoryName("BasisSkin/State"),
-		mSingletonHolder(this)
+		mStateCategoryName("BasisSkin/State")
 	{
 	}
 

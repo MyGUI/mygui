@@ -20,10 +20,10 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(FontManager);
 
 	FontManager::FontManager() :
+		mSingletonHolder(this),
 		mXmlFontTagName("Font"),
 		mXmlPropertyTagName("Property"),
-		mXmlDefaultFontValue("Default"),
-		mSingletonHolder(this)
+		mXmlDefaultFontValue("Default")
 	{
 	}
 

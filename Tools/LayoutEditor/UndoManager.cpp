@@ -10,8 +10,8 @@ namespace tools
 	const int UNDO_COUNT = 64;
 
 	UndoManager::UndoManager() :
-		mOperations(UNDO_COUNT),
-		mSingletonHolder(this)
+		mSingletonHolder(this),
+		mOperations(UNDO_COUNT)
 	{
 		CommandManager::getInstance().getEvent("Command_Undo")->connect(this, &UndoManager::commandUndo);
 		CommandManager::getInstance().getEvent("Command_Redo")->connect(this, &UndoManager::commandRedo);

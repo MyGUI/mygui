@@ -23,9 +23,9 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(SkinManager);
 
 	SkinManager::SkinManager() :
+		mSingletonHolder(this),
 		mXmlSkinTagName("Skin"),
-		mXmlDefaultSkinValue("Default"),
-		mSingletonHolder(this)
+		mXmlDefaultSkinValue("Default")
 	{
 	}
 

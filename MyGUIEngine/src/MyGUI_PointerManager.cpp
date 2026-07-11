@@ -27,10 +27,10 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(PointerManager);
 
 	PointerManager::PointerManager() :
+		mSingletonHolder(this),
 		mXmlPointerTagName("Pointer"),
 		mXmlPropertyTagName("Property"),
-		mXmlDefaultPointerValue("Default"),
-		mSingletonHolder(this)
+		mXmlDefaultPointerValue("Default")
 	{
 	}
 

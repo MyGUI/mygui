@@ -18,8 +18,8 @@ namespace MyGUI
 	MYGUI_SINGLETON_DEFINITION(LayoutManager);
 
 	LayoutManager::LayoutManager() :
-		mXmlLayoutTagName("Layout"),
-		mSingletonHolder(this)
+		mSingletonHolder(this),
+		mXmlLayoutTagName("Layout")
 	{
 	}
 
