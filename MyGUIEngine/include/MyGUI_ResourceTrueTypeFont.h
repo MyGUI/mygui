@@ -58,6 +58,8 @@ namespace MyGUI
 		// update texture after render device lost event
 		void textureInvalidate(ITexture* _texture) override;
 
+		float getKerning(Char _left, Char _right) const override;
+
 		// Returns a collection of code-point ranges that are supported by this font. Each range is specified as [first, second];
 		// for example, a range containing a single code point will have the same value for both first and second.
 		std::vector<std::pair<Char, Char>> getCodePointRanges() const;
@@ -148,19 +150,6 @@ namespace MyGUI
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
 		using GlyphHeightMap = std::map<int, std::map<FT_UInt, GlyphInfo*>>;
 
-		struct PairHash
-		{
-			size_t operator()(const std::pair<Char, Char>& p) const noexcept
-			{
-				// 32-bit fallback
-				if constexpr (sizeof(size_t) == 4)
-					return p.first ^ (p.second + 0x9e3779b9u + (p.first << 6) + (p.first >> 2));
-				return (static_cast<uint64_t>(p.first) << 32) | p.second;
-			}
-		};
-		// A map of kerning pairs (left code point, right code point) to kerning values in pixels.
-		using KerningMap = std::unordered_map<std::pair<Char, Char>, float, PairHash>;
-
 		template<bool LAMode, bool Antialias>
 		void initialiseFreeType();
 
@@ -170,8 +159,6 @@ namespace MyGUI
 		// Keeps the font file loaded in memory and stores its location in _fontBuffer. The caller is responsible for freeing this
 		// buffer when it is done using the face by calling delete[] on the buffer after calling FT_Done_Face() on the face itself.
 		FT_Face loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer);
-
-		float getKerning(Char _left, Char _right) const override;
 
 		// Loads kerning pairs from the font face.
 		void loadKerning(const FT_Face& _ftFace);

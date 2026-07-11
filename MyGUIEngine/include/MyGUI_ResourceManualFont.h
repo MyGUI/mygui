@@ -11,8 +11,6 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IFont.h"
 
-#include <unordered_map>
-
 namespace MyGUI
 {
 
@@ -32,6 +30,8 @@ namespace MyGUI
 		// Default height from font settings
 		int getDefaultHeight() const override;
 
+		float getKerning(Char _left, Char _right) const override;
+
 		// Manual loading methods, not needed when loading from XML
 		// Set the source texture by name
 		void setSource(std::string_view value);
@@ -44,6 +44,8 @@ namespace MyGUI
 		void setDefaultHeight(int value);
 		// Add a glyph for character 'id'
 		void addGlyphInfo(Char id, const GlyphInfo& info);
+		// Add a kerning pair
+		void addKerningInfo(Char _left, Char _right, float _value);
 
 	private:
 		// Loads the texture specified by mSource.
@@ -63,6 +65,8 @@ namespace MyGUI
 		MyGUI::ITexture* mTexture{nullptr}; // The texture that contains all of the rendered glyphs in the font.
 
 		CharMap mCharMap; // A map of code points to glyph info objects.
+
+		KerningMap mKerningMap;
 	};
 
 } // namespace MyGUI

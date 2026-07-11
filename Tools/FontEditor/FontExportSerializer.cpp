@@ -254,6 +254,20 @@ namespace tools
 
 		if (info->advance != info->width)
 			codeNode->addAttribute("advance", info->advance);
+
+		for (const auto& range : _font->getCodePointRanges())
+		{
+			for (MyGUI::Char right = range.first; right <= range.second && right >= range.first; ++right)
+			{
+				float kerning = _font->getKerning(_code, right);
+				if (kerning != 0.0f)
+				{
+					MyGUI::xml::ElementPtr kerningNode = codeNode->createChild("Kerning");
+					kerningNode->addAttribute("right", right);
+					kerningNode->addAttribute("offset", kerning);
+				}
+			}
+		}
 	}
 
 	void FontExportSerializer::generateFontManualXml(

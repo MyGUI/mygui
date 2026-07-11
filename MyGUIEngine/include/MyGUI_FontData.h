@@ -10,6 +10,9 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 
+#include <unordered_map>
+#include <utility>
+
 namespace MyGUI
 {
 
@@ -66,6 +69,19 @@ namespace MyGUI
 	};
 
 	using VectorGlyphInfo = std::vector<GlyphInfo>;
+
+	struct KerningPairHash
+	{
+		size_t operator()(const std::pair<Char, Char>& p) const noexcept
+		{
+			// 32-bit fallback
+			if constexpr (sizeof(size_t) == 4)
+				return p.first ^ (p.second + 0x9e3779b9u + (p.first << 6) + (p.first >> 2));
+			return (static_cast<uint64_t>(p.first) << 32) | p.second;
+		}
+	};
+	// A map of kerning pairs (left code point, right code point) to kerning values in pixels.
+	using KerningMap = std::unordered_map<std::pair<Char, Char>, float, KerningPairHash>;
 
 } // namespace MyGUI
 

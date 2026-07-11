@@ -137,6 +137,13 @@ namespace MyGUI
 
 							if (id == FontCodeType::NotDefined)
 								mSubstituteGlyphInfo = &mCharMap.at(FontCodeType::NotDefined);
+
+							for (auto kerningNode : element.children("Kerning"))
+							{
+								Char right = utility::parseUInt(kerningNode.attribute("right").value());
+								float offset = utility::parseFloat(kerningNode.attribute("offset").value());
+								addKerningInfo(id, right, offset);
+							}
 						}
 					}
 				}
@@ -185,6 +192,19 @@ namespace MyGUI
 
 		if (id == FontCodeType::NotDefined)
 			mSubstituteGlyphInfo = &inserted;
+	}
+
+	float ResourceManualFont::getKerning(Char _left, Char _right) const
+	{
+		auto iter = mKerningMap.find(std::make_pair(_left, _right));
+		if (iter != mKerningMap.end())
+			return iter->second;
+		return 0.0f;
+	}
+
+	void ResourceManualFont::addKerningInfo(Char _left, Char _right, float _value)
+	{
+		mKerningMap[std::make_pair(_left, _right)] = _value;
 	}
 
 } // namespace MyGUI

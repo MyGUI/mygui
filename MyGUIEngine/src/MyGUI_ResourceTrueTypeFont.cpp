@@ -893,8 +893,6 @@ namespace MyGUI
 
 	float ResourceTrueTypeFont::getKerning(Char _left, Char _right) const
 	{
-		if (!mKerningEnabled)
-			return 0.0f;
 		KerningMap::const_iterator iter = mKerningMap.find(std::make_pair(_left, _right));
 		if (iter != mKerningMap.end())
 			return iter->second;
