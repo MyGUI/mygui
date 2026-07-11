@@ -10,7 +10,7 @@
 namespace MyGUI::utility
 {
 
-	MYGUI_SUPPRESS_GCC("-Wlifetime-safety-invalidation")
+	MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-invalidation")
 	void trim(std::string& _str, bool _left, bool _right)
 	{
 		if (_right)
@@ -18,7 +18,7 @@ namespace MyGUI::utility
 		if (_left)
 			_str.erase(0, _str.find_first_not_of(" \t\r"));
 	}
-	MYGUI_UNSUPPRESS_GCC()
+	MYGUI_UNSUPPRESS_CLANG()
 
 	const std::string& toString(const std::string& _value)
 	{

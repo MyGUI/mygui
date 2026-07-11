@@ -15,6 +15,7 @@
 // Definition of compilers
 #define MYGUI_COMPILER_MSVC 1
 #define MYGUI_COMPILER_GNUC 2
+#define MYGUI_COMPILER_CLANG 3
 
 
 // Find platform
@@ -29,6 +30,8 @@
 // Find compiler
 #if defined(_MSC_VER)
 	#define MYGUI_COMPILER MYGUI_COMPILER_MSVC
+#elif defined(__clang__)
+	#define MYGUI_COMPILER MYGUI_COMPILER_CLANG
 #elif defined(__GNUC__)
 	#define MYGUI_COMPILER MYGUI_COMPILER_GNUC
 #else
@@ -87,19 +90,42 @@
 #endif
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	#define MYGUI_SUPPRESS_MSVC(msvcWarnings) __pragma(warning(push)) __pragma(warning(msvcWarnings))
+	#define MYGUI_SUPPRESS_MSVC(disabledWarning) __pragma(warning(push)) __pragma(warning(disable : disabledWarning))
 	#define MYGUI_UNSUPPRESS_MSVC() __pragma(warning(pop))
-	#define MYGUI_SUPPRESS_GCC(clangWarnings)
-	#define MYGUI_UNSUPPRESS_GCC(clangWarnings)
+	#define MYGUI_SUPPRESS_GCC(disabledWarning)
+	#define MYGUI_UNSUPPRESS_GCC()
+	#define MYGUI_SUPPRESS_CLANG(disabledWarning)
+	#define MYGUI_UNSUPPRESS_CLANG()
 #elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-	#define DO_PRAGMA_(x) _Pragma(#x)
-	#define DO_PRAGMA(x) DO_PRAGMA_(x)
+	#define MYGUI_DO_PRAGMA_(x) _Pragma(#x)
+	#define MYGUI_DO_PRAGMA(x) MYGUI_DO_PRAGMA_(x)
 
-	#define MYGUI_SUPPRESS_GCC(clangWarnings) \
-		_Pragma("GCC diagnostic push") DO_PRAGMA(GCC diagnostic ignored clangWarnings)
-	#define MYGUI_UNSUPPRESS_GCC() _Pragma("GCC diagnostic pop")
-	#define MYGUI_SUPPRESS_MSVC(msvcWarnings)
+	#define MYGUI_SUPPRESS_MSVC(disabledWarning)
 	#define MYGUI_UNSUPPRESS_MSVC()
+	#define MYGUI_SUPPRESS_GCC(disabledWarning) \
+		MYGUI_DO_PRAGMA(GCC diagnostic push) \
+		MYGUI_DO_PRAGMA(GCC diagnostic ignored disabledWarning)
+	#define MYGUI_UNSUPPRESS_GCC() MYGUI_DO_PRAGMA(GCC diagnostic pop)
+	#define MYGUI_SUPPRESS_CLANG(disabledWarning)
+	#define MYGUI_UNSUPPRESS_CLANG()
+#elif MYGUI_COMPILER == MYGUI_COMPILER_CLANG
+	#define MYGUI_DO_PRAGMA_(x) _Pragma(#x)
+	#define MYGUI_DO_PRAGMA(x) MYGUI_DO_PRAGMA_(x)
+
+	#define MYGUI_SUPPRESS_MSVC(disabledWarning)
+	#define MYGUI_UNSUPPRESS_MSVC()
+	#define MYGUI_SUPPRESS_CLANG(disabledWarning) \
+		MYGUI_DO_PRAGMA(clang diagnostic push) \
+		MYGUI_DO_PRAGMA(clang diagnostic ignored disabledWarning)
+	#define MYGUI_UNSUPPRESS_CLANG() MYGUI_DO_PRAGMA(GCC diagnostic pop)
+	// gcc warnings are valid for clang, but not vice versa
+	#define MYGUI_SUPPRESS_GCC(disabledWarning) MYGUI_SUPPRESS_CLANG(disabledWarning)
+	#define MYGUI_UNSUPPRESS_GCC() MYGUI_UNSUPPRESS_CLANG()
+#else
+	#define MYGUI_SUPPRESS_MSVC(disabledWarning)
+	#define MYGUI_UNSUPPRESS_MSVC()
+	#define MYGUI_SUPPRESS_GCC(disabledWarning)
+	#define MYGUI_UNSUPPRESS_GCC()
 #endif
 
 #endif // MYGUI_PLATFORM_H_

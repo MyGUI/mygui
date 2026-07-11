@@ -515,9 +515,9 @@ namespace MyGUI
 		result.left *= width;
 		result.top *= width;
 
-		MYGUI_SUPPRESS_GCC("-Wnrvo")
+		MYGUI_SUPPRESS_CLANG("-Wnrvo")
 		return result;
-		MYGUI_UNSUPPRESS_GCC()
+		MYGUI_UNSUPPRESS_CLANG()
 	}
 
 } // namespace MyGUI
