@@ -13,7 +13,8 @@
 
 ### Core
 - Replace the custom XML parser with pugixml
-- Modernize and refactor source code: simplify duplicated code paths, some old APIs were marked as deprecated
+- Modernize and refactor source code: simplify duplicated code paths, enable and fix new warnings, some old APIs were
+  marked as deprecated
 - Store ImageIndexInfo properly and fix UB caused by a reference to a temporary variable
 - Fix link error with hidden visibility across shared library boundary on macOS ARM64
 - Add std::vector and std::map getters for children and other collections, and deprecate the Enumerator class and related code
