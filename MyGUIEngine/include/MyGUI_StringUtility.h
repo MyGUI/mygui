@@ -47,22 +47,18 @@ namespace MyGUI::utility
 
 
 	template<typename T>
-	inline T parseValue(std::string_view _value)
+	T parseValue(std::string_view value)
 	{
-		std::stringstream stream(std::string{_value});
-		T result;
-		stream >> result;
-		if (stream.fail())
-			return {};
+		std::stringstream stream(std::string{value});
 
-		// check if there is more data, return {} in this case
-		int item = stream.get();
-		while (item != -1)
+		T result{};
+		if (stream >> result)
 		{
-			if (item != ' ' && item != '\t')
-				return {};
-			item = stream.get();
+			stream >> std::ws;
+			if (!stream.eof())
+				result = T{};
 		}
+
 		return result;
 	}
 

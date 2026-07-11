@@ -514,7 +514,10 @@ namespace MyGUI
 		float width = mLineWidth / 2 / std::sin(angle);
 		result.left *= width;
 		result.top *= width;
+
+		MYGUI_SUPPRESS_GCC("-Wnrvo")
 		return result;
+		MYGUI_UNSUPPRESS_GCC()
 	}
 
 } // namespace MyGUI

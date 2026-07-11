@@ -38,7 +38,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND MYGUI_HIGH_LEVEL_WARNINGS)
 	target_compile_options(${PROJECTNAME}
 		# not useful for demos and tools
 		PUBLIC
-			-Wno-unique-object-duplication)
+			-Wno-nrvo
+			-Wno-unique-object-duplication
+	)
 endif()
 
 if(MYGUI_RENDERSYSTEM EQUAL 3)

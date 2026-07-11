@@ -17,10 +17,6 @@ if(
 			add_compile_options(
 				-Weverything
 			)
-			# might be useful
-			add_compile_options(
-				-Wno-nrvo
-			)
 			# not useful
 			add_compile_options(
 				-Wno-unsafe-buffer-usage
