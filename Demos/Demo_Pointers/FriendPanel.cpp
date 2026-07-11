@@ -19,7 +19,7 @@ namespace demo
 		mMainWidget->setPosition(offset - (mMainWidget->getWidth() / 2), (size.height - mMainWidget->getHeight()) / 2);
 	}
 
-	bool FriendPanel::isIntersect(int _x, int _y)
+	bool FriendPanel::isIntersect(int _x, int _y) const
 	{
 		return mMainWidget->getAbsoluteRect().inside(MyGUI::IntPoint(_x, _y));
 	}

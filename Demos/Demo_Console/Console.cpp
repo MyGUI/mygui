@@ -205,7 +205,7 @@ namespace demo
 		return mStringFormat;
 	}
 
-	bool Console::getVisible()
+	bool Console::getVisible() const
 	{
 		return mMainWidget->getVisible();
 	}

@@ -1,31 +1,38 @@
-noExplicitConstructor
-useStlAlgorithm
-unusedFunction
-shadowFunction
-cstyleCast
 constParameterPointer
-constParameterReference
-constParameterCallback
+cstyleCast
+noExplicitConstructor
+missingIncludeExplicit
 missingIncludeSystem
-constVariablePointer
-normalCheckLevelMaxBranches
-// buggy with range-based for
-constVariableReference
+useStlAlgorithm
 
 // false positive:
-nullPointer:*/MyGUI_Widget.cpp:197
-knownConditionTrueFalse:*/MyGUI_InputManager.cpp
-nullPointerRedundantCheck:*/MyGUI_InputManager.cpp
-uninitStructMember:*/Mirror_MultiList.h
+functionConst:*/MyGUI_LogStream.h:25
+functionConst:*/MyGUI_Delegate.h:220
 
 // thirdparty
 *:*/MyGUI_UString*
 *:*/pugixml*
 *:*/sigslot*
+*:*/msdfgen*
 
 // TODO: minor
-useInitializationList
+functionStatic
+duplInheritedMember
+
+// non-MyGUIEngine warnings
+// TODO: run on MyGUIEngine without the list below
+//normalCheckLevelMaxBranches
+missingInclude
+throwInEntryPoint
+// TODO: good checks that should be fixed, eventually
 noCopyConstructor
 noOperatorEq
-uninitMemberVar
-duplInheritedMember
+uninitMemberVarNoCtor
+// mostly false positives
+constParameterCallback
+
+// make code slightly harder to read
+constVariablePointer:Demos/*
+constVariablePointer:UnitTests/*
+// false positive
+uninitStructMember:*/UnitTest_MultiList/*

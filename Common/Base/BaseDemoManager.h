@@ -89,7 +89,7 @@ namespace base
 					time -= 1;
 
 					MyGUI::MapString statistic = getStatistic();
-					for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info++)
+					for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); ++info)
 						mInfo->change((*info).first, (*info).second);
 					mInfo->update();
 				}

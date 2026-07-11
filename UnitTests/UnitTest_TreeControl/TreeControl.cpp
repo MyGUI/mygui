@@ -163,13 +163,6 @@ namespace MyGUI
 		Widget::onMouseWheel(nValue);
 	}
 
-	void TreeControl::onKeyButtonPressed(KeyCode Key, Char Character)
-	{
-		// TODO
-
-		Widget::onKeyButtonPressed(Key, Character);
-	}
-
 	void TreeControl::setSize(const IntSize& Size)
 	{
 		Widget::setSize(Size);

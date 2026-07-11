@@ -44,11 +44,11 @@ namespace demo
 		}
 
 	public:
-		const std::string& getDeviceName()
+		const std::string& getDeviceName() const
 		{
 			return mDeviceName;
 		}
-		const std::string& getDeviceDescription()
+		const std::string& getDeviceDescription() const
 		{
 			return mDeviceDescription;
 		}

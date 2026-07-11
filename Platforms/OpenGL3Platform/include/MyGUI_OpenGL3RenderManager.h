@@ -84,10 +84,10 @@ namespace MyGUI
 		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		unsigned int mDefaultProgramId;
+		unsigned int mDefaultProgramId{0};
 		std::map<std::string, unsigned int> mRegisteredShaders;
-		unsigned int mReferenceCount; // for nested rendering
-		int mYScaleUniformLocation;
+		unsigned int mReferenceCount{0}; // for nested rendering
+		int mYScaleUniformLocation{-1};
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;

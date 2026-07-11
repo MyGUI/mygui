@@ -48,7 +48,7 @@ namespace wraps
 		}
 
 		//! Get number of items
-		size_t getItemCount()
+		size_t getItemCount() const
 		{
 			return mItems.size();
 		}
@@ -136,9 +136,9 @@ namespace wraps
 		{
 			// compute maximum height of all items
 			int height = 0;
-			for (const auto& item : mItems)
+			for (const auto* item : mItems)
 			{
-				MyGUI::Widget* widget = item->getPanelCell()->getMainWidget();
+				const auto* widget = item->getPanelCell()->getMainWidget();
 				if (widget->getVisible())
 				{
 					height += widget->getHeight();

@@ -88,7 +88,6 @@ namespace MyGUI
 		void notifyFrameEntered(float nTime);
 
 		void onMouseWheel(int nValue) override;
-		void onKeyButtonPressed(KeyCode Key, Char Character) override;
 
 	private:
 		using VectorTreeItemPtr = std::vector<TreeControlItem*>;

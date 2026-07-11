@@ -116,7 +116,7 @@ namespace unittest
 			if (count_items == 0)
 				return;
 
-			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t index = (size_t)rand() % count_items;
 
 			mirror_list->removeItemAt(index);
 			original_list->removeItemAt(index);
@@ -158,7 +158,7 @@ namespace unittest
 				AddItem(count);
 			else if (index == 2)
 				RemoveItem(count);
-			else if (index == 3)
+			else // if (index == 3)
 				Begin(count);
 		}
 	};

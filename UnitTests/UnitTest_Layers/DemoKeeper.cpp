@@ -140,9 +140,6 @@ namespace demo
 			int rel_x = _absx - mSaveCursorX;
 			int rel_y = _absy - mSaveCursorY;
 
-			_absx = mSaveCursorX;
-			_absy = mSaveCursorY;
-
 			setMousePosition(mSaveCursorX, mSaveCursorY);
 
 			// rotate scene

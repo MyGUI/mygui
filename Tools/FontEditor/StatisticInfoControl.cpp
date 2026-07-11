@@ -55,7 +55,7 @@ namespace tools
 			std::string value;
 
 			MyGUI::MapString statistic = Application::getInstance().getStatistic();
-			for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info++)
+			for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); ++info)
 			{
 				if (!value.empty())
 					value += "\n";

@@ -30,7 +30,7 @@ namespace wraps
 
 		bool isAnyConnection() const
 		{
-			for (auto& point : getConnectionEnumerator())
+			for (const auto* point : getConnectionEnumerator())
 			{
 				if (point->isAnyConnection())
 					return true;
@@ -40,7 +40,7 @@ namespace wraps
 
 		BaseGraphConnection* getConnectionByName(std::string_view _name, std::string_view _type = {})
 		{
-			for (auto& point : getConnectionEnumerator())
+			for (const auto& point : getConnectionEnumerator())
 			{
 				if (point->getName() == _name && (_type.empty() || point->getType() == _type))
 				{
@@ -50,7 +50,7 @@ namespace wraps
 			return nullptr;
 		}
 
-		const MyGUI::IntCoord& getCoord()
+		const MyGUI::IntCoord& getCoord() const
 		{
 			return mMainWidget->getCoord();
 		}
@@ -61,7 +61,7 @@ namespace wraps
 			mView->changePosition(this);
 		}
 
-		MyGUI::IntPoint getPosition()
+		MyGUI::IntPoint getPosition() const
 		{
 			return mMainWidget->getPosition();
 		}
@@ -72,7 +72,7 @@ namespace wraps
 			mView->changePosition(this);
 		}
 
-		const MyGUI::IntPoint& getAbsolutePosition()
+		const MyGUI::IntPoint& getAbsolutePosition() const
 		{
 			return mMainWidget->getAbsolutePosition();
 		}

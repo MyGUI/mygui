@@ -26,17 +26,17 @@ namespace demo
 		}
 	}
 
-	const std::string& ResourceItemInfo::getItemName()
+	const std::string& ResourceItemInfo::getItemName() const
 	{
 		return mItemName;
 	}
 
-	const std::string& ResourceItemInfo::getItemDescription()
+	const std::string& ResourceItemInfo::getItemDescription() const
 	{
 		return mItemDescription;
 	}
 
-	const std::string& ResourceItemInfo::getItemResourceImage()
+	const std::string& ResourceItemInfo::getItemResourceImage() const
 	{
 		return mItemResourceImage;
 	}

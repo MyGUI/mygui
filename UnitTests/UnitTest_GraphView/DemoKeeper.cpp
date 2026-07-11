@@ -357,19 +357,19 @@ namespace demo
 		}
 
 		// save connections
-		for (auto& node : mGraphView->getNodeEnumerator())
+		for (const auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
+			const BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node && anim_node->isAnyConnection())
 			{
 				MyGUI::xml::ElementPtr connection = root->createChild("Connections");
 				connection->addAttribute("node", anim_node->getName());
 
-				for (auto& node_conn : anim_node->getConnectionEnumerator())
+				for (const auto* node_conn : anim_node->getConnectionEnumerator())
 				{
-					for (auto& conn : node_conn->getConnectionEnumerator())
+					for (const auto* conn : node_conn->getConnectionEnumerator())
 					{
-						BaseAnimationNode* anim_node2 = dynamic_cast<BaseAnimationNode*>(conn->getOwnerNode());
+						const BaseAnimationNode* anim_node2 = dynamic_cast<BaseAnimationNode*>(conn->getOwnerNode());
 						if (anim_node2)
 						{
 							MyGUI::xml::ElementPtr item = connection->createChild("Connection");
@@ -384,9 +384,9 @@ namespace demo
 
 		// save editor data
 		MyGUI::xml::ElementPtr data = root->createChild("EditorData");
-		for (auto& node : mGraphView->getNodeEnumerator())
+		for (const auto& node : mGraphView->getNodeEnumerator())
 		{
-			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
+			const BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node);
 			if (anim_node)
 			{
 				MyGUI::xml::ElementPtr item_data = data->createChild("Node");

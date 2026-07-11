@@ -18,7 +18,7 @@ namespace tools
 
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
-		void setCurrentFolder(const MyGUI::UString& _value);
+		void setCurrentFolder(const MyGUI::UString& _folder);
 		const MyGUI::UString& getCurrentFolder() const;
 
 		void setFileName(const MyGUI::UString& _value);
@@ -35,7 +35,6 @@ namespace tools
 
 	protected:
 		void onDoModal() override;
-		void onEndModal() override;
 
 	private:
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);

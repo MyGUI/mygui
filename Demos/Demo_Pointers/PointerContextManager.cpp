@@ -10,9 +10,9 @@ namespace demo
 {
 
 	PointerContextManager::PointerContextManager(IPointerSetter* _setter) :
+		mCurrentGuiPointer(MyGUI::PointerManager::getInstance().getDefaultPointer()),
 		mPointerSetter(_setter)
 	{
-		mCurrentGuiPointer = MyGUI::PointerManager::getInstance().getDefaultPointer();
 		MyGUI::PointerManager::getInstance().eventChangeMousePointer +=
 			MyGUI::newDelegate(this, &PointerContextManager::notifyChangeMousePointer);
 	}
@@ -33,7 +33,7 @@ namespace demo
 	void PointerContextManager::addContext(std::string_view _name)
 	{
 		bool found = false;
-		for (const auto& context : mContexts)
+		for (const auto* context : mContexts)
 		{
 			if (_name == context->getResourceName())
 			{

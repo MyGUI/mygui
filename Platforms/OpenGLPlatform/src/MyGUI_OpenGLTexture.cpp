@@ -23,7 +23,7 @@ namespace MyGUI
 
 	OpenGLTexture::~OpenGLTexture()
 	{
-		destroy();
+		OpenGLTexture::destroy();
 	}
 
 	const std::string& OpenGLTexture::getName() const

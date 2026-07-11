@@ -76,7 +76,7 @@ namespace wraps
 			mMainWidget->setVisible(_visible);
 		}
 
-		bool getVisible()
+		bool getVisible() const
 		{
 			return mMainWidget->getVisible();
 		}

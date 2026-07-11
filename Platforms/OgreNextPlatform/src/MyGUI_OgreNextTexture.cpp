@@ -44,7 +44,7 @@ namespace MyGUI
 
 	OgreNextTexture::~OgreNextTexture()
 	{
-		destroy();
+		OgreNextTexture::destroy();
 	}
 
 	const std::string& OgreNextTexture::getName() const

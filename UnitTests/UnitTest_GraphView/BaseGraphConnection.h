@@ -19,13 +19,12 @@ namespace wraps
 	{
 	public:
 		BaseGraphConnection(MyGUI::Widget* _widget) :
-			BaseLayout(std::string_view{}, _widget)
+			BaseLayout(std::string_view{}, _widget),
+			mType{mMainWidget->getUserString("Type")},
+			mName{mMainWidget->getUserString("Name")},
+			mOffset{MyGUI::IntSize::parse(mMainWidget->getUserString("Direction"))}
 		{
-			mType = mMainWidget->getUserString("Type");
-			mName = mMainWidget->getUserString("Name");
-
 			const int offset = 30;
-			mOffset = MyGUI::IntSize::parse(mMainWidget->getUserString("Direction"));
 			mOffset.width *= offset;
 			mOffset.height *= offset;
 		}

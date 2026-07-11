@@ -14,7 +14,7 @@ namespace demo
 	{
 	}
 
-	void EditorWindow::clearView()
+	void EditorWindow::clearView() const
 	{
 		MyGUI::WidgetManager::getInstance().destroyWidgets(mMainWidget->getChildWidgets());
 	}

@@ -20,10 +20,11 @@ namespace input
 	{
 		MYGUI_RTTI_DERIVED(ResourceSDLPointer)
 
-	public:
+	protected:
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
-		SDL_SystemCursor getPointerType()
+	public:
+		SDL_SystemCursor getPointerType() const
 		{
 			return mCursorType;
 		}

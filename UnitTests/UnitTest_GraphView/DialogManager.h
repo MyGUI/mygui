@@ -23,8 +23,8 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		bool getAnyDialog();
-		void endTopDialog(bool _result = false);
+		bool getAnyDialog() const;
+		void endTopDialog(bool _result = false) const;
 
 	public:
 		void _addDialog(Dialog* _modal);

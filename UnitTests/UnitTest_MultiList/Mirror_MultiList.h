@@ -93,8 +93,9 @@ namespace unittest
 		/** Delete all columns */
 		void removeAllColumns()
 		{
-			while (getColumnCount() > 0)
-				removeColumnAt(0);
+			for (const auto& column : mVectorColumnInfo)
+				delete column.list;
+			mVectorColumnInfo.clear();
 		}
 
 
@@ -112,7 +113,7 @@ namespace unittest
 		}
 
 		/** Get _column name */
-		const MyGUI::UString& getColumnNameAt(size_t _column)
+		const MyGUI::UString& getColumnNameAt(size_t _column) const
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getColumnNameAt");
 			return mVectorColumnInfo[_column].name;
@@ -285,7 +286,7 @@ namespace unittest
 		}
 
 		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
-		size_t findSubItemWith(size_t _column, const MyGUI::UString& _item)
+		size_t findSubItemWith(size_t _column, const MyGUI::UString& _item) const
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::findSubItemWith");
 			return mVectorColumnInfo[_column].list->findItemIndexWith(_item);

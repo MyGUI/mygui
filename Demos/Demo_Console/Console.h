@@ -92,7 +92,7 @@ namespace demo
 		const MyGUI::UString& getConsoleStringUnknow() const;
 		const MyGUI::UString& getConsoleStringFormat() const;
 
-		bool getVisible();
+		bool getVisible() const;
 		void setVisible(bool _visible);
 
 		template<typename T>

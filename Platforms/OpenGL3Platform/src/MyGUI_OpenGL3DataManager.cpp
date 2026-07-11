@@ -112,10 +112,7 @@ namespace MyGUI
 
 	void OpenGL3DataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		ArhivInfo info;
-		info.name = MyGUI::UString(_name).asWStr();
-		info.recursive = _recursive;
-		mPaths.push_back(info);
+		mPaths.push_back({MyGUI::UString(_name).asWStr(), _recursive});
 	}
 
 } // namespace MyGUI

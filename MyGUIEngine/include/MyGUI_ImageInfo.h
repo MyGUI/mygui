@@ -25,7 +25,7 @@ namespace MyGUI
 	{
 		std::string_view texture;
 		IntSize size;
-		float rate;
+		float rate{};
 		std::vector<IntPoint> frames;
 	};
 

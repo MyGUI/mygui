@@ -87,7 +87,7 @@ namespace demo
 	void DemoKeeper::updateSpline()
 	{
 		std::vector<MyGUI::FloatPoint> points;
-		for (auto& i : point)
+		for (const auto* i : point)
 		{
 			points.emplace_back(i->getLeft() + 8.0f, i->getTop() + 8.0f);
 		}

@@ -35,7 +35,7 @@ namespace MyGUI
 
 	DirectX11Texture::~DirectX11Texture()
 	{
-		destroy();
+		DirectX11Texture::destroy();
 	}
 
 	const std::string& DirectX11Texture::getName() const

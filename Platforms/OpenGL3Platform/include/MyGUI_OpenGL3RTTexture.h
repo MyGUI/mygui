@@ -37,7 +37,7 @@ namespace MyGUI
 		int mWidth{0};
 		int mHeight{0};
 
-		int mSavedViewport[4];
+		int mSavedViewport[4]{};
 
 		unsigned int mFBOID{0};
 		unsigned int mRBOID{0};

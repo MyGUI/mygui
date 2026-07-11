@@ -17,7 +17,7 @@ namespace demo
 	public:
 		EditorWindow();
 
-		void clearView();
+		void clearView() const;
 
 		MyGUI::Widget* getView();
 	};

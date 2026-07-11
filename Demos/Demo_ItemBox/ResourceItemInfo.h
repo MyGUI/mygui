@@ -27,9 +27,9 @@ namespace demo
 		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 	public:
-		const std::string& getItemName();
-		const std::string& getItemDescription();
-		const std::string& getItemResourceImage();
+		const std::string& getItemName() const;
+		const std::string& getItemDescription() const;
+		const std::string& getItemResourceImage() const;
 
 	private:
 		std::string mItemName;

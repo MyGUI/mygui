@@ -74,7 +74,7 @@ namespace MyGUI
 		VectorLayerNodeAnimation mLayerNodeAnimation;
 
 		VectorQuadData mData;
-		QuadData mDefaultData;
+		QuadData mDefaultData{};
 
 		MyGUI::Timer mTimer;
 	};

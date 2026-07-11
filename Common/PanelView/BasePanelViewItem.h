@@ -63,12 +63,12 @@ namespace wraps
 			mPanelCell->eventUpdatePanel(mPanelCell);
 		}
 
-		bool getVisible()
+		bool getVisible() const
 		{
 			return mPanelCell->getVisible();
 		}
 
-		BasePanelViewCell* getPanelCell()
+		BasePanelViewCell* getPanelCell() const
 		{
 			return mPanelCell;
 		}

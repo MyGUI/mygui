@@ -18,8 +18,8 @@ namespace MyGUI
 
 	HyperTextBox::HyperTextBox() :
 		mTextSkin("TextBox"),
-		mImageSkin("ImageBox"),
 		mParagraphSkin("Default"),
+		mImageSkin("ImageBox"),
 		mLineSkin("WhiteSkin"),
 		mLinkPoiner("link"),
 		mHeader1Font("Default"),

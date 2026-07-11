@@ -181,7 +181,7 @@ namespace unittest
 			if (count_items == 0)
 				return;
 
-			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t index = (size_t)rand() % count_items;
 
 			mirror_list->removeItemAt(index);
 			original_list->removeItemAt(index);
@@ -207,8 +207,8 @@ namespace unittest
 			if (count_items == 0)
 				return;
 
-			size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
-			size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t index1 = (size_t)rand() % count_items;
+			size_t index2 = (size_t)rand() % count_items;
 
 			mirror_list->swapItemsAt(index1, index2);
 			original_list->swapItemsAt(index1, index2);
@@ -340,7 +340,7 @@ namespace unittest
 				SortItems(count);
 			else if (index == 5)
 				ChangeItems(count * 5);
-			else if (index == 6)
+			else // if (index == 6)
 				Begin(count);
 
 			//base::BaseManager::getInstance().getStatisticInfo()->change("Count", count_items);

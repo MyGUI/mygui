@@ -75,7 +75,7 @@ namespace input
 			MyGUI::IResource* resource_generic = MyGUI::ResourceManager::getInstance().getByName(_name, false);
 			if (resource_generic != nullptr)
 			{
-				ResourceSDLPointer* resource = resource_generic->castType<ResourceSDLPointer>(false);
+				const auto* resource = resource_generic->castType<ResourceSDLPointer>(false);
 				if (resource != nullptr)
 				{
 					mMapPointer.emplace(_name, resource->getPointerType());

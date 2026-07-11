@@ -10,10 +10,9 @@ namespace demo
 {
 
 	State::State(std::string_view _layout, ControllerType _type) :
-		wraps::BaseLayout(_layout)
+		wraps::BaseLayout(_layout),
+		mType{_type}
 	{
-		mType = _type;
-
 		assignWidget(mButton1, "Button1");
 		assignWidget(mButton2, "Button2");
 		assignWidget(mButton3, "Button3");

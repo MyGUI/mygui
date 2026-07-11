@@ -80,7 +80,7 @@ namespace wraps
 
 		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to) const
 		{
-			for (auto& conn : _from->getConnectionEnumerator())
+			for (const auto* conn : _from->getConnectionEnumerator())
 			{
 				if (conn == _to)
 					return true;
@@ -378,12 +378,12 @@ namespace wraps
 			clearCanvas();
 
 			// iterate all nodes and redraw connections
-			for (auto& mNode : mNodes)
+			for (const auto* mNode : mNodes)
 			{
-				for (auto& node_point : mNode->getConnectionEnumerator())
+				for (const auto* node_point : mNode->getConnectionEnumerator())
 				{
 					const MyGUI::IntCoord& coord_from = node_point->getAbsoluteCoord();
-					for (auto& connect_point : node_point->getConnectionEnumerator())
+					for (const auto* connect_point : node_point->getConnectionEnumerator())
 					{
 						const MyGUI::IntCoord& coord_to = connect_point->getAbsoluteCoord();
 
@@ -510,10 +510,10 @@ namespace wraps
 			drawSpline(_info, 0, _info.colour);
 		}
 
-		MyGUI::IntSize getViewSize()
+		MyGUI::IntSize getViewSize() const
 		{
 			MyGUI::IntSize result;
-			for (auto& mNode : mNodes)
+			for (const auto* mNode : mNodes)
 			{
 				const MyGUI::IntCoord& coord = mNode->getCoord();
 				if (coord.right() > result.width)

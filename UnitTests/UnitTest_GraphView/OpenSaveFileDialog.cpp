@@ -158,7 +158,7 @@ namespace tools
 		// add all folders first
 		common::VectorFileInfo infos = common::getSystemFileList(mCurrentFolder, L"*.*");
 
-		for (auto& info : infos)
+		for (const auto& info : infos)
 		{
 			if (info.folder)
 				mListFiles->addItem(L"[" + info.name + L"]", info);
@@ -169,7 +169,7 @@ namespace tools
 			// add files by given mask
 			infos = common::getSystemFileList(mCurrentFolder, mFileMask);
 
-			for (auto& info : infos)
+			for (const auto& info : infos)
 			{
 				if (!info.folder)
 					mListFiles->addItem(info.name, info);
@@ -204,10 +204,6 @@ namespace tools
 		mMainWidget->setPosition(
 			(parentSize.width - windowSize.width) / 2,
 			(parentSize.height - windowSize.height) / 2);
-	}
-
-	void OpenSaveFileDialog::onEndModal()
-	{
 	}
 
 	void OpenSaveFileDialog::notifyDirectoryComboAccept(MyGUI::ComboBox* _sender, size_t _index)

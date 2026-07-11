@@ -19,12 +19,12 @@ namespace tools
 	{
 	}
 
-	bool DialogManager::getAnyDialog()
+	bool DialogManager::getAnyDialog() const
 	{
 		return !mDialogs.empty();
 	}
 
-	void DialogManager::endTopDialog(bool _result)
+	void DialogManager::endTopDialog(bool _result) const
 	{
 		if (!mDialogs.empty())
 		{

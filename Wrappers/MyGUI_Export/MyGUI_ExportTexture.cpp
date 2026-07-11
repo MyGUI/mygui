@@ -23,7 +23,7 @@ namespace MyGUI
 
 	ExportTexture::~ExportTexture()
 	{
-		destroy();
+		ExportTexture::destroy();
 	}
 
 	const std::string& ExportTexture::getName() const

@@ -77,7 +77,7 @@ namespace diagnostic
 
 				mInfo->setCaption(stream.str());
 
-				MyGUI::ISubWidgetText* text = mInfo->getSubWidgetText();
+				const auto* text = mInfo->getSubWidgetText();
 				if (text != nullptr)
 				{
 					MyGUI::IntSize size = text->getTextSize() + mInfo->getSize() - text->getSize();
@@ -116,7 +116,7 @@ namespace diagnostic
 				mInfo->setVisible(_value);
 		}
 
-		bool getVisible()
+		bool getVisible() const
 		{
 			if (mInfo != nullptr)
 				return mInfo->getVisible();

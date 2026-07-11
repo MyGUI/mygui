@@ -25,7 +25,7 @@ namespace demo
 	static MyGUI::WidgetStyle get_type()
 	{
 		const int SIZE = 3;
-		static MyGUI::WidgetStyle types[SIZE] = {
+		static const MyGUI::WidgetStyle types[SIZE] = {
 			MyGUI::WidgetStyle::Child,
 			MyGUI::WidgetStyle::Popup,
 			MyGUI::WidgetStyle::Overlapped};
@@ -55,7 +55,7 @@ namespace demo
 	static std::string_view get_skin()
 	{
 		const int SIZE = 8;
-		static std::string_view names[SIZE] =
+		static const std::string_view names[SIZE] =
 			{"WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditBoxStretch", "RadioButton", "CheckBox"};
 		return names[random(SIZE)];
 	}

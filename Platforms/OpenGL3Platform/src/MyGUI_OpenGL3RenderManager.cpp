@@ -184,14 +184,14 @@ namespace MyGUI
 
 	void OpenGL3RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OpenGL3VertexBuffer* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
+		const auto* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
 		unsigned int buffer_id = buffer->getBufferID();
 		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
 
 		unsigned int texture_id = 0;
 		if (_texture)
 		{
-			OpenGL3Texture* texture = static_cast<OpenGL3Texture*>(_texture);
+			const auto* texture = static_cast<OpenGL3Texture*>(_texture);
 			texture_id = texture->getTextureId();
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 			if (texture->getShaderId())

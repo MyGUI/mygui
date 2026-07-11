@@ -119,12 +119,9 @@ namespace MyGUI
 		return {};
 	}
 
-	void ExportDataManager::addResourceLocation(const std::string& _path, bool _recursive)
+	void ExportDataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		ArhivInfo info;
-		info.name = MyGUI::UString(_path).asWStr();
-		info.recursive = _recursive;
-		mPaths.push_back(info);
+		mPaths.push_back({MyGUI::UString(_name).asWStr(), _recursive});
 	}
 
 }

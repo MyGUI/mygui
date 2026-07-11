@@ -329,8 +329,7 @@ namespace base
 	void* SdlBaseManager::convertPixelData(SDL_Surface* _image, MyGUI::PixelFormat& _myGuiPixelFormat)
 	{
 		void* ret = nullptr;
-		SDL_PixelFormat* format = _image->format;
-		unsigned int bpp = format->BytesPerPixel;
+		unsigned int bpp = _image->format->BytesPerPixel;
 		switch (bpp)
 		{
 		case 1: _myGuiPixelFormat = MyGUI::PixelFormat::L8; break;

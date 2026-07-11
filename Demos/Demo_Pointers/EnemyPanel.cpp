@@ -21,7 +21,7 @@ namespace demo
 			(size.height - mMainWidget->getHeight()) / 2);
 	}
 
-	bool EnemyPanel::isIntersect(int _x, int _y)
+	bool EnemyPanel::isIntersect(int _x, int _y) const
 	{
 		return mMainWidget->getAbsoluteRect().inside(MyGUI::IntPoint(_x, _y));
 	}

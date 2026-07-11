@@ -29,7 +29,7 @@ namespace animation
 
 	AnimationNodeFactory::~AnimationNodeFactory()
 	{
-		for (auto& mConstruct : mConstructs)
+		for (const auto& mConstruct : mConstructs)
 			delete mConstruct.second;
 		mConstructs.clear();
 	}

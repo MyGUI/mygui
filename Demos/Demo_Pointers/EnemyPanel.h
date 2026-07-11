@@ -18,7 +18,7 @@ namespace demo
 	public:
 		EnemyPanel();
 
-		bool isIntersect(int _x, int _y);
+		bool isIntersect(int _x, int _y) const;
 		void setVisible(bool _value);
 	};
 

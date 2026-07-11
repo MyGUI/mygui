@@ -29,7 +29,7 @@ namespace wraps
 			mMenu->setVisibleSmooth(_value);
 		}
 
-		bool isVisible()
+		bool isVisible() const
 		{
 			return mMenu->getVisible();
 		}

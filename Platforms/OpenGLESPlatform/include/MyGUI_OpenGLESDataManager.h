@@ -40,13 +40,13 @@ namespace MyGUI
 		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:
-		struct ArhivInfo
+		struct ArchiveInfo
 		{
 			std::wstring name;
-			bool recursive;
+			bool recursive{false};
 		};
-		using VectorArhivInfo = std::vector<ArhivInfo>;
-		VectorArhivInfo mPaths;
+		using VectorArchiveInfo = std::vector<ArchiveInfo>;
+		VectorArchiveInfo mPaths;
 
 		bool mIsInitialise{false};
 	};

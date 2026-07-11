@@ -170,14 +170,14 @@ namespace MyGUI
 
 	void OpenGLESRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OpenGLESVertexBuffer* buffer = static_cast<OpenGLESVertexBuffer*>(_buffer);
+		const auto* buffer = static_cast<OpenGLESVertexBuffer*>(_buffer);
 		unsigned int buffer_id = buffer->getBufferID();
 		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
 
 		unsigned int texture_id = 0;
 		if (_texture)
 		{
-			OpenGLESTexture* texture = static_cast<OpenGLESTexture*>(_texture);
+			const auto* texture = static_cast<OpenGLESTexture*>(_texture);
 			texture_id = texture->getTextureId();
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 			if (texture->getShaderId())

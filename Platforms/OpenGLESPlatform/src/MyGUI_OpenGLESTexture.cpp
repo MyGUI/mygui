@@ -19,7 +19,7 @@ namespace MyGUI
 
 	OpenGLESTexture::~OpenGLESTexture()
 	{
-		destroy();
+		OpenGLESTexture::destroy();
 	}
 
 	const std::string& OpenGLESTexture::getName() const
