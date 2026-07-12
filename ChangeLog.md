@@ -12,6 +12,12 @@
 - Change the default value of MYGUI_RENDERSYSTEM to 7 (OpenGL 3.x)
 
 ### Core
+
+- Fonts improvements
+  - Implement **dynamic kerning** support
+  - Add "monochrome" hinting mode, good for small fonts
+  - Make text selection have one quad per line; colored glyphs selection is now same as non-colored glyphs
+  - Fix MSDF font selected area having 2 pixels gap between lines
 - Replace the custom XML parser with pugixml
 - Modernize and refactor source code: simplify duplicated code paths, enable and fix new warnings, some old APIs were
   marked as deprecated
@@ -19,11 +25,6 @@
 - Fix link error with hidden visibility across shared library boundary on macOS ARM64
 - Add std::vector and std::map getters for children and other collections, and deprecate the Enumerator class and related code
 - Add LayerManager::destroyLayer
-- Fonts improvements
-  - Implement dynamic kerning support
-  - Add "monochrome" hinting mode, good for small fonts
-  - Make text selection have one quad per line; colored glyphs selection is now same as non-colored glyphs
-  - Fix MSDF font selected area having 2 pixels gap between lines
 
 ### Platforms
 - Make DataManager::getDataListNames and getSystemFileList return by value

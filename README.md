@@ -5,6 +5,8 @@
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications. It is
 written in C++17 and is designed to be fast, flexible, and easy to integrate with various rendering engines.
 
+[**Showcase**](http://mygui.info/#look) | [**Projects using MyGUI**](http://mygui.info/#projects)
+
 ## Features
 
 - **Wide widget set:** buttons, edit boxes, combo boxes, lists, tree controls, item boxes, tab controls, scroll bars,
@@ -14,6 +16,12 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 - **Layout system:** load UI layouts from XML files at runtime; includes a visual **Layout Editor**
 - **Tools:** built-in editors for layouts, skins, images, and fonts
 - **Font rendering:** TrueType fonts via FreeType, bitmap fonts, and MSDF (multi-channel signed distance field) font support
+  - Five hinting modes: native, auto-hint, no-auto-hint, monochrome, and disabled
+  - Dynamic kerning with per-pair spacing adjustments
+  - Configurable Unicode code point ranges with inclusion and exclusion support
+  - Text effects: shadow, colour, selection highlighting, cursor, word wrap, and alignment
+  - MSDF shaders for OpenGL 3.x, OpenGL ES, DirectX 11, Ogre, OgreNext (GLSL, HLSL, Metal, SPIR-V)
+  - Visual FontEditor tool for authoring and previewing font definitions
 - **Platform support:** Windows, Linux, macOS; also runs in the browser via Emscripten
 - **Localization:** built-in language string management
 - **Animation:** configurable widget controllers for fades, slides, and more
