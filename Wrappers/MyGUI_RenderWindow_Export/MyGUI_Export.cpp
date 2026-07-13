@@ -3,6 +3,7 @@
 
 #include "ExportDefine.h"
 #include "DemoKeeper.h"
+#include <windows.h>
 
 
 #ifdef _MANAGED
