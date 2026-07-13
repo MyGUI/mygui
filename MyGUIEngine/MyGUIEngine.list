@@ -188,6 +188,7 @@ set (SOURCE_FILES
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_ControllerPosition.cpp
   src/MyGUI_ControllerRepeatClick.cpp
+  src/MyGUI_CoordConverter.cpp
   src/MyGUI_DDContainer.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataManager.cpp
@@ -555,6 +556,7 @@ SOURCE_GROUP("Source Files\\Core\\Types" FILES
 )
 SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_Constants.cpp
+  src/MyGUI_CoordConverter.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataMemoryStream.cpp
   src/MyGUI_DataStream.cpp
