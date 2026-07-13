@@ -73,6 +73,7 @@ namespace base
 	protected:
 		SDL_Window* mSdlWindow = nullptr;
 		bool mEnableVSync = false;
+		float mDpiScale = 1.0f;
 		bool mScreenShotRequested = false;
 		std::string mScreenShotFile;
 

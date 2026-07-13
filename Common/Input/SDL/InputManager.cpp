@@ -210,8 +210,8 @@ namespace input
 
 	bool InputManager::mouseMoved(const SDL_MouseMotionEvent& evt)
 	{
-		mMouseX = evt.x;
-		mMouseY = evt.y;
+		mMouseX = static_cast<int>(evt.x / mDpiScale);
+		mMouseY = static_cast<int>(evt.y / mDpiScale);
 		mMouseMove = true;
 		return true;
 	}
@@ -300,6 +300,11 @@ namespace input
 			mMouseY = 0;
 		else if (mMouseY >= mHeight)
 			mMouseY = mHeight - 1;
+	}
+
+	void InputManager::setDpiScale(float _scale)
+	{
+		mDpiScale = _scale;
 	}
 
 	void InputManager::onClipboardChanged(std::string_view _type, std::string_view _data)

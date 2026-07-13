@@ -14,12 +14,14 @@ namespace base
 
 	void SdlBaseManager::_windowResized(int w, int h)
 	{
-		resizeRender(w, h);
+		int scaledW = static_cast<int>(w / mDpiScale);
+		int scaledH = static_cast<int>(h / mDpiScale);
 
 		if (mPlatformReady)
-			MyGUI::RenderManager::getInstance().setViewSize(w, h);
+			MyGUI::RenderManager::getInstance().setViewSize(scaledW, scaledH);
 
-		setInputViewSize(w, h);
+		setInputViewSize(scaledW, scaledH);
+		resizeRender(w, h);
 	}
 
 	bool SdlBaseManager::create(int _width, int _height)
@@ -31,8 +33,22 @@ namespace base
 			exit(1);
 		}
 
-		const int width = _width;
-		const int height = _height;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		{
+			float ddpi;
+			if (SDL_GetDisplayDPI(0, &ddpi, nullptr, nullptr) == 0 && ddpi > 0)
+				mDpiScale = ddpi / 96.0f;
+			else
+				mDpiScale = 1.0f;
+		}
+#else
+		mDpiScale = 1.0f;
+#endif
+		setDpiScale(mDpiScale);
+
+		const int width = static_cast<int>(_width * mDpiScale);
+		const int height = static_cast<int>(_height * mDpiScale);
 		bool windowed = true;
 
 		// create window and position it at the center of the screen
@@ -42,8 +58,8 @@ namespace base
 			std::cerr << "Failed to retrieve screen info: " << SDL_GetError() << std::endl;
 			exit(1);
 		}
-		int left = (currDisp.w - width) / 2;
-		int top = (currDisp.h - height) / 2;
+		int left = (currDisp.w - _width) / 2;
+		int top = (currDisp.h - _height) / 2;
 
 		mSdlWindow = SDL_CreateWindow(
 			"MyGUI Render Window",
@@ -51,10 +67,10 @@ namespace base
 			top,
 			width,
 			height,
-			(mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE);
+			(mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 		if (mSdlWindow == nullptr)
 		{
-			std::cerr << "Failed to create SDL window: " << SDL_GetError();
+			std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
 			exit(1);
 		}
 		mWindowOn = true;
@@ -94,10 +110,11 @@ namespace base
 		createGuiPlatform();
 		mPlatformReady = true;
 		createGui();
-
 		createInput();
-
 		createPointerManager();
+
+		if (mDpiScale != 1.0f)
+			MYGUI_LOG(Info, "Using DPI scale: " << mDpiScale);
 
 		// this needs to be called before createScene() since some demos require
 		// screen size to properly position the widgets

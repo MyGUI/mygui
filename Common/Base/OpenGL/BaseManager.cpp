@@ -88,7 +88,9 @@ namespace base
 
 	void BaseManager::resizeRender(int _width, int _height)
 	{
-		glViewport(0, 0, _width, _height);
+		int dw, dh;
+		SDL_GL_GetDrawableSize(mSdlWindow, &dw, &dh);
+		glViewport(0, 0, dw, dh);
 	}
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)

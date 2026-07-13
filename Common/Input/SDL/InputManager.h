@@ -50,6 +50,7 @@ namespace input
 
 		void setMousePosition(int _x, int _y);
 		void updateCursorPosition();
+		void setDpiScale(float _scale);
 
 	protected:
 		void frameEvent(float _time);
@@ -77,6 +78,7 @@ namespace input
 		bool mMouseMove{false};
 		int mWidth{0};
 		int mHeight{0};
+		float mDpiScale{1.0f};
 		std::map<int, MyGUI::KeyCode> mSDLVKeyMap;
 		std::map<int, MyGUI::MouseButton> mSDLMouseMap;
 	};
