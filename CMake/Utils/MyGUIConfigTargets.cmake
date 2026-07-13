@@ -67,7 +67,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			MyGUICommon
 	)
 
-	if(WIN32)
+	if(WIN32 AND NOT ${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		# copy SDL2.dll and other dll's to bin
 		add_custom_command(
 			TARGET ${PROJECTNAME} POST_BUILD
