@@ -115,6 +115,7 @@ namespace MyGUI
 		ID3D11Device* mpD3DDevice;
 		ID3D11DeviceContext* mpD3DContext;
 		ID3D11SamplerState* mSamplerState;
+		ID3D11SamplerState* mPointSamplerState;
 		ID3D11BlendState* mBlendState;
 		ID3D11RasterizerState* mRasterizerState;
 		ID3D11DepthStencilState* mDepthStencilState;

@@ -32,6 +32,7 @@ namespace MyGUI
 		mpD3DContext(nullptr),
 		mUpdate(false),
 		mSamplerState(nullptr),
+		mPointSamplerState(nullptr),
 		mDepthStencilState(nullptr),
 		mBlendState(nullptr),
 		mRasterizerState(nullptr)
@@ -148,6 +149,8 @@ namespace MyGUI
 
 		if (mSamplerState)
 			mSamplerState->Release();
+		if (mPointSamplerState)
+			mPointSamplerState->Release();
 		if (mBlendState)
 			mBlendState->Release();
 		if (mDepthStencilState)
@@ -448,6 +451,10 @@ namespace MyGUI
 		samplerDesc.MipLODBias = 0.0f;
 		hr = mpD3DDevice->CreateSamplerState(&samplerDesc, &mSamplerState);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Sampler State Create failed!");
+
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		hr = mpD3DDevice->CreateSamplerState(&samplerDesc, &mPointSamplerState);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Point Sampler State Create failed!");
 
 		// Create Input Layout
 		hr = mpD3DDevice->CreateInputLayout(

@@ -560,6 +560,14 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 			mBaseInstanceAndIndirectBuffers = 1;
 	}
 
+	void OgreNextManager::deferSamplerRestore(Ogre::TextureUnitState* tu, const Ogre::HlmsSamplerblock* original)
+	{
+		// Only store the first (original) state per TUS; subsequent calls for
+		// the same TUS are no-ops because setSamplerblock already made the
+		// TUS point to the FO_NONE block.
+		mPendingSamplerRestores.emplace(tu, original);
+	}
+
 	void OgreNextManager::submitDraw(IVertexBuffer* buffer, ITexture* texture, size_t count)
 	{
 		MYGUI_PLATFORM_ASSERT(mActiveRPD != nullptr, "submitDraw outside beginBatch/endBatch");
@@ -645,6 +653,12 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 			mCommandBuffer->execute();
 			mActiveHlms->postCommandBufferExecution(mCommandBuffer);
 		}
+
+		// Restore samplerblocks that were temporarily overridden by doManualRender.
+		// Must happen after command-buffer execution so the override is live during the draw.
+		for (const auto& restore : mPendingSamplerRestores)
+			restore.first->setSamplerblock(*restore.second);
+		mPendingSamplerRestores.clear();
 
 		mCommandBuffer->clear();
 

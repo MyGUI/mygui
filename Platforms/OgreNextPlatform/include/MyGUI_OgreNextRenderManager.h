@@ -94,6 +94,9 @@ namespace MyGUI
 		void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 		const RenderTargetInfo& getInfo() const override;
 
+		// Deferred sampler restore for doManualRender (forwards to OgreNextManager).
+		void deferSamplerRestore(Ogre::TextureUnitState* tu, const Ogre::HlmsSamplerblock* original);
+
 		// Ogre::FrameListener
 		bool frameStarted(const Ogre::FrameEvent& evt) override;
 

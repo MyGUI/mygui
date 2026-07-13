@@ -93,8 +93,10 @@ namespace MyGUI
 	private:
 		void destroyAllResources();
 
-	private:
+	public:
 		IDirect3DDevice9* mpD3DDevice;
+
+	private:
 		IntSize mViewSize;
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;

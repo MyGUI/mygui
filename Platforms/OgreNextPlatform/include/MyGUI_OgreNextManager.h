@@ -8,6 +8,7 @@
 #include <OgreMaterial.h>
 #include <OgreMatrix4.h>
 #include <OgreHlmsCommon.h>
+#include <OgreTextureUnitState.h>
 
 #include <vector>
 #include <unordered_map>
@@ -47,6 +48,11 @@ namespace MyGUI
 
 		// Queue one MyGUI draw call into the current batch.
 		void submitDraw(IVertexBuffer* buffer, ITexture* texture, size_t count);
+
+		// Schedule a TUS samplerblock restore to run after endBatch() executes
+		// the command buffer.  Used by doManualRender so the point-filter
+		// samplerblock stays active during command-buffer execution.
+		void deferSamplerRestore(Ogre::TextureUnitState* tu, const Ogre::HlmsSamplerblock* original);
 
 		// Flush the CommandBuffer and close the current render pass descriptor.
 		void endBatch();
@@ -101,6 +107,10 @@ namespace MyGUI
 
 		// Nested batch support (for RTT texture rendering inside a batch)
 		std::vector<SavedBatchState> mSavedBatchStates;
+
+		// Pending sampler restores for doManualRender (processed in endBatch)
+		// Keyed on TUS so only the first (original) state is kept per TUS.
+		std::unordered_map<Ogre::TextureUnitState*, const Ogre::HlmsSamplerblock*> mPendingSamplerRestores;
 	};
 
 } // namespace MyGUI

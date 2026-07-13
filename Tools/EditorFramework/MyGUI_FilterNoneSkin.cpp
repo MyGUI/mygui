@@ -16,27 +16,47 @@
 	#include <MyGUI_OgreTexture.h>
 	#include <MyGUI_OgreVertexBuffer.h>
 	#include <OgreTextureUnitState.h>
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+	#include <MyGUI_OgreNextRenderManager.h>
+	#include <MyGUI_OgreNextTexture.h>
+	#include <OgreMaterial.h>
+	#include <OgreTechnique.h>
+	#include <OgrePass.h>
+	#include <OgreTextureUnitState.h>
+	#include <OgreHlmsSamplerblock.h>
 #elif defined(MYGUI_OPENGL_PLATFORM)
 	#include <MyGUI_OpenGLRenderManager.h>
-#elif defined(MYGUI_DIRECTX_PLATFORM)
-	#include <MyGUI_DirectXRenderManager.h>
-#elif defined(MYGUI_DIRECTX11_PLATFORM)
-	#include <MyGUI_DirectX11RenderManager.h>
+	#include <MyGUI_OpenGLTexture.h>
+	#include <MyGUI_GL.h>
+	#include <SDL.h>
 #elif defined(MYGUI_OPENGL3_PLATFORM)
 	#include <MyGUI_OpenGL3RenderManager.h>
+	#include <MyGUI_OpenGL3Texture.h>
+	#include <MyGUI_GL.h>
+	#include <SDL.h>
+#elif defined(MYGUI_DIRECTX_PLATFORM)
+	#include <MyGUI_DirectXRenderManager.h>
+	#include <d3d9.h>
+#elif defined(MYGUI_DIRECTX11_PLATFORM)
+	#include <MyGUI_DirectX11RenderManager.h>
+	#include <d3d11.h>
 #endif
 
 namespace MyGUI
 {
 
-#ifdef MYGUI_OGRE_PLATFORM
 	FilterNone::FilterNone()
 	{
 		mSeparate = true;
-	}
-#else
-	FilterNone::FilterNone() = default;
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32 && (defined(MYGUI_OPENGL_PLATFORM) || defined(MYGUI_OPENGL3_PLATFORM))
+		if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+		{
+			std::cerr << "Failed to initialize GLAD" << std::endl;
+			exit(1);
+		}
 #endif
+	}
 
 	void FilterNone::_setAlign(const IntSize& _oldsize)
 	{
@@ -86,14 +106,63 @@ namespace MyGUI
 		operation->vertexData->vertexCount = _count;
 
 		OgreRenderManager::getInstancePtr()->getRenderSystem()->_render(*operation);
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+		if (_texture)
+		{
+			OgreNextTexture* texture = static_cast<OgreNextTexture*>(_texture);
+			Ogre::MaterialPtr material = texture->getMaterial();
+			if (material)
+			{
+				Ogre::Pass* pass = material->getTechnique(0)->getPass(0);
+				Ogre::TextureUnitState* tu = pass->getTextureUnitState(0);
+				if (tu)
+				{
+					const Ogre::HlmsSamplerblock* prevBlock = tu->getSamplerblock();
+					Ogre::HlmsSamplerblock pointBlock;
+					if (prevBlock)
+						pointBlock = *prevBlock;
+					pointBlock.mMinFilter = Ogre::FO_NONE;
+					pointBlock.mMagFilter = Ogre::FO_NONE;
+					pointBlock.mMipFilter = Ogre::FO_NONE;
+					tu->setSamplerblock(pointBlock);
+
+					if (prevBlock)
+						OgreNextRenderManager::getInstancePtr()->deferSamplerRestore(tu, prevBlock);
+
+					OgreNextRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+					return;
+				}
+			}
+		}
+		OgreNextRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #elif defined(MYGUI_OPENGL_PLATFORM)
+		if (_texture)
+		{
+			OpenGLTexture* texture = static_cast<OpenGLTexture*>(_texture);
+			glBindTexture(GL_TEXTURE_2D, texture->getTextureId());
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		}
 		OpenGLRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+#elif defined(MYGUI_OPENGL3_PLATFORM)
+		if (_texture)
+		{
+			OpenGL3Texture* texture = static_cast<OpenGL3Texture*>(_texture);
+			glBindTexture(GL_TEXTURE_2D, texture->getTextureId());
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		}
+		OpenGL3RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #elif defined(MYGUI_DIRECTX_PLATFORM)
+		DirectXRenderManager::getInstancePtr()->mpD3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+		DirectXRenderManager::getInstancePtr()->mpD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
 		DirectXRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #elif defined(MYGUI_DIRECTX11_PLATFORM)
-		DirectX11RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
-#elif defined(MYGUI_OPENGL3_PLATFORM)
-		OpenGL3RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+		DirectX11RenderManager* rm = DirectX11RenderManager::getInstancePtr();
+		ID3D11SamplerState* prev = rm->mSamplerState;
+		rm->mSamplerState = rm->mPointSamplerState;
+		rm->doRender(_buffer, _texture, _count);
+		rm->mSamplerState = prev;
 #endif
 	}
 
