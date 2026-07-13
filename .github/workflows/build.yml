@@ -24,10 +24,16 @@ jobs:
             cmake_flags: -DBUILD_SHARED_LIBS=OFF
 
           - os: windows-latest
-            name: "Windows: dx11, TestApp only"
-            preset: minimal
+            name: "Windows: dx11, all without demos"
+            preset: full
             rendersystem: 6
-            cmake_flags: -DMYGUI_BUILD_TEST_APP=ON
+            cmake_flags: -DBUILD_SHARED_LIBS=ON -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_BUILD_UNITTESTS=ON
+
+          - os: windows-latest
+            name: "Windows: dx11, all without demos, static"
+            preset: full
+            rendersystem: 6
+            cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_BUILD_UNITTESTS=ON
 
           - os: macos-latest
             name: "macOS: GL3, TestApp only"
