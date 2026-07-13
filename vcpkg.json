@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "mygui",
+  "version-semver": "0.0.0",
+  "description": "MyGUI dependencies",
+  "$comment1": "Install all dependencies, even though some parts are not used",
+  "$comment2": "freetype is optional",
+  "$comment3": "glad is used on Windows and GL* platforms",
+  "$comment4": "sdl2 is used for demos and tools",
+  "$comment5": "sdl2-image is used for demos and tools on GL* platforms",
+  "dependencies": [
+    "freetype",
+    "glad",
+    "sdl2",
+    "sdl2-image"
+  ]
+}

@@ -54,10 +54,6 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install cmake freetype sdl2 sdl2_image
 
-      - name: Install deps via vcpkg (Windows)
-        if: runner.os == 'Windows'
-        run: vcpkg install sdl2 freetype
-
       - name: Configure
         run: >
           cmake --preset ${{ matrix.preset }} -B build
