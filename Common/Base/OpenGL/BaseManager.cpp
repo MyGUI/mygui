@@ -68,7 +68,7 @@ namespace base
 		{
 			mScreenShotRequested = false;
 			int w, h;
-			SDL_GetWindowSize(mSdlWindow, &w, &h);
+			SDL_GL_GetDrawableSize(mSdlWindow, &w, &h);
 			std::vector<std::uint8_t> pixels(w * h * 4);
 			glPixelStorei(GL_PACK_ALIGNMENT, 1);
 			glReadPixels(0, 0, w, h, GL_BGRA, GL_UNSIGNED_BYTE, pixels.data());
