@@ -12,7 +12,11 @@ target_include_directories(${PROJECTNAME}
 		"${MYGUI_SOURCE_DIR}/Platforms/Utils"
 )
 
-target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
+if(WIN32)
+	find_package(glad REQUIRED)
+else()
+	target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
+endif()
 
 if(APPLE)
 	target_compile_definitions(${PROJECTNAME} PUBLIC GL_SILENCE_DEPRECATION)
@@ -23,6 +27,7 @@ target_link_libraries(${PROJECTNAME}
 		MyGUI::MyGUI
 	PRIVATE
 		OpenGL::GL
+		$<$<BOOL:${WIN32}>:glad::glad>
 )
 
 # installation rules

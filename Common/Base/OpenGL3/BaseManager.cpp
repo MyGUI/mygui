@@ -16,6 +16,13 @@ namespace base
 			std::cerr << "Failed to create SDL context: " << SDL_GetError();
 			exit(1);
 		}
+#ifdef _WIN32
+		if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+		{
+			std::cerr << "Failed to initialize GLAD" << std::endl;
+			exit(1);
+		}
+#endif
 #ifndef __EMSCRIPTEN__
 		if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
 		{
