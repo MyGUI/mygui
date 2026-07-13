@@ -136,7 +136,7 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			DataPtr font = (mParentData != nullptr) ? mParentData->getChildSelected() : nullptr;
-			if (font != nullptr)
+			if (font != nullptr && !font->getPropertyValue("Source").empty())
 			{
 				FontExportSerializer::generateFont(font, font->getPropertyValue("FontName"));
 				notifyChangeDataSelector(mParentData, false);
