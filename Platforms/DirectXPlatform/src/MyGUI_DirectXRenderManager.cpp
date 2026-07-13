@@ -32,12 +32,6 @@ namespace MyGUI
 		mVertexFormat = VertexColourType::ColourARGB;
 
 		memset(&mInfo, 0, sizeof(mInfo));
-		if (mpD3DDevice != nullptr)
-		{
-			D3DVIEWPORT9 vp;
-			mpD3DDevice->GetViewport(&vp);
-			setViewSize(vp.Width, vp.Height);
-		}
 
 		mUpdate = false;
 

@@ -87,8 +87,6 @@ namespace MyGUI
 		mpD3DContext->RSGetViewports(&numViewports, viewports);
 		MYGUI_PLATFORM_ASSERT(numViewports == 0, getClassTypeName() << " 0 viewport sets");
 
-		setViewSize((int)viewports[0].Width, (int)viewports[0].Height);
-
 
 		// Create Blend State
 		D3D11_BLEND_DESC blendDesc;
