@@ -117,7 +117,7 @@ namespace MyGUI
 
 	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		mPaths.emplace_back(MyGUI::UString(_name).asWStr(), _recursive);
+		mPaths.push_back({MyGUI::UString(_name).asWStr(), _recursive});
 	}
 
 } // namespace MyGUI
