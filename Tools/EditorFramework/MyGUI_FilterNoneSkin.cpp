@@ -15,6 +15,7 @@
 	#include <MyGUI_OgreRenderManager.h>
 	#include <MyGUI_OgreTexture.h>
 	#include <MyGUI_OgreVertexBuffer.h>
+	#include <OgreTextureUnitState.h>
 #elif defined(MYGUI_OPENGL_PLATFORM)
 	#include <MyGUI_OpenGLRenderManager.h>
 #elif defined(MYGUI_DIRECTX_PLATFORM)
@@ -62,18 +63,21 @@ namespace MyGUI
 			{
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
 
+	#if OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0)
 				MYGUI_SUPPRESS_MSVC(4996)
 				MYGUI_SUPPRESS_GCC("-Wdeprecated-declarations")
-	#if OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0)
-				// TODO: use _setSampler
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(
 					0,
 					Ogre::FO_NONE,
 					Ogre::FO_NONE,
 					Ogre::FO_NONE);
-	#endif
 				MYGUI_UNSUPPRESS_GCC()
 				MYGUI_UNSUPPRESS_MSVC()
+	#else
+				Ogre::Sampler sampler;
+				sampler.setFiltering(Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
+				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setSampler(0, sampler);
+	#endif
 			}
 		}
 
