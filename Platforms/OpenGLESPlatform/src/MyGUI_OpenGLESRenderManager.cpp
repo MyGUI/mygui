@@ -277,8 +277,6 @@ namespace MyGUI
 		mInfo.pixScaleX = 1.0f / float(mViewSize.width);
 		mInfo.pixScaleY = 1.0f / float(mViewSize.height);
 
-		glViewport(0, 0, _width, _height);
-
 		onResizeView(mViewSize);
 		mUpdate = true;
 	}
