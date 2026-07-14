@@ -11,7 +11,11 @@ if(
 	OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 	OR CMAKE_CXX_COMPILER_ID MATCHES "Intel"
 )
-	if(MYGUI_HIGH_LEVEL_WARNINGS)
+	if(NOT MYGUI_HIGH_LEVEL_WARNINGS)
+		add_compile_options(
+			-Wno-unknown-warning-option
+		)
+	else()
 		add_compile_options(-Werror)
 		if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 			add_compile_options(
