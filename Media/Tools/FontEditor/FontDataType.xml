@@ -175,6 +175,15 @@
 					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
+					<Name>DpiScale</Name>
+					<Type>PropertyFloatControl</Type>
+					<Initialisator/>
+					<Default>1</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
 					<Name>Shader</Name>
 					<Type>PropertyStringControl</Type>
 					<Initialisator/>

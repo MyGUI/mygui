@@ -161,6 +161,11 @@ namespace MyGUI
 		const uint8 charMaskBlack = 0x00;
 		const uint8 charMaskWhite = 0xFF;
 
+		std::pair<int, int> integerGlyphSize(const GlyphInfo& _info, float _scale)
+		{
+			return {(int)std::ceil(_info.width * _scale), (int)std::ceil(_info.height * _scale)};
+		}
+
 		template<bool LAMode>
 		struct PixelBase
 		{
@@ -308,6 +313,10 @@ namespace MyGUI
 				else if (key == "Kerning")
 				{
 					setKerningEnabled(utility::parseBool(value));
+				}
+				else if (key == "DpiScale")
+				{
+					setDpiScale(utility::parseFloat(value));
 				}
 			}
 			else if (node.name() == std::string_view("Codes"))
@@ -538,6 +547,9 @@ namespace MyGUI
 		// instead prevents a lot of layout problems, and it is also more typographically correct and more aesthetically pleasing.
 		mDefaultHeight = fontAscent + fontDescent;
 
+		if (mDpiScale != 1.0f)
+			mDefaultHeight = static_cast<int>(std::ceil((mDefaultHeight / mDpiScale)));
+
 		// Set the load flags based on the specified type of hinting.
 		FT_Int32 ftLoadFlags = FT_LOAD_DEFAULT;
 
@@ -704,8 +716,7 @@ namespace MyGUI
 			{
 				for (const auto& [key, info] : heightItem.second)
 				{
-					int glyphWidth = (int)std::ceil(info->width);
-					int glyphHeight = (int)std::ceil(info->height);
+					auto [glyphWidth, glyphHeight] = integerGlyphSize(*info, mDpiScale);
 
 					autoWrapGlyphPos(glyphWidth, texWidth, glyphHeight, texX, texY);
 
@@ -820,7 +831,7 @@ namespace MyGUI
 		{
 			// The font is scalable, so set the font size by first converting the requested size to FreeType's 26.6 fixed-point
 			// format.
-			FT_F26Dot6 ftSize = (FT_F26Dot6)(mSize * (1 << 6));
+			FT_F26Dot6 ftSize = (FT_F26Dot6)(mSize * mDpiScale * (1 << 6));
 
 			if (FT_Set_Char_Size(result, ftSize, 0, mResolution, mResolution) != 0)
 				MYGUI_EXCEPT("ResourceTrueTypeFont: Could not set the font size for '" << getResourceName() << "'!");
@@ -923,7 +934,7 @@ namespace MyGUI
 				{
 					if (kerning.x != 0)
 					{
-						mKerningMap[std::make_pair(leftIter->first, rightIter->first)] = kerning.x / 64.0f;
+						mKerningMap[std::make_pair(leftIter->first, rightIter->first)] = kerning.x / 64.0f / mDpiScale;
 					}
 				}
 			}
@@ -942,13 +953,14 @@ namespace MyGUI
 
 	GlyphInfo ResourceTrueTypeFont::createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph) const
 	{
+		float scale = 1.0f / mDpiScale;
 		return {
 			_codePoint,
-			std::max((float)_glyph->bitmap.width, _glyph->metrics.width / 64.0f),
-			std::max((float)_glyph->bitmap.rows, _glyph->metrics.height / 64.0f),
-			_glyph->advance.x / 64.0f,
-			_glyph->metrics.horiBearingX / 64.0f,
-			std::floor(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight)};
+			std::max((float)_glyph->bitmap.width, _glyph->metrics.width / 64.0f) * scale,
+			std::max((float)_glyph->bitmap.rows, _glyph->metrics.height / 64.0f) * scale,
+			_glyph->advance.x / 64.0f * scale,
+			_glyph->metrics.horiBearingX / 64.0f * scale,
+			std::floor((_fontAscent - (_glyph->metrics.horiBearingY / 64.0f)) * scale - mOffsetHeight)};
 	}
 
 	int ResourceTrueTypeFont::createGlyph(
@@ -956,8 +968,7 @@ namespace MyGUI
 		const GlyphInfo& _glyphInfo,
 		GlyphHeightMap& _glyphHeightMap)
 	{
-		int width = (int)std::ceil(_glyphInfo.width);
-		int height = (int)std::ceil(_glyphInfo.height);
+		auto [width, height] = integerGlyphSize(_glyphInfo, mDpiScale);
 
 		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
 		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphInfo.codePoint, _glyphInfo)).first->second;
@@ -1140,8 +1151,7 @@ namespace MyGUI
 		int& _texY,
 		uint8* _glyphBuffer)
 	{
-		int width = (int)std::ceil(_info.width);
-		int height = (int)std::ceil(_info.height);
+		auto [width, height] = integerGlyphSize(_info, mDpiScale);
 
 		autoWrapGlyphPos(width, _texWidth, _lineHeight, _texX, _texY);
 
@@ -1187,8 +1197,8 @@ namespace MyGUI
 		// Calculate and store the glyph's UV coordinates within the texture.
 		_info.uvRect.left = (float)_texX / _texWidth; // u1
 		_info.uvRect.top = (float)_texY / _texHeight; // v1
-		_info.uvRect.right = (float)(_texX + _info.width) / _texWidth; // u2
-		_info.uvRect.bottom = (float)(_texY + _info.height) / _texHeight; // v2
+		_info.uvRect.right = (float)(_texX + _info.width * mDpiScale) / _texWidth; // u2
+		_info.uvRect.bottom = (float)(_texY + _info.height * mDpiScale) / _texHeight; // v2
 
 		if (width > 0)
 			_texX += mGlyphSpacing + width;
@@ -1220,8 +1230,7 @@ namespace MyGUI
 
 	int ResourceTrueTypeFont::createMsdfGlyph(const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
 	{
-		int width = (int)std::ceil(_glyphInfo.width);
-		int height = (int)std::ceil(_glyphInfo.height);
+		auto [width, height] = integerGlyphSize(_glyphInfo, 1.0f);
 
 		mCharMap[_glyphInfo.codePoint] = _glyphInfo.codePoint;
 		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphInfo.codePoint, _glyphInfo)).first->second;
@@ -1477,6 +1486,11 @@ namespace MyGUI
 	void ResourceTrueTypeFont::setKerningEnabled(bool _value)
 	{
 		mKerningEnabled = _value;
+	}
+
+	void ResourceTrueTypeFont::setDpiScale(float _value)
+	{
+		mDpiScale = _value;
 	}
 
 #endif // MYGUI_USE_FREETYPE

@@ -93,8 +93,8 @@
 			<Text>01234567890
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
-				~!@##$%^&amp;*()_+&gt;&lt;?,./{}[]
-				Dynamic kerning: The WAVE washed the Toad AWAY.
+~!@##$%^&amp;*()_+&gt;&lt;?,./{}[]
+Dynamic kerning: The WAVE washed the Toad AWAY.
 			</Text>
 		</TryFontControl>
 	</Controls>

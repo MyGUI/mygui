@@ -109,6 +109,10 @@ namespace tools
 		if (!value.empty())
 			data->setPropertyValue("Kerning", MyGUI::utility::parseValue<bool>(value));
 
+		value = _node.select_node("Property[@key=\"DpiScale\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("DpiScale", MyGUI::utility::parseValue<float>(value));
+
 		value = _node.select_node("Property[@key=\"Shader\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Shader", value);
@@ -181,6 +185,10 @@ namespace tools
 		nodeProperty.append_attribute("value").set_value(value.c_str());
 
 		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("DpiScale");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("DpiScale").c_str());
+
+		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Shader");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Shader").c_str());
 	}
@@ -240,14 +248,19 @@ namespace tools
 
 		const MyGUI::GlyphInfo* info = _font->getGlyphInfo(_code);
 		MyGUI::ITexture* texture = _font->getTextureFont();
+		const float texWidth = (float)texture->getWidth();
+		const float texHeight = (float)texture->getHeight();
 		MyGUI::FloatCoord coord(
-			info->uvRect.left * (float)texture->getWidth(),
-			info->uvRect.top * (float)texture->getHeight(),
-			info->width,
-			info->height);
+			info->uvRect.left * texWidth,
+			info->uvRect.top * texHeight,
+			info->uvRect.width() * texWidth,
+			info->uvRect.height() * texHeight);
 
 		if (!coord.empty())
 			codeNode->addAttribute("coord", coord);
+
+		if (info->width != coord.width || info->height != coord.height)
+			codeNode->addAttribute("size", MyGUI::FloatSize(info->width, info->height));
 
 		if (info->bearingX != 0.0f || info->bearingY != 0.0f)
 			codeNode->addAttribute("bearing", MyGUI::FloatPoint(info->bearingX, info->bearingY));
@@ -337,6 +350,7 @@ namespace tools
 		font->setMsdfMode(_data->getPropertyValue<bool>("MsdfMode"));
 		font->setMsdfRange(_data->getPropertyValue<int>("MsdfRange"));
 		font->setKerningEnabled(_data->getPropertyValue<bool>("Kerning"));
+		font->setDpiScale(_data->getPropertyValue<float>("DpiScale"));
 		font->setShader(_data->getPropertyValue("Shader"));
 
 		const std::string& ranges = _data->getPropertyValue("FontCodeRanges");
