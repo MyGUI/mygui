@@ -10,6 +10,12 @@ namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
+		// for MacOS, but would not hurt for other platforms
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+
 		mContext = SDL_GL_CreateContext(mSdlWindow);
 		if (mContext == nullptr)
 		{

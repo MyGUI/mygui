@@ -1,4 +1,4 @@
-#version 130
+#version 150
 out vec4 Color;
 out vec2 TexCoord;
 in vec3 VertexPosition;
