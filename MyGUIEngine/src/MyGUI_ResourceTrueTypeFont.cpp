@@ -1250,12 +1250,13 @@ namespace MyGUI
 			msdfgen::Shape shape;
 			double advance;
 			if (msdfgen::loadGlyph(shape, _fontHandle, _codePoint, msdfgen::FONT_SCALING_EM_NORMALIZED, &advance))
-				createMsdfGlyph(createMsdfFaceGlyphInfo(_codePoint, shape, advance, _fontAscent), _glyphHeightMap);
-			else
-				MYGUI_LOG(
-					Warning,
-					"ResourceTrueTypeFont: Cannot load msdf glyph for character "
-						<< _codePoint << " in font '" << getResourceName() << "'.");
+				return createMsdfGlyph(
+					createMsdfFaceGlyphInfo(_codePoint, shape, advance, _fontAscent),
+					_glyphHeightMap);
+			MYGUI_LOG(
+				Warning,
+				"ResourceTrueTypeFont: Cannot load msdf glyph for character "
+					<< _codePoint << " in font '" << getResourceName() << "'.");
 		}
 		else
 		{
