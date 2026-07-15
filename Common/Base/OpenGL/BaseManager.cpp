@@ -117,7 +117,7 @@ namespace base
 		}
 		else
 		{
-			Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_ARGB8888;
+			Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_BGRA32;
 			cvtImage = SDL_ConvertSurfaceFormat(image, pixelFmt, 0);
 			result = convertPixelData(cvtImage, _format);
 			SDL_FreeSurface(cvtImage);
