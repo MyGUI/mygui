@@ -97,7 +97,7 @@ namespace MyGUI
 		if (FAILED(hr))
 		{
 			wicFactory->Release();
-			MYGUI_PLATFORM_ASSERT(false, "Failed to decode image file!");
+			MYGUI_PLATFORM_ASSERT(false, "Failed to decode image file '" << _filename << "'");
 		}
 
 		IWICBitmapFrameDecode* frame = nullptr;
@@ -106,7 +106,7 @@ namespace MyGUI
 		{
 			decoder->Release();
 			wicFactory->Release();
-			MYGUI_PLATFORM_ASSERT(false, "Failed to get image frame!");
+			MYGUI_PLATFORM_ASSERT(false, "Failed to get image frame for file '" << _filename << "'");
 		}
 
 		IWICFormatConverter* converter = nullptr;
@@ -126,7 +126,7 @@ namespace MyGUI
 			frame->Release();
 			decoder->Release();
 			wicFactory->Release();
-			MYGUI_PLATFORM_ASSERT(false, "Failed to convert image format!");
+			MYGUI_PLATFORM_ASSERT(false, "Failed to convert image format for file '" << _filename << "'");
 		}
 
 		UINT imageWidth = 0, imageHeight = 0;
@@ -142,7 +142,7 @@ namespace MyGUI
 		decoder->Release();
 		wicFactory->Release();
 
-		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to copy image pixels!");
+		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to copy image pixels for file '" << _filename << "'");
 
 		D3D11_TEXTURE2D_DESC desc;
 		desc.ArraySize = 1;
@@ -163,7 +163,7 @@ namespace MyGUI
 		initData.SysMemSlicePitch = 0;
 
 		hr = mManager->mpD3DDevice->CreateTexture2D(&desc, &initData, &mTexture);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed!");
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed for file '" << _filename << "'");
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 		srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -172,7 +172,7 @@ namespace MyGUI
 		srvDesc.Texture2D.MostDetailedMip = 0;
 
 		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, &srvDesc, &mResourceView);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Shader ResourceView failed!");
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Shader ResourceView failed for file '" << _filename << "'");
 	}
 
 	void DirectX11Texture::setShader(const std::string& _shaderName)
