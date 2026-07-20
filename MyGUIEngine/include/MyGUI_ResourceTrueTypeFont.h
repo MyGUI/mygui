@@ -226,8 +226,9 @@ namespace MyGUI
 			const msdfgen::Shape& _shape,
 			double _advance,
 			int _fontAscent);
-		int createMsdfGlyph(const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap);
+		int createMsdfGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap);
 		int createMsdfFaceGlyph(
+			FT_UInt _glyphIndex,
 			Char _codePoint,
 			int _fontAscent,
 			msdfgen::FontHandle* _fontHandle,

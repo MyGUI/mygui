@@ -587,7 +587,7 @@ namespace MyGUI
 				texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
 	#ifdef MYGUI_MSDF_FONTS
 			else
-				texWidth += createMsdfFaceGlyph(codePoint, fontAscent, msdfFont, glyphHeightMap);
+				texWidth += createMsdfFaceGlyph(glyphIndex, codePoint, fontAscent, msdfFont, glyphHeightMap);
 	#endif
 
 			// If the newly created glyph is the "Not Defined" glyph, it means that the code point is not supported by the font.
@@ -660,6 +660,7 @@ namespace MyGUI
 	#ifdef MYGUI_MSDF_FONTS
 			else
 				texWidth += createMsdfFaceGlyph(
+					0,
 					static_cast<Char>(FontCodeType::NotDefined),
 					fontAscent,
 					msdfFont,
@@ -1223,23 +1224,27 @@ namespace MyGUI
 			_codePoint,
 			(bounds.r - bounds.l) * mMsdfScale + 2 * range,
 			(bounds.t - bounds.b) * mMsdfScale + 2 * range,
-			_advance * mMsdfScale + range,
+			_advance * mMsdfScale,
 			bounds.l * mMsdfScale - range,
 			_fontAscent - bounds.t * mMsdfScale - mOffsetHeight - range);
 	}
 
-	int ResourceTrueTypeFont::createMsdfGlyph(const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
+	int ResourceTrueTypeFont::createMsdfGlyph(
+		FT_UInt _glyphIndex,
+		const GlyphInfo& _glyphInfo,
+		GlyphHeightMap& _glyphHeightMap)
 	{
 		auto [width, height] = integerGlyphSize(_glyphInfo, 1.0f);
 
-		mCharMap[_glyphInfo.codePoint] = _glyphInfo.codePoint;
+		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
 		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphInfo.codePoint, _glyphInfo)).first->second;
-		_glyphHeightMap[height].insert(std::make_pair(_glyphInfo.codePoint, &info));
+		_glyphHeightMap[height].insert(std::make_pair(_glyphIndex, &info));
 
 		return (width > 0) ? mGlyphSpacing + width : 0;
 	}
 
 	int ResourceTrueTypeFont::createMsdfFaceGlyph(
+		FT_UInt _glyphIndex,
 		Char _codePoint,
 		int _fontAscent,
 		msdfgen::FontHandle* _fontHandle,
@@ -1251,6 +1256,7 @@ namespace MyGUI
 			double advance;
 			if (msdfgen::loadGlyph(shape, _fontHandle, _codePoint, msdfgen::FONT_SCALING_EM_NORMALIZED, &advance))
 				return createMsdfGlyph(
+					_glyphIndex,
 					createMsdfFaceGlyphInfo(_codePoint, shape, advance, _fontAscent),
 					_glyphHeightMap);
 			MYGUI_LOG(
@@ -1260,7 +1266,7 @@ namespace MyGUI
 		}
 		else
 		{
-			mCharMap[_codePoint] = _codePoint;
+			mCharMap[_codePoint] = _glyphIndex;
 		}
 
 		return 0;
