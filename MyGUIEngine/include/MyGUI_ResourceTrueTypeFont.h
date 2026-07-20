@@ -212,6 +212,8 @@ namespace MyGUI
 			int _texHeight,
 			int& _texX,
 			int& _texY,
+			int _bitmapWidth,
+			int _bitmapHeight,
 			uint8* _glyphBuffer = nullptr);
 
 		CharMap mCharMap; // A map of code points to glyph indices.

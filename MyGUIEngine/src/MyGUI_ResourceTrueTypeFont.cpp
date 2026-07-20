@@ -548,7 +548,7 @@ namespace MyGUI
 		mDefaultHeight = fontAscent + fontDescent;
 
 		if (mDpiScale != 1.0f)
-			mDefaultHeight = static_cast<int>(std::ceil((mDefaultHeight / mDpiScale)));
+			mDefaultHeight = static_cast<int>(std::ceil(mDefaultHeight / mDpiScale));
 
 		// Set the load flags based on the specified type of hinting.
 		FT_Int32 ftLoadFlags = FT_LOAD_DEFAULT;
@@ -961,7 +961,7 @@ namespace MyGUI
 			std::max((float)_glyph->bitmap.rows, _glyph->metrics.height / 64.0f) * scale,
 			_glyph->advance.x / 64.0f * scale,
 			_glyph->metrics.horiBearingX / 64.0f * scale,
-			std::floor((_fontAscent - (_glyph->metrics.horiBearingY / 64.0f)) * scale - mOffsetHeight)};
+			(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f)) * scale - mOffsetHeight};
 	}
 
 	int ResourceTrueTypeFont::createGlyph(
@@ -1028,6 +1028,7 @@ namespace MyGUI
 			for (const auto& glyph : sameHeightGlyphs.second)
 			{
 				GlyphInfo& info = *glyph.second;
+				auto [intWidth, intHeight] = integerGlyphSize(info, mDpiScale);
 
 				switch (info.codePoint)
 				{
@@ -1044,7 +1045,9 @@ namespace MyGUI
 						_texWidth,
 						_texHeight,
 						texX,
-						texY);
+						texY,
+						intWidth,
+						intHeight);
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
@@ -1069,7 +1072,9 @@ namespace MyGUI
 						_texWidth,
 						_texHeight,
 						texX,
-						texY);
+						texY,
+						intWidth,
+						intHeight);
 					break;
 
 				default:
@@ -1127,6 +1132,8 @@ namespace MyGUI
 									_texHeight,
 									texX,
 									texY,
+									_ftFace->glyph->bitmap.width,
+									_ftFace->glyph->bitmap.rows,
 									glyphBuffer);
 						}
 					}
@@ -1150,23 +1157,23 @@ namespace MyGUI
 		int _texHeight,
 		int& _texX,
 		int& _texY,
+		int _bitmapWidth,
+		int _bitmapHeight,
 		uint8* _glyphBuffer)
 	{
-		auto [width, height] = integerGlyphSize(_info, mDpiScale);
-
-		autoWrapGlyphPos(width, _texWidth, _lineHeight, _texX, _texY);
+		autoWrapGlyphPos(_bitmapWidth, _texWidth, _lineHeight, _texX, _texY);
 
 		uint8* dest = _texBuffer + (_texY * _texWidth + _texX) * Pixel<LAMode>::getNumBytes();
 
 		// Calculate how much to advance the destination pointer after each row to get to the start of the next row.
-		ptrdiff_t destNextRow = (_texWidth - width) * Pixel<LAMode>::getNumBytes();
+		ptrdiff_t destNextRow = (_texWidth - _bitmapWidth) * Pixel<LAMode>::getNumBytes();
 
 		if (!mMsdfMode || !UseBuffer)
 		{
-			for (int j = height; j > 0; --j)
+			for (int j = _bitmapHeight; j > 0; --j)
 			{
 				int i;
-				for (i = width; i > 1; i -= 2)
+				for (i = _bitmapWidth; i > 1; i -= 2)
 				{
 					Pixel<LAMode, UseBuffer, Antialias>::set(dest, _luminance0, _alpha, _glyphBuffer);
 					Pixel<LAMode, UseBuffer, Antialias>::set(dest, _luminance1, _alpha, _glyphBuffer);
@@ -1180,9 +1187,9 @@ namespace MyGUI
 		}
 		else
 		{
-			for (int y = 0; y < height; ++y)
+			for (int y = 0; y < _bitmapHeight; ++y)
 			{
-				for (int x = 0; x < width; ++x)
+				for (int x = 0; x < _bitmapWidth; ++x)
 				{
 					for (int i = 0; i < 3; ++i)
 					{
@@ -1201,8 +1208,8 @@ namespace MyGUI
 		_info.uvRect.right = (float)(_texX + _info.width * mDpiScale) / _texWidth; // u2
 		_info.uvRect.bottom = (float)(_texY + _info.height * mDpiScale) / _texHeight; // v2
 
-		if (width > 0)
-			_texX += mGlyphSpacing + width;
+		if (_bitmapWidth > 0)
+			_texX += mGlyphSpacing + _bitmapWidth;
 	}
 
 	#ifdef MYGUI_MSDF_FONTS
@@ -1303,7 +1310,9 @@ namespace MyGUI
 						_texWidth,
 						_texHeight,
 						texX,
-						texY);
+						texY,
+						(int)std::ceil(info.width),
+						(int)std::ceil(info.height));
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
@@ -1333,7 +1342,9 @@ namespace MyGUI
 						_texWidth,
 						_texHeight,
 						texX,
-						texY);
+						texY,
+						(int)std::ceil(info.width),
+						(int)std::ceil(info.height));
 					break;
 
 				default:
@@ -1351,9 +1362,9 @@ namespace MyGUI
 						shape.normalize();
 						msdfgen::edgeColoringSimple(shape, 3.0);
 
-						int w = (int)std::ceil((bounds.r - bounds.l) * mMsdfScale + 2 * range);
-						int h = (int)std::ceil((bounds.t - bounds.b) * mMsdfScale + 2 * range);
-						msdfgen::Bitmap<float, 3> msdf(w, h);
+						msdfgen::Bitmap<float, 3> msdf(
+							(int)std::ceil((bounds.r - bounds.l) * mMsdfScale + 2 * range),
+							(int)std::ceil((bounds.t - bounds.b) * mMsdfScale + 2 * range));
 						msdfgen::generateMSDF(
 							msdf,
 							shape,
@@ -1395,6 +1406,8 @@ namespace MyGUI
 							_texHeight,
 							texX,
 							texY,
+							msdf.width(),
+							msdf.height(),
 							glyphBuffer);
 						delete[] glyphBuffer;
 					}
