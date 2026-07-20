@@ -6,7 +6,6 @@
 		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
-			<Code range="8470"/>
 			<Code hide="1026 1039"/>
 			<Code hide="1104"/>
 		</Codes>
@@ -17,7 +16,6 @@
 		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
-			<Code range="8470"/>
 			<Code hide="1026 1039"/>
 			<Code hide="1104"/>
 		</Codes>
@@ -28,7 +26,6 @@
 		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
-			<Code range="8470"/>
 			<Code hide="1026 1039"/>
 			<Code hide="1104"/>
 		</Codes>
@@ -39,7 +36,6 @@
 		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
-			<Code range="8470"/>
 			<Code hide="1026 1039"/>
 			<Code hide="1104"/>
 		</Codes>
@@ -50,7 +46,6 @@
 		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
-			<Code range="8470"/>
 			<Code hide="1026 1039"/>
 			<Code hide="1104"/>
 		</Codes>
@@ -61,7 +56,6 @@
 		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
-			<Code range="8470"/>
 			<Code hide="1026 1039"/>
 			<Code hide="1104"/>
 		</Codes>

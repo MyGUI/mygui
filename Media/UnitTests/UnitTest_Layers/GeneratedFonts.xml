@@ -1,109 +1,362 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Resource" version="1.1">
-    <Resource type="ResourceManualFont" name="FontKeyboard">
-        <Property key="Source" value="FontKeyboard.png"/>
-        <Property key="DefaultHeight" value="37"/>
-        <Codes>
-            <Code index="9" advance="8"/>
-            <Code index="32" bearing="0 34" advance="10"/>
-            <Code index="33" coord="206 18 3 23" bearing="5 11" advance="7"/>
-            <Code index="34" coord="63 0 9 8" bearing="3 11" advance="11"/>
-            <Code index="35" coord="172 18 21 22" bearing="2 12" advance="24"/>
-            <Code index="36" coord="172 115 16 29" bearing="2 10" advance="18"/>
-            <Code index="37" coord="210 18 26 23" bearing="2 11" advance="27"/>
-            <Code index="38" coord="0 42 21 23" bearing="2 11" advance="22"/>
-            <Code index="39" coord="73 0 3 8" bearing="3 11" advance="6"/>
-            <Code index="40" coord="140 115 7 28" bearing="3 10" advance="9"/>
-            <Code index="41" coord="148 115 7 28" bearing="2 10" advance="10"/>
-            <Code index="42" coord="117 0 14 14" bearing="1 11" advance="15"/>
-            <Code index="43" coord="147 18 19 19" bearing="3 15" advance="23"/>
-            <Code index="44" coord="38 0 4 7" bearing="3 30" advance="7"/>
-            <Code index="45" coord="0 0 8 3" bearing="2 24" advance="9"/>
-            <Code index="46" coord="26 0 3 4" bearing="4 30" advance="6"/>
-            <Code index="47" coord="51 115 10 25" bearing="0 11"/>
-            <Code index="48" coord="22 42 16 23" bearing="2 11" advance="18"/>
-            <Code index="49" coord="39 42 13 23" bearing="4 11" advance="16"/>
-            <Code index="50" coord="53 42 15 23" bearing="2 11" advance="18"/>
-            <Code index="51" coord="69 42 15 23" bearing="2 11" advance="18"/>
-            <Code index="52" coord="85 42 16 23" bearing="2 11" advance="18"/>
-            <Code index="53" coord="102 42 15 23" bearing="2 11" advance="18"/>
-            <Code index="54" coord="118 42 16 23" bearing="2 11" advance="18"/>
-            <Code index="55" coord="135 42 15 23" bearing="2 11" advance="18"/>
-            <Code index="56" coord="151 42 16 23" bearing="2 11" advance="18"/>
-            <Code index="57" coord="168 42 16 23" bearing="2 11" advance="18"/>
-            <Code index="58" coord="132 0 3 16" bearing="4 18" advance="6"/>
-            <Code index="59" coord="167 18 4 19" bearing="3 18" advance="7"/>
-            <Code index="60" coord="136 0 19 17" bearing="3 16" advance="23"/>
-            <Code index="61" coord="97 0 19 10" bearing="3 19" advance="23"/>
-            <Code index="62" coord="156 0 19 17" bearing="3 16" advance="23"/>
-            <Code index="63" coord="185 42 12 23" bearing="2 11" advance="14"/>
-            <Code index="64" coord="90 115 27 27" bearing="2 12" advance="29"/>
-            <Code index="65" coord="198 42 21 23" bearing="0 11"/>
-            <Code index="66" coord="220 42 16 23" bearing="3 11" advance="18"/>
-            <Code index="67" coord="237 42 18 23" bearing="2 11" advance="20"/>
-            <Code index="68" coord="0 66 19 23" bearing="3 11" advance="21"/>
-            <Code index="69" coord="20 66 15 23" bearing="3 11" advance="17"/>
-            <Code index="70" coord="36 66 13 23" bearing="3 11" advance="15"/>
-            <Code index="71" coord="50 66 20 23" bearing="2 11" advance="22"/>
-            <Code index="72" coord="71 66 17 23" bearing="3 11" advance="20"/>
-            <Code index="73" coord="89 66 3 23" bearing="3 11" advance="6"/>
-            <Code index="74" coord="189 115 8 29" bearing="-2 11" advance="11"/>
-            <Code index="75" coord="93 66 18 23" bearing="3 11" advance="17"/>
-            <Code index="76" coord="112 66 14 23" bearing="3 11"/>
-            <Code index="77" coord="127 66 21 23" bearing="3 11" advance="24"/>
-            <Code index="78" coord="149 66 17 23" bearing="3 11" advance="20"/>
-            <Code index="79" coord="167 66 21 23" bearing="2 11" advance="22"/>
-            <Code index="80" coord="189 66 15 23" bearing="3 11" advance="16"/>
-            <Code index="81" coord="118 115 21 27" bearing="2 11" advance="22"/>
-            <Code index="82" coord="205 66 18 23" bearing="3 11" advance="19"/>
-            <Code index="83" coord="224 66 16 23" bearing="2 11" advance="18"/>
-            <Code index="84" coord="0 90 19 23" bearing="0 11"/>
-            <Code index="85" coord="20 90 17 23" bearing="3 11" advance="20"/>
-            <Code index="86" coord="38 90 21 23" bearing="0 11"/>
-            <Code index="87" coord="60 90 29 23" bearing="1 11" advance="30"/>
-            <Code index="88" coord="90 90 19 23" bearing="1 11" advance="20"/>
-            <Code index="89" coord="110 90 19 23" bearing="0 11"/>
-            <Code index="90" coord="130 90 18 23" bearing="1 11" advance="20"/>
-            <Code index="91" coord="156 115 7 28" bearing="3 10" advance="9"/>
-            <Code index="92" coord="62 115 10 25" bearing="0 11"/>
-            <Code index="93" coord="164 115 7 28" bearing="3 10" advance="9"/>
-            <Code index="94" coord="77 0 19 8" bearing="3 11" advance="23"/>
-            <Code index="95" coord="9 0 16 3" bearing="0 38"/>
-            <Code index="96" coord="30 0 7 6" bearing="3 9" advance="13"/>
-            <Code index="97" coord="176 0 14 17" bearing="2 17" advance="17"/>
-            <Code index="98" coord="215 90 15 24" bearing="3 10" advance="17"/>
-            <Code index="99" coord="191 0 13 17" bearing="2 17" advance="15"/>
-            <Code index="100" coord="231 90 15 24" bearing="2 10" advance="18"/>
-            <Code index="101" coord="205 0 16 17" bearing="2 17" advance="17"/>
-            <Code index="102" coord="0 115 11 24" bearing="0 10"/>
-            <Code index="103" coord="149 90 15 23" bearing="2 17" advance="18"/>
-            <Code index="104" coord="12 115 14 24" bearing="3 10" advance="17"/>
-            <Code index="105" coord="27 115 3 24" bearing="3 10" advance="6"/>
-            <Code index="106" coord="224 115 6 30" bearing="0 10" advance="9"/>
-            <Code index="107" coord="31 115 15 24" bearing="3 10"/>
-            <Code index="108" coord="47 115 3 24" bearing="3 10" advance="6"/>
-            <Code index="109" coord="222 0 25 17" bearing="3 17" advance="27"/>
-            <Code index="110" coord="0 18 14 17" bearing="3 17" advance="17"/>
-            <Code index="111" coord="15 18 16 17" bearing="2 17" advance="17"/>
-            <Code index="112" coord="165 90 15 23" bearing="3 17" advance="17"/>
-            <Code index="113" coord="181 90 15 23" bearing="2 17" advance="18"/>
-            <Code index="114" coord="32 18 10 17" bearing="3 17"/>
-            <Code index="115" coord="43 18 14 17" bearing="2 17"/>
-            <Code index="116" coord="194 18 11 22" bearing="1 12"/>
-            <Code index="117" coord="58 18 14 17" bearing="3 17" advance="17"/>
-            <Code index="118" coord="73 18 17 17" bearing="1 17"/>
-            <Code index="119" coord="91 18 23 17" bearing="1 17" advance="24"/>
-            <Code index="120" coord="115 18 16 17" bearing="1 17" advance="17"/>
-            <Code index="121" coord="197 90 17 23" bearing="1 17"/>
-            <Code index="122" coord="132 18 14 17" bearing="1 17" advance="15"/>
-            <Code index="123" coord="198 115 12 29" bearing="4 10" advance="16"/>
-            <Code index="124" coord="231 115 3 31" bearing="4 10" advance="6"/>
-            <Code index="125" coord="211 115 12 29" bearing="4 10" advance="16"/>
-            <Code index="126" coord="43 0 19 7" bearing="3 21" advance="23"/>
-            <Code index="selected" coord="235 115 0 37"/>
-            <Code index="selected_back" coord="237 115 0 37"/>
-            <Code index="cursor" coord="239 115 2 37" advance="0"/>
-            <Code index="substitute" coord="73 115 16 27" bearing="2 12" advance="17"/>
-        </Codes>
-    </Resource>
+<MyGUI type="Resource" version="1.2">
+	<Resource type="ResourceManualFont" name="FontKeyboard">
+		<Property key="Source" value="FontKeyboard.png" />
+		<Property key="Shader" value="" />
+		<Property key="DefaultHeight" value="37" />
+		<Codes>
+			<Code index="9" coord="1 1 0 0" advance="8" />
+			<Code index="32" bearing="0 29" advance="9.75" />
+			<Code index="33" coord="210 19 4 23" bearing="4.625 6.64062" advance="12.2969" />
+			<Code index="34" coord="70 1 10 9" bearing="2.95312 6.64062" advance="14.1094" />
+			<Code index="35" coord="215 19 22 23" bearing="2.35938 6.98438" advance="25.7031" />
+			<Code index="36" coord="197 117 15 29" bearing="2.54688 5.70312" advance="19.5156" />
+			<Code index="37" coord="172 67 27 24" bearing="1.6875 6.23438" advance="29.1406" />
+			<Code index="38" coord="200 67 22 24" bearing="1.9375 6.23438" advance="23.9219" />
+			<Code index="39" coord="81 1 4 9" bearing="2.95312 6.64062" advance="8.4375" />
+			<Code index="40" coord="213 117 8 29" bearing="2.64062 5.71875" advance="11.9688" />
+			<Code index="41" coord="222 117 8 29" bearing="2.45312 5.71875" advance="11.9688" />
+			<Code index="42" coord="128 1 15 15" bearing="0.90625 6.23438" advance="15.3438" />
+			<Code index="43" coord="170 19 20 20" bearing="3.25 9.76562" advance="25.7031" />
+			<Code index="44" coord="64 1 5 8" bearing="2.35938 25.2031" advance="9.75" />
+			<Code index="45" coord="1 1 9 3" bearing="1.5 19.375" advance="11.0625">
+				<Kerning right="65" offset="-1" />
+				<Kerning right="66" offset="-1" />
+				<Kerning right="71" offset="1" />
+				<Kerning right="74" offset="2" />
+				<Kerning right="79" offset="1" />
+				<Kerning right="81" offset="1" />
+				<Kerning right="84" offset="-3" />
+				<Kerning right="86" offset="-2" />
+				<Kerning right="87" offset="-1" />
+				<Kerning right="88" offset="-2" />
+				<Kerning right="89" offset="-4" />
+				<Kerning right="111" offset="1" />
+				<Kerning right="118" offset="-1" />
+				<Kerning right="121" offset="-1" />
+			</Code>
+			<Code index="46" coord="29 1 4 4" bearing="3.28125 25.2031" advance="9.75" />
+			<Code index="47" coord="105 117 11 26" bearing="0 6.64062" advance="10.3281" />
+			<Code index="48" coord="223 67 16 24" bearing="2.01562 6.23438" advance="19.5156" />
+			<Code index="49" coord="238 19 14 23" bearing="3.375 6.64062" advance="19.5156" />
+			<Code index="50" coord="1 43 15 23" bearing="2.25 6.23438" advance="19.5156" />
+			<Code index="51" coord="1 92 16 24" bearing="2.34375 6.23438" advance="19.5156" />
+			<Code index="52" coord="17 43 17 23" bearing="1.5 6.64062" advance="19.5156" />
+			<Code index="53" coord="18 92 15 24" bearing="2.35938 6.64062" advance="19.5156" />
+			<Code index="54" coord="34 92 16 24" bearing="2.14062 6.23438" advance="19.5156" />
+			<Code index="55" coord="35 43 15 23" bearing="2.51562 6.64062" advance="19.5156" />
+			<Code index="56" coord="51 92 16 24" bearing="2.07812 6.23438" advance="19.5156" />
+			<Code index="57" coord="68 92 17 24" bearing="1.9375 6.23438" advance="19.5156" />
+			<Code index="58" coord="144 1 4 16" bearing="3.59375 13.1406" advance="10.3281" />
+			<Code index="59" coord="191 19 5 20" bearing="2.35938 13.1406" advance="10.3281" />
+			<Code index="60" coord="149 1 20 17" bearing="3.25 11.1719" advance="25.7031" />
+			<Code index="61" coord="86 1 20 9" bearing="3.25 15.0781" advance="25.7031" />
+			<Code index="62" coord="170 1 20 17" bearing="3.25 11.1719" advance="25.7031" />
+			<Code index="63" coord="51 43 13 23" bearing="2.20312 6.23438" advance="16.2812" />
+			<Code index="64" coord="169 117 27 28" bearing="2.01562 7.40625" advance="30.6719" />
+			<Code index="65" coord="65 43 21 23" bearing="0.234375 6.64062" advance="20.9844">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="46" offset="-1" />
+				<Kerning right="58" offset="-1" />
+				<Kerning right="65" offset="1" />
+				<Kerning right="67" offset="-1" />
+				<Kerning right="71" offset="-1" />
+				<Kerning right="79" offset="-1" />
+				<Kerning right="81" offset="-1" />
+				<Kerning right="84" offset="-2" />
+				<Kerning right="86" offset="-2" />
+				<Kerning right="87" offset="-2" />
+				<Kerning right="89" offset="-2" />
+				<Kerning right="99" offset="-1" />
+				<Kerning right="100" offset="-1" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="102" offset="-1" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="113" offset="-1" />
+				<Kerning right="116" offset="-1" />
+				<Kerning right="118" offset="-2" />
+				<Kerning right="119" offset="-1" />
+				<Kerning right="121" offset="-2" />
+			</Code>
+			<Code index="66" coord="87 43 16 23" bearing="3.01562 6.64062" advance="21.0469">
+				<Kerning right="67" offset="-1" />
+				<Kerning right="71" offset="-1" />
+				<Kerning right="79" offset="-1" />
+				<Kerning right="83" offset="-1" />
+				<Kerning right="86" offset="-1" />
+				<Kerning right="87" offset="-1" />
+				<Kerning right="89" offset="-2" />
+			</Code>
+			<Code index="67" coord="86 92 19 24" bearing="1.71875 6.23438" advance="21.4219">
+				<Kerning right="89" offset="-1" />
+			</Code>
+			<Code index="68" coord="104 43 19 23" bearing="3.01562 6.64062" advance="23.625">
+				<Kerning right="65" offset="-1" />
+				<Kerning right="86" offset="-1" />
+				<Kerning right="89" offset="-2" />
+			</Code>
+			<Code index="69" coord="124 43 15 23" bearing="3.01562 6.64062" advance="19.375" />
+			<Code index="70" coord="140 43 13 23" bearing="3.01562 6.64062" advance="17.6406">
+				<Kerning right="46" offset="-5" />
+				<Kerning right="58" offset="-2" />
+				<Kerning right="65" offset="-3" />
+				<Kerning right="83" offset="-1" />
+				<Kerning right="84" offset="-1" />
+				<Kerning right="97" offset="-3" />
+				<Kerning right="101" offset="-2" />
+				<Kerning right="105" offset="-2" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="114" offset="-2" />
+				<Kerning right="117" offset="-2" />
+				<Kerning right="121" offset="-3" />
+			</Code>
+			<Code index="71" coord="106 92 21 24" bearing="1.71875 6.23438" advance="23.7656">
+				<Kerning right="84" offset="-1" />
+				<Kerning right="89" offset="-2" />
+			</Code>
+			<Code index="72" coord="154 43 18 23" bearing="3.01562 6.64062" advance="23.0625">
+				<Kerning right="46" offset="-1" />
+			</Code>
+			<Code index="73" coord="173 43 4 23" bearing="3.01562 6.64062" advance="9.04688" />
+			<Code index="74" coord="29 147 9 30" bearing="-1.59375 6.64062" advance="9.04688">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="65" offset="-1" />
+			</Code>
+			<Code index="75" coord="178 43 18 23" bearing="3.01562 6.64062" advance="20.1094">
+				<Kerning right="45" offset="-3" />
+				<Kerning right="65" offset="-1" />
+				<Kerning right="67" offset="-2" />
+				<Kerning right="79" offset="-2" />
+				<Kerning right="84" offset="-2" />
+				<Kerning right="85" offset="-1" />
+				<Kerning right="87" offset="-1" />
+				<Kerning right="89" offset="-1" />
+				<Kerning right="97" offset="-1" />
+				<Kerning right="101" offset="-2" />
+				<Kerning right="111" offset="-2" />
+				<Kerning right="117" offset="-2" />
+				<Kerning right="121" offset="-2" />
+			</Code>
+			<Code index="76" coord="197 43 14 23" bearing="3.01562 6.64062" advance="17.0938">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="65" offset="1" />
+				<Kerning right="79" offset="-1" />
+				<Kerning right="84" offset="-4" />
+				<Kerning right="85" offset="-2" />
+				<Kerning right="86" offset="-3" />
+				<Kerning right="87" offset="-3" />
+				<Kerning right="89" offset="-4" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="117" offset="-1" />
+				<Kerning right="121" offset="-3" />
+			</Code>
+			<Code index="77" coord="212 43 21 23" bearing="3.01562 6.64062" advance="26.4688" />
+			<Code index="78" coord="234 43 17 23" bearing="3.01562 6.64062" advance="22.9375" />
+			<Code index="79" coord="128 92 22 24" bearing="1.71875 6.23438" advance="24.1406">
+				<Kerning right="45" offset="1" />
+				<Kerning right="46" offset="-1" />
+				<Kerning right="58" offset="-1" />
+				<Kerning right="65" offset="-1" />
+				<Kerning right="86" offset="-1" />
+				<Kerning right="88" offset="-2" />
+				<Kerning right="89" offset="-2" />
+			</Code>
+			<Code index="80" coord="1 67 15 23" bearing="3.01562 6.64062" advance="18.5">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="46" offset="-5" />
+				<Kerning right="65" offset="-2" />
+				<Kerning right="89" offset="-1" />
+				<Kerning right="97" offset="-1" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="105" offset="-1" />
+				<Kerning right="110" offset="-1" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="114" offset="-1" />
+				<Kerning right="115" offset="-1" />
+				<Kerning right="117" offset="-1" />
+			</Code>
+			<Code index="81" coord="129 117 22 27" bearing="1.71875 6.23438" advance="24.1406">
+				<Kerning right="45" offset="1" />
+			</Code>
+			<Code index="82" coord="17 67 18 23" bearing="3.01562 6.64062" advance="21.3125">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="46" offset="-1" />
+				<Kerning right="58" offset="-1" />
+				<Kerning right="65" offset="-1" />
+				<Kerning right="67" offset="-2" />
+				<Kerning right="84" offset="-2" />
+				<Kerning right="86" offset="-2" />
+				<Kerning right="87" offset="-1" />
+				<Kerning right="89" offset="-2" />
+				<Kerning right="97" offset="-1" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="117" offset="-1" />
+				<Kerning right="121" offset="-2" />
+			</Code>
+			<Code index="83" coord="151 92 16 24" bearing="2.01562 6.23438" advance="19.4688">
+				<Kerning right="65" offset="1" />
+			</Code>
+			<Code index="84" coord="36 67 20 23" bearing="-0.09375 6.64062" advance="18.7344">
+				<Kerning right="45" offset="-3" />
+				<Kerning right="46" offset="-4" />
+				<Kerning right="58" offset="-3" />
+				<Kerning right="65" offset="-2" />
+				<Kerning right="67" offset="-2" />
+				<Kerning right="84" offset="-1" />
+				<Kerning right="97" offset="-5" />
+				<Kerning right="99" offset="-5" />
+				<Kerning right="101" offset="-5" />
+				<Kerning right="105" offset="-1" />
+				<Kerning right="111" offset="-5" />
+				<Kerning right="114" offset="-5" />
+				<Kerning right="115" offset="-5" />
+				<Kerning right="117" offset="-5" />
+				<Kerning right="119" offset="-5" />
+				<Kerning right="121" offset="-5" />
+			</Code>
+			<Code index="85" coord="168 92 18 24" bearing="2.67188 6.64062" advance="22.4531">
+				<Kerning right="90" offset="-1" />
+			</Code>
+			<Code index="86" coord="57 67 21 23" bearing="0.234375 6.64062" advance="20.9844">
+				<Kerning right="45" offset="-2" />
+				<Kerning right="46" offset="-4" />
+				<Kerning right="58" offset="-2" />
+				<Kerning right="65" offset="-2" />
+				<Kerning right="79" offset="-1" />
+				<Kerning right="97" offset="-2" />
+				<Kerning right="101" offset="-2" />
+				<Kerning right="105" offset="-1" />
+				<Kerning right="111" offset="-2" />
+				<Kerning right="117" offset="-2" />
+				<Kerning right="121" offset="-1" />
+			</Code>
+			<Code index="87" coord="79 67 29 23" bearing="1.01562 6.64062" advance="30.3281">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="46" offset="-4" />
+				<Kerning right="58" offset="-2" />
+				<Kerning right="65" offset="-2" />
+				<Kerning right="97" offset="-2" />
+				<Kerning right="101" offset="-2" />
+				<Kerning right="105" offset="-1" />
+				<Kerning right="111" offset="-2" />
+				<Kerning right="114" offset="-1" />
+				<Kerning right="117" offset="-1" />
+				<Kerning right="121" offset="-1" />
+			</Code>
+			<Code index="88" coord="109 67 21 23" bearing="0.90625 6.64062" advance="21.0156">
+				<Kerning right="45" offset="-2" />
+				<Kerning right="67" offset="-2" />
+				<Kerning right="79" offset="-2" />
+				<Kerning right="84" offset="-1" />
+				<Kerning right="101" offset="-1" />
+			</Code>
+			<Code index="89" coord="131 67 20 23" bearing="-0.0625 6.64062" advance="18.7344">
+				<Kerning right="45" offset="-4" />
+				<Kerning right="46" offset="-6" />
+				<Kerning right="58" offset="-4" />
+				<Kerning right="65" offset="-2" />
+				<Kerning right="67" offset="-2" />
+				<Kerning right="79" offset="-2" />
+				<Kerning right="97" offset="-4" />
+				<Kerning right="101" offset="-4" />
+				<Kerning right="105" offset="-1" />
+				<Kerning right="111" offset="-4" />
+				<Kerning right="117" offset="-4" />
+			</Code>
+			<Code index="90" coord="152 67 19 23" bearing="1.375 6.64062" advance="21.0156">
+				<Kerning right="45" offset="-1" />
+			</Code>
+			<Code index="91" coord="231 117 7 29" bearing="2.64062 5.70312" advance="11.9688" />
+			<Code index="92" coord="117 117 11 26" bearing="0 6.64062" advance="10.3281" />
+			<Code index="93" coord="239 117 8 29" bearing="2.98438 5.70312" advance="11.9688" />
+			<Code index="94" coord="107 1 20 9" bearing="3.25 6.64062" advance="25.7031" />
+			<Code index="95" coord="11 1 17 3" bearing="-0.296875 34.0938" advance="15.3438" />
+			<Code index="96" coord="55 1 8 7" bearing="2.54688 4.46875" advance="15.3438" />
+			<Code index="97" coord="71 19 16 19" bearing="1.84375 11.8281" advance="18.7969" />
+			<Code index="98" coord="20 117 16 25" bearing="2.78125 5.70312" advance="19.4688" />
+			<Code index="99" coord="88 19 14 19" bearing="1.6875 11.8281" advance="16.8594" />
+			<Code index="100" coord="37 117 16 25" bearing="1.6875 5.70312" advance="19.4688" />
+			<Code index="101" coord="103 19 17 19" bearing="1.6875 11.8281" advance="18.875">
+				<Kerning right="120" offset="-1" />
+			</Code>
+			<Code index="102" coord="187 92 12 24" bearing="0.703125 5.70312" advance="10.7969">
+				<Kerning right="45" offset="-2" />
+				<Kerning right="46" offset="-2" />
+				<Kerning right="58" offset="-1" />
+				<Kerning right="116" offset="-1" />
+				<Kerning right="119" offset="-1" />
+				<Kerning right="121" offset="-1" />
+			</Code>
+			<Code index="103" coord="54 117 16 25" bearing="1.6875 11.8281" advance="19.4688" />
+			<Code index="104" coord="200 92 15 24" bearing="2.78125 5.70312" advance="19.4375" />
+			<Code index="105" coord="216 92 4 24" bearing="2.89062 5.70312" advance="8.51562" />
+			<Code index="106" coord="39 147 7 31" bearing="-0.546875 5.70312" advance="8.51562" />
+			<Code index="107" coord="221 92 16 24" bearing="2.78125 5.70312" advance="17.7656">
+				<Kerning right="97" offset="-1" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="117" offset="-1" />
+				<Kerning right="121" offset="-1" />
+			</Code>
+			<Code index="108" coord="238 92 4 24" bearing="2.89062 5.70312" advance="8.51562" />
+			<Code index="109" coord="16 19 26 18" bearing="2.78125 11.8281" advance="29.875" />
+			<Code index="110" coord="43 19 15 18" bearing="2.78125 11.8281" advance="19.4375" />
+			<Code index="111" coord="121 19 17 19" bearing="1.6875 11.8281" advance="18.7656">
+				<Kerning right="45" offset="1" />
+				<Kerning right="46" offset="-1" />
+				<Kerning right="120" offset="-1" />
+			</Code>
+			<Code index="112" coord="71 117 16 25" bearing="2.78125 11.8281" advance="19.4688" />
+			<Code index="113" coord="88 117 16 25" bearing="1.6875 11.8281" advance="19.4688" />
+			<Code index="114" coord="59 19 11 18" bearing="2.78125 11.8281" advance="12.6094">
+				<Kerning right="45" offset="-2" />
+				<Kerning right="46" offset="-3" />
+				<Kerning right="58" offset="-1" />
+				<Kerning right="99" offset="-1" />
+				<Kerning right="100" offset="-1" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="103" offset="-1" />
+				<Kerning right="104" offset="-1" />
+				<Kerning right="109" offset="-1" />
+				<Kerning right="110" offset="-1" />
+				<Kerning right="111" offset="-1" />
+				<Kerning right="113" offset="-1" />
+				<Kerning right="114" offset="-1" />
+				<Kerning right="120" offset="-1" />
+			</Code>
+			<Code index="115" coord="139 19 14 19" bearing="1.65625 11.8281" advance="15.9844" />
+			<Code index="116" coord="197 19 12 22" bearing="0.828125 7.46875" advance="12.0312" />
+			<Code index="117" coord="154 19 15 19" bearing="2.60938 11.8281" advance="19.4375" />
+			<Code index="118" coord="191 1 18 17" bearing="0.90625 12.2188" advance="18.1562">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="46" offset="-2" />
+				<Kerning right="58" offset="-2" />
+			</Code>
+			<Code index="119" coord="210 1 23 17" bearing="1.28125 12.2188" advance="25.0781">
+				<Kerning right="46" offset="-3" />
+				<Kerning right="58" offset="-2" />
+			</Code>
+			<Code index="120" coord="234 1 18 17" bearing="0.890625 12.2188" advance="18.1562">
+				<Kerning right="99" offset="-1" />
+				<Kerning right="101" offset="-1" />
+				<Kerning right="111" offset="-1" />
+			</Code>
+			<Code index="121" coord="1 117 18 24" bearing="0.90625 12.2188" advance="18.1562">
+				<Kerning right="45" offset="-1" />
+				<Kerning right="46" offset="-4" />
+				<Kerning right="58" offset="-2" />
+			</Code>
+			<Code index="122" coord="1 19 14 17" bearing="1.3125 12.2188" advance="16.0938" />
+			<Code index="123" coord="1 147 13 29" bearing="3.82812 5.70312" advance="19.5156" />
+			<Code index="124" coord="47 147 4 32" bearing="3.89062 5.5625" advance="10.3281" />
+			<Code index="125" coord="15 147 13 29" bearing="3.82812 5.70312" advance="19.5156" />
+			<Code index="126" coord="34 1 20 6" bearing="3.25 16.7656" advance="25.7031" />
+			<Code index="selected" coord="52 147 0 37" />
+			<Code index="selected_back" coord="54 147 0 37" />
+			<Code index="cursor" coord="56 147 2 37" advance="0" />
+			<Code index="substitute" coord="152 117 16 28" bearing="1.53125 7.375" advance="18.4062" />
+		</Codes>
+	</Resource>
 </MyGUI>

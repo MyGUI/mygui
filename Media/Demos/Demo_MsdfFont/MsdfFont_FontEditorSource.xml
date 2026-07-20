@@ -3,7 +3,7 @@
 	<Resource type="ResourceTrueTypeFont" name="MsdfFont">
 		<Property key="Source" value="DejaVuSans.ttf" />
 		<Property key="Size" value="27" />
-		<Property key="Hinting" value="use_native" />
+		<Property key="Hinting" value="disable_all" />
 		<Property key="Resolution" value="96" />
 		<Property key="Antialias" value="false" />
 		<Property key="TabWidth" value="8" />
@@ -15,6 +15,8 @@
 		</Codes>
 		<Property key="MsdfMode" value="true" />
 		<Property key="MsdfRange" value="2" />
+		<Property key="Kerning" value="true" />
+		<Property key="DpiScale" value="1" />
 		<Property key="Shader" value="MsdfFontShader" />
 	</Resource>
 </MyGUI>

@@ -84,7 +84,7 @@ namespace MyGUI::xml
 
 	bool Document::save(const std::string& _filename)
 	{
-		bool result = mDoc->save_file(_filename.c_str(), "    ", pugi::format_write_bom | pugi::format_default);
+		bool result = mDoc->save_file(_filename.c_str(), "\t", pugi::format_write_bom | pugi::format_default);
 
 		if (!result)
 		{
