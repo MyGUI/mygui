@@ -53,11 +53,50 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
+		addResourceLocation(getRootMedia() + "/Demos/Demo_MsdfFont");
 		setResourceFilename(std::string_view{});
+	}
+
+	static void registerMsdfFonts()
+	{
+		// MsdfFontShader uses custom fragment program and default vertex program
+#if defined(MYGUI_OGRE_PLATFORM)
+		auto shaderExtension = MyGUI::OgreRenderManager::getInstance().getShaderExtension(true);
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"MyGUI_Ogre_VP." + shaderExtension,
+			"Msdf_Ogre_FP." + shaderExtension);
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+		auto shaderExtension = MyGUI::OgreNextRenderManager::getInstance().getShaderExtension();
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"mygui/VP",
+			"Msdf_OgreNext_FP." + shaderExtension);
+#elif defined(MYGUI_OPENGL_PLATFORM)
+// TODO not implemented in RenderManager
+#elif defined(MYGUI_DIRECTX_PLATFORM)
+// TODO not implemented in RenderManager
+#elif defined(MYGUI_DIRECTX11_PLATFORM)
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"MyGUI_DirectX11_VP.hlsl",
+			"Msdf_DirectX11_FP.hlsl");
+#elif defined(MYGUI_OPENGL3_PLATFORM)
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"MyGUI_OpenGL3_VP.glsl",
+			"Msdf_OpenGL3_FP.glsl");
+#elif defined(MYGUI_OPENGLES_PLATFORM)
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"MyGUI_OpenGLES_VP.glsl",
+			"Msdf_OpenGLES_FP.glsl");
+#endif
 	}
 
 	void Application::createScene()
 	{
+		registerMsdfFonts();
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
 
