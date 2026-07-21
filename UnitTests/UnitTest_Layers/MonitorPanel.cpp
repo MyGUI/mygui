@@ -29,7 +29,7 @@ namespace demo
 
 	void MonitorPanel::notifyCommand(std::string_view _name, MyGUI::Any _data)
 	{
-		std::string* data = _data.castType<std::string>(false);
+		auto data = _data.castType<std::string_view>(false);
 		if (data != nullptr)
 		{
 			MyGUI::IResource* base_resource = MyGUI::ResourceManager::getInstance().getByName(*data, false);

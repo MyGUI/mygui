@@ -144,6 +144,8 @@ namespace demo
 
 			// rotate scene
 			updateCamera(rel_x, rel_y);
+			mSaveCursorX = _absx;
+			mSaveCursorY = _absy;
 		}
 		else
 		{
@@ -191,8 +193,6 @@ namespace demo
 	void DemoKeeper::setupCamera()
 	{
 		updateCamera(0, 0);
-		//getCameraNode()->setPosition(0, 60, 60);
-		//getCameraNode()->lookAt(0, 28, 0);
 	}
 
 	void DemoKeeper::updateCamera(int _x, int _y)

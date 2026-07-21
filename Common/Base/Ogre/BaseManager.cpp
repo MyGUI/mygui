@@ -54,7 +54,7 @@ namespace base
 #endif
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
-		mSceneManager = mRoot->createSceneManager();
+		mSceneManager = mRoot->createSceneManager(Ogre::SMT_DEFAULT, "BaseSceneManager");
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
