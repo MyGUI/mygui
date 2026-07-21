@@ -103,6 +103,8 @@ MyGUI ships with several visual editors under `Tools/`:
 - **SkinEditor** — widget skin creator
 - **ImageEditor** — image resource editor
 - **FontEditor** — font resource editor
+- **FontConverter** — headless CLI tool that converts a `ResourceTrueTypeFont` XML into a `ResourceManualFont` XML + PNG
+  atlas pair. Useful for re-baking fonts from source without launching a GUI editor.
 
 ## Documentation
 

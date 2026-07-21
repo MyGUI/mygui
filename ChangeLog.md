@@ -1,3 +1,8 @@
+## MyGUI v3.5.1
+
+### Tools
+- FontConverter: new headless CLI tool that converts a ResourceTrueTypeFont XML into a ResourceManualFont XML + PNG atlas
+
 ## MyGUI v3.5.0
 
 ### CMake
