@@ -25,7 +25,7 @@
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
 					<Initialisator/>
-					<Default>True</Default>
+					<Default>true</Default>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
@@ -53,7 +53,7 @@
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
 					<Initialisator/>
-					<Default>True</Default>
+					<Default>true</Default>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
@@ -99,7 +99,7 @@
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
 					<Initialisator/>
-					<Default>True</Default>
+					<Default>true</Default>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>

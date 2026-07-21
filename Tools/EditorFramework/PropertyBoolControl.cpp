@@ -23,8 +23,8 @@ namespace tools
 		assignWidget(mName, "Name", false);
 		assignWidget(mComboBox, "ComboBox");
 
-		mComboBox->addItem("True");
-		mComboBox->addItem("False");
+		mComboBox->addItem("true");
+		mComboBox->addItem("false");
 
 		mComboBox->beginToItemFirst();
 
