@@ -74,6 +74,9 @@ namespace tools
 
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
+#ifdef MYGUI_USE_FREETYPE
+		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+#endif
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);

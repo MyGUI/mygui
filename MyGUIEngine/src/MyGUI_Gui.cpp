@@ -238,4 +238,14 @@ namespace MyGUI
 		eventFrameStart(_time);
 	}
 
+	void Gui::setDpiScale(float _value)
+	{
+		mDpiScale = _value;
+	}
+
+	float Gui::getDpiScale() const
+	{
+		return mDpiScale;
+	}
+
 } // namespace MyGUI

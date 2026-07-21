@@ -113,6 +113,10 @@ namespace tools
 		if (!value.empty())
 			data->setPropertyValue("DpiScale", MyGUI::utility::parseValue<float>(value));
 
+		value = _node.select_node("Property[@key=\"AutoDpi\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("AutoDpi", MyGUI::utility::parseValue<bool>(value));
+
 		value = _node.select_node("Property[@key=\"Shader\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Shader", value);
@@ -187,6 +191,11 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("DpiScale");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("DpiScale").c_str());
+
+		value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("AutoDpi")));
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("AutoDpi");
+		nodeProperty.append_attribute("value").set_value(value.c_str());
 
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Shader");
@@ -351,6 +360,7 @@ namespace tools
 		font->setMsdfRange(_data->getPropertyValue<int>("MsdfRange"));
 		font->setKerningEnabled(_data->getPropertyValue<bool>("Kerning"));
 		font->setDpiScale(_data->getPropertyValue<float>("DpiScale"));
+		font->setAutoDpi(_data->getPropertyValue<bool>("AutoDpi"));
 		font->setShader(_data->getPropertyValue("Shader"));
 
 		const std::string& ranges = _data->getPropertyValue("FontCodeRanges");

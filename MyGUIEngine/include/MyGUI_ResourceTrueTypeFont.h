@@ -84,6 +84,7 @@ namespace MyGUI
 		void setMsdfRange(int _value);
 		void setKerningEnabled(bool _value);
 		void setDpiScale(float _value);
+		void setAutoDpi(bool _value);
 
 		void addCodePointRange(Char _first, Char _second);
 		void removeCodePointRange(Char _first, Char _second);
@@ -127,6 +128,7 @@ namespace MyGUI
 		int mMsdfRange{2}; // Gradient area range in pixels for msdf mode (higher range is required for thick outlines)
 		bool mKerningEnabled{true}; // Whether kerning is enabled for this font.
 		float mDpiScale{1.0f}; // DPI scale factor for generating a higher-resolution atlas.
+		bool mAutoDpi{false}; // When true, use the global DPI scale from Gui instead of mDpiScale.
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight{0}; // The nominal height of the font in pixels.

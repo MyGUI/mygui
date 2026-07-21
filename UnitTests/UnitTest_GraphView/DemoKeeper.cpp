@@ -73,7 +73,11 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseDemoManager::createScene();
+#ifdef MYGUI_USE_FREETYPE
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+#else
+		MyGUI::ResourceManager::getInstance().load("FrameworkFontsGenerated.xml");
+#endif
 		MyGUI::ResourceManager::getInstance().load("SplineSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("GraphNodeSkin.xml");
 

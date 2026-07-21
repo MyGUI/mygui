@@ -238,6 +238,7 @@ namespace base
 	void SdlBaseManager::createGui()
 	{
 		mGUI = new MyGUI::Gui();
+		mGUI->setDpiScale(mDpiScale);
 		mGUI->initialise(mResourceFileName);
 
 		SDL_StartTextInput();

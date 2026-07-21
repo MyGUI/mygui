@@ -225,7 +225,11 @@ namespace demo
 		factory.registerFactory<MyGUI::TreeControl>(widgetCategory);
 		factory.registerFactory<MyGUI::TreeControlItem>(widgetCategory);
 
+#ifdef MYGUI_USE_FREETYPE
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+#else
+		MyGUI::ResourceManager::getInstance().load("FrameworkFontsGenerated.xml");
+#endif
 		MyGUI::ResourceManager::getInstance().load("TreeControlSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("TreeControlTemplate.xml");
 

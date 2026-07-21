@@ -10,6 +10,7 @@
 #include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Bitwise.h"
+#include "MyGUI_Gui.h"
 
 #ifdef MYGUI_USE_FREETYPE
 
@@ -134,6 +135,10 @@ namespace MyGUI
 	}
 
 	void ResourceTrueTypeFont::setKerningEnabled(bool _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setAutoDpi(bool _value)
 	{
 	}
 
@@ -310,6 +315,8 @@ namespace MyGUI
 					setKerningEnabled(utility::parseBool(value));
 				else if (key == "DpiScale")
 					setDpiScale(utility::parseFloat(value));
+				else if (key == "AutoDpi")
+					setAutoDpi(utility::parseBool(value));
 			}
 			else if (node.name() == std::string_view("Codes"))
 			{
@@ -449,6 +456,9 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::initialise()
 	{
+		if (mAutoDpi)
+			mDpiScale = Gui::getInstance().getDpiScale();
+
 		if (mGlyphSpacing == -1)
 			mGlyphSpacing = mDefaultGlyphSpacing;
 
@@ -1493,6 +1503,11 @@ namespace MyGUI
 	void ResourceTrueTypeFont::setDpiScale(float _value)
 	{
 		mDpiScale = _value;
+	}
+
+	void ResourceTrueTypeFont::setAutoDpi(bool _value)
+	{
+		mAutoDpi = _value;
 	}
 
 #endif // MYGUI_USE_FREETYPE

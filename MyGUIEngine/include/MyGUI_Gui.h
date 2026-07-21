@@ -189,6 +189,14 @@ namespace MyGUI
 		*/
 		void frameEvent(float _time) const;
 
+		/** Set global DPI scale factor for the GUI.
+			@param _value DPI scale. Default value is 1.0
+			Should be called before initialise() so that fonts with AutoDpi enabled can read it during initialization.
+		*/
+		void setDpiScale(float _value);
+		/** Get global DPI scale factor for the GUI. */
+		float getDpiScale() const;
+
 		/*events:*/
 		/** Event : Multidelegate. GUI per frame call.\n
 			signature : void method(float _time)\n
@@ -216,6 +224,7 @@ namespace MyGUI
 		FactoryManager* mFactoryManager{nullptr};
 		ToolTipManager* mToolTipManager{nullptr};
 
+		float mDpiScale{1.0f};
 		bool mIsInitialise{false};
 	};
 
