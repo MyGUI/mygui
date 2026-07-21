@@ -98,7 +98,7 @@ namespace MyGUI
 			HintingForceAuto,
 			// Use only native hints, disable the auto-hinter (FT_LOAD_NO_AUTOHINT). For fonts where auto-hinter degrades quality
 			HintingDisableAuto,
-			// Mono font with some anti-alBest for very small sizes (FT_LOAD_TARGET_MONO + FT_RENDER_MODE_NORMAL)
+			// Mono font with some anti-aliasing. Best for very small sizes (FT_LOAD_TARGET_MONO + FT_RENDER_MODE_NORMAL)
 			HintingMonochrome,
 			// Disable all hinting entirely (FT_LOAD_NO_HINTING). Use for large/display text where shape fidelity matters more than crispness
 			HintingDisableAll,
@@ -124,7 +124,7 @@ namespace MyGUI
 				NotDefined)}; // The code point to use as a substitute for code points that don't exist in the font.
 		bool mMsdfMode{
 			false}; // Signed distance field texture, designed to be used with shader (see https://github.com/Chlumsky/msdfgen)
-		int mMsdfRange{2}; // Gragient area range in pixels for msdf mode (higher range is required for thick outlines)
+		int mMsdfRange{2}; // Gradient area range in pixels for msdf mode (higher range is required for thick outlines)
 		bool mKerningEnabled{true}; // Whether kerning is enabled for this font.
 		float mDpiScale{1.0f}; // DPI scale factor for generating a higher-resolution atlas.
 
@@ -174,7 +174,11 @@ namespace MyGUI
 
 		// Creates a glyph with the specified glyph index and assigns it to the specified code point.
 		// Automatically updates _glyphHeightMap, mCharMap, and mGlyphMap with data from the new glyph..
-		int createGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap);
+		int createGlyph(
+			FT_UInt _glyphIndex,
+			const GlyphInfo& _glyphInfo,
+			GlyphHeightMap& _glyphHeightMap,
+			float _scale = -1.0);
 
 		// Creates a glyph with the specified index from the specified font face and assigns it to the specified code point.
 		// Automatically updates _glyphHeightMap with data from the newly created glyph.
@@ -228,7 +232,6 @@ namespace MyGUI
 			const msdfgen::Shape& _shape,
 			double _advance,
 			int _fontAscent);
-		int createMsdfGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap);
 		int createMsdfFaceGlyph(
 			FT_UInt _glyphIndex,
 			Char _codePoint,

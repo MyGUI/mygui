@@ -303,21 +303,13 @@ namespace MyGUI
 							<< "' is deprecated; value ignored.");
 				}
 				else if (key == "MsdfMode")
-				{
 					setMsdfMode(utility::parseBool(value));
-				}
 				else if (key == "MsdfRange")
-				{
 					setMsdfRange(utility::parseInt(value));
-				}
 				else if (key == "Kerning")
-				{
 					setKerningEnabled(utility::parseBool(value));
-				}
 				else if (key == "DpiScale")
-				{
 					setDpiScale(utility::parseFloat(value));
-				}
 			}
 			else if (node.name() == std::string_view("Codes"))
 			{
@@ -365,7 +357,7 @@ namespace MyGUI
 
 	const GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id) const
 	{
-		GlyphMap::const_iterator glyphIter = mGlyphMap.find(_id);
+		auto glyphIter = mGlyphMap.find(_id);
 
 		if (glyphIter != mGlyphMap.end())
 		{
@@ -397,8 +389,8 @@ namespace MyGUI
 
 		if (!mCharMap.empty())
 		{
-			CharMap::const_iterator iter = mCharMap.begin();
-			CharMap::const_iterator endIter = mCharMap.end();
+			auto iter = mCharMap.begin();
+			auto endIter = mCharMap.end();
 
 			// Start the first range with the first code point in the map.
 			Char rangeBegin = iter->first;
@@ -436,7 +428,7 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::addCodePoint(Char _codePoint)
 	{
-		mCharMap.insert(CharMap::value_type(_codePoint, 0));
+		mCharMap.try_emplace(_codePoint, 0);
 	}
 
 	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)
@@ -578,7 +570,7 @@ namespace MyGUI
 		addCodePoint(FontCodeType::Space);
 
 		// Create the standard glyphs.
-		for (CharMap::iterator iter = mCharMap.begin(); iter != mCharMap.end();)
+		for (auto iter = mCharMap.begin(); iter != mCharMap.end();)
 		{
 			const Char& codePoint = iter->first;
 			FT_UInt glyphIndex = FT_Get_Char_Index(ftFace, codePoint);
@@ -599,7 +591,7 @@ namespace MyGUI
 		}
 
 		// Do some special handling for the "Space" and "Tab" glyphs.
-		GlyphMap::iterator spaceGlyphIter = mGlyphMap.find(FontCodeType::Space);
+		auto spaceGlyphIter = mGlyphMap.find(FontCodeType::Space);
 
 		if (spaceGlyphIter != mGlyphMap.end())
 		{
@@ -824,6 +816,8 @@ namespace MyGUI
 		FT_Long numFaces = result->num_faces;
 		FT_Long faceIndex = 0;
 
+		FT_Done_Face(result);
+
 		// Load the first face.
 		if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
 			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
@@ -865,7 +859,7 @@ namespace MyGUI
 						MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 			} while (faceIndex < numFaces);
 
-			std::map<float, FT_Long>::const_iterator iter = faceSizes.lower_bound(mSize);
+			auto iter = faceSizes.lower_bound(mSize);
 
 			faceIndex = (iter != faceSizes.end()) ? iter->second : faceSizes.rbegin()->second;
 
@@ -910,7 +904,7 @@ namespace MyGUI
 
 	float ResourceTrueTypeFont::getKerning(Char _left, Char _right) const
 	{
-		KerningMap::const_iterator iter = mKerningMap.find(std::make_pair(_left, _right));
+		auto iter = mKerningMap.find(std::make_pair(_left, _right));
 		if (iter != mKerningMap.end())
 			return iter->second;
 		return 0.0f;
@@ -926,16 +920,16 @@ namespace MyGUI
 		if (!FT_HAS_KERNING(_ftFace))
 			return;
 
-		for (CharMap::const_iterator leftIter = mCharMap.begin(); leftIter != mCharMap.end(); ++leftIter)
+		for (const auto& [leftChar, leftIndex] : mCharMap)
 		{
-			for (CharMap::const_iterator rightIter = mCharMap.begin(); rightIter != mCharMap.end(); ++rightIter)
+			for (const auto& [rightChar, rightIndex] : mCharMap)
 			{
 				FT_Vector kerning;
-				if (FT_Get_Kerning(_ftFace, leftIter->second, rightIter->second, FT_KERNING_DEFAULT, &kerning) == 0)
+				if (FT_Get_Kerning(_ftFace, leftIndex, rightIndex, FT_KERNING_DEFAULT, &kerning) == 0)
 				{
 					if (kerning.x != 0)
 					{
-						mKerningMap[std::make_pair(leftIter->first, rightIter->first)] = kerning.x / 64.0f / mDpiScale;
+						mKerningMap[std::make_pair(leftChar, rightChar)] = kerning.x / 64.0f / mDpiScale;
 					}
 				}
 			}
@@ -967,9 +961,10 @@ namespace MyGUI
 	int ResourceTrueTypeFont::createGlyph(
 		FT_UInt _glyphIndex,
 		const GlyphInfo& _glyphInfo,
-		GlyphHeightMap& _glyphHeightMap)
+		GlyphHeightMap& _glyphHeightMap,
+		float _scale)
 	{
-		auto [width, height] = integerGlyphSize(_glyphInfo, mDpiScale);
+		auto [width, height] = integerGlyphSize(_glyphInfo, _scale < 0 ? mDpiScale : _scale);
 
 		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
 		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphInfo.codePoint, _glyphInfo)).first->second;
@@ -1051,7 +1046,7 @@ namespace MyGUI
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
-					GlyphMap::iterator glyphIter = mGlyphMap.find(info.codePoint);
+					auto glyphIter = mGlyphMap.find(info.codePoint);
 					if (glyphIter != mGlyphMap.end())
 					{
 						glyphIter->second.width = 0.0f;
@@ -1236,20 +1231,6 @@ namespace MyGUI
 			_fontAscent - bounds.t * mMsdfScale - mOffsetHeight - range);
 	}
 
-	int ResourceTrueTypeFont::createMsdfGlyph(
-		FT_UInt _glyphIndex,
-		const GlyphInfo& _glyphInfo,
-		GlyphHeightMap& _glyphHeightMap)
-	{
-		auto [width, height] = integerGlyphSize(_glyphInfo, 1.0f);
-
-		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
-		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphInfo.codePoint, _glyphInfo)).first->second;
-		_glyphHeightMap[height].insert(std::make_pair(_glyphIndex, &info));
-
-		return (width > 0) ? mGlyphSpacing + width : 0;
-	}
-
 	int ResourceTrueTypeFont::createMsdfFaceGlyph(
 		FT_UInt _glyphIndex,
 		Char _codePoint,
@@ -1262,10 +1243,11 @@ namespace MyGUI
 			msdfgen::Shape shape;
 			double advance;
 			if (msdfgen::loadGlyph(shape, _fontHandle, _codePoint, msdfgen::FONT_SCALING_EM_NORMALIZED, &advance))
-				return createMsdfGlyph(
+				return createGlyph(
 					_glyphIndex,
 					createMsdfFaceGlyphInfo(_codePoint, shape, advance, _fontAscent),
-					_glyphHeightMap);
+					_glyphHeightMap,
+					1.0f);
 			MYGUI_LOG(
 				Warning,
 				"ResourceTrueTypeFont: Cannot load msdf glyph for character "
@@ -1316,7 +1298,7 @@ namespace MyGUI
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
-					GlyphMap::iterator glyphIter = mGlyphMap.find(info.codePoint);
+					auto glyphIter = mGlyphMap.find(info.codePoint);
 					if (glyphIter != mGlyphMap.end())
 					{
 						glyphIter->second.width = 0.0f;
