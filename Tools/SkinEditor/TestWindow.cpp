@@ -131,10 +131,7 @@ namespace tools
 
 		root.select_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
-		/*bool result = */ doc.save_file(
-			mTestSkinFileName.c_str(),
-			"\t",
-			(pugi::format_indent | pugi::format_write_bom));
+		/*bool result = */ doc.save_file(mTestSkinFileName.c_str(), "\t");
 
 		MyGUI::xml::Document docLoad;
 		docLoad.open(mTestSkinFileName);
