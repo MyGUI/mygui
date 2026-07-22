@@ -21,8 +21,7 @@ namespace MyGUI
 	class DirectXPlatform
 	{
 	public:
-		DirectXPlatform() :
-			mIsInitialise(false)
+		DirectXPlatform()
 		{
 			mLogManager = new LogManager();
 			mRenderManager = new DirectXRenderManager();
@@ -69,7 +68,7 @@ namespace MyGUI
 		}
 
 	private:
-		bool mIsInitialise;
+		bool mIsInitialise{false};
 		DirectXRenderManager* mRenderManager;
 		DirectXDataManager* mDataManager;
 		LogManager* mLogManager;

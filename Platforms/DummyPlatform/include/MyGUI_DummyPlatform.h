@@ -19,10 +19,7 @@ namespace MyGUI
 	class DummyPlatform
 	{
 	public:
-		DummyPlatform() :
-			mLogManager(nullptr),
-			mRenderManager(nullptr),
-			mDataManager(nullptr)
+		DummyPlatform()
 		{
 			mLogManager = new LogManager();
 			mRenderManager = new DummyRenderManager();

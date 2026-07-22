@@ -28,7 +28,6 @@ namespace base
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
 
-		void setupResources() override;
 		MyGUI::MapString getStatistic() override;
 
 		/*internal:*/

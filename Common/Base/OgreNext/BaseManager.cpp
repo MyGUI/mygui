@@ -221,11 +221,6 @@ namespace base
 			.addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
-	void BaseManager::setupResources()
-	{
-		SdlBaseManager::setupResources();
-	}
-
 	MyGUI::MapString BaseManager::getStatistic()
 	{
 		MyGUI::MapString result;

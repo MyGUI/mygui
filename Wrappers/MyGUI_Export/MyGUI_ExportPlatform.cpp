@@ -9,10 +9,7 @@
 namespace MyGUI
 {
 
-	ExportPlatform::ExportPlatform() :
-		mLogManager(nullptr),
-		mRenderManager(nullptr),
-		mDataManager(nullptr)
+	ExportPlatform::ExportPlatform()
 	{
 		mLogManager = new LogManager();
 		mRenderManager = new ExportRenderManager();

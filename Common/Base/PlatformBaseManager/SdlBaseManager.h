@@ -23,7 +23,6 @@ namespace base
 		virtual void drawOneFrame() = 0;
 		virtual void resizeRender(int _width, int _height) = 0;
 		virtual void addResourceLocation(const std::string& _name, bool _recursive = false) = 0;
-		virtual void makeScreenShot();
 
 		bool create(int _width = 1024, int _height = 768);
 		void destroy();
@@ -34,6 +33,7 @@ namespace base
 
 		const std::string& getRootMedia() const;
 		void setResourceFilename(std::string_view _flename);
+		void makeScreenShot();
 
 		/*internal:*/
 		void _windowResized(int w, int h);
