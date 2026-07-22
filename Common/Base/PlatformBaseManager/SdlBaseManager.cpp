@@ -3,6 +3,7 @@
 
 #include <SDL_syswm.h>
 
+#include <filesystem>
 #include <fstream>
 
 namespace base
@@ -197,9 +198,21 @@ namespace base
 
 	void SdlBaseManager::setupResources()
 	{
+		std::filesystem::path binaryDir;
+		char* basePath = SDL_GetBasePath();
+		if (basePath)
+		{
+			binaryDir = std::filesystem::path(basePath).parent_path();
+			SDL_free(basePath);
+		}
+		else
+		{
+			binaryDir = std::filesystem::current_path();
+		}
+
 		MyGUI::xml::Document doc;
 
-		if (!doc.open(std::string("resources.xml")))
+		if (!doc.open((binaryDir / "resources.xml").string()))
 		{
 			std::cerr << "Failed to load resources.xml: " << doc.getLastError() << std::endl;
 			exit(1);
@@ -218,7 +231,11 @@ namespace base
 				{
 					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
 					if (rootAttribute)
+					{
 						mRootMedia = node->getContent();
+						if (!std::filesystem::path(mRootMedia).is_absolute())
+							mRootMedia = (binaryDir / mRootMedia).string();
+					}
 				}
 				addResourceLocation(node->getContent(), false);
 			}
