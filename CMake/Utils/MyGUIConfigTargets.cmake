@@ -162,8 +162,6 @@ function(mygui_config_lib PROJECTNAME)
 		# add static prefix, if compiling static version
 		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
 	else()
-		target_compile_definitions(${PROJECTNAME} PRIVATE MYGUI_GCC_VISIBILITY)
-
 		# set install RPATH for shared libraries so they can find dependencies
 		# in the same directory (e.g. pugixml from FetchContent)
 		if(UNIX)
