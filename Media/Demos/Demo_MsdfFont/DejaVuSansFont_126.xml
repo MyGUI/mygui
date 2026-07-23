@@ -1,21 +1,19 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_63">
-		<Property key="Source" value="DejaVuSans.ttf"/>
-		<Property key="Size" value="40"/>
-		<Property key="Hinting" value="use_native"/>
+		<Property key="Source" value="DejaVuSans.ttf" />
+		<Property key="Size" value="40" />
 		<Codes>
-			<Code range="32 126"/>
-			<Code range="1025 1105"/>
+			<Code range="32 126" />
+			<Code range="1025 1105" />
 		</Codes>
 	</Resource>
 	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_126">
-		<Property key="Source" value="DejaVuSans.ttf"/>
-		<Property key="Size" value="80"/>
-		<Property key="Hinting" value="use_native"/>
+		<Property key="Source" value="DejaVuSans.ttf" />
+		<Property key="Size" value="80" />
 		<Codes>
-			<Code range="32 126"/>
-			<Code range="1025 1105"/>
+			<Code range="32 126" />
+			<Code range="1025 1105" />
 		</Codes>
 	</Resource>
 </MyGUI>

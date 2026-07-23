@@ -3,12 +3,9 @@
 	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_15">
 		<Property key="Source" value="DejaVuSans.ttf" />
 		<Property key="Size" value="10" />
-		<Property key="Hinting" value="use_native" />
-		<Property key="TabWidth" value="8" />
 		<Codes>
 			<Code range="32 126" />
 			<Code range="1025 1105" />
 		</Codes>
-		<Property key="AutoDpi" value="true" />
 	</Resource>
 </MyGUI>
