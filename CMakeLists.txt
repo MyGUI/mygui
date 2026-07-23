@@ -42,7 +42,7 @@ option(MYGUI_USE_SYSTEM_PUGIXML "Use system installed pugixml" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsolete functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 7 CACHE STRING
-"Specify the Render System. Possible values:
+"Specify the Render System for demos and tools. Possible values:
   1 - Dummy
   2 - Export (not used)
   3 - Ogre
@@ -53,6 +53,15 @@ set(MYGUI_RENDERSYSTEM 7 CACHE STRING
   8 - OpenGL ES 2.0 (Emscripten)
   9 - OgreNext"
 )
+
+set(MYGUI_BUILD_RENDERSYSTEMS "${MYGUI_RENDERSYSTEM}" CACHE STRING
+"Render systems to build platform libraries for. Semicolon-separated list of IDs.
+Defaults to MYGUI_RENDERSYSTEM. Example: -DMYGUI_BUILD_RENDERSYSTEMS=\"7;3\""
+)
+
+if(NOT MYGUI_RENDERSYSTEM IN_LIST MYGUI_BUILD_RENDERSYSTEMS)
+	list(APPEND MYGUI_BUILD_RENDERSYSTEMS ${MYGUI_RENDERSYSTEM})
+endif()
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)

@@ -41,28 +41,30 @@ endif()
 
 # Determine platform dependencies for the config file
 set(MYGUI_CONFIG_FIND_DEPS "")
-if(MYGUI_RENDERSYSTEM EQUAL 3 OR MYGUI_RENDERSYSTEM EQUAL 9)
-	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
-elseif(
-	MYGUI_RENDERSYSTEM EQUAL 4
-	OR MYGUI_RENDERSYSTEM EQUAL 7
-	OR MYGUI_RENDERSYSTEM EQUAL 8
-)
-	if(NOT EMSCRIPTEN)
-		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OpenGL)")
+foreach(_rs IN LISTS MYGUI_BUILD_RENDERSYSTEMS)
+	if(_rs EQUAL 3 OR _rs EQUAL 9)
+		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
+	elseif(
+		_rs EQUAL 4
+		OR _rs EQUAL 7
+		OR _rs EQUAL 8
+	)
+		if(NOT EMSCRIPTEN)
+			list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OpenGL)")
+		endif()
 	endif()
-endif()
+endforeach()
 
 # For static builds, internal link dependencies become transitive
 # and must be found by consumers via find_dependency
 if(NOT BUILD_SHARED_LIBS)
+	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(pugixml)")
 	if(MYGUI_USE_FREETYPE)
 		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(Freetype)")
 	endif()
 	if(MYGUI_MSDF_FONTS)
 		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(msdfgen)")
 	endif()
-	list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(pugixml)")
 endif()
 
 string(REPLACE ";" "\n" MYGUI_CONFIG_FIND_DEPS "${MYGUI_CONFIG_FIND_DEPS}")
