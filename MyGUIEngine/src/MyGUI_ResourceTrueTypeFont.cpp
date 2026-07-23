@@ -459,6 +459,9 @@ namespace MyGUI
 		if (mAutoDpi)
 			mDpiScale = Gui::getInstance().getDpiScale();
 
+		if (mMsdfMode)
+			mDpiScale = 1.0f;
+
 		if (mGlyphSpacing == -1)
 			mGlyphSpacing = mDefaultGlyphSpacing;
 
