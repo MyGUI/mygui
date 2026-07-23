@@ -43,7 +43,7 @@
 					<Name>Size</Name>
 					<Type>PropertyFloatControl</Type>
 					<Initialisator/>
-					<Default>10</Default>
+					<Default>20</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>

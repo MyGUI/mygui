@@ -25,6 +25,7 @@ namespace tools
 			DataTypePropertyPtr info(new DataTypeProperty());
 			info->deserialization(property.node());
 			mProperties.push_back(info);
+			mPropertiesMap.emplace(info->getName(), std::move(info));
 		}
 	}
 
@@ -46,6 +47,10 @@ namespace tools
 	const DataType::VectorProperty& DataType::getProperties() const
 	{
 		return mProperties;
+	}
+	const DataType::MapProperty& DataType::getPropertiesMap() const
+	{
+		return mPropertiesMap;
 	}
 
 	bool DataType::isChild(std::string_view _child) const

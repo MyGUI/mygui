@@ -130,76 +130,44 @@ namespace tools
 		node.append_attribute("type").set_value("ResourceTrueTypeFont");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
 
-		pugi::xml_node nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Source");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Source").c_str());
+		auto addProperty = [&](std::string_view _key)
+		{
+			const std::string& value = _data->getPropertyValue(_key);
+			const auto& properties = _data->getType()->getPropertiesMap();
+			auto it = properties.find(_key);
+			if (it == properties.end())
+				MYGUI_EXCEPT("Property '" << _key << "' not found");
 
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Size");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Size").c_str());
+			if (value != it->second->getDefaultValue())
+			{
+				pugi::xml_node xmlProp = node.append_child("Property");
+				xmlProp.append_attribute("key").set_value(std::string(_key).c_str());
+				xmlProp.append_attribute("value").set_value(value.c_str());
+			}
+		};
 
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Hinting");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Hinting").c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Resolution");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Resolution").c_str());
-
-		std::string value =
-			MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Antialias")));
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Antialias");
-		nodeProperty.append_attribute("value").set_value(value.c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("TabWidth");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("TabWidth").c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("OffsetHeight");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("OffsetHeight").c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("SubstituteCode");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("SubstituteCode").c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Distance");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Distance").c_str());
+		addProperty("Source");
+		addProperty("Size");
+		addProperty("Hinting");
+		addProperty("Resolution");
+		addProperty("Antialias");
+		addProperty("TabWidth");
+		addProperty("OffsetHeight");
+		addProperty("SubstituteCode");
+		addProperty("Distance");
 
 		pugi::xml_node nodeCodes = node.append_child("Codes");
-		value = _data->getPropertyValue("FontCodeRanges");
+		std::string value = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(value, "|");
 		for (auto& subValue : values)
 			nodeCodes.append_child("Code").append_attribute("range").set_value(subValue.c_str());
 
-		value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("MsdfMode")));
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("MsdfMode");
-		nodeProperty.append_attribute("value").set_value(value.c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("MsdfRange");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("MsdfRange").c_str());
-
-		value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Kerning")));
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Kerning");
-		nodeProperty.append_attribute("value").set_value(value.c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("DpiScale");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("DpiScale").c_str());
-
-		value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("AutoDpi")));
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("AutoDpi");
-		nodeProperty.append_attribute("value").set_value(value.c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("Shader");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Shader").c_str());
+		addProperty("MsdfMode");
+		addProperty("MsdfRange");
+		addProperty("Kerning");
+		addProperty("DpiScale");
+		addProperty("AutoDpi");
+		addProperty("Shader");
 	}
 
 	bool FontExportSerializer::exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName)
@@ -316,7 +284,8 @@ namespace tools
 			node->addAttribute("name", _data->getPropertyValue("Name"));
 
 			addProperty(node, "Source", textureName);
-			addProperty(node, "Shader", _data->getPropertyValue("Shader"));
+			if (!_data->getPropertyValue("Shader").empty())
+				addProperty(node, "Shader", _data->getPropertyValue("Shader"));
 			addProperty(node, "DefaultHeight", font->getDefaultHeight());
 
 			MyGUI::xml::ElementPtr codes = node->createChild("Codes");

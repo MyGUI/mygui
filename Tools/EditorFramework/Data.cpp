@@ -26,8 +26,7 @@ namespace tools
 
 		if (mType != nullptr)
 		{
-			const DataType::VectorProperty& properties = mType->getProperties();
-			for (const auto& property : properties)
+			for (const auto& property : mType->getProperties())
 			{
 				PropertyPtr data = Property::CreateInstance(property, mWeakThis.lock());
 				data->initialise();

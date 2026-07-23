@@ -8,6 +8,7 @@
 #define _dd541c2d_6b2d_440f_a2b3_a08454979c7b_
 
 #include <pugixml.hpp>
+#include <map>
 #include <memory>
 #include <vector>
 #include "DataTypeProperty.h"
@@ -28,6 +29,8 @@ namespace tools
 
 		using VectorProperty = std::vector<DataTypePropertyPtr>;
 		const VectorProperty& getProperties() const;
+		using MapProperty = std::map<std::string, DataTypePropertyPtr, std::less<>>;
+		const MapProperty& getPropertiesMap() const;
 
 		bool isChild(std::string_view _child) const;
 
@@ -36,6 +39,7 @@ namespace tools
 		std::string mFriend;
 		VectorString mChilds;
 		VectorProperty mProperties;
+		MapProperty mPropertiesMap;
 	};
 
 	using DataTypePtr = std::shared_ptr<DataType>;

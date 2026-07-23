@@ -83,8 +83,7 @@ namespace tools
 		if (mCurrentData != nullptr)
 		{
 			mContentHeight = 0;
-			const DataType::VectorProperty& properties = mCurrentData->getType()->getProperties();
-			for (const auto& property : properties)
+			for (const auto& property : mCurrentData->getType()->getProperties())
 			{
 				if (property->getVisible())
 				{
