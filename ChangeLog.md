@@ -1,7 +1,34 @@
 ## MyGUI v3.5.1
 
+### Core
+- ResourceTrueTypeFont: implement AutoDpi property for automatic DPI scaling
+- ResourceTrueTypeFont: fix inaccurate texture size computation with MSDF fonts
+- ResourceTrueTypeFont: fix MSDF font dynamic kerning
+- ResourceTrueTypeFont: fix edge cases when rendered glyph size doesn't match glyph info size
+
+### Platforms
+- OpenGL: use glad for OpenGL and OpenGL3 platforms on Windows
+- OpenGL: Do not call glViewport in Platform code, as this is user responsibility
+- Fix GL3 tools/demos on macOS
+
 ### Tools
 - FontConverter: new headless CLI tool that converts a ResourceTrueTypeFont XML into a ResourceManualFont XML + PNG atlas
+- FontEditor: allow displaying MSDF fonts
+- FontEditor: disallow generating invalid fonts
+- Fix tool boolean property display issue
+- Save UTF-8 without BOM in tools
+- Implement FilterNone for all platforms
+
+### Demos
+- Implement high DPI scaling for demos and tools (can be used to scale entire GUI, see readme for details)
+- Fix skins for high DPI (fix color bleed)
+- Allow running apps from any working directory
+
+### Infrastructure
+- Add vcpkg.json
+- Extend CI coverage to Windows static/shared build with all features and tools
+- Fix build with fetched msdfgen on Windows
+- Fix wrapper build with CMake
 
 ## MyGUI v3.5.0
 

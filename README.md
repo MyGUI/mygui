@@ -23,6 +23,18 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
   - MSDF shaders for OpenGL 3.x, OpenGL ES, DirectX 11, Ogre, OgreNext (GLSL, HLSL, Metal, SPIR-V)
   - Visual FontEditor tool for authoring and previewing font definitions
 - **Platform support:** Windows, Linux, macOS; also runs in the browser via Emscripten
+- **High DPI support:** automatic DPI scaling for font rendering; demos and tools scale automatically on high-DPI displays
+  - Fonts auto-scale to the display DPI (`AutoDpi`, on by default); set
+    `Gui::setDpiScale()` before `initialise()` to control the scale, or use the
+    `DpiScale` property in font XML for a manual override. `setDpiScale()` can
+    also be used to scale the entire GUI uniformly without touching the OS DPI.
+    Fonts are re-rasterized at the scaled size, so they remain pixel-perfect.
+  - To enable high DPI in your SDL application:
+    1. On Windows, call `SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)` before creating the window
+    2. Detect the display DPI with `SDL_GetDisplayDPI()` and compute `dpiScale = ddpi / 96.0f`
+    3. Call `MyGUI::Gui::getInstance().setDpiScale(dpiScale)` before `initialise()`
+    4. Create the SDL window with `SDL_WINDOW_ALLOW_HIGHDPI`
+    5. On window resize, divide pixel dimensions by `dpiScale` before passing to `setViewSize()`
 - **Localization:** built-in language string management
 - **Animation:** configurable widget controllers for fades, slides, and more
 
@@ -49,6 +61,7 @@ Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 - C++17 compiler
 - SDL2 for tools and demos
 - FreeType (optional, enabled by default)
+- glad (required on Windows for OpenGL and OpenGL 3.x backends)
 - One of the render systems
 
 ### Quick start
