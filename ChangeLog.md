@@ -27,6 +27,7 @@
 ### Infrastructure
 - Add vcpkg.json
 - Extend CI coverage to Windows static/shared build with all features and tools
+- Add Ogre builds
 - Fix build with fetched msdfgen on Windows
 - Fix wrapper build with CMake
 
