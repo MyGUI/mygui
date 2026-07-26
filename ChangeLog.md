@@ -25,6 +25,7 @@
 - Allow running apps from any working directory
 
 ### Infrastructure
+- Add MYGUI_BUILD_RENDERSYSTEMS to build multiple render system platform libraries at once (e.g. `-DMYGUI_BUILD_RENDERSYSTEMS="7;3"`)
 - Add vcpkg.json
 - Extend CI coverage to Windows static/shared build with all features and tools
 - Add Ogre builds
