@@ -81,6 +81,8 @@ namespace tools
 		if (!userSettingsFileName.empty())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
 
+		LoadGuiSettings();
+
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
 
@@ -133,8 +135,6 @@ namespace tools
 		GridManager::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
-
-		LoadGuiSettings();
 
 		std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
