@@ -10,6 +10,7 @@
 - OpenGL: use glad for OpenGL and OpenGL3 platforms on Windows
 - OpenGL: Do not call glViewport in Platform code, as this is user responsibility
 - Fix GL3 tools/demos on macOS
+- Fix OpenGL, OpenGL ES, and OpenGL3 RTT textures clearing to opaque black instead of transparent
 
 ### Tools
 - FontConverter: new headless CLI tool that converts a ResourceTrueTypeFont XML into a ResourceManualFont XML + PNG atlas

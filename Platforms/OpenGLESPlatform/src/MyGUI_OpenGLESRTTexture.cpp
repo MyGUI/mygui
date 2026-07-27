@@ -89,6 +89,8 @@ namespace MyGUI
 
 		OpenGLESRenderManager::getInstance().begin();
 		CHECK_GL_ERROR_DEBUG();
+		glClearColor(0, 0, 0, 0);
+		CHECK_GL_ERROR_DEBUG();
 		glClear(GL_COLOR_BUFFER_BIT /* | GL_DEPTH_BUFFER_BIT*/);
 		CHECK_GL_ERROR_DEBUG();
 	}
