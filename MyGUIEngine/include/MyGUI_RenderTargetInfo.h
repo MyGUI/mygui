@@ -23,8 +23,8 @@ namespace MyGUI
 
 	public:
 		float maximumDepth{0};
-		float pixScaleX{1};
-		float pixScaleY{1};
+		mutable float pixScaleX{1};
+		mutable float pixScaleY{1};
 		float hOffset{0};
 		float vOffset{0};
 		float aspectCoef{1};

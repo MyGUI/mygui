@@ -24,7 +24,7 @@ namespace tools
 		void setTextureName(const MyGUI::UString& _value);
 		const MyGUI::IntSize& getTextureSize() const;
 
-		void setTextureRegion(const MyGUI::IntCoord& _value);
+		void setTextureRegion(const MyGUI::IntCoord& _value, float _dpiScale = 1.0f);
 		const MyGUI::IntCoord& getTextureRegion() const;
 
 		template<typename T>

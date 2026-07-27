@@ -20,7 +20,7 @@ namespace tools
 		setRttLayerSize(size);
 
 		setTextureName(SettingsManager::getInstance().getValue("Workspace/TextureName"));
-		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height));
+		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Gui::getInstance().getDpiScale());
 
 		addSelectorControl(mAreaSelectorControl);
 		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangePosition);
@@ -697,7 +697,7 @@ namespace tools
 		if (layer != nullptr)
 		{
 			MyGUI::RTTLayer* rttLayer = layer->castType<MyGUI::RTTLayer>();
-			rttLayer->setTextureSize(_size);
+			rttLayer->setTextureSize(_size, MyGUI::Gui::getInstance().getDpiScale());
 		}
 	}
 

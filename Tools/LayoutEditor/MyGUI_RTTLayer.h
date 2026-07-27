@@ -25,7 +25,7 @@ namespace MyGUI
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 		void resizeView(const IntSize& _viewSize) override;
 
-		void setTextureSize(const IntSize& _size);
+		void setTextureSize(const IntSize& _size, float _dpiScale);
 		void setTextureName(std::string_view _name);
 
 		const IntSize& getSize() const override;
@@ -34,6 +34,7 @@ namespace MyGUI
 		MyGUI::ITexture* mTexture{nullptr};
 		IntSize mTextureSize;
 		std::string mTextureName;
+		float mDpiScale{1.0f};
 		bool mOutOfDateRtt{false};
 	};
 
