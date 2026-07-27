@@ -61,11 +61,17 @@ namespace tools
 		return mTextureSize;
 	}
 
-	void TextureControl::setTextureRegion(const MyGUI::IntCoord& _value)
+	void TextureControl::setTextureRegion(const MyGUI::IntCoord& _value, float _dpiScale)
 	{
 		mTextureRegion = _value;
-		mTexture->setImageCoord(mTextureRegion);
-		mTexture->setImageTile(mTextureRegion.size());
+
+		MyGUI::IntCoord scaled(
+			(int)(_value.left * _dpiScale),
+			(int)(_value.top * _dpiScale),
+			(int)(_value.width * _dpiScale),
+			(int)(_value.height * _dpiScale));
+		mTexture->setImageCoord(scaled);
+		mTexture->setImageTile(scaled.size());
 		mTexture->setImageIndex(0);
 
 		updateScale();
@@ -285,7 +291,9 @@ namespace tools
 
 	void TextureControl::resetTextureRegion()
 	{
-		setTextureRegion(MyGUI::IntCoord(0, 0, mTextureSize.width, mTextureSize.height));
+		setTextureRegion(
+			MyGUI::IntCoord(0, 0, mTextureSize.width, mTextureSize.height),
+			MyGUI::Gui::getInstance().getDpiScale());
 	}
 
 }

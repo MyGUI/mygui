@@ -21,7 +21,7 @@ namespace tools
 
 		void setTextureValue(const MyGUI::UString& _value);
 
-		void setTextureRegion(const MyGUI::IntCoord& _value);
+		void setTextureRegion(const MyGUI::IntCoord& _value, float _dpiScale);
 		void resetTextureRegion();
 		const MyGUI::IntCoord& getTextureRegion() const;
 

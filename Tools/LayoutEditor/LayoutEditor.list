@@ -1,7 +1,6 @@
 set (HEADER_FILES
   Application.h
   ApplicationState.h
-  AreaSelectorControl.h
   BackgroundControl.h
   BackwardCompatibilityManager.h
   CodeGenerator.h
@@ -26,7 +25,6 @@ set (HEADER_FILES
   PanelView.h
   PanelViewCell.h
   Parse.h
-  PositionSelectorControl.h
   PossibleValue.h
   ProjectControl.h
   PropertiesPanelView.h
@@ -42,7 +40,6 @@ set (HEADER_FILES
   PropertyFieldSkin.h
   PropertyFieldType.h
   RecentFilesManager.h
-  SelectorControl.h
   SeparatorPartControl.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
@@ -52,8 +49,7 @@ set (HEADER_FILES
   SkinInfo.h
   StatisticInfoControl.h
   TestState.h
-  TextureControl.h
-  TextureToolControl.h
+
   ToolsControl.h
   UndoManager.h
   WidgetContainer.h
@@ -68,7 +64,6 @@ set (SOURCE_FILES
   ../../Common/Precompiled.cpp
   Application.cpp
   ApplicationState.cpp
-  AreaSelectorControl.cpp
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp
   CodeGenerator.cpp
@@ -89,7 +84,6 @@ set (SOURCE_FILES
   PanelTemplateProperties.cpp
   PanelUserData.cpp
   Parse.cpp
-  PositionSelectorControl.cpp
   ProjectControl.cpp
   PropertiesPanelView.cpp
   PropertyFieldAlpha.cpp
@@ -104,7 +98,6 @@ set (SOURCE_FILES
   PropertyFieldSkin.cpp
   PropertyFieldType.cpp
   RecentFilesManager.cpp
-  SelectorControl.cpp
   SeparatorPartControl.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
@@ -113,8 +106,7 @@ set (SOURCE_FILES
   SettingsWidgetsControl.cpp
   StatisticInfoControl.cpp
   TestState.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
+
   ToolsControl.cpp
   UndoManager.cpp
   WidgetContainer.cpp
@@ -160,14 +152,6 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyFieldType.cpp
   PropertyFieldType.h
 )
-SOURCE_GROUP("Controls\\Selectors" FILES
-  AreaSelectorControl.cpp
-  AreaSelectorControl.h
-  PositionSelectorControl.cpp
-  PositionSelectorControl.h
-  SelectorControl.cpp
-  SelectorControl.h
-)
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp
   SettingsGeneralControl.h
@@ -203,8 +187,7 @@ SOURCE_GROUP("Header Files" FILES
   RecentFilesManager.h
   SeparatorPartControl.h
   SkinInfo.h
-  TextureControl.h
-  TextureToolControl.h
+
   ToolsControl.h
   UndoManager.h
   WidgetContainer.h
@@ -255,8 +238,7 @@ SOURCE_GROUP("Source Files" FILES
   ProjectControl.cpp
   RecentFilesManager.cpp
   SeparatorPartControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
+
   ToolsControl.cpp
   UndoManager.cpp
   WidgetContainer.cpp

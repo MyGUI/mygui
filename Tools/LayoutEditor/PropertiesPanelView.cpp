@@ -13,9 +13,10 @@
 namespace tools
 {
 
-	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
-		BaseLayout("PropertiesPanelView.layout", _parent)
+	void PropertiesPanelView::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, "PropertiesPanelView.layout");
+
 		assignBase(mPanelView, "scroll_View");
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);

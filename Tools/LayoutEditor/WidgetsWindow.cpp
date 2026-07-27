@@ -16,9 +16,10 @@
 namespace tools
 {
 
-	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
-		BaseLayout("WidgetsWindow.layout", _parent)
+	void WidgetsWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, "WidgetsWindow.layout");
+
 		assignWidget(mTabSkins, "tabSkins");
 		assignWidget(mPopupMode, "PopupMode");
 
@@ -34,7 +35,7 @@ namespace tools
 		if (!SettingsManager::getInstance().tryGetValue("Controls/WidgetsWindow/ButtonSkinName", mButtonSkinName))
 			mButtonSkinName = "Button";
 
-		initialise();
+		initialiseWidgets();
 
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode +=
 			MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
@@ -56,7 +57,7 @@ namespace tools
 		mPopupMode->eventMouseButtonClick -= MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
 	}
 
-	void WidgetsWindow::initialise()
+	void WidgetsWindow::initialiseWidgets()
 	{
 		const SkinGroups& groups = WidgetTypes::getInstance().getSkinGroups();
 		for (const auto& group : groups)

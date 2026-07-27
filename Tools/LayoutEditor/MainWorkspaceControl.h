@@ -10,8 +10,8 @@ namespace tools
 
 	class MainWorkspaceControl : public SeparatorPartControl
 	{
-	public:
-		MainWorkspaceControl(MyGUI::Widget* _parent);
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		ToolsControl* mToolsControl{nullptr};

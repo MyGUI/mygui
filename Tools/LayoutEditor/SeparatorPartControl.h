@@ -1,16 +1,18 @@
 #ifndef _2b447a49_563a_4768_84f6_f7b835381a82_
 #define _2b447a49_563a_4768_84f6_f7b835381a82_
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 
 namespace tools
 {
 
-	class SeparatorPartControl : public wraps::BaseLayout
+	class SeparatorPartControl : public Control
 	{
 	public:
-		SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent);
 		~SeparatorPartControl() override;
+
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);

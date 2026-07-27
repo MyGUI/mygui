@@ -56,6 +56,7 @@ namespace tools
 		setFileName(mFileName);
 
 		mMainPaneControl = new MainPaneControl();
+		mMainPaneControl->Initialise();
 
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->Initialise(SettingsManager::getInstance().getValue("EditorState/SettingsWindowLayout"));

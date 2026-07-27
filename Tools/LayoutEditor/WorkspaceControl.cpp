@@ -12,18 +12,19 @@
 namespace tools
 {
 
-	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
-		TextureToolControlLE(_parent)
+	void WorkspaceControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		TextureToolControl::OnInitialise(_parent, _place, "TextureControl.layout");
+
 		MyGUI::IntSize size = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 
 		setRttLayerSize(size);
 
-		setTextureName(SettingsManager::getInstance().getValue("Workspace/TextureName"));
+		setTextureValue(SettingsManager::getInstance().getValue("Workspace/TextureName"));
 		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Gui::getInstance().getDpiScale());
 
 		addSelectorControl(mAreaSelectorControl);
-		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition.connect(this, &WorkspaceControl::notifyChangePosition);
 
 		addSelectorControl(mPositionSelectorCreatorControl);
 		mPositionSelectorCreatorControl->setEnabled(false);
@@ -108,10 +109,10 @@ namespace tools
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -=
 			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
 
-		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition.disconnect(this);
 	}
 
-	void WorkspaceControl::notifyChangePosition()
+	void WorkspaceControl::notifyChangePosition(SelectorControl* _sender)
 	{
 		if (!mMoveableWidget)
 			return;
@@ -623,13 +624,10 @@ namespace tools
 
 	void WorkspaceControl::updateCaption()
 	{
-		if (getActivate())
-		{
-			int scale = (int)(getScale() * (double)100);
-			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+		int scale = (int)(getScale() * (double)100);
+		addUserTag("CurrentScale", MyGUI::utility::toString(scale));
 
-			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
-		}
+		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
 
 	void WorkspaceControl::updateMenu()

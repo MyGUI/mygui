@@ -17,9 +17,10 @@
 namespace tools
 {
 
-	MainMenuControlLE::MainMenuControlLE(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("MainMenuControl.layout", _parent)
+	void MainMenuControlLE::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, "MainMenuControl.layout");
+
 		assignWidget(mBar, "Menu");
 
 		createMainMenu();

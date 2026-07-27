@@ -6,14 +6,13 @@
 
 #include "Precompiled.h"
 #include "BackgroundControl.h"
-#include "DialogManager.h"
 
 namespace tools
 {
 
-	BackgroundControlLE::BackgroundControlLE() :
-		wraps::BaseLayout("Background.layout")
+	void BackgroundControlLE::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, "Background.layout");
 	}
 
 }

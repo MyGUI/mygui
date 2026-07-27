@@ -7,7 +7,7 @@
 #ifndef _6b0d9374_eb9a_4e43_abf5_7987b55a6c4a_
 #define _6b0d9374_eb9a_4e43_abf5_7987b55a6c4a_
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 #include "OpenSaveFileDialog.h"
 #include "TextFieldControl.h"
 #include "EditorToolTip.h"
@@ -17,11 +17,13 @@
 namespace tools
 {
 
-	class ProjectControl : public wraps::BaseLayout, public sigslot::has_slots<>
+	class ProjectControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		ProjectControl(MyGUI::Widget* _parent = nullptr);
 		~ProjectControl() override;
+
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
@@ -72,7 +74,7 @@ namespace tools
 		MyGUI::UString mProjectPath;
 
 		MyGUI::ListBox* mList{nullptr};
-		MyGUI::TextBox* mProjectNameText;
+		MyGUI::TextBox* mProjectNameText{nullptr};
 	};
 
 }

@@ -4,9 +4,10 @@
 namespace tools
 {
 
-	SeparatorPartControl::SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent) :
-		wraps::BaseLayout(_layout, _parent)
+	void SeparatorPartControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
 		assignWidget(mLeftPanel, "Left");
 		assignWidget(mRightPanel, "Right");
 		assignWidget(mSeparatorH, "SeparatorH");

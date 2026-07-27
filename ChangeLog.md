@@ -18,6 +18,10 @@
 - Fix tool boolean property display issue
 - Save UTF-8 without BOM in tools
 - Implement FilterNone for all platforms
+- LayoutEditor: remove duplicate classes (TextureControl, TextureToolControl, SelectorControl, AreaSelectorControl,
+  PositionSelectorControl), now using EditorFramework versions
+- LayoutEditor: convert remaining controls from BaseLayout to Control base class pattern
+- LayoutEditor: respect DPI scale in WorkspaceControl
 
 ### Demos
 - Implement high DPI scaling for demos and tools (can be used to scale entire GUI, see readme for details)

@@ -7,17 +7,19 @@
 #ifndef _ae329786_acd2_4c09_ab3b_73baa2294a60_
 #define _ae329786_acd2_4c09_ab3b_73baa2294a60_
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 #include "EditorToolTip.h"
 
 namespace tools
 {
 
-	class WidgetsWindow : public wraps::BaseLayout
+	class WidgetsWindow : public Control
 	{
 	public:
-		WidgetsWindow(MyGUI::Widget* _parent = nullptr);
 		~WidgetsWindow() override;
+
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item);
@@ -29,7 +31,7 @@ namespace tools
 		void notifyChangeCreatorMode(bool _modeCreate);
 		void notifyMouseButtonClickPopupMode(MyGUI::Widget* _sender);
 
-		void initialise();
+		void initialiseWidgets();
 
 		SkinInfo getCellData(MyGUI::Widget* _widget);
 		bool getCellSelected(MyGUI::Widget* _widget);

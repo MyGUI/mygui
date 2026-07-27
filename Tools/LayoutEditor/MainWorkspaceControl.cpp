@@ -4,11 +4,19 @@
 namespace tools
 {
 
-	MainWorkspaceControl::MainWorkspaceControl(MyGUI::Widget* _parent) :
-		SeparatorPartControl("MainWorkspaceControl.layout", _parent)
+	void MainWorkspaceControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
-		assignBase(mToolsControl, "ToolsControl");
-		assignBase(mWorkspaceControl, "WorkspaceControl");
+		SeparatorPartControl::OnInitialise(_parent, _place, "MainWorkspaceControl.layout");
+
+		MyGUI::Widget* toolsControl = nullptr;
+		assignWidget(toolsControl, "ToolsControl");
+		mToolsControl = new ToolsControl();
+		mToolsControl->Initialise(this, toolsControl, {});
+
+		MyGUI::Widget* workspaceControl = nullptr;
+		assignWidget(workspaceControl, "WorkspaceControl");
+		mWorkspaceControl = new WorkspaceControl();
+		mWorkspaceControl->Initialise(this, workspaceControl, {});
 	}
 
 }

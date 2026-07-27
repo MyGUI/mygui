@@ -40,6 +40,7 @@ namespace tools
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
 
 		mBackgroundControl = new BackgroundControlLE();
+		mBackgroundControl->Initialise();
 	}
 
 	void TestState::cleanupState()

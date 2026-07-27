@@ -185,7 +185,7 @@ namespace tools
 		else
 			mTextureCoord.clear();
 
-		mControl->setTextureRegion(mTextureCoord);
+		mControl->setTextureRegion(mTextureCoord, MyGUI::Gui::getInstance().getDpiScale());
 
 		updateFrames();
 	}

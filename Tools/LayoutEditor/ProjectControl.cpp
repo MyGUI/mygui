@@ -21,9 +21,10 @@ namespace tools
 
 	const std::string_view LogSection = "LayoutEditor";
 
-	ProjectControl::ProjectControl(MyGUI::Widget* _parent) :
-		BaseLayout("ProjectControl.layout", _parent)
+	void ProjectControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, "ProjectControl.layout");
+
 		assignWidget(mList, "List");
 		assignWidget(mProjectNameText, "ProjectName");
 

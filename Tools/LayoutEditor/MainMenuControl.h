@@ -9,19 +9,21 @@
 
 #include <MyGUI.h>
 #include "WidgetContainer.h"
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 #include "sigslot.h"
 
 namespace tools
 {
 
-	class MainMenuControlLE : public wraps::BaseLayout, public sigslot::has_slots<>
+	class MainMenuControlLE : public Control, public sigslot::has_slots<>
 	{
 	public:
-		MainMenuControlLE(MyGUI::Widget* _parent = nullptr);
 		~MainMenuControlLE() override;
 
 		void setVisible(bool _value);
+
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void createMainMenu();

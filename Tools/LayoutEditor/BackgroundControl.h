@@ -8,15 +8,15 @@
 #define _dec67650_6f1e_40e7_95a3_8311e4727290_
 
 #include <MyGUI.h>
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 
 namespace tools
 {
 
-	class BackgroundControlLE : public wraps::BaseLayout
+	class BackgroundControlLE : public Control
 	{
-	public:
-		BackgroundControlLE();
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 	};
 
 }

@@ -10,13 +10,14 @@
 namespace tools
 {
 
-	class WorkspaceControl : public TextureToolControlLE
+	class WorkspaceControl : public TextureToolControl
 	{
 	public:
-		WorkspaceControl(MyGUI::Widget* _parent = nullptr);
 		~WorkspaceControl() override;
 
 	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
+
 		void onMouseMove() override;
 		void onMouseButtonPressed(const MyGUI::IntPoint& _point) override;
 		void onMouseButtonReleased(const MyGUI::IntPoint& _point) override;
@@ -26,7 +27,7 @@ namespace tools
 		void onChangeScale() override;
 
 	private:
-		void notifyChangePosition();
+		void notifyChangePosition(SelectorControl* _sender);
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyPropertyChangeCoord(
 			MyGUI::Widget* _widget,
@@ -72,11 +73,11 @@ namespace tools
 		void setRttLayerSize(const MyGUI::IntSize& _size);
 
 	private:
-		AreaSelectorControlLE* mAreaSelectorControl{nullptr};
+		AreaSelectorControl* mAreaSelectorControl{nullptr};
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::Widget* mCurrentWidget{nullptr};
 		bool mMoveableWidget{false};
-		PositionSelectorControlLE* mPositionSelectorCreatorControl{nullptr};
+		PositionSelectorControl* mPositionSelectorCreatorControl{nullptr};
 		bool mFreeChildMode{false};
 	};
 

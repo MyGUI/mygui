@@ -4,12 +4,24 @@
 namespace tools
 {
 
-	ToolsControl::ToolsControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("ToolsControl.layout", _parent)
+	void ToolsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
-		assignBase(mPropertiesPanelView, "PropertiesControl");
-		assignBase(mWidgetsWindow, "WidgetsControl");
-		assignBase(mProjectControl, "ProjectControl");
+		Control::OnInitialise(_parent, _place, "ToolsControl.layout");
+
+		MyGUI::Widget* propertiesControl = nullptr;
+		assignWidget(propertiesControl, "PropertiesControl");
+		mPropertiesPanelView = new PropertiesPanelView();
+		mPropertiesPanelView->Initialise(this, propertiesControl, {});
+
+		MyGUI::Widget* widgetsControl = nullptr;
+		assignWidget(widgetsControl, "WidgetsControl");
+		mWidgetsWindow = new WidgetsWindow();
+		mWidgetsWindow->Initialise(this, widgetsControl, {});
+
+		MyGUI::Widget* projectControl = nullptr;
+		assignWidget(projectControl, "ProjectControl");
+		mProjectControl = new ProjectControl();
+		mProjectControl->Initialise(this, projectControl, {});
 	}
 
 }

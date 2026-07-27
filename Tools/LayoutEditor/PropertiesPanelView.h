@@ -7,7 +7,7 @@
 #ifndef _2a91cb5d_1a78_495b_8cb7_e46b12a29395_
 #define _2a91cb5d_1a78_495b_8cb7_e46b12a29395_
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 #include "PanelView.h"
 #include "PanelMainProperties.h"
 #include "PanelProperties.h"
@@ -21,11 +21,13 @@
 namespace tools
 {
 
-	class PropertiesPanelView : public wraps::BaseLayout
+	class PropertiesPanelView : public Control
 	{
 	public:
-		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);
 		~PropertiesPanelView() override;
+
+	protected:
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
