@@ -64,9 +64,6 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			mComboBox->setEnabled(!proper->getType()->getReadOnly());
-			mBrowse->setEnabled(!proper->getType()->getReadOnly());
-
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 			if (index == MyGUI::ITEM_NONE)
@@ -82,8 +79,6 @@ namespace tools
 		else
 		{
 			mComboBox->setIndexSelected(MyGUI::ITEM_NONE);
-			mComboBox->setEnabled(false);
-			mBrowse->setEnabled(false);
 			mImage->setVisible(false);
 		}
 	}

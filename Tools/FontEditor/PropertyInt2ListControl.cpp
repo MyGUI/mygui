@@ -55,7 +55,6 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			mList->setEnabled(!proper->getType()->getReadOnly());
 			std::string value = getValue();
 			if (value != proper->getValue())
 				setValue(proper->getValue());
@@ -63,7 +62,6 @@ namespace tools
 		else
 		{
 			mList->removeAllItems();
-			mList->setEnabled(false);
 		}
 	}
 

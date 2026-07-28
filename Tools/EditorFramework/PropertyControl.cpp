@@ -24,6 +24,11 @@ namespace tools
 
 		updateCaption();
 		updateProperty();
+		PropertyPtr proper = getProperty();
+		if (proper != nullptr)
+			getRoot()->setEnabled(!proper->getType()->getReadOnly());
+		else
+			getRoot()->setEnabled(false);
 	}
 
 	PropertyPtr PropertyControl::getProperty()

@@ -38,14 +38,12 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			mEdit->setEnabled(!proper->getType()->getReadOnly());
 			if (mEdit->getOnlyText() != proper->getValue())
 				mEdit->setCaption(proper->getValue());
 		}
 		else
 		{
 			mEdit->setCaption(MyGUI::UString());
-			mEdit->setEnabled(false);
 		}
 	}
 

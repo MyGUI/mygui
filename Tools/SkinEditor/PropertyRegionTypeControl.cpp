@@ -52,14 +52,12 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			mComboBox->setEnabled(!proper->getType()->getReadOnly());
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 		}
 		else
 		{
 			mComboBox->setIndexSelected(MyGUI::ITEM_NONE);
-			mComboBox->setEnabled(false);
 		}
 	}
 
