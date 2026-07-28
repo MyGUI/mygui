@@ -12,7 +12,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            name: "Linux: Ogre + Dummy + GL + GL3, all, shared"
+            name: "Linux: Ogre + Dummy + GL + GL3, all features, all apps, shared"
             preset: full
             rendersystem: 3
             rendersystems: "1;3;4;7"
@@ -21,7 +21,7 @@ jobs:
             build_jobs: 4 # limit parallel compilation to avoid OOM on Ogre-heavy builds
 
           - os: ubuntu-latest
-            name: "Linux: Ogre + Dummy + GL + GL3, all, static"
+            name: "Linux: Ogre + Dummy + GL + GL3, all features, all apps, static"
             preset: full
             rendersystem: 3
             rendersystems: "1;3;4;7"
@@ -29,22 +29,28 @@ jobs:
             linux_deps: libogre-1.12-dev
             build_jobs: 4 # limit parallel compilation to avoid OOM on Ogre-heavy builds
 
+          - os: ubuntu-latest
+            name: "Linux: GL3, no features, just tools, static"
+            preset: minimal
+            rendersystem: 7
+            cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_TOOLS=ON
+
           - os: windows-latest
-            name: "Windows: dx11 + GL + GL3, all without demos, shared"
+            name: "Windows: dx11 + GL + GL3, all features, just tools, shared"
             preset: full
             rendersystem: 6
             rendersystems: "4;6;7"
             cmake_flags: -DBUILD_SHARED_LIBS=ON -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_BUILD_UNITTESTS=ON
 
           - os: windows-latest
-            name: "Windows: dx11 + GL + GL3, all without demos, static"
+            name: "Windows: dx11 + GL + GL3, all features, just tools, static"
             preset: full
             rendersystem: 6
             rendersystems: "4;6;7"
             cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_BUILD_UNITTESTS=ON
 
           - os: macos-latest
-            name: "macOS: GL3 + GL, TestApp only"
+            name: "macOS: GL3 + GL, no features, just test app"
             preset: minimal
             rendersystem: 7
             rendersystems: "4;7"
