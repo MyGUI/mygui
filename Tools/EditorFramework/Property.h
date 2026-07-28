@@ -49,10 +49,14 @@ namespace tools
 
 		DataPtr getOwner();
 
+		bool getReadOnly() const;
+		void setReadOnly(bool _value);
+
 		sigslot::signal1<PropertyPtr> eventChangeProperty;
 
 	private:
 		std::string mValue;
+		bool mReadOnly{false};
 		DataTypePropertyPtr mType;
 		DataPtr mOwner;
 		PropertyWeak mWeakThis;

@@ -16,6 +16,7 @@ namespace tools
 {
 
 	Property::Property(DataTypePropertyPtr _type, DataPtr _owner) :
+		mReadOnly(_type->getReadOnly()),
 		mType(_type),
 		mOwner(_owner)
 	{
@@ -43,6 +44,20 @@ namespace tools
 	DataPtr Property::getOwner()
 	{
 		return mOwner;
+	}
+
+	bool Property::getReadOnly() const
+	{
+		return mReadOnly;
+	}
+
+	void Property::setReadOnly(bool _value)
+	{
+		if (mReadOnly != _value)
+		{
+			mReadOnly = _value;
+			eventChangeProperty(mWeakThis.lock());
+		}
 	}
 
 	void Property::initialise()

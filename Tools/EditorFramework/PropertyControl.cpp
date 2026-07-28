@@ -26,7 +26,7 @@ namespace tools
 		updateProperty();
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
-			getRoot()->setEnabled(!proper->getType()->getReadOnly());
+			getRoot()->setEnabled(!proper->getReadOnly());
 		else
 			getRoot()->setEnabled(false);
 	}
@@ -60,6 +60,9 @@ namespace tools
 	void PropertyControl::notifyChangeProperty(PropertyPtr _sender)
 	{
 		updateProperty();
+		PropertyPtr proper = getProperty();
+		if (proper != nullptr)
+			getRoot()->setEnabled(!proper->getReadOnly());
 	}
 
 	void PropertyControl::updateCaption()

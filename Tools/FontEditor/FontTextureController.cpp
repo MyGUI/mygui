@@ -40,15 +40,35 @@ namespace tools
 
 	void FontTextureController::deactivate()
 	{
+		if (mMsdfModeProperty != nullptr)
+		{
+			mMsdfModeProperty->eventChangeProperty.disconnect(this);
+			mMsdfModeProperty = nullptr;
+		}
+
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 		CommandManager::getInstance().getEvent("Command_GenerateFont")->disconnect(this);
 	}
 
 	void FontTextureController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
+		if (mMsdfModeProperty != nullptr)
+		{
+			mMsdfModeProperty->eventChangeProperty.disconnect(this);
+			mMsdfModeProperty = nullptr;
+		}
+
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
+
+		DataPtr font = mParentData != nullptr ? mParentData->getChildSelected() : nullptr;
+		if (font != nullptr && font->getType()->getName() == "Font")
+		{
+			mMsdfModeProperty = font->getProperty("MsdfMode");
+			if (mMsdfModeProperty != nullptr)
+				mMsdfModeProperty->eventChangeProperty.connect(this, &FontTextureController::notifyChangeProperty);
+		}
 
 		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Font", "FontName");
@@ -58,19 +78,40 @@ namespace tools
 		}
 
 		updateTexture(texture);
+		updateReadOnlyForMsdfMode();
 	}
 
-	//	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
-	//	{
-	//		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
-	//			return;
-	//
-	//		if (_sender->getOwner()->getType()->getName() == "Font")
-	//		{
-	//			if (_sender->getType()->getName() == "FontName")
-	//				updateTexture(_sender->getValue());
-	//		}
-	//	}
+	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
+	{
+		if (!mActivated || _sender == nullptr)
+			return;
+
+		if (_sender->getOwner() != nullptr && _sender->getOwner()->getType()->getName() == "Font" &&
+			_sender->getType()->getName() == "MsdfMode")
+		{
+			updateReadOnlyForMsdfMode();
+		}
+	}
+
+	void FontTextureController::updateReadOnlyForMsdfMode()
+	{
+		DataPtr font = mParentData != nullptr ? mParentData->getChildSelected() : nullptr;
+		if (font == nullptr || font->getType()->getName() != "Font")
+			return;
+
+		bool msdfMode = font->getPropertyValue<bool>("MsdfMode");
+
+		auto setReadOnly = [&](const char* _name, bool _readOnly)
+		{
+			font->getProperty(_name)->setReadOnly(_readOnly);
+		};
+
+		setReadOnly("Antialias", msdfMode);
+		setReadOnly("Hinting", msdfMode);
+		setReadOnly("DpiScale", msdfMode);
+		setReadOnly("AutoDpi", msdfMode);
+		setReadOnly("MsdfRange", !msdfMode);
+	}
 
 	void FontTextureController::notifyChangeScope(std::string_view _scope)
 	{
@@ -98,6 +139,12 @@ namespace tools
 		{
 			if (mActivated)
 			{
+				if (mMsdfModeProperty != nullptr)
+				{
+					mMsdfModeProperty->eventChangeProperty.disconnect(this);
+					mMsdfModeProperty = nullptr;
+				}
+
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 				mParentData = nullptr;
 

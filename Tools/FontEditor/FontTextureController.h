@@ -23,10 +23,11 @@ namespace tools
 
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
-		//		void notifyChangeProperty(PropertyPtr _sender);
+		void notifyChangeProperty(PropertyPtr _sender);
 		void notifyChangeScope(std::string_view _scope);
 
 		void updateTexture(std::string_view _value);
+		void updateReadOnlyForMsdfMode();
 
 		void commandGenerateFont(const MyGUI::UString& _commandName, bool& _result);
 
@@ -37,6 +38,7 @@ namespace tools
 		std::string mParentTypeName;
 		std::string mScopeName;
 		DataPtr mParentData{nullptr};
+		PropertyPtr mMsdfModeProperty{nullptr};
 		bool mActivated{false};
 	};
 

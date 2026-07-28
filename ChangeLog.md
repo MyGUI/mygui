@@ -16,6 +16,7 @@
 - FontConverter: new headless CLI tool that converts a ResourceTrueTypeFont XML into a ResourceManualFont XML + PNG atlas
 - FontEditor: allow displaying MSDF fonts
 - FontEditor: disallow generating invalid fonts
+- FontEditor: disable font properties in property panel when they are not applicable to current MsdfMode
 - Fix tool boolean property display issue
 - Save UTF-8 without BOM in tools
 - Implement FilterNone for all platforms
