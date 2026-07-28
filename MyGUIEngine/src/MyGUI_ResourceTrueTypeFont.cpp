@@ -138,6 +138,10 @@ namespace MyGUI
 	{
 	}
 
+	void ResourceTrueTypeFont::setDpiScale(float _value)
+	{
+	}
+
 	void ResourceTrueTypeFont::setAutoDpi(bool _value)
 	{
 	}
