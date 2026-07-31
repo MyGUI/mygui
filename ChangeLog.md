@@ -37,6 +37,7 @@
 - Add Ogre builds
 - Fix build with fetched msdfgen on Windows
 - Fix wrapper build with CMake
+- Generate a public MyGUI_Config.h with the build options as defines, so non-CMake users get the correct settings (MYGUI_STATIC, MYGUI_USE_FREETYPE, MYGUI_MSDF_FONTS, MYGUI_DONT_USE_OBSOLETE)
 
 ## MyGUI v3.5.0
 

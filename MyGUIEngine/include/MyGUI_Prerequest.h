@@ -7,6 +7,7 @@
 #ifndef MYGUI_PREREQUEST_H_
 #define MYGUI_PREREQUEST_H_
 
+#include "MyGUI_Config.h"
 #include "MyGUI_Platform.h"
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
