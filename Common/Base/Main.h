@@ -45,16 +45,6 @@ int startApp()
 {
 	try
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// set working directory to exe location
-		LPSTR fileName = new CHAR[256];
-		GetModuleFileName(nullptr, fileName, 256);
-		std::string_view path = fileName;
-		size_t path_directory_index = path.find_last_of('\\');
-		std::string exedir{path.substr(0, path_directory_index + 1)};
-		_chdir(exedir.c_str());
-#endif
-
 		AppClass* app = new AppClass();
 		app->prepare();
 		if (app->create())
