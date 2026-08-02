@@ -66,7 +66,6 @@ elseif(
 elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIRS}")
 	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
-	target_compile_definitions(${PROJECTNAME} PRIVATE "OGRE_NEXT_MEDIA_DIR=\"${OGRE_NEXT_MEDIA_DIR}\"")
 endif()
 
 target_include_directories(${PROJECTNAME}

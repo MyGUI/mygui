@@ -35,8 +35,6 @@ namespace base
 		Ogre::Camera* getCamera() const;
 		Ogre::SceneNode* getCameraNode() const;
 
-		void setupHlms();
-
 		static const std::string MyGuiResourceGroup;
 
 	private:

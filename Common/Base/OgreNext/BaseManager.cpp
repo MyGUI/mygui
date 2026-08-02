@@ -7,10 +7,6 @@
 #include <OgreImage2.h>
 #include <OgreCamera.h>
 #include <OgreFrameStats.h>
-#include <OgreArchive.h>
-#include <OgreHlmsManager.h>
-#include <Hlms/Unlit/OgreHlmsUnlit.h>
-#include <Hlms/Pbs/OgreHlmsPbs.h>
 
 #ifdef OGRE_STATIC_LIB
 	#include <Bites/OgreStaticPluginLoader.h>
@@ -62,8 +58,6 @@ namespace base
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
 #endif
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
-
-		setupHlms();
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, 1, "BaseInstance");
 
@@ -118,49 +112,6 @@ namespace base
 #ifdef OGRE_STATIC_LIB
 		mStaticPluginLoader.unload();
 #endif
-	}
-
-	void BaseManager::setupHlms()
-	{
-		Ogre::HlmsManager* hlmsManager = mRoot->getHlmsManager();
-
-		Ogre::ArchiveManager& archiveManager = Ogre::ArchiveManager::getSingleton();
-
-		Ogre::String dataFolder = OGRE_NEXT_MEDIA_DIR;
-		if (dataFolder.empty())
-			dataFolder = "../Media";
-
-		// Set up HlmsUnlit
-		{
-			Ogre::String mainFolderPath;
-			Ogre::StringVector libraryFoldersPaths;
-			Ogre::HlmsUnlit::getDefaultPaths(mainFolderPath, libraryFoldersPaths);
-
-			Ogre::Archive* archiveUnlit = archiveManager.load(dataFolder + "/" + mainFolderPath, "FileSystem", true);
-			Ogre::ArchiveVec archiveUnlitLibraryFolders;
-			for (const auto& path : libraryFoldersPaths)
-			{
-				archiveUnlitLibraryFolders.push_back(archiveManager.load(dataFolder + "/" + path, "FileSystem", true));
-			}
-			Ogre::HlmsUnlit* hlmsUnlit = OGRE_NEW Ogre::HlmsUnlit(archiveUnlit, &archiveUnlitLibraryFolders);
-			hlmsManager->registerHlms(hlmsUnlit);
-		}
-
-		// Set up HlmsPbs
-		{
-			Ogre::String mainFolderPath;
-			Ogre::StringVector libraryFoldersPaths;
-			Ogre::HlmsPbs::getDefaultPaths(mainFolderPath, libraryFoldersPaths);
-
-			Ogre::Archive* archivePbs = archiveManager.load(dataFolder + "/" + mainFolderPath, "FileSystem", true);
-			Ogre::ArchiveVec archivePbsLibraryFolders;
-			for (const auto& path : libraryFoldersPaths)
-			{
-				archivePbsLibraryFolders.push_back(archiveManager.load(dataFolder + "/" + path, "FileSystem", true));
-			}
-			Ogre::HlmsPbs* hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &archivePbsLibraryFolders);
-			hlmsManager->registerHlms(hlmsPbs);
-		}
 	}
 
 	void BaseManager::createGuiPlatform()
