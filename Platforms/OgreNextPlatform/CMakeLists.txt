@@ -8,12 +8,9 @@ target_include_directories(${PROJECTNAME}
 	PUBLIC
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/MYGUI>
-	PRIVATE
-		"${OGRE_INCLUDE_DIRS}"
 )
 
-target_link_directories(${PROJECTNAME} PRIVATE "${OGRE_LIBRARY_DIRS}")
-target_link_libraries(${PROJECTNAME} PUBLIC PkgConfig::OGRE MyGUI::MyGUI)
+target_link_libraries(${PROJECTNAME} PUBLIC OgreNext::OgreNext MyGUI::MyGUI)
 if(OGRE_STATIC AND TARGET ZLIB::ZLIB)
 	target_link_libraries(${PROJECTNAME} PUBLIC ZLIB::ZLIB)
 endif()
