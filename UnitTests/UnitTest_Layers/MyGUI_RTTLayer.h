@@ -35,12 +35,13 @@ namespace MyGUI
 
 		IntPoint getPosition(int _left, int _top) const override;
 
-		void setTextureSize(const IntSize& _size);
+		void setTextureSize(const IntSize& _size, float _dpiScale);
 
 	private:
 		MyGUI::ITexture* mTexture{nullptr};
 		mutable IntPoint mOldPoint;
 		IntSize mTextureSize;
+		float mDpiScale{1.0f};
 	};
 
 } // namespace MyGUI

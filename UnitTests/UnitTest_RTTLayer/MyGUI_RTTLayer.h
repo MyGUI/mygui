@@ -24,13 +24,14 @@ namespace MyGUI
 		void deserialization(xml::ElementPtr _node, Version _version) override;
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
-		void setTextureSize(const IntSize& _size);
+		void setTextureSize(const IntSize& _size, float _dpiScale);
 		void setTextureName(std::string_view _name);
 
 	private:
 		MyGUI::ITexture* mTexture{nullptr};
 		IntSize mTextureSize;
 		std::string mTextureName;
+		float mDpiScale{1.0f};
 		bool mOutOfDateRtt{false};
 	};
 

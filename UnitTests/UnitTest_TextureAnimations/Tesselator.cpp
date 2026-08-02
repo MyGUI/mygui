@@ -5,6 +5,7 @@
 */
 
 #include "Tesselator.h"
+#include "MyGUI_Gui.h"
 
 namespace demo
 {
@@ -31,8 +32,9 @@ namespace demo
 
 		float vertex_z = _info.maximumDepth;
 
-		float texture_u = (float)_coord.width / (float)_texture->getWidth();
-		float texture_v = (float)_coord.height / (float)_texture->getHeight();
+		float dpiScale = MyGUI::Gui::getInstance().getDpiScale();
+		float texture_u = (float)_coord.width * dpiScale / (float)_texture->getWidth();
+		float texture_v = (float)_coord.height * dpiScale / (float)_texture->getHeight();
 
 		for (int rx = 0; rx < mCountX + 1; rx++)
 		{

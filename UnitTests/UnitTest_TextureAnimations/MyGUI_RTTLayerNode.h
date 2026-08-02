@@ -63,6 +63,8 @@ namespace MyGUI
 		IntSize mTextureSize;
 		IntCoord mCurrentCoord;
 
+		float mDpiScale{1.0f};
+
 		bool mOutOfDateRtt{false};
 
 		bool mMajorUpdate{false};

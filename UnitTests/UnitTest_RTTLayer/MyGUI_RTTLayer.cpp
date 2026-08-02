@@ -35,7 +35,7 @@ namespace MyGUI
 			std::string_view key = propert->findAttribute("key");
 			std::string_view value = propert->findAttribute("value");
 			if (key == "TextureSize")
-				setTextureSize(utility::parseValue<IntSize>(value));
+				setTextureSize(utility::parseValue<IntSize>(value), Gui::getInstance().getDpiScale());
 			if (key == "TextureName")
 				setTextureName(value);
 		}
@@ -62,12 +62,13 @@ namespace MyGUI
 		mOutOfDateRtt = false;
 	}
 
-	void RTTLayer::setTextureSize(const IntSize& _size)
+	void RTTLayer::setTextureSize(const IntSize& _size, float _dpiScale)
 	{
-		if (mTextureSize == _size)
+		if (mTextureSize == _size && mDpiScale == _dpiScale)
 			return;
 
 		mTextureSize = _size;
+		mDpiScale = _dpiScale;
 		if (mTexture)
 		{
 			MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
@@ -77,14 +78,26 @@ namespace MyGUI
 		MYGUI_ASSERT(
 			mTextureSize.width && mTextureSize.height,
 			"RTTLayer texture size must have non-zero width and height");
+
+		int physicalWidth = (int)(mTextureSize.width * mDpiScale);
+		int physicalHeight = (int)(mTextureSize.height * mDpiScale);
+
 		std::string name =
 			mTextureName.empty() ? MyGUI::utility::toString((size_t)this, getClassTypeName()) : mTextureName;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
 		mTexture->createManual(
-			mTextureSize.width,
-			mTextureSize.height,
+			physicalWidth,
+			physicalHeight,
 			MyGUI::TextureUsage::RenderTarget,
 			MyGUI::PixelFormat::R8G8B8A8);
+
+		IRenderTarget* target = mTexture->getRenderTarget();
+		if (target != nullptr)
+		{
+			RenderTargetInfo& info = const_cast<RenderTargetInfo&>(target->getInfo());
+			info.pixScaleX = 1.0f / mTextureSize.width;
+			info.pixScaleY = 1.0f / mTextureSize.height;
+		}
 
 		mOutOfDateRtt = true;
 	}
@@ -97,7 +110,7 @@ namespace MyGUI
 		{
 			IntSize size = mTextureSize;
 			mTextureSize.clear();
-			setTextureSize(size);
+			setTextureSize(size, mDpiScale);
 		}
 
 		mOutOfDateRtt = true;

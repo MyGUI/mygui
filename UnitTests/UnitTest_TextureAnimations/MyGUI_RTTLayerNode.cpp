@@ -16,6 +16,7 @@ namespace MyGUI
 		LayerNode(_layer, _parent)
 	{
 		mTimer.reset();
+		mDpiScale = Gui::getInstance().getDpiScale();
 	}
 
 	RTTLayerNode::~RTTLayerNode()
@@ -109,8 +110,8 @@ namespace MyGUI
 			float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
 			float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
-			float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
-			float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
+			float texture_u = (float)mCurrentCoord.width * mDpiScale / (float)mTexture->getWidth();
+			float texture_v = (float)mCurrentCoord.height * mDpiScale / (float)mTexture->getHeight();
 
 			mDefaultData.set(
 				vertex_left,
@@ -193,6 +194,10 @@ namespace MyGUI
 				MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
 				if (target != nullptr)
 				{
+					RenderTargetInfo& info = const_cast<RenderTargetInfo&>(target->getInfo());
+					info.pixScaleX = mDpiScale / mTexture->getWidth();
+					info.pixScaleY = mDpiScale / mTexture->getHeight();
+
 					target->begin();
 					LayerNode::renderToTarget(target, _update);
 					target->end();
@@ -210,21 +215,22 @@ namespace MyGUI
 
 	void RTTLayerNode::checkTexture()
 	{
-		if (mTextureSize.width < mCurrentCoord.width || mTextureSize.height < mCurrentCoord.height)
-		{
-			//RenderManager& render = RenderManager::getInstance();
+		int physicalWidth = (int)(mCurrentCoord.width * mDpiScale);
+		int physicalHeight = (int)(mCurrentCoord.height * mDpiScale);
 
+		if (mTextureSize.width < physicalWidth || mTextureSize.height < physicalHeight)
+		{
 			if (mTexture != nullptr)
 			{
 				MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
 				mTexture = nullptr;
 			}
 
-			if (mCurrentCoord.width > 0 && mCurrentCoord.height > 0)
+			if (physicalWidth > 0 && physicalHeight > 0)
 			{
 				mTextureSize.set(
-					MyGUI::Bitwise::firstPO2From(mCurrentCoord.width),
-					MyGUI::Bitwise::firstPO2From(mCurrentCoord.height));
+					MyGUI::Bitwise::firstPO2From(physicalWidth),
+					MyGUI::Bitwise::firstPO2From(physicalHeight));
 				mTexture =
 					MyGUI::RenderManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
 				mTexture->createManual(
