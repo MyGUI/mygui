@@ -40,6 +40,8 @@
 #elif defined(MYGUI_DIRECTX11_PLATFORM)
 	#include <MyGUI_DirectX11RenderManager.h>
 	#include <d3d11.h>
+#elif defined(MYGUI_VULKAN_PLATFORM)
+	#include <MyGUI_VulkanRenderManager.h>
 #endif
 
 namespace MyGUI
@@ -163,6 +165,8 @@ namespace MyGUI
 		rm->mSamplerState = rm->mPointSamplerState;
 		rm->doRender(_buffer, _texture, _count);
 		rm->mSamplerState = prev;
+#elif defined(MYGUI_VULKAN_PLATFORM)
+		VulkanRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #endif
 	}
 

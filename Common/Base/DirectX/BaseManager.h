@@ -22,7 +22,7 @@ namespace base
 	{
 	public:
 		BaseManager() :
-			SdlBaseManager(false)
+			SdlBaseManager(0)
 		{
 		}
 		bool createRender(int _width, int _height, bool _windowed) override;

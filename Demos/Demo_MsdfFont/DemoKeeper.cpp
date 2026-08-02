@@ -52,6 +52,11 @@ namespace demo
 			"MsdfFontShader",
 			"MyGUI_OpenGLES_VP.glsl",
 			"Msdf_OpenGLES_FP.glsl");
+#elif defined(MYGUI_VULKAN_PLATFORM)
+		MyGUI::RenderManager::getInstance().registerShader(
+			"MsdfFontShader",
+			"MyGUI_Vulkan_VP.spv",
+			"Msdf_Vulkan_FP.spv");
 #endif
 
 		MyGUI::ResourceManager::getInstance().load("MsdfFont.xml");

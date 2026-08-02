@@ -8,8 +8,8 @@
 
 namespace base
 {
-	SdlBaseManager::SdlBaseManager(bool _isOpenGlWindow) :
-		mIsOpenGlWindow(_isOpenGlWindow)
+	SdlBaseManager::SdlBaseManager(uint32_t _windowFlags) :
+		mWindowFlags(_windowFlags)
 	{
 	}
 
@@ -68,7 +68,7 @@ namespace base
 			top,
 			width,
 			height,
-			(mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+			mWindowFlags | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;

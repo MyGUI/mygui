@@ -13,7 +13,7 @@ namespace base
 	class SdlBaseManager : public input::InputManager, public input::PointerManager
 	{
 	public:
-		SdlBaseManager(bool _isOpenGlWindow);
+		SdlBaseManager(uint32_t _windowFlags);
 
 		// Block of virtual functions for specific platform implementations
 		virtual bool createRender(int _width, int _height, bool _windowed) = 0;
@@ -80,7 +80,7 @@ namespace base
 	private:
 		MyGUI::Gui* mGUI = nullptr;
 
-		bool mIsOpenGlWindow = false;
+		uint32_t mWindowFlags = 0;
 		bool mPlatformReady = false;
 		bool mExit = false;
 		SDL_Event mEvent;

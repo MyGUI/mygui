@@ -66,6 +66,9 @@ elseif(
 elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 	target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${OGRE_INCLUDE_DIRS}")
 	target_link_directories(${PROJECTNAME} PUBLIC "${OGRE_LIBRARY_DIRS}")
+elseif(MYGUI_RENDERSYSTEM EQUAL 10)
+	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
+	target_link_libraries(${PROJECTNAME} PUBLIC Vulkan::Vulkan vk-bootstrap)
 endif()
 
 target_include_directories(${PROJECTNAME}

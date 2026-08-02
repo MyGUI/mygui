@@ -11,7 +11,7 @@ namespace base
 	{
 	public:
 		BaseManager() :
-			SdlBaseManager(true)
+			SdlBaseManager(SDL_WINDOW_OPENGL)
 		{
 		}
 		bool createRender(int _width, int _height, bool _windowed) override;

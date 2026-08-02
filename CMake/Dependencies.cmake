@@ -159,6 +159,31 @@ foreach(_rs IN LISTS MYGUI_BUILD_RENDERSYSTEMS)
 				INTERFACE_LINK_LIBRARIES "${OGRE_LIBRARY_REL}"
 			)
 		endif()
+	elseif(_rs EQUAL 10)
+		find_package(Vulkan REQUIRED)
+		find_package(SDL2_image)
+		if(NOT TARGET vk-bootstrap)
+			include(FetchContent)
+			FetchContent_Declare(VkBootstrap
+				GIT_REPOSITORY https://github.com/charles-lunarg/vk-bootstrap
+				GIT_TAG v1.3.275
+				GIT_SHALLOW TRUE
+			)
+			FetchContent_MakeAvailable(VkBootstrap)
+			mygui_system_workaround(vk-bootstrap)
+		endif()
+		if(NOT TARGET VulkanMemoryAllocator)
+			include(FetchContent)
+			FetchContent_Declare(VMA
+				GIT_REPOSITORY https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
+				GIT_TAG v3.4.0
+				GIT_SHALLOW TRUE
+			)
+			FetchContent_MakeAvailable(VMA)
+			# intentionally skipped, since source dir is included with YSSTEM
+			#mygui_system_workaround(VulkanMemoryAllocator)
+		endif()
+		macro_log_feature(VULKAN_FOUND "vulkan" "Support for the Vulkan render system" "" TRUE "" "")
 	endif()
 endforeach()
 
