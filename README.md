@@ -11,7 +11,8 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 
 - **Wide widget set:** buttons, edit boxes, combo boxes, lists, tree controls, item boxes, tab controls, scroll bars,
   progress bars, windows, and more
-- **Multiple render backends:** Direct3D 9, Direct3D 11, OpenGL (legacy), OpenGL 3.x, OpenGL ES 2.0, Ogre and OgreNext
+- **Multiple render backends:** Vulkan, Direct3D 9, Direct3D 11, OpenGL (legacy), OpenGL 3.x, OpenGL ES 2.0, Ogre and
+  OgreNext
 - **Skin system:** fully customizable widget appearance via XML-based skin definitions
 - **Layout system:** load UI layouts from XML files at runtime; includes a visual **Layout Editor**
 - **Tools:** built-in editors for layouts, skins, images, and fonts
@@ -50,6 +51,7 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 | OpenGL 3.x                 | 7        |
 | OpenGL ES 2.0 (Emscripten) | 8        |
 | OgreNext                   | 9        |
+| Vulkan                     | 10       |
 
 Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 
@@ -84,16 +86,17 @@ target_link_libraries(myapp PRIVATE MyGUI::MyGUI MyGUI::OgrePlatform)
 
 Available targets:
 
-| Target                    | Description         |
-|---------------------------|---------------------|
-| `MyGUI::MyGUI`            | Core library        |
-| `MyGUI::OgrePlatform`     | Ogre backend        |
-| `MyGUI::OpenGLPlatform`   | OpenGL backend      |
-| `MyGUI::OpenGL3Platform`  | OpenGL 3.x backend  |
-| `MyGUI::OpenGLES`         | OpenGLES backend    |
-| `MyGUI::DirectXPlatform`  | Direct3D 9 backend  |
-| `MyGUI::DirectX11Platform`| Direct3D 11 backend |
-| `MyGUI::OgreNextPlatform` | OgreNext backend    |
+| Target                     | Description         |
+|----------------------------|---------------------|
+| `MyGUI::MyGUI`             | Core library        |
+| `MyGUI::OgrePlatform`      | Ogre backend        |
+| `MyGUI::OpenGLPlatform`    | OpenGL backend      |
+| `MyGUI::OpenGL3Platform`   | OpenGL 3.x backend  |
+| `MyGUI::OpenGLES`          | OpenGLES backend    |
+| `MyGUI::DirectXPlatform`   | Direct3D 9 backend  |
+| `MyGUI::DirectX11Platform` | Direct3D 11 backend |
+| `MyGUI::OgreNextPlatform`  | OgreNext backend    |
+| `MyGUI::VulkanPlatform`    | Vulkan backend      |
 
 Build options:
 
@@ -133,10 +136,6 @@ Scripts/run-clang-format.py
 ```
 
 Use `--fix` to format files in-place:
-
-```bash
-Scripts/run-clang-format.py --fix
-```
 
 To run the check automatically on every commit, install [pre-commit](https://pre-commit.com):
 
