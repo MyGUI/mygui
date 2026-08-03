@@ -65,6 +65,15 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		const RenderTargetInfo& getInfo() const override;
 
+		/** Record a MyGUI draw into the given command buffer using the given viewport size */
+		void renderGeometry(
+			VkCommandBuffer _commandBuffer,
+			IVertexBuffer* _buffer,
+			ITexture* _texture,
+			size_t _count,
+			uint32_t _width,
+			uint32_t _height);
+
 		/** @see RenderManager::setViewSize */
 		void setViewSize(int _width, int _height) override;
 
@@ -82,6 +91,8 @@ namespace MyGUI
 
 		/** Render pass to use when rendering MyGUI into a framebuffer */
 		VkRenderPass getRenderPass() const;
+		/** Render pass to use when rendering MyGUI into an offscreen render target texture */
+		VkRenderPass getRenderTargetRenderPass() const;
 		/** Colour attachment format used by the render pass */
 		VkFormat getColourFormat() const;
 		/** Final layout of the colour attachment after the render pass */
@@ -120,6 +131,7 @@ namespace MyGUI
 		VkPipeline getPipeline(const std::string& _shaderName) const;
 
 		void createRenderPass();
+		void createRenderTargetRenderPass();
 		void createPipelineLayout();
 		void createDescriptorPool();
 		void createSampler();
@@ -138,6 +150,7 @@ namespace MyGUI
 		VkImageLayout mColourImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
 		VkRenderPass mRenderPass = VK_NULL_HANDLE;
+		VkRenderPass mRenderTargetRenderPass = VK_NULL_HANDLE;
 		VkPipelineLayout mPipelineLayout = VK_NULL_HANDLE;
 		VkDescriptorSetLayout mDescriptorSetLayout = VK_NULL_HANDLE;
 		VkDescriptorPool mDescriptorPool = VK_NULL_HANDLE;

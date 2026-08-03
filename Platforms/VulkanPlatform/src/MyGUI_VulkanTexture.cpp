@@ -5,6 +5,7 @@
  */
 
 #include "MyGUI_VulkanTexture.h"
+#include "MyGUI_VulkanRTTexture.h"
 #include "MyGUI_VulkanRenderManager.h"
 #include "MyGUI_VulkanDiagnostic.h"
 
@@ -85,6 +86,10 @@ namespace MyGUI
 		imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		imageInfo.usage =
 			VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
+		if (mOriginalUsage.isValue(TextureUsage::RenderTarget))
+		{
+			imageInfo.usage |= VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+		}
 		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 		imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
@@ -140,6 +145,12 @@ namespace MyGUI
 
 	void VulkanTexture::destroy()
 	{
+		if (mRenderTarget != nullptr)
+		{
+			delete mRenderTarget;
+			mRenderTarget = nullptr;
+		}
+
 		if (mBuffer)
 		{
 			delete[] (char*)mBuffer;
@@ -280,6 +291,24 @@ namespace MyGUI
 	size_t VulkanTexture::getNumElemBytes() const
 	{
 		return mNumElemBytes;
+	}
+
+	IRenderTarget* VulkanTexture::getRenderTarget()
+	{
+		if (mRenderTarget == nullptr && mOriginalUsage.isValue(TextureUsage::RenderTarget))
+		{
+			VulkanRenderManager& manager = VulkanRenderManager::getInstance();
+			mRenderTarget = new VulkanRTTexture(
+				manager.getDevice(),
+				manager.getCommandPool(),
+				manager.getQueue(),
+				manager.getRenderTargetRenderPass(),
+				mImageView,
+				static_cast<uint32_t>(mWidth),
+				static_cast<uint32_t>(mHeight));
+		}
+
+		return mRenderTarget;
 	}
 
 } // namespace MyGUI

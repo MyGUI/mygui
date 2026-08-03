@@ -119,6 +119,7 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Failed to create pipeline cache");
 
 		createRenderPass();
+		createRenderTargetRenderPass();
 		createDescriptorPool();
 		createSampler();
 
@@ -202,6 +203,11 @@ namespace MyGUI
 			vkDestroyRenderPass(mDevice, mRenderPass, nullptr);
 			mRenderPass = VK_NULL_HANDLE;
 		}
+		if (mRenderTargetRenderPass != VK_NULL_HANDLE)
+		{
+			vkDestroyRenderPass(mDevice, mRenderTargetRenderPass, nullptr);
+			mRenderTargetRenderPass = VK_NULL_HANDLE;
+		}
 		if (mPipelineCache != VK_NULL_HANDLE)
 		{
 			vkDestroyPipelineCache(mDevice, mPipelineCache, nullptr);
@@ -234,9 +240,21 @@ namespace MyGUI
 
 	void VulkanRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		const auto* buffer = static_cast<VulkanVertexBuffer*>(_buffer);
 		MYGUI_PLATFORM_ASSERT(mCurrentCommandBuffer, "Vertex buffer is not created");
-		MYGUI_PLATFORM_ASSERT(mViewSize.width > 0 && mViewSize.height > 0, "View size is not set");
+		renderGeometry(mCurrentCommandBuffer, _buffer, _texture, _count, mViewSize.width, mViewSize.height);
+	}
+
+	void VulkanRenderManager::renderGeometry(
+		VkCommandBuffer _commandBuffer,
+		IVertexBuffer* _buffer,
+		ITexture* _texture,
+		size_t _count,
+		uint32_t _width,
+		uint32_t _height)
+	{
+		const auto* buffer = static_cast<VulkanVertexBuffer*>(_buffer);
+		MYGUI_PLATFORM_ASSERT(_commandBuffer, "Command buffer is not created");
+		MYGUI_PLATFORM_ASSERT(_width > 0 && _height > 0, "View size is not set");
 
 		VkDescriptorSet descriptorSet = mWhiteDescriptorSet;
 		VkPipeline pipeline = mDefaultPipeline;
@@ -254,10 +272,10 @@ namespace MyGUI
 
 		VkBuffer vertexBuffer = buffer->getBuffer();
 		VkDeviceSize offset = 0;
-		vkCmdBindVertexBuffers(mCurrentCommandBuffer, 0, 1, &vertexBuffer, &offset);
-		vkCmdBindPipeline(mCurrentCommandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
+		vkCmdBindVertexBuffers(_commandBuffer, 0, 1, &vertexBuffer, &offset);
+		vkCmdBindPipeline(_commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
 		vkCmdBindDescriptorSets(
-			mCurrentCommandBuffer,
+			_commandBuffer,
 			VK_PIPELINE_BIND_POINT_GRAPHICS,
 			mPipelineLayout,
 			0,
@@ -266,14 +284,13 @@ namespace MyGUI
 			0,
 			nullptr);
 
-		VkViewport
-			viewport{0.0f, 0.0f, static_cast<float>(mViewSize.width), static_cast<float>(mViewSize.height), 0.0f, 1.0f};
-		vkCmdSetViewport(mCurrentCommandBuffer, 0, 1, &viewport);
+		VkViewport viewport{0.0f, 0.0f, static_cast<float>(_width), static_cast<float>(_height), 0.0f, 1.0f};
+		vkCmdSetViewport(_commandBuffer, 0, 1, &viewport);
 
-		VkRect2D scissor{{0, 0}, {static_cast<uint32_t>(mViewSize.width), static_cast<uint32_t>(mViewSize.height)}};
-		vkCmdSetScissor(mCurrentCommandBuffer, 0, 1, &scissor);
+		VkRect2D scissor{{0, 0}, {_width, _height}};
+		vkCmdSetScissor(_commandBuffer, 0, 1, &scissor);
 
-		vkCmdDraw(mCurrentCommandBuffer, _count, 1, 0, 0);
+		vkCmdDraw(_commandBuffer, _count, 1, 0, 0);
 	}
 
 	void VulkanRenderManager::begin()
@@ -426,6 +443,11 @@ namespace MyGUI
 	VkRenderPass VulkanRenderManager::getRenderPass() const
 	{
 		return mRenderPass;
+	}
+
+	VkRenderPass VulkanRenderManager::getRenderTargetRenderPass() const
+	{
+		return mRenderTargetRenderPass;
 	}
 
 	VkFormat VulkanRenderManager::getColourFormat() const
@@ -896,6 +918,48 @@ namespace MyGUI
 
 		if (vkCreateRenderPass(mDevice, &renderPassInfo, nullptr, &mRenderPass) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to create render pass");
+	}
+
+	void VulkanRenderManager::createRenderTargetRenderPass()
+	{
+		VkAttachmentDescription colorAttachment{};
+		colorAttachment.format = VK_FORMAT_B8G8R8A8_UNORM;
+		colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+		colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+		colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+		colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		colorAttachment.finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+		VkAttachmentReference colorAttachmentRef{};
+		colorAttachmentRef.attachment = 0;
+		colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+		VkSubpassDescription subpass{};
+		subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+		subpass.colorAttachmentCount = 1;
+		subpass.pColorAttachments = &colorAttachmentRef;
+
+		VkSubpassDependency dependency{};
+		dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+		dependency.dstSubpass = 0;
+		dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		dependency.srcAccessMask = 0;
+		dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+
+		VkRenderPassCreateInfo renderPassInfo{};
+		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+		renderPassInfo.attachmentCount = 1;
+		renderPassInfo.pAttachments = &colorAttachment;
+		renderPassInfo.subpassCount = 1;
+		renderPassInfo.pSubpasses = &subpass;
+		renderPassInfo.dependencyCount = 1;
+		renderPassInfo.pDependencies = &dependency;
+
+		if (vkCreateRenderPass(mDevice, &renderPassInfo, nullptr, &mRenderTargetRenderPass) != VK_SUCCESS)
+			MYGUI_PLATFORM_EXCEPT("Failed to create render target render pass");
 	}
 
 	void VulkanRenderManager::createDescriptorPool()

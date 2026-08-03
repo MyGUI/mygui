@@ -4,6 +4,7 @@ set (HEADER_FILES
   include/MyGUI_VulkanImageLoader.h
   include/MyGUI_VulkanPlatform.h
   include/MyGUI_VulkanRenderManager.h
+  include/MyGUI_VulkanRTTexture.h
   include/MyGUI_VulkanTexture.h
   include/MyGUI_VulkanVertexBuffer.h
 )
@@ -11,6 +12,7 @@ set (SOURCE_FILES
   src/MyGUI_VulkanDataManager.cpp
   src/MyGUI_VulkanPlatform.cpp
   src/MyGUI_VulkanRenderManager.cpp
+  src/MyGUI_VulkanRTTexture.cpp
   src/MyGUI_VulkanTexture.cpp
   src/MyGUI_VulkanVertexBuffer.cpp
 )
@@ -20,6 +22,7 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_VulkanImageLoader.h
   include/MyGUI_VulkanPlatform.h
   include/MyGUI_VulkanRenderManager.h
+  include/MyGUI_VulkanRTTexture.h
   include/MyGUI_VulkanTexture.h
   include/MyGUI_VulkanVertexBuffer.h
 )
@@ -27,6 +30,7 @@ SOURCE_GROUP("Source Files" FILES
   src/MyGUI_VulkanDataManager.cpp
   src/MyGUI_VulkanPlatform.cpp
   src/MyGUI_VulkanRenderManager.cpp
+  src/MyGUI_VulkanRTTexture.cpp
   src/MyGUI_VulkanTexture.cpp
   src/MyGUI_VulkanVertexBuffer.cpp
 )

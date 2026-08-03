@@ -16,6 +16,8 @@
 namespace MyGUI
 {
 
+	class VulkanRTTexture;
+
 	class VulkanTexture : public ITexture
 	{
 	public:
@@ -41,6 +43,8 @@ namespace MyGUI
 		PixelFormat getFormat() const override;
 		TextureUsage getUsage() const override;
 		size_t getNumElemBytes() const override;
+
+		IRenderTarget* getRenderTarget() override;
 
 		/*internal:*/
 		VkImage getImage() const
@@ -80,6 +84,8 @@ namespace MyGUI
 		VkImageView mImageView{VK_NULL_HANDLE};
 		VkDescriptorSet mDescriptorSet{VK_NULL_HANDLE};
 		void* mAllocation{nullptr};
+
+		VulkanRTTexture* mRenderTarget{nullptr};
 
 		bool mLock{false};
 		void* mBuffer{nullptr};
