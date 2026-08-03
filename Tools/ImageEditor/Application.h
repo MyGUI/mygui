@@ -29,9 +29,6 @@ namespace tools
 		bool onWindowClose(size_t _handle) override;
 		void prepare() override;
 
-		using VectorWString = std::vector<std::wstring>;
-		const VectorWString& getParams();
-
 	protected:
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
@@ -52,7 +49,6 @@ namespace tools
 
 	private:
 		std::string mLocale;
-		VectorWString mParams;
 		using VectorControl = std::vector<Control*>;
 		VectorControl mControls;
 	};

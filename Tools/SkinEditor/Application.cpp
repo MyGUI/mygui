@@ -232,79 +232,6 @@ namespace tools
 			// set correct directory
 			::SetCurrentDirectoryW(dir.substr(0, pos + 1).c_str());
 		}
-
-		// names can contain spaces, need to join and check files for existence
-		std::wifstream stream;
-		std::wstring tmp;
-		std::wstring delims = L" ";
-		std::wstring source = GetCommandLineW();
-		size_t start = source.find_first_not_of(delims);
-		while (start != source.npos)
-		{
-			size_t end = source.find_first_of(delims, start);
-			if (end != source.npos)
-			{
-				tmp += source.substr(start, end - start);
-
-				// names can be in quotes
-				if (tmp.size() > 2)
-				{
-					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
-					{
-						tmp = tmp.substr(1, tmp.size() - 2);
-					}
-				}
-
-	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
-				stream.open(tmp.c_str());
-	#else
-				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
-	#endif
-				if (stream.is_open())
-				{
-					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
-						mParams.push_back(tmp);
-
-					tmp.clear();
-					stream.close();
-				}
-				else
-					tmp += delims;
-			}
-			else
-			{
-				tmp += source.substr(start);
-
-				// names can be in quotes
-				if (tmp.size() > 2)
-				{
-					if ((tmp[0] == L'"') && (tmp[tmp.size() - 1] == L'"'))
-					{
-						tmp = tmp.substr(1, tmp.size() - 2);
-					}
-				}
-
-	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
-				stream.open(tmp.c_str());
-	#else
-				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
-	#endif
-				if (stream.is_open())
-				{
-					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
-						mParams.push_back(tmp);
-
-					tmp.clear();
-					stream.close();
-				}
-				else
-					tmp += delims;
-				break;
-			}
-			start = source.find_first_not_of(delims, end + 1);
-		};
-
-#else
 #endif
 	}
 
@@ -370,11 +297,6 @@ namespace tools
 		setWindowCaption(replaceTags("CaptionMainWindow"));
 
 		_result = true;
-	}
-
-	const Application::VectorWString& Application::getParams()
-	{
-		return mParams;
 	}
 
 	void Application::saveSettings()

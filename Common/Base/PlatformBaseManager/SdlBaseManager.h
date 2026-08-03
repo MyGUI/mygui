@@ -36,6 +36,9 @@ namespace base
 		void makeScreenShot();
 		void setCommandLine(int _argc, char** _argv);
 
+		using VectorWString = std::vector<std::wstring>;
+		const VectorWString& getParams() const;
+
 		/*internal:*/
 		void _windowResized(int w, int h);
 
@@ -79,6 +82,7 @@ namespace base
 		std::string mScreenShotFile;
 		bool mScreenShotExit = false;
 		int mScreenShotFramesLeft = 0;
+		VectorWString mParams;
 
 	private:
 		MyGUI::Gui* mGUI = nullptr;

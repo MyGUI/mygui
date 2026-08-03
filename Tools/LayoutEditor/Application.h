@@ -27,9 +27,6 @@ namespace tools
 		void onFileDrop(const std::wstring& _filename) override;
 		bool onWindowClose(size_t _handle) override;
 
-		using VectorWString = std::vector<std::wstring>;
-		const VectorWString& getParams();
-
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
@@ -46,7 +43,6 @@ namespace tools
 		void DestroyControls();
 
 	private:
-		VectorWString mParams;
 		std::string mLocale;
 		using VectorControl = std::vector<Control*>;
 		VectorControl mControls;

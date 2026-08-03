@@ -3,6 +3,10 @@
 
 #include <SDL_syswm.h>
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+	#include <shellapi.h>
+#endif
+
 #include <filesystem>
 #include <fstream>
 
@@ -451,19 +455,44 @@ namespace base
 	void SdlBaseManager::setCommandLine(int _argc, char** _argv)
 	{
 #ifndef __EMSCRIPTEN__
-		for (int i = 1; i < _argc; ++i)
+		std::vector<std::wstring> args;
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		int argc = 0;
+		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+		if (argv != nullptr)
 		{
-			if (std::string_view(_argv[i]) == "--screenshot")
+			args.assign(argv, argv + argc);
+			LocalFree(argv);
+		}
+	#else
+		args.reserve(_argc);
+		for (int i = 0; i < _argc; ++i)
+			args.push_back(MyGUI::UString(_argv[i]).asWStr());
+	#endif
+
+		for (size_t i = 1; i < args.size(); ++i)
+		{
+			if (args[i] == L"--screenshot")
 			{
-				mScreenShotFile = (i + 1 < _argc) ? _argv[++i] : "screenshot.png";
-				mScreenShotFile = std::filesystem::absolute(mScreenShotFile).string();
+				const std::wstring file = (i + 1 < args.size()) ? args[++i] : L"screenshot.png";
+				mScreenShotFile = std::filesystem::absolute(MyGUI::UString(file).asUTF8()).string();
 				mScreenShotExit = true;
 				mScreenShotFramesLeft = cScreenShotFrames;
 				std::cerr << "Screenshot will be saved to " << mScreenShotFile << std::endl;
-				break;
+				continue;
 			}
+
+			const std::string file = MyGUI::UString(args[i]).asUTF8();
+			std::error_code ec;
+			if (std::filesystem::is_regular_file(file, ec))
+				mParams.push_back(MyGUI::UString(std::filesystem::absolute(file).string()).asWStr());
 		}
 #endif
+	}
+
+	const SdlBaseManager::VectorWString& SdlBaseManager::getParams() const
+	{
+		return mParams;
 	}
 
 } // namespace base
