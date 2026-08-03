@@ -34,6 +34,7 @@ namespace base
 		const std::string& getRootMedia() const;
 		void setResourceFilename(std::string_view _flename);
 		void makeScreenShot();
+		void setCommandLine(int _argc, char** _argv);
 
 		/*internal:*/
 		void _windowResized(int w, int h);
@@ -76,6 +77,8 @@ namespace base
 		float mDpiScale = 1.0f;
 		bool mScreenShotRequested = false;
 		std::string mScreenShotFile;
+		bool mScreenShotExit = false;
+		int mScreenShotFramesLeft = 0;
 
 	private:
 		MyGUI::Gui* mGUI = nullptr;

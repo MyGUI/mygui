@@ -14,19 +14,20 @@
 	#define WIN32_LEAN_AND_MEAN
 	#include <windows.h>
 	#include <direct.h>
+	#include <cstdlib>
 #endif
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	#define MYGUI_APP(cls) \
 		INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) \
 		{ \
-			return startApp<cls>(); \
+			return startApp<cls>(__argc, __argv); \
 		}
 #else
 	#define MYGUI_APP(cls) \
 		int main(int argc, char** argv) \
 		{ \
-			return startApp<cls>(); \
+			return startApp<cls>(argc, argv); \
 		}
 #endif
 
@@ -41,11 +42,12 @@ void run(void* arg)
 #endif
 
 template<class AppClass>
-int startApp()
+int startApp(int _argc, char** _argv)
 {
 	try
 	{
 		AppClass* app = new AppClass();
+		app->setCommandLine(_argc, _argv);
 		app->prepare();
 		if (app->create())
 		{

@@ -8,6 +8,9 @@
 
 namespace base
 {
+	// number of frames to render before capturing a screenshot from the command line
+	static constexpr int cScreenShotFrames = 2;
+
 	SdlBaseManager::SdlBaseManager(uint32_t _windowFlags) :
 		mWindowFlags(_windowFlags)
 	{
@@ -175,6 +178,16 @@ namespace base
 			}
 
 			mFpsCounter++;
+
+			if (mScreenShotExit)
+			{
+				--mScreenShotFramesLeft;
+				if (mScreenShotFramesLeft == 0)
+					mScreenShotRequested = true;
+				if (mScreenShotFramesLeft < 0)
+					mExit = true;
+			}
+
 			drawOneFrame();
 			if (!mWindowOn)
 				SDL_Delay(50);
@@ -433,6 +446,24 @@ namespace base
 		} while (stream.is_open());
 		mScreenShotFile = file;
 		mScreenShotRequested = true;
+	}
+
+	void SdlBaseManager::setCommandLine(int _argc, char** _argv)
+	{
+#ifndef __EMSCRIPTEN__
+		for (int i = 1; i < _argc; ++i)
+		{
+			if (std::string_view(_argv[i]) == "--screenshot")
+			{
+				mScreenShotFile = (i + 1 < _argc) ? _argv[++i] : "screenshot.png";
+				mScreenShotFile = std::filesystem::absolute(mScreenShotFile).string();
+				mScreenShotExit = true;
+				mScreenShotFramesLeft = cScreenShotFrames;
+				std::cerr << "Screenshot will be saved to " << mScreenShotFile << std::endl;
+				break;
+			}
+		}
+#endif
 	}
 
 } // namespace base

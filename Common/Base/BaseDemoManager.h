@@ -59,6 +59,9 @@ namespace base
 			mInfo = new diagnostic::StatisticInfo();
 			mFocusInfo = new diagnostic::InputFocusInfo();
 
+			if (mScreenShotExit)
+				mInfo->setVisible(false);
+
 			MyGUI::Gui::getInstance().eventFrameStart +=
 				MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
 		}
