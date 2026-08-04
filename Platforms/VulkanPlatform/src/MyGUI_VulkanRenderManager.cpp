@@ -251,20 +251,17 @@ namespace MyGUI
 	void VulkanRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		MYGUI_PLATFORM_ASSERT(mCurrentCommandBuffer, "Vertex buffer is not created");
-		renderGeometry(mCurrentCommandBuffer, _buffer, _texture, _count, mViewSize.width, mViewSize.height);
+		renderGeometry(mCurrentCommandBuffer, _buffer, _texture, _count);
 	}
 
 	void VulkanRenderManager::renderGeometry(
 		VkCommandBuffer _commandBuffer,
 		IVertexBuffer* _buffer,
 		ITexture* _texture,
-		size_t _count,
-		uint32_t _width,
-		uint32_t _height)
+		size_t _count)
 	{
 		const auto* buffer = static_cast<VulkanVertexBuffer*>(_buffer);
 		MYGUI_PLATFORM_ASSERT(_commandBuffer, "Command buffer is not created");
-		MYGUI_PLATFORM_ASSERT(_width > 0 && _height > 0, "View size is not set");
 
 		VkDescriptorSet descriptorSet = mNearestSampling ? mWhitePointDescriptorSet : mWhiteDescriptorSet;
 		VkPipeline pipeline = mDefaultPipeline;
@@ -293,12 +290,6 @@ namespace MyGUI
 			&descriptorSet,
 			0,
 			nullptr);
-
-		VkViewport viewport{0.0f, 0.0f, static_cast<float>(_width), static_cast<float>(_height), 0.0f, 1.0f};
-		vkCmdSetViewport(_commandBuffer, 0, 1, &viewport);
-
-		VkRect2D scissor{{0, 0}, {_width, _height}};
-		vkCmdSetScissor(_commandBuffer, 0, 1, &scissor);
 
 		vkCmdDraw(_commandBuffer, _count, 1, 0, 0);
 	}

@@ -102,8 +102,6 @@ namespace base
 
 		mRenderPass = mPlatform->getRenderManagerPtr()->getRenderPass();
 		createFramebuffers();
-
-		mPlatform->getRenderManagerPtr()->setViewSize((int)mExtent.width, (int)mExtent.height);
 	}
 
 	void BaseManager::destroyGuiPlatform()
@@ -340,6 +338,13 @@ namespace base
 		renderPassInfo.pClearValues = &clearColor;
 		vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
+		VkViewport
+			viewport{0.0f, 0.0f, static_cast<float>(mExtent.width), static_cast<float>(mExtent.height), 0.0f, 1.0f};
+		vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+
+		VkRect2D scissor{{0, 0}, {mExtent.width, mExtent.height}};
+		vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+
 		mPlatform->getRenderManagerPtr()->drawOneFrame(commandBuffer);
 
 		vkCmdEndRenderPass(commandBuffer);
@@ -513,9 +518,6 @@ namespace base
 
 		createFramebuffers();
 		createScreenShotBuffer();
-
-		if (mPlatform)
-			mPlatform->getRenderManagerPtr()->setViewSize((int)mExtent.width, (int)mExtent.height);
 	}
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)

@@ -65,14 +65,9 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		const RenderTargetInfo& getInfo() const override;
 
-		/** Record a MyGUI draw into the given command buffer using the given viewport size */
-		void renderGeometry(
-			VkCommandBuffer _commandBuffer,
-			IVertexBuffer* _buffer,
-			ITexture* _texture,
-			size_t _count,
-			uint32_t _width,
-			uint32_t _height);
+		/** Record a MyGUI draw into the given command buffer.
+			The viewport/scissor must be set by the render pass owner before calling this. */
+		void renderGeometry(VkCommandBuffer _commandBuffer, IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 		/** @see RenderManager::setViewSize */
 		void setViewSize(int _width, int _height) override;

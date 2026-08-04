@@ -89,6 +89,12 @@ namespace MyGUI
 		renderPassInfo.clearValueCount = 1;
 		renderPassInfo.pClearValues = &clearValue;
 		vkCmdBeginRenderPass(mCommandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+		VkViewport viewport{0.0f, 0.0f, static_cast<float>(mWidth), static_cast<float>(mHeight), 0.0f, 1.0f};
+		vkCmdSetViewport(mCommandBuffer, 0, 1, &viewport);
+
+		VkRect2D scissor{{0, 0}, {mWidth, mHeight}};
+		vkCmdSetScissor(mCommandBuffer, 0, 1, &scissor);
 	}
 
 	void VulkanRTTexture::end()
@@ -113,7 +119,7 @@ namespace MyGUI
 	void VulkanRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
-		manager.renderGeometry(mCommandBuffer, _buffer, _texture, _count, mWidth, mHeight);
+		manager.renderGeometry(mCommandBuffer, _buffer, _texture, _count);
 	}
 
 	const RenderTargetInfo& VulkanRTTexture::getInfo() const
