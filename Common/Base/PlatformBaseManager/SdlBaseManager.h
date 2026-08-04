@@ -7,6 +7,8 @@
 
 #include <SDL.h>
 
+#include <filesystem>
+
 namespace base
 {
 
@@ -57,6 +59,8 @@ namespace base
 
 		virtual void setupResources();
 
+		void setupBinaryDir();
+
 		void injectMouseMove(int _absx, int _absy, int _absz) override;
 		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id) override;
 		void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id) override;
@@ -83,6 +87,7 @@ namespace base
 		bool mScreenShotExit = false;
 		int mScreenShotFramesLeft = 0;
 		VectorWString mParams;
+		std::filesystem::path mBinaryDir;
 
 	private:
 		MyGUI::Gui* mGUI = nullptr;

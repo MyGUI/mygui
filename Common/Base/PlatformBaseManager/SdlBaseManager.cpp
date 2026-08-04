@@ -107,6 +107,8 @@ namespace base
 			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIconBig);
 #endif
 
+		setupBinaryDir();
+
 		if (!createRender(width, height, windowed))
 		{
 			return false;
@@ -213,23 +215,25 @@ namespace base
 		SDL_Quit();
 	}
 
-	void SdlBaseManager::setupResources()
+	void SdlBaseManager::setupBinaryDir()
 	{
-		std::filesystem::path binaryDir;
 		char* basePath = SDL_GetBasePath();
 		if (basePath)
 		{
-			binaryDir = std::filesystem::path(basePath).parent_path();
+			mBinaryDir = std::filesystem::path(basePath).parent_path();
 			SDL_free(basePath);
 		}
 		else
 		{
-			binaryDir = std::filesystem::current_path();
+			mBinaryDir = std::filesystem::current_path();
 		}
+	}
 
+	void SdlBaseManager::setupResources()
+	{
 		MyGUI::xml::Document doc;
 
-		if (!doc.open((binaryDir / "resources.xml").string()))
+		if (!doc.open((mBinaryDir / "resources.xml").string()))
 		{
 			std::cerr << "Failed to load resources.xml: " << doc.getLastError() << std::endl;
 			exit(1);
@@ -251,7 +255,7 @@ namespace base
 					{
 						mRootMedia = node->getContent();
 						if (!std::filesystem::path(mRootMedia).is_absolute())
-							mRootMedia = (binaryDir / mRootMedia).string();
+							mRootMedia = (mBinaryDir / mRootMedia).string();
 					}
 				}
 				addResourceLocation(node->getContent(), false);

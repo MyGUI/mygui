@@ -26,7 +26,7 @@ namespace base
 		mRoot = new Ogre::Root(nullptr, "", "ogre.cfg", "Ogre.log");
 		mStaticPluginLoader.load();
 #else
-		mRoot = new Ogre::Root(nullptr, "plugins.cfg", "ogre.cfg", "Ogre.log");
+		mRoot = new Ogre::Root(nullptr, (mBinaryDir / "plugins.cfg").string(), "ogre.cfg", "Ogre.log");
 #endif
 
 		auto renderSystem = mRoot->getRenderSystemByName(mRoot->getAvailableRenderers()[0]->getName());
