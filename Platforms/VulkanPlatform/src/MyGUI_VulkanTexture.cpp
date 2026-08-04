@@ -130,6 +130,16 @@ namespace MyGUI
 		descriptorWrite.pImageInfo = &imageDescInfo;
 
 		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
+
+		allocSetInfo.descriptorSetCount = 1;
+		allocSetInfo.pSetLayouts = &layout;
+		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &mPointDescriptorSet) != VK_SUCCESS)
+			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
+
+		imageDescInfo.sampler = manager.getPointSampler();
+		descriptorWrite.dstSet = mPointDescriptorSet;
+
+		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
 	}
 
 	void VulkanTexture::uploadData(const void* _data)
@@ -165,6 +175,11 @@ namespace MyGUI
 			{
 				vkFreeDescriptorSets(manager.getDevice(), manager.getDescriptorPool(), 1, &mDescriptorSet);
 				mDescriptorSet = VK_NULL_HANDLE;
+			}
+			if (mPointDescriptorSet != VK_NULL_HANDLE)
+			{
+				vkFreeDescriptorSets(manager.getDevice(), manager.getDescriptorPool(), 1, &mPointDescriptorSet);
+				mPointDescriptorSet = VK_NULL_HANDLE;
 			}
 			if (mImageView != VK_NULL_HANDLE)
 			{

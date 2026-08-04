@@ -166,7 +166,10 @@ namespace MyGUI
 		rm->doRender(_buffer, _texture, _count);
 		rm->mSamplerState = prev;
 #elif defined(MYGUI_VULKAN_PLATFORM)
-		VulkanRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+		VulkanRenderManager* manager = VulkanRenderManager::getInstancePtr();
+		manager->setNearestSampling(true);
+		manager->doRender(_buffer, _texture, _count);
+		manager->setNearestSampling(false);
 #endif
 	}
 

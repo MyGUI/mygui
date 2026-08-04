@@ -59,6 +59,10 @@ namespace MyGUI
 		{
 			return mDescriptorSet;
 		}
+		VkDescriptorSet getPointDescriptorSet() const
+		{
+			return mPointDescriptorSet;
+		}
 		const std::string& getShaderName() const
 		{
 			return mShaderName;
@@ -83,6 +87,7 @@ namespace MyGUI
 		VkImage mImage{VK_NULL_HANDLE};
 		VkImageView mImageView{VK_NULL_HANDLE};
 		VkDescriptorSet mDescriptorSet{VK_NULL_HANDLE};
+		VkDescriptorSet mPointDescriptorSet{VK_NULL_HANDLE};
 		void* mAllocation{nullptr};
 
 		VulkanRTTexture* mRenderTarget{nullptr};

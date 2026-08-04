@@ -165,6 +165,11 @@ namespace MyGUI
 			vkFreeDescriptorSets(mDevice, mDescriptorPool, 1, &mWhiteDescriptorSet);
 			mWhiteDescriptorSet = VK_NULL_HANDLE;
 		}
+		if (mWhitePointDescriptorSet != VK_NULL_HANDLE)
+		{
+			vkFreeDescriptorSets(mDevice, mDescriptorPool, 1, &mWhitePointDescriptorSet);
+			mWhitePointDescriptorSet = VK_NULL_HANDLE;
+		}
 		if (mWhiteImageView != VK_NULL_HANDLE)
 		{
 			vkDestroyImageView(mDevice, mWhiteImageView, nullptr);
@@ -182,6 +187,11 @@ namespace MyGUI
 		{
 			vkDestroySampler(mDevice, mSampler, nullptr);
 			mSampler = VK_NULL_HANDLE;
+		}
+		if (mPointSampler != VK_NULL_HANDLE)
+		{
+			vkDestroySampler(mDevice, mPointSampler, nullptr);
+			mPointSampler = VK_NULL_HANDLE;
 		}
 		if (mDescriptorPool != VK_NULL_HANDLE)
 		{
@@ -256,7 +266,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(_commandBuffer, "Command buffer is not created");
 		MYGUI_PLATFORM_ASSERT(_width > 0 && _height > 0, "View size is not set");
 
-		VkDescriptorSet descriptorSet = mWhiteDescriptorSet;
+		VkDescriptorSet descriptorSet = mNearestSampling ? mWhitePointDescriptorSet : mWhiteDescriptorSet;
 		VkPipeline pipeline = mDefaultPipeline;
 
 		if (_texture)
@@ -264,7 +274,7 @@ namespace MyGUI
 			const auto* texture = static_cast<VulkanTexture*>(_texture);
 			if (texture->getImageView() != VK_NULL_HANDLE)
 			{
-				descriptorSet = texture->getDescriptorSet();
+				descriptorSet = mNearestSampling ? texture->getPointDescriptorSet() : texture->getDescriptorSet();
 				if (texture->getShaderName() != "Default")
 					pipeline = getPipeline(texture->getShaderName());
 			}
@@ -493,6 +503,16 @@ namespace MyGUI
 	VkSampler VulkanRenderManager::getSampler() const
 	{
 		return mSampler;
+	}
+
+	VkSampler VulkanRenderManager::getPointSampler() const
+	{
+		return mPointSampler;
+	}
+
+	void VulkanRenderManager::setNearestSampling(bool _value)
+	{
+		mNearestSampling = _value;
 	}
 
 	VkImageView VulkanRenderManager::createImageView(VkImage _image, VkFormat _format)
@@ -964,7 +984,7 @@ namespace MyGUI
 
 	void VulkanRenderManager::createDescriptorPool()
 	{
-		const uint32_t poolSize = 8192;
+		const uint32_t poolSize = 16384;
 		VkDescriptorPoolSize poolSizes[] = {{VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, poolSize}};
 
 		VkDescriptorPoolCreateInfo poolInfo{};
@@ -992,6 +1012,12 @@ namespace MyGUI
 
 		if (vkCreateSampler(mDevice, &samplerInfo, nullptr, &mSampler) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to create sampler");
+
+		samplerInfo.magFilter = VK_FILTER_NEAREST;
+		samplerInfo.minFilter = VK_FILTER_NEAREST;
+
+		if (vkCreateSampler(mDevice, &samplerInfo, nullptr, &mPointSampler) != VK_SUCCESS)
+			MYGUI_PLATFORM_EXCEPT("Failed to create point sampler");
 	}
 
 	void VulkanRenderManager::createWhiteTexture()
@@ -1048,6 +1074,16 @@ namespace MyGUI
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pImageInfo = &imageDescInfo;
+
+		vkUpdateDescriptorSets(mDevice, 1, &descriptorWrite, 0, nullptr);
+
+		allocSetInfo.descriptorSetCount = 1;
+		allocSetInfo.pSetLayouts = &mDescriptorSetLayout;
+		if (vkAllocateDescriptorSets(mDevice, &allocSetInfo, &mWhitePointDescriptorSet) != VK_SUCCESS)
+			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
+
+		imageDescInfo.sampler = mPointSampler;
+		descriptorWrite.dstSet = mWhitePointDescriptorSet;
 
 		vkUpdateDescriptorSets(mDevice, 1, &descriptorWrite, 0, nullptr);
 	}

@@ -105,6 +105,10 @@ namespace MyGUI
 		VkDescriptorPool getDescriptorPool() const;
 		VkDescriptorSetLayout getDescriptorSetLayout() const;
 		VkSampler getSampler() const;
+		VkSampler getPointSampler() const;
+
+		/** Select point (nearest) filtering for the next doRender call. Used by FilterNone widgets. */
+		void setNearestSampling(bool _value);
 
 		/** Upload image data to a texture image using a staging buffer.
 			The image is always stored as 4 bytes per pixel; _bytesPerPixel (3 or 4) is the size of a single
@@ -155,6 +159,7 @@ namespace MyGUI
 		VkDescriptorSetLayout mDescriptorSetLayout = VK_NULL_HANDLE;
 		VkDescriptorPool mDescriptorPool = VK_NULL_HANDLE;
 		VkSampler mSampler = VK_NULL_HANDLE;
+		VkSampler mPointSampler = VK_NULL_HANDLE;
 		VkPipelineCache mPipelineCache = VK_NULL_HANDLE;
 		VkPipeline mDefaultPipeline = VK_NULL_HANDLE;
 		std::map<std::string, VkPipeline> mRegisteredShaders;
@@ -166,9 +171,11 @@ namespace MyGUI
 		void* mWhiteImageAllocation{nullptr};
 		VkImageView mWhiteImageView = VK_NULL_HANDLE;
 		VkDescriptorSet mWhiteDescriptorSet = VK_NULL_HANDLE;
+		VkDescriptorSet mWhitePointDescriptorSet = VK_NULL_HANDLE;
 
 		IntSize mViewSize;
 		bool mUpdate{false};
+		bool mNearestSampling{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 		uint32_t mReferenceCount{0}; // for nested rendering
