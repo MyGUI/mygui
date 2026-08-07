@@ -375,6 +375,19 @@ namespace MyGUI
 		Ogre::TextureUnitState* tu = pass->createTextureUnitState();
 		tu->setTexture(mTexture);
 
+		static const Ogre::HlmsSamplerblock clampSampler = []()
+		{
+			Ogre::HlmsSamplerblock block;
+			block.mMinFilter = Ogre::FO_LINEAR;
+			block.mMagFilter = Ogre::FO_LINEAR;
+			block.mMipFilter = Ogre::FO_NONE;
+			block.mU = Ogre::TAM_CLAMP;
+			block.mV = Ogre::TAM_CLAMP;
+			block.mW = Ogre::TAM_CLAMP;
+			return block;
+		}();
+		tu->setSamplerblock(clampSampler);
+
 		// Tolerate custom shaders that don't declare worldViewProj: submitDraw
 		// still calls setNamedConstant("worldViewProj", ...) unconditionally.
 		if (pass->hasVertexProgram())

@@ -44,7 +44,7 @@ namespace MyGUI
 			targetDef->setNumPasses(2);
 
 			auto* clearPass = targetDef->addPass(Ogre::PASS_SCENE);
-			clearPass->setAllClearColours(Ogre::ColourValue(0.2f, 0.2f, 0.2f));
+			clearPass->setAllClearColours(Ogre::ColourValue::Black);
 			clearPass->setAllLoadActions(Ogre::LoadAction::Clear);
 			clearPass->mStoreActionDepth = Ogre::StoreAction::DontCare;
 			clearPass->mStoreActionStencil = Ogre::StoreAction::DontCare;

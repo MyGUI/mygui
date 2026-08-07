@@ -78,6 +78,7 @@ namespace MyGUI
 		void setUsage(TextureUsage _usage);
 		void setFormat(PixelFormat _format);
 		void setFormatByOgreTexture();
+		void applyTextureParameters();
 
 		void loadResource(Ogre::Resource* resource) override;
 

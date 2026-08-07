@@ -201,6 +201,8 @@ namespace MyGUI
 					   .createManual(mName, mGroup, Ogre::TEX_TYPE_2D, _width, _height, 0, mPixelFormat, mUsage, this);
 
 		mTexture->load();
+
+		applyTextureParameters();
 	}
 
 	void OgreTexture::loadFromFile(const std::string& _filename)
@@ -227,6 +229,8 @@ namespace MyGUI
 		}
 
 		setFormatByOgreTexture();
+
+		applyTextureParameters();
 	}
 
 	void OgreTexture::setFormatByOgreTexture()
@@ -265,6 +269,29 @@ namespace MyGUI
 				mNumElemBytes = Ogre::PixelUtil::getNumElemBytes(mPixelFormat);
 			}
 		}
+	}
+
+	void OgreTexture::applyTextureParameters()
+	{
+		if (mTexture == nullptr)
+			return;
+
+		Ogre::RenderSystem* renderSystem =
+			Ogre::Root::getSingletonPtr() != nullptr ? Ogre::Root::getSingletonPtr()->getRenderSystem() : nullptr;
+		if (renderSystem == nullptr)
+			return;
+
+		static const Ogre::SamplerPtr sampler = []()
+		{
+			Ogre::SamplerPtr value = Ogre::TextureManager::getSingleton().createSampler();
+			value->setFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+			value->setAddressingMode(Ogre::TAM_CLAMP);
+			return value;
+		}();
+
+		renderSystem->_setTexture(0, true, mTexture);
+		renderSystem->_setSampler(0, *sampler);
+		renderSystem->_setTexture(0, false, Ogre::TexturePtr());
 	}
 
 	void OgreTexture::loadResource(Ogre::Resource* resource)
