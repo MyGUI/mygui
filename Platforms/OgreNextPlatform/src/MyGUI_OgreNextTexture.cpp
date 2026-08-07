@@ -121,7 +121,31 @@ namespace MyGUI
 
 		if (_access != TextureUsage::Write)
 		{
-			MYGUI_PLATFORM_EXCEPT("OgreNextTexture only supports Write locks");
+			if (mTexture->getNextResidencyStatus() != Ogre::GpuResidency::Resident)
+				mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
+			mTexture->waitForData();
+
+			Ogre::Image2 image;
+			image.convertFromTexture(mTexture, 0, 0);
+			Ogre::TextureBox box = image.getData(0);
+
+			mLockedWidth = static_cast<int>(mTexture->getWidth());
+			mLockedHeight = static_cast<int>(mTexture->getHeight());
+
+			const size_t pixelBytes = Ogre::PixelFormatGpuUtils::getBytesPerPixel(mTexture->getPixelFormat());
+			const size_t rowBytes = static_cast<size_t>(mLockedWidth) * pixelBytes;
+			const size_t dataSize = static_cast<size_t>(mLockedHeight) * rowBytes;
+
+			mLockedBuffer = new uint8[dataSize];
+			uint8* dst = static_cast<uint8*>(mLockedBuffer);
+			for (uint32 y = 0; y < static_cast<uint32>(mLockedHeight); ++y)
+			{
+				std::memcpy(dst + y * rowBytes, box.at(0, y, 0), rowBytes);
+			}
+
+			mLockedRead = true;
+			mLocked = true;
+			return mLockedBuffer;
 		}
 
 		mLockedWidth = static_cast<int>(mTexture->getWidth());
@@ -144,6 +168,15 @@ namespace MyGUI
 	{
 		if (!mLocked)
 			return;
+
+		if (mLockedRead)
+		{
+			delete[] static_cast<uint8*>(mLockedBuffer);
+			mLockedBuffer = nullptr;
+			mLocked = false;
+			mLockedRead = false;
+			return;
+		}
 
 		Ogre::Image2 image;
 		image.createEmptyImageLike(mTexture);

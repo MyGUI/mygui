@@ -88,6 +88,7 @@ namespace MyGUI
 		int mLockedWidth{0};
 		int mLockedHeight{0};
 		bool mLocked{false};
+		bool mLockedRead{false};
 
 		ITextureInvalidateListener* mListener{nullptr};
 		IRenderTarget* mRenderTarget{nullptr};
