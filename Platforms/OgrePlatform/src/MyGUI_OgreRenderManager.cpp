@@ -50,7 +50,11 @@ namespace MyGUI
 		mPass = mMaterial->getTechnique(0)->getPass(0);
 		mPass->setLightingEnabled(false);
 		mPass->setCullingMode(Ogre::CULL_NONE);
-		mPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+		mPass->setSeparateSceneBlending(
+			Ogre::SBF_SOURCE_ALPHA,
+			Ogre::SBF_ONE_MINUS_SOURCE_ALPHA,
+			Ogre::SBF_ONE,
+			Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
 		mPass->setDepthCheckEnabled(false);
 		mPass->setDepthWriteEnabled(false);
 		mPass->setVertexColourTracking(Ogre::TVC_DIFFUSE);
