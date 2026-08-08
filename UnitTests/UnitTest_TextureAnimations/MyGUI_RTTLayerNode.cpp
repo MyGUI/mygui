@@ -15,12 +15,14 @@ namespace MyGUI
 	RTTLayerNode::RTTLayerNode(ILayer* _layer, ILayerNode* _parent) :
 		LayerNode(_layer, _parent)
 	{
-		mTimer.reset();
 		mDpiScale = Gui::getInstance().getDpiScale();
+		Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &RTTLayerNode::notifyFrameStart);
 	}
 
 	RTTLayerNode::~RTTLayerNode()
 	{
+		Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &RTTLayerNode::notifyFrameStart);
+
 		RenderManager& render = RenderManager::getInstance();
 
 		if (mVertexBuffer != nullptr)
@@ -39,12 +41,13 @@ namespace MyGUI
 		mLayerNodeAnimation.clear();
 	}
 
+	void RTTLayerNode::notifyFrameStart(float _time)
+	{
+		mFrameTime = _time;
+	}
+
 	void RTTLayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		unsigned long time = mTimer.getMilliseconds();
-		mTimer.reset();
-
-		float frameTime = (float)((double)(time) / (double)1000);
 		// most likely render target is being recreated,
 		// need to recalculate render target offset
 		if (_update)
@@ -139,7 +142,7 @@ namespace MyGUI
 				_update,
 				count_quad,
 				mData,
-				frameTime,
+				mFrameTime,
 				mVertexBuffer,
 				mTexture,
 				_target->getInfo(),

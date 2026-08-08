@@ -11,7 +11,6 @@
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_LayerNodeAnimation.h"
-#include <MyGUI_Timer.h>
 
 namespace MyGUI
 {
@@ -55,6 +54,7 @@ namespace MyGUI
 
 	private:
 		void checkTexture();
+		void notifyFrameStart(float _time);
 
 	private:
 		IVertexBuffer* mVertexBuffer{nullptr};
@@ -78,7 +78,7 @@ namespace MyGUI
 		VectorQuadData mData;
 		QuadData mDefaultData{};
 
-		MyGUI::Timer mTimer;
+		float mFrameTime{0.0f};
 	};
 
 } // namespace MyGUI
