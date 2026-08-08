@@ -152,6 +152,12 @@ namespace base
 							for (UINT y = 0; y < height; ++y)
 								memcpy(convertedData.data() + y * dstStride, src + y * lockedRect.Pitch, dstStride);
 
+							// The back buffer is X8R8G8B8, its alpha byte is not part of the
+							// surface. Store an opaque alpha so the saved screenshot matches
+							// the committed reference images.
+							for (size_t i = 3; i < convertedData.size(); i += 4)
+								convertedData[i] = 0xFF;
+
 							int wideLen = MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, nullptr, 0);
 							std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
 							MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, &wfilename[0], wideLen);
