@@ -160,23 +160,17 @@ namespace wraps
 				// remove direct connections
 				while (node_conn->isAnyConnection())
 				{
-					for (auto& conn : node_conn->getConnectionEnumerator())
-					{
-						eventDisconnectPoint(this, node_conn, conn);
-						node_conn->removeConnectionPoint(conn);
-						break;
-					}
+					BaseGraphConnection* conn = node_conn->getConnectionEnumerator().front();
+					eventDisconnectPoint(this, node_conn, conn);
+					node_conn->removeConnectionPoint(conn);
 				}
 
 				// remove reverse connections
 				while (node_conn->isAnyReverseConnection())
 				{
-					for (auto& conn : node_conn->getReverseConnectionEnumerator())
-					{
-						eventDisconnectPoint(this, conn, node_conn);
-						conn->removeConnectionPoint(node_conn);
-						break;
-					}
+					BaseGraphConnection* conn = node_conn->getReverseConnectionEnumerator().front();
+					eventDisconnectPoint(this, conn, node_conn);
+					conn->removeConnectionPoint(node_conn);
 				}
 			}
 		}
@@ -220,25 +214,24 @@ namespace wraps
 					// direct connection
 					if (_connection->isAnyConnection())
 					{
-						for (auto& conn : _connection->getConnectionEnumerator())
+						BaseGraphConnection* conn = _connection->getConnectionEnumerator().front();
+						result = false;
+						requestDisconnectPoint(this, _connection, conn, result);
+						if (result)
 						{
-							result = false;
-							requestDisconnectPoint(this, _connection, conn, result);
-							if (result)
-							{
-								drag_node = _connection;
-								eventDisconnectPoint(this, _connection, conn);
-								_connection->removeConnectionPoint(conn);
-								disconect = true;
-							}
-							break;
+							drag_node = _connection;
+							eventDisconnectPoint(this, _connection, conn);
+							_connection->removeConnectionPoint(conn);
+							disconect = true;
 						}
 					}
 					else
 					{
 						// reverse connection
-						for (auto& conn : _connection->getReverseConnectionEnumerator())
+						const VectorConnection& reverse = _connection->getReverseConnectionEnumerator();
+						if (!reverse.empty())
 						{
+							BaseGraphConnection* conn = reverse.front();
 							result = false;
 							requestDisconnectPoint(this, conn, _connection, result);
 							if (result)
@@ -248,7 +241,6 @@ namespace wraps
 								conn->removeConnectionPoint(_connection);
 								disconect = true;
 							}
-							break;
 						}
 					}
 
