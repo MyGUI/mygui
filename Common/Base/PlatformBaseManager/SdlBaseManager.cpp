@@ -470,9 +470,8 @@ namespace base
 
 	void SdlBaseManager::setCommandLine(int _argc, char** _argv)
 	{
-#ifndef __EMSCRIPTEN__
 		std::vector<std::wstring> args;
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		int argc = 0;
 		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 		if (argv != nullptr)
@@ -480,11 +479,11 @@ namespace base
 			args.assign(argv, argv + argc);
 			LocalFree(argv);
 		}
-	#else
+#else
 		args.reserve(_argc);
 		for (int i = 0; i < _argc; ++i)
 			args.push_back(MyGUI::UString(_argv[i]).asWStr());
-	#endif
+#endif
 
 		for (size_t i = 1; i < args.size(); ++i)
 		{
@@ -503,7 +502,6 @@ namespace base
 			if (std::filesystem::is_regular_file(file, ec))
 				mParams.push_back(MyGUI::UString(std::filesystem::absolute(file).string()).asWStr());
 		}
-#endif
 	}
 
 	const SdlBaseManager::VectorWString& SdlBaseManager::getParams() const
