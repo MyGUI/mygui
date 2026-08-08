@@ -12,7 +12,7 @@ Requires numpy and Pillow:
     python3 -m pip install numpy pillow
 
 Usage:
-    python3 Scripts/Tests/compare_screenshots.py <build_dir> [--baseline]
+    python3 Scripts/Tests/compare_screenshots.py <build_dir> [--baseline] [--tolerance N]
 
 By default, the script compares generated screenshots with references and reports
 the result for every application:
@@ -20,6 +20,12 @@ the result for every application:
     OK         - the screenshot is pixel-identical to the reference
     WARNING    - the screenshot differs from the reference within the tolerance
     FAIL       - the screenshot is missing or differs too much from the reference
+
+With "--tolerance N" pixels that differ by at most N per channel are treated as
+matching. This is useful when the renderer and the reference use different
+texture filtering/rounding (e.g. D3D truncates bilinear interpolation where the
+GL3 references round to nearest), which can shift interpolated pixels by exactly
+one unit per channel. The default is 0, i.e. an exact pixel-identical match.
 
 With "--baseline" the generated screenshots overwrite the reference images instead.
 """
@@ -112,7 +118,7 @@ def run_app(binary: Path, app: str, work_dir: Path) -> tuple[Path, str]:
     xvfb_run = shutil.which("xvfb-run")
     if xvfb_run:
         command = [xvfb_run, "-a", *command]
-    elif "DISPLAY" not in env:
+    elif "DISPLAY" not in env and os.name != "nt":
         return screenshot, (
             "no DISPLAY set and xvfb-run not found; "
             "cannot create a rendering window"
@@ -155,11 +161,18 @@ def _kill_process_tree(process: subprocess.Popen):
     process.wait()
 
 
-def compare(generated: Path, reference: Path, fail_mean: float, fail_ratio: float):
+def compare(
+        generated: Path,
+        reference: Path,
+        fail_mean: float,
+        fail_ratio: float,
+        tolerance: int = 0,
+):
     """Compare a generated screenshot with its reference.
 
     Returns (status, detail, diff image). status is one of "OK", "WARNING", "FAIL".
     The diff image marks differing pixels in red on black (None on exact match).
+    Pixels that differ by at most ``tolerance`` per channel are treated as matching.
     """
     if not reference.is_file():
         return "FAIL", "no reference screenshot", None
@@ -177,7 +190,12 @@ def compare(generated: Path, reference: Path, fail_mean: float, fail_ratio: floa
             None,
         )
 
-    mask = np.any(shot != ref, axis=2)
+    if tolerance:
+        mask = np.any(np.abs(shot.astype(np.int16) - ref.astype(np.int16)) > tolerance, axis=2)
+        detail_extra = f", tolerance +/-{tolerance}"
+    else:
+        mask = np.any(shot != ref, axis=2)
+        detail_extra = ""
     differing_pixels = int(np.count_nonzero(mask))
     total_pixels = shot.shape[0] * shot.shape[1]
     diff_ratio = differing_pixels / total_pixels
@@ -188,7 +206,7 @@ def compare(generated: Path, reference: Path, fail_mean: float, fail_ratio: floa
 
     detail = (
         f"{diff_ratio * 100:05.2f}% ({differing_pixels} pixels) differ, "
-        f"mean diff {mean_diff:.2f}"
+        f"mean diff {mean_diff:.2f}{detail_extra}"
     )
 
     diff = Image.fromarray(
@@ -223,6 +241,14 @@ def main(argv: list[str]) -> int:
         type=float,
         default=DEFAULT_FAIL_RATIO,
         help=f"fraction of differing pixels that marks a result as FAIL (default {DEFAULT_FAIL_RATIO})",
+    )
+    parser.add_argument(
+        "--tolerance",
+        type=int,
+        default=0,
+        help="per-channel absolute tolerance for considering a pixel as matching "
+             "(default 0 = exact match); use 1 to account for D3D vs GL3 texture "
+             "filtering rounding differences",
     )
     parser.add_argument(
         "--output",
@@ -290,7 +316,9 @@ def main(argv: list[str]) -> int:
 
             print(f"Checking {app}{' ' * 20}", end="\r")
 
-            status, detail, diff = compare(screenshot, ref_screenshot, args.fail_mean, args.fail_ratio)
+            status, detail, diff = compare(
+                screenshot, ref_screenshot, args.fail_mean, args.fail_ratio, args.tolerance
+            )
             results.append((status, app, detail))
             if status == "FAIL":
                 exit_code = 1
