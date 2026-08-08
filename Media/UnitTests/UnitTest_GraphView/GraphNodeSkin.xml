@@ -67,7 +67,7 @@
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
 		</Child>
-		<Child type="Button" skin="ButtonX" offset="54 5 11 11" align="Right Top" name="Button">
+		<Child type="Button" skin="ButtonCloseSkin" offset="54 5 11 11" align="Right Top" name="Button">
 			<Property key="Event" value="close"/>
 		</Child>
 		<BasisSkin type="SubSkin" offset="6 18 4 3" align="Left Top">
