@@ -139,6 +139,12 @@ namespace base
 		createScene();
 		loadPointerResources();
 
+		if (isScreenShotMode())
+		{
+			// fire single deterministic update and disable further updates
+			MyGUI::Gui::getInstance().eventFrameStart(0.1f);
+			MyGUI::Gui::getInstance().eventFrameStart.clear();
+		}
 		return true;
 	}
 

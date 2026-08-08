@@ -68,7 +68,7 @@ APPS = (
     "UnitTest_RTTLayer",
     "UnitTest_RotatingSkin",
     "UnitTest_Spline",
-    # "UnitTest_TextureAnimations", # TODO: non-deterministic output
+    "UnitTest_TextureAnimations",
     "UnitTest_TreeControl",
 )
 

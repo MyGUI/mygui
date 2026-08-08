@@ -41,6 +41,8 @@ namespace demo
 
 		MyGUI::ISubWidget* main = image->getSubWidgetMain();
 		rotato = main->castType<MyGUI::RotatingSkin>();
+
+		rotato->setAngle(float(M_PI / 4));
 	}
 
 	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
