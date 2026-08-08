@@ -109,7 +109,7 @@ namespace tools
 #endif
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
-		if (!userSettingsFileName.empty())
+		if (!userSettingsFileName.empty() && !isScreenShotMode())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
 
 		new HotKeyManager();
@@ -121,7 +121,7 @@ namespace tools
 		LoadGuiSettings();
 
 		std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");
-		if (language.empty() || language == "Auto")
+		if ((language.empty() || language == "Auto") && !isScreenShotMode())
 		{
 			if (!mLocale.empty())
 				MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);

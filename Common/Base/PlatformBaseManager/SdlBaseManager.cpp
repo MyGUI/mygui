@@ -43,6 +43,12 @@ namespace base
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+		if (isScreenShotMode())
+		{
+			// Skip DPI scaling while rendering for the screenshot comparison.
+			mDpiScale = 1.0f;
+		}
+		else
 		{
 			float ddpi;
 			if (SDL_GetDisplayDPI(0, &ddpi, nullptr, nullptr) == 0 && ddpi > 0)
@@ -497,6 +503,11 @@ namespace base
 	const SdlBaseManager::VectorWString& SdlBaseManager::getParams() const
 	{
 		return mParams;
+	}
+
+	bool SdlBaseManager::isScreenShotMode() const
+	{
+		return mScreenShotExit;
 	}
 
 } // namespace base

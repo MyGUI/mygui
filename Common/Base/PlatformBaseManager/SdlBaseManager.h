@@ -40,6 +40,7 @@ namespace base
 
 		using VectorWString = std::vector<std::wstring>;
 		const VectorWString& getParams() const;
+		bool isScreenShotMode() const;
 
 		/*internal:*/
 		void _windowResized(int w, int h);

@@ -59,7 +59,7 @@ namespace base
 			mInfo = new diagnostic::StatisticInfo();
 			mFocusInfo = new diagnostic::InputFocusInfo();
 
-			if (mScreenShotExit)
+			if (isScreenShotMode())
 				mInfo->setVisible(false);
 
 			MyGUI::Gui::getInstance().eventFrameStart +=
