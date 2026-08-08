@@ -438,9 +438,9 @@ namespace MyGUI
 
 		// Create Sampler State
 		D3D11_SAMPLER_DESC samplerDesc;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 		samplerDesc.BorderColor[0] = samplerDesc.BorderColor[1] = samplerDesc.BorderColor[2] =
 			samplerDesc.BorderColor[3] = 0.0f;
 		samplerDesc.ComparisonFunc = (D3D11_COMPARISON_FUNC)0;
