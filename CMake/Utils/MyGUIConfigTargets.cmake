@@ -21,6 +21,8 @@ function(mygui_set_platform_name PLATFORM_ID)
 		set(MYGUI_PLATFORM_NAME OgreNext PARENT_SCOPE)
 	elseif(${PLATFORM_ID} EQUAL 10)
 		set(MYGUI_PLATFORM_NAME Vulkan PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 11)
+		set(MYGUI_PLATFORM_NAME Osg PARENT_SCOPE)
 	endif()
 endfunction(mygui_set_platform_name)
 

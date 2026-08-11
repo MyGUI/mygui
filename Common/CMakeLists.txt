@@ -69,6 +69,13 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 elseif(MYGUI_RENDERSYSTEM EQUAL 10)
 	target_link_libraries(${PROJECTNAME} PRIVATE SDL2_image::SDL2_image)
 	target_link_libraries(${PROJECTNAME} PUBLIC Vulkan::Vulkan vk-bootstrap)
+elseif(MYGUI_RENDERSYSTEM EQUAL 11)
+	if(MYGUI_OSG_TARGETS)
+		target_link_libraries(${PROJECTNAME} PUBLIC ${MYGUI_OSG_TARGETS})
+	else()
+		target_include_directories(${PROJECTNAME} SYSTEM PUBLIC "${MYGUI_OSG_INCLUDE_DIR}")
+		target_link_libraries(${PROJECTNAME} PUBLIC ${MYGUI_OSG_LIBRARIES})
+	endif()
 endif()
 
 target_include_directories(${PROJECTNAME}

@@ -1,0 +1,34 @@
+set (HEADER_FILES
+  include/MyGUI_OsgDataManager.h
+  include/MyGUI_OsgDiagnostic.h
+  include/MyGUI_OsgPlatform.h
+  include/MyGUI_OsgRenderManager.h
+  include/MyGUI_OsgRTTexture.h
+  include/MyGUI_OsgTexture.h
+  include/MyGUI_OsgVertexBuffer.h
+)
+set (SOURCE_FILES
+  src/MyGUI_OsgDataManager.cpp
+  src/MyGUI_OsgPlatform.cpp
+  src/MyGUI_OsgRenderManager.cpp
+  src/MyGUI_OsgRTTexture.cpp
+  src/MyGUI_OsgTexture.cpp
+  src/MyGUI_OsgVertexBuffer.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_OsgDataManager.h
+  include/MyGUI_OsgDiagnostic.h
+  include/MyGUI_OsgPlatform.h
+  include/MyGUI_OsgRenderManager.h
+  include/MyGUI_OsgRTTexture.h
+  include/MyGUI_OsgTexture.h
+  include/MyGUI_OsgVertexBuffer.h
+)
+SOURCE_GROUP("Source Files" FILES
+  src/MyGUI_OsgDataManager.cpp
+  src/MyGUI_OsgPlatform.cpp
+  src/MyGUI_OsgRenderManager.cpp
+  src/MyGUI_OsgRTTexture.cpp
+  src/MyGUI_OsgTexture.cpp
+  src/MyGUI_OsgVertexBuffer.cpp
+)

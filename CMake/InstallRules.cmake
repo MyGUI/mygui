@@ -44,6 +44,10 @@ set(MYGUI_CONFIG_FIND_DEPS "")
 foreach(_rs IN LISTS MYGUI_BUILD_RENDERSYSTEMS)
 	if(_rs EQUAL 3 OR _rs EQUAL 9)
 		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
+	elseif(_rs EQUAL 11)
+		if(TARGET unofficial::osg::osg)
+			list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(unofficial-osg)")
+		endif()
 	elseif(
 		_rs EQUAL 4
 		OR _rs EQUAL 7

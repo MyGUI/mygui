@@ -184,6 +184,54 @@ foreach(_rs IN LISTS MYGUI_BUILD_RENDERSYSTEMS)
 			#mygui_system_workaround(VulkanMemoryAllocator)
 		endif()
 		macro_log_feature(VULKAN_FOUND "vulkan" "Support for the Vulkan render system" "" TRUE "" "")
+	elseif(_rs EQUAL 11)
+		if(NOT MYGUI_OSG_FOUND)
+			# osgDB plugins to link when osgDB is built statically. The linker only pulls
+			# their registration objects when referenced, which the OSG platform does via
+			# USE_OSGPLUGIN.
+			set(MYGUI_OSG_PLUGINS png freetype jpeg tga bmp dds osg)
+			find_package(unofficial-osg CONFIG QUIET COMPONENTS plugins)
+			if(unofficial-osg_FOUND)
+				# OSG from vcpkg
+				set(MYGUI_OSG_FOUND TRUE)
+				set(MYGUI_OSG_TARGETS
+					unofficial::osg::osg
+					unofficial::osg::osgDB
+					unofficial::osg::osgUtil
+					unofficial::osg::osgViewer
+				)
+				set(MYGUI_OSG_PLATFORM_TARGETS
+					unofficial::osg::osg
+					unofficial::osg::osgDB
+				)
+				foreach(_plugin IN LISTS MYGUI_OSG_PLUGINS)
+					if(TARGET unofficial::osg::osgdb_${_plugin})
+						list(APPEND MYGUI_OSG_PLATFORM_TARGETS unofficial::osg::osgdb_${_plugin})
+					endif()
+				endforeach()
+				# the osgdb plugin archives reference the image/font libraries directly
+				find_package(PNG CONFIG QUIET)
+				find_package(JPEG QUIET)
+				find_package(Freetype CONFIG QUIET)
+				if(TARGET PNG::PNG)
+					list(APPEND MYGUI_OSG_PLATFORM_TARGETS PNG::PNG)
+				endif()
+				if(TARGET JPEG::JPEG)
+					list(APPEND MYGUI_OSG_PLATFORM_TARGETS JPEG::JPEG)
+				endif()
+				if(TARGET Freetype::Freetype)
+					list(APPEND MYGUI_OSG_PLATFORM_TARGETS Freetype::Freetype)
+				endif()
+			else()
+				# system OpenSceneGraph (plugins loaded dynamically from osgPlugins-*)
+				find_package(OpenSceneGraph REQUIRED COMPONENTS osg osgDB osgUtil osgViewer)
+				set(MYGUI_OSG_FOUND TRUE)
+				set(MYGUI_OSG_INCLUDE_DIR "${OPENSCENEGRAPH_INCLUDE_DIRS}")
+				set(MYGUI_OSG_LIBRARIES "${OSG_LIBRARY}" "${OSGDB_LIBRARY}" "${OSGUTIL_LIBRARY}" "${OSGVIEWER_LIBRARY}")
+				set(MYGUI_OSG_PLATFORM_LIBRARIES "${OSG_LIBRARY}" "${OSGDB_LIBRARY}")
+			endif()
+		endif()
+		macro_log_feature(MYGUI_OSG_FOUND "osg" "Support for the OpenSceneGraph render system" "" TRUE "" "")
 	endif()
 endforeach()
 
