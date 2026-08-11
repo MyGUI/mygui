@@ -178,7 +178,9 @@ namespace base
 					mouseWheelMoved(mEvent.wheel);
 					break;
 					// drop file events
-				case SDL_DROPFILE:
+				case SDL_DROPFILE: break;
+				case SDL_QUIT:
+					mExit = true;
 					break;
 					// windows events
 				case SDL_WINDOWEVENT:
