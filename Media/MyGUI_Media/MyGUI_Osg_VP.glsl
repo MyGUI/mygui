@@ -1,19 +1,20 @@
-#version 130
+#version 150
 
-// Vertex program for the OSG render system. The vertex data is provided by the
-// fixed-function pipeline (glVertexPointer/glColorPointer/glTexCoordPointer in
-// osgDrawBatches), so the shader consumes the conventional built-in attributes
-// and matrices. gl_ModelViewProjectionMatrix is the identity for the GUI camera
-// and flips Y for the render-to-texture camera, matching the fixed-function path.
-// GLSL 1.30 is used (instead of the 1.50 used by the OpenGL3 backend) so that the
-// fixed-function built-ins are available regardless of the context profile.
+precision highp int;
+precision highp float;
 
-varying vec4 Color;
-varying vec2 TexCoord;
+in vec4 osg_Vertex;
+in vec4 osg_Color;
+in vec2 osg_MultiTexCoord0;
+
+uniform mat4 osg_ModelViewProjectionMatrix;
+
+out vec4 Color;
+out vec2 TexCoord;
 
 void main()
 {
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	Color = gl_Color;
-	TexCoord = gl_MultiTexCoord0.xy;
+	gl_Position = osg_ModelViewProjectionMatrix * osg_Vertex;
+	Color = osg_Color;
+	TexCoord = osg_MultiTexCoord0.xy;
 }

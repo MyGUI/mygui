@@ -47,7 +47,8 @@ namespace MyGUI
 		size_t mVertexCount;
 	};
 
-	// Draws the given batches using the fixed-function pipeline. Used by both the main GUI
+	// Draws the given batches with generic vertex attributes 0 (position), 3 (colour)
+	// and 8 (texcoord 0) through the state's shader. Used by both the main GUI
 	// drawable and the render-to-texture drawable.
 	void osgDrawBatches(
 		osg::State* _state,

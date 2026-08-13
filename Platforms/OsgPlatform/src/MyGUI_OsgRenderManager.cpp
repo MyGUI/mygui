@@ -22,6 +22,7 @@
 #include <osg/State>
 #include <osg/StateSet>
 #include <osg/Texture2D>
+#include <osg/Uniform>
 #include <osgDB/ReadFile>
 
 #include <algorithm>
@@ -112,10 +113,6 @@ namespace MyGUI
 			mStateSet = new osg::StateSet;
 			mStateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
 			mStateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
-			// fixed-function lighting would tint the vertex colours, so it must be off
-			mStateSet->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
-			// the fixed-function pipeline needs this enabled to sample the textures
-			mStateSet->setTextureMode(0, GL_TEXTURE_2D, osg::StateAttribute::ON);
 
 			mDummyTexture = new osg::Texture2D;
 			mDummyTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
@@ -180,6 +177,19 @@ namespace MyGUI
 		mSceneRoot = _sceneRoot;
 
 		mDrawable = new Drawable(this);
+
+		// the GUI is rendered by a shader on all OpenGL profiles, so a default
+		// program is registered and applied to the drawable's state. Textures
+		// with a custom shader override it for their batches via setShader.
+		registerShader("Default", "MyGUI_Osg_VP.glsl", "MyGUI_Osg_FP.glsl");
+		if (osg::Program* defaultProgram = getShaderProgram("Default"))
+		{
+			osg::StateSet* drawableState = mDrawable->getDrawableStateSet();
+			drawableState->setAttributeAndModes(defaultProgram, osg::StateAttribute::ON);
+			// bind the 'Texture' sampler to texture unit 0, matching the texture
+			// bound for each batch in osgDrawBatches
+			drawableState->addUniform(new osg::Uniform("Texture", 0));
+		}
 
 		osg::ref_ptr<osg::Camera> camera = new osg::Camera();
 		camera->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
@@ -395,11 +405,10 @@ namespace MyGUI
 		fragmentShader->setShaderSource(fragmentSource);
 		program->addShader(fragmentShader.get());
 
-		// The vertex data is set up with the legacy fixed-function calls
-		// (glVertexPointer/glColorPointer/glTexCoordPointer) in osgDrawBatches. The
-		// conventional fixed-function attributes are aliased to generic vertex
-		// attributes 0 (position), 3 (colour) and 8 (texcoord 0), so bind the
-		// shader's vertex attributes to the same locations.
+		// The vertex data is set up with generic vertex attributes in osgDrawBatches.
+		// The attributes are fed at the conventional fixed-function locations
+		// 0 (position), 3 (colour) and 8 (texcoord 0), so bind the shader's vertex
+		// attributes to the same locations.
 		program->addBindAttribLocation("osg_Vertex", 0);
 		program->addBindAttribLocation("osg_Color", 3);
 		program->addBindAttribLocation("osg_MultiTexCoord0", 8);

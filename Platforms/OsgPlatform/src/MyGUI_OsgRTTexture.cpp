@@ -15,10 +15,13 @@
 #include <osg/BlendFunc>
 #include <osg/Drawable>
 #include <osg/GL>
+#include <osg/GLExtensions>
 #include <osg/Matrix>
+#include <osg/Program>
 #include <osg/State>
 #include <osg/StateSet>
 #include <osg/Texture2D>
+#include <osg/Uniform>
 
 namespace MyGUI
 {
@@ -50,10 +53,13 @@ namespace MyGUI
 				new osg::BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
 			mStateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
 			mStateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
-			// fixed-function lighting would tint the vertex colours, so it must be off
-			mStateSet->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
-			// the fixed-function pipeline needs this enabled to sample the textures
-			mStateSet->setTextureMode(0, GL_TEXTURE_2D, osg::StateAttribute::ON);
+
+			// render the RTT content with the same default shader as the main GUI
+			if (osg::Program* program = OsgRenderManager::getInstance().getShaderProgram("Default"))
+			{
+				mStateSet->setAttributeAndModes(program, osg::StateAttribute::ON);
+				mStateSet->addUniform(new osg::Uniform("Texture", 0));
+			}
 
 			mDummyTexture = new osg::Texture2D;
 			mDummyTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
@@ -108,11 +114,20 @@ namespace MyGUI
 		state->pushStateSet(stateSet);
 		state->apply();
 
+		// the vertex data is fed through generic vertex attributes 0 (position),
+		// 3 (colour) and 8 (texcoord 0) instead of the fixed-function client
+		// arrays, so the GUI is rendered by a shader on any OpenGL profile. The
+		// shader is expected to use the osg_ModelViewProjectionMatrix uniform,
+		// which is kept in sync here like osgText does.
+		state->setUseModelViewAndProjectionUniforms(true);
+		state->applyModelViewAndProjectionUniformsIfRequired();
+
+		osg::GLExtensions* extensions = state->get<osg::GLExtensions>();
+
 		state->disableAllVertexArrays();
-		state->setClientActiveTextureUnit(0);
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glEnableClientState(GL_COLOR_ARRAY);
+		state->disableVertexAttribPointer(0);
+		state->disableVertexAttribPointer(3);
+		state->disableVertexAttribPointer(8);
 
 		for (const Batch& batch : batches)
 		{
@@ -122,6 +137,7 @@ namespace MyGUI
 			{
 				state->pushStateSet(batch.mStateSet);
 				state->apply();
+				state->applyModelViewAndProjectionUniformsIfRequired();
 			}
 
 			// A GUI element without an associated texture would be extremely rare.
@@ -140,27 +156,32 @@ namespace MyGUI
 			{
 				state->bindVertexBufferObject(bufferobject);
 
-				glVertexPointer(3, GL_FLOAT, sizeof(Vertex), reinterpret_cast<char*>(0));
-				glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Vertex), reinterpret_cast<char*>(12));
-				glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), reinterpret_cast<char*>(16));
+				extensions->glEnableVertexAttribArray(0);
+				extensions->glEnableVertexAttribArray(3);
+				extensions->glEnableVertexAttribArray(8);
+
+				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(0));
+				extensions->glVertexAttribPointer(
+					3,
+					4,
+					GL_UNSIGNED_BYTE,
+					GL_TRUE,
+					sizeof(Vertex),
+					reinterpret_cast<char*>(12));
+				extensions
+					->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(16));
 			}
 			else
 			{
-				glVertexPointer(
-					3,
-					GL_FLOAT,
-					sizeof(Vertex),
-					reinterpret_cast<const char*>(vbo->getArray(0)->getDataPointer()));
-				glColorPointer(
-					4,
-					GL_UNSIGNED_BYTE,
-					sizeof(Vertex),
-					reinterpret_cast<const char*>(vbo->getArray(0)->getDataPointer()) + 12);
-				glTexCoordPointer(
-					2,
-					GL_FLOAT,
-					sizeof(Vertex),
-					reinterpret_cast<const char*>(vbo->getArray(0)->getDataPointer()) + 16);
+				const char* data = static_cast<const char*>(vbo->getArray(0)->getDataPointer());
+
+				extensions->glEnableVertexAttribArray(0);
+				extensions->glEnableVertexAttribArray(3);
+				extensions->glEnableVertexAttribArray(8);
+
+				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), data);
+				extensions->glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), data + 12);
+				extensions->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), data + 16);
 			}
 
 			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(batch.mVertexCount));
@@ -172,9 +193,9 @@ namespace MyGUI
 			}
 		}
 
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_COLOR_ARRAY);
+		state->disableVertexAttribPointer(0);
+		state->disableVertexAttribPointer(3);
+		state->disableVertexAttribPointer(8);
 
 		state->popStateSet();
 
