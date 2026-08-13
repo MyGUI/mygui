@@ -17,6 +17,8 @@
 #include <osg/GL>
 #include <osg/BufferObject>
 #include <osg/Matrix>
+#include <osg/Program>
+#include <osg/Shader>
 #include <osg/State>
 #include <osg/StateSet>
 #include <osg/Texture2D>
@@ -24,6 +26,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <fstream>
 #include <vector>
 
 namespace MyGUI
@@ -316,7 +319,9 @@ namespace MyGUI
 			batch.mTexture = osgtexture->getTexture();
 			if (batch.mTexture.valid() && batch.mTexture->getDataVariance() == osg::Object::DYNAMIC)
 				mDrawable->setDataVariance(osg::Object::DYNAMIC); // only for this frame, reset in begin()
-			if (!mInjectState && osgtexture->getInjectState())
+			if (osg::StateSet* shaderState = osgtexture->getShaderStateSet())
+				batch.mStateSet = shaderState;
+			else if (!mInjectState && osgtexture->getInjectState())
 				batch.mStateSet = osgtexture->getInjectState();
 		}
 		if (mInjectState)
@@ -356,12 +361,69 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
-	void OsgRenderManager::registerShader(
-		const std::string& /*_shaderName*/,
-		const std::string& /*_vertexProgramFile*/,
-		const std::string& /*_fragmentProgramFile*/)
+	std::string OsgRenderManager::loadFileContent(const std::string& _file)
 	{
-		MYGUI_PLATFORM_LOG(Warning, "OsgRenderManager::registerShader is not implemented");
+		std::string fullPath = DataManager::getInstance().getDataPath(_file);
+		if (fullPath.empty())
+		{
+			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
+			return {};
+		}
+		std::ifstream fileStream(fullPath);
+		return {std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>()};
+	}
+
+	osg::ref_ptr<osg::Program> OsgRenderManager::createShaderProgram(
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
+	{
+		std::string vertexSource = loadFileContent(_vertexProgramFile);
+		if (vertexSource.empty())
+			MYGUI_PLATFORM_EXCEPT("Failed to load vertex program file '" << _vertexProgramFile << "'");
+
+		std::string fragmentSource = loadFileContent(_fragmentProgramFile);
+		if (fragmentSource.empty())
+			MYGUI_PLATFORM_EXCEPT("Failed to load fragment program file '" << _fragmentProgramFile << "'");
+
+		osg::ref_ptr<osg::Program> program = new osg::Program;
+
+		osg::ref_ptr<osg::Shader> vertexShader = new osg::Shader(osg::Shader::VERTEX);
+		vertexShader->setShaderSource(vertexSource);
+		program->addShader(vertexShader.get());
+
+		osg::ref_ptr<osg::Shader> fragmentShader = new osg::Shader(osg::Shader::FRAGMENT);
+		fragmentShader->setShaderSource(fragmentSource);
+		program->addShader(fragmentShader.get());
+
+		// The vertex data is set up with the legacy fixed-function calls
+		// (glVertexPointer/glColorPointer/glTexCoordPointer) in osgDrawBatches. The
+		// conventional fixed-function attributes are aliased to generic vertex
+		// attributes 0 (position), 3 (colour) and 8 (texcoord 0), so bind the
+		// shader's vertex attributes to the same locations.
+		program->addBindAttribLocation("osg_Vertex", 0);
+		program->addBindAttribLocation("osg_Color", 3);
+		program->addBindAttribLocation("osg_MultiTexCoord0", 8);
+
+		return program;
+	}
+
+	void OsgRenderManager::registerShader(
+		const std::string& _shaderName,
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
+	{
+		mRegisteredShaders[_shaderName] = createShaderProgram(_vertexProgramFile, _fragmentProgramFile);
+	}
+
+	osg::Program* OsgRenderManager::getShaderProgram(const std::string& _shaderName) const
+	{
+		const auto iter = mRegisteredShaders.find(_shaderName);
+		if (iter != mRegisteredShaders.end())
+			return iter->second.get();
+		MYGUI_PLATFORM_LOG(
+			Error,
+			"Failed to get program for shader '" << _shaderName << "'. Did you forgot to register shader?");
+		return nullptr;
 	}
 
 	void OsgRenderManager::update()
@@ -371,7 +433,6 @@ namespace MyGUI
 		unsigned long nowTime = timer.getMilliseconds();
 		unsigned long time = nowTime - lastLime;
 
-		std::cerr << "OSG update()" << std::endl;
 		onFrameEvent(static_cast<float>(static_cast<double>(time) / 1000));
 
 		lastLime = nowTime;

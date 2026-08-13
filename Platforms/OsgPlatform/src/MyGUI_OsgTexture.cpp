@@ -13,8 +13,10 @@
 
 #include <osg/GL>
 #include <osg/Image>
+#include <osg/Program>
 #include <osg/StateSet>
 #include <osg/Texture2D>
+#include <osg/Uniform>
 #include <osgDB/ReadFile>
 #include <osgDB/WriteFile>
 
@@ -251,9 +253,23 @@ namespace MyGUI
 		return mRenderTarget;
 	}
 
-	void OsgTexture::setShader(const std::string& /*_shaderName*/)
+	void OsgTexture::setShader(const std::string& _shaderName)
 	{
-		MYGUI_PLATFORM_LOG(Warning, "OsgTexture::setShader is not implemented");
+		osg::Program* program = OsgRenderManager::getInstance().getShaderProgram(_shaderName);
+		if (program == nullptr)
+			return;
+
+		if (!mShaderStateSet.valid())
+			mShaderStateSet = new osg::StateSet;
+		else
+			mShaderStateSet->removeAttribute(osg::StateAttribute::PROGRAM);
+
+		mShaderStateSet->setAttributeAndModes(program, osg::StateAttribute::ON);
+
+		// bind the 'Texture' sampler to texture unit 0, matching the texture bound
+		// for each batch in osgDrawBatches
+		if (!mShaderStateSet->getUniform("Texture"))
+			mShaderStateSet->addUniform(new osg::Uniform("Texture", 0));
 	}
 
 	osg::Texture2D* OsgTexture::getTexture() const
@@ -264,6 +280,11 @@ namespace MyGUI
 	osg::StateSet* OsgTexture::getInjectState()
 	{
 		return mInjectState;
+	}
+
+	osg::StateSet* OsgTexture::getShaderStateSet()
+	{
+		return mShaderStateSet;
 	}
 
 } // namespace MyGUI

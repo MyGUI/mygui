@@ -47,6 +47,8 @@ namespace demo
 			"MsdfFontShader",
 			"MyGUI_OpenGL3_VP.glsl",
 			"Msdf_OpenGL3_FP.glsl");
+#elif defined(MYGUI_OSG_PLATFORM)
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Osg_VP.glsl", "Msdf_Osg_FP.glsl");
 #elif defined(MYGUI_OPENGLES_PLATFORM)
 		MyGUI::RenderManager::getInstance().registerShader(
 			"MsdfFontShader",

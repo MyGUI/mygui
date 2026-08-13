@@ -22,6 +22,7 @@ namespace osg
 	class Camera;
 	class Group;
 	class Image;
+	class Program;
 	class StateSet;
 }
 
@@ -90,6 +91,9 @@ namespace MyGUI
 
 		/*internal:*/
 
+		// Returns the program registered under _shaderName, or nullptr if it was not registered
+		osg::Program* getShaderProgram(const std::string& _shaderName) const;
+
 		// Called by the update traversal
 		void update();
 		// Called by the cull traversal
@@ -119,6 +123,11 @@ namespace MyGUI
 		osg::ref_ptr<osg::Image> loadImage(const std::string& _fileName) const;
 
 	private:
+		std::string loadFileContent(const std::string& _file);
+		osg::ref_ptr<osg::Program> createShaderProgram(
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile);
+
 		osg::ref_ptr<osg::Group> mSceneRoot;
 		osg::ref_ptr<osg::Camera> mGuiRoot;
 		osg::ref_ptr<Drawable> mDrawable;
@@ -133,6 +142,9 @@ namespace MyGUI
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
+
+		using MapShader = std::map<std::string, osg::ref_ptr<osg::Program>>;
+		MapShader mRegisteredShaders;
 
 		osg::StateSet* mInjectState{nullptr};
 		OsgImageLoader mImageLoader;

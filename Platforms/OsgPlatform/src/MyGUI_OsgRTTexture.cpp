@@ -252,7 +252,9 @@ namespace MyGUI
 		if (OsgTexture* osgtexture = static_cast<OsgTexture*>(_texture))
 		{
 			batch.mTexture = osgtexture->getTexture();
-			if (osgtexture->getInjectState())
+			if (osg::StateSet* shaderState = osgtexture->getShaderStateSet())
+				batch.mStateSet = shaderState;
+			else if (osgtexture->getInjectState())
 				batch.mStateSet = osgtexture->getInjectState();
 		}
 
