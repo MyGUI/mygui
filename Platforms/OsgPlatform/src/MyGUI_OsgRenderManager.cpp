@@ -345,6 +345,11 @@ namespace MyGUI
 			delete item.second;
 		mTextures.clear();
 
+		// the destroyed textures have queued their RTT cameras for removal, so drop the
+		// pending operations to avoid dangling camera pointers in a future flushRTTCameras
+		mPendingRTTAdd.clear();
+		mPendingRTTRemove.clear();
+
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
@@ -415,11 +420,7 @@ namespace MyGUI
 
 		const auto item = mTextures.find(_name);
 		if (item == mTextures.end())
-		{
-			ITexture* tex = createTexture(_name);
-			tex->loadFromFile(_name);
-			return tex;
-		}
+			return nullptr;
 		return item->second;
 	}
 
