@@ -46,6 +46,12 @@ namespace MyGUI
 			mCurrentBuffer = (mCurrentBuffer + 1) % 4;
 			mUsed = false;
 		}
+
+		// Return nullptr so the caller does not write through an
+		// empty array; RenderItem already checks the return value for this.
+		if (mNeedVertexCount == 0)
+			return nullptr;
+
 		osg::UByteArray* array = mVertexArray[mCurrentBuffer];
 		if (!array)
 		{
@@ -61,8 +67,11 @@ namespace MyGUI
 
 	void OsgVertexBuffer::unlock()
 	{
-		mVertexArray[mCurrentBuffer]->dirty();
-		mBuffer[mCurrentBuffer]->dirty();
+		if (mVertexArray[mCurrentBuffer].valid())
+		{
+			mVertexArray[mCurrentBuffer]->dirty();
+			mBuffer[mCurrentBuffer]->dirty();
+		}
 	}
 
 	osg::UByteArray* OsgVertexBuffer::create()

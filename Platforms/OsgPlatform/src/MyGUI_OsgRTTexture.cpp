@@ -148,7 +148,6 @@ namespace MyGUI
 
 		mDrawable = new RTTDrawable(_manager, _width, _height);
 		mCamera->addChild(mDrawable.get());
-		mRenderManager = _manager;
 
 		// the camera is added to the GUI camera by the render manager at the next collect draw
 		// calls, so the scene graph is not modified while the GUI camera's children are being

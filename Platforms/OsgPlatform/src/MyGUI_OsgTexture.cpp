@@ -130,6 +130,35 @@ namespace MyGUI
 		mHeight = image->t();
 
 		mUsage = TextureUsage::Static;
+
+		switch (image->getPixelFormat())
+		{
+		case GL_LUMINANCE:
+			mFormat = PixelFormat::L8;
+			mNumElemBytes = 1;
+			break;
+		case GL_LUMINANCE_ALPHA:
+			mFormat = PixelFormat::L8A8;
+			mNumElemBytes = 2;
+			break;
+		case GL_RGB:
+		case GL_BGR:
+			mFormat = PixelFormat::R8G8B8;
+			mNumElemBytes = 3;
+			break;
+		case GL_RGBA:
+		case GL_BGRA:
+			// the engine stores R8G8B8A8 data as B,G,R,A in memory, while osg
+			// images are typically R,G,B,A; the byte order does not matter for the
+			// consumers of getFormat/getNumElemBytes, only the element size does
+			mFormat = PixelFormat::R8G8B8A8;
+			mNumElemBytes = 4;
+			break;
+		default:
+			mFormat = PixelFormat::Unknow;
+			mNumElemBytes = image->getPixelSizeInBits() / 8;
+			break;
+		}
 	}
 
 	void OsgTexture::saveToFile(const std::string& _filename)
