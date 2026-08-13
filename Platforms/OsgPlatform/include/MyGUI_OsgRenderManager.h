@@ -12,6 +12,7 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 
+#include <cstddef>
 #include <functional>
 #include <map>
 #include <vector>
@@ -19,11 +20,15 @@
 
 namespace osg
 {
+	class Array;
 	class Camera;
 	class Group;
 	class Image;
 	class Program;
+	class State;
 	class StateSet;
+	class Texture2D;
+	class VertexBufferObject;
 }
 
 namespace MyGUI
@@ -32,6 +37,38 @@ namespace MyGUI
 	class OsgTexture;
 
 	class Drawable;
+
+	// Defines the necessary information for a draw call
+	struct Batch
+	{
+		// May be empty
+		osg::ref_ptr<osg::Texture2D> mTexture;
+
+		osg::ref_ptr<osg::VertexBufferObject> mVertexBuffer;
+		// need to hold on to this too as the mVertexBuffer does not hold a ref to its own array
+		osg::ref_ptr<osg::Array> mArray;
+
+		// optional
+		osg::ref_ptr<osg::StateSet> mStateSet;
+
+		size_t mVertexCount;
+	};
+
+	// Draws the given batches with generic vertex attributes 0 (position), 3 (colour)
+	// and 8 (texcoord 0) through the state's shader. Used by both the main GUI
+	// drawable and the render-to-texture drawable.
+	void osgDrawBatches(
+		osg::State* _state,
+		osg::StateSet* _stateSet,
+		const std::vector<Batch>& _batches,
+		osg::Texture2D* _dummyTexture);
+
+	/*internal:*/
+	// Applies the state modes shared by the main GUI drawable and the RTT drawable:
+	// depth testing off, blending on and the blend function.
+	void applyGuiDrawableStateModes(osg::StateSet* _stateSet);
+	// Creates the 1x1 dummy texture sampler used for batches without an associated texture.
+	osg::ref_ptr<osg::Texture2D> createDummyTexture();
 
 	/** Image loader function type, used to load texture images by file name.
 		By default images are loaded from the file system via osgDB using the resource
@@ -90,6 +127,11 @@ namespace MyGUI
 			const std::string& _fragmentProgramFile) override;
 
 		/*internal:*/
+
+		// Builds the batch for a draw call, resolving the texture's shader and inject state
+		// sets. _injectState is the render manager's own inject state (may be nullptr) and,
+		// when set, takes precedence over the texture's inject state.
+		Batch createBatch(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, osg::StateSet* _injectState) const;
 
 		// Returns the program registered under _shaderName, or nullptr if it was not registered
 		osg::Program* getShaderProgram(const std::string& _shaderName) const;

@@ -34,18 +34,6 @@ namespace MyGUI
 	{
 	}
 
-	OsgTexture::OsgTexture(osg::Texture2D* _texture, osg::StateSet* _injectState) :
-		mRenderManager(nullptr),
-		mTexture(_texture),
-		mInjectState(_injectState),
-		mFormat(PixelFormat::Unknow),
-		mUsage(TextureUsage::Default),
-		mNumElemBytes(0),
-		mWidth(_texture->getTextureWidth()),
-		mHeight(_texture->getTextureHeight())
-	{
-	}
-
 	OsgTexture::~OsgTexture()
 	{
 		delete mRenderTarget;
@@ -123,12 +111,6 @@ namespace MyGUI
 
 	void OsgTexture::loadFromFile(const std::string& _filename)
 	{
-		if (mRenderManager == nullptr)
-		{
-			MYGUI_PLATFORM_LOG(Critical, "No render manager set");
-			MYGUI_PLATFORM_EXCEPT("No render manager set");
-		}
-
 		osg::ref_ptr<osg::Image> image = mRenderManager->loadImage(_filename);
 		if (!image.valid())
 		{
@@ -248,14 +230,14 @@ namespace MyGUI
 
 	IRenderTarget* OsgTexture::getRenderTarget()
 	{
-		if (mRenderTarget == nullptr && mRenderManager != nullptr && mTexture.valid())
+		if (mRenderTarget == nullptr && mTexture.valid())
 			mRenderTarget = new OsgRTTexture(mTexture.get(), mRenderManager, mWidth, mHeight);
 		return mRenderTarget;
 	}
 
 	void OsgTexture::setShader(const std::string& _shaderName)
 	{
-		osg::Program* program = OsgRenderManager::getInstance().getShaderProgram(_shaderName);
+		osg::Program* program = mRenderManager->getShaderProgram(_shaderName);
 		if (program == nullptr)
 			return;
 

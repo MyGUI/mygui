@@ -29,7 +29,6 @@ namespace MyGUI
 	{
 	public:
 		OsgTexture(const std::string& _name, OsgRenderManager* _manager);
-		OsgTexture(osg::Texture2D* _texture, osg::StateSet* _injectState = nullptr);
 		~OsgTexture() override;
 
 		const std::string& getName() const override;

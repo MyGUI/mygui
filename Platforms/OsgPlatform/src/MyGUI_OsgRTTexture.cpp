@@ -12,7 +12,6 @@
 
 #include <osg/BufferObject>
 #include <osg/Camera>
-#include <osg/BlendFunc>
 #include <osg/Drawable>
 #include <osg/GL>
 #include <osg/GLExtensions>
@@ -30,11 +29,11 @@ namespace MyGUI
 	{
 	public:
 		RTTDrawable() :
-			RTTDrawable(256, 256)
+			RTTDrawable(nullptr, 256, 256)
 		{
 		}
 
-		RTTDrawable(int _width, int _height) :
+		RTTDrawable(OsgRenderManager* _manager, int _width, int _height) :
 			mWidth(_width),
 			mHeight(_height)
 		{
@@ -45,27 +44,19 @@ namespace MyGUI
 			// the RTT camera's viewport is not applied by osg before the drawable
 			// draws, so it has to be applied as part of the drawable's state
 			mStateSet->setAttribute(new osg::Viewport(0, 0, _width, _height));
-			// the RGBA8 RTT texture must be rendered with the same blend function
-			// as the other backends (SRC_ALPHA for the colour channels but ONE for
-			// the alpha channel); otherwise the alpha of semi-transparent elements
-			// is multiplied twice and the sampled result is too dark
-			mStateSet->setAttributeAndModes(
-				new osg::BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
-			mStateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
-			mStateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
+			applyGuiDrawableStateModes(mStateSet);
 
 			// render the RTT content with the same default shader as the main GUI
-			if (osg::Program* program = OsgRenderManager::getInstance().getShaderProgram("Default"))
+			if (_manager)
 			{
-				mStateSet->setAttributeAndModes(program, osg::StateAttribute::ON);
-				mStateSet->addUniform(new osg::Uniform("Texture", 0));
+				if (osg::Program* program = _manager->getShaderProgram("Default"))
+				{
+					mStateSet->setAttributeAndModes(program, osg::StateAttribute::ON);
+					mStateSet->addUniform(new osg::Uniform("Texture", 0));
+				}
 			}
 
-			mDummyTexture = new osg::Texture2D;
-			mDummyTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
-			mDummyTexture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
-			mDummyTexture->setInternalFormat(GL_RGB);
-			mDummyTexture->setTextureSize(1, 1);
+			mDummyTexture = createDummyTexture();
 		}
 
 		RTTDrawable(const RTTDrawable& copy, const osg::CopyOp& copyop = osg::CopyOp::SHALLOW_COPY) :
@@ -105,106 +96,8 @@ namespace MyGUI
 		int mHeight;
 	};
 
-	void osgDrawBatches(
-		osg::State* state,
-		osg::StateSet* stateSet,
-		const std::vector<Batch>& batches,
-		osg::Texture2D* dummyTexture)
-	{
-		state->pushStateSet(stateSet);
-		state->apply();
-
-		// the vertex data is fed through generic vertex attributes 0 (position),
-		// 3 (colour) and 8 (texcoord 0) instead of the fixed-function client
-		// arrays, so the GUI is rendered by a shader on any OpenGL profile. The
-		// shader is expected to use the osg_ModelViewProjectionMatrix uniform,
-		// which is kept in sync here like osgText does.
-		state->setUseModelViewAndProjectionUniforms(true);
-		state->applyModelViewAndProjectionUniformsIfRequired();
-
-		osg::GLExtensions* extensions = state->get<osg::GLExtensions>();
-
-		state->disableAllVertexArrays();
-		state->disableVertexAttribPointer(0);
-		state->disableVertexAttribPointer(3);
-		state->disableVertexAttribPointer(8);
-
-		for (const Batch& batch : batches)
-		{
-			osg::VertexBufferObject* vbo = batch.mVertexBuffer;
-
-			if (batch.mStateSet)
-			{
-				state->pushStateSet(batch.mStateSet);
-				state->apply();
-				state->applyModelViewAndProjectionUniformsIfRequired();
-			}
-
-			// A GUI element without an associated texture would be extremely rare.
-			// It is worth it to use a dummy 1x1 black texture sampler instead of either adding a conditional or
-			// relinking shaders.
-			osg::Texture2D* texture = batch.mTexture;
-			if (texture)
-				state->applyTextureAttribute(0, texture);
-			else
-				state->applyTextureAttribute(0, dummyTexture);
-
-			osg::GLBufferObject* bufferobject = state->isVertexBufferObjectSupported()
-				? vbo->getOrCreateGLBufferObject(state->getContextID())
-				: nullptr;
-			if (bufferobject)
-			{
-				state->bindVertexBufferObject(bufferobject);
-
-				extensions->glEnableVertexAttribArray(0);
-				extensions->glEnableVertexAttribArray(3);
-				extensions->glEnableVertexAttribArray(8);
-
-				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(0));
-				extensions->glVertexAttribPointer(
-					3,
-					4,
-					GL_UNSIGNED_BYTE,
-					GL_TRUE,
-					sizeof(Vertex),
-					reinterpret_cast<char*>(12));
-				extensions
-					->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(16));
-			}
-			else
-			{
-				const char* data = static_cast<const char*>(vbo->getArray(0)->getDataPointer());
-
-				extensions->glEnableVertexAttribArray(0);
-				extensions->glEnableVertexAttribArray(3);
-				extensions->glEnableVertexAttribArray(8);
-
-				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), data);
-				extensions->glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), data + 12);
-				extensions->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), data + 16);
-			}
-
-			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(batch.mVertexCount));
-
-			if (batch.mStateSet)
-			{
-				state->popStateSet();
-				state->apply();
-			}
-		}
-
-		state->disableVertexAttribPointer(0);
-		state->disableVertexAttribPointer(3);
-		state->disableVertexAttribPointer(8);
-
-		state->popStateSet();
-
-		state->unbindVertexBufferObject();
-		state->dirtyAllVertexArrays();
-		state->disableAllVertexArrays();
-	}
-
-	OsgRTTexture::OsgRTTexture(osg::Texture2D* _texture, OsgRenderManager* _manager, int _width, int _height)
+	OsgRTTexture::OsgRTTexture(osg::Texture2D* _texture, OsgRenderManager* _manager, int _width, int _height) :
+		mRenderManager(_manager)
 	{
 		mInfo.maximumDepth = 1.0f;
 		mInfo.hOffset = 0;
@@ -234,7 +127,7 @@ namespace MyGUI
 		mCamera->setClearMask(GL_COLOR_BUFFER_BIT);
 		mCamera->setCullingActive(false);
 
-		mDrawable = new RTTDrawable(_width, _height);
+		mDrawable = new RTTDrawable(_manager, _width, _height);
 		mCamera->addChild(mDrawable.get());
 		mRenderManager = _manager;
 
@@ -247,7 +140,7 @@ namespace MyGUI
 	OsgRTTexture::~OsgRTTexture()
 	{
 		// defer the removal to the next collect draw calls for the same reason the insertion is deferred
-		if (mCamera.valid() && mRenderManager != nullptr)
+		if (mCamera.valid())
 			mRenderManager->queueRTTRemove(mCamera.get());
 		mCamera = nullptr;
 		mDrawable = nullptr;
@@ -264,22 +157,7 @@ namespace MyGUI
 
 	void OsgRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		Batch batch;
-		batch.mVertexCount = _count;
-		batch.mVertexBuffer = static_cast<OsgVertexBuffer*>(_buffer)->getVertexBuffer();
-		batch.mArray = static_cast<OsgVertexBuffer*>(_buffer)->getVertexArray();
-		static_cast<OsgVertexBuffer*>(_buffer)->markUsed();
-
-		if (OsgTexture* osgtexture = static_cast<OsgTexture*>(_texture))
-		{
-			batch.mTexture = osgtexture->getTexture();
-			if (osg::StateSet* shaderState = osgtexture->getShaderStateSet())
-				batch.mStateSet = shaderState;
-			else if (osgtexture->getInjectState())
-				batch.mStateSet = osgtexture->getInjectState();
-		}
-
-		mDrawable->addBatch(batch);
+		mDrawable->addBatch(mRenderManager->createBatch(_buffer, _texture, _count, nullptr));
 	}
 
 	const RenderTargetInfo& OsgRTTexture::getInfo() const

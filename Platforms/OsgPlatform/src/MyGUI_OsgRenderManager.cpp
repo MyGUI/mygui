@@ -7,14 +7,16 @@
 #include "MyGUI_OsgRenderManager.h"
 #include "MyGUI_OsgDataManager.h"
 #include "MyGUI_OsgDiagnostic.h"
-#include "MyGUI_OsgRTTexture.h"
 #include "MyGUI_OsgTexture.h"
 #include "MyGUI_OsgVertexBuffer.h"
 #include "MyGUI_Timer.h"
 
+#include <osg/Array>
+#include <osg/BlendFunc>
 #include <osg/Camera>
 #include <osg/Drawable>
 #include <osg/GL>
+#include <osg/GLExtensions>
 #include <osg/BufferObject>
 #include <osg/Matrix>
 #include <osg/Program>
@@ -32,6 +34,123 @@
 
 namespace MyGUI
 {
+
+	void applyGuiDrawableStateModes(osg::StateSet* _stateSet)
+	{
+		_stateSet->setAttributeAndModes(
+			new osg::BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
+		_stateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
+		_stateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
+	}
+
+	osg::ref_ptr<osg::Texture2D> createDummyTexture()
+	{
+		osg::ref_ptr<osg::Texture2D> texture = new osg::Texture2D;
+		texture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
+		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
+		texture->setInternalFormat(GL_RGB);
+		texture->setTextureSize(1, 1);
+		return texture;
+	}
+
+	void osgDrawBatches(
+		osg::State* state,
+		osg::StateSet* stateSet,
+		const std::vector<Batch>& batches,
+		osg::Texture2D* dummyTexture)
+	{
+		state->pushStateSet(stateSet);
+		state->apply();
+
+		// the vertex data is fed through generic vertex attributes 0 (position),
+		// 3 (colour) and 8 (texcoord 0) instead of the fixed-function client
+		// arrays, so the GUI is rendered by a shader on any OpenGL profile. The
+		// shader is expected to use the osg_ModelViewProjectionMatrix uniform,
+		// which is kept in sync here like osgText does.
+		state->setUseModelViewAndProjectionUniforms(true);
+		state->applyModelViewAndProjectionUniformsIfRequired();
+
+		osg::GLExtensions* extensions = state->get<osg::GLExtensions>();
+
+		state->disableAllVertexArrays();
+		state->disableVertexAttribPointer(0);
+		state->disableVertexAttribPointer(3);
+		state->disableVertexAttribPointer(8);
+
+		for (const Batch& batch : batches)
+		{
+			osg::VertexBufferObject* vbo = batch.mVertexBuffer;
+
+			if (batch.mStateSet)
+			{
+				state->pushStateSet(batch.mStateSet);
+				state->apply();
+				state->applyModelViewAndProjectionUniformsIfRequired();
+			}
+
+			// A GUI element without an associated texture would be extremely rare.
+			// It is worth it to use a dummy 1x1 black texture sampler instead of either adding a conditional or
+			// relinking shaders.
+			osg::Texture2D* texture = batch.mTexture;
+			if (texture)
+				state->applyTextureAttribute(0, texture);
+			else
+				state->applyTextureAttribute(0, dummyTexture);
+
+			osg::GLBufferObject* bufferobject = state->isVertexBufferObjectSupported()
+				? vbo->getOrCreateGLBufferObject(state->getContextID())
+				: nullptr;
+			if (bufferobject)
+			{
+				state->bindVertexBufferObject(bufferobject);
+
+				extensions->glEnableVertexAttribArray(0);
+				extensions->glEnableVertexAttribArray(3);
+				extensions->glEnableVertexAttribArray(8);
+
+				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(0));
+				extensions->glVertexAttribPointer(
+					3,
+					4,
+					GL_UNSIGNED_BYTE,
+					GL_TRUE,
+					sizeof(Vertex),
+					reinterpret_cast<char*>(12));
+				extensions
+					->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(16));
+			}
+			else
+			{
+				const char* data = static_cast<const char*>(vbo->getArray(0)->getDataPointer());
+
+				extensions->glEnableVertexAttribArray(0);
+				extensions->glEnableVertexAttribArray(3);
+				extensions->glEnableVertexAttribArray(8);
+
+				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), data);
+				extensions->glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), data + 12);
+				extensions->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), data + 16);
+			}
+
+			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(batch.mVertexCount));
+
+			if (batch.mStateSet)
+			{
+				state->popStateSet();
+				state->apply();
+			}
+		}
+
+		state->disableVertexAttribPointer(0);
+		state->disableVertexAttribPointer(3);
+		state->disableVertexAttribPointer(8);
+
+		state->popStateSet();
+
+		state->unbindVertexBufferObject();
+		state->dirtyAllVertexArrays();
+		state->disableAllVertexArrays();
+	}
 
 	OsgRenderManager::OsgRenderManager() = default;
 
@@ -111,14 +230,9 @@ namespace MyGUI
 			setUpdateCallback(frameUpdate);
 
 			mStateSet = new osg::StateSet;
-			mStateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
-			mStateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
+			applyGuiDrawableStateModes(mStateSet);
 
-			mDummyTexture = new osg::Texture2D;
-			mDummyTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
-			mDummyTexture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
-			mDummyTexture->setInternalFormat(GL_RGB);
-			mDummyTexture->setTextureSize(1, 1);
+			mDummyTexture = createDummyTexture();
 		}
 
 		Drawable(const Drawable& copy, const osg::CopyOp& copyop = osg::CopyOp::SHALLOW_COPY) :
@@ -316,7 +430,11 @@ namespace MyGUI
 		mDrawable->setDataVariance(osg::Object::STATIC);
 	}
 
-	void OsgRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	Batch OsgRenderManager::createBatch(
+		IVertexBuffer* _buffer,
+		ITexture* _texture,
+		size_t _count,
+		osg::StateSet* _injectState) const
 	{
 		Batch batch;
 		batch.mVertexCount = _count;
@@ -327,16 +445,22 @@ namespace MyGUI
 		if (OsgTexture* osgtexture = static_cast<OsgTexture*>(_texture))
 		{
 			batch.mTexture = osgtexture->getTexture();
-			if (batch.mTexture.valid() && batch.mTexture->getDataVariance() == osg::Object::DYNAMIC)
-				mDrawable->setDataVariance(osg::Object::DYNAMIC); // only for this frame, reset in begin()
 			if (osg::StateSet* shaderState = osgtexture->getShaderStateSet())
 				batch.mStateSet = shaderState;
-			else if (!mInjectState && osgtexture->getInjectState())
+			else if (osgtexture->getInjectState())
 				batch.mStateSet = osgtexture->getInjectState();
 		}
-		if (mInjectState)
-			batch.mStateSet = mInjectState;
+		if (_injectState)
+			batch.mStateSet = _injectState;
 
+		return batch;
+	}
+
+	void OsgRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	{
+		Batch batch = createBatch(_buffer, _texture, _count, mInjectState);
+		if (batch.mTexture.valid() && batch.mTexture->getDataVariance() == osg::Object::DYNAMIC)
+			mDrawable->setDataVariance(osg::Object::DYNAMIC); // only for this frame, reset in begin()
 		mDrawable->addBatch(batch);
 	}
 
