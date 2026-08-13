@@ -43,7 +43,7 @@ namespace MyGUI
 	{
 		if (mUsed)
 		{
-			mCurrentBuffer = (mCurrentBuffer + 1) % 2;
+			mCurrentBuffer = (mCurrentBuffer + 1) % 4;
 			mUsed = false;
 		}
 		osg::UByteArray* array = mVertexArray[mCurrentBuffer];

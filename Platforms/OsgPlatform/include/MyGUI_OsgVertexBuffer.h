@@ -42,9 +42,10 @@ namespace MyGUI
 		osg::UByteArray* create();
 
 	private:
-		// double buffering approach, to avoid the need for synchronization with the draw thread
-		osg::ref_ptr<osg::VertexBufferObject> mBuffer[2];
-		osg::ref_ptr<osg::UByteArray> mVertexArray[2];
+		// 4 slots to match the batch ring depth of the drawables, so the vertex data
+		// stays valid while a batch referencing it is still waiting to be drawn
+		osg::ref_ptr<osg::VertexBufferObject> mBuffer[4];
+		osg::ref_ptr<osg::UByteArray> mVertexArray[4];
 
 		size_t mNeedVertexCount{0};
 

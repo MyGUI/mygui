@@ -35,7 +35,9 @@ namespace MyGUI
 
 		RTTDrawable(OsgRenderManager* _manager, int _width, int _height) :
 			mWidth(_width),
-			mHeight(_height)
+			mHeight(_height),
+			mWriteTo(0),
+			mContentSlot(0)
 		{
 			setSupportsDisplayList(false);
 			setCullingActive(false);
@@ -47,7 +49,7 @@ namespace MyGUI
 			applyGuiDrawableStateModes(mStateSet);
 
 			// render the RTT content with the same default shader as the main GUI
-			if (_manager)
+			if (_manager != nullptr)
 			{
 				if (osg::Program* program = _manager->getShaderProgram("Default"))
 				{
@@ -61,26 +63,37 @@ namespace MyGUI
 
 		RTTDrawable(const RTTDrawable& copy, const osg::CopyOp& copyop = osg::CopyOp::SHALLOW_COPY) :
 			osg::Drawable(copy, copyop),
-			mDummyTexture(copy.mDummyTexture),
-			mStateSet(copy.mStateSet),
 			mWidth(copy.mWidth),
-			mHeight(copy.mHeight)
+			mHeight(copy.mHeight),
+			mWriteTo(0),
+			mContentSlot(0),
+			mDummyTexture(copy.mDummyTexture),
+			mStateSet(copy.mStateSet)
 		{
 		}
 
 		void drawImplementation(osg::RenderInfo& renderInfo) const override
 		{
-			osgDrawBatches(renderInfo.getState(), mStateSet.get(), mBatches, mDummyTexture.get());
+			// the RTT content is redrawn only when the layer is out of date, so the
+			// content slot keeps the batches of the last redraw until the next one
+			osgDrawBatches(renderInfo.getState(), mStateSet.get(), mBatchVector[mContentSlot], mDummyTexture.get());
 		}
 
 		void addBatch(const Batch& batch)
 		{
-			mBatches.push_back(batch);
+			mBatchVector[mWriteTo].push_back(batch);
 		}
 
 		void clear()
 		{
-			mBatches.clear();
+			mWriteTo = (mWriteTo + 1) % sNumBuffers;
+			mBatchVector[mWriteTo].clear();
+		}
+
+		// publishes the just redrawn batches, called by OsgRTTexture::end
+		void publish()
+		{
+			mContentSlot = mWriteTo;
 		}
 
 	META_Object(osgMyGUI, RTTDrawable)
@@ -88,12 +101,18 @@ namespace MyGUI
 		private :
 		// the batches from the last redraw are kept until the next redraw, so the
 		// RTT content stays valid even when the layer is not redrawn for a frame
-		std::vector<Batch> mBatches;
+		static const int sNumBuffers = 4;
+
+		std::vector<Batch> mBatchVector[sNumBuffers];
+
+		int mWidth;
+		int mHeight;
+		int mWriteTo;
+		// the slot holding the batches of the last completed redraw, read by the draw thread
+		mutable int mContentSlot;
 
 		osg::ref_ptr<osg::Texture2D> mDummyTexture;
 		osg::ref_ptr<osg::StateSet> mStateSet;
-		int mWidth;
-		int mHeight;
 	};
 
 	OsgRTTexture::OsgRTTexture(osg::Texture2D* _texture, OsgRenderManager* _manager, int _width, int _height) :
@@ -153,6 +172,7 @@ namespace MyGUI
 
 	void OsgRTTexture::end()
 	{
+		mDrawable->publish();
 	}
 
 	void OsgRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
