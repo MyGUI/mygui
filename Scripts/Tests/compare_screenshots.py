@@ -78,8 +78,8 @@ APPS = (
     "UnitTest_TreeControl",
 )
 
-DEFAULT_FAIL_MEAN = 16.0
-DEFAULT_FAIL_RATIO = 0.50
+DEFAULT_FAIL_MEAN = 2.0
+DEFAULT_FAIL_RATIO = 0.10
 RUN_TIMEOUT = 120
 
 REFERENCE_DIR = Path(__file__).resolve().parent / "References"
