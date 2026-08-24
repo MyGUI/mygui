@@ -1,3 +1,30 @@
+## MyGUI v3.5.2
+
+### Platforms
+- New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
+- New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shaders support, geometry built with osg::Geometry +
+  osg::DrawArrays + VBO
+- All platforms now use standard Porter-Duff alpha blending (dst_a = src_a + dst_a * (1 - src_a))
+- Ogre/OgreNext: fix texture parameters
+- OgreNext: implement texture lock read (used in picking)
+
+### Demos
+- Handle SDL_QUIT in apps
+- Make all custom RTTLayer implementations respect DPI scale
+- Fix unreachable code in UnitTest_GraphView and deprecated skin usage in its resources
+
+### Tools
+- Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool
+
+### Infrastructure
+- Implement --screenshot CLI option for demos, tools and unit tests to save a screenshot and exit
+- Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools/unit tests against committed
+  references (with tolerance for comparing e.g. DirectX vs OpenGL)
+- Make time-based updates deterministic in screenshot mode for reproducible screenshots
+- Use OgreNext CMake package config instead of PkgConfig
+- Fix Emscripten build
+- Remove bundled doxygen.exe binary from Wrappers (#317)
+
 ## MyGUI v3.5.1
 
 ### Core

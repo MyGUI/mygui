@@ -45,13 +45,14 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 |----------------------------|----------|
 | Dummy (no-op)              | 1        |
 | Ogre                       | 3        |
-| OpenGL (legacy)            | 4        |
+| OpenGL                     | 4        |
 | Direct3D 9                 | 5        |
 | Direct3D 11                | 6        |
 | OpenGL 3.x                 | 7        |
 | OpenGL ES 2.0 (Emscripten) | 8        |
 | OgreNext                   | 9        |
 | Vulkan                     | 10       |
+| OpenSceneGraph             | 11       |
 
 Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 
@@ -86,17 +87,18 @@ target_link_libraries(myapp PRIVATE MyGUI::MyGUI MyGUI::OgrePlatform)
 
 Available targets:
 
-| Target                     | Description         |
-|----------------------------|---------------------|
-| `MyGUI::MyGUI`             | Core library        |
-| `MyGUI::OgrePlatform`      | Ogre backend        |
-| `MyGUI::OpenGLPlatform`    | OpenGL backend      |
-| `MyGUI::OpenGL3Platform`   | OpenGL 3.x backend  |
-| `MyGUI::OpenGLES`          | OpenGLES backend    |
-| `MyGUI::DirectXPlatform`   | Direct3D 9 backend  |
-| `MyGUI::DirectX11Platform` | Direct3D 11 backend |
-| `MyGUI::OgreNextPlatform`  | OgreNext backend    |
-| `MyGUI::VulkanPlatform`    | Vulkan backend      |
+| Target                     | Description            |
+|----------------------------|------------------------|
+| `MyGUI::MyGUI`             | Core library           |
+| `MyGUI::OgrePlatform`      | Ogre backend           |
+| `MyGUI::OpenGLPlatform`    | OpenGL backend         |
+| `MyGUI::OpenGL3Platform`   | OpenGL 3.x backend     |
+| `MyGUI::OpenGLES`          | OpenGLES backend       |
+| `MyGUI::DirectXPlatform`   | Direct3D 9 backend     |
+| `MyGUI::DirectX11Platform` | Direct3D 11 backend    |
+| `MyGUI::OgreNextPlatform`  | OgreNext backend       |
+| `MyGUI::VulkanPlatform`    | Vulkan backend         |
+| `MyGUI::OsgPlatform`       | OpenSceneGraph backend |
 
 Build options:
 
