@@ -137,7 +137,7 @@ This project uses `clang-format` to enforce a consistent C++ code style. Before 
 Scripts/run-clang-format.py
 ```
 
-Use `--fix` to format files in-place:
+Use `--dry` to not change any files and only see formatting issues:
 
 To run the check automatically on every commit, install [pre-commit](https://pre-commit.com):
 

@@ -14,7 +14,7 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -qq clang-format-20
 
       - name: Check formatting
-        run: python3 Scripts/run-clang-format.py
+        run: python3 Scripts/run-clang-format.py --dry
 
   check-includes:
     name: header include check
