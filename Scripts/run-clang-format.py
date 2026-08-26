@@ -2,8 +2,8 @@
 """Runs clang-format on all C++ source files in the project.
 
 Usage:
-  ./run-clang-format.py          # check-only (dry run, exit 1 on mismatch)
-  ./run-clang-format.py --fix    # format files in-place
+  ./run-clang-format.py --dry # check-only (dry run, exit 1 on mismatch)
+  ./run-clang-format.py       # format files in-place
 """
 
 import argparse
@@ -49,13 +49,13 @@ def find_sources():
 def main():
     parser = argparse.ArgumentParser(description="Run clang-format on all source files")
     parser.add_argument(
-        "--fix",
+        "--dry",
         action="store_true",
-        help="Format files in-place instead of just checking",
+        help="Checkin instead of formatting",
     )
     args = parser.parse_args()
 
-    mode = "-i" if args.fix else "--dry-run --Werror"
+    mode = "--dry-run --Werror" if args.dry else "-i"
     sources = find_sources()
 
     if not sources:
@@ -70,7 +70,7 @@ def main():
 
     result = subprocess.run(cmd)
     if result.returncode != 0:
-        print("Formatting issues found. Run `Scripts/run-clang-format.py --fix` to auto-format.")
+        print("Formatting issues found. Run `Scripts/run-clang-format.py` to auto-format.")
     sys.exit(result.returncode)
 
 
