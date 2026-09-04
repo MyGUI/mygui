@@ -1,5 +1,8 @@
 ## MyGUI v3.5.2
 
+### Core
+- Fix asserts in the ImageBox::deleteItemFrame
+
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
 - New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shaders support, geometry built with osg::Geometry +

@@ -319,9 +319,9 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::deleteItemFrame");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "ImageBox::deleteItemFrame");
 		if (_indexFrame == ITEM_NONE)
 			_indexFrame = iter->images.size() - 1;
+		MYGUI_ASSERT_RANGE(_indexFrame, iter->images.size(), "ImageBox::deleteItemFrame");
 
 		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
