@@ -22,12 +22,17 @@ namespace MyGUI::texture_utility
 		if (_texture.empty())
 			return Constants::getZeroIntSize();
 
-		if (_cache && textureSizes.count(_texture))
-			return textureSizes.at(_texture);
-
 		RenderManager& render = RenderManager::getInstance();
 
 		ITexture* texture = render.getTexture(_texture);
+
+		if (_cache && texture != nullptr)
+		{
+			auto it = textureSizes.find(_texture);
+			if (it != textureSizes.end())
+				return it->second;
+		}
+		
 		if (texture == nullptr)
 		{
 			if (!DataManager::getInstance().isDataExist(_texture))
