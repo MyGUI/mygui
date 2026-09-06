@@ -108,6 +108,7 @@ set (HEADER_FILES
   include/MyGUI_ProgressBar.h
   include/MyGUI_RTTI.h
   include/MyGUI_RenderFormat.h
+  include/MyGUI_ShaderParam.h
   include/MyGUI_RenderItem.h
   include/MyGUI_RenderManager.h
   include/MyGUI_RenderTargetInfo.h
@@ -305,6 +306,7 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_IUnlinkWidget.h
   include/MyGUI_IVertexBuffer.h
   include/MyGUI_RTTI.h
+  include/MyGUI_ShaderParam.h
   include/MyGUI_Singleton.h
 )
 SOURCE_GROUP("Header Files\\Core\\Controller" FILES
@@ -398,6 +400,7 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_KeyCode.h
   include/MyGUI_MouseButton.h
   include/MyGUI_RenderTargetInfo.h
+  include/MyGUI_ShaderParam.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
   include/MyGUI_TRect.h

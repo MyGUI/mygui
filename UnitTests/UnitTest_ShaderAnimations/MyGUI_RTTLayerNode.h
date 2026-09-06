@@ -1,0 +1,86 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		02/2008
+*/
+
+#ifndef MYGUI_RTT_LAYER_NODE_H_
+#define MYGUI_RTT_LAYER_NODE_H_
+
+#include "MyGUI_Prerequest.h"
+#include "MyGUI_LayerNode.h"
+#include "MyGUI_ITexture.h"
+#include "MyGUI_LayerNodeAnimation.h"
+
+namespace MyGUI
+{
+
+	class /*MYGUI_EXPORT */ RTTLayerNode : public LayerNode
+	{
+		MYGUI_RTTI_DERIVED(RTTLayerNode)
+
+	public:
+		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
+		~RTTLayerNode() override;
+
+		void outOfDate(RenderItem* _item) override;
+
+		void attachLayerItem(ILayerItem* _item) override;
+		void detachLayerItem(ILayerItem* _item) override;
+
+		void renderToTarget(IRenderTarget* _target, bool _update) override;
+
+		bool getCacheUsing() const
+		{
+			return mChacheUsing;
+		}
+		void setCacheUsing(bool _value);
+
+		bool getAnimate() const
+		{
+			return mIsAnimate;
+		}
+
+		void setDestroy(bool _value)
+		{
+			mDestroy = _value;
+		}
+		bool getDestroy() const
+		{
+			return mDestroy;
+		}
+
+		void addLayerNodeAnimation(LayerNodeAnimation* _impl);
+
+	private:
+		void checkTexture();
+		void notifyFrameStart(float _time);
+
+	private:
+		IVertexBuffer* mVertexBuffer{nullptr};
+		ITexture* mTexture{nullptr};
+
+		IntSize mTextureSize;
+		IntCoord mCurrentCoord;
+
+		float mDpiScale{1.0f};
+
+		bool mOutOfDateRtt{false};
+
+		bool mMajorUpdate{false};
+		bool mChacheUsing{true};
+		bool mDestroy{false};
+		bool mIsAnimate{false};
+
+		using VectorLayerNodeAnimation = std::vector<LayerNodeAnimation*>;
+		VectorLayerNodeAnimation mLayerNodeAnimation;
+
+		VectorQuadData mData;
+		QuadData mDefaultData{};
+
+		float mFrameTime{0.0f};
+	};
+
+} // namespace MyGUI
+
+#endif // MYGUI_RTT_LAYER_NODE_H_

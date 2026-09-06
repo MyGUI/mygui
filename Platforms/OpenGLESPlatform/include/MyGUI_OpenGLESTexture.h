@@ -3,7 +3,10 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ShaderParam.h"
 #include "MyGUI_OpenGLESImageLoader.h"
+
+#include <vector>
 
 namespace MyGUI
 {
@@ -22,6 +25,8 @@ namespace MyGUI
 		void loadFromFile(const std::string& _filename) override;
 		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
+
+		void setShaderParams(const std::vector<ShaderParam>& _params) override;
 
 		void destroy() override;
 
@@ -59,6 +64,7 @@ namespace MyGUI
 		/*internal:*/
 		unsigned int getTextureId() const;
 		unsigned int getShaderId() const;
+		const std::vector<ShaderParam>& getShaderParams() const;
 		void setUsage(TextureUsage _usage);
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
@@ -84,6 +90,7 @@ namespace MyGUI
 		TextureUsage mOriginalUsage;
 		OpenGLESImageLoader* mImageLoader;
 		OpenGLESRTTexture* mRenderTarget{nullptr};
+		std::vector<ShaderParam> mShaderParams;
 	};
 
 } // namespace MyGUI

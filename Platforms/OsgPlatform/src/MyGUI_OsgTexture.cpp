@@ -13,6 +13,7 @@
 
 #include <osg/GL>
 #include <osg/Image>
+#include <osg/Uniform>
 #include <osg/Program>
 #include <osg/StateSet>
 #include <osg/Texture2D>
@@ -281,6 +282,46 @@ namespace MyGUI
 		// for each batch in osgDrawBatches
 		if (!mShaderStateSet->getUniform("Texture"))
 			mShaderStateSet->addUniform(new osg::Uniform("Texture", 0));
+	}
+
+	void OsgTexture::setShaderParams(const std::vector<ShaderParam>& _params)
+	{
+		mShaderParams = _params;
+
+		if (!mShaderStateSet.valid())
+			return;
+
+		// Remove all uniforms except "Texture" sampler
+		std::vector<std::string> toRemove;
+		for (const auto& [name, uniformPair] : mShaderStateSet->getUniformList())
+		{
+			if (name != "Texture")
+				toRemove.push_back(name);
+		}
+		for (const auto& name : toRemove)
+		{
+			auto* uniform = mShaderStateSet->getUniform(name);
+			if (uniform)
+				mShaderStateSet->removeUniform(uniform);
+		}
+
+		// Add new uniforms for each param
+		for (const auto& param : mShaderParams)
+		{
+			switch (param.count)
+			{
+			case 1: mShaderStateSet->addUniform(new osg::Uniform(param.name.c_str(), param.values[0])); break;
+			case 2:
+				mShaderStateSet->addUniform(
+					new osg::Uniform(param.name.c_str(), osg::Vec2(param.values[0], param.values[1])));
+				break;
+			case 4:
+				mShaderStateSet->addUniform(new osg::Uniform(
+					param.name.c_str(),
+					osg::Vec4(param.values[0], param.values[1], param.values[2], param.values[3])));
+				break;
+			}
+		}
 	}
 
 	osg::Texture2D* OsgTexture::getTexture() const

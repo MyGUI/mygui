@@ -343,6 +343,11 @@ namespace MyGUI
 		mProgramId = OpenGL3RenderManager::getInstance().getShaderProgramId(_shaderName);
 	}
 
+	void OpenGL3Texture::setShaderParams(const std::vector<ShaderParam>& _params)
+	{
+		mShaderParams = _params;
+	}
+
 	IRenderTarget* OpenGL3Texture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
@@ -359,6 +364,11 @@ namespace MyGUI
 	unsigned int OpenGL3Texture::getShaderId() const
 	{
 		return mProgramId;
+	}
+
+	const std::vector<ShaderParam>& OpenGL3Texture::getShaderParams() const
+	{
+		return mShaderParams;
 	}
 
 	int OpenGL3Texture::getWidth() const

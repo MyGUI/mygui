@@ -1,0 +1,159 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		02/2008
+*/
+
+#include "MyGUI_LayerItem.h"
+#include "MyGUI_RTTLayer.h"
+#include "MyGUI_RTTLayerNode.h"
+
+#include "MyGUI_FactoryManager.h"
+
+namespace MyGUI
+{
+
+	RTTLayer::~RTTLayer()
+	{
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end();)
+		{
+			if ((*iter) != nullptr)
+			{
+				// remove those paused for animation
+				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
+				if (node->getDestroy())
+				{
+					delete node;
+					iter = mChildItems.erase(iter);
+				}
+				else
+				{
+					++iter;
+				}
+			}
+			else
+			{
+				iter = mChildItems.erase(iter);
+			}
+		}
+	}
+
+	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
+	{
+		Base::deserialization(_node, _version);
+
+		mVersion = _version;
+		mData = _node->createCopy();
+	}
+
+	ILayerNode* RTTLayer::createChildItemNode()
+	{
+		// create root item
+		RTTLayerNode* node = new RTTLayerNode(this);
+		mChildItems.push_back(node);
+
+		if (mData != nullptr)
+		{
+			FactoryManager& factory = FactoryManager::getInstance();
+
+			MyGUI::xml::ElementEnumerator controller = mData->getElementEnumerator();
+			while (controller.next())
+			{
+				IObject* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
+				if (object == nullptr)
+					continue;
+
+				LayerNodeAnimation* data = object->castType<LayerNodeAnimation>(false);
+				if (data == nullptr)
+				{
+					factory.destroyObject(object);
+					continue;
+				}
+				data->deserialization(controller.current(), mVersion);
+				data->attach(node);
+			}
+		}
+
+		return node;
+	}
+
+	void RTTLayer::destroyChildItemNode(ILayerNode* _item)
+	{
+		// if has parent, it handles and deletes
+		ILayerNode* parent = _item->getParent();
+		if (parent)
+		{
+			parent->destroyChildItemNode(_item);
+			return;
+		}
+
+		// root item, we delete
+		for (auto& childItem : mChildItems)
+		{
+			if (childItem == _item)
+			{
+				RTTLayerNode* node = _item->castType<RTTLayerNode>();
+				node->setDestroy(true);
+
+				return;
+			}
+		}
+		MYGUI_EXCEPT("item node not found");
+	}
+
+	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
+	{
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end();)
+		{
+			if ((*iter) != nullptr)
+			{
+				// if full update and node was postponed for deletion, delete it
+				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
+
+				if (_update)
+				{
+					if (node->getDestroy())
+					{
+						delete (*iter);
+						*iter = nullptr;
+						++iter;
+						continue;
+					}
+				}
+
+				node->renderToTarget(_target, _update);
+
+				if (node->getDestroy() && !node->getAnimate())
+				{
+					delete (*iter);
+					*iter = nullptr;
+				}
+
+				++iter;
+			}
+			else
+			{
+				iter = mChildItems.erase(iter);
+			}
+		}
+	}
+
+	ILayerItem* RTTLayer::getLayerItemByPoint(int _left, int _top) const
+	{
+		if (!mIsPick)
+			return nullptr;
+		VectorILayerNode::const_reverse_iterator iter = mChildItems.rbegin();
+		while (iter != mChildItems.rend())
+		{
+			if ((*iter) != nullptr)
+			{
+				ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
+				if (item != nullptr)
+					return item;
+			}
+			++iter;
+		}
+		return nullptr;
+	}
+
+} // namespace MyGUI

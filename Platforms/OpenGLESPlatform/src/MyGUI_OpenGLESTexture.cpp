@@ -324,6 +324,11 @@ namespace MyGUI
 		mProgramId = OpenGLESRenderManager::getInstance().getShaderProgramId(_shaderName);
 	}
 
+	void OpenGLESTexture::setShaderParams(const std::vector<ShaderParam>& _params)
+	{
+		mShaderParams = _params;
+	}
+
 	IRenderTarget* OpenGLESTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
@@ -340,6 +345,11 @@ namespace MyGUI
 	unsigned int OpenGLESTexture::getShaderId() const
 	{
 		return mProgramId;
+	}
+
+	const std::vector<ShaderParam>& OpenGLESTexture::getShaderParams() const
+	{
+		return mShaderParams;
 	}
 
 } // namespace MyGUI

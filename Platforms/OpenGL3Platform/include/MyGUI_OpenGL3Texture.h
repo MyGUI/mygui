@@ -10,7 +10,10 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ShaderParam.h"
 #include "MyGUI_OpenGL3ImageLoader.h"
+
+#include <vector>
 
 namespace MyGUI
 {
@@ -30,6 +33,8 @@ namespace MyGUI
 		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
 
+		void setShaderParams(const std::vector<ShaderParam>& _params) override;
+
 		void destroy() override;
 
 		int getWidth() const override;
@@ -48,6 +53,7 @@ namespace MyGUI
 		/*internal:*/
 		unsigned int getTextureId() const;
 		unsigned int getShaderId() const;
+		const std::vector<ShaderParam>& getShaderParams() const;
 		void setUsage(TextureUsage _usage);
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
@@ -73,6 +79,7 @@ namespace MyGUI
 		TextureUsage mOriginalUsage;
 		OpenGL3ImageLoader* mImageLoader;
 		OpenGL3RTTexture* mRenderTarget{nullptr};
+		std::vector<ShaderParam> mShaderParams;
 	};
 
 } // namespace MyGUI

@@ -65,6 +65,11 @@ namespace MyGUI
 			ensureMaterial();
 	}
 
+	void OgreNextTexture::setShaderParams(const std::vector<ShaderParam>& _params)
+	{
+		mShaderParams = _params;
+	}
+
 	void OgreNextTexture::saveToFile(const std::string& _filename)
 	{
 		if (mTexture != nullptr)

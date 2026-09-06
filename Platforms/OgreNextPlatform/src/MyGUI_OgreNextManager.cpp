@@ -600,9 +600,19 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 		}
 
 		// Update the projection uniform on this material.
-		material->getTechnique(0)->getPass(0)->getVertexProgramParameters()->setNamedConstant(
-			"worldViewProj",
-			mActiveProjMatrix);
+		auto* pass = material->getTechnique(0)->getPass(0);
+		pass->getVertexProgramParameters()->setNamedConstant("worldViewProj", mActiveProjMatrix);
+
+		for (const auto& param : tex->getShaderParams())
+		{
+			Ogre::Vector4 value(param.values[0], param.values[1], param.values[2], param.values[3]);
+			auto vpParams = pass->getVertexProgramParameters();
+			if (vpParams->_findNamedConstantDefinition(param.name, false))
+				vpParams->setNamedConstant(param.name, value);
+			auto fpParams = pass->getFragmentProgramParameters();
+			if (fpParams->_findNamedConstantDefinition(param.name, false))
+				fpParams->setNamedConstant(param.name, value);
+		}
 
 		Ogre::QueuedRenderable queuedRenderable(0u, renderable, mDummyMovable);
 		const Ogre::HlmsCache* hlmsCache =

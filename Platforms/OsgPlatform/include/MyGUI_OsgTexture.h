@@ -10,8 +10,11 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ShaderParam.h"
 
 #include <osg/ref_ptr>
+
+#include <vector>
 
 namespace osg
 {
@@ -38,6 +41,8 @@ namespace MyGUI
 		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
 
+		void setShaderParams(const std::vector<ShaderParam>& _params) override;
+
 		void destroy() override;
 
 		int getWidth() const override;
@@ -58,6 +63,10 @@ namespace MyGUI
 		osg::StateSet* getInjectState();
 		// Returns the StateSet carrying the texture's shader program, or nullptr
 		osg::StateSet* getShaderStateSet();
+		const std::vector<ShaderParam>& getShaderParams() const
+		{
+			return mShaderParams;
+		}
 
 	private:
 		std::string mName;
@@ -67,6 +76,7 @@ namespace MyGUI
 		osg::ref_ptr<osg::Texture2D> mTexture;
 		osg::ref_ptr<osg::StateSet> mInjectState;
 		osg::ref_ptr<osg::StateSet> mShaderStateSet;
+		std::vector<ShaderParam> mShaderParams;
 		IRenderTarget* mRenderTarget{nullptr};
 		PixelFormat mFormat;
 		TextureUsage mUsage;

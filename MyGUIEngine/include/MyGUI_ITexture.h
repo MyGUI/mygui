@@ -10,7 +10,9 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ShaderParam.h"
 #include <string>
+#include <vector>
 
 namespace MyGUI
 {
@@ -35,6 +37,10 @@ namespace MyGUI
 		virtual void loadFromFile(const std::string& _filename) = 0;
 		virtual void saveToFile(const std::string& _filename) = 0;
 		virtual void setShader(const std::string& _shaderName) = 0;
+
+		virtual void setShaderParams(const std::vector<ShaderParam>& /*_params*/)
+		{
+		}
 
 		virtual void setInvalidateListener(ITextureInvalidateListener* /*_listener*/)
 		{

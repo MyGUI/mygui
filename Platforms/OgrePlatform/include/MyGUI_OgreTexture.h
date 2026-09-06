@@ -10,9 +10,12 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ShaderParam.h"
 
 #include <OgreResource.h>
 #include <OgreTexture.h>
+
+#include <vector>
 
 namespace MyGUI
 {
@@ -31,6 +34,8 @@ namespace MyGUI
 		void loadFromFile(const std::string& _filename) override;
 		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
+
+		void setShaderParams(const std::vector<ShaderParam>& _params) override;
 
 		void setInvalidateListener(ITextureInvalidateListener* _listener) override;
 
@@ -73,6 +78,10 @@ namespace MyGUI
 		{
 			return mShaderInfo;
 		}
+		const std::vector<ShaderParam>& getShaderParams() const
+		{
+			return mShaderParams;
+		}
 
 	private:
 		void setUsage(TextureUsage _usage);
@@ -87,6 +96,7 @@ namespace MyGUI
 		OgreShaderInfo* mShaderInfo = nullptr;
 		std::string mName;
 		std::string mGroup;
+		std::vector<ShaderParam> mShaderParams;
 
 		TextureUsage mOriginalUsage;
 		PixelFormat mOriginalFormat;

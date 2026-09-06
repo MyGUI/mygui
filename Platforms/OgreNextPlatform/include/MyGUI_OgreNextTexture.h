@@ -4,11 +4,14 @@
 #include "MyGUI_OgreNextPrerequisites.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ShaderParam.h"
 
 #include <OgreMaterial.h>
 #include <OgrePixelFormatGpu.h>
 
 #include "MyGUI_LastHeader.h"
+
+#include <vector>
 
 namespace MyGUI
 {
@@ -24,6 +27,8 @@ namespace MyGUI
 		void loadFromFile(const std::string& _filename) override;
 		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
+
+		void setShaderParams(const std::vector<ShaderParam>& _params) override;
 
 		void setInvalidateListener(ITextureInvalidateListener* _listener) override;
 
@@ -62,6 +67,10 @@ namespace MyGUI
 		{
 			return mMaterial;
 		}
+		const std::vector<ShaderParam>& getShaderParams() const
+		{
+			return mShaderParams;
+		}
 
 		static Ogre::PixelFormatGpu convertFormat(PixelFormat format);
 
@@ -73,6 +82,7 @@ namespace MyGUI
 		std::string mName;
 		std::string mGroup;
 		std::string mShaderName;
+		std::vector<ShaderParam> mShaderParams;
 
 		Ogre::TextureGpu* mTexture{nullptr};
 		bool mOwnsTexture{false};

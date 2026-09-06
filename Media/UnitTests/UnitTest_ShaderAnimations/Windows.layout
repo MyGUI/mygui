@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="40 180 280 260" layer="RTT_Burn" name="_Main">
+        <Property key="Caption" value="Burn"/>
+        <Property key="MinSize" value="100 100"/>
+        <Widget type="EditBox" skin="WordWrapEmpty" position="4 4 263 216" align="Stretch">
+            <Property key="Caption" value="Fragment shader burn animation."/>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowCSX" position="360 180 280 260" layer="RTT_Fade" name="_Main">
+        <Property key="Caption" value="Fade"/>
+        <Property key="MinSize" value="100 100"/>
+        <Widget type="EditBox" skin="WordWrapEmpty" position="4 4 263 216" align="Stretch">
+            <Property key="Caption" value="Fragment shader fade animation.\nClose window to see fade out."/>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowCSX" position="680 180 280 260" layer="RTT_Wobble" name="_Main">
+        <Property key="Caption" value="Wobble"/>
+        <Property key="MinSize" value="100 100"/>
+        <Widget type="EditBox" skin="WordWrapEmpty" position="4 4 263 216" align="Stretch">
+            <Property key="Caption" value="Vertex shader wobble animation.\nMove or resize window."/>
+        </Widget>
+    </Widget>
+</MyGUI>

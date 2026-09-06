@@ -195,6 +195,29 @@ namespace MyGUI
 			if (texture->getShaderId())
 			{
 				glUseProgram(texture->getShaderId());
+
+				unsigned int program = texture->getShaderId();
+				for (const auto& param : texture->getShaderParams())
+				{
+					GLint loc = glGetUniformLocation(program, param.name.c_str());
+					if (loc < 0)
+					{
+						if (!param.warned)
+						{
+							MYGUI_PLATFORM_LOG(
+								Warning,
+								"Shader param '" << param.name << "' not found in shader program " << program);
+							param.warned = true;
+						}
+						continue;
+					}
+					switch (param.count)
+					{
+					case 1: glUniform1f(loc, param.values[0]); break;
+					case 2: glUniform2f(loc, param.values[0], param.values[1]); break;
+					case 4: glUniform4f(loc, param.values[0], param.values[1], param.values[2], param.values[3]); break;
+					}
+				}
 			}
 		}
 

@@ -49,6 +49,11 @@ namespace MyGUI
 		mShaderInfo = OgreRenderManager::getInstance().getShaderInfo(_shaderName);
 	}
 
+	void OgreTexture::setShaderParams(const std::vector<ShaderParam>& _params)
+	{
+		mShaderParams = _params;
+	}
+
 	void OgreTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
 	{
 		mListener = _listener;

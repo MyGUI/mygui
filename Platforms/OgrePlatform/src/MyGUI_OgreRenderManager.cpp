@@ -290,9 +290,21 @@ namespace MyGUI
 			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->vertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->fragmentProgram->_getBindingDelegate());
 
-			auto params = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
-			params->copyConstantsFrom(*mDefaultShader->vertexProgram->getDefaultParameters());
-			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
+			auto vpParams = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
+			vpParams->copyConstantsFrom(*mDefaultShader->vertexProgram->getDefaultParameters());
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, vpParams, Ogre::GPV_ALL);
+
+			auto fpParams = texture->getShaderInfo()->fragmentProgram->getDefaultParameters();
+			fpParams->copyConstantsFrom(*mDefaultShader->fragmentProgram->getDefaultParameters());
+			for (const auto& param : texture->getShaderParams())
+			{
+				Ogre::Vector4 value(param.values[0], param.values[1], param.values[2], param.values[3]);
+				if (vpParams->_findNamedConstantDefinition(param.name, false))
+					vpParams->setNamedConstant(param.name, value);
+				if (fpParams->_findNamedConstantDefinition(param.name, false))
+					fpParams->setNamedConstant(param.name, value);
+			}
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_FRAGMENT_PROGRAM, fpParams, Ogre::GPV_ALL);
 		}
 
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
@@ -310,9 +322,13 @@ namespace MyGUI
 			mRenderSystem->bindGpuProgram(mDefaultShader->vertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(mDefaultShader->fragmentProgram->_getBindingDelegate());
 
-			auto params = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
-			params->copyConstantsFrom(*mDefaultShader->vertexProgram->getDefaultParameters());
-			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
+			auto vpParams = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
+			vpParams->copyConstantsFrom(*mDefaultShader->vertexProgram->getDefaultParameters());
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, vpParams, Ogre::GPV_ALL);
+
+			auto fpParams = texture->getShaderInfo()->fragmentProgram->getDefaultParameters();
+			fpParams->copyConstantsFrom(*mDefaultShader->fragmentProgram->getDefaultParameters());
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_FRAGMENT_PROGRAM, fpParams, Ogre::GPV_ALL);
 		}
 
 		++mCountBatch;

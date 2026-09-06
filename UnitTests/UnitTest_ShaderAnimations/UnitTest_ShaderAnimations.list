@@ -1,0 +1,47 @@
+set (HEADER_FILES
+  BurnNodeAnimator.h
+  DemoKeeper.h
+  MyGUI_LayerNodeAnimation.h
+  MyGUI_RTTLayer.h
+  MyGUI_RTTLayerNode.h
+  ShaderFadeNodeAnimator.h
+  ShaderWobbleNodeAnimator.h
+  Tesselator.h
+)
+set (SOURCE_FILES
+  ../../Common/Base/BaseResource.rc
+  BurnNodeAnimator.cpp
+  DemoKeeper.cpp
+  MyGUI_RTTLayer.cpp
+  MyGUI_RTTLayerNode.cpp
+  ShaderFadeNodeAnimator.cpp
+  ShaderWobbleNodeAnimator.cpp
+  Tesselator.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  BurnNodeAnimator.h
+  DemoKeeper.h
+  ShaderFadeNodeAnimator.h
+  ShaderWobbleNodeAnimator.h
+  Tesselator.h
+)
+SOURCE_GROUP("Header Files\\Layer" FILES
+  MyGUI_LayerNodeAnimation.h
+  MyGUI_RTTLayer.h
+  MyGUI_RTTLayerNode.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  BurnNodeAnimator.cpp
+  DemoKeeper.cpp
+  ShaderFadeNodeAnimator.cpp
+  ShaderWobbleNodeAnimator.cpp
+  Tesselator.cpp
+)
+SOURCE_GROUP("Source Files\\Layer" FILES
+  MyGUI_RTTLayer.cpp
+  MyGUI_RTTLayerNode.cpp
+)
