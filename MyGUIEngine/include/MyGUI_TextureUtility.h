@@ -14,13 +14,16 @@
 namespace MyGUI::texture_utility
 {
 
-	MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture, bool _cache = true);
 	/// Convert Colour to 32-bit representation
 	MYGUI_EXPORT uint32 toNativeColour(const Colour& _colour, VertexColourType _format);
 	/// Convert from 32-bit ARGB to native colour (ABGR or ARGB)
 	MYGUI_EXPORT void convertColour(uint32& _colour, VertexColourType _format);
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
+	MYGUI_OBSOLETE(
+		" is deprecated, use : const IntSize& MyGUI::RenderManager::getTextureSize(const std::string& _texture, bool "
+		"_cache)")
+	MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture, bool _cache = true);
 	MYGUI_OBSOLETE(
 		" is deprecated, use : uint32 texture_utility::toNativeColour(const Colour& _colour, VertexColourType _format)")
 	inline uint32 toColourARGB(const Colour& _colour)

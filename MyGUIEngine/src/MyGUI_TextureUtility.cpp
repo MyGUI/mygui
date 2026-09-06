@@ -7,53 +7,16 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TextureUtility.h"
 #include "MyGUI_RenderManager.h"
-#include "MyGUI_DataManager.h"
-#include "MyGUI_Bitwise.h"
-#include "MyGUI_Constants.h"
-#include <unordered_map>
 
 namespace MyGUI::texture_utility
 {
 
+#if !defined(MYGUI_DONT_USE_OBSOLETE)
 	const IntSize& getTextureSize(const std::string& _texture, bool _cache)
 	{
-		static std::unordered_map<std::string, IntSize> textureSizes;
-
-		if (_texture.empty())
-			return Constants::getZeroIntSize();
-
-		if (_cache && textureSizes.count(_texture))
-			return textureSizes.at(_texture);
-
-		RenderManager& render = RenderManager::getInstance();
-
-		ITexture* texture = render.getTexture(_texture);
-		if (texture == nullptr)
-		{
-			if (!DataManager::getInstance().isDataExist(_texture))
-			{
-				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
-				return Constants::getZeroIntSize();
-			}
-
-			texture = render.createTexture(_texture);
-			if (texture == nullptr)
-			{
-				MYGUI_LOG(Error, "Texture '" + _texture + "' cannot be created");
-				return Constants::getZeroIntSize();
-			}
-			texture->loadFromFile(_texture);
-#if MYGUI_DEBUG_MODE == 1
-			if (!Bitwise::isPO2(texture->getWidth()) || !Bitwise::isPO2(texture->getHeight()))
-			{
-				MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
-			}
-#endif
-		}
-
-		IntSize size{texture->getWidth(), texture->getHeight()};
-		return textureSizes[_texture] = size;
+		return RenderManager::getInstance().getTextureSize(_texture, _cache);
 	}
+#endif
 
 	uint32 toNativeColour(const Colour& _colour, VertexColourType _format)
 	{

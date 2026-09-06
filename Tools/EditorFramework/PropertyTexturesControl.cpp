@@ -72,7 +72,7 @@ namespace tools
 			mImage->setVisible(true);
 			mImage->setImageTexture(proper->getValue());
 
-			mTextureSize = MyGUI::texture_utility::getTextureSize(proper->getValue());
+			mTextureSize = MyGUI::RenderManager::getInstance().getTextureSize(proper->getValue());
 
 			updateTexture();
 		}

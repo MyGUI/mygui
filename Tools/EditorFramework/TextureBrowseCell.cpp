@@ -30,7 +30,7 @@ namespace tools
 		if (_info.update)
 		{
 			mTextureName->setCaption(_data);
-			const MyGUI::IntSize& textureSize = MyGUI::texture_utility::getTextureSize(_data);
+			const MyGUI::IntSize& textureSize = MyGUI::RenderManager::getInstance().getTextureSize(_data);
 
 			if (textureSize.width != 0 && textureSize.height != 0)
 			{

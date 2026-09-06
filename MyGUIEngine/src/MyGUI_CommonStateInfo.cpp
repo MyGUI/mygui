@@ -6,6 +6,7 @@
 
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_RenderManager.h"
 
 #include <pugixml.hpp>
 
@@ -22,7 +23,7 @@ namespace MyGUI
 			texture = LanguageManager::getInstance().replaceTags(texture);
 		}
 
-		const IntSize& size = texture_utility::getTextureSize(texture);
+		const IntSize& size = RenderManager::getInstance().getTextureSize(texture);
 		IntCoord coord = IntCoord::parse(_node.node().attribute("offset").value());
 		mRect = CoordConverter::convertTextureCoord(coord, size);
 	}
@@ -37,7 +38,7 @@ namespace MyGUI
 			texture = LanguageManager::getInstance().replaceTags(texture);
 		}
 
-		const IntSize& size = texture_utility::getTextureSize(texture);
+		const IntSize& size = RenderManager::getInstance().getTextureSize(texture);
 		IntCoord coord = IntCoord::parse(_node.node().attribute("offset").value());
 		mRect = CoordConverter::convertTextureCoord(coord, size);
 
@@ -74,7 +75,7 @@ namespace MyGUI
 			texture = LanguageManager::getInstance().replaceTags(texture);
 		}
 
-		const IntSize& size = texture_utility::getTextureSize(texture);
+		const IntSize& size = RenderManager::getInstance().getTextureSize(texture);
 		IntCoord coord = IntCoord::parse(_node.node().attribute("offset").value());
 		mRect = CoordConverter::convertTextureCoord(coord, size);
 	}

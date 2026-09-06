@@ -14,6 +14,8 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_IRenderTarget.h"
 
+#include <unordered_map>
+
 namespace MyGUI
 {
 
@@ -39,6 +41,9 @@ namespace MyGUI
 		virtual void destroyTexture(ITexture* _texture) = 0;
 		/** Get texture by name */
 		virtual ITexture* getTexture(const std::string& _name) = 0;
+
+		/** Get texture size in pixels. If _cache is true, try to get already computed value */
+		const IntSize& getTextureSize(const std::string& _name, bool _cache = true);
 
 		//FIXME: possibly move to render target structure
 		virtual const IntSize& getViewSize() const = 0;
@@ -67,6 +72,9 @@ namespace MyGUI
 		virtual void onResizeView(const IntSize& _viewSize);
 		virtual void onRenderToTarget(IRenderTarget* _target, bool _update);
 		virtual void onFrameEvent(float _time);
+
+	private:
+		std::unordered_map<std::string, IntSize> mTextureSizes;
 	};
 
 } // namespace MyGUI

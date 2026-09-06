@@ -11,7 +11,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_TextureUtility.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -28,7 +28,7 @@ namespace MyGUI
 	void ImageBox::setImageInfo(std::string_view _texture, const IntCoord& _coord, const IntSize& _tile)
 	{
 		mCurrentTextureName = _texture;
-		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
+		mSizeTexture = RenderManager::getInstance().getTextureSize(mCurrentTextureName);
 
 		mSizeTile = _tile;
 		mRectImage.left = _coord.left;
@@ -81,7 +81,7 @@ namespace MyGUI
 	void ImageBox::setImageTexture(std::string_view _texture)
 	{
 		mCurrentTextureName = _texture;
-		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
+		mSizeTexture = RenderManager::getInstance().getTextureSize(mCurrentTextureName);
 
 		// set entire texture on the first call
 		if (mItems.empty())
@@ -329,7 +329,7 @@ namespace MyGUI
 	void ImageBox::setItemResourceInfo(const ImageIndexInfo& _info)
 	{
 		mCurrentTextureName = _info.texture;
-		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
+		mSizeTexture = RenderManager::getInstance().getTextureSize(mCurrentTextureName);
 
 		mItems.clear();
 

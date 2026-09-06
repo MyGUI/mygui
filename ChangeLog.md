@@ -2,6 +2,8 @@
 
 ### Core
 - Fix asserts in the ImageBox::deleteItemFrame
+- Move texture_utility::getTextureSize() into RenderManager so its size cache is tied to the renderer lifetime, fixing
+  textures not being recreated after renderer reinitialization
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

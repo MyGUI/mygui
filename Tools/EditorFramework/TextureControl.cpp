@@ -48,7 +48,7 @@ namespace tools
 
 	void TextureControl::setTextureValue(const MyGUI::UString& _value)
 	{
-		mTextureSize = MyGUI::texture_utility::getTextureSize(_value, false);
+		mTextureSize = MyGUI::RenderManager::getInstance().getTextureSize(_value, false);
 		mTexture->setImageTexture(_value);
 
 		mTextureRegion.set(0, 0, mTextureSize.width, mTextureSize.height);
