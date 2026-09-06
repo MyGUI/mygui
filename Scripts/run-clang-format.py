@@ -55,7 +55,7 @@ def main():
     )
     args = parser.parse_args()
 
-    mode = "--dry-run --Werror" if args.dry else "-i"
+    mode = ["--dry-run", "--Werror"] if args.dry else ["-i"]
     sources = find_sources()
 
     if not sources:
@@ -65,7 +65,7 @@ def main():
     # force using clang-format-20 if available
     CLANG_FORMAT = "clang-format-20" if shutil.which("clang-format-20") else "clang-format"
     subprocess.run([CLANG_FORMAT, "--version"])
-    cmd = [CLANG_FORMAT, mode] if args.fix else [CLANG_FORMAT, "--dry-run", "--Werror"]
+    cmd = [CLANG_FORMAT] + mode
     cmd.extend(sources)
 
     result = subprocess.run(cmd)
