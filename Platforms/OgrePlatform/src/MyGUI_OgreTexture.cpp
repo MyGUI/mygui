@@ -281,13 +281,13 @@ namespace MyGUI
 		if (renderSystem == nullptr)
 			return;
 
-		static const Ogre::SamplerPtr sampler = []()
+		Ogre::SamplerPtr sampler = Ogre::TextureManager::getSingleton().getSampler("MyGUI/DefaultSampler");
+		if (!sampler)
 		{
-			Ogre::SamplerPtr value = Ogre::TextureManager::getSingleton().createSampler();
-			value->setFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-			value->setAddressingMode(Ogre::TAM_CLAMP);
-			return value;
-		}();
+			sampler = Ogre::TextureManager::getSingleton().createSampler("MyGUI/DefaultSampler");
+			sampler->setFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+			sampler->setAddressingMode(Ogre::TAM_CLAMP);
+		}
 
 		renderSystem->_setTexture(0, true, mTexture);
 		renderSystem->_setSampler(0, *sampler);

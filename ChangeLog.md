@@ -10,7 +10,7 @@
 - New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shaders support, geometry built with osg::Geometry +
   osg::DrawArrays + VBO
 - All platforms now use standard Porter-Duff alpha blending (dst_a = src_a + dst_a * (1 - src_a))
-- Ogre/OgreNext: fix texture parameters
+- Ogre/OgreNext: fix texture parameters not being set
 - OgreNext: implement texture lock read (used in picking)
 
 ### Demos
