@@ -158,6 +158,9 @@ namespace MyGUI
 			if (advanceColorTag(iter, mEnd))
 				continue;
 
+			if (iter == mEnd)
+				break;
+
 			mSize++;
 		}
 
@@ -175,6 +178,9 @@ namespace MyGUI
 		{
 			if (advanceColorTag(iter, end))
 				continue;
+
+			if (iter == end)
+				break;
 
 			ret.push_back(*iter);
 		}
@@ -380,6 +386,9 @@ namespace MyGUI
 			if (advanceColorTag(iter, mEnd))
 				continue;
 
+			if (iter == mEnd)
+				break;
+
 			// check and cut
 			if (mSize == _max)
 			{
@@ -416,7 +425,7 @@ namespace MyGUI
 				iter_colour = save;
 				continue;
 			}
-			if (diff == 0)
+			if (iter == mEnd || diff == 0)
 				break;
 			--diff;
 		}
