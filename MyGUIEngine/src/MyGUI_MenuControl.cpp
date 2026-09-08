@@ -472,7 +472,9 @@ namespace MyGUI
 
 	void MenuControl::notifyMouseSetFocus(Widget* _sender, Widget* _new)
 	{
-		InputManager::getInstance().setKeyFocusWidget(_sender);
+		// A menu bar only takes focus on hover after a menu has been opened.
+		if (!mMenuDropMode || mIsMenuDrop)
+			InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
 	void MenuControl::_wrapItemChild(MenuItem* _item, MenuControl* _widget)

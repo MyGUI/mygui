@@ -5,6 +5,7 @@
 - Move texture_utility::getTextureSize() into RenderManager so its size cache is tied to the renderer lifetime, fixing
   textures not being recreated after renderer reinitialization
 - Fix out-of-bounds reads in TextIterator when text ends with an unescaped '#'
+- Fix hovering over an inactive MenuBar stealing keyboard focus from other widgets (#282)
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
