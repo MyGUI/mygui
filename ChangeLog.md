@@ -10,6 +10,7 @@
   reparenting
 - Fix ComboBox drop-downs and MenuControl submenus not following ancestor movement
 - Fix ComboBox shutdown crash when destroying a focused drop-down
+- Fix LayerItem not restoring layer nodes for overlapped descendants when reparenting a widget as a child
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

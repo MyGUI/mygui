@@ -144,11 +144,12 @@ namespace MyGUI
 
 		for (auto& layerNode : mLayerNodes)
 		{
-			// create new item for overlapped node
-			if (_deep)
+			// Reparented descendants need new nodes even on a shallow attachment.
+			// Existing nodes are retained when only rebuilding child draw order.
+			if (_deep || layerNode->getLayerNode() == nullptr)
 			{
 				ILayerNode* child_node = _item->createChildItemNode();
-				layerNode->attachToLayerItemNode(child_node, _deep);
+				layerNode->attachToLayerItemNode(child_node, true);
 			}
 		}
 	}
