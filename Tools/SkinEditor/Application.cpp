@@ -31,6 +31,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(Application);
 
 	Application::Application() :

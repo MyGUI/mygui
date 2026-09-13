@@ -4,7 +4,9 @@
 
 namespace MyGUI
 {
+
 	class DirectX11Platform;
+
 }
 
 struct ID3D11Device;

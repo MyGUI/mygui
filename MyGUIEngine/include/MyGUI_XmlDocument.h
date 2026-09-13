@@ -22,13 +22,16 @@
 
 namespace pugi
 {
+
 	class xml_node;
 	class xml_document;
 	struct xml_parse_result;
+
 }
 
 namespace MyGUI::xml
 {
+
 	using PairAttribute = std::pair<std::string, std::string>;
 	using VectorAttributes = std::vector<PairAttribute>;
 

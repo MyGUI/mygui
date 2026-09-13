@@ -12,6 +12,7 @@
 
 namespace demo
 {
+
 	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData*>
 	{
 	public:

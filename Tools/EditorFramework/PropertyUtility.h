@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class MYGUI_EXPORT_DLL PropertyUtility
 	{
 	public:
@@ -34,6 +35,7 @@ namespace tools
 		static PropertyPtr getPropertyByName(DataPtr _data, std::string_view _dataType, std::string_view _propertyName);
 		static bool isDataSelected(DataPtr _parent, DataPtr _data);
 	};
+
 }
 
 #endif

@@ -15,6 +15,7 @@ namespace MyGUI
 {
 	namespace
 	{
+
 		constexpr size_t VERTEX_IN_QUAD = 6;
 		constexpr size_t VERTEX_BUFFER_SLACK = 5 * VERTEX_IN_QUAD;
 
@@ -32,6 +33,7 @@ namespace MyGUI
 			elements.emplace_back(Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES);
 			return elements;
 		}
+
 	}
 
 	OgreNextVertexBuffer::OgreNextVertexBuffer() = default;

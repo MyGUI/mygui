@@ -12,6 +12,7 @@
 
 namespace base
 {
+
 	// number of frames to render before capturing a screenshot from the command line
 	static constexpr int cScreenShotFrames = 2;
 

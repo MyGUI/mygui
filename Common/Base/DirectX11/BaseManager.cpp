@@ -12,6 +12,7 @@
 
 namespace base
 {
+
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		D3D_FEATURE_LEVEL featureLevels[] = {

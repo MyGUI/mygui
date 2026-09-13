@@ -10,6 +10,7 @@
 
 namespace MyGUI
 {
+
 	class TreeControlItem;
 
 	class TreeControl : public Widget
@@ -162,6 +163,7 @@ namespace MyGUI
 	{
 		return mpSelection;
 	}
+
 }
 
 #endif // TREE_CONTROL_H_

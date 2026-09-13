@@ -4,7 +4,9 @@
 
 namespace MyGUI
 {
+
 	class DirectXPlatform;
+
 }
 
 struct IDirect3D9;

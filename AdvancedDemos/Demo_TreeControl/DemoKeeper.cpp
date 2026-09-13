@@ -246,6 +246,7 @@ namespace demo
 		factory.unregisterFactory<MyGUI::TreeControl>(widgetCategory);
 		factory.unregisterFactory<MyGUI::TreeControlItem>(widgetCategory);
 	}
+
 } // namespace demo
 
 MYGUI_APP(demo::DemoKeeper)

@@ -12,6 +12,7 @@
 
 namespace MyGUI
 {
+
 	OgreNextRTTexture::OgreNextRTTexture(Ogre::TextureGpu* texture) :
 		mTexture(texture)
 	{

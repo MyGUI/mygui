@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(StateManager);
 
 	void StateManager::initialise()

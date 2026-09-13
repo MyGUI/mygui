@@ -8,6 +8,7 @@
 
 namespace MyGUI
 {
+
 	template<class NODE, class OWNER>
 	class GenericNode
 	{
@@ -225,6 +226,7 @@ namespace MyGUI
 	{
 		return mpParent;
 	}
+
 }
 
 #endif // GENERIC_NODE_H_

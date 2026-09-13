@@ -25,8 +25,10 @@ using FT_GlyphSlot = FT_GlyphSlotRec_*;
 	#ifdef MYGUI_MSDF_FONTS
 namespace msdfgen
 {
+
 	class FontHandle;
 	class Shape;
+
 }
 	#endif
 

@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(ColourManager);
 
 	ColourManager::ColourManager() :

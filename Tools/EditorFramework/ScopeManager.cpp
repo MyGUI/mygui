@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(ScopeManager);
 
 	void ScopeManager::initialise()

@@ -22,9 +22,9 @@
 
 namespace MyGUI
 {
-
 	namespace
 	{
+
 		VmaAllocator getVmaAllocator(void* _allocator)
 		{
 			return static_cast<VmaAllocator>(_allocator);
@@ -62,6 +62,7 @@ namespace MyGUI
 
 			vkCmdPipelineBarrier(_commandBuffer, srcStage, dstStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
 		}
+
 	} // namespace
 
 	VulkanRenderManager& VulkanRenderManager::getInstance()

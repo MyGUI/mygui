@@ -8,6 +8,7 @@
 
 namespace MyGUI
 {
+
 	// IRenderTarget backed by an offscreen Ogre::TextureGpu. Manages its own
 	// RenderPassDescriptor and drives the same OgreNextManager batching that
 	// the compositor pass uses.

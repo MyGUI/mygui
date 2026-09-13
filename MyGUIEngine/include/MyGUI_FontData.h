@@ -15,7 +15,6 @@
 
 namespace MyGUI
 {
-
 	namespace FontCodeType
 	{
 

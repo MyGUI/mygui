@@ -10,6 +10,7 @@
 
 namespace base
 {
+
 	D3DPRESENT_PARAMETERS mD3dpp;
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)

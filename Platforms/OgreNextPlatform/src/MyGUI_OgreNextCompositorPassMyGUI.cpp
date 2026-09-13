@@ -15,6 +15,7 @@
 
 namespace MyGUI
 {
+
 	CompositorPassMyGUI::CompositorPassMyGUI(
 		const CompositorPassMyGUIDef* definition,
 		Ogre::Camera* defaultCamera,

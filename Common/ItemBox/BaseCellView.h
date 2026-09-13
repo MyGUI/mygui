@@ -13,6 +13,7 @@
 
 namespace wraps
 {
+
 	template<typename DataType>
 	class BaseCellView : public BaseLayout
 	{

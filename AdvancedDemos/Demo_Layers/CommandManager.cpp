@@ -43,5 +43,4 @@ namespace demo
 			mDelegates.erase(item);
 	}
 
-
 } // namespace demo

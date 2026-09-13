@@ -13,6 +13,7 @@
 
 namespace MyGUI::utility
 {
+
 	MYGUI_EXPORT void trim(std::string& _str, bool _left = true, bool _right = true);
 
 	template<typename T>

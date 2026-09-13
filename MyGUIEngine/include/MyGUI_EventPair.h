@@ -14,6 +14,7 @@
 
 namespace MyGUI
 {
+
 #ifndef MYGUI_DONT_USE_OBSOLETE
 	template<typename EventObsolete, typename Event>
 	class CompositeEvent

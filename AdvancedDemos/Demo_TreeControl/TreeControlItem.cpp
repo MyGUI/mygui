@@ -58,4 +58,5 @@ namespace MyGUI
 	{
 		return *getUserData<TreeControl::Node*>();
 	}
+
 }

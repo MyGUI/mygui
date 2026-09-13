@@ -14,8 +14,10 @@
 
 namespace demo
 {
+
 	static wraps::RenderBox gRenderBox;
 	static wraps::RenderBoxScene gRenderBoxScene;
+
 }
 
 #endif // MYGUI_OGRE_PLATFORM

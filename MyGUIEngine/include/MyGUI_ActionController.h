@@ -13,6 +13,7 @@
 
 namespace MyGUI
 {
+
 	class ControllerItem;
 
 	namespace action
@@ -67,7 +68,6 @@ namespace MyGUI
 			float _current_time);
 
 	} // namespace action
-
 } // namespace MyGUI
 
 #endif // MYGUI_ACTION_CONTROLLER_H_

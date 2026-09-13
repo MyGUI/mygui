@@ -14,6 +14,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(WidgetCreatorManager);
 
 	WidgetCreatorManager::WidgetCreatorManager() :

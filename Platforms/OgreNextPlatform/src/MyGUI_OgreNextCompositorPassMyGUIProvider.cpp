@@ -8,6 +8,7 @@
 
 namespace MyGUI
 {
+
 	const Ogre::IdString CompositorPassMyGUIProvider::kCustomId("mygui");
 
 	Ogre::CompositorPassDef* CompositorPassMyGUIProvider::addPassDef(
@@ -38,6 +39,7 @@ namespace MyGUI
 
 	namespace
 	{
+
 		bool scriptTranslatorGetBoolean(const Ogre::AbstractNodePtr& node, bool* result)
 		{
 			if (node->type != Ogre::ANT_ATOM)
@@ -50,6 +52,7 @@ namespace MyGUI
 			}
 			return false;
 		}
+
 	}
 
 	void CompositorPassMyGUIProvider::translateCustomPass(

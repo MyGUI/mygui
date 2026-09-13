@@ -39,4 +39,5 @@ namespace components
 			delete factory.second;
 		mFactories.clear();
 	}
+
 }

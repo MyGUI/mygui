@@ -248,6 +248,7 @@ namespace MyGUI
 				}
 			}
 		};
+
 	}
 
 	const int ResourceTrueTypeFont::mDefaultGlyphSpacing = 1;

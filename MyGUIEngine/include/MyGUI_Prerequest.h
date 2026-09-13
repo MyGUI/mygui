@@ -14,6 +14,7 @@
 
 namespace MyGUI
 {
+
 	class Gui;
 	class LogManager;
 	class InputManager;

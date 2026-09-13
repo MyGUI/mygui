@@ -5,6 +5,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(UndoManager);
 
 	const int UNDO_COUNT = 64;

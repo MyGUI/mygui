@@ -10,6 +10,7 @@
 
 namespace factories
 {
+
 	bool IsExistFactoryName(std::string_view _factoryName)
 	{
 		return ::components::FactoryManager::GetInstancePtr()->ExistFactory(_factoryName);
@@ -19,4 +20,5 @@ namespace factories
 	{
 		::components::FactoryManager::GetInstancePtr()->RegisterFactory(_factory, _factoryName);
 	}
+
 }

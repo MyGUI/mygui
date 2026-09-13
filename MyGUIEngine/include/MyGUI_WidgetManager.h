@@ -17,6 +17,7 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT WidgetManager : public MemberObsolete<WidgetManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(WidgetManager);

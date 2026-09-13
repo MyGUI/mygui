@@ -3,6 +3,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(WidgetTypes);
 
 	const std::string_view DEFAULT_GROUP_NAME = "Default";

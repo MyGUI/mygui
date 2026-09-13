@@ -10,6 +10,7 @@
 
 namespace
 {
+
 	using unittest::require;
 
 	struct CoordObserver

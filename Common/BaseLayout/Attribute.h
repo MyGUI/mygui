@@ -126,6 +126,7 @@ namespace attribute
 #define ATTRIBUTE_CLASS(_attribute, _class, _value) \
 	class _class; \
 	static attribute::_attribute<_class> _attribute##_##_class(_value)
+
 }
 
 #endif // ATTRIBUTE_H_

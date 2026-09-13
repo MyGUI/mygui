@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(DialogManager);
 
 	void DialogManager::initialise()

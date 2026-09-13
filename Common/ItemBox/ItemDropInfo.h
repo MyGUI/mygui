@@ -13,6 +13,7 @@
 
 namespace wraps
 {
+
 	struct DDItemInfo
 	{
 		DDItemInfo(const MyGUI::DDItemInfo& _info) :

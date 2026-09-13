@@ -14,6 +14,7 @@
 
 namespace wraps
 {
+
 	template<typename CellType>
 	class BaseItemBox : public BaseLayout
 	{

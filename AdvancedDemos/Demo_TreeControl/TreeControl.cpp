@@ -10,6 +10,7 @@
 
 namespace MyGUI
 {
+
 	TreeControl::Node::Node(TreeControl* pOwner) :
 		GenericNode<Node, TreeControl>(pOwner),
 		mbIsPrepared(false),
@@ -489,4 +490,5 @@ namespace MyGUI
 
 		invalidate();
 	}
+
 }

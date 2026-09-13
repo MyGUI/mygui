@@ -12,7 +12,9 @@ namespace tools
 {
 	namespace
 	{
+
 		const MyGUI::VectorString fileTypes{"*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt"};
+
 	}
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontSourceControl)

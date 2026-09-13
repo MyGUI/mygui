@@ -17,11 +17,14 @@
 
 namespace Ogre
 {
+
 	class Hlms;
+
 }
 
 namespace MyGUI
 {
+
 	// The middle layer between MyGUI's IRenderTarget flow and OgreNext's
 	// v2 rendering. Owns the shader programs, a shared CommandBuffer + indirect
 	// buffer, and a per-texture Renderable pool.

@@ -17,6 +17,7 @@
 
 namespace MyGUI
 {
+
 	// Top-level facade for the OgreNext MyGUI platform. Owns the LogManager,
 	// DataManager, and RenderManager. Users:
 	//

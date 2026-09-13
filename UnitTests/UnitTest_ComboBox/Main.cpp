@@ -10,6 +10,7 @@
 
 namespace
 {
+
 	using unittest::require;
 
 	MyGUI::ListBox* openList(MyGUI::ComboBox* _combo)
@@ -104,7 +105,6 @@ namespace
 		_gui.destroyWidget(scroll);
 		_gui.eventFrameStart(0.016f);
 	}
-
 
 }
 

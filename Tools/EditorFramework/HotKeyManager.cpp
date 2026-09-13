@@ -10,6 +10,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(HotKeyManager);
 
 	HotKeyManager::HotKeyManager() :

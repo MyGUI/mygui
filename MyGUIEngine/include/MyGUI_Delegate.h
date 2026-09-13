@@ -16,9 +16,9 @@
 
 namespace MyGUI
 {
-
 	namespace delegates
 	{
+
 		// base class for unsubscribing from multi delegates
 		class MYGUI_EXPORT IDelegateUnlink
 		{
@@ -340,8 +340,8 @@ namespace MyGUI
 		template<typename... Args>
 		using CMultiDelegate6 MYGUI_OBSOLETE("use : MyGUI::delegates::MultiDelegate") = MultiDelegate<Args...>;
 #endif
-	}
 
+	}
 } // namespace MyGUI
 
 #endif // MYGUI_DELEGATE_H_

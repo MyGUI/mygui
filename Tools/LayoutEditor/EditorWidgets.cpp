@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(EditorWidgets);
 
 	const std::string_view LogSection = "LayoutEditor";

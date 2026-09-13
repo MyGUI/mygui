@@ -80,4 +80,5 @@ namespace tools
 	{
 		::components::FactoryManager::GetInstancePtr()->UnregisterAllFactories();
 	}
+
 }

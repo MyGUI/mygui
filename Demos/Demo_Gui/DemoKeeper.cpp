@@ -13,7 +13,9 @@
 
 namespace demo
 {
+
 	static std::vector<wraps::RenderBox*> mRenderBoxes;
+
 }
 
 #endif // MYGUI_OGRE_PLATFORM

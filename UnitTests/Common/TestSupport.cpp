@@ -3,6 +3,7 @@
 
 namespace unittest
 {
+
 	void require(bool _condition, std::string_view _message)
 	{
 		if (!_condition)
@@ -48,4 +49,5 @@ namespace unittest
 		require(document.open(filename), "Failed to load test resources: " + filename);
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(document.getRoot(), "", MyGUI::Version(1, 1));
 	}
+
 }

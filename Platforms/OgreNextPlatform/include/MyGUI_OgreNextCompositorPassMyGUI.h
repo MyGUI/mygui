@@ -8,6 +8,7 @@
 
 namespace MyGUI
 {
+
 	// Custom compositor pass that renders MyGUI into the current render target.
 	// Instantiated by CompositorPassMyGUIProvider when the compositor script
 	// contains: pass custom mygui { }

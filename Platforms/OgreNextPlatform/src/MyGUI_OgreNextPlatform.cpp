@@ -16,6 +16,7 @@
 
 namespace MyGUI
 {
+
 	Ogre::CompositorWorkspace* OgreNextPlatform::createDefaultWorkspace(Ogre::Window* window, Ogre::Camera* camera)
 	{
 		if (mDefaultWorkspace != nullptr)

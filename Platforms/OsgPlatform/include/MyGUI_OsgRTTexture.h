@@ -17,12 +17,15 @@
 
 namespace osg
 {
+
 	class Camera;
 	class Texture2D;
+
 }
 
 namespace MyGUI
 {
+
 	class OsgRenderManager;
 	class RTTDrawable;
 

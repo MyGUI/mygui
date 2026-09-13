@@ -28,6 +28,7 @@
 
 namespace input
 {
+
 	// Windows virtual keys
 	enum VirtualKey
 	{

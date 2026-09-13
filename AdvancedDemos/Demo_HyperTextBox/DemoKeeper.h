@@ -6,6 +6,7 @@
 
 namespace demo
 {
+
 	class DemoKeeper : public base::BaseDemoManager
 	{
 	public:

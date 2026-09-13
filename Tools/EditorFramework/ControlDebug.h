@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	class MYGUI_EXPORT_DLL ControlDebug : public Control
 	{
 	protected:

@@ -15,7 +15,9 @@
 
 namespace osg
 {
+
 	class Group;
+
 }
 
 namespace MyGUI

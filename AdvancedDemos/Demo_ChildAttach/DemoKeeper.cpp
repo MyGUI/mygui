@@ -84,7 +84,6 @@ namespace demo
 		image->eventMouseLostFocus += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseLostFocus);
 	}
 
-
 } // namespace demo
 
 MYGUI_APP(demo::DemoKeeper)

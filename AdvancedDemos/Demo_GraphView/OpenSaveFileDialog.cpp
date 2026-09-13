@@ -10,6 +10,7 @@
 
 namespace tools
 {
+
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		Dialog("OpenSaveFileDialog.layout"),
 		mFileMask("*.*")

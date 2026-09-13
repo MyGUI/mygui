@@ -11,6 +11,7 @@
 
 namespace MyGUI::Bitwise
 {
+
 	/** Returns the closest power-of-two number greater or equal to value. */
 	template<typename Type>
 	static inline Type firstPO2From(Type _value)
@@ -31,6 +32,7 @@ namespace MyGUI::Bitwise
 	{
 		return (_value & (_value - 1)) == 0;
 	}
+
 }
 
 #endif // MYGUI_BITWISE_H_

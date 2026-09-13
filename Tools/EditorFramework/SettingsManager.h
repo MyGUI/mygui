@@ -15,6 +15,7 @@
 
 namespace tools
 {
+
 	class NullTerminatedStringView
 	{
 		std::string_view mValue;

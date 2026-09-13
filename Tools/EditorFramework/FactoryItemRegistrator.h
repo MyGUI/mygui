@@ -14,6 +14,7 @@
 
 namespace factories
 {
+
 	bool MYGUI_EXPORT_DLL IsExistFactoryName(std::string_view _factoryName);
 	void MYGUI_EXPORT_DLL RegisterFactory(::components::IFactory* _factory, std::string_view _factoryName);
 
@@ -34,6 +35,7 @@ namespace factories
 	private:
 		std::string mFactoryName;
 	};
+
 }
 
 #endif

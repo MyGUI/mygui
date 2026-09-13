@@ -7,6 +7,7 @@
 
 namespace MyGUI
 {
+
 	class CompositorPassMyGUIDef final : public Ogre::CompositorPassDef
 	{
 	public:

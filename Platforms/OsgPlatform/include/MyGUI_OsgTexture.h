@@ -15,9 +15,11 @@
 
 namespace osg
 {
+
 	class Image;
 	class StateSet;
 	class Texture2D;
+
 }
 
 namespace MyGUI

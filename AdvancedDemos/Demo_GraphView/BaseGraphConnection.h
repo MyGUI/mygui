@@ -11,6 +11,7 @@
 
 namespace wraps
 {
+
 	class BaseGraphNode;
 	class BaseGraphConnection;
 	using VectorConnection = std::vector<BaseGraphConnection*>;

@@ -20,6 +20,7 @@
 
 namespace MyGUI
 {
+
 	class ILayer;
 	class ILayerNode;
 	class ResourceImageSet;
@@ -28,8 +29,10 @@ namespace MyGUI
 
 	namespace xml
 	{
+
 		class Document;
 		class ElementPtr;
+
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

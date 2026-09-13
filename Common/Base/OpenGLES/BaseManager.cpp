@@ -10,6 +10,7 @@
 
 namespace base
 {
+
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 #ifdef __EMSCRIPTEN__

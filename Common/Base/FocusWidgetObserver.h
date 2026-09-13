@@ -11,6 +11,7 @@
 
 namespace diagnostic
 {
+
 	// Tracks the geometry and lifetime of a widget highlighted by a focus overlay.
 	class FocusWidgetObserver
 	{
@@ -67,6 +68,7 @@ namespace diagnostic
 
 		MyGUI::Widget* mWidget{nullptr};
 	};
+
 }
 
 #endif

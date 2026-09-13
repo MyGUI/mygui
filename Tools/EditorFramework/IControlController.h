@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	class Control;
 	class MYGUI_EXPORT_DLL IControlController : public components::IFactoryItem
 	{
@@ -20,6 +21,7 @@ namespace tools
 		virtual void activate() = 0;
 		virtual void deactivate() = 0;
 	};
+
 }
 
 #endif

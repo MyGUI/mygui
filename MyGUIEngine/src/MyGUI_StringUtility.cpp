@@ -57,6 +57,7 @@ namespace MyGUI::utility
 
 	namespace templates
 	{
+
 		template<typename ReturnType, typename InputType = ReturnType>
 		std::vector<ReturnType> split(const InputType& _source, const InputType& _delims)
 		{
@@ -83,6 +84,7 @@ namespace MyGUI::utility
 
 			return result;
 		}
+
 	} // namespace templates
 
 	std::vector<std::string> split(std::string_view _source, std::string_view _delims)

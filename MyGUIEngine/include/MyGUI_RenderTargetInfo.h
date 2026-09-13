@@ -33,7 +33,6 @@ namespace MyGUI
 		mutable int topOffset{0};
 	};
 
-
 } // namespace MyGUI
 
 #endif // MYGUI_RENDER_TARGET_INFO_H_

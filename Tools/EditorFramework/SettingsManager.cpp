@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(SettingsManager);
 
 	SettingsManager::SettingsManager() :

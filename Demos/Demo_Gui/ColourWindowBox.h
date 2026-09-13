@@ -12,6 +12,7 @@
 
 namespace demo
 {
+
 	class ColourWindowBox : public wraps::BaseItemBox<ColourWindowCellView>
 	{
 	public:

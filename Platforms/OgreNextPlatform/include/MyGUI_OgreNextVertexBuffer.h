@@ -8,6 +8,7 @@
 
 namespace MyGUI
 {
+
 	// v2 vertex buffer for MyGUI. Wraps a single VertexBufferPacked (BT_DYNAMIC_PERSISTENT)
 	// and a VertexArrayObject that binds it as a non-indexed OT_TRIANGLE_LIST.
 	class OgreNextVertexBuffer : public IVertexBuffer

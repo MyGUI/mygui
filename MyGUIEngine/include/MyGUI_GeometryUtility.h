@@ -17,6 +17,7 @@ namespace MyGUI
 
 	namespace geometry_utility
 	{
+
 		VectorFloatPoint cropPolygon(FloatPoint* _baseVerticiesPos, size_t _size, const IntCoord& _cropRectangle);
 
 		enum Side
@@ -42,7 +43,6 @@ namespace MyGUI
 			const FloatPoint& _baseUV);
 
 	} // namespace geometry_utility
-
 } // namespace MyGUI
 
 #endif // MYGUI_GEOMETRY_UTILITY_H_

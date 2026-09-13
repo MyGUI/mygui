@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	void Action::doAction()
 	{
 	}
@@ -31,4 +32,5 @@ namespace tools
 	{
 		return mMerge;
 	}
+
 }

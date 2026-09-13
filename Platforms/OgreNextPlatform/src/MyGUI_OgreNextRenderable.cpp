@@ -4,6 +4,7 @@
 
 namespace MyGUI
 {
+
 	OgreNextRenderable::OgreNextRenderable()
 	{
 		setUseIdentityView(true);

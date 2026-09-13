@@ -7,6 +7,7 @@
 
 namespace MyGUI
 {
+
 	// Registers "mygui" custom compositor passes. Install this as the
 	// CompositorManager2's global pass provider before creating your workspace.
 	class CompositorPassMyGUIProvider final : public Ogre::CompositorPassProvider

@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	class DialogManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DialogManager);

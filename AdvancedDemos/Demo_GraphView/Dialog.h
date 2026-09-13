@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	class Dialog : public wraps::BaseLayout
 	{
 	public:

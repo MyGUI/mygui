@@ -14,6 +14,7 @@
 
 namespace MyGUI
 {
+
 	class ITexture;
 
 	class MYGUI_EXPORT ITextureInvalidateListener

@@ -12,6 +12,7 @@
 
 namespace input
 {
+
 	class InputManager
 	{
 	public:

@@ -10,6 +10,7 @@
 
 namespace
 {
+
 	using unittest::require;
 
 	void checkOpenSubmenu(MyGUI::MenuControl* _menu, MyGUI::MenuItem* _item)
@@ -177,6 +178,7 @@ namespace
 
 		checkPlacement(nullptr, 300, 200, 250, "Top-level menu");
 	}
+
 }
 
 int main()

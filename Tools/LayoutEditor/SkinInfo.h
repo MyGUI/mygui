@@ -5,6 +5,7 @@
 
 namespace tools
 {
+
 	struct SkinInfo
 	{
 		SkinInfo(std::string_view _widget_skin, std::string_view _widget_type, std::string_view _widget_button_name) :

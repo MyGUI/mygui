@@ -29,11 +29,13 @@ namespace MyGUI
 {
 	namespace
 	{
+
 		Ogre::TextureGpuManager* getTextureManager()
 		{
 			Ogre::RenderSystem* rs = Ogre::Root::getSingleton().getRenderSystem();
 			return rs ? rs->getTextureGpuManager() : nullptr;
 		}
+
 	}
 
 	OgreNextTexture::OgreNextTexture(const std::string& _name, const std::string& _group) :

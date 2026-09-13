@@ -13,10 +13,11 @@
 
 namespace MyGUI
 {
-
 	namespace
 	{
+
 		const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
+
 	} // namespace
 
 	VulkanVertexBuffer::VulkanVertexBuffer() = default;

@@ -20,6 +20,7 @@
 
 namespace osg
 {
+
 	class Array;
 	class Camera;
 	class Group;
@@ -29,6 +30,7 @@ namespace osg
 	class StateSet;
 	class Texture2D;
 	class VertexBufferObject;
+
 }
 
 namespace MyGUI

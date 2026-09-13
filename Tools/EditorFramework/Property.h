@@ -14,6 +14,7 @@
 
 namespace tools
 {
+
 	class Data;
 	using DataPtr = std::shared_ptr<Data>;
 

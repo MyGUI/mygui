@@ -18,6 +18,7 @@ struct ID3D11ShaderResourceView;
 
 namespace MyGUI
 {
+
 	class DirectX11RenderManager;
 	class DirectX11RTTexture;
 	struct DirectX11ShaderInfo;

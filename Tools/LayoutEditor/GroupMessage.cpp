@@ -5,6 +5,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(GroupMessage);
 
 	void GroupMessage::initialise()

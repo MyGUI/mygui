@@ -7,6 +7,7 @@
 
 namespace MyGUI
 {
+
 	// v2 Renderable for MyGUI draws. Owns nothing but a MaterialPtr; the VAO
 	// it points at (mVaoPerLod[0]) is borrowed from an OgreNextVertexBuffer
 	// for the duration of a single doRender call.

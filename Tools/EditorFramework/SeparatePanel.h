@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	class SeparatePanel : public Control
 	{
 	public:

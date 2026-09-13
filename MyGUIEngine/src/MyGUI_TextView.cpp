@@ -9,7 +9,6 @@
 
 namespace MyGUI
 {
-
 	namespace
 	{
 

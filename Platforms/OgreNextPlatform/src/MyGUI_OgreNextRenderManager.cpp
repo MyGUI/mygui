@@ -22,6 +22,7 @@
 
 namespace MyGUI
 {
+
 	OgreNextRenderManager& OgreNextRenderManager::getInstance()
 	{
 		return *getInstancePtr();
@@ -344,6 +345,7 @@ namespace MyGUI
 
 	namespace
 	{
+
 		std::string detectShaderLanguage(const std::string& filename)
 		{
 			const auto dot = filename.find_last_of('.');
@@ -392,6 +394,7 @@ namespace MyGUI
 			program->load();
 			return program;
 		}
+
 	}
 
 	void OgreNextRenderManager::registerShader(

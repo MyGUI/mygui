@@ -7,6 +7,7 @@
 
 namespace Ogre
 {
+
 	class CommandBuffer;
 	class CompositorPass;
 	class CompositorPassDef;
@@ -26,10 +27,12 @@ namespace Ogre
 	class VertexBufferPacked;
 	class VaoManager;
 	class Window;
+
 } // namespace Ogre
 
 namespace MyGUI
 {
+
 	class OgreNextManager;
 	class OgreNextRenderable;
 	class OgreNextRenderManager;
@@ -39,6 +42,7 @@ namespace MyGUI
 	class CompositorPassMyGUI;
 	class CompositorPassMyGUIDef;
 	class CompositorPassMyGUIProvider;
+
 } // namespace MyGUI
 
 #endif // MYGUI_OGRE_NEXT_PREREQUISITES_H_

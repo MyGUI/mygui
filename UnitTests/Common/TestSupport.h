@@ -8,6 +8,7 @@
 
 namespace unittest
 {
+
 	void require(bool _condition, std::string_view _message);
 
 	class TestContext
@@ -38,6 +39,7 @@ namespace unittest
 	CountingLayer* createCountingLayer(std::string_view _name, size_t _index);
 	// Loads an XML resource file relative to Media/UnitTests.
 	void loadResources(std::string_view _filename);
+
 }
 
 #endif // MYGUI_UNITTEST_TEST_SUPPORT_H_

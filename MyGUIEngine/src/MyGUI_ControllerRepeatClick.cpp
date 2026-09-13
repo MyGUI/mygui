@@ -40,4 +40,5 @@ namespace MyGUI
 	void ControllerRepeatClick::prepareItem(MyGUI::Widget* _widget)
 	{
 	}
+
 }

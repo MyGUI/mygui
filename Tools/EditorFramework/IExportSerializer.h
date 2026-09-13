@@ -12,12 +12,14 @@
 
 namespace tools
 {
+
 	class MYGUI_EXPORT_DLL IExportSerializer : public components::IFactoryItem
 	{
 	public:
 		virtual void serialization(pugi::xml_document& _doc) = 0;
 		virtual bool deserialization(pugi::xml_document& _doc) = 0;
 	};
+
 }
 
 #endif

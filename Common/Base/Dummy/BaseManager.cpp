@@ -3,6 +3,7 @@
 
 namespace base
 {
+
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		return true;

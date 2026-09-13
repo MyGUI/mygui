@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	MYGUI_SINGLETON_DEFINITION(EditorToolTip);
 
 	EditorToolTip::EditorToolTip() :

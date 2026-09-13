@@ -12,6 +12,7 @@
 
 namespace MyGUI
 {
+
 	class OgreNextTexture : public ITexture
 	{
 	public:

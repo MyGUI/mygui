@@ -39,6 +39,7 @@ namespace MyGUI
 {
 	namespace
 	{
+
 		const Ogre::HlmsCache c_dummyCache(0, Ogre::HLMS_MAX, Ogre::HLMS_CACHE_FLAGS_NONE, Ogre::HlmsPso());
 
 		// A visible=false movable object that we use only so QueuedRenderable has

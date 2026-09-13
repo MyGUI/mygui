@@ -21,6 +21,7 @@
 
 namespace MyGUI
 {
+
 	class OgreNextRenderManager :
 		public RenderManager,
 		public IRenderTarget,

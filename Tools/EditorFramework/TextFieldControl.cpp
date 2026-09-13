@@ -109,4 +109,5 @@ namespace tools
 	{
 		mMainWidget->setCoord(_value);
 	}
+
 }

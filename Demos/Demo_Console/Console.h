@@ -17,6 +17,7 @@ namespace demo
 
 	namespace formates
 	{
+
 		template<typename T>
 		inline std::string format()
 		{
@@ -52,6 +53,7 @@ namespace demo
 				(std::numeric_limits<double>::max)(),
 				" ]");
 		}
+
 	}
 
 	class Console : public wraps::BaseLayout

@@ -8,11 +8,15 @@
 
 namespace osg
 {
+
 	class Group;
+
 }
 namespace osgViewer
 {
+
 	class Viewer;
+
 }
 
 namespace base

@@ -12,6 +12,7 @@
 
 namespace MyGUI
 {
+
 	class Message;
 
 	using EventHandle_MessageBoxPtrMessageStyle = delegates::MultiDelegate<Message*, MessageBoxStyle>;

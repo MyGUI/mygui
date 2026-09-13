@@ -8,6 +8,7 @@
 
 namespace
 {
+
 	using Style = MyGUI::WidgetStyle;
 
 	using unittest::require;
@@ -270,6 +271,7 @@ namespace
 		std::vector<Expected> mExpected;
 		std::unordered_set<MyGUI::Widget*> mLive;
 	};
+
 }
 
 int main()

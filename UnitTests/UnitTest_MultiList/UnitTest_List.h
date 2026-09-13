@@ -12,6 +12,7 @@
 
 namespace unittest
 {
+
 	class UnitTest_List
 	{
 	private:

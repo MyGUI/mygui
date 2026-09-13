@@ -13,6 +13,7 @@
 
 namespace unittest
 {
+
 	class UnitTest_MultiList
 	{
 	private:
