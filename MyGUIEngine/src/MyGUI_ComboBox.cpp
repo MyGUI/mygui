@@ -9,7 +9,6 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_Gui.h"
 #include "MyGUI_ListBox.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
@@ -81,6 +80,10 @@ namespace MyGUI
 
 	void ComboBox::shutdownOverride()
 	{
+		mListShow = false;
+		eventChangeAbsolutePosition -= newDelegate(this, &ComboBox::notifyChangeCoord);
+		eventChangeCoord -= newDelegate(this, &ComboBox::notifyChangeCoord);
+
 		mList = nullptr;
 		mButton = nullptr;
 
@@ -262,6 +265,8 @@ namespace MyGUI
 
 		IntCoord coord = calculateListPosition();
 		mList->setCoord(coord);
+		eventChangeAbsolutePosition += newDelegate(this, &ComboBox::notifyChangeCoord);
+		eventChangeCoord += newDelegate(this, &ComboBox::notifyChangeCoord);
 
 		if (mShowSmooth)
 		{
@@ -287,6 +292,8 @@ namespace MyGUI
 		if (!mListShow)
 			return;
 		mListShow = false;
+		eventChangeAbsolutePosition -= newDelegate(this, &ComboBox::notifyChangeCoord);
+		eventChangeCoord -= newDelegate(this, &ComboBox::notifyChangeCoord);
 
 		if (mShowSmooth)
 		{
@@ -298,6 +305,14 @@ namespace MyGUI
 		{
 			mList->setVisible(false);
 		}
+	}
+
+	void ComboBox::notifyChangeCoord(Widget* _sender)
+	{
+		// Popup coordinates are absolute, so follow movement of the combo box and its parents.
+		IntCoord coord = calculateListPosition();
+		if (mList->getCoord() != coord)
+			mList->setCoord(coord);
 	}
 
 	void ComboBox::setIndexSelected(size_t _index)

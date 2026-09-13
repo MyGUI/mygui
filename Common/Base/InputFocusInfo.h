@@ -8,7 +8,7 @@
 #ifndef INPUT_FOCUS_INFO_H_
 #define INPUT_FOCUS_INFO_H_
 
-#include <MyGUI.h>
+#include "FocusWidgetObserver.h"
 
 namespace diagnostic
 {
@@ -22,7 +22,8 @@ namespace diagnostic
 				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
 			MyGUI::InputManager::getInstance().eventChangeKeyFocus +=
 				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
-			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &InputFocusInfo::notifyFrameStart);
+			mMouseFocus.eventChange += MyGUI::newDelegate(this, &InputFocusInfo::updateFocusWidgetHelpers);
+			mKeyFocus.eventChange += MyGUI::newDelegate(this, &InputFocusInfo::updateFocusWidgetHelpers);
 		}
 
 		~InputFocusInfo()
@@ -31,7 +32,10 @@ namespace diagnostic
 				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeMouseFocus);
 			MyGUI::InputManager::getInstance().eventChangeKeyFocus -=
 				MyGUI::newDelegate(this, &InputFocusInfo::notifyChangeKeyFocus);
-			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &InputFocusInfo::notifyFrameStart);
+			mMouseFocus.eventChange.clear();
+			mKeyFocus.eventChange.clear();
+			mMouseFocus.setWidget(nullptr);
+			mKeyFocus.setWidget(nullptr);
 
 			if (mKeyHelper != nullptr)
 				MyGUI::Gui::getInstance().destroyWidget(mKeyHelper);
@@ -47,125 +51,62 @@ namespace diagnostic
 		void setFocusVisible(bool _value)
 		{
 			mFocusVisible = _value;
-			if (!mFocusVisible)
-			{
-				if (mMouseHelper)
-					mMouseHelper->setVisible(false);
-				if (mKeyHelper)
-					mKeyHelper->setVisible(false);
-			}
+			auto& input = MyGUI::InputManager::getInstance();
+			notifyChangeMouseFocus(input.getMouseFocusWidget());
+			notifyChangeKeyFocus(input.getKeyFocusWidget());
+			updateFocusWidgetHelpers();
 		}
 
 	private:
 		void notifyChangeMouseFocus(MyGUI::Widget* _widget)
 		{
-			if (mFocusVisible)
-			{
-				mWidgetMouseFocus = _widget;
-				updateFocusWidgetHelpers();
-			}
+			mMouseFocus.setWidget(mFocusVisible ? _widget : nullptr);
 		}
 
 		void notifyChangeKeyFocus(MyGUI::Widget* _widget)
 		{
-			if (mFocusVisible)
-			{
-				mWidgetKeyFocus = _widget;
-				updateFocusWidgetHelpers();
-			}
+			mKeyFocus.setWidget(mFocusVisible ? _widget : nullptr);
 		}
 
-		void notifyFrameStart(float _time)
+		void updateHelper(MyGUI::Widget*& _helper, MyGUI::Widget* _focus, std::string_view _skin)
 		{
-			if (mFocusVisible)
-				updateFocusWidgetHelpers(false);
+			if (!mFocusVisible || _focus == nullptr)
+			{
+				if (_helper != nullptr)
+					_helper->setVisible(false);
+				return;
+			}
+
+			if (_helper == nullptr)
+			{
+				if (!MyGUI::LayerManager::getInstance().isExist("Statistic") ||
+					!MyGUI::SkinManager::getInstance().isExist(_skin))
+					return;
+				_helper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
+					_skin,
+					MyGUI::IntCoord(),
+					MyGUI::Align::Default,
+					"Statistic");
+				_helper->setNeedMouseFocus(false);
+			}
+
+			if (_helper->getCoord() != _focus->getAbsoluteCoord())
+				_helper->setCoord(_focus->getAbsoluteCoord());
+			_helper->setVisible(true);
 		}
 
-		void updateFocusWidgetHelpers(bool _updateinfo = true)
+		void updateFocusWidgetHelpers()
 		{
-			const std::string_view layer = "Statistic";
-			const std::string_view skin_mouse = "RectGreen";
-			const std::string_view skin_key = "RectBlue";
-
-			if ((mWidgetMouseFocus != mOldMouseFocus) ||
-				((mWidgetMouseFocus != nullptr) && (mMouseHelper != nullptr) &&
-				 mWidgetMouseFocus->getAbsoluteCoord() != mMouseHelper->getAbsoluteCoord()))
-			{
-				mOldMouseFocus = mWidgetMouseFocus;
-
-				if (mMouseHelper == nullptr)
-				{
-					if (!MyGUI::LayerManager::getInstance().isExist(layer))
-						return;
-					if (!MyGUI::SkinManager::getInstance().isExist(skin_mouse))
-						return;
-					mMouseHelper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
-						skin_mouse,
-						MyGUI::IntCoord(),
-						MyGUI::Align::Default,
-						layer);
-					mMouseHelper->setNeedMouseFocus(false);
-				}
-
-				if (mWidgetMouseFocus)
-				{
-					//if (_updateinfo)
-					//	MyGUI::MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
-					mMouseHelper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
-					mMouseHelper->setVisible(true);
-				}
-				else
-				{
-					//if (_updateinfo)
-					//	MyGUI::MYGUI_OUT("mouse focus : nullptr");
-					mMouseHelper->setVisible(false);
-				}
-			}
-
-			if ((mWidgetKeyFocus != mOldKeyFocus) ||
-				((mWidgetKeyFocus != nullptr) && (mKeyHelper != nullptr) &&
-				 mWidgetKeyFocus->getAbsoluteCoord() != mKeyHelper->getAbsoluteCoord()))
-			{
-				mOldKeyFocus = mWidgetKeyFocus;
-
-				if (mKeyHelper == nullptr)
-				{
-					if (!MyGUI::LayerManager::getInstance().isExist(layer))
-						return;
-					if (!MyGUI::SkinManager::getInstance().isExist(skin_key))
-						return;
-					mKeyHelper = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
-						skin_key,
-						MyGUI::IntCoord(),
-						MyGUI::Align::Default,
-						layer);
-					mKeyHelper->setNeedMouseFocus(false);
-				}
-				if (mWidgetKeyFocus)
-				{
-					//if (_updateinfo)
-					//	MyGUI::MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
-					mKeyHelper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
-					mKeyHelper->setVisible(true);
-				}
-				else
-				{
-					//if (_updateinfo)
-					//	MyGUI::MYGUI_OUT("key focus : nullptr");
-					mKeyHelper->setVisible(false);
-				}
-			}
+			updateHelper(mMouseHelper, mMouseFocus.getWidget(), "RectGreen");
+			updateHelper(mKeyHelper, mKeyFocus.getWidget(), "RectBlue");
 		}
 
 	private:
 		bool mFocusVisible{false};
 		MyGUI::Widget* mMouseHelper{nullptr};
 		MyGUI::Widget* mKeyHelper{nullptr};
-
-		MyGUI::Widget* mWidgetMouseFocus{nullptr};
-		MyGUI::Widget* mWidgetKeyFocus{nullptr};
-		MyGUI::Widget* mOldMouseFocus{nullptr};
-		MyGUI::Widget* mOldKeyFocus{nullptr};
+		FocusWidgetObserver mMouseFocus;
+		FocusWidgetObserver mKeyFocus;
 	};
 
 } // namespace diagnostic

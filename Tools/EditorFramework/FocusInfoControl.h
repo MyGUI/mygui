@@ -9,6 +9,7 @@
 
 #include "Control.h"
 #include "sigslot.h"
+#include "Base/FocusWidgetObserver.h"
 
 namespace tools
 {
@@ -24,14 +25,16 @@ namespace tools
 	private:
 		void Command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
 
-		void notifyFrameStart(float _time);
+		void notifyChangeMouseFocus(MyGUI::Widget* _widget);
+		void notifyChangeKeyFocus(MyGUI::Widget* _widget);
+		void updateFocusWidgets();
 		void updateFocusWidgetHelpers();
 
 	private:
 		MyGUI::Widget* mMouseView{nullptr};
 		MyGUI::Widget* mKeyView{nullptr};
-		MyGUI::IntCoord mKeyCoord;
-		MyGUI::IntCoord mMouseCoord;
+		diagnostic::FocusWidgetObserver mMouseFocus;
+		diagnostic::FocusWidgetObserver mKeyFocus;
 	};
 
 }

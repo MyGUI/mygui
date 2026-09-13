@@ -483,13 +483,8 @@ namespace MyGUI
 
 	void Widget::_updateAbsolutePosition()
 	{
-		const IntPoint position =
-			mCroppedParent ? mCroppedParent->getAbsolutePosition() + mCoord.point() : mCoord.point();
-		if (position != mAbsolutePosition)
-		{
-			AbsolutePositionUpdate::record(this);
-			mAbsolutePosition = position;
-		}
+		const IntPoint oldPosition = mAbsolutePosition;
+		mAbsolutePosition = mCroppedParent ? mCroppedParent->getAbsolutePosition() + mCoord.point() : mCoord.point();
 
 		for (auto& widget : mWidgetChild)
 			if (widget->mCroppedParent != nullptr)
@@ -499,6 +494,9 @@ namespace MyGUI
 				widget->_updateAbsolutePosition();
 
 		_correctSkinItemView();
+
+		if (mAbsolutePosition != oldPosition)
+			eventChangeAbsolutePosition(this);
 	}
 
 	void Widget::_forcePick(Widget* _widget)
@@ -620,14 +618,6 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord& _coord)
 	{
-		// update absolute coordinates
-		mAbsolutePosition += _coord.point() - mCoord.point();
-
-		for (auto& widget : mWidgetChild)
-			widget->_updateAbsolutePoint();
-		for (auto& widget : mWidgetChildSkin)
-			widget->_updateAbsolutePoint();
-
 		// set new coordinate, use old one in calculations
 		IntCoord old = mCoord;
 		mCoord = _coord;
@@ -807,10 +797,7 @@ namespace MyGUI
 		if (nullptr == getParent())
 			return;
 
-		Widget* parent = mParent;
-
-		detachFromWidget();
-		attachToWidget(parent, _style, _layer);
+		attachToWidget(mParent, _style, _layer);
 		// find layer to which we are attached
 	}
 

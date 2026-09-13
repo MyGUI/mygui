@@ -292,6 +292,8 @@ namespace MyGUI
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus) const;
 		void notifyMouseButtonClick(Widget* _sender);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
+		void notifyChangeCoord(Widget* _sender);
+		void updateSubmenuPosition(size_t _index);
 
 		const std::string& getSkinByType(MenuItemType _type) const;
 		std::string_view getIconIndexByType(MenuItemType _type) const;

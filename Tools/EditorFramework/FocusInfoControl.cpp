@@ -14,7 +14,10 @@ namespace tools
 
 	FocusInfoControl::~FocusInfoControl()
 	{
-		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &FocusInfoControl::notifyFrameStart);
+		MyGUI::InputManager::getInstance().eventChangeMouseFocus -=
+			MyGUI::newDelegate(this, &FocusInfoControl::notifyChangeMouseFocus);
+		MyGUI::InputManager::getInstance().eventChangeKeyFocus -=
+			MyGUI::newDelegate(this, &FocusInfoControl::notifyChangeKeyFocus);
 	}
 
 	void FocusInfoControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
@@ -23,6 +26,8 @@ namespace tools
 
 		assignWidget(mMouseView, "MouseView");
 		assignWidget(mKeyView, "KeyView");
+		mMouseView->setNeedMouseFocus(false);
+		mKeyView->setNeedMouseFocus(false);
 
 		mMouseView->setVisible(false);
 		mMouseView->setCoord(MyGUI::IntCoord());
@@ -35,7 +40,13 @@ namespace tools
 
 		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/FocusInfoControl/Visible"));
 
-		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &FocusInfoControl::notifyFrameStart);
+		MyGUI::InputManager::getInstance().eventChangeMouseFocus +=
+			MyGUI::newDelegate(this, &FocusInfoControl::notifyChangeMouseFocus);
+		MyGUI::InputManager::getInstance().eventChangeKeyFocus +=
+			MyGUI::newDelegate(this, &FocusInfoControl::notifyChangeKeyFocus);
+		mMouseFocus.eventChange += MyGUI::newDelegate(this, &FocusInfoControl::updateFocusWidgetHelpers);
+		mKeyFocus.eventChange += MyGUI::newDelegate(this, &FocusInfoControl::updateFocusWidgetHelpers);
+		updateFocusWidgets();
 	}
 
 	void FocusInfoControl::Command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
@@ -43,59 +54,47 @@ namespace tools
 		getRoot()->setVisible(!getRoot()->getVisible());
 		SettingsManager::getInstance().setValue("Controls/FocusInfoControl/Visible", getRoot()->getVisible());
 
-		mMouseView->setVisible(false);
-		mKeyView->setVisible(false);
+		updateFocusWidgets();
 
 		_result = true;
 	}
 
-	void FocusInfoControl::notifyFrameStart(float _time)
+	void FocusInfoControl::notifyChangeMouseFocus(MyGUI::Widget* _widget)
 	{
-		if (getRoot()->getVisible())
-			updateFocusWidgetHelpers();
+		mMouseFocus.setWidget(getRoot()->getVisible() ? _widget : nullptr);
+	}
+
+	void FocusInfoControl::notifyChangeKeyFocus(MyGUI::Widget* _widget)
+	{
+		mKeyFocus.setWidget(getRoot()->getVisible() ? _widget : nullptr);
+	}
+
+	void FocusInfoControl::updateFocusWidgets()
+	{
+		auto& input = MyGUI::InputManager::getInstance();
+		notifyChangeMouseFocus(input.getMouseFocusWidget());
+		notifyChangeKeyFocus(input.getKeyFocusWidget());
+		updateFocusWidgetHelpers();
 	}
 
 	void FocusInfoControl::updateFocusWidgetHelpers()
 	{
-		MyGUI::InputManager* input = MyGUI::InputManager::getInstancePtr();
-		if (input == nullptr)
-			return;
+		MyGUI::Widget* mouse = mMouseFocus.getWidget();
+		mMouseView->setVisible(getRoot()->getVisible() && mouse != nullptr);
+		if (mouse != nullptr && mMouseView->getCoord() != mouse->getAbsoluteCoord())
+			mMouseView->setCoord(mouse->getAbsoluteCoord());
 
-		MyGUI::Widget* mouse = input->getMouseFocusWidget();
-		if (mouse != nullptr)
-		{
-			if (!mMouseView->getVisible())
-				mMouseView->setVisible(true);
-
-			if (mouse->getAbsoluteCoord() != mMouseCoord)
-			{
-				mMouseCoord = mouse->getAbsoluteCoord();
-				mMouseView->setCoord(mMouseCoord);
-			}
-		}
-		else
-		{
-			if (mMouseView->getVisible())
-				mMouseView->setVisible(false);
-		}
-
-
-		MyGUI::Widget* key = input->getKeyFocusWidget();
+		MyGUI::Widget* key = mKeyFocus.getWidget();
+		mKeyView->setVisible(getRoot()->getVisible() && key != nullptr);
 		if (key != nullptr)
 		{
-			if (!mKeyView->getVisible())
-				mKeyView->setVisible(true);
-
-			if (key->getAbsoluteCoord() != mKeyCoord)
-			{
-				mKeyCoord = key->getAbsoluteCoord();
-				mKeyView->setCoord(mKeyCoord.left - 1, mKeyCoord.top - 1, mKeyCoord.width + 2, mKeyCoord.height + 2);
-			}
-		}
-		else
-		{
-			if (mKeyView->getVisible())
-				mKeyView->setVisible(false);
+			MyGUI::IntCoord coord = key->getAbsoluteCoord();
+			coord.left -= 1;
+			coord.top -= 1;
+			coord.width += 2;
+			coord.height += 2;
+			if (mKeyView->getCoord() != coord)
+				mKeyView->setCoord(coord);
 		}
 	}
 }

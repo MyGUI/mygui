@@ -71,11 +71,15 @@ namespace MyGUI
 
 		// FIXME added because shutdown is also called on skin change
 		mShutdown = false;
+		eventChangeAbsolutePosition += newDelegate(this, &MenuControl::notifyChangeCoord);
+		eventChangeCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
 	}
 
 	void MenuControl::shutdownOverride()
 	{
 		mShutdown = true;
+		eventChangeAbsolutePosition -= newDelegate(this, &MenuControl::notifyChangeCoord);
+		eventChangeCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
 
 		if (mOwner != nullptr)
 			mOwner->getMenuCtrlParent()->_notifyDeletePopup(mOwner);
@@ -253,6 +257,8 @@ namespace MyGUI
 	void MenuControl::_notifyDeletePopup(MenuItem* _item)
 	{
 		size_t index = getItemIndex(_item);
+		if (mItemsInfo[index].submenu != nullptr)
+			mItemsInfo[index].submenu->eventChangeCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
 		mItemsInfo[index].submenu = nullptr;
 	}
 
@@ -329,42 +335,8 @@ namespace MyGUI
 		{
 			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount())
 			{
-				int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
-
-				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
-				IntPoint point(getAbsoluteRect().right, coord.top - offset);
-
+				updateSubmenuPosition(_index);
 				MenuControl* menu = mItemsInfo[_index].submenu;
-
-				if (mVerticalAlignment)
-				{
-					// too wide
-					if (point.left + menu->getWidth() > menu->getParentSize().width)
-					{
-						// move to the left side if possible
-						if (point.left - menu->getWidth() - getWidth() >= 0)
-							point.left -= menu->getWidth() + getWidth();
-						// or put near right parent border (window) if too wide for left side too
-						else
-							point.left = menu->getParentSize().width - menu->getWidth();
-					}
-					// too high
-					if (point.top + menu->getHeight() > menu->getParentSize().height)
-					{
-						// move to the top side if possible
-						if (getBottom() - menu->getHeight() >= 0)
-							point.top = getBottom() - menu->getHeight();
-						// or put near bottom parent border (window) if too high for top side too
-						else
-							point.top = menu->getParentSize().height - menu->getHeight();
-					}
-				}
-				else
-				{
-					point.set(coord.left, getAbsoluteRect().bottom);
-				}
-
-				menu->setPosition(point);
 				if (_smooth)
 					menu->setVisibleSmooth(true);
 				else
@@ -382,6 +354,60 @@ namespace MyGUI
 				else
 					mItemsInfo[_index].submenu->setVisible(false);
 			}
+		}
+	}
+
+	void MenuControl::updateSubmenuPosition(size_t _index)
+	{
+		int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
+
+		const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
+		IntPoint point(getAbsoluteRect().right, coord.top - offset);
+
+		MenuControl* menu = mItemsInfo[_index].submenu;
+
+		if (mVerticalAlignment)
+		{
+			// too wide
+			if (point.left + menu->getWidth() > menu->getParentSize().width)
+			{
+				// move to the left side if possible
+				if (point.left - menu->getWidth() - getWidth() >= 0)
+					point.left -= menu->getWidth() + getWidth();
+				// or put near right parent border (window) if too wide for left side too
+				else
+					point.left = menu->getParentSize().width - menu->getWidth();
+			}
+			// too high
+			if (point.top + menu->getHeight() > menu->getParentSize().height)
+			{
+				// move to the top side if possible
+				if (getAbsoluteRect().bottom - menu->getHeight() >= 0)
+					point.top = getAbsoluteRect().bottom - menu->getHeight();
+				// or put near bottom parent border (window) if too high for top side too
+				else
+					point.top = menu->getParentSize().height - menu->getHeight();
+			}
+		}
+		else
+		{
+			point.set(coord.left, getAbsoluteRect().bottom);
+		}
+
+		if (menu->getPosition() != point)
+			menu->setPosition(point);
+	}
+
+	void MenuControl::notifyChangeCoord(Widget* _sender)
+	{
+		if (mShutdown)
+			return;
+
+		for (size_t index = 0; index < mItemsInfo.size(); ++index)
+		{
+			MenuControl* menu = mItemsInfo[index].submenu;
+			if (menu != nullptr && menu->getVisible())
+				updateSubmenuPosition(index);
 		}
 	}
 
@@ -487,6 +513,7 @@ namespace MyGUI
 		}
 		mItemsInfo[index].submenu = _widget;
 		mItemsInfo[index].submenu->setVisible(false);
+		mItemsInfo[index].submenu->eventChangeCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
 
 		update();
 	}
@@ -511,6 +538,8 @@ namespace MyGUI
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, std::move(info));
+		_item->eventChangeAbsolutePosition += newDelegate(this, &MenuControl::notifyChangeCoord);
+		_item->eventChangeCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
 
 		mChangeChildSkin = true;
 		_item->changeWidgetSkin(getSkinByType(_type));
