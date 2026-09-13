@@ -331,7 +331,7 @@ namespace MyGUI
 
 		/** Event : Widget absolute position changed, including movement inherited from an ancestor.\n
 			Emitted during position updates, only when the absolute position changes.\n
-			Alignment and reparenting may emit intermediate position changes.\n
+			Alignment may emit intermediate position changes; reparenting uses the final parent.\n
 			signature : void method(MyGUI::Widget* _sender)
 			@param _sender widget whose absolute position changed
 		*/
@@ -446,6 +446,8 @@ namespace MyGUI
 
 		void _updateAlpha();
 		void _updateAbsolutePosition();
+		// Detach hierarchy and layers without updating geometry
+		void _detachFromWidget(std::string_view _layer);
 
 		void _updateVisible();
 

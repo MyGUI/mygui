@@ -658,12 +658,19 @@ namespace MyGUI
 
 	void Widget::detachFromWidget(std::string_view _layer)
 	{
+		_detachFromWidget(_layer);
+		_updateAlpha();
+		_updateAbsolutePosition();
+		_updateView();
+	}
+
+	void Widget::_detachFromWidget(std::string_view _layer)
+	{
 		std::string_view oldlayer;
 		if (getLayer())
 			oldlayer = getLayer()->getName();
 
-		Widget* parent = getParent();
-		if (parent)
+		if (mParent != nullptr)
 		{
 			// detach from layers
 			if (!isRootWidget())
@@ -683,17 +690,9 @@ namespace MyGUI
 
 				mCroppedParent = nullptr;
 
-				_updateAbsolutePosition();
-
 				// reset clipping
 				mMargin.clear();
-
-				_updateView();
 			}
-
-			// we need the most root parent
-			while (parent->getParent())
-				parent = parent->getParent();
 
 			Gui::getInstance()._linkChildWidget(this);
 			mParent->_unlinkChildWidget(this);
@@ -708,8 +707,6 @@ namespace MyGUI
 		{
 			LayerManager::getInstance().attachToLayerNode(oldlayer, this);
 		}
-
-		_updateAlpha();
 	}
 
 	void Widget::attachToWidget(Widget* _parent, WidgetStyle _style, std::string_view _layer)
@@ -728,7 +725,7 @@ namespace MyGUI
 			parent = parent->getParent();
 		}
 
-		detachFromWidget();
+		_detachFromWidget({});
 
 		mWidgetStyle = _style;
 
@@ -763,9 +760,6 @@ namespace MyGUI
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = _parent;
-			_updateAbsolutePosition();
-
-			_updateView();
 		}
 		else if (_style == WidgetStyle::Overlapped)
 		{
@@ -780,14 +774,13 @@ namespace MyGUI
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = _parent;
-			_updateAbsolutePosition();
 
 			mParent->addChildNode(this);
-
-			_updateView();
 		}
 
 		_updateAlpha();
+		_updateAbsolutePosition();
+		_updateView();
 	}
 
 	void Widget::setWidgetStyle(WidgetStyle _style, std::string_view _layer)
