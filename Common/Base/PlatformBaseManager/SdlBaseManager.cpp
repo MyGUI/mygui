@@ -69,13 +69,12 @@ namespace base
 		int left = (currDisp.w - _width) / 2;
 		int top = (currDisp.h - _height) / 2;
 
-		mSdlWindow = SDL_CreateWindow(
-			"MyGUI Render Window",
-			left,
-			top,
-			width,
-			height,
-			mWindowFlags | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+		uint32_t windowFlags = mWindowFlags | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
+		// Screenshot references use one drawable pixel per logical coordinate, including on Retina displays.
+		if (isScreenShotMode())
+			windowFlags &= ~SDL_WINDOW_ALLOW_HIGHDPI;
+
+		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, windowFlags);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
