@@ -32,10 +32,12 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
     Fonts are re-rasterized at the scaled size, so they remain pixel-perfect.
   - To enable high DPI in your SDL application:
     1. On Windows, call `SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)` before creating the window
-    2. Detect the display DPI with `SDL_GetDisplayDPI()` and compute `dpiScale = ddpi / 96.0f`
-    3. Call `MyGUI::Gui::getInstance().setDpiScale(dpiScale)` before `initialise()`
-    4. Create the SDL window with `SDL_WINDOW_ALLOW_HIGHDPI`
-    5. On window resize, divide pixel dimensions by `dpiScale` before passing to `setViewSize()`
+    2. Create the SDL window with `SDL_WINDOW_ALLOW_HIGHDPI` and initialize the rendering context
+    3. Compute `dpiScale`: Windows uses `SDL_GetDisplayDPI() / 96.0f`; macOS uses
+       pixel width (`SDL_GetWindowSizeInPixels()`) divided by window width (`SDL_GetWindowSize()`)
+    4. Call `Gui::setDpiScale(dpiScale)` before `Gui::initialise()`
+    5. Divide SDL window sizes and mouse coordinates by `dpiScale` on Windows; keep them unchanged on macOS.
+       Use these logical dimensions for `setViewSize()` and drawable pixels for the rendering viewport.
 - **Localization:** built-in language string management
 - **Animation:** configurable widget controllers for fades, slides, and more
 

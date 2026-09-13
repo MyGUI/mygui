@@ -22,8 +22,8 @@ namespace base
 
 	void SdlBaseManager::_windowResized(int w, int h)
 	{
-		int scaledW = static_cast<int>(w / mDpiScale);
-		int scaledH = static_cast<int>(h / mDpiScale);
+		int scaledW = static_cast<int>(w / mWindowScale);
+		int scaledH = static_cast<int>(h / mWindowScale);
 
 		if (mPlatformReady)
 			MyGUI::RenderManager::getInstance().setViewSize(scaledW, scaledH);
@@ -41,28 +41,22 @@ namespace base
 			exit(1);
 		}
 
+		float dpiScale = 1.0f;
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
-		if (isScreenShotMode())
-		{
-			// Skip DPI scaling while rendering for the screenshot comparison.
-			mDpiScale = 1.0f;
-		}
-		else
+		// Skip DPI scaling while rendering for the screenshot comparison.
+		if (!isScreenShotMode())
 		{
 			float ddpi;
 			if (SDL_GetDisplayDPI(0, &ddpi, nullptr, nullptr) == 0 && ddpi > 0)
-				mDpiScale = ddpi / 96.0f;
-			else
-				mDpiScale = 1.0f;
+				dpiScale = ddpi / 96.0f;
 		}
-#else
-		mDpiScale = 1.0f;
 #endif
-		setDpiScale(mDpiScale);
+		mWindowScale = dpiScale;
+		setDpiScale(mWindowScale);
 
-		const int width = static_cast<int>(_width * mDpiScale);
-		const int height = static_cast<int>(_height * mDpiScale);
+		const int width = static_cast<int>(_width * mWindowScale);
+		const int height = static_cast<int>(_height * mWindowScale);
 		bool windowed = true;
 
 		// create window and position it at the center of the screen
@@ -119,18 +113,28 @@ namespace base
 		{
 			return false;
 		}
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		// Retina scales the drawable, while SDL window and mouse coordinates remain in points.
+		// Query after creating the rendering context, before Gui initialises its font resources.
+		int windowWidth = 0;
+		int drawableWidth = 0;
+		SDL_GetWindowSize(mSdlWindow, &windowWidth, nullptr);
+		SDL_GetWindowSizeInPixels(mSdlWindow, &drawableWidth, nullptr);
+		if (windowWidth > 0 && drawableWidth > 0)
+			dpiScale = static_cast<float>(drawableWidth) / windowWidth;
+#endif
 #ifndef __EMSCRIPTEN__
 		SDL_GL_SetSwapInterval(mEnableVSync ? 1 : 0);
 #endif
 
 		createGuiPlatform();
 		mPlatformReady = true;
-		createGui();
+		createGui(dpiScale);
 		createInput();
 		createPointerManager();
 
-		if (mDpiScale != 1.0f)
-			MYGUI_LOG(Info, "Using DPI scale: " << mDpiScale);
+		if (dpiScale != 1.0f)
+			MYGUI_LOG(Info, "Using DPI scale: " << dpiScale);
 
 		// this needs to be called before createScene() since some demos require
 		// screen size to properly position the widgets
@@ -287,10 +291,10 @@ namespace base
 		return statistics;
 	}
 
-	void SdlBaseManager::createGui()
+	void SdlBaseManager::createGui(float _dpiScale)
 	{
 		mGUI = new MyGUI::Gui();
-		mGUI->setDpiScale(mDpiScale);
+		mGUI->setDpiScale(_dpiScale);
 		mGUI->initialise(mResourceFileName);
 
 		SDL_StartTextInput();

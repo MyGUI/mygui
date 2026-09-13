@@ -68,7 +68,7 @@ namespace base
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 		void injectKeyRelease(MyGUI::KeyCode _key) override;
 
-		virtual void createGui();
+		virtual void createGui(float _dpiScale);
 		virtual void destroyGui();
 
 		virtual void setWindowMaximized(bool _value);
@@ -82,7 +82,8 @@ namespace base
 	protected:
 		SDL_Window* mSdlWindow = nullptr;
 		bool mEnableVSync = false;
-		float mDpiScale = 1.0f;
+		// SDL window and mouse coordinates may already be logical points (macOS).
+		float mWindowScale = 1.0f;
 		bool mScreenShotRequested = false;
 		std::string mScreenShotFile;
 		bool mScreenShotExit = false;

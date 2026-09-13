@@ -52,9 +52,9 @@ namespace base
 		}
 
 	protected:
-		void createGui() override
+		void createGui(float _dpiScale) override
 		{
-			BaseManager::createGui();
+			BaseManager::createGui(_dpiScale);
 
 			mInfo = new diagnostic::StatisticInfo();
 			mFocusInfo = new diagnostic::InputFocusInfo();
