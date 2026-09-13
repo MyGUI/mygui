@@ -37,8 +37,7 @@ namespace diagnostic
 			mWidget = _widget;
 			if (mWidget != nullptr)
 			{
-				mWidget->eventChangeAbsolutePosition += MyGUI::newDelegate(this, &FocusWidgetObserver::notifyCoord);
-				mWidget->eventChangeCoord += MyGUI::newDelegate(this, &FocusWidgetObserver::notifyCoord);
+				mWidget->eventChangeAbsoluteCoord += MyGUI::newDelegate(this, &FocusWidgetObserver::notifyCoord);
 				mWidget->eventWidgetDestroyed += MyGUI::newDelegate(this, &FocusWidgetObserver::notifyDestroyed);
 			}
 			eventChange();
@@ -51,8 +50,7 @@ namespace diagnostic
 		{
 			if (mWidget != nullptr)
 			{
-				mWidget->eventChangeAbsolutePosition -= MyGUI::newDelegate(this, &FocusWidgetObserver::notifyCoord);
-				mWidget->eventChangeCoord -= MyGUI::newDelegate(this, &FocusWidgetObserver::notifyCoord);
+				mWidget->eventChangeAbsoluteCoord -= MyGUI::newDelegate(this, &FocusWidgetObserver::notifyCoord);
 				mWidget->eventWidgetDestroyed -= MyGUI::newDelegate(this, &FocusWidgetObserver::notifyDestroyed);
 			}
 		}

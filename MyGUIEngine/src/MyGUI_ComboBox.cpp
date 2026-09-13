@@ -81,8 +81,7 @@ namespace MyGUI
 	void ComboBox::shutdownOverride()
 	{
 		mListShow = false;
-		eventChangeAbsolutePosition -= newDelegate(this, &ComboBox::notifyChangeCoord);
-		eventChangeCoord -= newDelegate(this, &ComboBox::notifyChangeCoord);
+		eventChangeAbsoluteCoord -= newDelegate(this, &ComboBox::notifyChangeCoord);
 
 		mList = nullptr;
 		mButton = nullptr;
@@ -265,8 +264,7 @@ namespace MyGUI
 
 		IntCoord coord = calculateListPosition();
 		mList->setCoord(coord);
-		eventChangeAbsolutePosition += newDelegate(this, &ComboBox::notifyChangeCoord);
-		eventChangeCoord += newDelegate(this, &ComboBox::notifyChangeCoord);
+		eventChangeAbsoluteCoord += newDelegate(this, &ComboBox::notifyChangeCoord);
 
 		if (mShowSmooth)
 		{
@@ -292,8 +290,7 @@ namespace MyGUI
 		if (!mListShow)
 			return;
 		mListShow = false;
-		eventChangeAbsolutePosition -= newDelegate(this, &ComboBox::notifyChangeCoord);
-		eventChangeCoord -= newDelegate(this, &ComboBox::notifyChangeCoord);
+		eventChangeAbsoluteCoord -= newDelegate(this, &ComboBox::notifyChangeCoord);
 
 		if (mShowSmooth)
 		{

@@ -329,12 +329,12 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetVoid eventChangeCoord;
 
-		/** Event : Widget absolute position changed, including movement inherited from an ancestor.\n
-			Emitted during position updates, only when the absolute position changes.\n
+		/** Event : Widget absolute coordinates changed, including resizing and movement inherited from an ancestor.\n
+			Emitted when an update changes the absolute position or size.\n
 			signature : void method(MyGUI::Widget* _sender)
-			@param _sender widget whose absolute position changed
+			@param _sender widget whose absolute coordinates changed
 		*/
-		EventHandle_WidgetVoid eventChangeAbsolutePosition;
+		EventHandle_WidgetVoid eventChangeAbsoluteCoord;
 
 		/** Event : Widget is about to be destroyed, but its content is valid at this point.\n
             signature : void method(MyGUI::Widget* _sender)

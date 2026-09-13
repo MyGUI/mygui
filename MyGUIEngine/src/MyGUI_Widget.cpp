@@ -499,8 +499,8 @@ namespace MyGUI
 
 		_correctSkinItemView();
 
-		if (mAbsolutePosition != oldPosition)
-			eventChangeAbsolutePosition(this);
+		if (mAbsolutePosition != oldPosition || (_oldSize != nullptr && getSize() != *_oldSize))
+			eventChangeAbsoluteCoord(this);
 	}
 
 	void Widget::_forcePick(Widget* _widget)

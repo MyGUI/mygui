@@ -71,15 +71,13 @@ namespace MyGUI
 
 		// FIXME added because shutdown is also called on skin change
 		mShutdown = false;
-		eventChangeAbsolutePosition += newDelegate(this, &MenuControl::notifyChangeCoord);
-		eventChangeCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
+		eventChangeAbsoluteCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
 	}
 
 	void MenuControl::shutdownOverride()
 	{
 		mShutdown = true;
-		eventChangeAbsolutePosition -= newDelegate(this, &MenuControl::notifyChangeCoord);
-		eventChangeCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
+		eventChangeAbsoluteCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
 
 		if (mOwner != nullptr)
 			mOwner->getMenuCtrlParent()->_notifyDeletePopup(mOwner);
@@ -258,7 +256,7 @@ namespace MyGUI
 	{
 		size_t index = getItemIndex(_item);
 		if (mItemsInfo[index].submenu != nullptr)
-			mItemsInfo[index].submenu->eventChangeCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
+			mItemsInfo[index].submenu->eventChangeAbsoluteCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
 		mItemsInfo[index].submenu = nullptr;
 	}
 
@@ -513,7 +511,7 @@ namespace MyGUI
 		}
 		mItemsInfo[index].submenu = _widget;
 		mItemsInfo[index].submenu->setVisible(false);
-		mItemsInfo[index].submenu->eventChangeCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
+		mItemsInfo[index].submenu->eventChangeAbsoluteCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
 
 		update();
 	}
@@ -538,8 +536,7 @@ namespace MyGUI
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, std::move(info));
-		_item->eventChangeAbsolutePosition += newDelegate(this, &MenuControl::notifyChangeCoord);
-		_item->eventChangeCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
+		_item->eventChangeAbsoluteCoord += newDelegate(this, &MenuControl::notifyChangeCoord);
 
 		mChangeChildSkin = true;
 		_item->changeWidgetSkin(getSkinByType(_type));
@@ -904,6 +901,8 @@ namespace MyGUI
 		mVerticalAlignment = _value;
 
 		update();
+		// Orientation affects submenu placement even when widget coordinates stay the same.
+		notifyChangeCoord(this);
 	}
 
 	bool MenuControl::getVerticalAlignment() const
