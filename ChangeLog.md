@@ -24,15 +24,19 @@
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays
 - Make all custom RTTLayer implementations respect DPI scale
-- Fix unreachable code in UnitTest_GraphView and deprecated skin usage in its resources
+- Fix unreachable code in Demo_GraphView and deprecated skin usage in its resources
+- Move interactive tests to AdvancedDemos as Demo_<Feature>, controlled by MYGUI_BUILD_ADVANCED_DEMOS (ON by default)
 
 ### Tools
 - Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool
 
 ### Infrastructure
-- Implement --screenshot CLI option for demos, tools and unit tests to save a screenshot and exit
-- Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools/unit tests against committed
+- Implement --screenshot CLI option for demos and tools to save a screenshot and exit
+- Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools against committed
   references (with tolerance for comparing e.g. DirectX vs OpenGL)
+- Keep only automated tests in UnitTests; convert AttachDetach and MultiList into finite headless tests
+- Share test setup, assertions, and resource loading in UnitTests/Common
+- Run unit tests with CTest in native GitHub CI builds
 - Make time-based updates deterministic in screenshot mode for reproducible screenshots
 - Use OgreNext CMake package config instead of PkgConfig
 - Fix Emscripten build

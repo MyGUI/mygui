@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="TestScrollView" size="300 300">
+		<Child type="Widget" name="Client" skin="Default"
+			offset="0 0 300 300" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="TestComboBox" size="120 24">
+		<Child type="ListBox" name="List" skin="TestListBox" style="Popup"
+			offset="0 0 120 60" align="Default" layer="Popup"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="TestListBox" size="120 60">
+		<Property key="HeightLine" value="20"/>
+	</Resource>
+</MyGUI>

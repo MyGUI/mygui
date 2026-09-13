@@ -14,7 +14,6 @@
 	#define WIN32_LEAN_AND_MEAN
 	#include <windows.h>
 	#include <direct.h>
-	#include <cstdlib>
 #endif
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

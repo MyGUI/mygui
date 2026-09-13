@@ -104,6 +104,8 @@ endfunction(mygui_tool)
 
 function(mygui_unit_test PROJECTNAME)
 	mygui_app(${PROJECTNAME} UnitTest)
+	set_target_properties(${PROJECTNAME} PROPERTIES WIN32_EXECUTABLE FALSE)
+	target_link_libraries(${PROJECTNAME} PRIVATE MyGUIUnitTestCommon)
 
 	# Register the unit test with CTest when unit tests are enabled
 	# This allows running tests via 'ctest' or 'make check'

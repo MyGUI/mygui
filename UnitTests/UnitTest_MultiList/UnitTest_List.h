@@ -7,8 +7,7 @@
 #define UNITTEST_LIST_H_
 
 #include "MyGUI.h"
-#include <cstdlib>
-#include <stdexcept>
+#include "TestSupport.h"
 #include "Mirror_List.h"
 
 namespace unittest
@@ -22,8 +21,7 @@ namespace unittest
 
 		void Assert(bool _expression)
 		{
-			if (!_expression)
-				throw std::runtime_error("ListBox differs from reference list");
+			require(_expression, "ListBox differs from reference list");
 		}
 
 	public:

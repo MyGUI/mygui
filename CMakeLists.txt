@@ -161,9 +161,8 @@ if(MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TEST_APP)
 endif()
 
 if(MYGUI_BUILD_UNITTESTS)
-	 enable_testing()
-	# TODO
-	# add_subdirectory(UnitTests)
+	enable_testing()
+	add_subdirectory(UnitTests)
 endif()
 
 if(MYGUI_BUILD_WRAPPER)

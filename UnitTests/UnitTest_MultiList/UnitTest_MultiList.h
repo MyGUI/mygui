@@ -7,8 +7,7 @@
 #define UNITTEST_MULTILIST_H_
 
 #include "MyGUI.h"
-#include <cstdlib>
-#include <stdexcept>
+#include "TestSupport.h"
 #include "Mirror_MultiList.h"
 #include "BiIndexData.h"
 
@@ -25,10 +24,7 @@ namespace unittest
 
 		void Assert(bool _expression)
 		{
-			if (!_expression)
-			{
-				throw std::runtime_error("MultiListBox differs from reference list");
-			}
+			require(_expression, "MultiListBox differs from reference list");
 		}
 
 	public:

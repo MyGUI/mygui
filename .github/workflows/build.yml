@@ -77,9 +77,13 @@ jobs:
           -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem }}
           ${{ matrix.rendersystems && format('-DMYGUI_BUILD_RENDERSYSTEMS="{0}"', matrix.rendersystems) || '' }}
           ${{ matrix.cmake_flags }}
+          -DMYGUI_BUILD_UNITTESTS=ON
 
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel ${{ matrix.build_jobs || '' }}
+
+      - name: Run unit tests
+        run: ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 5
 
       - name: Install
         if: runner.os == 'Linux'

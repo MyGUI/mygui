@@ -127,6 +127,10 @@ MyGUI ships with several visual editors under `Tools/`:
 - **FontConverter** — headless CLI tool that converts a `ResourceTrueTypeFont` XML into a `ResourceManualFont` XML + PNG
   atlas pair. Useful for re-baking fonts from source without launching a GUI editor.
 
+## Tests
+
+Run tests with `ctest --test-dir build -C RelWithDebInfo --output-on-failure` (use your build configuration).
+
 ## Documentation
 
 - Website: http://mygui.info/
