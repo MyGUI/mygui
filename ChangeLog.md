@@ -6,6 +6,10 @@
   textures not being recreated after renderer reinitialization
 - Fix out-of-bounds reads in TextIterator when text ends with an unescaped '#'
 - Fix hovering over an inactive MenuBar stealing keyboard focus from other widgets (#282)
+- Add Widget::eventChangeAbsoluteCoord for absolute position or size changes, including ancestor movement, alignment and
+  reparenting
+- Fix ComboBox drop-downs and MenuControl submenus not following ancestor movement
+- Fix ComboBox shutdown crash when destroying a focused drop-down
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
@@ -17,6 +21,7 @@
 
 ### Demos
 - Handle SDL_QUIT in apps
+- Fix DPI scaling in demos and tools on macOS Retina displays
 - Make all custom RTTLayer implementations respect DPI scale
 - Fix unreachable code in UnitTest_GraphView and deprecated skin usage in its resources
 
