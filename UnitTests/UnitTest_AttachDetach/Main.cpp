@@ -144,12 +144,22 @@ namespace
 			auto* first = create(nullptr, Style::Overlapped, "Main");
 			auto* second = create(nullptr, Style::Overlapped, "Overlapped");
 			auto* child = create(first, Style::Child, "");
-			create(child, Style::Overlapped, "");
+			auto* overlapped = create(child, Style::Overlapped, "");
 			create(child, Style::Popup, "Popup");
 			attach(child, second, Style::Child);
 			// Reordering child drawing must retain the existing overlapped descendant nodes.
+			auto* parentNode = second->getLayerNode();
+			auto* childNode = child->getLayerNode();
+			auto* overlappedNode = overlapped->getLayerNode();
+			const auto nodesBefore = layerNodes();
 			child->setDepth(1);
 			check();
+			require(second->getLayerNode() == parentNode, "Changing depth must retain the parent's node");
+			require(child->getLayerNode() == childNode, "Changing depth must retain the child's node");
+			require(
+				overlapped->getLayerNode() == overlappedNode,
+				"Changing depth must retain overlapped descendant nodes");
+			require(layerNodes() == nodesBefore, "Changing depth must not create or remove layer nodes");
 			destroy(first); // The reparented subtree must survive its former parent's destruction.
 			changeStyle(child, Style::Overlapped);
 			changeStyle(child, Style::Popup);
@@ -206,6 +216,25 @@ namespace
 		}
 
 	private:
+		static void collectNodes(MyGUI::ILayerNode* _node, std::vector<MyGUI::ILayerNode*>& _nodes)
+		{
+			_nodes.push_back(_node);
+			for (size_t index = 0; index < _node->getLayerNodeCount(); ++index)
+				collectNodes(_node->getLayerNodeAt(index), _nodes);
+		}
+
+		static std::vector<MyGUI::ILayerNode*> layerNodes()
+		{
+			std::vector<MyGUI::ILayerNode*> nodes;
+			for (const auto* name : {"Main", "Overlapped", "Popup"})
+			{
+				auto* layer = MyGUI::LayerManager::getInstance().getByName(name);
+				for (size_t index = 0; index < layer->getLayerNodeCount(); ++index)
+					collectNodes(layer->getLayerNodeAt(index), nodes);
+			}
+			return nodes;
+		}
+
 		Expected& find(MyGUI::Widget* _widget)
 		{
 			const auto found = std::find_if(
