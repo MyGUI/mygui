@@ -481,17 +481,21 @@ namespace MyGUI
 		return getInheritsPick() ? nullptr : const_cast<Widget*>(this);
 	}
 
-	void Widget::_updateAbsolutePosition()
+	void Widget::_updateGeometry(const IntSize* _oldSize)
 	{
 		const IntPoint oldPosition = mAbsolutePosition;
 		mAbsolutePosition = mCroppedParent ? mCroppedParent->getAbsolutePosition() + mCoord.point() : mCoord.point();
 
 		for (auto& widget : mWidgetChild)
-			if (widget->mCroppedParent != nullptr)
-				widget->_updateAbsolutePosition();
+			if (_oldSize != nullptr)
+				widget->_setAlign(*_oldSize, getSize());
+			else if (widget->mCroppedParent != nullptr)
+				widget->_updateGeometry();
 		for (auto& widget : mWidgetChildSkin)
-			if (widget->mCroppedParent != nullptr)
-				widget->_updateAbsolutePosition();
+			if (_oldSize != nullptr)
+				widget->_setAlign(*_oldSize, getSize());
+			else if (widget->mCroppedParent != nullptr)
+				widget->_updateGeometry();
 
 		_correctSkinItemView();
 
@@ -570,12 +574,16 @@ namespace MyGUI
 			setSize(coord.size());
 		else
 			_updateView();
+
+		// Unchanged local coordinates (including a resize rejected by an override) can still inherit movement.
+		if (mCroppedParent != nullptr && mAbsolutePosition != mCroppedParent->getAbsolutePosition() + mCoord.point())
+			_updateGeometry();
 	}
 
 	void Widget::setPosition(const IntPoint& _point)
 	{
 		mCoord = _point;
-		_updateAbsolutePosition();
+		_updateGeometry();
 
 		_updateView();
 
@@ -584,44 +592,14 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize& _size)
 	{
-		// set new coordinate, use old one in calculations
-		IntSize old = mCoord.size();
-		mCoord = _size;
-
-		bool visible = true;
-
-		bool margin = mCroppedParent ? _checkMargin() : false;
-
-		if (margin)
-		{
-			if (_checkOutside())
-			{
-				visible = false;
-			}
-		}
-
-		_setSubSkinVisible(visible);
-
-		// pass old coord, before call, current parent coord must be new
-		for (auto& widget : mWidgetChild)
-			widget->_setAlign(old, getSize());
-		for (auto& widget : mWidgetChildSkin)
-			widget->_setAlign(old, getSize());
-
-		_setSkinItemAlign(old);
-
-		// remember current state
-		mIsMargin = margin;
-
-		eventChangeCoord(this);
+		Widget::setCoord(IntCoord(mCoord.point(), _size));
 	}
 
 	void Widget::setCoord(const IntCoord& _coord)
 	{
 		// set new coordinate, use old one in calculations
-		IntCoord old = mCoord;
+		IntSize old = mCoord.size();
 		mCoord = _coord;
-		_updateAbsolutePosition();
 
 		bool visible = true;
 
@@ -637,13 +615,9 @@ namespace MyGUI
 
 		_setSubSkinVisible(visible);
 
-		// pass old coord, before call, current parent coord must be new
-		for (auto& widget : mWidgetChild)
-			widget->_setAlign(old.size(), getSize());
-		for (auto& widget : mWidgetChildSkin)
-			widget->_setAlign(old.size(), getSize());
+		_updateGeometry(&old);
 
-		_setSkinItemAlign(old.size());
+		_setSkinItemAlign(old);
 
 		// remember current state
 		mIsMargin = margin;
@@ -660,7 +634,7 @@ namespace MyGUI
 	{
 		_detachFromWidget(_layer);
 		_updateAlpha();
-		_updateAbsolutePosition();
+		_updateGeometry();
 		_updateView();
 	}
 
@@ -779,7 +753,7 @@ namespace MyGUI
 		}
 
 		_updateAlpha();
-		_updateAbsolutePosition();
+		_updateGeometry();
 		_updateView();
 	}
 
