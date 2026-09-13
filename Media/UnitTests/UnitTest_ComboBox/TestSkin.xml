@@ -8,7 +8,9 @@
 		<Child type="ListBox" name="List" skin="TestListBox" style="Popup"
 			offset="0 0 120 60" align="Default" layer="Popup"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="TestListBox" size="120 60">
-		<Property key="HeightLine" value="20"/>
+	<Resource type="ResourceLayout" name="TestListBox" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 120 60" name="Root">
+			<UserString key="HeightLine" value="20"/>
+		</Widget>
 	</Resource>
 </MyGUI>

@@ -27,9 +27,11 @@ namespace
 	void checkBelow(MyGUI::ComboBox* _combo, MyGUI::ListBox* _list)
 	{
 		const auto coord = _combo->getAbsoluteCoord();
+		const MyGUI::IntCoord expected(coord.left, coord.bottom(), coord.width, 60);
 		require(
-			_list->getCoord() == MyGUI::IntCoord(coord.left, coord.bottom(), coord.width, 60),
-			"The open drop-down must follow the combo box");
+			_list->getCoord() == expected,
+			"The open drop-down must follow the combo box: expected " + expected.print() + ", got " +
+				_list->getCoord().print());
 	}
 
 	void testScrolling(MyGUI::Gui& _gui, bool _smooth, unittest::CountingLayer& _popupLayer)
