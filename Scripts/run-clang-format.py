@@ -8,6 +8,7 @@ Usage:
 
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -65,7 +66,16 @@ def main():
 
     # force using clang-format-20 if available
     CLANG_FORMAT = "clang-format-20" if shutil.which("clang-format-20") else "clang-format"
-    subprocess.run([CLANG_FORMAT, "--version"])
+    version_output = subprocess.check_output([CLANG_FORMAT, "--version"], text=True).strip()
+    print(version_output, flush=True)
+    version_match = re.search(r"\bclang-format version (\d+)\b", version_output)
+    if version_match is None or int(version_match.group(1)) != 20:
+        print(
+            "Warning: CI uses clang-format 20. The selected formatter's version "
+            "does not match or could not be detected; formatting may differ from CI. "
+            "Install clang-format 20 and make it available as clang-format-20 or clang-format.",
+            file=sys.stderr,
+        )
     cmd = [CLANG_FORMAT] + mode
     cmd.extend(sources)
 

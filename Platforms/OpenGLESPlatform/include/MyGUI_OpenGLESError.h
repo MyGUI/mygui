@@ -1,4 +1,6 @@
-#ifndef CHECK_GL_ERROR_DEBUG //()
+#pragma once
+
+#ifndef CHECK_GL_ERROR_DEBUG
 	#define CHECK_GL_ERROR_DEBUG() \
 		do \
 		{ \

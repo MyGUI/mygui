@@ -5,8 +5,7 @@
 #include "MyGUI_OpenGLESRTTexture.h"
 
 #include <GLES3/gl3.h>
-//#include <GLES3/gl2ext.h>
-#include "platform.h"
+#include "MyGUI_OpenGLESError.h"
 
 namespace MyGUI
 {

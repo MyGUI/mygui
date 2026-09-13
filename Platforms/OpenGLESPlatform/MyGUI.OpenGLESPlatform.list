@@ -1,6 +1,7 @@
 set (HEADER_FILES
   include/MyGUI_OpenGLESDataManager.h
   include/MyGUI_OpenGLESDiagnostic.h
+  include/MyGUI_OpenGLESError.h
   include/MyGUI_OpenGLESImageLoader.h
   include/MyGUI_OpenGLESPlatform.h
   include/MyGUI_OpenGLESRTTexture.h
@@ -19,6 +20,7 @@ set (SOURCE_FILES
 SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OpenGLESDataManager.h
   include/MyGUI_OpenGLESDiagnostic.h
+  include/MyGUI_OpenGLESError.h
   include/MyGUI_OpenGLESImageLoader.h
   include/MyGUI_OpenGLESPlatform.h
   include/MyGUI_OpenGLESRTTexture.h
