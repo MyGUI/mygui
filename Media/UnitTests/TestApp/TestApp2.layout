@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Button" skin="Button" position="104 128 528 136" layer="Back" name="Root">
-        <Property key="TextAlign" value="Default"/>
-        <Property key="FontName" value="Default"/>
-        <Widget type="Widget" skin="PanelSkin" position="456 72 64 56" align="Right Bottom"/>
-    </Widget>
-</MyGUI>

@@ -46,6 +46,7 @@ def main():
             "-DMYGUI_BUILD_TOOLS=OFF",
             "-DMYGUI_BUILD_UNITTESTS=OFF",
             "-DMYGUI_BUILD_TEST_APP=OFF",
+            "-DMYGUI_BUILD_ADVANCED_DEMOS=OFF",
             "-DMYGUI_BUILD_WRAPPER=OFF",
             "-DMYGUI_HIGH_LEVEL_WARNINGS=ON",
             f"-DBUILD_SHARED_LIBS={build_shared}",

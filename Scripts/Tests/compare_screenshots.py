@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Compare screenshots produced by demos/tools/unit tests against committed references.
+Compare screenshots produced by demos/tools/advanced demos against committed references.
 
-Every demo/tool/unit test supports the "--screenshot <path>.png" command line option:
+Every listed application supports the "--screenshot <path>.png" command line option:
 it renders the scene, saves a screenshot after a few frames and exits. This script
 runs each application from a fixed list and compares the resulting image with a
 reference screenshot stored in Scripts/Tests/References/<App>.png.
@@ -29,6 +29,8 @@ one unit per channel. The default is 0, i.e. an exact pixel-identical match.
 
 With "--baseline" the generated screenshots overwrite the reference images instead.
 """
+
+from __future__ import annotations
 
 import argparse
 import os
@@ -62,20 +64,18 @@ APPS = (
     "ImageEditor",
     "LayoutEditor",
     "SkinEditor",
-    # Unit tests
-    "UnitTest_AttachDetach",
-    "UnitTest_ChildAttach",
-    "UnitTest_Delegates",
-    "UnitTest_GraphView",
-    "UnitTest_HyperTextBox",
-    "UnitTest_ItemBox_Info",
-    # "UnitTest_Layers", # Ogre only
-    "UnitTest_MultiList",
-    "UnitTest_RTTLayer",
-    "UnitTest_RotatingSkin",
-    "UnitTest_Spline",
-    "UnitTest_TextureAnimations",
-    "UnitTest_TreeControl",
+    # Advanced demos
+    "Demo_ChildAttach",
+    "Demo_Delegates",
+    "Demo_GraphView",
+    "Demo_HyperTextBox",
+    "Demo_ItemBox_Info",
+    # "Demo_Layers", # Ogre only
+    "Demo_RTTLayer",
+    "Demo_RotatingSkin",
+    "Demo_Spline",
+    "Demo_TextureAnimations",
+    "Demo_TreeControl",
 )
 
 DEFAULT_FAIL_MEAN = 2.0
@@ -118,7 +118,7 @@ def run_app(binary: Path, app: str, work_dir: Path) -> tuple[Path, str]:
     xvfb_run = shutil.which("xvfb-run")
     if xvfb_run:
         command = [xvfb_run, "-a", *command]
-    elif "DISPLAY" not in env and os.name != "nt":
+    elif "DISPLAY" not in env and os.name != "nt" and sys.platform != "darwin":
         return screenshot, (
             "no DISPLAY set and xvfb-run not found; "
             "cannot create a rendering window"
@@ -220,7 +220,7 @@ def compare(
 
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(
-        description="Run demos/tools/unit tests with --screenshot and compare the "
+        description="Run demos/tools/advanced demos with --screenshot and compare the "
         "result with reference screenshots."
     )
     parser.add_argument("build_dir", type=Path, help="CMake build directory")

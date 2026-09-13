@@ -1,29 +1,9 @@
-set (HEADER_FILES
-  BiIndexData.h
-  DemoKeeper.h
+set(HEADER_FILES
   Mirror_List.h
   Mirror_MultiList.h
   UnitTest_List.h
   UnitTest_MultiList.h
 )
-set (SOURCE_FILES
-  ../../Common/Base/BaseResource.rc
-  BiIndexData.cpp
-  DemoKeeper.cpp
-)
-SOURCE_GROUP("Header Files" FILES
-  BiIndexData.h
-  DemoKeeper.h
-  Mirror_List.h
-  Mirror_MultiList.h
-  UnitTest_List.h
-  UnitTest_MultiList.h
-)
-SOURCE_GROUP("Resources" FILES
-  ../../Common/Base/BaseResource.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("Source Files" FILES
-  BiIndexData.cpp
-  DemoKeeper.cpp
-)
+set(SOURCE_FILES Main.cpp)
+SOURCE_GROUP("Header Files" FILES ${HEADER_FILES})
+SOURCE_GROUP("Source Files" FILES ${SOURCE_FILES})

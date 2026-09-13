@@ -110,8 +110,9 @@ Build options:
 | `MYGUI_USE_FREETYPE`    | ON             | Enable FreeType font rendering       |
 | `MYGUI_MSDF_FONTS`      | OFF            | Enable MSDF font support             |
 | `MYGUI_BUILD_DEMOS`     | ON             | Build demo applications              |
+| `MYGUI_BUILD_ADVANCED_DEMOS` | ON         | Build advanced demo applications     |
 | `MYGUI_BUILD_TOOLS`     | ON             | Build layout/skin/font/image editors |
-| `MYGUI_BUILD_UNITTESTS` | OFF            | Build complex demos and tests        |
+| `MYGUI_BUILD_UNITTESTS` | OFF            | Build automated unit tests        |
 | `MYGUI_BUILD_WRAPPER`   | OFF            | Build C# bindings (Windows only) |
 | `MYGUI_BUILD_TEST_APP`  | OFF            | Build test application               |
 

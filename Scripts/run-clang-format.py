@@ -16,6 +16,7 @@ SRC_DIRS = [
     "MyGUIEngine",
     "Platforms",
     "Demos",
+    "AdvancedDemos",
     "Tools",
     "Common",
     "UnitTests",

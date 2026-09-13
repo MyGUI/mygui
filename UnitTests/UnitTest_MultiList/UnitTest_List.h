@@ -7,6 +7,8 @@
 #define UNITTEST_LIST_H_
 
 #include "MyGUI.h"
+#include <cstdlib>
+#include <stdexcept>
 #include "Mirror_List.h"
 
 namespace unittest
@@ -18,11 +20,17 @@ namespace unittest
 		unittest::Mirror_List* mirror_list;
 		size_t count_items;
 
+		void Assert(bool _expression)
+		{
+			if (!_expression)
+				throw std::runtime_error("ListBox differs from reference list");
+		}
+
 	public:
 		UnitTest_List()
 		{
 			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::ListBox>(
-				"ListBox",
+				"Default",
 				MyGUI::IntCoord(100, 100, 100, 100),
 				MyGUI::Align::Default,
 				"Main");
@@ -38,13 +46,13 @@ namespace unittest
 
 		void checkList()
 		{
-			assert(count_items == original_list->getItemCount());
-			assert(original_list->getItemCount() == mirror_list->getItemCount());
+			Assert(count_items == original_list->getItemCount());
+			Assert(original_list->getItemCount() == mirror_list->getItemCount());
 
 			for (size_t pos = 0; pos < count_items; ++pos)
 			{
-				assert(original_list->getItemNameAt(pos) == mirror_list->getItemNameAt(pos));
-				assert(*original_list->getItemDataAt<size_t>(pos) == *mirror_list->getItemDataAt<size_t>(pos));
+				Assert(original_list->getItemNameAt(pos) == mirror_list->getItemNameAt(pos));
+				Assert(*original_list->getItemDataAt<size_t>(pos) == *mirror_list->getItemDataAt<size_t>(pos));
 			}
 
 			original_list->_checkAlign();

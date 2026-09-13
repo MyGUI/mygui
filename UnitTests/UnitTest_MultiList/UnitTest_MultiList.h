@@ -7,6 +7,8 @@
 #define UNITTEST_MULTILIST_H_
 
 #include "MyGUI.h"
+#include <cstdlib>
+#include <stdexcept>
 #include "Mirror_MultiList.h"
 #include "BiIndexData.h"
 
@@ -25,7 +27,7 @@ namespace unittest
 		{
 			if (!_expression)
 			{
-				throw std::exception();
+				throw std::runtime_error("MultiListBox differs from reference list");
 			}
 		}
 
@@ -33,7 +35,7 @@ namespace unittest
 		UnitTest_MultiList()
 		{
 			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>(
-				"MultiListBox",
+				"Default",
 				MyGUI::IntCoord(300, 100, 400, 400),
 				MyGUI::Align::Default,
 				"Main");
@@ -89,17 +91,17 @@ namespace unittest
 					Assert(
 						original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
 
-					Assert(
-						((original_list->getItemDataAt<size_t>(item, false) == nullptr) &&
-						 (mirror_list->getItemDataAt<size_t>(item, false) == nullptr)) ||
-						(*original_list->getItemDataAt<size_t>(item, false) ==
-						 *mirror_list->getItemDataAt<size_t>(item, false)));
+					const auto* originalData = original_list->getItemDataAt<size_t>(item, false);
+					const auto* mirrorData = mirror_list->getItemDataAt<size_t>(item, false);
+					Assert((originalData == nullptr) == (mirrorData == nullptr));
+					if (originalData != nullptr)
+						Assert(*originalData == *mirrorData);
 
-					Assert(
-						(original_list->getSubItemDataAt<size_t>(column, item, false) == nullptr &&
-						 mirror_list->getSubItemDataAt<size_t>(column, item, false) == nullptr) ||
-						*original_list->getSubItemDataAt<size_t>(column, item, false) ==
-							*mirror_list->getSubItemDataAt<size_t>(column, item, false));
+					const auto* originalSubData = original_list->getSubItemDataAt<size_t>(column, item, false);
+					const auto* mirrorSubData = mirror_list->getSubItemDataAt<size_t>(column, item, false);
+					Assert((originalSubData == nullptr) == (mirrorSubData == nullptr));
+					if (originalSubData != nullptr)
+						Assert(*originalSubData == *mirrorSubData);
 				}
 			}
 		}

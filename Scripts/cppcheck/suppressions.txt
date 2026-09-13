@@ -34,5 +34,6 @@ constParameterCallback
 // make code slightly harder to read
 constVariablePointer:Demos/*
 constVariablePointer:UnitTests/*
+constVariablePointer:AdvancedDemos/*
 // false positive
 uninitStructMember:*/UnitTest_MultiList/*

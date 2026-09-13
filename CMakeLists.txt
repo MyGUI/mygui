@@ -66,6 +66,7 @@ if(NOT MYGUI_RENDERSYSTEM IN_LIST MYGUI_BUILD_RENDERSYSTEMS)
 endif()
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
+option(MYGUI_BUILD_ADVANCED_DEMOS "Build advanced MyGUI demos" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_UNITTESTS "Build the unit tests" FALSE)
 option(MYGUI_BUILD_TEST_APP "Build TestApp" FALSE)
@@ -143,7 +144,7 @@ include(Sanitizers)
 add_subdirectory(MyGUIEngine)
 add_subdirectory(Platforms)
 
-if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
+if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
 endif()
 
@@ -155,11 +156,14 @@ if(MYGUI_BUILD_TOOLS)
 	add_subdirectory(Tools)
 endif()
 
-if(MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
-	if(MYGUI_BUILD_UNITTESTS)
-		enable_testing()
-	endif()
-	add_subdirectory(UnitTests)
+if(MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TEST_APP)
+	add_subdirectory(AdvancedDemos)
+endif()
+
+if(MYGUI_BUILD_UNITTESTS)
+	 enable_testing()
+	# TODO
+	# add_subdirectory(UnitTests)
 endif()
 
 if(MYGUI_BUILD_WRAPPER)
