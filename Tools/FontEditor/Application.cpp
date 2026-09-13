@@ -107,6 +107,8 @@ namespace tools
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
 #ifdef MYGUI_USE_FREETYPE
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+#else
+		MyGUI::ResourceManager::getInstance().load("FrameworkFontsGenerated.xml");
 #endif
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
@@ -380,8 +382,10 @@ namespace tools
 	{
 		const SettingsManager::VectorString& resources =
 			SettingsManager::getInstance().getValueList("Resources/Resource.List");
+		// Framework fonts are already loaded with the appropriate FreeType or bitmap implementation.
 		for (const auto& resource : resources)
-			MyGUI::ResourceManager::getInstance().load(resource);
+			if (resource != "FrameworkFonts.xml")
+				MyGUI::ResourceManager::getInstance().load(resource);
 
 		const SettingsManager::VectorString& additionalPaths =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
