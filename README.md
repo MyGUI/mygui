@@ -131,6 +131,10 @@ MyGUI ships with several visual editors under `Tools/`:
 
 Run tests with `ctest --test-dir build -C RelWithDebInfo --output-on-failure` (use your build configuration).
 
+Run `python3 Scripts/Tests/compare_screenshots.py build` to compare demos and tools screenshots against reference images,
+checking rendering consistency across platforms and render backends. Requires built applications, a graphical display,
+and NumPy/Pillow (`python3 -m pip install numpy pillow`).
+
 ## Documentation
 
 - Website: http://mygui.info/
