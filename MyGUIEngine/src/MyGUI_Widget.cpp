@@ -481,18 +481,22 @@ namespace MyGUI
 		return getInheritsPick() ? nullptr : const_cast<Widget*>(this);
 	}
 
-	void Widget::_updateAbsolutePoint()
+	void Widget::_updateAbsolutePosition()
 	{
-		// we are root, not needed
-		if (!mCroppedParent)
-			return;
-
-		mAbsolutePosition = mCroppedParent->getAbsolutePosition() + mCoord.point();
+		const IntPoint position =
+			mCroppedParent ? mCroppedParent->getAbsolutePosition() + mCoord.point() : mCoord.point();
+		if (position != mAbsolutePosition)
+		{
+			AbsolutePositionUpdate::record(this);
+			mAbsolutePosition = position;
+		}
 
 		for (auto& widget : mWidgetChild)
-			widget->_updateAbsolutePoint();
+			if (widget->mCroppedParent != nullptr)
+				widget->_updateAbsolutePosition();
 		for (auto& widget : mWidgetChildSkin)
-			widget->_updateAbsolutePoint();
+			if (widget->mCroppedParent != nullptr)
+				widget->_updateAbsolutePosition();
 
 		_correctSkinItemView();
 	}
@@ -572,14 +576,8 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntPoint& _point)
 	{
-		mAbsolutePosition += _point - mCoord.point();
-
-		for (auto& widget : mWidgetChild)
-			widget->_updateAbsolutePoint();
-		for (auto& widget : mWidgetChildSkin)
-			widget->_updateAbsolutePoint();
-
 		mCoord = _point;
+		_updateAbsolutePosition();
 
 		_updateView();
 
@@ -633,6 +631,7 @@ namespace MyGUI
 		// set new coordinate, use old one in calculations
 		IntCoord old = mCoord;
 		mCoord = _coord;
+		_updateAbsolutePosition();
 
 		bool visible = true;
 
@@ -694,13 +693,7 @@ namespace MyGUI
 
 				mCroppedParent = nullptr;
 
-				// update coordinates
-				mAbsolutePosition = mCoord.point();
-
-				for (auto& widget : mWidgetChild)
-					widget->_updateAbsolutePoint();
-				for (auto& widget : mWidgetChildSkin)
-					widget->_updateAbsolutePoint();
+				_updateAbsolutePosition();
 
 				// reset clipping
 				mMargin.clear();
@@ -780,12 +773,7 @@ namespace MyGUI
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = _parent;
-			mAbsolutePosition = _parent->getAbsolutePosition() + mCoord.point();
-
-			for (auto& widget : mWidgetChild)
-				widget->_updateAbsolutePoint();
-			for (auto& widget : mWidgetChildSkin)
-				widget->_updateAbsolutePoint();
+			_updateAbsolutePosition();
 
 			_updateView();
 		}
@@ -802,12 +790,7 @@ namespace MyGUI
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = _parent;
-			mAbsolutePosition = _parent->getAbsolutePosition() + mCoord.point();
-
-			for (auto& widget : mWidgetChild)
-				widget->_updateAbsolutePoint();
-			for (auto& widget : mWidgetChildSkin)
-				widget->_updateAbsolutePoint();
+			_updateAbsolutePosition();
 
 			mParent->addChildNode(this);
 

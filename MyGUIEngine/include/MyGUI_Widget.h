@@ -437,7 +437,7 @@ namespace MyGUI
 		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();
-		void _updateAbsolutePoint();
+		void _updateAbsolutePosition();
 
 		void _updateVisible();
 
