@@ -3,6 +3,7 @@
 #include "UnitTest_List.h"
 #include "UnitTest_MultiList.h"
 #include <iostream>
+#include <random>
 
 int main()
 {
@@ -16,9 +17,10 @@ int main()
 		{
 			seed = currentSeed;
 			step = -1;
-			std::srand(seed);
-			unittest::UnitTest_List list;
-			unittest::UnitTest_MultiList multiList;
+			std::mt19937 random(seed);
+			unittest::UnitTest_List list(random);
+			unittest::UnitTest_MultiList multiList(random);
+			multiList.testSorting();
 			// Cover empty lists, each supported operation, and clearing/reuse explicitly.
 			list.checkList();
 			multiList.checkMultiList();
@@ -40,8 +42,8 @@ int main()
 			multiList.AddItem();
 			for (step = 0; step < 2000; ++step)
 			{
-				list.nextFrame();
-				multiList.nextFrame();
+				list.randomStep();
+				multiList.randomStep();
 			}
 		}
 	}

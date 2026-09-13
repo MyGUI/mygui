@@ -7,9 +7,10 @@
 #define UNITTEST_MULTILIST_H_
 
 #include "MyGUI.h"
-#include "TestSupport.h"
+#include "ListTestChecks.h"
+#include <random>
+#include <algorithm>
 #include "Mirror_MultiList.h"
-#include "BiIndexData.h"
 
 namespace unittest
 {
@@ -18,100 +19,84 @@ namespace unittest
 	{
 	private:
 		MyGUI::MultiListBox* original_list;
-		//unittest::BiIndexData * original_list;
-		unittest::Mirror_MultiList* mirror_list;
+		Mirror_MultiList mirror_list;
+		std::mt19937& mRandom;
+		std::string mOperation{"initial state"};
 		size_t count_items;
 		size_t count_columns;
 
-		void Assert(bool _expression)
-		{
-			require(_expression, "MultiListBox differs from reference list");
-		}
-
 	public:
-		UnitTest_MultiList()
+		explicit UnitTest_MultiList(std::mt19937& _random) :
+			mRandom(_random)
 		{
 			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>(
 				"Default",
 				MyGUI::IntCoord(300, 100, 400, 400),
 				MyGUI::Align::Default,
 				"Main");
-			//original_list = new unittest::BiIndexData();
-			mirror_list = new unittest::Mirror_MultiList();
 			count_items = 0;
 			count_columns = 0;
 
 			original_list->addColumn("1");
 			original_list->setColumnResizingPolicyAt(0, MyGUI::ResizingPolicy::Fill);
-			mirror_list->addColumn("1");
+			mirror_list.addColumn("1");
 			count_columns = 1;
 
 			original_list->addColumn("2");
 			original_list->setColumnResizingPolicyAt(1, MyGUI::ResizingPolicy::Fill);
-			mirror_list->addColumn("2");
+			mirror_list.addColumn("2");
 			count_columns = 2;
 
 			original_list->addColumn("3");
 			original_list->setColumnResizingPolicyAt(2, MyGUI::ResizingPolicy::Fill);
-			mirror_list->addColumn("3");
+			mirror_list.addColumn("3");
 			count_columns = 3;
-
-			//start();
 		}
 
 		~UnitTest_MultiList()
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(original_list);
-			//delete original_list;
-			//mirror_list->removeAllColumns();
-			delete mirror_list;
 		}
 
 		void checkMultiList()
 		{
-			Assert(count_items == original_list->getItemCount());
-			Assert(count_columns == original_list->getColumnCount());
-
-			Assert(original_list->getItemCount() == mirror_list->getItemCount());
-			Assert(original_list->getColumnCount() == mirror_list->getColumnCount());
-
+			checkEqual(original_list->getItemCount(), count_items, mOperation + ": MultiListBox item count");
+			checkEqual(original_list->getColumnCount(), count_columns, mOperation + ": MultiListBox column count");
+			checkEqual(mirror_list.getItemCount(), count_items, mOperation + ": reference item count");
+			checkEqual(mirror_list.getColumnCount(), count_columns, mOperation + ": reference column count");
 			for (size_t item = 0; item < count_items; ++item)
 			{
+				const auto row = MyGUI::utility::toString(mOperation, ": MultiListBox item ", item);
+				checkEqual(original_list->getItemNameAt(item), mirror_list.getItemNameAt(item), row + " name");
+				checkData(
+					original_list->getItemDataAt<size_t>(item, false),
+					mirror_list.getItemDataAt<size_t>(item, false),
+					row + " data");
 				for (size_t column = 0; column < count_columns; ++column)
 				{
-					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
-					//Assert(original_list->getItemNameAt(item) == MyGUI::utility::toString(item));
-
-					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
-					Assert(original_list->getItemNameAt(item) == mirror_list->getItemNameAt(item));
-
-					Assert(
-						original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
-
-					const auto* originalData = original_list->getItemDataAt<size_t>(item, false);
-					const auto* mirrorData = mirror_list->getItemDataAt<size_t>(item, false);
-					Assert((originalData == nullptr) == (mirrorData == nullptr));
-					if (originalData != nullptr)
-						Assert(*originalData == *mirrorData);
-
-					const auto* originalSubData = original_list->getSubItemDataAt<size_t>(column, item, false);
-					const auto* mirrorSubData = mirror_list->getSubItemDataAt<size_t>(column, item, false);
-					Assert((originalSubData == nullptr) == (mirrorSubData == nullptr));
-					if (originalSubData != nullptr)
-						Assert(*originalSubData == *mirrorSubData);
+					const auto cell = MyGUI::utility::toString(row, ", column ", column);
+					checkEqual(
+						original_list->getSubItemNameAt(column, item),
+						mirror_list.getSubItemNameAt(column, item),
+						cell + " name");
+					checkData(
+						original_list->getSubItemDataAt<size_t>(column, item, false),
+						mirror_list.getSubItemDataAt<size_t>(column, item, false),
+						cell + " data");
 				}
 			}
 		}
 
 		void Begin()
 		{
+			mOperation = "Begin";
 			if (count_columns == 0)
 				return;
 			size_t count = original_list->getItemCount();
 			if (count == 0)
 				return;
 
-			size_t index = (size_t)rand() % count;
+			size_t index = mRandom() % count;
 			original_list->setIndexSelected(index);
 
 			checkMultiList();
@@ -128,11 +113,12 @@ namespace unittest
 
 		void AddItem()
 		{
+			mOperation = "AddItem";
 			if (count_columns == 0)
 				return;
 
-			size_t item = (size_t)rand();
-			mirror_list->addItem(MyGUI::utility::toString(item), item);
+			size_t item = mRandom();
+			mirror_list.addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
 			count_items++;
 
@@ -150,13 +136,14 @@ namespace unittest
 
 		void InsertItem()
 		{
+			mOperation = "InsertItem";
 			if (count_columns == 0)
 				return;
 
-			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
-			size_t item = (size_t)rand();
+			size_t index = count_items == 0 ? 0 : (mRandom() % count_items);
+			size_t item = mRandom();
 
-			mirror_list->insertItemAt(index, MyGUI::utility::toString(item), item);
+			mirror_list.insertItemAt(index, MyGUI::utility::toString(item), item);
 			original_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 
 			count_items++;
@@ -175,14 +162,15 @@ namespace unittest
 
 		void RemoveItem()
 		{
+			mOperation = "RemoveItem";
 			if (count_columns == 0)
 				return;
 			if (count_items == 0)
 				return;
 
-			size_t index = (size_t)rand() % count_items;
+			size_t index = mRandom() % count_items;
 
-			mirror_list->removeItemAt(index);
+			mirror_list.removeItemAt(index);
 			original_list->removeItemAt(index);
 
 			count_items--;
@@ -201,15 +189,16 @@ namespace unittest
 
 		void SwapItems()
 		{
+			mOperation = "SwapItems";
 			if (count_columns == 0)
 				return;
 			if (count_items == 0)
 				return;
 
-			size_t index1 = (size_t)rand() % count_items;
-			size_t index2 = (size_t)rand() % count_items;
+			size_t index1 = mRandom() % count_items;
+			size_t index2 = mRandom() % count_items;
 
-			mirror_list->swapItemsAt(index1, index2);
+			mirror_list.swapItemsAt(index1, index2);
 			original_list->swapItemsAt(index1, index2);
 
 			checkMultiList();
@@ -224,20 +213,85 @@ namespace unittest
 			}
 		}
 
+		void sortColumn(size_t _column, bool _descending)
+		{
+			mOperation =
+				MyGUI::utility::toString("SortItems column ", _column, _descending ? " descending" : " ascending");
+			std::vector<MyGUI::UString> expected;
+			for (size_t item = 0; item < count_items; ++item)
+				expected.push_back(mirror_list.getSubItemNameAt(_column, item));
+			std::sort(expected.begin(), expected.end());
+			if (_descending)
+				std::reverse(expected.begin(), expected.end());
+
+			const auto selected = original_list->getIndexSelected();
+			original_list->sortByColumn(_column);
+			// The backward argument reverses the current direction, rather than setting it.
+			if (_descending)
+				original_list->sortByColumn(_column, true);
+			checkEqual(original_list->getIndexSelected(), selected, mOperation + ": selected logical item");
+			checkMultiList(); // Sorting must preserve logical row indices and data in every column.
+
+			// Public MultiListBox indices stay logical; inspect the column ListBox for display order.
+			MyGUI::ListBox* displayed = nullptr;
+			for (auto* child : original_list->_getItemAt(_column)->getChildWidgets())
+			{
+				if (auto* list = child->castType<MyGUI::ListBox>(false))
+				{
+					require(displayed == nullptr, mOperation + ": multiple column lists");
+					displayed = list;
+				}
+			}
+			require(displayed != nullptr, mOperation + ": missing column list");
+			checkEqual(displayed->getItemCount(), expected.size(), mOperation + ": displayed item count");
+			for (size_t item = 0; item < expected.size(); ++item)
+				checkEqual(
+					displayed->getItemNameAt(item),
+					expected[item],
+					MyGUI::utility::toString(mOperation, ": displayed item ", item));
+		}
+
+		void testSorting()
+		{
+			RemoveAllItems();
+			sortColumn(0, false);
+			sortColumn(0, true);
+			const MyGUI::UString names[] = {"beta", "alpha", "alpha", "gamma"};
+			for (size_t item = 0; item < 4; ++item)
+			{
+				original_list->addItem(names[item], item);
+				mirror_list.addItem(names[item], item);
+				++count_items;
+				for (size_t column = 1; column < count_columns; ++column)
+				{
+					const auto& name = names[(item + column) % 4];
+					original_list->setSubItemNameAt(column, item, name);
+					mirror_list.setSubItemNameAt(column, item, name);
+					original_list->setSubItemDataAt(column, item, item + column * 10);
+					mirror_list.setSubItemDataAt(column, item, item + column * 10);
+				}
+				if (item == 0)
+				{
+					sortColumn(0, false);
+					sortColumn(0, true);
+				}
+			}
+			original_list->setIndexSelected(1);
+			for (size_t column = 0; column < count_columns; ++column)
+			{
+				sortColumn(column, false);
+				sortColumn(column, true);
+			}
+			RemoveAllItems();
+		}
+
 		void SortItems()
 		{
 			if (count_columns == 0)
 				return;
-			if (count_items == 0)
-				return;
-
-			//size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
-			//size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
-
-			//mirror_list->swapItemsAt(index1, index2);
-			//original_list->swapSortItemsAt(index1, index2);
-
-			checkMultiList();
+			const size_t column = mRandom() % count_columns;
+			const bool descending = mRandom() % 2 != 0;
+			sortColumn(column, descending);
 		}
 
 		void SortItems(size_t _count)
@@ -251,17 +305,18 @@ namespace unittest
 
 		void ChangeItems()
 		{
+			mOperation = "ChangeItems";
 			if (count_columns == 0)
 				return;
 			if (count_items == 0)
 				return;
 
-			size_t index = (size_t)rand() % count_items;
-			size_t column = (size_t)rand() % count_columns;
-			size_t item = (size_t)rand();
+			size_t index = mRandom() % count_items;
+			size_t column = mRandom() % count_columns;
+			size_t item = mRandom();
 
-			mirror_list->setSubItemNameAt(column, index, MyGUI::utility::toString(item));
-			mirror_list->setSubItemDataAt(column, index, item);
+			mirror_list.setSubItemNameAt(column, index, MyGUI::utility::toString(item));
+			mirror_list.setSubItemDataAt(column, index, item);
 			original_list->setSubItemNameAt(column, index, MyGUI::utility::toString(item));
 			original_list->setSubItemDataAt(column, index, item);
 
@@ -279,53 +334,26 @@ namespace unittest
 
 		void RemoveAllItems()
 		{
+			mOperation = "RemoveAllItems";
 			if (count_columns == 0)
 				return;
 
-			mirror_list->removeAllItems();
+			mirror_list.removeAllItems();
 			original_list->removeAllItems();
 
 			count_items = 0;
 			checkMultiList();
 		}
 
-		/*void start()
+		void randomStep()
 		{
-			count_items = original_list->generate();
-			for (size_t pos=0; pos<count_items; ++pos) {
-				mirror_list->addItem(MyGUI::utility::toString(pos));
-			}
-		}*/
-
-		void nextFrame()
-		{
-			/*static bool in = false;
-			if (in) return;
-			in = true;
-
-			original_list->insertItemAt(0, "1");
-			original_list->insertItemAt(0, "2");
-			original_list->insertItemAt(2, "3");
-			original_list->removeItemAt(0);
-			original_list->removeItemAt(0);
-			original_list->removeItemAt(0);
-			original_list->insertItemAt(0, "4");
-			original_list->removeItemAt(0);
-			original_list->insertItemAt(0, "5");
-			original_list->insertItemAt(0, "6");
-			original_list->insertItemAt(2, "7");
-			original_list->insertItemAt(3, "8");
-			original_list->insertItemAt(4, "9");
-			original_list->removeItemAt(1);
-			original_list->removeItemAt(0);*/
-
 			if (count_items > 100)
 			{
 				RemoveAllItems();
 			}
 
-			size_t index = (size_t)rand() % 7;
-			size_t count = (size_t)rand() % 3;
+			size_t index = mRandom() % 7;
+			size_t count = mRandom() % 3;
 
 			if (index == 0)
 				InsertItem(count);
@@ -339,10 +367,8 @@ namespace unittest
 				SortItems(count);
 			else if (index == 5)
 				ChangeItems(count * 5);
-			else // if (index == 6)
+			else
 				Begin(count);
-
-			//base::BaseManager::getInstance().getStatisticInfo()->change("Count", count_items);
 		}
 	};
 

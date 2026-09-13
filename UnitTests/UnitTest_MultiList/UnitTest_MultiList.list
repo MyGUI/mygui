@@ -1,4 +1,5 @@
 set(HEADER_FILES
+  ListTestChecks.h
   Mirror_List.h
   Mirror_MultiList.h
   UnitTest_List.h

@@ -7,7 +7,8 @@
 #define UNITTEST_LIST_H_
 
 #include "MyGUI.h"
-#include "TestSupport.h"
+#include "ListTestChecks.h"
+#include <random>
 #include "Mirror_List.h"
 
 namespace unittest
@@ -17,52 +18,51 @@ namespace unittest
 	{
 	private:
 		MyGUI::ListBox* original_list;
-		unittest::Mirror_List* mirror_list;
+		Mirror_List mirror_list;
+		std::mt19937& mRandom;
+		std::string mOperation{"initial state"};
 		size_t count_items;
 
-		void Assert(bool _expression)
-		{
-			require(_expression, "ListBox differs from reference list");
-		}
-
 	public:
-		UnitTest_List()
+		explicit UnitTest_List(std::mt19937& _random) :
+			mRandom(_random)
 		{
 			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::ListBox>(
 				"Default",
 				MyGUI::IntCoord(100, 100, 100, 100),
 				MyGUI::Align::Default,
 				"Main");
-			mirror_list = new unittest::Mirror_List();
 			count_items = 0;
 		}
 
 		~UnitTest_List()
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(original_list);
-			delete mirror_list;
 		}
 
 		void checkList()
 		{
-			Assert(count_items == original_list->getItemCount());
-			Assert(original_list->getItemCount() == mirror_list->getItemCount());
-
-			for (size_t pos = 0; pos < count_items; ++pos)
+			checkEqual(original_list->getItemCount(), count_items, mOperation + ": ListBox item count");
+			checkEqual(mirror_list.getItemCount(), count_items, mOperation + ": reference item count");
+			for (size_t item = 0; item < count_items; ++item)
 			{
-				Assert(original_list->getItemNameAt(pos) == mirror_list->getItemNameAt(pos));
-				Assert(*original_list->getItemDataAt<size_t>(pos) == *mirror_list->getItemDataAt<size_t>(pos));
+				const auto where = MyGUI::utility::toString(mOperation, ": ListBox item ", item);
+				checkEqual(original_list->getItemNameAt(item), mirror_list.getItemNameAt(item), where + " name");
+				checkData(
+					original_list->getItemDataAt<size_t>(item, false),
+					mirror_list.getItemDataAt<size_t>(item, false),
+					where + " data");
 			}
-
 			original_list->_checkAlign();
 		}
 
 		void Begin()
 		{
+			mOperation = "Begin";
 			size_t count = original_list->getItemCount();
 			if (count == 0)
 				return;
-			size_t index = ((size_t)rand() % count);
+			size_t index = (mRandom() % count);
 			original_list->beginToItemAt(index);
 
 			checkList();
@@ -79,8 +79,9 @@ namespace unittest
 
 		void AddItem()
 		{
-			size_t item = (size_t)rand();
-			mirror_list->addItem(MyGUI::utility::toString(item), item);
+			mOperation = "AddItem";
+			size_t item = mRandom();
+			mirror_list.addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
 			count_items++;
 
@@ -98,10 +99,11 @@ namespace unittest
 
 		void InsertItem()
 		{
-			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
-			size_t item = (size_t)rand();
+			mOperation = "InsertItem";
+			size_t index = count_items == 0 ? 0 : (mRandom() % count_items);
+			size_t item = mRandom();
 
-			mirror_list->insertItemAt(index, MyGUI::utility::toString(item), item);
+			mirror_list.insertItemAt(index, MyGUI::utility::toString(item), item);
 			original_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 
 			count_items++;
@@ -120,12 +122,13 @@ namespace unittest
 
 		void RemoveItem()
 		{
+			mOperation = "RemoveItem";
 			if (count_items == 0)
 				return;
 
-			size_t index = (size_t)rand() % count_items;
+			size_t index = mRandom() % count_items;
 
-			mirror_list->removeItemAt(index);
+			mirror_list.removeItemAt(index);
 			original_list->removeItemAt(index);
 
 			count_items--;
@@ -144,20 +147,21 @@ namespace unittest
 
 		void RemoveAllItems()
 		{
-			mirror_list->removeAllItems();
+			mOperation = "RemoveAllItems";
+			mirror_list.removeAllItems();
 			original_list->removeAllItems();
 
 			count_items = 0;
 			checkList();
 		}
 
-		void nextFrame()
+		void randomStep()
 		{
 			if (count_items > 100)
 				RemoveAllItems();
 
-			size_t index = (size_t)rand() % 4;
-			size_t count = (size_t)rand() % 3;
+			size_t index = mRandom() % 4;
+			size_t count = mRandom() % 3;
 
 			if (index == 0)
 				InsertItem(count);
@@ -165,7 +169,7 @@ namespace unittest
 				AddItem(count);
 			else if (index == 2)
 				RemoveItem(count);
-			else // if (index == 3)
+			else
 				Begin(count);
 		}
 	};

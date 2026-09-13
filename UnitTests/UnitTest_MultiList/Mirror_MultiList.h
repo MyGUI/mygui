@@ -17,7 +17,7 @@ namespace unittest
 	private:
 		struct ColumnInfo
 		{
-			Mirror_List* list;
+			Mirror_List list;
 			MyGUI::UString name;
 			MyGUI::Any data;
 		};
@@ -27,11 +27,6 @@ namespace unittest
 		VectorColumnInfo mVectorColumnInfo;
 
 	public:
-		~Mirror_MultiList()
-		{
-			removeAllColumns();
-		}
-
 		//------------------------------------------------------------------------------//
 		// item manipulation
 
@@ -58,16 +53,15 @@ namespace unittest
 
 			ColumnInfo column;
 
-			column.list = new Mirror_List();
 			column.name = _name;
 			column.data = std::move(_data);
 
 			// if columns already exist, make the same number of fields
 			if (!mVectorColumnInfo.empty())
 			{
-				size_t count = mVectorColumnInfo.front().list->getItemCount();
+				size_t count = mVectorColumnInfo.front().list.getItemCount();
 				for (size_t pos = 0; pos < count; ++pos)
-					column.list->addItem(MyGUI::UString());
+					column.list.addItem(MyGUI::UString());
 			}
 
 			mVectorColumnInfo.insert(mVectorColumnInfo.begin() + _column, std::move(column));
@@ -86,15 +80,12 @@ namespace unittest
 		void removeColumnAt(size_t _column)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::removeColumnAt");
-			delete mVectorColumnInfo[_column].list;
 			mVectorColumnInfo.erase(mVectorColumnInfo.begin() + _column);
 		}
 
 		/** Delete all columns */
 		void removeAllColumns()
 		{
-			for (const auto& column : mVectorColumnInfo)
-				delete column.list;
 			mVectorColumnInfo.clear();
 		}
 
@@ -157,7 +148,7 @@ namespace unittest
 		{
 			if (mVectorColumnInfo.empty())
 				return 0;
-			return mVectorColumnInfo.front().list->getItemCount();
+			return mVectorColumnInfo.front().list.getItemCount();
 		}
 
 		/** Insert new item before _index line */
@@ -166,18 +157,18 @@ namespace unittest
 			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::insertItemAt");
 			MYGUI_ASSERT_RANGE_INSERT(
 				_index,
-				mVectorColumnInfo.front().list->getItemCount(),
+				mVectorColumnInfo.front().list.getItemCount(),
 				"MultiListBox::insertItemAt");
 			if (MyGUI::ITEM_NONE == _index)
-				_index = mVectorColumnInfo.front().list->getItemCount();
+				_index = mVectorColumnInfo.front().list.getItemCount();
 
 			// insert empty into all fields, then assign to first
 			for (auto& iter : mVectorColumnInfo)
 			{
-				iter.list->insertItemAt(_index, MyGUI::UString());
+				iter.list.insertItemAt(_index, MyGUI::UString());
 			}
-			mVectorColumnInfo.front().list->setItemNameAt(_index, _name);
-			mVectorColumnInfo.front().list->setItemDataAt(_index, _data);
+			mVectorColumnInfo.front().list.setItemNameAt(_index, _name);
+			mVectorColumnInfo.front().list.setItemDataAt(_index, _data);
 		}
 
 		/** Add new item at the end */
@@ -189,11 +180,11 @@ namespace unittest
 		void removeItemAt(size_t _index)
 		{
 			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::removeItemAt");
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::removeItemAt");
+			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list.getItemCount(), "MultiListBox::removeItemAt");
 
 			for (auto& iter : mVectorColumnInfo)
 			{
-				iter.list->removeItemAt(_index);
+				iter.list.removeItemAt(_index);
 			}
 		}
 
@@ -207,12 +198,12 @@ namespace unittest
 		void swapItemsAt(size_t _index1, size_t _index2)
 		{
 			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::swapItemsAt");
-			MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
-			MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list.getItemCount(), "MultiListBox::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list.getItemCount(), "MultiListBox::swapItemsAt");
 
 			for (auto& iter : mVectorColumnInfo)
 			{
-				iter.list->swapItemsAt(_index1, _index2);
+				iter.list.swapItemsAt(_index1, _index2);
 			}
 		}
 
@@ -268,9 +259,9 @@ namespace unittest
 		void setSubItemNameAt(size_t _column, size_t _index, const MyGUI::UString& _name)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setSubItemAt");
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::setSubItemAt");
+			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list.getItemCount(), "MultiListBox::setSubItemAt");
 
-			mVectorColumnInfo[_column].list->setItemNameAt(_index, _name);
+			mVectorColumnInfo[_column].list.setItemNameAt(_index, _name);
 		}
 
 		/** Get sub item name*/
@@ -279,17 +270,17 @@ namespace unittest
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemNameAt");
 			MYGUI_ASSERT_RANGE(
 				_index,
-				mVectorColumnInfo.begin()->list->getItemCount(),
+				mVectorColumnInfo.begin()->list.getItemCount(),
 				"MultiListBox::getSubItemNameAt");
 
-			return mVectorColumnInfo[_column].list->getItemNameAt(_index);
+			return mVectorColumnInfo[_column].list.getItemNameAt(_index);
 		}
 
 		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
 		size_t findSubItemWith(size_t _column, const MyGUI::UString& _item) const
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::findSubItemWith");
-			return mVectorColumnInfo[_column].list->findItemIndexWith(_item);
+			return mVectorColumnInfo[_column].list.findItemIndexWith(_item);
 		}
 
 		//------------------------------------------------------------------------------//
@@ -301,10 +292,10 @@ namespace unittest
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setSubItemDataAt");
 			MYGUI_ASSERT_RANGE(
 				_index,
-				mVectorColumnInfo.begin()->list->getItemCount(),
+				mVectorColumnInfo.begin()->list.getItemCount(),
 				"MultiListBox::setSubItemDataAt");
 
-			mVectorColumnInfo[_column].list->setItemDataAt(_index, _data);
+			mVectorColumnInfo[_column].list.setItemDataAt(_index, _data);
 		}
 
 		//! Clear an item data at a specified position
@@ -320,10 +311,10 @@ namespace unittest
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemDataAt");
 			MYGUI_ASSERT_RANGE(
 				_index,
-				mVectorColumnInfo.begin()->list->getItemCount(),
+				mVectorColumnInfo.begin()->list.getItemCount(),
 				"MultiListBox::getSubItemDataAt");
 
-			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(_index, _throw);
+			return mVectorColumnInfo[_column].list.getItemDataAt<ValueType>(_index, _throw);
 		}
 	};
 
