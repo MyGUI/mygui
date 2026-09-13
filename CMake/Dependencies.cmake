@@ -106,12 +106,14 @@ endif()
 # RenderSystem dependencies
 #######################################################################
 
-if(EMSCRIPTEN)
-	add_library(SDL2::SDL2 INTERFACE IMPORTED GLOBAL)
-	target_compile_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
-	target_link_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
-else()
-	find_package(SDL2)
+if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TEST_APP)
+	if(EMSCRIPTEN)
+		add_library(SDL2::SDL2 INTERFACE IMPORTED GLOBAL)
+		target_compile_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
+		target_link_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
+	else()
+		find_package(SDL2)
+	endif()
 endif()
 
 foreach(_rs IN LISTS MYGUI_BUILD_RENDERSYSTEMS)

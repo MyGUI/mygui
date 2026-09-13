@@ -103,18 +103,28 @@ function(mygui_tool PROJECTNAME)
 endfunction(mygui_tool)
 
 function(mygui_unit_test PROJECTNAME)
-	mygui_app(${PROJECTNAME} UnitTest)
-	set_target_properties(${PROJECTNAME} PROPERTIES WIN32_EXECUTABLE FALSE)
+	include(${PROJECTNAME}.list)
+	add_executable(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER UnitTest WIN32_EXECUTABLE FALSE)
+	mygui_config_common(${PROJECTNAME})
 	target_link_libraries(${PROJECTNAME} PRIVATE MyGUIUnitTestCommon)
 
-	# Register the unit test with CTest when unit tests are enabled
-	# This allows running tests via 'ctest' or 'make check'
-	if(MYGUI_BUILD_UNITTESTS)
-		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
-		# Set working directory to binary directory so tests can find resources
-		set_tests_properties(${PROJECTNAME} PROPERTIES
-			WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	if(WIN32)
+		# Copy engine dependencies for shared builds; static builds may have no runtime DLLs.
+		file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/copy-test-dlls-$<CONFIG>.cmake"
+			CONTENT "set(dlls \"$<TARGET_RUNTIME_DLLS:${PROJECTNAME}>\")\nif(dlls)\n  file(COPY \${dlls} DESTINATION \"$<TARGET_FILE_DIR:${PROJECTNAME}>\")\nendif()\n"
+		)
+		add_custom_command(TARGET ${PROJECTNAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/copy-test-dlls-$<CONFIG>.cmake"
+			VERBATIM
+		)
 	endif()
+
+	if(EMSCRIPTEN)
+		set_target_properties(${PROJECTNAME} PROPERTIES SUFFIX ".js")
+	endif()
+
+	add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
 endfunction(mygui_unit_test)
 
 function(mygui_tool_dll PROJECTNAME)

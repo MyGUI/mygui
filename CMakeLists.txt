@@ -68,7 +68,7 @@ endif()
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_ADVANCED_DEMOS "Build advanced MyGUI demos" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
-option(MYGUI_BUILD_UNITTESTS "Build the unit tests" FALSE)
+option(MYGUI_BUILD_UNITTESTS "Build the unit tests" TRUE)
 option(MYGUI_BUILD_TEST_APP "Build TestApp" FALSE)
 cmake_dependent_option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE "WIN32" FALSE)
 
@@ -144,7 +144,7 @@ include(Sanitizers)
 add_subdirectory(MyGUIEngine)
 add_subdirectory(Platforms)
 
-if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
+if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
 endif()
 
