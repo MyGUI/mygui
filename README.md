@@ -134,6 +134,7 @@ Run tests with `ctest --test-dir build -C RelWithDebInfo --output-on-failure` (u
 Run `python3 Scripts/Tests/compare_screenshots.py build` to compare demos and tools screenshots against reference images,
 checking rendering consistency across platforms and render backends. Requires built applications, a graphical display,
 and NumPy/Pillow (`python3 -m pip install numpy pillow`).
+MacOS OpenGL and DirectX require `--tolerance 1` due to rounding specifics not related to MyGUI.
 
 ## Documentation
 
