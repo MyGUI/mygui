@@ -15,7 +15,6 @@ namespace MyGUI
 {
 
 	// In seconds
-	const float INPUT_TIME_DOUBLE_CLICK = 0.25f;
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
 
@@ -23,7 +22,7 @@ namespace MyGUI
 
 	InputManager::InputManager() :
 		mSingletonHolder(this),
-		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK)
+		mTimerDoubleClick(mDoubleClickTime)
 	{
 		resetMouseCaptureWidget();
 	}
@@ -194,7 +193,7 @@ namespace MyGUI
 		if (old_mouse_focus != mWidgetMouseFocus)
 		{
 			// Reset double click timer, double clicks should only work when clicking on the *same* item twice
-			mTimerDoubleClick = INPUT_TIME_DOUBLE_CLICK;
+			mTimerDoubleClick = mDoubleClickTime;
 			eventChangeMouseFocus(mWidgetMouseFocus);
 		}
 
@@ -299,7 +298,7 @@ namespace MyGUI
 			{
 				if (MouseButton::Left == _id)
 				{
-					if (mTimerDoubleClick < INPUT_TIME_DOUBLE_CLICK)
+					if (mTimerDoubleClick < mDoubleClickTime)
 					{
 						mWidgetMouseFocus->_riseMouseButtonClick();
 						// might be reset in the call above, so check again
@@ -325,6 +324,17 @@ namespace MyGUI
 		}
 
 		return false;
+	}
+
+	void InputManager::setDoubleClickTime(float _value)
+	{
+		mDoubleClickTime = _value;
+		mTimerDoubleClick = mDoubleClickTime;
+	}
+
+	float InputManager::getDoubleClickTime() const
+	{
+		return mDoubleClickTime;
 	}
 
 	bool InputManager::injectKeyPress(KeyCode _key, Char _text)

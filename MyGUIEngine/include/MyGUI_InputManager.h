@@ -46,6 +46,13 @@ namespace MyGUI
 		*/
 		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
 
+		/** Set the double-click interval in seconds (default: 0.25)
+			Resets the pending double-click timer. Zero disables double-click detection
+		*/
+		void setDoubleClickTime(float _value);
+		/** Get the double-click interval in seconds */
+		float getDoubleClickTime() const;
+
 		/** Inject KeyPress event
 			@return true if event has been processed by GUI
 		*/
@@ -148,6 +155,7 @@ namespace MyGUI
 		ILayer* mLayerMouseFocus{nullptr};
 
 		//used for double click timing
+		float mDoubleClickTime{0.25f};
 		float mTimerDoubleClick; // time since the last click
 
 		bool mIsShiftPressed{false};
