@@ -237,6 +237,104 @@ namespace
 		require(view->getViewOffset() == MyGUI::IntPoint(0, 0), "Enlarging the viewport to fit must reset offsets");
 	}
 
+	void testScrollbarVisibility()
+	{
+		unittest::TestContext context;
+		setup();
+		for (bool verticalFirst : {false, true})
+		{
+			auto* view = context.getGui().createWidget<ScrollViewFixture>(
+				"BehaviourScrollView",
+				MyGUI::IntCoord(0, 0, 200, 200),
+				MyGUI::Align::Default,
+				"Main");
+			auto* vertical = part(view, "VScroll");
+			auto* horizontal = part(view, "HScroll");
+			const auto setFirstVisible = [&](bool visible)
+			{
+				if (verticalFirst)
+					view->setVisibleVScroll(visible);
+				else
+					view->setVisibleHScroll(visible);
+			};
+			const auto setSecondVisible = [&](bool visible)
+			{
+				if (verticalFirst)
+					view->setVisibleHScroll(visible);
+				else
+					view->setVisibleVScroll(visible);
+			};
+			view->setCanvasSize(400, 400);
+			for (int repeat = 0; repeat < 2; ++repeat)
+			{
+				setFirstVisible(false);
+				setFirstVisible(false);
+				require(
+					vertical->getVisible() == !verticalFirst && horizontal->getVisible() == verticalFirst,
+					"Disabling a visible scrollbar must hide it even while content overflows");
+				require(
+					view->getViewCoord().size() ==
+						(verticalFirst ? MyGUI::IntSize(200, 180) : MyGUI::IntSize(180, 200)),
+					"Disabling a scrollbar repeatedly must return its space exactly once");
+				setSecondVisible(false);
+				require(!vertical->getVisible() && !horizontal->getVisible(), "Both scrollbars must stay disabled");
+				require(
+					view->getViewCoord().size() == MyGUI::IntSize(200, 200),
+					"Disabling both scrollbars must restore the full viewport");
+				setFirstVisible(true);
+				setSecondVisible(true);
+				require(
+					vertical->getVisible() && horizontal->getVisible(),
+					"Re-enabling must restore needed scrollbars");
+				require(
+					view->getViewCoord().size() == MyGUI::IntSize(180, 180) && vertical->getHeight() == 180 &&
+						horizontal->getWidth() == 180,
+					"Repeated toggles must preserve viewport and scrollbar dimensions");
+			}
+			view->setCanvasSize(verticalFirst ? MyGUI::IntSize(200, 201) : MyGUI::IntSize(201, 200));
+			setFirstVisible(false);
+			require(
+				!vertical->getVisible() && !horizontal->getVisible(),
+				"Disabling one scrollbar must hide the other when the restored space removes its overflow");
+			setFirstVisible(true);
+			require(
+				vertical->getVisible() && horizontal->getVisible(),
+				"Re-enabling one scrollbar must show the other when its space causes overflow");
+			context.getGui().destroyWidget(view);
+		}
+	}
+
+	void testContentAlignmentAndClamping()
+	{
+		unittest::TestContext context;
+		setup();
+		auto* view = context.getGui().createWidget<ScrollViewFixture>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 200, 200),
+			MyGUI::Align::Default,
+			"Main");
+		view->setCanvasSize(101, 81);
+		view->setCanvasAlign(MyGUI::Align::Center);
+		require(
+			view->getViewOffset() == MyGUI::IntPoint(49, 59),
+			"Small content must remain centred with integer rounding");
+		view->setCanvasAlign(MyGUI::Align::Right | MyGUI::Align::Bottom);
+		require(view->getViewOffset() == MyGUI::IntPoint(99, 119), "Small content must align to the right and bottom");
+		view->setCanvasSize(400, 400);
+		require(
+			view->getViewOffset() == MyGUI::IntPoint(0, 0),
+			"Growing aligned content must clamp negative scroll offsets");
+		view->setViewOffset(MyGUI::IntPoint(-200, -210));
+		view->setCanvasSize(300, 320);
+		require(
+			view->getViewOffset() == MyGUI::IntPoint(-120, -140),
+			"Shrinking overflowing content must clamp both offsets to the new limits");
+		require(
+			part(view, "VScroll")->castType<MyGUI::ScrollBar>()->getScrollPosition() == 140 &&
+				part(view, "HScroll")->castType<MyGUI::ScrollBar>()->getScrollPosition() == 120,
+			"Scrollbars must follow clamped content offsets");
+	}
+
 }
 
 int main()
@@ -246,5 +344,7 @@ int main()
 		{"Line/page buttons and repeat cancellation", testButtonsAndRepeat},
 		{"Dragging and wheel input", testDraggingAndWheel},
 		{"Viewport boundaries and scrollbar interaction", testViewportBoundaries},
+		{"Scrollbar visibility toggles", testScrollbarVisibility},
+		{"Content alignment and offset clamping", testContentAlignmentAndClamping},
 	});
 }

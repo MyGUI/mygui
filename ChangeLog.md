@@ -19,6 +19,8 @@
 - Fix MultiListBox row indices not being cleared when removing the last column, allowing the list to be reused
 - Fix ScrollView scrollbar visibility, ranges and thumb sizes using stale viewport dimensions after scrollbars appear or
   disappear
+- Fix ScrollView, EditBox and ItemBox keeping scrollbars visible after setVisibleVScroll(false) or
+  setVisibleHScroll(false) when content still overflows
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

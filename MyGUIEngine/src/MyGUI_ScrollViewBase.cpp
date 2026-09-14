@@ -7,9 +7,25 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollViewBase.h"
 #include "MyGUI_ScrollBar.h"
+#include <algorithm>
 
 namespace MyGUI
 {
+
+	namespace
+	{
+
+		void updateScrollBar(ScrollBar* _scroll, int _viewSize, int _contentSize, size_t _range, size_t _page)
+		{
+			_scroll->setScrollPage(_page);
+			_scroll->setScrollViewPage(std::max(static_cast<size_t>(std::max(0, _viewSize)), _page));
+			_scroll->setScrollRange(_range + 1);
+			if (_contentSize != 0)
+				_scroll->setTrackSize(
+					static_cast<int>(static_cast<double>(_scroll->getLineSize()) * _viewSize / _contentSize));
+		}
+
+	}
 
 	void ScrollViewBase::updateScrollSize()
 	{
@@ -20,229 +36,84 @@ namespace MyGUI
 		IntSize contentSize = getContentSize();
 		IntSize viewSize = getViewSize();
 
-		// vertical content does not fit
-		if (contentSize.height > viewSize.height)
+		const auto refreshSizes = [&]
 		{
-			if (mVScroll != nullptr)
+			if (mChangeContentByResize)
 			{
-				if (!mVScroll->getVisible() && mVisibleVScroll)
-				{
-					mVScroll->setVisible(true);
-					mScrollViewClient->setSize(
-						mScrollViewClient->getWidth() - mVScroll->getWidth(),
-						mScrollViewClient->getHeight());
-
-					if (mChangeContentByResize)
-					{
-						eraseContent();
-						contentSize = getContentSize();
-					}
-					viewSize = getViewSize();
-
-					if (mHScroll != nullptr)
-					{
-						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
-
-						// if vertical scrollbar shown, view shrinks horizontally
-						// so recalculate horizontal scroll for showing
-						if ((contentSize.width > viewSize.width) && (!mHScroll->getVisible()) && (mVisibleHScroll))
-						{
-							mHScroll->setVisible(true);
-							mScrollViewClient->setSize(
-								mScrollViewClient->getWidth(),
-								mScrollViewClient->getHeight() - mHScroll->getHeight());
-							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
-
-							if (mChangeContentByResize)
-							{
-								eraseContent();
-								contentSize = getContentSize();
-							}
-							viewSize = getViewSize();
-						}
-					}
-				}
+				eraseContent();
+				contentSize = getContentSize();
 			}
-		}
-		// vertical content fits
-		else
+			viewSize = getViewSize();
+		};
+
+		const auto setVerticalVisible = [&](bool _visible)
 		{
-			if (mVScroll != nullptr)
-			{
-				if (mVScroll->getVisible())
-				{
-					mVScroll->setVisible(false);
-					mScrollViewClient->setSize(
-						mScrollViewClient->getWidth() + mVScroll->getWidth(),
-						mScrollViewClient->getHeight());
+			if (mVScroll == nullptr || mVScroll->getVisible() == _visible)
+				return false;
 
-					if (mChangeContentByResize)
-					{
-						eraseContent();
-						contentSize = getContentSize();
-					}
-					viewSize = getViewSize();
-
-					if (mHScroll != nullptr)
-					{
-						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
-
-						// if vertical scrollbar hidden, view grows horizontally,
-						// so recalculate horizontal scroll for hiding
-						if ((contentSize.width <= viewSize.width) && (mHScroll->getVisible()))
-						{
-							mHScroll->setVisible(false);
-							mScrollViewClient->setSize(
-								mScrollViewClient->getWidth(),
-								mScrollViewClient->getHeight() + mHScroll->getHeight());
-							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
-
-							if (mChangeContentByResize)
-							{
-								eraseContent();
-								contentSize = getContentSize();
-							}
-							viewSize = getViewSize();
-						}
-					}
-				}
-			}
-		}
-
-
-		// horizontal content does not fit
-		if (contentSize.width > viewSize.width)
-		{
+			const int delta = _visible ? -mVScroll->getWidth() : mVScroll->getWidth();
+			mVScroll->setVisible(_visible);
+			mScrollViewClient->setSize(mScrollViewClient->getWidth() + delta, mScrollViewClient->getHeight());
 			if (mHScroll != nullptr)
-			{
-				if (!mHScroll->getVisible() && mVisibleHScroll)
-				{
-					mHScroll->setVisible(true);
-					mScrollViewClient->setSize(
-						mScrollViewClient->getWidth(),
-						mScrollViewClient->getHeight() - mHScroll->getHeight());
+				mHScroll->setSize(mHScroll->getWidth() + delta, mHScroll->getHeight());
+			refreshSizes();
+			return true;
+		};
 
-					if (mChangeContentByResize)
-					{
-						eraseContent();
-						contentSize = getContentSize();
-					}
-					viewSize = getViewSize();
-
-					if (mVScroll != nullptr)
-					{
-						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
-
-						// if horizontal scrollbar shown, view shrinks vertically,
-						// so recalculate vertical scroll for showing
-						if ((contentSize.height > viewSize.height) && (!mVScroll->getVisible()) && (mVisibleVScroll))
-						{
-							mVScroll->setVisible(true);
-							mScrollViewClient->setSize(
-								mScrollViewClient->getWidth() - mVScroll->getWidth(),
-								mScrollViewClient->getHeight());
-							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
-
-							if (mChangeContentByResize)
-							{
-								eraseContent();
-								contentSize = getContentSize();
-							}
-							viewSize = getViewSize();
-						}
-					}
-				}
-			}
-		}
-		// horizontal content fits
-		else
+		const auto setHorizontalVisible = [&](bool _visible)
 		{
-			if (mHScroll != nullptr)
-			{
-				if (mHScroll->getVisible())
-				{
-					mHScroll->setVisible(false);
-					mScrollViewClient->setSize(
-						mScrollViewClient->getWidth(),
-						mScrollViewClient->getHeight() + mHScroll->getHeight());
+			if (mHScroll == nullptr || mHScroll->getVisible() == _visible)
+				return false;
 
-					if (mChangeContentByResize)
-					{
-						eraseContent();
-						contentSize = getContentSize();
-					}
-					viewSize = getViewSize();
+			const int delta = _visible ? -mHScroll->getHeight() : mHScroll->getHeight();
+			mHScroll->setVisible(_visible);
+			mScrollViewClient->setSize(mScrollViewClient->getWidth(), mScrollViewClient->getHeight() + delta);
+			if (mVScroll != nullptr)
+				mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + delta);
+			refreshSizes();
+			return true;
+		};
 
-					if (mVScroll != nullptr)
-					{
-						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
-
-						// if horizontal scrollbar hidden, view grows vertically,
-						// so recalculate vertical scroll for hiding
-						if ((contentSize.height <= viewSize.height) && (mVScroll->getVisible()))
-						{
-							mVScroll->setVisible(false);
-							mScrollViewClient->setSize(
-								mScrollViewClient->getWidth() + mVScroll->getWidth(),
-								mScrollViewClient->getHeight());
-							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
-
-							if (mChangeContentByResize)
-							{
-								eraseContent();
-								contentSize = getContentSize();
-							}
-							viewSize = getViewSize();
-						}
-					}
-				}
-			}
+		// Preserve the vertical-first layout pass and remeasure after each visibility change.
+		// Showing a scrollbar can require the other one; hiding it can make the other unnecessary.
+		const bool showVertical = mVisibleVScroll && contentSize.height > viewSize.height;
+		if (setVerticalVisible(showVertical))
+		{
+			const bool showHorizontal = mVisibleHScroll && contentSize.width > viewSize.width;
+			if (showHorizontal == showVertical)
+				setHorizontalVisible(showHorizontal);
 		}
 
-		mVRange = (viewSize.height >= contentSize.height) ? 0 : contentSize.height - viewSize.height;
-		mHRange = (viewSize.width >= contentSize.width) ? 0 : contentSize.width - viewSize.width;
+		const bool showHorizontal = mVisibleHScroll && contentSize.width > viewSize.width;
+		if (setHorizontalVisible(showHorizontal))
+		{
+			const bool showVerticalAfterResize = mVisibleVScroll && contentSize.height > viewSize.height;
+			if (showVerticalAfterResize == showHorizontal)
+				setVerticalVisible(showVerticalAfterResize);
+		}
+
+		mVRange = static_cast<size_t>(std::max(0, contentSize.height - viewSize.height));
+		mHRange = static_cast<size_t>(std::max(0, contentSize.width - viewSize.width));
 
 		if (mVScroll != nullptr)
-		{
-			size_t page = getVScrollPage();
-			mVScroll->setScrollPage(page);
-			mVScroll->setScrollViewPage(viewSize.height > (int)page ? viewSize.height : page);
-			mVScroll->setScrollRange(mVRange + 1);
-			if (contentSize.height)
-				mVScroll->setTrackSize(
-					int(float(mVScroll->getLineSize() * viewSize.height) / float(contentSize.height)));
-		}
+			updateScrollBar(mVScroll, viewSize.height, contentSize.height, mVRange, getVScrollPage());
 		if (mHScroll != nullptr)
-		{
-			size_t page = getHScrollPage();
-			mHScroll->setScrollPage(page);
-			mHScroll->setScrollViewPage(viewSize.width > (int)page ? viewSize.width : page);
-			mHScroll->setScrollRange(mHRange + 1);
-			if (contentSize.width)
-				mHScroll->setTrackSize(int(float(mHScroll->getLineSize() * viewSize.width) / float(contentSize.width)));
-		}
+			updateScrollBar(mHScroll, viewSize.width, contentSize.width, mHRange, getHScrollPage());
 	}
 
 	void ScrollViewBase::updateScrollPosition()
 	{
-		IntSize contentSize = getContentSize();
-		IntPoint contentPoint = getContentPosition();
+		const IntSize contentSize = getContentSize();
+		const IntPoint contentPoint = getContentPosition();
 		IntPoint offset = contentPoint;
 
-		IntSize viewSize = getViewSize();
+		const IntSize viewSize = getViewSize();
 
-		Align align = getContentAlign();
+		const Align align = getContentAlign();
 
 		if (contentSize.width > viewSize.width)
 		{
-			if ((offset.left + viewSize.width) > contentSize.width)
-			{
-				offset.left = contentSize.width - viewSize.width;
-			}
-			else if (offset.left < 0)
-			{
-				offset.left = 0;
-			}
+			offset.left = std::clamp(offset.left, 0, contentSize.width - viewSize.width);
 		}
 		else
 		{
@@ -262,14 +133,7 @@ namespace MyGUI
 
 		if (contentSize.height > viewSize.height)
 		{
-			if ((offset.top + viewSize.height) > contentSize.height)
-			{
-				offset.top = contentSize.height - viewSize.height;
-			}
-			else if (offset.top < 0)
-			{
-				offset.top = 0;
-			}
+			offset.top = std::clamp(offset.top, 0, contentSize.height - viewSize.height);
 		}
 		else
 		{
@@ -289,9 +153,9 @@ namespace MyGUI
 
 		if (offset != contentPoint)
 		{
-			if (nullptr != mVScroll)
+			if (mVScroll != nullptr)
 				mVScroll->setScrollPosition(offset.top);
-			if (nullptr != mHScroll)
+			if (mHScroll != nullptr)
 				mHScroll->setScrollPosition(offset.left);
 			setContentPosition(offset);
 		}
