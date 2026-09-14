@@ -2,6 +2,24 @@
 # Install media and generate resources.xml
 ###############################################################
 
+set(MYGUI_NON_RUNTIME_MEDIA_PATTERNS
+	Sources
+	CMakeLists.txt
+	# OS specific trash
+	.DS_Store
+	"._*"
+	Thumbs.db
+	desktop.ini
+)
+set(MYGUI_NON_RUNTIME_MEDIA_PATTERNS "${MYGUI_NON_RUNTIME_MEDIA_PATTERNS}" PARENT_SCOPE)
+
+function(mygui_emscripten_exclude_non_runtime_media TARGETNAME VISIBILITY)
+	foreach(_pattern IN LISTS MYGUI_NON_RUNTIME_MEDIA_PATTERNS)
+		# Quote globs so the shell passes them through to Emscripten's packager.
+		target_link_options(${TARGETNAME} ${VISIBILITY} "SHELL:--exclude-file \"*/${_pattern}\"")
+	endforeach()
+endfunction()
+
 function(install_file FILENAME)
 	install(
 		FILES "${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${FILENAME}"
@@ -28,10 +46,13 @@ if(MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
 		set(MYGUI_RELATIVE_MEDIA_PATH "../../${MYGUI_INSTALL_MEDIA_PATH}")
 	endif()
 
+	set(_media_exclusions)
+	foreach(_pattern IN LISTS MYGUI_NON_RUNTIME_MEDIA_PATTERNS)
+		list(APPEND _media_exclusions PATTERN "${_pattern}" EXCLUDE)
+	endforeach()
 	install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/"
 		DESTINATION "${MYGUI_INSTALL_MEDIA_PATH}"
-		PATTERN "CMakeLists.txt" EXCLUDE
-		PATTERN "Sources" EXCLUDE
+		${_media_exclusions}
 		PATTERN "UnitTests" EXCLUDE
 	)
 

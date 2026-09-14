@@ -125,6 +125,10 @@ function(mygui_unit_test PROJECTNAME)
 	endif()
 
 	add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
+	if(EMSCRIPTEN)
+		# Node loads the preloaded .data package relative to the process working directory.
+		set_tests_properties(${PROJECTNAME} PROPERTIES WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECTNAME}>")
+	endif()
 endfunction(mygui_unit_test)
 
 function(mygui_tool_dll PROJECTNAME)

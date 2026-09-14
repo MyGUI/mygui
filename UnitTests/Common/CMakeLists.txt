@@ -10,6 +10,7 @@ if(EMSCRIPTEN)
 	target_link_options(MyGUIUnitTestCommon INTERFACE
 		"SHELL:--preload-file ${MYGUI_SOURCE_DIR}/Media/UnitTests@/UnitTests"
 	)
+	mygui_emscripten_exclude_non_runtime_media(MyGUIUnitTestCommon INTERFACE)
 else()
 	target_compile_definitions(MyGUIUnitTestCommon PRIVATE
 		MYGUI_UNITTEST_RESOURCE_ROOT="${MYGUI_SOURCE_DIR}/Media/UnitTests"

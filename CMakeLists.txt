@@ -145,6 +145,7 @@ add_subdirectory(MyGUIEngine)
 add_subdirectory(Platforms)
 
 if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TEST_APP)
+	add_subdirectory(Media)
 	add_subdirectory(Common)
 endif()
 
@@ -176,5 +177,4 @@ endif()
 ###################################################################
 # Configure install rules, package configs, and export sets
 ###################################################################
-add_subdirectory(Media)
 include(InstallRules)

@@ -103,6 +103,7 @@ if(EMSCRIPTEN)
 	target_link_options(${PROJECTNAME} PUBLIC "-sMIN_WEBGL_VERSION=2")
 	target_link_options(${PROJECTNAME} PUBLIC "SHELL:--preload-file ${MYGUI_SOURCE_DIR}/Media@/Media")
 	target_link_options(${PROJECTNAME} PUBLIC "SHELL:--preload-file ${CMAKE_CURRENT_BINARY_DIR}/../bin/resources.xml@/resources.xml")
+	mygui_emscripten_exclude_non_runtime_media(${PROJECTNAME} PUBLIC)
 	# debug stuff
 	target_link_options(${PROJECTNAME} PUBLIC "-sASSERTIONS=1")
 	target_link_options(${PROJECTNAME} PUBLIC "-sNO_DISABLE_EXCEPTION_CATCHING")
