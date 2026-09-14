@@ -213,7 +213,8 @@ namespace MyGUI
 		// clicked outside GUI
 		if (!isFocusMouse())
 		{
-			resetKeyFocusWidget();
+			if (mVectorModalRootWidget.empty())
+				resetKeyFocusWidget();
 
 			return false;
 		}
@@ -427,7 +428,7 @@ namespace MyGUI
 
 		if (_widget)
 		{
-			_widget->_riseKeySetFocus(mWidgetKeyFocus);
+			_widget->_riseKeySetFocus(oldKeyFocus);
 		}
 
 		eventChangeKeyFocus(mWidgetKeyFocus);

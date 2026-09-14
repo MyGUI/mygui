@@ -36,8 +36,8 @@ namespace MyGUI
 					{
 						eraseContent();
 						contentSize = getContentSize();
-						viewSize = getViewSize();
 					}
+					viewSize = getViewSize();
 
 					if (mHScroll != nullptr)
 					{
@@ -57,8 +57,8 @@ namespace MyGUI
 							{
 								eraseContent();
 								contentSize = getContentSize();
-								viewSize = getViewSize();
 							}
+							viewSize = getViewSize();
 						}
 					}
 				}
@@ -80,8 +80,8 @@ namespace MyGUI
 					{
 						eraseContent();
 						contentSize = getContentSize();
-						viewSize = getViewSize();
 					}
+					viewSize = getViewSize();
 
 					if (mHScroll != nullptr)
 					{
@@ -101,8 +101,8 @@ namespace MyGUI
 							{
 								eraseContent();
 								contentSize = getContentSize();
-								viewSize = getViewSize();
 							}
+							viewSize = getViewSize();
 						}
 					}
 				}
@@ -126,8 +126,8 @@ namespace MyGUI
 					{
 						eraseContent();
 						contentSize = getContentSize();
-						viewSize = getViewSize();
 					}
+					viewSize = getViewSize();
 
 					if (mVScroll != nullptr)
 					{
@@ -147,8 +147,8 @@ namespace MyGUI
 							{
 								eraseContent();
 								contentSize = getContentSize();
-								viewSize = getViewSize();
 							}
+							viewSize = getViewSize();
 						}
 					}
 				}
@@ -170,8 +170,8 @@ namespace MyGUI
 					{
 						eraseContent();
 						contentSize = getContentSize();
-						viewSize = getViewSize();
 					}
+					viewSize = getViewSize();
 
 					if (mVScroll != nullptr)
 					{
@@ -191,8 +191,8 @@ namespace MyGUI
 							{
 								eraseContent();
 								contentSize = getContentSize();
-								viewSize = getViewSize();
 							}
+							viewSize = getViewSize();
 						}
 					}
 				}

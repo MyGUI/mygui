@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceLayout" name="BehaviourLayout" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="10 20 200 100" layer="Main" name="Root">
+			<Property key="Visible" value="true"/>
+			<UserString key="purpose" value="layout test"/>
+			<Widget type="Button" skin="Default" position="5 6 70 20" name="Button">
+				<Property key="StateSelected" value="true"/>
+				<Property key="NeedKey" value="false"/>
+				<Widget type="Widget" skin="Default" position="1 2 10 10" name="Leaf">
+					<Property key="Visible" value="false"/>
+				</Widget>
+			</Widget>
+		</Widget>
+	</Resource>
+</MyGUI>

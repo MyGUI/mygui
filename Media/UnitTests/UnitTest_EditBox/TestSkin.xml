@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="BehaviourEditClient" size="200 80">
+		<BasisSkin type="EditText" offset="0 0 200 80" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceLayout" name="BehaviourEditBox" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 200 80" name="Root">
+			<Widget type="TextBox" skin="BehaviourEditClient" position="0 0 200 80" align="Stretch" name="Client">
+				<Property key="FontName" value="UnitTestFixedFont"/>
+				<Property key="FontHeight" value="20"/>
+				<Property key="TextAlign" value="Left Top"/>
+			</Widget>
+		</Widget>
+	</Resource>
+</MyGUI>

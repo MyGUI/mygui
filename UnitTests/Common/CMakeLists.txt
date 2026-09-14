@@ -1,4 +1,4 @@
-add_library(MyGUIUnitTestCommon STATIC TestSupport.h TestSupport.cpp)
+add_library(MyGUIUnitTestCommon STATIC TestSupport.h TestSupport.cpp BehaviourTestSupport.h FixedFont.h)
 set_target_properties(MyGUIUnitTestCommon PROPERTIES FOLDER UnitTest)
 target_include_directories(MyGUIUnitTestCommon PUBLIC
 	"${CMAKE_CURRENT_SOURCE_DIR}"

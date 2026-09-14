@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceLayout" name="BehaviourScrollV" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 20 200" name="Root">
+			<Property key="VerticalAlignment" value="true"/>
+			<Widget type="Widget" skin="Default" position="0 20 20 160" align="Stretch" name="TrackPlace">
+				<Property key="InheritsPick" value="true"/>
+				<Widget type="Button" skin="Default" position="0 0 20 20" align="HStretch Top" name="Track">
+					<UserString key="MinTrackSize" value="10"/>
+				</Widget>
+				<Widget type="Widget" skin="Default" position="0 0 20 0" align="HStretch Top" name="FirstPart"/>
+				<Widget type="Widget" skin="Default" position="0 20 20 140" align="HStretch Top" name="SecondPart"/>
+			</Widget>
+			<Widget type="Button" skin="Default" position="0 0 20 20" align="HStretch Top" name="Start"/>
+			<Widget type="Button" skin="Default" position="0 180 20 20" align="HStretch Bottom" name="End"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceLayout" name="BehaviourScrollH" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 200 20" name="Root">
+			<Property key="VerticalAlignment" value="false"/>
+			<Widget type="Widget" skin="Default" position="20 0 160 20" align="Stretch" name="TrackPlace">
+				<Property key="InheritsPick" value="true"/>
+				<Widget type="Button" skin="Default" position="0 0 20 20" align="Left VStretch" name="Track">
+					<UserString key="MinTrackSize" value="10"/>
+				</Widget>
+				<Widget type="Widget" skin="Default" position="0 0 0 20" align="Left VStretch" name="FirstPart"/>
+				<Widget type="Widget" skin="Default" position="20 0 140 20" align="Left VStretch" name="SecondPart"/>
+			</Widget>
+			<Widget type="Button" skin="Default" position="0 0 20 20" align="Left VStretch" name="Start"/>
+			<Widget type="Button" skin="Default" position="180 0 20 20" align="Right VStretch" name="End"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceLayout" name="BehaviourScrollView" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 200 200" name="Root">
+			<Widget type="Widget" skin="Default" position="0 0 180 180" align="Stretch" name="Client"/>
+			<Widget type="ScrollBar" skin="BehaviourScrollV" position="180 0 20 180" align="Right VStretch" name="VScroll"/>
+			<Widget type="ScrollBar" skin="BehaviourScrollH" position="0 180 180 20" align="HStretch Bottom" name="HScroll"/>
+		</Widget>
+	</Resource>
+</MyGUI>
