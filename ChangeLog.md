@@ -12,6 +12,8 @@
 - Fix ComboBox shutdown crash when destroying a focused drop-down
 - Fix LayerItem not restoring layer nodes for overlapped descendants when reparenting a widget as a child
 - Add InputManager::setDoubleClickTime and getDoubleClickTime
+- Add setItemHeight, getItemHeight and ItemHeight property to ListBox, ComboBox and MultiListBox for runtime row resizing
+- Fix newly added MultiListBox columns not inheriting the current scroll position
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

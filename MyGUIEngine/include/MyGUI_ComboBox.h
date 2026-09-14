@@ -116,6 +116,13 @@ namespace MyGUI
 		//! Get smooth show of list flag
 		bool getSmoothShow() const;
 
+		/** Set the drop-down item height in pixels and update an open list immediately.
+			Values below 1 are clamped to 1. Does not change the input field height.
+		*/
+		void setItemHeight(int _height);
+		//! Return the drop-down item height in pixels.
+		int getItemHeight() const;
+
 		//! Get max list length
 		void setMaxListLength(int _value);
 		//! Set max list length

@@ -13,4 +13,9 @@
 			<UserString key="HeightLine" value="20"/>
 		</Widget>
 	</Resource>
+	<Resource type="ResourceLayout" name="TestComboHeightLayout" version="3.2.0">
+		<Widget type="ComboBox" skin="TestComboBox" position="0 0 120 24" layer="Main">
+			<Property key="ItemHeight" value="32"/>
+		</Widget>
+	</Resource>
 </MyGUI>

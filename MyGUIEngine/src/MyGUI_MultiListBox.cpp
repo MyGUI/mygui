@@ -67,6 +67,34 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
+	void MultiListBox::setItemHeight(int _height)
+	{
+		mItemHeight = std::max(1, _height);
+		for (auto& column : mVectorColumnInfo)
+			column.list->setItemHeight(mItemHeight);
+	}
+
+	int MultiListBox::getItemHeight() const
+	{
+		if (mItemHeight != 0)
+			return mItemHeight;
+		return mVectorColumnInfo.empty() ? 1 : mVectorColumnInfo.front().list->getItemHeight();
+	}
+
+	void MultiListBox::setPropertyOverride(std::string_view _key, std::string_view _value)
+	{
+		/// @wproperty{MultiListBox, ItemHeight, int} Row height in pixels for all columns (minimum 1).
+		if (_key == "ItemHeight")
+			setItemHeight(utility::parseValue<int>(_value));
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+
+		eventChangeProperty(this, _key, _value);
+	}
+
 	void MultiListBox::setColumnNameAt(size_t _column, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setColumnNameAt");
@@ -706,6 +734,8 @@ namespace MyGUI
 			mSkinList,
 			IntCoord(0, 0, _item->getWidth(), _item->getHeight()),
 			Align::Stretch);
+		if (mItemHeight != 0)
+			column.list->setItemHeight(mItemHeight);
 		column.list->eventListChangePosition += newDelegate(this, &MultiListBox::notifyListChangePosition);
 		column.list->eventListMouseItemFocus += newDelegate(this, &MultiListBox::notifyListChangeFocus);
 		column.list->eventListChangeScroll += newDelegate(this, &MultiListBox::notifyListChangeScrollPosition);
@@ -733,6 +763,7 @@ namespace MyGUI
 
 		// show scroll of the new edge item
 		mVectorColumnInfo.back().list->setScrollVisible(true);
+		column.list->setScrollPosition(mVectorColumnInfo.front().list->_getScrollPosition());
 	}
 
 	void MultiListBox::_unwrapItem(MultiListItem* _item)
@@ -751,6 +782,7 @@ namespace MyGUI
 
 		if (mVectorColumnInfo.empty())
 		{
+			BiIndexBase::removeAllItems();
 			mSortColumnIndex = ITEM_NONE;
 			mItemSelected = ITEM_NONE;
 		}

@@ -34,6 +34,61 @@ namespace
 				_list->getCoord().print());
 	}
 
+	void testItemHeight(MyGUI::Gui& _gui, bool _smooth)
+	{
+		auto* combo = _gui.createWidget<MyGUI::ComboBox>(
+			"TestComboBox",
+			MyGUI::IntCoord(100, 450, 120, 24),
+			MyGUI::Align::Default,
+			"Main");
+		combo->setSmoothShow(_smooth);
+		require(combo->getItemHeight() == 20, "The default height must come from the list skin");
+		combo->setItemHeight(30);
+		combo->addItem("First");
+		combo->addItem("Second");
+		combo->addItem("Third");
+		combo->setIndexSelected(1);
+		auto* list = openList(combo);
+		require(list->getHeight() == 90, "Height set while closed must apply on opening");
+		require(list->getTop() == 474, "The short list must open below the combo");
+		combo->setItemHeight(50);
+		require(combo->getItemHeight() == 50 && list->getItemHeight() == 50, "The API must update the list height");
+		require(list->getHeight() == 150 && list->getTop() == 300, "Growing the open list must flip it above");
+		combo->setMaxListLength(100);
+		combo->setProperty("ItemHeight", "60");
+		require(list->getHeight() == 100 && list->getTop() == 474, "Resizing must respect the maximum list length");
+		const auto coord = list->getCoord();
+		combo->setItemHeight(60);
+		require(list->getCoord() == coord, "Repeated heights must preserve geometry");
+		require(combo->getHeight() == 24, "Item height must not resize the input field");
+		require(combo->getIndexSelected() == 1 && list->getIndexSelected() == 1, "Selection must survive resizing");
+		require(MyGUI::InputManager::getInstance().getKeyFocusWidget() == list, "Resizing must preserve list focus");
+		for (size_t index = 0; index < 2; ++index)
+			require(list->getWidgetByIndex(index)->getHeight() == 60, "Existing rows must resize immediately");
+		combo->setItemHeight(0);
+		require(combo->getItemHeight() == 1 && list->getHeight() == 3, "Zero height must clamp to one");
+		combo->setProperty("ItemHeight", "-8");
+		require(combo->getItemHeight() == 1, "Negative property values must clamp to one");
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(nullptr);
+		_gui.eventFrameStart(1.0f);
+		combo->setItemHeight(25);
+		require(!list->getVisible(), "Changing height must not open a closed list");
+		list = openList(combo);
+		require(list->getHeight() == 75, "Reopening must use the latest height");
+		_gui.destroyWidget(combo);
+		_gui.eventFrameStart(0.016f);
+	}
+
+	void testItemHeightLayout()
+	{
+		auto* resource =
+			MyGUI::ResourceManager::getInstance().getByName("TestComboHeightLayout")->castType<MyGUI::ResourceLayout>();
+		auto widgets = resource->createLayout();
+		auto* combo = widgets.at(0)->castType<MyGUI::ComboBox>();
+		require(combo->getItemHeight() == 32, "The XML property must override the skin default");
+		MyGUI::LayoutManager::getInstance().unloadLayout(widgets);
+	}
+
 	void testScrolling(MyGUI::Gui& _gui, bool _smooth, unittest::CountingLayer& _popupLayer)
 	{
 		auto* scroll = _gui.createWidget<MyGUI::ScrollView>(
@@ -119,6 +174,9 @@ int main()
 		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
 		auto* popupLayer = unittest::createCountingLayer("Popup", 1);
 		unittest::loadResources("UnitTest_ComboBox/TestSkin.xml");
+		testItemHeight(gui, false);
+		testItemHeight(gui, true);
+		testItemHeightLayout();
 		testScrolling(gui, false, *popupLayer);
 		testScrolling(gui, true, *popupLayer);
 	}

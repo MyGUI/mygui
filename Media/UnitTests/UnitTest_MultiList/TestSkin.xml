@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="TestHeightListRow" size="100 20">
+		<BasisSkin type="SimpleText" offset="0 0 100 20" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceLayout" name="TestHeightListBox" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 120 104" name="Root">
+			<UserString key="HeightLine" value="20"/>
+			<UserString key="SkinLine" value="TestHeightListRow"/>
+			<Widget type="Widget" skin="Default" position="2 2 100 100" align="Stretch" name="Client"/>
+			<Widget type="ScrollBar" skin="Default" position="102 2 16 100" align="Right VStretch" name="VScroll"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceLayout" name="TestHeightMultiListBox" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 240 124" name="Root">
+			<UserString key="SkinList" value="TestHeightListBox"/>
+			<UserString key="HeightButton" value="20"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceLayout" name="TestListHeightLayout" version="3.2.0">
+		<Widget type="ListBox" skin="TestHeightListBox" position="0 0 120 104" layer="Main">
+			<Property key="ItemHeight" value="32"/>
+		</Widget>
+		<Widget type="MultiListBox" skin="TestHeightMultiListBox" position="0 0 240 124" layer="Main">
+			<Property key="ItemHeight" value="32"/>
+			<Widget type="MultiListItem" skin="Default" position="0 0 120 104"/>
+		</Widget>
+	</Resource>
+</MyGUI>

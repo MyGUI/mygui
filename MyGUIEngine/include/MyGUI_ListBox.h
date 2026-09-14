@@ -161,6 +161,13 @@ namespace MyGUI
 		using Widget::setCoord;
 		//@}
 
+		/** Set the height of all items in pixels and update the layout immediately.
+			Values below 1 are clamped to 1. The pixel scroll position is preserved where possible.
+		*/
+		void setItemHeight(int _height);
+		//! Return the height of each item in pixels.
+		int getItemHeight() const;
+
 		//! Return optimal height to fit all items in ListBox
 		int getOptimalHeight() const;
 
@@ -228,6 +235,7 @@ namespace MyGUI
 		void _checkAlign();
 
 		// Helper methods for compound/composite lists
+		size_t _getScrollPosition() const;
 		void _setItemFocus(size_t _index, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 

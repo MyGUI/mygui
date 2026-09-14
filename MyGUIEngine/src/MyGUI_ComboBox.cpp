@@ -453,6 +453,10 @@ namespace MyGUI
 		else if (_key == "MaxListLength")
 			setMaxListLength(utility::parseValue<int>(_value));
 
+		/// @wproperty{ComboBox, ItemHeight, int} Drop-down item height in pixels (minimum 1).
+		else if (_key == "ItemHeight")
+			setItemHeight(utility::parseValue<int>(_value));
+
 		/// @wproperty{ComboBox, SmoothShow, bool} Smooth list reveal animation.
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
@@ -536,6 +540,22 @@ namespace MyGUI
 	bool ComboBox::getSmoothShow() const
 	{
 		return mShowSmooth;
+	}
+
+	void ComboBox::setItemHeight(int _height)
+	{
+		_height = std::max(1, _height);
+		if (mList->getItemHeight() == _height)
+			return;
+
+		mList->setItemHeight(_height);
+		if (mListShow)
+			notifyChangeCoord(this);
+	}
+
+	int ComboBox::getItemHeight() const
+	{
+		return mList->getItemHeight();
 	}
 
 	void ComboBox::setMaxListLength(int _value)

@@ -300,7 +300,7 @@ namespace MyGUI
 			_resetContainer(false);
 		}
 
-		int position = mTopIndex * mHeightLine + mOffsetTop;
+		size_t position = _getScrollPosition();
 
 		if (mOldSize.height < mCoord.height)
 		{
@@ -335,7 +335,7 @@ namespace MyGUI
 			}
 
 			// check if list position should stay unchanged
-			if (position >= mRangeIndex)
+			if (mRangeIndex <= 0 || position >= static_cast<size_t>(mRangeIndex))
 			{
 				if (mRangeIndex <= 0)
 				{
@@ -472,7 +472,7 @@ namespace MyGUI
 					mWidgetScroll->setTrackSize(
 						mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
 						(int)mItemsInfo.size());
-				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
+				mWidgetScroll->setScrollPosition(_getScrollPosition());
 			}
 			mRangeIndex += mHeightLine;
 		}
@@ -490,7 +490,7 @@ namespace MyGUI
 						mWidgetScroll->setTrackSize(
 							mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
 							(int)mItemsInfo.size());
-					mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
+					mWidgetScroll->setScrollPosition(_getScrollPosition());
 				}
 				mRangeIndex += mHeightLine;
 			}
@@ -536,7 +536,7 @@ namespace MyGUI
 					mWidgetScroll->setTrackSize(
 						mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
 						(int)mItemsInfo.size());
-				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
+				mWidgetScroll->setScrollPosition(_getScrollPosition());
 			}
 			mRangeIndex -= mHeightLine;
 		}
@@ -553,7 +553,7 @@ namespace MyGUI
 						mWidgetScroll->setTrackSize(
 							mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine /
 							(int)mItemsInfo.size());
-					mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
+					mWidgetScroll->setScrollPosition(_getScrollPosition());
 				}
 				mRangeIndex -= mHeightLine;
 			}
@@ -748,6 +748,11 @@ namespace MyGUI
 		_redrawItemRange(mLastRedrawLine);
 	}
 
+	size_t ListBox::_getScrollPosition() const
+	{
+		return mTopIndex * mHeightLine + mOffsetTop;
+	}
+
 	void ListBox::_sendEventChangeScroll(size_t _position)
 	{
 		eventListChangeScroll(this, _position);
@@ -797,6 +802,31 @@ namespace MyGUI
 				return pos;
 		}
 		return ITEM_NONE;
+	}
+
+	void ListBox::setItemHeight(int _height)
+	{
+		_height = std::max(1, _height);
+		if (mHeightLine == _height)
+			return;
+
+		int position = static_cast<int>(_getScrollPosition());
+		mHeightLine = _height;
+
+		if (mWidgetScroll != nullptr)
+			mWidgetScroll->setScrollPage((size_t)mHeightLine);
+		updateScroll();
+
+		for (auto& widgetLine : mWidgetLines)
+			widgetLine->setSize(_getClientWidget()->getWidth(), mHeightLine);
+
+		_setScrollView(std::clamp(position, 0, std::max(0, mRangeIndex)));
+		updateLine(true);
+	}
+
+	int ListBox::getItemHeight() const
+	{
+		return mHeightLine;
 	}
 
 	int ListBox::getOptimalHeight() const
@@ -880,6 +910,9 @@ namespace MyGUI
 			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 		else if (_key == "ActivateOnClick")
 			mActivateOnClick = utility::parseBool(_value);
+		/// @wproperty{ListBox, ItemHeight, int} Item height in pixels (minimum 1).
+		else if (_key == "ItemHeight")
+			setItemHeight(utility::parseInt(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

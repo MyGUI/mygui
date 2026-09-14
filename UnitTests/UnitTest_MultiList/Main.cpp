@@ -2,6 +2,8 @@
 #include "TestSupport.h"
 #include "UnitTest_List.h"
 #include "UnitTest_MultiList.h"
+#include "UnitTest_ListItemHeight.h"
+#include "UnitTest_MultiListItemHeight.h"
 #include <iostream>
 #include <random>
 
@@ -13,6 +15,9 @@ int main()
 	{
 		unittest::TestContext context;
 		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+		unittest::testListItemHeight();
+		unittest::testMultiListItemHeight();
+		unittest::testListItemHeightLayout();
 		for (const unsigned int currentSeed : {0u, 42u, 12345u})
 		{
 			seed = currentSeed;

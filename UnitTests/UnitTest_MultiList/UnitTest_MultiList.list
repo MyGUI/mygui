@@ -3,7 +3,9 @@ set(HEADER_FILES
   Mirror_List.h
   Mirror_MultiList.h
   UnitTest_List.h
+  UnitTest_ListItemHeight.h
   UnitTest_MultiList.h
+  UnitTest_MultiListItemHeight.h
 )
 set(SOURCE_FILES Main.cpp)
 SOURCE_GROUP("Header Files" FILES ${HEADER_FILES})

@@ -38,6 +38,7 @@
 		<Parameter key="ModeDrop" value="Bool"/>
 		<Parameter key="FlowDirection" value="FlowDirection"/>
 		<Parameter key="MaxListLength" value="1 int"/>
+		<Parameter key="ItemHeight" value="1 int"/>
 		<Parameter key="SmoothShow" value="Bool"/>
 		<Property key="ItemManager" value="true"/>
 	</Widget>
@@ -94,6 +95,7 @@
 		<Property key="Skin" value="ListBox_Dark" group="_Dark"/>
 		<Property key="Skin" value="ListBox2_Dark" group="_Dark"/>
 		<Property key="Skin" value="ListBox3_Dark" group="_Dark"/>
+		<Parameter key="ItemHeight" value="1 int"/>
 		<Property key="ItemManager" value="true"/>
 		<TemplateData key="HeightLine" value="1 int"/>
 		<TemplateData key="SkinLine" value="Skin"/>
@@ -129,6 +131,7 @@
 		<Property key="Base" value="Widget"/>
 		<Property key="Skin" value="MultiListBox"/>
 		<Property key="Skin" value="MultiListBox_Dark" group="_Dark"/>
+		<Parameter key="ItemHeight" value="1 int"/>
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 	<Widget name="MultiListItem" internal="true">

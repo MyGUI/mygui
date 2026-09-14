@@ -55,6 +55,15 @@ namespace MyGUI
 		using Widget::setSize;
 		using Widget::setCoord;
 
+		/** Set the row height in pixels for existing and future columns.
+			Values below 1 are clamped to 1. Does not change the header height.
+		*/
+		void setItemHeight(int _height);
+		/** Return the explicit row height, or the first column's skin-defined height.
+			Returns 1 when no height has been set and there are no columns.
+		*/
+		int getItemHeight() const;
+
 		//------------------------------------------------------------------------------//
 		// Methods for work with columns
 		//------------------------------------------------------------------------------//
@@ -304,6 +313,7 @@ namespace MyGUI
 	protected:
 		void initialiseOverride() override;
 		void shutdownOverride() override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		void onWidgetCreated(Widget* _widget) override;
 		void onWidgetDestroy(Widget* _widget) override;
@@ -359,6 +369,8 @@ namespace MyGUI
 
 	private:
 		int mHeightButton{0};
+		// Zero keeps the height defined by the column list skin.
+		int mItemHeight{0};
 		int mWidthBar{0};
 		std::string mSkinButton;
 		std::string mSkinList;
