@@ -46,10 +46,15 @@ endfunction()
 #######################################################################
 
 if(MYGUI_USE_FREETYPE)
-	# Find FreeType
-	find_package(Freetype)
-	macro_log_feature(FREETYPE_FOUND "freetype" "Portable font engine" "http://www.freetype.org" TRUE "" "")
-	find_package(ZLIB)
+	if(EMSCRIPTEN)
+		add_library(Freetype::Freetype INTERFACE IMPORTED GLOBAL)
+		target_compile_options(Freetype::Freetype INTERFACE "--use-port=freetype")
+		target_link_options(Freetype::Freetype INTERFACE "--use-port=freetype")
+	else()
+		find_package(Freetype)
+		macro_log_feature(FREETYPE_FOUND "freetype" "Portable font engine" "http://www.freetype.org" TRUE "" "")
+		find_package(ZLIB)
+	endif()
 
 	if(MYGUI_MSDF_FONTS)
 		if(MYGUI_USE_SYSTEM_MSDFGEN)
