@@ -634,6 +634,8 @@ namespace MyGUI
 	{
 		_detachFromWidget(_layer);
 		_updateAlpha();
+		_updateEnabled();
+		_updateVisible();
 		_updateGeometry();
 		_updateView();
 	}
@@ -753,6 +755,8 @@ namespace MyGUI
 		}
 
 		_updateAlpha();
+		_updateEnabled();
+		_updateVisible();
 		_updateGeometry();
 		_updateView();
 	}
