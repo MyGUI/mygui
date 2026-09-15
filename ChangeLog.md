@@ -25,6 +25,9 @@
   setVisibleHScroll(false) when content still overflows
 - Fix reparenting did not update inherited visibility and enabled state
 - Fix child popup with disabled ancestor could still intercept mouse input
+- Fix an empty ListBox accepted nonzero scrolling
+- Fix resizing ListBox could expose a reused row without refreshing its selected appearance
+- Fix removing an offscreen selected ListBox item could select a visible neighbour without repainting it
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

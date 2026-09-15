@@ -284,7 +284,7 @@ namespace MyGUI
 			mWidgetScroll->setVisible(true);
 		}
 
-		mWidgetScroll->setScrollRange(mRangeIndex + 1);
+		mWidgetScroll->setScrollRange(std::max(0, mRangeIndex) + 1);
 		mWidgetScroll->setScrollViewPage(_getClientWidget()->getHeight());
 		if (!mItemsInfo.empty())
 			mWidgetScroll->setTrackSize(
@@ -385,11 +385,11 @@ namespace MyGUI
 					}
 				}
 			}
+		}
 
-			// size increased but no scroll down, update lines below
-			_redrawItemRange(mLastRedrawLine);
-
-		} // if (old_cy < mCoord.height)
+		// Resizing can expose or hide existing rows without changing the scroll
+		// position. Refresh them all so reused widgets have current contents and state.
+		_redrawItemRange();
 
 		if (mWidgetScroll != nullptr)
 			mWidgetScroll->setScrollPosition(position);
@@ -565,6 +565,10 @@ namespace MyGUI
 				// later add optimization for number of redraws
 			}
 		}
+
+		// Removing the selected item can select its neighbour. The neighbour may
+		// already have a reused row even when the removed item was outside the view.
+		_redrawItemRange();
 	}
 
 	void ListBox::setIndexSelected(size_t _index)
