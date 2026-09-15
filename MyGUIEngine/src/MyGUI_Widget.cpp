@@ -921,8 +921,8 @@ namespace MyGUI
 
 	bool Widget::_checkPoint(int _left, int _top) const
 	{
-		return (_getViewLeft() <= _left) && (_getViewTop() <= _top) && (_getViewRight() >= _left) &&
-			(_getViewBottom() >= _top);
+		// Exclude the right and bottom edges to match the rendered pixel bounds.
+		return _getViewLeft() <= _left && _getViewTop() <= _top && _left < _getViewRight() && _top < _getViewBottom();
 	}
 
 	void Widget::_linkChildWidget(Widget* _widget)

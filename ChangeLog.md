@@ -16,6 +16,8 @@
 - Fix newly added MultiListBox columns not inheriting the current scroll position
 - Fix keyboard focus gained events reporting the new widget instead of the previous focused widget
 - Preserve keyboard focus in modal dialogs when clicking outside them
+- Exclude right and bottom edges from widget hit testing to match rendered bounds and prevent adjacent widgets from
+  sharing clickable boundary pixels
 - Fix MultiListBox row indices not being cleared when removing the last column, allowing the list to be reused
 - Fix ScrollView scrollbar visibility, ranges and thumb sizes using stale viewport dimensions after scrollbars appear or
   disappear
