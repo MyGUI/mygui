@@ -1,5 +1,6 @@
 add_subdirectory(Common)
 
+add_subdirectory(UnitTest_Delegates)
 add_subdirectory(UnitTest_AttachDetach)
 add_subdirectory(UnitTest_ComboBox)
 add_subdirectory(UnitTest_MenuControl)
