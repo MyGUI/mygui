@@ -449,7 +449,7 @@ namespace MyGUI
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
 		// check point hit
-		if (!mEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
+		if (!mInheritedEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
 			!_checkPoint(_left, _top)
 			// if there is a mask, also check by mask
 			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))

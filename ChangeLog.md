@@ -23,6 +23,8 @@
   disappear
 - Fix ScrollView, EditBox and ItemBox keeping scrollbars visible after setVisibleVScroll(false) or
   setVisibleHScroll(false) when content still overflows
+- Fix reparenting did not update inherited visibility and enabled state
+- Fix child popup with disabled ancestor could still intercept mouse input
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
