@@ -3,14 +3,17 @@
 	<Resource type="ResourceSkin" name="TestTabHeader" size="80 20">
 		<BasisSkin type="SimpleText" offset="5 0 70 20" align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="TestTabControlOld" size="240 120">
-		<Property key="ButtonSkin" value="TestTabHeader"/>
-		<Property key="EmptyBarSkin" value="Default"/>
-		<Property key="OffsetBar" value="40"/>
-		<Child type="Widget" name="Bar" skin="Default" offset="0 0 240 20" align="HStretch Top"/>
-		<Child type="Button" name="Left" skin="Default" offset="200 0 20 20" align="Right Top"/>
-		<Child type="Button" name="Right" skin="Default" offset="220 0 20 20" align="Right Top"/>
-		<Child type="Widget" name="TabItem" skin="Default" offset="0 20 240 100" align="Stretch"/>
+	<!-- Exercise the older Bar arrangement without deprecated skin-property conversion. -->
+	<Resource type="ResourceLayout" name="TestTabControlOld" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 240 120" name="Root">
+			<UserString key="ButtonSkin" value="TestTabHeader"/>
+			<UserString key="EmptyBarSkin" value="Default"/>
+			<UserString key="OffsetBar" value="40"/>
+			<Widget type="Widget" name="Bar" skin="Default" position="0 0 240 20" align="HStretch Top"/>
+			<Widget type="Button" name="Left" skin="Default" position="200 0 20 20" align="Right Top"/>
+			<Widget type="Button" name="Right" skin="Default" position="220 0 20 20" align="Right Top"/>
+			<Widget type="Widget" name="TabItem" skin="Default" position="0 20 240 100" align="Stretch"/>
+		</Widget>
 	</Resource>
 	<Resource type="ResourceLayout" name="TestTabControl" version="3.2.0">
 		<Widget type="Widget" skin="Default" position="0 0 240 120" name="Root">
