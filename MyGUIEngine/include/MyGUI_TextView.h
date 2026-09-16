@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	class TextView
+	class MYGUI_EXPORT TextView
 	{
 	public:
 		void update(

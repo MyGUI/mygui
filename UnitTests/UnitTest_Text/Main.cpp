@@ -1,6 +1,7 @@
 #include "BehaviourTestSupport.h"
 #include "FixedFont.h"
 #include "MyGUI_ResourceManualFont.h"
+#include "MyGUI_TextIterator.h"
 #include <array>
 
 namespace
@@ -113,6 +114,20 @@ namespace
 			"Clearing text must discard previous layout data");
 	}
 
+	void testTextIteratorTruncatedColourTags()
+	{
+		for (const char* text : {"a#0", "a#00", "a#000", "a#0000", "a#00000"})
+		{
+			MyGUI::TextIterator iterator{MyGUI::UString()};
+			iterator.setText(MyGUI::UString(text), true);
+			iterator.cutMaxLengthFromBeginning(0);
+			require(iterator.getSize() == 0, "Left-side truncation must remove all logical characters");
+			require(
+				MyGUI::TextIterator::getOnlyText(iterator.getText()).asUTF32().empty(),
+				"Truncated incomplete colour tags must not leave visible text");
+		}
+	}
+
 	void testWrapping()
 	{
 		unittest::TestContext context;
@@ -193,6 +208,7 @@ int main()
 		{"Unicode round trips and mutation", testUnicodeRoundTrip},
 		{"Malformed UTF-8", testMalformedUtf8},
 		{"Lines and colour tags", testLinesAndTags},
+		{"Truncated colour tags in TextIterator", testTextIteratorTruncatedColourTags},
 		{"Wrapping boundaries", testWrapping},
 		{"Cursor hit testing", testCursorHitTesting},
 		{"Manual font metrics", testManualFontMetrics},

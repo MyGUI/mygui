@@ -422,7 +422,8 @@ namespace MyGUI
 			UString::utf32string::iterator save = iter;
 			if (advanceColorTag(iter, mEnd))
 			{
-				iter_colour = save;
+				if (static_cast<size_t>(mEnd - save) >= 7)
+					iter_colour = save;
 				continue;
 			}
 			if (iter == mEnd)
