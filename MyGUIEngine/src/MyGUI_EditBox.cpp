@@ -1139,6 +1139,11 @@ namespace MyGUI
 	{
 		if (mModePassword == _password)
 			return;
+		if (_password && mModeMultiline)
+		{
+			MYGUI_LOG(Warning, "EditBox password mode is single-line; disabling multiline mode");
+			setEditMultiLine(false);
+		}
 		mModePassword = _password;
 
 		if (mModePassword)
@@ -1831,7 +1836,9 @@ namespace MyGUI
 
 	void EditBox::setEditMultiLine(bool _value)
 	{
-		mModeMultiline = _value;
+		if (_value && mModePassword)
+			MYGUI_LOG(Warning, "EditBox multiline mode is ignored while password mode is enabled");
+		mModeMultiline = _value && !mModePassword;
 		// just in case, to remove line breaks
 		if (!mModeMultiline)
 		{

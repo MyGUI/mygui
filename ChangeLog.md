@@ -32,6 +32,7 @@
 - Fix removing an offscreen selected ListBox item could select a visible neighbour without repainting it
 - Fix TextIterator::cutMaxLengthFromBeginning reading past incomplete colour tags
 - Fix inserting a ListBox item before the visible rows leaving too few row widgets for subsequent pixel scrolling
+- Make EditBox password mode single-line, disabling multiline mode with a warning when both are requested
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

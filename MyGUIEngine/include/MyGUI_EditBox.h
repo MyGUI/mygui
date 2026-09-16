@@ -111,6 +111,8 @@ namespace MyGUI
 
 		/** Enable or disable edit password mode\n
 			Password mode: you see password chars (*** by default) instead text.\n
+			Password mode is single-line: enabling it disables multiline mode, and multiline mode\n
+			can't be enabled while password mode is active.\n
 			Disabled (false) by default.
 		*/
 		void setEditPassword(bool _password);
@@ -118,7 +120,7 @@ namespace MyGUI
 		bool getEditPassword() const;
 
 		/** Enable or disable edit multiline mode\n
-			Multile mode: new line character moves text to new line.\n
+			Multiline mode: new line character moves text to new line.\n
 			Otherwise new lines replaced with space and all text is in single line.\n
 			Disabled (false) by default.
 		*/

@@ -176,6 +176,13 @@ namespace
 		edit->setTextCursor(1);
 		unittest::keyStroke(MyGUI::KeyCode::Return);
 		require(edit->getOnlyText() == "a\n\nb", "Enter in multiline mode must insert a newline");
+
+		edit->setOnlyText("");
+		edit->setEditPassword(true);
+		edit->setEditMultiLine(true);
+		require(!edit->getEditMultiLine(), "Password fields must remain single-line");
+		unittest::keyStroke(MyGUI::KeyCode::Return);
+		require(edit->getOnlyText().empty(), "Enter in password mode must not insert a newline");
 	}
 
 }
