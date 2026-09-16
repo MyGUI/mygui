@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layer" version="1.2">
+    <Layer name="Retained" type="OverlappedLayer">
+        <Property key="Pick" value="true"/>
+    </Layer>
+    <Layer name="Shared" type="SharedLayer">
+        <Property key="Pick" value="true"/>
+    </Layer>
+    <Layer name="Unpickable" type="OverlappedLayer">
+        <Property key="Pick" value="false"/>
+    </Layer>
+</MyGUI>

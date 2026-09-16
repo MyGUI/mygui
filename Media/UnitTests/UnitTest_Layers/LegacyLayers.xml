@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layer" version="1.0">
+    <Layer name="Overlapped" overlapped="true" pick="true"/>
+    <Layer name="Shared" overlapped="false" pick="true"/>
+</MyGUI>

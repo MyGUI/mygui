@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Unversioned files use the original peek attribute. -->
+<MyGUI type="Layer">
+    <Layer name="Overlapped" overlapped="true" peek="true"/>
+    <Layer name="Shared" overlapped="false" peek="true"/>
+</MyGUI>
