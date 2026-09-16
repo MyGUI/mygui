@@ -475,6 +475,7 @@ namespace MyGUI
 				mWidgetScroll->setScrollPosition(_getScrollPosition());
 			}
 			mRangeIndex += mHeightLine;
+			updateLine(true);
 		}
 		else
 		{

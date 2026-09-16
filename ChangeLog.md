@@ -31,6 +31,7 @@
 - Fix resizing ListBox could expose a reused row without refreshing its selected appearance
 - Fix removing an offscreen selected ListBox item could select a visible neighbour without repainting it
 - Fix TextIterator::cutMaxLengthFromBeginning reading past incomplete colour tags
+- Fix inserting a ListBox item before the visible rows leaving too few row widgets for subsequent pixel scrolling
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
