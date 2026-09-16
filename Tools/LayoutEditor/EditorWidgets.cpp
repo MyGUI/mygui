@@ -3,12 +3,44 @@
 #include "Common.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
-#include "BackwardCompatibilityManager.h"
 #include "WidgetSelectorManager.h"
 #include "SettingsManager.h"
 
 namespace tools
 {
+
+	namespace
+	{
+
+		constexpr std::string_view LayoutVersion = "3.2.0";
+
+		std::string upgradePropertyName(std::string_view _widgetType, std::string_view _key)
+		{
+			std::string_view key = MyGUI::BackwardCompatibility::getPropertyRename(_key);
+			auto separator = key.find('_');
+			if (separator == std::string_view::npos)
+				return std::string{key};
+
+			std::string_view unprefixed = key.substr(separator + 1);
+			bool knownSuffix = false;
+			auto& types = WidgetTypes::getInstance();
+			for (auto* style = types.findWidgetStyle(_widgetType); style != nullptr;)
+			{
+				for (const auto& parameter : style->parameter)
+				{
+					if (parameter.first == key)
+						return std::string{key};
+					if (parameter.first == unprefixed)
+						knownSuffix = true;
+				}
+				if (style->base.empty())
+					break;
+				style = types.findWidgetStyle(style->base);
+			}
+			return std::string{knownSuffix ? unprefixed : key};
+		}
+
+	}
 
 	MYGUI_SINGLETON_DEFINITION(EditorWidgets);
 
@@ -157,7 +189,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Layout");
 
-		saveWidgetsToXmlNode(root, true);
+		saveWidgetsToXmlNode(root);
 
 		if (!doc.save(_fileName))
 		{
@@ -201,7 +233,7 @@ namespace tools
 						element->addAttribute("type", "ResourceLayout");
 						element->addAttribute("name", mCurrentItemName);
 
-						saveWidgetsToXmlNode(element.current(), true);
+						saveWidgetsToXmlNode(element.current());
 
 						if (!doc.save(_fileName))
 						{
@@ -517,17 +549,10 @@ namespace tools
 				if (!widget->findAttribute("value", value))
 					continue;
 
-				// convert property to current version
-				key = MyGUI::BackwardCompatibility::getPropertyRename(key);
-				size_t indexSeparator = key.find('_');
-				if (indexSeparator != std::string::npos)
-					key = key.substr(indexSeparator + 1);
-
-				// and try to parse property
-				if (!tryToApplyProperty(container->getWidget(), key, value, _testMode))
-					continue;
-
+				key = upgradePropertyName(container->getType(), key);
+				// Keep imported data even when this build cannot apply the property.
 				container->setProperty(key, value, false);
+				tryToApplyProperty(container->getWidget(), key, value, _testMode);
 			}
 			else if (widget->getName() == "UserString")
 			{
@@ -589,7 +614,7 @@ namespace tools
 
 		try
 		{
-			if (_key == "Image_Texture")
+			if (_key == "ImageTexture")
 			{
 				std::string value{_value};
 				if (!MyGUI::DataManager::getInstance().isDataExist(value))
@@ -617,7 +642,7 @@ namespace tools
 		return true;
 	}
 
-	void EditorWidgets::serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility)
+	void EditorWidgets::serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node)
 	{
 		MyGUI::xml::ElementPtr node = _node->createChild("Widget");
 
@@ -643,8 +668,9 @@ namespace tools
 
 		for (const auto& propertyItem : _container->getProperty())
 		{
-			BackwardCompatibilityManager::getInstance()
-				.serialiseProperty(node, _container->getType(), propertyItem, _compatibility);
+			MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
+			nodeProp->addAttribute("key", propertyItem.first);
+			nodeProp->addAttribute("value", propertyItem.second);
 		}
 
 		for (const auto& userData : _container->getUserData())
@@ -668,7 +694,7 @@ namespace tools
 
 		for (auto& childContainer : _container->childContainers)
 		{
-			serialiseWidget(childContainer, node, _compatibility);
+			serialiseWidget(childContainer, node);
 		}
 	}
 
@@ -787,15 +813,15 @@ namespace tools
 		}
 	}
 
-	void EditorWidgets::saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility)
+	void EditorWidgets::saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root)
 	{
-		_root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
+		_root->addAttribute("version", LayoutVersion);
 
 		for (auto& widget : mWidgets)
 		{
 			// only orphans go to root
 			if (nullptr == widget->getWidget()->getParent())
-				serialiseWidget(widget, _root, _compatibility);
+				serialiseWidget(widget, _root);
 		}
 
 		saveCodeGeneratorSettings(_root);

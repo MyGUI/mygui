@@ -55,6 +55,8 @@
 
 ### Tools
 - Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool
+- LayoutEditor: always save the latest layout format, upgrade recognized deprecated property names and preserve unknown
+  properties
 
 ### Infrastructure
 - Implement --screenshot CLI option for demos and tools to save a screenshot and exit

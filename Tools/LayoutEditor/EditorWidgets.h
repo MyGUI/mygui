@@ -61,7 +61,7 @@ namespace tools
 		WidgetContainer* _find(MyGUI::Widget* _widget, std::string_view _name, std::vector<WidgetContainer*> _widgets);
 
 		void parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode = false);
-		void serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility = false);
+		void serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node);
 
 		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 		void loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
@@ -79,7 +79,7 @@ namespace tools
 		bool unbind(WidgetContainer* _container);
 
 		void loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode = false);
-		void saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility = false);
+		void saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root);
 
 		void loadCodeGeneratorSettings(MyGUI::xml::ElementPtr _sectorNode);
 		void saveCodeGeneratorSettings(MyGUI::xml::ElementPtr _rootNode);

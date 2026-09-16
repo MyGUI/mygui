@@ -17,7 +17,6 @@
 #include "Localise.h"
 #include "WidgetCreatorManager.h"
 #include "RecentFilesManager.h"
-#include "BackwardCompatibilityManager.h"
 #include "MyGUI_FilterNoneSkin.h"
 #include "MyGUI_RTTLayer.h"
 #include "ColourManager.h"
@@ -110,9 +109,6 @@ namespace tools
 		new EditorWidgets();
 		EditorWidgets::getInstance().initialise();
 
-		new BackwardCompatibilityManager();
-		BackwardCompatibilityManager::getInstance().initialise();
-
 		new UndoManager();
 		UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
 
@@ -194,9 +190,6 @@ namespace tools
 
 		ColourManager::getInstance().shutdown();
 		delete ColourManager::getInstancePtr();
-
-		BackwardCompatibilityManager::getInstance().shutdown();
-		delete BackwardCompatibilityManager::getInstancePtr();
 
 		RecentFilesManager::getInstance().shutdown();
 		delete RecentFilesManager::getInstancePtr();

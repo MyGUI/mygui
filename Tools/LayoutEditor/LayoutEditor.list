@@ -2,7 +2,6 @@ set (HEADER_FILES
   Application.h
   ApplicationState.h
   BackgroundControl.h
-  BackwardCompatibilityManager.h
   CodeGenerator.h
   Common.h
   CyclicBuffer.h
@@ -65,7 +64,6 @@ set (SOURCE_FILES
   Application.cpp
   ApplicationState.cpp
   BackgroundControl.cpp
-  BackwardCompatibilityManager.cpp
   CodeGenerator.cpp
   EditorState.cpp
   EditorToolTip.cpp
@@ -170,7 +168,6 @@ SOURCE_GROUP("GroupedMessage" FILES
 )
 SOURCE_GROUP("Header Files" FILES
   BackgroundControl.h
-  BackwardCompatibilityManager.h
   Common.h
   CyclicBuffer.h
   EditorToolTip.h
@@ -226,7 +223,6 @@ SOURCE_GROUP("Resources" FILES
 )
 SOURCE_GROUP("Source Files" FILES
   BackgroundControl.cpp
-  BackwardCompatibilityManager.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   MainMenuControl.cpp
