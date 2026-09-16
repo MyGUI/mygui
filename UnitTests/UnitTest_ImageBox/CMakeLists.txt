@@ -1,0 +1,2 @@
+mygui_unit_test(UnitTest_ImageBox)
+target_link_libraries(UnitTest_ImageBox PRIVATE MyGUISkinTestSupport)

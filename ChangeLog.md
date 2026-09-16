@@ -33,6 +33,8 @@
 - Fix TextIterator::cutMaxLengthFromBeginning reading past incomplete colour tags
 - Fix inserting a ListBox item before the visible rows leaving too few row widgets for subsequent pixel scrolling
 - Make EditBox password mode single-line, disabling multiline mode with a warning when both are requested
+- Fix ImageBox selection indices when inserting or deleting items and refresh the displayed image when deleting the
+  selected item
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

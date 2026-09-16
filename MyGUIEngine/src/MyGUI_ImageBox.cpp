@@ -120,6 +120,8 @@ namespace MyGUI
 
 		int pos_h = mRectImage.left;
 		int pos_v = mRectImage.top;
+		const size_t selected = mIndexSelect;
+		mIndexSelect = ITEM_NONE;
 
 		for (size_t v = 0; v < count_v; ++v)
 		{
@@ -131,6 +133,7 @@ namespace MyGUI
 			pos_v += mSizeTile.height;
 			pos_h = mRectImage.left;
 		}
+		mIndexSelect = selected;
 	}
 
 	void ImageBox::updateSelectIndex(size_t _index)
@@ -179,7 +182,9 @@ namespace MyGUI
 			if (mItems.empty())
 				updateSelectIndex(ITEM_NONE);
 			else if ((_index < mIndexSelect) || (mIndexSelect == mItems.size()))
-				updateSelectIndex(mIndexSelect--);
+				updateSelectIndex(mIndexSelect - 1);
+			else if (_index == mIndexSelect)
+				updateSelectIndex(mIndexSelect);
 		}
 	}
 
@@ -200,7 +205,7 @@ namespace MyGUI
 		iter->images.push_back(CoordConverter::convertTextureCoord(_item, mSizeTexture));
 
 		if ((mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect))
-			updateSelectIndex(mIndexSelect++);
+			updateSelectIndex(mIndexSelect + 1);
 	}
 
 	void ImageBox::setItem(size_t _index, const IntCoord& _item)

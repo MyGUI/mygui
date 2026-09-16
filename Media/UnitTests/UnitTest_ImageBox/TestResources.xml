@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="TestImageBox" size="32 32">
+		<BasisSkin type="ObservedSubSkin" offset="0 0 32 32" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceImageSet" name="TestImages">
+		<Group name="Small" texture="MyGUI_BlueWhiteSkins.png" size="16 16">
+			<Index name="Idle"><Frame point="8 16"/></Index>
+			<Index name="Animated" rate="0.25"><Frame point="8 16"/><Frame point="24 16"/></Index>
+		</Group>
+		<Group name="Large" texture="MyGUI_BlueWhiteSkins.png" size="32 32">
+			<Index name="Idle"><Frame point="32 48"/></Index>
+		</Group>
+	</Resource>
+</MyGUI>
