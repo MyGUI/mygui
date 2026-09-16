@@ -15,6 +15,10 @@ namespace unittest
 
 	inline void checkData(const size_t* _actual, const size_t* _expected, const std::string& _where)
 	{
+		if ((_actual == nullptr && _expected == nullptr) ||
+			(_actual != nullptr && _expected != nullptr && *_actual == *_expected))
+			return;
+
 		const auto actual = _actual == nullptr ? std::string("<null>") : MyGUI::utility::toString(*_actual);
 		const auto expected = _expected == nullptr ? std::string("<null>") : MyGUI::utility::toString(*_expected);
 		checkEqual(actual, expected, _where);
