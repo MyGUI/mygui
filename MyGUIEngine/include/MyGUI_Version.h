@@ -26,7 +26,11 @@ namespace MyGUI
 
 		friend bool operator<(Version const& a, Version const& b)
 		{
-			return (a.mMajor < b.mMajor) ? true : (a.mMinor < b.mMinor);
+			if (a.mMajor != b.mMajor)
+				return a.mMajor < b.mMajor;
+			if (a.mMinor != b.mMinor)
+				return a.mMinor < b.mMinor;
+			return a.mPatch < b.mPatch;
 		}
 
 		friend bool operator>=(Version const& a, Version const& b)
