@@ -1793,7 +1793,9 @@ namespace MyGUI
 
 	size_t EditBox::getTextSelectionLength() const
 	{
-		return mEndSelect - mStartSelect;
+		if (!isTextSelection())
+			return 0;
+		return getTextSelectionEnd() - getTextSelectionStart();
 	}
 
 	void EditBox::setOnlyText(const UString& _text)

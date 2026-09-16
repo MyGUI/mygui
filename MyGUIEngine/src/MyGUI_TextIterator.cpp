@@ -425,8 +425,15 @@ namespace MyGUI
 				iter_colour = save;
 				continue;
 			}
-			if (iter == mEnd || diff == 0)
+			if (iter == mEnd)
 				break;
+			if (diff == 0)
+			{
+				// advanceColorTag moves an escaped hash iterator to the second '#'.
+				// Keep both characters when the escaped hash is the first retained glyph.
+				iter = save;
+				break;
+			}
 			--diff;
 		}
 

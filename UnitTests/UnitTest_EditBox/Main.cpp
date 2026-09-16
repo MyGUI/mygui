@@ -35,6 +35,11 @@ namespace
 		require(
 			edit->getTextSelectionLength() == 2 && MyGUI::TextIterator::getOnlyText(edit->getTextSelection()) == "bc",
 			"Selection must use an exclusive end");
+		edit->setTextSelection(2, 0);
+		require(edit->getTextSelectionLength() == 2, "Reverse selection length must use ordered bounds");
+		edit->setTextCursor(2);
+		require(edit->getTextSelectionLength() == 0, "An inactive selection must have zero length");
+		edit->setTextSelection(0, 2);
 		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
 		require(
 			edit->getOnlyText() == "x" && edit->getTextCursor() == 1,
@@ -106,6 +111,10 @@ namespace
 		require(edit->getOnlyText() == unicode, "Undo must restore the complete Unicode character");
 		edit->setOnlyText("#FF0000literal#");
 		require(edit->getOnlyText() == "#FF0000literal#", "setOnlyText must preserve literal colour-like text");
+		edit->setMaxTextLength(1);
+		edit->setOverflowToTheLeft(true);
+		edit->setOnlyText("text#");
+		require(edit->getOnlyText() == "#", "Left overflow must preserve an escaped trailing hash");
 	}
 
 	struct Clipboard

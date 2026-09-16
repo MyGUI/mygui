@@ -5,6 +5,8 @@
 - Move texture_utility::getTextureSize() into RenderManager so its size cache is tied to the renderer lifetime, fixing
   textures not being recreated after renderer reinitialization
 - Fix out-of-bounds reads in TextIterator when text ends with an unescaped '#'
+- Fix EditBox::getTextSelectionLength returning an underflowed value for reverse selections and inactive selection
+- Fix EditBox left-side maximum-length truncation dropping a trailing literal '#'
 - Fix hovering over an inactive MenuBar stealing keyboard focus from other widgets (#282)
 - Add Widget::eventChangeAbsoluteCoord for absolute position or size changes, including ancestor movement, alignment and
   reparenting
