@@ -1,0 +1,63 @@
+name: Coverage
+
+on:
+  push:
+    branches-ignore: [coverage-badge]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: coverage-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  coverage:
+    name: "Linux: headless unit test coverage"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq cmake g++ gcovr
+
+      - name: Configure
+        run: >
+          cmake --preset minimal -B build-coverage
+          -DCMAKE_C_COMPILER=gcc
+          -DCMAKE_CXX_COMPILER=g++
+          -DCMAKE_BUILD_TYPE=Debug
+          -DCMAKE_C_FLAGS=--coverage
+          -DCMAKE_CXX_FLAGS=--coverage
+          -DCMAKE_EXE_LINKER_FLAGS=--coverage
+          -DCMAKE_SHARED_LINKER_FLAGS=--coverage
+          -DMYGUI_RENDERSYSTEM=1
+          -DMYGUI_BUILD_UNITTESTS=ON
+
+      - name: Build
+        run: cmake --build build-coverage --parallel 4
+
+      - name: Run unit tests
+        run: ctest --test-dir build-coverage --output-on-failure --no-tests=error --timeout 30
+
+      - name: Generate coverage report
+        run: |
+          mkdir coverage-report
+          gcovr --root . --filter 'MyGUIEngine/' --xml-pretty --output coverage-report/coverage.xml --print-summary build-coverage
+          python3 Scripts/generate_coverage_badge.py coverage-report/coverage.xml coverage-report/coverage.svg >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish coverage badge
+        if: >-
+          github.event_name != 'pull_request' &&
+          github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: coverage-badge
+          folder: coverage-report
+          force: false
