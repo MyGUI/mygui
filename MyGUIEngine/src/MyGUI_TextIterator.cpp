@@ -10,6 +10,14 @@
 namespace MyGUI
 {
 
+	namespace
+	{
+
+		constexpr size_t ColourTagLength = 7; // #RRGGBB
+		constexpr int ColourChannelMax = 255;
+
+	}
+
 	TextIterator::TextIterator() :
 		mPosition(0),
 		mSize(ITEM_NONE),
@@ -40,7 +48,7 @@ namespace MyGUI
 			return false;
 		if (*_iter != L'#')
 		{
-			for (size_t pos = 0; pos < 5; ++pos)
+			for (size_t pos = 2; pos < ColourTagLength; ++pos)
 			{
 				++_iter;
 				if (_iter == _end)
@@ -134,7 +142,7 @@ namespace MyGUI
 			return false;
 
 		// check if it looks like a colour tag
-		if ((_colour.size() != 7) || (_colour.find(L'#', 1) != MyGUI::UString::npos))
+		if ((_colour.size() != ColourTagLength) || (_colour.find(L'#', 1) != MyGUI::UString::npos))
 			return false;
 
 		insert(mCurrent, _colour);
@@ -198,9 +206,9 @@ namespace MyGUI
 			return false;
 
 		// take the colour
-		wchar_t buff[16] = L"#FFFFFF\0";
+		wchar_t buff[ColourTagLength + 1] = L"#";
 		buff[1] = (wchar_t)(*_iter);
-		for (size_t pos = 2; pos < 7; pos++)
+		for (size_t pos = 2; pos < ColourTagLength; pos++)
 		{
 			++_iter;
 			if (_iter == mEnd)
@@ -282,31 +290,30 @@ namespace MyGUI
 	{
 		if (_char == L'#')
 			return L"##";
-		wchar_t buff[16] = L"_\0";
-		buff[0] = (wchar_t)_char;
+		wchar_t buff[] = {(wchar_t)_char, L'\0'};
 		return buff;
 	}
 
 	UString TextIterator::convertTagColour(const Colour& _colour)
 	{
-		const size_t SIZE = 16;
-		wchar_t buff[SIZE];
+		constexpr size_t colourBufferSize = 16;
+		wchar_t buff[colourBufferSize];
 
 #ifdef __MINGW32__
 		swprintf(
 			buff,
 			L"#%.2X%.2X%.2X\0",
-			(int)(_colour.red * 255),
-			(int)(_colour.green * 255),
-			(int)(_colour.blue * 255));
+			(int)(_colour.red * ColourChannelMax),
+			(int)(_colour.green * ColourChannelMax),
+			(int)(_colour.blue * ColourChannelMax));
 #else
 		swprintf(
 			buff,
-			SIZE,
+			colourBufferSize,
 			L"#%.2X%.2X%.2X\0",
-			(int)(_colour.red * 255),
-			(int)(_colour.green * 255),
-			(int)(_colour.blue * 255));
+			(int)(_colour.red * ColourChannelMax),
+			(int)(_colour.green * ColourChannelMax),
+			(int)(_colour.blue * ColourChannelMax));
 #endif
 		return {buff};
 	}
@@ -442,7 +449,7 @@ namespace MyGUI
 		// if there was a colour, insert it back
 		if (iter_colour != mEnd)
 		{
-			colour.append(iter_colour, iter_colour + size_t(7));
+			colour.append(iter_colour, iter_colour + ColourTagLength);
 		}
 
 		mCurrent = erase(mText.begin(), iter);
