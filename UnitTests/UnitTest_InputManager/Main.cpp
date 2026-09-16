@@ -195,6 +195,70 @@ namespace
 		}
 	}
 
+	void testReparentInheritedAvailability()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto* available = root(context.getGui(), 0);
+		auto* hidden = root(context.getGui(), 200);
+		auto* disabled = root(context.getGui(), 400);
+		hidden->setVisible(false);
+		disabled->setEnabled(false);
+		auto* child =
+			available->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 80, 80), MyGUI::Align::Default);
+		auto* grandchild =
+			child->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 30, 30), MyGUI::Align::Default);
+
+		child->attachToWidget(hidden);
+		require(
+			!child->getInheritedVisible() && !grandchild->getInheritedVisible(),
+			"Reparenting under a hidden widget must update inherited visibility for the entire subtree");
+		require(
+			child->getInheritedEnabled() && grandchild->getInheritedEnabled(),
+			"A hidden but enabled parent must not change inherited enabled state");
+
+		child->attachToWidget(disabled);
+		require(
+			child->getInheritedVisible() && grandchild->getInheritedVisible(),
+			"A visible parent must restore inherited visibility after reparenting");
+		require(
+			!child->getInheritedEnabled() && !grandchild->getInheritedEnabled(),
+			"Reparenting under a disabled widget must update inherited enabled state for the entire subtree");
+
+		child->detachFromWidget("Main");
+		require(
+			child->getInheritedVisible() && grandchild->getInheritedVisible() && child->getInheritedEnabled() &&
+				grandchild->getInheritedEnabled(),
+			"Detaching from an unavailable parent must restore inherited availability");
+	}
+
+	void testDisabledAncestorBlocksPopupPicking()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto* layer = MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
+		auto* popupLayer = layer->castType<MyGUI::OverlappedLayer>();
+		popupLayer->setPick(true);
+		auto* background = root(context.getGui(), 0);
+		auto* parent = root(context.getGui(), 200);
+		auto* popup = parent->createWidget<MyGUI::Widget>(
+			MyGUI::WidgetStyle::Popup,
+			"Default",
+			MyGUI::IntCoord(0, 0, 80, 80),
+			MyGUI::Align::Default,
+			"Popup");
+
+		parent->setEnabled(false);
+		require(
+			popup->getEnabled() && !popup->getInheritedEnabled(),
+			"The popup must retain only its local enabled flag");
+		requirePick(10, 10, background, "A popup with a disabled ancestor must not intercept mouse input");
+		parent->setEnabled(true);
+		requirePick(10, 10, popup, "Enabling the ancestor must make its popup pickable");
+		parent->setEnabled(false);
+		requirePick(10, 10, background, "Disabling the ancestor again must immediately block popup input");
+	}
+
 	void testOverlappedChildren()
 	{
 		unittest::TestContext context;
@@ -585,6 +649,8 @@ int main()
 		{"Clipped child edges", testClippedChildEdges},
 		{"Overlapped children", testOverlappedChildren},
 		{"Ancestor availability", testAncestorAvailability},
+		{"Inherited availability after reparenting", testReparentInheritedAvailability},
+		{"Disabled popup ancestor", testDisabledAncestorBlocksPopupPicking},
 		{"Capture outside bounds", testCaptureOutsideBounds},
 		{"Double click", testDoubleClick},
 		{"Key repeat", testKeyRepeat},

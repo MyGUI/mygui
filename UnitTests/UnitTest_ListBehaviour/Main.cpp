@@ -15,6 +15,24 @@ namespace
 		return _gui.createWidget<List>("Default", MyGUI::IntCoord(0, 0, 400, 200), MyGUI::Align::Default, "Main");
 	}
 
+	MyGUI::ListBox* createBehaviourList(MyGUI::Gui& _gui)
+	{
+		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+		unittest::loadResources("UnitTest_ListBehaviour/TestSkin.xml");
+		return _gui.createWidget<MyGUI::ListBox>(
+			"BehaviourListBox",
+			MyGUI::IntCoord(0, 0, 120, 64),
+			MyGUI::Align::Default,
+			"Main");
+	}
+
+	MyGUI::Button* visibleRow(MyGUI::ListBox* _list, size_t _index)
+	{
+		auto* widget = _list->getWidgetByIndex(_index);
+		require(widget != nullptr && widget->getVisible(), "The expected ListBox row must be visible");
+		return widget->castType<MyGUI::Button>();
+	}
+
 	template<typename List>
 	void checkSelectionMutations(List* _list)
 	{
@@ -60,6 +78,45 @@ namespace
 		auto* list = createList<MyGUI::MultiListBox>(context.getGui());
 		list->addColumn("name", 100);
 		checkSelectionMutations(list);
+	}
+
+	void testEmptyListRejectsScrolling()
+	{
+		unittest::TestContext context;
+		auto* list = createBehaviourList(context.getGui());
+		require(list->_getScrollPosition() == 0, "An empty list must start at scroll position zero");
+		list->setScrollPosition(1);
+		require(list->_getScrollPosition() == 0, "An empty list must reject nonzero scrolling");
+	}
+
+	void testResizeRefreshesSelectedRow()
+	{
+		unittest::TestContext context;
+		auto* list = createBehaviourList(context.getGui());
+		list->addItem("first");
+		list->addItem("selected");
+		list->addItem("last");
+		list->setSize(120, 12);
+		list->setIndexSelected(1);
+		list->setSize(120, 64);
+		require(
+			visibleRow(list, 1)->getStateSelected(),
+			"A selected row exposed by resizing must refresh its selected appearance");
+	}
+
+	void testRemovingOffscreenSelectionRefreshesReplacement()
+	{
+		unittest::TestContext context;
+		auto* list = createBehaviourList(context.getGui());
+		list->addItem("replacement");
+		list->addItem("selected");
+		list->setSize(120, 12);
+		list->setIndexSelected(1);
+		list->removeItemAt(1);
+		require(list->getIndexSelected() == 0, "Removing the selected last item must select its surviving neighbour");
+		require(
+			visibleRow(list, 0)->getStateSelected(),
+			"Selecting a visible neighbour after offscreen removal must refresh its appearance");
 	}
 
 	void testColumnMutations()
@@ -195,6 +252,9 @@ int main()
 	return unittest::runTests({
 		{"List selection mutations", testListSelection},
 		{"MultiList selection mutations", testMultiListSelection},
+		{"Empty ListBox scrolling", testEmptyListRejectsScrolling},
+		{"ListBox resize selection appearance", testResizeRefreshesSelectedRow},
+		{"ListBox offscreen selection removal", testRemovingOffscreenSelectionRefreshesReplacement},
 		{"Populated column mutations", testColumnMutations},
 		{"Displayed row identity and custom sorting", testDisplayedRows},
 	});
