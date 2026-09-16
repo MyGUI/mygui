@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="BehaviourListRow" size="100 20">
+		<BasisSkin type="SimpleText" offset="0 0 100 20" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceLayout" name="BehaviourListBox" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 120 64" name="Root">
+			<UserString key="HeightLine" value="20"/>
+			<UserString key="SkinLine" value="BehaviourListRow"/>
+			<Widget type="Widget" skin="Default" position="2 2 100 60" align="Stretch" name="Client"/>
+			<Widget type="ScrollBar" skin="Default" position="102 2 16 60" align="Right VStretch" name="VScroll"/>
+		</Widget>
+	</Resource>
+</MyGUI>
