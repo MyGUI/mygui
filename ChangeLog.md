@@ -35,6 +35,8 @@
 - Make EditBox password mode single-line, disabling multiline mode with a warning when both are requested
 - Fix ImageBox selection indices when inserting or deleting items and refresh the displayed image when deleting the
   selected item
+- Fix TabControl header scrolling not accounting for navigation button space in layout-based skins, leaving the target
+  tab hidden
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

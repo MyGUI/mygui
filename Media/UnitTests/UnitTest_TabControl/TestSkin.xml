@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="TestTabHeader" size="80 20">
+		<BasisSkin type="SimpleText" offset="5 0 70 20" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="TestTabControlOld" size="240 120">
+		<Property key="ButtonSkin" value="TestTabHeader"/>
+		<Property key="EmptyBarSkin" value="Default"/>
+		<Property key="OffsetBar" value="40"/>
+		<Child type="Widget" name="Bar" skin="Default" offset="0 0 240 20" align="HStretch Top"/>
+		<Child type="Button" name="Left" skin="Default" offset="200 0 20 20" align="Right Top"/>
+		<Child type="Button" name="Right" skin="Default" offset="220 0 20 20" align="Right Top"/>
+		<Child type="Widget" name="TabItem" skin="Default" offset="0 20 240 100" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceLayout" name="TestTabControl" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 240 120" name="Root">
+			<UserString key="ButtonSkin" value="TestTabHeader"/>
+			<Widget type="Widget" skin="Default" position="0 20 240 100" align="Stretch" name="TabItem"/>
+			<Widget type="Widget" skin="Default" position="0 0 240 20" align="HStretch Top" name="HeaderPlace">
+				<Widget type="Widget" skin="Default" position="200 0 40 20" name="Controls">
+					<Widget type="Button" skin="Default" position="0 0 20 20" name="Left"/>
+					<Widget type="Button" skin="Default" position="20 0 20 20" name="Right"/>
+				</Widget>
+				<Widget type="Widget" skin="Default" position="0 0 200 20" name="Empty"/>
+			</Widget>
+		</Widget>
+	</Resource>
+</MyGUI>

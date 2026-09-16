@@ -262,7 +262,15 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::beginToItemAt");
 
-		if (_getWidgetBar()->getWidth() < 1)
+		int widthBar = _getWidgetBar()->getWidth();
+		if (mHeaderPlace != nullptr)
+		{
+			widthBar = mHeaderPlace->getWidth();
+			if (mButtonShow && mControls != nullptr)
+				widthBar -= mControls->getWidth();
+		}
+
+		if (widthBar < 1)
 			return;
 
 		if (_index == mStartIndex)
@@ -283,7 +291,7 @@ namespace MyGUI
 
 			// decrease start index until target appears
 			bool change = false;
-			while ((mStartIndex < _index) && (width > _getWidgetBar()->getWidth()))
+			while ((mStartIndex < _index) && (width > widthBar))
 			{
 				width -= mItemsInfo[mStartIndex].width;
 				mStartIndex++;
