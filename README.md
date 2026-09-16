@@ -1,6 +1,7 @@
 ![MyGUI logo](http://mygui.info/images/MyGUI_Logo.png)
 
 [![CI](https://github.com/MyGUI/mygui/actions/workflows/build.yml/badge.svg)](https://github.com/MyGUI/mygui/actions)
+[![Code coverage](https://raw.githubusercontent.com/MyGUI/mygui/coverage-badge/coverage.svg)](https://github.com/MyGUI/mygui/actions/workflows/coverage.yml)
 
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications. It is
 written in C++17 and is designed to be fast, flexible, and easy to integrate with various rendering engines.

@@ -1,0 +1,49 @@
+name: Coverage
+
+on:
+  push:
+    branches-ignore: [coverage-badge]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: coverage-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  coverage:
+    name: "Linux: headless unit test coverage"
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq cmake build-essential clang-18 llvm-18 libclang-rt-18-dev libfreetype6-dev
+          # Use the same LLVM release for compilation, profile merging, and reporting.
+          echo "/usr/lib/llvm-18/bin" >> "$GITHUB_PATH"
+
+      - name: Build, test, and measure coverage
+        run: python3 Scripts/run_coverage.py --build-dir build-coverage --jobs 4
+
+      - name: Generate coverage badge
+        run: |
+          mkdir coverage-report
+          cp build-coverage/coverage/summary.json build-coverage/coverage/report.txt coverage-report/
+          python3 Scripts/generate_coverage_badge.py coverage-report/summary.json coverage-report/coverage.svg >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish coverage badge
+        if: >-
+          github.event_name != 'pull_request' &&
+          github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: coverage-badge
+          folder: coverage-report
+          force: false
