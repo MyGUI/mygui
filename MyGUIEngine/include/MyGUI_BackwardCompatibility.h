@@ -672,11 +672,21 @@ namespace MyGUI
 	class MYGUI_EXPORT BackwardCompatibility
 	{
 	public:
-		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
+		/** Convert legacy property names and values without modifying a widget.
+			Returns one or more replacement properties, preserving their application order.
+			Properties without a conversion (including ignored and action properties) are returned unchanged.
+			Type prefixes are preserved unless an explicit conversion handles them.
+			With MYGUI_DONT_USE_OBSOLETE, all properties are returned unchanged.
+		*/
+		static VectorStringPairs upgradeProperty(std::string_view _key, std::string_view _value);
+		static bool processDeprecatedProperty(Widget* _owner, std::string& _key, std::string& _value);
 		static void initialise();
 		static void shutdown();
 		static bool isIgnoreProperty(std::string_view _key);
-		static std::string_view getPropertyRename(std::string_view _propertyName);
+		/** Resolve an explicit property alias, otherwise optionally remove the prefix through the first underscore.
+			Prefix removal is available even with MYGUI_DONT_USE_OBSOLETE.
+		*/
+		static std::string_view getPropertyRename(std::string_view _propertyName, bool _trimTypePrefix = true);
 		static std::string_view getFactoryRename(std::string_view _categoryName, std::string_view _factoryName);
 		static std::string_view getSkinRename(std::string_view _skinName);
 		static void registerWidgetTypes();

@@ -1168,31 +1168,34 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
-	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)
+	VectorStringPairs BackwardCompatibility::upgradeProperty(std::string_view _key, std::string_view _value)
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		if (_key == "Progress_StartPoint" || _key == "StartPoint")
+			return {{"FlowDirection", std::string{convertAlignToDirection(_value)}}};
+		if (_key == "ImageRect")
+			return {{"ImageCoord", convertRectToCoord(_value)}};
+		if (_key == "Window_MinMax")
+		{
+			IntRect rect = IntRect::parse(_value);
+			return {
+				{"MinSize", IntSize(rect.left, rect.top).print()},
+				{"MaxSize", IntSize(rect.right, rect.bottom).print()}};
+		}
+		std::string_view renamed = getPropertyRename(_key, false);
+		if (renamed != _key)
+			return {{std::string{renamed}, std::string{_value}}};
+#endif // MYGUI_DONT_USE_OBSOLETE
+		return {{std::string{_key}, std::string{_value}}};
+	}
+
+	bool BackwardCompatibility::processDeprecatedProperty(Widget* _owner, std::string& _key, std::string& _value)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
 			return false;
 
-		MapString::iterator item = mPropertyRename.find(_key);
-		if (item != mPropertyRename.end())
-		{
-			MYGUI_LOG(
-				Warning,
-				(*item).first << " is deprecated, use " << (*item).second << " ["
-							  << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = (*item).second;
-		}
-		else if (_key == "Progress_StartPoint")
-		{
-			MYGUI_LOG(
-				Warning,
-				"Progress_StartPoint is deprecated, use Progress_FlowDirection"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Progress_FlowDirection";
-			_value = convertAlignToDirection(_value);
-		}
-		else if (_key == "ComboBox_AddItem")
+		if (_key == "ComboBox_AddItem")
 		{
 			MYGUI_LOG(
 				Warning,
@@ -1232,41 +1235,47 @@ namespace MyGUI
 				widget->addItem(_value);
 			return false;
 		}
-		else if (_key == "Window_MinMax")
-		{
-			MYGUI_LOG(
-				Warning,
-				"Window_MinMax is deprecated, use Window_MinSize or Window_MaxSize"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Window* widget = _owner->castType<Window>(false);
-			if (widget != nullptr)
-			{
-				IntRect rect = IntRect::parse(_value);
-				widget->setMinSize(rect.left, rect.top);
-				widget->setMaxSize(rect.right, rect.bottom);
-			}
+		else if (_key == "Window_MinMax" && !_owner->isType<Window>())
 			return false;
-		}
-		else if (_key == "ImageRect")
+
+		auto properties = upgradeProperty(_key, _value);
+		if (properties.size() != 1 || properties.front().first != _key || properties.front().second != _value)
 		{
+			std::string replacements;
+			for (const auto& property : properties)
+			{
+				if (!replacements.empty())
+					replacements += ", ";
+				replacements += property.first;
+			}
 			MYGUI_LOG(
 				Warning,
-				"ImageRect is deprecated, use ImageCoord"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "ImageCoord";
-			_value = convertRectToCoord(_value);
-		}
-		else if (_key == "StartPoint")
-		{
-			MYGUI_LOG(
-				Warning,
-				"StartPoint is deprecated, use FlowDirection"
-					<< " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "FlowDirection";
-			_value = convertAlignToDirection(_value);
+				_key << " is deprecated, use " << replacements << " ["
+					 << LayoutManager::getInstance().getCurrentLayout() << "]");
+			if (properties.size() == 1)
+			{
+				_key = std::move(properties.front().first);
+				_value = std::move(properties.front().second);
+			}
+			else
+			{
+				for (const auto& property : properties)
+					_owner->setProperty(property.first, property.second);
+				return false;
+			}
 		}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+		std::string_view renamed = getPropertyRename(_key);
+		if (renamed != _key)
+		{
+			MYGUI_LOG(
+				Warning,
+				"Widget property '" << _key << "' have type prefix - use '" << renamed << "' instead ["
+									<< LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = std::string{renamed};
+		}
+
 		return true;
 	}
 
@@ -1285,7 +1294,7 @@ namespace MyGUI
 		mPropertyRename["Scroll_Position"] = "RangePosition";
 		mPropertyRename["Tab_SelectSheet"] = "SelectItem";
 		mPropertyRename["Image_Texture"] = "ImageTexture";
-		mPropertyRename["Image_Coord"] = "ImageRegion";
+		mPropertyRename["Image_Coord"] = "ImageCoord";
 		mPropertyRename["Image_Tile"] = "ImageTile";
 		mPropertyRename["Image_Index"] = "ImageIndex";
 		mPropertyRename["Image_Resource"] = "ImageResource";
@@ -1379,13 +1388,19 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
-	std::string_view BackwardCompatibility::getPropertyRename(std::string_view _propertyName)
+	std::string_view BackwardCompatibility::getPropertyRename(std::string_view _propertyName, bool _trimTypePrefix)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::const_iterator item = mPropertyRename.find(_propertyName);
 		if (item != mPropertyRename.end())
 			return (*item).second;
 #endif // MYGUI_DONT_USE_OBSOLETE
+		if (_trimTypePrefix)
+		{
+			size_t index = _propertyName.find('_');
+			if (index != std::string_view::npos)
+				return _propertyName.substr(index + 1);
+		}
 		return _propertyName;
 	}
 

@@ -55,7 +55,7 @@
 
 ### Tools
 - Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool
-- LayoutEditor: always save the latest layout format, upgrade recognized deprecated property names and preserve unknown
+- LayoutEditor: always save the latest layout format, upgrade recognized deprecated properties and preserve unknown
   properties
 
 ### Infrastructure

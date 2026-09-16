@@ -957,20 +957,8 @@ namespace MyGUI
 		std::string key{_key};
 		std::string value{_value};
 
-		if (BackwardCompatibility::checkProperty(this, key, value))
-		{
-			size_t index = key.find('_');
-			if (index != std::string::npos)
-			{
-				MYGUI_LOG(
-					Warning,
-					"Widget property '" << key << "' have type prefix - use '" << key.substr(index + 1) << "' instead ["
-										<< LayoutManager::getInstance().getCurrentLayout() << "]");
-				key = key.substr(index + 1);
-			}
-
+		if (BackwardCompatibility::processDeprecatedProperty(this, key, value))
 			setPropertyOverride(key, value);
-		}
 	}
 
 	VectorWidgetPtr Widget::getSkinWidgetsByName(std::string_view _name) const

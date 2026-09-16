@@ -16,12 +16,11 @@ namespace tools
 
 		std::string upgradePropertyName(std::string_view _widgetType, std::string_view _key)
 		{
-			std::string_view key = MyGUI::BackwardCompatibility::getPropertyRename(_key);
-			auto separator = key.find('_');
-			if (separator == std::string_view::npos)
+			std::string_view key = _key;
+			std::string_view unprefixed = MyGUI::BackwardCompatibility::getPropertyRename(key);
+			if (unprefixed == key)
 				return std::string{key};
 
-			std::string_view unprefixed = key.substr(separator + 1);
 			bool knownSuffix = false;
 			auto& types = WidgetTypes::getInstance();
 			for (auto* style = types.findWidgetStyle(_widgetType); style != nullptr;)
@@ -549,10 +548,14 @@ namespace tools
 				if (!widget->findAttribute("value", value))
 					continue;
 
-				key = upgradePropertyName(container->getType(), key);
-				// Keep imported data even when this build cannot apply the property.
-				container->setProperty(key, value, false);
-				tryToApplyProperty(container->getWidget(), key, value, _testMode);
+				auto properties = MyGUI::BackwardCompatibility::upgradeProperty(key, value);
+				for (const auto& property : properties)
+				{
+					key = upgradePropertyName(container->getType(), property.first);
+					// Keep imported data even when this build cannot apply the property.
+					container->setProperty(key, property.second, false);
+					tryToApplyProperty(container->getWidget(), key, property.second, _testMode);
+				}
 			}
 			else if (widget->getName() == "UserString")
 			{
