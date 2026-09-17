@@ -1189,8 +1189,12 @@ namespace MyGUI
 		return {{std::string{_key}, std::string{_value}}};
 	}
 
+	// False positive on the parameter: assigning to _key preserves the string object.
+	MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-invalidation")
 	bool BackwardCompatibility::processDeprecatedProperty(Widget* _owner, std::string& _key, std::string& _value)
 	{
+		MYGUI_UNSUPPRESS_CLANG()
+
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
 			return false;
