@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_RenderTargetInfo.h"
 
 namespace MyGUI
 {
@@ -18,7 +19,7 @@ namespace MyGUI
 	namespace geometry_utility
 	{
 
-		VectorFloatPoint cropPolygon(FloatPoint* _baseVerticiesPos, size_t _size, const IntCoord& _cropRectangle);
+		VectorFloatPoint cropPolygon(const FloatPoint* _baseVerticiesPos, size_t _size, const IntCoord& _cropRectangle);
 
 		enum Side
 		{
@@ -28,6 +29,8 @@ namespace MyGUI
 			Bottom
 		};
 		void cropPolygonSide(VectorFloatPoint& _verticies, int _sideCoord, Side _side);
+
+		void toRenderTarget(FloatPoint* _points, size_t _count, const IntPoint& _origin, const RenderTargetInfo& _info);
 
 		// get point position relative to rectangle
 		FloatPoint getPositionInsideRect(

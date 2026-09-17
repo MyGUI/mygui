@@ -70,6 +70,7 @@ namespace MyGUI
 		};
 		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
 		FloatPoint mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT];
+		size_t mVertexCount{0};
 
 		bool mEmptyView{false};
 

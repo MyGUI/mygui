@@ -1,0 +1,2 @@
+set(HEADER_FILES SkinTest.h)
+set(SOURCE_FILES Main.cpp RotatingSkin.cpp PolygonalSkin.cpp GeometryUtility.cpp)

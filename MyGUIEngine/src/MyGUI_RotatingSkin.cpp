@@ -23,19 +23,13 @@ namespace MyGUI
 	void RotatingSkin::setAngle(float _angle)
 	{
 		mAngle = _angle;
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		_correctView();
 	}
 
 	void RotatingSkin::setCenter(const IntPoint& _center)
 	{
 		mCenterPos = _center;
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		_correctView();
 	}
 
 	IntPoint RotatingSkin::getCenter(bool _local) const
@@ -49,10 +43,7 @@ namespace MyGUI
 			return;
 
 		mVisible = _visible;
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		_correctView();
 	}
 
 	void RotatingSkin::setAlpha(float _alpha)
@@ -86,10 +77,7 @@ namespace MyGUI
 	{
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		_correctView();
 	}
 
 	void RotatingSkin::createDrawItem(ITexture* _texture, ILayerNode* _node)
@@ -119,13 +107,13 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		if (mGeometryOutdated)
+		if (mGeometryOutdated || mRenderItem->getCurrentUpdate())
 		{
 			_rebuildGeometry();
 			mGeometryOutdated = false;
 		}
 
-		for (int i = 1; i < GEOMETRY_VERTICIES_TOTAL_COUNT - 1; ++i)
+		for (size_t i = 1; i + 1 < mVertexCount; ++i)
 		{
 			verticies[3 * i - 3].set(
 				mResultVerticiesPos[0].left,
@@ -150,7 +138,7 @@ namespace MyGUI
 				mCurrentColour);
 		}
 
-		mRenderItem->setLastVertexCount((GEOMETRY_VERTICIES_TOTAL_COUNT - 2) * 3);
+		mRenderItem->setLastVertexCount(mVertexCount < 3 ? 0 : (mVertexCount - 2) * 3);
 	}
 
 	void RotatingSkin::_setColour(const Colour& _value)
@@ -176,145 +164,57 @@ namespace MyGUI
 	{
 		mCurrentTexture = _rect;
 
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
-	}
-
-	inline float len(float x, float y)
-	{
-		return std::sqrt(x * x + y * y);
+		_correctView();
 	}
 
 	void RotatingSkin::_rebuildGeometry()
 	{
-		/*
-			0 1
-			3 2
-		*/
-#ifdef M_PI
-	#undef M_PI
-#endif
-		const float M_PI = 3.141593f;
-
-		float width_base = (float)mCurrentCoord.width;
-		float height_base = (float)mCurrentCoord.height;
-
-		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
-		float baseAngles[RECT_VERTICIES_COUNT];
-		baseAngles[0] = std::atan2((float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[1] = std::atan2(-width_base + (float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[2] =
-			std::atan2(-width_base + (float)mCenterPos.left, -height_base + (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[3] = std::atan2((float)mCenterPos.left, -height_base + (float)mCenterPos.top) + M_PI / 2;
-
-		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
-		float baseDistances[RECT_VERTICIES_COUNT];
-		baseDistances[0] = len((float)mCenterPos.left, (float)mCenterPos.top);
-		baseDistances[1] = len(-width_base + (float)mCenterPos.left, (float)mCenterPos.top);
-		baseDistances[2] = len(-width_base + (float)mCenterPos.left, -height_base + (float)mCenterPos.top);
-		baseDistances[3] = len((float)mCenterPos.left, -height_base + (float)mCenterPos.top);
-
-
-		// calculate rotated positions of uncropped rectangle verticies (relative to parent)
-		FloatPoint baseVerticiesPos[RECT_VERTICIES_COUNT];
-
-		int offsetX = /*mCurrentCoord.left +*/ mCenterPos.left;
-		int offsetY = /*mCurrentCoord.top +*/ mCenterPos.top;
-
-		for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
+		// Rotate the four corners around the widget-local center.
+		const float left = (float)mCurrentCoord.left;
+		const float top = (float)mCurrentCoord.top;
+		const float right = (float)mCurrentCoord.right();
+		const float bottom = (float)mCurrentCoord.bottom();
+		FloatPoint corners[RECT_VERTICIES_COUNT] = {{left, top}, {right, top}, {right, bottom}, {left, bottom}};
+		const float cos = std::cos(mAngle);
+		const float sin = std::sin(mAngle);
+		for (auto& point : corners)
 		{
-			baseVerticiesPos[i].left = offsetX + std::cos(-mAngle + baseAngles[i]) * baseDistances[i];
-			baseVerticiesPos[i].top = offsetY - std::sin(-mAngle + baseAngles[i]) * baseDistances[i];
+			const float x = point.left - mCenterPos.left;
+			const float y = point.top - mCenterPos.top;
+			point = {mCenterPos.left + x * cos - y * sin, mCenterPos.top + x * sin + y * cos};
 		}
 
-		// base texture coordinates
-		FloatPoint baseVerticiesUV[RECT_VERTICIES_COUNT] = {
-			FloatPoint(mCurrentTexture.left, mCurrentTexture.top),
-			FloatPoint(mCurrentTexture.right, mCurrentTexture.top),
-			FloatPoint(mCurrentTexture.right, mCurrentTexture.bottom),
-			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)};
-
-		// now we have rotated uncropped rectangle verticies coordinates
-
-		// --------- here the cropping starts ---------
-
-		// now we are going to calculate verticies of resulting figure
-
-		// no parent - no cropping
-		size_t size = RECT_VERTICIES_COUNT;
-		if (nullptr == mCroppedParent->getCroppedParent())
+		mVertexCount = RECT_VERTICIES_COUNT;
+		std::copy(corners, corners + RECT_VERTICIES_COUNT, mResultVerticiesPos);
+		if (ICroppedRectangle* parent = mCroppedParent->getCroppedParent())
 		{
-			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
-			{
-				mResultVerticiesPos[i] = baseVerticiesPos[i];
-				mResultVerticiesUV[i] = baseVerticiesUV[i];
-			}
-		}
-		else
-		{
-			ICroppedRectangle* parent = mCroppedParent->getCroppedParent();
-
-			VectorFloatPoint resultVerticiesPos = geometry_utility::cropPolygon(
-				baseVerticiesPos,
+			const VectorFloatPoint points = geometry_utility::cropPolygon(
+				corners,
 				RECT_VERTICIES_COUNT,
 				IntCoord(
 					parent->_getMarginLeft() - mCroppedParent->getLeft(),
 					parent->_getMarginTop() - mCroppedParent->getTop(),
 					parent->_getViewWidth(),
 					parent->_getViewHeight()));
-
-			for (size_t i = 0; i < resultVerticiesPos.size(); ++i)
-			{
-				mResultVerticiesPos[i] = resultVerticiesPos[i];
-			}
-
-			size = resultVerticiesPos.size();
-
-			// calculate texture coordinates
-			FloatPoint v0 = baseVerticiesUV[3] - baseVerticiesUV[0];
-			FloatPoint v1 = baseVerticiesUV[1] - baseVerticiesUV[0];
-			for (size_t i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
-			{
-				if (i < size)
-				{
-					FloatPoint point = geometry_utility::getPositionInsideRect(
-						mResultVerticiesPos[i],
-						baseVerticiesPos[0],
-						baseVerticiesPos[1],
-						baseVerticiesPos[3]);
-					mResultVerticiesUV[i] =
-						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, baseVerticiesUV[0]);
-				}
-				else
-				{
-					// all unused verticies is equal to last used
-					mResultVerticiesUV[i] = mResultVerticiesUV[size == 0 ? 0 : (size - 1)];
-				}
-			}
+			mVertexCount = points.size();
+			std::copy(points.begin(), points.end(), mResultVerticiesPos);
 		}
 
-
-		// now calculate widget base offset and then resulting position in screen coordinates
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float vertex_top_base =
-			-(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
-
-		for (size_t i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
+		const FloatPoint baseUV(mCurrentTexture.left, mCurrentTexture.top);
+		const FloatPoint u(mCurrentTexture.right - mCurrentTexture.left, 0);
+		const FloatPoint v(0, mCurrentTexture.bottom - mCurrentTexture.top);
+		for (size_t i = 0; i < mVertexCount; ++i)
 		{
-			if (i < size)
-			{
-				mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
-				mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
-			}
-			else
-			{
-				// all unused verticies is equal to last used
-				mResultVerticiesPos[i] = mResultVerticiesPos[size == 0 ? 0 : (size - 1)];
-			}
+			const FloatPoint position =
+				geometry_utility::getPositionInsideRect(mResultVerticiesPos[i], corners[0], corners[1], corners[3]);
+			mResultVerticiesUV[i] = geometry_utility::getUVFromPositionInsideRect(position, v, u, baseUV);
 		}
+
+		geometry_utility::toRenderTarget(
+			mResultVerticiesPos,
+			mVertexCount,
+			mCroppedParent->getAbsolutePosition(),
+			mRenderItem->getRenderTarget()->getInfo());
 	}
 
 	float RotatingSkin::getAngle() const

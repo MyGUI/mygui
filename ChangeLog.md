@@ -37,6 +37,12 @@
   selected item
 - Fix TabControl header scrolling not accounting for navigation button space in layout-based skins, leaving the target
   tab hidden
+- Fix RotatingSkin ignoring subskin position offsets and render-target scale changes; respect render-target origin
+  offsets in RotatingSkin and PolygonalSkin
+- Fix PolygonalSkin retaining stale geometry after clearing points or supplying a single point or duplicate-only points
+- Fix PolygonalSkin vertex buffer overruns when clipping sharp joins and invalid geometry at line reversals
+- Simplify rotation, clipping and shared coordinate conversion; make RotatingSkin draw only populated triangles while
+  keeping its fixed vertex buffer capacity
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
@@ -62,6 +68,7 @@
 - Implement --screenshot CLI option for demos and tools to save a screenshot and exit
 - Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools against committed
   references (with tolerance for comparing e.g. DirectX vs OpenGL)
+- Add extensive unit-test coverage across the engine
 - Keep only automated tests in UnitTests; convert AttachDetach and MultiList into finite headless tests
 - Share test setup, assertions, and resource loading in UnitTests/Common
 - Run unit tests with CTest in native GitHub CI builds

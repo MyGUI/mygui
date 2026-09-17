@@ -27,41 +27,28 @@ namespace MyGUI
 
 	void PolygonalSkin::setPoints(const std::vector<FloatPoint>& _points)
 	{
-		if (_points.size() < 2)
-		{
-			mVertexCount = 0;
-			mResultVerticiesPos.clear();
-			mResultVerticiesUV.clear();
-			mLinePoints = _points;
-			return;
-		}
-
-		VectorFloatPoint finalPoints;
-		finalPoints.reserve(_points.size());
-
-		mLineLength = 0.0f;
-		FloatPoint point0 = _points[0];
-		finalPoints.push_back(point0);
-		// ignore repeating points
+		mLinePoints.clear();
+		mLinePoints.reserve(_points.size());
+		mLineLength = 0;
 		for (const auto& point : _points)
 		{
-			if (point0 != point)
+			if (!mLinePoints.empty())
 			{
-				finalPoints.push_back(point);
-				mLineLength += len(point.left - point0.left, point.top - point0.top);
-				point0 = point;
+				const auto& previous = mLinePoints.back();
+				if (previous == point)
+					continue;
+				mLineLength += len(point.left - previous.left, point.top - previous.top);
 			}
+			mLinePoints.push_back(point);
 		}
 
-		mLinePoints = finalPoints;
-
-#ifdef MYGUI_NO_POLYGONAL_SKIN_CROPPING
-		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount * 2;
-#else
-		// it's too hard to calculate maximum possible verticies count and worst
-		// approximation gives 7 times more verticies than in not cropped geometry
-		// so we multiply count by 2, because this looks enough
-		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount * 2 * 2;
+		const size_t segments = mLinePoints.empty() ? 0 : mLinePoints.size() - 1;
+		// Each segment emits two triangles, plus at most two triangles for its join.
+		size_t count = segments * 12;
+#ifndef MYGUI_NO_POLYGONAL_SKIN_CROPPING
+		// Clipping a triangle against four sides adds at most four vertices:
+		// seven vertices triangulate into at most five triangles.
+		count *= 5;
 #endif
 		if (count > mVertexCount)
 		{
@@ -69,7 +56,6 @@ namespace MyGUI
 			if (nullptr != mRenderItem)
 				mRenderItem->reallockDrawItem(this, mVertexCount);
 		}
-
 		_updateView();
 	}
 
@@ -91,10 +77,7 @@ namespace MyGUI
 			return;
 
 		mVisible = _visible;
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		_correctView();
 	}
 
 	void PolygonalSkin::setAlpha(float _alpha)
@@ -184,15 +167,11 @@ namespace MyGUI
 		if (!mVisible || mEmptyView)
 			return;
 
-		bool update = mRenderItem->getCurrentUpdate();
-		if (update)
-			mGeometryOutdated = true;
-
 		Vertex* verticies = mRenderItem->getCurrentVertexBuffer();
 
 		float vertex_z = mNode->getNodeDepth();
 
-		if (mGeometryOutdated)
+		if (mGeometryOutdated || mRenderItem->getCurrentUpdate())
 		{
 			_rebuildGeometry();
 		}
@@ -231,20 +210,19 @@ namespace MyGUI
 	{
 		mCurrentTexture = _rect;
 
-		mGeometryOutdated = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		_correctView();
 	}
 
 	void PolygonalSkin::_rebuildGeometry()
 	{
-		if (mLinePoints.size() < 2)
-			return;
 		if (!mRenderItem || !mRenderItem->getRenderTarget())
 			return;
 
 		mGeometryOutdated = false;
+		mResultVerticiesPos.clear();
+		mResultVerticiesUV.clear();
+		if (mLinePoints.size() < 2)
+			return;
 
 		// using mCurrentCoord as rectangle where we draw polygons
 
@@ -259,8 +237,6 @@ namespace MyGUI
 		FloatPoint vectorU = baseVerticiesUV[1] - baseVerticiesUV[0];
 		//FloatPoint vectorV = baseVerticiesUV[3] - baseVerticiesUV[0];
 
-		mResultVerticiesPos.clear();
-		mResultVerticiesUV.clear();
 		// add first two verticies
 		FloatPoint normal = _getPerpendicular(mLinePoints[0], mLinePoints[1]);
 
@@ -295,7 +271,7 @@ namespace MyGUI
 
 			bool edge = false;
 			bool sharp = false;
-			if (normal == FloatPoint() /*|| len(normal.left, normal.top) > mLineWidth * 2*/)
+			if (normal == FloatPoint())
 			{
 				edge = true;
 				normal = _getPerpendicular(mLinePoints[i - 1], mLinePoints[i]);
@@ -342,9 +318,8 @@ namespace MyGUI
 			{
 				normal = _getMiddleLine(mLinePoints[i - 1], mLinePoints[i + 1], mLinePoints[i]);
 
-				float sharpness = len(normal.left, normal.top) / mLineWidth;
-
 				float length = len(normal.left, normal.top);
+				float sharpness = length / mLineWidth;
 				normal.left *= 2 * mLineWidth / length / (sharpness - 0.5f);
 				normal.top *= 2 * mLineWidth / length / (sharpness - 0.5f);
 
@@ -412,40 +387,21 @@ namespace MyGUI
 		for (size_t i = 0; i < mResultVerticiesPos.size(); i += 3)
 		{
 			VectorFloatPoint croppedTriangle = geometry_utility::cropPolygon(&mResultVerticiesPos[i], 3, cropRectangle);
-			if (!croppedTriangle.empty())
+			const FloatPoint v0 = mResultVerticiesUV[i + 2] - mResultVerticiesUV[i];
+			const FloatPoint v1 = mResultVerticiesUV[i + 1] - mResultVerticiesUV[i];
+			for (size_t j = 1; j + 1 < croppedTriangle.size(); ++j)
 			{
-				FloatPoint v0 = mResultVerticiesUV[i + 2] - mResultVerticiesUV[i];
-				FloatPoint v1 = mResultVerticiesUV[i + 1] - mResultVerticiesUV[i];
-
-				for (size_t j = 1; j < croppedTriangle.size() - 1; ++j)
+				for (size_t index : {size_t(0), j, j + 1})
 				{
-					newResultVerticiesPos.push_back(croppedTriangle[0]);
-					newResultVerticiesPos.push_back(croppedTriangle[j]);
-					newResultVerticiesPos.push_back(croppedTriangle[j + 1]);
-
-					// calculate UV
-					FloatPoint point;
-					point = geometry_utility::getPositionInsideRect(
-						croppedTriangle[0],
+					const FloatPoint& vertex = croppedTriangle[index];
+					newResultVerticiesPos.push_back(vertex);
+					const FloatPoint position = geometry_utility::getPositionInsideRect(
+						vertex,
 						mResultVerticiesPos[i],
 						mResultVerticiesPos[i + 1],
 						mResultVerticiesPos[i + 2]);
 					newResultVerticiesUV.push_back(
-						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
-					point = geometry_utility::getPositionInsideRect(
-						croppedTriangle[j],
-						mResultVerticiesPos[i],
-						mResultVerticiesPos[i + 1],
-						mResultVerticiesPos[i + 2]);
-					newResultVerticiesUV.push_back(
-						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
-					point = geometry_utility::getPositionInsideRect(
-						croppedTriangle[j + 1],
-						mResultVerticiesPos[i],
-						mResultVerticiesPos[i + 1],
-						mResultVerticiesPos[i + 2]);
-					newResultVerticiesUV.push_back(
-						geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+						geometry_utility::getUVFromPositionInsideRect(position, v0, v1, mResultVerticiesUV[i]));
 				}
 			}
 		}
@@ -454,17 +410,11 @@ namespace MyGUI
 #endif
 
 
-		// now calculate widget base offset and then resulting position in screen coordinates
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float vertex_top_base =
-			-(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
-
-		for (auto& pos : mResultVerticiesPos)
-		{
-			pos.left = vertex_left_base + pos.left * info.pixScaleX * 2;
-			pos.top = vertex_top_base + pos.top * info.pixScaleY * -2;
-		}
+		geometry_utility::toRenderTarget(
+			mResultVerticiesPos.data(),
+			mResultVerticiesPos.size(),
+			mCroppedParent->getAbsolutePosition(),
+			mRenderItem->getRenderTarget()->getInfo());
 	}
 
 	FloatPoint PolygonalSkin::_getPerpendicular(const FloatPoint& _point1, const FloatPoint& _point2) const
@@ -505,10 +455,10 @@ namespace MyGUI
 		result.top /= length;
 
 		float cos = result.left * line1.left + result.top * line1.top;
-		float angle = std::acos(cos);
+		float angle = std::acos(std::clamp(cos, -1.0f, 1.0f));
 
 		// too sharp angle
-		if (std::fabs(angle) < 1e-6f /*< 0.2f*/)
+		if (std::fabs(angle) < 1e-6f)
 			return {};
 
 		float width = mLineWidth / 2 / std::sin(angle);
