@@ -13,6 +13,7 @@
 #include <list>
 #include <memory>
 #include <functional>
+#include <utility>
 
 namespace MyGUI
 {
@@ -103,19 +104,21 @@ namespace MyGUI
 	}
 
 	// Creates delegate from a non-static class method
-	template<typename T, typename... Args>
-	inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
+	template<typename T, typename... Args, typename Owner>
+	inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (Owner::*_method)(Args... args))
 	{
 		return new delegates::DelegateFunction<Args...>(
-			[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
+			[_object, _method](Args&&... args) { std::invoke(_method, _object, std::forward<Args>(args)...); },
 			_method,
 			_object);
 	}
-	template<typename T, typename... Args>
-	inline delegates::DelegateFunction<Args...>* newDelegate(const T* _object, void (T::*_method)(Args... args) const)
+	template<typename T, typename... Args, typename Owner>
+	inline delegates::DelegateFunction<Args...>* newDelegate(
+		const T* _object,
+		void (Owner::*_method)(Args... args) const)
 	{
 		return new delegates::DelegateFunction<Args...>(
-			[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
+			[_object, _method](Args&&... args) { std::invoke(_method, _object, std::forward<Args>(args)...); },
 			_method,
 			_object);
 	}

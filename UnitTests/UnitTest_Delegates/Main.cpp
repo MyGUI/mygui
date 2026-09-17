@@ -100,6 +100,49 @@ namespace
 		require(value == 10, "Const member callbacks must be removable by identity");
 	}
 
+	void testInheritedMemberCallbacks()
+	{
+		struct DerivedReceiver : Receiver
+		{
+		};
+
+		DerivedReceiver receiver;
+		const DerivedReceiver constReceiver;
+		MyGUI::delegates::MultiDelegate<int&> event;
+		event += MyGUI::newDelegate(&receiver, &Receiver::add);
+		event += MyGUI::newDelegate(&receiver, &Receiver::addConst);
+		event += MyGUI::newDelegate(&constReceiver, &Receiver::addConst);
+		int value = 0;
+		event(value);
+		require(value == 210, "Inherited member callbacks must support mutable and const derived objects");
+
+		event -= MyGUI::newDelegate(&receiver, &Receiver::add);
+		value = 0;
+		event(value);
+		require(value == 200, "Inherited non-const member callbacks must be removable by identity");
+
+		event.clear(&receiver);
+		value = 0;
+		event(value);
+		require(value == 100, "Unlinking a derived receiver must preserve callbacks for other receivers");
+
+		event -= MyGUI::newDelegate(&constReceiver, &Receiver::addConst);
+		require(event.empty(), "Inherited const member callbacks must be removable by identity");
+	}
+
+	void testExplicitMemberTemplateArguments()
+	{
+		Receiver receiver;
+		const Receiver constReceiver;
+		MyGUI::delegates::Delegate<int&> delegate;
+		delegate = MyGUI::newDelegate<Receiver, int&>(&receiver, &Receiver::add);
+		int value = 0;
+		delegate(value);
+		delegate = MyGUI::newDelegate<Receiver, int&>(&constReceiver, &Receiver::addConst);
+		delegate(value);
+		require(value == 110, "Explicit member template arguments must retain their original order");
+	}
+
 	void testFunctionIdsAndOrder()
 	{
 		Event event;
@@ -384,6 +427,8 @@ int main()
 		{"Single delegate invocation and replacement", testSingleDelegate},
 		{"Single delegate ownership", testSingleOwnership},
 		{"Callback identity", testCallbackIdentity},
+		{"Inherited member callbacks", testInheritedMemberCallbacks},
+		{"Explicit member template arguments backward compatibility", testExplicitMemberTemplateArguments},
 		{"Function IDs and invocation order", testFunctionIdsAndOrder},
 		{"Duplicate subscription", testDuplicateSubscription},
 		{"Empty events and removal", testEmptyAndRemoval},
