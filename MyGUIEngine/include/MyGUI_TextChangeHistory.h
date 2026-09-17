@@ -11,6 +11,7 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_UString.h"
 #include <deque>
+#include <vector>
 
 namespace MyGUI
 {

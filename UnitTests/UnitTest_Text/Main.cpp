@@ -114,6 +114,57 @@ namespace
 			"Clearing text must discard previous layout data");
 	}
 
+	void testStringAdapter()
+	{
+		MyGUI::UString text("A\xF0\x9F\x98\x80#");
+		require(text.size() == 4 && text.find('#') == 3, "UString offsets must remain UTF-16 code-unit offsets");
+		const auto& utf8 = text.asUTF8();
+		const auto& utf32 = text.asUTF32();
+		const auto& wide = text.asWStr();
+		require(utf8 == "A\xF0\x9F\x98\x80#", "Other conversions must preserve the UTF-8 result");
+		require(utf32 == U"A\U0001F600#", "Wide conversion must preserve the UTF-32 result");
+		require(MyGUI::UString(wide) == text, "Native wide strings must round-trip through the adapter");
+		*text.begin() = u'B';
+		require(text.asUTF8() == "B\xF0\x9F\x98\x80#", "Conversion must reflect edits through standard iterators");
+		text.assign(text.asUTF8());
+		require(text[0] == u'B', "Assignment must accept the object's own conversion buffer");
+		const auto moved = std::move(text);
+		require(moved.asUTF32() == U"B\U0001F600#", "Moving the wrapper must preserve its text");
+		text.assign(std::string_view());
+		require(text.empty(), "A moved-from wrapper must accept an empty string_view");
+		text = "x";
+		text[0] = static_cast<MyGUI::UString::code_point>(0xD800);
+		bool translated = false;
+		try
+		{
+			text.asUTF8();
+		}
+		catch (const MyGUI::UString::invalid_data&)
+		{
+			translated = true;
+		}
+		require(translated, "Conversion errors must use the MyGUI exception type");
+	}
+
+	void testTextIteratorCodeUnitEdits()
+	{
+		const MyGUI::UString source(MyGUI::UString::utf32string(U"\U0001F600#\r\n\u0085#\U0001F600"));
+		const auto escaped = MyGUI::TextIterator::toTagsString(source);
+		require(
+			escaped.asUTF32() == U"\U0001F600##\r\n\u0085##\U0001F600",
+			"Hash escaping must preserve neighbouring surrogate pairs and newlines");
+		MyGUI::UString flattened = source;
+		MyGUI::TextIterator iterator{MyGUI::UString()};
+		iterator.clearNewLine(flattened);
+		require(
+			flattened.asUTF32() == U"\U0001F600#   #\U0001F600",
+			"Newline replacement must preserve neighbouring surrogate pairs and hashes");
+		iterator.setText(escaped, true);
+		require(
+			iterator.getText().asUTF32() == U"\U0001F600##\n\u0085##\U0001F600",
+			"CRLF normalization must preserve supplementary characters and escaped hashes");
+	}
+
 	void testTextIteratorTruncatedColourTags()
 	{
 		for (const char* text : {"a#0", "a#00", "a#000", "a#0000", "a#00000"})
@@ -208,6 +259,8 @@ int main()
 		{"Unicode round trips and mutation", testUnicodeRoundTrip},
 		{"Malformed UTF-8", testMalformedUtf8},
 		{"Lines and colour tags", testLinesAndTags},
+		{"UString adapter compatibility", testStringAdapter},
+		{"TextIterator code-unit edits", testTextIteratorCodeUnitEdits},
 		{"Truncated colour tags in TextIterator", testTextIteratorTruncatedColourTags},
 		{"Wrapping boundaries", testWrapping},
 		{"Cursor hit testing", testCursorHitTesting},

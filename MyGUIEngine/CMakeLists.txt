@@ -24,6 +24,10 @@ target_include_directories(${PROJECTNAME} PUBLIC
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/MYGUI>
 )
 
+target_include_directories(${PROJECTNAME} SYSTEM PRIVATE
+	"${utfcpp_SOURCE_DIR}/source"
+)
+
 target_compile_definitions(${PROJECTNAME}
 	PRIVATE
 		MYGUI_BUILD

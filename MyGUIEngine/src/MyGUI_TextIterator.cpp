@@ -225,12 +225,11 @@ namespace MyGUI
 
 	void TextIterator::clearNewLine(UString& _text)
 	{
-		for (UString::iterator iter = _text.begin(); iter != _text.end(); iter.moveNext())
+		for (auto& character : _text)
 		{
-			auto character = iter.getCharacter();
 			if (character == FontCodeType::NEL || character == FontCodeType::CR || character == FontCodeType::LF)
 			{
-				(*iter) = FontCodeType::Space;
+				character = FontCodeType::Space;
 			}
 		}
 	}
@@ -321,12 +320,12 @@ namespace MyGUI
 	UString TextIterator::toTagsString(const UString& _text)
 	{
 		// convert to string with tags
-		UString text(_text);
-		for (UString::iterator iter = text.begin(); iter != text.end(); iter.moveNext())
+		UString text;
+		for (auto character : _text)
 		{
-			// FIXME redo through TextIterator to decouple tag concept from edit
-			if (L'#' == (*iter))
-				iter = text.insert(iter.moveNext(), L'#');
+			text.push_back(character);
+			if (character == u'#')
+				text.push_back(character);
 		}
 		return text;
 	}
@@ -500,15 +499,16 @@ namespace MyGUI
 
 	void TextIterator::normaliseNewLine(UString& _text)
 	{
+		UString text;
 		for (size_t index = 0; index < _text.size(); ++index)
 		{
 			Char character = _text[index];
 			if ((character == FontCodeType::CR) && ((index + 1) < _text.size()) &&
 				(_text[index + 1] == FontCodeType::LF))
-			{
-				_text.erase(index, 1);
-			}
+				continue;
+			text.push_back(_text[index]);
 		}
+		_text = std::move(text);
 	}
 
 } // namespace MyGUI

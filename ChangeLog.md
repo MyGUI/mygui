@@ -43,6 +43,8 @@
 - Fix PolygonalSkin vertex buffer overruns when clipping sharp joins and invalid geometry at line reversals
 - Simplify rotation, clipping and shared coordinate conversion; make RotatingSkin draw only populated triangles while
   keeping its fixed vertex buffer capacity
+- Replace old UString with std::u16string and UTF8-CPP; remove unused API and replace custom iterators with standard
+  iterators
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

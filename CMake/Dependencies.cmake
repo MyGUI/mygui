@@ -108,6 +108,20 @@ else()
 endif()
 
 #######################################################################
+# UTF8-CPP dependency
+#######################################################################
+
+include(FetchContent)
+FetchContent_Declare(utfcpp
+	GIT_REPOSITORY https://github.com/nemtrif/utfcpp.git
+	GIT_TAG v4.1.1
+	GIT_SHALLOW TRUE
+	# Only consume headers; skip upstream targets, tests and install rules.
+	SOURCE_SUBDIR source
+)
+FetchContent_MakeAvailable(utfcpp)
+
+#######################################################################
 # RenderSystem dependencies
 #######################################################################
 
