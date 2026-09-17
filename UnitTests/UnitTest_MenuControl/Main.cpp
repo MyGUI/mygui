@@ -5,13 +5,24 @@
  */
 
 #include "MyGUI.h"
-#include "TestSupport.h"
-#include <iostream>
+#include "BehaviourTestSupport.h"
 
 namespace
 {
 
 	using unittest::require;
+
+	struct Fixture
+	{
+		Fixture()
+		{
+			MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+			popupLayer = unittest::createCountingLayer("Popup", 1);
+		}
+
+		unittest::TestContext context;
+		unittest::CountingLayer* popupLayer;
+	};
 
 	void checkOpenSubmenu(MyGUI::MenuControl* _menu, MyGUI::MenuItem* _item)
 	{
@@ -24,17 +35,19 @@ namespace
 			"Open submenus must follow their owners immediately");
 	}
 
-	template<typename MenuType>
-	void testMovement(MyGUI::Gui& _gui, bool _horizontal, unittest::CountingLayer& _popupLayer)
+	template<typename MenuType, bool Horizontal>
+	void testMovement()
 	{
-		auto* scroll = _gui.createWidget<MyGUI::ScrollView>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* scroll = gui.createWidget<MyGUI::ScrollView>(
 			"Default",
 			MyGUI::IntCoord(100, 100, 400, 400),
 			MyGUI::Align::Default,
 			"Main");
 		scroll->setCanvasSize(800, 800);
 		auto* menu = scroll->createWidget<MenuType>("Default", MyGUI::IntCoord(), MyGUI::Align::Default);
-		menu->setVerticalAlignment(!_horizontal);
+		menu->setVerticalAlignment(!Horizontal);
 		menu->addItem("First");
 		auto* owner = menu->addItem("Open", MyGUI::MenuItemType::Popup);
 		auto* submenu = owner->createItemChild();
@@ -51,7 +64,7 @@ namespace
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(nested->getItemAt(0));
 		owner->setItemChildVisible(true);
 		nestedOwner->setItemChildVisible(true);
-		_gui.eventFrameStart(0.05f);
+		gui.eventFrameStart(0.05f);
 		const float alpha = submenu->getAlpha();
 		auto* focus = MyGUI::InputManager::getInstance().getKeyFocusWidget();
 		scroll->getClientWidget()->setPosition(-20, -30);
@@ -66,14 +79,16 @@ namespace
 		menu->setCoord(30, 110, 140, 40);
 		checkOpenSubmenu(menu, owner);
 		checkOpenSubmenu(submenu, nestedOwner);
-		owner->setPosition(_horizontal ? 30 : 0, _horizontal ? 0 : 30);
+		owner->setPosition(Horizontal ? 30 : 0, Horizontal ? 0 : 30);
 		checkOpenSubmenu(menu, owner);
 		checkOpenSubmenu(submenu, nestedOwner);
-		_popupLayer.sizeQueryCount = 0;
+		fixture.popupLayer->sizeQueryCount = 0;
 		menu->eventChangeCoord(menu);
 		owner->eventChangeCoord(owner);
 		submenu->eventChangeCoord(submenu);
-		require(_popupLayer.sizeQueryCount == 0, "Duplicate coordinates must not recalculate submenu placement");
+		require(
+			fixture.popupLayer->sizeQueryCount == 0,
+			"Duplicate coordinates must not recalculate submenu placement");
 		menu->insertItemAt(0, "Inserted");
 		checkOpenSubmenu(menu, owner);
 		checkOpenSubmenu(submenu, nestedOwner);
@@ -81,7 +96,7 @@ namespace
 		checkOpenSubmenu(menu, owner);
 		checkOpenSubmenu(submenu, nestedOwner);
 		menu->changeWidgetSkin("Default");
-		owner->setPosition(_horizontal ? 40 : 0, _horizontal ? 0 : 40);
+		owner->setPosition(Horizontal ? 40 : 0, Horizontal ? 0 : 40);
 		checkOpenSubmenu(menu, owner);
 		checkOpenSubmenu(submenu, nestedOwner);
 		menu->detachFromWidget("Main");
@@ -90,7 +105,7 @@ namespace
 		checkOpenSubmenu(menu, owner);
 
 		owner->setItemChildVisible(false);
-		_gui.eventFrameStart(1.0f);
+		gui.eventFrameStart(1.0f);
 		const auto hiddenPosition = submenu->getPosition();
 		scroll->setPosition(140, 100);
 		require(submenu->getPosition() == hiddenPosition, "Hidden submenus must not track movement");
@@ -98,13 +113,15 @@ namespace
 		checkOpenSubmenu(menu, owner);
 		menu->removeItemChild(owner);
 		scroll->setPosition(100, 100);
-		_gui.destroyWidget(scroll);
-		_gui.eventFrameStart(1.0f);
+		gui.destroyWidget(scroll);
+		gui.eventFrameStart(1.0f);
 	}
 
-	void testOrientationChange(MyGUI::Gui& _gui)
+	void testOrientationChange()
 	{
-		auto* menu = _gui.createWidget<MyGUI::MenuBar>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* menu = gui.createWidget<MyGUI::MenuBar>(
 			"Default",
 			MyGUI::IntCoord(100, 100, 10, 10),
 			MyGUI::Align::Default,
@@ -121,7 +138,7 @@ namespace
 		menu->setVerticalAlignment(false);
 		require(menu->getCoord() == coord, "The square menu must keep its size when changing orientation");
 		checkOpenSubmenu(menu, owner);
-		_gui.destroyWidget(menu);
+		gui.destroyWidget(menu);
 	}
 
 	void checkPlacement(MyGUI::Widget* _parent, int _top, int _submenuHeight, int _expectedTop, const char* _name)
@@ -150,9 +167,11 @@ namespace
 		gui.destroyWidget(menu);
 	}
 
-	void testPlacement(MyGUI::Gui& _gui)
+	void testPlacement()
 	{
-		auto* parent = _gui.createWidget<MyGUI::Widget>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(100, 200, 300, 400),
 			MyGUI::Align::Default,
@@ -162,9 +181,9 @@ namespace
 		checkPlacement(parent, 100, 300, 150, "Offset parent: absolute bottom alignment fits");
 		checkPlacement(parent, 100, 100, 430, "Submenu fits without repositioning");
 		checkPlacement(parent, 100, 500, 100, "Aligning above zero requires the screen-bottom clamp");
-		_gui.destroyWidget(parent);
+		gui.destroyWidget(parent);
 
-		auto* scroll = _gui.createWidget<MyGUI::ScrollView>(
+		auto* scroll = gui.createWidget<MyGUI::ScrollView>(
 			"Default",
 			MyGUI::IntCoord(100, 0, 300, 600),
 			MyGUI::Align::Default,
@@ -174,7 +193,7 @@ namespace
 		scroll->getClientWidget()->setPosition(0, -100);
 		checkPlacement(scroll, 400, 200, 250, "Negative scroll offset: align with absolute bottom");
 		checkPlacement(scroll, 400, 500, 100, "Negative scroll offset: absolute bottom alignment does not fit");
-		_gui.destroyWidget(scroll);
+		gui.destroyWidget(scroll);
 
 		checkPlacement(nullptr, 300, 200, 250, "Top-level menu");
 	}
@@ -183,22 +202,11 @@ namespace
 
 int main()
 {
-	try
-	{
-		unittest::TestContext context;
-		auto& gui = context.getGui();
-		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
-		auto* popupLayer = unittest::createCountingLayer("Popup", 1);
-		testPlacement(gui);
-		testMovement<MyGUI::MenuControl>(gui, false, *popupLayer);
-		testMovement<MyGUI::MenuBar>(gui, true, *popupLayer);
-		testMovement<MyGUI::PopupMenu>(gui, false, *popupLayer);
-		testOrientationChange(gui);
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << error.what() << '\n';
-		return 1;
-	}
-	return 0;
+	return unittest::runTests({
+		{"Submenu placement", testPlacement},
+		{"MenuControl movement", testMovement<MyGUI::MenuControl, false>},
+		{"MenuBar movement", testMovement<MyGUI::MenuBar, true>},
+		{"PopupMenu movement", testMovement<MyGUI::PopupMenu, false>},
+		{"Orientation changes", testOrientationChange},
+	});
 }

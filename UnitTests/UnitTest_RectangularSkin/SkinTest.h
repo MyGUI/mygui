@@ -2,6 +2,7 @@
 #define MYGUI_UNITTEST_RECTANGULAR_SKIN_TEST_H_
 
 #include "SkinTestContext.h"
+#include "BehaviourTestSupport.h"
 #include "MyGUI_LayerNode.h"
 
 namespace unittest::rectangularskin
@@ -162,8 +163,9 @@ namespace unittest::rectangularskin
 		bool mAttached{false};
 	};
 
-	void runSubSkinTests();
-	void runTileRectTests();
+	using Tests = std::vector<TestCase>;
+	void addSubSkinTests(Tests& _tests);
+	void addTileRectTests(Tests& _tests);
 
 }
 

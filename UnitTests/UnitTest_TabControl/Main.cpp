@@ -5,9 +5,8 @@
  */
 
 #include "MyGUI.h"
-#include "TestSupport.h"
+#include "BehaviourTestSupport.h"
 #include "FixedFont.h"
-#include <iostream>
 #include <vector>
 
 namespace tabcontrol_test
@@ -21,6 +20,20 @@ namespace tabcontrol_test
 
 	public:
 		using MyGUI::Widget::assignWidget;
+	};
+
+	struct Fixture
+	{
+		Fixture()
+		{
+			unittest::registerFixedFont();
+			MyGUI::FactoryManager::getInstance().registerFactory<TestTabControl>(
+				MyGUI::WidgetManager::getInstance().getCategoryName());
+			MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+			unittest::loadResources("UnitTest_TabControl/TestSkin.xml");
+		}
+
+		unittest::TestContext context;
 	};
 
 	struct SelectionEvents
@@ -52,9 +65,13 @@ namespace tabcontrol_test
 				"Only the selected page must be visible");
 	}
 
-	static void testItems(MyGUI::Gui& _gui, const std::string& _skin)
+	template<bool OldSkin>
+	static void testItems()
 	{
-		auto* tabs = createTabs(_gui, _skin);
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		const std::string skin = OldSkin ? "TestTabControlOld" : "TestTabControl";
+		auto* tabs = createTabs(gui, skin);
 		require(
 			tabs->getItemCount() == 0 && tabs->getIndexSelected() == MyGUI::ITEM_NONE &&
 				tabs->getItemSelected() == nullptr,
@@ -100,7 +117,7 @@ namespace tabcontrol_test
 		tabs->removeItem(first);
 		checkSelection(tabs, 1);
 		require(tabs->getItemSelected() == third, "Removing an earlier tab must preserve the selected page");
-		_gui.destroyWidget(third);
+		gui.destroyWidget(third);
 		checkSelection(tabs, 0);
 		require(tabs->getItemSelected() == second, "Direct page destruction must update the owning control");
 		tabs->removeAllItems();
@@ -111,12 +128,16 @@ namespace tabcontrol_test
 		tabs->removeAllItems();
 		tabs->addItem("Reused");
 		checkSelection(tabs, 0);
-		_gui.destroyWidget(tabs);
+		gui.destroyWidget(tabs);
 	}
 
-	static void testInsertionAndWidths(MyGUI::Gui& _gui, const std::string& _skin)
+	template<bool OldSkin>
+	static void testInsertionAndWidths()
 	{
-		auto* tabs = createTabs(_gui, _skin);
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		const std::string skin = OldSkin ? "TestTabControlOld" : "TestTabControl";
+		auto* tabs = createTabs(gui, skin);
 		auto* first = tabs->addItem("First", 1);
 		auto* last = tabs->addItem("Last", 3);
 		auto* middle = tabs->insertItem(last, "Middle", 2);
@@ -151,20 +172,24 @@ namespace tabcontrol_test
 		require(first->getCoord() == MyGUI::IntCoord(0, 20, 300, 140), "Pages must stretch with their control");
 		tabs->setPosition(40, 50);
 		require(first->getAbsolutePosition() == MyGUI::IntPoint(40, 70), "Pages must follow control movement");
-		_gui.destroyWidget(tabs);
+		gui.destroyWidget(tabs);
 	}
 
-	static void testHeaders(MyGUI::Gui& _gui, const std::string& _skin, bool _smooth)
+	template<bool OldSkin, bool Smooth>
+	static void testHeaders()
 	{
-		auto* tabs = createTabs(_gui, _skin);
-		tabs->setProperty("SmoothShow", _smooth ? "true" : "false");
-		require(tabs->getSmoothShow() == _smooth, "The smooth selection property must be applied");
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		const std::string skin = OldSkin ? "TestTabControlOld" : "TestTabControl";
+		auto* tabs = createTabs(gui, skin);
+		tabs->setProperty("SmoothShow", Smooth ? "true" : "false");
+		require(tabs->getSmoothShow() == Smooth, "The smooth selection property must be applied");
 		for (int index = 0; index < 5; ++index)
 			tabs->addItem(MyGUI::utility::toString(index));
 		MyGUI::Widget* bar = nullptr;
 		MyGUI::Button* left = nullptr;
 		MyGUI::Button* right = nullptr;
-		tabs->assignWidget(bar, _skin == "TestTabControl" ? "HeaderPlace" : "Bar");
+		tabs->assignWidget(bar, skin == "TestTabControl" ? "HeaderPlace" : "Bar");
 		tabs->assignWidget(left, "Left");
 		tabs->assignWidget(right, "Right");
 		require(bar && left && right, "The fixture must expose its header bar and navigation buttons");
@@ -186,7 +211,7 @@ namespace tabcontrol_test
 		tabs->eventTabChangeSelect += MyGUI::newDelegate(&events, &SelectionEvents::changed);
 		auto* button = header(1);
 		button->eventMouseButtonClick(button);
-		_gui.eventFrameStart(1.0f);
+		gui.eventFrameStart(1.0f);
 		checkSelection(tabs, 1);
 		require(
 			button->getStateSelected() && events.indices == std::vector<size_t>{1},
@@ -210,38 +235,26 @@ namespace tabcontrol_test
 		checkSelection(tabs, 1);
 		tabs->setIndexSelected(2);
 		tabs->setIndexSelected(1);
-		_gui.eventFrameStart(1.0f);
+		gui.eventFrameStart(1.0f);
 		checkSelection(tabs, 1);
 		require(tabs->getItemSelected()->getEnabled(), "Rapid switching must leave the active page enabled");
 		tabs->setIndexSelected(3);
-		_gui.destroyWidget(tabs);
-		_gui.eventFrameStart(1.0f);
+		gui.destroyWidget(tabs);
+		gui.eventFrameStart(1.0f);
 	}
 
 }
 
 int main()
 {
-	try
-	{
-		unittest::TestContext context;
-		unittest::registerFixedFont();
-		MyGUI::FactoryManager::getInstance().registerFactory<tabcontrol_test::TestTabControl>(
-			MyGUI::WidgetManager::getInstance().getCategoryName());
-		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
-		unittest::loadResources("UnitTest_TabControl/TestSkin.xml");
-		for (const std::string skin : {"TestTabControl", "TestTabControlOld"})
-		{
-			tabcontrol_test::testItems(context.getGui(), skin);
-			tabcontrol_test::testInsertionAndWidths(context.getGui(), skin);
-			tabcontrol_test::testHeaders(context.getGui(), skin, false);
-			tabcontrol_test::testHeaders(context.getGui(), skin, true);
-		}
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << error.what() << '\n';
-		return 1;
-	}
-	return 0;
+	return unittest::runTests({
+		{"Items", tabcontrol_test::testItems<false>},
+		{"Insertion and widths", tabcontrol_test::testInsertionAndWidths<false>},
+		{"Headers", tabcontrol_test::testHeaders<false, false>},
+		{"Headers with smooth show", tabcontrol_test::testHeaders<false, true>},
+		{"Items (old skin)", tabcontrol_test::testItems<true>},
+		{"Insertion and widths (old skin)", tabcontrol_test::testInsertionAndWidths<true>},
+		{"Headers (old skin)", tabcontrol_test::testHeaders<true, false>},
+		{"Headers with smooth show (old skin)", tabcontrol_test::testHeaders<true, true>},
+	});
 }

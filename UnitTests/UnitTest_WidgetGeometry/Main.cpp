@@ -5,13 +5,24 @@
  */
 
 #include "MyGUI.h"
-#include "TestSupport.h"
-#include <iostream>
+#include "BehaviourTestSupport.h"
 
 namespace
 {
 
 	using unittest::require;
+
+	struct Fixture
+	{
+		Fixture()
+		{
+			MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+			MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
+			unittest::loadResources("UnitTest_WidgetGeometry/TestSkin.xml");
+		}
+
+		unittest::TestContext context;
+	};
 
 	struct CoordObserver
 	{
@@ -32,9 +43,11 @@ namespace
 		}
 	};
 
-	void testAbsoluteCoordEvent(MyGUI::Gui& _gui)
+	void testAbsoluteCoordEvent()
 	{
-		auto* parent = _gui.createWidget<MyGUI::Widget>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(100, 100, 300, 300),
 			MyGUI::Align::Default,
@@ -94,13 +107,15 @@ namespace
 		parent->setPosition(200, 250);
 		require(popupChildObserver.count == 1, "Ancestor movement must not propagate through a popup");
 
-		_gui.destroyWidget(parent);
+		gui.destroyWidget(parent);
 	}
 
-	void testClippingAfterMovement(MyGUI::Gui& _gui)
+	void testClippingAfterMovement()
 	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
 		auto* root =
-			_gui.createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, "Main");
+			gui.createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, "Main");
 		auto* parent =
 			root->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default);
 		auto* child =
@@ -117,12 +132,14 @@ namespace
 		require(child->_getMarginLeft() == 0, "Moving back inside must clear descendant clipping");
 		require(child->_getViewWidth() == 100, "Moving back inside must restore the descendant view width");
 		require(observer.count == 2, "Moving back inside must notify descendants once");
-		_gui.destroyWidget(root);
+		gui.destroyWidget(root);
 	}
 
-	void testResizeNotifications(MyGUI::Gui& _gui)
+	void testResizeNotifications()
 	{
-		auto* parent = _gui.createWidget<MyGUI::Widget>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(100, 100, 300, 300),
 			MyGUI::Align::Default,
@@ -155,12 +172,14 @@ namespace
 		require(
 			parentObserver.count == 2 && childObserver.count == 2,
 			"Repeating the same geometry must not emit absolute coordinate events");
-		_gui.destroyWidget(parent);
+		gui.destroyWidget(parent);
 	}
 
-	void testAbsoluteCoordAlignment(MyGUI::Gui& _gui)
+	void testAbsoluteCoordAlignment()
 	{
-		auto* parent = _gui.createWidget<MyGUI::Widget>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(100, 100, 300, 300),
 			MyGUI::Align::Default,
@@ -194,11 +213,13 @@ namespace
 		require(observer.count == 3, "Alignment caused by resizing must notify movement");
 		require(observer.position == MyGUI::IntPoint(550, 600), "Resizing must expose the final aligned position");
 
-		_gui.destroyWidget(parent);
+		gui.destroyWidget(parent);
 	}
 
-	void testAlignmentModes(MyGUI::Gui& _gui)
+	void testAlignmentModes()
 	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
 		struct AlignmentCase
 		{
 			MyGUI::Align align;
@@ -214,7 +235,7 @@ namespace
 
 		for (const auto& test : cases)
 		{
-			auto* parent = _gui.createWidget<MyGUI::Widget>(
+			auto* parent = gui.createWidget<MyGUI::Widget>(
 				"Default",
 				MyGUI::IntCoord(100, 100, 300, 300),
 				MyGUI::Align::Default,
@@ -244,17 +265,19 @@ namespace
 			require(
 				observer.count == 1 && grandchildObserver.count == 1,
 				"Repeating the same geometry must not produce position events");
-			_gui.destroyWidget(parent);
+			gui.destroyWidget(parent);
 		}
 	}
 
-	void testClampedAlignment(MyGUI::Gui& _gui)
+	void testClampedAlignment()
 	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
 		// Window rejects unchanged geometry before calling Widget's setters. Exercise both virtual setter paths.
 		const MyGUI::Align alignments[] = {MyGUI::Align::Stretch, MyGUI::Align::HCenter | MyGUI::Align::VStretch};
 		for (const auto align : alignments)
 		{
-			auto* parent = _gui.createWidget<MyGUI::Widget>(
+			auto* parent = gui.createWidget<MyGUI::Widget>(
 				"Default",
 				MyGUI::IntCoord(100, 100, 300, 300),
 				MyGUI::Align::Default,
@@ -284,13 +307,15 @@ namespace
 			require(
 				observer.count == 1 && childObserver.count == 1,
 				"A rejected resize without ancestor movement must not notify positions");
-			_gui.destroyWidget(parent);
+			gui.destroyWidget(parent);
 		}
 	}
 
-	void testSkinAlignment(MyGUI::Gui& _gui)
+	void testSkinAlignment()
 	{
-		auto* parent = _gui.createWidget<MyGUI::Widget>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
 			"TestGeometryParent",
 			MyGUI::IntCoord(100, 100, 300, 300),
 			MyGUI::Align::Default,
@@ -321,22 +346,24 @@ namespace
 		require(clientObserver.count == 2, "The skin client must continue following ancestor movement");
 		require(observer.count == 1, "Alignment through a skin client must suppress cancelled movement");
 		require(child->getAbsolutePosition() == MyGUI::IntPoint(390, 440), "Cancelled movement must preserve position");
-		_gui.destroyWidget(parent);
+		gui.destroyWidget(parent);
 	}
 
-	void testAbsoluteCoordReparenting(MyGUI::Gui& _gui)
+	void testAbsoluteCoordReparenting()
 	{
-		auto* parent = _gui.createWidget<MyGUI::Widget>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(100, 100, 300, 300),
 			MyGUI::Align::Default,
 			"Main");
-		auto* otherParent = _gui.createWidget<MyGUI::Widget>(
+		auto* otherParent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(500, 100, 300, 300),
 			MyGUI::Align::Default,
 			"Main");
-		auto* equalParent = _gui.createWidget<MyGUI::Widget>(
+		auto* equalParent = gui.createWidget<MyGUI::Widget>(
 			"Default",
 			MyGUI::IntCoord(500, 100, 300, 300),
 			MyGUI::Align::Default,
@@ -391,35 +418,23 @@ namespace
 		require(observer.position == MyGUI::IntPoint(120, 130), "Attaching must restore parent-relative coordinates");
 		require(grandchildObserver.count == 5, "Descendants must follow each final position change once");
 
-		_gui.destroyWidget(equalParent);
-		_gui.destroyWidget(otherParent);
-		_gui.destroyWidget(parent);
+		gui.destroyWidget(equalParent);
+		gui.destroyWidget(otherParent);
+		gui.destroyWidget(parent);
 	}
 
 }
 
 int main()
 {
-	try
-	{
-		unittest::TestContext context;
-		auto& gui = context.getGui();
-		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
-		MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
-		unittest::loadResources("UnitTest_WidgetGeometry/TestSkin.xml");
-		testAbsoluteCoordEvent(gui);
-		testClippingAfterMovement(gui);
-		testResizeNotifications(gui);
-		testAbsoluteCoordAlignment(gui);
-		testAlignmentModes(gui);
-		testClampedAlignment(gui);
-		testSkinAlignment(gui);
-		testAbsoluteCoordReparenting(gui);
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << error.what() << '\n';
-		return 1;
-	}
-	return 0;
+	return unittest::runTests({
+		{"Absolute coordinate events", testAbsoluteCoordEvent},
+		{"Clipping after movement", testClippingAfterMovement},
+		{"Resize notifications", testResizeNotifications},
+		{"Absolute coordinate alignment", testAbsoluteCoordAlignment},
+		{"Alignment modes", testAlignmentModes},
+		{"Clamped alignment", testClampedAlignment},
+		{"Skin alignment", testSkinAlignment},
+		{"Absolute coordinate reparenting", testAbsoluteCoordReparenting},
+	});
 }

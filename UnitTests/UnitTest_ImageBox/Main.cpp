@@ -7,7 +7,7 @@
 #include "MyGUI.h"
 #include "MyGUI_SubSkin.h"
 #include "SkinTestContext.h"
-#include <iostream>
+#include "BehaviourTestSupport.h"
 
 namespace imagebox_test
 {
@@ -25,6 +25,19 @@ namespace imagebox_test
 		{
 			return mRectTexture;
 		}
+	};
+
+	struct Fixture
+	{
+		Fixture()
+		{
+			MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+			MyGUI::FactoryManager::getInstance().registerFactory<ObservedSubSkin>(
+				MyGUI::SubWidgetManager::getInstance().getCategoryName());
+			unittest::loadResources("UnitTest_ImageBox/TestResources.xml");
+		}
+
+		unittest::SkinTestContext context;
 	};
 
 	static MyGUI::ImageBox* createImage()
@@ -56,6 +69,7 @@ namespace imagebox_test
 
 	static void testTiles()
 	{
+		Fixture fixture;
 		auto* image = createImage();
 		require(
 			image->getItemCount() == 0 && image->getImageIndex() == MyGUI::ITEM_NONE,
@@ -107,6 +121,7 @@ namespace imagebox_test
 
 	static void testItems()
 	{
+		Fixture fixture;
 		auto* image = createImage();
 		image->setImageTexture(atlas);
 		image->addItem(MyGUI::IntCoord(0, 0, 16, 16));
@@ -140,6 +155,7 @@ namespace imagebox_test
 
 	static void testAnimation()
 	{
+		Fixture fixture;
 		auto& gui = MyGUI::Gui::getInstance();
 		auto* image = createImage();
 		image->setImageTexture(atlas);
@@ -197,6 +213,7 @@ namespace imagebox_test
 
 	static void testResources()
 	{
+		Fixture fixture;
 		auto* image = createImage();
 		require(!image->setItemResource("MissingImages"), "Missing resources must return false");
 		require(image->setItemResource("TestImages"), "An existing image resource must load");
@@ -233,22 +250,10 @@ namespace imagebox_test
 
 int main()
 {
-	try
-	{
-		unittest::SkinTestContext context;
-		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
-		MyGUI::FactoryManager::getInstance().registerFactory<imagebox_test::ObservedSubSkin>(
-			MyGUI::SubWidgetManager::getInstance().getCategoryName());
-		unittest::loadResources("UnitTest_ImageBox/TestResources.xml");
-		imagebox_test::testTiles();
-		imagebox_test::testItems();
-		imagebox_test::testAnimation();
-		imagebox_test::testResources();
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << error.what() << '\n';
-		return 1;
-	}
-	return 0;
+	return unittest::runTests({
+		{"Tiles", imagebox_test::testTiles},
+		{"Items", imagebox_test::testItems},
+		{"Animation", imagebox_test::testAnimation},
+		{"Resources", imagebox_test::testResources},
+	});
 }

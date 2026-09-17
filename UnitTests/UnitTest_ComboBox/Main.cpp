@@ -5,13 +5,25 @@
  */
 
 #include "MyGUI.h"
-#include "TestSupport.h"
-#include <iostream>
+#include "BehaviourTestSupport.h"
 
 namespace
 {
 
 	using unittest::require;
+
+	struct Fixture
+	{
+		Fixture()
+		{
+			MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+			popupLayer = unittest::createCountingLayer("Popup", 1);
+			unittest::loadResources("UnitTest_ComboBox/TestSkin.xml");
+		}
+
+		unittest::TestContext context;
+		unittest::CountingLayer* popupLayer;
+	};
 
 	MyGUI::ListBox* openList(MyGUI::ComboBox* _combo)
 	{
@@ -34,14 +46,17 @@ namespace
 				_list->getCoord().print());
 	}
 
-	void testItemHeight(MyGUI::Gui& _gui, bool _smooth)
+	template<bool Smooth>
+	void testItemHeight()
 	{
-		auto* combo = _gui.createWidget<MyGUI::ComboBox>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* combo = gui.createWidget<MyGUI::ComboBox>(
 			"TestComboBox",
 			MyGUI::IntCoord(100, 450, 120, 24),
 			MyGUI::Align::Default,
 			"Main");
-		combo->setSmoothShow(_smooth);
+		combo->setSmoothShow(Smooth);
 		require(combo->getItemHeight() == 20, "The default height must come from the list skin");
 		combo->setItemHeight(30);
 		combo->addItem("First");
@@ -70,17 +85,18 @@ namespace
 		combo->setProperty("ItemHeight", "-8");
 		require(combo->getItemHeight() == 1, "Negative property values must clamp to one");
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(nullptr);
-		_gui.eventFrameStart(1.0f);
+		gui.eventFrameStart(1.0f);
 		combo->setItemHeight(25);
 		require(!list->getVisible(), "Changing height must not open a closed list");
 		list = openList(combo);
 		require(list->getHeight() == 75, "Reopening must use the latest height");
-		_gui.destroyWidget(combo);
-		_gui.eventFrameStart(0.016f);
+		gui.destroyWidget(combo);
+		gui.eventFrameStart(0.016f);
 	}
 
 	void testItemHeightLayout()
 	{
+		Fixture fixture;
 		auto* resource =
 			MyGUI::ResourceManager::getInstance().getByName("TestComboHeightLayout")->castType<MyGUI::ResourceLayout>();
 		auto widgets = resource->createLayout();
@@ -89,9 +105,12 @@ namespace
 		MyGUI::LayoutManager::getInstance().unloadLayout(widgets);
 	}
 
-	void testScrolling(MyGUI::Gui& _gui, bool _smooth, unittest::CountingLayer& _popupLayer)
+	template<bool Smooth>
+	void testScrolling()
 	{
-		auto* scroll = _gui.createWidget<MyGUI::ScrollView>(
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* scroll = gui.createWidget<MyGUI::ScrollView>(
 			"TestScrollView",
 			MyGUI::IntCoord(100, 100, 300, 300),
 			MyGUI::Align::Default,
@@ -108,7 +127,7 @@ namespace
 		combo->addItem("Second");
 		combo->addItem("Third");
 		combo->setIndexSelected(1);
-		combo->setSmoothShow(_smooth);
+		combo->setSmoothShow(Smooth);
 		auto* list = openList(combo);
 		checkBelow(combo, list);
 
@@ -127,9 +146,11 @@ namespace
 		checkBelow(combo, list);
 		combo->setPosition(30, 30);
 		checkBelow(combo, list);
-		_popupLayer.sizeQueryCount = 0;
+		fixture.popupLayer->sizeQueryCount = 0;
 		combo->eventChangeCoord(combo);
-		require(_popupLayer.sizeQueryCount == 0, "Duplicate coordinates must not recalculate drop-down placement");
+		require(
+			fixture.popupLayer->sizeQueryCount == 0,
+			"Duplicate coordinates must not recalculate drop-down placement");
 		require(combo->getIndexSelected() == 1, "Moving the list must preserve the selection");
 		require(MyGUI::InputManager::getInstance().getKeyFocusWidget() == list, "The list must retain focus");
 
@@ -138,7 +159,7 @@ namespace
 		require(list->getCoord().bottom() == combo->getAbsoluteTop(), "The list must flip above the combo box");
 
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(nullptr);
-		_gui.eventFrameStart(1.0f);
+		gui.eventFrameStart(1.0f);
 		require(!list->getVisible(), "Losing focus must close the list");
 		const auto closedCoord = list->getCoord();
 		scroll->setPosition(100, 100);
@@ -159,31 +180,19 @@ namespace
 		checkBelow(combo, list);
 
 		// Destroying an open combo must remain safe, including during animation.
-		_gui.destroyWidget(scroll);
-		_gui.eventFrameStart(0.016f);
+		gui.destroyWidget(scroll);
+		gui.eventFrameStart(0.016f);
 	}
 
 }
 
 int main()
 {
-	try
-	{
-		unittest::TestContext context;
-		auto& gui = context.getGui();
-		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
-		auto* popupLayer = unittest::createCountingLayer("Popup", 1);
-		unittest::loadResources("UnitTest_ComboBox/TestSkin.xml");
-		testItemHeight(gui, false);
-		testItemHeight(gui, true);
-		testItemHeightLayout();
-		testScrolling(gui, false, *popupLayer);
-		testScrolling(gui, true, *popupLayer);
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << error.what() << '\n';
-		return 1;
-	}
-	return 0;
+	return unittest::runTests({
+		{"Item height", testItemHeight<false>},
+		{"Item height with smooth show", testItemHeight<true>},
+		{"Item height layout", testItemHeightLayout},
+		{"Scrolling", testScrolling<false>},
+		{"Scrolling with smooth show", testScrolling<true>},
+	});
 }

@@ -165,12 +165,14 @@ namespace
 
 }
 
-void unittest::rectangularskin::runSubSkinTests()
+void unittest::rectangularskin::addSubSkinTests(Tests& _tests)
 {
-	testGeometryAndViewCorrection();
-	testClippingAndUVChanges();
-	testEmptyAndHiddenViews();
-	testAlignment();
-	testColourAndAlpha();
-	testStateAndDrawItemLifetime();
+	_tests.insert(
+		_tests.end(),
+		{{"SubSkin.GeometryAndViewCorrection", testGeometryAndViewCorrection},
+		 {"SubSkin.ClippingAndUVChanges", testClippingAndUVChanges},
+		 {"SubSkin.EmptyAndHiddenViews", testEmptyAndHiddenViews},
+		 {"SubSkin.Alignment", testAlignment},
+		 {"SubSkin.ColourAndAlpha", testColourAndAlpha},
+		 {"SubSkin.StateAndDrawItemLifetime", testStateAndDrawItemLifetime}});
 }

@@ -15,14 +15,17 @@ namespace unittest
 	};
 
 	// Report every independent scenario, even if an earlier assertion failed.
-	inline int runTests(std::initializer_list<TestCase> _tests)
+	template<typename Tests>
+	int runTests(const Tests& _tests)
 	{
+		int passed = 0;
 		int failures = 0;
 		for (const auto& test : _tests)
 		{
 			try
 			{
 				test.run();
+				++passed;
 				std::cout << "PASS: " << test.name << '\n';
 			}
 			catch (const std::exception& error)
@@ -31,7 +34,13 @@ namespace unittest
 				std::cerr << "FAIL: " << test.name << ": " << error.what() << '\n';
 			}
 		}
-		return failures == 0 ? 0 : 1;
+		std::cout << passed << " passed, " << failures << " failed\n";
+		return failures == 0 && passed != 0 ? 0 : 1;
+	}
+
+	inline int runTests(std::initializer_list<TestCase> _tests)
+	{
+		return runTests<std::initializer_list<TestCase>>(_tests);
 	}
 
 	inline void keyStroke(MyGUI::KeyCode _key, MyGUI::Char _text = 0)

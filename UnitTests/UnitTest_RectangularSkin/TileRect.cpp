@@ -200,12 +200,14 @@ namespace
 
 }
 
-void unittest::rectangularskin::runTileRectTests()
+void unittest::rectangularskin::addTileRectTests(Tests& _tests)
 {
-	testFullAndPartialTiles();
-	testClippingAndUVChanges();
-	testTargetAndParentOffsets();
-	testTilingAxes();
-	testResizeAndBufferGrowth();
-	testEmptyAndHiddenViews();
+	_tests.insert(
+		_tests.end(),
+		{{"TileRect.FullAndPartialTiles", testFullAndPartialTiles},
+		 {"TileRect.ClippingAndUVChanges", testClippingAndUVChanges},
+		 {"TileRect.TargetAndParentOffsets", testTargetAndParentOffsets},
+		 {"TileRect.TilingAxes", testTilingAxes},
+		 {"TileRect.ResizeAndBufferGrowth", testResizeAndBufferGrowth},
+		 {"TileRect.EmptyAndHiddenViews", testEmptyAndHiddenViews}});
 }
