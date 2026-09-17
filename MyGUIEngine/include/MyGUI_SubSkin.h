@@ -47,6 +47,9 @@ namespace MyGUI
 		void _setUVSet(const FloatRect& _rect) override;
 		void _setColour(const Colour& _value) override;
 
+	private:
+		void _updateClippedUV();
+
 	protected:
 		FloatRect mRectTexture;
 		bool mEmptyView{false};

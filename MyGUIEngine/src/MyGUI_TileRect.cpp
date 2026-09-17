@@ -13,6 +13,7 @@
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_TextureUtility.h"
+#include "MyGUI_GeometryUtility.h"
 
 namespace MyGUI
 {
@@ -79,7 +80,7 @@ namespace MyGUI
 		if (!mEmptyView)
 		{
 			size_t count = 0;
-			if (!mTileSize.empty())
+			if (mTileSize.width > 0 && mTileSize.height > 0)
 			{
 				size_t count_x = mCoord.width / mTileSize.width;
 				if ((mCoord.width % mTileSize.width) > 0)
@@ -132,7 +133,7 @@ namespace MyGUI
 
 	void TileRect::doRender()
 	{
-		if (!mVisible || mEmptyView || mTileSize.empty())
+		if (!mVisible || mEmptyView || mTileSize.width <= 0 || mTileSize.height <= 0)
 			return;
 
 		VertexQuad* quad = reinterpret_cast<VertexQuad*>(mRenderItem->getCurrentVertexBuffer());
@@ -148,30 +149,19 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		// absolute window size
-		float window_left =
-			((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
-			  info.hOffset) *
-			 2) -
-			1;
-		float window_top = -(
-			((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) *
-			 2) -
-			1);
+		// Original tile origin and clipped viewport corners.
+		FloatPoint points[] = {
+			{(float)mCoord.left, (float)mCoord.top},
+			{(float)mCurrentCoord.left, (float)mCurrentCoord.top},
+			{(float)mCurrentCoord.right(), (float)mCurrentCoord.bottom()}};
+		geometry_utility::toRenderTarget(points, 3, mCroppedParent->getAbsolutePosition(), info);
 
-		// viewport size
-		float real_left =
-			((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
-			  info.hOffset) *
-			 2) -
-			1;
-		float real_right = real_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-		float real_top =
-			-(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) +
-				info.vOffset) *
-			   2) -
-			  1);
-		float real_bottom = real_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
+		float window_left = points[0].left;
+		float window_top = points[0].top;
+		float real_left = points[1].left;
+		float real_top = points[1].top;
+		float real_right = points[2].left;
+		float real_bottom = points[2].top;
 
 		size_t count = 0;
 

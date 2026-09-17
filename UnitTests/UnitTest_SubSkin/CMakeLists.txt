@@ -1,2 +1,0 @@
-mygui_unit_test(UnitTest_SubSkin)
-target_link_libraries(UnitTest_SubSkin PRIVATE MyGUISkinTestSupport)

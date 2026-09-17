@@ -1,0 +1,2 @@
+mygui_unit_test(UnitTest_RectangularSkin)
+target_link_libraries(UnitTest_RectangularSkin PRIVATE MyGUISkinTestSupport)

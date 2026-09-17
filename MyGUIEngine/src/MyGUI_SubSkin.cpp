@@ -13,6 +13,7 @@
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_TextureUtility.h"
+#include "MyGUI_GeometryUtility.h"
 
 namespace MyGUI
 {
@@ -87,20 +88,7 @@ namespace MyGUI
 
 			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0))
 			{
-				float UV_lft = mMargin.left / (float)mCoord.width;
-				float UV_top = mMargin.top / (float)mCoord.height;
-				float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
-				float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
-
-				float UV_sizeX = mRectTexture.right - mRectTexture.left;
-				float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
-
-				float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
-				float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
-				float UV_rgt_total = mRectTexture.right - (1 - UV_rgt) * UV_sizeX;
-				float UV_btm_total = mRectTexture.bottom - (1 - UV_btm) * UV_sizeY;
-
-				mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+				_updateClippedUV();
 			}
 		}
 
@@ -143,20 +131,7 @@ namespace MyGUI
 		// if clipped, calculate with clipping
 		if (mIsMargin)
 		{
-			float UV_lft = mMargin.left / (float)mCoord.width;
-			float UV_top = mMargin.top / (float)mCoord.height;
-			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
-			float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
-
-			float UV_sizeX = mRectTexture.right - mRectTexture.left;
-			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
-
-			float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
-			float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
-			float UV_rgt_total = mRectTexture.right - (1 - UV_rgt) * UV_sizeX;
-			float UV_btm_total = mRectTexture.bottom - (1 - UV_btm) * UV_sizeY;
-
-			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
+			_updateClippedUV();
 		}
 		// we are not clipped, base coordinates
 		else
@@ -166,6 +141,24 @@ namespace MyGUI
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
+	}
+
+	void SubSkin::_updateClippedUV()
+	{
+		float UV_lft = mMargin.left / (float)mCoord.width;
+		float UV_top = mMargin.top / (float)mCoord.height;
+		float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
+		float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
+
+		float UV_sizeX = mRectTexture.right - mRectTexture.left;
+		float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
+
+		float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
+		float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
+		float UV_rgt_total = mRectTexture.right - (1 - UV_rgt) * UV_sizeX;
+		float UV_btm_total = mRectTexture.bottom - (1 - UV_btm) * UV_sizeY;
+
+		mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 	}
 
 	void SubSkin::doRender()
@@ -179,24 +172,16 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		float vertex_left =
-			((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) +
-			  info.hOffset) *
-			 2) -
-			1;
-		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-		float vertex_top =
-			-(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) +
-				info.vOffset) *
-			   2) -
-			  1);
-		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
+		FloatPoint corners[] = {
+			{(float)mCurrentCoord.left, (float)mCurrentCoord.top},
+			{(float)mCurrentCoord.right(), (float)mCurrentCoord.bottom()}};
+		geometry_utility::toRenderTarget(corners, 2, mCroppedParent->getAbsolutePosition(), info);
 
 		quad->set(
-			vertex_left,
-			vertex_top,
-			vertex_right,
-			vertex_bottom,
+			corners[0].left,
+			corners[0].top,
+			corners[1].left,
+			corners[1].top,
 			vertex_z,
 			mCurrentTexture.left,
 			mCurrentTexture.top,
