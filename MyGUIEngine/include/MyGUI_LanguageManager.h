@@ -49,7 +49,7 @@ namespace MyGUI
 		/** Delete all user tags */
 		void clearUserTags();
 
-		/** Load user tags */
+		/** Load user tags from an XML file */
 		bool loadUserTags(const std::string& _file);
 
 		/** Event : Change current language.\n
@@ -70,7 +70,6 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 		bool loadLanguage(const std::string& _file, bool _user = false);
-		void _loadLanguage(IDataStream* _stream, bool _user);
 		void _loadLanguageXML(IDataStream* _stream, bool _user);
 
 		UString replaceTagsPass(const UString& _line, bool& _replaceResult) const;

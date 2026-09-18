@@ -125,10 +125,7 @@ namespace MyGUI
 			return false;
 		}
 
-		if (_file.find(".xml") != std::string::npos)
-			_loadLanguageXML(data.getData(), _user);
-		else
-			_loadLanguage(data.getData(), _user);
+		_loadLanguageXML(data.getData(), _user);
 
 		return true;
 	}
@@ -146,45 +143,6 @@ namespace MyGUI
 					auto& map = _user ? mUserMapLanguage : mMapLanguage;
 					mapSet(map, tag.attribute("name").value(), tag.text().as_string());
 				}
-			}
-		}
-	}
-
-	void LanguageManager::_loadLanguage(IDataStream* _stream, bool _user)
-	{
-		// .txt format
-		std::string read;
-		while (!_stream->eof())
-		{
-			_stream->readline(read, '\n');
-			if (read.empty())
-				continue;
-
-			// utf header
-			if ((uint8)read[0] == 0xEF && read.size() > 2)
-			{
-				read.erase(0, 3);
-			}
-
-			if (read[read.size() - 1] == '\r')
-				read.erase(read.size() - 1, 1);
-			if (read.empty())
-				continue;
-
-			size_t pos = read.find_first_of(" \t");
-			if (_user)
-			{
-				if (pos == std::string::npos)
-					mUserMapLanguage[read].clear();
-				else
-					mUserMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
-			}
-			else
-			{
-				if (pos == std::string::npos)
-					mMapLanguage[read].clear();
-				else
-					mMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 		}
 	}
