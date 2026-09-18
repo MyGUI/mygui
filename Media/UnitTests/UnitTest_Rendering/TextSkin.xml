@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.2">
+	<!-- Atlas coordinates are synthetic: these tests inspect geometry and never sample pixels. -->
+	<Resource type="ResourceManualFont" name="RenderTestFont">
+		<Property key="Source" value="MyGUI_BlueWhiteSkins.png"/>
+		<Property key="DefaultHeight" value="20"/>
+		<Codes>
+			<Code index="65" coord="16 32 10 20" bearing="0 0" advance="10"/>
+			<Code index="66" coord="32 32 10 20" bearing="0 0" advance="10"/>
+			<Code index="substitute" coord="48 32 10 20" bearing="0 0" advance="10"/>
+			<Code index="cursor" coord="64 32 2 20" bearing="0 0" advance="2"/>
+			<Code index="selected" coord="80 32 1 1" size="10 20" bearing="0 0"/>
+			<Code index="selected_back" coord="82 32 1 1" size="10 20" bearing="0 0"/>
+		</Codes>
+	</Resource>
+	<Resource type="ResourceSkin" name="RenderTestText" size="100 60">
+		<BasisSkin type="EditText" offset="0 0 100 60" align="Stretch"/>
+	</Resource>
+</MyGUI>

@@ -6,6 +6,7 @@
 #include "UnitTest_MultiListItemHeight.h"
 #include <iostream>
 #include <random>
+#include "Interaction.h"
 
 int main()
 {
@@ -13,6 +14,7 @@ int main()
 	int step = -1;
 	try
 	{
+		testMultiListInteractions();
 		unittest::TestContext context;
 		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
 		unittest::testListItemHeight();

@@ -1,3 +1,4 @@
+#include "Interaction.h"
 /*
  * This source file is part of MyGUI. For the latest info, see http://mygui.info/
  * Distributed under the MIT License
@@ -189,6 +190,9 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Input interactions", testComboBoxInteractions},
+		{"Popup directions and screen-edge fallback", testComboBoxPlacement},
+		{"Editable input and selection callbacks", testComboBoxEditableInput},
 		{"Item height", testItemHeight<false>},
 		{"Item height with smooth show", testItemHeight<true>},
 		{"Item height layout", testItemHeightLayout},

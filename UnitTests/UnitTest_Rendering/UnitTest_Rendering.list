@@ -1,2 +1,2 @@
-set(HEADER_FILES)
-set(SOURCE_FILES Main.cpp)
+set(HEADER_FILES TextRendering.h)
+set(SOURCE_FILES Main.cpp TextRendering.cpp)

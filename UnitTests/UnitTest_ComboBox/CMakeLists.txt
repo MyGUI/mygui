@@ -1,1 +1,3 @@
 mygui_unit_test(UnitTest_ComboBox)
+
+target_link_libraries(UnitTest_ComboBox PRIVATE MyGUISkinTestSupport)

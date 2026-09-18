@@ -1,4 +1,5 @@
 set(HEADER_FILES
+  Interaction.h
   ListTestChecks.h
   Mirror_List.h
   Mirror_MultiList.h
@@ -7,6 +8,6 @@ set(HEADER_FILES
   UnitTest_MultiList.h
   UnitTest_MultiListItemHeight.h
 )
-set(SOURCE_FILES Main.cpp)
+set(SOURCE_FILES Main.cpp Interaction.cpp)
 SOURCE_GROUP("Header Files" FILES ${HEADER_FILES})
 SOURCE_GROUP("Source Files" FILES ${SOURCE_FILES})

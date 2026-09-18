@@ -3,6 +3,7 @@
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_TextureUtility.h"
+#include "TextRendering.h"
 
 namespace
 {
@@ -325,6 +326,9 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Text glyphs, colour tags, shadows and font loading", testTextGeometry},
+		{"Text clipping and UV interpolation", testTextClipping},
+		{"Multiline selection and cursor rendering", testTextSelectionAndCursor},
 		{"Render buffer allocation, packing, and invalidation", testBufferUpdates},
 		{"Empty geometry and failed buffer locks", testEmptyAndFailedDraws},
 		{"Manual render dispatch", testManualRendering},

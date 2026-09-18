@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<!-- Distinct text colours make synchronized hover states observable without a GPU. -->
+	<Resource type="ResourceSkin" name="InteractionListRow" size="100 20">
+		<BasisSkin type="SimpleText" offset="0 0 100 20" align="Stretch">
+			<State name="normal" colour="0.1 0.2 0.3"/>
+			<State name="highlighted" colour="0.8 0.7 0.6"/>
+			<State name="pushed" colour="0.8 0.7 0.6"/>
+			<State name="normal_checked" colour="1 0 0"/>
+			<State name="highlighted_checked" colour="1 0 0"/>
+			<State name="pushed_checked" colour="1 0 0"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceLayout" name="InteractionColumnList" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 120 104" name="Root">
+			<UserString key="HeightLine" value="20"/>
+			<UserString key="SkinLine" value="InteractionListRow"/>
+			<Widget type="Widget" skin="Default" position="2 2 100 100" align="Stretch" name="Client"/>
+			<Widget type="ScrollBar" skin="Default" position="102 2 16 100" align="Right VStretch" name="VScroll"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceLayout" name="InteractionMultiList" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 360 124" name="Root">
+			<UserString key="SkinList" value="InteractionColumnList"/>
+			<UserString key="HeightButton" value="20"/>
+		</Widget>
+	</Resource>
+</MyGUI>
