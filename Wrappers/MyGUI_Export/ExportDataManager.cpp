@@ -19,7 +19,7 @@ namespace Export
 		ExportDataManager_AddResourceLocation(Convert<const std::string&>::Type _path, Convert<bool>::Type _recursive)
 		{
 			MyGUI::ExportDataManager::getInstance().addResourceLocation(
-				MyGUI::utility::pathFromUTF8(Convert<const std::string&>::From(_path)),
+				MyGUI::utility::toPath(Convert<const std::string&>::From(_path)),
 				Convert<bool>::From(_recursive));
 		}
 

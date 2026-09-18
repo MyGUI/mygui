@@ -75,7 +75,7 @@ namespace tools
 
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(
-			MyGUI::utility::pathFromUTF8(MyGUI::DataManager::getInstance().getDataPath("Settings.xml")));
+			MyGUI::utility::toPath(MyGUI::DataManager::getInstance().getDataPath("Settings.xml")));
 #ifdef MYGUI_USE_FREETYPE
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 #else
@@ -83,7 +83,7 @@ namespace tools
 #endif
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty() && !isScreenShotMode())
-			SettingsManager::getInstance().loadUserSettingsFile(MyGUI::utility::pathFromUTF8(userSettingsFileName));
+			SettingsManager::getInstance().loadUserSettingsFile(MyGUI::utility::toPath(userSettingsFileName));
 
 		LoadGuiSettings();
 
@@ -393,7 +393,7 @@ namespace tools
 		const SettingsManager::VectorString& additionalPaths =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (const auto& additionalPath : additionalPaths)
-			addResourceLocation(MyGUI::utility::pathFromUTF8(additionalPath));
+			addResourceLocation(MyGUI::utility::toPath(additionalPath));
 
 		const SettingsManager::VectorString& additionalResources =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");

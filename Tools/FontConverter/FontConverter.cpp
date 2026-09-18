@@ -185,7 +185,7 @@ namespace tools
 				return;
 			}
 
-			if (!MyGUI::ResourceManager::getInstance().load(MyGUI::utility::pathToUTF8(mInputXml.filename())))
+			if (!MyGUI::ResourceManager::getInstance().load(MyGUI::utility::toUtf8(mInputXml.filename())))
 			{
 				std::cerr << "ResourceManager::load failed for: " << mInputXml.filename() << "\n";
 				mExitCode = 1;
@@ -232,8 +232,8 @@ namespace tools
 					continue;
 				}
 
-				const fs::path pngPath = mOutputXml.parent_path() / MyGUI::utility::pathFromUTF8(fontName + ".png");
-				tex->saveToFile(MyGUI::utility::pathToUTF8(pngPath));
+				const fs::path pngPath = mOutputXml.parent_path() / MyGUI::utility::toPath(fontName + ".png");
+				tex->saveToFile(MyGUI::utility::toUtf8(pngPath));
 				std::cout << "Wrote " << pngPath << "\n";
 
 				writeManualFont(outRoot, font, fontName, fontName + ".png", shader);
@@ -297,7 +297,7 @@ int main(int argc, char** argv)
 
 	std::vector<fs::path> extraDirs;
 	for (int i = 3; i < argc; ++i)
-		extraDirs.push_back(MyGUI::utility::pathFromUTF8(argv[i]));
+		extraDirs.push_back(MyGUI::utility::toPath(argv[i]));
 
 	tools::Application app(inputXml, outputXml, std::move(extraDirs));
 	app.prepare();

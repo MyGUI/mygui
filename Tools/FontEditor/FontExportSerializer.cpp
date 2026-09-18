@@ -186,7 +186,7 @@ namespace tools
 			generateFontManualXml(root, _folderName, child, tempName);
 		}
 
-		return document.save(_folderName / MyGUI::utility::pathFromUTF8(_fileName.asUTF8()));
+		return document.save(_folderName / MyGUI::utility::toPath(_fileName));
 	}
 
 	template<typename Type>
@@ -276,7 +276,7 @@ namespace tools
 			MyGUI::ITexture* texture = font->getTextureFont();
 			if (texture == nullptr)
 				return;
-			texture->saveToFile(MyGUI::utility::pathToUTF8(_folderName / MyGUI::utility::pathFromUTF8(textureName)));
+			texture->saveToFile(MyGUI::utility::toUtf8(_folderName / MyGUI::utility::toPath(textureName)));
 
 			MyGUI::xml::ElementPtr node = _root->createChild("Resource");
 			node->addAttribute("type", "ResourceManualFont");

@@ -15,7 +15,7 @@ namespace MyGUI
 
 	void FileLogListener::open()
 	{
-		mStream.open(utility::pathFromUTF8(mFileName), std::ios_base::out);
+		mStream.open(utility::toPath(mFileName), std::ios_base::out);
 	}
 
 	void FileLogListener::close()

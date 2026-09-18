@@ -150,12 +150,11 @@ namespace
 	void testUnicodeFilePaths()
 	{
 		require(
-			MyGUI::utility::pathFromUTF8(std::string_view()).empty() &&
-				MyGUI::utility::pathToUTF8(std::filesystem::path()).empty(),
+			MyGUI::utility::toPath(std::string_view()).empty() &&
+				MyGUI::utility::toUtf8(std::filesystem::path()).empty(),
 			"Filesystem UTF-8 adapters must preserve empty paths");
 		const auto directory = std::filesystem::temp_directory_path() /
-			MyGUI::utility::pathFromUTF8(
-								   "mygui-\xD0\x91\xF0\x9F\x98\x80-" +
+			MyGUI::utility::toPath("mygui-\xD0\x91\xF0\x9F\x98\x80-" +
 								   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
 		std::filesystem::create_directory(directory);
 		struct Cleanup
@@ -168,9 +167,9 @@ namespace
 			}
 		} cleanup{directory};
 		const MyGUI::UString name(std::u32string(U"\u0411\U0001F600.xml"));
-		const auto filename = MyGUI::utility::pathFromUTF8(name.asUTF8());
+		const auto filename = MyGUI::utility::toPath(name);
 		const auto path = directory / filename;
-		const auto utf8Path = MyGUI::utility::pathToUTF8(path);
+		const auto utf8Path = MyGUI::utility::toUtf8(path);
 		MyGUI::xml::Document document;
 		std::istringstream input("<MyGUI/>");
 		require(document.open(input), "The test document must parse");
@@ -181,7 +180,7 @@ namespace
 		const MyGUI::UString mask(std::u32string(U"\u0411?.xml"));
 		require(common::matchWildcard(mask, name), "A wildcard must match one complete supplementary character");
 		require(!common::matchWildcard("?.xml", name), "A wildcard must not consume two code points");
-		const auto files = common::getSystemFileList(directory, MyGUI::utility::pathFromUTF8(mask.asUTF8()));
+		const auto files = common::getSystemFileList(directory, MyGUI::utility::toPath(mask));
 		require(
 			files.size() == 2 && files[1].name == filename && !files[1].folder,
 			"File dialogs must list and filter Unicode filenames");
@@ -193,7 +192,7 @@ namespace
 		require(
 			scanned.size() == 1 && scanned.front() == filename,
 			"Filename-only scans must return relative native paths");
-		const auto subdirectory = MyGUI::utility::pathFromUTF8("sub-\xD0\x91\xF0\x9F\x98\x80");
+		const auto subdirectory = MyGUI::utility::toPath("sub-\xD0\x91\xF0\x9F\x98\x80");
 		std::filesystem::create_directory(directory / subdirectory);
 		require(document.save(directory / subdirectory / filename), "XML must save inside a Unicode subdirectory");
 		scanned.clear();
@@ -202,8 +201,7 @@ namespace
 			scanned.size() == 2 &&
 				std::find(scanned.begin(), scanned.end(), directory / subdirectory / filename) != scanned.end(),
 			"Recursive scans must preserve Unicode subdirectory paths");
-		const auto nestedFiles =
-			common::getSystemFileList(directory, subdirectory / MyGUI::utility::pathFromUTF8(mask.asUTF8()));
+		const auto nestedFiles = common::getSystemFileList(directory, subdirectory / MyGUI::utility::toPath(mask));
 		require(
 			nestedFiles.size() == 2 && nestedFiles[1].name == filename,
 			"File masks must support a directory prefix");

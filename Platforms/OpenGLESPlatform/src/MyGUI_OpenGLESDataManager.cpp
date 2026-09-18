@@ -68,7 +68,7 @@ namespace MyGUI
 
 		for (const auto& file : paths)
 		{
-			result.push_back(MyGUI::utility::pathToUTF8(file));
+			result.push_back(MyGUI::utility::toUtf8(file));
 		}
 
 		return result;
@@ -76,7 +76,7 @@ namespace MyGUI
 
 	std::string OpenGLESDataManager::getDataPath(const std::string& _name) const
 	{
-		return MyGUI::utility::pathToUTF8(findDataPath(_name));
+		return MyGUI::utility::toUtf8(findDataPath(_name));
 	}
 
 	std::filesystem::path OpenGLESDataManager::findDataPath(const std::string& _name) const
@@ -96,10 +96,10 @@ namespace MyGUI
 				MYGUI_PLATFORM_LOG(
 					Warning,
 					"There are several files with name '"
-						<< _name << "'. '" << MyGUI::utility::pathToUTF8(path) << "' was used.");
+						<< _name << "'. '" << MyGUI::utility::toUtf8(path) << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
 				for (size_t index = 1; index < paths.size(); index++)
-					MYGUI_PLATFORM_LOG(Warning, " - '" << MyGUI::utility::pathToUTF8(paths[index]) << "'");
+					MYGUI_PLATFORM_LOG(Warning, " - '" << MyGUI::utility::toUtf8(paths[index]) << "'");
 			}
 			return path;
 		}

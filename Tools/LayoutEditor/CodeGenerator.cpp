@@ -157,8 +157,8 @@ namespace tools
 		for (auto& templateFile : mTemplateFiles)
 		{
 			std::ifstream input_file(
-				MyGUI::utility::pathFromUTF8(MyGUI::DataManager::getInstance().getDataPath(templateFile.first)));
-			std::ofstream output_file(MyGUI::utility::pathFromUTF8(lm.replaceTags(templateFile.second).asUTF8()));
+				MyGUI::utility::toPath(MyGUI::DataManager::getInstance().getDataPath(templateFile.first)));
+			std::ofstream output_file(MyGUI::utility::toPath(lm.replaceTags(templateFile.second)));
 			while (!input_file.eof() && !input_file.fail() && !output_file.fail())
 			{
 				char str[256];
@@ -227,16 +227,14 @@ namespace tools
 
 	void CodeGenerator::notifyBrowseHeader(MyGUI::Widget* _sender)
 	{
-		mOpenSaveFileDialog->setCurrentFolder(
-			MyGUI::utility::pathFromUTF8(mIncludeDirectoryEdit->getOnlyText().asUTF8()));
+		mOpenSaveFileDialog->setCurrentFolder(MyGUI::utility::toPath(mIncludeDirectoryEdit->getOnlyText()));
 		mOpenSaveFileDialog->setMode("Header");
 		mOpenSaveFileDialog->doModal();
 	}
 
 	void CodeGenerator::notifyBrowseSource(MyGUI::Widget* _sender)
 	{
-		mOpenSaveFileDialog->setCurrentFolder(
-			MyGUI::utility::pathFromUTF8(mSourceDirectoryEdit->getOnlyText().asUTF8()));
+		mOpenSaveFileDialog->setCurrentFolder(MyGUI::utility::toPath(mSourceDirectoryEdit->getOnlyText()));
 		mOpenSaveFileDialog->setMode("Source");
 		mOpenSaveFileDialog->doModal();
 	}
@@ -247,11 +245,11 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "Header")
 			{
-				mIncludeDirectoryEdit->setCaption(MyGUI::utility::pathToUTF8(mOpenSaveFileDialog->getCurrentFolder()));
+				mIncludeDirectoryEdit->setCaption(MyGUI::utility::toUtf8(mOpenSaveFileDialog->getCurrentFolder()));
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Source")
 			{
-				mSourceDirectoryEdit->setCaption(MyGUI::utility::pathToUTF8(mOpenSaveFileDialog->getCurrentFolder()));
+				mSourceDirectoryEdit->setCaption(MyGUI::utility::toUtf8(mOpenSaveFileDialog->getCurrentFolder()));
 			}
 		}
 

@@ -27,7 +27,7 @@ namespace MyGUI::xml
 
 	bool Document::open(const std::string& _filename)
 	{
-		return open(MyGUI::utility::pathFromUTF8(_filename));
+		return open(MyGUI::utility::toPath(_filename));
 	}
 
 	bool Document::open(const std::filesystem::path& _filename)
@@ -85,7 +85,7 @@ namespace MyGUI::xml
 
 	bool Document::save(const std::string& _filename)
 	{
-		return save(MyGUI::utility::pathFromUTF8(_filename));
+		return save(MyGUI::utility::toPath(_filename));
 	}
 
 	bool Document::save(const std::filesystem::path& _filename)
@@ -173,7 +173,7 @@ namespace MyGUI::xml
 
 	std::string Document::getLastError() const
 	{
-		const std::string fileName = mLastErrorFromStream ? "<stream>" : MyGUI::utility::pathToUTF8(mLastErrorFile);
+		const std::string fileName = mLastErrorFromStream ? "<stream>" : MyGUI::utility::toUtf8(mLastErrorFile);
 		if (!*mResult)
 		{
 			size_t line = 0, col = 0;

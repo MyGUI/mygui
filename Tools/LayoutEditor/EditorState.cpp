@@ -77,7 +77,7 @@ namespace tools
 
 		if (!Application::getInstance().getParams().empty())
 		{
-			setFileName(MyGUI::utility::pathToUTF8(Application::getInstance().getParams().front()));
+			setFileName(MyGUI::utility::toUtf8(Application::getInstance().getParams().front()));
 
 			load();
 			updateCaption();
@@ -419,9 +419,9 @@ namespace tools
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				setFileName(
-					MyGUI::utility::pathToUTF8(
+					MyGUI::utility::toUtf8(
 						mOpenSaveFileDialog->getCurrentFolder() /
-						MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8())));
+						MyGUI::utility::toPath(mOpenSaveFileDialog->getFileName())));
 
 				save();
 				updateCaption();
@@ -432,9 +432,9 @@ namespace tools
 
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				setFileName(
-					MyGUI::utility::pathToUTF8(
+					MyGUI::utility::toUtf8(
 						mOpenSaveFileDialog->getCurrentFolder() /
-						MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8())));
+						MyGUI::utility::toPath(mOpenSaveFileDialog->getFileName())));
 
 				load();
 				updateCaption();

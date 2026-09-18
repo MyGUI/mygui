@@ -83,7 +83,7 @@ namespace MyGUI
 		destroy();
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
-		const auto wfullname = MyGUI::utility::pathFromUTF8(fullname);
+		const auto wfullname = MyGUI::utility::toPath(fullname);
 
 		IWICImagingFactory* wicFactory = nullptr;
 		HRESULT hr =
@@ -307,7 +307,7 @@ namespace MyGUI
 			pixels = convertedData.data();
 		}
 
-		const auto path = MyGUI::utility::pathFromUTF8(_filename);
+		const auto path = MyGUI::utility::toPath(_filename);
 		hr = MyGUI::saveWICImage(path.c_str(), width, height, dstStride, pixels);
 
 		mManager->mpD3DContext->Unmap(stagingTexture, 0);

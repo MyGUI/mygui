@@ -58,7 +58,7 @@ SampleLayout::SampleLayout() :
 	{
 		if (item.name == ".." || item.name == ".")
 			continue;
-		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node(MyGUI::utility::pathToUTF8(item.name), "Data");
+		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node(MyGUI::utility::toUtf8(item.name), "Data");
 
 		pNode->setData(PairFileInfo(gMediaBase, item));
 		pRoot->add(pNode);
@@ -144,13 +144,13 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 			if (item.folder)
 			{
 				MyGUI::TreeControl::Node* pChild =
-					new MyGUI::TreeControl::Node(MyGUI::utility::pathToUTF8(item.name), "Folder");
+					new MyGUI::TreeControl::Node(MyGUI::utility::toUtf8(item.name), "Folder");
 				pChild->setData(PairFileInfo(path, item));
 				pNode->add(pChild);
 			}
 			else
 			{
-				MyGUI::UString strName(MyGUI::utility::pathToUTF8(item.name));
+				MyGUI::UString strName(MyGUI::utility::toUtf8(item.name));
 				std::string strExtension;
 				size_t nPosition = strName.rfind(".");
 				if (nPosition != MyGUI::UString::npos)
@@ -185,7 +185,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 					strImage = "Unknown";
 
 				MyGUI::TreeControl::Node* pChild =
-					new MyGUI::TreeControl::Node(MyGUI::utility::pathToUTF8(item.name), strImage);
+					new MyGUI::TreeControl::Node(MyGUI::utility::toUtf8(item.name), strImage);
 				pChild->setPrepared(true);
 				pNode->add(pChild);
 			}

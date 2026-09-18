@@ -82,7 +82,7 @@ namespace tools
 	void SettingsResourcePathsControl::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
 	{
 		if (_result)
-			mResourcePaths->addItem(MyGUI::utility::pathToUTF8(mOpenSaveFileDialog->getCurrentFolder()));
+			mResourcePaths->addItem(MyGUI::utility::toUtf8(mOpenSaveFileDialog->getCurrentFolder()));
 
 		mOpenSaveFileDialog->endModal();
 	}

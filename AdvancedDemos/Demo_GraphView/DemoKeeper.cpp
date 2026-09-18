@@ -312,14 +312,14 @@ namespace demo
 				size_t index = filename.find_first_of('.');
 				if (index == std::string::npos)
 					filename += ".xml";
-				saveToFile(mFileDialog->getCurrentFolder() / MyGUI::utility::pathFromUTF8(filename));
+				saveToFile(mFileDialog->getCurrentFolder() / MyGUI::utility::toPath(filename));
 			}
 			else
 			{
 				ClearGraph();
 
 				std::string filename = mFileDialog->getFileName();
-				loadFromFile(mFileDialog->getCurrentFolder() / MyGUI::utility::pathFromUTF8(filename));
+				loadFromFile(mFileDialog->getCurrentFolder() / MyGUI::utility::toPath(filename));
 			}
 		}
 

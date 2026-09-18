@@ -115,7 +115,7 @@ namespace MyGUI
 		mNumElemBytes = 4;
 
 		std::string fullnameUtf8 = DirectXDataManager::getInstance().getDataPath(_filename);
-		const auto fullname = MyGUI::utility::pathFromUTF8(fullnameUtf8);
+		const auto fullname = MyGUI::utility::toPath(fullnameUtf8);
 
 		HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 		bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
@@ -442,7 +442,7 @@ namespace MyGUI
 			pixels = convertedData.data();
 		}
 
-		const auto path = MyGUI::utility::pathFromUTF8(_filename);
+		const auto path = MyGUI::utility::toPath(_filename);
 
 		HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 		bool comInitialized = (coInit == S_OK || coInit == S_FALSE);

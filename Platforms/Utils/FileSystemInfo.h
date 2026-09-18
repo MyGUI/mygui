@@ -65,7 +65,7 @@ namespace common
 		const auto searchDir = _folder / _mask.parent_path();
 
 		const MyGUI::UString pattern =
-			_mask.filename() == "*.*" ? MyGUI::UString{} : MyGUI::UString(MyGUI::utility::pathToUTF8(_mask.filename()));
+			_mask.filename() == "*.*" ? MyGUI::UString{} : MyGUI::UString(MyGUI::utility::toUtf8(_mask.filename()));
 
 		auto iter = std::filesystem::directory_iterator(
 			searchDir,
@@ -73,7 +73,7 @@ namespace common
 			ec);
 		if (ec)
 		{
-			MYGUI_LOG(Error, "Can't open " + MyGUI::utility::pathToUTF8(searchDir));
+			MYGUI_LOG(Error, "Can't open " + MyGUI::utility::toUtf8(searchDir));
 			return {};
 		}
 
@@ -86,7 +86,7 @@ namespace common
 		{
 			auto name = entry.path().filename();
 
-			if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::pathToUTF8(name))))
+			if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::toUtf8(name))))
 				continue;
 
 			result.emplace_back(name, entry.is_directory());
@@ -100,8 +100,8 @@ namespace common
 				{
 					if (a.folder != b.folder)
 						return a.folder;
-					const MyGUI::UString aName(MyGUI::utility::pathToUTF8(a.name));
-					const MyGUI::UString bName(MyGUI::utility::pathToUTF8(b.name));
+					const MyGUI::UString aName(MyGUI::utility::toUtf8(a.name));
+					const MyGUI::UString bName(MyGUI::utility::toUtf8(b.name));
 					return std::lexicographical_compare(
 						aName.begin(),
 						aName.end(),
@@ -143,7 +143,7 @@ namespace common
 				if (entry.is_directory())
 					continue;
 
-				if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::pathToUTF8(name))))
+				if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::toUtf8(name))))
 					continue;
 
 				if (_fullpath)

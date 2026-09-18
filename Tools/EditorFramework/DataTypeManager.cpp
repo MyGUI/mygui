@@ -48,7 +48,7 @@ namespace tools
 
 	void DataTypeManager::load(const std::string& _fileName)
 	{
-		const auto fileName = MyGUI::utility::pathFromUTF8(MyGUI::DataManager::getInstance().getDataPath(_fileName));
+		const auto fileName = MyGUI::utility::toPath(MyGUI::DataManager::getInstance().getDataPath(_fileName));
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_file(fileName.c_str());
 		if (result)

@@ -238,7 +238,7 @@ namespace base
 		char* basePath = SDL_GetBasePath();
 		if (basePath)
 		{
-			mBinaryDir = MyGUI::utility::pathFromUTF8(basePath).parent_path();
+			mBinaryDir = MyGUI::utility::toPath(basePath).parent_path();
 			SDL_free(basePath);
 		}
 		else
@@ -266,7 +266,7 @@ namespace base
 		{
 			if (node->getName() == "Path")
 			{
-				const auto path = MyGUI::utility::pathFromUTF8(node->getContent());
+				const auto path = MyGUI::utility::toPath(node->getContent());
 				if (!node->findAttribute("root").empty())
 				{
 					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
@@ -483,7 +483,7 @@ namespace base
 #else
 		args.reserve(_argc);
 		for (int i = 0; i < _argc; ++i)
-			args.push_back(MyGUI::utility::pathFromUTF8(_argv[i]));
+			args.push_back(MyGUI::utility::toPath(_argv[i]));
 #endif
 
 		for (size_t i = 1; i < args.size(); ++i)
@@ -493,7 +493,7 @@ namespace base
 				mScreenShotFile = std::filesystem::absolute((i + 1 < args.size()) ? args[++i] : "screenshot.png");
 				mScreenShotExit = true;
 				mScreenShotFramesLeft = cScreenShotFrames;
-				std::cerr << "Screenshot will be saved to " << MyGUI::utility::pathToUTF8(mScreenShotFile) << std::endl;
+				std::cerr << "Screenshot will be saved to " << MyGUI::utility::toUtf8(mScreenShotFile) << std::endl;
 				continue;
 			}
 

@@ -141,7 +141,7 @@ namespace base
 		if (mScreenShotRequested)
 		{
 			mScreenShotRequested = false;
-			mWindow->writeContentsToFile(MyGUI::utility::pathToUTF8(mScreenShotFile));
+			mWindow->writeContentsToFile(MyGUI::utility::toUtf8(mScreenShotFile));
 		}
 	}
 
@@ -154,7 +154,7 @@ namespace base
 	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		Ogre::ResourceGroupManager::getSingleton()
-			.addResourceLocation(MyGUI::utility::pathToUTF8(_name), "FileSystem", MyGuiResourceGroup, _recursive);
+			.addResourceLocation(MyGUI::utility::toUtf8(_name), "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
 	MyGUI::MapString BaseManager::getStatistic()

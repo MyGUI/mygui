@@ -40,7 +40,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_Redo")->connect(this, &EditorState::commandRedo);
 
 		auto& settings = SettingsManager::getInstance();
-		mDefaultFileName = MyGUI::utility::pathFromUTF8(
+		mDefaultFileName = MyGUI::utility::toPath(
 			settings.getExistValue("EditorState/DefaultFileName") ? settings.getValue("EditorState/DefaultFileName")
 																  : "unnamed.xml");
 		mFileName = mDefaultFileName;
@@ -49,7 +49,7 @@ namespace tools
 	void EditorState::initState()
 	{
 		addUserTag("\\n", "\n");
-		addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+		addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 		mMainPane = new Control();
 		mMainPane->Initialise(SettingsManager::getInstance().getValue("EditorState/MainPaneLayout"));
@@ -77,7 +77,7 @@ namespace tools
 		if (!Application::getInstance().getParams().empty())
 		{
 			mFileName = Application::getInstance().getParams().front();
-			addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+			addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 			load();
 			updateCaption();
@@ -216,7 +216,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mDropFileName = MyGUI::utility::pathFromUTF8(CommandManager::getInstance().getCommandData().asUTF8());
+		mDropFileName = MyGUI::utility::toPath(CommandManager::getInstance().getCommandData());
 		if (mDropFileName.empty())
 			return;
 
@@ -277,7 +277,7 @@ namespace tools
 	void EditorState::loadDropFile()
 	{
 		mFileName = mDropFileName;
-		addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+		addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 		load();
 		updateCaption();
@@ -300,8 +300,8 @@ namespace tools
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				mFileName = mOpenSaveFileDialog->getCurrentFolder() /
-					MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8());
-				addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+					MyGUI::utility::toPath(mOpenSaveFileDialog->getFileName());
+				addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 				save();
 				updateCaption();
@@ -310,8 +310,8 @@ namespace tools
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				mFileName = mOpenSaveFileDialog->getCurrentFolder() /
-					MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8());
-				addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+					MyGUI::utility::toPath(mOpenSaveFileDialog->getFileName());
+				addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 				load();
 				updateCaption();
@@ -389,7 +389,7 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
 		mFileName = mDefaultFileName;
-		addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+		addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 		updateCaption();
 	}
@@ -408,7 +408,7 @@ namespace tools
 			if (success)
 			{
 				if (mFileName != mDefaultFileName)
-					RecentFilesManager::getInstance().addRecentFile(MyGUI::utility::pathToUTF8(mFileName));
+					RecentFilesManager::getInstance().addRecentFile(MyGUI::utility::toUtf8(mFileName));
 
 				DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 			}
@@ -420,7 +420,7 @@ namespace tools
 					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Yes);
 
 				mFileName = mDefaultFileName;
-				addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
+				addUserTag("CurrentFileName", MyGUI::utility::toUtf8(mFileName));
 
 				updateCaption();
 			}
@@ -448,7 +448,7 @@ namespace tools
 		if (result)
 		{
 			if (mFileName != mDefaultFileName)
-				RecentFilesManager::getInstance().addRecentFile(MyGUI::utility::pathToUTF8(mFileName));
+				RecentFilesManager::getInstance().addRecentFile(MyGUI::utility::toUtf8(mFileName));
 
 			ActionManager::getInstance().saveChanges();
 			return true;

@@ -84,7 +84,7 @@ namespace tools
 		{
 			common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 			if (!info.folder)
-				mEditFileName->setCaption(MyGUI::utility::pathToUTF8(info.name));
+				mEditFileName->setCaption(MyGUI::utility::toUtf8(info.name));
 		}
 	}
 
@@ -149,7 +149,7 @@ namespace tools
 	{
 		if (mCurrentFolder.empty())
 			mCurrentFolder = "/";
-		mCurrentFolderField->setCaption(MyGUI::utility::pathToUTF8(mCurrentFolder));
+		mCurrentFolderField->setCaption(MyGUI::utility::toUtf8(mCurrentFolder));
 
 		mListFiles->removeAllItems();
 
@@ -159,18 +159,18 @@ namespace tools
 		for (const auto& info : infos)
 		{
 			if (info.folder)
-				mListFiles->addItem("[" + MyGUI::utility::pathToUTF8(info.name) + "]", info);
+				mListFiles->addItem("[" + MyGUI::utility::toUtf8(info.name) + "]", info);
 		}
 
 		if (!mFolderMode)
 		{
 			// add files by given mask
-			infos = common::getSystemFileList(mCurrentFolder, MyGUI::utility::pathFromUTF8(mFileMask.asUTF8()));
+			infos = common::getSystemFileList(mCurrentFolder, MyGUI::utility::toPath(mFileMask));
 
 			for (const auto& info : infos)
 			{
 				if (!info.folder)
-					mListFiles->addItem(MyGUI::utility::pathToUTF8(info.name), info);
+					mListFiles->addItem(MyGUI::utility::toUtf8(info.name), info);
 			}
 		}
 	}
@@ -206,7 +206,7 @@ namespace tools
 
 	void OpenSaveFileDialog::notifyDirectoryComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		setCurrentFolder(MyGUI::utility::pathFromUTF8(_sender->getOnlyText().asUTF8()));
+		setCurrentFolder(MyGUI::utility::toPath(_sender->getOnlyText()));
 	}
 
 	const std::filesystem::path& OpenSaveFileDialog::getCurrentFolder() const
@@ -240,7 +240,7 @@ namespace tools
 	void OpenSaveFileDialog::notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		if (_index != MyGUI::ITEM_NONE)
-			setCurrentFolder(MyGUI::utility::pathFromUTF8(_sender->getItemNameAt(_index).asUTF8()));
+			setCurrentFolder(MyGUI::utility::toPath(_sender->getItemNameAt(_index)));
 	}
 
 } // namespace tools

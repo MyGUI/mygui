@@ -158,7 +158,7 @@ namespace MyGUI
 	void OgreNextDataManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		Ogre::ResourceGroupManager::getSingleton()
-			.addResourceLocation(MyGUI::utility::pathToUTF8(_name), "FileSystem", mGroup, _recursive);
+			.addResourceLocation(MyGUI::utility::toUtf8(_name), "FileSystem", mGroup, _recursive);
 	}
 
 } // namespace MyGUI

@@ -146,7 +146,7 @@ namespace base
 		Uint32 fmt = (bpp == 3) ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_BGRA32;
 		SDL_Surface* surface =
 			SDL_CreateRGBSurfaceWithFormatFrom(_texture, _width, _height, bpp * 8, _width * bpp, fmt);
-		IMG_SavePNG(surface, MyGUI::utility::pathToUTF8(_filename).c_str());
+		IMG_SavePNG(surface, MyGUI::utility::toUtf8(_filename).c_str());
 		SDL_FreeSurface(surface);
 	}
 

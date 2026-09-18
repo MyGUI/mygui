@@ -313,7 +313,7 @@ namespace MyGUI
 	{
 		if (mImageLoader)
 		{
-			const auto path = MyGUI::utility::pathFromUTF8(_filename);
+			const auto path = MyGUI::utility::toPath(_filename);
 			void* data = lock(TextureUsage::Read);
 			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, path);
 			unlock();

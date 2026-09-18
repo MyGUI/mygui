@@ -166,7 +166,7 @@ namespace base
 			// osgDB::writeImageFile writes image rows bottom-up (the osg::Image convention),
 			// so the raw GL_BACK readback (row 0 = bottom of the framebuffer) is written
 			// to the PNG in the correct top-down order without any extra flipping.
-			osgDB::writeImageFile(*image, MyGUI::utility::pathToUTF8(mScreenShotFile));
+			osgDB::writeImageFile(*image, MyGUI::utility::toUtf8(mScreenShotFile));
 		}
 	}
 

@@ -31,7 +31,7 @@ namespace tools
 		if (!SettingsManager::getInstance().tryGetValue<size_t>("Files/MaxRecentProjects", mMaxRecentProjects))
 			mMaxRecentProjects = 8;
 
-		mRecentFolder = MyGUI::utility::pathFromUTF8(SettingsManager::getInstance().getValue("Files/RecentFolder"));
+		mRecentFolder = MyGUI::utility::toPath(SettingsManager::getInstance().getValue("Files/RecentFolder"));
 		mRecentFolders = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
 		mRecentFiles = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFile.List");
 		mRecentProjects = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentProject.List");
@@ -43,7 +43,7 @@ namespace tools
 
 	void RecentFilesManager::shutdown()
 	{
-		SettingsManager::getInstance().setValue("Files/RecentFolder", MyGUI::utility::pathToUTF8(mRecentFolder));
+		SettingsManager::getInstance().setValue("Files/RecentFolder", MyGUI::utility::toUtf8(mRecentFolder));
 		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFolder.List", mRecentFolders);
 		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFile.List", mRecentFiles);
 		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentProject.List", mRecentProjects);
@@ -53,7 +53,7 @@ namespace tools
 	{
 		const auto folder = _folder.empty() ? std::filesystem::current_path() : _folder;
 
-		mRecentFolders.insert(mRecentFolders.begin(), MyGUI::utility::pathToUTF8(folder));
+		mRecentFolders.insert(mRecentFolders.begin(), MyGUI::utility::toUtf8(folder));
 
 		checkArray(mRecentFolders, mMaxRecentFolders);
 	}
