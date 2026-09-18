@@ -40,11 +40,9 @@ namespace MyGUI
 
 	}
 
-	UString::UString(std::size_t count, Char character)
+	UString::UString(std::size_t count, Char character) :
+		mData(count, static_cast<char32_t>(character))
 	{
-		if (count != 0)
-			convertText([character] { validateCharacter(character); });
-		mData.assign(count, static_cast<char32_t>(character));
 	}
 
 	UString::UString(std::string_view text)
@@ -52,15 +50,9 @@ namespace MyGUI
 		assign(text);
 	}
 
-	UString::UString(utf32string text)
+	UString::UString(utf32string text) :
+		mData(std::move(text))
 	{
-		convertText(
-			[&text]
-			{
-				for (auto character : text)
-					validateCharacter(character);
-			});
-		mData = std::move(text);
 	}
 
 	UString::UString(const std::wstring& text)
@@ -77,7 +69,7 @@ namespace MyGUI
 				});
 		}
 		else
-			mData = UString(utf32string(text.begin(), text.end())).mData;
+			mData.assign(text.begin(), text.end());
 	}
 
 	UString& UString::assign(std::string_view text)

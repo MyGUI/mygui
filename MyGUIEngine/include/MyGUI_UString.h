@@ -22,6 +22,7 @@ namespace MyGUI
 	//! UTF-32 text with UTF-8 and native wide-string conversion.
 	//! Positions, sizes, searches and iterators use Unicode code points, not grapheme clusters.
 	//! Comparisons use code-point ordering, not locale-aware collation.
+	//! Stored UTF-32 values are validated when exported to UTF-8 or native wide strings.
 	class MYGUI_EXPORT UString
 	{
 	public:
