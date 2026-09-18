@@ -254,17 +254,17 @@ namespace MyGUI
 	{
 		_replaceResult = false;
 
-		UString::utf32string line(_line.asUTF32());
+		UString line(_line);
 
-		UString::utf32string::iterator end = line.end();
-		for (UString::utf32string::iterator iter = line.begin(); iter != end;)
+		UString::iterator end = line.end();
+		for (UString::iterator iter = line.begin(); iter != end;)
 		{
 			if (*iter == '#')
 			{
 				++iter;
 				if (iter == end)
 				{
-					return UString(std::move(line));
+					return line;
 				}
 
 				if (*iter != '{')
@@ -272,13 +272,13 @@ namespace MyGUI
 					++iter;
 					continue;
 				}
-				UString::utf32string::iterator iter2 = iter;
+				UString::iterator iter2 = iter;
 				++iter2;
 
 				while (true)
 				{
 					if (iter2 == end)
-						return UString(std::move(line));
+						return line;
 
 					if (*iter2 == '}')
 					{
@@ -327,12 +327,11 @@ namespace MyGUI
 
 						iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 						size_t pos = iter - line.begin();
-						const auto& replacementText = replacement.asUTF32();
-						line.insert(pos, replacementText);
-						iter = line.begin() + pos + replacementText.size();
+						line.insert(pos, replacement);
+						iter = line.begin() + pos + replacement.size();
 						end = line.end();
 						if (iter == end)
-							return UString(std::move(line));
+							return line;
 						break;
 					}
 					++iter2;
@@ -344,7 +343,7 @@ namespace MyGUI
 			}
 		}
 
-		return UString(std::move(line));
+		return line;
 	}
 
 } // namespace MyGUI

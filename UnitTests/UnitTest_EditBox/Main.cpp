@@ -8,7 +8,7 @@ namespace
 
 	MyGUI::EditBox* createEdit(MyGUI::Gui& _gui)
 	{
-		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+		unittest::createInputLayer();
 		unittest::registerFixedFont();
 		unittest::loadResources("UnitTest_EditBox/TestSkin.xml");
 		auto* edit = _gui.createWidget<MyGUI::EditBox>(
@@ -221,6 +221,27 @@ namespace
 		input.injectKeyRelease(modifier);
 	}
 
+	void testDoubleClickUnicodeWord()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setCaption(MyGUI::UString(std::u32string(U"#FF0000one \U0001F600two end")));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.setDoubleClickTime(0.5f);
+		input.injectMouseMove(55, 10, 0);
+		input.injectMousePress(55, 10, MyGUI::MouseButton::Left);
+		input.injectMouseRelease(55, 10, MyGUI::MouseButton::Left);
+		context.getGui().eventFrameStart(0.1f);
+		input.injectMousePress(55, 10, MyGUI::MouseButton::Left);
+		input.injectMouseRelease(55, 10, MyGUI::MouseButton::Left);
+		require(
+			edit->getTextSelectionStart() == 4 && edit->getTextSelectionLength() == 4,
+			"Double-click selection must use the complete Unicode word and exclude colour markup");
+		require(
+			MyGUI::TextIterator::getOnlyText(edit->getTextSelection()).asUTF32() == U"\U0001F600two",
+			"Double-click selection must preserve supplementary characters");
+	}
+
 	void testPasswordCharacter()
 	{
 		unittest::TestContext context;
@@ -244,6 +265,7 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Double-click Unicode word", testDoubleClickUnicodeWord},
 		{"Unicode word navigation", testWordNavigation},
 		{"Supplementary password character", testPasswordCharacter},
 		{"Text intervals and replacement", testIntervals},

@@ -175,6 +175,10 @@ namespace
 		require(
 			iterator.getText().asUTF32() == U"\U0001F600##\n\u0085##\U0001F600",
 			"CRLF normalization must preserve supplementary characters and escaped hashes");
+		iterator.setText(iterator.getText(), true);
+		require(
+			iterator.getText().asUTF32() == U"\U0001F600##\n\u0085##\U0001F600",
+			"Replacing iterator text with its own reference must preserve the text");
 		const MyGUI::UString tag(std::u32string(U"#\U0001D80012345"));
 		MyGUI::TextIterator tagged(tag + "text");
 		MyGUI::UString extracted;

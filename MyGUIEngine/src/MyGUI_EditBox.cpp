@@ -226,9 +226,9 @@ namespace MyGUI
 		mStartSelect = cursorPosition;
 		mEndSelect = cursorPosition;
 
-		const auto& text = getOnlyText().asUTF32();
-		UString::utf32string::const_reverse_iterator iterBack = text.rend() - cursorPosition;
-		UString::utf32string::const_iterator iterForw = text.begin() + cursorPosition;
+		const UString text = getOnlyText();
+		auto iterBack = text.rend() - cursorPosition;
+		auto iterForw = text.begin() + cursorPosition;
 
 		while (iterBack != text.rend())
 		{
@@ -916,7 +916,7 @@ namespace MyGUI
 		mVectorUndoChangeInfo.pop_back();
 		mVectorRedoChangeInfo.push_back(info);
 
-		UString::utf32string text = getRealString().asUTF32();
+		UString text = getRealString();
 
 		// apply undo
 		for (VectorChangeInfo::const_reverse_iterator iter = info.rbegin(); iter != info.rend(); ++iter)
@@ -933,7 +933,7 @@ namespace MyGUI
 			}
 		}
 
-		setRealString(UString(text));
+		setRealString(text);
 
 		// restore cursor position
 		if (mClientText != nullptr)
@@ -959,7 +959,7 @@ namespace MyGUI
 		mVectorRedoChangeInfo.pop_back();
 		mVectorUndoChangeInfo.push_back(info);
 
-		UString::utf32string text = getRealString().asUTF32();
+		UString text = getRealString();
 
 		// apply redo
 		for (const auto& change : info)
@@ -975,7 +975,7 @@ namespace MyGUI
 			}
 		}
 
-		setRealString(UString(text));
+		setRealString(text);
 
 		// restore cursor position
 		if (mClientText != nullptr)
@@ -1224,7 +1224,7 @@ namespace MyGUI
 			colour = TextIterator::convertTagColour(mClientText->getTextColour());
 		// whether text tag is needed
 		// TODO rework through TextIterator to decouple tag concept from edit
-		bool need_colour = ((_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#'));
+		bool need_colour = ((_text.size() > 6) && (_text[0] == U'#') && (_text[1] != U'#'));
 
 		while (iterator.moveNext())
 		{

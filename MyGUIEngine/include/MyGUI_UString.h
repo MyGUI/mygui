@@ -28,6 +28,8 @@ namespace MyGUI
 	public:
 		using code_point = char32_t;
 		using utf32string = std::u32string;
+		using iterator = std::u32string::iterator;
+		using const_iterator = std::u32string::const_iterator;
 		static constexpr std::size_t npos = std::u32string::npos;
 
 		class MYGUI_EXPORT invalid_data : public std::runtime_error
@@ -109,12 +111,39 @@ namespace MyGUI
 			mData.clear();
 		}
 
+		void reserve(std::size_t count)
+		{
+			mData.reserve(count);
+		}
+
 		UString substr(std::size_t index, std::size_t count = npos) const
 		{
 			return UString(mData.substr(index, count));
 		}
 
 		UString& assign(std::string_view text);
+
+		UString& insert(std::size_t index, const UString& text)
+		{
+			mData.insert(index, text.mData);
+			return *this;
+		}
+
+		iterator insert(const_iterator position, code_point character)
+		{
+			return mData.insert(position, character);
+		}
+
+		UString& erase(std::size_t index, std::size_t count)
+		{
+			mData.erase(index, count);
+			return *this;
+		}
+
+		iterator erase(const_iterator first, const_iterator last)
+		{
+			return mData.erase(first, last);
+		}
 
 		UString& append(const UString& text)
 		{
@@ -137,24 +166,29 @@ namespace MyGUI
 			return mData.at(index);
 		}
 
-		std::u32string::iterator begin() noexcept
+		iterator begin() noexcept
 		{
 			return mData.begin();
 		}
 
-		std::u32string::const_iterator begin() const noexcept
+		const_iterator begin() const noexcept
 		{
 			return mData.begin();
 		}
 
-		std::u32string::iterator end() noexcept
+		iterator end() noexcept
 		{
 			return mData.end();
 		}
 
-		std::u32string::const_iterator end() const noexcept
+		const_iterator end() const noexcept
 		{
 			return mData.end();
+		}
+
+		std::u32string::const_reverse_iterator rend() const noexcept
+		{
+			return mData.rend();
 		}
 
 		std::size_t find(const UString& text, std::size_t index = 0) const

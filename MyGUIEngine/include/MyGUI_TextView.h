@@ -19,7 +19,7 @@ namespace MyGUI
 	{
 	public:
 		void update(
-			const UString::utf32string& _text,
+			const UString& _text,
 			IFont* _font,
 			int _height,
 			Align _align,

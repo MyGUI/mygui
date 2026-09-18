@@ -440,7 +440,7 @@ namespace MyGUI
 				width -= 2;
 		}
 
-		mTextView.update(mCaption.asUTF32(), mFont, mFontHeight, mTextAlign, mVertexFormat, width);
+		mTextView.update(mCaption, mFont, mFontHeight, mTextAlign, mVertexFormat, width);
 	}
 
 	void EditText::setStateData(IStateInfo* _data)

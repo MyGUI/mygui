@@ -42,7 +42,7 @@ namespace MyGUI
 
 		size_t getPosition() const;
 
-		UString getText() const;
+		const UString& getText() const;
 
 		void insertText(const UString& _insert, bool _multiLine);
 
@@ -69,23 +69,19 @@ namespace MyGUI
 		static UString toTagsString(const UString& _text);
 
 	private:
-		bool skipColourTag(UString::utf32string::iterator& _iter) const;
+		bool skipColourTag(UString::iterator& _iter) const;
 
-		bool setTagColour(const UString::utf32string& _colour);
+		void insert(UString::iterator& _start, const UString& _insert);
 
-		void insert(UString::utf32string::iterator& _start, const UString::utf32string& _insert);
-
-		UString::utf32string::iterator erase(
-			UString::utf32string::iterator _start,
-			UString::utf32string::iterator _end);
+		UString::iterator erase(UString::iterator _start, UString::iterator _end);
 
 		void clear();
 
 		void normaliseNewLine(UString& _text);
 
 	private:
-		UString::utf32string mText;
-		UString::utf32string::iterator mCurrent, mEnd, mSave;
+		UString mText;
+		UString::iterator mCurrent, mEnd, mSave;
 
 		size_t mPosition;
 		mutable size_t mSize;

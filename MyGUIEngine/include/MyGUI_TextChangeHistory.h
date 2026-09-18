@@ -27,8 +27,8 @@ namespace MyGUI
 		};
 
 		// for COMMAND_INSERT and COMMAND_ERASE
-		TextCommandInfo(const UString::utf32string& _text, size_t _start, CommandType _type) :
-			text(_text),
+		TextCommandInfo(UString _text, size_t _start, CommandType _type) :
+			text(std::move(_text)),
 			type(_type),
 			start(_start),
 			undo(ITEM_NONE),
@@ -48,7 +48,7 @@ namespace MyGUI
 		}
 
 		// inserted/erased string
-		UString::utf32string text;
+		UString text;
 		CommandType type;
 		// text start position
 		size_t start;

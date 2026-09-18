@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TextIterator.h"
+#include <cstdio>
 
 namespace MyGUI
 {
@@ -27,7 +28,7 @@ namespace MyGUI
 	}
 
 	TextIterator::TextIterator(const UString& _text, VectorChangeInfo* _history) :
-		mText(_text.asUTF32()),
+		mText(_text),
 		mCurrent(mText.begin()),
 		mEnd(mText.end()),
 		mSave(mEnd),
@@ -41,12 +42,12 @@ namespace MyGUI
 	template<typename Iterator, typename EndIterator>
 	bool advanceColorTag(Iterator& _iter, const EndIterator& _end)
 	{
-		if (*_iter != L'#')
+		if (*_iter != U'#')
 			return false;
 		++_iter;
 		if (_iter == _end)
 			return false;
-		if (*_iter != L'#')
+		if (*_iter != U'#')
 		{
 			for (size_t pos = 2; pos < ColourTagLength; ++pos)
 			{
@@ -73,9 +74,9 @@ namespace MyGUI
 		}
 
 		// jump to next character, skipping tags (#)
-		for (UString::utf32string::iterator iter = mCurrent; iter != mEnd; ++iter)
+		for (UString::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
-			if ((*iter) == L'#')
+			if ((*iter) == U'#')
 			{
 				if (advanceColorTag(iter, mEnd))
 					continue;
@@ -119,7 +120,7 @@ namespace MyGUI
 		if (start == mEnd)
 			return false;
 
-		_colour = UString(UString::utf32string(start, end));
+		_colour = mText.substr(start - mText.begin(), end - start);
 		return true;
 	}
 
@@ -131,12 +132,12 @@ namespace MyGUI
 		if (mCurrent == mEnd)
 			return false;
 
-		insert(mCurrent, convertTagColour(_colour).asUTF32());
+		insert(mCurrent, convertTagColour(_colour));
 
 		return true;
 	}
 
-	bool TextIterator::setTagColour(const UString::utf32string& _colour)
+	bool TextIterator::setTagColour(const UString& _colour)
 	{
 		if (mCurrent == mEnd)
 			return false;
@@ -145,17 +146,12 @@ namespace MyGUI
 			return false;
 
 		// check if it looks like a colour tag
-		if ((_colour.size() != ColourTagLength) || (_colour.find(L'#', 1) != MyGUI::UString::npos))
+		if ((_colour.size() != ColourTagLength) || (_colour.find(U'#', 1) != MyGUI::UString::npos))
 			return false;
 
 		insert(mCurrent, _colour);
 
 		return true;
-	}
-
-	bool TextIterator::setTagColour(const UString& _colour)
-	{
-		return setTagColour(_colour.asUTF32());
 	}
 
 	size_t TextIterator::getSize() const
@@ -164,7 +160,7 @@ namespace MyGUI
 			return mSize;
 		mSize = mPosition;
 
-		for (UString::utf32string::const_iterator iter = mCurrent; iter != mEnd; ++iter)
+		for (UString::const_iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
 			if (advanceColorTag(iter, mEnd))
 				continue;
@@ -180,12 +176,11 @@ namespace MyGUI
 
 	UString TextIterator::getOnlyText(const UString& _text)
 	{
-		UString::utf32string ret;
-		const auto& text = _text.asUTF32();
-		ret.reserve(text.size());
+		UString ret;
+		ret.reserve(_text.size());
 
-		UString::utf32string::const_iterator end = text.end();
-		for (UString::utf32string::const_iterator iter = text.begin(); iter != end; ++iter)
+		UString::const_iterator end = _text.end();
+		for (UString::const_iterator iter = _text.begin(); iter != end; ++iter)
 		{
 			if (advanceColorTag(iter, end))
 				continue;
@@ -196,10 +191,10 @@ namespace MyGUI
 			ret.push_back(*iter);
 		}
 
-		return UString(std::move(ret));
+		return ret;
 	}
 
-	bool TextIterator::skipColourTag(UString::utf32string::iterator& _iter) const
+	bool TextIterator::skipColourTag(UString::iterator& _iter) const
 	{
 		if ((_iter == mEnd) || (*_iter != U'#'))
 			return false;
@@ -242,7 +237,7 @@ namespace MyGUI
 		if (mSave == mEnd)
 			return {};
 		size_t start = mSave - mText.begin();
-		return UString(mText.substr(start, mCurrent - mText.begin() - start));
+		return mText.substr(start, mCurrent - mText.begin() - start);
 	}
 
 	bool TextIterator::eraseFromStart()
@@ -263,21 +258,20 @@ namespace MyGUI
 		if (!_multiLine)
 			clearNewLine(text);
 
-		insert(mCurrent, text.asUTF32());
+		insert(mCurrent, text);
 	}
 
 	void TextIterator::setText(const UString& _text, bool _multiLine)
 	{
-		clear();
-
 		UString text = _text;
+		clear();
 
 		normaliseNewLine(text);
 
 		if (!_multiLine)
 			clearNewLine(text);
 
-		insert(mCurrent, text.asUTF32());
+		insert(mCurrent, text);
 	}
 
 	UString TextIterator::getTextCharInfo(Char _char)
@@ -289,25 +283,14 @@ namespace MyGUI
 
 	UString TextIterator::convertTagColour(const Colour& _colour)
 	{
-		constexpr size_t colourBufferSize = 16;
-		wchar_t buff[colourBufferSize];
-
-#ifdef __MINGW32__
-		swprintf(
+		char buff[16];
+		std::snprintf(
 			buff,
-			L"#%.2X%.2X%.2X\0",
-			(int)(_colour.red * ColourChannelMax),
-			(int)(_colour.green * ColourChannelMax),
-			(int)(_colour.blue * ColourChannelMax));
-#else
-		swprintf(
-			buff,
-			colourBufferSize,
-			L"#%.2X%.2X%.2X\0",
-			(int)(_colour.red * ColourChannelMax),
-			(int)(_colour.green * ColourChannelMax),
-			(int)(_colour.blue * ColourChannelMax));
-#endif
+			sizeof(buff),
+			"#%.2X%.2X%.2X",
+			static_cast<unsigned int>(static_cast<int>(_colour.red * ColourChannelMax)),
+			static_cast<unsigned int>(static_cast<int>(_colour.green * ColourChannelMax)),
+			static_cast<unsigned int>(static_cast<int>(_colour.blue * ColourChannelMax)));
 		return {buff};
 	}
 
@@ -318,13 +301,13 @@ namespace MyGUI
 		for (auto character : _text)
 		{
 			text.push_back(character);
-			if (character == u'#')
+			if (character == U'#')
 				text.push_back(character);
 		}
 		return text;
 	}
 
-	void TextIterator::insert(UString::utf32string::iterator& _start, const UString::utf32string& _insert)
+	void TextIterator::insert(UString::iterator& _start, const UString& _insert)
 	{
 		mSize = ITEM_NONE;
 		// write to history
@@ -333,15 +316,13 @@ namespace MyGUI
 		// remember iterator position
 		size_t pos = _start - mText.begin();
 		size_t pos_save = (mSave == mEnd) ? ITEM_NONE : _start - mText.begin();
-		mText.insert(_start, _insert.begin(), _insert.end());
+		mText.insert(pos, _insert);
 		_start = mText.begin() + pos;
 		mEnd = mText.end();
 		(pos_save == ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
 	}
 
-	UString::utf32string::iterator TextIterator::erase(
-		UString::utf32string::iterator _start,
-		UString::utf32string::iterator _end)
+	UString::iterator TextIterator::erase(UString::iterator _start, UString::iterator _end)
 	{
 		mSize = ITEM_NONE;
 		// save to history
@@ -381,7 +362,7 @@ namespace MyGUI
 
 		mSize = mPosition;
 
-		for (UString::utf32string::iterator iter = mCurrent; iter != mEnd; ++iter)
+		for (UString::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
 			if (advanceColorTag(iter, mEnd))
 				continue;
@@ -413,13 +394,13 @@ namespace MyGUI
 		size_t diff = size - _max;
 
 		// last colour
-		UString::utf32string::iterator iter_colour = mEnd;
+		UString::iterator iter_colour = mEnd;
 
 		// now traverse from start to find real difference position
-		UString::utf32string::iterator iter = mText.begin();
+		UString::iterator iter = mText.begin();
 		for (; iter != mEnd; ++iter)
 		{
-			UString::utf32string::iterator save = iter;
+			UString::iterator save = iter;
 			if (advanceColorTag(iter, mEnd))
 			{
 				if (static_cast<size_t>(mEnd - save) >= 7)
@@ -438,11 +419,11 @@ namespace MyGUI
 			--diff;
 		}
 
-		UString::utf32string colour;
+		UString colour;
 		// if there was a colour, insert it back
 		if (iter_colour != mEnd)
 		{
-			colour.append(iter_colour, iter_colour + ColourTagLength);
+			colour = mText.substr(iter_colour - mText.begin(), ColourTagLength);
 		}
 
 		mCurrent = erase(mText.begin(), iter);
@@ -460,7 +441,7 @@ namespace MyGUI
 		if (mCurrent == mEnd)
 			return;
 
-		UString::utf32string::iterator iter = mCurrent;
+		UString::iterator iter = mCurrent;
 		while (skipColourTag(iter))
 		{
 			// must update iterators
@@ -474,9 +455,9 @@ namespace MyGUI
 		return mPosition;
 	}
 
-	UString TextIterator::getText() const
+	const UString& TextIterator::getText() const
 	{
-		return UString(mText);
+		return mText;
 	}
 
 	void TextIterator::clearText()
@@ -486,7 +467,7 @@ namespace MyGUI
 
 	UString TextIterator::getTextNewLine()
 	{
-		return L"\n";
+		return UString(U'\n');
 	}
 
 	void TextIterator::normaliseNewLine(UString& _text)
