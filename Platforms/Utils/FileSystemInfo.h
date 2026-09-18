@@ -7,39 +7,42 @@
 #include <vector>
 #include <algorithm>
 #include <cwctype>
+#include <utility>
+#include <limits>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace common
 {
 
 	struct FileInfo
 	{
-		FileInfo(const std::wstring& _name, bool _folder) :
-			name(_name),
+		FileInfo(std::filesystem::path _name, bool _folder) :
+			name(std::move(_name)),
 			folder(_folder)
 		{
 		}
-		std::wstring name;
+		std::filesystem::path name;
 		bool folder;
 	};
 	using VectorFileInfo = std::vector<FileInfo>;
-	using VectorWString = std::vector<std::wstring>;
+	using VectorPath = std::vector<std::filesystem::path>;
 
-	inline bool matchWildcard(const std::wstring& _pattern, const std::wstring& _str)
+	inline bool matchWildcard(const MyGUI::UString& pattern, const MyGUI::UString& text)
 	{
-		size_t pi = 0, si = 0, starPi = std::wstring::npos, starSi = 0;
-		while (si < _str.size())
+		size_t pi = 0, si = 0, starPi = MyGUI::UString::npos, starSi = 0;
+		while (si < text.size())
 		{
-			if (pi < _pattern.size() && (_pattern[pi] == _str[si] || _pattern[pi] == L'?'))
+			if (pi < pattern.size() && (pattern[pi] == text[si] || pattern[pi] == U'?'))
 			{
 				++pi;
 				++si;
 			}
-			else if (pi < _pattern.size() && _pattern[pi] == L'*')
+			else if (pi < pattern.size() && pattern[pi] == U'*')
 			{
 				starPi = pi++;
 				starSi = si;
 			}
-			else if (starPi != std::wstring::npos)
+			else if (starPi != MyGUI::UString::npos)
 			{
 				pi = starPi + 1;
 				si = ++starSi;
@@ -47,37 +50,22 @@ namespace common
 			else
 				return false;
 		}
-		while (pi < _pattern.size() && _pattern[pi] == L'*')
+		while (pi < pattern.size() && pattern[pi] == U'*')
 			++pi;
-		return pi == _pattern.size();
+		return pi == pattern.size();
 	}
 
-	inline std::wstring concatenatePath(const std::wstring& _base, const std::wstring& _name)
-	{
-		if (_base.empty())
-			return _name;
-		return (std::filesystem::path(_base) / _name).wstring();
-	}
-
-	inline std::wstring getSystemCurrentFolder()
-	{
-		return std::filesystem::current_path().wstring();
-	}
-
-	inline bool isParentDir(const std::wstring& _name)
-	{
-		return _name == L"..";
-	}
-
-	inline VectorFileInfo getSystemFileList(const std::wstring& _folder, const std::wstring& _mask, bool _sorted = true)
+	inline VectorFileInfo getSystemFileList(
+		const std::filesystem::path& _folder,
+		const std::filesystem::path& _mask,
+		bool _sorted = true)
 	{
 		std::error_code ec;
 
-		const auto maskPath = std::filesystem::path(_mask);
+		const auto searchDir = _folder / _mask.parent_path();
 
-		const auto searchDir = std::filesystem::path(_folder) / maskPath.parent_path();
-
-		const auto pattern = maskPath.filename() == L"*.*" ? std::wstring{} : maskPath.filename().wstring();
+		const MyGUI::UString pattern =
+			_mask.filename() == "*.*" ? MyGUI::UString{} : MyGUI::UString(MyGUI::utility::pathToUTF8(_mask.filename()));
 
 		auto iter = std::filesystem::directory_iterator(
 			searchDir,
@@ -85,20 +73,20 @@ namespace common
 			ec);
 		if (ec)
 		{
-			MYGUI_LOG(Error, "Can't open " + MyGUI::UString(searchDir.wstring()).asUTF8());
+			MYGUI_LOG(Error, "Can't open " + MyGUI::utility::pathToUTF8(searchDir));
 			return {};
 		}
 
 		VectorFileInfo result;
 
 		// ".." is not returned by directory_iterator; add it manually so file dialogs can navigate up
-		result.emplace_back(L"..", true);
+		result.emplace_back("..", true);
 
 		for (const auto& entry : iter)
 		{
-			std::wstring name = entry.path().filename().wstring();
+			auto name = entry.path().filename();
 
-			if (!pattern.empty() && !matchWildcard(pattern, name))
+			if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::pathToUTF8(name))))
 				continue;
 
 			result.emplace_back(name, entry.is_directory());
@@ -112,25 +100,37 @@ namespace common
 				{
 					if (a.folder != b.folder)
 						return a.folder;
+					const MyGUI::UString aName(MyGUI::utility::pathToUTF8(a.name));
+					const MyGUI::UString bName(MyGUI::utility::pathToUTF8(b.name));
 					return std::lexicographical_compare(
-						a.name.begin(),
-						a.name.end(),
-						b.name.begin(),
-						b.name.end(),
-						[](wchar_t c1, wchar_t c2) { return std::towlower(c1) < std::towlower(c2); });
+						aName.begin(),
+						aName.end(),
+						bName.begin(),
+						bName.end(),
+						[](char32_t c1, char32_t c2)
+						{
+							// Preserve code points outside the native wide character range.
+							const auto lower1 = c1 > static_cast<char32_t>(std::numeric_limits<wchar_t>::max())
+								? c1
+								: static_cast<char32_t>(std::towlower(static_cast<wint_t>(c1)));
+							const auto lower2 = c2 > static_cast<char32_t>(std::numeric_limits<wchar_t>::max())
+								? c2
+								: static_cast<char32_t>(std::towlower(static_cast<wint_t>(c2)));
+							return lower1 < lower2;
+						});
 				});
 		return result;
 	}
 
 	inline void scanFolder(
-		VectorWString& _result,
-		const std::wstring& _folder,
+		VectorPath& _result,
+		const std::filesystem::path& _folder,
 		bool _recursive,
-		const std::wstring& _mask,
+		const MyGUI::UString& _mask,
 		bool _fullpath)
 	{
 		// Normalize DOS-style *.* (match all)
-		std::wstring pattern = (_mask == L"*.*") ? std::wstring() : _mask;
+		const MyGUI::UString pattern = (_mask == "*.*") ? MyGUI::UString() : _mask;
 
 		std::error_code ec;
 
@@ -139,15 +139,15 @@ namespace common
 			for (; iter != end; ++iter)
 			{
 				const auto& entry = *iter;
-				std::wstring name = entry.path().filename().wstring();
+				auto name = entry.path().filename();
 				if (entry.is_directory())
 					continue;
 
-				if (!pattern.empty() && !matchWildcard(pattern, name))
+				if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::pathToUTF8(name))))
 					continue;
 
 				if (_fullpath)
-					_result.push_back(entry.path().wstring());
+					_result.push_back(entry.path());
 				else
 					_result.push_back(std::move(name));
 			}

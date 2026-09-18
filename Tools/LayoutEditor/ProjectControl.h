@@ -13,6 +13,7 @@
 #include "EditorToolTip.h"
 #include "MessageBox/MessageBox.h"
 #include "sigslot.h"
+#include <filesystem>
 
 namespace tools
 {
@@ -46,7 +47,7 @@ namespace tools
 		void clear();
 		bool load();
 
-		void setFileName(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
+		void setFileName(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName);
 		void updateCaption();
 
 		bool deleteItemFromProject(size_t _index);
@@ -54,8 +55,8 @@ namespace tools
 		bool addItemToProject(const MyGUI::UString& _name, size_t& _index);
 		void saveItemToProject();
 
-		bool isExistFile(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
-		void createProject(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
+		bool isExistFile(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName);
+		void createProject(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName);
 
 		bool isProjectItemOpen();
 		void loadLastProject();
@@ -70,8 +71,8 @@ namespace tools
 		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};
 		TextFieldControl* mTextFieldControl{nullptr};
 
-		MyGUI::UString mProjectName;
-		MyGUI::UString mProjectPath;
+		std::filesystem::path mProjectName;
+		std::filesystem::path mProjectPath;
 
 		MyGUI::ListBox* mList{nullptr};
 		MyGUI::TextBox* mProjectNameText{nullptr};

@@ -8,8 +8,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/AdvancedDemos/TestApp");
-		addResourceLocation(getRootMedia() + "/Common/Demos");
+		addResourceLocation(getRootMedia() / "AdvancedDemos/TestApp");
+		addResourceLocation(getRootMedia() / "Common/Demos");
 	}
 
 	void DemoKeeper::createScene()

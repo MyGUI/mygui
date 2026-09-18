@@ -30,7 +30,9 @@
 #include <algorithm>
 #include <cstddef>
 #include <fstream>
+#include <filesystem>
 #include <vector>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
 {
@@ -504,7 +506,7 @@ namespace MyGUI
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 			return {};
 		}
-		std::ifstream fileStream(fullPath);
+		std::ifstream fileStream(MyGUI::utility::pathFromUTF8(fullPath));
 		return {std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>()};
 	}
 

@@ -82,9 +82,9 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Demos/Demo_Themes");
-		addResourceLocation(getRootMedia() + "/Common/Demos");
-		addResourceLocation(getRootMedia() + "/Common/Themes");
+		addResourceLocation(getRootMedia() / "Demos/Demo_Themes");
+		addResourceLocation(getRootMedia() / "Common/Demos");
+		addResourceLocation(getRootMedia() / "Common/Themes");
 	}
 
 	void DemoKeeper::createScene()

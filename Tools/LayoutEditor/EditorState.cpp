@@ -5,7 +5,6 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 #include "GroupMessage.h"
-#include "FileSystemInfo.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
@@ -18,6 +17,7 @@
 #include "RecentFilesManager.h"
 #include "WidgetCreatorManager.h"
 #include "FactoryManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 namespace tools
 {
@@ -77,7 +77,7 @@ namespace tools
 
 		if (!Application::getInstance().getParams().empty())
 		{
-			setFileName(Application::getInstance().getParams().front());
+			setFileName(MyGUI::utility::pathToUTF8(Application::getInstance().getParams().front()));
 
 			load();
 			updateCaption();
@@ -419,9 +419,9 @@ namespace tools
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				setFileName(
-					common::concatenatePath(
-						mOpenSaveFileDialog->getCurrentFolder(),
-						mOpenSaveFileDialog->getFileName()));
+					MyGUI::utility::pathToUTF8(
+						mOpenSaveFileDialog->getCurrentFolder() /
+						MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8())));
 
 				save();
 				updateCaption();
@@ -432,9 +432,9 @@ namespace tools
 
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				setFileName(
-					common::concatenatePath(
-						mOpenSaveFileDialog->getCurrentFolder(),
-						mOpenSaveFileDialog->getFileName()));
+					MyGUI::utility::pathToUTF8(
+						mOpenSaveFileDialog->getCurrentFolder() /
+						MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8())));
 
 				load();
 				updateCaption();

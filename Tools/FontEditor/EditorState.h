@@ -8,6 +8,7 @@
 #define _9242b3ed_2b1a_44f5_b31d_6a24f2db0fe2_
 
 #include "StateController.h"
+#include <filesystem>
 #include "Control.h"
 #include "OpenSaveFileDialog.h"
 #include "MessageBox/MessageBox.h"
@@ -65,9 +66,9 @@ namespace tools
 		bool checkCommand();
 
 	private:
-		MyGUI::UString mFileName;
-		MyGUI::UString mDefaultFileName;
-		MyGUI::UString mDropFileName;
+		std::filesystem::path mFileName;
+		std::filesystem::path mDefaultFileName;
+		std::filesystem::path mDropFileName;
 
 		Control* mMainPane{nullptr};
 		OpenSaveFileDialog* mOpenSaveFileDialog{nullptr};

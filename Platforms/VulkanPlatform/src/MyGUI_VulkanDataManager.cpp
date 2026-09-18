@@ -9,6 +9,7 @@
 #include "MyGUI_DataFileStream.h"
 #include "FileSystemInfo.h"
 #include <fstream>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
 {
@@ -33,12 +34,12 @@ namespace MyGUI
 
 	IDataStream* VulkanDataManager::getData(const std::string& _name) const
 	{
-		std::string filepath = getDataPath(_name);
+		const auto filepath = findDataPath(_name);
 		if (filepath.empty())
 			return nullptr;
 
 		auto stream = std::make_unique<std::ifstream>();
-		stream->open(filepath.c_str(), std::ios_base::binary);
+		stream->open(filepath, std::ios_base::binary);
 
 		if (!stream->is_open())
 			return nullptr;
@@ -62,16 +63,16 @@ namespace MyGUI
 	VectorString VulkanDataManager::getDataListNames(const std::string& _pattern) const
 	{
 		VectorString result;
-		common::VectorWString wresult;
+		common::VectorPath paths;
 
 		for (const auto& path : mPaths)
 		{
-			common::scanFolder(wresult, path.name, path.recursive, MyGUI::UString(_pattern).asWStr(), false);
+			common::scanFolder(paths, path.name, path.recursive, MyGUI::UString(_pattern), false);
 		}
 
-		for (const auto& file : wresult)
+		for (const auto& file : paths)
 		{
-			result.push_back(MyGUI::UString(file).asUTF8());
+			result.push_back(MyGUI::utility::pathToUTF8(file));
 		}
 
 		return result;
@@ -79,30 +80,30 @@ namespace MyGUI
 
 	std::string VulkanDataManager::getDataPath(const std::string& _name) const
 	{
-		VectorString result;
-		common::VectorWString wresult;
+		return MyGUI::utility::pathToUTF8(findDataPath(_name));
+	}
+
+	std::filesystem::path VulkanDataManager::findDataPath(const std::string& _name) const
+	{
+		common::VectorPath paths;
 
 		for (const auto& path : mPaths)
 		{
-			common::scanFolder(wresult, path.name, path.recursive, MyGUI::UString(_name).asWStr(), true);
+			common::scanFolder(paths, path.name, path.recursive, MyGUI::UString(_name), true);
 		}
 
-		for (const auto& file : wresult)
+		if (!paths.empty())
 		{
-			result.push_back(MyGUI::UString(file).asUTF8());
-		}
-
-		if (!result.empty())
-		{
-			const std::string& path = result[0];
-			if (result.size() > 1)
+			const auto& path = paths[0];
+			if (paths.size() > 1)
 			{
 				MYGUI_PLATFORM_LOG(
 					Warning,
-					"There are several files with name '" << _name << "'. '" << path << "' was used.");
+					"There are several files with name '"
+						<< _name << "'. '" << MyGUI::utility::pathToUTF8(path) << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
-				for (size_t index = 1; index < result.size(); index++)
-					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
+				for (size_t index = 1; index < paths.size(); index++)
+					MYGUI_PLATFORM_LOG(Warning, " - '" << MyGUI::utility::pathToUTF8(paths[index]) << "'");
 			}
 			return path;
 		}
@@ -110,9 +111,9 @@ namespace MyGUI
 		return {};
 	}
 
-	void VulkanDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void VulkanDataManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
-		mPaths.push_back({MyGUI::UString(_name).asWStr(), _recursive});
+		mPaths.push_back({_name, _recursive});
 	}
 
 } // namespace MyGUI

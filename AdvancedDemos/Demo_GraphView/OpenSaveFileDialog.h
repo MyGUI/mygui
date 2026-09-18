@@ -7,6 +7,7 @@
 #define OPEN_SAVE_FILE_DIALOG_H_
 
 #include <MyGUI.h>
+#include <filesystem>
 #include "Dialog.h"
 
 namespace tools
@@ -19,8 +20,8 @@ namespace tools
 
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
-		void setCurrentFolder(const MyGUI::UString& _folder);
-		const MyGUI::UString& getCurrentFolder() const;
+		void setCurrentFolder(const std::filesystem::path& _folder);
+		const std::filesystem::path& getCurrentFolder() const;
 
 		void setFileName(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileName() const;
@@ -60,7 +61,7 @@ namespace tools
 		MyGUI::ComboBox* mCurrentFolderField{nullptr};
 		MyGUI::Button* mButtonOpenSave{nullptr};
 
-		MyGUI::UString mCurrentFolder;
+		std::filesystem::path mCurrentFolder;
 		MyGUI::UString mFileName;
 		MyGUI::UString mFileMask;
 

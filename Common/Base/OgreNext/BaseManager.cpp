@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 #include <Ogre.h>
 #include <OgreWindow.h>
@@ -152,7 +153,7 @@ namespace base
 				Ogre::Image2 img;
 				Ogre::TextureGpu* texture = mWindow->getTexture();
 				img.convertFromTexture(texture, 0u, texture->getNumMipmaps() - 1u);
-				img.save(mScreenShotFile, 0u, img.getNumMipmaps());
+				img.save(MyGUI::utility::pathToUTF8(mScreenShotFile), 0u, img.getNumMipmaps());
 			}
 
 			mWindow->performManualRelease();
@@ -166,10 +167,10 @@ namespace base
 		mCamera->setAutoAspectRatio(true);
 	}
 
-	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		Ogre::ResourceGroupManager::getSingleton()
-			.addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
+			.addResourceLocation(MyGUI::utility::pathToUTF8(_name), "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
 	MyGUI::MapString BaseManager::getStatistic()

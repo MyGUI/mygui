@@ -19,6 +19,7 @@
 #include <vector>
 #include <utility>
 #include <memory>
+#include <filesystem>
 
 namespace pugi
 {
@@ -43,11 +44,11 @@ namespace MyGUI::xml
 	public:
 		Document();
 
+		// Open a regular file using its native path
+		bool open(const std::filesystem::path& _filename);
+
 		// Open as regular file, filename in UTF-8
 		bool open(const std::string& _filename);
-
-		// Open as regular file, filename in UTF-16 or UTF-32
-		bool open(const std::wstring& _filename);
 
 		// Open as regular stream
 		bool open(std::istream& _stream);
@@ -56,9 +57,9 @@ namespace MyGUI::xml
 
 		bool open(IDataStream* _stream);
 
-		bool save(const std::string& _filename);
+		bool save(const std::filesystem::path& _filename);
 
-		bool save(const std::wstring& _filename);
+		bool save(const std::string& _filename);
 
 		bool save(std::ostream& _stream);
 
@@ -79,7 +80,8 @@ namespace MyGUI::xml
 		std::shared_ptr<pugi::xml_document> mDoc;
 		std::shared_ptr<pugi::xml_parse_result> mResult;
 		std::string mLastError;
-		std::string mLastErrorFile;
+		std::filesystem::path mLastErrorFile;
+		bool mLastErrorFromStream{false};
 	};
 
 	class MYGUI_EXPORT ElementEnumerator

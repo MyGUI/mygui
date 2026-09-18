@@ -40,6 +40,7 @@ set (HEADER_FILES
   include/MyGUI_EventPair.h
   include/MyGUI_Exception.h
   include/MyGUI_FactoryManager.h
+  include/MyGUI_FileSystemUtility.h
   include/MyGUI_FileLogListener.h
   include/MyGUI_FlowDirection.h
   include/MyGUI_FontData.h

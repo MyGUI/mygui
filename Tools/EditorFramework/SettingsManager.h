@@ -12,6 +12,7 @@
 #include "StringUtility.h"
 #include "sigslot.h"
 #include <type_traits>
+#include <filesystem>
 
 namespace tools
 {
@@ -73,10 +74,10 @@ namespace tools
 		SettingsManager();
 		virtual ~SettingsManager();
 
-		bool loadSettingsFile(CString _fileName);
-		void saveSettingsFile(CString _fileName);
+		bool loadSettingsFile(const std::filesystem::path& _fileName);
+		void saveSettingsFile(const std::filesystem::path& _fileName);
 
-		bool loadUserSettingsFile(std::string_view _fileName);
+		bool loadUserSettingsFile(const std::filesystem::path& _fileName);
 		void saveUserSettingsFile();
 
 		bool getExistValue(CString _path);
@@ -158,7 +159,7 @@ namespace tools
 	private:
 		pugi::xml_document* mDocument{nullptr};
 		pugi::xml_document* mUserDocument{nullptr};
-		std::string mUserSettingsFileName;
+		std::filesystem::path mUserSettingsFileName;
 	};
 
 }

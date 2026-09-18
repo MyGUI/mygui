@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 #include <SDL_syswm.h>
 
@@ -165,7 +166,7 @@ namespace base
 			// osgDB::writeImageFile writes image rows bottom-up (the osg::Image convention),
 			// so the raw GL_BACK readback (row 0 = bottom of the framebuffer) is written
 			// to the PNG in the correct top-down order without any extra flipping.
-			osgDB::writeImageFile(*image, mScreenShotFile);
+			osgDB::writeImageFile(*image, MyGUI::utility::pathToUTF8(mScreenShotFile));
 		}
 	}
 
@@ -175,7 +176,7 @@ namespace base
 		mViewer->getCamera()->setViewport(0, 0, _width, _height);
 	}
 
-	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}

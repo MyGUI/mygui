@@ -8,7 +8,7 @@
 #endif
 
 #include <filesystem>
-#include <fstream>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace base
 {
@@ -238,7 +238,7 @@ namespace base
 		char* basePath = SDL_GetBasePath();
 		if (basePath)
 		{
-			mBinaryDir = std::filesystem::path(basePath).parent_path();
+			mBinaryDir = MyGUI::utility::pathFromUTF8(basePath).parent_path();
 			SDL_free(basePath);
 		}
 		else
@@ -251,7 +251,7 @@ namespace base
 	{
 		MyGUI::xml::Document doc;
 
-		if (!doc.open((mBinaryDir / "resources.xml").string()))
+		if (!doc.open(mBinaryDir / "resources.xml"))
 		{
 			std::cerr << "Failed to load resources.xml: " << doc.getLastError() << std::endl;
 			exit(1);
@@ -266,21 +266,20 @@ namespace base
 		{
 			if (node->getName() == "Path")
 			{
+				const auto path = MyGUI::utility::pathFromUTF8(node->getContent());
 				if (!node->findAttribute("root").empty())
 				{
 					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
 					if (rootAttribute)
 					{
-						mRootMedia = node->getContent();
-						if (!std::filesystem::path(mRootMedia).is_absolute())
-							mRootMedia = (mBinaryDir / mRootMedia).string();
+						mRootMedia = mBinaryDir / path;
 					}
 				}
-				addResourceLocation(node->getContent(), false);
+				addResourceLocation(path, false);
 			}
 		}
 
-		addResourceLocation(getRootMedia() + "/Common/Base");
+		addResourceLocation(getRootMedia() / "Common/Base");
 	}
 
 	MyGUI::MapString SdlBaseManager::getStatistic()
@@ -348,10 +347,9 @@ namespace base
 		return {left, top, width, height};
 	}
 
-	void SdlBaseManager::setWindowCaption(const std::wstring& _text)
+	void SdlBaseManager::setWindowCaption(const MyGUI::UString& _text)
 	{
-		MyGUI::UString title(_text);
-		SDL_SetWindowTitle(mSdlWindow, title.asUTF8_c_str());
+		SDL_SetWindowTitle(mSdlWindow, _text.asUTF8_c_str());
 	}
 
 	void SdlBaseManager::injectMouseMove(int _absx, int _absy, int _absz)
@@ -443,7 +441,7 @@ namespace base
 		mExit = true;
 	}
 
-	const std::string& SdlBaseManager::getRootMedia() const
+	const std::filesystem::path& SdlBaseManager::getRootMedia() const
 	{
 		return mRootMedia;
 	}
@@ -455,11 +453,9 @@ namespace base
 
 	void SdlBaseManager::makeScreenShot()
 	{
-		std::ifstream stream;
-		std::string file;
+		std::filesystem::path file;
 		do
 		{
-			stream.close();
 			static size_t num = 0;
 			const size_t max_shot = 100;
 			if (num == max_shot)
@@ -468,15 +464,14 @@ namespace base
 				return;
 			}
 			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
-			stream.open(file.c_str());
-		} while (stream.is_open());
+		} while (std::filesystem::exists(file));
 		mScreenShotFile = file;
 		mScreenShotRequested = true;
 	}
 
 	void SdlBaseManager::setCommandLine(int _argc, char** _argv)
 	{
-		std::vector<std::wstring> args;
+		VectorPath args;
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		int argc = 0;
 		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
@@ -488,29 +483,28 @@ namespace base
 #else
 		args.reserve(_argc);
 		for (int i = 0; i < _argc; ++i)
-			args.push_back(MyGUI::UString(_argv[i]).asWStr());
+			args.push_back(MyGUI::utility::pathFromUTF8(_argv[i]));
 #endif
 
 		for (size_t i = 1; i < args.size(); ++i)
 		{
-			if (args[i] == L"--screenshot")
+			if (args[i] == "--screenshot")
 			{
-				const std::wstring file = (i + 1 < args.size()) ? args[++i] : L"screenshot.png";
-				mScreenShotFile = std::filesystem::absolute(MyGUI::UString(file).asUTF8()).string();
+				mScreenShotFile = std::filesystem::absolute((i + 1 < args.size()) ? args[++i] : "screenshot.png");
 				mScreenShotExit = true;
 				mScreenShotFramesLeft = cScreenShotFrames;
-				std::cerr << "Screenshot will be saved to " << mScreenShotFile << std::endl;
+				std::cerr << "Screenshot will be saved to " << MyGUI::utility::pathToUTF8(mScreenShotFile) << std::endl;
 				continue;
 			}
 
-			const std::string file = MyGUI::UString(args[i]).asUTF8();
+			const auto& file = args[i];
 			std::error_code ec;
 			if (std::filesystem::is_regular_file(file, ec))
-				mParams.push_back(MyGUI::UString(std::filesystem::absolute(file).string()).asWStr());
+				mParams.push_back(std::filesystem::absolute(file));
 		}
 	}
 
-	const SdlBaseManager::VectorWString& SdlBaseManager::getParams() const
+	const SdlBaseManager::VectorPath& SdlBaseManager::getParams() const
 	{
 		return mParams;
 	}

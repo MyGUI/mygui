@@ -14,8 +14,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Demos/Demo_MsdfFont");
-		addResourceLocation(getRootMedia() + "/Common/Demos");
+		addResourceLocation(getRootMedia() / "Demos/Demo_MsdfFont");
+		addResourceLocation(getRootMedia() / "Common/Demos");
 	}
 
 	void DemoKeeper::createScene()

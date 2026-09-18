@@ -10,6 +10,8 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataManager.h"
 
+#include <filesystem>
+
 namespace MyGUI
 {
 
@@ -46,12 +48,14 @@ namespace MyGUI
 		std::string getDataPath(const std::string& _name) const override;
 
 		/*internal:*/
-		void addResourceLocation(const std::string& _name, bool _recursive);
+		void addResourceLocation(const std::filesystem::path& _name, bool _recursive);
 
 	private:
+		std::filesystem::path findDataPath(const std::string& _name) const;
+
 		struct ArchiveInfo
 		{
-			std::wstring name;
+			std::filesystem::path name;
 			bool recursive{false};
 		};
 		using VectorArchiveInfo = std::vector<ArchiveInfo>;

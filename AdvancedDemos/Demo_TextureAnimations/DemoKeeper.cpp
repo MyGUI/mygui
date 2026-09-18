@@ -17,7 +17,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/AdvancedDemos/Demo_TextureAnimations");
+		addResourceLocation(getRootMedia() / "AdvancedDemos/Demo_TextureAnimations");
 	}
 
 	void DemoKeeper::createScene()

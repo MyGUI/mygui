@@ -6,6 +6,7 @@
 
 #include "Precompiled.h"
 #include "Application.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "Base/Main.h"
 #include "ActionManager.h"
 #include "CommandManager.h"
@@ -49,12 +50,12 @@ namespace tools
 	void Application::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
-		addResourceLocation(getRootMedia() + "/Tools/FontEditor");
-		addResourceLocation(getRootMedia() + "/Common/Tools");
-		addResourceLocation(getRootMedia() + "/Common/MessageBox");
-		addResourceLocation(getRootMedia() + "/Common/Themes");
-		addResourceLocation(getRootMedia() + "/Demos/Demo_MsdfFont");
+		addResourceLocation(getRootMedia() / "Tools/EditorFramework");
+		addResourceLocation(getRootMedia() / "Tools/FontEditor");
+		addResourceLocation(getRootMedia() / "Common/Tools");
+		addResourceLocation(getRootMedia() / "Common/MessageBox");
+		addResourceLocation(getRootMedia() / "Common/Themes");
+		addResourceLocation(getRootMedia() / "Demos/Demo_MsdfFont");
 		setResourceFilename(std::string_view{});
 	}
 
@@ -104,7 +105,8 @@ namespace tools
 	{
 		registerMsdfFonts();
 		new SettingsManager();
-		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
+		SettingsManager::getInstance().loadSettingsFile(
+			MyGUI::utility::pathFromUTF8(MyGUI::DataManager::getInstance().getDataPath("Settings.xml")));
 #ifdef MYGUI_USE_FREETYPE
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 #else
@@ -113,7 +115,7 @@ namespace tools
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty() && !isScreenShotMode())
-			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
+			SettingsManager::getInstance().loadUserSettingsFile(MyGUI::utility::pathFromUTF8(userSettingsFileName));
 
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
@@ -390,7 +392,7 @@ namespace tools
 		const SettingsManager::VectorString& additionalPaths =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (const auto& additionalPath : additionalPaths)
-			addResourceLocation(additionalPath);
+			addResourceLocation(MyGUI::utility::pathFromUTF8(additionalPath));
 
 		const SettingsManager::VectorString& additionalResources =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");

@@ -28,8 +28,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Common/Scene");
-		addResourceLocation(getRootMedia() + "/Common/Demos");
+		addResourceLocation(getRootMedia() / "Common/Scene");
+		addResourceLocation(getRootMedia() / "Common/Demos");
 		addResourceLocation(getRootMedia());
 	}
 

@@ -159,13 +159,14 @@ namespace base
 							for (size_t i = 3; i < convertedData.size(); i += 4)
 								convertedData[i] = 0xFF;
 
-							int wideLen = MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, nullptr, 0);
-							std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
-							MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, &wfilename[0], wideLen);
-
 							HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 							bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
-							MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, convertedData.data());
+							MyGUI::saveWICImage(
+								mScreenShotFile.c_str(),
+								width,
+								height,
+								dstStride,
+								convertedData.data());
 							if (comInitialized)
 								CoUninitialize();
 
@@ -207,7 +208,7 @@ namespace base
 		}
 	}
 
-	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}

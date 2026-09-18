@@ -15,7 +15,9 @@
 #include "MyGUI_DirectX11RenderManager.h"
 #include "MyGUI_DirectX11RTTexture.h"
 #include "MyGUI_DirectX11Diagnostic.h"
-#include "MyGUI_UString.h"
+
+#include <filesystem>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
 {
@@ -81,7 +83,7 @@ namespace MyGUI
 		destroy();
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
-		std::wstring wfullname = UString(fullname).asWStr();
+		const auto wfullname = MyGUI::utility::pathFromUTF8(fullname);
 
 		IWICImagingFactory* wicFactory = nullptr;
 		HRESULT hr =
@@ -305,10 +307,8 @@ namespace MyGUI
 			pixels = convertedData.data();
 		}
 
-		int wideLen = MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, nullptr, 0);
-		std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
-		MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, &wfilename[0], wideLen);
-		hr = MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, pixels);
+		const auto path = MyGUI::utility::pathFromUTF8(_filename);
+		hr = MyGUI::saveWICImage(path.c_str(), width, height, dstStride, pixels);
 
 		mManager->mpD3DContext->Unmap(stagingTexture, 0);
 		stagingTexture->Release();

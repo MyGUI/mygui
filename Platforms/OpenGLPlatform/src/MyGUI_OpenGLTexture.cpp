@@ -5,6 +5,7 @@
 */
 
 #include "MyGUI_OpenGLTexture.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_OpenGLPlatform.h"
@@ -339,8 +340,9 @@ namespace MyGUI
 	{
 		if (mImageLoader)
 		{
+			const auto path = MyGUI::utility::pathFromUTF8(_filename);
 			void* data = lock(TextureUsage::Read);
-			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, _filename);
+			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, path);
 			unlock();
 		}
 	}

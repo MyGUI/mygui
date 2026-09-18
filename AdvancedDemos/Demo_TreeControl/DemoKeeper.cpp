@@ -11,10 +11,12 @@
 #include "TreeControlItem.h"
 
 #include "FileSystemInfo.h"
+#include "MyGUI_FileSystemUtility.h"
+#include <filesystem>
 
 // root folder for all media
-static MyGUI::UString gMediaBase;
-using PairFileInfo = std::pair<std::wstring, common::FileInfo>;
+static std::filesystem::path gMediaBase;
+using PairFileInfo = std::pair<std::filesystem::path, common::FileInfo>;
 
 class SampleLayout : public wraps::BaseLayout
 {
@@ -50,13 +52,13 @@ SampleLayout::SampleLayout() :
 		pRoot->add(pNode);
 	}
 #else*/
-	common::VectorFileInfo result = common::getSystemFileList(gMediaBase, L"*.*");
+	common::VectorFileInfo result = common::getSystemFileList(gMediaBase, "*.*");
 
 	for (auto& item : result)
 	{
-		if (item.name == L".." || item.name == L".")
+		if (item.name == ".." || item.name == ".")
 			continue;
-		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node(item.name, "Data");
+		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node(MyGUI::utility::pathToUTF8(item.name), "Data");
 
 		pNode->setData(PairFileInfo(gMediaBase, item));
 		pRoot->add(pNode);
@@ -132,22 +134,23 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 	// if folder, add children
 	if (info.second.folder)
 	{
-		std::wstring path = info.first + L"/" + info.second.name;
-		common::VectorFileInfo result = common::getSystemFileList(path, L"*.*");
+		const auto path = info.first / info.second.name;
+		common::VectorFileInfo result = common::getSystemFileList(path, "*.*");
 
 		for (auto& item : result)
 		{
-			if (item.name == L".." || item.name == L".")
+			if (item.name == ".." || item.name == ".")
 				continue;
 			if (item.folder)
 			{
-				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(item.name, "Folder");
+				MyGUI::TreeControl::Node* pChild =
+					new MyGUI::TreeControl::Node(MyGUI::utility::pathToUTF8(item.name), "Folder");
 				pChild->setData(PairFileInfo(path, item));
 				pNode->add(pChild);
 			}
 			else
 			{
-				MyGUI::UString strName(item.name);
+				MyGUI::UString strName(MyGUI::utility::pathToUTF8(item.name));
 				std::string strExtension;
 				size_t nPosition = strName.rfind(".");
 				if (nPosition != MyGUI::UString::npos)
@@ -181,7 +184,8 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 				else
 					strImage = "Unknown";
 
-				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(item.name, strImage);
+				MyGUI::TreeControl::Node* pChild =
+					new MyGUI::TreeControl::Node(MyGUI::utility::pathToUTF8(item.name), strImage);
 				pChild->setPrepared(true);
 				pNode->add(pChild);
 			}
@@ -212,8 +216,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/AdvancedDemos/Demo_TreeControl");
-		addResourceLocation(getRootMedia() + "/Common/Tools");
+		addResourceLocation(getRootMedia() / "AdvancedDemos/Demo_TreeControl");
+		addResourceLocation(getRootMedia() / "Common/Tools");
 		gMediaBase = getRootMedia();
 	}
 

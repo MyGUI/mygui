@@ -13,7 +13,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/AdvancedDemos/Demo_RTTLayer");
+		addResourceLocation(getRootMedia() / "AdvancedDemos/Demo_RTTLayer");
 	}
 
 	void DemoKeeper::createScene()

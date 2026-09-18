@@ -5,6 +5,7 @@
 */
 
 #include "MyGUI_OgreDataManager.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreDataStream.h"
 
@@ -152,9 +153,10 @@ namespace MyGUI
 		return {};
 	}
 
-	void OgreDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void OgreDataManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, "FileSystem", mGroup, _recursive);
+		Ogre::ResourceGroupManager::getSingleton()
+			.addResourceLocation(MyGUI::utility::pathToUTF8(_name), "FileSystem", mGroup, _recursive);
 	}
 
 } // namespace MyGUI

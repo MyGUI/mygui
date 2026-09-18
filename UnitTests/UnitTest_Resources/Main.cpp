@@ -1,6 +1,10 @@
 #include "BehaviourTestSupport.h"
 #include "FixedFont.h"
+#include "FileSystemInfo.h"
 #include <sstream>
+#include <chrono>
+#include <fstream>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace
 {
@@ -125,6 +129,90 @@ namespace
 				"Empty, default, and missing names must resolve to the configured default font");
 	}
 
+	void testUnicodeLanguageTags()
+	{
+		unittest::TestContext context;
+		auto& language = MyGUI::LanguageManager::getInstance();
+		language.addUserTag("face", MyGUI::UString(0x1F600));
+		language.addUserTag("letter", MyGUI::UString(0x1D800));
+		language.addUserTag("pair", "#{face}#{letter}");
+		require(
+			language.replaceTags("#{face}").asUTF32() == U"\U0001F600",
+			"A supplementary replacement at the end must not advance past the text");
+		require(
+			language.replaceTags("#{face}#{letter}!").asUTF32() == U"\U0001F600\U0001D800!",
+			"Adjacent tags must survive supplementary replacements");
+		require(
+			language.replaceTags("#{pair}").asUTF32() == U"\U0001F600\U0001D800",
+			"Nested replacement passes must use code-point positions");
+	}
+
+	void testUnicodeFilePaths()
+	{
+		require(
+			MyGUI::utility::pathFromUTF8(std::string_view()).empty() &&
+				MyGUI::utility::pathToUTF8(std::filesystem::path()).empty(),
+			"Filesystem UTF-8 adapters must preserve empty paths");
+		const auto directory = std::filesystem::temp_directory_path() /
+			MyGUI::utility::pathFromUTF8(
+								   "mygui-\xD0\x91\xF0\x9F\x98\x80-" +
+								   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+		std::filesystem::create_directory(directory);
+		struct Cleanup
+		{
+			std::filesystem::path path;
+			~Cleanup()
+			{
+				std::error_code error;
+				std::filesystem::remove_all(path, error);
+			}
+		} cleanup{directory};
+		const MyGUI::UString name(std::u32string(U"\u0411\U0001F600.xml"));
+		const auto filename = MyGUI::utility::pathFromUTF8(name.asUTF8());
+		const auto path = directory / filename;
+		const auto utf8Path = MyGUI::utility::pathToUTF8(path);
+		MyGUI::xml::Document document;
+		std::istringstream input("<MyGUI/>");
+		require(document.open(input), "The test document must parse");
+		require(document.save(path), "XML must save to a native filesystem path");
+		require(document.open(path), "XML must open a native filesystem path");
+		require(document.open(utf8Path), "The same Unicode file must open via a UTF-8 path");
+		require(document.save(utf8Path), "XML must save to a UTF-8 Unicode path");
+		const MyGUI::UString mask(std::u32string(U"\u0411?.xml"));
+		require(common::matchWildcard(mask, name), "A wildcard must match one complete supplementary character");
+		require(!common::matchWildcard("?.xml", name), "A wildcard must not consume two code points");
+		const auto files = common::getSystemFileList(directory, MyGUI::utility::pathFromUTF8(mask.asUTF8()));
+		require(
+			files.size() == 2 && files[1].name == filename && !files[1].folder,
+			"File dialogs must list and filter Unicode filenames");
+		common::VectorPath scanned;
+		common::scanFolder(scanned, directory, true, mask, true);
+		require(scanned.size() == 1 && scanned.front() == path, "Resource scanning must preserve Unicode paths");
+		scanned.clear();
+		common::scanFolder(scanned, directory, false, mask, false);
+		require(
+			scanned.size() == 1 && scanned.front() == filename,
+			"Filename-only scans must return relative native paths");
+		const auto subdirectory = MyGUI::utility::pathFromUTF8("sub-\xD0\x91\xF0\x9F\x98\x80");
+		std::filesystem::create_directory(directory / subdirectory);
+		require(document.save(directory / subdirectory / filename), "XML must save inside a Unicode subdirectory");
+		scanned.clear();
+		common::scanFolder(scanned, directory, true, mask, true);
+		require(
+			scanned.size() == 2 &&
+				std::find(scanned.begin(), scanned.end(), directory / subdirectory / filename) != scanned.end(),
+			"Recursive scans must preserve Unicode subdirectory paths");
+		const auto nestedFiles =
+			common::getSystemFileList(directory, subdirectory / MyGUI::utility::pathFromUTF8(mask.asUTF8()));
+		require(
+			nestedFiles.size() == 2 && nestedFiles[1].name == filename,
+			"File masks must support a directory prefix");
+
+		std::ifstream file(path, std::ios::binary);
+		MyGUI::xml::Document streamed;
+		require(file.is_open() && streamed.open(file), "Native paths must open Unicode filenames through file streams");
+	}
+
 	void testXmlFailureAndRecovery()
 	{
 		MyGUI::xml::Document document;
@@ -155,10 +243,12 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Unicode language tags", testUnicodeLanguageTags},
 		{"Layout instances, properties, and prefixes", testLayoutInstances},
 		{"Parented layout ownership", testParentedLayout},
 		{"Resource removal and missing lookup", testResourceRemovalAndMissing},
 		{"Default font fallback", testFontFallback},
 		{"XML failure and recovery", testXmlFailureAndRecovery},
+		{"Unicode filenames and wildcards", testUnicodeFilePaths},
 	});
 }

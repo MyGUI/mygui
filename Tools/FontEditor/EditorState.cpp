@@ -7,7 +7,6 @@
 #include "Precompiled.h"
 #include "EditorState.h"
 #include "Application.h"
-#include "FileSystemInfo.h"
 #include "Localise.h"
 #include "CommandManager.h"
 #include "ActionManager.h"
@@ -21,6 +20,7 @@
 #include "FactoryManager.h"
 #include "SettingsManager.h"
 #include "FontExportSerializer.h"
+#include "MyGUI_FileSystemUtility.h"
 
 namespace tools
 {
@@ -41,15 +41,17 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_Undo")->connect(this, &EditorState::commandUndo);
 		CommandManager::getInstance().getEvent("Command_Redo")->connect(this, &EditorState::commandRedo);
 
-		if (!SettingsManager::getInstance().tryGetValue("EditorState/DefaultFileName", mDefaultFileName))
-			mDefaultFileName = "unnamed.xml";
+		auto& settings = SettingsManager::getInstance();
+		mDefaultFileName = MyGUI::utility::pathFromUTF8(
+			settings.getExistValue("EditorState/DefaultFileName") ? settings.getValue("EditorState/DefaultFileName")
+																  : "unnamed.xml");
 		mFileName = mDefaultFileName;
 	}
 
 	void EditorState::initState()
 	{
 		addUserTag("\\n", "\n");
-		addUserTag("CurrentFileName", mFileName);
+		addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 		mMainPane = new Control();
 		mMainPane->Initialise(SettingsManager::getInstance().getValue("EditorState/MainPaneLayout"));
@@ -77,7 +79,7 @@ namespace tools
 		if (!Application::getInstance().getParams().empty())
 		{
 			mFileName = Application::getInstance().getParams().front();
-			addUserTag("CurrentFileName", mFileName);
+			addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 			load();
 			updateCaption();
@@ -226,7 +228,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mDropFileName = CommandManager::getInstance().getCommandData();
+		mDropFileName = MyGUI::utility::pathFromUTF8(CommandManager::getInstance().getCommandData().asUTF8());
 		if (mDropFileName.empty())
 			return;
 
@@ -287,7 +289,7 @@ namespace tools
 	void EditorState::loadDropFile()
 	{
 		mFileName = mDropFileName;
-		addUserTag("CurrentFileName", mFileName);
+		addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 		load();
 		updateCaption();
@@ -309,10 +311,9 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				mFileName = common::concatenatePath(
-					mOpenSaveFileDialog->getCurrentFolder(),
-					mOpenSaveFileDialog->getFileName());
-				addUserTag("CurrentFileName", mFileName);
+				mFileName = mOpenSaveFileDialog->getCurrentFolder() /
+					MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8());
+				addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 				save();
 				updateCaption();
@@ -326,10 +327,9 @@ namespace tools
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				mFileName = common::concatenatePath(
-					mOpenSaveFileDialog->getCurrentFolder(),
-					mOpenSaveFileDialog->getFileName());
-				addUserTag("CurrentFileName", mFileName);
+				mFileName = mOpenSaveFileDialog->getCurrentFolder() /
+					MyGUI::utility::pathFromUTF8(mOpenSaveFileDialog->getFileName().asUTF8());
+				addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 				load();
 				updateCaption();
@@ -416,7 +416,7 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
 		mFileName = mDefaultFileName;
-		addUserTag("CurrentFileName", mFileName);
+		addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 		updateCaption();
 	}
@@ -428,14 +428,14 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
 		pugi::xml_document doc;
-		pugi::xml_parse_result result = doc.load_file(mFileName.asWStr_c_str());
+		pugi::xml_parse_result result = doc.load_file(mFileName.c_str());
 		if (result)
 		{
 			bool success = ExportManager::getInstance().deserialization(doc);
 			if (success)
 			{
 				if (mFileName != mDefaultFileName)
-					RecentFilesManager::getInstance().addRecentFile(mFileName);
+					RecentFilesManager::getInstance().addRecentFile(MyGUI::utility::pathToUTF8(mFileName));
 
 				DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 			}
@@ -447,7 +447,7 @@ namespace tools
 					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Yes);
 
 				mFileName = mDefaultFileName;
-				addUserTag("CurrentFileName", mFileName);
+				addUserTag("CurrentFileName", MyGUI::utility::pathToUTF8(mFileName));
 
 				updateCaption();
 			}
@@ -470,12 +470,12 @@ namespace tools
 
 		ExportManager::getInstance().serialization(doc);
 
-		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t");
+		bool result = doc.save_file(mFileName.c_str(), "\t");
 
 		if (result)
 		{
 			if (mFileName != mDefaultFileName)
-				RecentFilesManager::getInstance().addRecentFile(mFileName);
+				RecentFilesManager::getInstance().addRecentFile(MyGUI::utility::pathToUTF8(mFileName));
 
 			ActionManager::getInstance().saveChanges();
 			return true;

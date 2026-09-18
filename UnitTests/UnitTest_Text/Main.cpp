@@ -156,6 +156,27 @@ namespace
 			translated = true;
 		}
 		require(translated, "Conversion errors must use the MyGUI exception type");
+
+#if defined(__cpp_char8_t)
+		const MyGUI::UString literal = u8"A\U0001F600";
+		require(literal == "A\xF0\x9F\x98\x80", "UTF-8 literals must accept char8_t input");
+		const std::u8string bytes(u8"A\U0001F600\0B", 7);
+		const std::string expected("A\xF0\x9F\x98\x80\0B", 7);
+		const MyGUI::UString owned = bytes;
+		const MyGUI::UString viewed{std::u8string_view(bytes)};
+		const MyGUI::UString bounded(bytes.data(), bytes.size());
+		require(
+			owned.asUTF8() == expected && viewed == owned && bounded == owned,
+			"char8_t string, view and bounded input must preserve embedded nulls");
+		text.assign(std::u8string_view(bytes));
+		require(text == owned, "Assignment must accept UTF-8 char8_t views");
+		text.assign(std::u8string_view());
+		require(text.empty(), "An empty char8_t view must clear the text");
+		require(
+			MyGUI::UString(std::u8string_view()).empty() &&
+				MyGUI::UString(static_cast<const char8_t*>(nullptr), 0).empty(),
+			"Empty char8_t input must accept a null data pointer");
+#endif
 	}
 
 	void testTextIteratorCodePointEdits()

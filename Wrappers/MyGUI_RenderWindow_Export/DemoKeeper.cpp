@@ -16,7 +16,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Wrapper/WrapperBaseApp");
+		addResourceLocation(getRootMedia() / "Wrapper/WrapperBaseApp");
 	}
 
 	void DemoKeeper::createScene()
@@ -31,7 +31,7 @@ namespace demo
 
 	void DemoKeeper::notifyFrameStart(float _time)
 	{
-		if (mFrameStartDelegate  != nullptr)
+		if (mFrameStartDelegate != nullptr)
 			mFrameStartDelegate(_time);
 	}
 

@@ -15,6 +15,7 @@
 #include "EditorWidgets.h"
 #include "WidgetSelectorManager.h"
 #include "SettingsManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 namespace tools
 {
@@ -258,7 +259,7 @@ namespace tools
 
 	void ProjectControl::updateProjectSkins()
 	{
-		MyGUI::ResourceManager::getInstance().load(mProjectName);
+		MyGUI::ResourceManager::getInstance().load(MyGUI::utility::pathToUTF8(mProjectName));
 	}
 
 	void ProjectControl::command_OpenRecentProject(const MyGUI::UString& _commandName, bool& _result)
@@ -282,8 +283,8 @@ namespace tools
 			fileName = data.substr(index + 1);
 		}
 
-		RecentFilesManager::getInstance().setRecentFolder(filePath);
-		setFileName(filePath, fileName);
+		RecentFilesManager::getInstance().setRecentFolder(MyGUI::utility::pathFromUTF8(filePath.asUTF8()));
+		setFileName(MyGUI::utility::pathFromUTF8(filePath.asUTF8()), fileName);
 
 		if (!load())
 		{
@@ -322,7 +323,7 @@ namespace tools
 		mList->removeAllItems();
 		MyGUI::VectorString items;
 
-		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+		const auto fileName = mProjectPath / mProjectName;
 
 		MyGUI::xml::Document doc;
 		if (!doc.open(fileName))
@@ -334,7 +335,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.getRoot();
 		if ((nullptr == root) || (root->getName() != "MyGUI"))
 		{
-			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
+			MYGUI_LOGGING(LogSection, Error, "'" << MyGUI::utility::pathToUTF8(fileName) << "', tag 'MyGUI' not found");
 			return false;
 		}
 
@@ -363,7 +364,7 @@ namespace tools
 				mList->addItem(colour_error + (*item));
 		}
 
-		RecentFilesManager::getInstance().addRecentProject(fileName);
+		RecentFilesManager::getInstance().addRecentProject(MyGUI::utility::pathToUTF8(fileName));
 
 		return true;
 	}
@@ -399,27 +400,27 @@ namespace tools
 		return false;
 	}
 
-	void ProjectControl::setFileName(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName)
+	void ProjectControl::setFileName(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName)
 	{
-		mProjectName = _fileName;
+		mProjectName = MyGUI::utility::pathFromUTF8(_fileName.asUTF8());
 		mProjectPath = _filePath;
 
-		SettingsManager::getInstance().setValue("Files/LastProjectName", mProjectName);
-		SettingsManager::getInstance().setValue("Files/LastProjectPath", mProjectPath);
+		SettingsManager::getInstance().setValue("Files/LastProjectName", MyGUI::utility::pathToUTF8(mProjectName));
+		SettingsManager::getInstance().setValue("Files/LastProjectPath", MyGUI::utility::pathToUTF8(mProjectPath));
 
-		addUserTag("CurrentProjectName", mProjectName);
+		addUserTag("CurrentProjectName", MyGUI::utility::pathToUTF8(mProjectName));
 	}
 
 	void ProjectControl::updateCaption()
 	{
-		mProjectNameText->setCaption(mProjectName);
+		mProjectNameText->setCaption(MyGUI::utility::pathToUTF8(mProjectName));
 	}
 
 	bool ProjectControl::deleteItemFromProject(size_t _index)
 	{
 		bool deleted = false;
 
-		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+		const auto fileName = mProjectPath / mProjectName;
 
 		MyGUI::xml::Document doc;
 		if (!doc.open(fileName))
@@ -431,7 +432,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.getRoot();
 		if ((nullptr == root) || (root->getName() != "MyGUI"))
 		{
-			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
+			MYGUI_LOGGING(LogSection, Error, "'" << MyGUI::utility::pathToUTF8(fileName) << "', tag 'MyGUI' not found");
 			return false;
 		}
 
@@ -463,7 +464,7 @@ namespace tools
 	{
 		bool renamed = false;
 
-		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+		const auto fileName = mProjectPath / mProjectName;
 
 		MyGUI::xml::Document doc;
 		if (!doc.open(fileName))
@@ -475,7 +476,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.getRoot();
 		if ((nullptr == root) || (root->getName() != "MyGUI"))
 		{
-			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
+			MYGUI_LOGGING(LogSection, Error, "'" << MyGUI::utility::pathToUTF8(fileName) << "', tag 'MyGUI' not found");
 			return false;
 		}
 
@@ -548,14 +549,15 @@ namespace tools
 		}
 	}
 
-	bool ProjectControl::isExistFile(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName)
+	bool ProjectControl::isExistFile(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName)
 	{
-		common::VectorFileInfo fileInfo = common::getSystemFileList(_filePath, _fileName, false);
+		common::VectorFileInfo fileInfo =
+			common::getSystemFileList(_filePath, MyGUI::utility::pathFromUTF8(_fileName.asUTF8()), false);
 
 		return !fileInfo.empty();
 	}
 
-	void ProjectControl::createProject(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName)
+	void ProjectControl::createProject(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName)
 	{
 		clear();
 
@@ -567,10 +569,10 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Resource");
 
-		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+		const auto fileName = mProjectPath / mProjectName;
 		doc.save(fileName);
 
-		RecentFilesManager::getInstance().addRecentProject(fileName);
+		RecentFilesManager::getInstance().addRecentProject(MyGUI::utility::pathToUTF8(fileName));
 
 		updateCaption();
 	}
@@ -581,14 +583,15 @@ namespace tools
 			return;
 
 		MyGUI::UString data =
-			MyGUI::utility::toString(MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)), "|", _index);
+			MyGUI::utility::toString(MyGUI::utility::pathToUTF8(mProjectPath / mProjectName), "|", _index);
 		CommandManager::getInstance().setCommandData(data);
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
 
 	bool ProjectControl::isProjectItemOpen()
 	{
-		return EditorWidgets::getInstance().getCurrentFileName() == common::concatenatePath(mProjectPath, mProjectName);
+		return EditorWidgets::getInstance().getCurrentFileName() ==
+			MyGUI::utility::pathToUTF8(mProjectPath / mProjectName);
 	}
 
 	void ProjectControl::saveItemToProject()
@@ -616,10 +619,8 @@ namespace tools
 
 		if (indexItem != MyGUI::ITEM_NONE)
 		{
-			MyGUI::UString fileName = MyGUI::utility::toString(
-				MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)),
-				"|",
-				indexItem);
+			MyGUI::UString fileName =
+				MyGUI::utility::toString(MyGUI::utility::pathToUTF8(mProjectPath / mProjectName), "|", indexItem);
 			CommandManager::getInstance().setCommandData(fileName);
 			CommandManager::getInstance().executeCommand("Command_SaveItemAs");
 		}
@@ -627,7 +628,7 @@ namespace tools
 
 	bool ProjectControl::addItemToProject(const MyGUI::UString& _name, size_t& _index)
 	{
-		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+		const auto fileName = mProjectPath / mProjectName;
 
 		MyGUI::xml::Document doc;
 		if (!doc.open(fileName))
@@ -639,7 +640,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.getRoot();
 		if ((nullptr == root) || (root->getName() != "MyGUI"))
 		{
-			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
+			MYGUI_LOGGING(LogSection, Error, "'" << MyGUI::utility::pathToUTF8(fileName) << "', tag 'MyGUI' not found");
 			return false;
 		}
 
@@ -672,7 +673,8 @@ namespace tools
 	void ProjectControl::loadLastProject()
 	{
 		MyGUI::UString projectName = SettingsManager::getInstance().getValue("Files/LastProjectName");
-		MyGUI::UString projectPath = SettingsManager::getInstance().getValue("Files/LastProjectPath");
+		const auto projectPath =
+			MyGUI::utility::pathFromUTF8(SettingsManager::getInstance().getValue("Files/LastProjectPath"));
 
 		if (projectName.empty())
 			return;

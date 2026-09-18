@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base/PlatformBaseManager/SdlBaseManager.h"
+#include <filesystem>
 
 #include <VkBootstrap.h>
 #include <vulkan/vulkan.h>
@@ -23,7 +24,7 @@ namespace base
 		void destroyRender() override;
 		void drawOneFrame() override;
 		void resizeRender(int _width, int _height) override;
-		void addResourceLocation(const std::string& _name, bool _recursive = false) override;
+		void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
 
@@ -34,7 +35,7 @@ namespace base
 			int _height,
 			MyGUI::PixelFormat _format,
 			void* _texture,
-			const std::string& _filename) override;
+			const std::filesystem::path& _filename) override;
 
 	private:
 		void createSwapchain();
@@ -75,7 +76,7 @@ namespace base
 		VkBuffer mScreenShotBuffer = VK_NULL_HANDLE;
 		VkDeviceMemory mScreenShotBufferMemory = VK_NULL_HANDLE;
 		VkDeviceSize mScreenShotBufferSize = 0;
-		std::string mScreenShotFileName;
+		std::filesystem::path mScreenShotFileName;
 	};
 
 }

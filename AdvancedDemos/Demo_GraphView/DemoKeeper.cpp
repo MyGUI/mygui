@@ -5,6 +5,7 @@
 */
 
 #include "Precompiled.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "GraphNodeEventController.h"
@@ -65,9 +66,9 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/AdvancedDemos/Demo_GraphView");
-		addResourceLocation(getRootMedia() + "/Common/Tools");
-		addResourceLocation(getRootMedia() + "/Common/Scene");
+		addResourceLocation(getRootMedia() / "AdvancedDemos/Demo_GraphView");
+		addResourceLocation(getRootMedia() / "Common/Tools");
+		addResourceLocation(getRootMedia() / "Common/Scene");
 	}
 
 	void DemoKeeper::createScene()
@@ -106,7 +107,7 @@ namespace demo
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
-		loadFromFile(getRootMedia() + "/AdvancedDemos/Demo_GraphView/TestAnimation.xml");
+		loadFromFile(getRootMedia() / "AdvancedDemos/Demo_GraphView/TestAnimation.xml");
 	}
 
 	void DemoKeeper::destroyScene()
@@ -311,18 +312,14 @@ namespace demo
 				size_t index = filename.find_first_of('.');
 				if (index == std::string::npos)
 					filename += ".xml";
-				filename = mFileDialog->getCurrentFolder() + "/" + filename;
-
-				saveToFile(filename);
+				saveToFile(mFileDialog->getCurrentFolder() / MyGUI::utility::pathFromUTF8(filename));
 			}
 			else
 			{
 				ClearGraph();
 
 				std::string filename = mFileDialog->getFileName();
-				filename = mFileDialog->getCurrentFolder() + "/" + filename;
-
-				loadFromFile(filename);
+				loadFromFile(mFileDialog->getCurrentFolder() / MyGUI::utility::pathFromUTF8(filename));
 			}
 		}
 
@@ -334,7 +331,7 @@ namespace demo
 		mGraphView->removeAllItems();
 	}
 
-	void DemoKeeper::saveToFile(const std::string& _filename)
+	void DemoKeeper::saveToFile(const std::filesystem::path& _filename)
 	{
 		MyGUI::xml::Document doc;
 
@@ -402,7 +399,7 @@ namespace demo
 		doc.save(_filename);
 	}
 
-	void DemoKeeper::loadFromFile(const std::string& _filename)
+	void DemoKeeper::loadFromFile(const std::filesystem::path& _filename)
 	{
 		MyGUI::xml::Document doc;
 

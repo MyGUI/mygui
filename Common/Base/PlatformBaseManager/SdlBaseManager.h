@@ -24,22 +24,22 @@ namespace base
 		virtual void destroyGuiPlatform() = 0;
 		virtual void drawOneFrame() = 0;
 		virtual void resizeRender(int _width, int _height) = 0;
-		virtual void addResourceLocation(const std::string& _name, bool _recursive = false) = 0;
+		virtual void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) = 0;
 
 		bool create(int _width = 1024, int _height = 768);
 		void destroy();
 		void run();
 		void quit();
 
-		void setWindowCaption(const std::wstring& _text);
+		void setWindowCaption(const MyGUI::UString& _text);
 
-		const std::string& getRootMedia() const;
+		const std::filesystem::path& getRootMedia() const;
 		void setResourceFilename(std::string_view _flename);
 		void makeScreenShot();
 		void setCommandLine(int _argc, char** _argv);
 
-		using VectorWString = std::vector<std::wstring>;
-		const VectorWString& getParams() const;
+		using VectorPath = std::vector<std::filesystem::path>;
+		const VectorPath& getParams() const;
 		bool isScreenShotMode() const;
 
 		/*internal:*/
@@ -85,10 +85,10 @@ namespace base
 		// SDL window and mouse coordinates may already be logical points (macOS).
 		float mWindowScale = 1.0f;
 		bool mScreenShotRequested = false;
-		std::string mScreenShotFile;
+		std::filesystem::path mScreenShotFile;
 		bool mScreenShotExit = false;
 		int mScreenShotFramesLeft = 0;
-		VectorWString mParams;
+		VectorPath mParams;
 		std::filesystem::path mBinaryDir;
 
 	private:
@@ -98,7 +98,7 @@ namespace base
 		bool mPlatformReady = false;
 		bool mExit = false;
 		SDL_Event mEvent;
-		std::string mRootMedia;
+		std::filesystem::path mRootMedia;
 		std::string mResourceFileName = "MyGUI_Core.xml";
 		bool mWindowOn = false;
 		SDL_Keycode mKeyCode;

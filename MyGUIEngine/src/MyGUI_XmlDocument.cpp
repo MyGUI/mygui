@@ -11,6 +11,7 @@
 #include <pugixml.hpp>
 #include <fstream>
 #include <filesystem>
+#include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI::xml
 {
@@ -26,19 +27,19 @@ namespace MyGUI::xml
 
 	bool Document::open(const std::string& _filename)
 	{
+		return open(MyGUI::utility::pathFromUTF8(_filename));
+	}
+
+	bool Document::open(const std::filesystem::path& _filename)
+	{
 		clear();
 
-		*mResult = mDoc->load_file(std::filesystem::u8path(_filename).c_str(), ParseFlags);
+		*mResult = mDoc->load_file(_filename.c_str(), ParseFlags);
 
 		if (!*mResult)
 			mLastErrorFile = _filename;
 
 		return *mResult;
-	}
-
-	bool Document::open(const std::wstring& _filename)
-	{
-		return open(UString(_filename).asUTF8());
 	}
 
 	bool Document::open(std::istream& _stream)
@@ -48,7 +49,7 @@ namespace MyGUI::xml
 		*mResult = mDoc->load(_stream, ParseFlags);
 
 		if (!*mResult)
-			mLastErrorFile = "<stream>";
+			mLastErrorFromStream = true;
 
 		return *mResult;
 	}
@@ -84,19 +85,20 @@ namespace MyGUI::xml
 
 	bool Document::save(const std::string& _filename)
 	{
-		bool result = mDoc->save_file(std::filesystem::u8path(_filename).c_str(), "\t", FormatFlags);
+		return save(MyGUI::utility::pathFromUTF8(_filename));
+	}
+
+	bool Document::save(const std::filesystem::path& _filename)
+	{
+		bool result = mDoc->save_file(_filename.c_str(), "\t", FormatFlags);
 
 		if (!result)
 		{
 			mLastError = "Failed to save XML file";
+			mLastErrorFromStream = false;
 			mLastErrorFile = _filename;
 		}
 		return result;
-	}
-
-	bool Document::save(const std::wstring& _filename)
-	{
-		return save(UString(_filename).asUTF8());
 	}
 
 	bool Document::save(std::ostream& _stream)
@@ -111,6 +113,7 @@ namespace MyGUI::xml
 		*mResult = {};
 		mLastError.clear();
 		mLastErrorFile.clear();
+		mLastErrorFromStream = false;
 	}
 
 	bool Document::open(const UString& _filename)
@@ -128,6 +131,7 @@ namespace MyGUI::xml
 		*mResult = {};
 		mLastError.clear();
 		mLastErrorFile.clear();
+		mLastErrorFromStream = false;
 	}
 
 	ElementPtr Document::getRoot() const
@@ -169,13 +173,14 @@ namespace MyGUI::xml
 
 	std::string Document::getLastError() const
 	{
+		const std::string fileName = mLastErrorFromStream ? "<stream>" : MyGUI::utility::pathToUTF8(mLastErrorFile);
 		if (!*mResult)
 		{
 			size_t line = 0, col = 0;
 			std::string lineText;
 			if (mResult->offset >= 0 && !mLastErrorFile.empty())
 			{
-				std::ifstream file(std::filesystem::u8path(mLastErrorFile), std::ios::binary);
+				std::ifstream file(mLastErrorFile, std::ios::binary);
 				if (file)
 				{
 					line = 1;
@@ -202,11 +207,11 @@ namespace MyGUI::xml
 				}
 			}
 			return utility::
-				toString("'", mResult->description(), "', ", mLastErrorFile, "(", line, ",", col, "): ", lineText);
+				toString("'", mResult->description(), "', ", fileName, "(", line, ",", col, "): ", lineText);
 		}
 		if (!mLastError.empty())
 		{
-			return utility::toString("'", mLastError, "', file='", mLastErrorFile, "'");
+			return utility::toString("'", mLastError, "', file='", fileName, "'");
 		}
 		return {};
 	}

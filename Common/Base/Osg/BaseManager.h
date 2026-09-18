@@ -32,7 +32,7 @@ namespace base
 		void destroyRender() override;
 		void drawOneFrame() override;
 		void resizeRender(int _width, int _height) override;
-		void addResourceLocation(const std::string& _name, bool _recursive = false) override;
+		void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
 

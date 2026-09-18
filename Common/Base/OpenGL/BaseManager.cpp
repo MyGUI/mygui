@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 #include <SDL_image.h>
 #include <MyGUI_GL.h>
@@ -94,7 +95,7 @@ namespace base
 		glViewport(0, 0, dw, dh);
 	}
 
-	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
@@ -133,13 +134,13 @@ namespace base
 		int _height,
 		MyGUI::PixelFormat _format,
 		void* _texture,
-		const std::string& _filename)
+		const std::filesystem::path& _filename)
 	{
 		int bpp = _format.getBytesPerPixel();
 		Uint32 fmt = (bpp == 3) ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_BGRA32;
 		SDL_Surface* surface =
 			SDL_CreateRGBSurfaceWithFormatFrom(_texture, _width, _height, bpp * 8, _width * bpp, fmt);
-		IMG_SavePNG(surface, _filename.c_str());
+		IMG_SavePNG(surface, MyGUI::utility::pathToUTF8(_filename).c_str());
 		SDL_FreeSurface(surface);
 	}
 

@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 #include <Ogre.h>
 
@@ -140,7 +141,7 @@ namespace base
 		if (mScreenShotRequested)
 		{
 			mScreenShotRequested = false;
-			mWindow->writeContentsToFile(mScreenShotFile);
+			mWindow->writeContentsToFile(MyGUI::utility::pathToUTF8(mScreenShotFile));
 		}
 	}
 
@@ -150,10 +151,10 @@ namespace base
 		mCamera->setAspectRatio((float)_width / (float)_height);
 	}
 
-	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		Ogre::ResourceGroupManager::getSingleton()
-			.addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
+			.addResourceLocation(MyGUI::utility::pathToUTF8(_name), "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
 	MyGUI::MapString BaseManager::getStatistic()

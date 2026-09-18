@@ -9,6 +9,7 @@
 #define MYGUI_OPENGL_IMAGE_LOADER_H_
 
 #include "MyGUI_Prerequest.h"
+#include <filesystem>
 #include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
@@ -25,7 +26,7 @@ namespace MyGUI
 			int _height,
 			MyGUI::PixelFormat _format,
 			void* _texture,
-			const std::string& _filename) = 0;
+			const std::filesystem::path& _filename) = 0;
 	};
 
 } // namespace MyGUI

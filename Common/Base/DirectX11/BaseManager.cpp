@@ -171,10 +171,7 @@ namespace base
 						for (size_t i = 0; i < convertedData.size(); i += 4)
 							std::swap(convertedData[i], convertedData[i + 2]);
 
-						int wideLen = MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, nullptr, 0);
-						std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
-						MultiByteToWideChar(CP_UTF8, 0, mScreenShotFile.c_str(), -1, &wfilename[0], wideLen);
-						MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, convertedData.data());
+						MyGUI::saveWICImage(mScreenShotFile.c_str(), width, height, dstStride, convertedData.data());
 
 						mDeviceContext->Unmap(stagingTexture, 0);
 					}
@@ -227,7 +224,7 @@ namespace base
 		}
 	}
 
-	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}

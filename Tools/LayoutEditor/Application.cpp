@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "Common.h"
 #include "Application.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
@@ -48,16 +49,16 @@ namespace tools
 	void Application::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
-		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor");
-		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
-		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
-		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
-		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
-		addResourceLocation(getRootMedia() + "/Common/Demos");
-		addResourceLocation(getRootMedia() + "/Common/Tools");
-		addResourceLocation(getRootMedia() + "/Common/MessageBox");
-		addResourceLocation(getRootMedia() + "/Common/Themes");
+		addResourceLocation(getRootMedia() / "Tools/EditorFramework");
+		addResourceLocation(getRootMedia() / "Tools/LayoutEditor");
+		addResourceLocation(getRootMedia() / "Tools/LayoutEditor/Panels");
+		addResourceLocation(getRootMedia() / "Tools/LayoutEditor/Themes");
+		addResourceLocation(getRootMedia() / "Tools/LayoutEditor/Settings");
+		addResourceLocation(getRootMedia() / "Tools/LayoutEditor/CodeTemplates");
+		addResourceLocation(getRootMedia() / "Common/Demos");
+		addResourceLocation(getRootMedia() / "Common/Tools");
+		addResourceLocation(getRootMedia() / "Common/MessageBox");
+		addResourceLocation(getRootMedia() / "Common/Themes");
 		setResourceFilename(std::string_view{});
 	}
 
@@ -73,7 +74,8 @@ namespace tools
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		new SettingsManager();
-		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
+		SettingsManager::getInstance().loadSettingsFile(
+			MyGUI::utility::pathFromUTF8(MyGUI::DataManager::getInstance().getDataPath("Settings.xml")));
 #ifdef MYGUI_USE_FREETYPE
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 #else
@@ -81,7 +83,7 @@ namespace tools
 #endif
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty() && !isScreenShotMode())
-			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
+			SettingsManager::getInstance().loadUserSettingsFile(MyGUI::utility::pathFromUTF8(userSettingsFileName));
 
 		LoadGuiSettings();
 
@@ -391,7 +393,7 @@ namespace tools
 		const SettingsManager::VectorString& additionalPaths =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (const auto& additionalPath : additionalPaths)
-			addResourceLocation(additionalPath);
+			addResourceLocation(MyGUI::utility::pathFromUTF8(additionalPath));
 
 		const SettingsManager::VectorString& additionalResources =
 			SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");

@@ -15,6 +15,7 @@
 #include "GraphNodeFactory.h"
 #include "OpenSaveFileDialog.h"
 #include "ContextMenu.h"
+#include <filesystem>
 
 namespace demo
 {
@@ -46,8 +47,8 @@ namespace demo
 		void ClearGraph();
 
 		void notifyEndDialog(tools::Dialog* _dialog, bool _result);
-		void saveToFile(const std::string& _filename);
-		void loadFromFile(const std::string& _filename);
+		void saveToFile(const std::filesystem::path& _filename);
+		void loadFromFile(const std::filesystem::path& _filename);
 
 		BaseAnimationNode* createNode(std::string_view _type, std::string_view _name);
 		BaseAnimationNode* getNodeByName(std::string_view _name);

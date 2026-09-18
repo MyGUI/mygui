@@ -11,7 +11,7 @@
 #include "DataTypeManager.h"
 #include "PropertyUtility.h"
 #include <MyGUI_ResourceTrueTypeFont.h>
-#include "FileSystemInfo.h"
+#include "MyGUI_FileSystemUtility.h"
 
 namespace tools
 {
@@ -170,7 +170,7 @@ namespace tools
 		addProperty("Shader");
 	}
 
-	bool FontExportSerializer::exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName)
+	bool FontExportSerializer::exportData(const std::filesystem::path& _folderName, const MyGUI::UString& _fileName)
 	{
 		MyGUI::xml::Document document;
 		document.createDeclaration();
@@ -186,7 +186,7 @@ namespace tools
 			generateFontManualXml(root, _folderName, child, tempName);
 		}
 
-		return document.save(common::concatenatePath(_folderName, _fileName));
+		return document.save(_folderName / MyGUI::utility::pathFromUTF8(_fileName.asUTF8()));
 	}
 
 	template<typename Type>
@@ -262,7 +262,7 @@ namespace tools
 
 	void FontExportSerializer::generateFontManualXml(
 		MyGUI::xml::ElementPtr _root,
-		const MyGUI::UString& _folderName,
+		const std::filesystem::path& _folderName,
 		DataPtr _data,
 		std::string_view _fontName)
 	{
@@ -276,8 +276,7 @@ namespace tools
 			MyGUI::ITexture* texture = font->getTextureFont();
 			if (texture == nullptr)
 				return;
-			texture->saveToFile(
-				MyGUI::UString(common::concatenatePath(_folderName, MyGUI::UString(textureName))).asUTF8());
+			texture->saveToFile(MyGUI::utility::pathToUTF8(_folderName / MyGUI::utility::pathFromUTF8(textureName)));
 
 			MyGUI::xml::ElementPtr node = _root->createChild("Resource");
 			node->addAttribute("type", "ResourceManualFont");

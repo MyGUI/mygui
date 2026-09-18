@@ -39,7 +39,7 @@ namespace tools
 		mUserDocument = nullptr;
 	}
 
-	bool SettingsManager::loadSettingsFile(CString _fileName)
+	bool SettingsManager::loadSettingsFile(const std::filesystem::path& _fileName)
 	{
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_file(_fileName.c_str());
@@ -57,7 +57,7 @@ namespace tools
 		return result;
 	}
 
-	void SettingsManager::saveSettingsFile(CString _fileName)
+	void SettingsManager::saveSettingsFile(const std::filesystem::path& _fileName)
 	{
 		mDocument->save_file(_fileName.c_str());
 	}
@@ -190,12 +190,12 @@ namespace tools
 		}
 	}
 
-	bool SettingsManager::loadUserSettingsFile(std::string_view _fileName)
+	bool SettingsManager::loadUserSettingsFile(const std::filesystem::path& _fileName)
 	{
 		mUserSettingsFileName = _fileName;
 
 		pugi::xml_document doc;
-		pugi::xml_parse_result result = doc.load_file(mUserSettingsFileName.data());
+		pugi::xml_parse_result result = doc.load_file(mUserSettingsFileName.c_str());
 
 		if (result)
 		{
@@ -214,7 +214,7 @@ namespace tools
 	void SettingsManager::saveUserSettingsFile()
 	{
 		if (!mUserSettingsFileName.empty())
-			mUserDocument->save_file(mUserSettingsFileName.data());
+			mUserDocument->save_file(mUserSettingsFileName.c_str());
 	}
 
 	void SettingsManager::setValueListImpl(std::string_view _path, const VectorString& _values)

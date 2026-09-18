@@ -12,7 +12,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/AdvancedDemos/Demo_HyperTextBox");
+		addResourceLocation(getRootMedia() / "AdvancedDemos/Demo_HyperTextBox");
 	}
 
 	void DemoKeeper::createScene()

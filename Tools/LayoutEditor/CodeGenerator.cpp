@@ -5,6 +5,7 @@
 */
 
 #include "Precompiled.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "CodeGenerator.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"
@@ -155,8 +156,9 @@ namespace tools
 
 		for (auto& templateFile : mTemplateFiles)
 		{
-			std::ifstream input_file(MyGUI::DataManager::getInstance().getDataPath(templateFile.first).c_str());
-			std::ofstream output_file(lm.replaceTags(templateFile.second).asUTF8_c_str());
+			std::ifstream input_file(
+				MyGUI::utility::pathFromUTF8(MyGUI::DataManager::getInstance().getDataPath(templateFile.first)));
+			std::ofstream output_file(MyGUI::utility::pathFromUTF8(lm.replaceTags(templateFile.second).asUTF8()));
 			while (!input_file.eof() && !input_file.fail() && !output_file.fail())
 			{
 				char str[256];
@@ -225,14 +227,16 @@ namespace tools
 
 	void CodeGenerator::notifyBrowseHeader(MyGUI::Widget* _sender)
 	{
-		mOpenSaveFileDialog->setCurrentFolder(mIncludeDirectoryEdit->getOnlyText());
+		mOpenSaveFileDialog->setCurrentFolder(
+			MyGUI::utility::pathFromUTF8(mIncludeDirectoryEdit->getOnlyText().asUTF8()));
 		mOpenSaveFileDialog->setMode("Header");
 		mOpenSaveFileDialog->doModal();
 	}
 
 	void CodeGenerator::notifyBrowseSource(MyGUI::Widget* _sender)
 	{
-		mOpenSaveFileDialog->setCurrentFolder(mSourceDirectoryEdit->getOnlyText());
+		mOpenSaveFileDialog->setCurrentFolder(
+			MyGUI::utility::pathFromUTF8(mSourceDirectoryEdit->getOnlyText().asUTF8()));
 		mOpenSaveFileDialog->setMode("Source");
 		mOpenSaveFileDialog->doModal();
 	}
@@ -243,11 +247,11 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "Header")
 			{
-				mIncludeDirectoryEdit->setCaption(mOpenSaveFileDialog->getCurrentFolder());
+				mIncludeDirectoryEdit->setCaption(MyGUI::utility::pathToUTF8(mOpenSaveFileDialog->getCurrentFolder()));
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Source")
 			{
-				mSourceDirectoryEdit->setCaption(mOpenSaveFileDialog->getCurrentFolder());
+				mSourceDirectoryEdit->setCaption(MyGUI::utility::pathToUTF8(mOpenSaveFileDialog->getCurrentFolder()));
 			}
 		}
 

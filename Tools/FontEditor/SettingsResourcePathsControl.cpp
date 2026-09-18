@@ -5,6 +5,7 @@
 */
 
 #include "Precompiled.h"
+#include "MyGUI_FileSystemUtility.h"
 #include "SettingsResourcePathsControl.h"
 #include "SettingsManager.h"
 #include "Localise.h"
@@ -80,7 +81,7 @@ namespace tools
 	void SettingsResourcePathsControl::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
 	{
 		if (_result)
-			mResourcePaths->addItem(mOpenSaveFileDialog->getCurrentFolder());
+			mResourcePaths->addItem(MyGUI::utility::pathToUTF8(mOpenSaveFileDialog->getCurrentFolder()));
 
 		mOpenSaveFileDialog->endModal();
 	}

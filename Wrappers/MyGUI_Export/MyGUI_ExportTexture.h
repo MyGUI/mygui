@@ -14,8 +14,7 @@
 namespace MyGUI
 {
 
-	class ExportTexture :
-		public ITexture
+	class ExportTexture : public ITexture
 	{
 	public:
 		ExportTexture(const std::string& _name);

@@ -13,6 +13,9 @@
 #include "MyGUI_DirectXRTTexture.h"
 #include "MyGUI_DirectXDiagnostic.h"
 
+#include <filesystem>
+#include "MyGUI_FileSystemUtility.h"
+
 namespace MyGUI
 {
 
@@ -112,9 +115,7 @@ namespace MyGUI
 		mNumElemBytes = 4;
 
 		std::string fullnameUtf8 = DirectXDataManager::getInstance().getDataPath(_filename);
-		int wideLen = MultiByteToWideChar(CP_UTF8, 0, fullnameUtf8.c_str(), -1, nullptr, 0);
-		std::wstring fullname(static_cast<size_t>(wideLen), L'\0');
-		MultiByteToWideChar(CP_UTF8, 0, fullnameUtf8.c_str(), -1, &fullname[0], wideLen);
+		const auto fullname = MyGUI::utility::pathFromUTF8(fullnameUtf8);
 
 		HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 		bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
@@ -441,14 +442,12 @@ namespace MyGUI
 			pixels = convertedData.data();
 		}
 
-		int wideLen = MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, nullptr, 0);
-		std::wstring wfilename(static_cast<size_t>(wideLen), L'\0');
-		MultiByteToWideChar(CP_UTF8, 0, _filename.c_str(), -1, &wfilename[0], wideLen);
+		const auto path = MyGUI::utility::pathFromUTF8(_filename);
 
 		HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 		bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
 
-		hr = MyGUI::saveWICImage(wfilename.c_str(), width, height, dstStride, pixels);
+		hr = MyGUI::saveWICImage(path.c_str(), width, height, dstStride, pixels);
 
 		if (comInitialized)
 			CoUninitialize();

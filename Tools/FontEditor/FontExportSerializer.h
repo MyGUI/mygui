@@ -10,6 +10,7 @@
 #include "IExportSerializer.h"
 #include <pugixml.hpp>
 #include "Data.h"
+#include <filesystem>
 
 namespace tools
 {
@@ -20,7 +21,7 @@ namespace tools
 		void serialization(pugi::xml_document& _doc) override;
 		bool deserialization(pugi::xml_document& _doc) override;
 
-		static bool exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName);
+		static bool exportData(const std::filesystem::path& _folderName, const MyGUI::UString& _fileName);
 		static void generateFont(DataPtr _data, std::string_view _fontName);
 
 	private:
@@ -29,7 +30,7 @@ namespace tools
 
 		static void generateFontManualXml(
 			MyGUI::xml::ElementPtr _root,
-			const MyGUI::UString& _folderName,
+			const std::filesystem::path& _folderName,
 			DataPtr _data,
 			std::string_view _fontName);
 		static void removeFont(std::string_view _fontName);

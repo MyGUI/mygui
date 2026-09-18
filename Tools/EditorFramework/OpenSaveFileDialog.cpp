@@ -8,6 +8,7 @@
 #include "OpenSaveFileDialog.h"
 #include "FileSystemInfo.h"
 #include "CommandManager.h"
+#include "MyGUI_FileSystemUtility.h"
 
 namespace tools
 {
@@ -30,7 +31,7 @@ namespace tools
 		mCurrentFolderField->eventComboChangePosition +=
 			MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
 
-		mCurrentFolder = common::getSystemCurrentFolder();
+		mCurrentFolder = std::filesystem::current_path();
 
 		CommandManager::getInstance()
 			.getEvent("Command_OpenSaveAccept")
@@ -72,7 +73,7 @@ namespace tools
 		{
 			common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 			if (!info.folder)
-				mEditFileName->setCaption(info.name);
+				mEditFileName->setCaption(MyGUI::utility::pathToUTF8(info.name));
 		}
 	}
 
@@ -84,13 +85,13 @@ namespace tools
 		common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 		if (info.folder)
 		{
-			if (info.name == L"..")
+			if (info.name == "..")
 			{
 				upFolder();
 			}
 			else
 			{
-				mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
+				mCurrentFolder /= info.name;
 				update();
 			}
 		}
@@ -113,8 +114,8 @@ namespace tools
 			if (mListFiles->getIndexSelected() != MyGUI::ITEM_NONE)
 			{
 				common::FileInfo info = *mListFiles->getItemDataAt<common::FileInfo>(mListFiles->getIndexSelected());
-				if (!common::isParentDir(info.name))
-					mCurrentFolder = common::concatenatePath(mCurrentFolder.asWStr(), info.name);
+				if (info.name != "..")
+					mCurrentFolder /= info.name;
 			}
 			eventEndDialog(this, true);
 		}
@@ -122,17 +123,13 @@ namespace tools
 
 	void OpenSaveFileDialog::upFolder()
 	{
-		size_t index = mCurrentFolder.find_last_of(L"\\/");
-		if (index != std::string::npos)
-		{
-			mCurrentFolder = mCurrentFolder.substr(0, index);
-		}
+		mCurrentFolder = mCurrentFolder.parent_path();
 		update();
 	}
 
-	void OpenSaveFileDialog::setCurrentFolder(const MyGUI::UString& _folder)
+	void OpenSaveFileDialog::setCurrentFolder(const std::filesystem::path& _folder)
 	{
-		mCurrentFolder = _folder.empty() ? MyGUI::UString(common::getSystemCurrentFolder()) : _folder;
+		mCurrentFolder = _folder.empty() ? std::filesystem::current_path() : _folder;
 
 		update();
 	}
@@ -141,28 +138,28 @@ namespace tools
 	{
 		if (mCurrentFolder.empty())
 			mCurrentFolder = "/";
-		mCurrentFolderField->setCaption(mCurrentFolder);
+		mCurrentFolderField->setCaption(MyGUI::utility::pathToUTF8(mCurrentFolder));
 
 		mListFiles->removeAllItems();
 
 		// add all folders first
-		common::VectorFileInfo infos = common::getSystemFileList(mCurrentFolder, L"*");
+		common::VectorFileInfo infos = common::getSystemFileList(mCurrentFolder, "*");
 
 		for (const auto& info : infos)
 		{
 			if (info.folder)
-				mListFiles->addItem(L"[" + info.name + L"]", info);
+				mListFiles->addItem("[" + MyGUI::utility::pathToUTF8(info.name) + "]", info);
 		}
 
 		if (!mFolderMode)
 		{
 			// add files by given mask
-			infos = common::getSystemFileList(mCurrentFolder, mFileMask);
+			infos = common::getSystemFileList(mCurrentFolder, MyGUI::utility::pathFromUTF8(mFileMask.asUTF8()));
 
 			for (const auto& info : infos)
 			{
 				if (!info.folder)
-					mListFiles->addItem(info.name, info);
+					mListFiles->addItem(MyGUI::utility::pathToUTF8(info.name), info);
 			}
 		}
 	}
@@ -195,10 +192,10 @@ namespace tools
 
 	void OpenSaveFileDialog::notifyDirectoryComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		setCurrentFolder(_sender->getOnlyText());
+		setCurrentFolder(MyGUI::utility::pathFromUTF8(_sender->getOnlyText().asUTF8()));
 	}
 
-	const MyGUI::UString& OpenSaveFileDialog::getCurrentFolder() const
+	const std::filesystem::path& OpenSaveFileDialog::getCurrentFolder() const
 	{
 		return mCurrentFolder;
 	}
@@ -229,7 +226,7 @@ namespace tools
 	void OpenSaveFileDialog::notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		if (_index != MyGUI::ITEM_NONE)
-			setCurrentFolder(_sender->getItemNameAt(_index));
+			setCurrentFolder(MyGUI::utility::pathFromUTF8(_sender->getItemNameAt(_index).asUTF8()));
 	}
 
 	bool OpenSaveFileDialog::checkCommand()

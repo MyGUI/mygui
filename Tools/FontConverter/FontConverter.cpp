@@ -14,6 +14,7 @@
 
 #include <MyGUI.h>
 #include <MyGUI_FontData.h>
+#include <MyGUI_FileSystemUtility.h>
 #include <MyGUI_ResourceTrueTypeFont.h>
 
 #include <pugixml.hpp>
@@ -150,7 +151,7 @@ namespace tools
 	class Application : public base::BaseManager
 	{
 	public:
-		Application(fs::path _inputXml, fs::path _outputXml, std::vector<std::string> _extraDirs) :
+		Application(fs::path _inputXml, fs::path _outputXml, std::vector<fs::path> _extraDirs) :
 			mInputXml(std::move(_inputXml)),
 			mOutputXml(std::move(_outputXml)),
 			mExtraDirs(std::move(_extraDirs))
@@ -166,7 +167,7 @@ namespace tools
 		void createScene() override
 		{
 			pugi::xml_document sourceDoc;
-			pugi::xml_parse_result parseResult = sourceDoc.load_file(mInputXml.string().c_str());
+			pugi::xml_parse_result parseResult = sourceDoc.load_file(mInputXml.c_str());
 			if (!parseResult)
 			{
 				std::cerr << "Failed to parse input XML: " << parseResult.description() << "\n";
@@ -184,10 +185,9 @@ namespace tools
 				return;
 			}
 
-			const fs::path inputPath(mInputXml);
-			if (!MyGUI::ResourceManager::getInstance().load(inputPath.filename().string()))
+			if (!MyGUI::ResourceManager::getInstance().load(MyGUI::utility::pathToUTF8(mInputXml.filename())))
 			{
-				std::cerr << "ResourceManager::load failed for: " << inputPath.filename() << "\n";
+				std::cerr << "ResourceManager::load failed for: " << mInputXml.filename() << "\n";
 				mExitCode = 1;
 				quit();
 				return;
@@ -232,14 +232,14 @@ namespace tools
 					continue;
 				}
 
-				const fs::path pngPath = mOutputXml.parent_path() / (fontName + ".png");
-				tex->saveToFile(pngPath.string());
+				const fs::path pngPath = mOutputXml.parent_path() / MyGUI::utility::pathFromUTF8(fontName + ".png");
+				tex->saveToFile(MyGUI::utility::pathToUTF8(pngPath));
 				std::cout << "Wrote " << pngPath << "\n";
 
 				writeManualFont(outRoot, font, fontName, fontName + ".png", shader);
 			}
 
-			if (!outDoc.save_file(mOutputXml.string().c_str(), "\t"))
+			if (!outDoc.save_file(mOutputXml.c_str(), "\t"))
 			{
 				std::cerr << "Failed to write XML: " << mOutputXml << "\n";
 				mExitCode = 1;
@@ -260,15 +260,15 @@ namespace tools
 		void setupResources() override
 		{
 			base::BaseManager::setupResources();
-			addResourceLocation(mInputXml.parent_path().string());
-			addResourceLocation(mOutputXml.parent_path().string());
+			addResourceLocation(mInputXml.parent_path());
+			addResourceLocation(mOutputXml.parent_path());
 			for (const auto& dir : mExtraDirs)
 				addResourceLocation(dir);
 		}
 
 		fs::path mInputXml;
 		fs::path mOutputXml;
-		std::vector<std::string> mExtraDirs;
+		std::vector<fs::path> mExtraDirs;
 		int mExitCode = 0;
 	};
 
@@ -295,9 +295,9 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	std::vector<std::string> extraDirs;
+	std::vector<fs::path> extraDirs;
 	for (int i = 3; i < argc; ++i)
-		extraDirs.push_back(argv[i]);
+		extraDirs.push_back(MyGUI::utility::pathFromUTF8(argv[i]));
 
 	tools::Application app(inputXml, outputXml, std::move(extraDirs));
 	app.prepare();

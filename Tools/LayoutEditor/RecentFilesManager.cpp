@@ -8,6 +8,7 @@
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
 #include "FileSystemInfo.h"
+#include "MyGUI_FileSystemUtility.h"
 
 namespace tools
 {
@@ -30,7 +31,7 @@ namespace tools
 		if (!SettingsManager::getInstance().tryGetValue<size_t>("Files/MaxRecentProjects", mMaxRecentProjects))
 			mMaxRecentProjects = 8;
 
-		mRecentFolder = SettingsManager::getInstance().getValue("Files/RecentFolder");
+		mRecentFolder = MyGUI::utility::pathFromUTF8(SettingsManager::getInstance().getValue("Files/RecentFolder"));
 		mRecentFolders = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
 		mRecentFiles = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFile.List");
 		mRecentProjects = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentProject.List");
@@ -42,19 +43,17 @@ namespace tools
 
 	void RecentFilesManager::shutdown()
 	{
-		SettingsManager::getInstance().setValue("Files/RecentFolder", mRecentFolder);
+		SettingsManager::getInstance().setValue("Files/RecentFolder", MyGUI::utility::pathToUTF8(mRecentFolder));
 		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFolder.List", mRecentFolders);
 		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFile.List", mRecentFiles);
 		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentProject.List", mRecentProjects);
 	}
 
-	void RecentFilesManager::addRecentFolder(const MyGUI::UString& _folder)
+	void RecentFilesManager::addRecentFolder(const std::filesystem::path& _folder)
 	{
-		MyGUI::UString folder(_folder);
-		if (_folder.empty())
-			folder = MyGUI::UString(common::getSystemCurrentFolder());
+		const auto folder = _folder.empty() ? std::filesystem::current_path() : _folder;
 
-		mRecentFolders.insert(mRecentFolders.begin(), folder);
+		mRecentFolders.insert(mRecentFolders.begin(), MyGUI::utility::pathToUTF8(folder));
 
 		checkArray(mRecentFolders, mMaxRecentFolders);
 	}
@@ -64,12 +63,12 @@ namespace tools
 		return mRecentFolders;
 	}
 
-	const MyGUI::UString& RecentFilesManager::getRecentFolder() const
+	const std::filesystem::path& RecentFilesManager::getRecentFolder() const
 	{
 		return mRecentFolder;
 	}
 
-	void RecentFilesManager::setRecentFolder(const MyGUI::UString& _value)
+	void RecentFilesManager::setRecentFolder(const std::filesystem::path& _value)
 	{
 		mRecentFolder = _value;
 

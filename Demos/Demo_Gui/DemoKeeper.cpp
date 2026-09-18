@@ -26,9 +26,9 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Demos/Demo_Gui");
-		addResourceLocation(getRootMedia() + "/Common/Scene");
-		addResourceLocation(getRootMedia() + "/Common/Demos");
+		addResourceLocation(getRootMedia() / "Demos/Demo_Gui");
+		addResourceLocation(getRootMedia() / "Common/Scene");
+		addResourceLocation(getRootMedia() / "Common/Demos");
 	}
 
 	void DemoKeeper::createScene()

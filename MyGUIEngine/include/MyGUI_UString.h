@@ -83,6 +83,31 @@ namespace MyGUI
 
 		explicit UString(std::string_view text);
 
+#if defined(__cpp_char8_t)
+		//! C++20 UTF-8 input uses the same conversion and validation as char input.
+		UString(const char8_t* text) :
+			UString(std::u8string_view(text))
+		{
+		}
+
+		UString(const char8_t* text, std::size_t count) :
+			UString(reinterpret_cast<const char*>(text), count)
+		{
+		}
+
+		UString(const std::u8string& text) :
+			UString(std::u8string_view(text))
+		{
+		}
+
+		explicit UString(std::u8string_view text) :
+			UString(
+				text.empty() ? std::string_view()
+							 : std::string_view(reinterpret_cast<const char*>(text.data()), text.size()))
+		{
+		}
+#endif
+
 		UString(const wchar_t* text) :
 			UString(std::wstring(text))
 		{
@@ -122,6 +147,15 @@ namespace MyGUI
 		}
 
 		UString& assign(std::string_view text);
+
+#if defined(__cpp_char8_t)
+		UString& assign(std::u8string_view text)
+		{
+			return assign(
+				text.empty() ? std::string_view()
+							 : std::string_view(reinterpret_cast<const char*>(text.data()), text.size()));
+		}
+#endif
 
 		UString& insert(std::size_t index, const UString& text)
 		{

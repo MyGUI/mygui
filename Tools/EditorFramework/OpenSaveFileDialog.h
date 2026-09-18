@@ -8,6 +8,7 @@
 #define _75bf3bc8_5f9f_4d93_ad22_949d0cd2f50b_
 
 #include <MyGUI.h>
+#include <filesystem>
 #include "Dialog.h"
 #include "Control.h"
 
@@ -19,8 +20,8 @@ namespace tools
 	public:
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
-		void setCurrentFolder(const MyGUI::UString& _folder);
-		const MyGUI::UString& getCurrentFolder() const;
+		void setCurrentFolder(const std::filesystem::path& _folder);
+		const std::filesystem::path& getCurrentFolder() const;
 
 		void setFileName(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileName() const;
@@ -62,7 +63,7 @@ namespace tools
 		MyGUI::ComboBox* mCurrentFolderField{nullptr};
 		MyGUI::Button* mButtonOpenSave{nullptr};
 
-		MyGUI::UString mCurrentFolder;
+		std::filesystem::path mCurrentFolder;
 		MyGUI::UString mFileName;
 		MyGUI::UString mFileMask{"*.*"};
 
