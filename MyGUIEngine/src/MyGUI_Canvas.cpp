@@ -44,7 +44,7 @@ namespace MyGUI
 		int width = std::max(1, _width);
 		int height = std::max(1, _height);
 
-		destroyTexture();
+		_destroyTexture(true);
 
 		mTexture = RenderManager::getInstance().createTexture(mGenTexName);
 		mTexture->setInvalidateListener(this);
@@ -149,6 +149,8 @@ namespace MyGUI
 
 	void Canvas::destroyTexture()
 	{
+		frameAdvise(false);
+		mInvalidateData = false;
 		_destroyTexture(true);
 	}
 
@@ -171,8 +173,10 @@ namespace MyGUI
 				eventPreTextureChanges(this);
 			}
 
+			_setTextureName("");
 			RenderManager::getInstance().destroyTexture(mTexture);
 			mTexture = nullptr;
+			mTexData = nullptr;
 		}
 	}
 
@@ -241,7 +245,7 @@ namespace MyGUI
 
 		validate(width, height, usage, format);
 
-		bool create = checkCreate(width, height);
+		bool create = mTexManaged && checkCreate(width, height);
 
 		if (mTexResizeMode == TRM_PT_CONST_SIZE)
 			create = false;

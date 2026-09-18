@@ -45,6 +45,8 @@
   keeping its fixed vertex buffer capacity
 - Replace old UString with std::u32string and UTF8-CPP; indices count Unicode code points. Remove unused API and
   custom iterators. This also improve internal text handling speed by avoiding extra 8/16/32 conversions
+- Fix Canvas texture destruction leaving stale references and queued updates; respect disabled texture management during
+  deferred resizing and preserve content update requests when reallocating
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

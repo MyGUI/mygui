@@ -1,0 +1,2 @@
+set(HEADER_FILES CanvasTestSupport.h)
+set(SOURCE_FILES Main.cpp)

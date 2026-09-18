@@ -1,0 +1,2 @@
+mygui_unit_test(UnitTest_Canvas)
+target_link_libraries(UnitTest_Canvas PRIVATE MyGUISkinTestSupport)
