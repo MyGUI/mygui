@@ -1,3 +1,4 @@
+#include "Interaction.h"
 /*
  * This source file is part of MyGUI. For the latest info, see http://mygui.info/
  * Distributed under the MIT License
@@ -203,6 +204,8 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Input interactions", testMenuInteractions},
+		{"Open submenu removal, item types and menu reuse", testMenuMutations},
 		{"Submenu placement", testPlacement},
 		{"MenuControl movement", testMovement<MyGUI::MenuControl, false>},
 		{"MenuBar movement", testMovement<MyGUI::MenuBar, true>},

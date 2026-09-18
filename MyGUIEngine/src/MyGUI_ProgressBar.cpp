@@ -118,7 +118,10 @@ namespace MyGUI
 		size_t pos = (size_t)mAutoPosition;
 
 		if (pos > (mRange + PROGRESS_AUTO_WIDTH))
+		{
 			mAutoPosition = 0.0f;
+			pos = 0;
+		}
 
 		if (pos > mRange)
 			mEndPosition = mRange;

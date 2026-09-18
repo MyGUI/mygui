@@ -1,0 +1,2 @@
+mygui_unit_test(UnitTest_ProgressBar)
+target_link_libraries(UnitTest_ProgressBar PRIVATE MyGUISkinTestSupport)

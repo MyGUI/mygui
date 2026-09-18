@@ -1,0 +1,2 @@
+set(HEADER_FILES ProgressTestSupport.h)
+set(SOURCE_FILES Main.cpp)

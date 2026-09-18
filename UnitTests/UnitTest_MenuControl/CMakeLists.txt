@@ -1,1 +1,3 @@
 mygui_unit_test(UnitTest_MenuControl)
+
+target_link_libraries(UnitTest_MenuControl PRIVATE MyGUISkinTestSupport)

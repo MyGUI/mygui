@@ -283,6 +283,7 @@ namespace MyGUI
 		if (info.type == _type)
 			return;
 
+		const UString name = info.name;
 		info.type = _type;
 
 		// on skin change, child will unsubscribe
@@ -291,7 +292,9 @@ namespace MyGUI
 		mChangeChildSkin = false;
 
 		info.item->setImageName(getIconIndexByType(_type));
-		info.item->setCaption(info.name);
+		info.item->setCaption(name);
+		// Separator skins have no text widget; their caption notification must not erase the stored name.
+		info.name = name;
 
 		update();
 	}
