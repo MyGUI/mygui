@@ -264,7 +264,7 @@ namespace MyGUI
 				++iter;
 				if (iter == end)
 				{
-					return UString(line);
+					return UString(std::move(line));
 				}
 
 				if (*iter != '{')
@@ -278,18 +278,18 @@ namespace MyGUI
 				while (true)
 				{
 					if (iter2 == end)
-						return UString(line);
+						return UString(std::move(line));
 
 					if (*iter2 == '}')
 					{
 						size_t start = iter - line.begin();
 						size_t len = (iter2 - line.begin()) - start - 1;
-						const UString::utf32string& tag = line.substr(start + 1, len);
+						const UString tag(line.substr(start + 1, len));
 						UString replacement;
 
 						bool find = true;
 						// try to find in loaded from resources language strings
-						auto replace = mMapLanguage.find(UString(tag));
+						auto replace = mMapLanguage.find(tag);
 						if (replace != mMapLanguage.end())
 						{
 							replacement = replace->second;
@@ -297,7 +297,7 @@ namespace MyGUI
 						else
 						{
 							// try to find in user language strings
-							replace = mUserMapLanguage.find(UString(tag));
+							replace = mUserMapLanguage.find(tag);
 							if (replace != mUserMapLanguage.end())
 							{
 								replacement = replace->second;
@@ -313,7 +313,7 @@ namespace MyGUI
 						{
 							if (!eventRequestTag.empty())
 							{
-								eventRequestTag(UString(tag), replacement);
+								eventRequestTag(tag, replacement);
 							}
 							else
 							{
@@ -327,11 +327,12 @@ namespace MyGUI
 
 						iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 						size_t pos = iter - line.begin();
-						line.insert(pos, replacement.asUTF32());
-						iter = line.begin() + pos + replacement.length();
+						const auto& replacementText = replacement.asUTF32();
+						line.insert(pos, replacementText);
+						iter = line.begin() + pos + replacementText.size();
 						end = line.end();
 						if (iter == end)
-							return UString(line);
+							return UString(std::move(line));
 						break;
 					}
 					++iter2;
@@ -343,7 +344,7 @@ namespace MyGUI
 			}
 		}
 
-		return UString(line);
+		return UString(std::move(line));
 	}
 
 } // namespace MyGUI

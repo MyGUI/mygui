@@ -105,19 +105,22 @@ namespace MyGUI
 
 	bool TextIterator::getTagColour(UString& _colour) const
 	{
-		if (mCurrent == mEnd)
+		auto iter = mCurrent;
+		auto start = mEnd;
+		auto end = mEnd;
+		while (true)
+		{
+			auto tagStart = iter;
+			if (!skipColourTag(iter))
+				break;
+			start = tagStart;
+			end = iter;
+		}
+		if (start == mEnd)
 			return false;
 
-		UString::utf32string::iterator iter = mCurrent;
-
-		// we need the last colour
-		bool ret = false;
-		while (getTagColour(_colour, iter))
-		{
-			ret = true;
-		}
-
-		return ret;
+		_colour = UString(UString::utf32string(start, end));
+		return true;
 	}
 
 	bool TextIterator::setTagColour(const Colour& _colour)
@@ -178,7 +181,7 @@ namespace MyGUI
 	UString TextIterator::getOnlyText(const UString& _text)
 	{
 		UString::utf32string ret;
-		UString::utf32string text(_text.asUTF32());
+		const auto& text = _text.asUTF32();
 		ret.reserve(text.size());
 
 		UString::utf32string::const_iterator end = text.end();
@@ -193,33 +196,25 @@ namespace MyGUI
 			ret.push_back(*iter);
 		}
 
-		return UString(ret);
+		return UString(std::move(ret));
 	}
 
-	bool TextIterator::getTagColour(UString& _colour, UString::utf32string::iterator& _iter) const
+	bool TextIterator::skipColourTag(UString::utf32string::iterator& _iter) const
 	{
-		if ((_iter == mEnd) || ((*_iter) != L'#'))
+		if ((_iter == mEnd) || (*_iter != U'#'))
 			return false;
 
 		++_iter;
-		if ((_iter == mEnd) || ((*_iter) == L'#'))
+		if ((_iter == mEnd) || (*_iter == U'#'))
 			return false;
 
-		// take the colour
-		std::u32string buff = U"#";
-		buff.push_back(*_iter);
-		for (size_t pos = 2; pos < ColourTagLength; pos++)
+		for (size_t pos = 2; pos < ColourTagLength; ++pos)
 		{
 			++_iter;
 			if (_iter == mEnd)
 				return false;
-			buff.push_back(*_iter);
 		}
-
-		// move to next tag or character
 		++_iter;
-
-		_colour = UString(buff);
 		return true;
 	}
 
@@ -466,9 +461,7 @@ namespace MyGUI
 			return;
 
 		UString::utf32string::iterator iter = mCurrent;
-		UString colour;
-		// we need the last colour
-		while (getTagColour(colour, iter))
+		while (skipColourTag(iter))
 		{
 			// must update iterators
 			iter = mCurrent = erase(mCurrent, iter);

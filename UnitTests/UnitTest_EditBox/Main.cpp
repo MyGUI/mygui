@@ -197,6 +197,30 @@ namespace
 		require(edit->getOnlyText().empty(), "Enter in password mode must not insert a newline");
 	}
 
+	void testWordNavigation()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setCaption(MyGUI::UString(std::u32string(U"#FF0000a\U0001F600 #00FF00b##c")));
+		edit->setTextCursor(0);
+		auto& input = MyGUI::InputManager::getInstance();
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		const auto modifier = MyGUI::KeyCode::LeftAlt;
+#else
+		const auto modifier = MyGUI::KeyCode::LeftControl;
+#endif
+		input.injectKeyPress(modifier);
+		unittest::keyStroke(MyGUI::KeyCode::ArrowRight);
+		require(edit->getTextCursor() == 2, "Word movement must count supplementary characters and skip colour markup");
+		unittest::keyStroke(MyGUI::KeyCode::ArrowRight);
+		require(edit->getTextCursor() == 6, "Word movement must count an escaped hash once");
+		unittest::keyStroke(MyGUI::KeyCode::ArrowLeft);
+		require(edit->getTextCursor() == 3, "Reverse word movement must use logical text positions");
+		unittest::keyStroke(MyGUI::KeyCode::ArrowLeft);
+		require(edit->getTextCursor() == 0, "Reverse word movement must preserve supplementary character boundaries");
+		input.injectKeyRelease(modifier);
+	}
+
 	void testPasswordCharacter()
 	{
 		unittest::TestContext context;
@@ -220,6 +244,7 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Unicode word navigation", testWordNavigation},
 		{"Supplementary password character", testPasswordCharacter},
 		{"Text intervals and replacement", testIntervals},
 		{"Undo, redo, and history branching", testHistory},

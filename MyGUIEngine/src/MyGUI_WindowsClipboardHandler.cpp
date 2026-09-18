@@ -89,7 +89,8 @@ namespace MyGUI
 		if (_type == "Text")
 		{
 			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
-			size_t size = (mPutTextInClipboard.size() + 1) * 2;
+			const auto& wideText = mPutTextInClipboard.asWStr();
+			size_t size = (wideText.size() + 1) * sizeof(wchar_t);
 			// open clipboard
 			if (OpenClipboard((HWND)mHwnd))
 			{
@@ -98,7 +99,7 @@ namespace MyGUI
 				wchar_t* chBuffer = hgBuffer ? (wchar_t*)GlobalLock(hgBuffer) : nullptr;
 				if (chBuffer)
 				{
-					memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
+					memcpy(chBuffer, wideText.c_str(), size);
 					GlobalUnlock(hgBuffer);
 					// put text in clipboard
 					SetClipboardData(CF_UNICODETEXT, hgBuffer);

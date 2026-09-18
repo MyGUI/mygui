@@ -69,7 +69,7 @@ namespace MyGUI
 		static UString toTagsString(const UString& _text);
 
 	private:
-		bool getTagColour(UString& _colour, UString::utf32string::iterator& _iter) const;
+		bool skipColourTag(UString::utf32string::iterator& _iter) const;
 
 		bool setTagColour(const UString::utf32string& _colour);
 

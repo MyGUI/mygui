@@ -19,15 +19,15 @@
 namespace MyGUI
 {
 
-	//! UTF-16 text with UTF-8 and native wide-string conversion.
-	//! Positions, sizes, searches and iterators use UTF-16 code units, not grapheme clusters.
-	//! Comparisons use code-unit ordering, not locale-aware collation.
+	//! UTF-32 text with UTF-8 and native wide-string conversion.
+	//! Positions, sizes, searches and iterators use Unicode code points, not grapheme clusters.
+	//! Comparisons use code-point ordering, not locale-aware collation.
 	class MYGUI_EXPORT UString
 	{
 	public:
-		using code_point = char16_t;
+		using code_point = char32_t;
 		using utf32string = std::u32string;
-		static constexpr std::size_t npos = std::u16string::npos;
+		static constexpr std::size_t npos = std::u32string::npos;
 
 		class MYGUI_EXPORT invalid_data : public std::runtime_error
 		{
@@ -36,12 +36,24 @@ namespace MyGUI
 		};
 
 		UString() = default;
-		UString(const UString&) = default;
+		UString(const UString& text) :
+			mData(text.mData)
+		{
+		}
 		UString(UString&&) noexcept = default;
-		UString& operator=(const UString&) = default;
+		UString& operator=(const UString& text)
+		{
+			if (this != &text)
+			{
+				mData = text.mData;
+				mUTF8.clear();
+				mWide.clear();
+			}
+			return *this;
+		}
 		UString& operator=(UString&&) noexcept = default;
 
-		//! Construct from a Unicode code point, encoding supplementary characters as surrogate pairs.
+		//! Construct from a Unicode code point.
 		explicit UString(Char character) :
 			UString(1, character)
 		{
@@ -74,7 +86,7 @@ namespace MyGUI
 		}
 
 		UString(const std::wstring& text);
-		explicit UString(const utf32string& text);
+		explicit UString(utf32string text);
 
 		std::size_t size() const noexcept
 		{
@@ -124,22 +136,22 @@ namespace MyGUI
 			return mData.at(index);
 		}
 
-		std::u16string::iterator begin() noexcept
+		std::u32string::iterator begin() noexcept
 		{
 			return mData.begin();
 		}
 
-		std::u16string::const_iterator begin() const noexcept
+		std::u32string::const_iterator begin() const noexcept
 		{
 			return mData.begin();
 		}
 
-		std::u16string::iterator end() noexcept
+		std::u32string::iterator end() noexcept
 		{
 			return mData.end();
 		}
 
-		std::u16string::const_iterator end() const noexcept
+		std::u32string::const_iterator end() const noexcept
 		{
 			return mData.end();
 		}
@@ -174,14 +186,18 @@ namespace MyGUI
 			return mData.find_last_of(text.mData, index);
 		}
 
-		//! Conversion results belong to this object. Each is refreshed on every call.
+		const utf32string& asUTF32() const noexcept
+		{
+			return mData;
+		}
+
+		//! UTF-8 and wide buffers stay empty until requested; each is refreshed on every call.
 		//! A reference survives conversion to a different encoding, but its contents are
 		//! replaced by the next conversion to the same encoding. Returned pointers/views
 		//! may be invalidated by that conversion, assignment, moving or destruction.
 		//! Concurrent conversions on the same object require external synchronization.
-		//! Invalid UTF-16/UTF-32 is reported as invalid_data exception.
+		//! Invalid Unicode scalar values are reported as invalid_data exceptions.
 		const std::string& asUTF8() const;
-		const utf32string& asUTF32() const;
 		const std::wstring& asWStr() const;
 
 		const char* asUTF8_c_str() const
@@ -236,14 +252,8 @@ namespace MyGUI
 		}
 
 	private:
-		explicit UString(std::u16string text) :
-			mData(std::move(text))
-		{
-		}
-
-		std::u16string mData;
+		std::u32string mData;
 		mutable std::string mUTF8;
-		mutable utf32string mUTF32;
 		mutable std::wstring mWide;
 	};
 

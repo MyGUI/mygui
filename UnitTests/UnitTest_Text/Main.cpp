@@ -38,7 +38,7 @@ namespace
 		require(text.asUTF32() == expected, "UTF-8 decoding must preserve BMP and non-BMP characters");
 		require(MyGUI::UString(expected).asUTF8() == bytes, "UTF-32 to UTF-8 must round-trip exactly");
 		text.append(MyGUI::UString("!"));
-		require(text.asUTF8() == bytes + "!", "UTF-8 conversion must reflect mutations after a cached conversion");
+		require(text.asUTF8() == bytes + "!", "UTF-8 conversion must reflect mutations after conversion");
 		text.assign(std::string_view("replacement"));
 		require(text.asUTF32() == MyGUI::UString("replacement").asUTF32(), "UTF-32 conversion must reflect assignment");
 		const std::string withNull("a\0b", 3);
@@ -117,17 +117,29 @@ namespace
 	void testStringAdapter()
 	{
 		MyGUI::UString text("A\xF0\x9F\x98\x80#");
-		require(text.size() == 4 && text.find('#') == 3, "UString offsets must remain UTF-16 code-unit offsets");
+		require(text.size() == 3 && text.find('#') == 2, "UString offsets must count Unicode code points");
 		const auto& utf8 = text.asUTF8();
 		const auto& utf32 = text.asUTF32();
 		const auto& wide = text.asWStr();
 		require(utf8 == "A\xF0\x9F\x98\x80#", "Other conversions must preserve the UTF-8 result");
 		require(utf32 == U"A\U0001F600#", "Wide conversion must preserve the UTF-32 result");
 		require(MyGUI::UString(wide) == text, "Native wide strings must round-trip through the adapter");
-		*text.begin() = u'B';
+		require(&text[0] == utf32.data(), "UTF-32 access must refer directly to primary storage");
+		require(
+			text.substr(1, 1).asUTF32() == U"\U0001F600",
+			"A substring must preserve a complete supplementary character");
+		*text.begin() = U'B';
 		require(text.asUTF8() == "B\xF0\x9F\x98\x80#", "Conversion must reflect edits through standard iterators");
+		MyGUI::UString copied(text);
+		text[1] = U'\U0001D800';
+		require(copied.asUTF32() == U"B\U0001F600#", "Copying text must retain independent primary storage");
+		const auto& copiedUtf8 = copied.asUTF8();
+		const auto& copiedWide = copied.asWStr();
+		copied = text;
+		require(copiedUtf8.empty() && copiedWide.empty(), "Copy assignment must leave conversion buffers empty");
+		text[1] = U'\U0001F600';
 		text.assign(text.asUTF8());
-		require(text[0] == u'B', "Assignment must accept the object's own conversion buffer");
+		require(text[0] == U'B', "Assignment must accept the object's own conversion buffer");
 		const auto moved = std::move(text);
 		require(moved.asUTF32() == U"B\U0001F600#", "Moving the wrapper must preserve its text");
 		text.assign(std::string_view());
@@ -146,19 +158,19 @@ namespace
 		require(translated, "Conversion errors must use the MyGUI exception type");
 	}
 
-	void testTextIteratorCodeUnitEdits()
+	void testTextIteratorCodePointEdits()
 	{
 		const MyGUI::UString source(MyGUI::UString::utf32string(U"\U0001F600#\r\n\u0085#\U0001F600"));
 		const auto escaped = MyGUI::TextIterator::toTagsString(source);
 		require(
 			escaped.asUTF32() == U"\U0001F600##\r\n\u0085##\U0001F600",
-			"Hash escaping must preserve neighbouring surrogate pairs and newlines");
+			"Hash escaping must preserve neighbouring supplementary characters and newlines");
 		MyGUI::UString flattened = source;
 		MyGUI::TextIterator iterator{MyGUI::UString()};
 		iterator.clearNewLine(flattened);
 		require(
 			flattened.asUTF32() == U"\U0001F600#   #\U0001F600",
-			"Newline replacement must preserve neighbouring surrogate pairs and hashes");
+			"Newline replacement must preserve neighbouring supplementary characters and hashes");
 		iterator.setText(escaped, true);
 		require(
 			iterator.getText().asUTF32() == U"\U0001F600##\n\u0085##\U0001F600",
@@ -169,6 +181,26 @@ namespace
 		require(
 			tagged.getTagColour(extracted) && extracted == tag,
 			"Extracting an unvalidated colour tag must preserve its full code points");
+	}
+
+	void testConsecutiveColourTags()
+	{
+		MyGUI::TextIterator iterator(MyGUI::UString("#112233#AABBCC##text"));
+		MyGUI::UString colour;
+		require(
+			iterator.getTagColour(colour) && colour == "#AABBCC",
+			"Only the final consecutive colour tag must be returned");
+		iterator.clearTagColour();
+		require(iterator.getText() == "##text", "Clearing tags must preserve an escaped hash");
+		require(!iterator.getTagColour(colour), "An escaped hash must not be treated as a colour tag");
+		MyGUI::TextIterator incomplete(MyGUI::UString("#112233#AA"));
+		require(
+			incomplete.getTagColour(colour) && colour == "#112233",
+			"An incomplete trailing tag must not replace the last complete tag");
+		incomplete.clearTagColour();
+		require(
+			incomplete.getText() == "#AA",
+			"Clearing complete tags must leave an incomplete trailing tag untouched");
 	}
 
 	void testTextIteratorTruncatedColourTags()
@@ -262,11 +294,12 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Consecutive colour tags", testConsecutiveColourTags},
 		{"Unicode round trips and mutation", testUnicodeRoundTrip},
 		{"Malformed UTF-8", testMalformedUtf8},
 		{"Lines and colour tags", testLinesAndTags},
 		{"UString adapter compatibility", testStringAdapter},
-		{"TextIterator code-unit edits", testTextIteratorCodeUnitEdits},
+		{"TextIterator code-point edits", testTextIteratorCodePointEdits},
 		{"Truncated colour tags in TextIterator", testTextIteratorTruncatedColourTags},
 		{"Wrapping boundaries", testWrapping},
 		{"Cursor hit testing", testCursorHitTesting},

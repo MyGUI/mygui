@@ -226,9 +226,9 @@ namespace MyGUI
 		mStartSelect = cursorPosition;
 		mEndSelect = cursorPosition;
 
-		UString::utf32string text = this->getOnlyText().asUTF32();
-		UString::utf32string::reverse_iterator iterBack = text.rend() - cursorPosition;
-		UString::utf32string::iterator iterForw = text.begin() + cursorPosition;
+		const auto& text = getOnlyText().asUTF32();
+		UString::utf32string::const_reverse_iterator iterBack = text.rend() - cursorPosition;
+		UString::utf32string::const_iterator iterForw = text.begin() + cursorPosition;
 
 		while (iterBack != text.rend())
 		{
@@ -524,7 +524,7 @@ namespace MyGUI
 					}
 					else
 					{
-						const UString& text = getRealString();
+						const UString text = getOnlyText();
 						while (mCursorPosition < mTextLength && isWhitespace(text[mCursorPosition]))
 						{
 							mCursorPosition++;
@@ -560,7 +560,7 @@ namespace MyGUI
 					}
 					else
 					{
-						const UString& text = getRealString();
+						const UString text = getOnlyText();
 						while (mCursorPosition > 0 && isWhitespace(text[mCursorPosition - 1]))
 						{
 							mCursorPosition--;
