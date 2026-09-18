@@ -107,11 +107,13 @@ namespace MyGUI
 		}
 #endif
 
+		//! Native wide-string input. Malformed values are replaced with U+FFFD.
 		UString(const wchar_t* text) :
 			UString(std::wstring(text))
 		{
 		}
 
+		//! Native wide-string input. Malformed values are replaced with U+FFFD.
 		UString(const std::wstring& text);
 		explicit UString(utf32string text);
 

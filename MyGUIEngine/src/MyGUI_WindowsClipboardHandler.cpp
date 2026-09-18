@@ -117,14 +117,29 @@ namespace MyGUI
 			// open clipboard
 			if (OpenClipboard((HWND)mHwnd))
 			{
+				struct ClipboardCloser
+				{
+					~ClipboardCloser()
+					{
+						CloseClipboard();
+					}
+				} clipboardCloser;
+
 				HANDLE hData = GetClipboardData(CF_UNICODETEXT); // extract text from clipboard
 				wchar_t* chBuffer = hData ? (wchar_t*)GlobalLock(hData) : nullptr;
 				if (chBuffer)
 				{
+					struct ClipboardUnlocker
+					{
+						HANDLE handle;
+						~ClipboardUnlocker()
+						{
+							GlobalUnlock(handle);
+						}
+					} clipboardUnlocker{hData};
+
 					buff = chBuffer;
-					GlobalUnlock(hData);
 				}
-				CloseClipboard();
 			}
 			// if the buffer doesn't contain what we put, take from buffer
 			if (mPutTextInClipboard != buff)

@@ -84,6 +84,40 @@ namespace
 		}
 	}
 
+	void testMalformedWideStrings()
+	{
+		const auto check = [](const std::wstring& input, const std::u32string& expected)
+		{
+			const MyGUI::UString text(input);
+			require(text.asUTF32() == expected, "Wide-string recovery must preserve valid neighbouring text");
+			require(MyGUI::UString(text.asUTF8()) == text, "Recovered wide input must produce valid UTF-8");
+			require(MyGUI::UString(text.asWStr()) == text, "Recovered wide input must produce valid native text");
+		};
+		const wchar_t high = 0xD800;
+		const wchar_t low = 0xDC00;
+		check({}, U"");
+		check({high}, U"\uFFFD");
+		check({low}, U"\uFFFD");
+		check({L'A', high, L'B', low, L'C', high}, U"A\uFFFDB\uFFFDC\uFFFD");
+		check({low, high}, U"\uFFFD\uFFFD");
+		check({high, L'\0', low}, std::u32string(U"\uFFFD\0\uFFFD", 3));
+		check(L"A\U00010000\U0010FFFFB", U"A\U00010000\U0010FFFFB");
+		require(
+			MyGUI::UString(std::wstring{high, L'B'}.c_str()).asUTF32() == U"\uFFFDB",
+			"Null-terminated wide input must use the same replacement policy");
+		if constexpr (sizeof(wchar_t) == 2)
+		{
+			check({high, high, low}, U"\uFFFD\U00010000");
+			check({high, low, low}, U"\U00010000\uFFFD");
+		}
+		else
+		{
+			check({high, low}, U"\uFFFD\uFFFD");
+			check({static_cast<wchar_t>(0x110000), L'B'}, U"\uFFFDB");
+			check({static_cast<wchar_t>(-1)}, U"\uFFFD");
+		}
+	}
+
 	void testLinesAndTags()
 	{
 		unittest::TestContext context;
@@ -328,6 +362,7 @@ int main()
 		{"Consecutive colour tags", testConsecutiveColourTags},
 		{"Unicode round trips and mutation", testUnicodeRoundTrip},
 		{"Malformed UTF-8", testMalformedUtf8},
+		{"Malformed native wide strings", testMalformedWideStrings},
 		{"Lines and colour tags", testLinesAndTags},
 		{"UString adapter compatibility", testStringAdapter},
 		{"TextIterator code-point edits", testTextIteratorCodePointEdits},

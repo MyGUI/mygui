@@ -58,18 +58,42 @@ namespace MyGUI
 	UString::UString(const std::wstring& text)
 	{
 		static_assert(sizeof(wchar_t) == 2 || sizeof(wchar_t) == 4);
-		if constexpr (sizeof(wchar_t) == 2)
+		mData.reserve(text.size());
+		for (auto iter = text.begin(); iter != text.end();)
 		{
-			mData = convertText(
-				[&text]
+			char32_t character = U'\uFFFD';
+			if constexpr (sizeof(wchar_t) == 2)
+			{
+				auto next = iter;
+				try
 				{
-					std::string encoded;
-					utf8::utf16to8(text.begin(), text.end(), std::back_inserter(encoded));
-					return utf8::utf8to32(encoded);
-				});
+					const auto value = utf8::next16(next, text.end());
+					// Some malformed sequences leave next unchanged instead of throwing.
+					if (next != iter)
+						character = value;
+				}
+				catch (const utf8::exception&)
+				{
+					next = iter;
+				}
+				// Replace only the unpaired surrogate; preserve the following character.
+				iter = next == iter ? iter + 1 : next;
+			}
+			else
+			{
+				const auto value = static_cast<char32_t>(*iter++);
+				try
+				{
+					validateCharacter(value);
+					character = value;
+				}
+				catch (const utf8::exception&)
+				{
+					// Native UTF-32 input follows the same replacement policy.
+				}
+			}
+			mData.push_back(character);
 		}
-		else
-			mData.assign(text.begin(), text.end());
 	}
 
 	UString& UString::assign(std::string_view text)
