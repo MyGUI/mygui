@@ -21,6 +21,10 @@ namespace DoxygenWrapper.Wrappers.Replacers
 			foreach (var type in eventType.TemplateTypes)
 			{
 				mReplace["OriginalTypeName" + index.ToString()] = type.TypeName;
+				string compactTypeName = type.TypeName.Replace(" ", "");
+				mReplace["CallbackConversion" + index.ToString()] =
+					compactTypeName == "MyGUI::UString" || compactTypeName == "constMyGUI::UString&"
+						? "ToCallback" : "To";
 				mReplace["ValueName" + index.ToString()] = GetValueName(index - 1, _variable.ValueNames);
 
 				TypeInfo parameInfo = WrapperManager.Instance.GetTypeInfo(type.TypeName);

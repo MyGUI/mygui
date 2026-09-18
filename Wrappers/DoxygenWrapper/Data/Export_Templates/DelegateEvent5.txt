@@ -17,10 +17,10 @@
 		{
 			mExportHandle(
 				#{ValueName1},
-				Convert<#{OriginalTypeName2}>::To(#{ValueName2}),
-				Convert<#{OriginalTypeName3}>::To(#{ValueName3}),
-				Convert<#{OriginalTypeName4}>::To(#{ValueName4}),
-				Convert<#{OriginalTypeName5}>::To(#{ValueName5}));
+				Convert<#{OriginalTypeName2}>::#{CallbackConversion2}(#{ValueName2}),
+				Convert<#{OriginalTypeName3}>::#{CallbackConversion3}(#{ValueName3}),
+				Convert<#{OriginalTypeName4}>::#{CallbackConversion4}(#{ValueName4}),
+				Convert<#{OriginalTypeName5}>::#{CallbackConversion5}(#{ValueName5}));
 		}
 		
 		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}(ExportHandle _delegate)

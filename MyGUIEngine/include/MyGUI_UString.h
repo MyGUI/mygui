@@ -50,7 +50,6 @@ namespace MyGUI
 			{
 				mData = text.mData;
 				mUTF8.clear();
-				mWide.clear();
 			}
 			return *this;
 		}
@@ -267,16 +266,14 @@ namespace MyGUI
 		//! Concurrent conversions on the same object require external synchronization.
 		//! Invalid Unicode scalar values are reported as invalid_data exceptions.
 		const std::string& asUTF8() const;
-		const std::wstring& asWStr() const;
+
+		//! Return an independent native wide string.
+		//! Invalid Unicode scalar values are reported as invalid_data exceptions.
+		std::wstring asWStr() const;
 
 		const char* asUTF8_c_str() const
 		{
 			return asUTF8().c_str();
-		}
-
-		const wchar_t* asWStr_c_str() const
-		{
-			return asWStr().c_str();
 		}
 
 		operator std::string() const
@@ -323,7 +320,6 @@ namespace MyGUI
 	private:
 		std::u32string mData;
 		mutable std::string mUTF8;
-		mutable std::wstring mWide;
 	};
 
 } // namespace MyGUI

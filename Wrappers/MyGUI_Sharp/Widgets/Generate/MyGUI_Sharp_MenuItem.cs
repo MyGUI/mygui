@@ -163,7 +163,7 @@ namespace MyGUI.Sharp
 
 		public string ItemName
 		{
-			get { return Marshal.PtrToStringUni(ExportMenuItem_GetItemName(Native)); }
+			get { return NativeWideString.CopyAndFree(ExportMenuItem_GetItemName(Native)); }
 			set { ExportMenuItem_SetItemName(Native, value); }
 		}
 

@@ -88,9 +88,9 @@ namespace MyGUI
 		return mUTF8;
 	}
 
-	const std::wstring& UString::asWStr() const
+	std::wstring UString::asWStr() const
 	{
-		mWide = convertText(
+		return convertText(
 			[this]
 			{
 				std::wstring result;
@@ -107,7 +107,6 @@ namespace MyGUI
 				}
 				return result;
 			});
-		return mWide;
 	}
 
 } // namespace MyGUI

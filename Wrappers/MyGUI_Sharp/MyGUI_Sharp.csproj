@@ -46,6 +46,7 @@
     <Compile Include="Core\Gui.cs" />
     <Compile Include="Core\InputManager.cs" />
     <Compile Include="Core\LayerManager.cs" />
+    <Compile Include="Core\NativeWideString.cs" />
     <Compile Include="Core\Platform\DllName.cs" />
     <Compile Include="Core\Platform\Platform.cs" />
     <Compile Include="Core\Platform\Platform_Layers.cs" />

@@ -206,7 +206,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index)
 		{
-			return Marshal.PtrToStringUni(ExportComboBox_GetItemNameAt__index(Native,
+			return NativeWideString.CopyAndFree(ExportComboBox_GetItemNameAt__index(Native,
 				_index));
 		}
 

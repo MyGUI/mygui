@@ -83,7 +83,8 @@ namespace MyGUI
 			typedef System::String ^ Type;
 			inline static System::String ^ To(const MyGUI::UString& _value)
 			{
-				return string_utility::utf16_to_managed(_value);
+				const auto wide = _value.asWStr();
+				return string_utility::utf16_to_managed(wide);
 			}
 			inline static MyGUI::UString From(System::String ^ _value)
 			{
@@ -95,7 +96,8 @@ namespace MyGUI
 			typedef System::String ^ Type;
 			inline static System::String ^ To(const MyGUI::UString& _value)
 			{
-				return string_utility::utf16_to_managed(_value);
+				const auto wide = _value.asWStr();
+				return string_utility::utf16_to_managed(wide);
 			}
 			inline static MyGUI::UString From(System::String ^ _value)
 			{

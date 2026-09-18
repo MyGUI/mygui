@@ -89,7 +89,7 @@ namespace MyGUI
 		if (_type == "Text")
 		{
 			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
-			const auto& wideText = mPutTextInClipboard.asWStr();
+			const auto wideText = mPutTextInClipboard.asWStr();
 			size_t size = (wideText.size() + 1) * sizeof(wchar_t);
 			// open clipboard
 			if (OpenClipboard((HWND)mHwnd))

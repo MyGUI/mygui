@@ -97,7 +97,7 @@
 			<ValueConvertPost></ValueConvertPost>
 			<ReturnTypeName>IntPtr</ReturnTypeName>
 			<ReturnMarshalAs></ReturnMarshalAs>
-			<ReturnConvertBefore>Marshal.PtrToStringUni(</ReturnConvertBefore>
+			<ReturnConvertBefore>NativeWideString.CopyAndFree(</ReturnConvertBefore>
 			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::UString">
@@ -111,7 +111,7 @@
 			<ValueConvertPost></ValueConvertPost>
 			<ReturnTypeName>IntPtr</ReturnTypeName>
 			<ReturnMarshalAs></ReturnMarshalAs>
-			<ReturnConvertBefore>Marshal.PtrToStringUni(</ReturnConvertBefore>
+			<ReturnConvertBefore>NativeWideString.CopyAndFree(</ReturnConvertBefore>
 			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const std::string &amp;">

@@ -6,6 +6,7 @@
 */
 
 #include "ExportMarshaling.h"
+#include <algorithm>
 
 namespace Export
 {
@@ -22,7 +23,19 @@ namespace Export
 
 	MyGUI::Colour Convert< MyGUI::Colour >::mHolder;
 
-	MyGUI::UString Convert< MyGUI::UString >::mHolder;
 	std::string Convert< std::string >::mHolder;
+
+	const wchar_t* allocateWideString(const MyGUI::UString& value)
+	{
+		const auto wide = value.asWStr();
+		auto* result = new wchar_t[wide.size() + 1];
+		std::copy_n(wide.c_str(), wide.size() + 1, result);
+		return result;
+	}
+
+	MYGUIEXPORT void MYGUICALL ExportMarshaling_FreeWideString(const wchar_t* value)
+	{
+		delete[] value;
+	}
 
 }

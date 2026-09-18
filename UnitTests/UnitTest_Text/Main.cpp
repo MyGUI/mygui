@@ -120,7 +120,7 @@ namespace
 		require(text.size() == 3 && text.find('#') == 2, "UString offsets must count Unicode code points");
 		const auto& utf8 = text.asUTF8();
 		const auto& utf32 = text.asUTF32();
-		const auto& wide = text.asWStr();
+		const auto wide = text.asWStr();
 		require(utf8 == "A\xF0\x9F\x98\x80#", "Other conversions must preserve the UTF-8 result");
 		require(utf32 == U"A\U0001F600#", "Wide conversion must preserve the UTF-32 result");
 		require(MyGUI::UString(wide) == text, "Native wide strings must round-trip through the adapter");
@@ -134,9 +134,15 @@ namespace
 		text[1] = U'\U0001D800';
 		require(copied.asUTF32() == U"B\U0001F600#", "Copying text must retain independent primary storage");
 		const auto& copiedUtf8 = copied.asUTF8();
-		const auto& copiedWide = copied.asWStr();
+		const auto copiedWide = copied.asWStr();
 		copied = text;
-		require(copiedUtf8.empty() && copiedWide.empty(), "Copy assignment must leave conversion buffers empty");
+		require(copiedUtf8.empty(), "Copy assignment must leave the UTF-8 buffer empty");
+		require(copiedWide == L"B\U0001F600#", "Copy assignment must preserve previously returned wide strings");
+		require(copied.asWStr() == L"B\U0001D800#", "Wide conversion must reflect the assigned text");
+		require(wide == L"A\U0001F600#", "Later conversions and edits must preserve earlier wide strings");
+		const auto temporaryWide = MyGUI::UString("\xC3\xA9\xF0\x9F\x98\x80").asWStr();
+		require(temporaryWide == L"\u00E9\U0001F600", "Wide strings must outlive the source UString");
+		require(MyGUI::UString().asWStr().empty(), "Empty text must produce an empty owning wide string");
 		text[1] = U'\U0001F600';
 		text.assign(text.asUTF8());
 		require(text[0] == U'B', "Assignment must accept the object's own conversion buffer");

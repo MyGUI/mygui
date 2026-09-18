@@ -402,7 +402,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index)
 		{
-			return Marshal.PtrToStringUni(ExportListBox_GetItemNameAt__index(Native,
+			return NativeWideString.CopyAndFree(ExportListBox_GetItemNameAt__index(Native,
 				_index));
 		}
 

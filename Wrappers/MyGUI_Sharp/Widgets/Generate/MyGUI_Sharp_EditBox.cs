@@ -257,7 +257,7 @@ namespace MyGUI.Sharp
 			uint _start,
 			uint _count)
 		{
-			return Marshal.PtrToStringUni(ExportEditBox_GetTextInterval__start__count(Native,
+			return NativeWideString.CopyAndFree(ExportEditBox_GetTextInterval__start__count(Native,
 				_start,
 				_count));
 		}
@@ -539,7 +539,7 @@ namespace MyGUI.Sharp
 
 		public string OnlyText
 		{
-			get { return Marshal.PtrToStringUni(ExportEditBox_GetOnlyText(Native)); }
+			get { return NativeWideString.CopyAndFree(ExportEditBox_GetOnlyText(Native)); }
 			set { ExportEditBox_SetOnlyText(Native, value); }
 		}
 
@@ -579,7 +579,7 @@ namespace MyGUI.Sharp
 
 		public string TextSelection
 		{
-			get { return Marshal.PtrToStringUni(ExportEditBox_GetTextSelection(Native)); }
+			get { return NativeWideString.CopyAndFree(ExportEditBox_GetTextSelection(Native)); }
 		}
 
 		#endregion

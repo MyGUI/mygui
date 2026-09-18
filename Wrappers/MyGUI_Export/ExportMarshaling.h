@@ -14,6 +14,10 @@
 namespace Export
 {
 
+	// UString results belong to the caller and must be freed by this DLL.
+	const wchar_t* allocateWideString(const MyGUI::UString& value);
+	MYGUIEXPORT void MYGUICALL ExportMarshaling_FreeWideString(const wchar_t* value);
+
 	// basic templates for converting variables and types
 	template <typename T> struct Convert
 	{
@@ -350,14 +354,35 @@ namespace Export
 		}
 	};
 
+	// Callback arguments are borrowed until the callback returns. Each argument owns
+	// its own storage, including during nested callbacks and reentrant getter calls.
+	class WideStringArgument
+	{
+	public:
+		explicit WideStringArgument(const MyGUI::UString& value) :
+			mValue(value.asWStr())
+		{
+		}
+
+		operator const wchar_t*() const
+		{
+			return mValue.c_str();
+		}
+
+	private:
+		std::wstring mValue;
+	};
+
 	template <> struct Convert<MyGUI::UString>
 	{
 		typedef const wchar_t* Type;
-		static MyGUI::UString mHolder;
 		inline static Type To(const MyGUI::UString& _value)
 		{
-			mHolder = _value;
-			return mHolder.asWStr_c_str();
+			return allocateWideString(_value);
+		}
+		inline static WideStringArgument ToCallback(const MyGUI::UString& _value)
+		{
+			return WideStringArgument(_value);
 		}
 		inline static MyGUI::UString From(Type _value)
 		{
@@ -385,7 +410,11 @@ namespace Export
 		typedef const wchar_t* Type;
 		inline static Type To(const MyGUI::UString& _value)
 		{
-			return _value.asWStr_c_str();
+			return allocateWideString(_value);
+		}
+		inline static WideStringArgument ToCallback(const MyGUI::UString& _value)
+		{
+			return WideStringArgument(_value);
 		}
 		inline static MyGUI::UString From(Type _value)
 		{

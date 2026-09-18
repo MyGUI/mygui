@@ -227,7 +227,7 @@ namespace MyGUI.Sharp
 		public string GetItemName(
 			TabItem _item)
 		{
-			return Marshal.PtrToStringUni(ExportTabControl_GetItemName__item(Native,
+			return NativeWideString.CopyAndFree(ExportTabControl_GetItemName__item(Native,
 				_item.Native));
 		}
 
@@ -242,7 +242,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index)
 		{
-			return Marshal.PtrToStringUni(ExportTabControl_GetItemNameAt__index(Native,
+			return NativeWideString.CopyAndFree(ExportTabControl_GetItemNameAt__index(Native,
 				_index));
 		}
 

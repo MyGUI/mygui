@@ -11,7 +11,7 @@
 		{
 			mExportHandle(
 				#{ValueName1},
-				Convert<#{OriginalTypeName2}>::To(#{ValueName2}));
+				Convert<#{OriginalTypeName2}>::#{CallbackConversion2}(#{ValueName2}));
 		}
 		
 		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}(ExportHandle _delegate)

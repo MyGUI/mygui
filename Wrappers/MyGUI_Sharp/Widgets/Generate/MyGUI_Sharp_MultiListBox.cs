@@ -248,7 +248,7 @@ namespace MyGUI.Sharp
 			uint _column,
 			uint _index)
 		{
-			return Marshal.PtrToStringUni(ExportMultiListBox_GetSubItemNameAt__column__index(Native,
+			return NativeWideString.CopyAndFree(ExportMultiListBox_GetSubItemNameAt__column__index(Native,
 				_column,
 				_index));
 		}
@@ -295,7 +295,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index)
 		{
-			return Marshal.PtrToStringUni(ExportMultiListBox_GetItemNameAt__index(Native,
+			return NativeWideString.CopyAndFree(ExportMultiListBox_GetItemNameAt__index(Native,
 				_index));
 		}
 
@@ -481,7 +481,7 @@ namespace MyGUI.Sharp
 		public string GetColumnName(
 			MultiListItem _item)
 		{
-			return Marshal.PtrToStringUni(ExportMultiListBox_GetColumnName__item(Native,
+			return NativeWideString.CopyAndFree(ExportMultiListBox_GetColumnName__item(Native,
 				_item.Native));
 		}
 
@@ -496,7 +496,7 @@ namespace MyGUI.Sharp
 		public string GetColumnNameAt(
 			uint _column)
 		{
-			return Marshal.PtrToStringUni(ExportMultiListBox_GetColumnNameAt__column(Native,
+			return NativeWideString.CopyAndFree(ExportMultiListBox_GetColumnNameAt__column(Native,
 				_column));
 		}
 

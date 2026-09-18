@@ -356,7 +356,7 @@ namespace MyGUI.Sharp
 		public string GetItemName(
 			MenuItem _item)
 		{
-			return Marshal.PtrToStringUni(ExportMenuControl_GetItemName__item(Native,
+			return NativeWideString.CopyAndFree(ExportMenuControl_GetItemName__item(Native,
 				_item.Native));
 		}
 
@@ -371,7 +371,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index)
 		{
-			return Marshal.PtrToStringUni(ExportMenuControl_GetItemNameAt__index(Native,
+			return NativeWideString.CopyAndFree(ExportMenuControl_GetItemNameAt__index(Native,
 				_index));
 		}
 

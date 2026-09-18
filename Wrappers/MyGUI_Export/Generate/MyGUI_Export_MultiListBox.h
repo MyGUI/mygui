@@ -38,8 +38,8 @@ namespace Export
 			mExportHandle(
 				_sender,
 				Convert<size_t>::To(_column),
-				Convert<const MyGUI::UString &>::To(_firstItem),
-				Convert<const MyGUI::UString &>::To(_secondItem),
+				Convert<const MyGUI::UString &>::ToCallback(_firstItem),
+				Convert<const MyGUI::UString &>::ToCallback(_secondItem),
 				Convert<bool &>::To(_less));
 		}
 		

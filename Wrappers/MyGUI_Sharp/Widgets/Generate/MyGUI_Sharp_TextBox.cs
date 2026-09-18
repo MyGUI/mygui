@@ -149,7 +149,7 @@ namespace MyGUI.Sharp
 
 		public string Caption
 		{
-			get { return Marshal.PtrToStringUni(ExportTextBox_GetCaption(Native)); }
+			get { return NativeWideString.CopyAndFree(ExportTextBox_GetCaption(Native)); }
 			set { ExportTextBox_SetCaption(Native, value); }
 		}
 
