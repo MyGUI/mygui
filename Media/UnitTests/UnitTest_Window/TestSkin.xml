@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceLayout" name="InteractionWindow" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 200 120" name="Root">
+			<Widget type="TextBox" skin="Default" position="0 0 180 20" align="HStretch Top" name="Caption"/>
+			<Widget type="Widget" skin="Default" position="190 110 10 10" align="Right Bottom" name="ResizeRightBottom"/>
+			<Widget type="Widget" skin="Default" position="0 110 10 10" align="Left Bottom" name="ResizeLeftBottom"/>
+		</Widget>
+	</Resource>
+</MyGUI>
