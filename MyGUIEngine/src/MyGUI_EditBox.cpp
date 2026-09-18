@@ -1074,6 +1074,10 @@ namespace MyGUI
 
 	void EditBox::_setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history)
 	{
+		if (_count == 0 || _start >= mTextLength)
+			return;
+		_count = std::min(_count, mTextLength - _start);
+
 		VectorChangeInfo* history = nullptr;
 		if (_history)
 			history = new VectorChangeInfo();

@@ -1,6 +1,9 @@
 #include "BehaviourTestSupport.h"
 #include "FixedFont.h"
 
+#include "Interaction.h"
+#include "Editing.h"
+
 namespace
 {
 
@@ -93,6 +96,135 @@ namespace
 		edit->setTextSelection(1, 3);
 		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
 		require(edit->getOnlyText() == "ax", "Replacement must remain possible when the field was full");
+	}
+
+	void testDeleteAndNewlineHistory()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		const MyGUI::UString text(std::u32string(U"a\U0001F600bc"));
+		edit->setOnlyText(text);
+		edit->setTextCursor(1);
+		unittest::keyStroke(MyGUI::KeyCode::Delete);
+		require(
+			edit->getOnlyText() == "abc" && edit->getTextCursor() == 1,
+			"Delete must remove a whole supplementary character without moving the cursor");
+		unittest::shortcut(MyGUI::KeyCode::Z);
+		require(edit->getOnlyText() == text, "Undo must restore the complete deleted character");
+		unittest::redo();
+		require(edit->getOnlyText() == "abc" && edit->getTextCursor() == 1, "Redo must repeat forward deletion");
+
+		edit->setEditMultiLine(true);
+		edit->setOnlyText("abcdef");
+		edit->setTextSelection(4, 1);
+		unittest::keyStroke(MyGUI::KeyCode::Return);
+		require(
+			edit->getOnlyText() == "a\nef" && edit->getTextCursor() == 2 && !edit->isTextSelection(),
+			"Enter must replace a reverse selection with one newline");
+		unittest::shortcut(MyGUI::KeyCode::Z);
+		require(edit->getOnlyText() == "abcdef", "One undo must restore the entire newline replacement");
+		unittest::redo();
+		require(
+			edit->getOnlyText() == "a\nef" && edit->getTextCursor() == 2,
+			"One redo must repeat the entire newline replacement");
+	}
+
+	void testCursorBoundaries()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setOnlyText(MyGUI::UString(std::u32string(U"a\U0001F600bc")));
+		edit->setTextCursor(100);
+		require(edit->getTextCursor() == 4, "An oversized cursor index must clamp to the logical text length");
+		edit->setTextSelection(100, 1);
+		require(
+			edit->getTextSelectionStart() == 1 && edit->getTextSelectionEnd() == 4 && edit->getTextCursor() == 1,
+			"An oversized reverse-selection start must clamp while retaining its active end");
+		edit->setTextSelection(1, 100);
+		require(
+			edit->getTextSelectionEnd() == 4 && edit->getTextCursor() == 4,
+			"An oversized selection end must clamp together with the cursor");
+		edit->setTextCursor(4);
+		require(!edit->isTextSelection(), "Setting the existing cursor position must still clear selection");
+		edit->setTextCursor(1);
+		unittest::keyStroke(MyGUI::KeyCode::ArrowRight);
+		require(edit->getTextCursor() == 2, "Right must cross a supplementary character in one step");
+		unittest::keyStroke(MyGUI::KeyCode::ArrowLeft);
+		require(edit->getTextCursor() == 1, "Left must cross a supplementary character in one step");
+
+		edit->setEditMultiLine(true);
+		edit->setOnlyText("abcd\nefgh\nijkl");
+		edit->setTextCursor(7);
+		unittest::keyStroke(MyGUI::KeyCode::Home);
+		require(edit->getTextCursor() == 5, "Home must move to the current line's beginning");
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectKeyPress(MyGUI::KeyCode::LeftShift);
+		unittest::keyStroke(MyGUI::KeyCode::End);
+		input.injectKeyRelease(MyGUI::KeyCode::LeftShift);
+		require(
+			edit->getTextCursor() == 9 && MyGUI::TextIterator::getOnlyText(edit->getTextSelection()) == "efgh",
+			"Shift+End must select the current line without its newline");
+		edit->setTextCursor(2);
+		unittest::keyStroke(MyGUI::KeyCode::ArrowUp);
+		require(edit->getTextCursor() == 0, "Up on the first line must clamp to the text beginning");
+		edit->setTextCursor(12);
+		input.injectKeyPress(MyGUI::KeyCode::LeftShift);
+		unittest::keyStroke(MyGUI::KeyCode::ArrowDown);
+		input.injectKeyRelease(MyGUI::KeyCode::LeftShift);
+		require(
+			edit->getTextCursor() == 14 && MyGUI::TextIterator::getOnlyText(edit->getTextSelection()) == "kl",
+			"Shift+Down on the last line must select through the text end");
+		unittest::keyStroke(MyGUI::KeyCode::ArrowDown);
+		require(
+			edit->getTextCursor() == 14 && !edit->isTextSelection(),
+			"Down at the text end without Shift must clear the selection");
+	}
+
+	void testOverflowInsertionAndSelectionDeletion()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setMaxTextLength(4);
+		edit->setOverflowToTheLeft(true);
+		edit->setOnlyText("abcd");
+		edit->addText(MyGUI::UString(std::u32string(U"\U0001F600##")));
+		require(
+			edit->getOnlyText().asUTF32() == U"cd\U0001F600#" && edit->getTextLength() == 4,
+			"Appending past the limit must trim from the beginning without splitting Unicode or escaped hashes");
+		edit->setTextSelection(3, 1);
+		edit->deleteTextSelection();
+		require(
+			edit->getOnlyText() == "c#" && edit->getTextCursor() == 1 && !edit->isTextSelection(),
+			"Public deletion of a reverse selection must preserve surrounding text and collapse the cursor");
+		edit->deleteTextSelection();
+		require(edit->getOnlyText() == "c#", "Deleting without a selection must leave the text unchanged");
+	}
+
+	void testStaticMode()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setOnlyText("abcdef");
+		edit->setTextCursor(2);
+		const std::string pointer(edit->getClientWidget()->getPointer());
+		edit->setEditStatic(true);
+		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
+		unittest::keyStroke(MyGUI::KeyCode::Delete);
+		unittest::keyStroke(MyGUI::KeyCode::ArrowRight);
+		unittest::dragFromTo(MyGUI::IntPoint(11, 10), MyGUI::IntPoint(41, 10));
+		context.getGui().eventFrameStart(1.0f);
+		require(
+			edit->getOnlyText() == "abcdef" && edit->getTextCursor() == 2 && !edit->isTextSelection(),
+			"Static mode must reject editing, keyboard navigation and mouse selection");
+		edit->setEditStatic(false);
+		require(
+			edit->getClientWidget()->getPointer() == pointer,
+			"Leaving static mode must restore the client pointer");
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
+		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
+		require(
+			edit->getOnlyText() == "abxcdef" && edit->getTextCursor() == 3,
+			"Leaving static mode must restore normal keyboard editing");
 	}
 
 	void testUnicodeAndTags()
@@ -258,6 +390,18 @@ namespace
 			edit->getClientWidget()->getSubWidgetText()->getCaption().asUTF32() == U"\U0001F600\U0001F600\U0001F600",
 			"Changing the password character must update the complete mask");
 		require(edit->getOnlyText() == "abc", "Password masking must preserve the original text");
+		edit->setTextCursor(1);
+		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
+		edit->setEditPassword(true);
+		require(edit->getOnlyText() == "axbc", "Repeated password enabling must preserve edits to the hidden text");
+		edit->setEditPassword(false);
+		require(
+			edit->getOnlyText() == "axbc" && edit->getClientWidget()->getSubWidgetText()->getCaption() == "axbc",
+			"Disabling password mode must display the edited original text instead of the mask");
+		edit->setEditPassword(false);
+		edit->setEditPassword(true);
+		edit->setEditPassword(false);
+		require(edit->getOnlyText() == "axbc", "Repeated password transitions must not lose the original text");
 	}
 
 }
@@ -265,11 +409,21 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Colour ranges across markup and Unicode", testEditColours},
+		{"Empty and oversized colour ranges", testEditColourBoundaries},
+		{"Page, document-boundary and password navigation", testEditKeyboardNavigation},
+		{"Select-all, tabs, acceptance and Escape", testEditKeyboardCommands},
+		{"Mouse, vertical navigation and scroll synchronization", testEditBoxInteractions},
+		{"Held drag autoscroll at all four edges", testEditBoxDragAutoscroll},
 		{"Double-click Unicode word", testDoubleClickUnicodeWord},
 		{"Unicode word navigation", testWordNavigation},
 		{"Supplementary password character", testPasswordCharacter},
 		{"Text intervals and replacement", testIntervals},
 		{"Undo, redo, and history branching", testHistory},
+		{"Forward deletion and newline replacement history", testDeleteAndNewlineHistory},
+		{"Cursor and selection boundaries", testCursorBoundaries},
+		{"Overflow insertion and public selection deletion", testOverflowInsertionAndSelectionDeletion},
+		{"Static mode and editing recovery", testStaticMode},
 		{"Read-only and maximum length", testReadOnlyAndLength},
 		{"Unicode and colour tags", testUnicodeAndTags},
 		{"Clipboard and password", testClipboardAndPassword},

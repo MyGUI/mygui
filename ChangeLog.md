@@ -7,6 +7,7 @@
 - Fix out-of-bounds reads in TextIterator when text ends with an unescaped '#'
 - Fix EditBox::getTextSelectionLength returning an underflowed value for reverse selections and inactive selection
 - Fix EditBox left-side maximum-length truncation dropping a trailing literal '#'
+- Ignore empty and out-of-range EditBox colour intervals and clamp oversized lengths
 - Fix hovering over an inactive MenuBar stealing keyboard focus from other widgets (#282)
 - Add Widget::eventChangeAbsoluteCoord for absolute position or size changes, including ancestor movement, alignment and
   reparenting

@@ -1,2 +1,2 @@
-set(HEADER_FILES)
-set(SOURCE_FILES Main.cpp)
+set(HEADER_FILES Interaction.h Editing.h)
+set(SOURCE_FILES Main.cpp Interaction.cpp Editing.cpp)

@@ -1,1 +1,2 @@
 mygui_unit_test(UnitTest_EditBox)
+target_link_libraries(UnitTest_EditBox PRIVATE MyGUISkinTestSupport)

@@ -81,6 +81,23 @@ namespace unittest
 		layer->castType<MyGUI::OverlappedLayer>()->setPick(true);
 	}
 
+	inline void clickAt(int _x, int _y, int _wheel = 0)
+	{
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(_x, _y, _wheel);
+		input.injectMousePress(_x, _y, MyGUI::MouseButton::Left);
+		input.injectMouseRelease(_x, _y, MyGUI::MouseButton::Left);
+	}
+
+	inline void dragFromTo(MyGUI::IntPoint _from, MyGUI::IntPoint _to)
+	{
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(_from.left, _from.top, 0);
+		input.injectMousePress(_from.left, _from.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(_to.left, _to.top, 0);
+		input.injectMouseRelease(_to.left, _to.top, MyGUI::MouseButton::Left);
+	}
+
 }
 
 #endif // MYGUI_UNITTEST_BEHAVIOUR_TEST_SUPPORT_H_
