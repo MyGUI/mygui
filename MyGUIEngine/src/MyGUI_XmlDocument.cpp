@@ -23,6 +23,7 @@ namespace MyGUI::xml
 		mDoc(std::make_shared<pugi::xml_document>()),
 		mResult(std::make_shared<pugi::xml_parse_result>())
 	{
+		clearLastError();
 	}
 
 	bool Document::open(const std::string& _filename)
@@ -63,8 +64,15 @@ namespace MyGUI::xml
 		if (streamSize > 0)
 		{
 			data.resize(streamSize);
-			streamSize = _stream->read(data.data(), streamSize);
-			data.resize(streamSize);
+			size_t offset = 0;
+			while (offset < streamSize)
+			{
+				size_t readSize = _stream->read(data.data() + offset, streamSize - offset);
+				if (readSize == 0)
+					break;
+				offset += readSize;
+			}
+			data.resize(offset);
 		}
 		else
 		{
@@ -79,6 +87,8 @@ namespace MyGUI::xml
 		}
 
 		*mResult = mDoc->load_buffer(data.data(), data.size(), ParseFlags);
+		if (!*mResult)
+			mLastErrorFromStream = true;
 
 		return *mResult;
 	}
@@ -90,6 +100,7 @@ namespace MyGUI::xml
 
 	bool Document::save(const std::filesystem::path& _filename)
 	{
+		clearLastError();
 		bool result = mDoc->save_file(_filename.c_str(), "\t", FormatFlags);
 
 		if (!result)
@@ -103,17 +114,20 @@ namespace MyGUI::xml
 
 	bool Document::save(std::ostream& _stream)
 	{
+		clearLastError();
 		mDoc->save(_stream, "\t", FormatFlags);
-		return true;
+		if (!_stream)
+		{
+			mLastError = "Failed to save XML stream";
+			mLastErrorFromStream = true;
+		}
+		return static_cast<bool>(_stream);
 	}
 
 	void Document::clear()
 	{
 		mDoc->reset();
-		*mResult = {};
-		mLastError.clear();
-		mLastErrorFile.clear();
-		mLastErrorFromStream = false;
+		clearLastError();
 	}
 
 	bool Document::open(const UString& _filename)
@@ -129,6 +143,7 @@ namespace MyGUI::xml
 	void Document::clearLastError()
 	{
 		*mResult = {};
+		mResult->status = pugi::status_ok;
 		mLastError.clear();
 		mLastErrorFile.clear();
 		mLastErrorFromStream = false;
@@ -248,7 +263,7 @@ namespace MyGUI::xml
 	}
 
 	ElementPtr::ElementPtr(const pugi::xml_node& _node) :
-		mNode(std::make_shared<pugi::xml_node>(_node))
+		mNode(_node ? std::make_shared<pugi::xml_node>(_node) : nullptr)
 	{
 	}
 
