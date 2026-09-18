@@ -109,6 +109,18 @@ namespace
 		require(edit->getOnlyText() == MyGUI::UString("A\xD0\x91"), "Backspace must remove a whole non-BMP character");
 		unittest::shortcut(MyGUI::KeyCode::Z);
 		require(edit->getOnlyText() == unicode, "Undo must restore the complete Unicode character");
+		edit->setOnlyText("");
+		for (const auto character : std::u32string(U"\U0001F600\U0001D800#"))
+			unittest::keyStroke(MyGUI::KeyCode::None, character);
+		require(
+			edit->getOnlyText().asUTF32() == U"\U0001F600\U0001D800#" && edit->getTextCursor() == 3,
+			"Typing must preserve full code points and escape hashes");
+		unittest::keyStroke(MyGUI::KeyCode::Backspace);
+		unittest::keyStroke(MyGUI::KeyCode::Backspace);
+		unittest::shortcut(MyGUI::KeyCode::Z);
+		require(
+			edit->getOnlyText().asUTF32() == U"\U0001F600\U0001D800",
+			"Undo must restore a typed supplementary character whose low bits form a surrogate");
 		edit->setOnlyText("#FF0000literal#");
 		require(edit->getOnlyText() == "#FF0000literal#", "setOnlyText must preserve literal colour-like text");
 		edit->setMaxTextLength(1);
@@ -185,11 +197,30 @@ namespace
 		require(edit->getOnlyText().empty(), "Enter in password mode must not insert a newline");
 	}
 
+	void testPasswordCharacter()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setOnlyText("abc");
+		edit->setPasswordChar(MyGUI::UString(std::u32string(U"\U0001D800")));
+		require(edit->getPasswordChar() == 0x1D800, "A password character must use the full Unicode code point");
+		edit->setEditPassword(true);
+		require(
+			edit->getClientWidget()->getSubWidgetText()->getCaption().asUTF32() == U"\U0001D800\U0001D800\U0001D800",
+			"Password masking must encode each complete character");
+		edit->setPasswordChar(0x1F600);
+		require(
+			edit->getClientWidget()->getSubWidgetText()->getCaption().asUTF32() == U"\U0001F600\U0001F600\U0001F600",
+			"Changing the password character must update the complete mask");
+		require(edit->getOnlyText() == "abc", "Password masking must preserve the original text");
+	}
+
 }
 
 int main()
 {
 	return unittest::runTests({
+		{"Supplementary password character", testPasswordCharacter},
 		{"Text intervals and replacement", testIntervals},
 		{"Undo, redo, and history branching", testHistory},
 		{"Read-only and maximum length", testReadOnlyAndLength},

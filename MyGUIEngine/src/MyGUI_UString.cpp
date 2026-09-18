@@ -34,6 +34,17 @@ namespace MyGUI
 
 	}
 
+	UString::UString(std::size_t count, Char character)
+	{
+		convertText(
+			[&]
+			{
+				mData.reserve(count);
+				for (std::size_t index = 0; index < count; ++index)
+					utf8::append16(character, std::back_inserter(mData));
+			});
+	}
+
 	UString::UString(std::string_view text)
 	{
 		assign(text);

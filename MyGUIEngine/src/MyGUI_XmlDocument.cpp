@@ -10,9 +10,13 @@
 
 #include <pugixml.hpp>
 #include <fstream>
+#include <filesystem>
 
 namespace MyGUI::xml
 {
+
+	constexpr unsigned int ParseFlags = pugi::parse_default | pugi::parse_declaration | pugi::parse_comments;
+	constexpr unsigned int FormatFlags = pugi::format_write_bom | pugi::format_default;
 
 	Document::Document() :
 		mDoc(std::make_shared<pugi::xml_document>()),
@@ -24,8 +28,7 @@ namespace MyGUI::xml
 	{
 		clear();
 
-		*mResult =
-			mDoc->load_file(_filename.c_str(), pugi::parse_default | pugi::parse_declaration | pugi::parse_comments);
+		*mResult = mDoc->load_file(std::filesystem::u8path(_filename).c_str(), ParseFlags);
 
 		if (!*mResult)
 			mLastErrorFile = _filename;
@@ -42,7 +45,7 @@ namespace MyGUI::xml
 	{
 		clear();
 
-		*mResult = mDoc->load(_stream, pugi::parse_default | pugi::parse_declaration | pugi::parse_comments);
+		*mResult = mDoc->load(_stream, ParseFlags);
 
 		if (!*mResult)
 			mLastErrorFile = "<stream>";
@@ -74,17 +77,14 @@ namespace MyGUI::xml
 			}
 		}
 
-		*mResult = mDoc->load_buffer(
-			data.data(),
-			data.size(),
-			pugi::parse_default | pugi::parse_declaration | pugi::parse_comments);
+		*mResult = mDoc->load_buffer(data.data(), data.size(), ParseFlags);
 
 		return *mResult;
 	}
 
 	bool Document::save(const std::string& _filename)
 	{
-		bool result = mDoc->save_file(_filename.c_str(), "\t", pugi::format_write_bom | pugi::format_default);
+		bool result = mDoc->save_file(std::filesystem::u8path(_filename).c_str(), "\t", FormatFlags);
 
 		if (!result)
 		{
@@ -101,7 +101,7 @@ namespace MyGUI::xml
 
 	bool Document::save(std::ostream& _stream)
 	{
-		mDoc->save(_stream, "    ", pugi::format_write_bom | pugi::format_default);
+		mDoc->save(_stream, "\t", FormatFlags);
 		return true;
 	}
 
@@ -175,7 +175,7 @@ namespace MyGUI::xml
 			std::string lineText;
 			if (mResult->offset >= 0 && !mLastErrorFile.empty())
 			{
-				std::ifstream file(mLastErrorFile, std::ios::binary);
+				std::ifstream file(std::filesystem::u8path(mLastErrorFile), std::ios::binary);
 				if (file)
 				{
 					line = 1;

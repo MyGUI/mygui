@@ -26,13 +26,13 @@ namespace string_utility
 	inline std::string managed_to_utf8(System::String ^ _str)
 	{
 		cli::pin_ptr<const wchar_t> str = PtrToStringChars(_str);
-		return utf16_to_utf8(str);
+		return utf16_to_utf8(std::wstring(str, _str->Length));
 	}
 
 	inline std::wstring managed_to_utf16(System::String ^ _str)
 	{
 		cli::pin_ptr<const wchar_t> str = PtrToStringChars(_str);
-		return std::wstring(str);
+		return std::wstring(str, _str->Length);
 	}
 
 	inline System::String ^ ansi_to_managed(const std::string& _str)
@@ -42,7 +42,7 @@ namespace string_utility
 
 	inline System::String ^ utf16_to_managed(const std::wstring& _str)
 	{
-		return gcnew System::String(_str.c_str());
+		return gcnew System::String(_str.c_str(), 0, (int)_str.size());
 	}
 
 	inline System::String ^ utf8_to_managed(const std::string& _str)

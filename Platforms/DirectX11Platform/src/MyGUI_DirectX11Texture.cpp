@@ -15,6 +15,7 @@
 #include "MyGUI_DirectX11RenderManager.h"
 #include "MyGUI_DirectX11RTTexture.h"
 #include "MyGUI_DirectX11Diagnostic.h"
+#include "MyGUI_UString.h"
 
 namespace MyGUI
 {
@@ -80,7 +81,7 @@ namespace MyGUI
 		destroy();
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
-		std::wstring wfullname(fullname.begin(), fullname.end());
+		std::wstring wfullname = UString(fullname).asWStr();
 
 		IWICImagingFactory* wicFactory = nullptr;
 		HRESULT hr =

@@ -163,6 +163,12 @@ namespace
 		require(
 			iterator.getText().asUTF32() == U"\U0001F600##\n\u0085##\U0001F600",
 			"CRLF normalization must preserve supplementary characters and escaped hashes");
+		const MyGUI::UString tag(std::u32string(U"#\U0001D80012345"));
+		MyGUI::TextIterator tagged(tag + "text");
+		MyGUI::UString extracted;
+		require(
+			tagged.getTagColour(extracted) && extracted == tag,
+			"Extracting an unvalidated colour tag must preserve its full code points");
 	}
 
 	void testTextIteratorTruncatedColourTags()

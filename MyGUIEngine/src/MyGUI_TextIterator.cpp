@@ -206,20 +206,20 @@ namespace MyGUI
 			return false;
 
 		// take the colour
-		wchar_t buff[ColourTagLength + 1] = L"#";
-		buff[1] = (wchar_t)(*_iter);
+		std::u32string buff = U"#";
+		buff.push_back(*_iter);
 		for (size_t pos = 2; pos < ColourTagLength; pos++)
 		{
 			++_iter;
 			if (_iter == mEnd)
 				return false;
-			buff[pos] = (wchar_t)(*_iter);
+			buff.push_back(*_iter);
 		}
 
 		// move to next tag or character
 		++_iter;
 
-		_colour = buff;
+		_colour = UString(buff);
 		return true;
 	}
 
@@ -287,10 +287,9 @@ namespace MyGUI
 
 	UString TextIterator::getTextCharInfo(Char _char)
 	{
-		if (_char == L'#')
-			return L"##";
-		wchar_t buff[] = {(wchar_t)_char, L'\0'};
-		return buff;
+		if (_char == '#')
+			return "##";
+		return UString(_char);
 	}
 
 	UString TextIterator::convertTagColour(const Colour& _colour)

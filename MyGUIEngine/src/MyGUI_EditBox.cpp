@@ -1151,7 +1151,7 @@ namespace MyGUI
 			if (mClientText != nullptr)
 			{
 				mPasswordText = mClientText->getCaption();
-				mClientText->setCaption(UString(mTextLength, '*'));
+				mClientText->setCaption(UString(mTextLength, mCharPassword));
 			}
 		}
 		else
@@ -1392,7 +1392,7 @@ namespace MyGUI
 		{
 			mPasswordText = _caption;
 			if (mClientText != nullptr)
-				mClientText->setCaption(UString(mTextLength, (UString::code_point)mCharPassword));
+				mClientText->setCaption(UString(mTextLength, mCharPassword));
 		}
 		else
 		{
@@ -1407,7 +1407,7 @@ namespace MyGUI
 		if (mModePassword)
 		{
 			if (mClientText != nullptr)
-				mClientText->setCaption(UString(mTextLength, (UString::code_point)mCharPassword));
+				mClientText->setCaption(UString(mTextLength, mCharPassword));
 		}
 	}
 

@@ -8,6 +8,7 @@
 #define MYGUI_U_STRING_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 #include <cstddef>
 #include <ostream>
 #include <stdexcept>
@@ -40,10 +41,14 @@ namespace MyGUI
 		UString& operator=(const UString&) = default;
 		UString& operator=(UString&&) noexcept = default;
 
-		UString(std::size_t count, code_point character) :
-			mData(count, character)
+		//! Construct from a Unicode code point, encoding supplementary characters as surrogate pairs.
+		explicit UString(Char character) :
+			UString(1, character)
 		{
 		}
+
+		//! Repeat a Unicode code point count times.
+		UString(std::size_t count, Char character);
 
 		//! UTF-8 input. Malformed sequences are replaced with U+FFFD.
 		UString(const char* text) :
