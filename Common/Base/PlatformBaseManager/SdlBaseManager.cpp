@@ -349,7 +349,7 @@ namespace base
 
 	void SdlBaseManager::setWindowCaption(const MyGUI::UString& _text)
 	{
-		SDL_SetWindowTitle(mSdlWindow, _text.asUTF8_c_str());
+		SDL_SetWindowTitle(mSdlWindow, _text.asUTF8().c_str());
 	}
 
 	void SdlBaseManager::injectMouseMove(int _absx, int _absy, int _absz)

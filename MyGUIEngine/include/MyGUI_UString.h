@@ -259,11 +259,10 @@ namespace MyGUI
 			return mData;
 		}
 
-		//! UTF-8 and wide buffers stay empty until requested; each is refreshed on every call.
-		//! A reference survives conversion to a different encoding, but its contents are
-		//! replaced by the next conversion to the same encoding. Returned pointers/views
-		//! may be invalidated by that conversion, assignment, moving or destruction.
-		//! Concurrent conversions on the same object require external synchronization.
+		//! The UTF-8 buffer stays empty until requested and is refreshed on every call.
+		//! Its reference contents are replaced by the next UTF-8 conversion. Returned
+		//! pointers/views may be invalidated by conversion, assignment, moving or destruction.
+		//! Concurrent UTF-8 conversions on the same object require external synchronization.
 		//! Invalid Unicode scalar values are reported as invalid_data exceptions.
 		const std::string& asUTF8() const;
 
