@@ -5,13 +5,10 @@
 #include "MyGUI_VertexData.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_DataManager.h"
 
 #include <GLES3/gl3.h>
-
-#include <fstream>
-#include <filesystem>
-#include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
 {
@@ -54,14 +51,14 @@ namespace MyGUI
 
 	std::string OpenGLESRenderManager::loadFileContent(const std::string& _file)
 	{
-		std::string fullPath = DataManager::getInstance().getDataPath(_file);
-		if (fullPath.empty())
+		IDataStream* stream = DataManager::getInstance().getData(_file);
+		if (stream == nullptr)
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 			return {};
 		}
-		std::ifstream fileStream(MyGUI::utility::toPath(fullPath));
-		return {std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>()};
+		DataStreamHolder streamHolder(stream);
+		return stream->readAllText();
 	}
 
 	GLuint OpenGLESRenderManager::createShaderProgram(

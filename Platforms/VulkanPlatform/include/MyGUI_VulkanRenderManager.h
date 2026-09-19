@@ -14,6 +14,7 @@
 #include "MyGUI_VulkanImageLoader.h"
 
 #include <vulkan/vulkan.h>
+#include <cstddef>
 
 namespace MyGUI
 {
@@ -123,7 +124,7 @@ namespace MyGUI
 		VkImageView createImageView(VkImage _image, VkFormat _format);
 
 	private:
-		std::vector<uint8_t> loadFileContent(const std::string& _file);
+		std::vector<std::byte> loadShaderBytecode(const std::string& _file);
 		VkShaderModule createShaderModule(const std::string& _file);
 		VkPipeline createShaderPipeline(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
 		void destroyAllResources();

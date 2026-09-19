@@ -16,6 +16,7 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_IDataStream.h"
+#include "MyGUI_DataStreamHolder.h"
 
 #include <array>
 #include <cstring>
@@ -726,25 +727,24 @@ namespace MyGUI
 		vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
 	}
 
-	std::vector<uint8_t> VulkanRenderManager::loadFileContent(const std::string& _file)
+	std::vector<std::byte> VulkanRenderManager::loadShaderBytecode(const std::string& _file)
 	{
 		IDataStream* stream = DataManager::getInstance().getData(_file);
-		if (stream == nullptr || stream->size() == 0)
+		if (stream == nullptr)
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
-			delete stream;
 			return {};
 		}
-
-		std::vector<uint8_t> content(stream->size());
-		stream->read(content.data(), content.size());
-		DataManager::getInstance().freeData(stream);
+		DataStreamHolder streamHolder(stream);
+		auto content = stream->readAll();
+		if (content.empty())
+			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 		return content;
 	}
 
 	VkShaderModule VulkanRenderManager::createShaderModule(const std::string& _file)
 	{
-		std::vector<uint8_t> code = loadFileContent(_file);
+		const auto code = loadShaderBytecode(_file);
 		if (code.empty())
 			MYGUI_PLATFORM_EXCEPT("Failed to load shader file '" << _file << "'");
 

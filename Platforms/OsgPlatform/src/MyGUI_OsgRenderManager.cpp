@@ -10,6 +10,7 @@
 #include "MyGUI_OsgTexture.h"
 #include "MyGUI_OsgVertexBuffer.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_DataStreamHolder.h"
 
 #include <osg/Array>
 #include <osg/BlendFunc>
@@ -29,10 +30,7 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <fstream>
-#include <filesystem>
 #include <vector>
-#include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
 {
@@ -500,14 +498,14 @@ namespace MyGUI
 
 	std::string OsgRenderManager::loadFileContent(const std::string& _file)
 	{
-		std::string fullPath = DataManager::getInstance().getDataPath(_file);
-		if (fullPath.empty())
+		IDataStream* stream = DataManager::getInstance().getData(_file);
+		if (stream == nullptr)
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 			return {};
 		}
-		std::ifstream fileStream(MyGUI::utility::toPath(fullPath));
-		return {std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>()};
+		DataStreamHolder streamHolder(stream);
+		return stream->readAllText();
 	}
 
 	osg::ref_ptr<osg::Program> OsgRenderManager::createShaderProgram(
