@@ -13,6 +13,7 @@
 namespace MyGUI
 {
 
+	/** Non-owning std::istream adapter with a lazily cached size. */
 	class MYGUI_EXPORT DataStream : public IDataStream
 	{
 	public:

@@ -19,8 +19,10 @@ namespace MyGUI
 		virtual ~IDataStream() = default;
 
 		virtual bool eof() = 0;
+		/** Total byte size, or zero if unavailable. Preserves the read position and stream state. */
 		virtual size_t size() = 0;
 		virtual void readline(std::string& _source, Char _delim = '\n') = 0;
+		/** Read up to _count bytes from the current position and return the actual number read. */
 		virtual size_t read(void* _buf, size_t _count) = 0;
 	};
 
