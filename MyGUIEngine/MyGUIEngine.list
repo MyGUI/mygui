@@ -201,6 +201,7 @@ set (SOURCE_FILES
   src/MyGUI_FontManager.cpp
   src/MyGUI_GeometryUtility.cpp
   src/MyGUI_Gui.cpp
+  src/MyGUI_IDataStream.cpp
   src/MyGUI_IObject.cpp
   src/MyGUI_IResource.cpp
   src/MyGUI_ISerializable.cpp
@@ -476,6 +477,7 @@ SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Precompiled.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common\\Interfaces" FILES
+  src/MyGUI_IDataStream.cpp
   src/MyGUI_IObject.cpp
   src/MyGUI_ISerializable.cpp
 )

@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include <cstddef>
 
 namespace MyGUI
 {
@@ -24,6 +25,14 @@ namespace MyGUI
 		virtual void readline(std::string& _source, Char _delim = '\n') = 0;
 		/** Read up to _count bytes from the current position and return the actual number read. */
 		virtual size_t read(void* _buf, size_t _count) = 0;
+
+		/** Read all remaining bytes, including embedded NULs, until read() returns zero.
+			Read exceptions propagate to the caller.
+		*/
+		std::vector<std::byte> readAll();
+
+		/** Same as readAll, but use std::string as container */
+		std::string readAllText();
 	};
 
 } // namespace MyGUI

@@ -420,6 +420,104 @@ namespace
 		}
 	}
 
+	class ChunkStream : public MyGUI::IDataStream
+	{
+	public:
+		ChunkStream(std::string _content, size_t _chunk, bool _throwAfterRead = false) :
+			content(std::move(_content)),
+			chunk(_chunk),
+			throwAfterRead(_throwAfterRead)
+		{
+		}
+
+		bool eof() override
+		{
+			require(false, "readAll must use the read result rather than querying EOF");
+			return false;
+		}
+
+		size_t size() override
+		{
+			require(false, "readAll must not query the stream size");
+			return 0;
+		}
+
+		void readline(std::string&, MyGUI::Char) override
+		{
+			require(false, "readAll must preserve raw bytes rather than reading lines");
+		}
+
+		size_t read(void* _buffer, size_t _count) override
+		{
+			if (throwAfterRead && offset != 0)
+				throw std::ios_base::failure("readAll test failure");
+			const auto count = std::min({_count, chunk, content.size() - offset});
+			std::memcpy(_buffer, content.data() + offset, count);
+			offset += count;
+			return count;
+		}
+
+	private:
+		std::string content;
+		size_t chunk;
+		bool throwAfterRead;
+		size_t offset{0};
+	};
+
+	bool matchesBytes(const std::vector<std::byte>& _actual, std::string_view _expected)
+	{
+		return _actual.size() == _expected.size() &&
+			(_expected.empty() || std::memcmp(_actual.data(), _expected.data(), _expected.size()) == 0);
+	}
+
+	void testReadAllChunksWithoutSize()
+	{
+		std::string content;
+		for (size_t index = 0; index < 10003; ++index)
+			content += static_cast<char>(index % 256);
+		for (size_t chunk : {size_t(7), content.size()})
+		{
+			ChunkStream stream(content, chunk);
+			require(
+				matchesBytes(stream.readAll(), content),
+				"readAll must preserve partial binary reads without querying size");
+		}
+	}
+
+	void testReadAllPositionAndTermination()
+	{
+		const std::string content("a\0b\r\n", 5);
+		std::istringstream input(content);
+		input.seekg(1);
+		MyGUI::DataStream stream(&input);
+		require(matchesBytes(stream.readAll(), content.substr(1)), "readAll must start at the current position");
+		require(stream.readAll().empty(), "readAll must return empty after consuming the resource");
+		ChunkStream stalled("unread", 0);
+		require(stalled.readAll().empty(), "A zero-byte read without EOF must terminate readAll");
+	}
+
+	void testReadAllExceptions()
+	{
+		ChunkStream stream("partial result", 3, true);
+		bool threw = false;
+		try
+		{
+			stream.readAll();
+		}
+		catch (const std::ios_base::failure&)
+		{
+			threw = true;
+		}
+		require(threw, "readAll must propagate errors instead of returning a partial result as success");
+	}
+
+	void testReadAllTextPreservesBytes()
+	{
+		const std::string content = std::string("a\0b\r\n", 5) + "\xC3\xA9\xFF";
+		ChunkStream stream(content, 2);
+		require(stream.readAllText() == content, "readAllText must preserve NULs, CRLF and non-ASCII bytes exactly");
+	}
+
 	void testUnopenedFile()
 	{
 		MyGUI::DataFileStream stream(std::make_unique<std::ifstream>());
@@ -449,5 +547,9 @@ int main()
 		{"Borrowed stream lifetime", testBorrowedLifetime},
 		{"Owned file lifetime", testFileOwnership},
 		{"Unopened file", testUnopenedFile},
+		{"Read all with partial reads without size queries", testReadAllChunksWithoutSize},
+		{"Read all position and termination", testReadAllPositionAndTermination},
+		{"Read all exception propagation", testReadAllExceptions},
+		{"Read all text preserves bytes", testReadAllTextPreservesBytes},
 	});
 }

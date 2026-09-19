@@ -59,32 +59,7 @@ namespace MyGUI::xml
 	{
 		clear();
 
-		std::string data;
-		size_t streamSize = _stream->size();
-		if (streamSize > 0)
-		{
-			data.resize(streamSize);
-			size_t offset = 0;
-			while (offset < streamSize)
-			{
-				size_t readSize = _stream->read(data.data() + offset, streamSize - offset);
-				if (readSize == 0)
-					break;
-				offset += readSize;
-			}
-			data.resize(offset);
-		}
-		else
-		{
-			char buf[4096];
-			while (!_stream->eof())
-			{
-				size_t readSize = _stream->read(buf, sizeof(buf));
-				if (readSize == 0)
-					break;
-				data.append(buf, readSize);
-			}
-		}
+		const auto data = _stream->readAll();
 
 		*mResult = mDoc->load_buffer(data.data(), data.size(), ParseFlags);
 		if (!*mResult)

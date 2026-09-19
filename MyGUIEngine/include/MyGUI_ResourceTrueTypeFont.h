@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IFont.h"
+#include <cstddef>
 
 #ifdef MYGUI_USE_FREETYPE
 
@@ -162,9 +163,8 @@ namespace MyGUI
 		// Loads the font face as specified by mSource, mSize, and mResolution. Automatically adjusts code-point ranges according
 		// to the capabilities of the font face.
 		// Returns a handle to the FreeType face object for the face, or nullptr if the face could not be loaded.
-		// Keeps the font file loaded in memory and stores its location in _fontBuffer. The caller is responsible for freeing this
-		// buffer when it is done using the face by calling delete[] on the buffer after calling FT_Done_Face() on the face itself.
-		FT_Face loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer);
+		// Stores the font file in _fontBuffer, which must remain unchanged until FT_Done_Face() is called on the face.
+		FT_Face loadFace(const FT_Library& _ftLibrary, std::vector<std::byte>& _fontBuffer);
 
 		// Loads kerning pairs from the font face.
 		void loadKerning(const FT_Face& _ftFace);

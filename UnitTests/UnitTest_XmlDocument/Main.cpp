@@ -152,7 +152,7 @@ namespace
 	void testDataStreams()
 	{
 		const std::string xml = "<Root><Text>" + std::string(5000, 'x') + "</Text></Root>";
-		for (size_t size : {size_t(0), xml.size(), xml.size() + 100})
+		for (size_t size : {size_t(0), xml.size() / 2, xml.size(), xml.size() + 100})
 		{
 			ChunkStream stream(xml, size, 7);
 			Document doc;

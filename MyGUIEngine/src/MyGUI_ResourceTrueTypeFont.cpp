@@ -508,7 +508,7 @@ namespace MyGUI
 		if (FT_Init_FreeType(&ftLibrary) != 0)
 			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not init the FreeType library!");
 
-		uint8* fontBuffer = nullptr;
+		std::vector<std::byte> fontBuffer;
 
 		FT_Face ftFace = loadFace(ftLibrary, fontBuffer);
 
@@ -806,11 +806,9 @@ namespace MyGUI
 
 		FT_Done_Face(ftFace);
 		FT_Done_FreeType(ftLibrary);
-
-		delete[] fontBuffer;
 	}
 
-	FT_Face ResourceTrueTypeFont::loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer)
+	FT_Face ResourceTrueTypeFont::loadFace(const FT_Library& _ftLibrary, std::vector<std::byte>& _fontBuffer)
 	{
 		FT_Face result = nullptr;
 
@@ -820,15 +818,15 @@ namespace MyGUI
 		if (datastream == nullptr)
 			return result;
 
-		size_t fontBufferSize = datastream->size();
-		_fontBuffer = new uint8[fontBufferSize];
-		datastream->read(_fontBuffer, fontBufferSize);
-
-		DataManager::getInstance().freeData(datastream);
-		datastream = nullptr;
+		{
+			DataStreamHolder streamHolder(datastream);
+			_fontBuffer = datastream->readAll();
+		}
+		const auto* fontData = reinterpret_cast<const FT_Byte*>(_fontBuffer.data());
+		const auto fontBufferSize = static_cast<FT_Long>(_fontBuffer.size());
 
 		// Determine how many faces the font contains.
-		if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, -1, &result) != 0)
+		if (FT_New_Memory_Face(_ftLibrary, fontData, fontBufferSize, -1, &result) != 0)
 			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 
 		FT_Long numFaces = result->num_faces;
@@ -837,7 +835,7 @@ namespace MyGUI
 		FT_Done_Face(result);
 
 		// Load the first face.
-		if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
+		if (FT_New_Memory_Face(_ftLibrary, fontData, fontBufferSize, faceIndex, &result) != 0)
 			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 
 		if (result->face_flags & FT_FACE_FLAG_SCALABLE)
@@ -873,7 +871,7 @@ namespace MyGUI
 				FT_Done_Face(result);
 
 				if (++faceIndex < numFaces)
-					if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
+					if (FT_New_Memory_Face(_ftLibrary, fontData, fontBufferSize, faceIndex, &result) != 0)
 						MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 			} while (faceIndex < numFaces);
 
@@ -881,7 +879,7 @@ namespace MyGUI
 
 			faceIndex = (iter != faceSizes.end()) ? iter->second : faceSizes.rbegin()->second;
 
-			if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
+			if (FT_New_Memory_Face(_ftLibrary, fontData, fontBufferSize, faceIndex, &result) != 0)
 				MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 
 			// Select the first bitmap strike available in the selected face. This needs to be done explicitly even though Windows
