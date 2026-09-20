@@ -729,13 +729,12 @@ namespace MyGUI
 
 	std::vector<std::byte> VulkanRenderManager::loadShaderBytecode(const std::string& _file)
 	{
-		IDataStream* stream = DataManager::getInstance().getData(_file);
-		if (stream == nullptr)
+		auto stream = DataManager::getInstance().getDataHolder(_file);
+		if (!stream)
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 			return {};
 		}
-		DataStreamHolder streamHolder(stream);
 		auto content = stream->readAll();
 		if (content.empty())
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");

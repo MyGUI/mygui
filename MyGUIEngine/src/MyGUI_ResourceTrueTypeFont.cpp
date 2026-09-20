@@ -813,13 +813,10 @@ namespace MyGUI
 		FT_Face result = nullptr;
 
 		// Load the font file.
-		IDataStream* datastream = DataManager::getInstance().getData(mSource);
-
-		if (datastream == nullptr)
-			return result;
-
 		{
-			DataStreamHolder streamHolder(datastream);
+			auto datastream = DataManager::getInstance().getDataHolder(mSource);
+			if (!datastream)
+				return result;
 			_fontBuffer = datastream->readAll();
 		}
 		const auto* fontData = reinterpret_cast<const FT_Byte*>(_fontBuffer.data());

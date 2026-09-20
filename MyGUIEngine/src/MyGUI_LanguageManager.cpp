@@ -118,8 +118,8 @@ namespace MyGUI
 
 	bool LanguageManager::loadLanguage(const std::string& _file, bool _user)
 	{
-		DataStreamHolder data = DataManager::getInstance().getData(_file);
-		if (data.getData() == nullptr)
+		auto data = DataManager::getInstance().getDataHolder(_file);
+		if (!data)
 		{
 			MYGUI_LOG(Error, "file '" << _file << "' not found");
 			return false;

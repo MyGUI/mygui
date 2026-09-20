@@ -13,24 +13,44 @@
 namespace MyGUI
 {
 
+	/** Owns a stream released through the DataManager singleton. */
 	class DataStreamHolder
 	{
 	public:
-		DataStreamHolder(IDataStream* _data) :
+		/** Adopt a stream from the current DataManager. */
+		DataStreamHolder(IDataStream* _data) noexcept :
 			mData(_data)
 		{
 		}
 
-		DataStreamHolder(const DataStreamHolder& _other) = default;
+		DataStreamHolder(const DataStreamHolder&) = delete;
+		DataStreamHolder& operator=(const DataStreamHolder&) = delete;
+		DataStreamHolder(DataStreamHolder&&) = delete;
+		DataStreamHolder& operator=(DataStreamHolder&&) = delete;
 
 		~DataStreamHolder()
 		{
 			DataManager::getInstance().freeData(mData);
 		}
 
-		IDataStream* getData()
+		IDataStream* getData() const
 		{
 			return mData;
+		}
+
+		IDataStream* operator->() const
+		{
+			return mData;
+		}
+
+		IDataStream& operator*() const
+		{
+			return *mData;
+		}
+
+		explicit operator bool() const
+		{
+			return mData != nullptr;
 		}
 
 	private:

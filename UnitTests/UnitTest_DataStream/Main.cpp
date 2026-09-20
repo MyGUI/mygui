@@ -1,6 +1,7 @@
 #include "BehaviourTestSupport.h"
 #include "MyGUI_DataStream.h"
 #include "MyGUI_DataFileStream.h"
+#include "MyGUI_DataManager.h"
 #include <array>
 #include <chrono>
 #include <filesystem>
@@ -518,6 +519,114 @@ namespace
 		require(stream.readAllText() == content, "readAllText must preserve NULs, CRLF and non-ASCII bytes exactly");
 	}
 
+	class TrackingDataManager : public MyGUI::DataManager
+	{
+	public:
+		MyGUI::IDataStream* getData(const std::string& _name) const override
+		{
+			if (_name == "missing")
+				return nullptr;
+			if (_name == "open-error")
+				throw std::ios_base::failure("getDataHolder test failure");
+			if (_name == "read-error")
+				return &failing;
+			return &stream;
+		}
+
+		void freeData(MyGUI::IDataStream* _data) override
+		{
+			++releases;
+			if (_data == nullptr)
+				++nullReleases;
+			else if (_data != &stream && _data != &failing)
+				unexpectedRelease = true;
+		}
+
+		bool isDataExist(const std::string&) const override
+		{
+			return false;
+		}
+
+		MyGUI::VectorString getDataListNames(const std::string&) const override
+		{
+			return {};
+		}
+
+		std::string getDataPath(const std::string&) const override
+		{
+			return {};
+		}
+
+		int releases{0};
+		int nullReleases{0};
+		bool unexpectedRelease{false};
+
+	private:
+		// Manager-owned streams ensure the holder uses freeData(), rather than deleting directly.
+		std::istringstream input{"owned"};
+		mutable MyGUI::DataStream stream{&input};
+		mutable ChunkStream failing{"partial result", 3, true};
+	};
+
+	void testGetDataHolderOwnership()
+	{
+		TrackingDataManager manager;
+		{
+			const auto data = manager.getDataHolder("data");
+			require(data && data.getData() == &*data, "getDataHolder must return an owning holder with pointer access");
+			require(data->readAllText() == "owned", "The holder must expose the stream returned by getData");
+			require(manager.releases == 0, "The stream must stay owned until the holder is destroyed");
+		}
+		require(manager.releases == 1 && !manager.unexpectedRelease, "The holder must release its stream exactly once");
+		{
+			MyGUI::DataStreamHolder legacy = manager.getData("data");
+			require(static_cast<bool>(legacy), "Existing raw-pointer adoption must remain available");
+		}
+		require(
+			manager.releases == 2 && !manager.unexpectedRelease,
+			"Legacy adoption must release through its manager");
+	}
+
+	void testGetDataHolderMissingResource()
+	{
+		TrackingDataManager manager;
+		{
+			auto data = manager.getDataHolder("missing");
+			require(!data && data.getData() == nullptr, "A missing resource must produce an empty holder");
+		}
+		require(
+			manager.releases == 1 && manager.nullReleases == 1,
+			"An empty holder must safely release the null stream");
+	}
+
+	void testGetDataHolderExceptions()
+	{
+		TrackingDataManager manager;
+		bool threw = false;
+		try
+		{
+			auto data = manager.getDataHolder("read-error");
+			data->readAll();
+		}
+		catch (const std::ios_base::failure&)
+		{
+			threw = true;
+		}
+		require(
+			threw && manager.releases == 1 && !manager.unexpectedRelease,
+			"Read errors must unwind the owning holder");
+		threw = false;
+		try
+		{
+			auto data = manager.getDataHolder("open-error");
+		}
+		catch (const std::ios_base::failure&)
+		{
+			threw = true;
+		}
+		require(threw && manager.releases == 1, "Open errors must propagate without releasing an unacquired stream");
+	}
+
 	void testUnopenedFile()
 	{
 		MyGUI::DataFileStream stream(std::make_unique<std::ifstream>());
@@ -551,5 +660,8 @@ int main()
 		{"Read all position and termination", testReadAllPositionAndTermination},
 		{"Read all exception propagation", testReadAllExceptions},
 		{"Read all text preserves bytes", testReadAllTextPreservesBytes},
+		{"Owning getDataHolder and raw-pointer adoption", testGetDataHolderOwnership},
+		{"Opening missing resources", testGetDataHolderMissingResource},
+		{"Owning stream exception cleanup", testGetDataHolderExceptions},
 	});
 }

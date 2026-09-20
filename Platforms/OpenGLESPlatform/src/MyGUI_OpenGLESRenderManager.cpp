@@ -51,13 +51,12 @@ namespace MyGUI
 
 	std::string OpenGLESRenderManager::loadFileContent(const std::string& _file)
 	{
-		IDataStream* stream = DataManager::getInstance().getData(_file);
-		if (stream == nullptr)
+		auto stream = DataManager::getInstance().getDataHolder(_file);
+		if (!stream)
 		{
 			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
 			return {};
 		}
-		DataStreamHolder streamHolder(stream);
 		return stream->readAllText();
 	}
 

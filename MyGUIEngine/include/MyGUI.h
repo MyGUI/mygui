@@ -47,6 +47,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_FactoryManager.h"
 
 #include "MyGUI_ActionController.h"

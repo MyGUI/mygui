@@ -15,6 +15,8 @@
 namespace MyGUI
 {
 
+	class DataStreamHolder;
+
 	class MYGUI_EXPORT DataManager
 	{
 		MYGUI_SINGLETON_DECLARATION(DataManager);
@@ -27,6 +29,11 @@ namespace MyGUI
 			@param _name Resource name (usually file name).
 		*/
 		virtual IDataStream* getData(const std::string& _name) const = 0;
+
+		/** Open a resource and own its stream until the returned holder is destroyed.
+			Returns an empty holder if getData() returns nullptr.
+		*/
+		[[nodiscard]] DataStreamHolder getDataHolder(const std::string& _name) const;
 
 		/** Free data stream.
 			@param _data Data stream.

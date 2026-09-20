@@ -131,8 +131,8 @@ namespace MyGUI
 		std::string_view _type,
 		std::string_view _instance)
 	{
-		DataStreamHolder data = DataManager::getInstance().getData(_file);
-		if (data.getData() == nullptr)
+		auto data = DataManager::getInstance().getDataHolder(_file);
+		if (!data)
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', not found");
 			return false;

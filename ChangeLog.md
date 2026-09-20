@@ -50,6 +50,7 @@
 - Fix Canvas texture destruction leaving stale references and queued updates; respect disabled texture management during
   deferred resizing and preserve content update requests when reallocating
 - Fix DataStream read counts at EOF and preserve position and state in size queries
+- Add owning DataManager::getDataHolder; make DataStreamHolder non-copyable and non-movable
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

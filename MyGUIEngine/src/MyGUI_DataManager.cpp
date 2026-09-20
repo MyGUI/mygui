@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_DataStreamHolder.h"
 
 namespace MyGUI
 {
@@ -15,6 +16,11 @@ namespace MyGUI
 	DataManager::DataManager() :
 		mSingletonHolder(this)
 	{
+	}
+
+	DataStreamHolder DataManager::getDataHolder(const std::string& _name) const
+	{
+		return {getData(_name)};
 	}
 
 } // namespace MyGUI
