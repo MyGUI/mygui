@@ -547,16 +547,6 @@ namespace
 			return false;
 		}
 
-		MyGUI::VectorString getDataListNames(const std::string&) const override
-		{
-			return {};
-		}
-
-		std::string getDataPath(const std::string&) const override
-		{
-			return {};
-		}
-
 		int releases{0};
 		int nullReleases{0};
 		bool unexpectedRelease{false};

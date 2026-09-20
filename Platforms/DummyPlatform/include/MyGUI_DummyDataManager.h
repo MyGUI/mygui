@@ -38,12 +38,6 @@ namespace MyGUI
 
 		/** @see DataManager::isDataExist(const std::string& _name) */
 		bool isDataExist(const std::string& _name) const override;
-
-		/** @see DataManager::getDataListNames(const std::string& _pattern) */
-		VectorString getDataListNames(const std::string& _pattern) const override;
-
-		/** @see DataManager::getDataPath(const std::string& _name) */
-		std::string getDataPath(const std::string& _name) const override;
 	};
 
 } // namespace MyGUI

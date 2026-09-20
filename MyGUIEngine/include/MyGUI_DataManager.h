@@ -46,16 +46,24 @@ namespace MyGUI
 		virtual bool isDataExist(const std::string& _name) const = 0;
 
 		/** Get all data names with names that matches pattern.
+			Overriding this method is optional, but may be useful in platform implementations.
 			@param _pattern Pattern to match (for example "*.layout").
 		*/
-		virtual VectorString getDataListNames(const std::string& _pattern) const = 0;
+		virtual VectorString getDataListNames(const std::string& _pattern) const
+		{
+			return {};
+		}
 
 		/** Get full path to data.
+			Overriding this method is optional, but may be useful in platform implementations.
 			@param _name Resource name.
 			@return Return full path to specified data.
 			For example getDataPath("My.layout") might return "C:\path\to\project\data\My.layout"
 		*/
-		virtual std::string getDataPath(const std::string& _name) const = 0;
+		virtual std::string getDataPath(const std::string& _name) const
+		{
+			return {};
+		}
 	};
 
 } // namespace MyGUI
