@@ -41,6 +41,11 @@ namespace demo
 	{
 		addTime(_time);
 
+		if (!mDestroy && mAlpha == 1.0f)
+		{
+			return _quad_count;
+		}
+
 		if (mDestroy && mAlpha == 0)
 		{
 			return _quad_count;
