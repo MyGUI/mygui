@@ -6,6 +6,11 @@
 
 #include "MyGUI_OsgPlatform.h"
 #include <cassert>
+#include <osgDB/Registry>
+
+#ifdef OSG_LIBRARY_STATIC
+USE_OSGPLUGIN(png)
+#endif
 
 namespace MyGUI
 {
@@ -33,6 +38,8 @@ namespace MyGUI
 		if (!_logName.empty())
 			LogManager::getInstance().createDefaultSource(_logName);
 
+		// Use the PNG plugin on macOS too, through normal osgDB dispatch.
+		osgDB::Registry::instance()->addFileExtensionAlias("png", "png");
 		mRenderManager->initialise(_sceneRoot, _width, _height);
 	}
 

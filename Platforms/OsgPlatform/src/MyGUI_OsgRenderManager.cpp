@@ -8,7 +8,9 @@
 #include "MyGUI_OsgDataManager.h"
 #include "MyGUI_OsgDiagnostic.h"
 #include "MyGUI_OsgTexture.h"
+#include "MyGUI_OsgRTTexture.h"
 #include "MyGUI_OsgVertexBuffer.h"
+#include "MyGUI_OsgDrawablePool.h"
 #include "MyGUI_Timer.h"
 #include "MyGUI_DataStreamHolder.h"
 
@@ -21,6 +23,9 @@
 #include <osg/BufferObject>
 #include <osg/Matrix>
 #include <osg/Program>
+#include <osg/PolygonMode>
+#include <osg/Depth>
+#include <osg/Image>
 #include <osg/Shader>
 #include <osg/State>
 #include <osg/StateSet>
@@ -38,9 +43,17 @@ namespace MyGUI
 	void applyGuiDrawableStateModes(osg::StateSet* _stateSet)
 	{
 		_stateSet->setAttributeAndModes(
-			new osg::BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
-		_stateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
-		_stateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
+			new osg::BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA),
+			osg::StateAttribute::ON | osg::StateAttribute::PROTECTED);
+		_stateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF | osg::StateAttribute::PROTECTED);
+		_stateSet->setMode(GL_BLEND, osg::StateAttribute::ON | osg::StateAttribute::PROTECTED);
+		_stateSet->setMode(GL_CULL_FACE, osg::StateAttribute::OFF | osg::StateAttribute::PROTECTED);
+		_stateSet->setAttributeAndModes(
+			new osg::PolygonMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::FILL),
+			osg::StateAttribute::ON | osg::StateAttribute::PROTECTED);
+		_stateSet->setAttributeAndModes(
+			new osg::Depth(osg::Depth::ALWAYS, 0.0, 1.0, false),
+			osg::StateAttribute::ON | osg::StateAttribute::PROTECTED);
 	}
 
 	osg::ref_ptr<osg::Texture2D> createDummyTexture()
@@ -48,8 +61,12 @@ namespace MyGUI
 		osg::ref_ptr<osg::Texture2D> texture = new osg::Texture2D;
 		texture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
 		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
-		texture->setInternalFormat(GL_RGB);
-		texture->setTextureSize(1, 1);
+		osg::ref_ptr<osg::Image> image = new osg::Image;
+		image->allocateImage(1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, 1);
+		std::fill_n(image->data(), 4, 255);
+		texture->setImage(image);
+		texture->setFilter(osg::Texture::MIN_FILTER, osg::Texture::NEAREST);
+		texture->setFilter(osg::Texture::MAG_FILTER, osg::Texture::NEAREST);
 		return texture;
 	}
 
@@ -62,8 +79,7 @@ namespace MyGUI
 		state->pushStateSet(stateSet);
 		state->apply();
 
-		// the vertex data is fed through generic vertex attributes 0 (position),
-		// 3 (colour) and 8 (texcoord 0) instead of the fixed-function client
+		// The vertex data is fed through generic attributes instead of fixed-function client
 		// arrays, so the GUI is rendered by a shader on any OpenGL profile. The
 		// shader is expected to use the osg_ModelViewProjectionMatrix uniform,
 		// which is kept in sync here like osgText does.
@@ -72,10 +88,16 @@ namespace MyGUI
 
 		osg::GLExtensions* extensions = state->get<osg::GLExtensions>();
 
+		// GL3 OSG builds override program bindings with their compact attribute aliases.
+		const bool aliases = state->getUseVertexAttributeAliasing();
+		const unsigned int position = aliases ? state->getVertexAlias()._location : 0;
+		const unsigned int colour = aliases ? state->getColorAlias()._location : 3;
+		const unsigned int texcoord = aliases ? state->getTexCoordAliasList()[0]._location : 8;
+
 		state->disableAllVertexArrays();
-		state->disableVertexAttribPointer(0);
-		state->disableVertexAttribPointer(3);
-		state->disableVertexAttribPointer(8);
+		state->disableVertexAttribPointer(position);
+		state->disableVertexAttribPointer(colour);
+		state->disableVertexAttribPointer(texcoord);
 
 		for (const Batch& batch : batches)
 		{
@@ -89,7 +111,7 @@ namespace MyGUI
 			}
 
 			// A GUI element without an associated texture would be extremely rare.
-			// It is worth it to use a dummy 1x1 black texture sampler instead of either adding a conditional or
+			// It is worth it to use a dummy 1x1 white texture sampler instead of either adding a conditional or
 			// relinking shaders.
 			osg::Texture2D* texture = batch.mTexture;
 			if (texture)
@@ -97,39 +119,60 @@ namespace MyGUI
 			else
 				state->applyTextureAttribute(0, dummyTexture);
 
-			osg::GLBufferObject* bufferobject = state->isVertexBufferObjectSupported()
-				? vbo->getOrCreateGLBufferObject(state->getContextID())
-				: nullptr;
-			if (bufferobject)
+			if (state->isVertexBufferObjectSupported())
 			{
-				state->bindVertexBufferObject(bufferobject);
+				bindOsgVertexBuffer(state, vbo);
 
-				extensions->glEnableVertexAttribArray(0);
-				extensions->glEnableVertexAttribArray(3);
-				extensions->glEnableVertexAttribArray(8);
+				extensions->glEnableVertexAttribArray(position);
+				extensions->glEnableVertexAttribArray(colour);
+				extensions->glEnableVertexAttribArray(texcoord);
 
-				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(0));
 				extensions->glVertexAttribPointer(
+					position,
 					3,
+					GL_FLOAT,
+					GL_FALSE,
+					sizeof(Vertex),
+					reinterpret_cast<char*>(0));
+				extensions->glVertexAttribPointer(
+					colour,
 					4,
 					GL_UNSIGNED_BYTE,
 					GL_TRUE,
 					sizeof(Vertex),
-					reinterpret_cast<char*>(12));
-				extensions
-					->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<char*>(16));
+					reinterpret_cast<void*>(offsetof(Vertex, colour)));
+				extensions->glVertexAttribPointer(
+					texcoord,
+					2,
+					GL_FLOAT,
+					GL_FALSE,
+					sizeof(Vertex),
+					reinterpret_cast<void*>(offsetof(Vertex, u)));
 			}
 			else
 			{
+				state->unbindVertexBufferObject();
 				const char* data = static_cast<const char*>(vbo->getArray(0)->getDataPointer());
 
-				extensions->glEnableVertexAttribArray(0);
-				extensions->glEnableVertexAttribArray(3);
-				extensions->glEnableVertexAttribArray(8);
+				extensions->glEnableVertexAttribArray(position);
+				extensions->glEnableVertexAttribArray(colour);
+				extensions->glEnableVertexAttribArray(texcoord);
 
-				extensions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), data);
-				extensions->glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), data + 12);
-				extensions->glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), data + 16);
+				extensions->glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), data);
+				extensions->glVertexAttribPointer(
+					colour,
+					4,
+					GL_UNSIGNED_BYTE,
+					GL_TRUE,
+					sizeof(Vertex),
+					data + offsetof(Vertex, colour));
+				extensions->glVertexAttribPointer(
+					texcoord,
+					2,
+					GL_FLOAT,
+					GL_FALSE,
+					sizeof(Vertex),
+					data + offsetof(Vertex, u));
 			}
 
 			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(batch.mVertexCount));
@@ -141,142 +184,113 @@ namespace MyGUI
 			}
 		}
 
-		state->disableVertexAttribPointer(0);
-		state->disableVertexAttribPointer(3);
-		state->disableVertexAttribPointer(8);
+		extensions->glDisableVertexAttribArray(position);
+		extensions->glDisableVertexAttribArray(colour);
+		extensions->glDisableVertexAttribArray(texcoord);
 
 		state->popStateSet();
+		state->apply();
 
 		state->unbindVertexBufferObject();
 		state->dirtyAllVertexArrays();
 		state->disableAllVertexArrays();
 	}
 
+	void releaseOsgBatches(const std::vector<Batch>& _batches, osg::State* _state)
+	{
+		for (const Batch& batch : _batches)
+		{
+			batch.mVertexBuffer->releaseGLObjects(_state);
+			if (batch.mTexture)
+				batch.mTexture->releaseGLObjects(_state);
+			if (batch.mStateSet)
+				batch.mStateSet->releaseGLObjects(_state);
+		}
+	}
+
 	OsgRenderManager::OsgRenderManager() = default;
 
 	OsgRenderManager::~OsgRenderManager() = default;
 
-	// Stage 1: collect draw calls. Run during the Cull traversal.
-	class CollectDrawCalls : public osg::NodeCallback
+	// All MyGUI mutation runs during update, before any camera's cull traversal.
+	class FrameUpdate : public osg::NodeCallback
 	{
 	public:
-		CollectDrawCalls() :
-			mRenderManager(nullptr)
+		explicit FrameUpdate(OsgRenderManager* manager) :
+			mRenderManager(manager)
 		{
 		}
-
-		void setRenderManager(OsgRenderManager* renderManager)
+		void operator()(osg::Node* node, osg::NodeVisitor* visitor) override
 		{
-			mRenderManager = renderManager;
-		}
-
-		void operator()(osg::Node* node, osg::NodeVisitor* nv) override
-		{
+			mRenderManager->update();
 			mRenderManager->collectDrawCalls();
-			// the camera's children are not traversed automatically when a cull callback
-			// is present, so the traversal has to be continued here
-			traverse(node, nv);
+			traverse(node, visitor);
 		}
 
 	private:
 		OsgRenderManager* mRenderManager;
 	};
 
+	// Batches stay immutable while any camera/context retains the drawable.
+	// Once detached and no longer referenced by render leaves, its storage is reusable.
 	class Drawable : public osg::Drawable
 	{
 	public:
-		// Stage 0: update widget animations and controllers. Run during the Update traversal.
-		class FrameUpdate : public osg::NodeCallback
-		{
-		public:
-			FrameUpdate() :
-				mRenderManager(nullptr)
-			{
-			}
-
-			void setRenderManager(OsgRenderManager* renderManager)
-			{
-				mRenderManager = renderManager;
-			}
-
-			void operator()(osg::Node* node, osg::NodeVisitor* nv) override
-			{
-				mRenderManager->update();
-			}
-
-		private:
-			OsgRenderManager* mRenderManager;
-		};
-
-		// Stage 2: execute the draw calls. Run during the Draw traversal. May run in parallel with the update traversal
-		// of the next frame.
-		void drawImplementation(osg::RenderInfo& renderInfo) const override
-		{
-			mReadFrom = (mReadFrom + 1) % sNumBuffers;
-			const std::vector<Batch>& vec = mBatchVector[mReadFrom];
-			osgDrawBatches(renderInfo.getState(), mStateSet.get(), vec, mDummyTexture.get());
-		}
-
-	public:
-		Drawable(OsgRenderManager* parent = nullptr) :
-			mWriteTo(0),
-			mReadFrom(0),
-			mParent(parent)
+		Drawable()
 		{
 			setSupportsDisplayList(false);
-
-			osg::ref_ptr<FrameUpdate> frameUpdate = new FrameUpdate;
-			frameUpdate->setRenderManager(mParent);
-			setUpdateCallback(frameUpdate);
-
+			setUseVertexArrayObject(true);
+			setCullingActive(false);
 			mStateSet = new osg::StateSet;
 			applyGuiDrawableStateModes(mStateSet);
-
 			mDummyTexture = createDummyTexture();
 		}
-
 		Drawable(const Drawable& copy, const osg::CopyOp& copyop = osg::CopyOp::SHALLOW_COPY) :
 			osg::Drawable(copy, copyop),
-			mWriteTo(0),
-			mReadFrom(0),
 			mDummyTexture(copy.mDummyTexture),
-			mParent(copy.mParent),
 			mStateSet(copy.mStateSet)
 		{
 		}
+		osg::VertexArrayState* createVertexArrayStateImplementation(osg::RenderInfo& renderInfo) const override
+		{
+			osg::VertexArrayState* arrays = osg::Drawable::createVertexArrayStateImplementation(renderInfo);
+			arrays->generateVertexArrayObject();
+			return arrays;
+		}
 
-		// Defines the necessary information for a draw call
+		void drawImplementation(osg::RenderInfo& renderInfo) const override
+		{
+			osgDrawBatches(renderInfo.getState(), mStateSet, mBatches, mDummyTexture);
+		}
+		void releaseGLObjects(osg::State* state = nullptr) const override
+		{
+			osg::Drawable::releaseGLObjects(state);
+			releaseOsgBatches(mBatches, state);
+			mStateSet->releaseGLObjects(state);
+			mDummyTexture->releaseGLObjects(state);
+		}
 		void addBatch(const Batch& batch)
 		{
-			mBatchVector[mWriteTo].push_back(batch);
+			mBatches.push_back(batch);
 		}
-
-		void clear()
+		void clearBatches()
 		{
-			mWriteTo = (mWriteTo + 1) % sNumBuffers;
-			mBatchVector[mWriteTo].clear();
+			mBatches.clear();
 		}
-
+		size_t getBatchCapacityBytes() const
+		{
+			return mBatches.capacity() * sizeof(Batch);
+		}
+		void setDrawableStateSet(osg::StateSet* state)
+		{
+			mStateSet = state;
+		}
 		osg::StateSet* getDrawableStateSet()
 		{
 			return mStateSet;
 		}
-
-	META_Object(osgMyGUI, Drawable)
-
-		private :
-		// 2 would be enough in most cases, use 4 to get stereo working
-		static const int sNumBuffers = 4;
-
-		// double buffering approach, to avoid the need for synchronization with the draw thread
-		std::vector<Batch> mBatchVector[sNumBuffers];
-
-		int mWriteTo;
-		mutable int mReadFrom;
-
+	META_Object(osgMyGUI, Drawable) private : std::vector<Batch> mBatches;
 		osg::ref_ptr<osg::Texture2D> mDummyTexture;
-
-		OsgRenderManager* mParent;
 		osg::ref_ptr<osg::StateSet> mStateSet;
 	};
 
@@ -290,7 +304,7 @@ namespace MyGUI
 		mUpdate = false;
 		mSceneRoot = _sceneRoot;
 
-		mDrawable = new Drawable(this);
+		mDrawable = new Drawable;
 
 		// the GUI is rendered by a shader on all OpenGL profiles, so a default
 		// program is registered and applied to the drawable's state. Textures
@@ -299,13 +313,16 @@ namespace MyGUI
 		if (osg::Program* defaultProgram = getShaderProgram("Default"))
 		{
 			osg::StateSet* drawableState = mDrawable->getDrawableStateSet();
-			drawableState->setAttributeAndModes(defaultProgram, osg::StateAttribute::ON);
+			drawableState->setAttributeAndModes(
+				defaultProgram,
+				osg::StateAttribute::ON | osg::StateAttribute::PROTECTED);
 			// bind the 'Texture' sampler to texture unit 0, matching the texture
 			// bound for each batch in osgDrawBatches
 			drawableState->addUniform(new osg::Uniform("Texture", 0));
 		}
 
-		osg::ref_ptr<osg::Camera> camera = new osg::Camera();
+		mDrawablePool = new OsgDrawablePool<Drawable>;
+		osg::ref_ptr<osg::Camera> camera = new OsgPoolCamera<Drawable>(mDrawablePool);
 		camera->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
 		camera->setProjectionResizePolicy(osg::Camera::FIXED);
 		camera->setProjectionMatrix(osg::Matrix::identity());
@@ -315,11 +332,7 @@ namespace MyGUI
 		mDrawable->setCullingActive(false);
 		camera->addChild(mDrawable.get());
 
-		// the collect draw calls callback runs before the GUI camera's children are traversed,
-		// so the deferred RTT camera operations (flushRTTCameras) can safely modify the children
-		osg::ref_ptr<CollectDrawCalls> collectDrawCalls = new CollectDrawCalls;
-		collectDrawCalls->setRenderManager(this);
-		camera->setCullCallback(collectDrawCalls.get());
+		camera->setUpdateCallback(new FrameUpdate(this));
 
 		mGuiRoot = camera;
 		mSceneRoot->addChild(mGuiRoot.get());
@@ -339,6 +352,7 @@ namespace MyGUI
 			mSceneRoot->removeChild(mGuiRoot.get());
 		mGuiRoot = nullptr;
 		mDrawable = nullptr;
+		mDrawablePool = nullptr;
 		mSceneRoot = nullptr;
 
 		for (const auto& item : mTextures)
@@ -349,6 +363,9 @@ namespace MyGUI
 		// pending operations to avoid dangling camera pointers in a future flushRTTCameras
 		mPendingRTTAdd.clear();
 		mPendingRTTRemove.clear();
+		mRegisteredShaders.clear();
+		mInjectState = nullptr;
+		mGuiStateSet = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -379,9 +396,12 @@ namespace MyGUI
 		return mVertexFormat;
 	}
 
-	bool OsgRenderManager::isFormatSupported(PixelFormat /*_format*/, TextureUsage /*_usage*/)
+	bool OsgRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		return true;
+		if (_usage.isValue(TextureUsage::RenderTarget))
+			return !_usage.isValue(TextureUsage::Read) &&
+				(_format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8);
+		return _format.getBytesPerPixel() != 0;
 	}
 
 	IVertexBuffer* OsgRenderManager::createVertexBuffer()
@@ -396,6 +416,7 @@ namespace MyGUI
 
 	ITexture* OsgRenderManager::createTexture(const std::string& _name)
 	{
+		MYGUI_PLATFORM_ASSERT(mTextures.find(_name) == mTextures.end(), "Texture '" << _name << "' already exists");
 		OsgTexture* tex = new OsgTexture(_name, this);
 		mTextures[_name] = tex;
 		return tex;
@@ -426,7 +447,11 @@ namespace MyGUI
 
 	void OsgRenderManager::begin()
 	{
-		mDrawable->clear();
+		osg::ref_ptr<Drawable> next = mDrawablePool->acquire(*mDrawable);
+		next->setDrawableStateSet(mGuiStateSet.valid() ? mGuiStateSet.get() : mDrawable->getDrawableStateSet());
+		mGuiRoot->replaceChild(mDrawable, next);
+		mDrawablePool->retired.push_back(mDrawable);
+		mDrawable = next;
 		// variance will be recomputed based on textures being rendered in this frame
 		mDrawable->setDataVariance(osg::Object::STATIC);
 	}
@@ -437,15 +462,18 @@ namespace MyGUI
 		size_t _count,
 		osg::StateSet* _injectState) const
 	{
+		MYGUI_PLATFORM_ASSERT(_buffer != nullptr, "Vertex buffer is null");
+		MYGUI_PLATFORM_ASSERT(_count <= _buffer->getVertexCount(), "Vertex count exceeds buffer size");
 		Batch batch;
 		batch.mVertexCount = _count;
 		batch.mVertexBuffer = static_cast<OsgVertexBuffer*>(_buffer)->getVertexBuffer();
 		batch.mArray = static_cast<OsgVertexBuffer*>(_buffer)->getVertexArray();
-		static_cast<OsgVertexBuffer*>(_buffer)->markUsed();
+		MYGUI_PLATFORM_ASSERT(batch.mVertexBuffer.valid() && batch.mArray.valid(), "Vertex buffer is not created");
 
 		if (OsgTexture* osgtexture = static_cast<OsgTexture*>(_texture))
 		{
 			batch.mTexture = osgtexture->getTexture();
+			MYGUI_PLATFORM_ASSERT(batch.mTexture.valid(), "Texture is not created");
 			if (osg::StateSet* shaderState = osgtexture->getShaderStateSet())
 				batch.mStateSet = shaderState;
 			else if (osgtexture->getInjectState())
@@ -459,6 +487,8 @@ namespace MyGUI
 
 	void OsgRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
+		if (_count == 0)
+			return;
 		Batch batch = createBatch(_buffer, _texture, _count, mInjectState);
 		if (batch.mTexture.valid() && batch.mTexture->getDataVariance() == osg::Object::DYNAMIC)
 			mDrawable->setDataVariance(osg::Object::DYNAMIC); // only for this frame, reset in begin()
@@ -582,6 +612,8 @@ namespace MyGUI
 		end();
 
 		mUpdate = false;
+		flushRTTCameras();
+		orderOsgRTTCameras(mGuiRoot);
 	}
 
 	void OsgRenderManager::queueRTTAdd(osg::Camera* _camera)
@@ -596,16 +628,16 @@ namespace MyGUI
 
 	void OsgRenderManager::flushRTTCameras()
 	{
-		for (osg::Camera* camera : mPendingRTTRemove)
+		for (const osg::ref_ptr<osg::Camera>& camera : mPendingRTTRemove)
 		{
 			// if the camera is still waiting to be added, just cancel the pending add
 			auto it = std::find_if(
 				mPendingRTTAdd.begin(),
 				mPendingRTTAdd.end(),
-				[camera](const osg::ref_ptr<osg::Camera>& entry) { return entry.get() == camera; });
+				[camera](const osg::ref_ptr<osg::Camera>& entry) { return entry.get() == camera.get(); });
 			if (it != mPendingRTTAdd.end())
 			{
-				// dropping the queued reference may destroy the camera, so do not touch it afterwards
+				// The removal list retains ownership until this flush completes.
 				mPendingRTTAdd.erase(it);
 				continue;
 			}
@@ -636,7 +668,11 @@ namespace MyGUI
 	void OsgRenderManager::setGuiStateSet(osg::StateSet* _stateSet)
 	{
 		if (_stateSet != nullptr)
-			mDrawable->getDrawableStateSet()->merge(*_stateSet);
+		{
+			// State is shared by immutable drawables; copy only when it changes.
+			mGuiStateSet = new osg::StateSet(mGuiStateSet.valid() ? *mGuiStateSet : *mDrawable->getDrawableStateSet());
+			mGuiStateSet->merge(*_stateSet);
+		}
 	}
 
 	osg::ref_ptr<osg::Image> OsgRenderManager::loadImage(const std::string& _fileName) const
@@ -649,12 +685,14 @@ namespace MyGUI
 			return nullptr;
 
 		osg::ref_ptr<osg::Image> image = osgDB::readImageFile(filePath);
-		if (!image.valid())
-			return nullptr;
-
 		// osg loads image data bottom-up (row 0 is the image bottom), but MyGUI
 		// expects top-down data (row 0 is the image top) for its texture coordinates.
-		image->flipVertical();
+		if (image.valid())
+		{
+			if (image->getOrigin() == osg::Image::BOTTOM_LEFT)
+				image->flipVertical();
+			image->setOrigin(osg::Image::TOP_LEFT);
+		}
 		return image;
 	}
 

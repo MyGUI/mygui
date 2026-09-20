@@ -710,20 +710,27 @@ namespace platformtest
 			 [](Fixture& f)
 			 {
 				 auto* source = solid(f, red);
-				 auto* a = renderTexture(f, 32, 16);
-				 auto* b = renderTexture(f, 16, 32);
-				 f.scene(
-					 [&](MyGUI::IRenderTarget* target)
-					 {
-						 redraw(f, a, source);
-						 redraw(f, b, a);
-						 f.quad(target, b);
-					 });
-				 f.capture();
-				 f.expectCorners(red);
-				 upload(source, {0, 255, 0, 255});
-				 f.capture();
-				 f.expectCorners(green);
+				 auto* first = renderTexture(f, 32, 16);
+				 auto* second = renderTexture(f, 16, 32);
+				 // Exercise both creation orders and change dependencies on live targets.
+				 for (bool reverse : {false, true})
+				 {
+					 auto* a = reverse ? second : first;
+					 auto* b = reverse ? first : second;
+					 upload(source, {0, 0, 255, 255});
+					 f.scene(
+						 [&, a, b](MyGUI::IRenderTarget* target)
+						 {
+							 redraw(f, a, source);
+							 redraw(f, b, a);
+							 f.quad(target, b);
+						 });
+					 f.capture();
+					 f.expectCorners(red);
+					 upload(source, {0, 255, 0, 255});
+					 f.capture();
+					 f.expectCorners(green);
+				 }
 			 }},
 			{"rendering",
 			 "rtt-state-restoration",

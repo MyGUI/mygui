@@ -12,6 +12,7 @@
 #include "MyGUI_RenderFormat.h"
 
 #include <cstddef>
+#include <cstdint>
 
 #include <osg/ref_ptr>
 
@@ -19,6 +20,7 @@ namespace osg
 {
 
 	class Camera;
+	class Group;
 	class Texture2D;
 
 }
@@ -28,6 +30,12 @@ namespace MyGUI
 
 	class OsgRenderManager;
 	class RTTDrawable;
+	class RTTCache;
+	template<typename T>
+	class OsgDrawablePool;
+
+	// Orders retained RTT passes by their sampled textures before culling.
+	void orderOsgRTTCameras(osg::Group* _root);
 
 	class OsgRTTexture : public IRenderTarget
 	{
@@ -46,6 +54,9 @@ namespace MyGUI
 
 		osg::ref_ptr<osg::Camera> mCamera;
 		osg::ref_ptr<RTTDrawable> mDrawable;
+		osg::ref_ptr<OsgDrawablePool<RTTDrawable>> mDrawablePool;
+		osg::ref_ptr<RTTCache> mCache;
+		std::uint64_t mRevision{};
 		OsgRenderManager* mRenderManager;
 	};
 

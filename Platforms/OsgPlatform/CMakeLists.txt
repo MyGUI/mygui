@@ -4,6 +4,10 @@ include(${PROJECTNAME}.list)
 
 add_library(${PROJECTNAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
+if(APPLE)
+	target_compile_definitions(${PROJECTNAME} PUBLIC GL_SILENCE_DEPRECATION)
+endif()
+
 target_include_directories(${PROJECTNAME}
 	PUBLIC
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -32,8 +36,10 @@ if(MYGUI_OSG_INCLUDE_DIR)
 	)
 endif()
 
+find_package(OpenGL REQUIRED)
 target_link_libraries(${PROJECTNAME}
 	PUBLIC
+		OpenGL::GL
 		MyGUI::MyGUI
 )
 

@@ -8,6 +8,7 @@ set (HEADER_FILES
   include/MyGUI_OsgVertexBuffer.h
 )
 set (SOURCE_FILES
+  src/MyGUI_OsgDrawablePool.h
   src/MyGUI_OsgDataManager.cpp
   src/MyGUI_OsgPlatform.cpp
   src/MyGUI_OsgRenderManager.cpp
@@ -25,6 +26,7 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OsgVertexBuffer.h
 )
 SOURCE_GROUP("Source Files" FILES
+  src/MyGUI_OsgDrawablePool.h
   src/MyGUI_OsgDataManager.cpp
   src/MyGUI_OsgPlatform.cpp
   src/MyGUI_OsgRenderManager.cpp

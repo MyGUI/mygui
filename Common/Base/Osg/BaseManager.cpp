@@ -1,8 +1,7 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include "GraphicsWindowSDL2.h"
 #include "MyGUI_FileSystemUtility.h"
-
-#include <SDL_syswm.h>
 
 #include <osg/GL>
 #include <osg/GraphicsContext>
@@ -11,33 +10,22 @@
 #include <osgDB/Registry>
 #include <osgDB/WriteFile>
 #include <osgViewer/Viewer>
+#include <osgViewer/GraphicsWindow>
+#include <osg/State>
 #include <osg/PolygonMode>
 
-// When osgViewer/osgDB are linked statically, the linker drops the object files that
-// register the X11 windowing system interface and the osgDB plugins. Referencing the
-// exported symbols below forces those object files to be pulled in.
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-extern "C" void graphicswindow_X11();
-#endif
-
-USE_OSGPLUGIN(png)
+#ifdef OSG_LIBRARY_STATIC
 USE_OSGPLUGIN(freetype)
 USE_OSGPLUGIN(jpeg)
 USE_OSGPLUGIN(tga)
 USE_OSGPLUGIN(bmp)
 USE_OSGPLUGIN(dds)
 USE_OSGPLUGIN(osg)
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	#include <osgViewer/api/Win32/GraphicsWindowWin32>
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-	#include <osgViewer/api/X11/GraphicsWindowX11>
 #endif
 
 #include <vector>
 #include <functional>
 #include <utility>
-#include <stdexcept>
 
 namespace base
 {
@@ -67,69 +55,33 @@ namespace base
 
 	BaseManager::~BaseManager() = default;
 
+	void BaseManager::setupRenderWindow()
+	{
+		GraphicsWindowSDL2::setContextAttributes();
+	}
+
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		(void)_windowed;
-
 		mRenderWidth = _width;
 		mRenderHeight = _height;
 
-		osg::ref_ptr<osg::GraphicsContext::Traits> traits = new osg::GraphicsContext::Traits;
-		traits->x = 0;
-		traits->y = 0;
-		traits->width = _width;
-		traits->height = _height;
-		traits->windowName = "MyGUI Render Window";
-		traits->windowDecoration = true;
-		traits->doubleBuffer = true;
-		traits->readDISPLAY();
-		traits->sampleBuffers = 0;
-		traits->samples = 0;
-
-		// attach the OSG graphics context to the existing SDL window
-		SDL_SysWMinfo wmInfo;
-		SDL_VERSION(&wmInfo.version)
-		if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
+		osg::ref_ptr<GraphicsWindowSDL2> gc = new GraphicsWindowSDL2(mSdlWindow);
+		if (!gc->valid() || !gc->realize() || !gc->makeCurrent())
 		{
-			std::cerr << "Failed to SDL_GetWindowWMInfo: " << SDL_GetError() << std::endl;
-			throw std::runtime_error("OSG application initialization failed");
+			std::cerr << "Failed to create SDL OpenGL context: " << SDL_GetError() << std::endl;
+			return false;
 		}
-
-		// Referencing this symbol forces the linker to keep the object file that registers
-		// the X11 windowing system interface when osgViewer is linked statically.
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-		graphicswindow_X11();
-#endif
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		traits->inheritedWindowData = new osgViewer::GraphicsWindowWin32::WindowData(wmInfo.info.win.window);
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-		if (wmInfo.info.x11.window == 0)
-		{
-			std::cerr << "The OSG render system requires an X11 window, but the SDL window was created on a "
-						 "different backend (e.g. Wayland). Set SDL_VIDEODRIVER=x11 to force X11."
-					  << std::endl;
-			throw std::runtime_error("OSG application initialization failed");
-		}
-		traits->inheritedWindowData = new osgViewer::GraphicsWindowX11::WindowData(wmInfo.info.x11.window);
-#else
-		std::cerr << "The OSG render system is not supported on this platform" << std::endl;
-		return false;
-#endif
-
-		osg::ref_ptr<osg::GraphicsContext> gc = osg::GraphicsContext::createGraphicsContext(traits);
-		if (!gc.valid())
-		{
-			std::cerr << "Failed to create the OSG graphics context" << std::endl;
-			throw std::runtime_error("OSG application initialization failed");
-		}
-
+		gc->setBeforeSwapCallback([this] { captureScreenshot(); });
 		gc->setSwapCallback(new FrameCaptureCallback([this] { captureFrame(); }));
 
 		mViewer = new osgViewer::Viewer;
 		mViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
+		// SDL processes window changes between frames. Keep our single context
+		// current so it can update the drawable before the next render.
+		mViewer->setReleaseContextAtEndOfFrameHint(false);
 		mViewer->getCamera()->setGraphicsContext(gc);
-		mViewer->getCamera()->setViewport(new osg::Viewport(0, 0, _width, _height));
+		mViewer->getCamera()->setViewport(new osg::Viewport(0, 0, gc->getTraits()->width, gc->getTraits()->height));
 		mViewer->getCamera()->setClearColor(osg::Vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
 		mSceneRoot = new osg::Group;
@@ -140,8 +92,19 @@ namespace base
 
 	void BaseManager::destroyRender()
 	{
-		mViewer = nullptr;
-		mSceneRoot = nullptr;
+		if (mViewer.valid())
+		{
+			mViewer->stopThreading();
+			osg::GraphicsContext* gc = mViewer->getCamera()->getGraphicsContext();
+			gc->makeCurrent();
+			// Drop render leaves before Viewer closes the context. Otherwise their VAOs
+			// are queued after OSG has discarded the context's deferred deletions.
+			mViewer->setSceneData(nullptr);
+			mSceneRoot = nullptr;
+			mViewer->getCamera()->setRenderer(nullptr);
+			gc->removeAllOperations();
+			mViewer = nullptr;
+		}
 	}
 
 	void BaseManager::createGuiPlatform()
@@ -164,34 +127,6 @@ namespace base
 	void BaseManager::drawOneFrame()
 	{
 		mViewer->frame();
-
-		if (mScreenShotRequested)
-		{
-			mScreenShotRequested = false;
-
-			osg::GraphicsContext* gc = mViewer->getCamera()->getGraphicsContext();
-			std::vector<std::uint8_t> pixels(mRenderWidth * mRenderHeight * 4);
-			gc->makeCurrent();
-			glPixelStorei(GL_PACK_ALIGNMENT, 1);
-			// Read the back buffer: reading GL_FRONT returns black with Mesa/llvmpipe.
-			glReadBuffer(GL_BACK);
-			glReadPixels(0, 0, mRenderWidth, mRenderHeight, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
-
-			osg::ref_ptr<osg::Image> image = new osg::Image;
-			image->setImage(
-				mRenderWidth,
-				mRenderHeight,
-				1,
-				GL_RGBA,
-				GL_RGBA,
-				GL_UNSIGNED_BYTE,
-				pixels.data(),
-				osg::Image::NO_DELETE);
-			// osgDB::writeImageFile writes image rows bottom-up (the osg::Image convention),
-			// so the raw GL_BACK readback (row 0 = bottom of the framebuffer) is written
-			// to the PNG in the correct top-down order without any extra flipping.
-			osgDB::writeImageFile(*image, MyGUI::utility::toUtf8(mScreenShotFile));
-		}
 	}
 
 	void BaseManager::captureFrame()
@@ -280,8 +215,15 @@ namespace base
 
 	void BaseManager::resizeRender(int _width, int _height)
 	{
-		mViewer->getCamera()->getGraphicsContext()->resized(0, 0, _width, _height);
+		mRenderWidth = _width;
+		mRenderHeight = _height;
+		auto* gc = static_cast<GraphicsWindowSDL2*>(mViewer->getCamera()->getGraphicsContext());
+		gc->updateDrawableSize();
+		_width = gc->getTraits()->width;
+		_height = gc->getTraits()->height;
 		mViewer->getCamera()->setViewport(0, 0, _width, _height);
+		if (mPlatform)
+			mPlatform->getRenderManagerPtr()->getGuiRoot()->setViewport(0, 0, _width, _height);
 	}
 
 	void BaseManager::addResourceLocation(const std::filesystem::path& _name, bool _recursive)

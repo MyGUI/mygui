@@ -62,10 +62,14 @@ namespace MyGUI
 		osg::StateSet* getShaderStateSet();
 
 	private:
+		void uploadImage();
+
 		std::string mName;
 		OsgRenderManager* mRenderManager;
 
 		osg::ref_ptr<osg::Image> mLockedImage;
+		osg::ref_ptr<osg::Image> mImage;
+		bool mReadOnlyLock{false};
 		osg::ref_ptr<osg::Texture2D> mTexture;
 		osg::ref_ptr<osg::StateSet> mInjectState;
 		osg::ref_ptr<osg::StateSet> mShaderStateSet;

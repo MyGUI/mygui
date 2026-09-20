@@ -30,3 +30,7 @@ add_subdirectory(UnitTest_Canvas)
 if (MYGUI_BUILD_PLATFORM_TESTS)
     add_subdirectory(UnitTest_Platform)
 endif ()
+
+if (TARGET MyGUI.OsgPlatform)
+    add_subdirectory(UnitTest_OsgPlatform)
+endif ()

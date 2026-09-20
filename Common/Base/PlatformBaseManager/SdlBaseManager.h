@@ -7,6 +7,7 @@
 
 #include <SDL.h>
 
+#include <chrono>
 #include <filesystem>
 
 namespace base
@@ -88,7 +89,6 @@ namespace base
 		virtual MyGUI::MapString getStatistic();
 
 	protected:
-		bool mGuiPlatformInitialiseStarted{false};
 		void completeFrameCapture(
 			const void* _pixels,
 			int _width,
@@ -149,12 +149,6 @@ namespace base
 
 		uint32_t mWindowFlags = 0;
 		bool mPlatformReady = false;
-		bool mPlatformStarted = false;
-		bool mRenderStarted = false;
-		bool mInputReady = false;
-		bool mPointerReady = false;
-		bool mSceneStarted = false;
-		bool mSdlReady = false;
 		bool mHiddenWindow = false;
 		bool mFixedPixels = false;
 		FrameCapture mFrameCapture;
@@ -165,6 +159,7 @@ namespace base
 		bool mWindowOn = false;
 		SDL_Keycode mKeyCode;
 		int mFpsCounter = 0;
+		std::chrono::steady_clock::time_point mNextFrameTime{};
 	};
 
 }

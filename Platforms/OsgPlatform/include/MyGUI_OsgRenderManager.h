@@ -39,6 +39,8 @@ namespace MyGUI
 	class OsgTexture;
 
 	class Drawable;
+	template<typename T>
+	class OsgDrawablePool;
 
 	// Defines the necessary information for a draw call
 	struct Batch
@@ -56,14 +58,15 @@ namespace MyGUI
 		size_t mVertexCount;
 	};
 
-	// Draws the given batches with generic vertex attributes 0 (position), 3 (colour)
-	// and 8 (texcoord 0) through the state's shader. Used by both the main GUI
+	// Draws batches with generic vertex attributes using OSG aliases when enabled,
+	// otherwise 0 (position), 3 (colour), 8 (texcoord). Used by both the main GUI
 	// drawable and the render-to-texture drawable.
 	void osgDrawBatches(
 		osg::State* _state,
 		osg::StateSet* _stateSet,
 		const std::vector<Batch>& _batches,
 		osg::Texture2D* _dummyTexture);
+	void releaseOsgBatches(const std::vector<Batch>& _batches, osg::State* _state);
 
 	/*internal:*/
 	// Applies the state modes shared by the main GUI drawable and the RTT drawable:
@@ -140,13 +143,10 @@ namespace MyGUI
 
 		// Called by the update traversal
 		void update();
-		// Called by the cull traversal
+		// Called by the update traversal, after widget updates
 		void collectDrawCalls();
 
-		// Deferred RTT camera management. The RTT cameras are added to / removed from the GUI
-		// camera during the cull traversal, which would invalidate osg's children iterators.
-		// The operations are queued here and applied by flushRTTCameras before the GUI camera
-		// children are traversed.
+		// Apply queued RTT camera changes during update, before traversing camera children.
 		void queueRTTAdd(osg::Camera* _camera);
 		void queueRTTRemove(osg::Camera* _camera);
 		void flushRTTCameras();
@@ -161,7 +161,7 @@ namespace MyGUI
 			reset it to nullptr again. */
 		void setInjectState(osg::StateSet* _stateSet);
 
-		/** Merge a StateSet (e.g. containing an osg::Program) into the GUI drawable's state set. */
+		/** Merge a StateSet (e.g. containing an osg::Program) into future GUI drawables. */
 		void setGuiStateSet(osg::StateSet* _stateSet);
 
 		osg::ref_ptr<osg::Image> loadImage(const std::string& _fileName) const;
@@ -175,9 +175,11 @@ namespace MyGUI
 		osg::ref_ptr<osg::Group> mSceneRoot;
 		osg::ref_ptr<osg::Camera> mGuiRoot;
 		osg::ref_ptr<Drawable> mDrawable;
+		osg::ref_ptr<OsgDrawablePool<Drawable>> mDrawablePool;
+		osg::ref_ptr<osg::StateSet> mGuiStateSet;
 
 		std::vector<osg::ref_ptr<osg::Camera>> mPendingRTTAdd;
-		std::vector<osg::Camera*> mPendingRTTRemove;
+		std::vector<osg::ref_ptr<osg::Camera>> mPendingRTTRemove;
 
 		IntSize mViewSize;
 		bool mUpdate{false};
@@ -190,7 +192,7 @@ namespace MyGUI
 		using MapShader = std::map<std::string, osg::ref_ptr<osg::Program>>;
 		MapShader mRegisteredShaders;
 
-		osg::StateSet* mInjectState{nullptr};
+		osg::ref_ptr<osg::StateSet> mInjectState;
 		OsgImageLoader mImageLoader;
 
 		bool mIsInitialise{false};

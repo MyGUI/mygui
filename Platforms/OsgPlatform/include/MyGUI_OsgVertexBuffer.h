@@ -12,16 +12,21 @@
 
 #include <osg/Array>
 #include <osg/ref_ptr>
+#include <vector>
 
 namespace osg
 {
 
 	class VertexBufferObject;
+	class State;
 
 }
 
 namespace MyGUI
 {
+
+	// Upload and bind one retained MyGUI vertex array in the current draw context.
+	void bindOsgVertexBuffer(osg::State* _state, osg::VertexBufferObject* _buffer);
 
 	class OsgVertexBuffer : public IVertexBuffer
 	{
@@ -38,21 +43,20 @@ namespace MyGUI
 		/*internal:*/
 		osg::Array* getVertexArray();
 		osg::VertexBufferObject* getVertexBuffer();
-		void markUsed();
 
 	private:
 		osg::UByteArray* create();
+		void trimRetiredBuffers();
 
 	private:
-		// 4 slots to match the batch ring depth of the drawables, so the vertex data
-		// stays valid while a batch referencing it is still waiting to be drawn
-		osg::ref_ptr<osg::VertexBufferObject> mBuffer[4];
-		osg::ref_ptr<osg::UByteArray> mVertexArray[4];
-
+		struct Storage
+		{
+			osg::ref_ptr<osg::VertexBufferObject> buffer;
+			osg::ref_ptr<osg::UByteArray> array;
+		};
+		Storage mCurrent;
+		std::vector<Storage> mRetiredBuffers;
 		size_t mNeedVertexCount{0};
-
-		unsigned int mCurrentBuffer{0};
-		bool mUsed{false}; // has the mCurrentBuffer been submitted to the rendering thread
 	};
 
 } // namespace MyGUI

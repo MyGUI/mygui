@@ -54,11 +54,17 @@
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
-- New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shaders support, geometry built with osg::Geometry +
-  osg::DrawArrays + VBO
+- New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shader support, custom osg::Drawable rendering with pooled VBOs
 - All platforms now use standard Porter-Duff alpha blending (dst_a = src_a + dst_a * (1 - src_a))
 - Ogre/OgreNext: fix texture parameters not being set
 - OgreNext: implement texture lock read (used in picking)
+- OpenGL3: fix odd-width texture uploads and readback buffer overruns; preserve host pixel-transfer state and bindings
+- OpenGL3: fix PBO support detection in core contexts and uploads to file-loaded textures; preserve existing pixels in
+  read/write locks, including render-target textures, and fix interleaved locks and read-lock lifetime reporting
+- OpenGL3: improve sustained texture upload performance using orphaned and mapped pixel buffer objects
+- OpenGL3: isolate GUI drawing from inherited raster settings and restore host rendering state, including when rendering
+  throws; retain support for explicitly setting GUI wireframe inside render callbacks
+- OpenGL3: fix nested render targets and preserve host framebuffer bindings, viewport and clear colour
 
 ### Demos
 - Handle SDL_QUIT in apps
