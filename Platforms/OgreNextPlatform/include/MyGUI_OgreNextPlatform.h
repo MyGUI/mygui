@@ -55,7 +55,7 @@ namespace MyGUI
 			if (!logName.empty())
 				LogManager::getInstance().createDefaultSource(logName);
 
-			mDataManager->initialise(resourceGroup);
+			mDataManager->setGroup(resourceGroup);
 			mRenderManager->initialise(scene);
 		}
 
@@ -67,7 +67,6 @@ namespace MyGUI
 			destroyDefaultWorkspace();
 
 			mRenderManager->shutdown();
-			mDataManager->shutdown();
 		}
 
 		// Convenience helper: create a single-node workspace that clears the

@@ -34,13 +34,11 @@ namespace MyGUI
 			LogManager::getInstance().createDefaultSource(_logName);
 
 		mRenderManager->initialise();
-		mDataManager->initialise();
 	}
 
 	void ExportPlatform::shutdown()
 	{
 		mRenderManager->shutdown();
-		mDataManager->shutdown();
 	}
 
 	ExportRenderManager* ExportPlatform::getRenderManagerPtr() const

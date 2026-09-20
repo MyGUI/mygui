@@ -25,24 +25,6 @@ namespace MyGUI
 		return static_cast<ExportDataManager*>(DataManager::getInstancePtr());
 	}
 
-	ExportDataManager::ExportDataManager()
-	{
-	}
-
-	void ExportDataManager::initialise()
-	{
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-	}
-
-	void ExportDataManager::shutdown()
-	{
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-	}
-
 	IDataStream* ExportDataManager::getData(const std::string& _name) const
 	{
 		const auto filepath = findDataPath(_name);

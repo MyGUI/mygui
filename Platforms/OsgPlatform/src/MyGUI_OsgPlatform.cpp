@@ -34,7 +34,6 @@ namespace MyGUI
 			LogManager::getInstance().createDefaultSource(_logName);
 
 		mRenderManager->initialise(_sceneRoot, _width, _height);
-		mDataManager->initialise();
 	}
 
 	void OsgPlatform::shutdown()
@@ -43,7 +42,6 @@ namespace MyGUI
 		mIsInitialise = false;
 
 		mRenderManager->shutdown();
-		mDataManager->shutdown();
 	}
 
 	OsgRenderManager* OsgPlatform::getRenderManagerPtr() const

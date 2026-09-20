@@ -144,7 +144,6 @@ namespace unittest
 		CanvasFixture()
 		{
 			renderer.initialise();
-			data.initialise();
 			renderer.setViewSize(800, 600);
 			gui.initialise("");
 			createInputLayer();
@@ -164,7 +163,6 @@ namespace unittest
 		~CanvasFixture()
 		{
 			gui.shutdown();
-			data.shutdown();
 			renderer.shutdown();
 		}
 		void before(MyGUI::Canvas* _canvas)

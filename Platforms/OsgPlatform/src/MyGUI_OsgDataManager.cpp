@@ -14,24 +14,6 @@
 namespace MyGUI
 {
 
-	void OsgDataManager::initialise()
-	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-		mIsInitialise = true;
-	}
-
-	void OsgDataManager::shutdown()
-	{
-		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-		mIsInitialise = false;
-	}
-
 	IDataStream* OsgDataManager::getData(const std::string& _name) const
 	{
 		const auto filepath = findDataPath(_name);

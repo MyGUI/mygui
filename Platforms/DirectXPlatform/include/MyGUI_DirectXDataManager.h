@@ -18,11 +18,6 @@ namespace MyGUI
 	class DirectXDataManager : public DataManager
 	{
 	public:
-		DirectXDataManager();
-
-		void initialise();
-		void shutdown();
-
 		static DirectXDataManager& getInstance()
 		{
 			return *getInstancePtr();
@@ -60,8 +55,6 @@ namespace MyGUI
 		};
 		using VectorArchiveInfo = std::vector<ArchiveInfo>;
 		VectorArchiveInfo mPaths;
-
-		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

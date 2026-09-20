@@ -14,29 +14,6 @@
 namespace MyGUI
 {
 
-	DirectXDataManager::DirectXDataManager() :
-		mIsInitialise(false)
-	{
-	}
-
-	void DirectXDataManager::initialise()
-	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-		mIsInitialise = true;
-	}
-
-	void DirectXDataManager::shutdown()
-	{
-		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-		mIsInitialise = false;
-	}
-
 	IDataStream* DirectXDataManager::getData(const std::string& _name) const
 	{
 		const auto filepath = findDataPath(_name);

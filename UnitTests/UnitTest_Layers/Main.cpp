@@ -219,14 +219,12 @@ namespace
 		LayerXmlContext()
 		{
 			mRenderer.initialise();
-			mData.initialise();
 			mRenderer.setViewSize(800, 600);
 			mGui.initialise("");
 		}
 		~LayerXmlContext()
 		{
 			mGui.shutdown();
-			mData.shutdown();
 			mRenderer.shutdown();
 		}
 		MyGUI::Gui& getGui()

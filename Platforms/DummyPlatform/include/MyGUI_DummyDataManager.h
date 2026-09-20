@@ -16,11 +16,6 @@ namespace MyGUI
 	class DummyDataManager : public DataManager
 	{
 	public:
-		DummyDataManager();
-
-		void initialise();
-		void shutdown();
-
 		static DummyDataManager& getInstance()
 		{
 			return *getInstancePtr();

@@ -18,9 +18,6 @@ namespace MyGUI
 	class OsgDataManager : public DataManager
 	{
 	public:
-		void initialise();
-		void shutdown();
-
 		static OsgDataManager& getInstance()
 		{
 			return *getInstancePtr();
@@ -58,8 +55,6 @@ namespace MyGUI
 		};
 		using VectorArchiveInfo = std::vector<ArchiveInfo>;
 		VectorArchiveInfo mPaths;
-
-		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

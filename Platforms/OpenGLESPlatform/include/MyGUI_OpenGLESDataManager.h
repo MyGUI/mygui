@@ -11,9 +11,6 @@ namespace MyGUI
 	class OpenGLESDataManager : public DataManager
 	{
 	public:
-		void initialise();
-		void shutdown();
-
 		static OpenGLESDataManager& getInstance()
 		{
 			return *getInstancePtr();
@@ -51,8 +48,6 @@ namespace MyGUI
 		};
 		using VectorArchiveInfo = std::vector<ArchiveInfo>;
 		VectorArchiveInfo mPaths;
-
-		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

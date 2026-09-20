@@ -28,7 +28,6 @@ namespace MyGUI
 			LogManager::getInstance().createDefaultSource(_logName);
 
 		mRenderManager->initialise(_loader);
-		mDataManager->initialise();
 	}
 
 	void OpenGLESPlatform::shutdown()
@@ -37,7 +36,6 @@ namespace MyGUI
 		mIsInitialise = false;
 
 		mRenderManager->shutdown();
-		mDataManager->shutdown();
 	}
 
 	OpenGLESRenderManager* OpenGLESPlatform::getRenderManagerPtr() const

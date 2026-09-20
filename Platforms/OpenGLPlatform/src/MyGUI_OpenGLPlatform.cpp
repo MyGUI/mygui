@@ -34,7 +34,6 @@ namespace MyGUI
 			LogManager::getInstance().createDefaultSource(_logName);
 
 		mRenderManager->initialise(_loader);
-		mDataManager->initialise();
 	}
 
 	void OpenGLPlatform::shutdown()
@@ -43,7 +42,6 @@ namespace MyGUI
 		mIsInitialise = false;
 
 		mRenderManager->shutdown();
-		mDataManager->shutdown();
 	}
 
 	OpenGLRenderManager* OpenGLPlatform::getRenderManagerPtr() const

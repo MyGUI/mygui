@@ -51,7 +51,6 @@ namespace MyGUI
 			_colourFormat,
 			_colourImageLayout,
 			_loader);
-		mDataManager->initialise();
 	}
 
 	void VulkanPlatform::shutdown()
@@ -60,7 +59,6 @@ namespace MyGUI
 		mIsInitialise = false;
 
 		mRenderManager->shutdown();
-		mDataManager->shutdown();
 	}
 
 	VulkanRenderManager* VulkanPlatform::getRenderManagerPtr() const

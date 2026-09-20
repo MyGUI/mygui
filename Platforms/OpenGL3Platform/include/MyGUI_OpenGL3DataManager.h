@@ -18,9 +18,6 @@ namespace MyGUI
 	class OpenGL3DataManager : public DataManager
 	{
 	public:
-		void initialise();
-		void shutdown();
-
 		static OpenGL3DataManager& getInstance()
 		{
 			return *getInstancePtr();
@@ -58,8 +55,6 @@ namespace MyGUI
 		};
 		using VectorArchiveInfo = std::vector<ArchiveInfo>;
 		VectorArchiveInfo mPaths;
-
-		bool mIsInitialise{false};
 	};
 
 } // namespace MyGUI

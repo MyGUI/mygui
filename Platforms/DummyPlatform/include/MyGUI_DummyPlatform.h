@@ -42,13 +42,11 @@ namespace MyGUI
 				LogManager::getInstance().createDefaultSource(_logName);
 
 			mRenderManager->initialise();
-			mDataManager->initialise();
 		}
 
 		void shutdown()
 		{
 			mRenderManager->shutdown();
-			mDataManager->shutdown();
 		}
 
 		DummyRenderManager* getRenderManagerPtr()

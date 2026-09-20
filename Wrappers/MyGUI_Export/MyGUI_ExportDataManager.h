@@ -18,11 +18,6 @@ namespace MyGUI
 	class ExportDataManager : public DataManager
 	{
 	public:
-		ExportDataManager();
-
-		void initialise();
-		void shutdown();
-
 		static ExportDataManager& getInstance();
 		static ExportDataManager* getInstancePtr();
 

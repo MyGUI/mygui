@@ -26,7 +26,6 @@ namespace
 		TextFixture()
 		{
 			renderer.initialise();
-			data.initialise();
 			renderer.setViewSize(800, 600);
 			gui.initialise("");
 			unittest::loadResources("UnitTest_Rendering/TextSkin.xml");
@@ -45,7 +44,6 @@ namespace
 		~TextFixture()
 		{
 			gui.shutdown();
-			data.shutdown();
 			renderer.shutdown();
 		}
 		void render(size_t _quads)

@@ -190,7 +190,6 @@ namespace unittest
 		SkinTestContext()
 		{
 			mRenderer.initialise();
-			mData.initialise();
 			mRenderer.setViewSize(800, 600);
 			mGui.initialise("");
 		}
@@ -198,7 +197,6 @@ namespace unittest
 		~SkinTestContext()
 		{
 			mGui.shutdown();
-			mData.shutdown();
 			mRenderer.shutdown();
 		}
 

@@ -45,7 +45,6 @@ namespace MyGUI
 				LogManager::getInstance().createDefaultSource(_logName);
 
 			mRenderManager->initialise(_device);
-			mDataManager->initialise();
 		}
 
 		void shutdown()
@@ -54,7 +53,6 @@ namespace MyGUI
 			mIsInitialise = false;
 
 			mRenderManager->shutdown();
-			mDataManager->shutdown();
 		}
 
 		DirectXRenderManager* getRenderManagerPtr()

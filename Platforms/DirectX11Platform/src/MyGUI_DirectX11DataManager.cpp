@@ -14,29 +14,6 @@
 namespace MyGUI
 {
 
-	DirectX11DataManager::DirectX11DataManager() :
-		mIsInitialise(false)
-	{
-	}
-
-	void DirectX11DataManager::initialise()
-	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-		mIsInitialise = true;
-	}
-
-	void DirectX11DataManager::shutdown()
-	{
-		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-		mIsInitialise = false;
-	}
-
 	IDataStream* DirectX11DataManager::getData(const std::string& _name) const
 	{
 		const auto filepath = findDataPath(_name);

@@ -11,24 +11,6 @@
 namespace MyGUI
 {
 
-	DummyDataManager::DummyDataManager()
-	{
-	}
-
-	void DummyDataManager::initialise()
-	{
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-	}
-
-	void DummyDataManager::shutdown()
-	{
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-	}
-
 	IDataStream* DummyDataManager::getData(const std::string& _name) const
 	{
 		return nullptr;

@@ -14,28 +14,10 @@
 namespace MyGUI
 {
 
-	void OgreDataManager::initialise(const std::string& _group)
+	void OgreDataManager::setGroup(const std::string& _group)
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
-
 		mGroup = _group;
-		if (mGroup == Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME)
-			mAllGroups = true;
-		else
-			mAllGroups = false;
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-		mIsInitialise = true;
-	}
-
-	void OgreDataManager::shutdown()
-	{
-		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
-
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-		mIsInitialise = false;
+		mAllGroups = mGroup == Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
 	}
 
 	IDataStream* OgreDataManager::getData(const std::string& _name) const

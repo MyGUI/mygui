@@ -17,11 +17,6 @@ namespace MyGUI
 	class DirectX11DataManager : public DataManager
 	{
 	public:
-		DirectX11DataManager();
-
-		void initialise();
-		void shutdown();
-
 		static DirectX11DataManager& getInstance()
 		{
 			return *getInstancePtr();
@@ -59,8 +54,6 @@ namespace MyGUI
 		};
 		using VectorArchiveInfo = std::vector<ArchiveInfo>;
 		VectorArchiveInfo mPaths;
-
-		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

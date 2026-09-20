@@ -50,7 +50,7 @@ namespace MyGUI
 			if (!_logName.empty())
 				LogManager::getInstance().createDefaultSource(_logName);
 
-			mDataManager->initialise(_group);
+			mDataManager->setGroup(_group);
 			mRenderManager->initialise(_window, _scene);
 		}
 
@@ -60,7 +60,6 @@ namespace MyGUI
 			mIsInitialise = false;
 
 			mRenderManager->shutdown();
-			mDataManager->shutdown();
 		}
 
 		OgreRenderManager* getRenderManagerPtr()
