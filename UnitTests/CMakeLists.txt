@@ -26,3 +26,7 @@ add_subdirectory(UnitTest_Window)
 add_subdirectory(UnitTest_DragDrop)
 add_subdirectory(UnitTest_ProgressBar)
 add_subdirectory(UnitTest_Canvas)
+
+if (MYGUI_BUILD_PLATFORM_TESTS)
+    add_subdirectory(UnitTest_Platform)
+endif ()

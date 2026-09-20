@@ -23,6 +23,7 @@ namespace base
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;
+		bool setHostileRenderState(bool _enabled) override;
 		void resizeRender(int _width, int _height) override;
 		void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;
@@ -46,6 +47,7 @@ namespace base
 		void destroySyncObjects();
 		void createScreenShotBuffer();
 		void destroyScreenShotBuffer();
+		void createHostileRenderPipeline();
 
 	private:
 		static constexpr uint32_t MAX_FRAMES_IN_FLIGHT = 2;
@@ -72,6 +74,9 @@ namespace base
 		std::array<VkFence, MAX_FRAMES_IN_FLIGHT> mInFlightFences{};
 		std::vector<VkFence> mImagesInFlight;
 		uint32_t mCurrentFrame = 0;
+		bool mHostileRenderState = false;
+		VkPipeline mHostilePipeline = VK_NULL_HANDLE;
+		VkPipelineLayout mHostilePipelineLayout = VK_NULL_HANDLE;
 
 		VkBuffer mScreenShotBuffer = VK_NULL_HANDLE;
 		VkDeviceMemory mScreenShotBufferMemory = VK_NULL_HANDLE;

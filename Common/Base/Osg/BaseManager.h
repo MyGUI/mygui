@@ -31,6 +31,7 @@ namespace base
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;
+		bool setHostileRenderState(bool _enabled) override;
 		void resizeRender(int _width, int _height) override;
 		void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;
@@ -43,6 +44,7 @@ namespace base
 		}
 
 	private:
+		void captureFrame();
 		MyGUI::OsgPlatform* mPlatform = nullptr;
 		osg::ref_ptr<osgViewer::Viewer> mViewer;
 		osg::ref_ptr<osg::Group> mSceneRoot;

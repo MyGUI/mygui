@@ -8,6 +8,8 @@
 #endif
 
 #include <filesystem>
+#include <stdexcept>
+#include <cstring>
 #include "MyGUI_FileSystemUtility.h"
 
 namespace base
@@ -39,14 +41,15 @@ namespace base
 		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
 			std::cerr << "Failed to initialize SDL2: " << SDL_GetError() << std::endl;
-			exit(1);
+			throw std::runtime_error("SDL application initialization failed");
 		}
 
+		mSdlReady = true;
 		float dpiScale = 1.0f;
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 		// Skip DPI scaling while rendering for the screenshot comparison.
-		if (!isScreenShotMode())
+		if (!isScreenShotMode() && !mFixedPixels)
 		{
 			float ddpi;
 			if (SDL_GetDisplayDPI(0, &ddpi, nullptr, nullptr) == 0 && ddpi > 0)
@@ -65,7 +68,7 @@ namespace base
 		if (SDL_GetCurrentDisplayMode(0, &currDisp) != 0)
 		{
 			std::cerr << "Failed to retrieve screen info: " << SDL_GetError() << std::endl;
-			exit(1);
+			throw std::runtime_error("SDL application initialization failed");
 		}
 		int left = (currDisp.w - _width) / 2;
 		int top = (currDisp.h - _height) / 2;
@@ -78,11 +81,16 @@ namespace base
 			windowFlags &= ~SDL_WINDOW_ALLOW_HIGHDPI;
 		}
 
+		if (mHiddenWindow)
+			windowFlags |= SDL_WINDOW_HIDDEN;
+		if (mFixedPixels)
+			windowFlags &= ~SDL_WINDOW_ALLOW_HIGHDPI;
+
 		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, windowFlags);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
-			exit(1);
+			throw std::runtime_error("SDL application initialization failed");
 		}
 		mWindowOn = true;
 
@@ -93,7 +101,7 @@ namespace base
 		if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
 		{
 			std::cerr << "Failed to SDL_GetWindowWMInfo: " << SDL_GetError() << std::endl;
-			exit(1);
+			throw std::runtime_error("SDL application initialization failed");
 		}
 		size_t handle = (size_t)wmInfo.info.win.window;
 
@@ -112,6 +120,7 @@ namespace base
 
 		setupBinaryDir();
 
+		mRenderStarted = true;
 		if (!createRender(width, height, windowed))
 		{
 			return false;
@@ -130,11 +139,14 @@ namespace base
 		SDL_GL_SetSwapInterval(mEnableVSync ? 1 : 0);
 #endif
 
+		mPlatformStarted = true;
 		createGuiPlatform();
 		mPlatformReady = true;
 		createGui(dpiScale);
 		createInput();
+		mInputReady = true;
 		createPointerManager();
+		mPointerReady = true;
 
 		if (dpiScale != 1.0f)
 			MYGUI_LOG(Info, "Using DPI scale: " << dpiScale);
@@ -143,6 +155,7 @@ namespace base
 		// screen size to properly position the widgets
 		_windowResized(width, height);
 
+		mSceneStarted = true;
 		createScene();
 		loadPointerResources();
 
@@ -223,17 +236,125 @@ namespace base
 
 	void SdlBaseManager::destroy()
 	{
-		destroyScene();
+		if (mSceneStarted)
+		{
+			destroyScene();
+			mSceneStarted = false;
+		}
+		if (mPointerReady)
+		{
+			destroyPointerManager();
+			mPointerReady = false;
+		}
+		if (mInputReady)
+		{
+			destroyInput();
+			mInputReady = false;
+		}
+		if (mPlatformStarted)
+		{
+			destroyGui();
+			mPlatformStarted = false;
+			mPlatformReady = false;
+		}
+		if (mRenderStarted)
+		{
+			destroyRender();
+			mRenderStarted = false;
+		}
+		if (mSdlWindow)
+		{
+			SDL_DestroyWindow(mSdlWindow);
+			mSdlWindow = nullptr;
+		}
+		if (mSdlReady)
+		{
+			SDL_Quit();
+			mSdlReady = false;
+		}
+	}
 
-		destroyPointerManager();
+	void SdlBaseManager::setWindowOptions(bool _hidden, bool _fixedPixels)
+	{
+		if (mSdlWindow)
+			throw std::logic_error("Set window options before creation");
+		mHiddenWindow = _hidden;
+		mFixedPixels = _fixedPixels;
+	}
 
-		destroyInput();
+	bool SdlBaseManager::isWindowHidden() const
+	{
+		return mSdlWindow && (SDL_GetWindowFlags(mSdlWindow) & SDL_WINDOW_HIDDEN) != 0;
+	}
 
-		destroyGui();
+	MyGUI::IntSize SdlBaseManager::getDrawableSize() const
+	{
+		int width = 0, height = 0;
+		if (mSdlWindow)
+			SDL_GetWindowSizeInPixels(mSdlWindow, &width, &height);
+		return {width, height};
+	}
 
-		destroyRender();
+	void SdlBaseManager::resizeWindow(int _width, int _height)
+	{
+		SDL_SetWindowSize(mSdlWindow, _width, _height);
+		SDL_PumpEvents();
+		_windowResized(_width, _height);
+	}
 
-		SDL_Quit();
+	void SdlBaseManager::requestFrameCapture()
+	{
+		if (mCaptureRequested)
+			throw std::logic_error("A frame capture is already pending");
+		mFrameCapture = {};
+		mFrameCapture.status = FrameCapture::Status::Pending;
+		mCaptureRequested = true;
+	}
+
+	const SdlBaseManager::FrameCapture& SdlBaseManager::getFrameCapture() const
+	{
+		return mFrameCapture;
+	}
+
+	void SdlBaseManager::completeFrameCapture(
+		const void* _pixels,
+		int _width,
+		int _height,
+		size_t _pitch,
+		bool _bgra,
+		bool _bottomUp,
+		const std::vector<float>& _depth)
+	{
+		if (!mCaptureRequested)
+			return;
+		if (!_pixels || _width <= 0 || _height <= 0 || _pitch < size_t(_width) * 4)
+		{
+			failFrameCapture("Invalid frame readback");
+			return;
+		}
+		mFrameCapture.width = _width;
+		mFrameCapture.height = _height;
+		mFrameCapture.depth = _depth;
+		mFrameCapture.rgba.resize(size_t(_width) * size_t(_height) * 4);
+		const auto* source = static_cast<const std::uint8_t*>(_pixels);
+		for (int y = 0; y < _height; ++y)
+		{
+			auto* row = mFrameCapture.rgba.data() + size_t(y) * size_t(_width) * 4;
+			std::memcpy(row, source + size_t(_bottomUp ? _height - 1 - y : y) * _pitch, size_t(_width) * 4);
+			if (_bgra)
+				for (int x = 0; x < _width; ++x)
+					std::swap(row[x * 4], row[x * 4 + 2]);
+		}
+		mFrameCapture.status = FrameCapture::Status::Complete;
+		mCaptureRequested = false;
+	}
+
+	void SdlBaseManager::failFrameCapture(std::string_view _error, bool _fatal)
+	{
+		mFrameCapture.status = FrameCapture::Status::Failed;
+		mFrameCapture.error = _error;
+		mFrameCapture.fatal = _fatal;
+		mCaptureRequested = false;
 	}
 
 	void SdlBaseManager::setupBinaryDir()
@@ -257,7 +378,7 @@ namespace base
 		if (!doc.open(mBinaryDir / "resources.xml"))
 		{
 			std::cerr << "Failed to load resources.xml: " << doc.getLastError() << std::endl;
-			exit(1);
+			throw std::runtime_error("SDL application initialization failed");
 		}
 
 		MyGUI::xml::ElementPtr root = doc.getRoot();

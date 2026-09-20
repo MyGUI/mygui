@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include <stdexcept>
 #include "MyGUI_FileSystemUtility.h"
 
 #include <Ogre.h>
@@ -25,6 +26,8 @@ namespace base
 		mRoot = new Ogre::Root((mBinaryDir / "plugins.cfg").string(), "ogre.cfg", "Ogre.log");
 #endif
 
+		if (mRoot->getAvailableRenderers().empty())
+			throw std::runtime_error("No Ogre render system is available");
 		auto renderSystem = mRoot->getRenderSystemByName(mRoot->getAvailableRenderers()[0]->getName());
 		mRoot->setRenderSystem(renderSystem);
 
@@ -137,12 +140,30 @@ namespace base
 	void BaseManager::drawOneFrame()
 	{
 		mRoot->renderOneFrame();
+		if (mCaptureRequested)
+		{
+			const int width = int(mWindow->getWidth()), height = int(mWindow->getHeight());
+			std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
+			Ogre::PixelBox box(width, height, 1, Ogre::PF_BYTE_RGBA, pixels.data());
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 12, 0)
+			mWindow->copyContentsToMemory(Ogre::Box(0, 0, width, height), box, Ogre::RenderTarget::FB_FRONT);
+#else
+			mWindow->copyContentsToMemory(box, Ogre::RenderTarget::FB_FRONT);
+#endif
+			completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
+		}
 
 		if (mScreenShotRequested)
 		{
 			mScreenShotRequested = false;
 			mWindow->writeContentsToFile(MyGUI::utility::toUtf8(mScreenShotFile));
 		}
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		mCamera->setPolygonMode(_enabled ? Ogre::PM_WIREFRAME : Ogre::PM_SOLID);
+		return true;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

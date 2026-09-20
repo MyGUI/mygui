@@ -66,14 +66,43 @@ namespace base
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 
-		if (mScreenShotRequested)
+		if (mScreenShotRequested || mCaptureRequested)
 		{
+			const bool saveScreenshot = mScreenShotRequested;
 			mScreenShotRequested = false;
 			int w, h;
 			SDL_GL_GetDrawableSize(mSdlWindow, &w, &h);
 			std::vector<std::uint8_t> pixels(w * h * 4);
+			GLint packAlignment = 0;
+			glGetIntegerv(GL_PACK_ALIGNMENT, &packAlignment);
 			glPixelStorei(GL_PACK_ALIGNMENT, 1);
 			glReadPixels(0, 0, w, h, GL_BGRA, GL_UNSIGNED_BYTE, pixels.data());
+			glPixelStorei(GL_PACK_ALIGNMENT, packAlignment);
+			if (mCaptureRequested)
+			{
+				std::vector<float> depth;
+				if (mSceneDepthProbe)
+				{
+					for (const auto point :
+						 {MyGUI::IntPoint(8, 8),
+						  MyGUI::IntPoint(w - 9, 8),
+						  MyGUI::IntPoint(8, h - 9),
+						  MyGUI::IntPoint(w - 9, h - 9),
+						  MyGUI::IntPoint(w / 2, h / 2)})
+					{
+						float sample = 0;
+						glReadPixels(point.left, point.top, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &sample);
+						depth.push_back(sample);
+					}
+				}
+				const GLenum error = glGetError();
+				if (error != GL_NO_ERROR)
+					failFrameCapture(
+						"OpenGL error during rendering/readback: " + std::to_string(error),
+						error == GL_OUT_OF_MEMORY || error == 0x0507 /* GL_CONTEXT_LOST */);
+				else
+					completeFrameCapture(pixels.data(), w, h, size_t(w) * 4, true, true, depth);
+			}
 			// Flip vertically (OpenGL origin is bottom-left, images expect top-left)
 			const int stride = w * 4;
 			for (int y = 0; y < h / 2; ++y)
@@ -82,10 +111,38 @@ namespace base
 				auto* bottom = pixels.data() + (h - 1 - y) * stride;
 				std::swap_ranges(top, top + stride, bottom);
 			}
-			saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
+			if (saveScreenshot)
+				saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
 		}
 
 		SDL_GL_SwapWindow(mSdlWindow);
+	}
+
+	bool BaseManager::setSceneDepthProbe(bool _enabled)
+	{
+		int bits = 0;
+		if (_enabled)
+		{
+			if (SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &bits) != 0)
+				throw std::runtime_error("Cannot query scene depth buffer");
+			if (bits == 0)
+				return false;
+		}
+		mSceneDepthProbe = _enabled;
+		glDepthMask(GL_TRUE);
+		glClearDepth(_enabled ? 0.25 : 1.0);
+		return true;
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		if (_enabled)
+			glEnable(GL_CULL_FACE);
+		else
+			glDisable(GL_CULL_FACE);
+		glCullFace(GL_FRONT_AND_BACK);
+		glPolygonMode(GL_FRONT_AND_BACK, _enabled ? GL_LINE : GL_FILL);
+		return true;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

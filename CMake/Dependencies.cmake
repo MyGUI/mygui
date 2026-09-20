@@ -125,7 +125,7 @@ FetchContent_MakeAvailable(utfcpp)
 # RenderSystem dependencies
 #######################################################################
 
-if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TEST_APP)
+if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TEST_APP OR MYGUI_BUILD_PLATFORM_TESTS)
 	if(EMSCRIPTEN)
 		add_library(SDL2::SDL2 INTERFACE IMPORTED GLOBAL)
 		target_compile_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")

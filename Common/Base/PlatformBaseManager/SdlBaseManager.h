@@ -17,6 +17,43 @@ namespace base
 	public:
 		SdlBaseManager(uint32_t _windowFlags);
 
+		struct FrameCapture
+		{
+			enum class Status
+			{
+				Idle,
+				Pending,
+				Complete,
+				Failed
+			};
+			Status status{Status::Idle};
+			int width{0};
+			int height{0};
+			std::vector<std::uint8_t> rgba;
+			std::vector<float> depth;
+			std::string error;
+			bool fatal{true};
+		};
+
+		// Application defaults are unchanged; native tests request fixed drawable pixels.
+		void setWindowOptions(bool _hidden, bool _fixedPixels);
+		bool isWindowHidden() const;
+		MyGUI::IntSize getDrawableSize() const;
+		void resizeWindow(int _width, int _height);
+		void requestFrameCapture();
+		const FrameCapture& getFrameCapture() const;
+
+		// for platform unit tests only
+		virtual bool setHostileRenderState(bool _enabled)
+		{
+			return false;
+		}
+		// for platform unit tests only
+		virtual bool setSceneDepthProbe(bool _enabled)
+		{
+			return false;
+		}
+
 		// Block of virtual functions for specific platform implementations
 		virtual bool createRender(int _width, int _height, bool _windowed) = 0;
 		virtual void destroyRender() = 0;
@@ -51,6 +88,22 @@ namespace base
 		virtual MyGUI::MapString getStatistic();
 
 	protected:
+		bool mGuiPlatformInitialiseStarted{false};
+		void completeFrameCapture(
+			const void* _pixels,
+			int _width,
+			int _height,
+			size_t _pitch,
+			bool _bgra,
+			bool _bottomUp,
+			const std::vector<float>& _depth = {});
+		void failFrameCapture(std::string_view _error, bool _fatal = true);
+		bool mCaptureRequested{false};
+		bool mSceneDepthProbe{false};
+		virtual void setupRenderWindow()
+		{
+		}
+
 		virtual void createScene()
 		{
 		}
@@ -96,6 +149,15 @@ namespace base
 
 		uint32_t mWindowFlags = 0;
 		bool mPlatformReady = false;
+		bool mPlatformStarted = false;
+		bool mRenderStarted = false;
+		bool mInputReady = false;
+		bool mPointerReady = false;
+		bool mSceneStarted = false;
+		bool mSdlReady = false;
+		bool mHiddenWindow = false;
+		bool mFixedPixels = false;
+		FrameCapture mFrameCapture;
 		bool mExit = false;
 		SDL_Event mEvent;
 		std::filesystem::path mRootMedia;

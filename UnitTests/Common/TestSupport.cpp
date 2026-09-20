@@ -1,4 +1,5 @@
 #include "TestSupport.h"
+#include "MyGUI_FileSystemUtility.h"
 #include <stdexcept>
 
 namespace unittest
@@ -42,11 +43,16 @@ namespace unittest
 			MyGUI::LayerManager::getInstance().createLayerAt(_name, "CountingLayer", _index));
 	}
 
+	std::filesystem::path getResourcePath(std::string_view _filename)
+	{
+		return MyGUI::utility::toPath(MYGUI_UNITTEST_RESOURCE_ROOT) / MyGUI::utility::toPath(_filename);
+	}
+
 	void loadResources(std::string_view _filename)
 	{
-		const std::string filename = std::string(MYGUI_UNITTEST_RESOURCE_ROOT) + "/" + std::string(_filename);
+		const auto filename = getResourcePath(_filename);
 		MyGUI::xml::Document document;
-		require(document.open(filename), "Failed to load test resources: " + filename);
+		require(document.open(filename), "Failed to load test resources: " + MyGUI::utility::toUtf8(filename));
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(document.getRoot(), "", MyGUI::Version(1, 1));
 	}
 

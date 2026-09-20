@@ -18,6 +18,8 @@ namespace base
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;
+		bool setHostileRenderState(bool _enabled) override;
+		bool setSceneDepthProbe(bool _enabled) override;
 		void resizeRender(int _width, int _height) override;
 		void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;

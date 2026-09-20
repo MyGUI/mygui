@@ -67,18 +67,32 @@ namespace base
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 
-		if (mScreenShotRequested)
+		if (mScreenShotRequested || mCaptureRequested)
 		{
+			const bool saveScreenshot = mScreenShotRequested;
 			mScreenShotRequested = false;
 			int w, h;
 			SDL_GL_GetDrawableSize(mSdlWindow, &w, &h);
 			std::vector<std::uint8_t> pixels(w * h * 4);
+			GLint packAlignment = 0;
+			glGetIntegerv(GL_PACK_ALIGNMENT, &packAlignment);
 			glPixelStorei(GL_PACK_ALIGNMENT, 1);
 			glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+			glPixelStorei(GL_PACK_ALIGNMENT, packAlignment);
 			// GLES returns RGBA, but saveImage expects BGRA, so swap R and B
 			for (size_t i = 0; i < pixels.size(); i += 4)
 			{
 				std::swap(pixels[i], pixels[i + 2]);
+			}
+			if (mCaptureRequested)
+			{
+				const GLenum error = glGetError();
+				if (error != GL_NO_ERROR)
+					failFrameCapture(
+						"OpenGL error during rendering/readback: " + std::to_string(error),
+						error == GL_OUT_OF_MEMORY || error == 0x0507 /* GL_CONTEXT_LOST */);
+				else
+					completeFrameCapture(pixels.data(), w, h, size_t(w) * 4, true, true);
 			}
 			// Flip vertically (OpenGL origin is bottom-left, images expect top-left)
 			const int stride = w * 4;
@@ -88,10 +102,27 @@ namespace base
 				auto* bottom = pixels.data() + (h - 1 - y) * stride;
 				std::swap_ranges(top, top + stride, bottom);
 			}
-			saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
+			if (saveScreenshot)
+				saveImage(w, h, MyGUI::PixelFormat::R8G8B8A8, pixels.data(), mScreenShotFile);
 		}
 
 		SDL_GL_SwapWindow(mSdlWindow);
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		// OpenGL ES has no core wireframe mode; cull every triangle instead.
+		if (_enabled)
+		{
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_FRONT_AND_BACK);
+		}
+		else
+		{
+			glDisable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+		}
+		return true;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

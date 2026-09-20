@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include <stdexcept>
 
 #pragma warning(push, 0)
 #include <d3d11.h>
@@ -134,8 +135,9 @@ namespace base
 		mDeviceContext->ClearRenderTargetView(mRenderTarget, clearColor);
 		mPlatform->getRenderManagerPtr()->drawOneFrame();
 
-		if (mScreenShotRequested)
+		if (mScreenShotRequested || mCaptureRequested)
 		{
+			const bool saveScreenshot = mScreenShotRequested;
 			mScreenShotRequested = false;
 			ID3D11Texture2D* backBuffer = nullptr;
 			HRESULT hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBuffer);
@@ -167,11 +169,19 @@ namespace base
 						for (UINT y = 0; y < height; ++y)
 							memcpy(convertedData.data() + y * dstStride, src + y * mapped.RowPitch, dstStride);
 
+						completeFrameCapture(convertedData.data(), int(width), int(height), dstStride, false, false);
+
 						// Back buffer is R8G8B8A8 but WIC expects BGRA, swap R and B
 						for (size_t i = 0; i < convertedData.size(); i += 4)
 							std::swap(convertedData[i], convertedData[i + 2]);
 
-						MyGUI::saveWICImage(mScreenShotFile.c_str(), width, height, dstStride, convertedData.data());
+						if (saveScreenshot)
+							MyGUI::saveWICImage(
+								mScreenShotFile.c_str(),
+								width,
+								height,
+								dstStride,
+								convertedData.data());
 
 						mDeviceContext->Unmap(stagingTexture, 0);
 					}
@@ -181,7 +191,24 @@ namespace base
 			}
 		}
 
+		if (mCaptureRequested)
+			failFrameCapture("DirectX backbuffer readback failed");
+
 		mSwapChain->Present(0, 0);
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		D3D11_RASTERIZER_DESC desc{};
+		desc.FillMode = _enabled ? D3D11_FILL_WIREFRAME : D3D11_FILL_SOLID;
+		desc.CullMode = _enabled ? D3D11_CULL_FRONT : D3D11_CULL_NONE;
+		desc.DepthClipEnable = TRUE;
+		ID3D11RasterizerState* state = nullptr;
+		if (FAILED(mDevice->CreateRasterizerState(&desc, &state)))
+			throw std::runtime_error("Failed to create hostile rasterizer state");
+		mDeviceContext->RSSetState(state);
+		state->Release();
+		return true;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

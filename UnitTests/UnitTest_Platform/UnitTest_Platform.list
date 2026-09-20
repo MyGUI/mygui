@@ -1,0 +1,2 @@
+set(HEADER_FILES PlatformFixture.h)
+set(SOURCE_FILES Main.cpp PlatformFixture.cpp Cases.cpp ShaderSources.cpp)

@@ -8,6 +8,7 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 
 namespace base
 {
@@ -107,6 +108,16 @@ namespace base
 
 	void BaseManager::destroyGuiPlatform()
 	{
+		if (mHostilePipeline != VK_NULL_HANDLE)
+		{
+			// Previously submitted frames may still reference the test pipeline.
+			vkDeviceWaitIdle(mDevice.device);
+			vkDestroyPipeline(mDevice.device, mHostilePipeline, nullptr);
+			vkDestroyPipelineLayout(mDevice.device, mHostilePipelineLayout, nullptr);
+			mHostilePipeline = VK_NULL_HANDLE;
+			mHostilePipelineLayout = VK_NULL_HANDLE;
+		}
+		mHostileRenderState = false;
 		destroyFramebuffers();
 
 		if (mPlatform)
@@ -185,7 +196,7 @@ namespace base
 			framebufferInfo.layers = 1;
 
 			if (vkCreateFramebuffer(mDevice.device, &framebufferInfo, nullptr, &mFramebuffers[i]) != VK_SUCCESS)
-				exit(1);
+				throw std::runtime_error("Vulkan application operation failed");
 		}
 	}
 
@@ -247,7 +258,7 @@ namespace base
 		bufferInfo.usage = VK_BUFFER_USAGE_TRANSFER_DST_BIT;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 		if (vkCreateBuffer(mDevice.device, &bufferInfo, nullptr, &mScreenShotBuffer) != VK_SUCCESS)
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
 
 		VkMemoryRequirements memRequirements;
 		vkGetBufferMemoryRequirements(mDevice.device, mScreenShotBuffer, &memRequirements);
@@ -272,7 +283,7 @@ namespace base
 		allocInfo.allocationSize = memRequirements.size;
 		allocInfo.memoryTypeIndex = memoryType;
 		if (vkAllocateMemory(mDevice.device, &allocInfo, nullptr, &mScreenShotBufferMemory) != VK_SUCCESS)
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
 
 		vkBindBufferMemory(mDevice.device, mScreenShotBuffer, mScreenShotBufferMemory, 0);
 	}
@@ -288,6 +299,88 @@ namespace base
 		{
 			vkFreeMemory(mDevice.device, mScreenShotBufferMemory, nullptr);
 			mScreenShotBufferMemory = VK_NULL_HANDLE;
+		}
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		if (_enabled && mHostilePipeline == VK_NULL_HANDLE)
+			createHostileRenderPipeline();
+		mHostileRenderState = _enabled;
+		return true;
+	}
+
+	void BaseManager::createHostileRenderPipeline()
+	{
+		auto stream = MyGUI::DataManager::getInstance().getDataHolder("MyGUI_Vulkan_VP.spv");
+		if (!stream)
+			throw std::runtime_error("Failed to load hostile pipeline vertex shader");
+		const auto bytes = stream->readAll();
+		if (bytes.empty() || bytes.size() % sizeof(uint32_t) != 0)
+			throw std::runtime_error("Invalid hostile pipeline vertex shader");
+		std::vector<uint32_t> code(bytes.size() / sizeof(uint32_t));
+		std::memcpy(code.data(), bytes.data(), bytes.size());
+
+		VkShaderModuleCreateInfo moduleInfo{};
+		moduleInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+		moduleInfo.codeSize = bytes.size();
+		moduleInfo.pCode = code.data();
+		VkShaderModule vertexModule = VK_NULL_HANDLE;
+		if (vkCreateShaderModule(mDevice.device, &moduleInfo, nullptr, &vertexModule) != VK_SUCCESS)
+			throw std::runtime_error("Failed to create hostile pipeline vertex shader");
+
+		// The existing vertex shader has no descriptors or push constants.
+		VkPipelineLayoutCreateInfo layoutInfo{};
+		layoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+		if (vkCreatePipelineLayout(mDevice.device, &layoutInfo, nullptr, &mHostilePipelineLayout) != VK_SUCCESS)
+		{
+			vkDestroyShaderModule(mDevice.device, vertexModule, nullptr);
+			throw std::runtime_error("Failed to create hostile pipeline layout");
+		}
+
+		VkPipelineShaderStageCreateInfo stage{};
+		stage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		stage.stage = VK_SHADER_STAGE_VERTEX_BIT;
+		stage.module = vertexModule;
+		stage.pName = "main";
+		VkVertexInputBindingDescription binding{0, sizeof(MyGUI::Vertex), VK_VERTEX_INPUT_RATE_VERTEX};
+		const std::array<VkVertexInputAttributeDescription, 3> attributes = {
+			{{0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MyGUI::Vertex, x)},
+			 {1, 0, VK_FORMAT_R8G8B8A8_UNORM, offsetof(MyGUI::Vertex, colour)},
+			 {2, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(MyGUI::Vertex, u)}}};
+		VkPipelineVertexInputStateCreateInfo vertexInput{};
+		vertexInput.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+		vertexInput.vertexBindingDescriptionCount = 1;
+		vertexInput.pVertexBindingDescriptions = &binding;
+		vertexInput.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributes.size());
+		vertexInput.pVertexAttributeDescriptions = attributes.data();
+		VkPipelineInputAssemblyStateCreateInfo assembly{};
+		assembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+		assembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+		VkPipelineRasterizationStateCreateInfo rasterizer{};
+		rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+		rasterizer.rasterizerDiscardEnable = VK_TRUE;
+		rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
+		rasterizer.lineWidth = 1.0f;
+
+		// Discard needs no fragment shader or fragment-output state and no optional device features.
+		VkGraphicsPipelineCreateInfo pipelineInfo{};
+		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+		pipelineInfo.stageCount = 1;
+		pipelineInfo.pStages = &stage;
+		pipelineInfo.pVertexInputState = &vertexInput;
+		pipelineInfo.pInputAssemblyState = &assembly;
+		pipelineInfo.pRasterizationState = &rasterizer;
+		pipelineInfo.layout = mHostilePipelineLayout;
+		pipelineInfo.renderPass = mRenderPass;
+		const VkResult result =
+			vkCreateGraphicsPipelines(mDevice.device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &mHostilePipeline);
+		vkDestroyShaderModule(mDevice.device, vertexModule, nullptr);
+		if (result != VK_SUCCESS)
+		{
+			vkDestroyPipelineLayout(mDevice.device, mHostilePipelineLayout, nullptr);
+			mHostilePipelineLayout = VK_NULL_HANDLE;
+			throw std::runtime_error("Failed to create hostile render pipeline");
 		}
 	}
 
@@ -311,7 +404,7 @@ namespace base
 		if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 		{
 			std::cerr << "Failed to acquire swapchain image" << std::endl;
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
 		}
 
 		// wait if this image is still in flight
@@ -341,19 +434,22 @@ namespace base
 
 		VkViewport
 			viewport{0.0f, 0.0f, static_cast<float>(mExtent.width), static_cast<float>(mExtent.height), 0.0f, 1.0f};
-		vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-
 		VkRect2D scissor{{0, 0}, {mExtent.width, mExtent.height}};
+		if (mHostileRenderState)
+			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, mHostilePipeline);
+		// The render pass owner supplies viewport/scissor, including after a host pipeline bind.
+		vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
 		vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
 		mPlatform->getRenderManagerPtr()->drawOneFrame(commandBuffer);
 
 		vkCmdEndRenderPass(commandBuffer);
 
-		if (mScreenShotRequested)
+		const bool captureFrame = mCaptureRequested;
+		if (mScreenShotRequested || captureFrame)
 		{
+			mScreenShotFileName = mScreenShotRequested ? mScreenShotFile : std::filesystem::path{};
 			mScreenShotRequested = false;
-			mScreenShotFileName = mScreenShotFile;
 
 			VkImageMemoryBarrier barrier{};
 			barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -433,7 +529,27 @@ namespace base
 		if (vkQueueSubmit(mQueue, 1, &submitInfo, mInFlightFences[mCurrentFrame]) != VK_SUCCESS)
 		{
 			std::cerr << "Failed to submit draw command buffer" << std::endl;
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
+		}
+
+		if (!mScreenShotFileName.empty() || captureFrame)
+		{
+			vkWaitForFences(mDevice.device, 1, &mInFlightFences[mCurrentFrame], VK_TRUE, UINT64_MAX);
+			void* data = nullptr;
+			if (vkMapMemory(mDevice.device, mScreenShotBufferMemory, 0, mScreenShotBufferSize, 0, &data) != VK_SUCCESS)
+				throw std::runtime_error("Vulkan frame readback mapping failed");
+			const bool bgra = mSwapchain.image_format == VK_FORMAT_B8G8R8A8_UNORM ||
+				mSwapchain.image_format == VK_FORMAT_B8G8R8A8_SRGB;
+			completeFrameCapture(data, int(mExtent.width), int(mExtent.height), size_t(mExtent.width) * 4, bgra, false);
+			if (!mScreenShotFileName.empty())
+				saveImage(
+					(int)mExtent.width,
+					(int)mExtent.height,
+					MyGUI::PixelFormat::R8G8B8A8,
+					data,
+					mScreenShotFileName);
+			vkUnmapMemory(mDevice.device, mScreenShotBufferMemory);
+			mScreenShotFileName.clear();
 		}
 
 		VkPresentInfoKHR presentInfo{};
@@ -450,16 +566,6 @@ namespace base
 			resizeRender((int)mExtent.width, (int)mExtent.height);
 		}
 
-		if (!mScreenShotFileName.empty())
-		{
-			vkWaitForFences(mDevice.device, 1, &mInFlightFences[mCurrentFrame], VK_TRUE, UINT64_MAX);
-
-			void* data = nullptr;
-			vkMapMemory(mDevice.device, mScreenShotBufferMemory, 0, mScreenShotBufferSize, 0, &data);
-			saveImage((int)mExtent.width, (int)mExtent.height, MyGUI::PixelFormat::R8G8B8A8, data, mScreenShotFileName);
-			vkUnmapMemory(mDevice.device, mScreenShotBufferMemory);
-			mScreenShotFileName.clear();
-		}
 
 		mCurrentFrame = (mCurrentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 	}
@@ -488,7 +594,7 @@ namespace base
 		if (!swapResult)
 		{
 			std::cerr << "Failed to recreate swapchain: " << swapResult.error().message() << std::endl;
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
 		}
 		mSwapchain = swapResult.value();
 		mExtent = mSwapchain.extent;
@@ -507,7 +613,7 @@ namespace base
 		poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 		poolInfo.queueFamilyIndex = mQueueFamily;
 		if (vkCreateCommandPool(mDevice.device, &poolInfo, nullptr, &mCommandPool) != VK_SUCCESS)
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
 		mCommandBuffers.resize(mSwapchain.image_count);
 		VkCommandBufferAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -515,7 +621,7 @@ namespace base
 		allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 		allocInfo.commandBufferCount = static_cast<uint32_t>(mCommandBuffers.size());
 		if (vkAllocateCommandBuffers(mDevice.device, &allocInfo, mCommandBuffers.data()) != VK_SUCCESS)
-			exit(1);
+			throw std::runtime_error("Vulkan application operation failed");
 
 		createFramebuffers();
 		createScreenShotBuffer();

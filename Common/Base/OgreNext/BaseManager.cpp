@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
+#include <stdexcept>
 #include "MyGUI_FileSystemUtility.h"
 
 #include <Ogre.h>
@@ -30,6 +31,8 @@ namespace base
 		mRoot = new Ogre::Root(nullptr, (mBinaryDir / "plugins.cfg").string(), "ogre.cfg", "Ogre.log");
 #endif
 
+		if (mRoot->getAvailableRenderers().empty())
+			throw std::runtime_error("No Ogre render system is available");
 		auto renderSystem = mRoot->getRenderSystemByName(mRoot->getAvailableRenderers()[0]->getName());
 		mRoot->setRenderSystem(renderSystem);
 
@@ -136,7 +139,45 @@ namespace base
 
 	void BaseManager::drawOneFrame()
 	{
-		mRoot->renderOneFrame();
+		if (mCaptureRequested)
+		{
+			mWindow->setWantsToDownload(true);
+			mWindow->setManualSwapRelease(true);
+			try
+			{
+				mRoot->renderOneFrame();
+				if (!mWindow->canDownloadData())
+					failFrameCapture("OgreNext window cannot download its rendered image");
+				else
+				{
+					Ogre::Image2 image;
+					image.convertFromTexture(mWindow->getTexture(), 0u, 0u);
+					const int width = int(image.getWidth()), height = int(image.getHeight());
+					std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
+					for (int y = 0; y < height; ++y)
+						for (int x = 0; x < width; ++x)
+						{
+							const auto colour = image.getColourAt(size_t(x), size_t(y), 0);
+							auto* pixel = pixels.data() + (size_t(y) * size_t(width) + size_t(x)) * 4;
+							pixel[0] = std::uint8_t(colour.r * 255.0f + 0.5f);
+							pixel[1] = std::uint8_t(colour.g * 255.0f + 0.5f);
+							pixel[2] = std::uint8_t(colour.b * 255.0f + 0.5f);
+							pixel[3] = std::uint8_t(colour.a * 255.0f + 0.5f);
+						}
+					completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
+				}
+			}
+			catch (...)
+			{
+				mWindow->performManualRelease();
+				mWindow->setManualSwapRelease(false);
+				throw;
+			}
+			mWindow->performManualRelease();
+			mWindow->setManualSwapRelease(false);
+		}
+		else
+			mRoot->renderOneFrame();
 
 		if (mScreenShotRequested)
 		{
@@ -159,6 +200,12 @@ namespace base
 			mWindow->performManualRelease();
 			mWindow->setManualSwapRelease(false);
 		}
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		mCamera->setPolygonMode(_enabled ? Ogre::PM_WIREFRAME : Ogre::PM_SOLID);
+		return true;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

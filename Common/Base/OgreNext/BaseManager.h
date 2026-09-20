@@ -23,6 +23,7 @@ namespace base
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;
+		bool setHostileRenderState(bool _enabled) override;
 		void resizeRender(int _width, int _height) override;
 		void addResourceLocation(const std::filesystem::path& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;
@@ -40,15 +41,15 @@ namespace base
 	private:
 		MyGUI::OgreNextPlatform* mPlatform = nullptr;
 
-		Ogre::Root* mRoot;
+		Ogre::Root* mRoot = nullptr;
 
 #ifdef OGRE_STATIC_LIB
 		OgreBites::StaticPluginLoader mStaticPluginLoader;
 #endif
-		Ogre::Camera* mCamera;
-		Ogre::SceneNode* mCameraNode;
-		Ogre::SceneManager* mSceneManager;
-		Ogre::Window* mWindow;
+		Ogre::Camera* mCamera = nullptr;
+		Ogre::SceneNode* mCameraNode = nullptr;
+		Ogre::SceneManager* mSceneManager = nullptr;
+		Ogre::Window* mWindow = nullptr;
 	};
 
 }

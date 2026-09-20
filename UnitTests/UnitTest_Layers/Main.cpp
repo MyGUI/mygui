@@ -205,8 +205,7 @@ namespace
 	public:
 		MyGUI::IDataStream* getData(const std::string& _name) const override
 		{
-			auto stream = std::make_unique<std::ifstream>(
-				std::string(MYGUI_UNITTEST_RESOURCE_ROOT) + "/UnitTest_Layers/" + _name);
+			auto stream = std::make_unique<std::ifstream>(unittest::getResourcePath("UnitTest_Layers/" + _name));
 			if (!*stream)
 				return nullptr;
 			return new MyGUI::DataFileStream(std::move(stream));

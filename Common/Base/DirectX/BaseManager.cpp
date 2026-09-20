@@ -118,8 +118,9 @@ namespace base
 			mDevice->EndScene();
 		}
 
-		if (mScreenShotRequested)
+		if (mScreenShotRequested || mCaptureRequested)
 		{
+			const bool saveScreenshot = mScreenShotRequested;
 			mScreenShotRequested = false;
 			IDirect3DSurface9* backSurface = nullptr;
 			HRESULT hr = mDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backSurface);
@@ -159,14 +160,16 @@ namespace base
 							for (size_t i = 3; i < convertedData.size(); i += 4)
 								convertedData[i] = 0xFF;
 
+							completeFrameCapture(convertedData.data(), int(width), int(height), dstStride, true, false);
 							HRESULT coInit = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 							bool comInitialized = (coInit == S_OK || coInit == S_FALSE);
-							MyGUI::saveWICImage(
-								mScreenShotFile.c_str(),
-								width,
-								height,
-								dstStride,
-								convertedData.data());
+							if (saveScreenshot)
+								MyGUI::saveWICImage(
+									mScreenShotFile.c_str(),
+									width,
+									height,
+									dstStride,
+									convertedData.data());
 							if (comInitialized)
 								CoUninitialize();
 
@@ -179,8 +182,18 @@ namespace base
 			}
 		}
 
+		if (mCaptureRequested)
+			failFrameCapture("DirectX backbuffer readback failed");
+
 		if (mDevice->Present(nullptr, nullptr, 0, nullptr) == D3DERR_DEVICELOST)
 			mIsDeviceLost = true;
+	}
+
+	bool BaseManager::setHostileRenderState(bool _enabled)
+	{
+		mDevice->SetRenderState(D3DRS_CULLMODE, _enabled ? D3DCULL_CW : D3DCULL_NONE);
+		mDevice->SetRenderState(D3DRS_FILLMODE, _enabled ? D3DFILL_WIREFRAME : D3DFILL_SOLID);
+		return true;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)
