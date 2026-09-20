@@ -7,12 +7,18 @@ it renders the scene, saves a screenshot after a few frames and exits. This scri
 runs each application from a fixed list and compares the resulting image with a
 reference screenshot stored in Scripts/Tests/References/<App>.png.
 
+Applications run directly using the current environment's display configuration.
+
 Requires numpy and Pillow:
 
     python3 -m pip install numpy pillow
 
 Usage:
     python3 Scripts/Tests/compare_screenshots.py <build_dir> [--baseline] [--tolerance N]
+
+On headless Linux (e.g. CI), hidden windows still need a display. Run under Xvfb:
+
+    xvfb-run -a python3 Scripts/Tests/compare_screenshots.py <build_dir>
 
 By default, the script compares generated screenshots with references and reports
 the result for every application:
@@ -114,21 +120,11 @@ def run_app(binary: Path, app: str, work_dir: Path) -> tuple[Path, str]:
     """Run an application and return (screenshot_path, log)."""
     screenshot = work_dir / f"{app}.png"
     command = [str(binary), "--screenshot", str(screenshot)]
-    env = os.environ.copy()
-    xvfb_run = shutil.which("xvfb-run")
-    if xvfb_run:
-        command = [xvfb_run, "-a", *command]
-    elif "DISPLAY" not in env and os.name != "nt" and sys.platform != "darwin":
-        return screenshot, (
-            "no DISPLAY set and xvfb-run not found; "
-            "cannot create a rendering window"
-        )
     try:
         #print(f"Running app: {' '.join(command)}")
         process = subprocess.Popen(
             command,
             cwd=str(work_dir),
-            env=env,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -150,7 +146,7 @@ def run_app(binary: Path, app: str, work_dir: Path) -> tuple[Path, str]:
 
 
 def _kill_process_tree(process: subprocess.Popen):
-    """Kill the process and its children (xvfb-run spawns Xvfb + the app)."""
+    """Kill the process and its children."""
     try:
         os.killpg(os.getpgid(process.pid), signal.SIGKILL)
     except (ProcessLookupError, PermissionError):
