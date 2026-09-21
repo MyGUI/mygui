@@ -30,9 +30,10 @@ jobs:
             build_jobs: 4 # limit parallel compilation to avoid OOM on Ogre-heavy builds
 
           - os: ubuntu-latest
-            name: "Linux: GL3, no features, just tools, static"
+            name: "Linux: GL3, no features, tools and platform tests, static"
             preset: minimal
             rendersystem: 7
+            platform_tests: true
             cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_TOOLS=ON
 
           - os: windows-latest
@@ -63,7 +64,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev libsdl2-image-dev libgl1-mesa-dev ${{ matrix.linux_deps || '' }}
+          sudo apt-get install -qq cmake libfreetype6-dev libsdl2-dev libsdl2-image-dev libgl1-mesa-dev ${{ matrix.linux_deps || '' }} ${{ matrix.platform_tests && 'libgl1-mesa-dri xvfb xauth' || '' }}
 
       - name: Install build dependencies (macOS)
         if: runner.os == 'macOS'
@@ -78,12 +79,20 @@ jobs:
           ${{ matrix.rendersystems && format('-DMYGUI_BUILD_RENDERSYSTEMS="{0}"', matrix.rendersystems) || '' }}
           ${{ matrix.cmake_flags }}
           -DMYGUI_BUILD_UNITTESTS=ON
+          -DMYGUI_BUILD_PLATFORM_TESTS=${{ matrix.platform_tests && 'ON' || 'OFF' }}
 
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel ${{ matrix.build_jobs || '' }}
 
       - name: Run unit tests
-        run: ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 5
+        run: ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 5 -LE platform
+
+      - name: Run OpenGL3 platform tests
+        if: matrix.platform_tests
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          SDL_VIDEODRIVER: x11
+        run: xvfb-run -a ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 120 -L platform
 
       - name: Install
         if: runner.os == 'Linux'
