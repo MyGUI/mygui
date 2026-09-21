@@ -92,6 +92,8 @@
 
 - DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
 
+- DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
+
 ### Demos
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays

@@ -40,12 +40,14 @@ namespace MyGUI
 
 	Vertex* DirectX11VertexBuffer::lock()
 	{
-		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0 || !mBuffer)
 			resize();
 
 		D3D11_MAPPED_SUBRESOURCE map;
 		memset(&map, 0, sizeof(map));
-		mManager->mpD3DContext->Map(mBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map);
+		const HRESULT result = mManager->mpD3DContext->Map(mBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map);
+		MYGUI_PLATFORM_ASSERT(SUCCEEDED(result), "Failed to map vertex buffer (HRESULT=" << result << ").");
+		MYGUI_PLATFORM_ASSERT(map.pData, "Mapped vertex buffer has no storage");
 		return static_cast<Vertex*>(map.pData);
 	}
 
