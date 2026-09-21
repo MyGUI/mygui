@@ -57,6 +57,7 @@ namespace base
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
 #endif
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
+		mRoot->addFrameListener(this);
 
 #if OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 0, 0)
 		mSceneManager =
@@ -95,6 +96,9 @@ namespace base
 
 	void BaseManager::destroyRender()
 	{
+		if (mRoot)
+			mRoot->removeFrameListener(this);
+
 		if (mSceneManager)
 		{
 			mSceneManager->clearScene();
@@ -105,7 +109,7 @@ namespace base
 
 		if (mWindow)
 		{
-			mWindow->destroy();
+			mRoot->destroyRenderTarget(mWindow);
 			mWindow = nullptr;
 		}
 
@@ -140,24 +144,30 @@ namespace base
 	void BaseManager::drawOneFrame()
 	{
 		mRoot->renderOneFrame();
-		if (mCaptureRequested)
-		{
-			const int width = int(mWindow->getWidth()), height = int(mWindow->getHeight());
-			std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
-			Ogre::PixelBox box(width, height, 1, Ogre::PF_BYTE_RGBA, pixels.data());
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 12, 0)
-			mWindow->copyContentsToMemory(Ogre::Box(0, 0, width, height), box, Ogre::RenderTarget::FB_FRONT);
-#else
-			mWindow->copyContentsToMemory(box, Ogre::RenderTarget::FB_FRONT);
-#endif
-			completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
-		}
 
 		if (mScreenShotRequested)
 		{
 			mScreenShotRequested = false;
 			mWindow->writeContentsToFile(MyGUI::utility::toUtf8(mScreenShotFile));
 		}
+	}
+
+	bool BaseManager::frameRenderingQueued(const Ogre::FrameEvent& _event)
+	{
+		if (mCaptureRequested)
+		{
+			// Capture the completed back buffer before swapping, including for hidden windows.
+			const int width = int(mWindow->getWidth()), height = int(mWindow->getHeight());
+			std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
+			Ogre::PixelBox box(width, height, 1, Ogre::PF_BYTE_RGBA, pixels.data());
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 12, 0)
+			mWindow->copyContentsToMemory(Ogre::Box(0, 0, width, height), box, Ogre::RenderTarget::FB_BACK);
+#else
+			mWindow->copyContentsToMemory(box, Ogre::RenderTarget::FB_BACK);
+#endif
+			completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
+		}
+		return true;
 	}
 
 	bool BaseManager::setHostileRenderState(bool _enabled)

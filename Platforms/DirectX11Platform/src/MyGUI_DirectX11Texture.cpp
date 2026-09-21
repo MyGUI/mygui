@@ -17,6 +17,7 @@
 #include "MyGUI_DirectX11Diagnostic.h"
 
 #include <filesystem>
+#include <cstring>
 #include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
@@ -24,7 +25,6 @@ namespace MyGUI
 
 	DirectX11Texture::DirectX11Texture(const std::string& _name, DirectX11RenderManager* _manager) :
 		mTexture(nullptr),
-		mWriteData(nullptr),
 		mResourceView(nullptr),
 		mWidth(0),
 		mHeight(0),
@@ -49,6 +49,7 @@ namespace MyGUI
 	void DirectX11Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
 		destroy();
+		mTextureUsage = _usage;
 
 		D3D11_TEXTURE2D_DESC desc;
 		desc.ArraySize = 1;
@@ -59,7 +60,7 @@ namespace MyGUI
 		desc.SampleDesc.Quality = 0;
 		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		if (_usage == TextureUsage::RenderTarget)
+		if (_usage.isValue(TextureUsage::RenderTarget))
 			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 		else
 			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
@@ -81,6 +82,7 @@ namespace MyGUI
 	void DirectX11Texture::loadFromFile(const std::string& _filename)
 	{
 		destroy();
+		mTextureUsage = TextureUsage::Static | TextureUsage::Read | TextureUsage::Write;
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
 		const auto wfullname = MyGUI::utility::toPath(fullname);
@@ -185,6 +187,11 @@ namespace MyGUI
 
 	void DirectX11Texture::destroy()
 	{
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
+		mLockData.clear();
+		mLock = false;
+
 		if (mTexture)
 		{
 			mTexture->Release();
@@ -210,16 +217,43 @@ namespace MyGUI
 
 	void* DirectX11Texture::lock(TextureUsage _access)
 	{
-		if (mLock)
+		if (mLock || !mTexture || (!_access.isValue(TextureUsage::Read) && !_access.isValue(TextureUsage::Write)))
 			return nullptr;
-		mLock = true;
 
-		if (_access == TextureUsage::Write)
+		mLockData.resize(size_t(mWidth) * size_t(mHeight) * 4);
+		if (_access.isValue(TextureUsage::Read))
 		{
-			mWriteData = malloc(mWidth * mHeight * 4);
-			return mWriteData;
+			D3D11_TEXTURE2D_DESC desc;
+			mTexture->GetDesc(&desc);
+			desc.Usage = D3D11_USAGE_STAGING;
+			desc.BindFlags = 0;
+			desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+			desc.MiscFlags = 0;
+
+			ID3D11Texture2D* stagingTexture = nullptr;
+			HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, nullptr, &stagingTexture);
+			MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to create staging texture for read lock!");
+			mManager->mpD3DContext->CopyResource(stagingTexture, mTexture);
+
+			D3D11_MAPPED_SUBRESOURCE mapped;
+			hr = mManager->mpD3DContext->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapped);
+			if (FAILED(hr))
+			{
+				stagingTexture->Release();
+				MYGUI_PLATFORM_EXCEPT("Failed to map staging texture for read lock (error code " << hr << ").");
+			}
+			const size_t rowBytes = size_t(mWidth) * 4;
+			for (int y = 0; y < mHeight; ++y)
+				std::memcpy(
+					mLockData.data() + size_t(y) * rowBytes,
+					static_cast<const unsigned char*>(mapped.pData) + size_t(y) * mapped.RowPitch,
+					rowBytes);
+			mManager->mpD3DContext->Unmap(stagingTexture, 0);
+			stagingTexture->Release();
 		}
-		return nullptr;
+		mLockAccess = _access;
+		mLock = true;
+		return mLockData.data();
 	}
 
 	void DirectX11Texture::unlock()
@@ -228,13 +262,11 @@ namespace MyGUI
 			return;
 		mLock = false;
 
-		if (mWriteData)
+		if (mLockAccess.isValue(TextureUsage::Write))
 		{
-			mManager->mpD3DContext
-				->UpdateSubresource(mTexture, D3D11CalcSubresource(0, 0, 0), nullptr, mWriteData, mWidth * 4, 0);
-			free(mWriteData);
-			mWriteData = nullptr;
+			mManager->mpD3DContext->UpdateSubresource(mTexture, 0, nullptr, mLockData.data(), mWidth * 4, 0);
 		}
+		mLockData.clear();
 	}
 
 	bool DirectX11Texture::isLocked() const

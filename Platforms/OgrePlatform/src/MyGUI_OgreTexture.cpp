@@ -38,7 +38,7 @@ namespace MyGUI
 		Ogre::uchar* readrefdata = static_cast<Ogre::uchar*>(lock(TextureUsage::Read));
 
 		Ogre::Image img;
-		img = img.loadDynamicImage(readrefdata, mTexture->getWidth(), mTexture->getHeight(), mTexture->getFormat());
+		img = img.loadDynamicImage(readrefdata, mTexture->getWidth(), mTexture->getHeight(), mPixelFormat);
 		img.save(_filename);
 
 		unlock();
@@ -64,8 +64,10 @@ namespace MyGUI
 
 		if (mTexture)
 		{
-			Ogre::TextureManager::getSingleton().remove(mTexture->getHandle());
+			if (mOwnsTexture)
+				Ogre::TextureManager::getSingleton().remove(mTexture->getHandle());
 			mTexture.reset();
+			mOwnsTexture = false;
 		}
 	}
 
@@ -81,42 +83,32 @@ namespace MyGUI
 
 	void* OgreTexture::lock(TextureUsage _access)
 	{
-		if (_access == TextureUsage::Write)
-		{
-			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_WRITE_ONLY);
-		}
+		if (isLocked() || !mTexture || (!_access.isValue(TextureUsage::Read) && !_access.isValue(TextureUsage::Write)))
+			return nullptr;
 
-		// check creation mode here, and possibly lock without pixel box
+		mTmpData = Ogre::PixelBox(mTexture->getWidth(), mTexture->getHeight(), mTexture->getDepth(), mPixelFormat);
+		mTmpData.data = new uint8[mTmpData.getConsecutiveSize()];
+		mLockAccess = _access;
 
-		// for reading, copy to pixel box
-		delete[] (uint8*)mTmpData.data;
-		mTmpData.data = nullptr;
-
-		mTmpData =
-			Ogre::PixelBox(mTexture->getWidth(), mTexture->getHeight(), mTexture->getDepth(), mTexture->getFormat());
-		mTmpData.data = new uint8[mTexture->getBuffer()->getSizeInBytes()];
-
-		mTexture->getBuffer()->blitToMemory(mTmpData);
+		if (_access.isValue(TextureUsage::Read))
+			mTexture->getBuffer()->blitToMemory(mTmpData);
 
 		return mTmpData.data;
 	}
 
 	void OgreTexture::unlock()
 	{
-		if (mTexture->getBuffer()->isLocked())
-		{
-			mTexture->getBuffer()->unlock();
-		}
-		else
-		{
-			delete[] (uint8*)mTmpData.data;
-			mTmpData.data = nullptr;
-		}
+		if (!isLocked())
+			return;
+		if (mLockAccess.isValue(TextureUsage::Write))
+			mTexture->getBuffer()->blitFromMemory(mTmpData);
+		delete[] (uint8*)mTmpData.data;
+		mTmpData.data = nullptr;
 	}
 
 	bool OgreTexture::isLocked() const
 	{
-		return mTexture->getBuffer()->isLocked();
+		return mTmpData.data != nullptr;
 	}
 
 	Ogre::TextureUsage OgreTexture::convertUsage(TextureUsage _usage)
@@ -125,7 +117,7 @@ namespace MyGUI
 		{
 			return Ogre::TU_STATIC_WRITE_ONLY;
 		}
-		else if (_usage == TextureUsage::RenderTarget)
+		else if (_usage.isValue(TextureUsage::RenderTarget))
 		{
 			return Ogre::TU_RENDERTARGET;
 		}
@@ -194,11 +186,13 @@ namespace MyGUI
 
 	void OgreTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
+		destroy();
 		setFormat(_format);
 		setUsage(_usage);
 
 		mTexture = Ogre::TextureManager::getSingleton()
 					   .createManual(mName, mGroup, Ogre::TEX_TYPE_2D, _width, _height, 0, mPixelFormat, mUsage, this);
+		mOwnsTexture = true;
 
 		mTexture->load();
 
@@ -207,6 +201,7 @@ namespace MyGUI
 
 	void OgreTexture::loadFromFile(const std::string& _filename)
 	{
+		destroy();
 		setUsage(TextureUsage::Default);
 
 		auto createResult = Ogre::TextureManager::getSingleton().createOrRetrieve(
@@ -217,16 +212,10 @@ namespace MyGUI
 			nullptr,
 			Ogre::TEX_TYPE_2D,
 			0);
-		if (!createResult.second)
-		{
-			MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
-		}
-		else
-		{
-			mTexture = std::static_pointer_cast<Ogre::Texture>(createResult.first);
-			if (!mTexture->isLoaded())
-				mTexture->load();
-		}
+		mTexture = std::static_pointer_cast<Ogre::Texture>(createResult.first);
+		mOwnsTexture = createResult.second;
+		if (!mTexture->isLoaded())
+			mTexture->load();
 
 		setFormatByOgreTexture();
 
@@ -253,15 +242,17 @@ namespace MyGUI
 				mOriginalFormat = PixelFormat::L8A8;
 				mNumElemBytes = 2;
 			}
-			else if (mPixelFormat == Ogre::PF_R8G8B8)
+			else if (
+				Ogre::PixelUtil::getComponentType(mPixelFormat) == Ogre::PCT_BYTE &&
+				Ogre::PixelUtil::getNumElemBytes(mPixelFormat) == 3)
 			{
-				mOriginalFormat = PixelFormat::R8G8B8;
-				mNumElemBytes = 3;
+				setFormat(PixelFormat::R8G8B8);
 			}
-			else if (mPixelFormat == Ogre::PF_A8R8G8B8)
+			else if (
+				Ogre::PixelUtil::getComponentType(mPixelFormat) == Ogre::PCT_BYTE &&
+				Ogre::PixelUtil::getNumElemBytes(mPixelFormat) == 4)
 			{
-				mOriginalFormat = PixelFormat::R8G8B8A8;
-				mNumElemBytes = 4;
+				setFormat(PixelFormat::R8G8B8A8);
 			}
 			else
 			{

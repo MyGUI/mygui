@@ -57,6 +57,11 @@
 - New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shader support, custom osg::Drawable rendering with pooled VBOs
 - All platforms now use standard Porter-Duff alpha blending (dst_a = src_a + dst_a * (1 - src_a))
 - Ogre/OgreNext: fix texture parameters not being set
+- Ogre: fix GLSL shader loading with Ogre versions older than 14.3
+- Ogre: preserve partial read/write texture updates and normalize loaded image formats and channel order for readback
+  and saving
+- Ogre: fix reuse and ownership of existing textures, texture recreation and combined render-target/read/write usage;
+  stop advertising unknown pixel formats
 - OgreNext: implement texture lock read (used in picking)
 - OpenGL3: fix odd-width texture uploads and readback buffer overruns; preserve host pixel-transfer state and bindings
 - OpenGL3: fix PBO support detection in core contexts and uploads to file-loaded textures; preserve existing pixels in
@@ -77,22 +82,8 @@
 - DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
 
 - DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
-
-- OpenGLES: fix texture read/write locks, interleaved updates, transfer sizing and array cleanup; preserve host
-  pixel-store state and use core ES 3 PBO uploads with framebuffer readback
-- OpenGLES: normalize texture channel order for uploaded and rendered images, and support ES 3 luminance textures
-- OpenGLES: isolate GUI rendering from inherited raster/sampler state and restore host bindings, including on exceptions
-- OpenGLES: fix render-target dimensions, nested target restoration and custom-shader orientation; resolve replaced shaders
-  per texture and request an ES 3 context before creating the SDL window
-
-- Vulkan: retain vertex storage until recorded commands retire, reuse completed allocations and check map failures;
-  submit RTT work asynchronously and wait before command reuse or destruction
-
-- Vulkan: add real-backend tests for recorded vertex lifetime, allocation retirement and rendered output without mocks
-
-- DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
-
-- DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
+- DirectX11: implement texture read and read/write locks, including GPU-rendered pixels, with correct row-pitch handling
+- DirectX11: fix combined render-target/read/write usage, texture usage reporting and render-target cleanup on recreation
 
 - OpenGLES: fix texture read/write locks, interleaved updates, transfer sizing and array cleanup; preserve host
   pixel-store state and use core ES 3 PBO uploads with framebuffer readback
@@ -109,6 +100,7 @@
 ### Demos
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays
+- Fix Ogre application shutdown destroying the render window twice
 - Make all custom RTTLayer implementations respect DPI scale
 - Fix unreachable code in Demo_GraphView and deprecated skin usage in its resources
 - Move interactive tests to AdvancedDemos as Demo_<Feature>, controlled by MYGUI_BUILD_ADVANCED_DEMOS (ON by default)
@@ -127,6 +119,11 @@
 - Keep only automated tests in UnitTests; convert AttachDetach and MultiList into finite headless tests
 - Share test setup, assertions, and resource loading in UnitTests/Common
 - Run unit tests with CTest in native GitHub CI builds
+- Run platform tests in CI for Linux/Ogre, Linux/OpenGL3, macOS/OpenGL3 and Windows/DirectX11
+- Fix Ogre captures of hidden windows by reading the back buffer before swapping
+- Generate resources.xml beside executables for multi-configuration builds
+- Fix Linux builds with X11 and older OpenGL headers; propagate required GL extension prototypes through the OpenGL,
+  OpenGL3 and OpenGLES CMake targets
 - Make time-based updates deterministic in screenshot mode for reproducible screenshots
 - Use OgreNext CMake package config instead of PkgConfig
 - Fix Emscripten build

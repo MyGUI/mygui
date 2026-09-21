@@ -12,6 +12,7 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_DirectX11Diagnostic.h"
+#include <vector>
 
 struct ID3D11Texture2D;
 struct ID3D11ShaderResourceView;
@@ -55,7 +56,8 @@ namespace MyGUI
 		friend class DirectX11RTTexture;
 
 		ID3D11Texture2D* mTexture;
-		void* mWriteData;
+		std::vector<unsigned char> mLockData;
+		TextureUsage mLockAccess;
 
 	public:
 		ID3D11ShaderResourceView* mResourceView;

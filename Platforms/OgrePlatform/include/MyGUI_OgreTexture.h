@@ -68,6 +68,8 @@ namespace MyGUI
 		void setOgreTexture(Ogre::TexturePtr _value)
 		{
 			mTexture = _value;
+			mOwnsTexture = false;
+			setFormatByOgreTexture();
 		}
 		OgreShaderInfo* getShaderInfo() const
 		{
@@ -84,6 +86,7 @@ namespace MyGUI
 
 	private:
 		Ogre::TexturePtr mTexture;
+		bool mOwnsTexture{false};
 		OgreShaderInfo* mShaderInfo = nullptr;
 		std::string mName;
 		std::string mGroup;
@@ -98,6 +101,7 @@ namespace MyGUI
 		ITextureInvalidateListener* mListener{nullptr};
 		IRenderTarget* mRenderTarget{nullptr};
 		Ogre::PixelBox mTmpData;
+		TextureUsage mLockAccess;
 	};
 
 } // namespace MyGUI

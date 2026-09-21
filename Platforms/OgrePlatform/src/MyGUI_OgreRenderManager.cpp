@@ -374,6 +374,8 @@ namespace MyGUI
 
 	bool OgreRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
+		if (OgreTexture::convertFormat(_format) == Ogre::PF_UNKNOWN)
+			return false;
 		return Ogre::TextureManager::getSingleton().isFormatSupported(
 			Ogre::TEX_TYPE_2D,
 			OgreTexture::convertFormat(_format),
