@@ -15,7 +15,7 @@ target_include_directories(${PROJECTNAME}
 if(WIN32)
 	find_package(glad REQUIRED)
 else()
-	target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
+	target_compile_definitions(${PROJECTNAME} PUBLIC GL_GLEXT_PROTOTYPES)
 endif()
 
 if(APPLE)

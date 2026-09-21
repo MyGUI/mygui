@@ -10,7 +10,7 @@ target_include_directories(${PROJECTNAME}
 	PRIVATE
 		"${MYGUI_SOURCE_DIR}/Platforms/Utils"
 )
-target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
+target_compile_definitions(${PROJECTNAME} PUBLIC GL_GLEXT_PROTOTYPES)
 
 target_link_libraries(${PROJECTNAME}
 	PUBLIC
