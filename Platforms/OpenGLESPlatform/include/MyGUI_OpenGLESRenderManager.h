@@ -5,6 +5,7 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_OpenGLESImageLoader.h"
+#include <array>
 
 namespace MyGUI
 {
@@ -71,6 +72,7 @@ namespace MyGUI
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
+		void render(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, float _yScale);
 
 	private:
 		IntSize mViewSize;
@@ -79,8 +81,16 @@ namespace MyGUI
 		RenderTargetInfo mInfo;
 		unsigned int mDefaultProgramId{0};
 		std::map<std::string, unsigned int> mRegisteredShaders;
-		unsigned int mReferenceCount{0}; // for nested rendering
-		int mYScaleUniformLocation{-1};
+		std::map<unsigned int, int> mYScaleUniformLocations;
+		struct SavedState
+		{
+			std::array<bool, 8> enabled{};
+			std::array<int, 6> blend{};
+			std::array<unsigned char, 4> colourMask{};
+			unsigned char depthMask{};
+			int program{}, activeTexture{}, texture{}, sampler{}, vertexArray{}, arrayBuffer{};
+		};
+		std::vector<SavedState> mStates;
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;

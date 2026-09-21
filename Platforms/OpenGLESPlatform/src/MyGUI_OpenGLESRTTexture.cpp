@@ -8,16 +8,16 @@
 namespace MyGUI
 {
 
-	OpenGLESRTTexture::OpenGLESRTTexture(unsigned int _texture) :
-		mTextureId(_texture)
+	OpenGLESRTTexture::OpenGLESRTTexture(unsigned int _texture, int _width, int _height) :
+		mTextureId(_texture),
+		mWidth(_width),
+		mHeight(_height)
 	{
-		//int miplevel = 0;
-		glBindTexture(GL_TEXTURE_2D, mTextureId);
-		CHECK_GL_ERROR_DEBUG();
-		//glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_WIDTH, (GLint *)&mWidth);
-		//glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_HEIGHT, (GLint *)&mHeight);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		CHECK_GL_ERROR_DEBUG();
+		MYGUI_PLATFORM_ASSERT(mWidth > 0 && mHeight > 0, "Render target dimensions must be positive");
+		GLint drawFramebuffer = 0, readFramebuffer = 0, renderbuffer = 0;
+		glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &drawFramebuffer);
+		glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFramebuffer);
+		glGetIntegerv(GL_RENDERBUFFER_BINDING, &renderbuffer);
 
 		mRenderTargetInfo.maximumDepth = 1.0f;
 		mRenderTargetInfo.hOffset = 0;
@@ -42,9 +42,9 @@ namespace MyGUI
 		CHECK_GL_ERROR_DEBUG();
 		glBindRenderbuffer(GL_RENDERBUFFER, mRBOID);
 		CHECK_GL_ERROR_DEBUG();
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, mWidth, mHeight);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, mWidth, mHeight);
 		CHECK_GL_ERROR_DEBUG();
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
 		CHECK_GL_ERROR_DEBUG();
 
 		// attach a texture to FBO color attachement point
@@ -55,8 +55,15 @@ namespace MyGUI
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mRBOID);
 		CHECK_GL_ERROR_DEBUG();
 
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		CHECK_GL_ERROR_DEBUG();
+		const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawFramebuffer);
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, readFramebuffer);
+		if (status != GL_FRAMEBUFFER_COMPLETE)
+		{
+			glDeleteRenderbuffers(1, &mRBOID);
+			glDeleteFramebuffers(1, &mFBOID);
+			MYGUI_PLATFORM_EXCEPT("Incomplete render target framebuffer: " << status);
+		}
 	}
 
 	OpenGLESRTTexture::~OpenGLESRTTexture()
@@ -77,7 +84,12 @@ namespace MyGUI
 
 	void OpenGLESRTTexture::begin()
 	{
-		//glPushAttrib(GL_VIEWPORT_BIT);
+		TargetState state;
+		glGetIntegerv(GL_VIEWPORT, state.viewport);
+		glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &state.drawFramebuffer);
+		glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &state.readFramebuffer);
+		glGetFloatv(GL_COLOR_CLEAR_VALUE, state.clearColour);
+		mStates.push_back(state);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, mFBOID);
 		CHECK_GL_ERROR_DEBUG();
@@ -95,15 +107,20 @@ namespace MyGUI
 
 	void OpenGLESRTTexture::end()
 	{
+		MYGUI_PLATFORM_ASSERT(!mStates.empty(), "Unbalanced render target pass");
 		OpenGLESRenderManager::getInstance().end();
-
-		glBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
+		const auto state = mStates.back();
+		mStates.pop_back();
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, state.drawFramebuffer);
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, state.readFramebuffer);
+		glViewport(state.viewport[0], state.viewport[1], state.viewport[2], state.viewport[3]);
+		glClearColor(state.clearColour[0], state.clearColour[1], state.clearColour[2], state.clearColour[3]);
 		CHECK_GL_ERROR_DEBUG();
 	}
 
 	void OpenGLESRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OpenGLESRenderManager::getInstance().doRender(_buffer, _texture, _count);
+		OpenGLESRenderManager::getInstance().doRenderRtt(_buffer, _texture, _count);
 	}
 
 } // namespace MyGUI

@@ -12,14 +12,16 @@
 namespace base
 {
 
-	bool BaseManager::createRender(int _width, int _height, bool _windowed)
+	void BaseManager::setupRenderWindow()
 	{
-#ifdef __EMSCRIPTEN__
-		// Enable WebGL 2.0. MyGUI works with WebGL 1, butsome demos use es 300 shaders.
+		// The backend uses ES 3 core APIs and GLSL ES 300 (WebGL 2 in browsers).
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-#endif
+	}
 
+	bool BaseManager::createRender(int _width, int _height, bool _windowed)
+	{
 		mContext = SDL_GL_CreateContext(mSdlWindow);
 		if (mContext == nullptr)
 		{

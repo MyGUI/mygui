@@ -2,9 +2,33 @@
 #include "MyGUI_OpenGLESDiagnostic.h"
 
 #include <GLES3/gl3.h>
+#include <limits>
 
 namespace MyGUI
 {
+	namespace
+	{
+
+		class BufferState
+		{
+		public:
+			BufferState()
+			{
+				glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &mBuffer);
+				glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &mArray);
+			}
+			~BufferState()
+			{
+				glBindVertexArray(mArray);
+				glBindBuffer(GL_ARRAY_BUFFER, mBuffer);
+			}
+
+		private:
+			GLint mBuffer{}, mArray{};
+		};
+
+	}
+
 
 	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
@@ -15,6 +39,10 @@ namespace MyGUI
 
 	void OpenGLESVertexBuffer::setVertexCount(size_t _count)
 	{
+		MYGUI_PLATFORM_ASSERT(!mLocked, "Cannot resize a locked vertex buffer");
+		MYGUI_PLATFORM_ASSERT(
+			_count <= size_t(std::numeric_limits<GLsizei>::max()) / sizeof(Vertex) - VERTEX_BUFFER_REALLOCK_STEP,
+			"Vertex buffer is too large");
 		mNeedVertexCount = _count;
 	}
 
@@ -25,6 +53,8 @@ namespace MyGUI
 
 	Vertex* OpenGLESVertexBuffer::lock()
 	{
+		MYGUI_PLATFORM_ASSERT(!mLocked, "Vertex buffer is already locked");
+		BufferState state;
 		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
 			resize();
 
@@ -41,24 +71,27 @@ namespace MyGUI
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		mLocked = true;
 
 		return pBuffer;
 	}
 
 	void OpenGLESVertexBuffer::unlock()
 	{
+		MYGUI_PLATFORM_ASSERT(mLocked, "Vertex buffer is not locked");
+		BufferState state;
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
 		GLboolean result = glUnmapBuffer(GL_ARRAY_BUFFER);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		mLocked = false;
 
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
 	}
 
 	void OpenGLESVertexBuffer::create()
 	{
+		BufferState state;
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
 		mSizeInBytes = mVertexCount * sizeof(Vertex);

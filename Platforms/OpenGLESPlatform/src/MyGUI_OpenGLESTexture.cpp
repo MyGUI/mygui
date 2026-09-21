@@ -7,9 +7,84 @@
 
 #include <GLES3/gl3.h>
 #include "MyGUI_OpenGLESError.h"
+#include <array>
+#include <limits>
+#include <memory>
 
 namespace MyGUI
 {
+
+	namespace
+	{
+
+		class TextureBinding
+		{
+		public:
+			explicit TextureBinding(GLuint _texture)
+			{
+				glGetIntegerv(GL_TEXTURE_BINDING_2D, &mPrevious);
+				glBindTexture(GL_TEXTURE_2D, _texture);
+			}
+			~TextureBinding()
+			{
+				glBindTexture(GL_TEXTURE_2D, mPrevious);
+			}
+
+		private:
+			GLint mPrevious{};
+		};
+
+		class PixelBufferBinding
+		{
+		public:
+			PixelBufferBinding(bool _read, GLuint _buffer) :
+				mTarget(_read ? GL_PIXEL_PACK_BUFFER : GL_PIXEL_UNPACK_BUFFER)
+			{
+				glGetIntegerv(_read ? GL_PIXEL_PACK_BUFFER_BINDING : GL_PIXEL_UNPACK_BUFFER_BINDING, &mPrevious);
+				glBindBuffer(mTarget, _buffer);
+			}
+			~PixelBufferBinding()
+			{
+				glBindBuffer(mTarget, mPrevious);
+			}
+
+		private:
+			GLenum mTarget;
+			GLint mPrevious{};
+		};
+
+		constexpr std::array<GLenum, 4> packParameters =
+			{GL_PACK_ALIGNMENT, GL_PACK_ROW_LENGTH, GL_PACK_SKIP_ROWS, GL_PACK_SKIP_PIXELS};
+		constexpr std::array<GLenum, 4> unpackParameters =
+			{GL_UNPACK_ALIGNMENT, GL_UNPACK_ROW_LENGTH, GL_UNPACK_SKIP_ROWS, GL_UNPACK_SKIP_PIXELS};
+
+		// The API exposes tightly packed 2D bytes, independently of host GL state.
+		class PixelTransferState
+		{
+		public:
+			PixelTransferState(bool _read, GLuint _buffer) :
+				mBinding(_read, _buffer),
+				mParameters(_read ? packParameters : unpackParameters)
+			{
+				for (size_t i = 0; i < mParameters.size(); ++i)
+				{
+					glGetIntegerv(mParameters[i], &mPrevious[i]);
+					glPixelStorei(mParameters[i], i == 0 ? 1 : 0);
+				}
+			}
+			~PixelTransferState()
+			{
+				for (size_t i = 0; i < mParameters.size(); ++i)
+					glPixelStorei(mParameters[i], mPrevious[i]);
+			}
+
+		private:
+			PixelBufferBinding mBinding;
+			std::array<GLenum, 4> mParameters;
+			std::array<GLint, 4> mPrevious{};
+		};
+
+	}
 
 	OpenGLESTexture::OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader) :
 		mName(_name),
@@ -29,8 +104,10 @@ namespace MyGUI
 
 	void OpenGLESTexture::setUsage(TextureUsage _usage)
 	{
-		mAccess = 0;
-		mUsage = 0;
+		mUsage = _usage.isValue(TextureUsage::Stream) ? GL_STREAM_DRAW
+			: _usage.isValue(TextureUsage::Dynamic)
+			? GL_DYNAMIC_DRAW
+			: GL_STATIC_DRAW;
 	}
 
 	void OpenGLESTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
@@ -40,137 +117,144 @@ namespace MyGUI
 
 	void OpenGLESTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
 	{
-		MYGUI_PLATFORM_ASSERT(!mTextureId, "Texture already exist");
-
-		//FIXME move to method
-		mInternalPixelFormat = 0;
-		mPixelFormat = 0;
-		mNumElemBytes = 0;
+		MYGUI_PLATFORM_ASSERT(!mTextureId, "Texture already exists");
+		MYGUI_PLATFORM_ASSERT(_width > 0 && _height > 0, "Texture dimensions must be positive");
+		MYGUI_PLATFORM_ASSERT(
+			!_usage.isValue(TextureUsage::RenderTarget) || _format == PixelFormat::R8G8B8 ||
+				_format == PixelFormat::R8G8B8A8,
+			"Luminance render targets are not supported");
+		GLint maximum = 0;
+		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maximum);
+		MYGUI_PLATFORM_ASSERT(_width <= maximum && _height <= maximum, "Texture dimensions exceed GL_MAX_TEXTURE_SIZE");
+		MYGUI_PLATFORM_ASSERT(
+			size_t(_width) <= size_t(std::numeric_limits<GLsizeiptr>::max()) / size_t(_height) / 4,
+			"Texture transfer size is too large");
 		if (_format == PixelFormat::L8)
-		{
-			mInternalPixelFormat = GL_LUMINANCE;
-			mPixelFormat = GL_LUMINANCE;
 			mNumElemBytes = 1;
-		}
 		else if (_format == PixelFormat::L8A8)
-		{
-			mInternalPixelFormat = GL_LUMINANCE_ALPHA;
-			mPixelFormat = GL_LUMINANCE_ALPHA;
 			mNumElemBytes = 2;
-		}
 		else if (_format == PixelFormat::R8G8B8)
-		{
-			mInternalPixelFormat = GL_RGB;
-			mPixelFormat = GL_RGB;
 			mNumElemBytes = 3;
-		}
 		else if (_format == PixelFormat::R8G8B8A8)
-		{
-			mInternalPixelFormat = GL_RGBA;
-			mPixelFormat = GL_RGBA;
 			mNumElemBytes = 4;
-		}
 		else
-		{
-			MYGUI_PLATFORM_EXCEPT("format not support");
-		}
+			MYGUI_PLATFORM_EXCEPT("Unsupported texture format");
 
 		mWidth = _width;
 		mHeight = _height;
-		mDataSize = _width * _height * mNumElemBytes;
-		setUsage(_usage);
-		//MYGUI_PLATFORM_ASSERT(mUsage, "usage format not support");
-
+		mDataSize = size_t(_width) * size_t(_height) * mNumElemBytes;
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
+		setUsage(_usage);
 
-		// Set unpack alignment to one byte
-		int alignment = 0;
-		glGetIntegerv(GL_UNPACK_ALIGNMENT, (GLint*)&alignment);
-		CHECK_GL_ERROR_DEBUG();
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		CHECK_GL_ERROR_DEBUG();
-
-		// create texture
-		glGenTextures(1, (GLuint*)&mTextureId);
-		CHECK_GL_ERROR_DEBUG();
-		glBindTexture(GL_TEXTURE_2D, mTextureId);
-		CHECK_GL_ERROR_DEBUG();
-		// Set texture parameters
-
+		glGenTextures(1, &mTextureId);
+		TextureBinding texture(mTextureId);
+		PixelTransferState transfer(false, 0);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		CHECK_GL_ERROR_DEBUG();
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		CHECK_GL_ERROR_DEBUG();
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		CHECK_GL_ERROR_DEBUG();
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		CHECK_GL_ERROR_DEBUG();
-
+		// ES 3 removes luminance formats. Expand them to RGBA, also making all
+		// supported formats colour-renderable for portable framebuffer readback.
 		glTexImage2D(
 			GL_TEXTURE_2D,
 			0,
-			mInternalPixelFormat,
+			mNumElemBytes == 3 ? GL_RGB8 : GL_RGBA8,
 			mWidth,
 			mHeight,
 			0,
-			mPixelFormat,
+			mNumElemBytes == 3 ? GL_RGB : GL_RGBA,
 			GL_UNSIGNED_BYTE,
-			(GLvoid*)_data);
-		CHECK_GL_ERROR_DEBUG();
-		glBindTexture(GL_TEXTURE_2D, 0);
-		CHECK_GL_ERROR_DEBUG();
+			nullptr);
+		if (_data)
+			upload(static_cast<const unsigned char*>(_data));
+	}
 
-		// Restore old unpack alignment
-		//glPixelStorei( GL_UNPACK_ALIGNMENT, alignment );
-		//CHECK_GL_ERROR_DEBUG();
-#ifdef PixelBufferObjectSupported
-		if (!_data && OpenGLESRenderManager::getInstance().isPixelBufferObjectSupported())
+	void OpenGLESTexture::upload(const unsigned char* _data)
+	{
+		const size_t pixels = size_t(mWidth) * size_t(mHeight);
+		const size_t channels = mNumElemBytes == 3 ? 3 : 4;
+		std::vector<unsigned char> rgba(pixels * channels);
+		for (size_t i = 0; i < pixels; ++i)
 		{
-			// create texture buffer
-			//glGenBuffersARB(1, (GLuint *)&mPboID);
-			//glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
-			//glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
-			//glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-
-			glGenBuffers(1, (GLuint*)&mPboID);
-			CHECK_GL_ERROR_DEBUG();
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
-			CHECK_GL_ERROR_DEBUG();
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, 0, mUsage);
-			CHECK_GL_ERROR_DEBUG();
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-			CHECK_GL_ERROR_DEBUG();
+			const auto* source = _data + i * mNumElemBytes;
+			auto* destination = rgba.data() + i * channels;
+			destination[0] = source[mNumElemBytes >= 3 ? 2 : 0];
+			destination[1] = source[mNumElemBytes >= 3 ? 1 : 0];
+			destination[2] = source[0];
+			if (channels == 4)
+				destination[3] = mNumElemBytes == 4 ? source[3] : mNumElemBytes == 2 ? source[1] : 255;
 		}
-#endif
+		TextureBinding texture(mTextureId);
+		// PBOs are core in ES 3/WebGL 2. CPU staging avoids unsupported WebGL
+		// read mappings; glBufferData also retires storage used by earlier draws.
+		if (!mPboID)
+			glGenBuffers(1, &mPboID);
+		PixelTransferState transfer(false, mPboID);
+		glBufferData(GL_PIXEL_UNPACK_BUFFER, static_cast<GLsizeiptr>(rgba.size()), rgba.data(), mUsage);
+		glTexSubImage2D(
+			GL_TEXTURE_2D,
+			0,
+			0,
+			0,
+			mWidth,
+			mHeight,
+			channels == 3 ? GL_RGB : GL_RGBA,
+			GL_UNSIGNED_BYTE,
+			nullptr);
+	}
+
+	void OpenGLESTexture::readback(unsigned char* _data)
+	{
+		std::vector<unsigned char> rgba(size_t(mWidth) * size_t(mHeight) * 4);
+		PixelTransferState transfer(true, 0);
+		GLint previous = 0;
+		glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &previous);
+		GLuint framebuffer = 0;
+		glGenFramebuffers(1, &framebuffer);
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffer);
+		glFramebufferTexture2D(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTextureId, 0);
+		const auto status = glCheckFramebufferStatus(GL_READ_FRAMEBUFFER);
+		if (status == GL_FRAMEBUFFER_COMPLETE)
+			glReadPixels(0, 0, mWidth, mHeight, GL_RGBA, GL_UNSIGNED_BYTE, rgba.data());
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, previous);
+		glDeleteFramebuffers(1, &framebuffer);
+		MYGUI_PLATFORM_ASSERT(status == GL_FRAMEBUFFER_COMPLETE, "Texture is not readable");
+		for (size_t i = 0; i < rgba.size() / 4; ++i)
+		{
+			const auto* source = rgba.data() + i * 4;
+			auto* destination = _data + i * mNumElemBytes;
+			if (mNumElemBytes >= 3)
+			{
+				destination[0] = source[2];
+				destination[1] = source[1];
+				destination[2] = source[0];
+				if (mNumElemBytes == 4)
+					destination[3] = source[3];
+			}
+			else
+			{
+				destination[0] = source[0];
+				if (mNumElemBytes == 2)
+					destination[1] = source[3];
+			}
+		}
 	}
 
 	void OpenGLESTexture::destroy()
 	{
 		delete mRenderTarget;
 		mRenderTarget = nullptr;
-
-		if (mTextureId != 0)
-		{
-			glDeleteTextures(1, (GLuint*)&mTextureId);
-			mTextureId = 0;
-		}
-		if (mPboID != 0)
-		{
-			glDeleteBuffers(1, (GLuint*)&mPboID);
-			mPboID = 0;
-		}
-
-		mWidth = 0;
-		mHeight = 0;
-		mLock = false;
-		mPixelFormat = 0;
-		mDataSize = 0;
-		mUsage = 0;
+		delete[] static_cast<unsigned char*>(mBuffer);
 		mBuffer = nullptr;
-		mInternalPixelFormat = 0;
-		mAccess = 0;
-		mNumElemBytes = 0;
+		if (mTextureId)
+			glDeleteTextures(1, &mTextureId);
+		if (mPboID)
+			glDeleteBuffers(1, &mPboID);
+		mTextureId = mPboID = 0;
+		mWidth = mHeight = 0;
+		mLock = mWriteLock = false;
+		mDataSize = mNumElemBytes = 0;
 		mOriginalFormat = PixelFormat::Unknow;
 		mOriginalUsage = TextureUsage::Default;
 	}
@@ -178,116 +262,27 @@ namespace MyGUI
 	void* OpenGLESTexture::lock(TextureUsage _access)
 	{
 		MYGUI_PLATFORM_ASSERT(mTextureId, "Texture is not created");
-
-		/*
-		if (_access == TextureUsage::Read)
-		{
-			glBindTexture(GL_TEXTURE_2D, mTextureId);
-			CHECK_GL_ERROR_DEBUG();
-
-			mBuffer = new unsigned char[mDataSize];
-			//glGetTexImage(GL_TEXTURE_2D, 0, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
-
-			mLock = false;
-
-			return mBuffer;
-		}*/
-
-		// bind the texture
-		glBindTexture(GL_TEXTURE_2D, mTextureId);
-		CHECK_GL_ERROR_DEBUG();
-		if (!OpenGLESRenderManager::getInstance().isPixelBufferObjectSupported())
-		{
-			//Fallback if PBO's are not supported
-			mBuffer = new unsigned char[mDataSize];
-		}
-		else
-		{
-#ifdef PixelBufferObjectSupported
-			// bind the PBO
-			//glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
-			CHECK_GL_ERROR_DEBUG();
-
-			// Note that glMapBufferARB() causes sync issue.
-			// If GPU is working with this buffer, glMapBufferARB() will wait(stall)
-			// until GPU to finish its job. To avoid waiting (idle), you can call
-			// first glBufferDataARB() with nullptr pointer before glMapBufferARB().
-			// If you do that, the previous data in PBO will be discarded and
-			// glMapBufferARB() returns a new allocated pointer immediately
-			// even if GPU is still working with the previous data.
-			//glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, 0, mUsage);
-			CHECK_GL_ERROR_DEBUG();
-
-			// map the buffer object into client's memory
-			//mBuffer = (GLubyte*)glMapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mAccess);
-			mBuffer = (GLubyte*)glMapBufferOES(GL_PIXEL_UNPACK_BUFFER_ARB, mAccess);
-			CHECK_GL_ERROR_DEBUG();
-			if (!mBuffer)
-			{
-				//glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-				glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-				CHECK_GL_ERROR_DEBUG();
-				glBindTexture(GL_TEXTURE_2D, 0);
-				CHECK_GL_ERROR_DEBUG();
-				MYGUI_PLATFORM_EXCEPT("Error texture lock");
-			}
-#endif
-		}
-
+		MYGUI_PLATFORM_ASSERT(!mLock, "Texture is already locked");
+		MYGUI_PLATFORM_ASSERT(
+			_access.isValue(TextureUsage::Read) || _access.isValue(TextureUsage::Write),
+			"Invalid lock access");
+		auto buffer = std::make_unique<unsigned char[]>(mDataSize);
+		if (_access.isValue(TextureUsage::Read))
+			readback(buffer.get());
+		mWriteLock = _access.isValue(TextureUsage::Write);
+		mBuffer = buffer.release();
 		mLock = true;
-
 		return mBuffer;
 	}
 
 	void OpenGLESTexture::unlock()
 	{
-		if (!mLock && mBuffer)
-		{
-			delete (unsigned char*)mBuffer;
-			mBuffer = nullptr;
-
-			glBindTexture(GL_TEXTURE_2D, 0);
-			CHECK_GL_ERROR_DEBUG();
-
-			return;
-		}
-
 		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
-
-		if (!OpenGLESRenderManager::getInstance().isPixelBufferObjectSupported())
-		{
-			//Fallback if PBO's are not supported
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
-			CHECK_GL_ERROR_DEBUG();
-			delete (unsigned char*)mBuffer;
-		}
-		else
-		{
-#ifdef PixelBufferObjectSupported
-			// release the mapped buffer
-			//glUnmapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB);
-			glUnmapBufferOES(GL_PIXEL_UNPACK_BUFFER_ARB);
-			CHECK_GL_ERROR_DEBUG();
-
-			// copy pixels from PBO to texture object
-			// Use offset instead of ponter.
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, 0);
-			CHECK_GL_ERROR_DEBUG();
-
-			// it is good idea to release PBOs with ID 0 after use.
-			// Once bound with 0, all pixel operations are back to normal ways.
-			//glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-			CHECK_GL_ERROR_DEBUG();
-#endif
-		}
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-		CHECK_GL_ERROR_DEBUG();
+		std::unique_ptr<unsigned char[]> buffer(static_cast<unsigned char*>(mBuffer));
 		mBuffer = nullptr;
 		mLock = false;
+		if (mWriteLock)
+			upload(buffer.get());
 	}
 
 	void OpenGLESTexture::loadFromFile(const std::string& _filename)
@@ -300,11 +295,11 @@ namespace MyGUI
 			int height = 0;
 			PixelFormat format = PixelFormat::Unknow;
 
-			void* data = mImageLoader->loadImage(width, height, format, _filename);
+			std::unique_ptr<unsigned char[]> data(
+				static_cast<unsigned char*>(mImageLoader->loadImage(width, height, format, _filename)));
 			if (data)
 			{
-				createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data);
-				delete (unsigned char*)data;
+				createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data.get());
 			}
 		}
 	}
@@ -315,20 +310,29 @@ namespace MyGUI
 		{
 			const auto path = MyGUI::utility::toPath(_filename);
 			void* data = lock(TextureUsage::Read);
-			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, path);
+			try
+			{
+				mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, path);
+			}
+			catch (...)
+			{
+				unlock();
+				throw;
+			}
 			unlock();
 		}
 	}
 
 	void OpenGLESTexture::setShader(const std::string& _shaderName)
 	{
-		mProgramId = OpenGLESRenderManager::getInstance().getShaderProgramId(_shaderName);
+		mShaderName = _shaderName;
 	}
 
 	IRenderTarget* OpenGLESTexture::getRenderTarget()
 	{
+		MYGUI_PLATFORM_ASSERT(mNumElemBytes >= 3, "Luminance render targets are not supported");
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new OpenGLESRTTexture(mTextureId);
+			mRenderTarget = new OpenGLESRTTexture(mTextureId, mWidth, mHeight);
 
 		return mRenderTarget;
 	}
@@ -340,7 +344,7 @@ namespace MyGUI
 
 	unsigned int OpenGLESTexture::getShaderId() const
 	{
-		return mProgramId;
+		return mShaderName.empty() ? 0 : OpenGLESRenderManager::getInstance().getShaderProgramId(mShaderName);
 	}
 
 } // namespace MyGUI

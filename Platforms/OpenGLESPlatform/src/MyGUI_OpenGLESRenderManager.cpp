@@ -12,6 +12,28 @@
 
 namespace MyGUI
 {
+	namespace
+	{
+
+		constexpr std::array<GLenum, 8> guiStateModes = {
+			GL_BLEND,
+			GL_CULL_FACE,
+			GL_DEPTH_TEST,
+			GL_STENCIL_TEST,
+			GL_SCISSOR_TEST,
+			GL_RASTERIZER_DISCARD,
+			GL_SAMPLE_ALPHA_TO_COVERAGE,
+			GL_SAMPLE_COVERAGE};
+		constexpr std::array<GLenum, 6> blendParameters = {
+			GL_BLEND_SRC_RGB,
+			GL_BLEND_DST_RGB,
+			GL_BLEND_SRC_ALPHA,
+			GL_BLEND_DST_ALPHA,
+			GL_BLEND_EQUATION_RGB,
+			GL_BLEND_EQUATION_ALPHA};
+
+	}
+
 
 	OpenGLESRenderManager& OpenGLESRenderManager::getInstance()
 	{
@@ -38,10 +60,10 @@ namespace MyGUI
 			GLint len = 0;
 			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
 
-			GLchar* buffer = new GLchar[len];
-			glGetShaderInfoLog(id, len, nullptr, buffer);
-			std::string infoLog = buffer;
-			delete[] buffer;
+			std::vector<GLchar> buffer(size_t(len > 0 ? len : 1), 0);
+			glGetShaderInfoLog(id, len, nullptr, buffer.data());
+			std::string infoLog = buffer.data();
+			glDeleteShader(id);
 
 			MYGUI_PLATFORM_EXCEPT(infoLog);
 		}
@@ -65,7 +87,16 @@ namespace MyGUI
 		const std::string& _fragmentProgramFile)
 	{
 		GLuint vsID = buildShader(loadFileContent(_vertexProgramFile), GL_VERTEX_SHADER);
-		GLuint fsID = buildShader(loadFileContent(_fragmentProgramFile), GL_FRAGMENT_SHADER);
+		GLuint fsID = 0;
+		try
+		{
+			fsID = buildShader(loadFileContent(_fragmentProgramFile), GL_FRAGMENT_SHADER);
+		}
+		catch (...)
+		{
+			glDeleteShader(vsID);
+			throw;
+		}
 
 		GLuint progID = glCreateProgram();
 		glAttachShader(progID, vsID);
@@ -77,6 +108,8 @@ namespace MyGUI
 		glBindAttribLocation(progID, 2, "VertexTexCoord");
 
 		glLinkProgram(progID);
+		glDeleteShader(vsID);
+		glDeleteShader(fsID);
 
 		GLint success;
 		glGetProgramiv(progID, GL_LINK_STATUS, &success);
@@ -86,30 +119,27 @@ namespace MyGUI
 			GLint len = 0;
 			glGetProgramiv(progID, GL_INFO_LOG_LENGTH, &len);
 
-			GLchar* buffer = new GLchar[len];
-			glGetProgramInfoLog(progID, len, nullptr, buffer);
-			std::string infoLog = buffer;
-			delete[] buffer;
+			std::vector<GLchar> buffer(size_t(len > 0 ? len : 1), 0);
+			glGetProgramInfoLog(progID, len, nullptr, buffer.data());
+			std::string infoLog = buffer.data();
+			glDeleteProgram(progID);
 
 			MYGUI_PLATFORM_EXCEPT(infoLog);
 		}
-		glDeleteShader(vsID); // flag for deletion on call to glDeleteProgram
-		glDeleteShader(fsID);
-
-		int textureUniLoc = glGetUniformLocation(progID, "Texture");
-		if (textureUniLoc == -1)
+		const int textureLocation = glGetUniformLocation(progID, "Texture");
+		const int yScaleLocation = glGetUniformLocation(progID, "YScale");
+		if (textureLocation == -1 || yScaleLocation == -1)
 		{
-			MYGUI_PLATFORM_EXCEPT("Unable to retrieve uniform variable location");
+			glDeleteProgram(progID);
+			MYGUI_PLATFORM_EXCEPT("Unable to retrieve Texture or YScale uniform location");
 		}
-		mYScaleUniformLocation = glGetUniformLocation(progID, "YScale");
-		if (mYScaleUniformLocation == -1)
-		{
-			MYGUI_PLATFORM_EXCEPT("Unable to retrieve YScale variable location");
-		}
+		mYScaleUniformLocations[progID] = yScaleLocation;
+		GLint previous = 0;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &previous);
 		glUseProgram(progID);
-		glUniform1i(textureUniLoc, 0); // set active sampler for 'Texture' to GL_TEXTURE0
-		glUniform1f(mYScaleUniformLocation, 1.0f);
-		glUseProgram(0);
+		glUniform1i(textureLocation, 0);
+		glUniform1f(yScaleLocation, 1.0f);
+		glUseProgram(previous);
 
 		return progID;
 	}
@@ -124,10 +154,11 @@ namespace MyGUI
 		mUpdate = false;
 		mImageLoader = _loader;
 
-		mReferenceCount = 0;
-
-		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
-		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
+		mStates.clear();
+		GLint majorVersion = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
+		MYGUI_PLATFORM_ASSERT(majorVersion >= 3, "OpenGL ES 3 is required");
+		mPboIsSupported = true;
 
 		registerShader("Default", "MyGUI_OpenGLES_VP.glsl", "MyGUI_OpenGLES_FP.glsl");
 
@@ -158,60 +189,83 @@ namespace MyGUI
 
 	void OpenGLESRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		glUniform1f(mYScaleUniformLocation, -1.0f);
-		doRender(_buffer, _texture, _count);
-		glUniform1f(mYScaleUniformLocation, 1.0f);
+		render(_buffer, _texture, _count, -1.0f);
 	}
 
 	void OpenGLESRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
+		render(_buffer, _texture, _count, 1.0f);
+	}
+
+	void OpenGLESRenderManager::render(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, float _yScale)
+	{
 		const auto* buffer = static_cast<OpenGLESVertexBuffer*>(_buffer);
-		unsigned int buffer_id = buffer->getBufferID();
-		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
-
-		unsigned int texture_id = 0;
-		if (_texture)
-		{
-			const auto* texture = static_cast<OpenGLESTexture*>(_texture);
-			texture_id = texture->getTextureId();
-			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
-			if (texture->getShaderId())
-			{
-				glUseProgram(texture->getShaderId());
-			}
-		}
-
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-
-		glBindVertexArray(buffer_id);
-		glDrawArrays(GL_TRIANGLES, 0, _count);
+		MYGUI_PLATFORM_ASSERT(buffer->getBufferID(), "Vertex buffer is not created");
+		const auto* texture = static_cast<OpenGLESTexture*>(_texture);
+		const auto custom = texture ? texture->getShaderId() : 0;
+		const auto program = custom ? custom : mDefaultProgramId;
+		glUseProgram(program);
+		glUniform1f(mYScaleUniformLocations.at(program), _yScale);
+		glBindTexture(GL_TEXTURE_2D, texture ? texture->getTextureId() : 0);
+		glBindVertexArray(buffer->getBufferID());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(_count));
+		// Do not leave an owned VAO bound while subsequent geometry updates may
+		// replace it. The enclosing pass restores the embedding application's VAO.
 		glBindVertexArray(0);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
-		if (_texture && static_cast<OpenGLESTexture*>(_texture)->getShaderId())
-		{
-			glUseProgram(mDefaultProgramId);
-		}
 	}
 
 	void OpenGLESRenderManager::begin()
 	{
-		++mReferenceCount;
-
-		glUseProgram(mDefaultProgramId);
+		SavedState state;
+		for (size_t i = 0; i < guiStateModes.size(); ++i)
+			state.enabled[i] = glIsEnabled(guiStateModes[i]) == GL_TRUE;
+		for (size_t i = 0; i < blendParameters.size(); ++i)
+			glGetIntegerv(blendParameters[i], &state.blend[i]);
+		glGetBooleanv(GL_COLOR_WRITEMASK, state.colourMask.data());
+		glGetBooleanv(GL_DEPTH_WRITEMASK, &state.depthMask);
+		glGetIntegerv(GL_CURRENT_PROGRAM, &state.program);
+		glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &state.vertexArray);
+		glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &state.arrayBuffer);
+		glGetIntegerv(GL_ACTIVE_TEXTURE, &state.activeTexture);
 		glActiveTexture(GL_TEXTURE0);
-
+		glGetIntegerv(GL_TEXTURE_BINDING_2D, &state.texture);
+		glGetIntegerv(GL_SAMPLER_BINDING, &state.sampler);
+		mStates.push_back(state);
+		glUseProgram(mDefaultProgramId);
+		glBindSampler(0, 0);
+		for (size_t i = 1; i < guiStateModes.size(); ++i)
+			glDisable(guiStateModes[i]);
+		glDepthMask(GL_FALSE);
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glEnable(GL_BLEND);
+		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void OpenGLESRenderManager::end()
 	{
-		if (--mReferenceCount == 0)
+		MYGUI_PLATFORM_ASSERT(!mStates.empty(), "Unmatched render target end");
+		const auto state = mStates.back();
+		mStates.pop_back();
+		for (size_t i = 0; i < guiStateModes.size(); ++i)
 		{
-			glDisable(GL_BLEND);
-			glUseProgram(0);
+			if (state.enabled[i])
+				glEnable(guiStateModes[i]);
+			else
+				glDisable(guiStateModes[i]);
 		}
+		glDepthMask(state.depthMask);
+		glColorMask(state.colourMask[0], state.colourMask[1], state.colourMask[2], state.colourMask[3]);
+		glBlendFuncSeparate(state.blend[0], state.blend[1], state.blend[2], state.blend[3]);
+		glBlendEquationSeparate(state.blend[4], state.blend[5]);
+		glUseProgram(state.program);
+		glBindVertexArray(state.vertexArray);
+		glBindBuffer(GL_ARRAY_BUFFER, state.arrayBuffer);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, state.texture);
+		glBindSampler(0, state.sampler);
+		glActiveTexture(state.activeTexture);
 	}
 
 	const RenderTargetInfo& OpenGLESRenderManager::getInfo() const
@@ -233,8 +287,8 @@ namespace MyGUI
 	{
 		if (_format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8)
 			return true;
-
-		return false;
+		return (_format == PixelFormat::L8 || _format == PixelFormat::L8A8) &&
+			!_usage.isValue(TextureUsage::RenderTarget);
 	}
 
 	void OpenGLESRenderManager::drawOneFrame()
@@ -252,7 +306,15 @@ namespace MyGUI
 		last_time = now_time;
 
 		begin();
-		onRenderToTarget(this, mUpdate);
+		try
+		{
+			onRenderToTarget(this, mUpdate);
+		}
+		catch (...)
+		{
+			end();
+			throw;
+		}
 		end();
 
 		mUpdate = false;
@@ -283,10 +345,14 @@ namespace MyGUI
 		const std::string& _vertexProgramFile,
 		const std::string& _fragmentProgramFile)
 	{
+		const auto program = createShaderProgram(_vertexProgramFile, _fragmentProgramFile);
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())
+		{
+			mYScaleUniformLocations.erase(iter->second);
 			glDeleteProgram(iter->second);
-		mRegisteredShaders[_shaderName] = createShaderProgram(_vertexProgramFile, _fragmentProgramFile);
+		}
+		mRegisteredShaders[_shaderName] = program;
 		if (_shaderName == "Default")
 			mDefaultProgramId = mRegisteredShaders[_shaderName];
 	}
@@ -350,6 +416,7 @@ namespace MyGUI
 			glDeleteProgram(programId.second);
 		}
 		mRegisteredShaders.clear();
+		mYScaleUniformLocations.clear();
 		mDefaultProgramId = 0;
 	}
 

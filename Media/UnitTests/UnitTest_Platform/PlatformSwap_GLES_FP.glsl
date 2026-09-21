@@ -11,5 +11,5 @@ out vec4 fragColor;
 
 void main(void)
 {
-	fragColor = (texture(Texture, TexCoord).zyxw * Color).bgra;
+	fragColor = (texture(Texture, TexCoord) * Color).bgra;
 }

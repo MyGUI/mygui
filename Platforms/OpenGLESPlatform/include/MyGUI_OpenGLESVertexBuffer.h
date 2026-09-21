@@ -34,6 +34,7 @@ namespace MyGUI
 		size_t mVertexCount{0};
 		size_t mNeedVertexCount{0};
 		size_t mSizeInBytes{0};
+		bool mLocked{false};
 	};
 
 } // namespace MyGUI

@@ -15,9 +15,13 @@ target_compile_definitions(${PROJECTNAME} PRIVATE GL_GLEXT_PROTOTYPES)
 target_link_libraries(${PROJECTNAME}
 	PUBLIC
 		MyGUI::MyGUI
-	PRIVATE
-		OpenGL::GL
 )
+
+if(EMSCRIPTEN)
+	target_link_libraries(${PROJECTNAME} PRIVATE OpenGL::GL)
+else()
+	target_link_libraries(${PROJECTNAME} PUBLIC MyGUI_GLES)
+endif()
 
 # installation rules
 install(FILES ${HEADER_FILES}

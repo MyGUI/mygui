@@ -94,6 +94,13 @@
 
 - DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
 
+- OpenGLES: fix texture read/write locks, interleaved updates, transfer sizing and array cleanup; preserve host
+  pixel-store state and use core ES 3 PBO uploads with framebuffer readback
+- OpenGLES: normalize texture channel order for uploaded and rendered images, and support ES 3 luminance textures
+- OpenGLES: isolate GUI rendering from inherited raster/sampler state and restore host bindings, including on exceptions
+- OpenGLES: fix render-target dimensions, nested target restoration and custom-shader orientation; resolve replaced shaders
+  per texture and request an ES 3 context before creating the SDL window
+
 ### Demos
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays

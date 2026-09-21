@@ -63,22 +63,21 @@ namespace MyGUI
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
 	private:
-		void _create();
+		void upload(const unsigned char* _data);
+		void readback(unsigned char* _data);
 
 	private:
 		std::string mName;
 		int mWidth{0};
 		int mHeight{0};
-		int mPixelFormat{0};
-		int mInternalPixelFormat{0};
 		int mUsage{0};
-		int mAccess{0};
 		size_t mNumElemBytes{0};
 		size_t mDataSize{0};
 		unsigned int mTextureId{0};
-		unsigned int mProgramId{0};
+		std::string mShaderName;
 		unsigned int mPboID{0};
 		bool mLock{false};
+		bool mWriteLock{false};
 		void* mBuffer{nullptr};
 		PixelFormat mOriginalFormat;
 		TextureUsage mOriginalUsage;

@@ -33,6 +33,9 @@ namespace base
 			void* _texture,
 			const std::filesystem::path& _filename) override;
 
+	protected:
+		void setupRenderWindow() override;
+
 	private:
 		MyGUI::OpenGLESPlatform* mPlatform = nullptr;
 		SDL_GLContext mContext = nullptr;

@@ -4,6 +4,7 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IRenderTarget.h"
+#include <vector>
 
 namespace MyGUI
 {
@@ -11,7 +12,7 @@ namespace MyGUI
 	class OpenGLESRTTexture : public IRenderTarget
 	{
 	public:
-		OpenGLESRTTexture(unsigned int _texture);
+		OpenGLESRTTexture(unsigned int _texture, int _width, int _height);
 		~OpenGLESRTTexture() override;
 
 		void begin() override;
@@ -31,6 +32,14 @@ namespace MyGUI
 		int mHeight{0};
 		unsigned int mFBOID{0};
 		unsigned int mRBOID{0};
+		struct TargetState
+		{
+			int viewport[4]{};
+			int drawFramebuffer{0};
+			int readFramebuffer{0};
+			float clearColour[4]{};
+		};
+		std::vector<TargetState> mStates;
 	};
 
 } // namespace MyGUI
