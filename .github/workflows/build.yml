@@ -15,6 +15,7 @@ jobs:
             name: "Linux: Ogre + Dummy + GL + GL3, all features, all apps, shared"
             preset: full
             rendersystem: 3
+            platform_tests: true
             rendersystems: "1;3;4;7"
             cmake_flags: -DBUILD_SHARED_LIBS=ON
             linux_deps: libogre-1.12-dev
@@ -40,6 +41,7 @@ jobs:
             name: "Windows: dx11 + GL + GL3, all features, just tools, shared"
             preset: full
             rendersystem: 6
+            platform_tests: true
             rendersystems: "4;6;7"
             cmake_flags: -DBUILD_SHARED_LIBS=ON -DMYGUI_BUILD_DEMOS=OFF
 
@@ -54,6 +56,7 @@ jobs:
             name: "macOS: GL3 + GL, no features, just test app"
             preset: minimal
             rendersystem: 7
+            platform_tests: true
             rendersystems: "4;7"
             cmake_flags: -DMYGUI_BUILD_TEST_APP=ON
 
@@ -87,12 +90,16 @@ jobs:
       - name: Run unit tests
         run: ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 5 -LE platform
 
-      - name: Run OpenGL3 platform tests
-        if: matrix.platform_tests
+      - name: Run platform tests (Linux)
+        if: matrix.platform_tests && runner.os == 'Linux'
         env:
           LIBGL_ALWAYS_SOFTWARE: "1"
           SDL_VIDEODRIVER: x11
         run: xvfb-run -a ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 120 -L platform
+
+      - name: Run platform tests (Windows and macOS)
+        if: matrix.platform_tests && runner.os != 'Linux'
+        run: ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 120 -L platform
 
       - name: Install
         if: runner.os == 'Linux'

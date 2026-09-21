@@ -80,3 +80,11 @@ else()
 		"${MYGUI_BINARY_DIR}/bin/resources.xml"
 	)
 endif()
+
+# Multi-configuration generators put executables in bin/<configuration>.
+foreach(_config IN LISTS CMAKE_CONFIGURATION_TYPES)
+	configure_file(
+		"${MYGUI_TEMPLATES_DIR}/resources.xml.in"
+		"${MYGUI_BINARY_DIR}/bin/${_config}/resources.xml"
+	)
+endforeach()
