@@ -146,6 +146,7 @@ namespace base
 
 	private:
 		MyGUI::Gui* mGUI = nullptr;
+		std::string mApplicationName{"MyGUI Render Window"};
 
 		uint32_t mWindowFlags = 0;
 		bool mPlatformReady = false;

@@ -86,7 +86,7 @@ namespace base
 			windowFlags &= ~SDL_WINDOW_ALLOW_HIGHDPI;
 
 		setupRenderWindow();
-		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, windowFlags);
+		mSdlWindow = SDL_CreateWindow(mApplicationName.c_str(), left, top, width, height, windowFlags);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
@@ -577,6 +577,10 @@ namespace base
 		for (int i = 0; i < _argc; ++i)
 			args.push_back(MyGUI::utility::toPath(_argv[i]));
 #endif
+
+		if (!args.empty() && !args.front().stem().empty())
+			mApplicationName =
+				"MyGUI " + MyGUI::utility::toUtf8(args.front().stem()) + " (" MYGUI_RENDER_PLATFORM_NAME ")";
 
 		for (size_t i = 1; i < args.size(); ++i)
 		{

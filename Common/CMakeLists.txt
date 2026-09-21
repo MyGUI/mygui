@@ -87,6 +87,7 @@ target_include_directories(${PROJECTNAME}
 )
 string(TOUPPER "${MYGUI_PLATFORM_NAME}" MYGUI_PLATFORM_NAME_UPPER)
 target_compile_definitions(${PROJECTNAME} PUBLIC "MYGUI_${MYGUI_PLATFORM_NAME_UPPER}_PLATFORM")
+target_compile_definitions(${PROJECTNAME} PRIVATE "MYGUI_RENDER_PLATFORM_NAME=\"${MYGUI_PLATFORM_NAME}\"")
 
 include(Packages/SDL2FinderHelper)
 mygui_get_sdl2_targets(SDL2_LINK_TARGETS)
