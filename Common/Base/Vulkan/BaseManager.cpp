@@ -416,6 +416,7 @@ namespace base
 
 		VkCommandBuffer commandBuffer = mCommandBuffers[imageIndex];
 		vkResetCommandBuffer(commandBuffer, 0);
+		mPlatform->getRenderManagerPtr()->releaseCommandBufferResources(commandBuffer);
 
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -606,6 +607,8 @@ namespace base
 
 		// recreate the command pool and command buffers for the new swapchain image count
 		vkDestroyCommandPool(mDevice.device, mCommandPool, nullptr);
+		for (auto commandBuffer : mCommandBuffers)
+			mPlatform->getRenderManagerPtr()->releaseCommandBufferResources(commandBuffer);
 		mCommandPool = VK_NULL_HANDLE;
 		mCommandBuffers.clear();
 		VkCommandPoolCreateInfo poolInfo{};

@@ -11,6 +11,8 @@
 #include "MyGUI_IVertexBuffer.h"
 
 #include <vulkan/vulkan.h>
+#include <memory>
+#include <vector>
 
 namespace MyGUI
 {
@@ -28,20 +30,18 @@ namespace MyGUI
 		void unlock() override;
 
 		/*internal:*/
-		VkBuffer getBuffer() const
-		{
-			return mBuffer;
-		}
+		VkBuffer getBuffer() const;
+		// Keep the allocation alive until the recording command buffer is retired.
+		std::shared_ptr<void> retainStorage() const;
 
 	private:
+		struct Storage;
 		void resize();
 		void destroy();
 
-	private:
-		size_t mVertexCount{0};
 		size_t mNeedVertexCount{0};
-		VkBuffer mBuffer{VK_NULL_HANDLE};
-		void* mAllocation{nullptr};
+		std::shared_ptr<Storage> mStorage;
+		std::vector<std::shared_ptr<Storage>> mAvailable;
 	};
 
 } // namespace MyGUI

@@ -15,6 +15,7 @@
 
 #include <vulkan/vulkan.h>
 #include <cstddef>
+#include <memory>
 
 namespace MyGUI
 {
@@ -84,6 +85,11 @@ namespace MyGUI
 			The render pass with the framebuffer must already be begun by the caller.
 		*/
 		void drawOneFrame(VkCommandBuffer _commandBuffer);
+
+		/** Release resources retained by a completed/discarded recording. The caller must
+			wait for GPU completion and reset/free the command buffer before calling this.
+			Call before recording its next use, including after swapchain recreation. */
+		void releaseCommandBufferResources(VkCommandBuffer _commandBuffer);
 
 		/** Render pass to use when rendering MyGUI into a framebuffer */
 		VkRenderPass getRenderPass() const;
@@ -161,6 +167,7 @@ namespace MyGUI
 		std::map<std::string, VkPipeline> mRegisteredShaders;
 
 		VkCommandBuffer mCurrentCommandBuffer = VK_NULL_HANDLE;
+		std::map<VkCommandBuffer, std::vector<std::shared_ptr<void>>> mRecordedResources;
 
 		// 1x1 white texture used when no texture is bound
 		VkImage mWhiteImage = VK_NULL_HANDLE;

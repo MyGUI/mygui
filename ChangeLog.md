@@ -101,6 +101,9 @@
 - OpenGLES: fix render-target dimensions, nested target restoration and custom-shader orientation; resolve replaced shaders
   per texture and request an ES 3 context before creating the SDL window
 
+- Vulkan: retain vertex storage until recorded commands retire, reuse completed allocations and check map failures;
+  submit RTT work asynchronously and wait before command reuse or destruction
+
 ### Demos
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays

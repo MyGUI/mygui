@@ -46,12 +46,19 @@ namespace MyGUI
 		allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 		allocInfo.commandBufferCount = 1;
 		if (vkAllocateCommandBuffers(mDevice, &allocInfo, &mCommandBuffer) != VK_SUCCESS)
+		{
+			vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
 			MYGUI_PLATFORM_EXCEPT("Failed to allocate command buffer");
+		}
 
 		VkFenceCreateInfo fenceInfo{};
 		fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 		if (vkCreateFence(mDevice, &fenceInfo, nullptr, &mFence) != VK_SUCCESS)
+		{
+			vkFreeCommandBuffers(mDevice, mCommandPool, 1, &mCommandBuffer);
+			vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
 			MYGUI_PLATFORM_EXCEPT("Failed to create fence");
+		}
 
 		mRenderTargetInfo.maximumDepth = 1;
 		mRenderTargetInfo.hOffset = 0;
@@ -63,21 +70,41 @@ namespace MyGUI
 
 	VulkanRTTexture::~VulkanRTTexture()
 	{
+		if (mPending)
+		{
+			const VkResult result = vkWaitForFences(mDevice, 1, &mFence, VK_TRUE, UINT64_MAX);
+			if (result != VK_SUCCESS)
+				MYGUI_PLATFORM_LOG(Error, "Render target completion failed, VkResult=" << int(result));
+		}
 		if (mFence != VK_NULL_HANDLE)
 			vkDestroyFence(mDevice, mFence, nullptr);
 		if (mCommandBuffer != VK_NULL_HANDLE)
 			vkFreeCommandBuffers(mDevice, mCommandPool, 1, &mCommandBuffer);
+		VulkanRenderManager::getInstance().releaseCommandBufferResources(mCommandBuffer);
 		if (mFramebuffer != VK_NULL_HANDLE)
 			vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
 	}
 
 	void VulkanRTTexture::begin()
 	{
-		vkResetCommandBuffer(mCommandBuffer, 0);
+		if (mPending)
+		{
+			MYGUI_PLATFORM_ASSERT(
+				vkWaitForFences(mDevice, 1, &mFence, VK_TRUE, UINT64_MAX) == VK_SUCCESS,
+				"Failed to wait for render target reuse");
+			mPending = false;
+		}
+		MYGUI_PLATFORM_ASSERT(vkResetFences(mDevice, 1, &mFence) == VK_SUCCESS, "Failed to reset render target fence");
+		MYGUI_PLATFORM_ASSERT(
+			vkResetCommandBuffer(mCommandBuffer, 0) == VK_SUCCESS,
+			"Failed to reset render target commands");
+		VulkanRenderManager::getInstance().releaseCommandBufferResources(mCommandBuffer);
 
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-		vkBeginCommandBuffer(mCommandBuffer, &beginInfo);
+		MYGUI_PLATFORM_ASSERT(
+			vkBeginCommandBuffer(mCommandBuffer, &beginInfo) == VK_SUCCESS,
+			"Failed to begin render target commands");
 
 		VkRenderPassBeginInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -112,8 +139,9 @@ namespace MyGUI
 		if (vkQueueSubmit(mQueue, 1, &submitInfo, mFence) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to submit render target command buffer");
 
-		vkWaitForFences(mDevice, 1, &mFence, VK_TRUE, UINT64_MAX);
-		vkResetFences(mDevice, 1, &mFence);
+		// Queue ordering and render-pass dependencies make the result visible to subsequent draws.
+		// Wait only when reusing this command buffer or destroying the target.
+		mPending = true;
 	}
 
 	void VulkanRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)

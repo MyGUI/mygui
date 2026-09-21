@@ -159,6 +159,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		vkDeviceWaitIdle(mDevice);
+		mRecordedResources.clear();
 
 		destroyAllResources();
 
@@ -279,6 +280,7 @@ namespace MyGUI
 			}
 		}
 
+		mRecordedResources[_commandBuffer].push_back(buffer->retainStorage());
 		VkBuffer vertexBuffer = buffer->getBuffer();
 		VkDeviceSize offset = 0;
 		vkCmdBindVertexBuffers(_commandBuffer, 0, 1, &vertexBuffer, &offset);
@@ -294,6 +296,11 @@ namespace MyGUI
 			nullptr);
 
 		vkCmdDraw(_commandBuffer, _count, 1, 0, 0);
+	}
+
+	void VulkanRenderManager::releaseCommandBufferResources(VkCommandBuffer _commandBuffer)
+	{
+		mRecordedResources.erase(_commandBuffer);
 	}
 
 	void VulkanRenderManager::begin()
@@ -559,7 +566,12 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Failed to create staging buffer");
 
 		void* mapped = nullptr;
-		vmaMapMemory(getVmaAllocator(mAllocator), stagingAllocation, &mapped);
+		const VkResult mapResult = vmaMapMemory(getVmaAllocator(mAllocator), stagingAllocation, &mapped);
+		if (mapResult != VK_SUCCESS)
+		{
+			vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
+			MYGUI_PLATFORM_EXCEPT("Failed to map staging buffer, VkResult=" << int(mapResult));
+		}
 
 		const auto* src = static_cast<const uint8_t*>(_data);
 		auto* dst = static_cast<uint8_t*>(mapped);
@@ -701,7 +713,13 @@ namespace MyGUI
 		vkQueueWaitIdle(mQueue);
 
 		void* mapped = nullptr;
-		vmaMapMemory(getVmaAllocator(mAllocator), stagingAllocation, &mapped);
+		const VkResult mapResult = vmaMapMemory(getVmaAllocator(mAllocator), stagingAllocation, &mapped);
+		if (mapResult != VK_SUCCESS)
+		{
+			vkFreeCommandBuffers(mDevice, mCommandPool, 1, &commandBuffer);
+			vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
+			MYGUI_PLATFORM_EXCEPT("Failed to map readback buffer, VkResult=" << int(mapResult));
+		}
 
 		const auto* src = static_cast<const uint8_t*>(mapped);
 		auto* dst = static_cast<uint8_t*>(_data);
@@ -952,13 +970,20 @@ namespace MyGUI
 		subpass.colorAttachmentCount = 1;
 		subpass.pColorAttachments = &colorAttachmentRef;
 
-		VkSubpassDependency dependency{};
-		dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
-		dependency.dstSubpass = 0;
-		dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-		dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-		dependency.srcAccessMask = 0;
-		dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+		std::array<VkSubpassDependency, 2> dependencies{};
+		dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
+		dependencies[0].dstSubpass = 0;
+		dependencies[0].srcStageMask =
+			VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		dependencies[0].dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		dependencies[0].srcAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+		dependencies[0].dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+		dependencies[1].srcSubpass = 0;
+		dependencies[1].dstSubpass = VK_SUBPASS_EXTERNAL;
+		dependencies[1].srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		dependencies[1].dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+		dependencies[1].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+		dependencies[1].dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
 		VkRenderPassCreateInfo renderPassInfo{};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
@@ -966,8 +991,8 @@ namespace MyGUI
 		renderPassInfo.pAttachments = &colorAttachment;
 		renderPassInfo.subpassCount = 1;
 		renderPassInfo.pSubpasses = &subpass;
-		renderPassInfo.dependencyCount = 1;
-		renderPassInfo.pDependencies = &dependency;
+		renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
+		renderPassInfo.pDependencies = dependencies.data();
 
 		if (vkCreateRenderPass(mDevice, &renderPassInfo, nullptr, &mRenderTargetRenderPass) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to create render target render pass");
