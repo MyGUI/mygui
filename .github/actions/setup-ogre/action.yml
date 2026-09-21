@@ -1,0 +1,102 @@
+name: Set up Ogre
+description: Build and cache Ogre for the Ubuntu CI jobs
+
+inputs:
+  version:
+    description: Ogre release to build
+    default: "14.6.0"
+
+runs:
+  using: composite
+  steps:
+    - name: Identify Ogre cache
+      id: config
+      shell: bash
+      env:
+        OGRE_VERSION: ${{ inputs.version }}
+      run: |
+        source /etc/os-release
+        echo "platform=${ID}-${VERSION_ID}-gcc-$(g++ -dumpfullversion)" >> "$GITHUB_OUTPUT"
+        echo "prefix=$HOME/.cache/mygui-ogre/$OGRE_VERSION" >> "$GITHUB_OUTPUT"
+
+    # System libraries are needed even when the Ogre installation is restored.
+    - name: Install Ogre dependencies
+      shell: bash
+      run: sudo apt-get install -y -qq libgl1-mesa-dev libx11-dev libxrandr-dev zlib1g-dev
+
+    - name: Restore Ogre
+      id: cache
+      uses: actions/cache/restore@v5
+      with:
+        path: ${{ steps.config.outputs.prefix }}
+        key: ogre-${{ steps.config.outputs.platform }}-${{ runner.arch }}-${{ inputs.version }}-${{ hashFiles('.github/actions/setup-ogre/action.yml') }}
+
+    - name: Build Ogre
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        OGRE_VERSION: ${{ inputs.version }}
+        OGRE_PREFIX: ${{ steps.config.outputs.prefix }}
+      run: |
+        source_dir="$RUNNER_TEMP/ogre-source"
+        build_dir="$RUNNER_TEMP/ogre-build"
+        mkdir -p "$source_dir"
+        curl --fail --location --retry 3 \
+          "https://github.com/OGRECave/ogre/archive/refs/tags/v${OGRE_VERSION}.tar.gz" \
+          -o "$RUNNER_TEMP/ogre.tar.gz"
+        tar -xzf "$RUNNER_TEMP/ogre.tar.gz" -C "$source_dir" --strip-components=1
+        # GL3+ expands the native GLSL version directive used by MyGUI's shaders.
+        cmake -S "$source_dir" -B "$build_dir" \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX="$OGRE_PREFIX" \
+          -DOGRE_LIB_DIRECTORY=lib \
+          -DOGRE_STATIC=OFF \
+          -DOGRE_BUILD_DEPENDENCIES=OFF \
+          -DOGRE_BUILD_SAMPLES=OFF \
+          -DOGRE_BUILD_TESTS=OFF \
+          -DOGRE_BUILD_TOOLS=OFF \
+          -DOGRE_INSTALL_DOCS=OFF \
+          -DOGRE_BUILD_COMPONENT_BITES=OFF \
+          -DOGRE_BUILD_COMPONENT_BULLET=OFF \
+          -DOGRE_BUILD_COMPONENT_CSHARP=OFF \
+          -DOGRE_BUILD_COMPONENT_JAVA=OFF \
+          -DOGRE_BUILD_COMPONENT_MESHLODGENERATOR=OFF \
+          -DOGRE_BUILD_COMPONENT_OVERLAY=OFF \
+          -DOGRE_BUILD_COMPONENT_PAGING=OFF \
+          -DOGRE_BUILD_COMPONENT_PROPERTY=OFF \
+          -DOGRE_BUILD_COMPONENT_PYTHON=OFF \
+          -DOGRE_BUILD_COMPONENT_RTSHADERSYSTEM=OFF \
+          -DOGRE_BUILD_COMPONENT_TERRAIN=OFF \
+          -DOGRE_BUILD_COMPONENT_VOLUME=OFF \
+          -DOGRE_BUILD_PLUGIN_ASSIMP=OFF \
+          -DOGRE_BUILD_PLUGIN_BSP=OFF \
+          -DOGRE_BUILD_PLUGIN_CG=OFF \
+          -DOGRE_BUILD_PLUGIN_DOT_SCENE=OFF \
+          -DOGRE_BUILD_PLUGIN_EXRCODEC=OFF \
+          -DOGRE_BUILD_PLUGIN_FREEIMAGE=OFF \
+          -DOGRE_BUILD_PLUGIN_OCTREE=OFF \
+          -DOGRE_BUILD_PLUGIN_PCZ=OFF \
+          -DOGRE_BUILD_PLUGIN_PFX=OFF \
+          -DOGRE_BUILD_PLUGIN_STBI=ON \
+          -DOGRE_GLSUPPORT_USE_EGL=OFF \
+          -DOGRE_BUILD_RENDERSYSTEM_GL=OFF \
+          -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=ON \
+          -DOGRE_BUILD_RENDERSYSTEM_GLES2=OFF
+        cmake --build "$build_dir" --parallel 4
+        cmake --install "$build_dir"
+
+    # Save immediately so a later MyGUI failure does not discard the Ogre build.
+    - name: Save Ogre
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: ${{ steps.config.outputs.prefix }}
+        key: ${{ steps.cache.outputs.cache-primary-key }}
+
+    - name: Make Ogre available to subsequent steps
+      shell: bash
+      env:
+        OGRE_PREFIX: ${{ steps.config.outputs.prefix }}
+      run: |
+        echo "CMAKE_PREFIX_PATH=$OGRE_PREFIX${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}" >> "$GITHUB_ENV"
+        echo "LD_LIBRARY_PATH=$OGRE_PREFIX/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
