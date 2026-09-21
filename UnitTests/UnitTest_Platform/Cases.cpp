@@ -254,10 +254,30 @@ namespace platformtest
 						 !f.render().isFormatSupported(MyGUI::PixelFormat::Unknow, usage),
 						 "Unknown pixel format must not be advertised");
 			 }},
-			{"resources", "format-rgba", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::R8G8B8A8); }},
-			{"resources", "format-rgb", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::R8G8B8); }},
-			{"resources", "format-l8", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::L8); }},
-			{"resources", "format-l8a8", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::L8A8); }},
+			{"resources",
+			 "format-rgba",
+			 [](Fixture& f)
+			 {
+				 pattern(f, MyGUI::PixelFormat::R8G8B8A8);
+			 }},
+			{"resources",
+			 "format-rgb",
+			 [](Fixture& f)
+			 {
+				 pattern(f, MyGUI::PixelFormat::R8G8B8);
+			 }},
+			{"resources",
+			 "format-l8",
+			 [](Fixture& f)
+			 {
+				 pattern(f, MyGUI::PixelFormat::L8);
+			 }},
+			{"resources",
+			 "format-l8a8",
+			 [](Fixture& f)
+			 {
+				 pattern(f, MyGUI::PixelFormat::L8A8);
+			 }},
 			{"resources",
 			 "read-write-preservation",
 			 [](Fixture& f)

@@ -1,9 +1,8 @@
 #include "Precompiled.h"
 #include "SdlBaseManager.h"
 
-#include <SDL_syswm.h>
-
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+	#include <SDL_syswm.h>
 	#include <shellapi.h>
 #endif
 
