@@ -12,9 +12,9 @@ if (MYGUI_RENDERSYSTEM EQUAL 10)
 			DEPENDS "${MYGUI_SOURCE_DIR}/Media/UnitTests/UnitTest_Platform/PlatformSwap_Vulkan_FP.frag"
 			VERBATIM)
 	add_custom_target(UnitTest_Platform_Shaders
-			COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:UnitTest_Platform>/UnitTest_Platform"
+			COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:UnitTest_Platform>/GeneratedShaders"
 			COMMAND ${CMAKE_COMMAND} -E copy_if_different "${shader_dir}/PlatformSwap_Vulkan_FP.spv"
-			"$<TARGET_FILE_DIR:UnitTest_Platform>/UnitTest_Platform/PlatformSwap_Vulkan_FP.spv"
+			"$<TARGET_FILE_DIR:UnitTest_Platform>/GeneratedShaders/PlatformSwap_Vulkan_FP.spv"
 			DEPENDS "${shader_dir}/PlatformSwap_Vulkan_FP.spv"
 			VERBATIM)
 	add_dependencies(UnitTest_Platform UnitTest_Platform_Shaders)

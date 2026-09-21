@@ -73,7 +73,7 @@ namespace platformtest
 		BaseManager::setupResources();
 		addResourceLocation(unittest::getResourcePath("UnitTest_Platform"));
 #if defined(MYGUI_VULKAN_PLATFORM)
-		addResourceLocation(mBinaryDir / "UnitTest_Platform");
+		addResourceLocation(mBinaryDir / "GeneratedShaders");
 #endif
 	}
 
