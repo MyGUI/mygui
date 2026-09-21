@@ -1,0 +1,7 @@
+mygui_unit_test(UnitTest_OpenGLPlatform)
+target_compile_definitions(UnitTest_OpenGLPlatform PRIVATE GL_GLEXT_PROTOTYPES)
+target_link_libraries(UnitTest_OpenGLPlatform PRIVATE MyGUICommon)
+target_include_directories(UnitTest_OpenGLPlatform PRIVATE ../UnitTest_Platform)
+set_tests_properties(UnitTest_OpenGLPlatform PROPERTIES
+	LABELS "platform;graphics" RUN_SERIAL TRUE TIMEOUT 120
+	WORKING_DIRECTORY "$<TARGET_FILE_DIR:UnitTest_OpenGLPlatform>")

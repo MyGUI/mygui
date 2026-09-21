@@ -282,6 +282,45 @@ namespace platformtest
 					 "Partial read/write update must preserve untouched bytes");
 			 }},
 			{"resources",
+			 "rgb-read-write",
+			 [](Fixture& f)
+			 {
+				 const auto usage =
+					 MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
+				 requireSupport(f, MyGUI::PixelFormat::R8G8B8, usage);
+				 for (int width : {1, 3, 5})
+				 {
+					 auto* texture = f.texture();
+					 texture->createManual(width, 3, usage, MyGUI::PixelFormat::R8G8B8);
+					 std::vector<unsigned char> expected(size_t(width) * 3 * 3);
+					 for (size_t i = 0; i < expected.size(); ++i)
+						 expected[i] = static_cast<unsigned char>(17 + i * 7);
+					 upload(texture, expected);
+					 require(read(texture) == expected, "Odd-width RGB readback must be tightly packed");
+					 auto* bytes = static_cast<unsigned char*>(
+						 texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
+					 require(bytes != nullptr, "RGB read/write lock must succeed");
+					 const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
+					 bytes[expected.size() - 1] = 93;
+					 expected.back() = 93;
+					 texture->unlock();
+					 require(
+						 preserved && read(texture) == expected,
+						 "RGB partial update must preserve every other byte");
+				 }
+			 }},
+			{"resources",
+			 "loaded-texture-write",
+			 [](Fixture& f)
+			 {
+				 auto* texture = f.texture();
+				 texture->loadFromFile("TransparentRgb.png");
+				 requireSupport(f, texture->getFormat(), texture->getUsage() | MyGUI::TextureUsage::Write);
+				 upload(texture, std::vector<unsigned char>(32, 255));
+				 show(f, texture);
+				 f.expectCorners(white);
+			 }},
+			{"resources",
 			 "png-fidelity",
 			 [](Fixture& f)
 			 {
@@ -731,6 +770,65 @@ namespace platformtest
 					 f.capture();
 					 f.expectCorners(green);
 				 }
+			 }},
+			{"rendering",
+			 "rtt-read-write",
+			 [](Fixture& f)
+			 {
+				 const auto usage =
+					 MyGUI::TextureUsage::RenderTarget | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
+				 requireSupport(f, MyGUI::PixelFormat::R8G8B8A8, usage);
+				 auto* output = f.texture();
+				 output->createManual(2, 2, usage, MyGUI::PixelFormat::R8G8B8A8);
+				 upload(output, std::vector<unsigned char>(16, 0));
+				 auto* source = solid(f, green);
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 redraw(f, output, source);
+						 f.quad(target, output);
+					 });
+				 f.capture();
+				 f.expectCorners(green);
+				 f.scene([&](MyGUI::IRenderTarget* target) { f.quad(target, output); });
+				 std::vector<unsigned char> expected;
+				 for (int i = 0; i < 4; ++i)
+					 expected.insert(expected.end(), {0, 255, 0, 255});
+				 auto* bytes =
+					 static_cast<unsigned char*>(output->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
+				 require(bytes != nullptr, "RTT read/write lock must succeed");
+				 const bool current = std::equal(expected.begin(), expected.end(), bytes);
+				 bytes[0] = 255;
+				 expected[0] = 255;
+				 output->unlock();
+				 require(current && read(output) == expected, "RTT read/write must preserve GPU-produced pixels");
+			 }},
+			{"rendering",
+			 "rtt-nested",
+			 [](Fixture& f)
+			 {
+				 auto* source = solid(f, white);
+				 auto* a = renderTexture(f, 32, 16);
+				 auto* b = renderTexture(f, 16, 32);
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 auto* outer = a->getRenderTarget();
+						 auto* inner = b->getRenderTarget();
+						 outer->begin();
+						 f.quad(outer, source, red, {0, 0, 32, 16});
+						 inner->begin();
+						 f.quad(inner, source, blue, {0, 0, 16, 32});
+						 inner->end();
+						 f.quad(outer, source, green, {16, 0, 16, 16});
+						 outer->end();
+						 f.quad(target, a);
+					 });
+				 f.capture();
+				 f.expect(8, 64, red);
+				 f.expect(119, 64, green);
+				 show(f, b);
+				 f.expectCorners(blue);
 			 }},
 			{"rendering",
 			 "rtt-state-restoration",

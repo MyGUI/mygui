@@ -65,6 +65,30 @@
 - OpenGL3: isolate GUI drawing from inherited raster settings and restore host rendering state, including when rendering
   throws; retain support for explicitly setting GUI wireframe inside render callbacks
 - OpenGL3: fix nested render targets and preserve host framebuffer bindings, viewport and clear colour
+- OpenGL: fix odd-width RGB and luminance texture transfers and readback buffer overruns; preserve host pixel-transfer
+  state and bindings, and validate texture dimensions and allocation sizes
+- OpenGL: recognize core and ARB/EXT PBO support and fix uploads to file-loaded textures; preserve existing pixels in
+  read/write locks, fix interleaved locks and read-lock reporting, and release outstanding locks when destroying textures
+- OpenGL: isolate fixed-function GUI drawing from inherited shaders, texture units, texture matrices and raster settings;
+  restore host state even when rendering throws, while retaining explicit GUI wireframe support
+- OpenGL: fix nested render targets, preserve host framebuffer and renderbuffer bindings, and check framebuffer completeness
+- OpenGL: stop advertising unsupported pixel formats and luminance render targets
+
+- DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
+
+- DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
+
+- OpenGLES: fix texture read/write locks, interleaved updates, transfer sizing and array cleanup; preserve host
+  pixel-store state and use core ES 3 PBO uploads with framebuffer readback
+- OpenGLES: normalize texture channel order for uploaded and rendered images, and support ES 3 luminance textures
+- OpenGLES: isolate GUI rendering from inherited raster/sampler state and restore host bindings, including on exceptions
+- OpenGLES: fix render-target dimensions, nested target restoration and custom-shader orientation; resolve replaced shaders
+  per texture and request an ES 3 context before creating the SDL window
+
+- Vulkan: retain vertex storage until recorded commands retire, reuse completed allocations and check map failures;
+  submit RTT work asynchronously and wait before command reuse or destruction
+
+- Vulkan: add real-backend tests for recorded vertex lifetime, allocation retirement and rendered output without mocks
 
 ### Demos
 - Handle SDL_QUIT in apps
@@ -83,6 +107,7 @@
 - Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools against committed
   references (with tolerance for comparing e.g. DirectX vs OpenGL)
 - Add extensive unit-test coverage across the engine
+- Add extensive unit-test coverage across the platforms implementations using shared test suite
 - Keep only automated tests in UnitTests; convert AttachDetach and MultiList into finite headless tests
 - Share test setup, assertions, and resource loading in UnitTests/Common
 - Run unit tests with CTest in native GitHub CI builds

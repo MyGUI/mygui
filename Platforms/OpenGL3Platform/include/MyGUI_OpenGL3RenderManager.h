@@ -12,6 +12,7 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_OpenGL3ImageLoader.h"
+#include <array>
 
 namespace MyGUI
 {
@@ -87,6 +88,16 @@ namespace MyGUI
 		unsigned int mDefaultProgramId{0};
 		std::map<std::string, unsigned int> mRegisteredShaders;
 		unsigned int mReferenceCount{0}; // for nested rendering
+		// Captured once for the outermost GUI pass; nested RTT passes share GUI state.
+		struct SavedState
+		{
+			std::array<bool, 7> enabled{};
+			std::array<int, 2> polygonMode{};
+			std::array<int, 6> blend{};
+			std::array<unsigned char, 4> colourMask{};
+			unsigned char depthMask{};
+			int program{}, activeTexture{}, texture{}, vertexArray{}, arrayBuffer{};
+		} mSavedState;
 		int mYScaleUniformLocation{-1};
 
 		using MapTexture = std::map<std::string, ITexture*>;

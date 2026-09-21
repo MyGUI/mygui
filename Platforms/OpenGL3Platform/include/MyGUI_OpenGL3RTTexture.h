@@ -38,6 +38,8 @@ namespace MyGUI
 		int mHeight{0};
 
 		int mSavedViewport[4]{};
+		int mSavedDrawFramebuffer{}, mSavedReadFramebuffer{};
+		float mSavedClearColour[4]{};
 
 		unsigned int mFBOID{0};
 		unsigned int mRBOID{0};

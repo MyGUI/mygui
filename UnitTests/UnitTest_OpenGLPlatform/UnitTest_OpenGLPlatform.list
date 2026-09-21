@@ -1,0 +1,4 @@
+set(HEADER_FILES)
+set(SOURCE_FILES Main.cpp
+	../UnitTest_Platform/PlatformFixture.cpp
+	../UnitTest_Platform/ShaderSources.cpp)

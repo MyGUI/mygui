@@ -13,6 +13,8 @@
 #include "MyGUI_Timer.h"
 
 #include <MyGUI_GL.h>
+#include <cstdio>
+#include <cstring>
 
 namespace MyGUI
 {
@@ -38,7 +40,37 @@ namespace MyGUI
 		mImageLoader = _loader;
 
 		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
-		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
+		const auto hasExtension = [extensions](const char* name)
+		{
+			if (!extensions)
+				return false;
+			const size_t length = std::strlen(name);
+			const char* position = extensions;
+			while ((position = std::strstr(position, name)) != nullptr)
+			{
+				if ((position == extensions || position[-1] == ' ') &&
+					(position[length] == ' ' || position[length] == '\0'))
+					return true;
+				position += length;
+			}
+			return false;
+		};
+		int major = 0, minor = 0;
+		const auto* version = reinterpret_cast<const char*>(glGetString(GL_VERSION));
+		if (version)
+			std::sscanf(version, "%d.%d", &major, &minor);
+		mPboIsSupported = major > 2 || (major == 2 && minor >= 1) || hasExtension("GL_ARB_pixel_buffer_object") ||
+			hasExtension("GL_EXT_pixel_buffer_object");
+		mSeparateFramebufferSupported =
+			major >= 3 || hasExtension("GL_ARB_framebuffer_object") || hasExtension("GL_EXT_framebuffer_blit");
+		mFramebufferSupported = mSeparateFramebufferSupported || hasExtension("GL_EXT_framebuffer_object");
+		mRasterizerDiscardSupported = major >= 3 || hasExtension("GL_EXT_transform_feedback");
+		mRectangleTextureSupported = major >= 3 || hasExtension("GL_ARB_texture_rectangle") ||
+			hasExtension("GL_EXT_texture_rectangle") || hasExtension("GL_NV_texture_rectangle");
+		mVertexProgramSupported = hasExtension("GL_ARB_vertex_program");
+		mFragmentProgramSupported = hasExtension("GL_ARB_fragment_program");
+		glGetIntegerv(GL_MAX_TEXTURE_UNITS, &mTextureUnits);
+		glGetIntegerv(GL_MAX_CLIP_PLANES, &mClipPlanes);
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -108,48 +140,102 @@ namespace MyGUI
 
 	void OpenGLRenderManager::begin()
 	{
-		//save current attributes
+		RenderState state;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &state.program);
+		glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &state.arrayBuffer);
+		mStates.push_back(state);
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 		glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-		glPolygonMode(GL_FRONT, GL_FILL);
+		glUseProgram(0);
+		for (auto array :
+			 {GL_NORMAL_ARRAY, GL_INDEX_ARRAY, GL_EDGE_FLAG_ARRAY, GL_SECONDARY_COLOR_ARRAY, GL_FOG_COORDINATE_ARRAY})
+			glDisableClientState(array);
+		if (mVertexProgramSupported)
+			glDisable(GL_VERTEX_PROGRAM_ARB);
+		if (mFragmentProgramSupported)
+			glDisable(GL_FRAGMENT_PROGRAM_ARB);
+		if (mRasterizerDiscardSupported)
+			glDisable(GL_RASTERIZER_DISCARD_EXT);
+		for (int unit = 0; unit < mTextureUnits; ++unit)
+		{
+			glActiveTexture(GL_TEXTURE0 + unit);
+			glClientActiveTexture(GL_TEXTURE0 + unit);
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			if (mRectangleTextureSupported)
+				glDisable(GL_TEXTURE_RECTANGLE_ARB);
+			for (auto mode :
+				 {GL_TEXTURE_1D,
+				  GL_TEXTURE_2D,
+				  GL_TEXTURE_3D,
+				  GL_TEXTURE_CUBE_MAP,
+				  GL_TEXTURE_GEN_S,
+				  GL_TEXTURE_GEN_T,
+				  GL_TEXTURE_GEN_R,
+				  GL_TEXTURE_GEN_Q})
+				glDisable(mode);
+		}
+		glActiveTexture(GL_TEXTURE0);
+		glClientActiveTexture(GL_TEXTURE0);
+		glMatrixMode(GL_TEXTURE);
+		glPushMatrix();
+		glLoadIdentity();
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glEnable(GL_TEXTURE_2D);
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
 		glOrtho(-1, 1, -1, 1, -1, 1);
-
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		glLoadIdentity();
 
-		glDisable(GL_LIGHTING);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_FOG);
-		glDisable(GL_TEXTURE_GEN_S);
-		glDisable(GL_TEXTURE_GEN_T);
-		glDisable(GL_TEXTURE_GEN_R);
-
-		//glFrontFace(GL_CW);
-		//glCullFace(GL_BACK);
-		//glEnable(GL_CULL_FACE);
-
+		for (auto mode :
+			 {GL_LIGHTING,
+			  GL_DEPTH_TEST,
+			  GL_FOG,
+			  GL_CULL_FACE,
+			  GL_SCISSOR_TEST,
+			  GL_STENCIL_TEST,
+			  GL_ALPHA_TEST,
+			  GL_COLOR_LOGIC_OP,
+			  GL_COLOR_SUM,
+			  GL_SAMPLE_ALPHA_TO_COVERAGE,
+			  GL_SAMPLE_ALPHA_TO_ONE,
+			  GL_SAMPLE_COVERAGE,
+			  GL_POLYGON_STIPPLE,
+			  GL_POLYGON_SMOOTH,
+			  GL_POLYGON_OFFSET_FILL,
+			  GL_POLYGON_OFFSET_LINE,
+			  GL_POLYGON_OFFSET_POINT})
+			glDisable(mode);
+		for (int plane = 0; plane < mClipPlanes; ++plane)
+			glDisable(GL_CLIP_PLANE0 + plane);
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+		glDepthMask(GL_FALSE);
 		glEnable(GL_BLEND);
+		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glEnable(GL_TEXTURE_2D);
 	}
 
 	void OpenGLRenderManager::end()
 	{
+		MYGUI_PLATFORM_ASSERT(!mStates.empty(), "Unbalanced render pass");
+		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-
-		//restore former attributes
+		glActiveTexture(GL_TEXTURE0);
+		glMatrixMode(GL_TEXTURE);
+		glPopMatrix();
 		glPopAttrib();
 		glPopClientAttrib();
+		const auto state = mStates.back();
+		mStates.pop_back();
+		glUseProgram(state.program);
+		glBindBuffer(GL_ARRAY_BUFFER, state.arrayBuffer);
 	}
 
 	const RenderTargetInfo& OpenGLRenderManager::getInfo() const
@@ -169,7 +255,11 @@ namespace MyGUI
 
 	bool OpenGLRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		return true;
+		// Luminance formats are sampleable, but not guaranteed colour-renderable.
+		if (_usage.isValue(TextureUsage::RenderTarget))
+			return mFramebufferSupported && (_format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8);
+		return _format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8 || _format == PixelFormat::L8 ||
+			_format == PixelFormat::L8A8;
 	}
 
 	void OpenGLRenderManager::drawOneFrame()
@@ -187,7 +277,15 @@ namespace MyGUI
 		last_time = now_time;
 
 		begin();
-		onRenderToTarget(this, mUpdate);
+		try
+		{
+			onRenderToTarget(this, mUpdate);
+		}
+		catch (...)
+		{
+			end();
+			throw;
+		}
 		end();
 
 		mUpdate = false;
@@ -224,6 +322,11 @@ namespace MyGUI
 	bool OpenGLRenderManager::isPixelBufferObjectSupported() const
 	{
 		return mPboIsSupported;
+	}
+
+	bool OpenGLRenderManager::isSeparateFramebufferSupported() const
+	{
+		return mSeparateFramebufferSupported;
 	}
 
 	ITexture* OpenGLRenderManager::createTexture(const std::string& _name)

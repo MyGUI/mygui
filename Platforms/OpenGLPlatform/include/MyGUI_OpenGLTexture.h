@@ -60,12 +60,13 @@ namespace MyGUI
 		int mPixelFormat{0};
 		int mInternalPixelFormat{0};
 		int mUsage{0};
-		int mAccess{0};
 		size_t mNumElemBytes{0};
 		size_t mDataSize{0};
 		unsigned int mTextureId{0};
 		unsigned int mPboID{0};
 		bool mLock{false};
+		bool mWriteLock{false};
+		bool mPboLock{false};
 		void* mBuffer{nullptr};
 		PixelFormat mOriginalFormat;
 		TextureUsage mOriginalUsage;

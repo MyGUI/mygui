@@ -12,6 +12,7 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_OpenGLImageLoader.h"
+#include <vector>
 
 namespace MyGUI
 {
@@ -67,6 +68,7 @@ namespace MyGUI
 		/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
+		bool isSeparateFramebufferSupported() const;
 
 	private:
 		void destroyAllResources();
@@ -81,6 +83,20 @@ namespace MyGUI
 		MapTexture mTextures;
 		OpenGLImageLoader* mImageLoader{nullptr};
 		bool mPboIsSupported{false};
+		bool mFramebufferSupported{false};
+		bool mSeparateFramebufferSupported{false};
+		bool mRasterizerDiscardSupported{false};
+		bool mRectangleTextureSupported{false};
+		bool mVertexProgramSupported{false};
+		bool mFragmentProgramSupported{false};
+		int mTextureUnits{1};
+		int mClipPlanes{0};
+		struct RenderState
+		{
+			int program{0};
+			int arrayBuffer{0};
+		};
+		std::vector<RenderState> mStates;
 
 		bool mIsInitialise{false};
 	};

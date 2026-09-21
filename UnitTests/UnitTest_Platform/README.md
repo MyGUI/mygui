@@ -46,6 +46,13 @@ RTT destruction/recreation before its first frame. Two separate same-frame tests
 reuse a vertex buffer or texture between left/right draws and verify both draws;
 they complement the uncaptured multi-frame update burst.
 
+Transfer regressions cover odd-width RGB readback and partial read/write updates,
+editing file-loaded textures, and preserving GPU-produced RTT pixels when
+read/write access is advertised. OpenGL-specific PBO and pixel-store state checks
+live in `UnitTest_OpenGLPlatform` and `UnitTest_OpenGL3Platform` and use the same fixture.
+Nested RTT coverage verifies that drawing resumes in the outer target after
+an inner target ends, with both targets retaining their expected pixels.
+
 `shader-selection` uses a fragment shader that swaps red and blue. It verifies
 custom output, a subsequent draw with another texture's default shader, and
 switching the original texture back to `Default`. Source selection is isolated

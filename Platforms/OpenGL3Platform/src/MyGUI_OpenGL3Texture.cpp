@@ -12,9 +12,83 @@
 #include "MyGUI_OpenGL3RTTexture.h"
 
 #include <MyGUI_GL.h>
+#include <array>
+#include <limits>
+#include <memory>
 
 namespace MyGUI
 {
+	namespace
+	{
+
+		class TextureBinding
+		{
+		public:
+			explicit TextureBinding(GLuint _texture)
+			{
+				glGetIntegerv(GL_TEXTURE_BINDING_2D, &mPrevious);
+				glBindTexture(GL_TEXTURE_2D, _texture);
+			}
+			~TextureBinding()
+			{
+				glBindTexture(GL_TEXTURE_2D, mPrevious);
+			}
+
+		private:
+			GLint mPrevious{};
+		};
+
+		class PixelBufferBinding
+		{
+		public:
+			PixelBufferBinding(bool _read, GLuint _buffer) :
+				mTarget(_read ? GL_PIXEL_PACK_BUFFER : GL_PIXEL_UNPACK_BUFFER)
+			{
+				glGetIntegerv(_read ? GL_PIXEL_PACK_BUFFER_BINDING : GL_PIXEL_UNPACK_BUFFER_BINDING, &mPrevious);
+				glBindBuffer(mTarget, _buffer);
+			}
+			~PixelBufferBinding()
+			{
+				glBindBuffer(mTarget, mPrevious);
+			}
+
+		private:
+			GLenum mTarget;
+			GLint mPrevious{};
+		};
+
+		constexpr std::array<GLenum, 4> packParameters =
+			{GL_PACK_ALIGNMENT, GL_PACK_ROW_LENGTH, GL_PACK_SKIP_ROWS, GL_PACK_SKIP_PIXELS};
+		constexpr std::array<GLenum, 4> unpackParameters =
+			{GL_UNPACK_ALIGNMENT, GL_UNPACK_ROW_LENGTH, GL_UNPACK_SKIP_ROWS, GL_UNPACK_SKIP_PIXELS};
+
+		// The API exposes tightly packed 2D bytes, independently of host GL state.
+		class PixelTransferState
+		{
+		public:
+			PixelTransferState(bool _read, GLuint _buffer) :
+				mBinding(_read, _buffer),
+				mParameters(_read ? packParameters : unpackParameters)
+			{
+				for (size_t i = 0; i < mParameters.size(); ++i)
+				{
+					glGetIntegerv(mParameters[i], &mPrevious[i]);
+					glPixelStorei(mParameters[i], i == 0 ? 1 : 0);
+				}
+			}
+			~PixelTransferState()
+			{
+				for (size_t i = 0; i < mParameters.size(); ++i)
+					glPixelStorei(mParameters[i], mPrevious[i]);
+			}
+
+		private:
+			PixelBufferBinding mBinding;
+			std::array<GLenum, 4> mParameters;
+			std::array<GLint, 4> mPrevious{};
+		};
+
+	}
 
 	OpenGL3Texture::OpenGL3Texture(const std::string& _name, OpenGL3ImageLoader* _loader) :
 		mName(_name),
@@ -34,82 +108,13 @@ namespace MyGUI
 
 	void OpenGL3Texture::setUsage(TextureUsage _usage)
 	{
-		mAccess = 0;
-		mUsage = 0;
-
-		if (_usage == TextureUsage::Default)
-		{
-			mUsage = GL_STATIC_READ;
-			mAccess = GL_READ_ONLY;
-		}
-		else if (_usage.isValue(TextureUsage::Static))
-		{
-			if (_usage.isValue(TextureUsage::Read))
-			{
-				if (_usage.isValue(TextureUsage::Write))
-				{
-					mUsage = GL_STATIC_COPY;
-					mAccess = GL_READ_WRITE;
-				}
-				else
-				{
-					mUsage = GL_STATIC_READ;
-					mAccess = GL_READ_ONLY;
-				}
-			}
-			else if (_usage.isValue(TextureUsage::Write))
-			{
-				mUsage = GL_STATIC_DRAW;
-				mAccess = GL_WRITE_ONLY;
-			}
-		}
-		else if (_usage.isValue(TextureUsage::Dynamic))
-		{
-			if (_usage.isValue(TextureUsage::Read))
-			{
-				if (_usage.isValue(TextureUsage::Write))
-				{
-					mUsage = GL_DYNAMIC_COPY;
-					mAccess = GL_READ_WRITE;
-				}
-				else
-				{
-					mUsage = GL_DYNAMIC_READ;
-					mAccess = GL_READ_ONLY;
-				}
-			}
-			else if (_usage.isValue(TextureUsage::Write))
-			{
-				mUsage = GL_DYNAMIC_DRAW;
-				mAccess = GL_WRITE_ONLY;
-			}
-		}
-		else if (_usage.isValue(TextureUsage::Stream))
-		{
-			if (_usage.isValue(TextureUsage::Read))
-			{
-				if (_usage.isValue(TextureUsage::Write))
-				{
-					mUsage = GL_STREAM_COPY;
-					mAccess = GL_READ_WRITE;
-				}
-				else
-				{
-					mUsage = GL_STREAM_READ;
-					mAccess = GL_READ_ONLY;
-				}
-			}
-			else if (_usage.isValue(TextureUsage::Write))
-			{
-				mUsage = GL_STREAM_DRAW;
-				mAccess = GL_WRITE_ONLY;
-			}
-		}
-		else if (_usage.isValue(TextureUsage::RenderTarget))
-		{
-			mUsage = GL_DYNAMIC_READ;
-			mAccess = GL_READ_ONLY;
-		}
+		// Usage is an allocation hint; each lock supplies its actual access mode.
+		if (_usage.isValue(TextureUsage::Stream))
+			mUsage = GL_STREAM_DRAW;
+		else if (_usage.isValue(TextureUsage::Dynamic) || _usage.isValue(TextureUsage::RenderTarget))
+			mUsage = GL_DYNAMIC_DRAW;
+		else
+			mUsage = GL_STATIC_DRAW;
 	}
 
 	void OpenGL3Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
@@ -142,23 +147,22 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("format not support");
 		}
 
+		MYGUI_PLATFORM_ASSERT(_width > 0 && _height > 0, "Texture dimensions must be positive");
+		MYGUI_PLATFORM_ASSERT(
+			size_t(_width) <= size_t(std::numeric_limits<GLsizeiptr>::max()) / size_t(_height) / mNumElemBytes,
+			"Texture transfer size is too large");
 		mWidth = _width;
 		mHeight = _height;
-		mDataSize = _width * _height * mNumElemBytes;
+		mDataSize = size_t(_width) * size_t(_height) * mNumElemBytes;
 		setUsage(_usage);
 		//MYGUI_PLATFORM_ASSERT(mUsage, "usage format not support");
 
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
 
-		// Set unpack alignment to one byte
-		int alignment = 0;
-		glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-		// create texture
 		glGenTextures(1, &mTextureId);
-		glBindTexture(GL_TEXTURE_2D, mTextureId);
+		TextureBinding texture(mTextureId);
+		PixelTransferState transfer(false, 0);
 		// Set texture parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -174,23 +178,21 @@ namespace MyGUI
 			mPixelFormat,
 			GL_UNSIGNED_BYTE,
 			(GLvoid*)_data);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		// Restore old unpack alignment
-		glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
-
-		if (!_data && OpenGL3RenderManager::getInstance().isPixelBufferObjectSupported())
-		{
-			// create texture buffer
-			glGenBuffers(1, &mPboID);
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, nullptr, mUsage);
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-		}
 	}
 
 	void OpenGL3Texture::destroy()
 	{
+		if (mLock)
+		{
+			if (mWriteLock)
+			{
+				PixelBufferBinding binding(false, mPboID);
+				glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
+			}
+			else
+				delete[] static_cast<unsigned char*>(mBuffer);
+		}
+		mWriteLock = false;
 		delete mRenderTarget;
 		mRenderTarget = nullptr;
 
@@ -213,7 +215,6 @@ namespace MyGUI
 		mUsage = 0;
 		mBuffer = nullptr;
 		mInternalPixelFormat = 0;
-		mAccess = 0;
 		mNumElemBytes = 0;
 		mOriginalFormat = PixelFormat::Unknow;
 		mOriginalUsage = TextureUsage::Default;
@@ -222,92 +223,61 @@ namespace MyGUI
 	void* OpenGL3Texture::lock(TextureUsage _access)
 	{
 		MYGUI_PLATFORM_ASSERT(mTextureId, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(!mLock, "Texture is already locked");
+		const bool read = _access.isValue(TextureUsage::Read);
+		const bool write = _access.isValue(TextureUsage::Write);
+		MYGUI_PLATFORM_ASSERT(read || write, "Texture lock requires read or write access");
 
-		if (_access == TextureUsage::Read)
+		TextureBinding texture(mTextureId);
+		if (write)
 		{
-			glBindTexture(GL_TEXTURE_2D, mTextureId);
-
-			mBuffer = new unsigned char[mDataSize];
-			glGetTexImage(GL_TEXTURE_2D, 0, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
-
-			mLock = false;
-
-			return mBuffer;
-		}
-
-		// bind the texture
-		glBindTexture(GL_TEXTURE_2D, mTextureId);
-		if (!OpenGL3RenderManager::getInstance().isPixelBufferObjectSupported())
-		{
-			//Fallback if PBO's are not supported
-			mBuffer = new unsigned char[mDataSize];
+			// Allocate lazily, including for textures initially loaded from an image.
+			if (!mPboID)
+				glGenBuffers(1, &mPboID);
+			PixelBufferBinding binding(false, mPboID);
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, nullptr, mUsage);
+			if (read)
+			{
+				// Refill fresh storage from the texture before exposing a read/write lock.
+				// The texture, not an older upload buffer, is authoritative after RTT draws.
+				PixelTransferState transfer(true, mPboID);
+				glGetTexImage(GL_TEXTURE_2D, 0, mPixelFormat, GL_UNSIGNED_BYTE, nullptr);
+			}
+			mBuffer = glMapBuffer(GL_PIXEL_UNPACK_BUFFER, read ? GL_READ_WRITE : GL_WRITE_ONLY);
+			MYGUI_PLATFORM_ASSERT(mBuffer, "Error texture lock");
 		}
 		else
 		{
-			// bind the PBO
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
-
-			// Note that glMapBuffer() causes sync issue.
-			// If GPU is working with this buffer, glMapBuffer() will wait(stall)
-			// until GPU to finish its job. To avoid waiting (idle), you can call
-			// first glBufferData() with nullptr pointer before glMapBuffer().
-			// If you do that, the previous data in PBO will be discarded and
-			// glMapBuffer() returns a new allocated pointer immediately
-			// even if GPU is still working with the previous data.
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, nullptr, mUsage);
-
-			// map the buffer object into client's memory
-			mBuffer = (GLubyte*)glMapBuffer(GL_PIXEL_UNPACK_BUFFER, mAccess);
-			if (!mBuffer)
-			{
-				glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-				glBindTexture(GL_TEXTURE_2D, 0);
-				MYGUI_PLATFORM_EXCEPT("Error texture lock");
-			}
+			auto bytes = std::make_unique<unsigned char[]>(mDataSize);
+			PixelTransferState transfer(true, 0);
+			glGetTexImage(GL_TEXTURE_2D, 0, mPixelFormat, GL_UNSIGNED_BYTE, bytes.get());
+			mBuffer = bytes.release();
 		}
-
+		mWriteLock = write;
 		mLock = true;
-
 		return mBuffer;
 	}
 
 	void OpenGL3Texture::unlock()
 	{
-		if (!mLock && mBuffer)
+		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
+		const bool write = mWriteLock;
+		mLock = false;
+		mWriteLock = false;
+		if (!write)
 		{
-			delete[] (char*)mBuffer;
+			delete[] static_cast<unsigned char*>(mBuffer);
 			mBuffer = nullptr;
-
-			glBindTexture(GL_TEXTURE_2D, 0);
-
 			return;
 		}
 
-		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
-
-		if (!OpenGL3RenderManager::getInstance().isPixelBufferObjectSupported())
-		{
-			//Fallback if PBO's are not supported
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
-			delete[] (char*)mBuffer;
-		}
-		else
-		{
-			// release the mapped buffer
-			glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
-
-			// copy pixels from PBO to texture object
-			// Use offset instead of ponter.
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, nullptr);
-
-			// it is good idea to release PBOs with ID 0 after use.
-			// Once bound with 0, all pixel operations are back to normal ways.
-			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
-		}
-
-		glBindTexture(GL_TEXTURE_2D, 0);
 		mBuffer = nullptr;
-		mLock = false;
+		PixelBufferBinding binding(false, mPboID);
+		const GLboolean valid = glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
+		MYGUI_PLATFORM_ASSERT(valid == GL_TRUE, "Texture upload buffer contents were lost");
+		TextureBinding texture(mTextureId);
+		PixelTransferState transfer(false, mPboID);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, nullptr);
 	}
 
 	void OpenGL3Texture::loadFromFile(const std::string& _filename)

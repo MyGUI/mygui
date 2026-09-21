@@ -18,6 +18,26 @@
 
 namespace MyGUI
 {
+	namespace
+	{
+
+		constexpr std::array<unsigned int, 7> guiStateModes = {
+			GL_BLEND,
+			GL_CULL_FACE,
+			GL_DEPTH_TEST,
+			GL_STENCIL_TEST,
+			GL_SCISSOR_TEST,
+			GL_RASTERIZER_DISCARD,
+			GL_COLOR_LOGIC_OP};
+		constexpr std::array<unsigned int, 6> blendParameters = {
+			GL_BLEND_SRC_RGB,
+			GL_BLEND_DST_RGB,
+			GL_BLEND_SRC_ALPHA,
+			GL_BLEND_DST_ALPHA,
+			GL_BLEND_EQUATION_RGB,
+			GL_BLEND_EQUATION_ALPHA};
+
+	}
 
 	OpenGL3RenderManager& OpenGL3RenderManager::getInstance()
 	{
@@ -141,8 +161,9 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT(std::string("OpenGL 3.0 or newer not available, current version is ") + version);
 		}
 
-		const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
-		mPboIsSupported = extensions && strstr(extensions, "GL_EXT_pixel_buffer_object") != nullptr;
+		// Pixel buffer objects are core since OpenGL 2.1. This backend requires 3.0.
+		// glGetString(GL_EXTENSIONS) is invalid in a core context.
+		mPboIsSupported = true;
 
 		registerShader("Default", "MyGUI_OpenGL3_VP.glsl", "MyGUI_OpenGL3_FP.glsl");
 
@@ -199,6 +220,8 @@ namespace MyGUI
 		glBindTexture(GL_TEXTURE_2D, texture_id);
 
 		glBindVertexArray(buffer_id);
+
+
 		glDrawArrays(GL_TRIANGLES, 0, _count);
 		glBindVertexArray(0);
 
@@ -211,21 +234,70 @@ namespace MyGUI
 
 	void OpenGL3RenderManager::begin()
 	{
-		++mReferenceCount;
+		if (mReferenceCount++ == 0)
+		{
+			for (size_t i = 0; i < guiStateModes.size(); ++i)
+				mSavedState.enabled[i] = glIsEnabled(guiStateModes[i]) == GL_TRUE;
+			glGetIntegerv(GL_POLYGON_MODE, mSavedState.polygonMode.data());
+			for (size_t i = 0; i < blendParameters.size(); ++i)
+				glGetIntegerv(blendParameters[i], &mSavedState.blend[i]);
+			glGetBooleanv(GL_COLOR_WRITEMASK, mSavedState.colourMask.data());
+			glGetBooleanv(GL_DEPTH_WRITEMASK, &mSavedState.depthMask);
+			glGetIntegerv(GL_CURRENT_PROGRAM, &mSavedState.program);
+			glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &mSavedState.vertexArray);
+			glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &mSavedState.arrayBuffer);
+			glGetIntegerv(GL_ACTIVE_TEXTURE, &mSavedState.activeTexture);
+			glActiveTexture(GL_TEXTURE0);
+			glGetIntegerv(GL_TEXTURE_BINDING_2D, &mSavedState.texture);
+		}
 
 		glUseProgram(mDefaultProgramId);
 		glActiveTexture(GL_TEXTURE0);
 
+		for (size_t i = 1; i < guiStateModes.size(); ++i)
+			glDisable(guiStateModes[i]);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDepthMask(GL_FALSE);
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		glEnable(GL_BLEND);
+		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void OpenGL3RenderManager::end()
 	{
+		MYGUI_PLATFORM_ASSERT(mReferenceCount != 0, "Unmatched render target end");
 		if (--mReferenceCount == 0)
 		{
-			glDisable(GL_BLEND);
-			glUseProgram(0);
+			for (size_t i = 0; i < guiStateModes.size(); ++i)
+			{
+				if (mSavedState.enabled[i])
+					glEnable(guiStateModes[i]);
+				else
+					glDisable(guiStateModes[i]);
+			}
+			if (mSavedState.polygonMode[0] == mSavedState.polygonMode[1])
+				glPolygonMode(GL_FRONT_AND_BACK, mSavedState.polygonMode[0]);
+			else
+			{
+				// Separate front/back modes are only possible in compatibility contexts.
+				glPolygonMode(GL_FRONT, mSavedState.polygonMode[0]);
+				glPolygonMode(GL_BACK, mSavedState.polygonMode[1]);
+			}
+			glDepthMask(mSavedState.depthMask);
+			glColorMask(
+				mSavedState.colourMask[0],
+				mSavedState.colourMask[1],
+				mSavedState.colourMask[2],
+				mSavedState.colourMask[3]);
+			glBlendFuncSeparate(mSavedState.blend[0], mSavedState.blend[1], mSavedState.blend[2], mSavedState.blend[3]);
+			glBlendEquationSeparate(mSavedState.blend[4], mSavedState.blend[5]);
+			glUseProgram(mSavedState.program);
+			glBindVertexArray(mSavedState.vertexArray);
+			glBindBuffer(GL_ARRAY_BUFFER, mSavedState.arrayBuffer);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, mSavedState.texture);
+			glActiveTexture(mSavedState.activeTexture);
 		}
 	}
 
@@ -267,7 +339,15 @@ namespace MyGUI
 		last_time = now_time;
 
 		begin();
-		onRenderToTarget(this, mUpdate);
+		try
+		{
+			onRenderToTarget(this, mUpdate);
+		}
+		catch (...)
+		{
+			end();
+			throw;
+		}
 		end();
 
 		mUpdate = false;
