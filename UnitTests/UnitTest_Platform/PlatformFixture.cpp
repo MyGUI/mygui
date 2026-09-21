@@ -5,6 +5,10 @@
 #include <fstream>
 #include <iostream>
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+	#include <objbase.h>
+#endif
+
 namespace platformtest
 {
 
@@ -20,6 +24,12 @@ namespace platformtest
 	{
 		setWindowOptions(!_visible, true);
 		setResourceFilename("");
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		// DirectX WIC texture loading requires COM on the thread running the fixture.
+		const HRESULT result = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+		require(SUCCEEDED(result) || result == RPC_E_CHANGED_MODE, "Failed to initialize COM for platform tests");
+		mComInitialized = SUCCEEDED(result);
+#endif
 	}
 
 	Fixture::~Fixture()
@@ -32,6 +42,10 @@ namespace platformtest
 		{
 			std::cerr << "Fixture cleanup failed: " << error.what() << '\n';
 		}
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		if (mComInitialized)
+			CoUninitialize();
+#endif
 	}
 
 	void Fixture::open()
@@ -120,8 +134,15 @@ namespace platformtest
 		if (getDrawableSize().width <= 0 || getDrawableSize().height <= 0)
 			throw Fatal("Cannot capture an uninitialized window");
 		requestFrameCapture();
-		for (int frame = 0; frame < 8 && getFrameCapture().status == Capture::Status::Pending; ++frame)
-			drawOneFrame();
+		try
+		{
+			for (int frame = 0; frame < 8 && getFrameCapture().status == Capture::Status::Pending; ++frame)
+				drawOneFrame();
+		}
+		catch (const std::exception& error)
+		{
+			failFrameCapture(error.what());
+		}
 		const auto& result = getFrameCapture();
 		if (result.status != Capture::Status::Complete)
 		{

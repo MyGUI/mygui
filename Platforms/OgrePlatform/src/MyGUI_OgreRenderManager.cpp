@@ -541,6 +541,25 @@ namespace MyGUI
 			auto program = programManager.createProgram(file, group, shaderLanguage, type);
 
 			program->setSourceFile(file);
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(14, 3, 0)
+			if (shaderLanguage == "glsl" || shaderLanguage == "glsles")
+			{
+				// Older Ogre releases do not expand the native GLSL version directive.
+				auto source = Ogre::ResourceGroupManager::getSingleton().openResource(file, group)->getAsString();
+				const std::string directive = "OGRE_NATIVE_GLSL_VERSION_DIRECTIVE";
+				const auto position = source.find(directive);
+				if (position != std::string::npos)
+				{
+					const auto version = mRenderSystem->getNativeShadingLanguageVersion();
+					source.replace(
+						position,
+						directive.size(),
+						"#version " + std::to_string(version) +
+							(shaderLanguage == "glsles" && version > 100 ? " es" : ""));
+					program->setSource(source);
+				}
+			}
+#endif
 			if (shaderLanguage == "hlsl")
 			{
 				program->setParameter("target", hlslTarget);

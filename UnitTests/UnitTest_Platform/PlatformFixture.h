@@ -84,6 +84,9 @@ namespace platformtest
 		size_t mNameIndex{0};
 		bool mVisible;
 		bool mCreated{false};
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		bool mComInitialized{false};
+#endif
 	};
 
 	struct Case
