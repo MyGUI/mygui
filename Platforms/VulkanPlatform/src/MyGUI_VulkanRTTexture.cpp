@@ -80,7 +80,7 @@ namespace MyGUI
 			vkDestroyFence(mDevice, mFence, nullptr);
 		if (mCommandBuffer != VK_NULL_HANDLE)
 			vkFreeCommandBuffers(mDevice, mCommandPool, 1, &mCommandBuffer);
-		VulkanRenderManager::getInstance().releaseCommandBufferResources(mCommandBuffer);
+		mResources.clear();
 		if (mFramebuffer != VK_NULL_HANDLE)
 			vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
 	}
@@ -98,7 +98,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(
 			vkResetCommandBuffer(mCommandBuffer, 0) == VK_SUCCESS,
 			"Failed to reset render target commands");
-		VulkanRenderManager::getInstance().releaseCommandBufferResources(mCommandBuffer);
+		mResources.clear();
 
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -147,7 +147,7 @@ namespace MyGUI
 	void VulkanRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
-		manager.renderGeometry(mCommandBuffer, _buffer, _texture, _count);
+		manager.renderGeometry(mCommandBuffer, _buffer, _texture, _count, mResources);
 	}
 
 	const RenderTargetInfo& VulkanRTTexture::getInfo() const

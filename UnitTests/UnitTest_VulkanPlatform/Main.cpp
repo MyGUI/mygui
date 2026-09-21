@@ -1,5 +1,6 @@
 #include "PlatformFixture.h"
 #include "MyGUI_VulkanVertexBuffer.h"
+#include "MyGUI_VulkanTexture.h"
 #include <iostream>
 #include <memory>
 
@@ -94,6 +95,74 @@ namespace
 		require(storage.expired(), "Destroyed target must release completed vertex storage");
 	}
 
+	void testSampledTextureLifetime(platformtest::Fixture& fixture)
+	{
+		auto* texture = target(fixture);
+		auto* rtt = texture->getRenderTarget();
+		auto* source = static_cast<MyGUI::VulkanTexture*>(platformtest::solid(fixture, {255, 0, 0, 255}));
+		std::weak_ptr<void> red = source->retainStorage();
+		MyGUI::VulkanVertexBuffer buffer;
+		fixture.fill(&buffer, 6, rtt->getInfo(), {0, 0, 64, 128}, {255, 255, 255, 255});
+		rtt->begin();
+		rtt->doRender(&buffer, source, 6);
+		source->destroy();
+		require(!red.expired(), "An unsubmitted draw must retain its sampled image and descriptors");
+
+		// Recreate the same wrapper: the first draw must still sample its old image.
+		source->createManual(
+			1,
+			1,
+			MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Write,
+			MyGUI::PixelFormat::R8G8B8A8);
+		platformtest::upload(source, {0, 255, 0, 255});
+		std::weak_ptr<void> green = source->retainStorage();
+		fixture.fill(&buffer, 6, rtt->getInfo(), {64, 0, 64, 128}, {255, 255, 255, 255});
+		rtt->doRender(&buffer, source, 6);
+		rtt->end();
+		fixture.removeTexture(source);
+		require(!green.expired(), "A submitted draw must retain its destroyed sampled texture");
+
+		fixture.scene([&](MyGUI::IRenderTarget* output) { fixture.quad(output, texture); });
+		fixture.capture();
+		fixture.expect(32, 64, {255, 0, 0, 255});
+		fixture.expect(96, 64, {0, 255, 0, 255});
+		rtt->begin();
+		const bool retired = red.expired() && green.expired();
+		rtt->end();
+		require(retired, "Reusing a completed RTT must retire both versions of its sampled texture");
+	}
+
+	void testAutomaticFrameRetirement(platformtest::Fixture& fixture)
+	{
+		std::vector<std::weak_ptr<void>> recorded;
+		fixture.scene(
+			[&](MyGUI::IRenderTarget* output)
+			{
+				auto* source = static_cast<MyGUI::VulkanTexture*>(platformtest::solid(fixture, {255, 0, 0, 255}));
+				MyGUI::VulkanVertexBuffer buffer;
+				fixture.fill(&buffer, 6, output->getInfo(), {0, 0, 128, 128}, {255, 255, 255, 255});
+				recorded.push_back(source->retainStorage());
+				recorded.push_back(buffer.retainStorage());
+				output->doRender(&buffer, source, 6);
+				fixture.removeTexture(source);
+			});
+		for (int frame = 0; frame < 16; ++frame)
+		{
+			fixture.capture();
+			fixture.expectCorners({255, 0, 0, 255});
+			require(!recorded.back().expired(), "The current frame must retain destroyed draw resources");
+			if (frame >= 3)
+				require(recorded.front().expired(), "Earlier frames must retire while rendering continues");
+		}
+		fixture.scene({});
+		// The first empty frame fences the last recording. Capture waits for the queue;
+		// the second frame observes completion without any host retirement notification.
+		fixture.capture();
+		fixture.capture();
+		for (const auto& storage : recorded)
+			require(storage.expired(), "Completed frames must release resources automatically");
+	}
+
 }
 
 int main()
@@ -111,6 +180,12 @@ int main()
 		testPendingDestruction(fixture);
 		fixture.resetCase();
 		std::cout << "PASS pending RTT destruction retires vertex storage\n";
+		testSampledTextureLifetime(fixture);
+		fixture.resetCase();
+		std::cout << "PASS sampled textures survive destruction and recreation until RTT completion\n";
+		testAutomaticFrameRetirement(fixture);
+		fixture.resetCase();
+		std::cout << "PASS host frames retire textures and vertices without cleanup notifications\n";
 		fixture.close();
 		return 0;
 	}

@@ -159,7 +159,13 @@ namespace MyGUI
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		vkDeviceWaitIdle(mDevice);
-		mRecordedResources.clear();
+		mFrameResources.clear();
+		for (auto& frame : mPendingFrames)
+		{
+			frame.resources.clear();
+			vkDestroyFence(mDevice, frame.fence, nullptr);
+		}
+		mPendingFrames.clear();
 
 		destroyAllResources();
 
@@ -263,6 +269,16 @@ namespace MyGUI
 		ITexture* _texture,
 		size_t _count)
 	{
+		renderGeometry(_commandBuffer, _buffer, _texture, _count, mFrameResources);
+	}
+
+	void VulkanRenderManager::renderGeometry(
+		VkCommandBuffer _commandBuffer,
+		IVertexBuffer* _buffer,
+		ITexture* _texture,
+		size_t _count,
+		std::vector<std::shared_ptr<void>>& _resources)
+	{
 		const auto* buffer = static_cast<VulkanVertexBuffer*>(_buffer);
 		MYGUI_PLATFORM_ASSERT(_commandBuffer, "Command buffer is not created");
 
@@ -274,13 +290,14 @@ namespace MyGUI
 			const auto* texture = static_cast<VulkanTexture*>(_texture);
 			if (texture->getImageView() != VK_NULL_HANDLE)
 			{
+				_resources.push_back(texture->retainStorage());
 				descriptorSet = mNearestSampling ? texture->getPointDescriptorSet() : texture->getDescriptorSet();
 				if (texture->getShaderName() != "Default")
 					pipeline = getPipeline(texture->getShaderName());
 			}
 		}
 
-		mRecordedResources[_commandBuffer].push_back(buffer->retainStorage());
+		_resources.push_back(buffer->retainStorage());
 		VkBuffer vertexBuffer = buffer->getBuffer();
 		VkDeviceSize offset = 0;
 		vkCmdBindVertexBuffers(_commandBuffer, 0, 1, &vertexBuffer, &offset);
@@ -298,9 +315,55 @@ namespace MyGUI
 		vkCmdDraw(_commandBuffer, _count, 1, 0, 0);
 	}
 
-	void VulkanRenderManager::releaseCommandBufferResources(VkCommandBuffer _commandBuffer)
+	void VulkanRenderManager::retireFrameResources()
 	{
-		mRecordedResources.erase(_commandBuffer);
+		// The caller submits (or discards) each frame before recording the next one.
+		// An empty queue submission fences all earlier work on that queue, without
+		// needing access to the host's fences or command-buffer reset notifications.
+		size_t available = mPendingFrames.size();
+		for (size_t i = 0; i < mPendingFrames.size(); ++i)
+		{
+			auto& frame = mPendingFrames[i];
+			if (frame.pending)
+			{
+				const VkResult result = vkGetFenceStatus(mDevice, frame.fence);
+				MYGUI_PLATFORM_ASSERT(
+					result == VK_SUCCESS || result == VK_NOT_READY,
+					"Failed to query frame completion, VkResult=" << int(result));
+				if (result == VK_SUCCESS)
+				{
+					frame.resources.clear();
+					frame.pending = false;
+				}
+			}
+			if (!frame.pending)
+				available = i;
+		}
+		if (mFrameResources.empty())
+			return;
+
+		if (available == mPendingFrames.size())
+			mPendingFrames.emplace_back();
+		auto& frame = mPendingFrames[available];
+		if (frame.fence == VK_NULL_HANDLE)
+		{
+			VkFenceCreateInfo info{};
+			info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+			MYGUI_PLATFORM_ASSERT(
+				vkCreateFence(mDevice, &info, nullptr, &frame.fence) == VK_SUCCESS,
+				"Failed to create frame retirement fence");
+		}
+		else
+		{
+			MYGUI_PLATFORM_ASSERT(
+				vkResetFences(mDevice, 1, &frame.fence) == VK_SUCCESS,
+				"Failed to reset frame retirement fence");
+		}
+		MYGUI_PLATFORM_ASSERT(
+			vkQueueSubmit(mQueue, 0, nullptr, frame.fence) == VK_SUCCESS,
+			"Failed to submit frame retirement fence");
+		frame.pending = true;
+		frame.resources.swap(mFrameResources);
 	}
 
 	void VulkanRenderManager::begin()
@@ -338,6 +401,7 @@ namespace MyGUI
 
 	void VulkanRenderManager::drawOneFrame(VkCommandBuffer _commandBuffer)
 	{
+		retireFrameResources();
 		if (!Gui::getInstancePtr())
 			return;
 
@@ -352,7 +416,16 @@ namespace MyGUI
 
 		mCurrentCommandBuffer = _commandBuffer;
 		begin();
-		onRenderToTarget(this, mUpdate);
+		try
+		{
+			onRenderToTarget(this, mUpdate);
+		}
+		catch (...)
+		{
+			end();
+			mCurrentCommandBuffer = VK_NULL_HANDLE;
+			throw;
+		}
 		end();
 		mCurrentCommandBuffer = VK_NULL_HANDLE;
 
@@ -1005,6 +1078,7 @@ namespace MyGUI
 
 		VkDescriptorPoolCreateInfo poolInfo{};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+		poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
 		poolInfo.maxSets = poolSize;
 		poolInfo.poolSizeCount = 1;
 		poolInfo.pPoolSizes = poolSizes;

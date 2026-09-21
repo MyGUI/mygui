@@ -17,6 +17,30 @@
 namespace MyGUI
 {
 
+	struct VulkanTexture::Storage
+	{
+		VkDevice device{VK_NULL_HANDLE};
+		VmaAllocator allocator{};
+		VkDescriptorPool descriptorPool{VK_NULL_HANDLE};
+		VkImage image{VK_NULL_HANDLE};
+		VkImageView imageView{VK_NULL_HANDLE};
+		VkDescriptorSet descriptorSet{VK_NULL_HANDLE};
+		VkDescriptorSet pointDescriptorSet{VK_NULL_HANDLE};
+		VmaAllocation allocation{};
+
+		~Storage()
+		{
+			if (descriptorSet != VK_NULL_HANDLE)
+				vkFreeDescriptorSets(device, descriptorPool, 1, &descriptorSet);
+			if (pointDescriptorSet != VK_NULL_HANDLE)
+				vkFreeDescriptorSets(device, descriptorPool, 1, &pointDescriptorSet);
+			if (imageView != VK_NULL_HANDLE)
+				vkDestroyImageView(device, imageView, nullptr);
+			if (image != VK_NULL_HANDLE)
+				vmaDestroyImage(allocator, image, allocation);
+		}
+	};
+
 	VulkanTexture::VulkanTexture(const std::string& _name, VulkanImageLoader* _loader) :
 		mName(_name),
 		mImageLoader(_loader)
@@ -40,7 +64,7 @@ namespace MyGUI
 
 	void VulkanTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
 	{
-		MYGUI_PLATFORM_ASSERT(mImage == VK_NULL_HANDLE, "Texture already exist");
+		MYGUI_PLATFORM_ASSERT(!mStorage, "Texture already exist");
 
 		if (_format == PixelFormat::R8G8B8)
 		{
@@ -73,6 +97,10 @@ namespace MyGUI
 	void VulkanTexture::createImage()
 	{
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
+		auto storage = std::make_shared<Storage>();
+		storage->device = manager.getDevice();
+		storage->allocator = static_cast<VmaAllocator>(manager.getAllocator());
+		storage->descriptorPool = manager.getDescriptorPool();
 
 		VkImageCreateInfo imageInfo{};
 		imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -101,12 +129,12 @@ namespace MyGUI
 				static_cast<VmaAllocator>(manager.getAllocator()),
 				&imageInfo,
 				&allocInfo,
-				&mImage,
-				reinterpret_cast<VmaAllocation*>(&mAllocation),
+				&storage->image,
+				&storage->allocation,
 				nullptr) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to create texture image");
 
-		mImageView = manager.createImageView(mImage, VK_FORMAT_B8G8R8A8_UNORM);
+		storage->imageView = manager.createImageView(storage->image, VK_FORMAT_B8G8R8A8_UNORM);
 
 		VkDescriptorSetLayout layout = manager.getDescriptorSetLayout();
 		VkDescriptorSetAllocateInfo allocSetInfo{};
@@ -114,17 +142,17 @@ namespace MyGUI
 		allocSetInfo.descriptorPool = manager.getDescriptorPool();
 		allocSetInfo.descriptorSetCount = 1;
 		allocSetInfo.pSetLayouts = &layout;
-		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &mDescriptorSet) != VK_SUCCESS)
+		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &storage->descriptorSet) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
 
 		VkDescriptorImageInfo imageDescInfo{};
 		imageDescInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		imageDescInfo.imageView = mImageView;
+		imageDescInfo.imageView = storage->imageView;
 		imageDescInfo.sampler = manager.getSampler();
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = mDescriptorSet;
+		descriptorWrite.dstSet = storage->descriptorSet;
 		descriptorWrite.dstBinding = 0;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		descriptorWrite.descriptorCount = 1;
@@ -134,20 +162,21 @@ namespace MyGUI
 
 		allocSetInfo.descriptorSetCount = 1;
 		allocSetInfo.pSetLayouts = &layout;
-		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &mPointDescriptorSet) != VK_SUCCESS)
+		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &storage->pointDescriptorSet) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
 
 		imageDescInfo.sampler = manager.getPointSampler();
-		descriptorWrite.dstSet = mPointDescriptorSet;
+		descriptorWrite.dstSet = storage->pointDescriptorSet;
 
 		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
+		mStorage = std::move(storage);
 	}
 
 	void VulkanTexture::uploadData(const void* _data)
 	{
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
 		manager.uploadTextureData(
-			mImage,
+			mStorage->image,
 			static_cast<uint32_t>(mWidth),
 			static_cast<uint32_t>(mHeight),
 			mNumElemBytes,
@@ -164,36 +193,11 @@ namespace MyGUI
 
 		if (mBuffer)
 		{
-			delete[] (char*)mBuffer;
+			delete[] static_cast<unsigned char*>(mBuffer);
 			mBuffer = nullptr;
 		}
 
-		if (mImage != VK_NULL_HANDLE)
-		{
-			VulkanRenderManager& manager = VulkanRenderManager::getInstance();
-
-			if (mDescriptorSet != VK_NULL_HANDLE)
-			{
-				vkFreeDescriptorSets(manager.getDevice(), manager.getDescriptorPool(), 1, &mDescriptorSet);
-				mDescriptorSet = VK_NULL_HANDLE;
-			}
-			if (mPointDescriptorSet != VK_NULL_HANDLE)
-			{
-				vkFreeDescriptorSets(manager.getDevice(), manager.getDescriptorPool(), 1, &mPointDescriptorSet);
-				mPointDescriptorSet = VK_NULL_HANDLE;
-			}
-			if (mImageView != VK_NULL_HANDLE)
-			{
-				vkDestroyImageView(manager.getDevice(), mImageView, nullptr);
-				mImageView = VK_NULL_HANDLE;
-			}
-			vmaDestroyImage(
-				static_cast<VmaAllocator>(manager.getAllocator()),
-				mImage,
-				static_cast<VmaAllocation>(mAllocation));
-			mImage = VK_NULL_HANDLE;
-			mAllocation = nullptr;
-		}
+		mStorage.reset();
 
 		mWidth = 0;
 		mHeight = 0;
@@ -207,14 +211,14 @@ namespace MyGUI
 
 	void* VulkanTexture::lock(TextureUsage _access)
 	{
-		MYGUI_PLATFORM_ASSERT(mImage, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(mStorage, "Texture is not created");
 
 		mBuffer = new unsigned char[mDataSize];
 
 		if (_access == TextureUsage::Read)
 		{
 			VulkanRenderManager::getInstance().readbackImage(
-				mImage,
+				mStorage->image,
 				static_cast<uint32_t>(mWidth),
 				static_cast<uint32_t>(mHeight),
 				mNumElemBytes,
@@ -231,16 +235,16 @@ namespace MyGUI
 	{
 		if (!mLock && mBuffer)
 		{
-			delete[] (char*)mBuffer;
+			delete[] static_cast<unsigned char*>(mBuffer);
 			mBuffer = nullptr;
 			return;
 		}
 
 		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
-		MYGUI_PLATFORM_ASSERT(mImage, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(mStorage, "Texture is not created");
 
 		uploadData(mBuffer);
-		delete[] (char*)mBuffer;
+		delete[] static_cast<unsigned char*>(mBuffer);
 		mBuffer = nullptr;
 		mLock = false;
 	}
@@ -309,6 +313,30 @@ namespace MyGUI
 	{
 		return mNumElemBytes;
 	}
+	VkImage VulkanTexture::getImage() const
+	{
+		return mStorage ? mStorage->image : VK_NULL_HANDLE;
+	}
+
+	VkImageView VulkanTexture::getImageView() const
+	{
+		return mStorage ? mStorage->imageView : VK_NULL_HANDLE;
+	}
+
+	VkDescriptorSet VulkanTexture::getDescriptorSet() const
+	{
+		return mStorage ? mStorage->descriptorSet : VK_NULL_HANDLE;
+	}
+
+	VkDescriptorSet VulkanTexture::getPointDescriptorSet() const
+	{
+		return mStorage ? mStorage->pointDescriptorSet : VK_NULL_HANDLE;
+	}
+
+	std::shared_ptr<void> VulkanTexture::retainStorage() const
+	{
+		return mStorage;
+	}
 
 	IRenderTarget* VulkanTexture::getRenderTarget()
 	{
@@ -320,7 +348,7 @@ namespace MyGUI
 				manager.getCommandPool(),
 				manager.getQueue(),
 				manager.getRenderTargetRenderPass(),
-				mImageView,
+				mStorage->imageView,
 				static_cast<uint32_t>(mWidth),
 				static_cast<uint32_t>(mHeight));
 		}

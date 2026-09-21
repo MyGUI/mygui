@@ -20,6 +20,8 @@
 namespace MyGUI
 {
 
+	class VulkanRTTexture;
+
 	class VulkanRenderManager : public RenderManager, public IRenderTarget
 	{
 	public:
@@ -83,13 +85,10 @@ namespace MyGUI
 		/*internal:*/
 		/** Render MyGUI into the currently recording command buffer.
 			The render pass with the framebuffer must already be begun by the caller.
+			Submit the previous frame once on the manager's queue (or discard it) before
+			calling again. Frame resources are retired automatically after GPU completion.
 		*/
 		void drawOneFrame(VkCommandBuffer _commandBuffer);
-
-		/** Release resources retained by a completed/discarded recording. The caller must
-			wait for GPU completion and reset/free the command buffer before calling this.
-			Call before recording its next use, including after swapchain recreation. */
-		void releaseCommandBufferResources(VkCommandBuffer _commandBuffer);
 
 		/** Render pass to use when rendering MyGUI into a framebuffer */
 		VkRenderPass getRenderPass() const;
@@ -130,6 +129,14 @@ namespace MyGUI
 		VkImageView createImageView(VkImage _image, VkFormat _format);
 
 	private:
+		friend class VulkanRTTexture;
+		void renderGeometry(
+			VkCommandBuffer _commandBuffer,
+			IVertexBuffer* _buffer,
+			ITexture* _texture,
+			size_t _count,
+			std::vector<std::shared_ptr<void>>& _resources);
+		void retireFrameResources();
 		std::vector<std::byte> loadShaderBytecode(const std::string& _file);
 		VkShaderModule createShaderModule(const std::string& _file);
 		VkPipeline createShaderPipeline(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
@@ -167,7 +174,14 @@ namespace MyGUI
 		std::map<std::string, VkPipeline> mRegisteredShaders;
 
 		VkCommandBuffer mCurrentCommandBuffer = VK_NULL_HANDLE;
-		std::map<VkCommandBuffer, std::vector<std::shared_ptr<void>>> mRecordedResources;
+		std::vector<std::shared_ptr<void>> mFrameResources;
+		struct PendingFrame
+		{
+			VkFence fence{VK_NULL_HANDLE};
+			bool pending{false};
+			std::vector<std::shared_ptr<void>> resources;
+		};
+		std::vector<PendingFrame> mPendingFrames;
 
 		// 1x1 white texture used when no texture is bound
 		VkImage mWhiteImage = VK_NULL_HANDLE;

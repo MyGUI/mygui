@@ -12,6 +12,8 @@
 #include "MyGUI_RenderFormat.h"
 
 #include <vulkan/vulkan.h>
+#include <memory>
+#include <vector>
 
 namespace MyGUI
 {
@@ -44,6 +46,7 @@ namespace MyGUI
 		VkCommandBuffer mCommandBuffer{VK_NULL_HANDLE};
 		VkFence mFence{VK_NULL_HANDLE};
 		bool mPending{false};
+		std::vector<std::shared_ptr<void>> mResources;
 		uint32_t mWidth{0};
 		uint32_t mHeight{0};
 		RenderTargetInfo mRenderTargetInfo;

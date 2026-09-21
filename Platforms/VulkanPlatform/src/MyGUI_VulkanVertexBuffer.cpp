@@ -94,7 +94,7 @@ namespace MyGUI
 			"Vertex buffer is too large");
 		const size_t capacity = mNeedVertexCount + VERTEX_BUFFER_REALLOCK_STEP;
 		// Recorded draws retain the old allocation, even before their queue submission.
-		// Reuse retired storage only after the command-buffer owner reports completion.
+		// Reuse retired storage only after the backend observes GPU completion.
 		if (mStorage)
 			mAvailable.push_back(std::move(mStorage));
 		auto reusable = std::find_if(

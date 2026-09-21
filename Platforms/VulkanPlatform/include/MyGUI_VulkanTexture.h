@@ -12,6 +12,7 @@
 #include "MyGUI_VulkanImageLoader.h"
 
 #include <vulkan/vulkan.h>
+#include <memory>
 
 namespace MyGUI
 {
@@ -47,22 +48,12 @@ namespace MyGUI
 		IRenderTarget* getRenderTarget() override;
 
 		/*internal:*/
-		VkImage getImage() const
-		{
-			return mImage;
-		}
-		VkImageView getImageView() const
-		{
-			return mImageView;
-		}
-		VkDescriptorSet getDescriptorSet() const
-		{
-			return mDescriptorSet;
-		}
-		VkDescriptorSet getPointDescriptorSet() const
-		{
-			return mPointDescriptorSet;
-		}
+		VkImage getImage() const;
+		VkImageView getImageView() const;
+		VkDescriptorSet getDescriptorSet() const;
+		VkDescriptorSet getPointDescriptorSet() const;
+		// Recorded draws own the image, view and descriptors independently of this wrapper.
+		std::shared_ptr<void> retainStorage() const;
 		const std::string& getShaderName() const
 		{
 			return mShaderName;
@@ -84,11 +75,8 @@ namespace MyGUI
 		PixelFormat mOriginalFormat{PixelFormat::Unknow};
 		TextureUsage mOriginalUsage{TextureUsage::Default};
 
-		VkImage mImage{VK_NULL_HANDLE};
-		VkImageView mImageView{VK_NULL_HANDLE};
-		VkDescriptorSet mDescriptorSet{VK_NULL_HANDLE};
-		VkDescriptorSet mPointDescriptorSet{VK_NULL_HANDLE};
-		void* mAllocation{nullptr};
+		struct Storage;
+		std::shared_ptr<Storage> mStorage;
 
 		VulkanRTTexture* mRenderTarget{nullptr};
 
