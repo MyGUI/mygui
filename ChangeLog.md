@@ -90,6 +90,8 @@
 
 - Vulkan: add real-backend tests for recorded vertex lifetime, allocation retirement and rendered output without mocks
 
+- DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
+
 ### Demos
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays

@@ -63,11 +63,14 @@ namespace MyGUI
 
 	IVertexBuffer* DirectXRenderManager::createVertexBuffer()
 	{
-		return new DirectXVertexBuffer(mpD3DDevice, this);
+		auto* buffer = new DirectXVertexBuffer(mpD3DDevice, this);
+		mVertexBuffers.insert(buffer);
+		return buffer;
 	}
 
 	void DirectXRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
 	{
+		mVertexBuffers.erase(_buffer);
 		delete _buffer;
 	}
 
@@ -278,6 +281,11 @@ namespace MyGUI
 	void DirectXRenderManager::deviceLost()
 	{
 		MYGUI_PLATFORM_LOG(Info, "device D3D lost");
+		// Dynamic buffers live in the default pool and must be released before Reset.
+		// deviceRestore forces geometry rebuilding; lock lazily allocates fresh storage.
+		mpD3DDevice->SetStreamSource(0, nullptr, 0, 0);
+		for (auto* buffer : mVertexBuffers)
+			static_cast<DirectXVertexBuffer*>(buffer)->deviceLost();
 
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{

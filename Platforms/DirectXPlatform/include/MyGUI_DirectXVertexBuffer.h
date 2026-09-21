@@ -31,6 +31,7 @@ namespace MyGUI
 
 		/*internal:*/
 		virtual bool setToStream(size_t stream);
+		void deviceLost();
 
 	private:
 		void create();

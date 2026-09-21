@@ -40,11 +40,11 @@ namespace MyGUI
 
 	Vertex* DirectXVertexBuffer::lock()
 	{
-		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0 || !mpBuffer)
 			resize();
 
 		void* lockPtr = nullptr;
-		HRESULT result = mpBuffer->Lock(0, 0, (void**)&lockPtr, 0);
+		HRESULT result = mpBuffer->Lock(0, 0, (void**)&lockPtr, D3DLOCK_DISCARD);
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to lock vertex buffer (error code " << result << ").");
@@ -71,7 +71,13 @@ namespace MyGUI
 	void DirectXVertexBuffer::create()
 	{
 		DWORD length = mVertexCount * sizeof(Vertex);
-		bool created = SUCCEEDED(mpD3DDevice->CreateVertexBuffer(length, 0, 0, D3DPOOL_MANAGED, &mpBuffer, nullptr));
+		bool created = SUCCEEDED(mpD3DDevice->CreateVertexBuffer(
+			length,
+			D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY,
+			0,
+			D3DPOOL_DEFAULT,
+			&mpBuffer,
+			nullptr));
 		MYGUI_PLATFORM_ASSERT(created, "Create Buffer failed!");
 	}
 
@@ -82,6 +88,12 @@ namespace MyGUI
 			mpBuffer->Release();
 			mpBuffer = nullptr;
 		}
+	}
+
+	void DirectXVertexBuffer::deviceLost()
+	{
+		destroy();
+		mVertexCount = 0;
 	}
 
 	void DirectXVertexBuffer::resize()

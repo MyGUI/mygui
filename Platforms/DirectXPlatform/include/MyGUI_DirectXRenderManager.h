@@ -11,6 +11,7 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
+#include <set>
 
 struct IDirect3DDevice9;
 
@@ -104,6 +105,7 @@ namespace MyGUI
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
+		std::set<IVertexBuffer*> mVertexBuffers;
 
 		bool mIsInitialise;
 	};
