@@ -1,20 +1,37 @@
 #!/usr/bin/env python3
 """Prepare browser demos; optionally copy and commit them to ../mygui.info/demos/."""
 
-# Build and preview (from the repository root):
+# Build and preview (from the repository root; --build sets MYGUI_RENDERSYSTEM=8):
 # source ~/libs/emsdk/emsdk_env.sh
-# emcmake cmake -S . -B build-web -DCMAKE_BUILD_TYPE=Release -DMYGUI_RENDERSYSTEM=8 -DMYGUI_BUILD_WEB_DEMOS=ON
-# cmake --build build-web --target MyGUI_Demos --parallel
-# python3 Scripts/publish_web_demos.py build-web
+# python3 Scripts/publish_web_demos.py build-web --build
 # python3 -m http.server 8000 --bind 127.0.0.1 --directory build-web/website-combined
 # Open http://localhost:8000/
 # Copy to ../mygui.info/demos/ and commit (without pushing):
-# python3 Scripts/publish_web_demos.py build-web --commit
+# python3 Scripts/publish_web_demos.py build-web --build --commit
 
 import argparse
 from pathlib import Path
 import shutil
 import subprocess
+
+
+def build_demos(repository, build):
+    cache = build / "CMakeCache.txt"
+    if cache.exists() and "EMSCRIPTEN:INTERNAL=1" not in cache.read_text().splitlines():
+        raise ValueError(f"{build} is not an Emscripten build; choose a separate build directory")
+    if shutil.which("emcmake") is None:
+        raise ValueError("Activate Emscripten first: source ~/libs/emsdk/emsdk_env.sh")
+
+    configure = [
+        "emcmake", "cmake", "-S", str(repository), "-B", str(build),
+        "-DMYGUI_RENDERSYSTEM=8", "-DMYGUI_BUILD_WEB_DEMOS=ON",
+        "-DMYGUI_BUILD_DEMOS=ON", "-DMYGUI_BUILD_ADVANCED_DEMOS=ON",
+        "-DMYGUI_USE_FREETYPE=ON", "-DMYGUI_MSDF_FONTS=ON",
+    ]
+    if not cache.exists():
+        configure.append("-DCMAKE_BUILD_TYPE=Release")
+    subprocess.run(configure, check=True)
+    subprocess.run(["cmake", "--build", str(build), "--target", "MyGUI_Demos", "--parallel"], check=True)
 
 
 def commit_demos(site, website, names):
@@ -48,9 +65,15 @@ def commit_demos(site, website, names):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("build_dir", type=Path)
+    parser.add_argument("--build", action="store_true", help="Configure with Emscripten and build MyGUI_Demos first")
     parser.add_argument("--commit", action="store_true", help="Copy to ../mygui.info/demos/ and commit those files; do not push")
     args = parser.parse_args()
     build = args.build_dir.resolve()
+    if args.build:
+        try:
+            build_demos(Path(__file__).resolve().parents[1], build)
+        except (OSError, ValueError, subprocess.CalledProcessError) as error:
+            parser.exit(1, f"Unable to build browser demos: {error}\n")
     binaries = build / "bin"
     inputs = [binaries / ("MyGUI_Demos" + suffix) for suffix in [".html", ".js", ".wasm", ".data"]]
     for path in inputs:
