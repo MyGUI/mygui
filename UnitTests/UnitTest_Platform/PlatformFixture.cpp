@@ -290,6 +290,11 @@ namespace platformtest
 		return result;
 	}
 
+	void checkInterleavedLocks(Fixture& _fixture)
+	{
+		checkInterleavedLocks(_fixture, {});
+	}
+
 	void checkInterleavedLocks(Fixture& _fixture, const std::function<void()>& _checkState)
 	{
 		const auto checkState = [&]

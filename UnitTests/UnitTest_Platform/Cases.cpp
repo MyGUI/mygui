@@ -294,6 +294,11 @@ namespace platformtest
 			require(preserved && read(texture) == expected, "Partial read/write update must preserve untouched bytes");
 		}
 
+		void interleavedTextureLocks(Fixture& f)
+		{
+			checkInterleavedLocks(f);
+		}
+
 		void reloadRenderTargetFromFile(Fixture& f)
 		{
 			auto* texture = renderTexture(f, 3, 2);
@@ -1030,7 +1035,7 @@ namespace platformtest
 			{"resources", "rgb-read-write", readWritePattern<MyGUI::PixelFormat::R8G8B8>},
 			{"resources", "l8-read-write", readWritePattern<MyGUI::PixelFormat::L8>},
 			{"resources", "l8a8-read-write", readWritePattern<MyGUI::PixelFormat::L8A8>},
-			{"resources", "interleaved-texture-locks", [](Fixture& f) { checkInterleavedLocks(f); }},
+			{"resources", "interleaved-texture-locks", interleavedTextureLocks},
 			{"resources", "reload-render-target-from-file", reloadRenderTargetFromFile},
 			{"resources", "shared-file-texture-lifetime", sharedFileTextureLifetime},
 			{"resources", "loaded-texture-write", loadedTextureWrite},
