@@ -12,7 +12,6 @@ functionConst:*/MyGUI_Delegate.h:220
 // thirdparty
 *:*/MyGUI_UString*
 *:*/pugixml*
-*:*/sigslot*
 *:*/msdfgen*
 
 // TODO: minor
