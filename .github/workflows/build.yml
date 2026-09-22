@@ -35,6 +35,14 @@ jobs:
             platform_tests: true
             cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_TOOLS=ON
 
+          - os: ubuntu-latest
+            name: "Linux: Vulkan, all features, all apps, shared"
+            preset: full
+            rendersystem: 10
+            platform_tests: true
+            cmake_flags: -DBUILD_SHARED_LIBS=ON
+            build_jobs: 4
+
           - os: windows-latest
             name: "Windows: dx11 + GL + GL3, all features, just tools, shared"
             preset: full
@@ -70,6 +78,15 @@ jobs:
       - name: Set up Ogre
         if: runner.os == 'Linux' && matrix.rendersystem == 3
         uses: ./.github/actions/setup-ogre
+
+      - name: Set up Vulkan (Linux)
+        if: runner.os == 'Linux' && matrix.rendersystem == 10
+        run: |
+          sudo apt-get install -qq libvulkan-dev mesa-vulkan-drivers
+          # Use CPU rendering, including on runners without a GPU.
+          lavapipe_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+          test -f "${lavapipe_icds[0]}"
+          printf 'VK_DRIVER_FILES=%s\n' "${lavapipe_icds[0]}" >> "$GITHUB_ENV"
 
       - name: Install build dependencies (macOS)
         if: runner.os == 'macOS'
