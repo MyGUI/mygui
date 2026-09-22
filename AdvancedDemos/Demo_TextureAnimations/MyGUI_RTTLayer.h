@@ -11,7 +11,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_OverlappedLayer.h"
 
-namespace MyGUI
+namespace MyGUI::texture_animations_demo
 {
 
 	class /*MYGUI_EXPORT */ RTTLayer : public OverlappedLayer
@@ -36,6 +36,6 @@ namespace MyGUI
 		std::unique_ptr<xml::Element> mData;
 	};
 
-} // namespace MyGUI
+} // namespace MyGUI::texture_animations_demo
 
 #endif // MYGUI_RTT_LAYER_H_

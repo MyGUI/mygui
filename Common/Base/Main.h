@@ -16,7 +16,13 @@
 	#include <direct.h>
 #endif
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#if defined(MYGUI_APP_ENTRY)
+	#define MYGUI_APP(cls) \
+		int MYGUI_APP_ENTRY(int argc, char** argv) \
+		{ \
+			return startApp<cls>(argc, argv); \
+		}
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	#define MYGUI_APP(cls) \
 		INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) \
 		{ \

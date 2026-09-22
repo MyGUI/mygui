@@ -13,7 +13,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_LayerNode.h"
 
-namespace MyGUI
+namespace MyGUI::rtt_demo
 {
 
 	RTTLayer::~RTTLayer()
@@ -116,4 +116,4 @@ namespace MyGUI
 		mOutOfDateRtt = true;
 	}
 
-} // namespace MyGUI
+} // namespace MyGUI::rtt_demo

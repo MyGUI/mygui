@@ -12,7 +12,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_LayerNode.h"
 
-namespace MyGUI
+namespace MyGUI::layers_demo
 {
 
 	RTTLayer::~RTTLayer()
@@ -157,4 +157,4 @@ namespace MyGUI
 #endif
 	}
 
-} // namespace MyGUI
+} // namespace MyGUI::layers_demo

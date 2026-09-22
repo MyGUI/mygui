@@ -20,7 +20,7 @@ namespace demo
 	{
 		base::BaseDemoManager::createScene();
 		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::rtt_demo::RTTLayer>(layerCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Layers.xml");
 		MyGUI::LayoutManager::getInstance().loadLayout("Layers.layout");
@@ -29,7 +29,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::rtt_demo::RTTLayer>(layerCategory);
 	}
 
 } // namespace demo

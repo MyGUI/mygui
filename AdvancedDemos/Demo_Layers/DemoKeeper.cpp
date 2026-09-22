@@ -38,7 +38,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceDevice>(resourceCategory);
 
 		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::layers_demo::RTTLayer>(layerCategory);
 
 		createGround();
 		createObject();
@@ -64,7 +64,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceDevice>(resourceCategory);
 
 		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::layers_demo::RTTLayer>(layerCategory);
 
 		delete mKeyboardPanel;
 		mKeyboardPanel = nullptr;

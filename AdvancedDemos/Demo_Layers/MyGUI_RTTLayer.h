@@ -12,14 +12,14 @@
 #include "MyGUI_OverlappedLayer.h"
 #include "SceneObject.h"
 
-namespace MyGUI
+namespace MyGUI::layers_demo
 {
 
 	class RTTLayer :
 		public OverlappedLayer
 #ifdef MYGUI_OGRE_PLATFORM
 		,
-		public demo::SceneObject
+		public ::demo::SceneObject
 #endif
 	{
 		MYGUI_RTTI_DERIVED(RTTLayer)
@@ -44,6 +44,6 @@ namespace MyGUI
 		float mDpiScale{1.0f};
 	};
 
-} // namespace MyGUI
+} // namespace MyGUI::layers_demo
 
 #endif // MYGUI_RTT_LAYER_H_

@@ -11,7 +11,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_OverlappedLayer.h"
 
-namespace MyGUI
+namespace MyGUI::rtt_demo
 {
 
 	class RTTLayer : public OverlappedLayer
@@ -35,6 +35,6 @@ namespace MyGUI
 		bool mOutOfDateRtt{false};
 	};
 
-} // namespace MyGUI
+} // namespace MyGUI::rtt_demo
 
 #endif // MYGUI_RTT_LAYER_H_

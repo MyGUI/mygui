@@ -29,7 +29,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<FadeNodeAnimator>("NodeAnimator");
 
 		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::texture_animations_demo::RTTLayer>(layerCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Layers.xml");
 
@@ -42,7 +42,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<FadeNodeAnimator>("NodeAnimator");
 
 		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::texture_animations_demo::RTTLayer>(layerCategory);
 	}
 
 	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
@@ -110,7 +110,8 @@ namespace demo
 			{
 				if (layer->getName() == "RTT_Test")
 				{
-					//layer->castType<MyGUI::RTTLayer>()->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
+					//layer->castType<MyGUI::texture_animations_demo::RTTLayer>()
+					//    ->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
 				}
 			}
 		}

@@ -91,6 +91,18 @@ endfunction(mygui_app)
 
 function(mygui_demo PROJECTNAME)
 	mygui_app(${PROJECTNAME} Demos)
+	if(MYGUI_BUILD_WEB_DEMOS AND PROJECTNAME MATCHES "^Demo_")
+		get_target_property(_sources ${PROJECTNAME} SOURCES)
+		add_library(${PROJECTNAME}_web OBJECT ${_sources})
+		target_link_libraries(${PROJECTNAME}_web PRIVATE MyGUICommon)
+		# Standalone demos reuse namespace demo and define their own main().
+		# Isolate their application types and entry points in the combined executable.
+		target_compile_definitions(${PROJECTNAME}_web PRIVATE
+			"demo=mygui_web_${PROJECTNAME}"
+			"MYGUI_APP_ENTRY=mygui_start_${PROJECTNAME}"
+		)
+		set_property(GLOBAL APPEND PROPERTY MYGUI_WEB_DEMO_TARGETS ${PROJECTNAME})
+	endif()
 	if(MYGUI_INSTALL_DEMOS)
 		mygui_install_app(${PROJECTNAME})
 	endif()

@@ -10,7 +10,7 @@
 
 #include "MyGUI_FactoryManager.h"
 
-namespace MyGUI
+namespace MyGUI::texture_animations_demo
 {
 
 	RTTLayer::~RTTLayer()
@@ -156,4 +156,4 @@ namespace MyGUI
 		return nullptr;
 	}
 
-} // namespace MyGUI
+} // namespace MyGUI::texture_animations_demo

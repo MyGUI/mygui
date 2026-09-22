@@ -1,0 +1,81 @@
+// Each selection starts a fresh runtime while reusing the same cached JS, Wasm and assets.
+(() => {
+	const demos = @MYGUI_WEB_DEMO_NAMES@;
+	const url = new URL(location.href);
+	const requested = url.searchParams.get('demo');
+	const selected = demos.includes(requested) ? requested : demos[0];
+	Module['arguments'] = [selected];
+	document.title = 'MyGUI — ' + selected;
+
+	const notes = {
+		Demo_Layers: 'Requires Ogre; this demo has no visible scene in the browser.',
+		Demo_RenderBox: 'Camera and model previews require Ogre and are empty in the browser.',
+		Demo_GraphView: 'The graph editor is available; the Ogre animation preview is unavailable.',
+		Demo_Gui: 'The optional Ogre 3D scene is unavailable.',
+		Demo_Pointers: 'The optional Ogre 3D scene and ray picking are unavailable.'
+	};
+	const style = document.createElement('style');
+	style.textContent = `
+		#demo-controls {
+			position: fixed;
+			top: 12px;
+			right: 12px;
+			z-index: 1;
+			display: grid;
+			grid-template-columns: auto minmax(0, 1fr);
+			align-items: center;
+			gap: 8px;
+			width: min(256px, calc(100vw - 24px));
+			padding: 8px;
+			border: 1px solid #394653;
+			background: #0e141d;
+		}
+		#demo-controls label {
+			color: #a5b7c2;
+			font-size: 13px;
+		}
+		#demo-selector {
+			width: 100%;
+			min-height: 32px;
+			padding: 5px 8px;
+			border: 1px solid #54616d;
+			border-radius: 0;
+			background: #18212c;
+			color: #e5eff2;
+			color-scheme: dark;
+			font: 14px system-ui, sans-serif;
+			cursor: pointer;
+		}
+		#demo-selector:hover { border-color: #a5b7c2; }
+		#demo-selector:focus-visible { outline: 2px solid #a5b7c2; outline-offset: 2px; }
+		#demo-controls p { grid-column: 1 / -1; margin: 0; color: #a5b7c2; font-size: 12px; line-height: 1.5; }
+	`;
+	document.head.append(style);
+	const controls = document.createElement('div');
+	controls.id = 'demo-controls';
+	const label = document.createElement('label');
+	label.htmlFor = 'demo-selector';
+	label.textContent = 'Demo';
+	const selector = document.createElement('select');
+	selector.id = 'demo-selector';
+	for (const name of demos) {
+		const option = new Option(name.replace(/^Demo_/, '').replaceAll('_', ' '), name);
+		option.selected = name === selected;
+		selector.add(option);
+	}
+	selector.addEventListener('change', () => {
+		url.searchParams.set('demo', selector.value);
+		location.href = url.href;
+	});
+	// SDL listens on window; let the native selector handle its own keyboard input.
+	for (const event of ['keydown', 'keyup', 'keypress']) {
+		selector.addEventListener(event, event => event.stopPropagation());
+	}
+	controls.append(label, selector);
+	if (notes[selected]) {
+		const note = document.createElement('p');
+		note.textContent = notes[selected];
+		controls.append(note);
+	}
+	document.body.append(controls);
+})();

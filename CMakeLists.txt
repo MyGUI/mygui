@@ -67,6 +67,7 @@ endif()
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_ADVANCED_DEMOS "Build advanced MyGUI demos" TRUE)
+cmake_dependent_option(MYGUI_BUILD_WEB_DEMOS "Build a combined browser demo application" FALSE "EMSCRIPTEN" FALSE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_UNITTESTS "Build the unit tests" TRUE)
 option(MYGUI_BUILD_PLATFORM_TESTS "Build shared native graphics platform tests" FALSE)
@@ -165,6 +166,10 @@ endif()
 
 if(MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(AdvancedDemos)
+endif()
+
+if(MYGUI_BUILD_WEB_DEMOS)
+	include(WebDemos)
 endif()
 
 if(MYGUI_BUILD_UNITTESTS)

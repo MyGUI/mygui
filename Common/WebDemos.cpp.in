@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string_view>
+
+@MYGUI_WEB_DEMO_DECLARATIONS@
+int main(int argc, char** argv)
+{
+	struct Demo
+	{
+		std::string_view name;
+		int (*run)(int, char**);
+	};
+	const Demo demos[] = {
+@MYGUI_WEB_DEMO_ENTRIES@	};
+
+	if (argc == 2)
+	{
+		for (const auto& demo : demos)
+		{
+			if (demo.name == argv[1])
+				return demo.run(1, argv);
+		}
+	}
+	std::cerr << "Select a demo using the browser demo selector." << std::endl;
+	return 1;
+}
