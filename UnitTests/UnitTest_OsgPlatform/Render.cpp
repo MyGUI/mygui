@@ -34,6 +34,9 @@ namespace
 			graphics = new base::GraphicsWindowSDL2(window);
 			require(graphics->valid() && graphics->realize(), SDL_GetError());
 			require((SDL_GetWindowFlags(window) & SDL_WINDOW_HIDDEN) != 0, "Realize must keep test windows hidden");
+			// Keep drawing errors pending for our readback assertion instead of
+			// letting OSG consume them and merely print a warning.
+			graphics->getState()->setCheckForGLErrors(osg::State::NEVER_CHECK_GL_ERRORS);
 			graphics->setBeforeSwapCallback(
 				[this]
 				{
@@ -79,11 +82,15 @@ namespace
 			const int previousCaptures = captures;
 			viewer->frame();
 			require(captures == previousCaptures + 1, "Each frame must invoke the callback before swapping");
-			require(glError == GL_NO_ERROR, "Rendering must not generate OpenGL errors");
+			require(
+				glError == GL_NO_ERROR,
+				"Rendering generated OpenGL error " + std::to_string(glError) + "; capture " +
+					std::to_string(captures));
 			if (pixel[0] != red || pixel[1] != green || pixel[2] != blue)
 				throw std::runtime_error(
 					"Unexpected framebuffer pixel: " + std::to_string(pixel[0]) + "," + std::to_string(pixel[1]) + "," +
-					std::to_string(pixel[2]));
+					std::to_string(pixel[2]) + "; expected " + std::to_string(red) + "," + std::to_string(green) + "," +
+					std::to_string(blue) + "; capture " + std::to_string(captures));
 		}
 		SDL_Window* window = nullptr;
 		osg::ref_ptr<base::GraphicsWindowSDL2> graphics;
@@ -117,6 +124,56 @@ namespace
 		manager.begin();
 		manager.doRender(&buffer, texture, 6);
 		manager.end();
+	}
+
+	void testFirstFrameWithExternalState()
+	{
+		unittest::OsgTestContext gui;
+		auto& manager = gui.render();
+		manager.getGuiRoot()->setUpdateCallback(nullptr);
+		RenderContext graphics(gui.root);
+		// Reproduce a host using OSG's GL2 defaults without changing the OSG build.
+		graphics.graphics->getState()->setUseModelViewAndProjectionUniforms(false);
+		MyGUI::OsgVertexBuffer buffer;
+		fillQuad(buffer, 0xff0000ff);
+		submit(manager, buffer);
+		graphics.expect(255, 0, 0);
+	}
+
+	void testGlErrorDetection()
+	{
+		unittest::OsgTestContext gui;
+		auto& manager = gui.render();
+		manager.getGuiRoot()->setUpdateCallback(nullptr);
+		RenderContext graphics(gui.root);
+		MyGUI::OsgVertexBuffer buffer;
+		fillQuad(buffer, 0xff0000ff);
+		submit(manager, buffer);
+		graphics.expect(255, 0, 0);
+
+		class InvalidOperation : public osg::Camera::DrawCallback
+		{
+		public:
+			void operator()(osg::RenderInfo&) const override
+			{
+				// Invalid on both profiles, without changing any valid GL state.
+				glEnable(static_cast<GLenum>(~0u));
+			}
+		};
+		manager.getGuiRoot()->setPostDrawCallback(new InvalidOperation);
+		bool rejected = false;
+		try
+		{
+			graphics.expect(255, 0, 0);
+		}
+		catch (const std::runtime_error&)
+		{
+			rejected = true;
+		}
+		require(graphics.glError == GL_INVALID_ENUM, "The frame assertion must see the injected GL error");
+		require(rejected, "Correct framebuffer pixels must not hide an OpenGL error");
+		manager.getGuiRoot()->setPostDrawCallback(nullptr);
+		graphics.expect(255, 0, 0);
 	}
 
 	void testRepeatedAndDelayedDraws()
@@ -499,6 +556,8 @@ namespace
 int runOsgRenderTests()
 {
 	return unittest::runTests({
+		{"First frame with external OSG state", testFirstFrameWithExternalState},
+		{"OpenGL error detection and recovery", testGlErrorDetection},
 		{"Repeated draws, independent contexts and delayed snapshots", testRepeatedAndDelayedDraws},
 		{"SDL drawable resize and borrowed window lifetime", testWindowResizeAndLifetime},
 		{"GUI state changes preserve retained drawables", testRetainedGuiState},

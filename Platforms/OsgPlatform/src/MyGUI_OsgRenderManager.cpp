@@ -83,7 +83,15 @@ namespace MyGUI
 		// arrays, so the GUI is rendered by a shader on any OpenGL profile. The
 		// shader is expected to use the osg_ModelViewProjectionMatrix uniform,
 		// which is kept in sync here like osgText does.
-		state->setUseModelViewAndProjectionUniforms(true);
+		if (!state->getUseModelViewAndProjectionUniforms())
+		{
+			// An external GL2 host may have traversed its cameras before enabling
+			// uniforms. Enabling updates alone leaves the first draw with stale values.
+			state->setUseModelViewAndProjectionUniforms(true);
+			state->getModelViewMatrixUniform()->set(state->getModelViewMatrix());
+			state->getProjectionMatrixUniform()->set(state->getProjectionMatrix());
+			state->updateModelViewAndProjectionMatrixUniforms();
+		}
 		state->applyModelViewAndProjectionUniformsIfRequired();
 
 		osg::GLExtensions* extensions = state->get<osg::GLExtensions>();

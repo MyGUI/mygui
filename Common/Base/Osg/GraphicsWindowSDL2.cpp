@@ -11,8 +11,14 @@ namespace base
 		// Set before SDL_CreateWindow, so SDL chooses a matching pixel format too.
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+#if OSG_GL3_FEATURES
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+#else
+		// GL2-built OSG still applies fixed-function state, even for shader drawables.
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
+#endif
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	}
 
@@ -31,6 +37,8 @@ namespace base
 			return;
 
 		setState(new osg::State);
+		// Camera traversal must update shader matrices from the very first frame.
+		getState()->setUseModelViewAndProjectionUniforms(true);
 		getState()->setGraphicsContext(this);
 		getState()->setContextID(osg::GraphicsContext::createNewContextID());
 		updateDrawableSize();

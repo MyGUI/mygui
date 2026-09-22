@@ -8,7 +8,12 @@ if(TARGET MyGUICommon AND MYGUI_RENDERSYSTEM EQUAL 11)
 	target_link_libraries(UnitTest_OsgPlatform PRIVATE MyGUICommon)
 	target_compile_definitions(UnitTest_OsgPlatform PRIVATE MYGUI_OSG_RENDER_TESTS)
 	add_test(NAME UnitTest_OsgRendering COMMAND UnitTest_OsgPlatform --render)
-	set_tests_properties(UnitTest_OsgRendering PROPERTIES LABELS "graphics" RUN_SERIAL TRUE)
+	# Some OSG initialization checks consume GL errors even when per-frame checks
+	# are disabled. Treat their diagnostics as failures as well as pixel assertions.
+	set_tests_properties(UnitTest_OsgRendering PROPERTIES
+		LABELS "graphics" RUN_SERIAL TRUE
+		ENVIRONMENT "OSG_NOTIFY_LEVEL=NOTICE"
+		FAIL_REGULAR_EXPRESSION "Warning: detected OpenGL error")
 else()
 	target_link_libraries(UnitTest_OsgPlatform PRIVATE MyGUI.OsgPlatform)
 endif()
