@@ -21,7 +21,6 @@ namespace unittest
 		MyGUI::MultiListBox* original_list;
 		Mirror_MultiList mirror_list;
 		std::mt19937& mRandom;
-		std::string mOperation{"initial state"};
 		size_t count_items;
 		size_t count_columns;
 
@@ -60,36 +59,36 @@ namespace unittest
 
 		void checkMultiList()
 		{
-			checkEqual(original_list->getItemCount(), count_items, mOperation + ": MultiListBox item count");
-			checkEqual(original_list->getColumnCount(), count_columns, mOperation + ": MultiListBox column count");
-			checkEqual(mirror_list.getItemCount(), count_items, mOperation + ": reference item count");
-			checkEqual(mirror_list.getColumnCount(), count_columns, mOperation + ": reference column count");
+			checkEqual(original_list->getItemCount(), count_items, "MultiListBox item count");
+			checkEqual(original_list->getColumnCount(), count_columns, "MultiListBox column count");
+			checkEqual(mirror_list.getItemCount(), count_items, "Reference item count");
+			checkEqual(mirror_list.getColumnCount(), count_columns, "Reference column count");
 			for (size_t item = 0; item < count_items; ++item)
 			{
-				const auto row = MyGUI::utility::toString(mOperation, ": MultiListBox item ", item);
-				checkEqual(original_list->getItemNameAt(item), mirror_list.getItemNameAt(item), row + " name");
+				checkEqual(
+					original_list->getItemNameAt(item),
+					mirror_list.getItemNameAt(item),
+					"MultiListBox item name");
 				checkData(
 					original_list->getItemDataAt<size_t>(item, false),
 					mirror_list.getItemDataAt<size_t>(item, false),
-					row + " data");
+					"MultiListBox item data");
 				for (size_t column = 0; column < count_columns; ++column)
 				{
-					const auto cell = MyGUI::utility::toString(row, ", column ", column);
 					checkEqual(
 						original_list->getSubItemNameAt(column, item),
 						mirror_list.getSubItemNameAt(column, item),
-						cell + " name");
+						"MultiListBox cell name");
 					checkData(
 						original_list->getSubItemDataAt<size_t>(column, item, false),
 						mirror_list.getSubItemDataAt<size_t>(column, item, false),
-						cell + " data");
+						"MultiListBox cell data");
 				}
 			}
 		}
 
 		void Begin()
 		{
-			mOperation = "Begin";
 			if (count_columns == 0)
 				return;
 			size_t count = original_list->getItemCount();
@@ -113,7 +112,6 @@ namespace unittest
 
 		void AddItem()
 		{
-			mOperation = "AddItem";
 			if (count_columns == 0)
 				return;
 
@@ -136,7 +134,6 @@ namespace unittest
 
 		void InsertItem()
 		{
-			mOperation = "InsertItem";
 			if (count_columns == 0)
 				return;
 
@@ -162,7 +159,6 @@ namespace unittest
 
 		void RemoveItem()
 		{
-			mOperation = "RemoveItem";
 			if (count_columns == 0)
 				return;
 			if (count_items == 0)
@@ -189,7 +185,6 @@ namespace unittest
 
 		void SwapItems()
 		{
-			mOperation = "SwapItems";
 			if (count_columns == 0)
 				return;
 			if (count_items == 0)
@@ -215,8 +210,6 @@ namespace unittest
 
 		void sortColumn(size_t _column, bool _descending)
 		{
-			mOperation =
-				MyGUI::utility::toString("SortItems column ", _column, _descending ? " descending" : " ascending");
 			std::vector<MyGUI::UString> expected;
 			for (size_t item = 0; item < count_items; ++item)
 				expected.push_back(mirror_list.getSubItemNameAt(_column, item));
@@ -229,7 +222,7 @@ namespace unittest
 			// The backward argument reverses the current direction, rather than setting it.
 			if (_descending)
 				original_list->sortByColumn(_column, true);
-			checkEqual(original_list->getIndexSelected(), selected, mOperation + ": selected logical item");
+			checkEqual(original_list->getIndexSelected(), selected, "Selected logical item");
 			checkMultiList(); // Sorting must preserve logical row indices and data in every column.
 
 			// Public MultiListBox indices stay logical; inspect the column ListBox for display order.
@@ -238,17 +231,14 @@ namespace unittest
 			{
 				if (auto* list = child->castType<MyGUI::ListBox>(false))
 				{
-					require(displayed == nullptr, mOperation + ": multiple column lists");
+					require(displayed == nullptr, "Multiple column lists");
 					displayed = list;
 				}
 			}
-			require(displayed != nullptr, mOperation + ": missing column list");
-			checkEqual(displayed->getItemCount(), expected.size(), mOperation + ": displayed item count");
+			require(displayed != nullptr, "Missing column list");
+			checkEqual(displayed->getItemCount(), expected.size(), "Displayed item count");
 			for (size_t item = 0; item < expected.size(); ++item)
-				checkEqual(
-					displayed->getItemNameAt(item),
-					expected[item],
-					MyGUI::utility::toString(mOperation, ": displayed item ", item));
+				checkEqual(displayed->getItemNameAt(item), expected[item], "Displayed item");
 		}
 
 		void testSorting()
@@ -305,7 +295,6 @@ namespace unittest
 
 		void ChangeItems()
 		{
-			mOperation = "ChangeItems";
 			if (count_columns == 0)
 				return;
 			if (count_items == 0)
@@ -334,7 +323,6 @@ namespace unittest
 
 		void RemoveAllItems()
 		{
-			mOperation = "RemoveAllItems";
 			if (count_columns == 0)
 				return;
 

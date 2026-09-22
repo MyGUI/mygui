@@ -20,7 +20,6 @@ namespace unittest
 		MyGUI::ListBox* original_list;
 		Mirror_List mirror_list;
 		std::mt19937& mRandom;
-		std::string mOperation{"initial state"};
 		size_t count_items;
 
 	public:
@@ -42,23 +41,21 @@ namespace unittest
 
 		void checkList()
 		{
-			checkEqual(original_list->getItemCount(), count_items, mOperation + ": ListBox item count");
-			checkEqual(mirror_list.getItemCount(), count_items, mOperation + ": reference item count");
+			checkEqual(original_list->getItemCount(), count_items, "ListBox item count");
+			checkEqual(mirror_list.getItemCount(), count_items, "Reference item count");
 			for (size_t item = 0; item < count_items; ++item)
 			{
-				const auto where = MyGUI::utility::toString(mOperation, ": ListBox item ", item);
-				checkEqual(original_list->getItemNameAt(item), mirror_list.getItemNameAt(item), where + " name");
+				checkEqual(original_list->getItemNameAt(item), mirror_list.getItemNameAt(item), "ListBox item name");
 				checkData(
 					original_list->getItemDataAt<size_t>(item, false),
 					mirror_list.getItemDataAt<size_t>(item, false),
-					where + " data");
+					"ListBox item data");
 			}
 			original_list->_checkAlign();
 		}
 
 		void Begin()
 		{
-			mOperation = "Begin";
 			size_t count = original_list->getItemCount();
 			if (count == 0)
 				return;
@@ -79,7 +76,6 @@ namespace unittest
 
 		void AddItem()
 		{
-			mOperation = "AddItem";
 			size_t item = mRandom();
 			mirror_list.addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
@@ -99,7 +95,6 @@ namespace unittest
 
 		void InsertItem()
 		{
-			mOperation = "InsertItem";
 			size_t index = count_items == 0 ? 0 : (mRandom() % count_items);
 			size_t item = mRandom();
 
@@ -122,7 +117,6 @@ namespace unittest
 
 		void RemoveItem()
 		{
-			mOperation = "RemoveItem";
 			if (count_items == 0)
 				return;
 
@@ -147,7 +141,6 @@ namespace unittest
 
 		void RemoveAllItems()
 		{
-			mOperation = "RemoveAllItems";
 			mirror_list.removeAllItems();
 			original_list->removeAllItems();
 
