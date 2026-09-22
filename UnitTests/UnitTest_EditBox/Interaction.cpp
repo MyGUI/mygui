@@ -25,7 +25,7 @@ void testEditBoxDragAutoscroll()
 	using unittest::require;
 	unittest::SkinTestContext context;
 	context.loadSkins();
-	context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+	unittest::loadMedia("MyGUI_BlueWhiteTemplates.xml");
 	unittest::registerFixedFont();
 	unittest::createInputLayer();
 	MyGUI::FactoryManager::getInstance().registerFactory<interaction::InteractiveEdit>(
@@ -100,7 +100,7 @@ void testEditBoxInteractions()
 	using interaction::InteractiveEdit;
 	unittest::SkinTestContext context;
 	context.loadSkins();
-	context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+	unittest::loadMedia("MyGUI_BlueWhiteTemplates.xml");
 	unittest::registerFixedFont();
 	unittest::createInputLayer();
 	MyGUI::FactoryManager::getInstance().registerFactory<InteractiveEdit>(

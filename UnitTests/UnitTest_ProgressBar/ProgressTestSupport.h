@@ -26,7 +26,7 @@ namespace unittest
 		explicit ProgressFixture(bool _fill)
 		{
 			context.loadSkins();
-			context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+			loadMedia("MyGUI_BlueWhiteTemplates.xml");
 			createInputLayer();
 			MyGUI::FactoryManager::getInstance().registerFactory<TestProgress>(
 				MyGUI::WidgetManager::getInstance().getCategoryName());

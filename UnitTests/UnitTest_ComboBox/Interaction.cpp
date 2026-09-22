@@ -30,7 +30,7 @@ namespace
 		{
 			context.loadSkins();
 			unittest::registerFixedFont();
-			context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+			unittest::loadMedia("MyGUI_BlueWhiteTemplates.xml");
 			unittest::createInputLayer();
 			auto* popup = MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
 			popup->castType<MyGUI::OverlappedLayer>()->setPick(true);
@@ -138,7 +138,7 @@ void testComboBoxInteractions()
 	unittest::SkinTestContext context;
 	context.loadSkins();
 	unittest::registerFixedFont();
-	context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+	unittest::loadMedia("MyGUI_BlueWhiteTemplates.xml");
 	unittest::createInputLayer();
 	auto* popup = MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
 	popup->castType<MyGUI::OverlappedLayer>()->setPick(true);

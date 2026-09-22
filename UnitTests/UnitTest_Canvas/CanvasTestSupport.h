@@ -147,11 +147,7 @@ namespace unittest
 			renderer.setViewSize(800, 600);
 			gui.initialise("");
 			createInputLayer();
-			MyGUI::xml::Document document;
-			require(
-				document.open(std::string(MYGUI_WIDGET_MEDIA_ROOT) + "/MyGUI_BlueWhiteSkins.xml"),
-				"Cannot load canvas skin");
-			MyGUI::ResourceManager::getInstance().loadFromXmlNode(document.getRoot(), "", MyGUI::Version(1, 1));
+			loadMedia("MyGUI_BlueWhiteSkins.xml");
 			canvas = gui.createWidget<MyGUI::Canvas>(
 				"WhiteSkin",
 				MyGUI::IntCoord(20, 20, 65, 33),

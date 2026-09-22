@@ -11,7 +11,7 @@ void testMenuMutations()
 	unittest::SkinTestContext context;
 	context.loadSkins();
 	unittest::registerFixedFont();
-	context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+	unittest::loadMedia("MyGUI_BlueWhiteTemplates.xml");
 	unittest::createInputLayer();
 	auto* layer = MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
 	layer->castType<MyGUI::OverlappedLayer>()->setPick(true);
@@ -93,7 +93,7 @@ void testMenuInteractions()
 	unittest::SkinTestContext context;
 	context.loadSkins();
 	unittest::registerFixedFont();
-	context.loadMedia("MyGUI_BlueWhiteTemplates.xml");
+	unittest::loadMedia("MyGUI_BlueWhiteTemplates.xml");
 	unittest::createInputLayer();
 	auto* layer = MyGUI::LayerManager::getInstance().createLayerAt("Popup", "OverlappedLayer", 1);
 	layer->castType<MyGUI::OverlappedLayer>()->setPick(true);

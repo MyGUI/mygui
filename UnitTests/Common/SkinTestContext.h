@@ -13,6 +13,13 @@
 namespace unittest
 {
 
+	inline void loadMedia(const std::string& _filename)
+	{
+		MyGUI::xml::Document document;
+		require(document.open(std::string(MYGUI_WIDGET_MEDIA_ROOT) + "/" + _filename), "Cannot load MyGUI media skins");
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(document.getRoot(), "", MyGUI::Version(1, 1));
+	}
+
 	// The headless test needs the real atlas dimensions for UV conversion, but never samples pixels.
 	class AtlasTexture : public MyGUI::ITexture
 	{
@@ -207,15 +214,6 @@ namespace unittest
 		{
 			loadMedia("MyGUI_CommonSkins.xml");
 			loadMedia("MyGUI_BlueWhiteSkins.xml");
-		}
-
-		void loadMedia(const std::string& _filename)
-		{
-			MyGUI::xml::Document document;
-			require(
-				document.open(std::string(MYGUI_WIDGET_MEDIA_ROOT) + "/" + _filename),
-				"Cannot load MyGUI media skins");
-			MyGUI::ResourceManager::getInstance().loadFromXmlNode(document.getRoot(), "", MyGUI::Version(1, 1));
 		}
 
 		SkinRenderManager& renderer()
