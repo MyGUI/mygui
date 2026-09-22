@@ -54,7 +54,7 @@ namespace MyGUI
 		mPixelFormat = _format;
 		mInternalPool = D3DPOOL_MANAGED;
 
-		if (mTextureUsage == TextureUsage::RenderTarget)
+		if (mTextureUsage.isValue(TextureUsage::RenderTarget))
 		{
 			mInternalUsage |= D3DUSAGE_RENDERTARGET;
 			mInternalPool = D3DPOOL_DEFAULT;
@@ -113,6 +113,9 @@ namespace MyGUI
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::R8G8B8A8;
 		mNumElemBytes = 4;
+		mInternalUsage = 0;
+		mInternalPool = D3DPOOL_MANAGED;
+		mInternalFormat = D3DFMT_A8R8G8B8;
 
 		std::string fullnameUtf8 = DirectXDataManager::getInstance().getDataPath(_filename);
 		const auto fullname = MyGUI::utility::toPath(fullnameUtf8);
@@ -243,6 +246,22 @@ namespace MyGUI
 
 	void DirectXTexture::destroy()
 	{
+		if (mLock)
+		{
+			if (mStagingSurface)
+				mStagingSurface->UnlockRect();
+			else
+				mpTexture->UnlockRect(0);
+			mLock = false;
+		}
+		if (mStagingSurface)
+		{
+			mStagingSurface->Release();
+			mStagingSurface = nullptr;
+		}
+		mWriteLock = false;
+		mLockedRect = {};
+		mLockBuffer.clear();
 		delete mRenderTarget;
 		mRenderTarget = nullptr;
 
@@ -274,28 +293,111 @@ namespace MyGUI
 
 	void* DirectXTexture::lock(TextureUsage _access)
 	{
-		D3DLOCKED_RECT d3dlr;
-		int lockFlag = (_access == TextureUsage::Write) ? D3DLOCK_DISCARD : D3DLOCK_READONLY;
+		MYGUI_PLATFORM_ASSERT(mpTexture, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(!mLock, "Texture is already locked");
+		const bool read = _access.isValue(TextureUsage::Read);
+		const bool write = _access.isValue(TextureUsage::Write);
+		MYGUI_PLATFORM_ASSERT(read || write, "Texture lock requires read or write access");
+		DWORD lockFlag = write ? 0 : D3DLOCK_READONLY;
+		if (write && !read && (mInternalUsage & D3DUSAGE_DYNAMIC) != 0)
+			lockFlag = D3DLOCK_DISCARD;
 
-		HRESULT result = mpTexture->LockRect(0, &d3dlr, nullptr, lockFlag);
+		HRESULT result;
+		if ((mInternalUsage & D3DUSAGE_RENDERTARGET) != 0)
+		{
+			// Default-pool render targets are not lockable. Use a matching system-memory
+			// surface, refreshing it from the GPU for every read or read/write lock.
+			if (!mStagingSurface)
+			{
+				result = mpD3DDevice->CreateOffscreenPlainSurface(
+					mSize.width,
+					mSize.height,
+					mInternalFormat,
+					D3DPOOL_SYSTEMMEM,
+					&mStagingSurface,
+					nullptr);
+				MYGUI_PLATFORM_ASSERT(SUCCEEDED(result), "Failed to create texture staging surface: " << result);
+			}
+			if (read)
+			{
+				IDirect3DSurface9* surface = nullptr;
+				result = mpTexture->GetSurfaceLevel(0, &surface);
+				MYGUI_PLATFORM_ASSERT(SUCCEEDED(result), "Failed to get render target surface: " << result);
+				result = mpD3DDevice->GetRenderTargetData(surface, mStagingSurface);
+				surface->Release();
+				MYGUI_PLATFORM_ASSERT(SUCCEEDED(result), "Failed to read render target pixels: " << result);
+			}
+			result = mStagingSurface->LockRect(&mLockedRect, nullptr, lockFlag);
+		}
+		else
+			result = mpTexture->LockRect(0, &mLockedRect, nullptr, lockFlag);
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to lock texture (error code " << result << ").");
 		}
 
+		const size_t rowBytes = size_t(mSize.width) * mNumElemBytes;
+		try
+		{
+			MYGUI_PLATFORM_ASSERT(
+				mLockedRect.pBits && mLockedRect.Pitch >= 0 && size_t(mLockedRect.Pitch) >= rowBytes,
+				"Invalid texture lock pitch");
+			if (size_t(mLockedRect.Pitch) != rowBytes)
+			{
+				// ITexture::lock exposes tightly packed pixels, not the driver's row padding.
+				mLockBuffer.resize(rowBytes * size_t(mSize.height));
+				if (read)
+				{
+					const auto* source = static_cast<const unsigned char*>(mLockedRect.pBits);
+					for (size_t y = 0; y < size_t(mSize.height); ++y)
+						memcpy(mLockBuffer.data() + y * rowBytes, source + y * size_t(mLockedRect.Pitch), rowBytes);
+				}
+			}
+		}
+		catch (...)
+		{
+			if (mStagingSurface)
+				mStagingSurface->UnlockRect();
+			else
+				mpTexture->UnlockRect(0);
+			mLockedRect = {};
+			throw;
+		}
+
+		mWriteLock = write;
 		mLock = true;
-		return d3dlr.pBits;
+		return size_t(mLockedRect.Pitch) == rowBytes ? mLockedRect.pBits : mLockBuffer.data();
 	}
 
 	void DirectXTexture::unlock()
 	{
-		HRESULT result = mpTexture->UnlockRect(0);
+		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
+		const size_t rowBytes = size_t(mSize.width) * mNumElemBytes;
+		if (mWriteLock && size_t(mLockedRect.Pitch) != rowBytes)
+		{
+			auto* destination = static_cast<unsigned char*>(mLockedRect.pBits);
+			for (size_t y = 0; y < size_t(mSize.height); ++y)
+				memcpy(destination + y * size_t(mLockedRect.Pitch), mLockBuffer.data() + y * rowBytes, rowBytes);
+		}
+		HRESULT result = mStagingSurface ? mStagingSurface->UnlockRect() : mpTexture->UnlockRect(0);
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to unlock texture (error code " << result << ").");
 		}
 
 		mLock = false;
+		const bool write = mWriteLock;
+		mWriteLock = false;
+		mLockedRect = {};
+		if (mStagingSurface && write)
+		{
+			IDirect3DSurface9* surface = nullptr;
+			result = mpTexture->GetSurfaceLevel(0, &surface);
+			MYGUI_PLATFORM_ASSERT(SUCCEEDED(result), "Failed to get render target surface: " << result);
+			result = mpD3DDevice->UpdateSurface(mStagingSurface, nullptr, surface, nullptr);
+			surface->Release();
+			MYGUI_PLATFORM_ASSERT(SUCCEEDED(result), "Failed to upload render target pixels: " << result);
+		}
 	}
 
 	bool DirectXTexture::isLocked() const
@@ -474,7 +576,7 @@ namespace MyGUI
 
 	IRenderTarget* DirectXTexture::getRenderTarget()
 	{
-		if (mpTexture == nullptr)
+		if (mpTexture == nullptr || (mInternalUsage & D3DUSAGE_RENDERTARGET) == 0)
 			return nullptr;
 
 		if (mRenderTarget == nullptr)

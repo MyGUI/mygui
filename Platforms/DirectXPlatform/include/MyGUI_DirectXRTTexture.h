@@ -11,6 +11,7 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IRenderTarget.h"
+#include <d3d9.h>
 
 struct IDirect3DDevice9;
 struct IDirect3DTexture9;
@@ -40,6 +41,8 @@ namespace MyGUI
 		IDirect3DTexture9* mpTexture;
 		IDirect3DSurface9* mpRenderSurface;
 		IDirect3DSurface9* mpBackBuffer;
+		D3DVIEWPORT9 mSavedViewport{};
+		bool mOwnScene{false};
 		RenderTargetInfo mRenderTargetInfo;
 	};
 

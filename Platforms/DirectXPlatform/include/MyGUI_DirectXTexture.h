@@ -13,6 +13,7 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_DirectXDiagnostic.h"
+#include <vector>
 
 namespace MyGUI
 {
@@ -63,6 +64,10 @@ namespace MyGUI
 		PixelFormat mPixelFormat;
 		size_t mNumElemBytes;
 		bool mLock;
+		bool mWriteLock{false};
+		D3DLOCKED_RECT mLockedRect{};
+		IDirect3DSurface9* mStagingSurface{nullptr};
+		std::vector<unsigned char> mLockBuffer;
 		std::string mName;
 		IRenderTarget* mRenderTarget;
 		D3DPOOL mInternalPool;

@@ -121,6 +121,32 @@ namespace platformtest
 					f.expect(x * 40 + 20, y * 64 + 32, expected[size_t(y * 3 + x)]);
 		}
 
+		void readWritePattern(Fixture& f, MyGUI::PixelFormat format)
+		{
+			const auto usage = MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
+			requireSupport(f, format, usage);
+			for (int width : {1, 3, 5})
+			{
+				auto* texture = f.texture();
+				texture->createManual(width, 3, usage, format);
+				std::vector<unsigned char> expected(size_t(width) * 3 * texture->getNumElemBytes());
+				for (size_t i = 0; i < expected.size(); ++i)
+					expected[i] = static_cast<unsigned char>(17 + i * 7);
+				upload(texture, expected);
+				require(read(texture) == expected, "Odd-width readback must be tightly packed");
+				auto* bytes =
+					static_cast<unsigned char*>(texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
+				require(bytes != nullptr, "Read/write lock must succeed");
+				const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
+				bytes[expected.size() - 1] = 93;
+				expected.back() = 93;
+				texture->unlock();
+				require(
+					preserved && read(texture) == expected,
+					"Partial update must preserve every other byte across padded rows");
+			}
+		}
+
 		MyGUI::ITexture* renderTexture(Fixture& f, int width, int height)
 		{
 			requireSupport(f, MyGUI::PixelFormat::R8G8B8A8, MyGUI::TextureUsage::RenderTarget);
@@ -301,34 +327,9 @@ namespace platformtest
 					 preserved && read(texture) == expected,
 					 "Partial read/write update must preserve untouched bytes");
 			 }},
-			{"resources",
-			 "rgb-read-write",
-			 [](Fixture& f)
-			 {
-				 const auto usage =
-					 MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
-				 requireSupport(f, MyGUI::PixelFormat::R8G8B8, usage);
-				 for (int width : {1, 3, 5})
-				 {
-					 auto* texture = f.texture();
-					 texture->createManual(width, 3, usage, MyGUI::PixelFormat::R8G8B8);
-					 std::vector<unsigned char> expected(size_t(width) * 3 * 3);
-					 for (size_t i = 0; i < expected.size(); ++i)
-						 expected[i] = static_cast<unsigned char>(17 + i * 7);
-					 upload(texture, expected);
-					 require(read(texture) == expected, "Odd-width RGB readback must be tightly packed");
-					 auto* bytes = static_cast<unsigned char*>(
-						 texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
-					 require(bytes != nullptr, "RGB read/write lock must succeed");
-					 const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
-					 bytes[expected.size() - 1] = 93;
-					 expected.back() = 93;
-					 texture->unlock();
-					 require(
-						 preserved && read(texture) == expected,
-						 "RGB partial update must preserve every other byte");
-				 }
-			 }},
+			{"resources", "rgb-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::R8G8B8); }},
+			{"resources", "l8-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::L8); }},
+			{"resources", "l8a8-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::L8A8); }},
 			{"resources",
 			 "loaded-texture-write",
 			 [](Fixture& f)
@@ -799,8 +800,9 @@ namespace platformtest
 					 MyGUI::TextureUsage::RenderTarget | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
 				 requireSupport(f, MyGUI::PixelFormat::R8G8B8A8, usage);
 				 auto* output = f.texture();
-				 output->createManual(2, 2, usage, MyGUI::PixelFormat::R8G8B8A8);
-				 upload(output, std::vector<unsigned char>(16, 0));
+				 output->createManual(3, 2, usage, MyGUI::PixelFormat::R8G8B8A8);
+				 require(output->getRenderTarget() != nullptr, "Combined access flags must create a render target");
+				 upload(output, std::vector<unsigned char>(24, 0));
 				 auto* source = solid(f, green);
 				 f.scene(
 					 [&](MyGUI::IRenderTarget* target)
@@ -812,8 +814,9 @@ namespace platformtest
 				 f.expectCorners(green);
 				 f.scene([&](MyGUI::IRenderTarget* target) { f.quad(target, output); });
 				 std::vector<unsigned char> expected;
-				 for (int i = 0; i < 4; ++i)
+				 for (int i = 0; i < 6; ++i)
 					 expected.insert(expected.end(), {0, 255, 0, 255});
+				 require(read(output) == expected, "Read-only RTT locks must return current GPU pixels");
 				 auto* bytes =
 					 static_cast<unsigned char*>(output->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
 				 require(bytes != nullptr, "RTT read/write lock must succeed");
@@ -822,6 +825,23 @@ namespace platformtest
 				 expected[0] = 255;
 				 output->unlock();
 				 require(current && read(output) == expected, "RTT read/write must preserve GPU-produced pixels");
+				 // Render again after a CPU edit: staging must not retain stale GPU contents.
+				 upload(source, {255, 0, 0, 255});
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 redraw(f, output, source);
+						 f.quad(target, output);
+					 });
+				 f.capture();
+				 f.expectCorners(blue);
+				 for (size_t i = 0; i < expected.size(); i += 4)
+				 {
+					 expected[i] = 255;
+					 expected[i + 1] = 0;
+					 expected[i + 2] = 0;
+				 }
+				 require(read(output) == expected, "RTT readback must refresh staging after subsequent rendering");
 			 }},
 			{"rendering",
 			 "rtt-nested",

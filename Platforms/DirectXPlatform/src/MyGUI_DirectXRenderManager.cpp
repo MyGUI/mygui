@@ -107,6 +107,7 @@ namespace MyGUI
 
 	void DirectXRenderManager::begin()
 	{
+		mpD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 		mpD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 
 		mpD3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
@@ -186,7 +187,7 @@ namespace MyGUI
 		D3DFORMAT internalFormat = D3DFMT_UNKNOWN;
 		unsigned long internalUsage = 0;
 
-		if (_usage == TextureUsage::RenderTarget)
+		if (_usage.isValue(TextureUsage::RenderTarget))
 			internalUsage |= D3DUSAGE_RENDERTARGET;
 		else if (_usage == TextureUsage::Dynamic)
 			internalUsage |= D3DUSAGE_DYNAMIC;
