@@ -40,19 +40,18 @@ namespace sigslot
 
 	// Receivers disconnect automatically at base destruction. Call disconnect_all()
 	// earlier if a derived destructor emits signals while tearing down its members.
-	template<typename Policy = single_threaded>
-	class has_slots
+	// Keep this base non-template: MSVC implicitly exports template bases of exported
+	// editor classes, conflicting with instantiations in the editor executables.
+	class has_slots_base
 	{
-		static_assert(std::is_same_v<Policy, single_threaded>, "Editor signals only support single-threaded use");
-
 	public:
-		has_slots() = default;
-		has_slots(const has_slots&) = delete;
-		has_slots& operator=(const has_slots&) = delete;
-		has_slots(has_slots&&) = delete;
-		has_slots& operator=(has_slots&&) = delete;
+		has_slots_base() = default;
+		has_slots_base(const has_slots_base&) = delete;
+		has_slots_base& operator=(const has_slots_base&) = delete;
+		has_slots_base(has_slots_base&&) = delete;
+		has_slots_base& operator=(has_slots_base&&) = delete;
 
-		virtual ~has_slots()
+		virtual ~has_slots_base()
 		{
 			disconnect_all();
 		}
@@ -88,6 +87,9 @@ namespace sigslot
 
 		mutable std::vector<std::weak_ptr<detail::connection_state>> mConnections;
 	};
+
+	template<typename Policy = single_threaded>
+	using has_slots = std::enable_if_t<std::is_same_v<Policy, single_threaded>, has_slots_base>;
 
 	// Slots run in connection order. Each emission takes a snapshot: new slots are
 	// visible to subsequent (including nested) emissions, and disconnected slots
