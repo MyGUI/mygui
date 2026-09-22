@@ -461,11 +461,12 @@ namespace base
 			barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 			barrier.subresourceRange.levelCount = 1;
 			barrier.subresourceRange.layerCount = 1;
-			barrier.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+			// Make the render pass's colour writes available to the readback copy.
+			barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 			barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
 			vkCmdPipelineBarrier(
 				commandBuffer,
-				VK_PIPELINE_STAGE_ALL_COMMANDS_BIT,
+				VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
 				VK_PIPELINE_STAGE_TRANSFER_BIT,
 				0,
 				0,
@@ -486,6 +487,27 @@ namespace base
 				mScreenShotBuffer,
 				1,
 				&region);
+
+			// Coherent memory avoids invalidation, but still needs device-to-host visibility.
+			VkBufferMemoryBarrier toHost{};
+			toHost.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+			toHost.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+			toHost.dstAccessMask = VK_ACCESS_HOST_READ_BIT;
+			toHost.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+			toHost.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+			toHost.buffer = mScreenShotBuffer;
+			toHost.size = VK_WHOLE_SIZE;
+			vkCmdPipelineBarrier(
+				commandBuffer,
+				VK_PIPELINE_STAGE_TRANSFER_BIT,
+				VK_PIPELINE_STAGE_HOST_BIT,
+				0,
+				0,
+				nullptr,
+				1,
+				&toHost,
+				0,
+				nullptr);
 
 			// transition the image back to PRESENT_SRC so vkQueuePresentKHR can present it
 			VkImageMemoryBarrier toPresent{};

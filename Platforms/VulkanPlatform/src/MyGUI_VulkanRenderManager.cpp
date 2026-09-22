@@ -282,7 +282,7 @@ namespace MyGUI
 		ITexture* _texture,
 		size_t _count)
 	{
-		renderGeometry(_commandBuffer, _buffer, _texture, _count, mFrameResources);
+		renderGeometry(_commandBuffer, _buffer, _texture, _count, mFrameResources, false);
 	}
 
 	void VulkanRenderManager::renderGeometry(
@@ -290,13 +290,14 @@ namespace MyGUI
 		IVertexBuffer* _buffer,
 		ITexture* _texture,
 		size_t _count,
-		std::vector<std::shared_ptr<void>>& _resources)
+		std::vector<std::shared_ptr<void>>& _resources,
+		bool _renderTarget)
 	{
 		const auto* buffer = static_cast<VulkanVertexBuffer*>(_buffer);
 		MYGUI_PLATFORM_ASSERT(_commandBuffer, "Command buffer is not created");
 
 		VkDescriptorSet descriptorSet = mNearestSampling ? mWhitePointDescriptorSet : mWhiteDescriptorSet;
-		VkPipeline pipeline = mDefaultPipeline;
+		VkPipeline pipeline = _renderTarget ? mDefaultPipelines.renderTarget : mDefaultPipelines.window;
 
 		if (_texture)
 		{
@@ -306,7 +307,7 @@ namespace MyGUI
 				_resources.push_back(texture->retainStorage());
 				descriptorSet = mNearestSampling ? texture->getPointDescriptorSet() : texture->getDescriptorSet();
 				if (texture->getShaderName() != "Default")
-					pipeline = getPipeline(texture->getShaderName());
+					pipeline = getPipeline(texture->getShaderName(), _renderTarget);
 			}
 		}
 
@@ -470,24 +471,36 @@ namespace MyGUI
 		const std::string& _vertexProgramFile,
 		const std::string& _fragmentProgramFile)
 	{
+		// RTT passes have different dependencies (and may have a different colour format).
+		// Each pipeline must be created against the pass it will actually be used with.
+		ShaderPipelines pipelines;
+		pipelines.window = createShaderPipeline(_vertexProgramFile, _fragmentProgramFile, mRenderPass);
+		try
+		{
+			pipelines.renderTarget =
+				createShaderPipeline(_vertexProgramFile, _fragmentProgramFile, mRenderTargetRenderPass);
+		}
+		catch (...)
+		{
+			vkDestroyPipeline(mDevice, pipelines.window, nullptr);
+			throw;
+		}
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())
 		{
-			vkDestroyPipeline(mDevice, iter->second, nullptr);
-			mRegisteredShaders.erase(iter);
+			vkDestroyPipeline(mDevice, iter->second.window, nullptr);
+			vkDestroyPipeline(mDevice, iter->second.renderTarget, nullptr);
 		}
-		VkPipeline pipeline = createShaderPipeline(_vertexProgramFile, _fragmentProgramFile);
-		mRegisteredShaders[_shaderName] = pipeline;
+		mRegisteredShaders[_shaderName] = pipelines;
 		if (_shaderName == "Default")
-			mDefaultPipeline = pipeline;
+			mDefaultPipelines = pipelines;
 	}
 
-	VkPipeline VulkanRenderManager::getPipeline(const std::string& _shaderName) const
+	VkPipeline VulkanRenderManager::getPipeline(const std::string& _shaderName, bool _renderTarget) const
 	{
 		auto iter = mRegisteredShaders.find(_shaderName);
-		if (iter != mRegisteredShaders.end())
-			return iter->second;
-		return mDefaultPipeline;
+		const auto& pipelines = iter != mRegisteredShaders.end() ? iter->second : mDefaultPipelines;
+		return _renderTarget ? pipelines.renderTarget : pipelines.window;
 	}
 
 	ITexture* VulkanRenderManager::createTexture(const std::string& _name)
@@ -530,10 +543,11 @@ namespace MyGUI
 
 		for (const auto& pipeline : mRegisteredShaders)
 		{
-			vkDestroyPipeline(mDevice, pipeline.second, nullptr);
+			vkDestroyPipeline(mDevice, pipeline.second.window, nullptr);
+			vkDestroyPipeline(mDevice, pipeline.second.renderTarget, nullptr);
 		}
 		mRegisteredShaders.clear();
-		mDefaultPipeline = VK_NULL_HANDLE;
+		mDefaultPipelines = {};
 	}
 
 	VkRenderPass VulkanRenderManager::getRenderPass() const
@@ -889,7 +903,8 @@ namespace MyGUI
 
 	VkPipeline VulkanRenderManager::createShaderPipeline(
 		const std::string& _vertexProgramFile,
-		const std::string& _fragmentProgramFile)
+		const std::string& _fragmentProgramFile,
+		VkRenderPass _renderPass)
 	{
 		VkShaderModule vertexModule = createShaderModule(_vertexProgramFile);
 		VkShaderModule fragmentModule = createShaderModule(_fragmentProgramFile);
@@ -1000,7 +1015,7 @@ namespace MyGUI
 		pipelineInfo.pColorBlendState = &colorBlending;
 		pipelineInfo.pDynamicState = &dynamicState;
 		pipelineInfo.layout = mPipelineLayout;
-		pipelineInfo.renderPass = mRenderPass;
+		pipelineInfo.renderPass = _renderPass;
 		pipelineInfo.subpass = 0;
 
 		VkPipeline pipeline = VK_NULL_HANDLE;

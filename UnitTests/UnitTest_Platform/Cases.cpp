@@ -606,19 +606,31 @@ namespace platformtest
 			f.render().registerShader("PlatformSwapChannels", files.first, files.second);
 			auto* custom = solid(f, red);
 			auto* normal = solid(f, red);
-			custom->setShader("PlatformSwapChannels");
-			f.scene(
-				[&](MyGUI::IRenderTarget* target)
-				{
-					f.quad(target, custom, white, {0, 0, 64, 128});
-					f.quad(target, normal, white, {64, 0, 64, 128});
-				});
-			f.capture();
-			f.expect(32, 64, blue);
-			f.expect(96, 64, red);
-			custom->setShader("Default");
-			f.capture();
-			f.expectCorners(red);
+			auto* output = renderTexture(f, 128, 128);
+			for (bool offscreen : {false, true})
+			{
+				custom->setShader("PlatformSwapChannels");
+				f.scene(
+					[&, offscreen](MyGUI::IRenderTarget* target)
+					{
+						auto* drawTarget = offscreen ? output->getRenderTarget() : target;
+						if (offscreen)
+							drawTarget->begin();
+						f.quad(drawTarget, custom, white, {0, 0, 64, 128});
+						f.quad(drawTarget, normal, white, {64, 0, 64, 128});
+						if (offscreen)
+						{
+							drawTarget->end();
+							f.quad(target, output);
+						}
+					});
+				f.capture();
+				f.expect(32, 64, blue);
+				f.expect(96, 64, red);
+				custom->setShader("Default");
+				f.capture();
+				f.expectCorners(red);
+			}
 		}
 
 		void sceneDepthPreservation(Fixture& f)
@@ -822,6 +834,36 @@ namespace platformtest
 				upload(source, {0, 255, 0, 255});
 				f.capture();
 				f.expectCorners(green);
+			}
+		}
+
+		void rttReadback(Fixture& f)
+		{
+			const auto usage = MyGUI::TextureUsage::RenderTarget | MyGUI::TextureUsage::Read;
+			requireSupport(f, MyGUI::PixelFormat::R8G8B8A8, usage);
+			auto* output = f.texture();
+			output->createManual(3, 2, usage, MyGUI::PixelFormat::R8G8B8A8);
+			auto* source = solid(f, white);
+			Pixel colour = red;
+			f.scene(
+				[&](MyGUI::IRenderTarget*)
+				{
+					auto* rtt = output->getRenderTarget();
+					rtt->begin();
+					f.quad(rtt, source, colour, {0, 0, 3, 1});
+					f.quad(rtt, source, green, {0, 1, 3, 1});
+					rtt->end();
+				});
+			for (auto value : {red, blue})
+			{
+				colour = value;
+				// Verify GPU rendering independently of window sampling and screenshot capture.
+				f.drawOneFrame();
+				std::vector<unsigned char> expected;
+				for (auto row : {colour, green})
+					for (int x = 0; x < 3; ++x)
+						expected.insert(expected.end(), {row[2], row[1], row[0], row[3]});
+				require(read(output) == expected, "RTT readback must return current GPU-rendered rows");
 			}
 		}
 
@@ -1065,6 +1107,7 @@ namespace platformtest
 			{"rendering", "rtt-empty-clear", rttEmptyClear},
 			{"rendering", "rtt-source-update", rttSourceUpdate},
 			{"rendering", "rtt-chain", rttChain},
+			{"rendering", "rtt-readback", rttReadback},
 			{"rendering", "rtt-read-write", rttReadWrite},
 			{"rendering", "rtt-cached-target-after-upload", rttCachedTargetAfterUpload},
 			{"rendering", "rtt-nested", rttNested},

@@ -172,7 +172,7 @@ namespace MyGUI
 	void VulkanRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
-		manager.renderGeometry(mCommandBuffer, _buffer, _texture, _count, mResources);
+		manager.renderGeometry(mCommandBuffer, _buffer, _texture, _count, mResources, true);
 	}
 
 	const RenderTargetInfo& VulkanRTTexture::getInfo() const

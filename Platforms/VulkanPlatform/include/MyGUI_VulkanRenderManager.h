@@ -135,13 +135,17 @@ namespace MyGUI
 			IVertexBuffer* _buffer,
 			ITexture* _texture,
 			size_t _count,
-			std::vector<std::shared_ptr<void>>& _resources);
+			std::vector<std::shared_ptr<void>>& _resources,
+			bool _renderTarget);
 		void retireFrameResources();
 		std::vector<std::byte> loadShaderBytecode(const std::string& _file);
 		VkShaderModule createShaderModule(const std::string& _file);
-		VkPipeline createShaderPipeline(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
+		VkPipeline createShaderPipeline(
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile,
+			VkRenderPass _renderPass);
 		void destroyAllResources();
-		VkPipeline getPipeline(const std::string& _shaderName) const;
+		VkPipeline getPipeline(const std::string& _shaderName, bool _renderTarget) const;
 
 		void createRenderPass();
 		void createRenderTargetRenderPass();
@@ -170,8 +174,13 @@ namespace MyGUI
 		VkSampler mSampler = VK_NULL_HANDLE;
 		VkSampler mPointSampler = VK_NULL_HANDLE;
 		VkPipelineCache mPipelineCache = VK_NULL_HANDLE;
-		VkPipeline mDefaultPipeline = VK_NULL_HANDLE;
-		std::map<std::string, VkPipeline> mRegisteredShaders;
+		struct ShaderPipelines
+		{
+			VkPipeline window{VK_NULL_HANDLE};
+			VkPipeline renderTarget{VK_NULL_HANDLE};
+		};
+		ShaderPipelines mDefaultPipelines;
+		std::map<std::string, ShaderPipelines> mRegisteredShaders;
 
 		VkCommandBuffer mCurrentCommandBuffer = VK_NULL_HANDLE;
 		std::vector<std::shared_ptr<void>> mFrameResources;
