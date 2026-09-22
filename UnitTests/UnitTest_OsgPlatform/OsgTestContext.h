@@ -2,6 +2,7 @@
 #define MYGUI_UNITTEST_OSG_TEST_CONTEXT_H_
 
 #include "TestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_OsgPlatform.h"
 #include "MyGUI_OsgTexture.h"
 #include "MyGUI_OsgVertexBuffer.h"
@@ -11,6 +12,7 @@
 #include <osg/Texture2D>
 #include <osg/BufferObject>
 #include <osg/StateSet>
+#include <vector>
 
 namespace unittest
 {
@@ -43,9 +45,6 @@ namespace unittest
 
 }
 
-#ifdef MYGUI_OSG_RENDER_TESTS
-int runOsgRenderTests();
-int runOsgBenchmark();
-#endif
+void addOsgRenderTests(std::vector<unittest::TestCase>& _tests);
 
 #endif

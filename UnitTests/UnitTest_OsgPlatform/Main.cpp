@@ -312,16 +312,7 @@ namespace
 // SDL's Windows entry-point wrapper requires the argc/argv signature, even when unused.
 int main(int, char**)
 {
-#ifdef MYGUI_OSG_RENDER_TESTS
-	if (argc == 2 && std::string_view(argv[1]) == "--render")
-		return runOsgRenderTests();
-	if (argc == 2 && std::string_view(argv[1]) == "--benchmark")
-		return runOsgBenchmark();
-#else
-	(void)argc;
-	(void)argv;
-#endif
-	return unittest::runTests({
+	std::vector<unittest::TestCase> tests{
 		{"Texture snapshots and lock validation", testTextureSnapshots},
 		{"Shared OSG image ownership and type validation", testSharedImageLoader},
 		{"osgDB PNG plugin dispatch", testPngPluginDispatch},
@@ -333,5 +324,7 @@ int main(int, char**)
 		{"RTT drawable reuse and delayed draws", testRttDrawablePool},
 		{"Untextured batch dummy texture", testDummyTexture},
 		{"Deferred render-target lifetime", testRenderTargetLifetime},
-	});
+	};
+	addOsgRenderTests(tests);
+	return unittest::runTests(tests);
 }

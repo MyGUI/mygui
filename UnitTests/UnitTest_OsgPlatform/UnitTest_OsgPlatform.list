@@ -1,2 +1,2 @@
 set(HEADER_FILES OsgTestContext.h)
-set(SOURCE_FILES Main.cpp)
+set(SOURCE_FILES Main.cpp Render.cpp)

@@ -13,9 +13,6 @@
 #include <array>
 #include <atomic>
 #include <thread>
-#include <chrono>
-#include <iostream>
-#include <memory>
 
 namespace
 {
@@ -547,73 +544,19 @@ namespace
 
 }
 
-int runOsgRenderTests()
+void addOsgRenderTests(std::vector<unittest::TestCase>& _tests)
 {
-	return unittest::runTests({
-		{"First frame with external OSG state", testFirstFrameWithExternalState},
-		{"OpenGL error detection and recovery", testGlErrorDetection},
-		{"Repeated draws, independent contexts and delayed snapshots", testRepeatedAndDelayedDraws},
-		{"SDL drawable resize and borrowed window lifetime", testWindowResizeAndLifetime},
-		{"GUI state changes preserve retained drawables", testRetainedGuiState},
-		{"Retained RTT content and redraw", testRetainedRenderTarget},
-		{"RTT image and shader dependencies", testRenderTargetDependencies},
-		{"RTT dependencies refresh without consumer submissions", testNestedRenderTargets},
-		{"Stream upload fallback and context recreation", testStreamUploadFallbacks},
-	});
-}
-
-int runOsgBenchmark()
-{
-	using Clock = std::chrono::steady_clock;
-	std::cout << "workload,update_us,frame_us\n";
-	for (int mode = 0; mode < 3; ++mode)
-	{
-		unittest::OsgTestContext gui;
-		auto& manager = gui.render();
-		manager.getGuiRoot()->setUpdateCallback(nullptr);
-		RenderContext first(gui.root);
-		first.graphics->setBeforeSwapCallback({});
-		first.graphics->setSyncToVBlank(false);
-		std::unique_ptr<RenderContext> second;
-		if (mode == 2)
+	_tests.insert(
+		_tests.end(),
 		{
-			second = std::make_unique<RenderContext>(gui.root);
-			second->graphics->setBeforeSwapCallback({});
-			second->graphics->setSyncToVBlank(false);
-		}
-		std::array<MyGUI::OsgVertexBuffer, 128> buffers;
-		for (auto& buffer : buffers)
-			fillQuad(buffer, 0xffffffff);
-		double updateTime = 0;
-		double frameTime = 0;
-		constexpr int warmup = 60;
-		constexpr int frames = 300;
-		for (int frame = 0; frame < warmup + frames; ++frame)
-		{
-			const auto start = Clock::now();
-			manager.begin();
-			for (auto& buffer : buffers)
-			{
-				if (mode != 0)
-					fillQuad(buffer, (frame % 2) ? 0xff0000ff : 0xff00ff00);
-				manager.doRender(&buffer, nullptr, 6);
-			}
-			manager.end();
-			const auto updated = Clock::now();
-			first.viewer->frame();
-			if (second)
-				second->viewer->frame();
-			const auto finished = Clock::now();
-			if (frame >= warmup)
-			{
-				updateTime += std::chrono::duration<double, std::micro>(updated - start).count();
-				frameTime += std::chrono::duration<double, std::micro>(finished - start).count();
-			}
-		}
-		std::cout << (mode == 0		  ? "static"
-						  : mode == 1 ? "animated"
-									  : "animated_two_contexts")
-				  << ',' << updateTime / frames << ',' << frameTime / frames << '\n';
-	}
-	return 0;
+			{"First frame with external OSG state", testFirstFrameWithExternalState},
+			{"OpenGL error detection and recovery", testGlErrorDetection},
+			{"Repeated draws, independent contexts and delayed snapshots", testRepeatedAndDelayedDraws},
+			{"SDL drawable resize and borrowed window lifetime", testWindowResizeAndLifetime},
+			{"GUI state changes preserve retained drawables", testRetainedGuiState},
+			{"Retained RTT content and redraw", testRetainedRenderTarget},
+			{"RTT image and shader dependencies", testRenderTargetDependencies},
+			{"RTT dependencies refresh without consumer submissions", testNestedRenderTargets},
+			{"Stream upload fallback and context recreation", testStreamUploadFallbacks},
+		});
 }
