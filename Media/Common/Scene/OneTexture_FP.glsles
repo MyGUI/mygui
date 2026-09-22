@@ -1,0 +1,13 @@
+#version 300 es
+
+precision highp float;
+
+uniform sampler2D texMap;
+
+in vec2 oUV;
+out vec4 fragColor;
+
+void main()
+{
+	fragColor = texture(texMap, oUV);
+}

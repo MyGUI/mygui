@@ -98,6 +98,8 @@
 - Vulkan: add real-backend tests for recorded vertex lifetime, allocation retirement and rendered output without mocks
 
 ### Demos
+- Add [browser demos](https://mygui.info/demos/) built with Emscripten, Ogre backend (pure OpenGLES also tested),
+  a shared WebAssembly build, demo selector and high-DPI support
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays
 - Fix Ogre application shutdown destroying the render window twice

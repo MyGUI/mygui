@@ -30,15 +30,32 @@ fragment_program OneTextureFP_GLSL glsl
 	//Validation warning! - Sampler value texMap has not been set
 }
 
+vertex_program OneTextureVP_GLSLES glsles
+{
+	source OneTexture_VP.glsles
+}
+
+fragment_program OneTextureFP_GLSLES glsles
+{
+	source OneTexture_FP.glsles
+
+	default_params
+	{
+		param_named texMap int 0
+	}
+}
+
 // Unified definition
 vertex_program OneTexture_VP unified
 {
 	delegate OneTextureVP_HLSL
 	delegate OneTextureVP_GLSL
+	delegate OneTextureVP_GLSLES
 }
 
 fragment_program OneTexture_FP unified
 {
 	delegate OneTextureFP_HLSL
 	delegate OneTextureFP_GLSL
+	delegate OneTextureFP_GLSLES
 }

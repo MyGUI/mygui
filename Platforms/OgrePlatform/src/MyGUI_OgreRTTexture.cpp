@@ -9,6 +9,7 @@
 #include "MyGUI_OgreRenderManager.h"
 
 #include <Ogre.h>
+#include <OgreDepthBuffer.h>
 
 namespace MyGUI
 {
@@ -41,6 +42,9 @@ namespace MyGUI
 
 		if (mViewport == nullptr)
 		{
+			// GUI passes do not use depth. Ogre may otherwise reuse a larger depth buffer,
+			// which WebGL rejects when its size differs from the colour attachment.
+			rtt->setDepthBufferPool(Ogre::DepthBuffer::POOL_NO_DEPTH);
 			mViewport = rtt->addViewport(nullptr);
 			mViewport->setClearEveryFrame(false);
 			mViewport->setOverlaysEnabled(false);

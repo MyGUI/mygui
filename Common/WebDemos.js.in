@@ -72,7 +72,7 @@
 		selector.addEventListener(event, event => event.stopPropagation());
 	}
 	controls.append(label, selector);
-	if (notes[selected]) {
+	if (@MYGUI_RENDERSYSTEM@ !== 3 && notes[selected]) {
 		const note = document.createElement('p');
 		note.textContent = notes[selected];
 		controls.append(note);

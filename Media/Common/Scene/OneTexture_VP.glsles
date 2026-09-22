@@ -1,0 +1,17 @@
+#version 300 es
+
+precision highp float;
+
+uniform mat4 worldViewProj;
+uniform mat4 textureMatrix;
+
+in vec4 position;
+in vec2 uv0;
+
+out vec2 oUV;
+
+void main()
+{
+	gl_Position = worldViewProj * position;
+	oUV = (textureMatrix * vec4(uv0, 1, 1)).xy;
+}
