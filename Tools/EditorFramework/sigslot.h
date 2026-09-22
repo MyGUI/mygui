@@ -133,6 +133,16 @@ namespace sigslot
 			mConnections.push_back(std::move(slot));
 		}
 
+		// Keep an existing connection in place; return true only when adding a new one.
+		template<typename Object, typename Method>
+		bool connect_unique(Object* _object, Method _method)
+		{
+			if (exist(_object, _method))
+				return false;
+			connect(_object, _method);
+			return true;
+		}
+
 		// Free functions and lambdas live until disconnect_all() or signal destruction.
 		// Captured objects are not tracked; use the member overload for automatic disconnection.
 		template<typename Callable>

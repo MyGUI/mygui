@@ -1,0 +1,2 @@
+mygui_unit_test(UnitTest_Sigslot)
+target_include_directories(UnitTest_Sigslot PRIVATE ${PROJECT_SOURCE_DIR}/Tools/EditorFramework)

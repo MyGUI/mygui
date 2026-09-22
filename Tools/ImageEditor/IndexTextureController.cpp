@@ -49,8 +49,7 @@ namespace tools
 		{
 			texture = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &IndexTextureController::notifyChangeProperty);
 		}
 
 		std::string coord;
@@ -59,8 +58,7 @@ namespace tools
 		{
 			coord = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &IndexTextureController::notifyChangeProperty);
 		}
 
 		if (mParentData != nullptr)
@@ -70,8 +68,7 @@ namespace tools
 				 child++)
 			{
 				property = (*child)->getProperty("Point");
-				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &IndexTextureController::notifyChangeProperty);
 			}
 		}
 

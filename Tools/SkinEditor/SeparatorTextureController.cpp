@@ -50,8 +50,7 @@ namespace tools
 		{
 			texture = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &SeparatorTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &SeparatorTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &SeparatorTextureController::notifyChangeProperty);
 		}
 
 		std::string_view coord;
@@ -60,8 +59,7 @@ namespace tools
 		{
 			coord = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &SeparatorTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &SeparatorTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &SeparatorTextureController::notifyChangeProperty);
 		}
 
 		if (mParentData != nullptr)
@@ -74,12 +72,10 @@ namespace tools
 					continue;
 
 				property = (*child)->getProperty("Offset");
-				if (!property->eventChangeProperty.exist(this, &SeparatorTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &SeparatorTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &SeparatorTextureController::notifyChangeProperty);
 
 				property = (*child)->getProperty("Visible");
-				if (!property->eventChangeProperty.exist(this, &SeparatorTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &SeparatorTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &SeparatorTextureController::notifyChangeProperty);
 			}
 		}
 

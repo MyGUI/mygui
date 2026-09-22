@@ -60,30 +60,25 @@ namespace tools
 		{
 			// Index
 			PropertyPtr property = mParentData->getProperty("Rate");
-			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &AnimationViewControl::notifyChangeProperty);
 
 			// Group
 			property = mParentData->getParent()->getProperty("Size");
-			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &AnimationViewControl::notifyChangeProperty);
 
 			// Group
 			property = mParentData->getParent()->getProperty("Texture");
-			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &AnimationViewControl::notifyChangeProperty);
 
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin();
 				 child != mParentData->getChilds().end();
 				 child++)
 			{
 				property = (*child)->getProperty("Point");
-				if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &AnimationViewControl::notifyChangeProperty);
 
 				property = (*child)->getProperty("Count");
-				if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &AnimationViewControl::notifyChangeProperty);
 			}
 		}
 	}

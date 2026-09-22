@@ -50,8 +50,7 @@ namespace tools
 		{
 			texture = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &StateTextureController::notifyChangeProperty);
 		}
 
 		std::string_view coord;
@@ -60,8 +59,7 @@ namespace tools
 		{
 			coord = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &StateTextureController::notifyChangeProperty);
 		}
 
 		if (mParentData != nullptr)
@@ -74,12 +72,10 @@ namespace tools
 					continue;
 
 				property = (*child)->getProperty("Point");
-				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &StateTextureController::notifyChangeProperty);
 
 				property = (*child)->getProperty("Visible");
-				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &StateTextureController::notifyChangeProperty);
 			}
 		}
 

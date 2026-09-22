@@ -50,8 +50,7 @@ namespace tools
 		{
 			texture = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &RegionTextureController::notifyChangeProperty);
 		}
 
 		std::string_view coord;
@@ -60,8 +59,7 @@ namespace tools
 		{
 			coord = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &RegionTextureController::notifyChangeProperty);
 		}
 
 		if (mParentData != nullptr)
@@ -74,16 +72,13 @@ namespace tools
 					continue;
 
 				property = (*child)->getProperty("Coord");
-				if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &RegionTextureController::notifyChangeProperty);
 
 				property = (*child)->getProperty("Visible");
-				if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &RegionTextureController::notifyChangeProperty);
 
 				property = (*child)->getProperty("Enable");
-				if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
+				property->eventChangeProperty.connect_unique(this, &RegionTextureController::notifyChangeProperty);
 			}
 		}
 

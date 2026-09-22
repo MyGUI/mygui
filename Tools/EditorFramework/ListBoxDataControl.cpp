@@ -239,14 +239,12 @@ namespace tools
 	void ListBoxDataControl::connectToProperty(DataPtr _data)
 	{
 		PropertyPtr property = _data->getProperty(mPropertyForName);
-		if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
-			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
+		property->eventChangeProperty.connect_unique(this, &ListBoxDataControl::notifyChangeProperty);
 
 		for (const auto& name : mPropertyNamesEnable)
 		{
 			property = _data->getProperty(name);
-			if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &ListBoxDataControl::notifyChangeProperty);
 		}
 	}
 

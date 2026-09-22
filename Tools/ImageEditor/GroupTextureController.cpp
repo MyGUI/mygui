@@ -49,8 +49,7 @@ namespace tools
 		{
 			texture = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &GroupTextureController::notifyChangeProperty);
 		}
 
 		std::string coord;
@@ -59,8 +58,7 @@ namespace tools
 		{
 			coord = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
+			property->eventChangeProperty.connect_unique(this, &GroupTextureController::notifyChangeProperty);
 		}
 
 		mControl->setTextureValue(texture);
