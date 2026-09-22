@@ -23,7 +23,7 @@ namespace tools
 
 	private:
 		void notifyChangeDataSelector(DataPtr _parent, bool _changeSelectOnly);
-		void notifyChangeProperty(PropertyPtr _sender);
+		void notifyChangeProperty(const PropertyPtr& _sender);
 		void notifyChangeCoord(MyGUI::Widget* _sender);
 		void notifyFrameStart(float _frame);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);

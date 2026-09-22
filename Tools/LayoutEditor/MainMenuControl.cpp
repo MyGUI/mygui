@@ -40,7 +40,6 @@ namespace tools
 	{
 		EditorWidgets::getInstance().eventChangeWidgets -=
 			MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
-		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
 	void MainMenuControlLE::createMainMenu()

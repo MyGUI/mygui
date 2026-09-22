@@ -22,7 +22,8 @@ namespace tools
 
 	FontTryControl::~FontTryControl()
 	{
-		DataSelectorManager::getInstance().getEvent("Root")->disconnect(this);
+		// Saving settings notifies listeners synchronously; disconnect before publishing during teardown.
+		disconnect_all();
 
 		SettingsManager::getInstance().setValue("Controls/TryFontControl/Text", mEdit->getCaption());
 	}

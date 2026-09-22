@@ -20,6 +20,8 @@ namespace tools
 	public:
 		DataSelectorManager();
 		~DataSelectorManager();
+		DataSelectorManager(const DataSelectorManager&) = delete;
+		DataSelectorManager& operator=(const DataSelectorManager&) = delete;
 
 		static DataSelectorManager& getInstance();
 		static DataSelectorManager* getInstancePtr();
@@ -42,7 +44,7 @@ namespace tools
 
 	private:
 		static DataSelectorManager* mInstance;
-		using MapEvent = std::map<std::string, EventType*, std::less<>>;
+		using MapEvent = std::map<std::string, EventType, std::less<>>;
 		MapEvent mEvents;
 	};
 

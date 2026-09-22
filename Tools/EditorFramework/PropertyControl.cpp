@@ -57,7 +57,7 @@ namespace tools
 	{
 	}
 
-	void PropertyControl::notifyChangeProperty(PropertyPtr _sender)
+	void PropertyControl::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		updateProperty();
 		PropertyPtr proper = getProperty();

@@ -83,7 +83,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void SeparatorTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void SeparatorTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated)
 			return;

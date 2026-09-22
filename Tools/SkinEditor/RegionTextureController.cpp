@@ -86,7 +86,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void RegionTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void RegionTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated)
 			return;

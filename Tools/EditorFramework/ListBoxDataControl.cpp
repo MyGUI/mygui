@@ -248,7 +248,7 @@ namespace tools
 		}
 	}
 
-	void ListBoxDataControl::notifyChangeProperty(PropertyPtr _sender)
+	void ListBoxDataControl::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (mParentData == nullptr)
 			return;

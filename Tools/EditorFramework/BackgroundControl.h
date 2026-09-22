@@ -16,8 +16,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL BackgroundControl : public Control, public sigslot::has_slots<>
 	{
 	public:
-		~BackgroundControl() override;
-
 		MyGUI::Widget* getCanvas();
 
 	protected:

@@ -1,5 +1,7 @@
 #include "sigslot.h"
 #include "BehaviourTestSupport.h"
+#include <stdexcept>
+#include <string>
 
 namespace
 {
@@ -7,136 +9,253 @@ namespace
 	using unittest::require;
 	using Event = sigslot::signal0<>;
 
+	template<typename... Args>
 	struct Receiver : sigslot::has_slots<>
 	{
-		std::function<void()> onCall = []() {};
-		int calls = 0;
+		std::function<void(Args...)> callback = [](Args...) {};
 
-		void run()
+		void run(Args... args) const
 		{
-			++calls;
-			// A callback may delete this receiver, so retain the callable locally.
-			auto callback = onCall;
-			callback();
+			auto invoke = callback; // The callback may destroy this receiver.
+			invoke(args...);
 		}
 
-		void other()
+		void other(Args... args) const
 		{
-			calls += 10;
-		}
-
-		void add(int& _value) const
-		{
-			++_value;
+			run(args...);
 		}
 	};
 
-	void testUniqueConnections()
+	void testConnections()
 	{
-		Event event;
-		Event otherEvent;
-		Receiver first;
-		Receiver second;
+		Event event, other;
+		Receiver<> first, second;
 		std::vector<int> calls;
-		first.onCall = [&calls]()
+		first.callback = [&]()
 		{
 			calls.push_back(1);
 		};
-		second.onCall = [&calls]()
+		second.callback = [&]()
 		{
 			calls.push_back(2);
 		};
-		require(event.connect_unique(&first, &Receiver::run), "The first registration must add a connection");
-		require(event.connect_unique(&second, &Receiver::run), "Different receivers must have distinct connections");
-		require(
-			!event.connect_unique(&first, &Receiver::run),
-			"Repeated registration must preserve the existing connection");
 		event();
-		require(calls == std::vector<int>({1, 2}), "Repeated registration must not duplicate or reorder callbacks");
-		require(
-			event.connect_unique(&first, &Receiver::other),
-			"Different methods on one receiver must remain distinct");
-		require(otherEvent.connect_unique(&first, &Receiver::run), "Uniqueness must be local to each signal");
-
+		require(!event.exist(&first, &Receiver<>::run), "Empty signal");
+		require(event.connect_unique(&first, &Receiver<>::run), "First connection");
+		require(event.connect_unique(&second, &Receiver<>::run), "Distinct receiver");
+		require(!event.connect_unique(&first, &Receiver<>::run), "Duplicate rejected");
+		require(event.connect_unique(&first, &Receiver<>::other), "Distinct method");
+		event.connect(&first, &Receiver<>::run);
+		event.emit();
+		require(calls == std::vector<int>({1, 2, 1, 1}), "Order and ordinary duplicates preserved");
 		event.disconnect(&first);
-		require(event.connect_unique(&first, &Receiver::run), "A disconnected receiver must be reconnectable");
-		calls.clear();
-		event();
-		require(calls == std::vector<int>({2, 1}), "Reconnection must append a new connection");
+		require(!event.exist(&first, &Receiver<>::other), "All receiver connections removed");
+		require(event.connect_unique(&first, &Receiver<>::run), "Reconnect after removal");
+		require(other.connect_unique(&first, &Receiver<>::run), "Uniqueness is per signal");
 		first.disconnect_all();
-		require(event.connect_unique(&first, &Receiver::run), "Receiver-side disconnection must permit reconnection");
-		require(
-			otherEvent.connect_unique(&first, &Receiver::run),
-			"Receiver-side disconnection must affect every signal");
-		event.disconnect_all();
-		event.connect(&first, &Receiver::run);
-		event.connect(&first, &Receiver::run);
-		require(
-			!event.connect_unique(&first, &Receiver::run),
-			"Unique registration must also detect ordinary connections");
+		first.disconnect_all();
 		calls.clear();
 		event();
-		require(calls == std::vector<int>({1, 1}), "Unique registration must not remove existing ordinary duplicates");
-
-		struct Derived : Receiver
-		{
-		};
-		const Derived receiver;
-		sigslot::signal<int&> reference;
-		require(
-			reference.connect_unique(&receiver, &Receiver::add),
-			"Unique registration must accept inherited const methods");
-		require(
-			!reference.connect_unique(static_cast<const Receiver*>(&receiver), &Receiver::add),
-			"Receiver identity must be preserved when using a base-class pointer");
-		int value = 0;
-		reference(value);
-		require(value == 1, "An inherited const callback must run exactly once");
+		other();
+		require(calls == std::vector<int>({2}), "Receiver disconnection affects every signal");
+		require(event.connect_unique(&first, &Receiver<>::run), "Reconnect after receiver disconnection");
 	}
 
-	void testUniqueConnectionsDuringEmission()
+	template<typename Signal, typename... Args>
+	void checkArity(Args... args)
+	{
+		Signal event;
+		int sum = 0;
+		event.connect([&](auto... values) { sum = (values + ...); });
+		event(args...);
+		require(sum == 6, "All arguments delivered");
+	}
+
+	void testArguments()
+	{
+		struct Derived : Receiver<int&>
+		{
+		};
+		Derived receiver;
+		receiver.callback = [](int& value)
+		{
+			++value;
+		};
+		sigslot::signal1<int&> event;
+		require(event.connect_unique(&receiver, &Receiver<int&>::run), "Inherited const method");
+		require(
+			!event.connect_unique(static_cast<const Receiver<int&>*>(&receiver), &Receiver<int&>::run),
+			"Base pointer has the same identity");
+		event.connect(+[](int& value) { ++value; });
+		int value = 0;
+		event(value);
+		require(value == 2, "Reference arguments and free functions");
+
+		sigslot::signal2<std::string, bool&> command;
+		command.connect([](std::string name, bool& handled) { handled = name == "save"; });
+		command.connect([](std::string name, bool& handled)
+						{ require(handled && name == "save", "Intact multicast value"); });
+		bool handled = false;
+		command("save", handled);
+		checkArity<sigslot::signal3<int, int, int>>(1, 2, 3);
+		checkArity<sigslot::signal4<int, int, int, int>>(1, 2, 3, 0);
+		checkArity<sigslot::signal5<int, int, int, int, int>>(1, 2, 3, 0, 0);
+		checkArity<sigslot::signal<int, int, int, int, int, int, int, int, int>>(1, 2, 3, 0, 0, 0, 0, 0, 0);
+	}
+
+	void testLifetimes()
+	{
+		Event event, other;
+		int calls = 0;
+		{
+			Receiver<> receiver;
+			receiver.callback = [&]()
+			{
+				++calls;
+			};
+			event.connect(&receiver, &Receiver<>::run);
+			event.connect(&receiver, &Receiver<>::run);
+			other.connect(&receiver, &Receiver<>::run);
+			event();
+		}
+		event();
+		other();
+		require(calls == 2, "Destroyed receivers disconnect everywhere");
+		Receiver<> survivor;
+		{
+			Event temporary;
+			temporary.connect(&survivor, &Receiver<>::run);
+		}
+		survivor.disconnect_all();
+
+		auto owner = std::make_shared<int>(7);
+		std::weak_ptr<int> lifetime = owner;
+		sigslot::signal<std::shared_ptr<int>> property;
+		Receiver<const std::shared_ptr<int>&> receiver;
+		receiver.callback = [&](const auto& value)
+		{
+			owner.reset();
+			require(*value == 7, "Argument stays alive");
+		};
+		property.connect(&receiver, &Receiver<const std::shared_ptr<int>&>::run);
+		property(owner);
+		require(lifetime.expired(), "Argument released after emission");
+	}
+
+	void testNestedEmission()
 	{
 		Event event;
-		Receiver first;
-		Receiver added;
+		Receiver<> added;
 		std::vector<int> calls;
 		bool nested = false;
-		first.onCall = [&]()
+		added.callback = [&]()
 		{
-			calls.push_back(1);
-			if (!nested)
+			calls.push_back(3);
+		};
+		event.connect(
+			[&]()
 			{
-				nested = true;
-				require(
-					event.connect_unique(&added, &Receiver::run),
-					"Registration during emission must add new callbacks");
-				require(
-					!event.connect_unique(&added, &Receiver::run),
-					"New callbacks must immediately count as connected");
-				event();
-			}
-		};
-		added.onCall = [&calls]()
-		{
-			calls.push_back(2);
-		};
-		event.connect(&first, &Receiver::run);
+				calls.push_back(1);
+				if (!nested)
+				{
+					nested = true;
+					require(event.connect_unique(&added, &Receiver<>::run), "Add during emission");
+					require(!event.connect_unique(&added, &Receiver<>::run), "New connection already visible");
+					event();
+				}
+			});
+		event.connect([&]() { calls.push_back(2); });
 		event();
-		require(calls == std::vector<int>({1, 1, 2}), "Unique callbacks must follow nested emission snapshot rules");
-
-		first.onCall = [&]()
-		{
-			event.disconnect(&added);
-			require(
-				event.connect_unique(&added, &Receiver::run),
-				"A pending disconnected callback must be reconnectable");
-		};
+		require(calls == std::vector<int>({1, 1, 2, 3, 2}), "Only nested emission sees the added slot");
 		calls.clear();
 		event();
-		require(calls.empty(), "Reconnection must skip the old pending slot and defer the replacement");
-		event.disconnect(&first);
+		require(calls == std::vector<int>({1, 2, 3}), "Later emissions preserve order");
+	}
+
+	void testMutationDuringEmission()
+	{
+		enum class Mutation
+		{
+			Disconnect,
+			DestroyReceivers,
+			Clear,
+			DestroySignal
+		};
+		for (auto mutation :
+			 {Mutation::Disconnect, Mutation::DestroyReceivers, Mutation::Clear, Mutation::DestroySignal})
+		{
+			auto event = std::make_unique<Event>();
+			auto first = std::make_unique<Receiver<>>();
+			auto pending = std::make_unique<Receiver<>>();
+			int pendingCalls = 0, tailCalls = 0;
+			pending->callback = [&]()
+			{
+				++pendingCalls;
+			};
+			first->callback = [&]()
+			{
+				switch (mutation)
+				{
+				case Mutation::Disconnect:
+					event->disconnect(first.get());
+					event->disconnect(pending.get());
+					require(event->connect_unique(pending.get(), &Receiver<>::run), "Reconnect pending slot");
+					break;
+				case Mutation::DestroyReceivers:
+					first.reset();
+					pending.reset();
+					break;
+				case Mutation::Clear:
+					event->disconnect_all();
+					event->connect(pending.get(), &Receiver<>::run);
+					break;
+				case Mutation::DestroySignal: event.reset(); break;
+				}
+			};
+			event->connect(first.get(), &Receiver<>::run);
+			event->connect(pending.get(), &Receiver<>::run);
+			event->connect([&]() { ++tailCalls; });
+			(*event)();
+			bool keepsTail = mutation == Mutation::Disconnect || mutation == Mutation::DestroyReceivers;
+			require(pendingCalls == 0 && tailCalls == (keepsTail ? 1 : 0), "Pending callbacks respect removal");
+			if (event)
+			{
+				(*event)();
+				require(pendingCalls == (pending ? 1 : 0), "Replacement runs on the next emission");
+			}
+		}
+	}
+
+	void testExceptionsAndCaptureOwnership()
+	{
+		Event event;
+		Receiver<> throwing;
+		int calls = 0;
+		throwing.callback = [&]()
+		{
+			if (calls == 0)
+				throw std::runtime_error("callback failure");
+		};
+		event.connect(&throwing, &Receiver<>::run);
+		auto capture = std::make_shared<int>(0);
+		std::weak_ptr<int> lifetime = capture;
+		event.connect([&, capture]() { calls = ++*capture; });
+		capture.reset();
+		bool caught = false;
+		try
+		{
+			event();
+		}
+		catch (const std::runtime_error&)
+		{
+			caught = true;
+		}
+		require(caught && calls == 0 && !lifetime.expired(), "Exception stops dispatch without dropping captures");
+		event.disconnect(&throwing);
 		event();
-		require(calls == std::vector<int>({2}), "The replacement callback must run once on the next emission");
+		require(calls == 1, "Dispatch recovers after an exception");
+		event.disconnect_all();
+		require(lifetime.expired(), "Clearing releases captures");
 	}
 
 }
@@ -144,7 +263,11 @@ namespace
 int main()
 {
 	return unittest::runTests({
-		{"Unique connections and reconnection", testUniqueConnections},
-		{"Unique connections during emission", testUniqueConnectionsDuringEmission},
+		{"Connection identity and uniqueness", testConnections},
+		{"Arguments and variadic arities", testArguments},
+		{"Sender, receiver and argument lifetimes", testLifetimes},
+		{"Nested emission", testNestedEmission},
+		{"Removal and destruction during emission", testMutationDuringEmission},
+		{"Exceptions and callable ownership", testExceptionsAndCaptureOwnership},
 	});
 }

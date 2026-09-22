@@ -16,8 +16,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL ScopeTextureControl : public TextureToolControl
 	{
 	public:
-		~ScopeTextureControl() override;
-
 		enum SelectorType
 		{
 			SelectorNone,

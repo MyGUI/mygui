@@ -39,7 +39,6 @@ namespace tools
 	{
 		EditorWidgets::getInstance().eventChangeWidgetCoord -=
 			MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
-		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->disconnect(this);
 	}
 
 	void PropertyFieldPosition::initialise(std::string_view _type)

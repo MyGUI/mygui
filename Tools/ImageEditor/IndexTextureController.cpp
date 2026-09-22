@@ -76,7 +76,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void IndexTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void IndexTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;

@@ -40,7 +40,7 @@ namespace tools
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 		void notifyItem(MyGUI::ListBox* _sender, const MyGUI::IBNotifyItemData& _info);
 		void notifyEndDialog(Dialog* _sender, bool _result);
-		void notifyChangeProperty(PropertyPtr _sender);
+		void notifyChangeProperty(const PropertyPtr& _sender);
 
 		void invalidateList();
 		void invalidateSelection();

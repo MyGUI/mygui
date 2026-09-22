@@ -18,9 +18,6 @@ namespace tools
 
 	void CommandManager::shutdown()
 	{
-		for (auto& event : mEvents)
-			delete event.second;
-
 		mEvents.clear();
 	}
 
@@ -62,13 +59,7 @@ namespace tools
 
 	CommandManager::EventType* CommandManager::getEvent(const MyGUI::UString& _command)
 	{
-		MapEvent::iterator event = mEvents.find(_command);
-		if (event != mEvents.end())
-			return (*event).second;
-
-		EventType* type = new EventType();
-		mEvents[_command] = type;
-		return type;
+		return &mEvents.try_emplace(_command).first->second;
 	}
 
 }

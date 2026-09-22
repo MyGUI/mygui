@@ -65,7 +65,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void GroupTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void GroupTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;

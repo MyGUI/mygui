@@ -13,8 +13,6 @@ namespace tools
 
 	SelectorControl::~SelectorControl()
 	{
-		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
-
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);

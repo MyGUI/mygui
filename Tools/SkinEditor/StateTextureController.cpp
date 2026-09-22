@@ -83,7 +83,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void StateTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void StateTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated)
 			return;

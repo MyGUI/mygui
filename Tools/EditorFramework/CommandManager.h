@@ -35,7 +35,7 @@ namespace tools
 
 	private:
 		MyGUI::UString mData;
-		using MapEvent = std::map<MyGUI::UString, EventType*>;
+		using MapEvent = std::map<MyGUI::UString, EventType>;
 		MapEvent mEvents;
 	};
 

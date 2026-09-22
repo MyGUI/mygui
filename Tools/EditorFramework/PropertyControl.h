@@ -29,7 +29,7 @@ namespace tools
 		virtual void updateCaption();
 
 	private:
-		void notifyChangeProperty(PropertyPtr _sender);
+		void notifyChangeProperty(const PropertyPtr& _sender);
 
 		void advice();
 		void unadvice();

@@ -121,7 +121,7 @@ namespace tools
 		updateImageCoord();
 	}
 
-	void AnimationViewControl::notifyChangeProperty(PropertyPtr _sender)
+	void AnimationViewControl::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		rebuildAnimations();
 	}

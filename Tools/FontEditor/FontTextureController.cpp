@@ -81,7 +81,7 @@ namespace tools
 		updateReadOnlyForMsdfMode();
 	}
 
-	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void FontTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated || _sender == nullptr)
 			return;

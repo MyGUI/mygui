@@ -76,7 +76,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void FrameTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void FrameTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;

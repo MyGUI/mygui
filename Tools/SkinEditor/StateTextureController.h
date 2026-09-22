@@ -23,7 +23,7 @@ namespace tools
 
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
-		void notifyChangeProperty(PropertyPtr _sender);
+		void notifyChangeProperty(const PropertyPtr& _sender);
 		void notifyChangeScope(std::string_view _scope);
 		void notifyChangeValue(std::string_view _value);
 

@@ -44,8 +44,6 @@ namespace tools
 
 	void DataSelectorManager::clear()
 	{
-		for (auto& event : mEvents)
-			delete event.second;
 		mEvents.clear();
 	}
 
@@ -53,11 +51,9 @@ namespace tools
 	{
 		MapEvent::iterator event = mEvents.find(_dataType);
 		if (event != mEvents.end())
-			return (*event).second;
+			return &event->second;
 
-		EventType* type = new EventType();
-		mEvents.emplace(_dataType, type);
-		return type;
+		return &mEvents.try_emplace(std::string(_dataType)).first->second;
 	}
 
 	void DataSelectorManager::changeParent(DataPtr _parent)

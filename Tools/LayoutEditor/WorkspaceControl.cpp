@@ -108,8 +108,6 @@ namespace tools
 			MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -=
 			MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
-
-		mAreaSelectorControl->eventChangePosition.disconnect(this);
 	}
 
 	void WorkspaceControl::notifyChangePosition(SelectorControl* _sender)

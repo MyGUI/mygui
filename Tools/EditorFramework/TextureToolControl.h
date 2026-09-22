@@ -14,9 +14,6 @@ namespace tools
 
 	class MYGUI_EXPORT_DLL TextureToolControl : public TextureControl, public sigslot::has_slots<>
 	{
-	public:
-		~TextureToolControl() override;
-
 	protected:
 		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 

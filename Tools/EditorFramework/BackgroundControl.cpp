@@ -10,11 +10,6 @@
 namespace tools
 {
 
-	BackgroundControl::~BackgroundControl()
-	{
-		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
-	}
-
 	void BackgroundControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view /*_layoutName*/)
 	{
 		Control::OnInitialise(_parent, _place, "BackgroundControl.layout");

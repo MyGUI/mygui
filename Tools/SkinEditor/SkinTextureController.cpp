@@ -65,7 +65,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void SkinTextureController::notifyChangeProperty(PropertyPtr _sender)
+	void SkinTextureController::notifyChangeProperty(const PropertyPtr& _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;

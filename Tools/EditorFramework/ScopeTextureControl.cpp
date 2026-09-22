@@ -22,12 +22,6 @@
 namespace tools
 {
 
-	ScopeTextureControl::~ScopeTextureControl()
-	{
-		for (auto& selector : mSelectors)
-			selector.first->eventChangePosition.disconnect(this);
-	}
-
 	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
