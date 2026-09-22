@@ -44,7 +44,8 @@ namespace input
 		virtual void onFileDrop(const std::wstring& _filename)
 		{
 		}
-		virtual bool onWindowClose(size_t _handle)
+		// Return false to keep running while a close request is cancelled or confirmed asynchronously.
+		virtual bool onWindowClose()
 		{
 			return true;
 		}

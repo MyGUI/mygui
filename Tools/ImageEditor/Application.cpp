@@ -224,20 +224,7 @@ namespace tools
 		else if (mLocale == "en")
 			mLocale = "English";
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-
-		// on drop, file can be launched in any directory
-		wchar_t buff[MAX_PATH];
-		::GetModuleFileNameW(0, buff, MAX_PATH);
-
-		std::wstring dir = buff;
-		size_t pos = dir.find_last_of(L"\\/");
-		if (pos != dir.npos)
-		{
-			// set correct directory
-			::SetCurrentDirectoryW(dir.substr(0, pos + 1).c_str());
-		}
-#endif
+		setWorkingDirectoryToBinary();
 	}
 
 	void Application::onFileDrop(const std::wstring& _fileName)
@@ -246,12 +233,9 @@ namespace tools
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
 
-	bool Application::onWindowClose(size_t _handle)
+	bool Application::onWindowClose()
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (::IsIconic((HWND)_handle))
-			ShowWindow((HWND)_handle, SW_SHOWNORMAL);
-#endif
+		restoreWindowIfMinimized();
 
 		CommandManager::getInstance().executeCommand("Command_QuitApp");
 		return false;

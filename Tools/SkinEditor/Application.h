@@ -26,7 +26,7 @@ namespace tools
 		void destroyScene() override;
 
 		void onFileDrop(const std::wstring& _filename) override;
-		bool onWindowClose(size_t _handle) override;
+		bool onWindowClose() override;
 		void prepare() override;
 
 	protected:

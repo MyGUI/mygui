@@ -168,6 +168,7 @@ namespace base
 		while (!mExit)
 #endif
 		{
+			bool closeRequested = false;
 			while (SDL_PollEvent(&mEvent) != 0)
 			{
 				switch (mEvent.type)
@@ -194,13 +195,16 @@ namespace base
 					// drop file events
 				case SDL_DROPFILE: break;
 				case SDL_QUIT:
-					mExit = true;
+					closeRequested = true;
 					break;
 					// windows events
 				case SDL_WINDOWEVENT:
 					switch (mEvent.window.event)
 					{
-					case SDL_WINDOWEVENT_CLOSE: mExit = true; break;
+					case SDL_WINDOWEVENT_CLOSE:
+						if (mSdlWindow && mEvent.window.windowID == SDL_GetWindowID(mSdlWindow))
+							closeRequested = true;
+						break;
 					case SDL_WINDOWEVENT_RESIZED: _windowResized(mEvent.window.data1, mEvent.window.data2); break;
 					case SDL_WINDOWEVENT_FOCUS_GAINED: mWindowOn = true; break;
 					case SDL_WINDOWEVENT_FOCUS_LOST: mWindowOn = false; break;
@@ -210,6 +214,11 @@ namespace base
 				default: break;
 				}
 			}
+
+			// A window close and SDL_QUIT can arrive together. Ask only once per frame so a second
+			// request cannot dismiss the confirmation dialog opened by the first.
+			if (closeRequested && !mExit && onWindowClose())
+				quit();
 
 			mFpsCounter++;
 
@@ -336,6 +345,18 @@ namespace base
 		{
 			mBinaryDir = std::filesystem::current_path();
 		}
+	}
+
+	void SdlBaseManager::setWorkingDirectoryToBinary()
+	{
+		setupBinaryDir();
+		std::filesystem::current_path(mBinaryDir);
+	}
+
+	void SdlBaseManager::restoreWindowIfMinimized()
+	{
+		if (mSdlWindow && (SDL_GetWindowFlags(mSdlWindow) & SDL_WINDOW_MINIMIZED) != 0)
+			SDL_RestoreWindow(mSdlWindow);
 	}
 
 	void SdlBaseManager::setupResources()

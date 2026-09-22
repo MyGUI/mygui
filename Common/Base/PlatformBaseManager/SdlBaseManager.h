@@ -114,6 +114,8 @@ namespace base
 		virtual void setupResources();
 
 		void setupBinaryDir();
+		void setWorkingDirectoryToBinary();
+		void restoreWindowIfMinimized();
 
 		void injectMouseMove(int _absx, int _absy, int _absz) override;
 		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id) override;

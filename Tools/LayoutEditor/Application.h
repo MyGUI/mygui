@@ -25,7 +25,7 @@ namespace tools
 
 		void prepare() override;
 		void onFileDrop(const std::wstring& _filename) override;
-		bool onWindowClose(size_t _handle) override;
+		bool onWindowClose() override;
 
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
