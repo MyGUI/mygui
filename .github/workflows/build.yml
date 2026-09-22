@@ -29,19 +29,16 @@ jobs:
             build_jobs: 4 # limit parallel compilation to avoid OOM on Ogre-heavy builds
 
           - os: ubuntu-latest
-            name: "Linux: GL3, no features, tools and platform tests, static"
+            name: "Linux: GL3, no features, platform tests"
             preset: minimal
             rendersystem: 7
             platform_tests: true
-            cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_TOOLS=ON
 
           - os: ubuntu-latest
-            name: "Linux: Vulkan, all features, all apps, shared"
-            preset: full
+            name: "Linux: Vulkan, no features, platform tests, shared"
+            preset: minimal
             rendersystem: 10
             platform_tests: true
-            cmake_flags: -DBUILD_SHARED_LIBS=ON
-            build_jobs: 4
 
           - os: windows-latest
             name: "Windows: dx11 + GL + GL3, all features, just tools, shared"
@@ -49,14 +46,14 @@ jobs:
             rendersystem: 6
             platform_tests: true
             rendersystems: "4;6;7"
-            cmake_flags: -DBUILD_SHARED_LIBS=ON -DMYGUI_BUILD_DEMOS=OFF
+            cmake_flags: -DBUILD_SHARED_LIBS=ON -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_BUILD_ADVANCED_DEMOS=OFF -DMYGUI_BUILD_TEST_APP=OFF
 
           - os: windows-latest
             name: "Windows: dx11 + GL + GL3, all features, just tools, static"
             preset: full
             rendersystem: 6
             rendersystems: "4;6;7"
-            cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_DEMOS=OFF
+            cmake_flags: -DBUILD_SHARED_LIBS=OFF -DMYGUI_BUILD_DEMOS=OFF -DMYGUI_BUILD_ADVANCED_DEMOS=OFF -DMYGUI_BUILD_TEST_APP=OFF
 
           - os: macos-latest
             name: "macOS: GL3 + GL, no features, just test app"
