@@ -37,8 +37,8 @@ configuration. Capture has a maximum eight-frame completion bound;
 the queued-update case also checks that synchronous capture does not introduce
 extra rendered frames.
 
-Test media uses the shared `unittest::getResourcePath` helper. Generated Vulkan
-shaders are copied into a `UnitTest_Platform` resource directory beside the executable.
+Test media uses the shared `unittest::getResourcePath` helper. The Vulkan test
+shader binary is committed alongside its source in the test media directory.
 
 Portable coverage extracted from the OSG suite includes duplicate-name rejection
 without replacing the original texture, rejection of `PixelFormat::Unknow`, and
@@ -58,9 +58,11 @@ custom output, a subsequent draw with another texture's default shader, and
 switching the original texture back to `Default`. Source selection is isolated
 in `ShaderSources.cpp`; assertions remain shared. OpenGL/DirectX9 have no shader
 implementation and skip. Ogre/OgreNext use GLSL or HLSL fixtures; other shader
-languages currently skip. Vulkan builds its fixture with `glslangValidator`
-(required when configuring this suite for Vulkan), rather than storing a binary
-without its source.
+languages currently skip. Vulkan loads the committed SPIR-V fixture, so building
+the suite does not require a shader compiler. After editing Vulkan shader sources,
+run `python3 Scripts/update_spv.py` to regenerate production, demo, and test binaries
+and commit the updated `.spv` files. The script finds `glslangValidator` or `glslang`
+on PATH or in `$VULKAN_SDK/bin`; use `--compiler` to select an explicit executable.
 
 `scene-depth-preservation` first verifies an empty frame's depth value, then
 checks that an opaque GUI quad renders without changing that value. Five depth

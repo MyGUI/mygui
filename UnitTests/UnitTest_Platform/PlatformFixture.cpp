@@ -72,9 +72,6 @@ namespace platformtest
 	{
 		BaseManager::setupResources();
 		addResourceLocation(unittest::getResourcePath("UnitTest_Platform"));
-#if defined(MYGUI_VULKAN_PLATFORM)
-		addResourceLocation(mBinaryDir / "GeneratedShaders");
-#endif
 	}
 
 	void Fixture::createScene()

@@ -5,5 +5,6 @@
   picking rule, not alpha-only picking.
 * PlatformSwap_* shaders preserve the renderer's normal input/sampler convention,
   then swap red and blue. The shared shader test distinguishes custom output from
-  default output and checks restoration. Vulkan's GLSL source is compiled to
-  SPIR-V in the build directory by glslangValidator.
+  default output and checks restoration. Vulkan's SPIR-V binary is committed beside
+  its GLSL source. Regenerate all Vulkan binaries with `python3 Scripts/update_spv.py`
+  from the repository root (requires glslangValidator or glslang).
