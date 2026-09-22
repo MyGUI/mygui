@@ -12,6 +12,55 @@
 namespace platformtest
 {
 
+	int runNativeTests(std::initializer_list<PlatformTestCase> _tests, void (*_initialise)(Fixture&))
+	{
+		try
+		{
+			Fixture fixture(false);
+			fixture.caseName = "context-initialization";
+			fixture.open();
+			fixture.capture();
+			if (_initialise)
+				_initialise(fixture);
+			std::vector<unittest::TestCase> tests;
+			for (const auto& test : _tests)
+				tests.push_back(
+					{test.name,
+					 [&, test]
+					 {
+						 fixture.caseName = test.name;
+						 try
+						 {
+							 test.run(fixture);
+							 fixture.resetCase();
+						 }
+						 catch (...)
+						 {
+							 const auto path = std::filesystem::path("platform-artifacts") /
+								 ("native-" + std::string(backendName())) / (test.name + ".ppm");
+							 try
+							 {
+								 fixture.saveFailure(path);
+							 }
+							 catch (const std::exception& error)
+							 {
+								 std::cerr << "Cannot save failure image: " << error.what() << '\n';
+							 }
+							 throw;
+						 }
+					 }});
+			// Native state probes may leave the context unusable after an assertion.
+			const int result = unittest::runTests(tests, unittest::FailurePolicy::Stop);
+			fixture.close();
+			return result;
+		}
+		catch (const std::exception& error)
+		{
+			std::cerr << "FATAL backend " << backendName() << ": " << error.what() << '\n';
+			return 1;
+		}
+	}
+
 	void CallbackLayer::renderToTarget(MyGUI::IRenderTarget* _target, bool _update)
 	{
 		if (callback)

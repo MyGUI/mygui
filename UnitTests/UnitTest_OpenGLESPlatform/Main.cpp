@@ -1,4 +1,4 @@
-#include "TestSupport.h"
+#include "BehaviourTestSupport.h"
 #include "MyGUI_OpenGLESPlatform.h"
 #include "MyGUI_OpenGLESTexture.h"
 #include "MyGUI_OpenGLESVertexBuffer.h"
@@ -502,6 +502,7 @@ namespace
 
 }
 
+// SDL's Windows entry-point wrapper requires the argc/argv signature, even when unused.
 int main(int, char**)
 {
 	std::cout << std::unitbuf;
@@ -515,17 +516,17 @@ int main(int, char**)
 			unittest::getResourcePath("UnitTest_OpenGLESPlatform"),
 			false);
 		platform.initialise(nullptr, "");
+		int result = 1;
 		try
 		{
 			require(
 				platform.getRenderManagerPtr()->isPixelBufferObjectSupported(),
 				"ES 3 core PBO support must be recognized");
-			testTransfers();
-			std::cout << "PASS transfers, locks and sizing\n";
-			testLoader();
-			std::cout << "PASS initial uploads and failed-save cleanup\n";
-			testRendering(*platform.getRenderManagerPtr());
-			std::cout << "PASS host state, nested RTT, shaders and colour order\n";
+			result = unittest::runTests(
+				{{"transfers", testTransfers},
+				 {"loader", testLoader},
+				 {"rendering", [&] { testRendering(*platform.getRenderManagerPtr()); }}},
+				unittest::FailurePolicy::Stop);
 		}
 		catch (...)
 		{
@@ -533,11 +534,11 @@ int main(int, char**)
 			throw;
 		}
 		platform.shutdown();
-		return 0;
+		return result;
 	}
 	catch (const std::exception& error)
 	{
-		std::cerr << "FAIL: " << error.what() << '\n';
+		std::cerr << "FATAL backend OpenGLES: " << error.what() << '\n';
 		return 1;
 	}
 }

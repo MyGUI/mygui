@@ -498,34 +498,20 @@ namespace
 
 }
 
+// SDL's Windows entry-point wrapper requires the argc/argv signature, even when unused.
 int main(int, char**)
 {
-	try
-	{
-		platformtest::Fixture fixture(false);
-		fixture.open();
-		fixture.capture(); // Includes initialization errors; do not drain GL errors.
-		require(
-			MyGUI::OpenGLRenderManager::getInstance().isPixelBufferObjectSupported(),
-			"This native test requires a PBO-capable context");
-		testTransfers(fixture);
-		std::cout << "PASS PBO/CPU transfers and host pixel-store state\n";
-		testInterleavedLocks(fixture);
-		std::cout << "PASS interleaved PBO locks\n";
-		testTransferFailures(fixture);
-		std::cout << "PASS transfer validation and locked destruction\n";
-		testRasterState(fixture);
-		std::cout << "PASS raster isolation, restoration and explicit wireframe\n";
-		testStencilAttachment(fixture);
-		std::cout << "PASS stencil attachment isolation\n";
-		testRttState(fixture);
-		std::cout << "PASS standalone RTT state restoration\n";
-		fixture.close();
-		return 0;
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << "FAIL " << error.what() << '\n';
-		return 1;
-	}
+	return platformtest::runNativeTests(
+		{{"", "transfers", testTransfers},
+		 {"", "interleaved-locks", testInterleavedLocks},
+		 {"", "transfer-validation", testTransferFailures},
+		 {"", "raster-state", testRasterState},
+		 {"", "stencil-attachment", testStencilAttachment},
+		 {"", "rtt-state", testRttState}},
+		[](platformtest::Fixture&)
+		{
+			require(
+				MyGUI::OpenGLRenderManager::getInstance().isPixelBufferObjectSupported(),
+				"This native test requires a PBO-capable context");
+		});
 }

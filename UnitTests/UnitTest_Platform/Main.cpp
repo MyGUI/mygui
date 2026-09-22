@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
 	using namespace platformtest;
-	std::string group = "all", filter;
+	std::string group, filter;
 	std::filesystem::path artifacts = "platform-artifacts";
 	bool visible = false, list = false;
 	try
@@ -30,14 +30,14 @@ int main(int argc, char** argv)
 			else
 				throw std::runtime_error("Unknown/incomplete option: " + option);
 		}
-		if (group != "all" && group != "resources" && group != "rendering" && group != "lifecycle")
+		if (!group.empty() && group != "resources" && group != "rendering" && group != "lifecycle")
 			throw std::runtime_error("Unknown test group: " + group);
 		int passed = 0, failed = 0, skipped = 0, selected = 0;
 		std::unique_ptr<Fixture> fixture;
 		std::string currentGroup;
 		for (const auto& test : cases())
 		{
-			if (group != "all" && group != test.group)
+			if (!group.empty() && group != test.group)
 				continue;
 			if (!filter.empty() && test.name.find(filter) == std::string::npos)
 				continue;
@@ -110,7 +110,6 @@ int main(int argc, char** argv)
 		require(selected != 0, "No cases matched the requested filter");
 		if (fixture)
 			fixture->close();
-		fixture.reset();
 		if (!list)
 			std::cout << "Backend " << platformtest::backendName() << ": " << passed << " passed, " << failed
 					  << " failed, " << skipped << " skipped\n";

@@ -308,7 +308,8 @@ namespace
 
 }
 
-int main(int argc, char** argv)
+// SDL's Windows entry-point wrapper requires the argc/argv signature, even when unused.
+int main(int, char**)
 {
 #ifdef MYGUI_OSG_RENDER_TESTS
 	if (argc == 2 && std::string_view(argv[1]) == "--render")

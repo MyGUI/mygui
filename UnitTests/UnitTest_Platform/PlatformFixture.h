@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseManager.h"
-#include "TestSupport.h"
+#include "BehaviourTestSupport.h"
 #include "MyGUI_OverlappedLayer.h"
 #include <array>
 #include <functional>
@@ -94,14 +94,16 @@ namespace platformtest
 #endif
 	};
 
-	struct Case
+	struct PlatformTestCase
 	{
 		std::string group;
 		std::string name;
 		std::function<void(Fixture&)> run;
 	};
 
-	std::vector<Case> cases();
+	int runNativeTests(std::initializer_list<PlatformTestCase> _tests, void (*_initialise)(Fixture&) = nullptr);
+
+	std::vector<PlatformTestCase> cases();
 	std::string_view backendName();
 	std::pair<std::string, std::string> shaderFiles();
 	void upload(MyGUI::ITexture* _texture, const std::vector<unsigned char>& _bytes);

@@ -270,42 +270,16 @@ namespace
 
 }
 
+// SDL's Windows entry-point wrapper requires the argc/argv signature, even when unused.
 int main(int, char**)
 {
-	try
-	{
-		platformtest::Fixture fixture(false);
-		fixture.open();
-		testRetainedDraws(fixture);
-		fixture.resetCase();
-		std::cout << "PASS recorded vertices survive updates and wrapper destruction\n";
-		testAllocationReuse(fixture);
-		fixture.resetCase();
-		std::cout << "PASS capacity reuse and retired allocation recycling\n";
-		testPendingDestruction(fixture);
-		fixture.resetCase();
-		std::cout << "PASS pending RTT destruction retires vertex storage\n";
-		testSampledTextureLifetime(fixture);
-		fixture.resetCase();
-		std::cout << "PASS sampled textures survive destruction and recreation until RTT completion\n";
-		testAutomaticFrameRetirement(fixture);
-		fixture.resetCase();
-		std::cout << "PASS host frames retire textures and vertices without cleanup notifications\n";
-		testTextureStagingAndReuse(fixture);
-		fixture.resetCase();
-		std::cout << "PASS RGB/RGBA staging isolation and unrecorded image reuse\n";
-		testTextureUpdateVersions(fixture);
-		fixture.resetCase();
-		std::cout << "PASS recorded draws preserve texture versions across uploads\n";
-		testRenderTargetUpdate(fixture);
-		fixture.resetCase();
-		std::cout << "PASS RTT read/write preserves pixels and rebinds cached targets\n";
-		fixture.close();
-		return 0;
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << error.what() << '\n';
-		return 1;
-	}
+	return platformtest::runNativeTests(
+		{{"", "retained-draws", testRetainedDraws},
+		 {"", "allocation-reuse", testAllocationReuse},
+		 {"", "pending-destruction", testPendingDestruction},
+		 {"", "sampled-texture-lifetime", testSampledTextureLifetime},
+		 {"", "automatic-frame-retirement", testAutomaticFrameRetirement},
+		 {"", "texture-staging-reuse", testTextureStagingAndReuse},
+		 {"", "texture-update-versions", testTextureUpdateVersions},
+		 {"", "render-target-update", testRenderTargetUpdate}});
 }

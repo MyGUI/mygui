@@ -1118,7 +1118,7 @@ namespace platformtest
 		}
 
 		template<MyGUI::TextureUsage::Enum hint>
-		void addTextureCases(std::vector<Case>& result, const std::string& suffix)
+		void addTextureCases(std::vector<PlatformTestCase>& result, const std::string& suffix)
 		{
 			result.insert(
 				result.end(),
@@ -1136,9 +1136,9 @@ namespace platformtest
 
 	}
 
-	std::vector<Case> cases()
+	std::vector<PlatformTestCase> cases()
 	{
-		std::vector<Case> result{
+		std::vector<PlatformTestCase> result{
 			{"resources", "resource-stream", resourceStream},
 			{"resources", "texture-lifecycle", textureLifecycle},
 			{"resources", "duplicate-texture-name", duplicateTextureName},

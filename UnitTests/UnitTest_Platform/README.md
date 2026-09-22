@@ -36,11 +36,12 @@ for a multi-configuration generator). The executable is named
 `UnitTest_Platform`, with an `.exe` suffix on Windows:
 
 ```sh
-<test-executable> --list
+<test-executable>
+<test-executable> --group resources --list
 <test-executable> --group rendering --case rtt-chain --artifacts <artifact-dir>
 ```
 
-`--group` accepts `resources`, `rendering`, `lifecycle` or `all` (the default).
+Without `--group`, all groups run. `--group` accepts `resources`, `rendering` or `lifecycle`.
 `--case` is a substring filter; no matches is an error. `--visible` shows the
 window for debugging. `--artifacts` selects the failure-image directory;
 CTest sets a directory under the suite's build directory automatically.
@@ -84,7 +85,13 @@ regeneration instructions are in the [media README](../../Media/UnitTests/UnitTe
 
 Backend-specific suites supplement these public-interface checks with native
 state restoration, allocation reuse, resource retirement and other integration
-behavior. See their READMEs for setup requirements, including
+behavior. The OpenGL, OpenGL3, OpenGLES and Vulkan native executables report
+named cases with a pass/fail summary.
+They stop after the first failure because native state probes may leave their
+graphics context unusable. OpenGL, OpenGL3 and Vulkan save available failure
+captures under `platform-artifacts/native-<backend>/` in the working directory.
+The standalone GLES fixture does not provide frame-capture artifacts.
+See their READMEs for setup requirements, including
 [native GLES/ANGLE](../UnitTest_OpenGLESPlatform/README.md). This suite does not
 measure performance or establish browser behavior. Arbitrary device-loss and
 font-atlas recovery are outside its coverage; resize exercises the selected

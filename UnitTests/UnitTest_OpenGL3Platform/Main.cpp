@@ -322,28 +322,18 @@ namespace
 
 }
 
+// SDL's Windows entry-point wrapper requires the argc/argv signature, even when unused.
 int main(int, char**)
 {
-	try
-	{
-		platformtest::Fixture fixture(false);
-		fixture.open();
-		fixture.capture(); // Includes initialization errors; do not drain GL errors.
-		require(MyGUI::OpenGL3RenderManager::getInstance().isPixelBufferObjectSupported(), "OpenGL3 must support PBOs");
-		testTransfers(fixture);
-		std::cout << "PASS PBO/CPU transfers and host pixel-store state\n";
-		testInterleavedLocks(fixture);
-		std::cout << "PASS interleaved PBO locks\n";
-		testRasterState(fixture);
-		std::cout << "PASS raster isolation, restoration and explicit wireframe\n";
-		testRttState(fixture);
-		std::cout << "PASS standalone RTT state restoration\n";
-		fixture.close();
-		return 0;
-	}
-	catch (const std::exception& error)
-	{
-		std::cerr << "FAIL " << error.what() << '\n';
-		return 1;
-	}
+	return platformtest::runNativeTests(
+		{{"", "transfers", testTransfers},
+		 {"", "interleaved-locks", testInterleavedLocks},
+		 {"", "raster-state", testRasterState},
+		 {"", "rtt-state", testRttState}},
+		[](platformtest::Fixture&)
+		{
+			require(
+				MyGUI::OpenGL3RenderManager::getInstance().isPixelBufferObjectSupported(),
+				"This native test requires a PBO-capable context");
+		});
 }
