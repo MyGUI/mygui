@@ -71,6 +71,12 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			MyGUICommon
 	)
 
+	if(EMSCRIPTEN)
+		set(_web_shell "${MYGUI_SOURCE_DIR}/Common/WebShell.html")
+		target_link_options(${PROJECTNAME} PRIVATE "SHELL:--shell-file \"${_web_shell}\"")
+		set_property(TARGET ${PROJECTNAME} APPEND PROPERTY LINK_DEPENDS "${_web_shell}")
+	endif()
+
 	if(WIN32 AND NOT ${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		# copy SDL2.dll and other dll's to bin
 		add_custom_command(

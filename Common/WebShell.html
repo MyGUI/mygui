@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#0e141d">
+	<title>MyGUI demo</title>
+	<style>
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			min-height: 100vh;
+			display: grid;
+			place-items: center;
+			overflow: hidden;
+			background: #0e141d;
+			color: #e5eff2;
+			font: 14px system-ui, sans-serif;
+		}
+		#canvas {
+			display: block;
+			width: min(100vw, calc(100vh * 4 / 3));
+			height: min(100vh, calc(100vw * 3 / 4));
+			outline: none;
+			touch-action: none;
+		}
+		.loading #canvas { visibility: hidden; }
+		#loader {
+			position: fixed;
+			inset: 0;
+			display: grid;
+			place-content: center;
+			gap: 16px;
+			text-align: center;
+		}
+		#loader[hidden], #progress[hidden], #retry[hidden] { display: none; }
+		#status { margin: 0; color: #a5b7c2; }
+		progress {
+			display: block;
+			width: min(280px, 75vw);
+			height: 4px;
+			border: 0;
+			border-radius: 2px;
+			overflow: hidden;
+			appearance: none;
+			background: #263743;
+			color: #40d9d4;
+		}
+		progress::-webkit-progress-bar { background: #263743; }
+		progress::-webkit-progress-value { background: #40d9d4; }
+		progress::-moz-progress-bar { background: #40d9d4; }
+		button {
+			justify-self: center;
+			padding: 10px 24px;
+			border: 0;
+			border-radius: 3px;
+			background: #40d9d4;
+			color: #0e141d;
+			font: inherit;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body class="loading" aria-busy="true">
+	<div id="loader">
+		<p id="status" role="status">Loading MyGUI demo</p>
+		<progress id="progress" max="100" value="0" aria-label="Loading MyGUI demo"></progress>
+		<button id="retry" type="button" hidden>Reload</button>
+	</div>
+	<canvas id="canvas" width="1024" height="768" tabindex="0" aria-label="MyGUI demo">
+		Your browser needs WebGL 2 to run this demo.
+	</canvas>
+	<script>
+		var Module = (() => {
+			const canvas = document.getElementById('canvas');
+			const loader = document.getElementById('loader');
+			const progress = document.getElementById('progress');
+			const status = document.getElementById('status');
+			const retry = document.getElementById('retry');
+			let failed = false;
+			let ready = false;
+
+			function updateProgress(value) {
+				if (!failed && !ready) progress.value = Math.max(progress.value, Math.min(100, value));
+			}
+			function showError(message) {
+				failed = true;
+				loader.hidden = false;
+				progress.hidden = true;
+				retry.hidden = false;
+				status.textContent = message;
+				document.body.classList.add('loading');
+				document.body.setAttribute('aria-busy', 'false');
+			}
+			retry.addEventListener('click', () => location.reload());
+			canvas.addEventListener('contextmenu', event => event.preventDefault());
+			canvas.addEventListener('pointerdown', () => canvas.focus({ preventScroll: true }));
+			canvas.addEventListener('webglcontextlost', event => {
+				event.preventDefault();
+				showError('The demo was interrupted. Reload to try again.');
+			});
+			window.addEventListener('error', () => {
+				if (!ready) showError('Unable to load the demo. Please try again.');
+			}, true);
+			window.addEventListener('unhandledrejection', () => {
+				if (!ready) showError('Unable to load the demo. Please try again.');
+			});
+
+			return {
+				canvas,
+				setStatus(text) {
+					const match = text.match(/\(([\d.]+)\/([\d.]+)\)/);
+					if (match && Number(match[2]) > 0) updateProgress(80 * Number(match[1]) / Number(match[2]));
+				},
+				monitorRunDependencies(remaining) {
+					if (remaining === 0) updateProgress(90);
+				},
+				onRuntimeInitialized() { updateProgress(95); },
+				onAbort() { showError('Unable to start the demo. Please try again.'); },
+				postRun: [() => {
+					updateProgress(100);
+					requestAnimationFrame(() => {
+						if (failed) return;
+						ready = true;
+						loader.hidden = true;
+						document.body.classList.remove('loading');
+						document.body.setAttribute('aria-busy', 'false');
+						canvas.focus({ preventScroll: true });
+					});
+				}]
+			};
+		})();
+	</script>
+	{{{ SCRIPT }}}
+</body>
+</html>
