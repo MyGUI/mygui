@@ -3,7 +3,6 @@
 #include "MyGUI_MaskPickInfo.h"
 #include "MyGUI_FileSystemUtility.h"
 #include <algorithm>
-#include <chrono>
 #include <cmath>
 #include <cstring>
 #include <fstream>
@@ -343,28 +342,15 @@ namespace platformtest
 
 		void pngRoundtrip(Fixture& f)
 		{
-			struct Temporary
-			{
-				std::filesystem::path path = std::filesystem::temp_directory_path() /
-					("mygui-platform-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
-				Temporary()
-				{
-					std::filesystem::create_directory(path);
-				}
-				~Temporary()
-				{
-					std::error_code error;
-					std::filesystem::remove_all(path, error);
-				}
-			} temporary;
+			unittest::TemporaryDirectory temporary("mygui-platform-");
 			auto* source = f.texture();
 			source->loadFromFile("TransparentRgb.png");
-			source->saveToFile(MyGUI::utility::toUtf8(temporary.path / "RoundTrip.PNG"));
+			source->saveToFile(MyGUI::utility::toUtf8(temporary.path() / "RoundTrip.PNG"));
 			require(
-				std::filesystem::exists(temporary.path / "RoundTrip.PNG"),
+				std::filesystem::exists(temporary.path() / "RoundTrip.PNG"),
 				"PNG saving must create the requested file");
 			verifyPng(f, source);
-			f.addResourceLocation(temporary.path);
+			f.addResourceLocation(temporary.path());
 			auto* reloaded = f.texture();
 			reloaded->loadFromFile("RoundTrip.PNG");
 			verifyPng(f, reloaded);

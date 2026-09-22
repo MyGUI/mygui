@@ -21,21 +21,6 @@ namespace
 			_name);
 	}
 
-	template<typename Action>
-	void requireException(Action _action, std::string_view _message)
-	{
-		bool caught = false;
-		try
-		{
-			_action();
-		}
-		catch (const MyGUI::Exception&)
-		{
-			caught = true;
-		}
-		require(caught, _message);
-	}
-
 	void testRegistryAndDestruction()
 	{
 		unittest::TestContext context;
@@ -52,9 +37,9 @@ namespace
 		require(
 			!layers.isExist("Missing") && layers.getByName("Missing", false) == nullptr,
 			"Nonthrowing lookup must report missing layers");
-		requireException([&] { layers.getByName("Missing"); }, "Throwing lookup must reject a missing layer");
-		requireException([&] { layers.getLayer(3); }, "Index lookup must reject the end index");
-		requireException(
+		unittest::requireThrows([&] { layers.getByName("Missing"); }, "Throwing lookup must reject a missing layer");
+		unittest::requireThrows([&] { layers.getLayer(3); }, "Index lookup must reject the end index");
+		unittest::requireThrows(
 			[&] { layers.createLayerAt("Invalid", "SharedLayer", 4); },
 			"Insertion beyond the end must fail");
 		auto* retained = createWidget("Lower", "Retained");

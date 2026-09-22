@@ -40,20 +40,6 @@ namespace unittest
 		MyGUI::OsgPlatform platform;
 	};
 
-	template<typename Function>
-	void requireThrows(Function function, const char* message)
-	{
-		bool caught = false;
-		try
-		{
-			function();
-		}
-		catch (const MyGUI::Exception&)
-		{
-			caught = true;
-		}
-		require(caught, message);
-	}
 
 }
 

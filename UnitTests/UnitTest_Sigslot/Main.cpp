@@ -242,16 +242,10 @@ namespace
 		std::weak_ptr<int> lifetime = capture;
 		event.connect([&, capture]() { calls = ++*capture; });
 		capture.reset();
-		bool caught = false;
-		try
-		{
-			event();
-		}
-		catch (const std::runtime_error&)
-		{
-			caught = true;
-		}
-		require(caught && calls == 0 && !lifetime.expired(), "Exception stops dispatch without dropping captures");
+		unittest::requireThrows<std::runtime_error>(
+			[&] { event(); },
+			"Exception stops dispatch without dropping captures");
+		require(calls == 0 && !lifetime.expired(), "Exception stops dispatch without dropping captures");
 		event.disconnect(&throwing);
 		event();
 		require(calls == 1, "Dispatch recovers after an exception");

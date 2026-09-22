@@ -187,16 +187,9 @@ namespace
 		require(text.empty(), "A moved-from wrapper must accept an empty string_view");
 		text = "x";
 		text[0] = static_cast<MyGUI::UString::code_point>(0xD800);
-		bool translated = false;
-		try
-		{
-			text.asUTF8();
-		}
-		catch (const MyGUI::UString::invalid_data&)
-		{
-			translated = true;
-		}
-		require(translated, "Conversion errors must use the MyGUI exception type");
+		unittest::requireThrows<MyGUI::UString::invalid_data>(
+			[&] { text.asUTF8(); },
+			"Conversion errors must use the MyGUI exception type");
 
 #if defined(__cpp_char8_t)
 		const MyGUI::UString literal = u8"A\U0001F600";

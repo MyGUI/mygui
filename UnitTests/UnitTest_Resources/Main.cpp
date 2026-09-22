@@ -3,7 +3,6 @@
 #include "FixedFont.h"
 #include "FileSystemInfo.h"
 #include <sstream>
-#include <chrono>
 #include <fstream>
 #include "MyGUI_FileSystemUtility.h"
 
@@ -92,16 +91,9 @@ namespace
 			resources.getByName("AbsentResource", false) == nullptr,
 			"Nonthrowing lookup of a missing resource must return nullptr");
 		require(!resources.removeByName("AbsentResource"), "Removing a missing resource must report failure");
-		bool threw = false;
-		try
-		{
-			resources.getByName("AbsentResource");
-		}
-		catch (const MyGUI::Exception&)
-		{
-			threw = true;
-		}
-		require(threw, "Throwing lookup must report a missing resource");
+		unittest::requireThrows<MyGUI::Exception>(
+			[&] { resources.getByName("AbsentResource"); },
+			"Throwing lookup must report a missing resource");
 		for (int iteration = 0; iteration < 3; ++iteration)
 		{
 			unittest::loadResources("UnitTest_Resources/TestResources.xml");
@@ -154,19 +146,8 @@ namespace
 			MyGUI::utility::toPath(std::string_view()).empty() &&
 				MyGUI::utility::toUtf8(std::filesystem::path()).empty(),
 			"Filesystem UTF-8 adapters must preserve empty paths");
-		const auto directory = std::filesystem::temp_directory_path() /
-			MyGUI::utility::toPath("mygui-\xD0\x91\xF0\x9F\x98\x80-" +
-								   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
-		std::filesystem::create_directory(directory);
-		struct Cleanup
-		{
-			std::filesystem::path path;
-			~Cleanup()
-			{
-				std::error_code error;
-				std::filesystem::remove_all(path, error);
-			}
-		} cleanup{directory};
+		unittest::TemporaryDirectory temporary("mygui-\xD0\x91\xF0\x9F\x98\x80-");
+		const auto& directory = temporary.path();
 		const MyGUI::UString name(std::u32string(U"\u0411\U0001F600.xml"));
 		const auto filename = MyGUI::utility::toPath(name);
 		const auto path = directory / filename;

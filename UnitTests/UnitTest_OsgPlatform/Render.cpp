@@ -162,17 +162,10 @@ namespace
 			}
 		};
 		manager.getGuiRoot()->setPostDrawCallback(new InvalidOperation);
-		bool rejected = false;
-		try
-		{
-			graphics.expect(255, 0, 0);
-		}
-		catch (const std::runtime_error&)
-		{
-			rejected = true;
-		}
+		unittest::requireThrows<std::runtime_error>(
+			[&] { graphics.expect(255, 0, 0); },
+			"Correct framebuffer pixels must not hide an OpenGL error");
 		require(graphics.glError == GL_INVALID_ENUM, "The frame assertion must see the injected GL error");
-		require(rejected, "Correct framebuffer pixels must not hide an OpenGL error");
 		manager.getGuiRoot()->setPostDrawCallback(nullptr);
 		graphics.expect(255, 0, 0);
 	}

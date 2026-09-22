@@ -1,7 +1,6 @@
 #include "TestSupport.h"
 #include "TestRunner.h"
 #include "MyGUI_FileSystemUtility.h"
-#include <chrono>
 #include <cstring>
 #include <filesystem>
 #include <fstream>
@@ -228,18 +227,8 @@ namespace
 
 	void testFilesAndDiagnostics()
 	{
-		const auto directory = std::filesystem::temp_directory_path() /
-			("mygui-xml-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
-		require(std::filesystem::create_directory(directory), "Must create an isolated test directory");
-		struct Cleanup
-		{
-			std::filesystem::path path;
-			~Cleanup()
-			{
-				std::error_code error;
-				std::filesystem::remove_all(path, error);
-			}
-		} cleanup{directory};
+		unittest::TemporaryDirectory temporary("mygui-xml-");
+		const auto& directory = temporary.path();
 		const auto file = directory / "broken.xml";
 		{
 			std::ofstream output(file);

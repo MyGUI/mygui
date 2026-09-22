@@ -177,17 +177,13 @@ namespace
 		event += MyGUI::newDelegate(callback, 1);
 		// Ownership transfers only on successful subscription.
 		std::unique_ptr<Event::IDelegate> duplicate(MyGUI::newDelegate(callback, 1));
-		bool threw = false;
-		try
-		{
-			event += duplicate.get();
-			duplicate.release();
-		}
-		catch (const MyGUI::Exception&)
-		{
-			threw = true;
-		}
-		require(threw, "Duplicate callback IDs must be rejected");
+		unittest::requireThrows<MyGUI::Exception>(
+			[&]
+			{
+				event += duplicate.get();
+				duplicate.release();
+			},
+			"Duplicate callback IDs must be rejected");
 		event();
 		require(calls == 1, "Rejected subscriptions must leave the original callback intact");
 	}

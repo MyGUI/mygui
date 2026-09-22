@@ -12,6 +12,47 @@ namespace unittest
 
 	void require(bool _condition, std::string_view _message);
 
+	// Unexpected exception types propagate to the test runner.
+	template<typename Exception = MyGUI::Exception, typename Action>
+	void requireThrows(Action&& _action, std::string_view _message)
+	{
+		try
+		{
+			_action();
+		}
+		catch (const Exception&)
+		{
+			return;
+		}
+		require(false, _message);
+	}
+
+	// Owns a newly created directory and removes its contents on scope exit.
+	class TemporaryDirectory
+	{
+	public:
+		explicit TemporaryDirectory(std::string_view _prefix = "mygui-test-");
+		~TemporaryDirectory();
+		TemporaryDirectory(const TemporaryDirectory&) = delete;
+		TemporaryDirectory& operator=(const TemporaryDirectory&) = delete;
+
+		const std::filesystem::path& path() const;
+
+	private:
+		std::filesystem::path mPath;
+	};
+
+	class TemporaryFile
+	{
+	public:
+		explicit TemporaryFile(std::string_view _content);
+		const std::filesystem::path& path() const;
+
+	private:
+		TemporaryDirectory mDirectory;
+		std::filesystem::path mPath;
+	};
+
 	class TestContext
 	{
 	public:

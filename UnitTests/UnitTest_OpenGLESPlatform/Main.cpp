@@ -159,21 +159,6 @@ namespace
 		return result;
 	}
 
-	template<typename F>
-	void rejects(F action)
-	{
-		bool rejected = false;
-		try
-		{
-			action();
-		}
-		catch (const MyGUI::Exception&)
-		{
-			rejected = true;
-		}
-		require(rejected, "Invalid operation must be rejected");
-	}
-
 	void testTransfers()
 	{
 		HostTransfers host;
@@ -193,7 +178,9 @@ namespace
 					expected[i] = static_cast<unsigned char>(i * 11);
 				auto* data = static_cast<unsigned char*>(texture.lock(MyGUI::TextureUsage::Write));
 				std::copy(expected.begin(), expected.end(), data);
-				rejects([&] { texture.lock(MyGUI::TextureUsage::Write); });
+				unittest::requireThrows(
+					[&] { texture.lock(MyGUI::TextureUsage::Write); },
+					"Invalid operation must be rejected");
 				texture.unlock();
 				host.check();
 				require(read(texture) == expected, "Odd-width upload/readback mismatch");
@@ -228,8 +215,12 @@ namespace
 		first.lock(MyGUI::TextureUsage::Write);
 		first.destroy(); // ASan checks cleanup of outstanding CPU staging storage.
 		require(!first.isLocked(), "Destroy must reset lock state");
-		rejects([&] { first.createManual(-1, 1, MyGUI::TextureUsage::Write, format); });
-		rejects([&] { first.createManual(std::numeric_limits<int>::max(), 2, MyGUI::TextureUsage::Write, format); });
+		unittest::requireThrows(
+			[&] { first.createManual(-1, 1, MyGUI::TextureUsage::Write, format); },
+			"Invalid operation must be rejected");
+		unittest::requireThrows(
+			[&] { first.createManual(std::numeric_limits<int>::max(), 2, MyGUI::TextureUsage::Write, format); },
+			"Invalid operation must be rejected");
 		host.check();
 	}
 
@@ -256,16 +247,10 @@ namespace
 		MyGUI::OpenGLESTexture texture("loaded", &loader);
 		texture.loadFromFile("synthetic");
 		require(read(texture) == Bytes({17, 29, 41, 255}), "Initial CPU upload mismatch");
-		bool failed = false;
-		try
-		{
-			texture.saveToFile("synthetic");
-		}
-		catch (const std::runtime_error&)
-		{
-			failed = true;
-		}
-		require(failed && !texture.isLocked(), "Failed save must release its read lock");
+		unittest::requireThrows<std::runtime_error>(
+			[&] { texture.saveToFile("synthetic"); },
+			"Failed save must release its read lock");
+		require(!texture.isLocked(), "Failed save must release its read lock");
 		auto* bytes = static_cast<unsigned char*>(texture.lock(MyGUI::TextureUsage::Write));
 		std::fill_n(bytes, 4, 77);
 		texture.unlock();
@@ -421,11 +406,13 @@ namespace
 		fill(vertices);
 		require(Snapshot().values == before.values, "Vertex creation/update changed host bindings");
 		vertices.lock();
-		rejects([&] { vertices.lock(); });
-		rejects([&] { vertices.setVertexCount(8); });
+		unittest::requireThrows([&] { vertices.lock(); }, "Invalid operation must be rejected");
+		unittest::requireThrows([&] { vertices.setVertexCount(8); }, "Invalid operation must be rejected");
 		vertices.unlock();
-		rejects([&] { vertices.unlock(); });
-		rejects([&] { vertices.setVertexCount(std::numeric_limits<size_t>::max()); });
+		unittest::requireThrows([&] { vertices.unlock(); }, "Invalid operation must be rejected");
+		unittest::requireThrows(
+			[&] { vertices.setVertexCount(std::numeric_limits<size_t>::max()); },
+			"Invalid operation must be rejected");
 		fill(vertices);
 		MyGUI::OpenGLESTexture source("source", nullptr), target("target", nullptr), nested("nested", nullptr);
 		const auto format = MyGUI::PixelFormat::R8G8B8A8;
@@ -444,7 +431,9 @@ namespace
 			"Shader fixture must exercise different YScale uniform locations");
 		source.setShader("Swap");
 		const auto oldProgram = source.getShaderId();
-		rejects([&] { renderer.registerShader("Swap", "Missing_VP.glsl", "PlatformSwap_GLES_FP.glsl"); });
+		unittest::requireThrows(
+			[&] { renderer.registerShader("Swap", "Missing_VP.glsl", "PlatformSwap_GLES_FP.glsl"); },
+			"Invalid operation must be rejected");
 		require(source.getShaderId() == oldProgram, "Failed replacement must preserve a working shader");
 		renderer.registerShader("Swap", "Offset_VP.glsl", "PlatformSwap_GLES_FP.glsl");
 		require(source.getShaderId() != oldProgram, "Texture must resolve replacement shader handles");

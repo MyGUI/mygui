@@ -151,16 +151,9 @@ namespace
 		auto* texture = fixture.texture();
 		for (int size : {0, -1, std::numeric_limits<int>::max()})
 		{
-			bool rejected = false;
-			try
-			{
-				texture->createManual(size, size, MyGUI::TextureUsage::Write, MyGUI::PixelFormat::R8G8B8A8);
-			}
-			catch (const MyGUI::Exception&)
-			{
-				rejected = true;
-			}
-			require(rejected, "Invalid dimensions must be rejected before issuing GL allocation calls");
+			unittest::requireThrows<MyGUI::Exception>(
+				[&] { texture->createManual(size, size, MyGUI::TextureUsage::Write, MyGUI::PixelFormat::R8G8B8A8); },
+				"Invalid dimensions must be rejected before issuing GL allocation calls");
 			host.check();
 		}
 		for (auto access : {MyGUI::TextureUsage::Read, MyGUI::TextureUsage::Write})
@@ -168,16 +161,10 @@ namespace
 			texture->createManual(3, 2, MyGUI::TextureUsage::Static, MyGUI::PixelFormat::R8G8B8);
 			platformtest::upload(texture, std::vector<unsigned char>(18, 42));
 			texture->lock(access);
-			bool rejected = false;
-			try
-			{
-				texture->lock(access);
-			}
-			catch (const MyGUI::Exception&)
-			{
-				rejected = true;
-			}
-			require(rejected && texture->isLocked(), "Rejected second lock must retain the original lock");
+			unittest::requireThrows<MyGUI::Exception>(
+				[&] { texture->lock(access); },
+				"Rejected second lock must retain the original lock");
+			require(texture->isLocked(), "Rejected second lock must retain the original lock");
 			host.check();
 			texture->destroy(); // Both CPU read locks and mapped PBO writes must be released.
 			require(!texture->isLocked(), "Destroy must release an outstanding lock");
@@ -364,16 +351,10 @@ namespace
 					throw std::runtime_error("deliberate render failure");
 			});
 		const auto beforeFailure = rasterState();
-		bool threw = false;
-		try
-		{
-			MyGUI::OpenGLRenderManager::getInstance().drawOneFrame();
-		}
-		catch (const std::runtime_error&)
-		{
-			threw = true;
-		}
-		require(threw && rasterState() == beforeFailure, "Failed GUI pass must restore host state");
+		unittest::requireThrows<std::runtime_error>(
+			[&] { MyGUI::OpenGLRenderManager::getInstance().drawOneFrame(); },
+			"Failed GUI pass must restore host state");
+		require(rasterState() == beforeFailure, "Failed GUI pass must restore host state");
 
 		// Intentional debug state can still be applied after the GUI pass begins.
 		fixture.scene(

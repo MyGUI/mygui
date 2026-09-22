@@ -4,7 +4,6 @@
 #include "MyGUI_DataFileStream.h"
 #include "MyGUI_DataManager.h"
 #include <array>
-#include <chrono>
 #include <filesystem>
 #include <fstream>
 #include <sstream>
@@ -14,26 +13,7 @@ namespace
 
 	using unittest::require;
 
-	class TemporaryFile
-	{
-	public:
-		explicit TemporaryFile(const std::string& _content)
-		{
-			path = std::filesystem::temp_directory_path() /
-				("mygui_data_stream_" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
-			std::ofstream output(path, std::ios::binary);
-			output.write(_content.data(), static_cast<std::streamsize>(_content.size()));
-			require(output.good(), "The temporary stream fixture must be writable");
-		}
-
-		~TemporaryFile()
-		{
-			std::error_code error;
-			std::filesystem::remove(path, error);
-		}
-
-		std::filesystem::path path;
-	};
+	using unittest::TemporaryFile;
 
 	// Exercise the same public API through both borrowed memory and owned file streams.
 	class StreamFixture
@@ -44,7 +24,7 @@ namespace
 			if (_file)
 			{
 				file = std::make_unique<TemporaryFile>(_content);
-				auto source = std::make_unique<std::ifstream>(file->path, std::ios::binary);
+				auto source = std::make_unique<std::ifstream>(file->path(), std::ios::binary);
 				require(source->is_open(), "The temporary stream fixture must be readable");
 				input = source.get();
 				stream = std::make_unique<MyGUI::DataFileStream>(std::move(source));
@@ -342,17 +322,13 @@ namespace
 			}
 			StreamFixture fixture("abc", file);
 			fixture.input->exceptions(std::ios::failbit | std::ios::badbit);
-			bool threw = false;
-			try
-			{
-				char buffer[8];
-				fixture.stream->read(buffer, sizeof(buffer));
-			}
-			catch (const std::ios_base::failure&)
-			{
-				threw = true;
-			}
-			require(threw, "Read failures must honor the underlying stream exception mask");
+			unittest::requireThrows<std::ios_base::failure>(
+				[&]
+				{
+					char buffer[8];
+					fixture.stream->read(buffer, sizeof(buffer));
+				},
+				"Read failures must honor the underlying stream exception mask");
 			require(
 				fixture.stream->size() == 3 && fixture.stream->eof(),
 				"Size at EOF must preserve an enabled exception mask");
@@ -404,7 +380,7 @@ namespace
 			bool destroyed = false;
 			try
 			{
-				std::unique_ptr<std::ifstream> input = std::make_unique<TrackedFileStream>(file.path, destroyed);
+				std::unique_ptr<std::ifstream> input = std::make_unique<TrackedFileStream>(file.path(), destroyed);
 				std::unique_ptr<MyGUI::IDataStream> stream = std::make_unique<MyGUI::DataFileStream>(std::move(input));
 				require(input == nullptr && !destroyed, "The file must stay alive under DataFileStream ownership");
 				if (unwind)
@@ -501,16 +477,9 @@ namespace
 	void testReadAllExceptions()
 	{
 		ChunkStream stream("partial result", 3, true);
-		bool threw = false;
-		try
-		{
-			stream.readAll();
-		}
-		catch (const std::ios_base::failure&)
-		{
-			threw = true;
-		}
-		require(threw, "readAll must propagate errors instead of returning a partial result as success");
+		unittest::requireThrows<std::ios_base::failure>(
+			[&] { stream.readAll(); },
+			"readAll must propagate errors instead of returning a partial result as success");
 	}
 
 	void testReadAllTextPreservesBytes()
@@ -593,29 +562,18 @@ namespace
 	void testGetDataHolderExceptions()
 	{
 		TrackingDataManager manager;
-		bool threw = false;
-		try
-		{
-			auto data = manager.getDataHolder("read-error");
-			data->readAll();
-		}
-		catch (const std::ios_base::failure&)
-		{
-			threw = true;
-		}
-		require(
-			threw && manager.releases == 1 && !manager.unexpectedRelease,
+		unittest::requireThrows<std::ios_base::failure>(
+			[&]
+			{
+				auto data = manager.getDataHolder("read-error");
+				data->readAll();
+			},
 			"Read errors must unwind the owning holder");
-		threw = false;
-		try
-		{
-			auto data = manager.getDataHolder("open-error");
-		}
-		catch (const std::ios_base::failure&)
-		{
-			threw = true;
-		}
-		require(threw && manager.releases == 1, "Open errors must propagate without releasing an unacquired stream");
+		require(manager.releases == 1 && !manager.unexpectedRelease, "Read errors must unwind the owning holder");
+		unittest::requireThrows<std::ios_base::failure>(
+			[&] { auto data = manager.getDataHolder("open-error"); },
+			"Open errors must propagate without releasing an unacquired stream");
+		require(manager.releases == 1, "Open errors must propagate without releasing an unacquired stream");
 	}
 
 	void testUnopenedFile()
