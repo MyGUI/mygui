@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#0e141d">
-	<title>MyGUI demo</title>
+	<title>MyGUI demos</title>
 	<style>
 		* { box-sizing: border-box; }
 		body {
@@ -63,12 +63,12 @@
 </head>
 <body class="loading" aria-busy="true">
 	<div id="loader">
-		<p id="status" role="status">Loading MyGUI demo</p>
-		<progress id="progress" max="100" value="0" aria-label="Loading MyGUI demo"></progress>
+		<p id="status" role="status">Loading MyGUI demos</p>
+		<progress id="progress" max="100" value="0" aria-label="Loading MyGUI demos"></progress>
 		<button id="retry" type="button" hidden>Reload</button>
 	</div>
-	<canvas id="canvas" width="1024" height="768" tabindex="0" aria-label="MyGUI demo">
-		Your browser needs WebGL 2 to run this demo.
+	<canvas id="canvas" width="1024" height="768" tabindex="0" aria-label="MyGUI demos">
+		Your browser needs WebGL 2 to run these demos.
 	</canvas>
 	<script>
 		var Module = (() => {
@@ -97,13 +97,13 @@
 			canvas.addEventListener('pointerdown', () => canvas.focus({ preventScroll: true }));
 			canvas.addEventListener('webglcontextlost', event => {
 				event.preventDefault();
-				showError('The demo was interrupted. Reload to try again.');
+				showError('The demos were interrupted. Reload to try again.');
 			});
 			window.addEventListener('error', () => {
-				if (!ready) showError('Unable to load the demo. Please try again.');
+				if (!ready) showError('Unable to load the demos. Please try again.');
 			}, true);
 			window.addEventListener('unhandledrejection', () => {
-				if (!ready) showError('Unable to load the demo. Please try again.');
+				if (!ready) showError('Unable to load the demos. Please try again.');
 			});
 
 			return {
@@ -116,7 +116,7 @@
 					if (remaining === 0) updateProgress(90);
 				},
 				onRuntimeInitialized() { updateProgress(95); },
-				onAbort() { showError('Unable to start the demo. Please try again.'); },
+				onAbort() { showError('Unable to start the demos. Please try again.'); },
 				postRun: [() => {
 					updateProgress(100);
 					requestAnimationFrame(() => {

@@ -5,7 +5,8 @@
 MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications. It is
 written in C++17 and is designed to be fast, flexible, and easy to integrate with various rendering engines.
 
-[**Showcase**](http://mygui.info/#look) | [**Projects using MyGUI**](http://mygui.info/#projects)
+[**Online demos**](https://mygui.info/demos/) | [**Showcase**](http://mygui.info/#look) |
+[**Projects using MyGUI**](http://mygui.info/#projects)
 
 ## Features
 
