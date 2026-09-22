@@ -223,10 +223,22 @@ namespace platformtest
 		Pixel _colour,
 		MyGUI::FloatRect _uv)
 	{
+		const auto quad = quadVertices(_info, _rect, _colour, _uv);
 		_buffer->setVertexCount(_capacity);
 		require(_buffer->getVertexCount() == _capacity, "Vertex buffer must report requested count");
 		auto* vertices = _buffer->lock();
 		require(vertices != nullptr, "Vertex write lock must succeed");
+		for (size_t index = 0; index < _capacity; ++index)
+			vertices[index] = quad[index % quad.size()];
+		_buffer->unlock();
+	}
+
+	std::array<MyGUI::Vertex, 6> Fixture::quadVertices(
+		const MyGUI::RenderTargetInfo& _info,
+		MyGUI::IntCoord _rect,
+		Pixel _colour,
+		MyGUI::FloatRect _uv) const
+	{
 		const float left = ((_info.pixScaleX * float(_rect.left) + _info.hOffset) * 2) - 1;
 		const float top = 1 - ((_info.pixScaleY * float(_rect.top) + _info.vOffset) * 2);
 		const float right = left + _info.pixScaleX * float(_rect.width) * 2;
@@ -236,16 +248,13 @@ namespace platformtest
 			colour |= (MyGUI::uint32(_colour[2]) << 16) | _colour[0];
 		else
 			colour |= (MyGUI::uint32(_colour[0]) << 16) | _colour[2];
-		const std::array<MyGUI::Vertex, 6> quad{
+		return {
 			{{left, top, _info.maximumDepth, colour, _uv.left, _uv.top},
 			 {right, top, _info.maximumDepth, colour, _uv.right, _uv.top},
 			 {left, bottom, _info.maximumDepth, colour, _uv.left, _uv.bottom},
 			 {left, bottom, _info.maximumDepth, colour, _uv.left, _uv.bottom},
 			 {right, top, _info.maximumDepth, colour, _uv.right, _uv.top},
 			 {right, bottom, _info.maximumDepth, colour, _uv.right, _uv.bottom}}};
-		for (size_t index = 0; index < _capacity; ++index)
-			vertices[index] = quad[index % quad.size()];
-		_buffer->unlock();
 	}
 
 	void Fixture::quad(

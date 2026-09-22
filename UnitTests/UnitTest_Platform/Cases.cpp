@@ -72,10 +72,10 @@ namespace platformtest
 				}
 		}
 
-		template<MyGUI::PixelFormat::Enum format>
+		template<MyGUI::PixelFormat::Enum format, MyGUI::TextureUsage::Enum hint>
 		void pattern(Fixture& f)
 		{
-			const auto usage = MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Write;
+			const auto usage = hint | MyGUI::TextureUsage::Write;
 			requireSupport(f, format, usage);
 			auto* texture = f.texture();
 			texture->createManual(3, 2, usage, format);
@@ -107,7 +107,6 @@ namespace platformtest
 				for (size_t c = 0; c < 3; ++c)
 					pixel[c] = static_cast<unsigned char>((int(pixel[c]) * pixel[3] + 127) / 255);
 			}
-			upload(texture, bytes);
 			f.scene(
 				[&f, texture](MyGUI::IRenderTarget* target)
 				{
@@ -118,36 +117,47 @@ namespace platformtest
 							f.quad(target, texture, white, {x * 40, y * 64, 40, 64}, {u, v, u, v});
 						}
 				});
-			f.capture();
-			for (int y = 0; y < 2; ++y)
-				for (int x = 0; x < 3; ++x)
-					f.expect(x * 40 + 20, y * 64 + 32, expected[size_t(y * 3 + x)]);
+			for (int update = 0; update < 3; ++update)
+			{
+				upload(texture, bytes);
+				f.capture();
+				for (int y = 0; y < 2; ++y)
+					for (int x = 0; x < 3; ++x)
+						f.expect(x * 40 + 20, y * 64 + 32, expected[size_t(y * 3 + x)]);
+				std::rotate(bytes.begin(), bytes.begin() + texture->getNumElemBytes(), bytes.end());
+				std::rotate(expected.begin(), expected.begin() + 1, expected.end());
+			}
 		}
 
-		template<MyGUI::PixelFormat::Enum format>
+		template<MyGUI::PixelFormat::Enum format, MyGUI::TextureUsage::Enum hint>
 		void readWritePattern(Fixture& f)
 		{
-			const auto usage = MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
+			const auto usage = hint | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
 			requireSupport(f, format, usage);
-			for (int width : {1, 3, 5})
+			for (auto size : {MyGUI::IntSize(1, 3), MyGUI::IntSize(3, 3), MyGUI::IntSize(5, 3), MyGUI::IntSize(4, 2)})
 			{
 				auto* texture = f.texture();
-				texture->createManual(width, 3, usage, format);
-				std::vector<unsigned char> expected(size_t(width) * 3 * texture->getNumElemBytes());
+				texture->createManual(size.width, size.height, usage, format);
+				std::vector<unsigned char> expected(size_t(size.width * size.height) * texture->getNumElemBytes());
 				for (size_t i = 0; i < expected.size(); ++i)
 					expected[i] = static_cast<unsigned char>(17 + i * 7);
+				if (format == MyGUI::PixelFormat::R8G8B8A8 && size == MyGUI::IntSize(4, 2))
+					expected = pngBytes();
 				upload(texture, expected);
-				require(read(texture) == expected, "Odd-width readback must be tightly packed");
-				auto* bytes =
-					static_cast<unsigned char*>(texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
-				require(bytes != nullptr, "Read/write lock must succeed");
-				const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
-				bytes[expected.size() - 1] = 93;
-				expected.back() = 93;
-				texture->unlock();
-				require(
-					preserved && read(texture) == expected,
-					"Partial update must preserve every other byte across padded rows");
+				require(read(texture) == expected, "Readback must reproduce tightly packed bytes");
+				for (size_t edit : {expected.size() / 4, expected.size() - 1})
+				{
+					auto* bytes = static_cast<unsigned char*>(
+						texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
+					require(bytes != nullptr, "Read/write lock must succeed");
+					const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
+					expected[edit] ^= 0x5a;
+					bytes[edit] = expected[edit];
+					texture->unlock();
+					require(
+						preserved && read(texture) == expected,
+						"Partial update must preserve every other byte across padded rows");
+				}
 			}
 		}
 
@@ -273,25 +283,6 @@ namespace platformtest
 				require(
 					!f.render().isFormatSupported(MyGUI::PixelFormat::Unknow, usage),
 					"Unknown pixel format must not be advertised");
-		}
-
-		void readWritePreservation(Fixture& f)
-		{
-			const auto usage = MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
-			requireSupport(f, MyGUI::PixelFormat::R8G8B8A8, usage);
-			auto* texture = f.texture();
-			texture->createManual(4, 2, usage, MyGUI::PixelFormat::R8G8B8A8);
-			auto expected = pngBytes();
-			upload(texture, expected);
-			require(read(texture) == expected, "Read lock must reproduce written bytes exactly");
-			auto* bytes =
-				static_cast<unsigned char*>(texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
-			require(bytes != nullptr, "Read/write lock must succeed");
-			const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
-			bytes[8] = 13;
-			expected[8] = 13;
-			texture->unlock();
-			require(preserved && read(texture) == expected, "Partial read/write update must preserve untouched bytes");
 		}
 
 		void interleavedTextureLocks(Fixture& f)
@@ -461,8 +452,23 @@ namespace platformtest
 			f.scene(
 				[&](MyGUI::IRenderTarget* target)
 				{
-					f.fill(buffer, capacity, target->getInfo(), {0, 0, 128, 128}, colour);
-					target->doRender(buffer, texture, capacity / 6 * 6);
+					const size_t count = capacity / 6 * 6;
+					const auto first = f.quadVertices(target->getInfo(), {0, 0, 40, 128}, colour);
+					const auto middle = f.quadVertices(target->getInfo(), {44, 0, 40, 128}, blue);
+					const auto last = f.quadVertices(target->getInfo(), {88, 0, 40, 128}, colour == red ? green : red);
+					buffer->setVertexCount(capacity);
+					require(buffer->getVertexCount() == capacity, "Vertex buffer must report requested count");
+					auto* vertices = buffer->lock();
+					require(vertices != nullptr, "Vertex write lock must succeed");
+					std::fill_n(vertices, capacity, MyGUI::Vertex{});
+					std::copy(first.begin(), first.end(), vertices);
+					if (count > 6)
+					{
+						std::copy(middle.begin(), middle.end(), vertices + count / 12 * 6);
+						std::copy(last.begin(), last.end(), vertices + count - 6);
+					}
+					buffer->unlock();
+					target->doRender(buffer, texture, count);
 				});
 			for (int repeat = 0; repeat < 3; ++repeat)
 				for (size_t count : {4096u, 6u, 2048u, 6u})
@@ -470,31 +476,81 @@ namespace platformtest
 					capacity = count;
 					colour = colour == red ? green : red;
 					f.capture();
-					f.expectCorners(colour);
+					for (int y : {8, 64, 119})
+					{
+						f.expect(20, y, colour);
+						f.expect(64, y, capacity > 6 ? blue : black);
+						f.expect(108, y, capacity > 6 ? (colour == red ? green : red) : black);
+					}
 				}
+		}
+
+		Pixel queuedColour(int frame)
+		{
+			return {
+				static_cast<unsigned char>(31 + frame * 11),
+				static_cast<unsigned char>(239 - frame * 7),
+				static_cast<unsigned char>(17 + frame * 13),
+				255};
 		}
 
 		void queuedUpdates(Fixture& f)
 		{
+			// Upload once before the burst: texture updates can drain the GPU queue.
 			auto* texture = solid(f, white);
 			auto* buffer = f.buffer();
 			int frame = 0;
 			f.scene(
 				[&](MyGUI::IRenderTarget* target)
 				{
-					const bool alternate = (++frame % 2) == 0;
-					upload(
-						texture,
-						alternate ? std::vector<unsigned char>{0, 255, 0, 255}
-								  : std::vector<unsigned char>{0, 0, 255, 255});
-					f.fill(buffer, alternate ? 4096u : 6u, target->getInfo(), {0, 0, 128, 128}, white);
+					const auto colour = queuedColour(frame++ % 16);
+					f.fill(buffer, frame % 2 == 0 ? 4096u : 6u, target->getInfo(), {0, 0, 128, 128}, colour);
 					target->doRender(buffer, texture, 6);
 				});
-			for (int i = 0; i < 15; ++i)
+			for (int burst : {8, 9, 16})
+			{
+				const int expectedFrame = frame + burst;
+				for (int i = 1; i < burst; ++i)
+					f.drawOneFrame();
+				f.capture();
+				require(frame == expectedFrame, "Capture must not inject additional rendered frames");
+				f.expectCorners(queuedColour((frame - 1) % 16));
+			}
+		}
+
+		void queuedRttUpdates(Fixture& f)
+		{
+			// Keep every frame's output observable without capturing between updates.
+			std::array<MyGUI::ITexture*, 16> outputs{};
+			for (auto& output : outputs)
+				output = renderTexture(f, 8, 8);
+			auto* texture = solid(f, white);
+			auto* buffer = f.buffer();
+			int frame = 0;
+			f.scene(
+				[&](MyGUI::IRenderTarget* target)
+				{
+					auto* output = outputs[size_t(frame)]->getRenderTarget();
+					output->begin();
+					f.fill(buffer, frame % 2 == 0 ? 4096u : 6u, output->getInfo(), {0, 0, 8, 8}, queuedColour(frame));
+					output->doRender(buffer, texture, 6);
+					output->end();
+					// Sampling also schedules the producer on deferred scene-graph backends.
+					f.quad(target, outputs[size_t(frame)]);
+					++frame;
+				});
+			for (size_t i = 0; i < outputs.size(); ++i)
 				f.drawOneFrame();
+			require(frame == int(outputs.size()), "Each queued frame must render exactly once");
+			f.scene(
+				[&](MyGUI::IRenderTarget* target)
+				{
+					for (int i = 0; i < int(outputs.size()); ++i)
+						f.quad(target, outputs[size_t(i)], white, {i % 4 * 32, i / 4 * 32, 32, 32});
+				});
 			f.capture();
-			require(frame == 16, "Capture must not inject additional rendered frames");
-			f.expectCorners(green);
+			for (int i = 0; i < int(outputs.size()); ++i)
+				f.expect(i % 4 * 32 + 16, i / 4 * 32 + 16, queuedColour(i));
 		}
 
 		void sameFrameVertexUpdates(Fixture& f)
@@ -617,39 +673,39 @@ namespace platformtest
 			}
 		}
 
+		template<bool offscreen>
 		void shaderSelection(Fixture& f)
 		{
 			const auto files = shaderFiles();
 			if (files.first.empty())
 				throw Skip("This renderer has no programmable shader fixture");
-			f.render().registerShader("PlatformSwapChannels", files.first, files.second);
+			// Separate names avoid requiring shader replacement support between cases.
+			const std::string name = offscreen ? "PlatformSwapChannelsRTT" : "PlatformSwapChannels";
+			auto* output = offscreen ? renderTexture(f, 128, 128) : nullptr;
+			f.render().registerShader(name, files.first, files.second);
 			auto* custom = solid(f, red);
 			auto* normal = solid(f, red);
-			auto* output = renderTexture(f, 128, 128);
-			for (bool offscreen : {false, true})
-			{
-				custom->setShader("PlatformSwapChannels");
-				f.scene(
-					[&, offscreen](MyGUI::IRenderTarget* target)
+			custom->setShader(name);
+			f.scene(
+				[&](MyGUI::IRenderTarget* target)
+				{
+					auto* drawTarget = offscreen ? output->getRenderTarget() : target;
+					if (offscreen)
+						drawTarget->begin();
+					f.quad(drawTarget, custom, white, {0, 0, 64, 128});
+					f.quad(drawTarget, normal, white, {64, 0, 64, 128});
+					if (offscreen)
 					{
-						auto* drawTarget = offscreen ? output->getRenderTarget() : target;
-						if (offscreen)
-							drawTarget->begin();
-						f.quad(drawTarget, custom, white, {0, 0, 64, 128});
-						f.quad(drawTarget, normal, white, {64, 0, 64, 128});
-						if (offscreen)
-						{
-							drawTarget->end();
-							f.quad(target, output);
-						}
-					});
-				f.capture();
-				f.expect(32, 64, blue);
-				f.expect(96, 64, red);
-				custom->setShader("Default");
-				f.capture();
-				f.expectCorners(red);
-			}
+						drawTarget->end();
+						f.quad(target, output);
+					}
+				});
+			f.capture();
+			f.expect(32, 64, blue);
+			f.expect(96, 64, red);
+			custom->setShader("Default");
+			f.capture();
+			f.expectCorners(red);
 		}
 
 		void sceneDepthPreservation(Fixture& f)
@@ -811,23 +867,6 @@ namespace platformtest
 			empty = true;
 			f.capture();
 			f.expectCorners(green);
-		}
-
-		void rttSourceUpdate(Fixture& f)
-		{
-			auto* source = solid(f, red);
-			auto* output = renderTexture(f, 16, 32);
-			f.scene(
-				[&](MyGUI::IRenderTarget* target)
-				{
-					redraw(f, output, source);
-					f.quad(target, output);
-				});
-			f.capture();
-			f.expectCorners(red);
-			upload(source, {255, 0, 0, 255});
-			f.capture();
-			f.expectCorners(blue);
 		}
 
 		void rttChain(Fixture& f)
@@ -1078,24 +1117,32 @@ namespace platformtest
 			f.expectCorners(red);
 		}
 
+		template<MyGUI::TextureUsage::Enum hint>
+		void addTextureCases(std::vector<Case>& result, const std::string& suffix)
+		{
+			result.insert(
+				result.end(),
+				{
+					{"resources", "format-rgba" + suffix, pattern<MyGUI::PixelFormat::R8G8B8A8, hint>},
+					{"resources", "format-rgb" + suffix, pattern<MyGUI::PixelFormat::R8G8B8, hint>},
+					{"resources", "format-l8" + suffix, pattern<MyGUI::PixelFormat::L8, hint>},
+					{"resources", "format-l8a8" + suffix, pattern<MyGUI::PixelFormat::L8A8, hint>},
+					{"resources", "rgba-read-write" + suffix, readWritePattern<MyGUI::PixelFormat::R8G8B8A8, hint>},
+					{"resources", "rgb-read-write" + suffix, readWritePattern<MyGUI::PixelFormat::R8G8B8, hint>},
+					{"resources", "l8-read-write" + suffix, readWritePattern<MyGUI::PixelFormat::L8, hint>},
+					{"resources", "l8a8-read-write" + suffix, readWritePattern<MyGUI::PixelFormat::L8A8, hint>},
+				});
+		}
+
 	}
 
 	std::vector<Case> cases()
 	{
-		return {
+		std::vector<Case> result{
 			{"resources", "resource-stream", resourceStream},
 			{"resources", "texture-lifecycle", textureLifecycle},
 			{"resources", "duplicate-texture-name", duplicateTextureName},
 			{"resources", "unknown-format", unknownFormat},
-			{"resources", "format-rgba", pattern<MyGUI::PixelFormat::R8G8B8A8>},
-			{"resources", "format-rgb", pattern<MyGUI::PixelFormat::R8G8B8>},
-			{"resources", "format-l8", pattern<MyGUI::PixelFormat::L8>},
-			{"resources", "format-l8a8", pattern<MyGUI::PixelFormat::L8A8>},
-			{"resources", "read-write-preservation", readWritePreservation},
-			{"resources", "rgba-read-write", readWritePattern<MyGUI::PixelFormat::R8G8B8A8>},
-			{"resources", "rgb-read-write", readWritePattern<MyGUI::PixelFormat::R8G8B8>},
-			{"resources", "l8-read-write", readWritePattern<MyGUI::PixelFormat::L8>},
-			{"resources", "l8a8-read-write", readWritePattern<MyGUI::PixelFormat::L8A8>},
 			{"resources", "interleaved-texture-locks", interleavedTextureLocks},
 			{"resources", "reload-render-target-from-file", reloadRenderTargetFromFile},
 			{"resources", "shared-file-texture-lifetime", sharedFileTextureLifetime},
@@ -1112,20 +1159,21 @@ namespace platformtest
 			{"rendering", "widgets-clipping-removal", widgets},
 			{"rendering", "stream-grow-shrink", streamGrowShrink},
 			{"rendering", "queued-updates", queuedUpdates},
+			{"rendering", "queued-rtt-updates", queuedRttUpdates},
 			{"rendering", "same-frame-vertex-updates", sameFrameVertexUpdates},
 			{"rendering", "same-frame-texture-updates", sameFrameTextureUpdates},
 			{"rendering", "same-frame-resource-destruction", sameFrameResourceDestruction},
 			{"rendering", "same-frame-texture-recreation", sameFrameTextureRecreation},
 			{"rendering", "same-frame-update-burst", sameFrameUpdateBurst},
 			{"rendering", "many-draws", manyDraws},
-			{"rendering", "shader-selection", shaderSelection},
+			{"rendering", "shader-selection", shaderSelection<false>},
+			{"rendering", "rtt-shader-selection", shaderSelection<true>},
 			{"rendering", "scene-depth-preservation", sceneDepthPreservation},
 			{"rendering", "empty-submission-removal", emptySubmissionRemoval},
 			{"rendering", "resize", resize},
 			{"rendering", "host-state", hostState},
 			{"rendering", "rtt-persistence-orientation", rttPersistenceOrientation},
 			{"rendering", "rtt-empty-clear", rttEmptyClear},
-			{"rendering", "rtt-source-update", rttSourceUpdate},
 			{"rendering", "rtt-chain", rttChain},
 			{"rendering", "rtt-readback", rttReadback},
 			{"rendering", "rtt-read-write", rttReadWrite},
@@ -1137,6 +1185,11 @@ namespace platformtest
 
 			{"lifecycle", "fresh-fixture", freshFixture},
 			{"lifecycle", "replacement-fixture", replacementFixture}};
+
+		addTextureCases<MyGUI::TextureUsage::Static>(result, "");
+		addTextureCases<MyGUI::TextureUsage::Dynamic>(result, "-dynamic");
+		addTextureCases<MyGUI::TextureUsage::Stream>(result, "-stream");
+		return result;
 	}
 
 }

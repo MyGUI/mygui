@@ -53,6 +53,11 @@ namespace platformtest
 		MyGUI::ITexture* texture(const std::string& _name = "");
 		void removeTexture(MyGUI::ITexture* _texture);
 		MyGUI::IVertexBuffer* buffer();
+		std::array<MyGUI::Vertex, 6> quadVertices(
+			const MyGUI::RenderTargetInfo& _info,
+			MyGUI::IntCoord _rect,
+			Pixel _colour,
+			MyGUI::FloatRect _uv = {0, 0, 1, 1}) const;
 		void quad(
 			MyGUI::IRenderTarget* _target,
 			MyGUI::ITexture* _texture,

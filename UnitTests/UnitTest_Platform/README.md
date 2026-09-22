@@ -47,10 +47,11 @@ CTest sets a directory under the suite's build directory automatically.
 
 The cases cover:
 
-- Resource streams, texture creation/reloading, supported formats, PNG fidelity,
+- Resource streams, texture creation/reloading, supported formats with Static,
+  Dynamic and Stream usage, repeated uploads, PNG fidelity,
   filtering, mask picking, lock state and read/write preservation.
 - Drawing, blending, clipping, resizing, buffer growth, queued and same-frame
-  updates, resource lifetime, shader selection and host-state isolation.
+  updates, resource lifetime, separate window/RTT shader selection and host-state isolation.
 - Render-to-texture (RTT) output, orientation, persistence, clearing, chaining,
   nested targets, CPU edits, target reuse and destruction.
 - Rendering with fresh and replacement GUI/platform fixtures.
@@ -61,6 +62,11 @@ rendering each share a fixture within their group; lifecycle cases create a
 new fixture per case. Every fixture starts with a separately reported
 initialization capture. Case cleanup clears consumers, captures a frame, and
 releases resources before the next case.
+
+Queued-update bursts reuse vertex buffers without texture uploads or intermediate
+captures. The RTT variant retains each frame's output and checks all of them in
+one final capture. These are public-interface checks; they do not force or inspect
+an unsignalled native GPU fence.
 
 CPU byte comparisons are exact. Captures use top-down RGBA8; pixel assertions
 compare RGB with a tolerance of one byte per channel and test alpha through
