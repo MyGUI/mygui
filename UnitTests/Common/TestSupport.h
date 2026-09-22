@@ -81,6 +81,8 @@ namespace unittest
 	CountingLayer* createCountingLayer(std::string_view _name, size_t _index);
 	// Resolves a file or directory relative to Media/UnitTests.
 	std::filesystem::path getResourcePath(std::string_view _filename);
+	// Resolves a file or directory relative to Media/MyGUI_Media.
+	std::filesystem::path getMediaPath(std::string_view _filename = {});
 	// Loads an XML resource file relative to Media/UnitTests.
 	void loadResources(std::string_view _filename);
 

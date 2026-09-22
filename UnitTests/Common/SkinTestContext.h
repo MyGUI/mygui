@@ -16,7 +16,7 @@ namespace unittest
 	inline void loadMedia(const std::string& _filename)
 	{
 		MyGUI::xml::Document document;
-		require(document.open(std::string(MYGUI_WIDGET_MEDIA_ROOT) + "/" + _filename), "Cannot load MyGUI media skins");
+		require(document.open(getMediaPath(_filename)), "Cannot load MyGUI media skins");
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(document.getRoot(), "", MyGUI::Version(1, 1));
 	}
 
@@ -69,7 +69,7 @@ namespace unittest
 
 		void loadFromFile(const std::string& _filename) override
 		{
-			std::ifstream stream(std::string(MYGUI_WIDGET_MEDIA_ROOT) + "/" + _filename, std::ios::binary);
+			std::ifstream stream(getMediaPath(_filename), std::ios::binary);
 			std::array<unsigned char, 24> header{};
 			require(
 				static_cast<bool>(stream.read(reinterpret_cast<char*>(header.data()), header.size())),

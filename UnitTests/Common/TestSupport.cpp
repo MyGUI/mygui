@@ -96,6 +96,11 @@ namespace unittest
 		return MyGUI::utility::toPath(MYGUI_UNITTEST_RESOURCE_ROOT) / MyGUI::utility::toPath(_filename);
 	}
 
+	std::filesystem::path getMediaPath(std::string_view _filename)
+	{
+		return MyGUI::utility::toPath(MYGUI_UNITTEST_MEDIA_ROOT) / MyGUI::utility::toPath(_filename);
+	}
+
 	void loadResources(std::string_view _filename)
 	{
 		const auto filename = getResourcePath(_filename);

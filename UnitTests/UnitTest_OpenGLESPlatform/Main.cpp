@@ -500,7 +500,7 @@ int main(int, char**)
 	{
 		Context context;
 		MyGUI::OpenGLESPlatform platform;
-		platform.getDataManagerPtr()->addResourceLocation(unittest::getResourcePath("../MyGUI_Media"), false);
+		platform.getDataManagerPtr()->addResourceLocation(unittest::getMediaPath(), false);
 		platform.getDataManagerPtr()->addResourceLocation(unittest::getResourcePath("UnitTest_Platform"), false);
 		platform.getDataManagerPtr()->addResourceLocation(
 			unittest::getResourcePath("UnitTest_OpenGLESPlatform"),

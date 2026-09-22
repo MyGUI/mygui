@@ -14,17 +14,14 @@ target_include_directories(MyGUIUnitTestCommon PUBLIC
 target_link_libraries(MyGUIUnitTestCommon PUBLIC MyGUI::MyGUI)
 add_library(MyGUISkinTestSupport INTERFACE)
 target_link_libraries(MyGUISkinTestSupport INTERFACE MyGUIUnitTestCommon)
-if (EMSCRIPTEN)
-	target_compile_definitions(MyGUISkinTestSupport INTERFACE MYGUI_WIDGET_MEDIA_ROOT="/MyGUI_Media")
+if(EMSCRIPTEN)
 	target_link_options(MyGUISkinTestSupport INTERFACE
 			"SHELL:--preload-file ${MYGUI_SOURCE_DIR}/Media/MyGUI_Media@/MyGUI_Media"
 	)
-else ()
-	target_compile_definitions(MyGUISkinTestSupport INTERFACE
-			MYGUI_WIDGET_MEDIA_ROOT="${MYGUI_SOURCE_DIR}/Media/MyGUI_Media")
-endif ()
-if(EMSCRIPTEN)
-	target_compile_definitions(MyGUIUnitTestCommon PRIVATE MYGUI_UNITTEST_RESOURCE_ROOT="/UnitTests")
+	target_compile_definitions(MyGUIUnitTestCommon PRIVATE
+		MYGUI_UNITTEST_RESOURCE_ROOT="/UnitTests"
+		MYGUI_UNITTEST_MEDIA_ROOT="/MyGUI_Media"
+	)
 	target_link_options(MyGUIUnitTestCommon INTERFACE
 		"SHELL:--preload-file ${MYGUI_SOURCE_DIR}/Media/UnitTests@/UnitTests"
 	)
@@ -32,6 +29,7 @@ if(EMSCRIPTEN)
 else()
 	target_compile_definitions(MyGUIUnitTestCommon PRIVATE
 		MYGUI_UNITTEST_RESOURCE_ROOT="${MYGUI_SOURCE_DIR}/Media/UnitTests"
+		MYGUI_UNITTEST_MEDIA_ROOT="${MYGUI_SOURCE_DIR}/Media/MyGUI_Media"
 	)
 endif()
 if(TARGET MyGUI.DummyPlatform)

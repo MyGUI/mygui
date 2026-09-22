@@ -20,8 +20,8 @@ namespace unittest
 	public:
 		OsgTestContext()
 		{
-			platform.getDataManagerPtr()->addResourceLocation(MYGUI_OSG_TEST_MEDIA, false);
-			platform.getDataManagerPtr()->addResourceLocation(MYGUI_OSG_TEST_RESOURCES, false);
+			platform.getDataManagerPtr()->addResourceLocation(getMediaPath(), false);
+			platform.getDataManagerPtr()->addResourceLocation(getResourcePath("UnitTest_Platform"), false);
 			platform.initialise(root, 64, 64, "");
 		}
 		~OsgTestContext()
