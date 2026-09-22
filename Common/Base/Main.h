@@ -10,11 +10,10 @@
 
 #include "Precompiled.h"
 #include <SDL_main.h>
+#include <iostream>
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#include <windows.h>
-	#include <direct.h>
+	#include <SDL_messagebox.h>
 #endif
 
 #if defined(MYGUI_APP_ENTRY)
@@ -37,7 +36,7 @@
 template<class AppClass>
 void run(void* arg)
 {
-	reinterpret_cast<AppClass*>(arg)->run();
+	static_cast<AppClass*>(arg)->run();
 }
 #endif
 
@@ -49,7 +48,8 @@ int startApp(int _argc, char** _argv)
 		AppClass* app = new AppClass();
 		app->setCommandLine(_argc, _argv);
 		app->prepare();
-		if (app->create())
+		const bool created = app->create();
+		if (created)
 		{
 #ifdef __EMSCRIPTEN__
 			emscripten_set_main_loop_arg(run<AppClass>, app, 0, true);
@@ -59,23 +59,20 @@ int startApp(int _argc, char** _argv)
 			app->destroy();
 		}
 		delete app;
-		app = nullptr;
+		return created ? 0 : 1;
 	}
-	catch (MyGUI::Exception& _e)
+	catch (const MyGUI::Exception& _e)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		MessageBoxA(
-			nullptr,
-			_e.getFullDescription().c_str(),
-			"An exception has occured",
-			MB_OK | MB_ICONERROR | MB_TASKMODAL);
-#else
-		std::cerr << "An exception has occured"
-				  << " : " << _e.getFullDescription().c_str();
+		if (SDL_ShowSimpleMessageBox(
+				SDL_MESSAGEBOX_ERROR,
+				"An exception has occurred",
+				_e.getFullDescription().c_str(),
+				nullptr) != 0)
 #endif
+			std::cerr << "An exception has occurred: " << _e.getFullDescription() << '\n';
 		throw;
 	}
-	return 0;
 }
 
 #endif
