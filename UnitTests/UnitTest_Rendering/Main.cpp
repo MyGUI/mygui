@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "SkinTestContext.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_RenderItem.h"

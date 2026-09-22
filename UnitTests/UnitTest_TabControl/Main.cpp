@@ -5,7 +5,8 @@
  */
 
 #include "MyGUI.h"
-#include "BehaviourTestSupport.h"
+#include "TestRunner.h"
+#include "TestSupport.h"
 #include "FixedFont.h"
 #include <vector>
 

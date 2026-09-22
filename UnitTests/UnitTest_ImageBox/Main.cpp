@@ -5,9 +5,10 @@
  */
 
 #include "MyGUI.h"
+#include "TestRunner.h"
 #include "MyGUI_SubSkin.h"
 #include "SkinTestContext.h"
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
 
 namespace imagebox_test
 {

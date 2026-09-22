@@ -1,5 +1,6 @@
 add_library(MyGUIUnitTestCommon STATIC
 		TestSupport.h
+		TestRunner.h
 		TestSupport.cpp
 		BehaviourTestSupport.h
 		FixedFont.h

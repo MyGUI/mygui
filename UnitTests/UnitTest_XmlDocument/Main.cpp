@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_FileSystemUtility.h"
 #include <chrono>
 #include <cstring>

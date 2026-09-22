@@ -1,4 +1,5 @@
 #include "OsgTestContext.h"
+#include "TestRunner.h"
 #include "MyGUI_OsgRTTexture.h"
 #include "Base/Osg/GraphicsWindowSDL2.h"
 #include <SDL.h>

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "BaseManager.h"
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
 #include "MyGUI_OverlappedLayer.h"
 #include <array>
 #include <functional>
+#include <initializer_list>
 #include <stdexcept>
 #include <utility>
 

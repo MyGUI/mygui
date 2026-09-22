@@ -1,7 +1,7 @@
 #ifndef MYGUI_UNITTEST_OSG_TEST_CONTEXT_H_
 #define MYGUI_UNITTEST_OSG_TEST_CONTEXT_H_
 
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
 #include "MyGUI_OsgPlatform.h"
 #include "MyGUI_OsgTexture.h"
 #include "MyGUI_OsgVertexBuffer.h"

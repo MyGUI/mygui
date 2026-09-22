@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_OpenGLESPlatform.h"
 #include "MyGUI_OpenGLESTexture.h"
 #include "MyGUI_OpenGLESVertexBuffer.h"

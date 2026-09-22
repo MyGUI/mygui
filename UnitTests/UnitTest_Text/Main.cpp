@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "FixedFont.h"
 #include "MyGUI_ResourceManualFont.h"
 #include "MyGUI_TextIterator.h"

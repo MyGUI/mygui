@@ -1,4 +1,5 @@
 #include "BehaviourTestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_ControllerRepeatClick.h"
 #include <cmath>
 #include <string>

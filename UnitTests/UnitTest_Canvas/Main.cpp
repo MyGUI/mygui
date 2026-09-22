@@ -1,4 +1,5 @@
 #include "CanvasTestSupport.h"
+#include "TestRunner.h"
 
 namespace
 {

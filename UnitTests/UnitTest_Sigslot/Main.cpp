@@ -1,5 +1,6 @@
 #include "sigslot.h"
-#include "BehaviourTestSupport.h"
+#include "TestRunner.h"
+#include "TestSupport.h"
 #include <stdexcept>
 #include <string>
 

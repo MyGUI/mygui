@@ -1,4 +1,5 @@
 #include "BehaviourTestSupport.h"
+#include "TestRunner.h"
 #include "FixedFont.h"
 
 #include "Interaction.h"

@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "FixedFont.h"
 #include "FileSystemInfo.h"
 #include <sstream>

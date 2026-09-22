@@ -1,4 +1,5 @@
 #include "ProgressTestSupport.h"
+#include "TestRunner.h"
 
 namespace
 {

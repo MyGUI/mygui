@@ -2,7 +2,7 @@
 #define MYGUI_UNITTEST_RECTANGULAR_SKIN_TEST_H_
 
 #include "SkinTestContext.h"
-#include "BehaviourTestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_LayerNode.h"
 
 namespace unittest::rectangularskin

@@ -1,4 +1,5 @@
 #include "PlatformFixture.h"
+#include "TestRunner.h"
 #include "MyGUI_VertexData.h"
 #include <algorithm>
 #include <cstring>

@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_DataStream.h"
 #include "MyGUI_DataFileStream.h"
 #include "MyGUI_DataManager.h"

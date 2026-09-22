@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_SharedLayer.h"
 #include "MyGUI_SharedLayerNode.h"

@@ -1,4 +1,5 @@
 #include "BehaviourTestSupport.h"
+#include "TestRunner.h"
 
 namespace
 {

@@ -1,4 +1,5 @@
 #include "SkinTest.h"
+#include "TestRunner.h"
 
 int main()
 {

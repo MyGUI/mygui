@@ -1,4 +1,5 @@
 #include "OsgTestContext.h"
+#include "TestRunner.h"
 #include <osg/observer_ptr>
 #include <osgDB/Registry>
 #include <algorithm>

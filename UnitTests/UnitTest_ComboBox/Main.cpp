@@ -1,4 +1,5 @@
 #include "Interaction.h"
+#include "TestRunner.h"
 /*
  * This source file is part of MyGUI. For the latest info, see http://mygui.info/
  * Distributed under the MIT License
@@ -6,7 +7,7 @@
  */
 
 #include "MyGUI.h"
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
 
 namespace
 {

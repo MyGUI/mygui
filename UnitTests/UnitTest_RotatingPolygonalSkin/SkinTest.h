@@ -2,7 +2,7 @@
 #define MYGUI_UNITTEST_ROTATING_POLYGONAL_SKIN_TEST_H_
 
 #include "SkinTestContext.h"
-#include "BehaviourTestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_CommonStateInfo.h"
 #include <string>

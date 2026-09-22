@@ -1,4 +1,5 @@
-#include "BehaviourTestSupport.h"
+#include "TestSupport.h"
+#include "TestRunner.h"
 #include "MyGUI_Delegate.h"
 #include <functional>
 #include <memory>
