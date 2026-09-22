@@ -101,6 +101,8 @@ namespace platformtest
 	std::pair<std::string, std::string> shaderFiles();
 	void upload(MyGUI::ITexture* _texture, const std::vector<unsigned char>& _bytes);
 	std::vector<unsigned char> read(MyGUI::ITexture* _texture);
+	// Native suites can inspect host state during the same portable lock sequence.
+	void checkInterleavedLocks(Fixture& _fixture, const std::function<void()>& _checkState = {});
 	MyGUI::ITexture* solid(Fixture& _fixture, Pixel _pixel);
 	void requireSupport(Fixture& _fixture, MyGUI::PixelFormat _format, MyGUI::TextureUsage _usage);
 

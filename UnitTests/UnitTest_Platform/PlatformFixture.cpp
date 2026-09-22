@@ -278,13 +278,51 @@ namespace platformtest
 
 	std::vector<unsigned char> read(MyGUI::ITexture* _texture)
 	{
+		require(!_texture->isLocked(), "New read must start unlocked");
 		const auto* data = static_cast<const unsigned char*>(_texture->lock(MyGUI::TextureUsage::Read));
 		require(data != nullptr, "Advertised texture read lock must succeed");
+		const bool locked = _texture->isLocked();
 		std::vector<unsigned char> result(
 			data,
 			data + size_t(_texture->getWidth()) * size_t(_texture->getHeight()) * _texture->getNumElemBytes());
 		_texture->unlock();
+		require(locked && !_texture->isLocked(), "Read lock state transitions must be observable");
 		return result;
+	}
+
+	void checkInterleavedLocks(Fixture& _fixture, const std::function<void()>& _checkState)
+	{
+		const auto checkState = [&]
+		{
+			if (_checkState)
+				_checkState();
+		};
+		const auto usage = MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write;
+		requireSupport(_fixture, MyGUI::PixelFormat::R8G8B8A8, usage);
+		auto* a = _fixture.texture();
+		auto* b = _fixture.texture();
+		a->createManual(3, 2, usage, MyGUI::PixelFormat::R8G8B8A8);
+		checkState();
+		b->createManual(5, 3, usage, MyGUI::PixelFormat::R8G8B8A8);
+		checkState();
+		for (bool reverse : {false, true})
+		{
+			auto* first = static_cast<unsigned char*>(a->lock(MyGUI::TextureUsage::Write));
+			checkState();
+			auto* second = static_cast<unsigned char*>(b->lock(MyGUI::TextureUsage::Write));
+			require(first && second, "Different textures must support simultaneous locks");
+			std::fill_n(first, 24, reverse ? 17 : 123);
+			std::fill_n(second, 60, reverse ? 29 : 231);
+			checkState();
+			(reverse ? b : a)->unlock();
+			checkState();
+			(reverse ? a : b)->unlock();
+			checkState();
+			require(read(a) == std::vector<unsigned char>(24, reverse ? 17 : 123), "First lock lost its data");
+			checkState();
+			require(read(b) == std::vector<unsigned char>(60, reverse ? 29 : 231), "Second lock lost its data");
+			checkState();
+		}
 	}
 
 	MyGUI::ITexture* solid(Fixture& _fixture, Pixel _pixel)

@@ -407,7 +407,7 @@ namespace MyGUI
 	bool OsgRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
 		if (_usage.isValue(TextureUsage::RenderTarget))
-			return !_usage.isValue(TextureUsage::Read) &&
+			return !_usage.isValue(TextureUsage::Read) && !_usage.isValue(TextureUsage::Write) &&
 				(_format == PixelFormat::R8G8B8 || _format == PixelFormat::R8G8B8A8);
 		return _format.getBytesPerPixel() != 0;
 	}

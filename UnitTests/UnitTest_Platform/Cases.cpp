@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cstring>
 #include <fstream>
+#include <memory>
 
 namespace platformtest
 {
@@ -280,30 +281,10 @@ namespace platformtest
 						 !f.render().isFormatSupported(MyGUI::PixelFormat::Unknow, usage),
 						 "Unknown pixel format must not be advertised");
 			 }},
-			{"resources",
-			 "format-rgba",
-			 [](Fixture& f)
-			 {
-				 pattern(f, MyGUI::PixelFormat::R8G8B8A8);
-			 }},
-			{"resources",
-			 "format-rgb",
-			 [](Fixture& f)
-			 {
-				 pattern(f, MyGUI::PixelFormat::R8G8B8);
-			 }},
-			{"resources",
-			 "format-l8",
-			 [](Fixture& f)
-			 {
-				 pattern(f, MyGUI::PixelFormat::L8);
-			 }},
-			{"resources",
-			 "format-l8a8",
-			 [](Fixture& f)
-			 {
-				 pattern(f, MyGUI::PixelFormat::L8A8);
-			 }},
+			{"resources", "format-rgba", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::R8G8B8A8); }},
+			{"resources", "format-rgb", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::R8G8B8); }},
+			{"resources", "format-l8", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::L8); }},
+			{"resources", "format-l8a8", [](Fixture& f) { pattern(f, MyGUI::PixelFormat::L8A8); }},
 			{"resources",
 			 "read-write-preservation",
 			 [](Fixture& f)
@@ -327,9 +308,39 @@ namespace platformtest
 					 preserved && read(texture) == expected,
 					 "Partial read/write update must preserve untouched bytes");
 			 }},
+			{"resources", "rgba-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::R8G8B8A8); }},
 			{"resources", "rgb-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::R8G8B8); }},
 			{"resources", "l8-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::L8); }},
 			{"resources", "l8a8-read-write", [](Fixture& f) { readWritePattern(f, MyGUI::PixelFormat::L8A8); }},
+			{"resources", "interleaved-texture-locks", [](Fixture& f) { checkInterleavedLocks(f); }},
+			{"resources",
+			 "reload-render-target-from-file",
+			 [](Fixture& f)
+			 {
+				 auto* texture = renderTexture(f, 3, 2);
+				 texture->loadFromFile("TransparentRgb.png");
+				 verifyPng(f, texture);
+				 upload(texture, std::vector<unsigned char>(32, 255));
+				 show(f, texture);
+				 f.expectCorners(white);
+			 }},
+			{"resources",
+			 "shared-file-texture-lifetime",
+			 [](Fixture& f)
+			 {
+				 auto* owner = f.texture();
+				 owner->loadFromFile("TransparentRgb.png");
+				 auto* borrower = f.texture();
+				 borrower->loadFromFile("TransparentRgb.png");
+				 verifyPng(f, borrower);
+				 f.scene({});
+				 f.capture();
+				 f.removeTexture(borrower);
+				 verifyPng(f, owner);
+				 auto* replacement = f.texture();
+				 replacement->loadFromFile("TransparentRgb.png");
+				 verifyPng(f, replacement);
+			 }},
 			{"resources",
 			 "loaded-texture-write",
 			 [](Fixture& f)
@@ -555,6 +566,77 @@ namespace platformtest
 				 f.capture();
 				 f.expect(32, 64, red);
 				 f.expect(96, 64, blue);
+			 }},
+			{"rendering",
+			 "same-frame-resource-destruction",
+			 [](Fixture& f)
+			 {
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 auto* source = solid(f, red);
+						 auto release = [&](MyGUI::IVertexBuffer* buffer)
+						 {
+							 f.render().destroyVertexBuffer(buffer);
+						 };
+						 std::unique_ptr<MyGUI::IVertexBuffer, decltype(release)> buffer(
+							 f.render().createVertexBuffer(),
+							 release);
+						 f.fill(buffer.get(), 6, target->getInfo(), {0, 0, 128, 128}, white);
+						 target->doRender(buffer.get(), source, 6);
+						 f.removeTexture(source);
+					 });
+				 // Both wrappers disappear before the host submits/presents each frame.
+				 for (int frame = 0; frame < 8; ++frame)
+				 {
+					 f.capture();
+					 f.expectCorners(red);
+				 }
+			 }},
+			{"rendering",
+			 "same-frame-texture-recreation",
+			 [](Fixture& f)
+			 {
+				 auto* source = solid(f, red);
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 upload(source, {0, 0, 255, 255});
+						 f.quad(target, source, white, {0, 0, 64, 128});
+						 source->destroy();
+						 source->createManual(
+							 1,
+							 1,
+							 MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Write,
+							 MyGUI::PixelFormat::R8G8B8A8);
+						 upload(source, {255, 0, 0, 255});
+						 f.quad(target, source, white, {64, 0, 64, 128});
+					 });
+				 f.capture();
+				 f.expect(32, 64, red);
+				 f.expect(96, 64, blue);
+			 }},
+			{"rendering",
+			 "same-frame-update-burst",
+			 [](Fixture& f)
+			 {
+				 auto* texture = solid(f, white);
+				 auto* buffer = f.buffer();
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 // Exceed a small rotating buffer pool before any draw can retire.
+						 for (int i = 0; i < 16; ++i)
+						 {
+							 const auto colour = i % 2 == 0 ? red : blue;
+							 upload(texture, {colour[2], colour[1], colour[0], colour[3]});
+							 f.fill(buffer, i % 2 == 0 ? 6 : 4096, target->getInfo(), {i * 8, 0, 8, 128}, white);
+							 target->doRender(buffer, texture, 6);
+						 }
+					 });
+				 f.capture();
+				 for (int i = 0; i < 16; ++i)
+					 f.expect(i * 8 + 4, 64, i % 2 == 0 ? red : blue);
 			 }},
 			{"rendering",
 			 "shader-selection",
@@ -825,6 +907,15 @@ namespace platformtest
 				 expected[0] = 255;
 				 output->unlock();
 				 require(current && read(output) == expected, "RTT read/write must preserve GPU-produced pixels");
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 f.quad(target, output, white, {0, 0, 64, 128}, {1.0f / 6, 0.25f, 1.0f / 6, 0.25f});
+						 f.quad(target, output, white, {64, 0, 64, 128}, {0.5f, 0.75f, 0.5f, 0.75f});
+					 });
+				 f.capture();
+				 f.expect(32, 64, {0, 255, 255, 255});
+				 f.expect(96, 64, green);
 				 // Render again after a CPU edit: staging must not retain stale GPU contents.
 				 upload(source, {255, 0, 0, 255});
 				 f.scene(
@@ -842,6 +933,42 @@ namespace platformtest
 					 expected[i + 2] = 0;
 				 }
 				 require(read(output) == expected, "RTT readback must refresh staging after subsequent rendering");
+			 }},
+			{"rendering",
+			 "rtt-cached-target-after-upload",
+			 [](Fixture& f)
+			 {
+				 const auto usage = MyGUI::TextureUsage::RenderTarget | MyGUI::TextureUsage::Write;
+				 requireSupport(f, MyGUI::PixelFormat::R8G8B8A8, usage);
+				 auto* source = f.texture();
+				 source->createManual(1, 1, usage, MyGUI::PixelFormat::R8G8B8A8);
+				 auto* cachedTarget = source->getRenderTarget();
+				 require(cachedTarget != nullptr, "Combined flags must supply a render target");
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 upload(source, {0, 255, 0, 255});
+						 f.quad(target, source, white, {0, 0, 64, 128});
+						 upload(source, {255, 255, 0, 255});
+						 require(
+							 source->getRenderTarget() == cachedTarget,
+							 "Upload must preserve cached target pointers");
+						 f.quad(target, source, white, {64, 0, 64, 128});
+					 });
+				 f.capture();
+				 f.expect(32, 64, green);
+				 f.expect(96, 64, {0, 255, 255, 255});
+				 auto* whiteTexture = solid(f, white);
+				 f.scene(
+					 [&](MyGUI::IRenderTarget* target)
+					 {
+						 cachedTarget->begin();
+						 f.quad(cachedTarget, whiteTexture, red, {0, 0, 1, 1});
+						 cachedTarget->end();
+						 f.quad(target, source);
+					 });
+				 f.capture();
+				 f.expectCorners(red);
 			 }},
 			{"rendering",
 			 "rtt-nested",

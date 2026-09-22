@@ -1,4 +1,5 @@
 mygui_unit_test(UnitTest_OsgPlatform)
+set_tests_properties(UnitTest_OsgPlatform PROPERTIES LABELS "platform")
 target_compile_definitions(UnitTest_OsgPlatform PRIVATE
 	MYGUI_OSG_TEST_MEDIA="${MYGUI_SOURCE_DIR}/Media/MyGUI_Media"
 	MYGUI_OSG_TEST_RESOURCES="${MYGUI_SOURCE_DIR}/Media/UnitTests/UnitTest_Platform"
@@ -11,7 +12,7 @@ if(TARGET MyGUICommon AND MYGUI_RENDERSYSTEM EQUAL 11)
 	# Some OSG initialization checks consume GL errors even when per-frame checks
 	# are disabled. Treat their diagnostics as failures as well as pixel assertions.
 	set_tests_properties(UnitTest_OsgRendering PROPERTIES
-		LABELS "graphics" RUN_SERIAL TRUE
+		LABELS "platform;graphics" RUN_SERIAL TRUE TIMEOUT 120
 		ENVIRONMENT "OSG_NOTIFY_LEVEL=NOTICE"
 		FAIL_REGULAR_EXPRESSION "Warning: detected OpenGL error")
 else()

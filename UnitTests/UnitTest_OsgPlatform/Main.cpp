@@ -92,12 +92,16 @@ namespace
 		require(registration.reader->called, "Image loading must use normal osgDB plugin dispatch");
 	}
 
-	void testUnsupportedReadback()
+	void testUnsupportedRenderTargetAccess()
 	{
 		OsgTestContext context;
-		require(
-			!context.render().isFormatSupported(PixelFormat::R8G8B8A8, TextureUsage::RenderTarget | TextureUsage::Read),
-			"GPU readback must not be advertised");
+		for (auto access :
+			 {TextureUsage(TextureUsage::Read),
+			  TextureUsage(TextureUsage::Write),
+			  TextureUsage::Read | TextureUsage::Write})
+			require(
+				!context.render().isFormatSupported(PixelFormat::R8G8B8A8, TextureUsage::RenderTarget | access),
+				"CPU access to render targets must not be advertised");
 	}
 
 	void testPendingVertices()
@@ -319,7 +323,7 @@ int main(int argc, char** argv)
 		{"Texture snapshots and lock validation", testTextureSnapshots},
 		{"Shared OSG image ownership and type validation", testSharedImageLoader},
 		{"osgDB PNG plugin dispatch", testPngPluginDispatch},
-		{"Unsupported RTT readback", testUnsupportedReadback},
+		{"Unsupported RTT CPU access", testUnsupportedRenderTargetAccess},
 		{"Pending vertex snapshots", testPendingVertices},
 		{"Buffer reuse and delayed draws", testBufferPoolReuse},
 		{"Spare buffer memory budget", testBufferPoolBudget},

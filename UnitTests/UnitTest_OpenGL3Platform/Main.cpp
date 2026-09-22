@@ -130,19 +130,8 @@ namespace
 
 	void testInterleavedLocks(platformtest::Fixture& fixture)
 	{
-		auto* a = platformtest::solid(fixture, {255, 0, 0, 255});
-		auto* b = platformtest::solid(fixture, {0, 255, 0, 255});
 		HostTransfers host;
-		auto* first = static_cast<unsigned char*>(a->lock(MyGUI::TextureUsage::Write));
-		auto* second = static_cast<unsigned char*>(b->lock(MyGUI::TextureUsage::Write));
-		std::fill_n(first, 4, 123);
-		std::fill_n(second, 4, 231);
-		host.check();
-		a->unlock();
-		b->unlock();
-		require(platformtest::read(a) == std::vector<unsigned char>(4, 123), "First lock must upload its own PBO");
-		require(platformtest::read(b) == std::vector<unsigned char>(4, 231), "Second lock must upload its own PBO");
-		host.check();
+		platformtest::checkInterleavedLocks(fixture, [&] { host.check(); });
 	}
 
 	constexpr std::array<GLenum, 7> rasterModes = {
