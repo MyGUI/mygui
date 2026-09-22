@@ -123,8 +123,8 @@ namespace base
 		{
 			return false;
 		}
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-		// Retina scales the drawable, while SDL window and mouse coordinates remain in points.
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE || defined(__EMSCRIPTEN__)
+		// Retina and browser DPI scaling enlarge the drawable while window and mouse coordinates stay logical.
 		// Query after creating the rendering context, before Gui initialises its font resources.
 		int windowWidth = 0;
 		int drawableWidth = 0;
