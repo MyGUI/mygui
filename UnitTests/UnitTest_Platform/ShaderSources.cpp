@@ -49,7 +49,7 @@ namespace platformtest
 		return {};
 #elif defined(MYGUI_OGRENEXT_PLATFORM)
 		const auto extension = MyGUI::OgreNextRenderManager::getInstance().getShaderExtension();
-		if (extension == "glsl" || extension == "hlsl")
+		if (extension == "glsl" || extension == "hlsl" || extension == "metal")
 			return {"mygui/VP", "PlatformSwap_OgreNext_FP." + extension};
 		return {};
 #else

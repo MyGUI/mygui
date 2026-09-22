@@ -26,8 +26,8 @@ namespace MyGUI
 {
 
 	// The middle layer between MyGUI's IRenderTarget flow and OgreNext's
-	// v2 rendering. Owns the shader programs, a shared CommandBuffer + indirect
-	// buffer, and a per-texture Renderable pool.
+	// v2 rendering. Owns the shader programs, a shared CommandBuffer, indirect
+	// buffer slots, and a per-texture Renderable pool.
 	//
 	// One instance is created per OgreNextRenderManager::initialise.
 	class OgreNextManager
@@ -99,7 +99,9 @@ namespace MyGUI
 		Ogre::TextureGpu* mActiveTarget{nullptr};
 		uint8_t* mIndirectMapped{nullptr};
 		size_t mDrawIndex{0};
-		size_t mIndirectCapacityDraws{0};
+		std::vector<Ogre::IndirectBufferPacked*> mIndirectBuffers;
+		uint32 mIndirectFrame{};
+		size_t mNextIndirectBuffer{};
 
 		Ogre::Matrix4 mActiveProjMatrix;
 		Ogre::HlmsCache mPassCache;

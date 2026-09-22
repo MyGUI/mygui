@@ -259,9 +259,6 @@ namespace MyGUI
 		auto it = mTextures.find(texture->getName());
 		MYGUI_PLATFORM_ASSERT(it != mTextures.end(), "Texture '" << texture->getName() << "' not found");
 
-		auto* ogreTex = static_cast<OgreNextTexture*>(texture)->getOgreTexture();
-		if (ogreTex != nullptr && mManager)
-			mManager->notifyTextureDestroyed(ogreTex);
 
 		mTextures.erase(it);
 		delete texture;
@@ -294,11 +291,13 @@ namespace MyGUI
 		return wrapper;
 	}
 
-	bool OgreNextRenderManager::isFormatSupported(PixelFormat format, TextureUsage /*usage*/)
+	bool OgreNextRenderManager::isFormatSupported(PixelFormat format, TextureUsage usage)
 	{
-		if (format == PixelFormat::L8A8)
-			return false; // Requires fragment-shader swizzle for RG8 -> RGBA. Not implemented yet.
-		return true;
+		const auto gpuFormat = OgreNextTexture::convertFormat(format);
+		if (gpuFormat == Ogre::PFG_UNKNOWN || !mRenderSystem)
+			return false;
+		const Ogre::uint32 flags = usage.isValue(TextureUsage::RenderTarget) ? Ogre::TextureFlags::RenderToTexture : 0u;
+		return mRenderSystem->getTextureGpuManager()->checkSupport(gpuFormat, Ogre::TextureTypes::Type2D, flags);
 	}
 
 	bool OgreNextRenderManager::checkTexture(ITexture* texture)
@@ -366,18 +365,21 @@ namespace MyGUI
 		Ogre::HighLevelGpuProgramPtr loadShaderFile(
 			const std::string& filename,
 			Ogre::GpuProgramType type,
-			const std::string& group)
+			const std::string& group,
+			const std::string& reflectionHint = {})
 		{
 			auto& mgr = Ogre::HighLevelGpuProgramManager::getSingleton();
 
 			// Allow referencing an already-registered program by name (e.g. our
 			// built-in "mygui/VP" / "mygui/FP", or one registered by another call
 			// to registerShader). Search the caller's group first, then anywhere.
-			Ogre::HighLevelGpuProgramPtr existing = mgr.getByName(filename, group);
-			if (!existing)
-				existing = mgr.getByName(filename, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
-			if (existing)
-				return existing;
+			{
+				Ogre::HighLevelGpuProgramPtr existing = mgr.getByName(filename, group);
+				if (!existing)
+					existing = mgr.getByName(filename, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+				if (existing)
+					return existing;
+			}
 
 			const std::string language = detectShaderLanguage(filename);
 			MYGUI_PLATFORM_ASSERT(
@@ -390,6 +392,14 @@ namespace MyGUI
 			{
 				program->setParameter("target", type == Ogre::GPT_VERTEX_PROGRAM ? "vs_5_0 vs_4_0" : "ps_5_0 ps_4_0");
 				program->setParameter("entry_point", "main");
+			}
+			if (language == "metal")
+			{
+				program->setParameter(
+					"entry_point",
+					type == Ogre::GPT_VERTEX_PROGRAM ? "vertex_main" : "fragment_main");
+				if (type == Ogre::GPT_FRAGMENT_PROGRAM)
+					program->setParameter("shader_reflection_pair_hint", reflectionHint);
 			}
 			program->load();
 			return program;
@@ -409,7 +419,7 @@ namespace MyGUI
 
 		const std::string& group = OgreNextDataManager::getInstance().getGroup();
 		auto vp = loadShaderFile(vertexProgramFile, Ogre::GPT_VERTEX_PROGRAM, group);
-		auto fp = loadShaderFile(fragmentProgramFile, Ogre::GPT_FRAGMENT_PROGRAM, group);
+		auto fp = loadShaderFile(fragmentProgramFile, Ogre::GPT_FRAGMENT_PROGRAM, group, vp->getName());
 
 		ShaderEntry entry;
 		entry.vertexProgram = vp->getName();

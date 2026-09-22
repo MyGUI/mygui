@@ -33,6 +33,8 @@
 #include <CommandBuffer/OgreCbShaderBuffer.h>
 #include <CommandBuffer/OgreCbDrawCall.h>
 
+#include <array>
+
 #include "MyGUI_LastHeader.h"
 
 namespace MyGUI
@@ -217,8 +219,8 @@ struct VertexOut
 fragment float4 fragment_main(VertexOut in [[stage_in]],
                               texture2d<float> tex [[texture(0)]])
 {
-    constexpr sampler linearSampler(coord::normalized, min_filter::linear,
-                                    mag_filter::linear, mip_filter::linear);
+    constexpr sampler linearSampler(coord::normalized, address::clamp_to_edge, min_filter::linear,
+                                    mag_filter::linear, mip_filter::none);
     return in.col * tex.sample(linearSampler, in.uv);
 }
 )";
@@ -310,6 +312,8 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 			if (metalEntry != nullptr)
 			{
 				program->setParameter("entry_point", metalEntry);
+				if (type == Ogre::GPT_FRAGMENT_PROGRAM)
+					program->setParameter("shader_reflection_pair_hint", "mygui/VP/Metal");
 			}
 			if (vulkan)
 			{
@@ -398,33 +402,41 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 
 	void OgreNextManager::ensureIndirectBuffer(size_t neededDraws)
 	{
-		Ogre::VaoManager* vao = Ogre::Root::getSingleton().getRenderSystem()->getVaoManager();
-		if (mIndirectBuffer != nullptr && neededDraws * sizeof(Ogre::CbDrawStrip) <= mIndirectBuffer->getNumElements())
-			return;
-
-		destroyIndirectBuffer();
-
-		mIndirectCapacityDraws = std::max<size_t>(INITIAL_INDIRECT_DRAWS, neededDraws);
-		mIndirectBuffer = vao->createIndirectBuffer(
-			mIndirectCapacityDraws * sizeof(Ogre::CbDrawStrip),
-			Ogre::BT_DYNAMIC_PERSISTENT,
-			nullptr,
-			false);
+		auto* vao = Ogre::Root::getSingleton().getRenderSystem()->getVaoManager();
+		const auto frame = vao->getFrameCount();
+		if (mIndirectFrame != frame)
+		{
+			mIndirectFrame = frame;
+			mNextIndirectBuffer = 0;
+		}
+		if (mNextIndirectBuffer == mIndirectBuffers.size())
+			mIndirectBuffers.push_back(nullptr);
+		auto& buffer = mIndirectBuffers[mNextIndirectBuffer++];
+		const size_t bytes = std::max(INITIAL_INDIRECT_DRAWS, neededDraws) * sizeof(Ogre::CbDrawStrip);
+		if (!buffer || buffer->getNumElements() < bytes)
+		{
+			if (buffer)
+			{
+				if (buffer->getMappingState() != Ogre::MS_UNMAPPED)
+					buffer->unmap(Ogre::UO_UNMAP_ALL);
+				vao->destroyIndirectBuffer(buffer);
+			}
+			buffer = vao->createIndirectBuffer(bytes, Ogre::BT_DYNAMIC_PERSISTENT, nullptr, false);
+		}
+		mIndirectBuffer = buffer;
 	}
 
 	void OgreNextManager::destroyIndirectBuffer()
 	{
-		if (mIndirectBuffer == nullptr)
-			return;
-
-		if (mIndirectBuffer->getMappingState() != Ogre::MS_UNMAPPED)
-			mIndirectBuffer->unmap(Ogre::UO_UNMAP_ALL);
-
-		Ogre::VaoManager* vao = Ogre::Root::getSingleton().getRenderSystem()->getVaoManager();
-		if (vao != nullptr)
-			vao->destroyIndirectBuffer(mIndirectBuffer);
+		auto* vao = Ogre::Root::getSingleton().getRenderSystem()->getVaoManager();
+		for (auto* buffer : mIndirectBuffers)
+		{
+			if (buffer->getMappingState() != Ogre::MS_UNMAPPED)
+				buffer->unmap(Ogre::UO_UNMAP_ALL);
+			vao->destroyIndirectBuffer(buffer);
+		}
+		mIndirectBuffers.clear();
 		mIndirectBuffer = nullptr;
-		mIndirectCapacityDraws = 0;
 	}
 
 	OgreNextRenderable* OgreNextManager::renderableFor(Ogre::TextureGpu* tex, const Ogre::MaterialPtr& material)
@@ -496,10 +508,27 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 
 		mActiveProjMatrix = saved.projMatrix;
 
+		// Resuming an interrupted pass must preserve colour/depth already rendered.
+		std::array<Ogre::LoadAction::LoadAction, OGRE_MAX_MULTIPLE_RENDER_TARGETS> colourLoads;
+		for (size_t i = 0; i < colourLoads.size(); ++i)
+		{
+			colourLoads[i] = mActiveRPD->mColour[i].loadAction;
+			mActiveRPD->mColour[i].loadAction = Ogre::LoadAction::Load;
+		}
+		const auto depthLoad = mActiveRPD->mDepth.loadAction;
+		const auto stencilLoad = mActiveRPD->mStencil.loadAction;
+		mActiveRPD->mDepth.loadAction = Ogre::LoadAction::Load;
+		mActiveRPD->mStencil.loadAction = Ogre::LoadAction::Load;
+		mActiveRPD->entriesModified(Ogre::RenderPassDescriptor::All);
 		const Ogre::Vector4 viewportSize(0, 0, 1, 1);
 		const Ogre::Vector4 scissors(0, 0, 1, 1);
 		rs->beginRenderPassDescriptor(mActiveRPD, mActiveTarget, 0u, &viewportSize, &scissors, 1u, false, false);
 		rs->executeRenderPassDescriptorDelayedActions();
+		for (size_t i = 0; i < colourLoads.size(); ++i)
+			mActiveRPD->mColour[i].loadAction = colourLoads[i];
+		mActiveRPD->mDepth.loadAction = depthLoad;
+		mActiveRPD->mStencil.loadAction = stencilLoad;
+		mActiveRPD->entriesModified(Ogre::RenderPassDescriptor::All);
 
 		mActiveHlms = saved.hlms;
 		mPassCache = saved.passCache;
@@ -586,18 +615,10 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 		OgreNextRenderable* renderable = renderableFor(gpuTex, material);
 		renderable->setVao(vao);
 
-		// Grow indirect buffer if this draw would overflow. To avoid remapping
-		// mid-batch, remap once and continue.
 		if ((mDrawIndex + 1u) * sizeof(Ogre::CbDrawStrip) > mIndirectBuffer->getNumElements())
 		{
-			Ogre::RenderSystem* rs = Ogre::Root::getSingleton().getRenderSystem();
-			if (mIndirectBuffer->getMappingState() != Ogre::MS_UNMAPPED)
-				mIndirectBuffer->unmap(Ogre::UO_UNMAP_ALL);
-			ensureIndirectBuffer((mDrawIndex + 1u) * 2u);
-			if (rs->getVaoManager()->supportsIndirectBuffers())
-				mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->map(0u, mIndirectBuffer->getNumElements()));
-			else
-				mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->getSwBufferPtr());
+			suspendBatch();
+			resumeBatch();
 		}
 
 		// Update the projection uniform on this material.

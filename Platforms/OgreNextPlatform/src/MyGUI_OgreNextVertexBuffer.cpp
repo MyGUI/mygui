@@ -1,6 +1,8 @@
 #include "MyGUI_OgreNextVertexBuffer.h"
 
 #include "MyGUI_OgreNextDiagnostic.h"
+#include "MyGUI_OgreNextRenderManager.h"
+#include "MyGUI_OgreNextManager.h"
 
 #include <OgreRoot.h>
 #include <OgreRenderSystem.h>
@@ -40,7 +42,12 @@ namespace MyGUI
 
 	OgreNextVertexBuffer::~OgreNextVertexBuffer()
 	{
-		destroyBuffer();
+		for (const auto& slot : mSlots)
+		{
+			mBuffer = slot.buffer;
+			mVao = slot.vao;
+			destroyBuffer();
+		}
 	}
 
 	void OgreNextVertexBuffer::setVertexCount(size_t _count)
@@ -66,6 +73,12 @@ namespace MyGUI
 
 	void OgreNextVertexBuffer::destroyBuffer()
 	{
+		if (!mBuffer && !mVao)
+			return;
+		auto* render = OgreNextRenderManager::getInstancePtr();
+		auto* manager = render ? render->getManager() : nullptr;
+		if (manager && manager->suspendBatch())
+			manager->resumeBatch();
 		Ogre::VaoManager* vao = getVaoManager();
 		if (vao == nullptr)
 			return;
@@ -88,10 +101,25 @@ namespace MyGUI
 
 	Vertex* OgreNextVertexBuffer::lock()
 	{
+		// Ogre dynamic buffers may be mapped only once per frame. Retain one slot
+		// per update so a later upload cannot overwrite vertices still used by the GPU.
+		const auto frame = getVaoManager()->getFrameCount();
+		if (mFrame != frame)
+		{
+			mFrame = frame;
+			mNextSlot = 0;
+		}
+		if (mNextSlot == mSlots.size())
+			mSlots.emplace_back();
+		auto& slot = mSlots[mNextSlot++];
+		mBuffer = slot.buffer;
+		mVao = slot.vao;
+		mCapacity = slot.capacity;
 		if (mRequestedCount > mCapacity)
 		{
 			destroyBuffer();
 			createBuffer(mRequestedCount + VERTEX_BUFFER_SLACK);
+			slot = {mBuffer, mVao, mCapacity};
 		}
 
 		return static_cast<Vertex*>(mBuffer->map(0u, mRequestedCount));

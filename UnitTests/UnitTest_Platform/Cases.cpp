@@ -598,6 +598,25 @@ namespace platformtest
 				f.expect(i * 8 + 4, 64, i % 2 == 0 ? red : blue);
 		}
 
+		void manyDraws(Fixture& f)
+		{
+			auto* texture = solid(f, white);
+			f.scene(
+				[&](MyGUI::IRenderTarget* target)
+				{
+					for (int y = 0; y < 8; ++y)
+						for (int x = 0; x < 16; ++x)
+							f.quad(target, texture, (x + y) % 2 == 0 ? red : blue, {x * 8, y * 16, 8, 16});
+				});
+			for (int frame = 0; frame < 4; ++frame)
+			{
+				f.capture();
+				for (int y = 0; y < 8; ++y)
+					for (int x = 0; x < 16; ++x)
+						f.expect(x * 8 + 4, y * 16 + 8, (x + y) % 2 == 0 ? red : blue);
+			}
+		}
+
 		void shaderSelection(Fixture& f)
 		{
 			const auto files = shaderFiles();
@@ -1098,6 +1117,7 @@ namespace platformtest
 			{"rendering", "same-frame-resource-destruction", sameFrameResourceDestruction},
 			{"rendering", "same-frame-texture-recreation", sameFrameTextureRecreation},
 			{"rendering", "same-frame-update-burst", sameFrameUpdateBurst},
+			{"rendering", "many-draws", manyDraws},
 			{"rendering", "shader-selection", shaderSelection},
 			{"rendering", "scene-depth-preservation", sceneDepthPreservation},
 			{"rendering", "empty-submission-removal", emptySubmissionRemoval},

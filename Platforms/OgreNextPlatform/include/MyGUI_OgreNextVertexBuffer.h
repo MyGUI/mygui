@@ -4,13 +4,15 @@
 #include "MyGUI_OgreNextPrerequisites.h"
 #include "MyGUI_IVertexBuffer.h"
 
+#include <vector>
+
 #include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
 
-	// v2 vertex buffer for MyGUI. Wraps a single VertexBufferPacked (BT_DYNAMIC_PERSISTENT)
-	// and a VertexArrayObject that binds it as a non-indexed OT_TRIANGLE_LIST.
+	// v2 vertex buffer for MyGUI. Retains VertexBufferPacked/VertexArrayObject slots
+	// for each update within a frame, using non-indexed OT_TRIANGLE_LIST draws.
 	class OgreNextVertexBuffer : public IVertexBuffer
 	{
 	public:
@@ -31,6 +33,16 @@ namespace MyGUI
 	private:
 		void createBuffer(size_t capacity);
 		void destroyBuffer();
+
+		struct BufferSlot
+		{
+			Ogre::VertexBufferPacked* buffer{};
+			Ogre::VertexArrayObject* vao{};
+			size_t capacity{};
+		};
+		std::vector<BufferSlot> mSlots;
+		uint32 mFrame{};
+		size_t mNextSlot{};
 
 		size_t mRequestedCount{0};
 		size_t mCapacity{0};

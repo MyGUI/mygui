@@ -4,7 +4,6 @@
 #include "MyGUI_OgreNextManager.h"
 #include "MyGUI_OgreNextRTTexture.h"
 #include "MyGUI_OgreNextRenderManager.h"
-#include "MyGUI_DataManager.h"
 
 #include <OgreRoot.h>
 #include <OgreRenderSystem.h>
@@ -23,12 +22,34 @@
 
 #include "MyGUI_LastHeader.h"
 
-#include <cstring>
+#include <memory>
 
 namespace MyGUI
 {
 	namespace
 	{
+
+		class ScopedBatchPause
+		{
+		public:
+			explicit ScopedBatchPause(bool needed = true)
+			{
+				if (!needed)
+					return;
+				auto* render = OgreNextRenderManager::getInstancePtr();
+				mManager = render ? render->getManager() : nullptr;
+				mPaused = mManager && mManager->suspendBatch();
+			}
+			~ScopedBatchPause()
+			{
+				if (mPaused)
+					mManager->resumeBatch();
+			}
+
+		private:
+			OgreNextManager* mManager{};
+			bool mPaused{};
+		};
 
 		Ogre::TextureGpuManager* getTextureManager()
 		{
@@ -58,6 +79,7 @@ namespace MyGUI
 	{
 		if (mShaderName == _shaderName)
 			return;
+		ScopedBatchPause pause;
 		mShaderName = _shaderName;
 
 		// If the material was already created we need to rebuild it against the
@@ -69,6 +91,7 @@ namespace MyGUI
 
 	void OgreNextTexture::saveToFile(const std::string& _filename)
 	{
+		ScopedBatchPause pause(mTexture != nullptr);
 		if (mTexture != nullptr)
 		{
 			mTexture->writeContentsToFile(_filename, 0u, 0u);
@@ -82,6 +105,7 @@ namespace MyGUI
 
 	void OgreNextTexture::destroy()
 	{
+		ScopedBatchPause pause(mTexture != nullptr);
 		if (mLockedBuffer != nullptr)
 		{
 			delete[] static_cast<uint8*>(mLockedBuffer);
@@ -104,6 +128,11 @@ namespace MyGUI
 		}
 		mTexture = nullptr;
 		mOwnsTexture = false;
+		mLocked = false;
+		mLockedRead = false;
+		mOriginalFormat = PixelFormat::Unknow;
+		mOriginalUsage = TextureUsage::Default;
+		mNumElemBytes = 0;
 	}
 
 	int OgreNextTexture::getWidth() const
@@ -120,48 +149,41 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_ASSERT(mTexture != nullptr, "Texture is not created");
 		MYGUI_PLATFORM_ASSERT(!mLocked, "Texture is already locked");
-
-		if (_access != TextureUsage::Write)
+		MYGUI_PLATFORM_ASSERT(mOriginalFormat != PixelFormat::Unknow, "Texture format does not support CPU locking");
+		ScopedBatchPause pause(_access.isValue(TextureUsage::Read));
+		mLockedWidth = getWidth();
+		mLockedHeight = getHeight();
+		const size_t dataSize = size_t(mLockedWidth) * size_t(mLockedHeight) * mNumElemBytes;
+		auto buffer = std::make_unique<uint8[]>(dataSize);
+		if (_access.isValue(TextureUsage::Read))
 		{
-			if (mTexture->getNextResidencyStatus() != Ogre::GpuResidency::Resident)
-				mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
+			mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
 			mTexture->waitForData();
-
 			Ogre::Image2 image;
 			image.convertFromTexture(mTexture, 0, 0);
-			Ogre::TextureBox box = image.getData(0);
-
-			mLockedWidth = static_cast<int>(mTexture->getWidth());
-			mLockedHeight = static_cast<int>(mTexture->getHeight());
-
-			const size_t pixelBytes = Ogre::PixelFormatGpuUtils::getBytesPerPixel(mTexture->getPixelFormat());
-			const size_t rowBytes = static_cast<size_t>(mLockedWidth) * pixelBytes;
-			const size_t dataSize = static_cast<size_t>(mLockedHeight) * rowBytes;
-
-			mLockedBuffer = new uint8[dataSize];
-			uint8* dst = static_cast<uint8*>(mLockedBuffer);
-			for (uint32 y = 0; y < static_cast<uint32>(mLockedHeight); ++y)
-			{
-				std::memcpy(dst + y * rowBytes, box.at(0, y, 0), rowBytes);
-			}
-
-			mLockedRead = true;
-			mLocked = true;
-			return mLockedBuffer;
+			for (int y = 0; y < mLockedHeight; ++y)
+				for (int x = 0; x < mLockedWidth; ++x)
+				{
+					const auto colour = image.getColourAt(size_t(x), size_t(y), 0);
+					auto* pixel = buffer.get() + (size_t(y) * size_t(mLockedWidth) + size_t(x)) * mNumElemBytes;
+					if (mNumElemBytes <= 2)
+					{
+						pixel[0] = uint8(colour.r * 255.0f + 0.5f);
+						if (mNumElemBytes == 2)
+							pixel[1] = uint8(colour.a * 255.0f + 0.5f);
+					}
+					else
+					{
+						pixel[0] = uint8(colour.b * 255.0f + 0.5f);
+						pixel[1] = uint8(colour.g * 255.0f + 0.5f);
+						pixel[2] = uint8(colour.r * 255.0f + 0.5f);
+						if (mNumElemBytes == 4)
+							pixel[3] = uint8(colour.a * 255.0f + 0.5f);
+					}
+				}
 		}
-
-		mLockedWidth = static_cast<int>(mTexture->getWidth());
-		mLockedHeight = static_cast<int>(mTexture->getHeight());
-
-		const size_t dataSize = Ogre::PixelFormatGpuUtils::getSizeBytes(
-			static_cast<uint32_t>(mLockedWidth),
-			static_cast<uint32_t>(mLockedHeight),
-			1u,
-			1u,
-			mTexture->getPixelFormat(),
-			4u);
-
-		mLockedBuffer = new uint8[dataSize];
+		mLockedBuffer = buffer.release();
+		mLockedRead = !_access.isValue(TextureUsage::Write);
 		mLocked = true;
 		return mLockedBuffer;
 	}
@@ -170,36 +192,38 @@ namespace MyGUI
 	{
 		if (!mLocked)
 			return;
-
-		if (mLockedRead)
+		ScopedBatchPause pause;
+		if (!mLockedRead)
 		{
-			delete[] static_cast<uint8*>(mLockedBuffer);
-			mLockedBuffer = nullptr;
-			mLocked = false;
-			mLockedRead = false;
-			return;
-		}
-
-		Ogre::Image2 image;
-		image.createEmptyImageLike(mTexture);
-		Ogre::TextureBox box = image.getData(0);
-
-		const uint32_t bytesPerRow = mTexture->_getSysRamCopyBytesPerRow(0);
-		box.copyFrom(
-			mLockedBuffer,
-			static_cast<uint32_t>(mLockedWidth),
-			static_cast<uint32_t>(mLockedHeight),
-			bytesPerRow);
-
-		if (mTexture->getNextResidencyStatus() != Ogre::GpuResidency::Resident)
+			Ogre::Image2 image;
+			image.createEmptyImageLike(mTexture);
+			for (int y = 0; y < mLockedHeight; ++y)
+				for (int x = 0; x < mLockedWidth; ++x)
+				{
+					const auto* pixel = static_cast<const uint8*>(mLockedBuffer) +
+						(size_t(y) * size_t(mLockedWidth) + size_t(x)) * mNumElemBytes;
+					Ogre::ColourValue colour;
+					if (mNumElemBytes <= 2)
+						colour = Ogre::ColourValue(
+							pixel[0] / 255.0f,
+							pixel[0] / 255.0f,
+							pixel[0] / 255.0f,
+							mNumElemBytes == 2 ? pixel[1] / 255.0f : 1.0f);
+					else
+						colour = Ogre::ColourValue(
+							pixel[2] / 255.0f,
+							pixel[1] / 255.0f,
+							pixel[0] / 255.0f,
+							mNumElemBytes == 4 ? pixel[3] / 255.0f : 1.0f);
+					image.setColourAt(colour, size_t(x), size_t(y), 0);
+				}
 			mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
-
-		image.uploadTo(mTexture, 0, mTexture->getNumMipmaps() - 1u);
-		mTexture->notifyDataIsReady();
-
+			image.uploadTo(mTexture, 0, 0);
+		}
 		delete[] static_cast<uint8*>(mLockedBuffer);
 		mLockedBuffer = nullptr;
 		mLocked = false;
+		mLockedRead = false;
 	}
 
 	bool OgreNextTexture::isLocked() const
@@ -209,13 +233,9 @@ namespace MyGUI
 
 	Ogre::PixelFormatGpu OgreNextTexture::convertFormat(PixelFormat _format)
 	{
-		if (_format == PixelFormat::L8)
-			return Ogre::PFG_R8_UNORM;
-		if (_format == PixelFormat::L8A8)
-			return Ogre::PFG_RG8_UNORM;
-		if (_format == PixelFormat::R8G8B8)
-			return Ogre::PFG_BGR8_UNORM;
-		if (_format == PixelFormat::R8G8B8A8)
+		// Expand luminance and three-channel CPU formats to a portable sampleable format.
+		if (_format == PixelFormat::L8 || _format == PixelFormat::L8A8 || _format == PixelFormat::R8G8B8 ||
+			_format == PixelFormat::R8G8B8A8)
 			return Ogre::PFG_BGRA8_UNORM;
 		return Ogre::PFG_UNKNOWN;
 	}
@@ -223,6 +243,9 @@ namespace MyGUI
 	void OgreNextTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
 		MYGUI_PLATFORM_ASSERT(mTexture == nullptr, "Texture already created");
+		MYGUI_PLATFORM_ASSERT(
+			_width > 0 && _height > 0 && OgreNextRenderManager::getInstance().isFormatSupported(_format, _usage),
+			"Unsupported texture format or dimensions");
 
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
@@ -259,44 +282,51 @@ namespace MyGUI
 
 	void OgreNextTexture::loadFromFile(const std::string& _filename)
 	{
-		Ogre::TextureGpuManager* mgr = getTextureManager();
-		MYGUI_PLATFORM_ASSERT(mgr != nullptr, "TextureGpuManager is null");
-
-		bool canLoad = false;
-		if (mgr->findTextureNoThrow(_filename) != nullptr)
+		ScopedBatchPause pause;
+		Ogre::Image2 image;
+		image.load(_filename, mGroup);
+		destroy();
+		auto* manager = getTextureManager();
+		const auto format = image.getPixelFormat();
+		// Keep native colour formats and mipmaps (including compressed textures).
+		// Luminance formats need expansion because modern APIs sample them as R/RG.
+		if (format != Ogre::PFG_R8_UNORM && format != Ogre::PFG_RG8_UNORM &&
+			manager->checkSupport(format, Ogre::TextureTypes::Type2D, 0u))
 		{
-			canLoad = true;
-		}
-		else if (DataManager::getInstance().isDataExist(_filename))
-		{
-			canLoad = true;
-		}
-		else
-		{
-			MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found");
+			mTexture = manager->createTexture(
+				mName,
+				Ogre::GpuPageOutStrategy::Discard,
+				Ogre::TextureFlags::ManualTexture,
+				Ogre::TextureTypes::Type2D,
+				Ogre::BLANKSTRING);
+			mOwnsTexture = true;
+			mTexture->setResolution(image.getWidth(), image.getHeight());
+			mTexture->setPixelFormat(format);
+			mTexture->setNumMipmaps(image.getNumMipmaps());
+			mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
+			image.uploadTo(mTexture, 0, image.getNumMipmaps() - 1u);
+			setFormatFromOgreTexture();
+			mOriginalUsage = TextureUsage::Static | TextureUsage::Read | TextureUsage::Write;
+			ensureMaterial();
 			return;
 		}
-
-		if (!canLoad)
-			return;
-
-		mTexture = mgr->createOrRetrieveTexture(
-			_filename,
-			Ogre::GpuPageOutStrategy::Discard,
-			0u,
-			Ogre::TextureTypes::Type2D,
-			Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
-		mOwnsTexture = true;
-
-		if (mTexture != nullptr)
-		{
-			if (mTexture->getNextResidencyStatus() != Ogre::GpuResidency::Resident)
-				mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
-			mTexture->waitForData();
-		}
-
-		setFormatFromOgreTexture();
-		ensureMaterial();
+		createManual(
+			int(image.getWidth()),
+			int(image.getHeight()),
+			TextureUsage::Static | TextureUsage::Read | TextureUsage::Write,
+			PixelFormat::R8G8B8A8);
+		auto* pixels = static_cast<uint8*>(lock(TextureUsage::Write));
+		for (size_t y = 0; y < image.getHeight(); ++y)
+			for (size_t x = 0; x < image.getWidth(); ++x)
+			{
+				const auto colour = image.getColourAt(x, y, 0);
+				const size_t i = (y * image.getWidth() + x) * 4;
+				pixels[i] = uint8(colour.b * 255.0f + 0.5f);
+				pixels[i + 1] = uint8(colour.g * 255.0f + 0.5f);
+				pixels[i + 2] = uint8(colour.r * 255.0f + 0.5f);
+				pixels[i + 3] = uint8(colour.a * 255.0f + 0.5f);
+			}
+		unlock();
 	}
 
 	void OgreNextTexture::setFormatFromOgreTexture()
@@ -323,7 +353,7 @@ namespace MyGUI
 			mOriginalFormat = PixelFormat::R8G8B8;
 			mNumElemBytes = 3;
 		}
-		else if (mPixelFormat == Ogre::PFG_RGBA8_UNORM)
+		else if (mPixelFormat == Ogre::PFG_RGBA8_UNORM || mPixelFormat == Ogre::PFG_BGRA8_UNORM)
 		{
 			mOriginalFormat = PixelFormat::R8G8B8A8;
 			mNumElemBytes = 4;
@@ -434,6 +464,9 @@ namespace MyGUI
 		if (!mMaterial)
 			return;
 
+		auto* render = OgreNextRenderManager::getInstancePtr();
+		if (render && render->getManager() && mTexture)
+			render->getManager()->notifyTextureDestroyed(mTexture);
 		const std::string name = mMaterial->getName();
 		mMaterial.reset();
 		Ogre::MaterialManager::getSingleton().remove(name);

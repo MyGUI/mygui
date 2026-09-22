@@ -39,6 +39,7 @@ namespace base
 		mRoot->initialise(false);
 
 		Ogre::NameValuePairList params;
+		params["gamma"] = "false";
 #ifdef __EMSCRIPTEN__
 		SDL_GL_CreateContext(mSdlWindow);
 		params["currentGLContext"] = "true";
@@ -60,6 +61,8 @@ namespace base
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
+		if (!(SDL_GetWindowFlags(mSdlWindow) & SDL_WINDOW_ALLOW_HIGHDPI))
+			params["contentScalingFactor"] = "1";
 #endif
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
