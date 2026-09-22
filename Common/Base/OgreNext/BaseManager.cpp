@@ -202,10 +202,10 @@ namespace base
 		}
 	}
 
-	bool BaseManager::setHostileRenderState(bool _enabled)
+	bool BaseManager::setHostileRenderState(bool /*_enabled*/)
 	{
-		mCamera->setPolygonMode(_enabled ? Ogre::PM_WIREFRAME : Ogre::PM_SOLID);
-		return true;
+		// OgreNext controls polygon mode through material macroblocks, not the camera.
+		return false;
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)
