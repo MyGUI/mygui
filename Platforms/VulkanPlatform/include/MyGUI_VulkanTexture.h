@@ -60,8 +60,9 @@ namespace MyGUI
 		}
 
 	private:
+		struct Storage;
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
-		void createImage();
+		std::shared_ptr<Storage> createImage();
 		void uploadData(const void* _data);
 
 	private:
@@ -75,12 +76,12 @@ namespace MyGUI
 		PixelFormat mOriginalFormat{PixelFormat::Unknow};
 		TextureUsage mOriginalUsage{TextureUsage::Default};
 
-		struct Storage;
 		std::shared_ptr<Storage> mStorage;
 
 		VulkanRTTexture* mRenderTarget{nullptr};
 
 		bool mLock{false};
+		bool mWriteLock{false};
 		void* mBuffer{nullptr};
 
 		std::string mShaderName{"Default"};

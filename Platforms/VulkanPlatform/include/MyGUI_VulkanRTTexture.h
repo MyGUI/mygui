@@ -37,6 +37,11 @@ namespace MyGUI
 		const RenderTargetInfo& getInfo() const override;
 
 	private:
+		friend class VulkanTexture;
+		void setImageView(VkImageView _imageView);
+		VkFramebuffer createFramebuffer(VkImageView _imageView);
+		void resetCommands();
+
 		VkDevice mDevice{VK_NULL_HANDLE};
 		VkCommandPool mCommandPool{VK_NULL_HANDLE};
 		VkQueue mQueue{VK_NULL_HANDLE};
@@ -46,6 +51,7 @@ namespace MyGUI
 		VkCommandBuffer mCommandBuffer{VK_NULL_HANDLE};
 		VkFence mFence{VK_NULL_HANDLE};
 		bool mPending{false};
+		bool mRecording{false};
 		std::vector<std::shared_ptr<void>> mResources;
 		uint32_t mWidth{0};
 		uint32_t mHeight{0};

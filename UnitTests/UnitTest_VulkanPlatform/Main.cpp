@@ -3,6 +3,7 @@
 #include "MyGUI_VulkanTexture.h"
 #include <iostream>
 #include <memory>
+#include <algorithm>
 
 namespace
 {
@@ -163,6 +164,112 @@ namespace
 			require(storage.expired(), "Completed frames must release resources automatically");
 	}
 
+	void testTextureLocks(platformtest::Fixture& fixture)
+	{
+		for (auto format : {MyGUI::PixelFormat::R8G8B8, MyGUI::PixelFormat::R8G8B8A8})
+		{
+			auto* texture = static_cast<MyGUI::VulkanTexture*>(fixture.texture());
+			texture->createManual(3, 2, MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write, format);
+			std::vector<unsigned char> expected(6 * texture->getNumElemBytes());
+			for (size_t i = 0; i < expected.size(); ++i)
+				expected[i] = static_cast<unsigned char>(17 + i * 7);
+			platformtest::upload(texture, expected);
+			const auto image = texture->getImage();
+
+			auto* bytes = static_cast<unsigned char*>(texture->lock(MyGUI::TextureUsage::Read));
+			require(texture->isLocked(), "Read-only access must report the texture as locked");
+			const bool read = std::equal(expected.begin(), expected.end(), bytes);
+			bytes[0] = 0; // A read-only lock must never upload its temporary bytes.
+			texture->unlock();
+			require(read && !texture->isLocked(), "Read-only access must return GPU contents and unlock");
+			require(platformtest::read(texture) == expected, "Read-only unlock must leave the image unchanged");
+
+			bytes = static_cast<unsigned char*>(texture->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
+			const bool preserved = std::equal(expected.begin(), expected.end(), bytes);
+			bytes[1] = 93;
+			expected[1] = 93;
+			texture->unlock();
+			require(preserved && platformtest::read(texture) == expected, "Read/write must preserve untouched pixels");
+			require(texture->getImage() == image, "Unrecorded texture updates must reuse their image");
+		}
+	}
+
+	void testTextureUpdateVersions(platformtest::Fixture& fixture)
+	{
+		auto* output = target(fixture);
+		auto* rtt = output->getRenderTarget();
+		auto* source = static_cast<MyGUI::VulkanTexture*>(platformtest::solid(fixture, {255, 0, 0, 255}));
+		const auto image = source->getImage();
+		const auto descriptor = source->getDescriptorSet();
+		const auto pointDescriptor = source->getPointDescriptorSet();
+		std::weak_ptr<void> old = source->retainStorage();
+		MyGUI::VulkanVertexBuffer buffer;
+		fixture.fill(&buffer, 6, rtt->getInfo(), {0, 0, 64, 128}, {255, 255, 255, 255});
+		rtt->begin();
+		rtt->doRender(&buffer, source, 6);
+		platformtest::upload(source, {255, 0, 0, 255});
+		require(source->getImage() != image, "An update must preserve the image used by an unsubmitted draw");
+		require(
+			source->getDescriptorSet() != descriptor && source->getPointDescriptorSet() != pointDescriptor,
+			"Both sampler descriptors must be versioned with the image");
+		require(!old.expired(), "The old image must remain retained by the recording");
+		fixture.fill(&buffer, 6, rtt->getInfo(), {64, 0, 64, 128}, {255, 255, 255, 255});
+		rtt->doRender(&buffer, source, 6);
+		rtt->end();
+		fixture.scene([&](MyGUI::IRenderTarget* screen) { fixture.quad(screen, output); });
+		fixture.capture();
+		fixture.expect(32, 64, {255, 0, 0, 255});
+		fixture.expect(96, 64, {0, 0, 255, 255});
+		rtt->begin();
+		const bool retired = old.expired();
+		rtt->end();
+		require(retired, "Completed texture versions must retire with their recording");
+	}
+
+	void testRenderTargetUpdate(platformtest::Fixture& fixture)
+	{
+		auto* source = static_cast<MyGUI::VulkanTexture*>(target(fixture));
+		auto* cachedTarget = source->getRenderTarget();
+		MyGUI::VulkanVertexBuffer buffer;
+		fixture.fill(&buffer, 6, cachedTarget->getInfo(), {0, 0, 128, 128}, {0, 255, 0, 255});
+		cachedTarget->begin();
+		cachedTarget->doRender(&buffer, nullptr, 6);
+		cachedTarget->end();
+
+		auto* output = target(fixture);
+		auto* consumer = output->getRenderTarget();
+		fixture.fill(&buffer, 6, consumer->getInfo(), {0, 0, 64, 128}, {255, 255, 255, 255});
+		consumer->begin();
+		consumer->doRender(&buffer, source, 6);
+		const auto oldImage = source->getImage();
+		auto* bytes = static_cast<unsigned char*>(source->lock(MyGUI::TextureUsage::Read | MyGUI::TextureUsage::Write));
+		bool green = true;
+		for (size_t i = 0; i < 128 * 128 * 4; i += 4)
+		{
+			green = green && bytes[i] == 0 && bytes[i + 1] == 255 && bytes[i + 2] == 0 && bytes[i + 3] == 255;
+			bytes[i] = 255; // Green becomes cyan, preserving the other channels.
+		}
+		source->unlock();
+		require(green, "Read/write must read GPU-produced RTT pixels before editing them");
+		require(source->getImage() != oldImage, "Updating a sampled RTT must preserve its recorded version");
+		require(source->getRenderTarget() == cachedTarget, "Image replacement must preserve cached target pointers");
+		fixture.fill(&buffer, 6, consumer->getInfo(), {64, 0, 64, 128}, {255, 255, 255, 255});
+		consumer->doRender(&buffer, source, 6);
+		consumer->end();
+		fixture.scene([&](MyGUI::IRenderTarget* screen) { fixture.quad(screen, output); });
+		fixture.capture();
+		fixture.expect(32, 64, {0, 255, 0, 255});
+		fixture.expect(96, 64, {0, 255, 255, 255});
+
+		fixture.fill(&buffer, 6, cachedTarget->getInfo(), {0, 0, 128, 128}, {255, 0, 0, 255});
+		cachedTarget->begin();
+		cachedTarget->doRender(&buffer, nullptr, 6);
+		cachedTarget->end();
+		fixture.scene([&](MyGUI::IRenderTarget* screen) { fixture.quad(screen, source); });
+		fixture.capture();
+		fixture.expectCorners({255, 0, 0, 255});
+	}
+
 }
 
 int main()
@@ -186,6 +293,15 @@ int main()
 		testAutomaticFrameRetirement(fixture);
 		fixture.resetCase();
 		std::cout << "PASS host frames retire textures and vertices without cleanup notifications\n";
+		testTextureLocks(fixture);
+		fixture.resetCase();
+		std::cout << "PASS RGB/RGBA read-only and read/write texture locks\n";
+		testTextureUpdateVersions(fixture);
+		fixture.resetCase();
+		std::cout << "PASS recorded draws preserve texture versions across uploads\n";
+		testRenderTargetUpdate(fixture);
+		fixture.resetCase();
+		std::cout << "PASS RTT read/write preserves pixels and rebinds cached targets\n";
 		fixture.close();
 		return 0;
 	}

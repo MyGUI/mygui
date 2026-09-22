@@ -29,16 +29,7 @@ namespace MyGUI
 		mWidth(_width),
 		mHeight(_height)
 	{
-		VkFramebufferCreateInfo framebufferInfo{};
-		framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-		framebufferInfo.renderPass = mRenderPass;
-		framebufferInfo.attachmentCount = 1;
-		framebufferInfo.pAttachments = &mImageView;
-		framebufferInfo.width = mWidth;
-		framebufferInfo.height = mHeight;
-		framebufferInfo.layers = 1;
-		if (vkCreateFramebuffer(mDevice, &framebufferInfo, nullptr, &mFramebuffer) != VK_SUCCESS)
-			MYGUI_PLATFORM_EXCEPT("Failed to create framebuffer");
+		mFramebuffer = createFramebuffer(mImageView);
 
 		VkCommandBufferAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -85,8 +76,35 @@ namespace MyGUI
 			vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
 	}
 
-	void VulkanRTTexture::begin()
+	VkFramebuffer VulkanRTTexture::createFramebuffer(VkImageView _imageView)
 	{
+		VkFramebufferCreateInfo info{};
+		info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+		info.renderPass = mRenderPass;
+		info.pAttachments = &_imageView;
+		info.attachmentCount = 1;
+		info.width = mWidth;
+		info.height = mHeight;
+		info.layers = 1;
+		VkFramebuffer framebuffer = VK_NULL_HANDLE;
+		MYGUI_PLATFORM_ASSERT(
+			vkCreateFramebuffer(mDevice, &info, nullptr, &framebuffer) == VK_SUCCESS,
+			"Failed to create framebuffer");
+		return framebuffer;
+	}
+
+	void VulkanRTTexture::setImageView(VkImageView _imageView)
+	{
+		resetCommands();
+		const auto framebuffer = createFramebuffer(_imageView);
+		vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
+		mFramebuffer = framebuffer;
+		mImageView = _imageView;
+	}
+
+	void VulkanRTTexture::resetCommands()
+	{
+		MYGUI_PLATFORM_ASSERT(!mRecording, "Render target is already recording");
 		if (mPending)
 		{
 			MYGUI_PLATFORM_ASSERT(
@@ -99,6 +117,11 @@ namespace MyGUI
 			vkResetCommandBuffer(mCommandBuffer, 0) == VK_SUCCESS,
 			"Failed to reset render target commands");
 		mResources.clear();
+	}
+
+	void VulkanRTTexture::begin()
+	{
+		resetCommands();
 
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -122,6 +145,7 @@ namespace MyGUI
 
 		VkRect2D scissor{{0, 0}, {mWidth, mHeight}};
 		vkCmdSetScissor(mCommandBuffer, 0, 1, &scissor);
+		mRecording = true;
 	}
 
 	void VulkanRTTexture::end()
@@ -130,6 +154,7 @@ namespace MyGUI
 
 		if (vkEndCommandBuffer(mCommandBuffer) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to end command buffer");
+		mRecording = false;
 
 		VkSubmitInfo submitInfo{};
 		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;

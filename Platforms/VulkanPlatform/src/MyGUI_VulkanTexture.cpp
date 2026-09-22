@@ -86,7 +86,7 @@ namespace MyGUI
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
 
-		createImage();
+		mStorage = createImage();
 
 		if (_data)
 		{
@@ -94,7 +94,7 @@ namespace MyGUI
 		}
 	}
 
-	void VulkanTexture::createImage()
+	std::shared_ptr<VulkanTexture::Storage> VulkanTexture::createImage()
 	{
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
 		auto storage = std::make_shared<Storage>();
@@ -169,18 +169,28 @@ namespace MyGUI
 		descriptorWrite.dstSet = storage->pointDescriptorSet;
 
 		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
-		mStorage = std::move(storage);
+		return storage;
 	}
 
 	void VulkanTexture::uploadData(const void* _data)
 	{
+		// Recorded draws must keep their image contents and descriptors unchanged.
+		// A full upload can populate a fresh version without copying the old image.
+		auto storage = mStorage.use_count() > 1 ? createImage() : mStorage;
 		VulkanRenderManager& manager = VulkanRenderManager::getInstance();
 		manager.uploadTextureData(
-			mStorage->image,
+			storage->image,
 			static_cast<uint32_t>(mWidth),
 			static_cast<uint32_t>(mHeight),
 			mNumElemBytes,
 			_data);
+		if (storage != mStorage)
+		{
+			// Keep the IRenderTarget pointer stable for callers that cache it.
+			if (mRenderTarget)
+				mRenderTarget->setImageView(storage->imageView);
+			mStorage = std::move(storage);
+		}
 	}
 
 	void VulkanTexture::destroy()
@@ -206,47 +216,47 @@ namespace MyGUI
 		mOriginalFormat = PixelFormat::Unknow;
 		mOriginalUsage = TextureUsage::Default;
 		mLock = false;
+		mWriteLock = false;
 		mShaderName = "Default";
 	}
 
 	void* VulkanTexture::lock(TextureUsage _access)
 	{
 		MYGUI_PLATFORM_ASSERT(mStorage, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(!mLock, "Texture is already locked");
+		const bool read = _access.isValue(TextureUsage::Read);
+		const bool write = _access.isValue(TextureUsage::Write);
+		MYGUI_PLATFORM_ASSERT(read || write, "Texture lock requires read or write access");
 
-		mBuffer = new unsigned char[mDataSize];
+		std::unique_ptr<unsigned char[]> bytes(new unsigned char[mDataSize]);
 
-		if (_access == TextureUsage::Read)
+		if (read)
 		{
 			VulkanRenderManager::getInstance().readbackImage(
 				mStorage->image,
 				static_cast<uint32_t>(mWidth),
 				static_cast<uint32_t>(mHeight),
 				mNumElemBytes,
-				mBuffer);
-			mLock = false;
-			return mBuffer;
+				bytes.get());
 		}
 
+		mBuffer = bytes.release();
+		mWriteLock = write;
 		mLock = true;
 		return mBuffer;
 	}
 
 	void VulkanTexture::unlock()
 	{
-		if (!mLock && mBuffer)
-		{
-			delete[] static_cast<unsigned char*>(mBuffer);
-			mBuffer = nullptr;
-			return;
-		}
-
 		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
 		MYGUI_PLATFORM_ASSERT(mStorage, "Texture is not created");
 
-		uploadData(mBuffer);
+		if (mWriteLock)
+			uploadData(mBuffer);
 		delete[] static_cast<unsigned char*>(mBuffer);
 		mBuffer = nullptr;
 		mLock = false;
+		mWriteLock = false;
 	}
 
 	void VulkanTexture::loadFromFile(const std::string& _filename)
