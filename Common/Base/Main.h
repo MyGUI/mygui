@@ -9,6 +9,7 @@
 #define BASEMAIN_H_
 
 #include "Precompiled.h"
+#include <SDL_main.h>
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	#define WIN32_LEAN_AND_MEAN
@@ -21,12 +22,6 @@
 		int MYGUI_APP_ENTRY(int argc, char** argv) \
 		{ \
 			return startApp<cls>(argc, argv); \
-		}
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	#define MYGUI_APP(cls) \
-		INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) \
-		{ \
-			return startApp<cls>(__argc, __argv); \
 		}
 #else
 	#define MYGUI_APP(cls) \

@@ -1,2 +1,3 @@
 mygui_tool(FontConverter)
+set_target_properties(FontConverter PROPERTIES WIN32_EXECUTABLE FALSE)
 target_link_libraries(FontConverter PRIVATE pugixml::pugixml)

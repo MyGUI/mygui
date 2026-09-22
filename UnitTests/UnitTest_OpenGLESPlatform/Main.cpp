@@ -502,7 +502,7 @@ namespace
 
 }
 
-int main()
+int main(int, char**)
 {
 	std::cout << std::unitbuf;
 	try

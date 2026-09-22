@@ -498,7 +498,7 @@ namespace
 
 }
 
-int main()
+int main(int, char**)
 {
 	try
 	{
