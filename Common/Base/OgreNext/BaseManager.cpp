@@ -142,19 +142,35 @@ namespace base
 
 	void BaseManager::drawOneFrame()
 	{
-		if (mCaptureRequested)
+		const bool capture = mCaptureRequested;
+		const bool screenshot = mScreenShotRequested;
+		if (!capture && !screenshot)
 		{
-			mWindow->setWantsToDownload(true);
-			mWindow->setManualSwapRelease(true);
-			try
+			mRoot->renderOneFrame();
+			return;
+		}
+
+		mScreenShotRequested = false;
+		// Keep this frame's drawable alive for readback. Rendering a second frame
+		// for screenshots would advance render-driven animations a second time.
+		mWindow->setWantsToDownload(true);
+		mWindow->setManualSwapRelease(true);
+		try
+		{
+			mRoot->renderOneFrame();
+			if (!mWindow->canDownloadData())
 			{
-				mRoot->renderOneFrame();
-				if (!mWindow->canDownloadData())
+				if (capture)
 					failFrameCapture("OgreNext window cannot download its rendered image");
-				else
+				if (screenshot)
+					throw std::runtime_error("OgreNext window cannot download its screenshot");
+			}
+			else
+			{
+				Ogre::Image2 image;
+				image.convertFromTexture(mWindow->getTexture(), 0u, 0u);
+				if (capture)
 				{
-					Ogre::Image2 image;
-					image.convertFromTexture(mWindow->getTexture(), 0u, 0u);
 					const int width = int(image.getWidth()), height = int(image.getHeight());
 					std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
 					for (int y = 0; y < height; ++y)
@@ -169,40 +185,18 @@ namespace base
 						}
 					completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
 				}
+				if (screenshot)
+					image.save(MyGUI::utility::toUtf8(mScreenShotFile), 0u, 1u);
 			}
-			catch (...)
-			{
-				mWindow->performManualRelease();
-				mWindow->setManualSwapRelease(false);
-				throw;
-			}
-			mWindow->performManualRelease();
-			mWindow->setManualSwapRelease(false);
 		}
-		else
-			mRoot->renderOneFrame();
-
-		if (mScreenShotRequested)
+		catch (...)
 		{
-			mScreenShotRequested = false;
-
-			// OgreNext screenshot: need to prevent swap release so the backbuffer
-			// is available for download (required on Metal, harmless on others).
-			mWindow->setWantsToDownload(true);
-			mWindow->setManualSwapRelease(true);
-			mRoot->renderOneFrame();
-
-			if (mWindow->canDownloadData())
-			{
-				Ogre::Image2 img;
-				Ogre::TextureGpu* texture = mWindow->getTexture();
-				img.convertFromTexture(texture, 0u, texture->getNumMipmaps() - 1u);
-				img.save(MyGUI::utility::toUtf8(mScreenShotFile), 0u, img.getNumMipmaps());
-			}
-
 			mWindow->performManualRelease();
 			mWindow->setManualSwapRelease(false);
+			throw;
 		}
+		mWindow->performManualRelease();
+		mWindow->setManualSwapRelease(false);
 	}
 
 	bool BaseManager::setHostileRenderState(bool /*_enabled*/)
