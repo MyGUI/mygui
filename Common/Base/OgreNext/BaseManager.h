@@ -13,7 +13,7 @@
 namespace base
 {
 
-	class BaseManager : public SdlBaseManager
+	class BaseManager : public SdlBaseManager, private Ogre::FrameListener
 	{
 	public:
 		BaseManager() :
@@ -39,6 +39,9 @@ namespace base
 		static const std::string MyGuiResourceGroup;
 
 	private:
+		bool frameRenderingQueued(const Ogre::FrameEvent& _event) override;
+		void captureRenderedFrame();
+
 		MyGUI::OgreNextPlatform* mPlatform = nullptr;
 
 		Ogre::Root* mRoot = nullptr;

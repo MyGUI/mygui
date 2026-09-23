@@ -92,11 +92,15 @@ namespace base
 		lightNode->attachObject(light);
 		lightNode->setDirection(vec);
 
+		mRoot->addFrameListener(this);
 		return true;
 	}
 
 	void BaseManager::destroyRender()
 	{
+		if (mRoot)
+			mRoot->removeFrameListener(this);
+
 		if (mSceneManager)
 		{
 			mSceneManager->clearScene(true);
@@ -142,15 +146,12 @@ namespace base
 
 	void BaseManager::drawOneFrame()
 	{
-		const bool capture = mCaptureRequested;
-		const bool screenshot = mScreenShotRequested;
-		if (!capture && !screenshot)
+		if (!mCaptureRequested && !mScreenShotRequested)
 		{
 			mRoot->renderOneFrame();
 			return;
 		}
 
-		mScreenShotRequested = false;
 		// Keep this frame's drawable alive for readback. Rendering a second frame
 		// for screenshots would advance render-driven animations a second time.
 		mWindow->setWantsToDownload(true);
@@ -158,36 +159,10 @@ namespace base
 		try
 		{
 			mRoot->renderOneFrame();
-			if (!mWindow->canDownloadData())
-			{
-				if (capture)
-					failFrameCapture("OgreNext window cannot download its rendered image");
-				if (screenshot)
-					throw std::runtime_error("OgreNext window cannot download its screenshot");
-			}
-			else
-			{
-				Ogre::Image2 image;
-				image.convertFromTexture(mWindow->getTexture(), 0u, 0u);
-				if (capture)
-				{
-					const int width = int(image.getWidth()), height = int(image.getHeight());
-					std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
-					for (int y = 0; y < height; ++y)
-						for (int x = 0; x < width; ++x)
-						{
-							const auto colour = image.getColourAt(size_t(x), size_t(y), 0);
-							auto* pixel = pixels.data() + (size_t(y) * size_t(width) + size_t(x)) * 4;
-							pixel[0] = std::uint8_t(colour.r * 255.0f + 0.5f);
-							pixel[1] = std::uint8_t(colour.g * 255.0f + 0.5f);
-							pixel[2] = std::uint8_t(colour.b * 255.0f + 0.5f);
-							pixel[3] = std::uint8_t(colour.a * 255.0f + 0.5f);
-						}
-					completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
-				}
-				if (screenshot)
-					image.save(MyGUI::utility::toUtf8(mScreenShotFile), 0u, 1u);
-			}
+			// OpenGL reads the back buffer in frameRenderingQueued, before the swap.
+			// Metal needs the command buffer submitted before downloading the drawable.
+			if (!mWindow->getTexture()->isOpenGLRenderWindow())
+				captureRenderedFrame();
 		}
 		catch (...)
 		{
@@ -197,6 +172,50 @@ namespace base
 		}
 		mWindow->performManualRelease();
 		mWindow->setManualSwapRelease(false);
+	}
+
+	bool BaseManager::frameRenderingQueued(const Ogre::FrameEvent& /*_event*/)
+	{
+		if ((mCaptureRequested || mScreenShotRequested) && mWindow->getTexture()->isOpenGLRenderWindow())
+			captureRenderedFrame();
+		return true;
+	}
+
+	void BaseManager::captureRenderedFrame()
+	{
+		const bool capture = mCaptureRequested;
+		const bool screenshot = mScreenShotRequested;
+		mScreenShotRequested = false;
+		if (!mWindow->canDownloadData())
+		{
+			if (capture)
+				failFrameCapture("OgreNext window cannot download its rendered image");
+			if (screenshot)
+				throw std::runtime_error("OgreNext window cannot download its screenshot");
+		}
+		else
+		{
+			Ogre::Image2 image;
+			image.convertFromTexture(mWindow->getTexture(), 0u, 0u);
+			if (capture)
+			{
+				const int width = int(image.getWidth()), height = int(image.getHeight());
+				std::vector<std::uint8_t> pixels(size_t(width) * size_t(height) * 4);
+				for (int y = 0; y < height; ++y)
+					for (int x = 0; x < width; ++x)
+					{
+						const auto colour = image.getColourAt(size_t(x), size_t(y), 0);
+						auto* pixel = pixels.data() + (size_t(y) * size_t(width) + size_t(x)) * 4;
+						pixel[0] = std::uint8_t(colour.r * 255.0f + 0.5f);
+						pixel[1] = std::uint8_t(colour.g * 255.0f + 0.5f);
+						pixel[2] = std::uint8_t(colour.b * 255.0f + 0.5f);
+						pixel[3] = std::uint8_t(colour.a * 255.0f + 0.5f);
+					}
+				completeFrameCapture(pixels.data(), width, height, size_t(width) * 4, false, false);
+			}
+			if (screenshot)
+				image.save(MyGUI::utility::toUtf8(mScreenShotFile), 0u, 1u);
+		}
 	}
 
 	bool BaseManager::setHostileRenderState(bool /*_enabled*/)
