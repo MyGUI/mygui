@@ -14,6 +14,7 @@
 #include <memory>
 #include <functional>
 #include <utility>
+#include <vector>
 
 namespace MyGUI
 {
@@ -39,46 +40,38 @@ namespace MyGUI
 			IDelegateUnlink* m_baseDelegateUnlink;
 		};
 
+		namespace detail
+		{
+
+			struct DelegateFactory;
+
+		}
+
+		template<typename... Args>
+		class Delegate;
+		template<typename... Args>
+		class MultiDelegate;
+
+		// Callables have stable addresses. Ownership and dispatch retention are single-threaded.
 		template<typename... Args>
 		class DelegateFunction
 		{
 		public:
 			using Function = std::function<void(Args...)>;
 
-			// function or static class method
-			DelegateFunction(Function _function, Any _functionPointer) :
-				mFunction(_function),
-				mFunctionPointer(_functionPointer)
-			{
-			}
-
-			// non-static class method
-			DelegateFunction(Function _function, Any _functionPointer, const IDelegateUnlink* _object) :
-				mFunction(_function),
-				mUnlink(_object),
-				mObject(_object),
-				mFunctionPointer(_functionPointer)
-			{
-			}
-
-			// non-static class method
-			DelegateFunction(Function _function, Any _functionPointer, const void* _object) :
-				mFunction(_function),
-				mObject(_object),
-				mFunctionPointer(_functionPointer)
-			{
-			}
+			DelegateFunction(const DelegateFunction&) = delete;
+			DelegateFunction& operator=(const DelegateFunction&) = delete;
+			virtual ~DelegateFunction() = default;
 
 			void invoke(Args... args)
 			{
-				mFunction(args...);
+				mInvoke(this, std::forward<Args>(args)...);
 			}
 
-			bool compare(DelegateFunction<Args...>* _delegate) const
+			bool compare(DelegateFunction* _delegate) const
 			{
-				if (nullptr == _delegate)
-					return false;
-				return _delegate->mObject == mObject && _delegate->mFunctionPointer.compare(mFunctionPointer);
+				return _delegate && _delegate->mObject == mObject &&
+					_delegate->mFunctionPointer.compare(mFunctionPointer);
 			}
 
 			bool compare(IDelegateUnlink* _unlink) const
@@ -87,12 +80,81 @@ namespace MyGUI
 			}
 
 		private:
-			Function mFunction;
+			friend class Delegate<Args...>;
+			friend class MultiDelegate<Args...>;
+			friend struct detail::DelegateFactory;
 
-			const IDelegateUnlink* mUnlink = nullptr;
-			const void* mObject = nullptr;
+			DelegateFunction(
+				void (*_invoke)(DelegateFunction*, Args&&...),
+				Any _identity,
+				const void* _object,
+				const IDelegateUnlink* _unlink) :
+				mInvoke(_invoke),
+				mUnlink(_unlink),
+				mObject(_object),
+				mFunctionPointer(std::move(_identity))
+			{
+			}
+
+			void release() noexcept
+			{
+				if (--mReferences == 0)
+					delete this;
+			}
+
+			void (*mInvoke)(DelegateFunction*, Args&&...);
+			size_t mReferences{1};
+			DelegateFunction* mNextRetired{nullptr};
+			const void* mOwner{nullptr};
+			const IDelegateUnlink* mUnlink{nullptr};
+			const void* mObject{nullptr};
 			Any mFunctionPointer;
 		};
+
+		namespace detail
+		{
+
+			struct DelegateFactory
+			{
+				template<typename Result, typename Callable>
+				struct Storage;
+
+				template<typename Callable, typename... Args>
+				struct Storage<DelegateFunction<Args...>, Callable> final : DelegateFunction<Args...>
+				{
+					using Result = DelegateFunction<Args...>;
+					Storage(Callable _function, Any _identity, const void* _object, const IDelegateUnlink* _unlink) :
+						Result(&invoke, std::move(_identity), _object, _unlink),
+						function(std::move(_function))
+					{
+					}
+
+					static void invoke(Result* _self, Args&&... args)
+					{
+						std::invoke(static_cast<Storage*>(_self)->function, std::forward<Args>(args)...);
+					}
+
+					Callable function;
+				};
+
+				template<typename Result, typename Callable>
+				static Result* create(
+					Callable _function,
+					Any _identity,
+					const void* _object = nullptr,
+					const IDelegateUnlink* _unlink = nullptr)
+				{
+					return new Storage<Result, Callable>(std::move(_function), std::move(_identity), _object, _unlink);
+				}
+
+				template<typename Result, typename Callable>
+				static Result* create(Callable _function, Any _identity, const IDelegateUnlink* _object)
+				{
+					return create<Result>(std::move(_function), std::move(_identity), _object, _object);
+				}
+			};
+
+		}
 
 	} // namespace delegates
 
@@ -100,14 +162,18 @@ namespace MyGUI
 	template<typename... Args>
 	inline delegates::DelegateFunction<Args...>* newDelegate(void (*_func)(Args... args))
 	{
-		return new delegates::DelegateFunction<Args...>(_func, _func);
+		if (!_func)
+			return delegates::detail::DelegateFactory::create<delegates::DelegateFunction<Args...>>(
+				std::function<void(Args...)>{},
+				_func);
+		return delegates::detail::DelegateFactory::create<delegates::DelegateFunction<Args...>>(_func, _func);
 	}
 
 	// Creates delegate from a non-static class method
 	template<typename T, typename... Args, typename Owner>
 	inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (Owner::*_method)(Args... args))
 	{
-		return new delegates::DelegateFunction<Args...>(
+		return delegates::detail::DelegateFactory::create<delegates::DelegateFunction<Args...>>(
 			[_object, _method](Args&&... args) { std::invoke(_method, _object, std::forward<Args>(args)...); },
 			_method,
 			_object);
@@ -117,7 +183,7 @@ namespace MyGUI
 		const T* _object,
 		void (Owner::*_method)(Args... args) const)
 	{
-		return new delegates::DelegateFunction<Args...>(
+		return delegates::detail::DelegateFactory::create<delegates::DelegateFunction<Args...>>(
 			[_object, _method](Args&&... args) { std::invoke(_method, _object, std::forward<Args>(args)...); },
 			_method,
 			_object);
@@ -131,7 +197,7 @@ namespace MyGUI
 		const std::function<void(Args...)>& _function,
 		int64_t delegateId)
 	{
-		return new delegates::DelegateFunction<Args...>(_function, delegateId);
+		return delegates::detail::DelegateFactory::create<delegates::DelegateFunction<Args...>>(_function, delegateId);
 	}
 
 
@@ -150,42 +216,96 @@ namespace MyGUI
 	inline auto newDelegate(const TLambda& _function, int64_t delegateId)
 	{
 		using DelegateType = typename GetDelegateFunctionFromLambda<decltype(&TLambda::operator())>::type;
-		return new DelegateType(_function, delegateId);
+		return delegates::detail::DelegateFactory::create<DelegateType>(_function, delegateId);
 	}
 
 	namespace delegates
 	{
 
+		// Operations on an event and its receivers must be performed on one thread.
 		template<typename... Args>
 		class Delegate
 		{
 		public:
 			using IDelegate = DelegateFunction<Args...>;
 
+			Delegate() = default;
+			Delegate(Delegate&& _other) noexcept :
+				mDelegate(std::exchange(_other.mDelegate, nullptr))
+			{
+			}
+
+			Delegate& operator=(Delegate&& _other) noexcept
+			{
+				if (this != &_other)
+					*this = std::exchange(_other.mDelegate, nullptr);
+				return *this;
+			}
+
+			~Delegate()
+			{
+				mDestroying = true;
+				clear();
+			}
+
 			bool empty() const
 			{
-				return !mDelegate;
+				return mDelegate == nullptr;
 			}
 
 			void clear()
 			{
-				mDelegate.reset();
+				if (auto* old = std::exchange(mDelegate, nullptr))
+					old->release();
 			}
 
 			Delegate& operator=(IDelegate* _delegate)
 			{
-				mDelegate.reset(_delegate);
+				if (mDestroying)
+				{
+					if (_delegate)
+						_delegate->release();
+					return *this;
+				}
+				if (mDelegate != _delegate)
+				{
+					if (auto* old = std::exchange(mDelegate, _delegate))
+						old->release();
+				}
 				return *this;
 			}
 
 			void operator()(Args... args) const
 			{
-				if (mDelegate)
-					mDelegate->invoke(args...);
+				if (auto* delegate = mDelegate)
+				{
+					Invocation guard(delegate);
+					delegate->invoke(std::forward<Args>(args)...);
+				}
 			}
 
 		private:
-			std::unique_ptr<IDelegate> mDelegate;
+			class Invocation
+			{
+			public:
+				explicit Invocation(IDelegate* _delegate) :
+					mDelegate(_delegate)
+				{
+					++mDelegate->mReferences;
+				}
+				Invocation(const Invocation&) = delete;
+				Invocation& operator=(const Invocation&) = delete;
+				~Invocation()
+				{
+					mDelegate->release();
+				}
+
+			private:
+				IDelegate* mDelegate;
+			};
+
+			IDelegate* mDelegate{nullptr};
+			bool mDestroying{false};
 		};
 
 		template<typename... Args>
@@ -193,41 +313,51 @@ namespace MyGUI
 		{
 		public:
 			using IDelegate = DelegateFunction<Args...>;
-			using ListDelegate = typename std::list<std::unique_ptr<IDelegate>>;
+			using ListDelegate = std::list<std::unique_ptr<IDelegate>>;
 
-			// These shouldn't be necessary, but MSVC (17.6.5) requires them anyway
 			MultiDelegate() = default;
-			MultiDelegate(MultiDelegate&&) noexcept = default;
+			MultiDelegate(MultiDelegate&& _other) noexcept :
+				mState(std::exchange(_other.mState, nullptr))
+			{
+			}
+
+			~MultiDelegate()
+			{
+				mDestroying = true;
+				if (auto* state = std::exchange(mState, nullptr))
+				{
+					Operation guard(state);
+					state->closed = true;
+					state->clear();
+					--state->references; // Release the event's ownership; the guard retains state.
+				}
+			}
 
 			bool empty() const
 			{
-				for (const auto& delegate : mListDelegates)
-				{
-					if (delegate)
-						return false;
-				}
-				return true;
+				return !mState || mState->active == 0;
 			}
 
 			void clear()
 			{
-				if (mRunning)
+				if (auto* state = mState)
 				{
-					for (auto& delegate : mListDelegates)
-						delegate.reset();
+					Operation guard(state);
+					state->clear();
 				}
-				else
-					mListDelegates.clear();
 			}
 
 			void clear(IDelegateUnlink* _unlink)
 			{
-				if (!_unlink)
-					return;
-				for (auto& delegate : mListDelegates)
+				if (auto* state = mState; state && _unlink)
 				{
-					if (delegate && delegate->compare(_unlink))
-						delegate.reset();
+					Operation guard(state);
+					for (size_t i = 0; i < state->callbacks.size(); ++i)
+					{
+						auto* callback = state->callbacks[i];
+						if (callback && callback->compare(_unlink))
+							state->remove(i);
+					}
 				}
 			}
 
@@ -235,83 +365,183 @@ namespace MyGUI
 			{
 				if (!_delegate)
 					return;
-				auto found = std::find_if(
-					mListDelegates.begin(),
-					mListDelegates.end(),
-					[=](const auto& delegate) { return delegate && delegate->compare(_delegate); });
-				if (found != mListDelegates.end())
-					MYGUI_EXCEPT("Trying to add same delegate twice.");
-				mListDelegates.emplace_back(_delegate);
+				if (mDestroying)
+				{
+					delete _delegate;
+					return;
+				}
+				if (!mState)
+					mState = new State;
+				auto* state = mState;
+				Operation guard(state);
+				state->add(_delegate);
 			}
 
 			void operator-=(IDelegate* _delegate)
 			{
 				if (!_delegate)
 					return;
-				auto found = std::find_if(
-					mListDelegates.begin(),
-					mListDelegates.end(),
-					[=](const auto& delegate) { return delegate && delegate->compare(_delegate); });
-				if (found != mListDelegates.end())
+				if (auto* state = mState)
 				{
-					if (found->get() == _delegate)
-						_delegate = nullptr;
-					found->reset();
+					Operation guard(state);
+					// The original pointer can also be supplied; never delete an owned or retired callback here.
+					std::unique_ptr<IDelegate> token(_delegate->mOwner ? nullptr : _delegate);
+					const auto index = state->find(_delegate);
+					if (index != state->callbacks.size())
+						state->remove(index);
 				}
-				delete _delegate;
+				else if (!_delegate->mOwner)
+					delete _delegate;
 			}
 
 			void operator()(Args... args) const
 			{
-				bool canErase = !mRunning;
-				InvocationModificationGuard guard(*this);
-				for (auto it = mListDelegates.begin(); it != mListDelegates.end();)
+				auto* state = mState;
+				if (!state || state->active == 0)
+					return;
+				Operation guard(state);
+				// Callbacks may reallocate the vector or destroy the event. Reload by index using retained state.
+				size_t i = 0;
+				do
 				{
-					if (*it)
-						(*it)->invoke(args...);
-					else if (canErase)
-					{
-						it = mListDelegates.erase(it);
-						continue;
-					}
-					++it;
-				}
+					if (auto* callback = state->callbacks[i])
+						callback->invoke(args...);
+				} while (++i < state->extent);
 			}
 
 			MYGUI_OBSOLETE("use : operator += ")
 			MultiDelegate& operator=(IDelegate* _delegate)
 			{
-				clear();
-				*this += _delegate;
+				if (mDestroying)
+				{
+					delete _delegate;
+					return *this;
+				}
+				if (!mState)
+				{
+					*this += _delegate;
+					return *this;
+				}
+				auto* state = mState;
+				Operation guard(state);
+				state->clear();
+				state->collectIfIdle();
+				// Releasing old captures can destroy this event. From here on, use only retained state.
+				state->add(_delegate);
 				return *this;
 			}
 
 		private:
-			mutable ListDelegate mListDelegates;
-			mutable bool mRunning{false};
-
-			class InvocationModificationGuard
+			struct State
 			{
-				const MultiDelegate* mDelegate;
+				std::vector<IDelegate*> callbacks;
+				// Avoid subtracting vector pointers after every callback in the dispatch loop.
+				size_t extent{0};
+				size_t active{0};
+				size_t references{1}; // Event ownership plus active operations, including nested invocations.
+				IDelegate* retired{nullptr};
+				IDelegate* retiredTail{nullptr};
+				bool closed{false};
 
-			public:
-				InvocationModificationGuard(const MultiDelegate& delegate)
+				size_t find(IDelegate* _delegate) const
 				{
-					if (delegate.mRunning)
-						mDelegate = nullptr;
-					else
+					for (size_t i = 0; i < callbacks.size(); ++i)
 					{
-						mDelegate = &delegate;
-						mDelegate->mRunning = true;
+						auto* callback = callbacks[i];
+						// Custom Any identities can execute user comparison code and reenter the event.
+						if (callback && callback->compare(_delegate) && callbacks[i] == callback)
+							return i;
+					}
+					return callbacks.size();
+				}
+
+				void add(IDelegate* _delegate)
+				{
+					if (!_delegate)
+						return;
+					if (closed)
+					{
+						delete _delegate;
+						return;
+					}
+					const auto index = find(_delegate);
+					if (_delegate->mOwner || index != callbacks.size())
+						MYGUI_EXCEPT("Trying to add same delegate twice.");
+					if (closed)
+					{
+						delete _delegate;
+						return;
+					}
+					callbacks.push_back(_delegate); // Ownership transfers only after successful insertion.
+					extent = callbacks.size();
+					_delegate->mOwner = this;
+					++active;
+				}
+
+				void remove(size_t _index)
+				{
+					auto* callback = std::exchange(callbacks[_index], nullptr);
+					--active;
+					if (retiredTail)
+						retiredTail->mNextRetired = callback;
+					else
+						retired = callback;
+					retiredTail = callback;
+				}
+
+				void clear()
+				{
+					for (size_t i = 0; i < callbacks.size(); ++i)
+					{
+						if (callbacks[i])
+							remove(i);
 					}
 				}
-				~InvocationModificationGuard()
+
+				void collectIfIdle()
 				{
-					if (mDelegate)
-						mDelegate->mRunning = false;
+					while (retired && references == (closed ? 1u : 2u))
+					{
+						callbacks.erase(std::remove(callbacks.begin(), callbacks.end(), nullptr), callbacks.end());
+						extent = callbacks.size();
+						auto* removed = std::exchange(retired, nullptr);
+						retiredTail = nullptr;
+						// Detach the whole batch before running capture destructors. Drain any reentrant removals too.
+						while (removed)
+						{
+							auto* next = std::exchange(removed->mNextRetired, nullptr);
+							// Keep ownership marked while capture destructors can remove this original pointer again.
+							removed->release();
+							removed = next;
+						}
+					}
 				}
 			};
-			friend class InvocationModificationGuard;
+
+			class Operation
+			{
+			public:
+				explicit Operation(State* _state) :
+					mState(_state)
+				{
+					++mState->references;
+				}
+				Operation(const Operation&) = delete;
+				Operation& operator=(const Operation&) = delete;
+				~Operation()
+				{
+					if (mState->retired)
+						mState->collectIfIdle();
+					if (--mState->references == 0)
+						delete mState;
+				}
+
+			private:
+				State* mState;
+			};
+
+			State* mState{nullptr};
+			bool mDestroying{false};
 		};
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

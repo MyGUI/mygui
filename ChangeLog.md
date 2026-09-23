@@ -51,6 +51,8 @@
   deferred resizing and preserve content update requests when reallocating
 - Fix DataStream read counts at EOF and preserve position and state in size queries
 - Add owning DataManager::getDataHolder; make DataStreamHolder non-copyable and non-movable
+- Optimize delegate invocation and subscription handling, and fix callback lifetime issues during nested dispatch,
+  mutation, exceptions and event destruction
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
