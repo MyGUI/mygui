@@ -85,8 +85,6 @@ namespace MyGUI
 
 	void OgreNextRTTexture::begin()
 	{
-		ensureRenderPassDescriptor();
-
 		auto* rm = OgreNextRenderManager::getInstancePtr();
 		if (rm == nullptr)
 			return;
@@ -95,6 +93,8 @@ namespace MyGUI
 			return;
 
 		manager->suspendBatch();
+		// GL3+ descriptor creation binds the new framebuffer, so flush the previous target first.
+		ensureRenderPassDescriptor();
 		manager->beginBatch(mRenderPassDesc, mTexture);
 	}
 

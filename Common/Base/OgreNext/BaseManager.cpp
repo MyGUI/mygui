@@ -207,6 +207,10 @@ namespace base
 
 	void BaseManager::resizeRender(int _width, int _height)
 	{
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+		// OgreNext owns a child window inside the SDL parent on Linux.
+		mWindow->requestResolution(static_cast<uint32_t>(_width), static_cast<uint32_t>(_height));
+#endif
 		mWindow->windowMovedOrResized();
 		mCamera->setAutoAspectRatio(true);
 	}

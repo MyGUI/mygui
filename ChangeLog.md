@@ -63,6 +63,7 @@
 - Ogre: fix reuse and ownership of existing textures, texture recreation and combined render-target/read/write usage;
   stop advertising unknown pixel formats
 - OgreNext: implement texture lock read (used in picking)
+- OgreNext: fix nested RTT
 - OpenGL3: fix odd-width texture uploads and readback buffer overruns; preserve host pixel-transfer state and bindings
 - OpenGL3: fix PBO support detection in core contexts and uploads to file-loaded textures; preserve existing pixels in
   read/write locks, including render-target textures, and fix interleaved locks and read-lock lifetime reporting
