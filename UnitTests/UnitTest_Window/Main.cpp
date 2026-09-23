@@ -71,6 +71,8 @@ namespace
 
 int main()
 {
-	return unittest::runTests(
-		{{"Moving and resizing", testMovementAndResize}, {"Snapping and visibility", testSnappingAndVisibility}});
+	return unittest::runTests({
+		{"Moving and resizing", testMovementAndResize},
+		{"Snapping and visibility", testSnappingAndVisibility},
+	});
 }

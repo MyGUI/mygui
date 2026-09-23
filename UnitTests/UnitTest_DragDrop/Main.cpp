@@ -123,8 +123,9 @@ namespace
 
 int main()
 {
-	return unittest::runTests(
-		{{"Accepted drop", testDrop<true>},
-		 {"Rejected drop", testDrop<false>},
-		 {"Cancellation and recovery", testCancelAndMiss}});
+	return unittest::runTests({
+		{"Accepted drop", testDrop<true>},
+		{"Rejected drop", testDrop<false>},
+		{"Cancellation and recovery", testCancelAndMiss},
+	});
 }

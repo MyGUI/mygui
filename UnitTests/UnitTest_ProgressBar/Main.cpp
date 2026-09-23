@@ -98,9 +98,10 @@ namespace
 
 int main()
 {
-	return unittest::runTests(
-		{{"Filled ranges and directions", testRangesAndDirections<true>},
-		 {"Segmented ranges and directions", testRangesAndDirections<false>},
-		 {"Automatic lifecycle", testAutomaticLifecycle},
-		 {"Long frame", testLongFrame}});
+	return unittest::runTests({
+		{"Filled ranges and directions", testRangesAndDirections<true>},
+		{"Segmented ranges and directions", testRangesAndDirections<false>},
+		{"Automatic lifecycle", testAutomaticLifecycle},
+		{"Long frame", testLongFrame},
+	});
 }

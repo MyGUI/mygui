@@ -128,9 +128,10 @@ namespace
 
 int main()
 {
-	return unittest::runTests(
-		{{"Growth and callbacks", testGrowthAndCallbacks},
-		 {"Modes, pixels and lifetime", testModesPixelsAndLifetime},
-		 {"Destroy with pending update", testDestroyPendingUpdate},
-		 {"Disable pending managed resize", testDisableManagedResize}});
+	return unittest::runTests({
+		{"Growth and callbacks", testGrowthAndCallbacks},
+		{"Modes, pixels and lifetime", testModesPixelsAndLifetime},
+		{"Destroy with pending update", testDestroyPendingUpdate},
+		{"Disable pending managed resize", testDisableManagedResize},
+	});
 }

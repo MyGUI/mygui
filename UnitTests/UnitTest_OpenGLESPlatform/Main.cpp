@@ -513,9 +513,14 @@ int main(int, char**)
 				platform.getRenderManagerPtr()->isPixelBufferObjectSupported(),
 				"ES 3 core PBO support must be recognized");
 			result = unittest::runTests(
-				{{"transfers", testTransfers},
-				 {"loader", testLoader},
-				 {"rendering", [&] { testRendering(*platform.getRenderManagerPtr()); }}},
+				{
+					{"transfers", testTransfers},
+					{"loader", testLoader},
+					{
+						"rendering",
+						[&] { testRendering(*platform.getRenderManagerPtr()); },
+					},
+				},
 				unittest::FailurePolicy::Stop);
 		}
 		catch (...)
