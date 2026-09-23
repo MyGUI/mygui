@@ -169,6 +169,8 @@ namespace
 			"A list must be reusable after removing all columns");
 	}
 
+	// Appending elements does not invalidate the reference to the vector itself.
+	MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-invalidation")
 	void collectColumnLists(MyGUI::Widget* _widget, std::vector<MyGUI::ListBox*>& _lists)
 	{
 		for (auto* child : _widget->getChildWidgets())
@@ -179,6 +181,7 @@ namespace
 				collectColumnLists(child, _lists);
 		}
 	}
+	MYGUI_UNSUPPRESS_CLANG()
 
 	struct NumericOrder
 	{

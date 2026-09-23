@@ -216,12 +216,15 @@ namespace
 		}
 
 	private:
+		// Appending elements does not invalidate the reference to the vector itself.
+		MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-invalidation")
 		static void collectNodes(MyGUI::ILayerNode* _node, std::vector<MyGUI::ILayerNode*>& _nodes)
 		{
 			_nodes.push_back(_node);
 			for (size_t index = 0; index < _node->getLayerNodeCount(); ++index)
 				collectNodes(_node->getLayerNodeAt(index), _nodes);
 		}
+		MYGUI_UNSUPPRESS_CLANG()
 
 		static std::vector<MyGUI::ILayerNode*> layerNodes()
 		{

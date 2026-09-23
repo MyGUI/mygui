@@ -19,6 +19,8 @@ namespace
 	class StreamFixture
 	{
 	public:
+		// Moving ownership into stream preserves the input pointer.
+		MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-dangling-field-moved")
 		StreamFixture(const std::string& _content, bool _file)
 		{
 			if (_file)
@@ -37,6 +39,7 @@ namespace
 				stream = std::make_unique<MyGUI::DataStream>(input);
 			}
 		}
+		MYGUI_UNSUPPRESS_CLANG()
 
 		std::unique_ptr<TemporaryFile> file;
 		std::unique_ptr<std::istringstream> memory;
