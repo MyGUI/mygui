@@ -144,10 +144,10 @@ function(mygui_unit_test PROJECTNAME)
 
 	if(NOT ARGV1 STREQUAL "GROUPED")
 		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
-	endif()
-	if(EMSCRIPTEN)
-		# Node loads the preloaded .data package relative to the process working directory.
-		set_tests_properties(${PROJECTNAME} PROPERTIES WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECTNAME}>")
+		if(EMSCRIPTEN)
+			# Node loads the preloaded .data package relative to the process working directory.
+			set_tests_properties(${PROJECTNAME} PROPERTIES WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECTNAME}>")
+		endif()
 	endif()
 endfunction(mygui_unit_test)
 

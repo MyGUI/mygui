@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>MyGUI platform tests</title>
+<link rel="icon" href="data:,">
+<canvas id="canvas" width="128" height="128"></canvas>
+<script>
+  var Module = {
+    canvas: document.getElementById('canvas'),
+    arguments: new URLSearchParams(location.search).getAll('arg'),
+    preRun: [() => Module.FS.mkdir('/artifacts')],
+    print: text => console.log(text),
+    printErr: text => console.error(text),
+    onExit: status => { window.testResult = {status}; },
+    onAbort: reason => { window.testResult = {status: 1, error: String(reason)}; }
+  };
+</script>
+{{{ SCRIPT }}}
+</html>

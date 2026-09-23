@@ -1,14 +1,14 @@
-# Shared native platform tests
+# Shared platform tests
 
 `UnitTest_Platform` runs the same resource, rendering and lifecycle tests against
-MyGUI's native rendering backends. Each build tests the backend selected by
+MyGUI's rendering backends. Each build tests the backend selected by
 `MYGUI_RENDERSYSTEM`; use separate build directories to test different backends.
 Building several libraries with `MYGUI_BUILD_RENDERSYSTEMS` does not run the
 suite against all of them.
 
 The selected backend's dependencies and a working graphics context/display are
-required, even though test windows are hidden by default. Dummy and Emscripten/browser
-builds are excluded from this suite. Demos and tools can remain disabled.
+required, even though test windows are hidden by default. Emscripten uses
+WebGL 2 in headless Chromium, as described below.
 
 Reuse an existing suitable build and its dependencies. Replace `<build-dir>`
 and `<renderer-id>` below with the directory and backend to test:
@@ -45,6 +45,39 @@ Without `--group`, all groups run. `--group` accepts `resources`, `rendering` or
 `--case` is a substring filter; no matches is an error. `--visible` shows the
 window for debugging. `--artifacts` selects the failure-image directory;
 CTest sets a directory under the suite's build directory automatically.
+
+## Emscripten browser tests
+
+The same three groups run in a browser for `MYGUI_RENDERSYSTEM=8`. Core unit
+tests still run separately under Node. The native EGL-specific GLES suite is
+not built for Emscripten.
+
+After inspecting and selecting an existing Emscripten build, install the browser
+runner there and enable the shared suite:
+
+```sh
+python3 -m venv <build-dir>/browser-tests
+<build-dir>/browser-tests/bin/python -m pip install -r Scripts/Tests/browser-requirements.txt
+<build-dir>/browser-tests/bin/python -m playwright install --with-deps --only-shell chromium
+emcmake cmake -S . -B <build-dir> \
+  -DMYGUI_BUILD_UNITTESTS=ON -DMYGUI_BUILD_PLATFORM_TESTS=ON \
+  -DPython3_EXECUTABLE="$PWD/<build-dir>/browser-tests/bin/python"
+cmake --build <build-dir> --target UnitTest_Platform --parallel
+ctest --test-dir <build-dir> -L platform --output-on-failure
+```
+
+The runner starts a localhost server and an isolated headless Chromium process
+using SwiftShader software rendering. A canvas replaces the native window;
+the fixture uses `--visible` and a device scale of one. Nonzero program exits,
+JavaScript errors, aborts and timeouts fail the test. Logs, failure screenshots
+and available PPM captures are saved under the suite's `artifacts/<group>`
+directory. CI uploads that directory on failure.
+
+To reuse an installed Chromium-based browser, omit the Playwright browser
+download and set `MYGUI_TEST_BROWSER` to the browser executable when running
+CTest. The pinned Playwright browser is the default used in CI.
+
+## Coverage
 
 The cases cover:
 
@@ -92,7 +125,7 @@ graphics context unusable. OpenGL, OpenGL3 and Vulkan save available failure
 captures under `platform-artifacts/native-<backend>/` in the working directory.
 The standalone GLES fixture does not provide frame-capture artifacts.
 See their READMEs for setup requirements, including
-[native GLES/ANGLE](../UnitTest_OpenGLESPlatform/README.md). This suite does not
-measure performance or establish browser behavior. Arbitrary device-loss and
-font-atlas recovery are outside its coverage; resize exercises the selected
-backend's normal window-resize path.
+[native GLES/ANGLE](../UnitTest_OpenGLESPlatform/README.md). The native-only
+probes do not establish browser behavior. This suite does not measure performance.
+Arbitrary device-loss and font-atlas recovery are outside its coverage; resize
+exercises the selected backend's normal window-resize path.

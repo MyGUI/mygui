@@ -168,7 +168,7 @@ jobs:
         run: ctest --test-dir build-sanitizers --output-on-failure --no-tests=error --timeout 30
 
   emscripten:
-    name: "emscripten: GLES, TestApp and core tests"
+    name: "emscripten: GLES, TestApp, core and browser tests"
     runs-on: ubuntu-latest
     container: emscripten/emsdk:latest
 
@@ -178,7 +178,13 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get update -qq
-          apt-get install -qq cmake
+          apt-get install -qq cmake python3-venv
+
+      - name: Set up browser tests
+        run: |
+          python3 -m venv build/browser-tests
+          build/browser-tests/bin/python -m pip install -r Scripts/Tests/browser-requirements.txt
+          build/browser-tests/bin/python -m playwright install --with-deps --only-shell chromium
 
       - name: Configure
         run: |
@@ -186,6 +192,8 @@ jobs:
             -DMYGUI_RENDERSYSTEM=8 \
             -DMYGUI_BUILD_TEST_APP=ON \
             -DMYGUI_BUILD_UNITTESTS=ON \
+            -DMYGUI_BUILD_PLATFORM_TESTS=ON \
+            -DPython3_EXECUTABLE="$PWD/build/browser-tests/bin/python" \
             -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
       - name: Build
@@ -193,3 +201,14 @@ jobs:
 
       - name: Run core unit tests
         run: ctest --test-dir build --output-on-failure --no-tests=error --timeout 30 -LE platform
+
+      - name: Run browser platform tests
+        run: ctest --test-dir build --output-on-failure --no-tests=error --timeout 120 -L platform
+
+      - name: Upload browser test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: emscripten-platform-tests
+          path: build/UnitTests/UnitTest_Platform/artifacts
+          if-no-files-found: ignore
