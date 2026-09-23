@@ -108,7 +108,6 @@ if(EMSCRIPTEN)
 	mygui_emscripten_exclude_non_runtime_media(${PROJECTNAME} PUBLIC)
 	# debug stuff
 	target_link_options(${PROJECTNAME} PUBLIC "-sASSERTIONS=1")
-	target_link_options(${PROJECTNAME} PUBLIC "-sNO_DISABLE_EXCEPTION_CATCHING")
 endif()
 
 if(MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)

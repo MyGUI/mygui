@@ -20,6 +20,12 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 target_compile_features(${PROJECTNAME} PUBLIC cxx_std_17)
 
+if(EMSCRIPTEN)
+	# Public APIs and headers throw exceptions; consumers must be able to catch them.
+	target_compile_options(${PROJECTNAME} PUBLIC -fexceptions)
+	target_link_options(${PROJECTNAME} PUBLIC -fexceptions)
+endif()
+
 target_include_directories(${PROJECTNAME} PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	$<BUILD_INTERFACE:${MYGUI_CONFIG_DIR}>

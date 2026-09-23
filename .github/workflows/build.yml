@@ -168,7 +168,7 @@ jobs:
         run: ctest --test-dir build-sanitizers --output-on-failure --no-tests=error --timeout 30
 
   emscripten:
-    name: "emscripten: GLES, TestApp only"
+    name: "emscripten: GLES, TestApp and core tests"
     runs-on: ubuntu-latest
     container: emscripten/emsdk:latest
 
@@ -185,7 +185,11 @@ jobs:
           emcmake cmake --preset minimal -B build \
             -DMYGUI_RENDERSYSTEM=8 \
             -DMYGUI_BUILD_TEST_APP=ON \
+            -DMYGUI_BUILD_UNITTESTS=ON \
             -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
       - name: Build
         run: cmake --build build --parallel
+
+      - name: Run core unit tests
+        run: ctest --test-dir build --output-on-failure --no-tests=error --timeout 30 -LE platform
