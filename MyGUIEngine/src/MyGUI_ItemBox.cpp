@@ -242,7 +242,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use : resetCurrentActiveItem() before findCurrentActiveItem()");
 
-		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
+		const IntPoint point = InputManager::getInstance().getMousePositionForWidget(_getClientWidget());
 
 		const IntRect& rect = _getClientWidget()->getAbsoluteRect();
 		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) ||
@@ -608,8 +608,8 @@ namespace MyGUI
 			}
 
 			// offset inside widget where mouse was clicked
-			mClickInWidget =
-				InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - _sender->getAbsolutePosition();
+			mClickInWidget = InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender) -
+				_sender->getAbsolutePosition();
 
 			eventMouseItemActivate(this, mIndexSelect);
 			// send position change only on actual change

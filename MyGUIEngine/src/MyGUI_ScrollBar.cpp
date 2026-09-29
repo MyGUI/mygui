@@ -182,7 +182,8 @@ namespace MyGUI
 		if (mWidgetTrack == nullptr)
 			return;
 
-		const IntPoint& point = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
+		const IntPoint point =
+			InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, mWidgetTrack);
 
 		if (mVerticalAlignment)
 		{
@@ -264,8 +265,9 @@ namespace MyGUI
 		{
 			if (mWidgetTrack != nullptr)
 			{
-				mPreActionOffset = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
-				const IntPoint& point = InputManager::getInstance().getMousePositionByLayer() -
+				mPreActionOffset =
+					InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender);
+				const IntPoint& point = InputManager::getInstance().getMousePositionForWidget(_sender) -
 					mWidgetTrack->getParent()->getAbsolutePosition();
 
 				mPreActionOffset.left -= getTrackSize() / 2;

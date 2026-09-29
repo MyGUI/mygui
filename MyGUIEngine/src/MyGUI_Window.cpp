@@ -170,7 +170,7 @@ namespace MyGUI
 		if (_id != MouseButton::Left)
 			return;
 
-		const IntPoint& point = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
+		const IntPoint point = InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender);
 
 		IntCoord coord = mCurrentActionScale;
 		coord.left *= (_left - point.left);
