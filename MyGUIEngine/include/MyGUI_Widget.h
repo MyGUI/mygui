@@ -23,6 +23,9 @@
 namespace MyGUI
 {
 
+	struct Vertex;
+	struct RenderTargetInfo;
+
 	using EventHandle_WidgetStringString = EventPairConvertStringView<
 		delegates::MultiDelegate<Widget*, const std::string&, const std::string&>,
 		delegates::MultiDelegate<Widget*, std::string_view, std::string_view>>;
@@ -471,6 +474,8 @@ namespace MyGUI
 
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
+		ILayerItem* getLayerItemByPointUnrotated(const FloatPoint& _point) const;
+		void invalidateRotation();
 
 		void _linkChildWidget(Widget* _widget) override;
 

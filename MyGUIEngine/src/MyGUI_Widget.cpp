@@ -448,11 +448,28 @@ namespace MyGUI
 
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
+		return getLayerItemByPointUnrotated(FloatPoint((float)_left, (float)_top));
+	}
+
+	ILayerItem* Widget::getLayerItemByPointUnrotated(const FloatPoint& _point) const
+	{
+		FloatPoint point = (mParent && !mCroppedParent) ? mParent->unrotatePoint(_point) : _point;
+		if (mRotation != 0.0f)
+		{
+			const FloatPoint center = getRotationCenter();
+			const float dx = point.left - (mCoord.left + center.left);
+			const float dy = point.top - (mCoord.top + center.top);
+			const float c = std::cos(mRotation);
+			const float s = std::sin(mRotation);
+			point.left = mCoord.left + center.left + dx * c + dy * s;
+			point.top = mCoord.top + center.top - dx * s + dy * c;
+		}
 		// check point hit
 		if (!mInheritedEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
-			!_checkPoint(_left, _top)
+			point.left < _getViewLeft() || point.top < _getViewTop() || point.left >= _getViewRight() ||
+			point.top >= _getViewBottom()
 			// if there is a mask, also check by mask
-			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))
+			|| !isMaskPickInside(IntPoint((int)(point.left - mCoord.left), (int)(point.top - mCoord.top)), mCoord))
 			return nullptr;
 
 		// ask children
@@ -463,7 +480,8 @@ namespace MyGUI
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
 				continue;
 
-			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem* item =
+				(*widget)->getLayerItemByPointUnrotated(FloatPoint(point.left - mCoord.left, point.top - mCoord.top));
 			if (item != nullptr)
 				return item;
 		}
@@ -472,7 +490,8 @@ namespace MyGUI
 			 widget != mWidgetChildSkin.rend();
 			 ++widget)
 		{
-			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem* item =
+				(*widget)->getLayerItemByPointUnrotated(FloatPoint(point.left - mCoord.left, point.top - mCoord.top));
 			if (item != nullptr)
 				return item;
 		}
@@ -1125,7 +1144,7 @@ namespace MyGUI
 		else if (_key == "RotationCenter")
 			setRotationCenter(utility::parseValue<FloatPoint>(_value));
 		/// @wproperty{Widget, Position, IntPoint} Set widget position.
-		if (_key == "Position")
+		else if (_key == "Position")
 			setPosition(utility::parseValue<IntPoint>(_value));
 
 		/// @wproperty{Widget, Size, IntSize} Set widget size.
