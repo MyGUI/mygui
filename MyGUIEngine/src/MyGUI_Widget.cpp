@@ -687,6 +687,40 @@ namespace MyGUI
 		return result;
 	}
 
+	void Widget::_transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const
+	{
+		bool rotated = false;
+		for (const Widget* widget = this; widget != nullptr; widget = widget->mParent)
+			rotated |= widget->mRotation != 0.0f;
+		if (!rotated)
+			return;
+
+		for (size_t i = 0; i < _count; ++i)
+		{
+			Vertex& vertex = _vertices[i];
+			const FloatPoint pixel(
+				((vertex.x + 1.0f) * 0.5f - _info.hOffset) / _info.pixScaleX + _info.leftOffset,
+				((1.0f - vertex.y) * 0.5f - _info.vOffset) / _info.pixScaleY + _info.topOffset);
+			const FloatPoint transformed = rotatePoint(pixel);
+			vertex.x = 2.0f * (_info.pixScaleX * (transformed.left - _info.leftOffset) + _info.hOffset) - 1.0f;
+			vertex.y = 1.0f - 2.0f * (_info.pixScaleY * (transformed.top - _info.topOffset) + _info.vOffset);
+		}
+	}
+
+	bool Widget::_hasRotation() const
+	{
+		return mRotation != 0.0f || (mParent && mParent->_hasRotation());
+	}
+
+	void Widget::invalidateRotation()
+	{
+		_updateView();
+		for (auto* widget : mWidgetChild)
+			widget->invalidateRotation();
+		for (auto* widget : mWidgetChildSkin)
+			widget->invalidateRotation();
+	}
+
 	void Widget::detachFromWidget(std::string_view _layer)
 	{
 		_detachFromWidget(_layer);

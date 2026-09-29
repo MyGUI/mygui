@@ -375,6 +375,8 @@ namespace MyGUI
 
 		void _setAlign(const IntSize& _oldsize, const IntSize& _newSize);
 		bool _checkPoint(int _left, int _top) const;
+		void _transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const;
+		bool _hasRotation() const override;
 
 		Widget* _createSkinWidget(
 			WidgetStyle _style,
