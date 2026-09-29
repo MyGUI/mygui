@@ -44,6 +44,15 @@ namespace
 		}
 	};
 
+	struct ClickObserver
+	{
+		void clicked(MyGUI::Widget*)
+		{
+			++count;
+		}
+		int count{0};
+	};
+
 	void testAbsoluteCoordEvent()
 	{
 		Fixture fixture;
@@ -424,6 +433,70 @@ namespace
 		gui.destroyWidget(parent);
 	}
 
+	void testNestedRotationAndPicking()
+	{
+		Fixture fixture;
+		MyGUI::LayerManager::getInstance().getByName("Main")->castType<MyGUI::OverlappedLayer>()->setPick(true);
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>(
+			"Default",
+			MyGUI::IntCoord(100, 100, 200, 200),
+			MyGUI::Align::Default,
+			"Main");
+		auto* child =
+			parent->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(50, 50, 100, 100), MyGUI::Align::Default);
+		parent->setProperty("Rotation", "0.7853981634");
+		child->setProperty("Rotation", "0.7853981634");
+		require(std::abs(parent->getRotation() - 0.7853981634f) < 0.0001f, "Rotation property must set radians");
+		require(
+			parent->getRotationCenter() == MyGUI::FloatPoint(100.0f, 100.0f),
+			"Default pivot must track the widget center");
+		const MyGUI::FloatPoint corner = child->rotatePoint(MyGUI::FloatPoint(240.0f, 200.0f));
+		require(
+			std::abs(corner.left - 200.0f) < 0.01f && std::abs(corner.top - 240.0f) < 0.01f,
+			"Parent and child rotations must compose");
+		const MyGUI::FloatPoint restored = child->unrotatePoint(corner);
+		require(
+			std::abs(restored.left - 240.0f) < 0.01f && std::abs(restored.top - 200.0f) < 0.01f,
+			"Input transform must invert the displayed transform");
+		MyGUI::RenderTargetInfo renderInfo;
+		renderInfo.pixScaleX = 1.0f / 800.0f;
+		renderInfo.pixScaleY = 1.0f / 600.0f;
+		MyGUI::Vertex vertex;
+		vertex.x = 2.0f * 240.0f / 800.0f - 1.0f;
+		vertex.y = 1.0f - 2.0f * 200.0f / 600.0f;
+		child->_transformVertices(&vertex, 1, renderInfo);
+		require(
+			std::abs(vertex.x - (2.0f * 200.0f / 800.0f - 1.0f)) < 0.001f &&
+				std::abs(vertex.y - (1.0f - 2.0f * 240.0f / 600.0f)) < 0.001f,
+			"Rendered vertices must use the same nested rotation as picking");
+		require(
+			MyGUI::LayerManager::getInstance().getWidgetFromPoint(200, 240) == child,
+			"Picking must follow nested rotation");
+		MyGUI::InputManager::getInstance().injectMouseMove(200, 240, 0);
+		require(
+			MyGUI::InputManager::getInstance().getMousePositionForWidget(child) == MyGUI::IntPoint(240, 200),
+			"Widget input coordinates must be inverse-rotated for text and drag handling");
+		ClickObserver clicks;
+		child->eventMouseButtonClick += MyGUI::newDelegate(&clicks, &ClickObserver::clicked);
+		MyGUI::InputManager::getInstance().injectMousePress(200, 240, MyGUI::MouseButton::Left);
+		MyGUI::InputManager::getInstance().injectMouseRelease(200, 240, MyGUI::MouseButton::Left);
+		require(clicks.count == 1, "A click on the rotated child must reach that child");
+		require(
+			MyGUI::InputManager::getInstance().getLastPressedPositionForWidget(MyGUI::MouseButton::Left, child) ==
+				MyGUI::IntPoint(240, 200),
+			"Press coordinates must match the child's unrotated layout");
+		require(
+			MyGUI::LayerManager::getInstance().getWidgetFromPoint(100, 100) == nullptr,
+			"Picking must reject an unrotated corner outside the displayed widget");
+
+		child->setProperty("RotationCenter", "0 0");
+		require(
+			child->getRotationCenter() == MyGUI::FloatPoint(0.0f, 0.0f),
+			"RotationCenter property must set a widget-local pivot");
+		gui.destroyWidget(parent);
+	}
+
 }
 
 int main()
@@ -437,5 +510,6 @@ int main()
 		{"Clamped alignment", testClampedAlignment},
 		{"Skin alignment", testSkinAlignment},
 		{"Absolute coordinate reparenting", testAbsoluteCoordReparenting},
+		{"Nested rotation and picking", testNestedRotationAndPicking},
 	});
 }
