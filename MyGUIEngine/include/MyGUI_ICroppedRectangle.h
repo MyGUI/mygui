@@ -248,6 +248,8 @@ namespace MyGUI
 		// Check if completely outside parent bounds
 		bool _checkOutside() const
 		{
+			if (_hasRotation() || mCroppedParent->_hasRotation())
+				return false;
 			return (
 				(getRight() < mCroppedParent->mMargin.left) ||
 				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) ||
