@@ -1,5 +1,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
+#include <cmath>
 
 namespace
 {
@@ -39,6 +40,33 @@ namespace
 			"Left resize must preserve the opposite edge");
 	}
 
+	void testRotatedWindowDrag()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setRotation(0.7853981634f);
+		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(140.0f, 110.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left + 30, press.top + 40, 0);
+		require(
+			window->getPosition() == MyGUI::IntPoint(130, 140),
+			"Rotated window must follow the first mouse displacement");
+		input.injectMouseMove(press.left + 60, press.top + 30, 0);
+		require(
+			window->getPosition() == MyGUI::IntPoint(160, 130),
+			"Further dragging must not drift as the window moves");
+		input.injectMouseRelease(press.left + 60, press.top + 30, MyGUI::MouseButton::Left);
+	}
+
 	void testSnappingAndVisibility()
 	{
 		unittest::TestContext context;
@@ -73,6 +101,7 @@ int main()
 {
 	return unittest::runTests({
 		{"Moving and resizing", testMovementAndResize},
+		{"Rotated window drag", testRotatedWindowDrag},
 		{"Snapping and visibility", testSnappingAndVisibility},
 	});
 }
