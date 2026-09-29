@@ -23,6 +23,10 @@ namespace MyGUI
 		{
 			return mCroppedParent;
 		}
+		const ICroppedRectangle* getCroppedParent() const
+		{
+			return mCroppedParent;
+		}
 
 		/** Set position */
 		virtual void setPosition(const IntPoint& _value)
@@ -127,6 +131,10 @@ namespace MyGUI
 		{
 			return mIsMargin;
 		}
+		virtual bool _hasRotation() const
+		{
+			return false;
+		}
 
 		// Get cropped by parent rectangle coordinates
 		int _getViewLeft() const
@@ -183,6 +191,12 @@ namespace MyGUI
 	protected:
 		bool _checkMargin()
 		{
+			// Rotated geometry is clipped after its vertices have been transformed
+			if (_hasRotation() || mCroppedParent->_hasRotation())
+			{
+				mMargin.clear();
+				return false;
+			}
 			bool margin = false;
 			// Check if clipped on the left
 			if (getLeft() < mCroppedParent->mMargin.left)
