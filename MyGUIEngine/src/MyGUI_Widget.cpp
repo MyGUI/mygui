@@ -630,6 +630,63 @@ namespace MyGUI
 		mAlign = _value;
 	}
 
+	void Widget::setRotation(float _radians)
+	{
+		if (mRotation == _radians)
+			return;
+		mRotation = _radians;
+		invalidateRotation();
+	}
+
+	float Widget::getRotation() const
+	{
+		return mRotation;
+	}
+
+	void Widget::setRotationCenter(const FloatPoint& _center)
+	{
+		mRotationCenter = _center;
+		mCustomRotationCenter = true;
+		invalidateRotation();
+	}
+
+	FloatPoint Widget::getRotationCenter() const
+	{
+		return mCustomRotationCenter ? mRotationCenter : FloatPoint(mCoord.width * 0.5f, mCoord.height * 0.5f);
+	}
+
+	FloatPoint Widget::rotatePoint(const FloatPoint& _point) const
+	{
+		FloatPoint result = _point;
+		if (mRotation != 0.0f)
+		{
+			const FloatPoint center = getRotationCenter();
+			const float x = result.left - mAbsolutePosition.left - center.left;
+			const float y = result.top - mAbsolutePosition.top - center.top;
+			const float c = std::cos(mRotation);
+			const float s = std::sin(mRotation);
+			result.left = mAbsolutePosition.left + center.left + x * c - y * s;
+			result.top = mAbsolutePosition.top + center.top + x * s + y * c;
+		}
+		return mParent ? mParent->rotatePoint(result) : result;
+	}
+
+	FloatPoint Widget::unrotatePoint(const FloatPoint& _point) const
+	{
+		FloatPoint result = mParent ? mParent->unrotatePoint(_point) : _point;
+		if (mRotation != 0.0f)
+		{
+			const FloatPoint center = getRotationCenter();
+			const float x = result.left - mAbsolutePosition.left - center.left;
+			const float y = result.top - mAbsolutePosition.top - center.top;
+			const float c = std::cos(mRotation);
+			const float s = std::sin(mRotation);
+			result.left = mAbsolutePosition.left + center.left + x * c + y * s;
+			result.top = mAbsolutePosition.top + center.top - x * s + y * c;
+		}
+		return result;
+	}
+
 	void Widget::detachFromWidget(std::string_view _layer)
 	{
 		_detachFromWidget(_layer);

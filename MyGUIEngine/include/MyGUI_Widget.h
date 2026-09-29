@@ -218,6 +218,16 @@ namespace MyGUI
 		/** Get align */
 		Align getAlign() const;
 
+		/** Rotate this widget and its descendants, in radians. */
+		void setRotation(float _radians);
+		float getRotation() const;
+		/** Set the rotation pivot in widget-local pixel coordinates. */
+		void setRotationCenter(const FloatPoint& _center);
+		FloatPoint getRotationCenter() const;
+		/** Transform a point between unrotated and displayed screen coordinates. */
+		FloatPoint rotatePoint(const FloatPoint& _point) const;
+		FloatPoint unrotatePoint(const FloatPoint& _point) const;
+
 		/** Set widget opacity */
 		void setAlpha(float _alpha);
 		/** Get widget opacity */
