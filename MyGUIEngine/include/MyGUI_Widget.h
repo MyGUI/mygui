@@ -504,6 +504,9 @@ namespace MyGUI
 		Widget* mContainer{nullptr};
 
 		Align mAlign{Align::Default};
+		float mRotation{0.0f};
+		FloatPoint mRotationCenter;
+		bool mCustomRotationCenter{false};
 		int mDepth{0};
 	};
 
