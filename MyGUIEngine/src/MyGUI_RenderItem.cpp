@@ -11,9 +11,103 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_Widget.h"
+#include <array>
+#include <algorithm>
+#include <cmath>
 
 namespace MyGUI
 {
+	namespace
+	{
+
+		float edgeDistance(const Vertex& _a, const Vertex& _b, const Vertex& _point)
+		{
+			return (_b.x - _a.x) * (_point.y - _a.y) - (_b.y - _a.y) * (_point.x - _a.x);
+		}
+
+		Vertex interpolate(const Vertex& _a, const Vertex& _b, float _t)
+		{
+			Vertex result = _a;
+			result.x += (_b.x - _a.x) * _t;
+			result.y += (_b.y - _a.y) * _t;
+			result.z += (_b.z - _a.z) * _t;
+			result.u += (_b.u - _a.u) * _t;
+			result.v += (_b.v - _a.v) * _t;
+			uint32 colour = 0;
+			for (unsigned shift = 0; shift < 32; shift += 8)
+			{
+				const float a = float((_a.colour >> shift) & 0xFF);
+				const float b = float((_b.colour >> shift) & 0xFF);
+				colour |= uint32(std::lround(a + (b - a) * _t)) << shift;
+			}
+			result.colour = colour;
+			return result;
+		}
+
+		std::array<Vertex, 4> clipQuad(const Widget* _widget, const RenderTargetInfo& _info)
+		{
+			const IntCoord coord = _widget->getAbsoluteCoord();
+			const std::array<FloatPoint, 4> corners = {
+				{{(float)coord.left, (float)coord.top},
+				 {(float)coord.right(), (float)coord.top},
+				 {(float)coord.right(), (float)coord.bottom()},
+				 {(float)coord.left, (float)coord.bottom()}}};
+			std::array<Vertex, 4> quad{};
+			for (size_t i = 0; i < quad.size(); ++i)
+			{
+				const FloatPoint point = _widget->rotatePoint(corners[i]);
+				quad[i].x = 2.0f * (_info.pixScaleX * (point.left - _info.leftOffset) + _info.hOffset) - 1.0f;
+				quad[i].y = 1.0f - 2.0f * (_info.pixScaleY * (point.top - _info.topOffset) + _info.vOffset);
+			}
+			return quad;
+		}
+
+		void appendClippedTriangles(
+			std::vector<Vertex>& _output,
+			const Vertex* _input,
+			size_t _count,
+			const Widget* _owner,
+			const RenderTargetInfo& _info)
+		{
+			std::vector<std::array<Vertex, 4>> quads;
+			for (const ICroppedRectangle* crop = _owner; crop != nullptr; crop = crop->getCroppedParent())
+				quads.push_back(clipQuad(static_cast<const Widget*>(crop), _info));
+			for (size_t base = 0; base + 2 < _count; base += 3)
+			{
+				std::vector<Vertex> polygon(_input + base, _input + base + 3);
+				for (const auto& quad : quads)
+				{
+					const float sign = edgeDistance(quad[0], quad[1], quad[2]) >= 0.0f ? 1.0f : -1.0f;
+					for (size_t side = 0; side < 4 && !polygon.empty(); ++side)
+					{
+						std::vector<Vertex> clipped;
+						const Vertex& a = quad[side];
+						const Vertex& b = quad[(side + 1) % 4];
+						for (size_t i = 0; i < polygon.size(); ++i)
+						{
+							const Vertex& current = polygon[i];
+							const Vertex& next = polygon[(i + 1) % polygon.size()];
+							const float first = sign * edgeDistance(a, b, current);
+							const float second = sign * edgeDistance(a, b, next);
+							if (first >= 0.0f)
+								clipped.push_back(current);
+							if ((first < 0.0f && second > 0.0f) || (first > 0.0f && second < 0.0f))
+								clipped.push_back(interpolate(current, next, first / (first - second)));
+						}
+						polygon.swap(clipped);
+					}
+				}
+				for (size_t i = 1; i + 1 < polygon.size(); ++i)
+				{
+					_output.push_back(polygon[0]);
+					_output.push_back(polygon[i]);
+					_output.push_back(polygon[i + 1]);
+				}
+			}
+		}
+
+	}
 
 	RenderItem::RenderItem()
 	{
@@ -38,21 +132,55 @@ namespace MyGUI
 		if (mOutOfDate || _update)
 		{
 			mCountVertex = 0;
-			Vertex* buffer = mVertexBuffer->lock();
-			if (buffer != nullptr)
+			bool rotated = false;
+			for (const auto& item : mDrawItems)
+			{
+				if (const auto* owner = item.first->getCroppedParent())
+					rotated |= owner->_hasRotation();
+			}
+			if (rotated)
+			{
+				// Rotated triangles can gain vertices when clipped by ancestor bounds.
+				// Generate in CPU storage first, then size the render buffer to fit.
+				std::vector<Vertex> scratch(mNeedVertexCount);
+				std::vector<Vertex> vertices;
+				for (auto& item : mDrawItems)
+				{
+					mCurrentVertex = scratch.data();
+					mLastVertexCount = 0;
+					item.first->doRender();
+					MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
+					MYGUI_DEBUG_ASSERT(mLastVertexCount <= scratch.size(), "It is too much vertexes");
+					if (mLastVertexCount == 0)
+						continue;
+					if (const auto* owner = item.first->getCroppedParent(); owner && owner->_hasRotation())
+					{
+						const auto* widget = static_cast<const Widget*>(owner);
+						widget->_transformVertices(scratch.data(), mLastVertexCount, _target->getInfo());
+						appendClippedTriangles(vertices, scratch.data(), mLastVertexCount, widget, _target->getInfo());
+					}
+					else
+						vertices.insert(vertices.end(), scratch.begin(), scratch.begin() + mLastVertexCount);
+				}
+				mVertexBuffer->setVertexCount(std::max(mNeedVertexCount, vertices.size()));
+				if (Vertex* buffer = mVertexBuffer->lock())
+				{
+					std::copy(vertices.begin(), vertices.end(), buffer);
+					mVertexBuffer->unlock();
+					mCountVertex = vertices.size();
+				}
+			}
+			else if (Vertex* buffer = mVertexBuffer->lock())
 			{
 				for (auto& item : mDrawItems)
 				{
 					mCurrentVertex = buffer;
 					mLastVertexCount = 0;
-
 					item.first->doRender();
-
 					MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
 					buffer += mLastVertexCount;
 					mCountVertex += mLastVertexCount;
 				}
-
 				mVertexBuffer->unlock();
 			}
 
