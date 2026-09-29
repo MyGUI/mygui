@@ -1118,6 +1118,12 @@ namespace MyGUI
 
 	void Widget::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
+		/// @wproperty{Widget, Rotation, float} Rotation in radians.
+		if (_key == "Rotation")
+			setRotation(utility::parseValue<float>(_value));
+		/// @wproperty{Widget, RotationCenter, FloatPoint} Rotation pivot in widget-local pixels.
+		else if (_key == "RotationCenter")
+			setRotationCenter(utility::parseValue<FloatPoint>(_value));
 		/// @wproperty{Widget, Position, IntPoint} Set widget position.
 		if (_key == "Position")
 			setPosition(utility::parseValue<IntPoint>(_value));
