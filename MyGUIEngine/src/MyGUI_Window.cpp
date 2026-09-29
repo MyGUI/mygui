@@ -13,6 +13,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
 #include <array>
+#include <cmath>
 
 namespace MyGUI
 {
@@ -165,18 +166,29 @@ namespace MyGUI
 		eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
-	void Window::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
+	void Window::notifyMouseDrag(MyGUI::Widget*, int, int, MouseButton _id)
 	{
 		if (_id != MouseButton::Left)
 			return;
 
-		const IntPoint point = InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender);
+		const InputManager& input = InputManager::getInstance();
+		const IntPoint delta = input.getMousePositionByLayer() - input.getLastPressedPosition(MouseButton::Left);
+		// Moving the window changes its origin but not the pointer's displacement. For
+		// resizing, express that displacement in the window's original layout axes
+		const bool moveOnly = mCurrentActionScale.width == 0 && mCurrentActionScale.height == 0;
+		float angle = 0.0f;
+		for (const Widget* widget = moveOnly ? getParent() : this; widget != nullptr; widget = widget->getParent())
+			angle += widget->getRotation();
+		const float c = std::cos(angle);
+		const float s = std::sin(angle);
+		const int dx = (int)std::lround(delta.left * c + delta.top * s);
+		const int dy = (int)std::lround(delta.top * c - delta.left * s);
 
 		IntCoord coord = mCurrentActionScale;
-		coord.left *= (_left - point.left);
-		coord.top *= (_top - point.top);
-		coord.width *= (_left - point.left);
-		coord.height *= (_top - point.top);
+		coord.left *= dx;
+		coord.top *= dy;
+		coord.width *= dx;
+		coord.height *= dy;
 
 		if (coord.empty())
 			return;
