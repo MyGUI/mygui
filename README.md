@@ -117,6 +117,12 @@ Build options:
 | `MYGUI_BUILD_WRAPPER`   | OFF            | Build C# bindings (Windows only)     |
 | `MYGUI_BUILD_TEST_APP`  | OFF            | Build test application               |
 
+## Widget rotation
+
+Use `Widget::setRotation(radians)` to rotate a widget, including its skin, text, and descendants. A child rotation adds to its parent's rotation. The default pivot is the widget center; `setRotationCenter(FloatPoint(x, y))` changes it using widget-local pixels. Layout properties `Rotation` and `RotationCenter` provide the same settings.
+
+Build and run `Demo_WidgetRotation` to see a rotated window with a further rotated button and an editable child.
+
 ## Tools
 
 MyGUI ships with several visual editors under `Tools/`:
