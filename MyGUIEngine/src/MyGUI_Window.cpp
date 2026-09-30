@@ -170,45 +170,32 @@ namespace MyGUI
 
 	void Window::notifyMouseDrag(MyGUI::Widget*, int, int, MouseButton _id)
 	{
-		if (_id != MouseButton::Left)
+		if (_id != MouseButton::Left || mCurrentActionScale.empty())
 			return;
 
 		const InputManager& input = InputManager::getInstance();
 		const IntPoint screenDelta = input.getMousePositionByLayer() - input.getLastPressedPosition(MouseButton::Left);
-		// Movement uses the parent's axes. resizing uses the window's axes
+		// Movement uses the parent's axes; resizing uses the window's axes.
 		const bool moveOnly = mCurrentActionScale.width == 0 && mCurrentActionScale.height == 0;
 		const Widget* axes = moveOnly ? getParent() : this;
-		const IntPoint delta = axes ? axes->unrotateVector(screenDelta) : screenDelta;
+		const IntPoint localDelta = axes ? axes->unrotateVector(screenDelta) : screenDelta;
 
-		IntCoord coord = mCurrentActionScale;
-		coord.left *= delta.left;
-		coord.top *= delta.top;
-		coord.width *= delta.left;
-		coord.height *= delta.top;
+		const IntCoord coordDelta(
+			mCurrentActionScale.left * localDelta.left,
+			mCurrentActionScale.top * localDelta.top,
+			mCurrentActionScale.width * localDelta.left,
+			mCurrentActionScale.height * localDelta.top);
+		const IntCoord requestedCoord = mPreActionCoord + coordDelta;
 
-		if (coord.empty())
-			return;
-
-		if (coord.left == 0 && coord.top == 0)
-			setSize((mPreActionCoord + coord).size());
-		else if (coord.width == 0 && coord.height == 0)
-			setPosition((mPreActionCoord + coord).point());
+		if (moveOnly)
+			setPosition(requestedCoord.point());
+		else if (mCurrentActionScale.left == 0 && mCurrentActionScale.top == 0)
+			setSize(requestedCoord.size());
 		else
-			setCoord(mPreActionCoord + coord);
+			setCoord(requestedCoord);
 
 		if (!moveOnly)
-		{
-			// Resizing can move the rotation pivot; restore the opposite displayed corner.
-			const FloatPoint currentAnchor = rotatePoint(getResizeAnchor());
-			const Widget* parent = getParent();
-			const FloatPoint target = parent ? parent->unrotatePoint(mPreActionAnchor) : mPreActionAnchor;
-			const FloatPoint current = parent ? parent->unrotatePoint(currentAnchor) : currentAnchor;
-			const IntPoint correction(
-				(int)std::lround(target.left - current.left),
-				(int)std::lround(target.top - current.top));
-			if (correction != IntPoint())
-				Base::setPosition(mCoord.point() + correction);
-		}
+			restoreResizeAnchor();
 
 		// send event about position and size change
 		eventWindowChangeCoord(this);
@@ -622,6 +609,23 @@ namespace MyGUI
 		return FloatPoint(
 			(float)(position.left + (mCurrentActionScale.width < 0 ? mCoord.width : 0)),
 			(float)(position.top + (mCurrentActionScale.height < 0 ? mCoord.height : 0)));
+	}
+
+	void Window::restoreResizeAnchor()
+	{
+		// Resizing can move the rotation pivot; restore the opposite displayed corner.
+		const FloatPoint currentAnchor = rotatePoint(getResizeAnchor());
+		const Widget* parent = getParent();
+		const FloatPoint targetInParent = parent ? parent->unrotatePoint(mPreActionAnchor) : mPreActionAnchor;
+		const FloatPoint currentInParent = parent ? parent->unrotatePoint(currentAnchor) : currentAnchor;
+		const IntPoint correction(
+			(int)std::lround(targetInParent.left - currentInParent.left),
+			(int)std::lround(targetInParent.top - currentInParent.top));
+		if (correction != IntPoint())
+		{
+			// Bypass window snapping so the anchor correction is applied exactly.
+			Base::setPosition(mCoord.point() + correction);
+		}
 	}
 
 	void Window::setMovable(bool _value)

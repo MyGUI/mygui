@@ -64,7 +64,11 @@ namespace
 		require(
 			window->getPosition() == MyGUI::IntPoint(160, 130),
 			"Further dragging must not drift as the window moves");
-		input.injectMouseRelease(press.left + 60, press.top + 30, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left, press.top, 0);
+		require(
+			window->getCoord() == MyGUI::IntCoord(100, 100, 200, 120),
+			"Dragging back to the press position must restore the original window coordinates");
+		input.injectMouseRelease(press.left, press.top, MyGUI::MouseButton::Left);
 	}
 
 	void testDragWithinRotatedParent()
@@ -92,7 +96,11 @@ namespace
 		require(
 			window->getPosition() == MyGUI::IntPoint(100, 60),
 			"Window movement must use the parent's axes, regardless of its own rotation");
-		input.injectMouseRelease(press.left + 40, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left, press.top, 0);
+		require(
+			window->getCoord() == MyGUI::IntCoord(100, 100, 200, 120),
+			"Dragging back within a rotated parent must restore the original window coordinates");
+		input.injectMouseRelease(press.left, press.top, MyGUI::MouseButton::Left);
 	}
 
 	void testRotatedWindowResize()
@@ -126,7 +134,11 @@ namespace
 			std::abs(oppositeAfter.left - oppositeBefore.left) < 0.01f &&
 				std::abs(oppositeAfter.top - oppositeBefore.top) < 0.01f,
 			"The opposite displayed corner must stay anchored across drag updates");
-		input.injectMouseRelease(press.left, press.top + 40, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left, press.top, 0);
+		require(
+			window->getCoord() == MyGUI::IntCoord(100, 100, 200, 120),
+			"Resizing back to the press position must restore the original size and anchored position");
+		input.injectMouseRelease(press.left, press.top, MyGUI::MouseButton::Left);
 
 		window->setCoord(MyGUI::IntCoord(100, 100, 200, 120));
 		const MyGUI::FloatPoint otherOpposite = window->rotatePoint(MyGUI::FloatPoint(300.0f, 100.0f));
@@ -145,7 +157,11 @@ namespace
 			std::abs(otherAfter.left - otherOpposite.left) < 0.01f &&
 				std::abs(otherAfter.top - otherOpposite.top) < 0.01f,
 			"The opposite displayed corner must stay anchored when position and size both change");
-		input.injectMouseRelease(otherPress.left, otherPress.top + 40, MyGUI::MouseButton::Left);
+		input.injectMouseMove(otherPress.left, otherPress.top, 0);
+		require(
+			window->getCoord() == MyGUI::IntCoord(100, 100, 200, 120),
+			"Left-bottom resizing back to the press position must restore the original window coordinates");
+		input.injectMouseRelease(otherPress.left, otherPress.top, MyGUI::MouseButton::Left);
 	}
 
 	void testSnappingAndVisibility()

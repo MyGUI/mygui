@@ -141,6 +141,7 @@ namespace MyGUI
 		void getSnappedCoord(IntCoord& _coord, Snap snapMode) const;
 		IntCoord _getActionScale(Widget* _widget) const;
 		FloatPoint getResizeAnchor() const;
+		void restoreResizeAnchor();
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
