@@ -608,11 +608,10 @@ namespace MyGUI
 				setIndexSelected(mDropSenderIndex);
 			}
 
-			// The drag preview is drawn in screen space, so retain the displayed
-			// offset from the grabbed item's origin
+			// Measure the grab offset in the source layer's coordinates
 			const IntPoint origin = _sender->getAbsolutePosition();
 			const FloatPoint displayedOrigin = _sender->rotatePoint(FloatPoint((float)origin.left, (float)origin.top));
-			mClickInWidget = InputManager::getInstance().getMousePosition() -
+			mClickInWidget = InputManager::getInstance().getMousePositionByLayer() -
 				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
 
 			eventMouseItemActivate(this, mIndexSelect);
