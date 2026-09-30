@@ -20,6 +20,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_LayoutManager.h"
+#include <cmath>
 
 namespace MyGUI
 {
@@ -448,14 +449,33 @@ namespace MyGUI
 
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
+		return getLayerItemByPointUnrotated(FloatPoint((float)_left, (float)_top));
+	}
+
+	ILayerItem* Widget::getLayerItemByPointUnrotated(const FloatPoint& _point) const
+	{
+		FloatPoint point = (mParent && !mCroppedParent) ? mParent->unrotatePoint(_point) : _point;
+		if (mRotation != 0.0f)
+		{
+			const FloatPoint center = getRotationCenter();
+			const float dx = point.left - (mCoord.left + center.left);
+			const float dy = point.top - (mCoord.top + center.top);
+			const float c = mRotationTransform.cosine;
+			const float s = mRotationTransform.sine;
+			point.left = mCoord.left + center.left + dx * c + dy * s;
+			point.top = mCoord.top + center.top - dx * s + dy * c;
+		}
 		// check point hit
 		if (!mInheritedEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
-			!_checkPoint(_left, _top)
+			point.left < _getViewLeft() || point.top < _getViewTop() || point.left >= _getViewRight() ||
+			point.top >= _getViewBottom()
 			// if there is a mask, also check by mask
-			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))
+			|| !isMaskPickInside(IntPoint((int)(point.left - mCoord.left), (int)(point.top - mCoord.top)), mCoord))
 			return nullptr;
 
 		// ask children
+		const int childLeft = (int)std::floor(point.left - mCoord.left);
+		const int childTop = (int)std::floor(point.top - mCoord.top);
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend();
 			 ++widget)
 		{
@@ -463,7 +483,7 @@ namespace MyGUI
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
 				continue;
 
-			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem* item = (*widget)->getLayerItemByPoint(childLeft, childTop);
 			if (item != nullptr)
 				return item;
 		}
@@ -472,7 +492,7 @@ namespace MyGUI
 			 widget != mWidgetChildSkin.rend();
 			 ++widget)
 		{
-			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem* item = (*widget)->getLayerItemByPoint(childLeft, childTop);
 			if (item != nullptr)
 				return item;
 		}
@@ -485,6 +505,7 @@ namespace MyGUI
 	{
 		const IntPoint oldPosition = mAbsolutePosition;
 		mAbsolutePosition = mCroppedParent ? mCroppedParent->getAbsolutePosition() + mCoord.point() : mCoord.point();
+		updateRotationTransform();
 
 		for (auto& widget : mWidgetChild)
 			if (_oldSize != nullptr)
@@ -628,6 +649,135 @@ namespace MyGUI
 	void Widget::setAlign(Align _value)
 	{
 		mAlign = _value;
+	}
+
+	void Widget::setRotation(float _radians)
+	{
+		if (mRotation == _radians)
+			return;
+		mRotation = _radians;
+		mRotationTransform.cosine = std::cos(_radians);
+		mRotationTransform.sine = std::sin(_radians);
+		invalidateRotation();
+	}
+
+	float Widget::getRotation() const
+	{
+		return mRotation;
+	}
+
+	void Widget::setRotationCenter(const FloatPoint& _center)
+	{
+		if (mCustomRotationCenter && mRotationCenter == _center)
+			return;
+		mRotationCenter = _center;
+		mCustomRotationCenter = true;
+		invalidateRotation();
+	}
+
+	FloatPoint Widget::getRotationCenter() const
+	{
+		return mCustomRotationCenter ? mRotationCenter : FloatPoint(mCoord.width * 0.5f, mCoord.height * 0.5f);
+	}
+
+	FloatPoint Widget::RotationTransform::rotate(const FloatPoint& _point) const
+	{
+		return FloatPoint(
+			cosine * _point.left - sine * _point.top + offsetX,
+			sine * _point.left + cosine * _point.top + offsetY);
+	}
+
+	FloatPoint Widget::RotationTransform::unrotate(const FloatPoint& _point) const
+	{
+		const float x = _point.left - offsetX;
+		const float y = _point.top - offsetY;
+		return FloatPoint(cosine * x + sine * y, cosine * y - sine * x);
+	}
+
+	void Widget::updateRotationTransform()
+	{
+		if (mRotation == 0.0f)
+		{
+			mRotationTransform.offsetX = 0.0f;
+			mRotationTransform.offsetY = 0.0f;
+			return;
+		}
+		const FloatPoint center = getRotationCenter();
+		const float x = mAbsolutePosition.left + center.left;
+		const float y = mAbsolutePosition.top + center.top;
+		mRotationTransform.offsetX = x - mRotationTransform.cosine * x + mRotationTransform.sine * y;
+		mRotationTransform.offsetY = y - mRotationTransform.sine * x - mRotationTransform.cosine * y;
+	}
+
+	Widget::RotationTransform Widget::getWorldRotationTransform() const
+	{
+		if (mParent == nullptr)
+			return mRotationTransform;
+		const RotationTransform parent = mParent->getWorldRotationTransform();
+		RotationTransform result;
+		result.cosine = parent.cosine * mRotationTransform.cosine - parent.sine * mRotationTransform.sine;
+		result.sine = parent.sine * mRotationTransform.cosine + parent.cosine * mRotationTransform.sine;
+		result.offsetX =
+			parent.cosine * mRotationTransform.offsetX - parent.sine * mRotationTransform.offsetY + parent.offsetX;
+		result.offsetY =
+			parent.sine * mRotationTransform.offsetX + parent.cosine * mRotationTransform.offsetY + parent.offsetY;
+		return result;
+	}
+
+	FloatPoint Widget::rotatePoint(const FloatPoint& _point) const
+	{
+		const FloatPoint result = mRotation != 0.0f ? mRotationTransform.rotate(_point) : _point;
+		return mParent ? mParent->rotatePoint(result) : result;
+	}
+
+	FloatPoint Widget::unrotatePoint(const FloatPoint& _point) const
+	{
+		const FloatPoint result = mParent ? mParent->unrotatePoint(_point) : _point;
+		return mRotation != 0.0f ? mRotationTransform.unrotate(result) : result;
+	}
+
+	IntPoint Widget::unrotateVector(const IntPoint& _vector) const
+	{
+		const RotationTransform transform = getWorldRotationTransform();
+		return IntPoint(
+			(int)std::lround(transform.cosine * _vector.left + transform.sine * _vector.top),
+			(int)std::lround(transform.cosine * _vector.top - transform.sine * _vector.left));
+	}
+
+	void Widget::_transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const
+	{
+		bool rotated = false;
+		for (const Widget* widget = this; widget != nullptr; widget = widget->mParent)
+			rotated |= widget->mRotation != 0.0f;
+		if (!rotated)
+			return;
+		const RotationTransform transform = getWorldRotationTransform();
+
+		for (size_t i = 0; i < _count; ++i)
+		{
+			Vertex& vertex = _vertices[i];
+			const FloatPoint pixel(
+				((vertex.x + 1.0f) * 0.5f - _info.hOffset) / _info.pixScaleX + _info.leftOffset,
+				((1.0f - vertex.y) * 0.5f - _info.vOffset) / _info.pixScaleY + _info.topOffset);
+			const FloatPoint transformed = transform.rotate(pixel);
+			vertex.x = 2.0f * (_info.pixScaleX * (transformed.left - _info.leftOffset) + _info.hOffset) - 1.0f;
+			vertex.y = 1.0f - 2.0f * (_info.pixScaleY * (transformed.top - _info.topOffset) + _info.vOffset);
+		}
+	}
+
+	bool Widget::_hasRotation() const
+	{
+		return mRotation != 0.0f || (mParent && mParent->_hasRotation());
+	}
+
+	void Widget::invalidateRotation()
+	{
+		updateRotationTransform();
+		_updateView();
+		for (auto* widget : mWidgetChild)
+			widget->invalidateRotation();
+		for (auto* widget : mWidgetChildSkin)
+			widget->invalidateRotation();
 	}
 
 	void Widget::detachFromWidget(std::string_view _layer)
@@ -1027,8 +1177,14 @@ namespace MyGUI
 
 	void Widget::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
+		/// @wproperty{Widget, Rotation, float} Rotation in radians.
+		if (_key == "Rotation")
+			setRotation(utility::parseValue<float>(_value));
+		/// @wproperty{Widget, RotationCenter, FloatPoint} Rotation pivot in widget-local pixels.
+		else if (_key == "RotationCenter")
+			setRotationCenter(utility::parseValue<FloatPoint>(_value));
 		/// @wproperty{Widget, Position, IntPoint} Set widget position.
-		if (_key == "Position")
+		else if (_key == "Position")
 			setPosition(utility::parseValue<IntPoint>(_value));
 
 		/// @wproperty{Widget, Size, IntSize} Set widget size.

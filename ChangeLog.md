@@ -53,6 +53,7 @@
 - Add owning DataManager::getDataHolder; make DataStreamHolder non-copyable and non-movable
 - Optimize delegate invocation and subscription handling, and fix callback lifetime issues during nested dispatch,
   mutation, exceptions and event destruction
+- Add base widget rotation support with updated hit testing, clipping and coordinate conversion; add Widget::setRotation and getRotation
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
@@ -109,6 +110,7 @@
 - Make all custom RTTLayer implementations respect DPI scale
 - Fix unreachable code in Demo_GraphView and deprecated skin usage in its resources
 - Move interactive tests to AdvancedDemos as Demo_<Feature>, controlled by MYGUI_BUILD_ADVANCED_DEMOS (ON by default)
+- Add widget rotation demo
 
 ### Tools
 - Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool

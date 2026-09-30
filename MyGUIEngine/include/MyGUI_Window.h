@@ -140,6 +140,7 @@ namespace MyGUI
 		};
 		void getSnappedCoord(IntCoord& _coord, Snap snapMode) const;
 		IntCoord _getActionScale(Widget* _widget) const;
+		FloatPoint getResizeAnchor() const;
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
@@ -148,6 +149,7 @@ namespace MyGUI
 
 		// Window dimensions before starting move/resize operation
 		IntCoord mPreActionCoord;
+		FloatPoint mPreActionAnchor;
 
 		// Root focus states
 		bool mMouseRootFocus{false};

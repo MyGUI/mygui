@@ -13,6 +13,18 @@
 
 namespace MyGUI
 {
+	namespace
+	{
+
+		IntPoint unrotateForWidget(const Widget* _widget, const IntPoint& _point)
+		{
+			if (_widget == nullptr)
+				return _point;
+			const FloatPoint point = _widget->unrotatePoint(FloatPoint((float)_point.left, (float)_point.top));
+			return IntPoint((int)std::lround(point.left), (int)std::lround(point.top));
+		}
+
+	}
 
 	// In seconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
@@ -91,11 +103,13 @@ namespace MyGUI
 			{
 				if (mLayerMouseFocus != nullptr)
 				{
-					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
+					IntPoint point = unrotateForWidget(mWidgetMouseFocus, mLayerMouseFocus->getPosition(_absx, _absy));
 					for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
 					{
 						if (mMouseCapture[i])
+						{
 							mWidgetMouseFocus->_riseMouseDrag(point.left, point.top, MouseButton::Enum(i));
+						}
 					}
 				}
 			}
@@ -116,6 +130,7 @@ namespace MyGUI
 				if (mLayerMouseFocus != nullptr)
 				{
 					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
+					point = unrotateForWidget(mWidgetMouseFocus, point);
 					mWidgetMouseFocus->_riseMouseMove(point.left, point.top);
 				}
 			}
@@ -184,6 +199,7 @@ namespace MyGUI
 			MyGUI::IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
+			point = unrotateForWidget(item, point);
 			item->_riseMouseMove(point.left, point.top);
 			item->_riseMouseSetFocus(mWidgetMouseFocus);
 		}
@@ -247,6 +263,7 @@ namespace MyGUI
 			IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
+			point = unrotateForWidget(mWidgetMouseFocus, point);
 			mWidgetMouseFocus->_riseMouseButtonPressed(point.left, point.top, _id);
 
 			// might get reset after press
@@ -292,6 +309,7 @@ namespace MyGUI
 			IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
+			point = unrotateForWidget(mWidgetMouseFocus, point);
 			mWidgetMouseFocus->_riseMouseButtonReleased(point.left, point.top, _id);
 
 			// might get reset after release
@@ -606,6 +624,11 @@ namespace MyGUI
 		return mMousePosition;
 	}
 
+	IntPoint InputManager::getMousePositionForWidget(const Widget* _widget) const
+	{
+		return unrotateForWidget(_widget, getMousePositionByLayer());
+	}
+
 	bool InputManager::isFocusMouse() const
 	{
 		return mWidgetMouseFocus != nullptr;
@@ -648,6 +671,11 @@ namespace MyGUI
 			return mLastPressed[_id.getValue()];
 		}
 		return Constants::getZeroIntPoint();
+	}
+
+	IntPoint InputManager::getLastPressedPositionForWidget(MouseButton _id, const Widget* _widget) const
+	{
+		return unrotateForWidget(_widget, getLastPressedPosition(_id));
 	}
 
 	const IntPoint& InputManager::getMousePosition() const

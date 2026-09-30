@@ -85,6 +85,8 @@ namespace MyGUI
 			Position calculated on specific layer where mouse was pressed.
 		*/
 		const IntPoint& getLastPressedPosition(MouseButton _id) const;
+		/** Get a press in the unrotated coordinate space used by a widget's layout. */
+		IntPoint getLastPressedPositionForWidget(MouseButton _id, const Widget* _widget) const;
 
 		/** Get current mouse position on screen */
 		const IntPoint& getMousePosition() const;
@@ -93,6 +95,8 @@ namespace MyGUI
 			This position might different from getMousePosition() if mouse is over non-2d layer.
 		*/
 		IntPoint getMousePositionByLayer() const;
+		/** Get the pointer in the unrotated coordinate space used by a widget's layout. */
+		IntPoint getMousePositionForWidget(const Widget* _widget) const;
 
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
 		void addWidgetModal(Widget* _widget);

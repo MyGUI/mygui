@@ -12,6 +12,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
+#include <cmath>
 
 namespace MyGUI
 {
@@ -242,7 +243,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use : resetCurrentActiveItem() before findCurrentActiveItem()");
 
-		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
+		const IntPoint point = InputManager::getInstance().getMousePositionForWidget(_getClientWidget());
 
 		const IntRect& rect = _getClientWidget()->getAbsoluteRect();
 		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) ||
@@ -607,9 +608,11 @@ namespace MyGUI
 				setIndexSelected(mDropSenderIndex);
 			}
 
-			// offset inside widget where mouse was clicked
-			mClickInWidget =
-				InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - _sender->getAbsolutePosition();
+			// Measure the grab offset in the source layer's coordinates
+			const IntPoint origin = _sender->getAbsolutePosition();
+			const FloatPoint displayedOrigin = _sender->rotatePoint(FloatPoint((float)origin.left, (float)origin.top));
+			mClickInWidget = InputManager::getInstance().getMousePositionByLayer() -
+				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
 
 			eventMouseItemActivate(this, mIndexSelect);
 			// send position change only on actual change

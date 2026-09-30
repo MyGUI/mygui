@@ -1,5 +1,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
+#include <cmath>
 
 namespace
 {
@@ -39,6 +40,114 @@ namespace
 			"Left resize must preserve the opposite edge");
 	}
 
+	void testRotatedWindowDrag()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setRotation(0.7853981634f);
+		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(140.0f, 110.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left + 30, press.top + 40, 0);
+		require(
+			window->getPosition() == MyGUI::IntPoint(130, 140),
+			"Rotated window must follow the first mouse displacement");
+		input.injectMouseMove(press.left + 60, press.top + 30, 0);
+		require(
+			window->getPosition() == MyGUI::IntPoint(160, 130),
+			"Further dragging must not drift as the window moves");
+		input.injectMouseRelease(press.left + 60, press.top + 30, MyGUI::MouseButton::Left);
+	}
+
+	void testDragWithinRotatedParent()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* parent = context.getGui().createWidget<MyGUI::Widget>(
+			"Default",
+			MyGUI::IntCoord(50, 50, 400, 400),
+			MyGUI::Align::Default,
+			"Main");
+		auto* window = parent->createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default);
+		parent->setRotation(1.5707963268f);
+		window->setRotation(0.7853981634f);
+		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(190.0f, 160.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left + 40, press.top, 0);
+		require(
+			window->getPosition() == MyGUI::IntPoint(100, 60),
+			"Window movement must use the parent's axes, regardless of its own rotation");
+		input.injectMouseRelease(press.left + 40, press.top, MyGUI::MouseButton::Left);
+	}
+
+	void testRotatedWindowResize()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setRotation(1.5707963268f);
+		const MyGUI::FloatPoint oppositeBefore = window->rotatePoint(MyGUI::FloatPoint(100.0f, 100.0f));
+		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(295.0f, 215.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left, press.top + 20, 0);
+		require(
+			window->getSize() == MyGUI::IntSize(220, 120),
+			"Rotated resize handle must use the window's layout axes");
+		require(
+			window->getPosition() == MyGUI::IntPoint(90, 110),
+			"Resizing around the default pivot must keep the opposite displayed corner fixed");
+		input.injectMouseMove(press.left, press.top + 40, 0);
+		require(window->getCoord() == MyGUI::IntCoord(80, 120, 240, 120), "Further resizing must not drift");
+		const MyGUI::FloatPoint oppositeAfter = window->rotatePoint(MyGUI::FloatPoint(80.0f, 120.0f));
+		require(
+			std::abs(oppositeAfter.left - oppositeBefore.left) < 0.01f &&
+				std::abs(oppositeAfter.top - oppositeBefore.top) < 0.01f,
+			"The opposite displayed corner must stay anchored across drag updates");
+		input.injectMouseRelease(press.left, press.top + 40, MyGUI::MouseButton::Left);
+
+		window->setCoord(MyGUI::IntCoord(100, 100, 200, 120));
+		const MyGUI::FloatPoint otherOpposite = window->rotatePoint(MyGUI::FloatPoint(300.0f, 100.0f));
+		const MyGUI::FloatPoint otherStart = window->rotatePoint(MyGUI::FloatPoint(105.0f, 215.0f));
+		const MyGUI::IntPoint otherPress((int)std::lround(otherStart.left), (int)std::lround(otherStart.top));
+		input.injectMouseMove(otherPress.left, otherPress.top, 0);
+		input.injectMousePress(otherPress.left, otherPress.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(otherPress.left, otherPress.top + 20, 0);
+		require(
+			window->getCoord() == MyGUI::IntCoord(110, 110, 180, 120),
+			"Left-bottom resize must keep the opposite displayed corner fixed");
+		input.injectMouseMove(otherPress.left, otherPress.top + 40, 0);
+		require(window->getCoord() == MyGUI::IntCoord(120, 120, 160, 120), "Left-bottom resize must not drift");
+		const MyGUI::FloatPoint otherAfter = window->rotatePoint(MyGUI::FloatPoint(280.0f, 120.0f));
+		require(
+			std::abs(otherAfter.left - otherOpposite.left) < 0.01f &&
+				std::abs(otherAfter.top - otherOpposite.top) < 0.01f,
+			"The opposite displayed corner must stay anchored when position and size both change");
+		input.injectMouseRelease(otherPress.left, otherPress.top + 40, MyGUI::MouseButton::Left);
+	}
+
 	void testSnappingAndVisibility()
 	{
 		unittest::TestContext context;
@@ -73,6 +182,9 @@ int main()
 {
 	return unittest::runTests({
 		{"Moving and resizing", testMovementAndResize},
+		{"Rotated window drag", testRotatedWindowDrag},
+		{"Drag within rotated parent", testDragWithinRotatedParent},
+		{"Rotated window resize", testRotatedWindowResize},
 		{"Snapping and visibility", testSnappingAndVisibility},
 	});
 }

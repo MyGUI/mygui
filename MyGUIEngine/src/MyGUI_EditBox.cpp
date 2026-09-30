@@ -155,7 +155,7 @@ namespace MyGUI
 		if (mModeStatic)
 			return;
 
-		IntPoint point = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
+		IntPoint point = InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender);
 		mCursorPosition = mClientText->getCursorPosition(point);
 		mClientText->setCursorPosition(mCursorPosition);
 		mClientText->setVisibleCursor(true);
@@ -220,7 +220,8 @@ namespace MyGUI
 		if (mModeStatic)
 			return;
 
-		const IntPoint& lastPressed = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
+		const IntPoint lastPressed =
+			InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, getClientWidget());
 
 		size_t cursorPosition = mClientText->getCursorPosition(lastPressed);
 		mStartSelect = cursorPosition;
@@ -728,7 +729,7 @@ namespace MyGUI
 
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER)
 			{
-				IntPoint mouse = InputManager::getInstance().getMousePositionByLayer();
+				IntPoint mouse = InputManager::getInstance().getMousePositionForWidget(getClientWidget());
 				const IntRect& view = getClientWidget()->getAbsoluteRect();
 				mouse.left -= view.left;
 				mouse.top -= view.top;

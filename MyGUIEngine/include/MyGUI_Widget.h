@@ -23,6 +23,9 @@
 namespace MyGUI
 {
 
+	struct Vertex;
+	struct RenderTargetInfo;
+
 	using EventHandle_WidgetStringString = EventPairConvertStringView<
 		delegates::MultiDelegate<Widget*, const std::string&, const std::string&>,
 		delegates::MultiDelegate<Widget*, std::string_view, std::string_view>>;
@@ -218,6 +221,18 @@ namespace MyGUI
 		/** Get align */
 		Align getAlign() const;
 
+		/** Rotate this widget and its descendants, in radians. */
+		void setRotation(float _radians);
+		float getRotation() const;
+		/** Set the rotation pivot in widget-local pixel coordinates. */
+		void setRotationCenter(const FloatPoint& _center);
+		FloatPoint getRotationCenter() const;
+		/** Transform a point between unrotated and displayed screen coordinates. */
+		FloatPoint rotatePoint(const FloatPoint& _point) const;
+		FloatPoint unrotatePoint(const FloatPoint& _point) const;
+		/** Convert a displayed displacement to this widget's layout axes, including parent rotations. */
+		IntPoint unrotateVector(const IntPoint& _vector) const;
+
 		/** Set widget opacity */
 		void setAlpha(float _alpha);
 		/** Get widget opacity */
@@ -365,6 +380,8 @@ namespace MyGUI
 
 		void _setAlign(const IntSize& _oldsize, const IntSize& _newSize);
 		bool _checkPoint(int _left, int _top) const;
+		void _transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const;
+		bool _hasRotation() const override;
 
 		Widget* _createSkinWidget(
 			WidgetStyle _style,
@@ -440,6 +457,17 @@ namespace MyGUI
 		virtual void setPropertyOverride(std::string_view _key, std::string_view _value);
 
 	private:
+		struct RotationTransform
+		{
+			float cosine{1.0f};
+			float sine{0.0f};
+			float offsetX{0.0f};
+			float offsetY{0.0f};
+
+			FloatPoint rotate(const FloatPoint& _point) const;
+			FloatPoint unrotate(const FloatPoint& _point) const;
+		};
+
 		const WidgetInfo* initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo);
 		void shutdownWidgetSkinBase();
 
@@ -459,6 +487,10 @@ namespace MyGUI
 
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
+		ILayerItem* getLayerItemByPointUnrotated(const FloatPoint& _point) const;
+		void updateRotationTransform();
+		RotationTransform getWorldRotationTransform() const;
+		void invalidateRotation();
 
 		void _linkChildWidget(Widget* _widget) override;
 
@@ -494,6 +526,10 @@ namespace MyGUI
 		Widget* mContainer{nullptr};
 
 		Align mAlign{Align::Default};
+		float mRotation{0.0f};
+		FloatPoint mRotationCenter;
+		bool mCustomRotationCenter{false};
+		RotationTransform mRotationTransform;
 		int mDepth{0};
 	};
 

@@ -41,6 +41,7 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
        Use these logical dimensions for `setViewSize()` and drawable pixels for the rendering viewport.
 - **Localization:** built-in language string management
 - **Animation:** configurable widget controllers for fades, slides, and more
+- **Rotation:** rotate widgets and their descendants in 2D space.
 
 ## Rendering Backends
 
