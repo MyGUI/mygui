@@ -20,6 +20,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_LayoutManager.h"
+#include <cmath>
 
 namespace MyGUI
 {
@@ -473,6 +474,8 @@ namespace MyGUI
 			return nullptr;
 
 		// ask children
+		const int childLeft = (int)std::floor(point.left - mCoord.left);
+		const int childTop = (int)std::floor(point.top - mCoord.top);
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend();
 			 ++widget)
 		{
@@ -480,8 +483,7 @@ namespace MyGUI
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
 				continue;
 
-			ILayerItem* item =
-				(*widget)->getLayerItemByPointUnrotated(FloatPoint(point.left - mCoord.left, point.top - mCoord.top));
+			ILayerItem* item = (*widget)->getLayerItemByPoint(childLeft, childTop);
 			if (item != nullptr)
 				return item;
 		}
@@ -490,8 +492,7 @@ namespace MyGUI
 			 widget != mWidgetChildSkin.rend();
 			 ++widget)
 		{
-			ILayerItem* item =
-				(*widget)->getLayerItemByPointUnrotated(FloatPoint(point.left - mCoord.left, point.top - mCoord.top));
+			ILayerItem* item = (*widget)->getLayerItemByPoint(childLeft, childTop);
 			if (item != nullptr)
 				return item;
 		}
