@@ -26,8 +26,8 @@ namespace demo
 			MyGUI::Align::Default,
 			"Main");
 		window->setCaption("Rotated widget subtree");
-		window->setProperty("RotationCenter", "210 155");
-		window->setProperty("Rotation", "0.7853981634");
+		window->setRotationCenter(MyGUI::FloatPoint(210.0f, 155.0f));
+		window->setRotation(0.7853981634f);
 
 		MyGUI::TextBox* text =
 			window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(65, 65, 280, 45), MyGUI::Align::Default);
@@ -36,7 +36,7 @@ namespace demo
 		MyGUI::Button* button =
 			window->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(65, 135, 250, 44), MyGUI::Align::Default);
 		button->setCaption("Click me (+15 degrees)");
-		button->setProperty("Rotation", "0.2617993878");
+		button->setRotation(0.2617993878f);
 		button->eventMouseButtonClick += MyGUI::newDelegate(this, &DemoKeeper::notifyButtonClick);
 
 		MyGUI::EditBox* edit =
