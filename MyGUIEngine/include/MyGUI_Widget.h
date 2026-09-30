@@ -230,6 +230,8 @@ namespace MyGUI
 		/** Transform a point between unrotated and displayed screen coordinates. */
 		FloatPoint rotatePoint(const FloatPoint& _point) const;
 		FloatPoint unrotatePoint(const FloatPoint& _point) const;
+		/** Convert a displayed displacement to this widget's layout axes, including parent rotations. */
+		IntPoint unrotateVector(const IntPoint& _vector) const;
 
 		/** Set widget opacity */
 		void setAlpha(float _alpha);

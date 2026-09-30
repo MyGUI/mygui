@@ -735,6 +735,14 @@ namespace MyGUI
 		return mRotation != 0.0f ? mRotationTransform.unrotate(result) : result;
 	}
 
+	IntPoint Widget::unrotateVector(const IntPoint& _vector) const
+	{
+		const RotationTransform transform = getWorldRotationTransform();
+		return IntPoint(
+			(int)std::lround(transform.cosine * _vector.left + transform.sine * _vector.top),
+			(int)std::lround(transform.cosine * _vector.top - transform.sine * _vector.left));
+	}
+
 	void Widget::_transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const
 	{
 		bool rotated = false;
