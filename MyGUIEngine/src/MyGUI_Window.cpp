@@ -13,7 +13,6 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
 #include <array>
-#include <cmath>
 
 namespace MyGUI
 {
@@ -172,23 +171,17 @@ namespace MyGUI
 			return;
 
 		const InputManager& input = InputManager::getInstance();
-		const IntPoint delta = input.getMousePositionByLayer() - input.getLastPressedPosition(MouseButton::Left);
-		// Moving the window changes its origin but not the pointer's displacement. For
-		// resizing, express that displacement in the window's original layout axes
+		const IntPoint screenDelta = input.getMousePositionByLayer() - input.getLastPressedPosition(MouseButton::Left);
+		// Movement uses the parent's axes. resizing uses the window's axes
 		const bool moveOnly = mCurrentActionScale.width == 0 && mCurrentActionScale.height == 0;
-		float angle = 0.0f;
-		for (const Widget* widget = moveOnly ? getParent() : this; widget != nullptr; widget = widget->getParent())
-			angle += widget->getRotation();
-		const float c = std::cos(angle);
-		const float s = std::sin(angle);
-		const int dx = (int)std::lround(delta.left * c + delta.top * s);
-		const int dy = (int)std::lround(delta.top * c - delta.left * s);
+		const Widget* axes = moveOnly ? getParent() : this;
+		const IntPoint delta = axes ? axes->unrotateVector(screenDelta) : screenDelta;
 
 		IntCoord coord = mCurrentActionScale;
-		coord.left *= dx;
-		coord.top *= dy;
-		coord.width *= dx;
-		coord.height *= dy;
+		coord.left *= delta.left;
+		coord.top *= delta.top;
+		coord.width *= delta.left;
+		coord.height *= delta.top;
 
 		if (coord.empty())
 			return;
