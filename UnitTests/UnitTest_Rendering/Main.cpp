@@ -5,6 +5,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_TextureUtility.h"
 #include "TextRendering.h"
+#include <cmath>
 
 namespace
 {
@@ -322,6 +323,69 @@ namespace
 		require(packed == 0x78563412, "ABGR conversion must preserve alpha and green while swapping red and blue");
 	}
 
+	void testRotatedSubSkinClipping()
+	{
+		struct Target : MyGUI::IRenderTarget
+		{
+			MyGUI::RenderTargetInfo info;
+			std::vector<MyGUI::Vertex> vertices;
+
+			void begin() override {}
+			void end() override {}
+			const MyGUI::RenderTargetInfo& getInfo() const override { return info; }
+
+			void doRender(MyGUI::IVertexBuffer* buffer, MyGUI::ITexture*, size_t count) override
+			{
+				require(count <= buffer->getVertexCount() && count % 3 == 0, "Invalid triangle buffer");
+				const auto& data = static_cast<unittest::SkinVertexBuffer*>(buffer)->vertices;
+				vertices.insert(vertices.end(), data.begin(), data.begin() + count);
+			}
+		};
+
+		unittest::SkinTestContext context;
+		context.loadSkins();
+		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+
+		auto* parent = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(
+			"Default", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
+		auto* child = parent->createWidget<MyGUI::Widget>(
+			"WhiteSkin", MyGUI::IntCoord(120, 20, 60, 40), MyGUI::Align::Default);
+		child->setRotationCenter(MyGUI::FloatPoint(0, 0));
+		child->setRotation(1.5707963268f);
+
+		Target target;
+		target.info = context.renderer().getInfo();
+		MyGUI::LayerManager::getInstance().renderToTarget(&target, false);
+		require(!target.vertices.empty(), "Rotation must bring the initially clipped child into view");
+
+		// Rotated bounds: [180, 220] x [120, 180].
+		// Parent clipping leaves [180, 200] x [120, 180].
+		auto pixel = [&](const MyGUI::Vertex& v)
+		{
+			return MyGUI::FloatPoint(
+				((v.x + 1) * 0.5f - target.info.hOffset) / target.info.pixScaleX + target.info.leftOffset,
+				((1 - v.y) * 0.5f - target.info.vOffset) / target.info.pixScaleY + target.info.topOffset);
+		};
+
+		for (const auto& v : target.vertices)
+		{
+			const auto p = pixel(v);
+			require(
+				p.left >= 179.99f && p.left <= 200.01f && p.top >= 119.99f && p.top <= 180.01f,
+				"Rendered vertices must stay inside the rotated and clipped rectangle");
+		}
+
+		float area = 0;
+		for (size_t i = 0; i < target.vertices.size(); i += 3)
+		{
+			const auto a = pixel(target.vertices[i]);
+			const auto b = pixel(target.vertices[i + 1]);
+			const auto c = pixel(target.vertices[i + 2]);
+			area += std::abs((b.left - a.left) * (c.top - a.top) - (b.top - a.top) * (c.left - a.left)) * 0.5f;
+		}
+		require(std::abs(area - 1200.0f) < 0.1f, "Clipped triangles must cover the full visible 20 x 60 area");
+	}
+
 }
 
 int main()
@@ -336,5 +400,6 @@ int main()
 		{"Batch queues and child invalidation", testBatchQueues},
 		{"Batch compression, reuse, and manual isolation", testBatchReuseAndManualIsolation},
 		{"Native vertex colour packing", testColourPacking},
+		{"Rotated subskin clipping", testRotatedSubSkinClipping},
 	});
 }
