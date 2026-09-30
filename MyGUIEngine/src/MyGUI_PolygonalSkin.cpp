@@ -410,11 +410,10 @@ namespace MyGUI
 #endif
 
 
-		geometry_utility::toRenderTarget(
-			mResultVerticiesPos.data(),
-			mResultVerticiesPos.size(),
-			mCroppedParent->getAbsolutePosition(),
-			mRenderItem->getRenderTarget()->getInfo());
+		geometry_utility::toRenderTargetInPlace(
+			mResultVerticiesPos,
+			mRenderItem->getRenderTarget()->getInfo(),
+			mCroppedParent->getAbsolutePosition());
 	}
 
 	FloatPoint PolygonalSkin::_getPerpendicular(const FloatPoint& _point1, const FloatPoint& _point2) const

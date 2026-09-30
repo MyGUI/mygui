@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_RenderTargetInfo.h"
+#include <array>
 
 namespace MyGUI
 {
@@ -30,7 +31,46 @@ namespace MyGUI
 		};
 		void cropPolygonSide(VectorFloatPoint& _verticies, int _sideCoord, Side _side);
 
-		void toRenderTarget(FloatPoint* _points, size_t _count, const IntPoint& _origin, const RenderTargetInfo& _info);
+		/** Convert local pixels to render coordinates, accounting for target offsets and reversing Y.
+			_origin is the absolute pixel position of the local origin; zero means absolute input coordinates.
+		*/
+		FloatPoint toRenderTarget(FloatPoint _point, const RenderTargetInfo& _info, IntPoint _origin = {});
+
+		/** Convert rectangle edges without reordering them: top may be greater than bottom in the result. */
+		FloatRect toRenderTarget(const FloatRect& _rect, const RenderTargetInfo& _info, IntPoint _origin = {});
+
+		/** Convert a point buffer in place using the same pixel coordinates and origin as toRenderTarget. */
+		void toRenderTargetInPlace(
+			FloatPoint* _points,
+			size_t _count,
+			const RenderTargetInfo& _info,
+			IntPoint _origin = {});
+
+		template<size_t N>
+		void toRenderTargetInPlace(FloatPoint (&_points)[N], const RenderTargetInfo& _info, IntPoint _origin = {})
+		{
+			toRenderTargetInPlace(_points, N, _info, _origin);
+		}
+
+		template<size_t N>
+		void toRenderTargetInPlace(
+			std::array<FloatPoint, N>& _points,
+			const RenderTargetInfo& _info,
+			IntPoint _origin = {})
+		{
+			toRenderTargetInPlace(_points.data(), _points.size(), _info, _origin);
+		}
+
+		inline void toRenderTargetInPlace(
+			VectorFloatPoint& _points,
+			const RenderTargetInfo& _info,
+			IntPoint _origin = {})
+		{
+			toRenderTargetInPlace(_points.data(), _points.size(), _info, _origin);
+		}
+
+		/** Convert render coordinates to pixels relative to _origin. Pixel scales must be nonzero. */
+		FloatPoint fromRenderTarget(FloatPoint _point, const RenderTargetInfo& _info, IntPoint _origin = {});
 
 		// get point position relative to rectangle
 		FloatPoint getPositionInsideRect(

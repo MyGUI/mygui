@@ -210,11 +210,11 @@ namespace MyGUI
 			mResultVerticiesUV[i] = geometry_utility::getUVFromPositionInsideRect(position, v, u, baseUV);
 		}
 
-		geometry_utility::toRenderTarget(
+		geometry_utility::toRenderTargetInPlace(
 			mResultVerticiesPos,
 			mVertexCount,
-			mCroppedParent->getAbsolutePosition(),
-			mRenderItem->getRenderTarget()->getInfo());
+			mRenderItem->getRenderTarget()->getInfo(),
+			mCroppedParent->getAbsolutePosition());
 	}
 
 	float RotatingSkin::getAngle() const

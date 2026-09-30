@@ -12,6 +12,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_GeometryUtility.h"
 #include <array>
 #include <algorithm>
 #include <cmath>
@@ -21,9 +22,9 @@ namespace MyGUI
 	namespace
 	{
 
-		float edgeDistance(const Vertex& _a, const Vertex& _b, const Vertex& _point)
+		float edgeDistance(const FloatPoint& _a, const FloatPoint& _b, const FloatPoint& _point)
 		{
-			return (_b.x - _a.x) * (_point.y - _a.y) - (_b.y - _a.y) * (_point.x - _a.x);
+			return (_b.left - _a.left) * (_point.top - _a.top) - (_b.top - _a.top) * (_point.left - _a.left);
 		}
 
 		Vertex interpolate(const Vertex& _a, const Vertex& _b, float _t)
@@ -45,22 +46,18 @@ namespace MyGUI
 			return result;
 		}
 
-		std::array<Vertex, 4> clipQuad(const Widget* _widget, const RenderTargetInfo& _info)
+		std::array<FloatPoint, 4> clipQuad(const Widget* _widget, const RenderTargetInfo& _info)
 		{
 			const IntCoord coord = _widget->getAbsoluteCoord();
-			const std::array<FloatPoint, 4> corners = {
+			std::array<FloatPoint, 4> corners = {
 				{{(float)coord.left, (float)coord.top},
 				 {(float)coord.right(), (float)coord.top},
 				 {(float)coord.right(), (float)coord.bottom()},
 				 {(float)coord.left, (float)coord.bottom()}}};
-			std::array<Vertex, 4> quad{};
-			for (size_t i = 0; i < quad.size(); ++i)
-			{
-				const FloatPoint point = _widget->rotatePoint(corners[i]);
-				quad[i].x = 2.0f * (_info.pixScaleX * (point.left - _info.leftOffset) + _info.hOffset) - 1.0f;
-				quad[i].y = 1.0f - 2.0f * (_info.pixScaleY * (point.top - _info.topOffset) + _info.vOffset);
-			}
-			return quad;
+			for (auto& point : corners)
+				point = _widget->rotatePoint(point);
+			geometry_utility::toRenderTargetInPlace(corners, _info);
+			return corners;
 		}
 
 		void appendClippedTriangles(
@@ -70,7 +67,7 @@ namespace MyGUI
 			const Widget* _owner,
 			const RenderTargetInfo& _info)
 		{
-			std::vector<std::array<Vertex, 4>> quads;
+			std::vector<std::array<FloatPoint, 4>> quads;
 			for (const ICroppedRectangle* crop = _owner; crop != nullptr; crop = crop->getCroppedParent())
 				quads.push_back(clipQuad(static_cast<const Widget*>(crop), _info));
 			for (size_t base = 0; base + 2 < _count; base += 3)
@@ -79,17 +76,17 @@ namespace MyGUI
 				for (const auto& quad : quads)
 				{
 					const float sign = edgeDistance(quad[0], quad[1], quad[2]) >= 0.0f ? 1.0f : -1.0f;
-					for (size_t side = 0; side < 4 && !polygon.empty(); ++side)
+					for (size_t side = 0; side < quad.size() && !polygon.empty(); ++side)
 					{
 						std::vector<Vertex> clipped;
-						const Vertex& a = quad[side];
-						const Vertex& b = quad[(side + 1) % 4];
+						const FloatPoint& a = quad[side];
+						const FloatPoint& b = quad[(side + 1) % quad.size()];
 						for (size_t i = 0; i < polygon.size(); ++i)
 						{
 							const Vertex& current = polygon[i];
 							const Vertex& next = polygon[(i + 1) % polygon.size()];
-							const float first = sign * edgeDistance(a, b, current);
-							const float second = sign * edgeDistance(a, b, next);
+							const float first = sign * edgeDistance(a, b, {current.x, current.y});
+							const float second = sign * edgeDistance(a, b, {next.x, next.y});
 							if (first >= 0.0f)
 								clipped.push_back(current);
 							if ((first < 0.0f && second > 0.0f) || (first > 0.0f && second < 0.0f))

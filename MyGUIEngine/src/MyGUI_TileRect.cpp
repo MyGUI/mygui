@@ -154,7 +154,7 @@ namespace MyGUI
 			{(float)mCoord.left, (float)mCoord.top},
 			{(float)mCurrentCoord.left, (float)mCurrentCoord.top},
 			{(float)mCurrentCoord.right(), (float)mCurrentCoord.bottom()}};
-		geometry_utility::toRenderTarget(points, 3, mCroppedParent->getAbsolutePosition(), info);
+		geometry_utility::toRenderTargetInPlace(points, info, mCroppedParent->getAbsolutePosition());
 
 		float window_left = points[0].left;
 		float window_top = points[0].top;

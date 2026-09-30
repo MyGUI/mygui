@@ -15,6 +15,7 @@
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_FontData.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_GeometryUtility.h"
 
 namespace MyGUI
 {
@@ -758,17 +759,11 @@ namespace MyGUI
 			}
 		}
 
-		float pix_left = mCroppedParent->getAbsoluteLeft() - _renderTargetInfo.leftOffset + _vertexRect.left;
-		float pix_top = mCroppedParent->getAbsoluteTop() - _renderTargetInfo.topOffset + (mShiftText ? 1.0f : 0.0f) +
-			_vertexRect.top;
-
-		FloatRect vertexRect(
-			((_renderTargetInfo.pixScaleX * pix_left + _renderTargetInfo.hOffset) * 2.0f) - 1.0f,
-			-(((_renderTargetInfo.pixScaleY * pix_top + _renderTargetInfo.vOffset) * 2.0f) - 1.0f),
-			((_renderTargetInfo.pixScaleX * (pix_left + _vertexRect.width()) + _renderTargetInfo.hOffset) * 2.0f) -
-				1.0f,
-			-(((_renderTargetInfo.pixScaleY * (pix_top + _vertexRect.height()) + _renderTargetInfo.vOffset) * 2.0f) -
-			  1.0f));
+		const float shift = mShiftText ? 1.0f : 0.0f;
+		const FloatRect vertexRect = geometry_utility::toRenderTarget(
+			FloatRect(_vertexRect.left, _vertexRect.top + shift, _vertexRect.right, _vertexRect.bottom + shift),
+			_renderTargetInfo,
+			mCroppedParent->getAbsolutePosition());
 
 		drawQuad(_vertex, _vertexCount, vertexRect, mNode->getNodeDepth(), _textureRect, _colour);
 	}

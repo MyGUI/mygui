@@ -62,6 +62,59 @@ namespace unittest::customskin
 			}
 		}
 
+		void testRenderTargetConversion()
+		{
+			using namespace MyGUI::geometry_utility;
+			MyGUI::RenderTargetInfo info;
+			info.pixScaleX = 1.0f / 128;
+			info.pixScaleY = 1.0f / 64;
+			info.hOffset = 0.125f;
+			info.vOffset = -0.25f;
+			info.setOffset(8, 4);
+			const MyGUI::IntPoint origin(40, 20);
+			const MyGUI::FloatPoint local(16, 8);
+			const MyGUI::FloatPoint absolute(56, 28);
+			const MyGUI::FloatPoint expected(0, 0.75f);
+
+			require(
+				toRenderTarget(local, info, origin) == expected,
+				"Local point must include origin and target offsets");
+			require(toRenderTarget(absolute, info) == expected, "Default origin must accept absolute pixels");
+			require(local == MyGUI::FloatPoint(16, 8), "Value conversion must preserve its input");
+			require(fromRenderTarget(expected, info, origin) == local, "Inverse must return local pixels");
+			require(fromRenderTarget(expected, info) == absolute, "Default inverse must return absolute pixels");
+
+			const MyGUI::FloatRect rect(16, 8, 48, 24);
+			const auto converted = toRenderTarget(rect, info, origin);
+			require(
+				converted == MyGUI::FloatRect(0, 0.75f, 0.5f, 0.25f),
+				"Rectangle conversion must preserve edge identities across the Y flip");
+
+			MyGUI::FloatPoint points[] = {local, {48, 24}};
+			toRenderTargetInPlace(points, info, origin);
+			require(
+				points[0] == expected && points[1] == MyGUI::FloatPoint(0.5f, 0.25f),
+				"Array conversion must convert every corner");
+			std::array<MyGUI::FloatPoint, 2> absolutePoints = {{absolute, {88, 44}}};
+			toRenderTargetInPlace(absolutePoints, info);
+			require(
+				absolutePoints[0] == points[0] && absolutePoints[1] == points[1],
+				"std::array conversion must support the default origin");
+
+			MyGUI::VectorFloatPoint buffer = {local, {48, 24}};
+			toRenderTargetInPlace(buffer.data(), 1, info, origin);
+			require(
+				buffer[0] == expected && buffer[1] == MyGUI::FloatPoint(48, 24),
+				"Buffer conversion must only change the requested prefix");
+			toRenderTargetInPlace(nullptr, 0, info);
+
+			info.hOffset = info.vOffset = 0;
+			info.setOffset(0, 0);
+			require(
+				toRenderTarget(MyGUI::FloatRect(0, 0, 128, 64), info) == MyGUI::FloatRect(-1, 1, 1, -1),
+				"Target edges must map to normalized render coordinates");
+		}
+
 		void testAffineUV()
 		{
 			const MyGUI::FloatPoint origin(3, 5), x(11, 9), y(5, 11);
@@ -96,7 +149,9 @@ namespace unittest::customskin
 	{
 		_tests.insert(
 			_tests.end(),
-			{{"GeometryUtility.Clipping", testClipping}, {"GeometryUtility.AffineUV", testAffineUV}});
+			{{"GeometryUtility.Clipping", testClipping},
+			 {"GeometryUtility.AffineUV", testAffineUV},
+			 {"GeometryUtility.RenderTargetConversion", testRenderTargetConversion}});
 	}
 
 }

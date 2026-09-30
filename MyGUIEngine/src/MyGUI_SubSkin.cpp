@@ -172,16 +172,20 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		FloatPoint corners[] = {
-			{(float)mCurrentCoord.left, (float)mCurrentCoord.top},
-			{(float)mCurrentCoord.right(), (float)mCurrentCoord.bottom()}};
-		geometry_utility::toRenderTarget(corners, 2, mCroppedParent->getAbsolutePosition(), info);
+		const FloatRect rect = geometry_utility::toRenderTarget(
+			FloatRect(
+				(float)mCurrentCoord.left,
+				(float)mCurrentCoord.top,
+				(float)mCurrentCoord.right(),
+				(float)mCurrentCoord.bottom()),
+			info,
+			mCroppedParent->getAbsolutePosition());
 
 		quad->set(
-			corners[0].left,
-			corners[0].top,
-			corners[1].left,
-			corners[1].top,
+			rect.left,
+			rect.top,
+			rect.right,
+			rect.bottom,
 			vertex_z,
 			mCurrentTexture.left,
 			mCurrentTexture.top,

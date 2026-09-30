@@ -20,6 +20,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_LayoutManager.h"
+#include "MyGUI_GeometryUtility.h"
 #include <cmath>
 
 namespace MyGUI
@@ -756,12 +757,10 @@ namespace MyGUI
 		for (size_t i = 0; i < _count; ++i)
 		{
 			Vertex& vertex = _vertices[i];
-			const FloatPoint pixel(
-				((vertex.x + 1.0f) * 0.5f - _info.hOffset) / _info.pixScaleX + _info.leftOffset,
-				((1.0f - vertex.y) * 0.5f - _info.vOffset) / _info.pixScaleY + _info.topOffset);
-			const FloatPoint transformed = transform.rotate(pixel);
-			vertex.x = 2.0f * (_info.pixScaleX * (transformed.left - _info.leftOffset) + _info.hOffset) - 1.0f;
-			vertex.y = 1.0f - 2.0f * (_info.pixScaleY * (transformed.top - _info.topOffset) + _info.vOffset);
+			const FloatPoint pixel = geometry_utility::fromRenderTarget({vertex.x, vertex.y}, _info);
+			const FloatPoint transformed = geometry_utility::toRenderTarget(transform.rotate(pixel), _info);
+			vertex.x = transformed.left;
+			vertex.y = transformed.top;
 		}
 	}
 

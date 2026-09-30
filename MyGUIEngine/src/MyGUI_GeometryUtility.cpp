@@ -56,7 +56,20 @@ namespace MyGUI::geometry_utility
 		_verticies.swap(result);
 	}
 
-	void toRenderTarget(FloatPoint* _points, size_t _count, const IntPoint& _origin, const RenderTargetInfo& _info)
+	FloatPoint toRenderTarget(FloatPoint _point, const RenderTargetInfo& _info, IntPoint _origin)
+	{
+		toRenderTargetInPlace(&_point, 1, _info, _origin);
+		return _point;
+	}
+
+	FloatRect toRenderTarget(const FloatRect& _rect, const RenderTargetInfo& _info, IntPoint _origin)
+	{
+		FloatPoint corners[] = {{_rect.left, _rect.top}, {_rect.right, _rect.bottom}};
+		toRenderTargetInPlace(corners, _info, _origin);
+		return {corners[0].left, corners[0].top, corners[1].left, corners[1].top};
+	}
+
+	void toRenderTargetInPlace(FloatPoint* _points, size_t _count, const RenderTargetInfo& _info, IntPoint _origin)
 	{
 		const float left = ((_info.pixScaleX * (_origin.left - _info.leftOffset) + _info.hOffset) * 2) - 1;
 		const float top = 1 - ((_info.pixScaleY * (_origin.top - _info.topOffset) + _info.vOffset) * 2);
@@ -65,6 +78,13 @@ namespace MyGUI::geometry_utility
 			_points[i].left = left + _points[i].left * _info.pixScaleX * 2;
 			_points[i].top = top - _points[i].top * _info.pixScaleY * 2;
 		}
+	}
+
+	FloatPoint fromRenderTarget(FloatPoint _point, const RenderTargetInfo& _info, IntPoint _origin)
+	{
+		return {
+			((_point.left + 1) * 0.5f - _info.hOffset) / _info.pixScaleX + _info.leftOffset - _origin.left,
+			((1 - _point.top) * 0.5f - _info.vOffset) / _info.pixScaleY + _info.topOffset - _origin.top};
 	}
 
 	FloatPoint getPositionInsideRect(
