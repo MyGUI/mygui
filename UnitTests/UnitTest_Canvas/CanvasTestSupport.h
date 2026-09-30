@@ -94,8 +94,6 @@ namespace unittest
 	class CanvasRenderer : public SkinRenderManager
 	{
 	public:
-		// The texture remains owned by textures after the local unique_ptr is moved.
-		MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-return-stack-addr-moved")
 		MyGUI::ITexture* createTexture(const std::string& _name) override
 		{
 			require(textures.count(_name) == 0, "Canvas must release the old texture before recreating its name");
@@ -105,7 +103,6 @@ namespace unittest
 			++created;
 			return result;
 		}
-		MYGUI_UNSUPPRESS_CLANG()
 		void destroyTexture(MyGUI::ITexture* _texture) override
 		{
 			require(_texture && !_texture->isLocked(), "Only unlocked owned textures may be destroyed");

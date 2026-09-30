@@ -1168,7 +1168,6 @@ namespace MyGUI
 		return result;
 	}
 
-	MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-invalidation")
 	void Widget::findWidgets(std::string_view _name, VectorWidgetPtr& _result)
 	{
 		if (_name == mName)
@@ -1184,7 +1183,6 @@ namespace MyGUI
 				widget->findWidgets(_name, _result);
 		}
 	}
-	MYGUI_UNSUPPRESS_CLANG()
 
 	void Widget::onWidgetCreated(Widget* _widget)
 	{

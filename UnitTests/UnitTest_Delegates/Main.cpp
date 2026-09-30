@@ -134,8 +134,6 @@ namespace
 		require(event.empty(), "Inherited const member callbacks must be removable by identity");
 	}
 
-	// Clearing elements does not invalidate the captured reference to the vector itself.
-	MYGUI_SUPPRESS_CLANG("-Wlifetime-safety-invalidation")
 	void testFunctionIdsAndOrder()
 	{
 		Event event;
@@ -155,7 +153,6 @@ namespace
 		event -= MyGUI::newDelegate(callback, 2);
 		require(event.empty(), "A lambda callback must be removable using its ID");
 	}
-	MYGUI_UNSUPPRESS_CLANG()
 
 	void testDuplicateSubscription()
 	{

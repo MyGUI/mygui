@@ -42,6 +42,11 @@ if(
 				-Wno-switch-default # conflicts with Wcovered-switch-default
 				-Wno-lifetime-safety-intra-tu-suggestions
 				-Wno-lifetime-safety-cross-tu-suggestions
+				# too many false positives
+				-Wno-lifetime-safety-invalidation
+				-Wno-lifetime-safety-dangling-field
+				-Wno-lifetime-safety-dangling-field-moved
+				-Wno-lifetime-safety-return-stack-addr-moved
 			)
 		else()
 			add_compile_options(
