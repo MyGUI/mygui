@@ -41,6 +41,7 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
        Use these logical dimensions for `setViewSize()` and drawable pixels for the rendering viewport.
 - **Localization:** built-in language string management
 - **Animation:** configurable widget controllers for fades, slides, and more
+- **Rotation:** rotate widgets and their descendants in 2D space.
 
 ## Rendering Backends
 
@@ -116,12 +117,6 @@ Build options:
 | `MYGUI_BUILD_UNITTESTS` | ON             | Build headless unit tests            |
 | `MYGUI_BUILD_WRAPPER`   | OFF            | Build C# bindings (Windows only)     |
 | `MYGUI_BUILD_TEST_APP`  | OFF            | Build test application               |
-
-## Widget rotation
-
-Use `Widget::setRotation(radians)` to rotate a widget, including its skin, text, and descendants. A child rotation adds to its parent's rotation. The default pivot is the widget center; `setRotationCenter(FloatPoint(x, y))` changes it using widget-local pixels. Layout properties `Rotation` and `RotationCenter` provide the same settings.
-
-Build and run `Demo_WidgetRotation` to see a rotated window with a further rotated button and an editable child.
 
 ## Tools
 
