@@ -81,6 +81,7 @@ APPS = (
     "Demo_Spline",
     "Demo_TextureAnimations",
     "Demo_TreeControl",
+    "Demo_WidgetRotation",
 )
 
 DEFAULT_FAIL_MEAN = 2.0
