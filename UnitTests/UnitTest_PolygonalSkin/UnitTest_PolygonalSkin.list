@@ -1,2 +1,2 @@
-set(HEADER_FILES SkinTest.h)
-set(SOURCE_FILES Main.cpp PolygonalSkin.cpp)
+set(HEADER_FILES)
+set(SOURCE_FILES Main.cpp)

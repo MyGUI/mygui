@@ -45,7 +45,7 @@ namespace
 		test.expectQuad({100, 60, 120, 80}, {0.75f, 0.8f, 0, 0});
 	}
 
-	void testEmptyAndHiddenViews()
+	void testEmptyViewsAndRecovery()
 	{
 		Fixture test;
 		const MyGUI::IntCoord empty[] = {
@@ -67,16 +67,6 @@ namespace
 			test.setCoord({10, 20, 40, 30});
 			test.expectQuad({110, 80, 40, 30}, {0.2f, 0.1f, 0.8f, 0.9f});
 		}
-		for (int repeat = 0; repeat < 2; ++repeat)
-		{
-			test.skin.setVisible(false);
-			test.draw();
-			require(
-				test.renderer.vertices.empty(),
-				"Hidden skins must not draw, including repeated visibility changes");
-		}
-		test.skin.setVisible(true);
-		test.expectQuad({110, 80, 40, 30}, {0.2f, 0.1f, 0.8f, 0.9f});
 	}
 
 	void testAlignment()
@@ -104,26 +94,6 @@ namespace
 			test.expectQuad(
 				{100 + item.expected.left, 60 + item.expected.top, item.expected.width, item.expected.height},
 				{0.2f, 0.1f, 0.8f, 0.9f});
-		}
-	}
-
-	void testColourAndAlpha()
-	{
-		for (auto format : {MyGUI::VertexColourType::ColourARGB, MyGUI::VertexColourType::ColourABGR})
-		{
-			Fixture test(format);
-			test.draw();
-			test.skin._setColour(MyGUI::Colour(1, 0.5f, 0.25f, 0));
-			const MyGUI::uint32 rgb = format == MyGUI::VertexColourType::ColourARGB ? 0xFF7F3F : 0x3F7FFF;
-			test.expectQuad({110, 80, 40, 30}, {0.2f, 0.1f, 0.8f, 0.9f}, 0xFF000000 | rgb);
-			for (float alpha : {0.5f, 0.0f, 1.0f})
-			{
-				test.skin.setAlpha(alpha);
-				const auto packedAlpha = static_cast<MyGUI::uint32>(alpha * 255) << 24;
-				test.expectQuad({110, 80, 40, 30}, {0.2f, 0.1f, 0.8f, 0.9f}, packedAlpha | rgb);
-				test.skin._setColour(MyGUI::Colour(1, 0.5f, 0.25f, 0.75f));
-				test.expectQuad({110, 80, 40, 30}, {0.2f, 0.1f, 0.8f, 0.9f}, packedAlpha | rgb);
-			}
 		}
 	}
 
@@ -171,8 +141,7 @@ void unittest::rectangularskin::addSubSkinTests(Tests& _tests)
 		_tests.end(),
 		{{"SubSkin.GeometryAndViewCorrection", testGeometryAndViewCorrection},
 		 {"SubSkin.ClippingAndUVChanges", testClippingAndUVChanges},
-		 {"SubSkin.EmptyAndHiddenViews", testEmptyAndHiddenViews},
+		 {"SubSkin.EmptyViewsAndRecovery", testEmptyViewsAndRecovery},
 		 {"SubSkin.Alignment", testAlignment},
-		 {"SubSkin.ColourAndAlpha", testColourAndAlpha},
 		 {"SubSkin.StateAndDrawItemLifetime", testStateAndDrawItemLifetime}});
 }

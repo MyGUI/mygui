@@ -1,21 +1,21 @@
-#ifndef MYGUI_UNITTEST_POLYGONAL_SKIN_TEST_H_
-#define MYGUI_UNITTEST_POLYGONAL_SKIN_TEST_H_
+#ifndef MYGUI_UNITTEST_SUB_SKIN_TEST_SUPPORT_H_
+#define MYGUI_UNITTEST_SUB_SKIN_TEST_SUPPORT_H_
 
 #include "SkinTestContext.h"
 #include "TestRunner.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_SubSkin.h"
+#include "MyGUI_MainSkin.h"
+#include "MyGUI_PolygonalSkin.h"
+#include "MyGUI_TileRect.h"
 #include <string>
-#include <type_traits>
 
-namespace unittest::customskin
+namespace unittest::subskin
 {
 
-	using Tests = std::vector<TestCase>;
-	void addPolygonalSkinTests(Tests& _tests);
-
 	// Keep overflow reproducers safe: logical capacity is distinct from guard storage.
-	// These bounded cases emit at most 60 vertices; 128 guard vertices accommodate them.
+	// Extra vertices let bounded overflow regressions fail an assertion without corrupting memory.
 	class GuardedBuffer : public MyGUI::IVertexBuffer
 	{
 	public:
@@ -78,7 +78,6 @@ namespace unittest::customskin
 		}
 		void doRender(MyGUI::IVertexBuffer* _buffer, MyGUI::ITexture* _texture, size_t _count) override
 		{
-			reservedVertices = _buffer->getVertexCount();
 			require(_texture == getTexture("MyGUI_BlueWhiteSkins.png"), "Unexpected skin texture");
 			require(_count <= _buffer->getVertexCount() && _count % 3 == 0, "Invalid triangle count");
 			const auto& source = static_cast<GuardedBuffer*>(_buffer)->vertices;
@@ -95,7 +94,6 @@ namespace unittest::customskin
 		}
 		MyGUI::RenderTargetInfo info;
 		std::vector<MyGUI::Vertex> vertices;
-		size_t reservedVertices{0};
 
 	private:
 		MyGUI::VertexColourType mFormat;
@@ -121,6 +119,33 @@ namespace unittest::customskin
 			std::string(_message) + ": expected " + std::to_string(_expected) + ", got " + std::to_string(_actual));
 	}
 
+	inline void initialiseSkin(MyGUI::SubSkin&, Renderer&)
+	{
+		// SubSkin and MainSkin need only coordinates and UVs.
+	}
+
+	inline void initialiseSkin(MyGUI::PolygonalSkin& _skin, Renderer&)
+	{
+		_skin.setWidth(10);
+		_skin.setPoints({{10, 50}, {90, 50}});
+	}
+
+	inline void initialiseSkin(MyGUI::TileRect& _skin, Renderer& _renderer)
+	{
+		MyGUI::xml::Document document;
+		auto resource = document.createRoot("Resource");
+		resource->addAttribute("texture", "MyGUI_BlueWhiteSkins.png");
+		auto node = resource->createChild("BasisSkin")->createChild("State");
+		auto* texture = _renderer.getTexture("MyGUI_BlueWhiteSkins.png");
+		node->addAttribute("offset", MyGUI::IntCoord(0, 0, texture->getWidth(), texture->getHeight()));
+		auto size = node->createChild("Property");
+		size->addAttribute("key", "TileSize");
+		size->addAttribute("value", MyGUI::IntSize(30, 20));
+		MyGUI::TileRectStateInfo state;
+		static_cast<MyGUI::IStateInfo&>(state).deserialization(node, MyGUI::Version(1, 0));
+		_skin.setStateData(&state);
+	}
+
 	template<typename Skin>
 	class Fixture
 	{
@@ -131,13 +156,9 @@ namespace unittest::customskin
 			parent.setCoord({0, 0, 100, 100});
 			parent.setAbsolutePosition({100, 60});
 			skin._setCroppedParent(&parent);
+			initialiseSkin(skin, renderer);
 			setCoord({0, 0, 100, 100});
 			skin._setUVSet({0.2f, 0.1f, 0.8f, 0.9f});
-			if constexpr (std::is_same_v<Skin, MyGUI::PolygonalSkin>)
-			{
-				skin.setWidth(10);
-				skin.setPoints({{10, 50}, {90, 50}});
-			}
 			attach();
 		}
 		~Fixture()
@@ -165,6 +186,7 @@ namespace unittest::customskin
 		void draw(bool _update = false)
 		{
 			renderer.vertices.clear();
+			// Ordinary draws must exercise invalidation; only target changes force a rebuild.
 			node.renderToTarget(&renderer, _update);
 		}
 		MyGUI::FloatPoint local(const MyGUI::Vertex& _vertex) const
@@ -219,7 +241,6 @@ namespace unittest::customskin
 			near(bounds.bottom, _bounds.bottom, "Unexpected bottom bound");
 		}
 		Renderer renderer;
-		Rectangle clip;
 		Rectangle parent;
 		MyGUI::LayerNode node{nullptr};
 		Skin skin;
@@ -229,39 +250,41 @@ namespace unittest::customskin
 	};
 
 	template<typename Skin>
-	void applyHalfTextureState(Skin& _skin, Renderer& _renderer)
-	{
-		MyGUI::xml::Document document;
-		auto resource = document.createRoot("Resource");
-		resource->addAttribute("texture", "MyGUI_BlueWhiteSkins.png");
-		auto node = resource->createChild("BasisSkin")->createChild("State");
-		auto* texture = _renderer.getTexture("MyGUI_BlueWhiteSkins.png");
-		node->addAttribute("offset", MyGUI::IntCoord(0, 0, texture->getWidth() / 2, texture->getHeight() / 2));
-		MyGUI::SubSkinStateInfo state;
-		static_cast<MyGUI::IStateInfo&>(state).deserialization(node, MyGUI::Version(1, 0));
-		_skin.setStateData(&state);
-	}
-
-	template<typename Skin>
 	void testAppearanceAndLifetime()
 	{
 		for (auto format : {MyGUI::VertexColourType::ColourARGB, MyGUI::VertexColourType::ColourABGR})
 		{
 			Fixture<Skin> test(format);
 			test.draw();
-			const float area = test.area();
-			require(area > 0, "Default skin must draw");
-			test.skin.setAlpha(0.5f);
-			test.skin._setColour(MyGUI::Colour::Red);
-			test.draw();
-			for (const auto& v : test.surface())
-				require(
-					v.colour == (format == MyGUI::VertexColourType::ColourARGB ? 0x7FFF0000U : 0x7F0000FFU),
-					"Colour changes must preserve alpha and use native channel order");
-			test.skin.setAlpha(1);
-			test.draw();
-			for (const auto& v : test.surface())
-				require((v.colour >> 24) == 255, "Alpha change was not rendered");
+			const auto original = test.surface();
+			require(!original.empty(), "Default skin must draw");
+			auto expectAppearance = [&](MyGUI::uint32 _colour)
+			{
+				test.draw();
+				const auto vertices = test.surface();
+				require(vertices.size() == original.size(), "Appearance changes must preserve geometry");
+				for (size_t i = 0; i < vertices.size(); ++i)
+				{
+					const auto& vertex = vertices[i];
+					const auto& before = original[i];
+					require(
+						vertex.x == before.x && vertex.y == before.y && vertex.z == before.z && vertex.u == before.u &&
+							vertex.v == before.v,
+						"Appearance changes must preserve positions and UVs");
+					require(vertex.colour == _colour, "Unexpected packed colour or alpha");
+				}
+			};
+			test.skin._setColour(MyGUI::Colour(1, 0.5f, 0.25f, 0));
+			const MyGUI::uint32 rgb = format == MyGUI::VertexColourType::ColourARGB ? 0xFF7F3F : 0x3F7FFF;
+			expectAppearance(0xFF000000 | rgb);
+			for (float alpha : {0.5f, 0.0f, 1.0f})
+			{
+				test.skin.setAlpha(alpha);
+				const auto packedAlpha = static_cast<MyGUI::uint32>(alpha * 255) << 24;
+				expectAppearance(packedAlpha | rgb);
+				test.skin._setColour(MyGUI::Colour(1, 0.5f, 0.25f, 0.75f));
+				expectAppearance(packedAlpha | rgb);
+			}
 			for (int repeat = 0; repeat < 2; ++repeat)
 			{
 				test.skin.setVisible(false);
@@ -269,15 +292,13 @@ namespace unittest::customskin
 				require(test.renderer.vertices.empty(), "Hidden skin must not draw");
 			}
 			test.skin.setVisible(true);
-			test.draw();
-			near(test.area(), area, "Showing skin must restore geometry", 0.1f);
+			expectAppearance(0xFF000000 | rgb);
 			test.detach();
 			test.draw();
 			require(test.renderer.vertices.empty(), "Detached skin must not draw");
 			test.skin._setColour(MyGUI::Colour::White);
 			test.attach();
-			test.draw();
-			near(test.area(), area, "Reattaching skin must restore geometry", 0.1f);
+			expectAppearance(0xFFFFFFFF);
 		}
 	}
 
@@ -336,6 +357,20 @@ namespace unittest::customskin
 			near(after[i].x, before[i].x - 34 * test.renderer.info.pixScaleX, "Target left offset was ignored");
 			near(after[i].y, before[i].y + 46 * test.renderer.info.pixScaleY, "Target top offset was ignored");
 		}
+	}
+
+	template<typename Skin>
+	void addCommonTests(std::vector<TestCase>& _tests)
+	{
+		const std::string name{Skin::getClassTypeName()};
+		_tests.insert(
+			_tests.end(),
+			{
+				{name + ".AppearanceAndLifetime", testAppearanceAndLifetime<Skin>},
+				{name + ".ViewCorrection", testViewCorrection<Skin>},
+				{name + ".TargetChange", testTargetChange<Skin>},
+				{name + ".TargetOrigin", testTargetOrigin<Skin>},
+			});
 	}
 
 }

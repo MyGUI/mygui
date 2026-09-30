@@ -164,7 +164,7 @@ namespace
 		});
 	}
 
-	void testEmptyAndHiddenViews()
+	void testEmptyViewsAndRecovery()
 	{
 		Fixture test;
 		test.expectQuads({}); // No tile size has been selected yet.
@@ -182,10 +182,6 @@ namespace
 			test.setCoord({10, 20, 10, 10});
 			test.expectQuad({110, 80, 10, 10}, {0, 0, 0.5f, 2.0f / 3});
 		}
-		test.skin.setVisible(false);
-		test.expectQuads({});
-		test.skin.setVisible(true);
-		test.expectQuad({110, 80, 10, 10}, {0, 0, 0.5f, 2.0f / 3});
 		setTiles(test, {0, 15});
 		test.expectQuads({});
 		setTiles(test, {20, 0});
@@ -209,5 +205,5 @@ void unittest::rectangularskin::addTileRectTests(Tests& _tests)
 		 {"TileRect.TargetAndParentOffsets", testTargetAndParentOffsets},
 		 {"TileRect.TilingAxes", testTilingAxes},
 		 {"TileRect.ResizeAndBufferGrowth", testResizeAndBufferGrowth},
-		 {"TileRect.EmptyAndHiddenViews", testEmptyAndHiddenViews}});
+		 {"TileRect.EmptyViewsAndRecovery", testEmptyViewsAndRecovery}});
 }

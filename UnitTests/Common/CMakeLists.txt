@@ -5,6 +5,7 @@ add_library(MyGUIUnitTestCommon STATIC
 		BehaviourTestSupport.h
 		FixedFont.h
 		SkinTestContext.h
+		SubSkinTestSupport.h
 )
 set_target_properties(MyGUIUnitTestCommon PROPERTIES FOLDER UnitTest)
 target_include_directories(MyGUIUnitTestCommon PUBLIC
