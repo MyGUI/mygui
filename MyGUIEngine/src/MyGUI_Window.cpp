@@ -13,6 +13,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
 #include <array>
+#include <cmath>
 
 namespace MyGUI
 {
@@ -194,6 +195,20 @@ namespace MyGUI
 			setPosition((mPreActionCoord + coord).point());
 		else
 			setCoord(mPreActionCoord + coord);
+
+		if (!moveOnly)
+		{
+			// Resizing can move the rotation pivot; restore the opposite displayed corner.
+			const FloatPoint currentAnchor = rotatePoint(getResizeAnchor());
+			const Widget* parent = getParent();
+			const FloatPoint target = parent ? parent->unrotatePoint(mPreActionAnchor) : mPreActionAnchor;
+			const FloatPoint current = parent ? parent->unrotatePoint(currentAnchor) : currentAnchor;
+			const IntPoint correction(
+				(int)std::lround(target.left - current.left),
+				(int)std::lround(target.top - current.top));
+			if (correction != IntPoint())
+				Base::setPosition(mCoord.point() + correction);
+		}
 
 		// send event about position and size change
 		eventWindowChangeCoord(this);
