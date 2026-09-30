@@ -48,14 +48,10 @@ namespace MyGUI
 
 		std::array<FloatPoint, 4> clipQuad(const Widget* _widget, const RenderTargetInfo& _info)
 		{
-			const IntCoord coord = _widget->getAbsoluteCoord();
-			std::array<FloatPoint, 4> corners = {
-				{{(float)coord.left, (float)coord.top},
-				 {(float)coord.right(), (float)coord.top},
-				 {(float)coord.right(), (float)coord.bottom()},
-				 {(float)coord.left, (float)coord.bottom()}}};
-			for (auto& point : corners)
-				point = _widget->rotatePoint(point);
+			const float width = (float)_widget->getWidth();
+			const float height = (float)_widget->getHeight();
+			std::array<FloatPoint, 4> corners = {{{0, 0}, {width, 0}, {width, height}, {0, height}}};
+			_widget->localToLayer(corners.data(), corners.size());
 			geometry_utility::toRenderTargetInPlace(corners, _info);
 			return corners;
 		}
@@ -70,15 +66,17 @@ namespace MyGUI
 			std::vector<std::array<FloatPoint, 4>> quads;
 			for (const ICroppedRectangle* crop = _owner; crop != nullptr; crop = crop->getCroppedParent())
 				quads.push_back(clipQuad(static_cast<const Widget*>(crop), _info));
+			std::vector<Vertex> polygon;
+			std::vector<Vertex> clipped;
 			for (size_t base = 0; base + 2 < _count; base += 3)
 			{
-				std::vector<Vertex> polygon(_input + base, _input + base + 3);
+				polygon.assign(_input + base, _input + base + 3);
 				for (const auto& quad : quads)
 				{
 					const float sign = edgeDistance(quad[0], quad[1], quad[2]) >= 0.0f ? 1.0f : -1.0f;
 					for (size_t side = 0; side < quad.size() && !polygon.empty(); ++side)
 					{
-						std::vector<Vertex> clipped;
+						clipped.clear();
 						const FloatPoint& a = quad[side];
 						const FloatPoint& b = quad[(side + 1) % quad.size()];
 						for (size_t i = 0; i < polygon.size(); ++i)
@@ -117,6 +115,64 @@ namespace MyGUI
 		mVertexBuffer = nullptr;
 	}
 
+	void RenderItem::rebuildGeometry(IRenderTarget* _target)
+	{
+		mCountVertex = 0;
+		bool rotated = false;
+		for (const auto& item : mDrawItems)
+		{
+			if (const auto* owner = item.first->getCroppedParent())
+				rotated |= owner->_hasRotation();
+		}
+		if (rotated)
+		{
+			// Rotated triangles can gain vertices when clipped by ancestor bounds.
+			// Generate in CPU storage first, then size the render buffer to fit.
+			std::vector<Vertex> scratch(mNeedVertexCount);
+			std::vector<Vertex> vertices;
+			for (auto& item : mDrawItems)
+			{
+				mCurrentVertex = scratch.data();
+				mLastVertexCount = 0;
+				item.first->doRender();
+				MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
+				MYGUI_DEBUG_ASSERT(mLastVertexCount <= scratch.size(), "It is too much vertexes");
+				if (mLastVertexCount == 0)
+					continue;
+				if (const auto* owner = item.first->getCroppedParent(); owner && owner->_hasRotation())
+				{
+					const auto* widget = static_cast<const Widget*>(owner);
+					widget->_transformVertices(scratch.data(), mLastVertexCount, _target->getInfo());
+					appendClippedTriangles(vertices, scratch.data(), mLastVertexCount, widget, _target->getInfo());
+				}
+				else
+					vertices.insert(vertices.end(), scratch.begin(), scratch.begin() + mLastVertexCount);
+			}
+			mVertexBuffer->setVertexCount(std::max(mNeedVertexCount, vertices.size()));
+			if (Vertex* buffer = mVertexBuffer->lock())
+			{
+				std::copy(vertices.begin(), vertices.end(), buffer);
+				mVertexBuffer->unlock();
+				mCountVertex = vertices.size();
+			}
+		}
+		else if (Vertex* buffer = mVertexBuffer->lock())
+		{
+			for (auto& item : mDrawItems)
+			{
+				mCurrentVertex = buffer;
+				mLastVertexCount = 0;
+				item.first->doRender();
+				MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
+				buffer += mLastVertexCount;
+				mCountVertex += mLastVertexCount;
+			}
+			mVertexBuffer->unlock();
+		}
+
+		mOutOfDate = false;
+	}
+
 	void RenderItem::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		if (mTexture == nullptr)
@@ -127,62 +183,7 @@ namespace MyGUI
 		mCurrentUpdate = _update;
 
 		if (mOutOfDate || _update)
-		{
-			mCountVertex = 0;
-			bool rotated = false;
-			for (const auto& item : mDrawItems)
-			{
-				if (const auto* owner = item.first->getCroppedParent())
-					rotated |= owner->_hasRotation();
-			}
-			if (rotated)
-			{
-				// Rotated triangles can gain vertices when clipped by ancestor bounds.
-				// Generate in CPU storage first, then size the render buffer to fit.
-				std::vector<Vertex> scratch(mNeedVertexCount);
-				std::vector<Vertex> vertices;
-				for (auto& item : mDrawItems)
-				{
-					mCurrentVertex = scratch.data();
-					mLastVertexCount = 0;
-					item.first->doRender();
-					MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
-					MYGUI_DEBUG_ASSERT(mLastVertexCount <= scratch.size(), "It is too much vertexes");
-					if (mLastVertexCount == 0)
-						continue;
-					if (const auto* owner = item.first->getCroppedParent(); owner && owner->_hasRotation())
-					{
-						const auto* widget = static_cast<const Widget*>(owner);
-						widget->_transformVertices(scratch.data(), mLastVertexCount, _target->getInfo());
-						appendClippedTriangles(vertices, scratch.data(), mLastVertexCount, widget, _target->getInfo());
-					}
-					else
-						vertices.insert(vertices.end(), scratch.begin(), scratch.begin() + mLastVertexCount);
-				}
-				mVertexBuffer->setVertexCount(std::max(mNeedVertexCount, vertices.size()));
-				if (Vertex* buffer = mVertexBuffer->lock())
-				{
-					std::copy(vertices.begin(), vertices.end(), buffer);
-					mVertexBuffer->unlock();
-					mCountVertex = vertices.size();
-				}
-			}
-			else if (Vertex* buffer = mVertexBuffer->lock())
-			{
-				for (auto& item : mDrawItems)
-				{
-					mCurrentVertex = buffer;
-					mLastVertexCount = 0;
-					item.first->doRender();
-					MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
-					buffer += mLastVertexCount;
-					mCountVertex += mLastVertexCount;
-				}
-				mVertexBuffer->unlock();
-			}
-
-			mOutOfDate = false;
-		}
+			rebuildGeometry(_target);
 
 		// batch doesn't render with 0 count, but still avoid changing state
 		if (0 != mCountVertex)

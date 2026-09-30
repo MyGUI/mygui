@@ -19,8 +19,7 @@ namespace MyGUI
 		{
 			// The drag preview follows the layer-space pointer, so keep its grab
 			// offset in that space and anchor it to the widget's displayed origin
-			const IntPoint origin = getAbsolutePosition();
-			const FloatPoint displayedOrigin = rotatePoint(FloatPoint((float)origin.left, (float)origin.top));
+			const FloatPoint displayedOrigin = localToLayer({0, 0});
 			mClickInWidget = InputManager::getInstance().getLastPressedPosition(MouseButton::Left) -
 				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
 		}

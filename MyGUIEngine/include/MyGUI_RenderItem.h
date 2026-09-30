@@ -54,6 +54,8 @@ namespace MyGUI
 		bool getNeedCompression() const;
 
 	private:
+		void rebuildGeometry(IRenderTarget* _target);
+
 		ITexture* mTexture{nullptr};
 
 		size_t mNeedVertexCount{0};

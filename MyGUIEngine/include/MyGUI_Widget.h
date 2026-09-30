@@ -227,7 +227,12 @@ namespace MyGUI
 		/** Set the rotation pivot in widget-local pixel coordinates. */
 		void setRotationCenter(const FloatPoint& _center);
 		FloatPoint getRotationCenter() const;
-		/** Transform a point between unrotated and displayed screen coordinates. */
+		/** Convert between widget-local pixels and displayed layer coordinates. */
+		FloatPoint localToLayer(const FloatPoint& _point) const;
+		/** Convert an array of widget-local points to displayed layer coordinates in place. */
+		void localToLayer(FloatPoint* _points, size_t _count) const;
+		FloatPoint layerToLocal(const FloatPoint& _point) const;
+		/** Transform absolute layout points to/from displayed layer coordinates. */
 		FloatPoint rotatePoint(const FloatPoint& _point) const;
 		FloatPoint unrotatePoint(const FloatPoint& _point) const;
 		/** Convert a displayed displacement to this widget's layout axes, including parent rotations. */
@@ -464,8 +469,8 @@ namespace MyGUI
 			float offsetX{0.0f};
 			float offsetY{0.0f};
 
-			FloatPoint rotate(const FloatPoint& _point) const;
-			FloatPoint unrotate(const FloatPoint& _point) const;
+			FloatPoint transformPoint(const FloatPoint& _point) const;
+			FloatPoint inverseTransformPoint(const FloatPoint& _point) const;
 		};
 
 		const WidgetInfo* initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo);
@@ -487,8 +492,10 @@ namespace MyGUI
 
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
-		ILayerItem* getLayerItemByPointUnrotated(const FloatPoint& _point) const;
+		template<typename T>
+		ILayerItem* getLayerItemByLocalPoint(types::TPoint<T> _point) const;
 		void updateRotationTransform();
+		void updateWorldHasRotation();
 		RotationTransform getWorldRotationTransform() const;
 		void invalidateRotation();
 
@@ -529,7 +536,10 @@ namespace MyGUI
 		float mRotation{0.0f};
 		FloatPoint mRotationCenter;
 		bool mCustomRotationCenter{false};
+		// Local to parent coordinates (absolute layout coordinates for popups).
 		RotationTransform mRotationTransform;
+		// True when this widget or any logical ancestor has a nonzero rotation.
+		bool mWorldHasRotation{false};
 		int mDepth{0};
 	};
 

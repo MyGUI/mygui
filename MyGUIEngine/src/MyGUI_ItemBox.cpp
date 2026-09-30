@@ -609,8 +609,7 @@ namespace MyGUI
 			}
 
 			// Measure the grab offset in the source layer's coordinates
-			const IntPoint origin = _sender->getAbsolutePosition();
-			const FloatPoint displayedOrigin = _sender->rotatePoint(FloatPoint((float)origin.left, (float)origin.top));
+			const FloatPoint displayedOrigin = _sender->localToLayer({0, 0});
 			mClickInWidget = InputManager::getInstance().getMousePositionByLayer() -
 				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
 

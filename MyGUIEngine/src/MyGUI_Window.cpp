@@ -159,7 +159,7 @@ namespace MyGUI
 			mPreActionCoord = mCoord;
 			mCurrentActionScale = _getActionScale(_sender);
 			if (mCurrentActionScale.width != 0 || mCurrentActionScale.height != 0)
-				mPreActionAnchor = rotatePoint(getResizeAnchor());
+				mPreActionAnchor = localToLayer(getResizeAnchor());
 		}
 	}
 
@@ -605,19 +605,18 @@ namespace MyGUI
 
 	FloatPoint Window::getResizeAnchor() const
 	{
-		const IntPoint position = getAbsolutePosition();
 		return FloatPoint(
-			(float)(position.left + (mCurrentActionScale.width < 0 ? mCoord.width : 0)),
-			(float)(position.top + (mCurrentActionScale.height < 0 ? mCoord.height : 0)));
+			(float)(mCurrentActionScale.width < 0 ? mCoord.width : 0),
+			(float)(mCurrentActionScale.height < 0 ? mCoord.height : 0));
 	}
 
 	void Window::restoreResizeAnchor()
 	{
 		// Resizing can move the rotation pivot; restore the opposite displayed corner.
-		const FloatPoint currentAnchor = rotatePoint(getResizeAnchor());
+		const FloatPoint currentAnchor = localToLayer(getResizeAnchor());
 		const Widget* parent = getParent();
-		const FloatPoint targetInParent = parent ? parent->unrotatePoint(mPreActionAnchor) : mPreActionAnchor;
-		const FloatPoint currentInParent = parent ? parent->unrotatePoint(currentAnchor) : currentAnchor;
+		const FloatPoint targetInParent = parent ? parent->layerToLocal(mPreActionAnchor) : mPreActionAnchor;
+		const FloatPoint currentInParent = parent ? parent->layerToLocal(currentAnchor) : currentAnchor;
 		const IntPoint correction(
 			(int)std::lround(targetInParent.left - currentInParent.left),
 			(int)std::lround(targetInParent.top - currentInParent.top));

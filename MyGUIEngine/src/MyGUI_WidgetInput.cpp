@@ -154,19 +154,9 @@ namespace MyGUI
 		mNeedMouseFocus = _value;
 	}
 
-	bool WidgetInput::getNeedMouseFocus() const
-	{
-		return mNeedMouseFocus;
-	}
-
 	void WidgetInput::setInheritsPick(bool _value)
 	{
 		mInheritsPick = _value;
-	}
-
-	bool WidgetInput::getInheritsPick() const
-	{
-		return mInheritsPick;
 	}
 
 	bool WidgetInput::getRootMouseFocus() const

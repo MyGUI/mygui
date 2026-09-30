@@ -22,6 +22,7 @@
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_GeometryUtility.h"
 #include <cmath>
+#include <type_traits>
 
 namespace MyGUI
 {
@@ -50,6 +51,7 @@ namespace MyGUI
 
 		mCroppedParent = _croppedParent;
 		mParent = _parent;
+		updateWorldHasRotation();
 
 
 #if MYGUI_DEBUG_MODE == 1
@@ -75,6 +77,7 @@ namespace MyGUI
 
 		if (nullptr != mCroppedParent)
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
+		updateRotationTransform();
 
 		const WidgetInfo* root = initialiseWidgetSkinBase(skinInfo, templateInfo);
 
@@ -450,33 +453,37 @@ namespace MyGUI
 
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
-		return getLayerItemByPointUnrotated(FloatPoint((float)_left, (float)_top));
+		// Recursive picking has already removed ancestor rotations; only the local rotation matters.
+		// Popups enter from a layer and still need the full world transform.
+		if (mRotation == 0.0f && (mCroppedParent || !mParent))
+			return getLayerItemByLocalPoint(IntPoint(_left - mCoord.left, _top - mCoord.top));
+
+		const FloatPoint point((float)_left, (float)_top);
+		// Popups enter from a layer, bypassing their logical parent's picking traversal.
+		const FloatPoint localPoint =
+			(mParent && !mCroppedParent) ? layerToLocal(point) : mRotationTransform.inverseTransformPoint(point);
+		return getLayerItemByLocalPoint(localPoint);
 	}
 
-	ILayerItem* Widget::getLayerItemByPointUnrotated(const FloatPoint& _point) const
+	template<typename T>
+	ILayerItem* Widget::getLayerItemByLocalPoint(types::TPoint<T> _point) const
 	{
-		FloatPoint point = (mParent && !mCroppedParent) ? mParent->unrotatePoint(_point) : _point;
-		if (mRotation != 0.0f)
-		{
-			const FloatPoint center = getRotationCenter();
-			const float dx = point.left - (mCoord.left + center.left);
-			const float dy = point.top - (mCoord.top + center.top);
-			const float c = mRotationTransform.cosine;
-			const float s = mRotationTransform.sine;
-			point.left = mCoord.left + center.left + dx * c + dy * s;
-			point.top = mCoord.top + center.top - dx * s + dy * c;
-		}
 		// check point hit
 		if (!mInheritedEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
-			point.left < _getViewLeft() || point.top < _getViewTop() || point.left >= _getViewRight() ||
-			point.top >= _getViewBottom()
+			_point.left < mMargin.left || _point.top < mMargin.top || _point.left >= mCoord.width - mMargin.right ||
+			_point.top >= mCoord.height - mMargin.bottom
 			// if there is a mask, also check by mask
-			|| !isMaskPickInside(IntPoint((int)(point.left - mCoord.left), (int)(point.top - mCoord.top)), mCoord))
+			|| !isMaskPickInside(IntPoint((int)_point.left, (int)_point.top), mCoord))
 			return nullptr;
 
 		// ask children
-		const int childLeft = (int)std::floor(point.left - mCoord.left);
-		const int childTop = (int)std::floor(point.top - mCoord.top);
+		int childLeft = (int)_point.left;
+		int childTop = (int)_point.top;
+		if constexpr (std::is_floating_point_v<T>)
+		{
+			childLeft = (int)std::floor(_point.left);
+			childTop = (int)std::floor(_point.top);
+		}
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend();
 			 ++widget)
 		{
@@ -656,7 +663,10 @@ namespace MyGUI
 	{
 		if (mRotation == _radians)
 			return;
+		const bool rotationPresenceChanged = (mRotation == 0.0f) != (_radians == 0.0f);
 		mRotation = _radians;
+		if (rotationPresenceChanged)
+			updateWorldHasRotation();
 		mRotationTransform.cosine = std::cos(_radians);
 		mRotationTransform.sine = std::sin(_radians);
 		invalidateRotation();
@@ -681,14 +691,14 @@ namespace MyGUI
 		return mCustomRotationCenter ? mRotationCenter : FloatPoint(mCoord.width * 0.5f, mCoord.height * 0.5f);
 	}
 
-	FloatPoint Widget::RotationTransform::rotate(const FloatPoint& _point) const
+	FloatPoint Widget::RotationTransform::transformPoint(const FloatPoint& _point) const
 	{
 		return FloatPoint(
 			cosine * _point.left - sine * _point.top + offsetX,
 			sine * _point.left + cosine * _point.top + offsetY);
 	}
 
-	FloatPoint Widget::RotationTransform::unrotate(const FloatPoint& _point) const
+	FloatPoint Widget::RotationTransform::inverseTransformPoint(const FloatPoint& _point) const
 	{
 		const float x = _point.left - offsetX;
 		const float y = _point.top - offsetY;
@@ -697,17 +707,28 @@ namespace MyGUI
 
 	void Widget::updateRotationTransform()
 	{
+		// Map widget-local points into the coordinate space used by mCoord.
+		mRotationTransform.offsetX = (float)mCoord.left;
+		mRotationTransform.offsetY = (float)mCoord.top;
 		if (mRotation == 0.0f)
-		{
-			mRotationTransform.offsetX = 0.0f;
-			mRotationTransform.offsetY = 0.0f;
 			return;
-		}
 		const FloatPoint center = getRotationCenter();
-		const float x = mAbsolutePosition.left + center.left;
-		const float y = mAbsolutePosition.top + center.top;
-		mRotationTransform.offsetX = x - mRotationTransform.cosine * x + mRotationTransform.sine * y;
-		mRotationTransform.offsetY = y - mRotationTransform.sine * x - mRotationTransform.cosine * y;
+		mRotationTransform.offsetX +=
+			center.left - mRotationTransform.cosine * center.left + mRotationTransform.sine * center.top;
+		mRotationTransform.offsetY +=
+			center.top - mRotationTransform.sine * center.left - mRotationTransform.cosine * center.top;
+	}
+
+	void Widget::updateWorldHasRotation()
+	{
+		const bool hasRotation = mRotation != 0.0f || (mParent && mParent->mWorldHasRotation);
+		if (mWorldHasRotation == hasRotation)
+			return;
+		mWorldHasRotation = hasRotation;
+		for (auto* widget : mWidgetChild)
+			widget->updateWorldHasRotation();
+		for (auto* widget : mWidgetChildSkin)
+			widget->updateWorldHasRotation();
 	}
 
 	Widget::RotationTransform Widget::getWorldRotationTransform() const
@@ -715,26 +736,52 @@ namespace MyGUI
 		if (mParent == nullptr)
 			return mRotationTransform;
 		const RotationTransform parent = mParent->getWorldRotationTransform();
+		FloatPoint offset(mRotationTransform.offsetX, mRotationTransform.offsetY);
+		// Popup positions are absolute, but the parent transform takes local coordinates.
+		if (!mCroppedParent)
+			offset -= FloatPoint((float)mParent->getAbsoluteLeft(), (float)mParent->getAbsoluteTop());
+		offset = parent.transformPoint(offset);
 		RotationTransform result;
 		result.cosine = parent.cosine * mRotationTransform.cosine - parent.sine * mRotationTransform.sine;
 		result.sine = parent.sine * mRotationTransform.cosine + parent.cosine * mRotationTransform.sine;
-		result.offsetX =
-			parent.cosine * mRotationTransform.offsetX - parent.sine * mRotationTransform.offsetY + parent.offsetX;
-		result.offsetY =
-			parent.sine * mRotationTransform.offsetX + parent.cosine * mRotationTransform.offsetY + parent.offsetY;
+		result.offsetX = offset.left;
+		result.offsetY = offset.top;
 		return result;
+	}
+
+	FloatPoint Widget::localToLayer(const FloatPoint& _point) const
+	{
+		return getWorldRotationTransform().transformPoint(_point);
+	}
+
+	void Widget::localToLayer(FloatPoint* _points, size_t _count) const
+	{
+		const RotationTransform transform = getWorldRotationTransform();
+		for (size_t i = 0; i < _count; ++i)
+			_points[i] = transform.transformPoint(_points[i]);
+	}
+
+	FloatPoint Widget::layerToLocal(const FloatPoint& _point) const
+	{
+		return getWorldRotationTransform().inverseTransformPoint(_point);
 	}
 
 	FloatPoint Widget::rotatePoint(const FloatPoint& _point) const
 	{
-		const FloatPoint result = mRotation != 0.0f ? mRotationTransform.rotate(_point) : _point;
-		return mParent ? mParent->rotatePoint(result) : result;
+		if (!mWorldHasRotation)
+			return _point;
+		const RotationTransform transform = getWorldRotationTransform();
+		return transform.transformPoint(
+			_point - FloatPoint((float)mAbsolutePosition.left, (float)mAbsolutePosition.top));
 	}
 
 	FloatPoint Widget::unrotatePoint(const FloatPoint& _point) const
 	{
-		const FloatPoint result = mParent ? mParent->unrotatePoint(_point) : _point;
-		return mRotation != 0.0f ? mRotationTransform.unrotate(result) : result;
+		if (!mWorldHasRotation)
+			return _point;
+		const RotationTransform transform = getWorldRotationTransform();
+		return transform.inverseTransformPoint(_point) +
+			FloatPoint((float)mAbsolutePosition.left, (float)mAbsolutePosition.top);
 	}
 
 	IntPoint Widget::unrotateVector(const IntPoint& _vector) const
@@ -747,18 +794,15 @@ namespace MyGUI
 
 	void Widget::_transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const
 	{
-		bool rotated = false;
-		for (const Widget* widget = this; widget != nullptr; widget = widget->mParent)
-			rotated |= widget->mRotation != 0.0f;
-		if (!rotated)
+		if (!mWorldHasRotation)
 			return;
 		const RotationTransform transform = getWorldRotationTransform();
 
 		for (size_t i = 0; i < _count; ++i)
 		{
 			Vertex& vertex = _vertices[i];
-			const FloatPoint pixel = geometry_utility::fromRenderTarget({vertex.x, vertex.y}, _info);
-			const FloatPoint transformed = geometry_utility::toRenderTarget(transform.rotate(pixel), _info);
+			const FloatPoint pixel = geometry_utility::fromRenderTarget({vertex.x, vertex.y}, _info, mAbsolutePosition);
+			const FloatPoint transformed = geometry_utility::toRenderTarget(transform.transformPoint(pixel), _info);
 			vertex.x = transformed.left;
 			vertex.y = transformed.top;
 		}
@@ -766,7 +810,7 @@ namespace MyGUI
 
 	bool Widget::_hasRotation() const
 	{
-		return mRotation != 0.0f || (mParent && mParent->_hasRotation());
+		return mWorldHasRotation;
 	}
 
 	void Widget::invalidateRotation()
@@ -822,6 +866,7 @@ namespace MyGUI
 			Gui::getInstance()._linkChildWidget(this);
 			mParent->_unlinkChildWidget(this);
 			mParent = nullptr;
+			updateWorldHasRotation();
 		}
 
 		if (!_layer.empty())
@@ -862,6 +907,7 @@ namespace MyGUI
 				mParent->_unlinkChildWidget(this);
 
 			mParent = _parent;
+			updateWorldHasRotation();
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = nullptr;
@@ -881,6 +927,7 @@ namespace MyGUI
 				mParent->_unlinkChildWidget(this);
 
 			mParent = _parent;
+			updateWorldHasRotation();
 			mParent->addChildItem(this);
 			mParent->_linkChildWidget(this);
 
@@ -896,6 +943,7 @@ namespace MyGUI
 				mParent->_unlinkChildWidget(this);
 
 			mParent = _parent;
+			updateWorldHasRotation();
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = _parent;

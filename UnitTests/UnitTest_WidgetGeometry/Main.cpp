@@ -123,9 +123,14 @@ namespace
 	void testClippingAfterMovement()
 	{
 		Fixture fixture;
+		auto& layers = MyGUI::LayerManager::getInstance();
+		layers.getByName("Main")->castType<MyGUI::OverlappedLayer>()->setPick(true);
 		auto& gui = fixture.context.getGui();
-		auto* root =
-			gui.createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, "Main");
+		auto* root = gui.createWidget<MyGUI::Widget>(
+			"Default",
+			MyGUI::IntCoord(100, 100, 100, 100),
+			MyGUI::Align::Default,
+			"Main");
 		auto* parent =
 			root->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default);
 		auto* child =
@@ -137,11 +142,20 @@ namespace
 		require(child->_getMarginLeft() == 50, "Movement without resizing must update descendant clipping");
 		require(child->_getViewWidth() == 50, "Descendant view width must reflect ancestor clipping");
 		require(observer.count == 1, "Movement with clipping must notify descendants once");
+		require(
+			layers.getWidgetFromPoint(110, 110) == child,
+			"Picking must accept the visible part of cropped children");
+		require(layers.getWidgetFromPoint(99, 110) == nullptr, "Picking must reject the part outside the root");
+		require(layers.getWidgetFromPoint(150, 110) == root, "Picking must exclude the child's right boundary");
 
 		parent->setCoord(0, 0, 100, 100);
 		require(child->_getMarginLeft() == 0, "Moving back inside must clear descendant clipping");
 		require(child->_getViewWidth() == 100, "Moving back inside must restore the descendant view width");
 		require(observer.count == 2, "Moving back inside must notify descendants once");
+		require(layers.getWidgetFromPoint(199, 199) == child, "Picking must follow restored local bounds");
+		require(
+			layers.getWidgetFromPoint(200, 200) == nullptr,
+			"Picking must exclude the root's bottom-right boundary");
 		gui.destroyWidget(root);
 	}
 
@@ -433,6 +447,196 @@ namespace
 		gui.destroyWidget(parent);
 	}
 
+	void expectLocalPoint(MyGUI::Widget* _widget, const MyGUI::FloatPoint& _local, const MyGUI::FloatPoint& _layer)
+	{
+		const auto transformed = _widget->localToLayer(_local);
+		require(
+			std::abs(transformed.left - _layer.left) < 0.01f && std::abs(transformed.top - _layer.top) < 0.01f,
+			"Local points must map to displayed layer coordinates");
+		MyGUI::FloatPoint points[] = {_local, {0, 0}, {17.5f, -9.25f}};
+		const MyGUI::FloatPoint expected[] = {
+			transformed,
+			_widget->localToLayer(points[1]),
+			_widget->localToLayer(points[2])};
+		_widget->localToLayer(points, 3);
+		for (size_t i = 0; i < 3; ++i)
+			require(points[i] == expected[i], "Bulk conversion must exactly match individual point conversion");
+		_widget->localToLayer(nullptr, 0);
+		const auto restored = _widget->layerToLocal(_layer);
+		require(
+			std::abs(restored.left - _local.left) < 0.01f && std::abs(restored.top - _local.top) < 0.01f,
+			"Layer points must map back to widget-local coordinates");
+	}
+
+	void expectTransformedPoint(MyGUI::Widget* _widget, const MyGUI::FloatPoint& _expected)
+	{
+		const MyGUI::FloatPoint point(150, 160);
+		// Exercise repeated reads as well as the first read after each change.
+		for (int i = 0; i < 2; ++i)
+		{
+			expectLocalPoint(
+				_widget,
+				{point.left - _widget->getAbsoluteLeft(), point.top - _widget->getAbsoluteTop()},
+				_expected);
+			const auto transformed = _widget->rotatePoint(point);
+			require(
+				std::abs(transformed.left - _expected.left) < 0.01f &&
+					std::abs(transformed.top - _expected.top) < 0.01f,
+				"World transform must reflect the current hierarchy and pivot");
+			const auto restored = _widget->unrotatePoint(_expected);
+			require(
+				std::abs(restored.left - point.left) < 0.01f && std::abs(restored.top - point.top) < 0.01f,
+				"Inverse world transform must reflect the current hierarchy and pivot");
+		}
+	}
+
+	void testWorldRotationCacheInvalidation()
+	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent =
+			gui.createWidget<MyGUI::Widget>("TestGeometryParent", {100, 100, 200, 200}, MyGUI::Align::Default, "Main");
+		auto* client = parent->getClientWidget();
+		require(client != nullptr, "Test skin must provide a client widget");
+		auto* child = parent->createWidget<MyGUI::Widget>("Default", {20, 30, 40, 60}, MyGUI::Align::Default);
+		auto* popup = parent->createWidget<MyGUI::Widget>(
+			MyGUI::WidgetStyle::Popup,
+			"Default",
+			{400, 400, 100, 100},
+			MyGUI::Align::Default,
+			"Popup");
+		auto* popupChild = popup->createWidget<MyGUI::Widget>("Default", {5, 10, 20, 20}, MyGUI::Align::Default);
+		auto check = [&](const MyGUI::FloatPoint& expected, bool rotated)
+		{
+			for (auto* widget : {parent, client, child, popup, popupChild})
+			{
+				expectTransformedPoint(widget, expected);
+				require(widget->_hasRotation() == rotated, "Rotation presence must follow ancestor changes");
+			}
+		};
+		check({150, 160}, false);
+		parent->setRotation(1.5707963268f);
+		check({240, 150}, true);
+		// Changing between nonzero angles keeps inheritance but must refresh the transform.
+		parent->setRotation(3.1415926536f);
+		check({250, 240}, true);
+		parent->setRotation(-1.5707963268f);
+		check({160, 250}, true);
+		parent->setRotation(1.5707963268f);
+		parent->setSize(300, 200);
+		check({290, 100}, true);
+		parent->setPosition(120, 130);
+		check({340, 110}, true);
+		parent->setRotationCenter({0, 0});
+		check({90, 160}, true);
+		parent->setRotation(0);
+		check({150, 160}, false);
+		require(
+			child->getCoord() == MyGUI::IntCoord(20, 30, 40, 60) &&
+				popup->getAbsolutePosition() == MyGUI::IntPoint(400, 400),
+			"Transform invalidation must reach children whose layout coordinates stay unchanged");
+	}
+
+	void testWorldRotationCacheReparenting()
+	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>("Default", {100, 100, 200, 200}, MyGUI::Align::Default, "Main");
+		auto* other = gui.createWidget<MyGUI::Widget>("Default", {100, 100, 200, 200}, MyGUI::Align::Default, "Main");
+		parent->setRotation(1.5707963268f);
+		other->setRotation(-1.5707963268f);
+		auto* child = parent->createWidget<MyGUI::Widget>("Default", {20, 30, 40, 60}, MyGUI::Align::Default);
+		auto* popup = child->createWidget<MyGUI::Widget>(
+			MyGUI::WidgetStyle::Popup,
+			"Default",
+			{400, 400, 100, 100},
+			MyGUI::Align::Default,
+			"Popup");
+		auto check = [&](const MyGUI::FloatPoint& expected, bool rotated)
+		{
+			for (auto* widget : {child, popup})
+			{
+				expectTransformedPoint(widget, expected);
+				require(widget->_hasRotation() == rotated, "Reparenting must refresh rotation presence");
+			}
+		};
+		check({240, 150}, true);
+		child->attachToWidget(other);
+		check({160, 250}, true);
+		child->detachFromWidget("Main");
+		check({150, 160}, false);
+		child->attachToWidget(parent, MyGUI::WidgetStyle::Popup, "Popup");
+		check({240, 150}, true);
+		child->attachToWidget(other, MyGUI::WidgetStyle::Popup, "Popup");
+		check({160, 250}, true);
+		child->setWidgetStyle(MyGUI::WidgetStyle::Child);
+		check({160, 250}, true);
+
+		// Opposing rotations still require ancestor clipping even when the net angle is zero.
+		child->setRotation(1.5707963268f);
+		check({170, 260}, true);
+		require(
+			child->unrotateVector({30, 40}) == MyGUI::IntPoint(30, 40),
+			"Opposing rotations must cancel when transforming displacements");
+		other->setRotation(0);
+		child->setRotation(0);
+		check({150, 160}, false);
+	}
+
+	void testLocalCoordinatesAndPicking()
+	{
+		Fixture fixture;
+		auto& layers = MyGUI::LayerManager::getInstance();
+		layers.getByName("Main")->castType<MyGUI::OverlappedLayer>()->setPick(true);
+		layers.getByName("Popup")->castType<MyGUI::OverlappedLayer>()->setPick(true);
+		auto& gui = fixture.context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>("Default", {100, 100, 300, 300}, MyGUI::Align::Default, "Main");
+		auto* child = parent->createWidget<MyGUI::Widget>("Default", {40, 50, 80, 60}, MyGUI::Align::Default);
+		expectLocalPoint(parent, {30, 40}, {130, 140});
+		expectLocalPoint(child, {30, 40}, {170, 190});
+		require(layers.getWidgetFromPoint(170, 190) == child, "New widgets must include their layout translation");
+
+		parent->setRotation(1.5707963268f);
+		require(
+			layers.getWidgetFromPoint(310, 170) == child,
+			"Unrotated children must be picked in their rotated parent's local coordinates");
+		child->setRotationCenter({10, 20});
+		child->setRotation(-1.5707963268f);
+		expectLocalPoint(child, {30, 40}, {350, 170});
+		require(layers.getWidgetFromPoint(350, 170) == child, "Picking must use the child's local pivot");
+		child->setWidgetStyle(MyGUI::WidgetStyle::Overlapped);
+		require(layers.getWidgetFromPoint(350, 170) == child, "Overlapped children must use parent-local picking");
+
+		auto* popup = parent->createWidget<MyGUI::Widget>(
+			MyGUI::WidgetStyle::Popup,
+			"Default",
+			{450, 300, 80, 60},
+			MyGUI::Align::Default,
+			"Popup");
+		auto* popupChild = popup->createWidget<MyGUI::Widget>("Default", {10, 15, 20, 20}, MyGUI::Align::Default);
+		require(
+			layers.getWidgetFromPoint(180, 465) == popupChild,
+			"Unrotated popup entries must still apply inherited rotation before picking children");
+		popup->setRotationCenter({0, 0});
+		popup->setRotation(-1.5707963268f);
+		expectLocalPoint(popup, {15, 20}, {215, 470});
+		expectLocalPoint(popupChild, {5, 5}, {215, 470});
+		require(
+			layers.getWidgetFromPoint(215, 470) == popupChild,
+			"Popup picking must convert layer coordinates before traversing local children outside the parent");
+
+		parent->setPosition(120, 130);
+		expectLocalPoint(child, {30, 40}, {370, 200});
+		expectLocalPoint(popupChild, {5, 5}, {265, 480});
+		require(
+			layers.getWidgetFromPoint(265, 480) == popupChild,
+			"Popup entry conversion must follow its parent's moved rotation pivot");
+		require(popup->getAbsolutePosition() == MyGUI::IntPoint(450, 300), "Popup layout must remain absolute");
+		popup->setPosition(460, 310);
+		expectLocalPoint(popupChild, {5, 5}, {255, 490});
+		require(layers.getWidgetFromPoint(255, 490) == popupChild, "Popup children must follow direct movement");
+	}
+
 	void testNestedRotationAndPicking()
 	{
 		Fixture fixture;
@@ -535,5 +739,8 @@ int main()
 		{"Skin alignment", testSkinAlignment},
 		{"Absolute coordinate reparenting", testAbsoluteCoordReparenting},
 		{"Nested rotation and picking", testNestedRotationAndPicking},
+		{"Local coordinates and picking", testLocalCoordinatesAndPicking},
+		{"World rotation cache invalidation", testWorldRotationCacheInvalidation},
+		{"World rotation cache reparenting", testWorldRotationCacheReparenting},
 	});
 }

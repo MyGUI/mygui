@@ -85,7 +85,10 @@ namespace MyGUI
 			If disable this widget won't be reacting on mouse at all.\n
 			Enabled (true) by default.
 		*/
-		bool getNeedMouseFocus() const;
+		bool getNeedMouseFocus() const
+		{
+			return mNeedMouseFocus;
+		}
 
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
@@ -94,7 +97,10 @@ namespace MyGUI
 		*/
 		void setInheritsPick(bool _value);
 		/** Get inherits mode flag */
-		bool getInheritsPick() const;
+		bool getInheritsPick() const
+		{
+			return mInheritsPick;
+		}
 
 		/** Set picking mask for widget */
 		void setMaskPick(const std::string& _filename);
