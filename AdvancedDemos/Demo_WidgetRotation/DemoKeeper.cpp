@@ -25,9 +25,10 @@ namespace demo
 			MyGUI::IntCoord(200, 130, 420, 310),
 			MyGUI::Align::Default,
 			"Main");
+		mWindow = window;
 		window->setCaption("Rotated widget subtree");
 		window->setRotationCenter(MyGUI::FloatPoint(210.0f, 155.0f));
-		window->setRotation(0.7853981634f);
+		window->setRotation(0.7853981634f); // 45 degrees
 
 		MyGUI::TextBox* text =
 			window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(65, 65, 280, 45), MyGUI::Align::Default);
@@ -36,7 +37,7 @@ namespace demo
 		MyGUI::Button* button =
 			window->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(65, 135, 250, 44), MyGUI::Align::Default);
 		button->setCaption("Click me (+15 degrees)");
-		button->setRotation(0.2617993878f);
+		button->setRotation(0.2617993878f); // 15 degrees
 		button->eventMouseButtonClick += MyGUI::newDelegate(this, &DemoKeeper::notifyButtonClick);
 
 		MyGUI::EditBox* edit =
@@ -46,8 +47,7 @@ namespace demo
 
 	void DemoKeeper::notifyButtonClick(MyGUI::Widget* _sender)
 	{
-		++mClickCount;
-		_sender->castType<MyGUI::Button>()->setCaption("Clicks: " + std::to_string(mClickCount));
+		mWindow->setRotation(mWindow->getRotation() + 0.2617993878f);
 	}
 
 }

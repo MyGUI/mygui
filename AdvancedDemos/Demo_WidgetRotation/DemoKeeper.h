@@ -14,7 +14,7 @@ namespace demo
 	private:
 		void setupResources() override;
 		void notifyButtonClick(MyGUI::Widget* _sender);
-		int mClickCount{0};
+		MyGUI::Window* mWindow;
 	};
 
 }
