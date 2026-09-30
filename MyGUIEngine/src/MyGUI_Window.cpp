@@ -599,6 +599,14 @@ namespace MyGUI
 		return {};
 	}
 
+	FloatPoint Window::getResizeAnchor() const
+	{
+		const IntPoint position = getAbsolutePosition();
+		return FloatPoint(
+			(float)(position.left + (mCurrentActionScale.width < 0 ? mCoord.width : 0)),
+			(float)(position.top + (mCurrentActionScale.height < 0 ? mCoord.height : 0)));
+	}
+
 	void Window::setMovable(bool _value)
 	{
 		mMovable = _value;
