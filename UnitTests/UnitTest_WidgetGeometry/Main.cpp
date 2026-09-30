@@ -494,6 +494,11 @@ namespace
 		require(
 			child->getRotationCenter() == MyGUI::FloatPoint(0.0f, 0.0f),
 			"RotationCenter property must set a widget-local pivot");
+		parent->setRotationCenter(MyGUI::FloatPoint(100.0f, 100.0f));
+		parent->setSize(MyGUI::IntSize(220, 220));
+		require(
+			parent->getRotationCenter() == MyGUI::FloatPoint(100.0f, 100.0f),
+			"Explicitly setting the current default pivot must keep it fixed after resize");
 		gui.destroyWidget(parent);
 	}
 

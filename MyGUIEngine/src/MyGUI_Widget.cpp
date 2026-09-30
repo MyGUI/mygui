@@ -664,6 +664,8 @@ namespace MyGUI
 
 	void Widget::setRotationCenter(const FloatPoint& _center)
 	{
+		if (mCustomRotationCenter && mRotationCenter == _center)
+			return;
 		mRotationCenter = _center;
 		mCustomRotationCenter = true;
 		invalidateRotation();
