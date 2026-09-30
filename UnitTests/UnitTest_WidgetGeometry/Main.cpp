@@ -494,10 +494,26 @@ namespace
 		require(
 			child->getRotationCenter() == MyGUI::FloatPoint(0.0f, 0.0f),
 			"RotationCenter property must set a widget-local pivot");
-		parent->setRotationCenter(MyGUI::FloatPoint(100.0f, 100.0f));
-		parent->setSize(MyGUI::IntSize(220, 220));
+		const MyGUI::FloatPoint nestedPivot = child->rotatePoint(MyGUI::FloatPoint(200.0f, 150.0f));
 		require(
-			parent->getRotationCenter() == MyGUI::FloatPoint(100.0f, 100.0f),
+			std::abs(nestedPivot.left - 200.0f) < 0.01f && std::abs(nestedPivot.top - 179.2893f) < 0.01f,
+			"Parent and child transforms must compose around their separate pivots");
+		const MyGUI::FloatPoint beforeMove = child->rotatePoint(MyGUI::FloatPoint(240.0f, 200.0f));
+		parent->setPosition(MyGUI::IntPoint(130, 120));
+		const MyGUI::FloatPoint afterMove = child->rotatePoint(MyGUI::FloatPoint(270.0f, 220.0f));
+		require(
+			std::abs(afterMove.left - beforeMove.left - 30.0f) < 0.01f &&
+				std::abs(afterMove.top - beforeMove.top - 20.0f) < 0.01f,
+			"Cached transforms must follow parent movement");
+		parent->setSize(MyGUI::IntSize(220, 220));
+		const MyGUI::FloatPoint defaultPivot = parent->rotatePoint(MyGUI::FloatPoint(240.0f, 230.0f));
+		require(
+			std::abs(defaultPivot.left - 240.0f) < 0.01f && std::abs(defaultPivot.top - 230.0f) < 0.01f,
+			"Cached transform must follow the default pivot when resized");
+		parent->setRotationCenter(MyGUI::FloatPoint(110.0f, 110.0f));
+		parent->setSize(MyGUI::IntSize(240, 240));
+		require(
+			parent->getRotationCenter() == MyGUI::FloatPoint(110.0f, 110.0f),
 			"Explicitly setting the current default pivot must keep it fixed after resize");
 		gui.destroyWidget(parent);
 	}
