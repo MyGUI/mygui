@@ -157,6 +157,8 @@ namespace MyGUI
 		{
 			mPreActionCoord = mCoord;
 			mCurrentActionScale = _getActionScale(_sender);
+			if (mCurrentActionScale.width != 0 || mCurrentActionScale.height != 0)
+				mPreActionAnchor = rotatePoint(getResizeAnchor());
 		}
 	}
 
