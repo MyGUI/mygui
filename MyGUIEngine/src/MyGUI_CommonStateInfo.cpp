@@ -55,6 +55,7 @@ namespace MyGUI
 		}
 	}
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
 	void RotatingSkinStateInfo::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		for (auto prop : _node.node().children("Property"))
@@ -79,6 +80,7 @@ namespace MyGUI
 		IntCoord coord = IntCoord::parse(_node.node().attribute("offset").value());
 		mRect = CoordConverter::convertTextureCoord(coord, size);
 	}
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	void EditTextStateInfo::deserialization(xml::ElementPtr _node, Version _version)
 	{

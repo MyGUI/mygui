@@ -68,6 +68,7 @@ namespace MyGUI
 		bool mTileV{true};
 	};
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
 	class MYGUI_EXPORT RotatingSkinStateInfo : public IStateInfo
 	{
 		MYGUI_RTTI_DERIVED(RotatingSkinStateInfo)
@@ -96,6 +97,7 @@ namespace MyGUI
 		IntPoint mCenter;
 		float mAngle{0}; // Angle in radians
 	};
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 
 	class MYGUI_EXPORT EditTextStateInfo : public IStateInfo

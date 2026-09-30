@@ -39,7 +39,6 @@ namespace MyGUI
 		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "SubSkin");
 		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "MainSkin");
 		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "PolygonalSkin");
-		factory.registerFactory<RotatingSkinStateInfo>(mStateCategoryName, "RotatingSkin");
 		factory.registerFactory<TileRectStateInfo>(mStateCategoryName, "TileRect");
 		factory.registerFactory<EditTextStateInfo>(mStateCategoryName, "EditText");
 		factory.registerFactory<EditTextStateInfo>(mStateCategoryName, "SimpleText");
@@ -47,7 +46,15 @@ namespace MyGUI
 		factory.registerFactory<SubSkin>(mCategoryName);
 		factory.registerFactory<MainSkin>(mCategoryName);
 		factory.registerFactory<PolygonalSkin>(mCategoryName);
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		// Keep the legacy factory available for existing skins.
+		factory.registerFactory<RotatingSkinStateInfo>(mStateCategoryName, "RotatingSkin");
+		MYGUI_SUPPRESS_MSVC(4996)
+		MYGUI_SUPPRESS_GCC("-Wdeprecated-declarations")
 		factory.registerFactory<RotatingSkin>(mCategoryName);
+		MYGUI_UNSUPPRESS_GCC()
+		MYGUI_UNSUPPRESS_MSVC()
+#endif // MYGUI_DONT_USE_OBSOLETE
 		factory.registerFactory<TileRect>(mCategoryName);
 		factory.registerFactory<EditText>(mCategoryName);
 		factory.registerFactory<SimpleText>(mCategoryName);
@@ -66,7 +73,6 @@ namespace MyGUI
 		factory.unregisterFactory(mStateCategoryName, "SubSkin");
 		factory.unregisterFactory(mStateCategoryName, "MainSkin");
 		factory.unregisterFactory(mStateCategoryName, "PolygonalSkin");
-		factory.unregisterFactory(mStateCategoryName, "RotatingSkin");
 		factory.unregisterFactory(mStateCategoryName, "TileRect");
 		factory.unregisterFactory(mStateCategoryName, "EditText");
 		factory.unregisterFactory(mStateCategoryName, "SimpleText");
@@ -74,7 +80,14 @@ namespace MyGUI
 		factory.unregisterFactory<SubSkin>(mCategoryName);
 		factory.unregisterFactory<MainSkin>(mCategoryName);
 		factory.unregisterFactory<PolygonalSkin>(mCategoryName);
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		factory.unregisterFactory(mStateCategoryName, "RotatingSkin");
+		MYGUI_SUPPRESS_MSVC(4996)
+		MYGUI_SUPPRESS_GCC("-Wdeprecated-declarations")
 		factory.unregisterFactory<RotatingSkin>(mCategoryName);
+		MYGUI_UNSUPPRESS_GCC()
+		MYGUI_UNSUPPRESS_MSVC()
+#endif // MYGUI_DONT_USE_OBSOLETE
 		factory.unregisterFactory<TileRect>(mCategoryName);
 		factory.unregisterFactory<EditText>(mCategoryName);
 		factory.unregisterFactory<SimpleText>(mCategoryName);

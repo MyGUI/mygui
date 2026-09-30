@@ -78,7 +78,6 @@ APPS = (
     "Demo_ItemBox_Info",
     # "Demo_Layers", # Ogre only
     "Demo_RTTLayer",
-    "Demo_RotatingSkin",
     "Demo_Spline",
     "Demo_TextureAnimations",
     "Demo_TreeControl",

@@ -8,14 +8,20 @@
 #define MYGUI_ROTATING_SKIN_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_ISubWidgetRect.h"
-#include "MyGUI_RenderFormat.h"
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	#include "MyGUI_Diagnostic.h"
+	#include "MyGUI_Types.h"
+	#include "MyGUI_ISubWidgetRect.h"
+	#include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RotatingSkin : public ISubWidgetRect
+	/** Legacy skin-only rotation. Widget rotation also rotates descendants and affects hit testing. */
+	class MYGUI_OBSOLETE("RotatingSkin is deprecated; use Widget::setRotation() and Widget::setRotationCenter().")
+		MYGUI_EXPORT RotatingSkin : public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED(RotatingSkin)
 
@@ -85,5 +91,7 @@ namespace MyGUI
 	};
 
 } // namespace MyGUI
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 #endif // MYGUI_ROTATING_SKIN_H_

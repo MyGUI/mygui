@@ -1,5 +1,5 @@
-#ifndef MYGUI_UNITTEST_ROTATING_POLYGONAL_SKIN_TEST_H_
-#define MYGUI_UNITTEST_ROTATING_POLYGONAL_SKIN_TEST_H_
+#ifndef MYGUI_UNITTEST_POLYGONAL_SKIN_TEST_H_
+#define MYGUI_UNITTEST_POLYGONAL_SKIN_TEST_H_
 
 #include "SkinTestContext.h"
 #include "TestRunner.h"
@@ -12,9 +12,7 @@ namespace unittest::customskin
 {
 
 	using Tests = std::vector<TestCase>;
-	void addRotatingSkinTests(Tests& _tests);
 	void addPolygonalSkinTests(Tests& _tests);
-	void addGeometryUtilityTests(Tests& _tests);
 
 	// Keep overflow reproducers safe: logical capacity is distinct from guard storage.
 	// These bounded cases emit at most 60 vertices; 128 guard vertices accommodate them.
@@ -239,20 +237,7 @@ namespace unittest::customskin
 		auto node = resource->createChild("BasisSkin")->createChild("State");
 		auto* texture = _renderer.getTexture("MyGUI_BlueWhiteSkins.png");
 		node->addAttribute("offset", MyGUI::IntCoord(0, 0, texture->getWidth() / 2, texture->getHeight() / 2));
-		using State = std::conditional_t<
-			std::is_same_v<Skin, MyGUI::RotatingSkin>,
-			MyGUI::RotatingSkinStateInfo,
-			MyGUI::SubSkinStateInfo>;
-		if constexpr (std::is_same_v<Skin, MyGUI::RotatingSkin>)
-		{
-			auto angle = node->createChild("Property");
-			angle->addAttribute("key", "Angle");
-			angle->addAttribute("value", "0.37");
-			auto center = node->createChild("Property");
-			center->addAttribute("key", "Center");
-			center->addAttribute("value", "20 10");
-		}
-		State state;
+		MyGUI::SubSkinStateInfo state;
 		static_cast<MyGUI::IStateInfo&>(state).deserialization(node, MyGUI::Version(1, 0));
 		_skin.setStateData(&state);
 	}

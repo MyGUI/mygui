@@ -5,12 +5,15 @@
  */
 
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_RotatingSkin.h"
-#include "MyGUI_CoordConverter.h"
-#include "MyGUI_RenderItem.h"
-#include "MyGUI_CommonStateInfo.h"
-#include "MyGUI_RenderManager.h"
-#include "MyGUI_GeometryUtility.h"
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	#include "MyGUI_RotatingSkin.h"
+	#include "MyGUI_CoordConverter.h"
+	#include "MyGUI_RenderItem.h"
+	#include "MyGUI_CommonStateInfo.h"
+	#include "MyGUI_RenderManager.h"
+	#include "MyGUI_GeometryUtility.h"
 
 namespace MyGUI
 {
@@ -223,3 +226,5 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
+
+#endif // MYGUI_DONT_USE_OBSOLETE

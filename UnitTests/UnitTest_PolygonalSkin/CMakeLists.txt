@@ -1,0 +1,2 @@
+mygui_unit_test(UnitTest_PolygonalSkin)
+target_link_libraries(UnitTest_PolygonalSkin PRIVATE MyGUISkinTestSupport)
