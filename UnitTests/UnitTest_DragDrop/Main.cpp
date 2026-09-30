@@ -1,5 +1,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
+#include <cmath>
 #include <vector>
 
 namespace
@@ -16,6 +17,7 @@ namespace
 		unittest::TestContext context;
 		MyGUI::ItemBox* source;
 		MyGUI::ItemBox* target;
+		MyGUI::Widget* dragPreview{nullptr};
 
 		Fixture()
 		{
@@ -51,6 +53,8 @@ namespace
 		void createItem(MyGUI::ItemBox*, MyGUI::Widget* _item)
 		{
 			_item->setNeedKeyFocus(true);
+			if (_item->getParent() == nullptr)
+				dragPreview = _item;
 		}
 		void starting(MyGUI::DDContainer*, const MyGUI::DDItemInfo&, bool& _result)
 		{
@@ -119,6 +123,31 @@ namespace
 		require(fixture.results == std::vector<bool>({false, true}), "A new drag after cancellation must work");
 	}
 
+	void testRotatedDragPreview()
+	{
+		Fixture fixture;
+		fixture.source->setRotation(1.5707963268f);
+		const MyGUI::FloatPoint start = fixture.source->rotatePoint(MyGUI::FloatPoint(25.0f, 25.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		MyGUI::Widget* grabbed = MyGUI::LayerManager::getInstance().getWidgetFromPoint(press.left, press.top);
+		require(grabbed != nullptr && grabbed != fixture.source, "Rotated item must be pickable");
+		const MyGUI::IntPoint origin = grabbed->getAbsolutePosition();
+		const MyGUI::FloatPoint displayedOrigin =
+			grabbed->rotatePoint(MyGUI::FloatPoint((float)origin.left, (float)origin.top));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left + 80, press.top + 40, 0);
+		require(fixture.dragPreview != nullptr, "Dragging a rotated item must create its preview");
+		require(
+			fixture.dragPreview->getPosition() ==
+				MyGUI::IntPoint(
+					(int)std::lround(displayedOrigin.left) + 80,
+					(int)std::lround(displayedOrigin.top) + 40),
+			"Drag preview must follow the displayed item origin without jumping");
+		input.injectMouseRelease(press.left + 80, press.top + 40, MyGUI::MouseButton::Left);
+	}
+
 }
 
 int main()
@@ -127,5 +156,6 @@ int main()
 		{"Accepted drop", testDrop<true>},
 		{"Rejected drop", testDrop<false>},
 		{"Cancellation and recovery", testCancelAndMiss},
+		{"Rotated drag preview", testRotatedDragPreview},
 	});
 }
