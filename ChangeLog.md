@@ -54,6 +54,7 @@
 - Optimize delegate invocation and subscription handling, and fix callback lifetime issues during nested dispatch,
   mutation, exceptions and event destruction
 - Add base widget rotation support with updated hit testing, clipping and coordinate conversion; add Widget::setRotation and getRotation
+- Deprecate RotatingSkin, use Widget::setRotation instead
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
