@@ -105,14 +105,47 @@ namespace
 			MyGUI::IntCoord(100, 100, 200, 120),
 			MyGUI::Align::Default,
 			"Main");
-		window->setRotationCenter(MyGUI::FloatPoint(100.0f, 60.0f));
 		window->setRotation(1.5707963268f);
+		const MyGUI::FloatPoint oppositeBefore = window->rotatePoint(MyGUI::FloatPoint(100.0f, 100.0f));
 		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(295.0f, 215.0f));
 		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
-		unittest::dragFromTo(press, MyGUI::IntPoint(press.left, press.top + 20));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left, press.top + 20, 0);
 		require(
 			window->getSize() == MyGUI::IntSize(220, 120),
 			"Rotated resize handle must use the window's layout axes");
+		require(
+			window->getPosition() == MyGUI::IntPoint(90, 110),
+			"Resizing around the default pivot must keep the opposite displayed corner fixed");
+		input.injectMouseMove(press.left, press.top + 40, 0);
+		require(window->getCoord() == MyGUI::IntCoord(80, 120, 240, 120), "Further resizing must not drift");
+		const MyGUI::FloatPoint oppositeAfter = window->rotatePoint(MyGUI::FloatPoint(80.0f, 120.0f));
+		require(
+			std::abs(oppositeAfter.left - oppositeBefore.left) < 0.01f &&
+				std::abs(oppositeAfter.top - oppositeBefore.top) < 0.01f,
+			"The opposite displayed corner must stay anchored across drag updates");
+		input.injectMouseRelease(press.left, press.top + 40, MyGUI::MouseButton::Left);
+
+		window->setCoord(MyGUI::IntCoord(100, 100, 200, 120));
+		const MyGUI::FloatPoint otherOpposite = window->rotatePoint(MyGUI::FloatPoint(300.0f, 100.0f));
+		const MyGUI::FloatPoint otherStart = window->rotatePoint(MyGUI::FloatPoint(105.0f, 215.0f));
+		const MyGUI::IntPoint otherPress((int)std::lround(otherStart.left), (int)std::lround(otherStart.top));
+		input.injectMouseMove(otherPress.left, otherPress.top, 0);
+		input.injectMousePress(otherPress.left, otherPress.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(otherPress.left, otherPress.top + 20, 0);
+		require(
+			window->getCoord() == MyGUI::IntCoord(110, 110, 180, 120),
+			"Left-bottom resize must keep the opposite displayed corner fixed");
+		input.injectMouseMove(otherPress.left, otherPress.top + 40, 0);
+		require(window->getCoord() == MyGUI::IntCoord(120, 120, 160, 120), "Left-bottom resize must not drift");
+		const MyGUI::FloatPoint otherAfter = window->rotatePoint(MyGUI::FloatPoint(280.0f, 120.0f));
+		require(
+			std::abs(otherAfter.left - otherOpposite.left) < 0.01f &&
+				std::abs(otherAfter.top - otherOpposite.top) < 0.01f,
+			"The opposite displayed corner must stay anchored when position and size both change");
+		input.injectMouseRelease(otherPress.left, otherPress.top + 40, MyGUI::MouseButton::Left);
 	}
 
 	void testSnappingAndVisibility()
