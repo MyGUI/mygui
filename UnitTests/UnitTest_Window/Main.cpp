@@ -67,6 +67,54 @@ namespace
 		input.injectMouseRelease(press.left + 60, press.top + 30, MyGUI::MouseButton::Left);
 	}
 
+	void testDragWithinRotatedParent()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* parent = context.getGui().createWidget<MyGUI::Widget>(
+			"Default",
+			MyGUI::IntCoord(50, 50, 400, 400),
+			MyGUI::Align::Default,
+			"Main");
+		auto* window = parent->createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default);
+		parent->setRotation(1.5707963268f);
+		window->setRotation(0.7853981634f);
+		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(190.0f, 160.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(press.left, press.top, 0);
+		input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+		input.injectMouseMove(press.left + 40, press.top, 0);
+		require(
+			window->getPosition() == MyGUI::IntPoint(100, 60),
+			"Window movement must use the parent's axes, regardless of its own rotation");
+		input.injectMouseRelease(press.left + 40, press.top, MyGUI::MouseButton::Left);
+	}
+
+	void testRotatedWindowResize()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setRotationCenter(MyGUI::FloatPoint(100.0f, 60.0f));
+		window->setRotation(1.5707963268f);
+		const MyGUI::FloatPoint start = window->rotatePoint(MyGUI::FloatPoint(295.0f, 215.0f));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		unittest::dragFromTo(press, MyGUI::IntPoint(press.left, press.top + 20));
+		require(
+			window->getSize() == MyGUI::IntSize(220, 120),
+			"Rotated resize handle must use the window's layout axes");
+	}
+
 	void testSnappingAndVisibility()
 	{
 		unittest::TestContext context;
@@ -102,6 +150,8 @@ int main()
 	return unittest::runTests({
 		{"Moving and resizing", testMovementAndResize},
 		{"Rotated window drag", testRotatedWindowDrag},
+		{"Drag within rotated parent", testDragWithinRotatedParent},
+		{"Rotated window resize", testRotatedWindowResize},
 		{"Snapping and visibility", testSnappingAndVisibility},
 	});
 }
