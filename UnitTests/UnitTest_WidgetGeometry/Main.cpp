@@ -459,6 +459,9 @@ namespace
 		require(
 			std::abs(restored.left - 240.0f) < 0.01f && std::abs(restored.top - 200.0f) < 0.01f,
 			"Input transform must invert the displayed transform");
+		require(
+			child->unrotateVector(MyGUI::IntPoint(0, 40)) == MyGUI::IntPoint(40, 0),
+			"Screen displacement must convert through both rotations without depending on the pivot");
 		MyGUI::RenderTargetInfo renderInfo;
 		renderInfo.pixScaleX = 1.0f / 800.0f;
 		renderInfo.pixScaleY = 1.0f / 600.0f;
