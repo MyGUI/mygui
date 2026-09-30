@@ -12,6 +12,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
+#include <cmath>
 
 namespace MyGUI
 {
@@ -607,9 +608,12 @@ namespace MyGUI
 				setIndexSelected(mDropSenderIndex);
 			}
 
-			// offset inside widget where mouse was clicked
-			mClickInWidget = InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender) -
-				_sender->getAbsolutePosition();
+			// The drag preview is drawn in screen space, so retain the displayed
+			// offset from the grabbed item's origin
+			const IntPoint origin = _sender->getAbsolutePosition();
+			const FloatPoint displayedOrigin = _sender->rotatePoint(FloatPoint((float)origin.left, (float)origin.top));
+			mClickInWidget = InputManager::getInstance().getMousePosition() -
+				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
 
 			eventMouseItemActivate(this, mIndexSelect);
 			// send position change only on actual change

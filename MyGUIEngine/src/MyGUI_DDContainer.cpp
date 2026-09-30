@@ -8,14 +8,22 @@
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_LayerManager.h"
+#include <cmath>
 
 namespace MyGUI
 {
 
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		// offset inside the widget where the mouse was clicked
-		mClickInWidget = InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - getAbsolutePosition();
+		if (_id == MouseButton::Left)
+		{
+			// The drag preview follows the layer-space pointer, so keep its grab
+			// offset in that space and anchor it to the widget's displayed origin
+			const IntPoint origin = getAbsolutePosition();
+			const FloatPoint displayedOrigin = rotatePoint(FloatPoint((float)origin.left, (float)origin.top));
+			mClickInWidget = InputManager::getInstance().getLastPressedPosition(MouseButton::Left) -
+				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
+		}
 
 		mouseButtonPressed(_id);
 
