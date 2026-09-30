@@ -459,8 +459,8 @@ namespace MyGUI
 			const FloatPoint center = getRotationCenter();
 			const float dx = point.left - (mCoord.left + center.left);
 			const float dy = point.top - (mCoord.top + center.top);
-			const float c = std::cos(mRotation);
-			const float s = std::sin(mRotation);
+			const float c = mRotationTransform.cosine;
+			const float s = mRotationTransform.sine;
 			point.left = mCoord.left + center.left + dx * c + dy * s;
 			point.top = mCoord.top + center.top - dx * s + dy * c;
 		}
@@ -504,6 +504,7 @@ namespace MyGUI
 	{
 		const IntPoint oldPosition = mAbsolutePosition;
 		mAbsolutePosition = mCroppedParent ? mCroppedParent->getAbsolutePosition() + mCoord.point() : mCoord.point();
+		updateRotationTransform();
 
 		for (auto& widget : mWidgetChild)
 			if (_oldSize != nullptr)
@@ -654,6 +655,8 @@ namespace MyGUI
 		if (mRotation == _radians)
 			return;
 		mRotation = _radians;
+		mRotationTransform.cosine = std::cos(_radians);
+		mRotationTransform.sine = std::sin(_radians);
 		invalidateRotation();
 	}
 
@@ -676,36 +679,60 @@ namespace MyGUI
 		return mCustomRotationCenter ? mRotationCenter : FloatPoint(mCoord.width * 0.5f, mCoord.height * 0.5f);
 	}
 
+	FloatPoint Widget::RotationTransform::rotate(const FloatPoint& _point) const
+	{
+		return FloatPoint(
+			cosine * _point.left - sine * _point.top + offsetX,
+			sine * _point.left + cosine * _point.top + offsetY);
+	}
+
+	FloatPoint Widget::RotationTransform::unrotate(const FloatPoint& _point) const
+	{
+		const float x = _point.left - offsetX;
+		const float y = _point.top - offsetY;
+		return FloatPoint(cosine * x + sine * y, cosine * y - sine * x);
+	}
+
+	void Widget::updateRotationTransform()
+	{
+		if (mRotation == 0.0f)
+		{
+			mRotationTransform.offsetX = 0.0f;
+			mRotationTransform.offsetY = 0.0f;
+			return;
+		}
+		const FloatPoint center = getRotationCenter();
+		const float x = mAbsolutePosition.left + center.left;
+		const float y = mAbsolutePosition.top + center.top;
+		mRotationTransform.offsetX = x - mRotationTransform.cosine * x + mRotationTransform.sine * y;
+		mRotationTransform.offsetY = y - mRotationTransform.sine * x - mRotationTransform.cosine * y;
+	}
+
+	Widget::RotationTransform Widget::getWorldRotationTransform() const
+	{
+		if (mParent == nullptr)
+			return mRotationTransform;
+		const RotationTransform parent = mParent->getWorldRotationTransform();
+		RotationTransform result;
+		result.cosine = parent.cosine * mRotationTransform.cosine - parent.sine * mRotationTransform.sine;
+		result.sine = parent.sine * mRotationTransform.cosine + parent.cosine * mRotationTransform.sine;
+		result.offsetX =
+			parent.cosine * mRotationTransform.offsetX - parent.sine * mRotationTransform.offsetY + parent.offsetX;
+		result.offsetY =
+			parent.sine * mRotationTransform.offsetX + parent.cosine * mRotationTransform.offsetY + parent.offsetY;
+		return result;
+	}
+
 	FloatPoint Widget::rotatePoint(const FloatPoint& _point) const
 	{
-		FloatPoint result = _point;
-		if (mRotation != 0.0f)
-		{
-			const FloatPoint center = getRotationCenter();
-			const float x = result.left - mAbsolutePosition.left - center.left;
-			const float y = result.top - mAbsolutePosition.top - center.top;
-			const float c = std::cos(mRotation);
-			const float s = std::sin(mRotation);
-			result.left = mAbsolutePosition.left + center.left + x * c - y * s;
-			result.top = mAbsolutePosition.top + center.top + x * s + y * c;
-		}
+		const FloatPoint result = mRotation != 0.0f ? mRotationTransform.rotate(_point) : _point;
 		return mParent ? mParent->rotatePoint(result) : result;
 	}
 
 	FloatPoint Widget::unrotatePoint(const FloatPoint& _point) const
 	{
-		FloatPoint result = mParent ? mParent->unrotatePoint(_point) : _point;
-		if (mRotation != 0.0f)
-		{
-			const FloatPoint center = getRotationCenter();
-			const float x = result.left - mAbsolutePosition.left - center.left;
-			const float y = result.top - mAbsolutePosition.top - center.top;
-			const float c = std::cos(mRotation);
-			const float s = std::sin(mRotation);
-			result.left = mAbsolutePosition.left + center.left + x * c + y * s;
-			result.top = mAbsolutePosition.top + center.top - x * s + y * c;
-		}
-		return result;
+		const FloatPoint result = mParent ? mParent->unrotatePoint(_point) : _point;
+		return mRotation != 0.0f ? mRotationTransform.unrotate(result) : result;
 	}
 
 	void Widget::_transformVertices(Vertex* _vertices, size_t _count, const RenderTargetInfo& _info) const
@@ -715,6 +742,7 @@ namespace MyGUI
 			rotated |= widget->mRotation != 0.0f;
 		if (!rotated)
 			return;
+		const RotationTransform transform = getWorldRotationTransform();
 
 		for (size_t i = 0; i < _count; ++i)
 		{
@@ -722,7 +750,7 @@ namespace MyGUI
 			const FloatPoint pixel(
 				((vertex.x + 1.0f) * 0.5f - _info.hOffset) / _info.pixScaleX + _info.leftOffset,
 				((1.0f - vertex.y) * 0.5f - _info.vOffset) / _info.pixScaleY + _info.topOffset);
-			const FloatPoint transformed = rotatePoint(pixel);
+			const FloatPoint transformed = transform.rotate(pixel);
 			vertex.x = 2.0f * (_info.pixScaleX * (transformed.left - _info.leftOffset) + _info.hOffset) - 1.0f;
 			vertex.y = 1.0f - 2.0f * (_info.pixScaleY * (transformed.top - _info.topOffset) + _info.vOffset);
 		}
@@ -735,6 +763,7 @@ namespace MyGUI
 
 	void Widget::invalidateRotation()
 	{
+		updateRotationTransform();
 		_updateView();
 		for (auto* widget : mWidgetChild)
 			widget->invalidateRotation();

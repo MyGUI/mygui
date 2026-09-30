@@ -455,6 +455,17 @@ namespace MyGUI
 		virtual void setPropertyOverride(std::string_view _key, std::string_view _value);
 
 	private:
+		struct RotationTransform
+		{
+			float cosine{1.0f};
+			float sine{0.0f};
+			float offsetX{0.0f};
+			float offsetY{0.0f};
+
+			FloatPoint rotate(const FloatPoint& _point) const;
+			FloatPoint unrotate(const FloatPoint& _point) const;
+		};
+
 		const WidgetInfo* initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo);
 		void shutdownWidgetSkinBase();
 
@@ -475,6 +486,8 @@ namespace MyGUI
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
 		ILayerItem* getLayerItemByPointUnrotated(const FloatPoint& _point) const;
+		void updateRotationTransform();
+		RotationTransform getWorldRotationTransform() const;
 		void invalidateRotation();
 
 		void _linkChildWidget(Widget* _widget) override;
@@ -514,6 +527,7 @@ namespace MyGUI
 		float mRotation{0.0f};
 		FloatPoint mRotationCenter;
 		bool mCustomRotationCenter{false};
+		RotationTransform mRotationTransform;
 		int mDepth{0};
 	};
 
