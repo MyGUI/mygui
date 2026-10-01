@@ -55,6 +55,8 @@
   mutation, exceptions and event destruction
 - Add base widget rotation support with updated hit testing, clipping and coordinate conversion; add Widget::setRotation and getRotation
 - Deprecate RotatingSkin, use Widget::setRotation instead
+- Fix FreeType and MSDF fonts bypassing the configured substitute for unsupported characters and regenerating incorrect
+  glyphs after texture invalidation
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

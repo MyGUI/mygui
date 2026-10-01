@@ -592,6 +592,13 @@ namespace MyGUI
 		{
 			const Char& codePoint = iter->first;
 			FT_UInt glyphIndex = FT_Get_Char_Index(ftFace, codePoint);
+			// Leave unsupported characters to our substitute glyph. This also removes
+			// synthetic code points left by a previous atlas before recreating them below.
+			if (glyphIndex == 0)
+			{
+				iter = mCharMap.erase(iter);
+				continue;
+			}
 
 			if (!mMsdfMode)
 				texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
@@ -600,8 +607,7 @@ namespace MyGUI
 				texWidth += createMsdfFaceGlyph(glyphIndex, codePoint, fontAscent, msdfFont, glyphHeightMap);
 	#endif
 
-			// If the newly created glyph is the "Not Defined" glyph, it means that the code point is not supported by the font.
-			// Remove it from the character map so that we can provide our own substitute instead of letting FreeType do it.
+			// If glyph creation failed, do not advertise the code point as supported.
 			if (iter->second != 0)
 				++iter;
 			else

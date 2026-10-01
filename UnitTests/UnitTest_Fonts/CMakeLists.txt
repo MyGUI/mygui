@@ -1,0 +1,11 @@
+mygui_unit_test(UnitTest_ManualFont)
+
+if(MYGUI_USE_FREETYPE)
+	mygui_unit_test(UnitTest_FreeTypeFont)
+	target_link_libraries(UnitTest_FreeTypeFont PRIVATE MyGUISkinTestSupport)
+	if(MYGUI_MSDF_FONTS)
+		mygui_unit_test(UnitTest_MsdfFont)
+		target_compile_definitions(UnitTest_MsdfFont PRIVATE MYGUI_UNITTEST_MSDF)
+		target_link_libraries(UnitTest_MsdfFont PRIVATE MyGUISkinTestSupport)
+	endif()
+endif()
