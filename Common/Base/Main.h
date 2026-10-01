@@ -18,6 +18,7 @@
 
 #if defined(MYGUI_APP_ENTRY)
 	#define MYGUI_APP(cls) \
+		int MYGUI_APP_ENTRY(int argc, char** argv); \
 		int MYGUI_APP_ENTRY(int argc, char** argv) \
 		{ \
 			return startApp<cls>(argc, argv); \
