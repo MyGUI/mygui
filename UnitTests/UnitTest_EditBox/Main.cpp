@@ -56,6 +56,83 @@ namespace
 		require(edit->getOnlyText() == "x", "Backspace at start and Delete at end must be harmless");
 	}
 
+	void testEditingProperties()
+	{
+		unittest::TestContext context;
+		auto* edit = createEdit(context.getGui());
+		edit->setProperty("Caption", "abcdef");
+		edit->setProperty("CursorPosition", "2");
+		require(edit->getTextCursor() == 2, "CursorPosition must set the logical cursor index");
+		edit->setProperty("TextSelect", "4 1");
+		require(
+			edit->getTextSelectionStart() == 1 && edit->getTextSelectionEnd() == 4 &&
+				MyGUI::TextIterator::getOnlyText(edit->getTextSelection()) == "bcd",
+			"TextSelect must support reverse selection");
+		edit->setProperty("ReadOnly", "true");
+		unittest::keyStroke(MyGUI::KeyCode::Backspace);
+		unittest::keyStroke(MyGUI::KeyCode::Delete);
+		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
+		require(
+			edit->getEditReadOnly() && edit->getOnlyText() == "abcdef" && edit->getTextSelectionLength() == 3,
+			"ReadOnly must preserve both text and selection when editing keys are pressed");
+		edit->setProperty("ReadOnly", "false");
+		unittest::keyStroke(MyGUI::KeyCode::Backspace);
+		require(
+			edit->getOnlyText() == "aef" && edit->getTextCursor() == 1 && !edit->isTextSelection(),
+			"Disabling ReadOnly must allow Backspace to delete the selected range");
+		unittest::shortcut(MyGUI::KeyCode::Z);
+		require(edit->getOnlyText() == "abcdef", "Undo must restore the complete selection deleted by Backspace");
+		edit->setProperty("TextSelect", "1 4");
+		unittest::keyStroke(MyGUI::KeyCode::Delete);
+		require(
+			edit->getOnlyText() == "aef" && edit->getTextCursor() == 1,
+			"Delete must remove a forward selection without deleting adjacent text");
+
+		edit->setProperty("PasswordChar", "@");
+		edit->setProperty("Password", "true");
+		require(
+			edit->getEditPassword() && edit->getPasswordChar() == '@' &&
+				edit->getClientWidget()->getSubWidgetText()->getCaption() == "@@@",
+			"Password properties must mask the displayed text with the chosen character");
+		edit->setProperty("Password", "false");
+		require(
+			edit->getOnlyText() == "aef" && edit->getClientWidget()->getSubWidgetText()->getCaption() == "aef",
+			"Disabling Password must restore the original display");
+		edit->setProperty("MaxTextLength", "4");
+		edit->setProperty("OverflowToTheLeft", "true");
+		edit->setOnlyText("abcd");
+		edit->addText("ef");
+		require(
+			edit->getOnlyText() == "cdef",
+			"Length and overflow properties must retain the newest text when appending");
+		edit->setProperty("OverflowToTheLeft", "false");
+		edit->addText("gh");
+		require(edit->getOnlyText() == "cdef", "Disabling left overflow must retain the existing text at its limit");
+
+		edit->setProperty("MaxTextLength", "100");
+		edit->setProperty("Static", "true");
+		unittest::keyStroke(MyGUI::KeyCode::X, 'x');
+		require(edit->getOnlyText() == "cdef" && edit->getEditStatic(), "Static must suppress text input");
+		edit->setProperty("Static", "false");
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(edit);
+		edit->setOnlyText("a");
+		edit->setTextCursor(1);
+		edit->setProperty("MultiLine", "true");
+		edit->setProperty("TabPrinting", "true");
+		unittest::keyStroke(MyGUI::KeyCode::Return);
+		unittest::keyStroke(MyGUI::KeyCode::Tab, '\t');
+		require(edit->getOnlyText() == "a\n\t", "MultiLine and TabPrinting must permit newline and tab insertion");
+		for (const char* value : {"true", "false"})
+		{
+			edit->setProperty("WordWrap", value);
+			edit->setProperty("InvertSelected", value);
+			require(
+				edit->getEditWordWrap() == (std::string_view(value) == "true") &&
+					edit->getInvertSelected() == (std::string_view(value) == "true"),
+				"Text rendering properties must support both enabling and disabling");
+		}
+	}
+
 	void testHistory()
 	{
 		unittest::TestContext context;
@@ -429,5 +506,6 @@ int main()
 		{"Unicode and colour tags", testUnicodeAndTags},
 		{"Clipboard and password", testClipboardAndPassword},
 		{"Single-line and multiline input", testNewlines},
+		{"Editing properties and selection deletion", testEditingProperties},
 	});
 }

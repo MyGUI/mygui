@@ -6,6 +6,94 @@ namespace
 {
 
 	using unittest::require;
+
+	void testCoordinateConstraints()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"Default",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setSnap(false);
+		window->setMinSize(100, 60);
+		window->setMaxSize(250, 160);
+		struct ResizeCase
+		{
+			MyGUI::IntCoord requested;
+			MyGUI::IntCoord expected;
+		};
+		const ResizeCase cases[] = {
+			{{250, 190, 50, 30}, {200, 160, 100, 60}}, // Top/left resize keeps the opposite corner.
+			{{-50, 10, 350, 210}, {50, 60, 250, 160}},
+			{{100, 100, 50, 30}, {100, 100, 100, 60}}, // Bottom/right resize keeps the origin.
+			{{100, 100, 350, 210}, {100, 100, 250, 160}},
+			{{100, 100, 200, 120}, {100, 100, 200, 120}},
+		};
+		for (const auto& entry : cases)
+		{
+			window->setCoord(100, 100, 200, 120);
+			window->setCoord(entry.requested);
+			require(window->getCoord() == entry.expected, "Clamping a resize must preserve its anchored corner");
+		}
+		window->setMaxSize(800, 600);
+		window->setSnap(true);
+		window->setCoord(5, 7, 200, 120);
+		require(
+			window->getCoord() == MyGUI::IntCoord(0, 0, 205, 127),
+			"Top/left snapping must extend size while preserving the opposite corner");
+		window->setCoord(100, 100, 695, 493);
+		require(
+			window->getCoord() == MyGUI::IntCoord(100, 100, 700, 500),
+			"Bottom/right snapping must extend size to the view edges");
+		window->setSnap(false);
+		window->setCoord(5, 7, 200, 120);
+		require(
+			window->getCoord() == MyGUI::IntCoord(5, 7, 200, 120),
+			"Disabling snapping must preserve the requested rectangle");
+	}
+
+	void testAutomaticAlpha()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto& gui = context.getGui();
+		auto* window = gui.createWidget<MyGUI::Window>(
+			"Default",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		auto& input = MyGUI::InputManager::getInstance();
+		auto checkAlpha = [&](float expected)
+		{
+			gui.eventFrameStart(1.0f);
+			require(
+				std::abs(window->getAlpha() - expected) < 0.001f,
+				"Automatic opacity must follow the current focus state");
+		};
+		window->setAutoAlpha(true);
+		checkAlpha(0.3f);
+		input.injectMouseMove(110, 110, 0);
+		checkAlpha(0.7f);
+		window->setAutoAlpha(true);
+		checkAlpha(0.7f);
+		input.setKeyFocusWidget(window);
+		checkAlpha(1.0f);
+		window->setAutoAlpha(true);
+		checkAlpha(1.0f);
+		input.injectMouseMove(500, 500, 0);
+		checkAlpha(1.0f);
+		input.setKeyFocusWidget(nullptr);
+		checkAlpha(0.3f);
+		window->setAutoAlpha(false);
+		checkAlpha(1.0f);
+		input.injectMouseMove(110, 110, 0);
+		checkAlpha(1.0f);
+		input.injectMouseMove(500, 500, 0);
+		checkAlpha(1.0f);
+	}
+
 	void testMovementAndResize()
 	{
 		unittest::TestContext context;
@@ -202,5 +290,7 @@ int main()
 		{"Drag within rotated parent", testDragWithinRotatedParent},
 		{"Rotated window resize", testRotatedWindowResize},
 		{"Snapping and visibility", testSnappingAndVisibility},
+		{"Coordinate constraints and size snapping", testCoordinateConstraints},
+		{"Automatic opacity and focus transitions", testAutomaticAlpha},
 	});
 }

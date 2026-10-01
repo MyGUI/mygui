@@ -5,11 +5,156 @@
 #include <sstream>
 #include <fstream>
 #include "MyGUI_FileSystemUtility.h"
+#include "MyGUI_DataStream.h"
+#include <map>
 
 namespace
 {
 
 	using unittest::require;
+
+	class LanguageStream : public MyGUI::DataStream
+	{
+		std::istringstream mInput;
+
+	public:
+		explicit LanguageStream(const std::string& text) :
+			mInput(text)
+		{
+			mStream = &mInput;
+		}
+	};
+
+	class LanguageDataManager : public MyGUI::DummyDataManager
+	{
+	public:
+		std::map<std::string, std::string> files;
+
+		MyGUI::IDataStream* getData(const std::string& _name) const override
+		{
+			auto found = files.find(_name);
+			if (found == files.end())
+				return nullptr;
+			return new LanguageStream(found->second);
+		}
+	};
+
+	class LanguageTestContext
+	{
+		MyGUI::LogManager mLog;
+		MyGUI::DummyRenderManager mRenderer;
+
+	public:
+		LanguageDataManager data;
+		MyGUI::Gui gui;
+
+		LanguageTestContext()
+		{
+			mRenderer.initialise();
+			mRenderer.setViewSize(800, 600);
+			gui.initialise("");
+		}
+		~LanguageTestContext()
+		{
+			gui.shutdown();
+			mRenderer.shutdown();
+		}
+	};
+
+	void testLanguageLoadingAndSwitching()
+	{
+		std::vector<std::string> changes;
+		LanguageTestContext context;
+		context.data.files = {
+			{"languages.xml", R"(<MyGUI type="Language"><Language default="English">
+				<Info><Source>user.xml</Source></Info>
+				<Info name="English"><Source>english.xml</Source></Info>
+				<Info name="French"><Source>french.xml</Source></Info>
+			</Language></MyGUI>)"},
+			{"user.xml", R"(<Tags><Tag name="greeting">Fallback</Tag><Tag name="product">MyGUI</Tag></Tags>)"},
+			{"english.xml",
+			 R"(<Tags><Tag name="greeting">Hello</Tag><Tag name="englishOnly">Only English</Tag></Tags>)"},
+			{"french.xml", R"(<Tags><Tag name="greeting">Bonjour</Tag></Tags>)"},
+			{"extra.xml", R"(<Tags><Tag name="greeting">Welcome</Tag><Tag name="extra">Extra</Tag></Tags>)"},
+			{"extension.xml", R"(<MyGUI type="Language"><Language>
+				<Info name="English"><Source>extra.xml</Source></Info>
+			</Language></MyGUI>)"},
+		};
+		auto& language = MyGUI::LanguageManager::getInstance();
+		language.eventChangeLanguage += MyGUI::newDelegate(
+			[&](const std::string& name)
+			{
+				require(language.getCurrentLanguage() == name, "Language must be current before its change event");
+				require(
+					language.getTag("greeting") != "greeting",
+					"Translations must be loaded before notifying listeners");
+				changes.push_back(name);
+			},
+			1);
+		auto& resources = MyGUI::ResourceManager::getInstance();
+		require(resources.load("languages.xml"), "Language configuration must load through ResourceManager");
+		require(
+			language.getLanguages() == MyGUI::VectorString({"English", "French"}),
+			"Both configured languages must be available");
+		require(changes == std::vector<std::string>({"English"}), "Loading the default must emit one change event");
+		require(
+			language.replaceTags("#{greeting}, #{product}!") == "Hello, MyGUI!",
+			"Language tags must override user tags and retain user fallbacks");
+		language.setCurrentLanguage("French");
+		require(language.getTag("greeting") == "Bonjour", "Switching must load the new translations");
+		require(
+			language.getTag("englishOnly") == "englishOnly",
+			"Switching must discard tags unique to the previous language");
+		require(language.getTag("product") == "MyGUI", "User tags must survive language changes");
+		language.setCurrentLanguage("Missing");
+		require(
+			language.getCurrentLanguage() == "French" && changes.size() == 2,
+			"An unknown language must preserve the current language without notification");
+		language.setCurrentLanguage("English");
+		require(resources.load("extension.xml"), "Additional language sources must load");
+		require(
+			language.getTag("greeting") == "Welcome" && language.getTag("extra") == "Extra",
+			"A new source for the current language must apply immediately");
+		require(
+			changes == std::vector<std::string>({"English", "French", "English", "English"}),
+			"Extending the current language must notify listeners once");
+		language.setCurrentLanguage("French");
+		language.setCurrentLanguage("English");
+		require(
+			language.getTag("greeting") == "Welcome",
+			"Switching back must reload all sources in declaration order");
+		language.clearUserTags();
+		require(
+			language.getTag("product") == "product" && language.getTag("greeting") == "Welcome",
+			"Clearing user tags must preserve language translations");
+		require(
+			language.loadUserTags("user.xml") && language.getTag("product") == "MyGUI",
+			"User tags must be reloadable independently");
+		require(
+			!language.loadUserTags("missing.xml") && language.getTag("product") == "MyGUI",
+			"A missing user file must report failure and retain existing tags");
+	}
+
+	void testLanguageTagFallbacks()
+	{
+		unittest::TestContext context;
+		auto& language = MyGUI::LanguageManager::getInstance();
+		require(
+			MyGUI::TextIterator::getOnlyText(language.replaceTags("#{missing}")) == "#{missing}",
+			"Unknown tags must display literally after text markup is decoded");
+		for (const char* text : {"trailing#", "#plain", "#{unfinished"})
+			require(language.replaceTags(text) == text, "Incomplete tag syntax must preserve the input");
+		language.eventRequestTag = MyGUI::newDelegate(
+			[](const MyGUI::UString& tag, MyGUI::UString& result)
+			{
+				require(tag == "dynamic", "The fallback event must receive the unresolved tag name");
+				result = "resolved";
+			},
+			1);
+		require(
+			language.replaceTags("A #{dynamic} value") == "A resolved value",
+			"Unresolved tags must use the application's fallback callback");
+	}
 
 	void testLayoutInstances()
 	{
@@ -230,5 +375,7 @@ int main()
 		{"Default font fallback", testFontFallback},
 		{"XML failure and recovery", testXmlFailureAndRecovery},
 		{"Unicode filenames and wildcards", testUnicodeFilePaths},
+		{"Language loading, switching, and source extensions", testLanguageLoadingAndSwitching},
+		{"Language tag fallbacks", testLanguageTagFallbacks},
 	});
 }

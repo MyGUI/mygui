@@ -1,5 +1,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
+#include "MyGUI_ToolTipManager.h"
 #include <vector>
 
 namespace
@@ -31,6 +32,131 @@ namespace
 	{
 		return _gui
 			.createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(_left, 0, 100, 100), MyGUI::Align::Default, "Main");
+	}
+
+	void testToolTipLifecycle()
+	{
+		std::vector<MyGUI::ToolTipInfo> events;
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto& gui = context.getGui();
+		auto* widget = root(gui, 0);
+		widget->setNeedToolTip(true);
+		widget->eventToolTip += MyGUI::newDelegate(
+			[&, widget](MyGUI::Widget* sender, const MyGUI::ToolTipInfo& info)
+			{
+				require(sender == widget, "Tooltip events must identify their owner");
+				events.push_back(info);
+			},
+			1);
+		auto& tooltips = MyGUI::ToolTipManager::getInstance();
+		tooltips.setDelayVisible(0.5f);
+		require(tooltips.getDelayVisible() == 0.5f, "Tooltip delay must retain the configured value");
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(10, 10, 0);
+		gui.eventFrameStart(0.0f);
+		gui.eventFrameStart(0.25f);
+		require(events.empty(), "A tooltip must wait for its hover delay");
+		input.injectMouseMove(20, 10, 0);
+		gui.eventFrameStart(0.0f);
+		gui.eventFrameStart(0.25f);
+		require(events.empty(), "Moving before display must restart the hover delay");
+		gui.eventFrameStart(0.25f);
+		require(
+			events.size() == 1 && events.back().type == MyGUI::ToolTipInfo::Show &&
+				events.back().index == MyGUI::ITEM_NONE && events.back().point == MyGUI::IntPoint(20, 10),
+			"The delay boundary must show a tooltip at the current pointer position");
+		gui.eventFrameStart(0.25f);
+		require(events.size() == 1, "A stationary visible tooltip must not emit duplicate events");
+		input.injectMouseMove(30, 10, 0);
+		gui.eventFrameStart(0.0f);
+		require(
+			events.size() == 2 && events.back().type == MyGUI::ToolTipInfo::Move &&
+				events.back().point == MyGUI::IntPoint(30, 10),
+			"Moving a visible tooltip must report its new position");
+		input.injectMousePress(30, 10, MyGUI::MouseButton::Left);
+		require(input.isCaptureMouse(), "The tooltip owner must capture a pressed mouse button");
+		gui.eventFrameStart(0.0f);
+		require(
+			events.size() == 3 && events.back().type == MyGUI::ToolTipInfo::Hide,
+			"Mouse capture must hide the tooltip");
+		gui.eventFrameStart(1.0f);
+		require(events.size() == 3, "A captured widget must not show a tooltip again");
+		input.injectMouseRelease(30, 10, MyGUI::MouseButton::Left);
+		gui.eventFrameStart(0.0f);
+		gui.eventFrameStart(0.5f);
+		require(
+			events.size() == 4 && events.back().type == MyGUI::ToolTipInfo::Show,
+			"Tooltip display must resume after capture ends");
+		input.injectMouseMove(200, 200, 0);
+		gui.eventFrameStart(0.0f);
+		require(
+			events.size() == 5 && events.back().type == MyGUI::ToolTipInfo::Hide,
+			"Losing hover must hide the tooltip");
+		input.injectMouseMove(10, 10, 0);
+		gui.eventFrameStart(0.0f);
+		gui.eventFrameStart(0.5f);
+		require(
+			events.size() == 6 && events.back().type == MyGUI::ToolTipInfo::Show,
+			"Returning to the owner must allow another tooltip");
+		gui.destroyWidget(widget);
+		require(
+			events.size() == 7 && events.back().type == MyGUI::ToolTipInfo::Hide,
+			"Destroying the owner must hide its visible tooltip");
+		gui.eventFrameStart(1.0f);
+		require(events.size() == 7, "Destroyed tooltip owners must not receive later frame events");
+	}
+
+	void testListToolTips()
+	{
+		std::vector<MyGUI::ToolTipInfo> events;
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_ListBehaviour/TestSkin.xml");
+		auto& gui = context.getGui();
+		auto* list = gui.createWidget<MyGUI::ListBox>(
+			"BehaviourListBox",
+			MyGUI::IntCoord(0, 0, 120, 64),
+			MyGUI::Align::Default,
+			"Main");
+		list->addItem("first");
+		list->addItem("second");
+		list->setNeedToolTip(true);
+		list->eventToolTip += MyGUI::newDelegate(
+			[&, list](MyGUI::Widget* sender, const MyGUI::ToolTipInfo& info)
+			{
+				require(sender == list, "Row tooltips must be delivered to the list container");
+				events.push_back(info);
+			},
+			1);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(10, 10, 0);
+		gui.eventFrameStart(0.0f);
+		gui.eventFrameStart(0.5f);
+		require(
+			events.size() == 1 && events.back().type == MyGUI::ToolTipInfo::Show && events.back().index == 0,
+			"A hovered row must show its logical item index");
+		input.injectMouseMove(20, 10, 0);
+		gui.eventFrameStart(0.0f);
+		require(
+			events.size() == 2 && events.back().type == MyGUI::ToolTipInfo::Move && events.back().index == 0 &&
+				events.back().point == MyGUI::IntPoint(20, 10),
+			"Row tooltip movement must retain the item index");
+		input.injectMouseMove(10, 30, 0);
+		gui.eventFrameStart(0.0f);
+		require(
+			events.size() == 3 && events.back().type == MyGUI::ToolTipInfo::Hide,
+			"Changing rows must hide the previous row's tooltip");
+		gui.eventFrameStart(0.25f);
+		require(events.size() == 3, "The next row must wait for its own hover delay");
+		gui.eventFrameStart(0.25f);
+		require(
+			events.size() == 4 && events.back().type == MyGUI::ToolTipInfo::Show && events.back().index == 1,
+			"The next tooltip must identify the new row");
+		gui.destroyWidget(list);
+		require(
+			events.size() == 5 && events.back().type == MyGUI::ToolTipInfo::Hide,
+			"Destroying a list must hide its row tooltip");
 	}
 
 	void click(int _left, int _top, MyGUI::MouseButton _button = MyGUI::MouseButton::Left)
@@ -662,5 +788,7 @@ int main()
 		{"Shared ancestor focus", testSharedAncestor},
 		{"Destroy captured subtree", testDestroyCapturedSubtree},
 		{"Modal stack", testModalStack},
+		{"Tooltip delay, movement, capture, and destruction", testToolTipLifecycle},
+		{"List row tooltip ownership and indices", testListToolTips},
 	});
 }

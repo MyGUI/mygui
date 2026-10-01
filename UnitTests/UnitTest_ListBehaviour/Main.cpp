@@ -1,4 +1,4 @@
-#include "TestSupport.h"
+#include "BehaviourTestSupport.h"
 #include "TestRunner.h"
 #include <algorithm>
 #include <array>
@@ -71,6 +71,99 @@ namespace
 	{
 		unittest::TestContext context;
 		checkSelectionMutations(createList<MyGUI::ListBox>(context.getGui()));
+	}
+
+	void testListKeyboardNavigation()
+	{
+		std::vector<size_t> changes;
+		std::vector<size_t> accepted;
+		unittest::TestContext context;
+		auto* list = createBehaviourList(context.getGui());
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(list);
+		list->eventListChangePosition +=
+			MyGUI::newDelegate([&](MyGUI::ListBox*, size_t index) { changes.push_back(index); }, 1);
+		list->eventListSelectAccept +=
+			MyGUI::newDelegate([&](MyGUI::ListBox*, size_t index) { accepted.push_back(index); }, 2);
+		const std::array<MyGUI::KeyCode, 6> navigation = {
+			MyGUI::KeyCode::ArrowUp,
+			MyGUI::KeyCode::ArrowDown,
+			MyGUI::KeyCode::Home,
+			MyGUI::KeyCode::End,
+			MyGUI::KeyCode::PageUp,
+			MyGUI::KeyCode::PageDown};
+		for (auto key : navigation)
+			unittest::keyStroke(key);
+		unittest::keyStroke(MyGUI::KeyCode::Return);
+		require(
+			list->getIndexSelected() == MyGUI::ITEM_NONE && changes.empty() && accepted.empty(),
+			"An empty list must ignore navigation and acceptance without emitting selection events");
+
+		list->addItem("only");
+		for (auto key : navigation)
+		{
+			list->clearIndexSelected();
+			changes.clear();
+			unittest::keyStroke(key);
+			unittest::keyStroke(key);
+			require(
+				list->getIndexSelected() == 0 && changes == std::vector<size_t>({0}),
+				"Navigation must select the only row once and remain within its bounds");
+		}
+		for (int index = 1; index < 10; ++index)
+			list->addItem(MyGUI::utility::toString(index));
+
+		struct NavigationCase
+		{
+			size_t before;
+			MyGUI::KeyCode key;
+			size_t after;
+		};
+		// The skin exposes a 60-pixel viewport with 20-pixel rows: one page is three items.
+		const NavigationCase cases[] = {
+			{MyGUI::ITEM_NONE, MyGUI::KeyCode::ArrowUp, 0},
+			{MyGUI::ITEM_NONE, MyGUI::KeyCode::ArrowDown, 0},
+			{MyGUI::ITEM_NONE, MyGUI::KeyCode::PageUp, 0},
+			{MyGUI::ITEM_NONE, MyGUI::KeyCode::PageDown, 0},
+			{0, MyGUI::KeyCode::ArrowUp, 0},
+			{0, MyGUI::KeyCode::ArrowDown, 1},
+			{5, MyGUI::KeyCode::ArrowUp, 4},
+			{9, MyGUI::KeyCode::ArrowDown, 9},
+			{5, MyGUI::KeyCode::Home, 0},
+			{0, MyGUI::KeyCode::End, 9},
+			{0, MyGUI::KeyCode::PageDown, 3},
+			{3, MyGUI::KeyCode::PageDown, 6},
+			{8, MyGUI::KeyCode::PageDown, 9},
+			{9, MyGUI::KeyCode::PageDown, 9},
+			{9, MyGUI::KeyCode::PageUp, 6},
+			{2, MyGUI::KeyCode::PageUp, 0},
+			{0, MyGUI::KeyCode::PageUp, 0},
+		};
+		for (const auto& entry : cases)
+		{
+			list->setIndexSelected(entry.before);
+			if (entry.before != MyGUI::ITEM_NONE)
+				list->beginToItemAt(entry.before);
+			changes.clear();
+			unittest::keyStroke(entry.key);
+			require(
+				list->getIndexSelected() == entry.after,
+				"Navigation must select the expected row and clamp at either end");
+			require(list->isItemVisibleAt(entry.after), "Keyboard navigation must bring the selected row into view");
+			const std::vector<size_t> expected =
+				entry.before == entry.after ? std::vector<size_t>{} : std::vector<size_t>{entry.after};
+			require(changes == expected, "Navigation must emit exactly one event only when selection changes");
+		}
+		changes.clear();
+		list->clearIndexSelected();
+		for (auto key : {MyGUI::KeyCode::Return, MyGUI::KeyCode::NumpadEnter})
+			unittest::keyStroke(key);
+		require(accepted.empty(), "Enter must not accept a populated list without a selection");
+		list->setIndexSelected(4);
+		for (auto key : {MyGUI::KeyCode::Return, MyGUI::KeyCode::NumpadEnter})
+			unittest::keyStroke(key);
+		require(
+			accepted == std::vector<size_t>({4, 4}) && changes.empty(),
+			"Both Enter keys must accept the selected row without changing selection");
 	}
 
 	void testMultiListSelection()
@@ -258,5 +351,6 @@ int main()
 		{"ListBox offscreen selection removal", testRemovingOffscreenSelectionRefreshesReplacement},
 		{"Populated column mutations", testColumnMutations},
 		{"Displayed row identity and custom sorting", testDisplayedRows},
+		{"ListBox keyboard navigation and acceptance", testListKeyboardNavigation},
 	});
 }
