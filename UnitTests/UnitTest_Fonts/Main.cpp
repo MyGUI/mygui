@@ -309,14 +309,15 @@ namespace
 			"Custom text height must scale both glyph advances and kerning");
 	}
 
-	void testAtlasPacking(bool _scaled)
+	template<bool Scaled>
+	void testAtlasPacking()
 	{
 		unittest::FontTestContext context;
-		const int distance = _scaled ? 4 : 1;
+		constexpr int distance = Scaled ? 4 : 1;
 		auto& font = loadFont(
-			_scaled ? "<Property key=\"Size\" value=\"31.5\"/><Property key=\"Distance\" value=\"4\"/>"
-					  "<Property key=\"DpiScale\" value=\"1.5\"/><Property key=\"MsdfRange\" value=\"6\"/>"
-					: "",
+			Scaled ? "<Property key=\"Size\" value=\"31.5\"/><Property key=\"Distance\" value=\"4\"/>"
+					 "<Property key=\"DpiScale\" value=\"1.5\"/><Property key=\"MsdfRange\" value=\"6\"/>"
+				   : "",
 			"<Code range=\"33 126\"/>");
 		auto& texture = atlas(font);
 		std::vector<MyGUI::IntRect> rectangles;
@@ -361,14 +362,15 @@ namespace
 			"Packing fixture must exercise several atlas rows and mixed glyph heights");
 	}
 
-	void testBitmapUpload(bool _la, bool _antialias)
+	template<bool LuminanceAlpha, bool Antialias>
+	void testBitmapUpload()
 	{
 		unittest::FontTestContext context;
-		context.renderer.supportsLuminanceAlpha = _la;
-		auto& font = loadFont(_antialias ? "<Property key=\"Antialias\" value=\"true\"/>" : "");
+		context.renderer.supportsLuminanceAlpha = LuminanceAlpha;
+		auto& font = loadFont(Antialias ? "<Property key=\"Antialias\" value=\"true\"/>" : "");
 		auto& texture = atlas(font);
 		require(
-			texture.getFormat() == (_la ? MyGUI::PixelFormat::L8A8 : MyGUI::PixelFormat::R8G8B8A8),
+			texture.getFormat() == (LuminanceAlpha ? MyGUI::PixelFormat::L8A8 : MyGUI::PixelFormat::R8G8B8A8),
 			"Bitmap fonts must prefer L8A8 with an RGBA fallback");
 		const auto& g = glyph(font, 'A');
 		const int left = int(std::lround(g.uvRect.left * texture.getWidth()));
@@ -383,7 +385,7 @@ namespace
 				hasInk |= alpha != 0;
 				for (size_t channel = 0; channel < stride - 1; ++channel)
 					require(
-						pixel[channel] == (_antialias ? alpha : 255),
+						pixel[channel] == (Antialias ? alpha : 255),
 						"MyGUI must copy coverage to luminance only when Antialias is enabled");
 			}
 		require(hasInk, "MyGUI must upload visible glyph coverage");
@@ -446,8 +448,8 @@ int main()
 		{"missing font source", testMissingSource},
 		{"explicit and automatic DPI", testDpi},
 		{"generated fonts in TextBox layout", testTextLayout},
-		{"atlas packing across rows", [] { testAtlasPacking(false); }},
-		{"atlas packing with larger spacing and scale", [] { testAtlasPacking(true); }},
+		{"atlas packing across rows", testAtlasPacking<false>},
+		{"atlas packing with larger spacing and scale", testAtlasPacking<true>},
 	};
 	if (msdf)
 	{
@@ -456,11 +458,10 @@ int main()
 	}
 	else
 	{
-		for (bool la : {true, false})
-			for (bool antialias : {true, false})
-				tests.push_back(
-					{std::string(la ? "L8A8" : "RGBA") + (antialias ? " antialias upload" : " coverage upload"),
-					 [=] { testBitmapUpload(la, antialias); }});
+		tests.push_back({"L8A8 antialias upload", testBitmapUpload<true, true>});
+		tests.push_back({"L8A8 coverage upload", testBitmapUpload<true, false>});
+		tests.push_back({"RGBA antialias upload", testBitmapUpload<false, true>});
+		tests.push_back({"RGBA coverage upload", testBitmapUpload<false, false>});
 	}
 	return unittest::runTests(tests);
 }
