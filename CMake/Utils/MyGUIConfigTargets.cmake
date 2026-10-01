@@ -129,11 +129,11 @@ function(mygui_unit_test PROJECTNAME)
 
 	if(WIN32)
 		# Copy engine dependencies for shared builds; static builds may have no runtime DLLs.
-		file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/copy-test-dlls-$<CONFIG>.cmake"
+		file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/copy-test-dlls-${PROJECTNAME}-$<CONFIG>.cmake"
 			CONTENT "set(dlls \"$<TARGET_RUNTIME_DLLS:${PROJECTNAME}>\")\nif(dlls)\n  file(COPY \${dlls} DESTINATION \"$<TARGET_FILE_DIR:${PROJECTNAME}>\")\nendif()\n"
 		)
 		add_custom_command(TARGET ${PROJECTNAME} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/copy-test-dlls-$<CONFIG>.cmake"
+			COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/copy-test-dlls-${PROJECTNAME}-$<CONFIG>.cmake"
 			VERBATIM
 		)
 	endif()
