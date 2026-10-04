@@ -1,7 +1,7 @@
 Filename                                  Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 include/MyGUI_ActionController.h                2                 0   100.00%           2                 0   100.00%           8                 0   100.00%           0                 0         -
-include/MyGUI_Align.h                          27                 8    70.37%          20                 8    60.00%          80                25    68.75%           6                 2    66.67%
+include/MyGUI_Align.h                          27                 7    74.07%          20                 7    65.00%          80                22    72.50%           6                 2    66.67%
 include/MyGUI_Any.h                            26                 4    84.62%           8                 0   100.00%          27                 0   100.00%           8                 2    75.00%
 include/MyGUI_BiIndexBase.h                     1                 0   100.00%           1                 0   100.00%           1                 0   100.00%           0                 0         -
 include/MyGUI_Bitwise.h                         2                 1    50.00%           2                 1    50.00%          13                 3    76.92%           0                 0         -
@@ -37,7 +37,7 @@ include/MyGUI_IResource.h                       3                 0   100.00%   
 include/MyGUI_ISerializable.h                   1                 1     0.00%           1                 1     0.00%           2                 2     0.00%           0                 0         -
 include/MyGUI_ISubWidget.h                      8                 7    12.50%           8                 7    12.50%          18                15    16.67%           0                 0         -
 include/MyGUI_ISubWidgetRect.h                  2                 2     0.00%           2                 2     0.00%           4                 4     0.00%           0                 0         -
-include/MyGUI_ISubWidgetText.h                 34                32     5.88%          34                32     5.88%          89                81     8.99%           0                 0         -
+include/MyGUI_ISubWidgetText.h                 35                33     5.71%          35                33     5.71%          91                83     8.79%           0                 0         -
 include/MyGUI_ITexture.h                        4                 2    50.00%           4                 2    50.00%           7                 5    28.57%           0                 0         -
 include/MyGUI_IUnlinkWidget.h                   1                 0   100.00%           1                 0   100.00%           1                 0   100.00%           0                 0         -
 include/MyGUI_IVertexBuffer.h                   1                 0   100.00%           1                 0   100.00%           1                 0   100.00%           0                 0         -
@@ -62,14 +62,14 @@ include/MyGUI_ScrollViewBase.h                  1                 0   100.00%   
 include/MyGUI_Singleton.h                      29                 9    68.97%           7                 0   100.00%          28                 0   100.00%           6                 3    50.00%
 include/MyGUI_StringUtility.h                  32                16    50.00%          10                 4    60.00%          73                42    42.47%          20                10    50.00%
 include/MyGUI_SubWidgetInfo.h                   4                 0   100.00%           1                 0   100.00%           5                 0   100.00%           0                 0         -
-include/MyGUI_TCoord.h                         46                 1    97.83%          18                 0   100.00%          69                 1    98.55%          26                 5    80.77%
+include/MyGUI_TCoord.h                         46                 1    97.83%          18                 0   100.00%          69                 1    98.55%          26                 3    88.46%
 include/MyGUI_TPoint.h                         21                 0   100.00%          13                 0   100.00%          47                 0   100.00%          10                 0   100.00%
 include/MyGUI_TRect.h                          40                 8    80.00%          12                 1    91.67%          44                 3    93.18%          32                13    59.38%
-include/MyGUI_TSize.h                          23                 1    95.65%          13                 0   100.00%          45                 1    97.78%          14                 4    71.43%
+include/MyGUI_TSize.h                          23                 1    95.65%          13                 0   100.00%          45                 1    97.78%          14                 2    85.71%
 include/MyGUI_TabControl.h                     17                 4    76.47%           3                 0   100.00%          13                 0   100.00%           2                 1    50.00%
 include/MyGUI_TextChangeHistory.h              13                 0   100.00%           2                 0   100.00%          15                 0   100.00%           0                 0         -
 include/MyGUI_TextViewData.h                   17                 1    94.12%          13                 1    92.31%          55                 8    85.45%           0                 0         -
-include/MyGUI_UString.h                        56                11    80.36%          45                10    77.78%         138                30    78.26%           4                 2    50.00%
+include/MyGUI_UString.h                        60                11    81.67%          45                10    77.78%         141                30    78.72%          10                 3    70.00%
 include/MyGUI_Version.h                        33                11    66.67%          15                 9    40.00%          63                31    50.79%          10                 2    80.00%
 include/MyGUI_VertexData.h                      3                 1    66.67%           3                 1    66.67%          24                 8    66.67%           0                 0         -
 include/MyGUI_Widget.h                          7                 0   100.00%           4                 0   100.00%          19                 0   100.00%           4                 0   100.00%
@@ -88,7 +88,7 @@ src/MyGUI_Button.cpp                           91                22    75.82%   
 src/MyGUI_Canvas.cpp                           92                 8    91.30%          40                 7    82.50%         228                23    89.91%          48                 9    81.25%
 src/MyGUI_ChildSkinInfo.cpp                    14                 4    71.43%           3                 2    33.33%          18                 7    61.11%           2                 0   100.00%
 src/MyGUI_ClipboardManager.cpp                 37                 8    78.38%           6                 0   100.00%          33                 0   100.00%           8                 3    62.50%
-src/MyGUI_Colour.cpp                           46                14    69.57%          10                 4    60.00%          96                39    59.38%          28                12    57.14%
+src/MyGUI_Colour.cpp                           46                14    69.57%          10                 4    60.00%          96                39    59.38%          28                11    60.71%
 src/MyGUI_ComboBox.cpp                        219                63    71.23%          52                23    55.77%         412               132    67.96%         126                47    62.70%
 src/MyGUI_CommonStateInfo.cpp                  18                 0   100.00%           3                 0   100.00%          40                 0   100.00%          14                 2    85.71%
 src/MyGUI_ConsoleLogListener.cpp                5                 5     0.00%           3                 3     0.00%          10                10     0.00%           2                 2     0.00%
@@ -103,7 +103,7 @@ src/MyGUI_DataFileStream.cpp                    6                 0   100.00%   
 src/MyGUI_DataManager.cpp                       3                 0   100.00%           2                 0   100.00%           6                 0   100.00%           0                 0         -
 src/MyGUI_DataStream.cpp                       37                 0   100.00%           6                 0   100.00%          40                 0   100.00%          22                 1    95.45%
 src/MyGUI_EditBox.cpp                         970                74    92.37%         115                13    88.70%        1492                93    93.77%         746               150    79.89%
-src/MyGUI_EditText.cpp                        269                33    87.73%          49                 8    83.67%         522                47    91.00%         190                38    80.00%
+src/MyGUI_EditText.cpp                        291                33    88.66%          50                 8    84.00%         536                48    91.04%         204                35    82.84%
 src/MyGUI_Exception.cpp                        16                11    31.25%           7                 6    14.29%          44                38    13.64%           4                 4     0.00%
 src/MyGUI_FactoryManager.cpp                   61                19    68.85%           9                 2    77.78%          76                29    61.84%          22                11    50.00%
 src/MyGUI_FileLogListener.cpp                  12                12     0.00%           6                 6     0.00%          27                27     0.00%           6                 6     0.00%
@@ -135,9 +135,9 @@ src/MyGUI_MultiListBox.cpp                    569               173    69.60%   
 src/MyGUI_MultiListItem.cpp                    37                35     5.41%           8                 6    25.00%          54                48    11.11%          22                22     0.00%
 src/MyGUI_OverlappedLayer.cpp                  88                20    77.27%          16                 1    93.75%         126                 7    94.44%          42                 5    88.10%
 src/MyGUI_PointerManager.cpp                  100                52    48.00%          18                10    44.44%         156                79    49.36%          50                35    30.00%
-src/MyGUI_PolygonalSkin.cpp                   145                14    90.34%          19                 0   100.00%         337                15    95.55%          98                13    86.73%
+src/MyGUI_PolygonalSkin.cpp                   154                17    88.96%          19                 0   100.00%         343                18    94.75%         104                16    84.62%
 src/MyGUI_PopupMenu.cpp                         1                 0   100.00%           1                 0   100.00%           3                 0   100.00%           0                 0         -
-src/MyGUI_ProgressBar.cpp                     140                28    80.00%          19                 5    73.68%         262                42    83.97%          96                22    77.08%
+src/MyGUI_ProgressBar.cpp                     143                29    79.72%          19                 5    73.68%         264                43    83.71%          98                23    76.53%
 src/MyGUI_RenderItem.cpp                      194                48    75.26%          25                 0   100.00%         251                11    95.62%          90                15    83.33%
 src/MyGUI_RenderManager.cpp                    41                24    41.46%           7                 3    57.14%          54                33    38.89%          22                14    36.36%
 src/MyGUI_ResourceImageSet.cpp                 71                39    45.07%          12                 6    50.00%         144                74    48.61%          50                30    40.00%
@@ -157,20 +157,20 @@ src/MyGUI_SimpleText.cpp                       27                26     3.70%   
 src/MyGUI_SkinItem.cpp                         42                 1    97.62%          14                 0   100.00%          96                 1    98.96%          32                 4    87.50%
 src/MyGUI_SkinManager.cpp                      55                18    67.27%           9                 4    55.56%          63                19    69.84%          20                 8    60.00%
 src/MyGUI_StringUtility.cpp                    39                27    30.77%          12                 5    58.33%          73                37    49.32%          20                16    20.00%
-src/MyGUI_SubSkin.cpp                          80                 8    90.00%          13                 0   100.00%         136                 0   100.00%          50                 2    96.00%
+src/MyGUI_SubSkin.cpp                          83                 8    90.36%          13                 0   100.00%         138                 0   100.00%          52                 2    96.15%
 src/MyGUI_SubWidgetBinding.cpp                 10                 4    60.00%           5                 1    80.00%          27                 8    70.37%           2                 1    50.00%
 src/MyGUI_SubWidgetManager.cpp                 34                 8    76.47%           5                 0   100.00%          49                 0   100.00%           4                 2    50.00%
 src/MyGUI_TabControl.cpp                      526                87    83.46%          68                 6    91.18%         741                57    92.31%         304                77    74.67%
 src/MyGUI_TabItem.cpp                          32                11    65.62%           6                 1    83.33%          37                13    64.86%          18                10    44.44%
 src/MyGUI_TextBox.cpp                          86                33    61.63%          18                 7    61.11%         101                40    60.40%          50                22    56.00%
 src/MyGUI_TextIterator.cpp                    235                29    87.66%          30                 2    93.33%         347                47    86.46%         144                28    80.56%
-src/MyGUI_TextView.cpp                        142                22    84.51%          15                 1    93.33%         254                17    93.31%          82                13    84.15%
+src/MyGUI_TextView.cpp                        142                21    85.21%          15                 1    93.33%         254                16    93.70%          82                12    85.37%
 src/MyGUI_TextureUtility.cpp                    7                 0   100.00%           2                 0   100.00%          25                 0   100.00%           4                 0   100.00%
-src/MyGUI_TileRect.cpp                        118                 8    93.22%          12                 0   100.00%         208                 0   100.00%          80                 6    92.50%
+src/MyGUI_TileRect.cpp                        124                 9    92.74%          12                 0   100.00%         212                 1    99.53%          84                 7    91.67%
 src/MyGUI_Timer.cpp                             3                 3     0.00%           3                 3     0.00%          12                12     0.00%           0                 0         -
 src/MyGUI_ToolTipManager.cpp                   89                11    87.64%          12                 0   100.00%         148                 9    93.92%          44                 5    88.64%
 src/MyGUI_UString.cpp                          26                 0   100.00%          12                 0   100.00%          87                 0   100.00%           6                 0   100.00%
-src/MyGUI_Widget.cpp                          674               112    83.38%         110                15    86.36%         974                99    89.84%         442                74    83.26%
+src/MyGUI_Widget.cpp                          690               115    83.33%         111                15    86.49%         988               101    89.78%         452                76    83.19%
 src/MyGUI_WidgetContainer.cpp                  58                31    46.55%           8                 2    75.00%          53                11    79.25%          14                 6    57.14%
 src/MyGUI_WidgetInput.cpp                      52                 7    86.54%          45                 1    97.78%         138                 6    95.65%           8                 7    12.50%
 src/MyGUI_WidgetManager.cpp                    67                20    70.15%          14                 1    92.86%         102                 5    95.10%          18                 4    77.78%
@@ -182,4 +182,4 @@ Files which contain no functions:
 include/MyGUI_Diagnostic.h                      0                 0         -           0                 0         -           0                 0         -           0                 0         -
 include/MyGUI_LogManager.h                      0                 0         -           0                 0         -           0                 0         -           0                 0         -
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-TOTAL                                       12464              2844    77.18%        2365               538    77.25%       19775              3500    82.30%        6886              1812    73.69%
+TOTAL                                       12528              2851    77.24%        2368               538    77.28%       19822              3506    82.31%        6930              1811    73.87%
