@@ -1,4 +1,9 @@
 ## MyGUI v3.5.2
+### Release highlights
+- **Unit tests and stability:** extensive new core and platform tests, CI coverage and sanitizer checks,
+  with improved handling of many edge cases in widget behavior and rendering
+- Add widget rotation with matching hit testing and clipping
+- Add Vulkan and OpenSceneGraph rendering backends, plus browser demos built with Emscripten
 
 ### Compatibility
 - Remove `UString::asWStr_c_str` and `asUTF32_c_str`; use `asWStr` and `asUTF32` instead. `asWStr` now returns an
@@ -139,25 +144,17 @@
 - Fix missing editor fonts when FreeType is disabled
 
 ### Infrastructure
-- Enable `MYGUI_BUILD_UNITTESTS` by default
+- Expand engine and platform test coverage with shared test utilities; keep `UnitTests` fully automated and enable
+  `MYGUI_BUILD_UNITTESTS` by default
+- Run CTest in native and Emscripten CI builds, including platform tests for Linux/Ogre, Linux/OpenGL3, Linux/Vulkan,
+  macOS/OpenGL3, Windows/DirectX11 and browser/OpenGLES
+- Add AddressSanitizer and UndefinedBehaviorSanitizer CI checks, plus Clang source-based coverage reports and a badge
+- Add `--screenshot` capture for demos/tools and `compare_screenshots.py` reference comparisons with cross-renderer
+  tolerance; make screenshot timing deterministic and fix Ogre captures of hidden windows
 - Propagate the C++17 requirement to consumers of the MyGUI CMake target
-- Implement `--screenshot` CLI option for demos and tools to save a screenshot and exit
-- Add screenshot testing: `compare_screenshots.py` compares screenshots produced by demos/tools against committed
-  references (with tolerance for comparing e.g. DirectX vs OpenGL)
-- Add extensive unit-test coverage across the engine
-- Add extensive unit-test coverage across platform implementations using a shared test suite
-- Keep only automated tests in `UnitTests`; convert `AttachDetach` and `MultiList` into finite headless tests
-- Share test setup, assertions, and resource loading in `UnitTests/Common`
-- Run unit tests with CTest in native GitHub CI builds
-- Run platform tests in CI for Linux/Ogre, Linux/OpenGL3, Linux/Vulkan, macOS/OpenGL3 and Windows/DirectX11
-- Run Emscripten core unit tests and browser/OpenGLES platform tests in CI
-- Run unit tests with AddressSanitizer and UndefinedBehaviorSanitizer in CI
-- Add Clang source-based code coverage reports and a coverage badge
-- Fix Ogre captures of hidden windows by reading the back buffer before swapping
 - Generate `resources.xml` beside executables for multi-configuration builds
 - Fix Linux builds with X11 and older OpenGL headers; propagate required GL extension prototypes through the OpenGL,
   OpenGL3 and OpenGLES CMake targets
-- Make time-based updates deterministic in screenshot mode for reproducible screenshots
 - Use OgreNext CMake package config instead of PkgConfig
 - Fix Emscripten build
 - Remove bundled `doxygen.exe` binary from Wrappers (#317)
