@@ -45,19 +45,29 @@
 - Fix PolygonalSkin vertex buffer overruns when clipping sharp joins and invalid geometry at line reversals
 - Simplify rotation, clipping and shared coordinate conversion; make RotatingSkin draw only populated triangles while
   keeping its fixed vertex buffer capacity
-- Replace old UString with std::u32string and UTF8-CPP; indices count Unicode code points. Remove unused API and
-  custom iterators. This also improve internal text handling speed by avoiding extra 8/16/32 conversions
+- Reimplement UString using std::u32string and UTF8-CPP; indices count Unicode code points. This also improves internal
+  text handling speed by avoiding extra 8/16/32 conversions
 - Fix Canvas texture destruction leaving stale references and queued updates; respect disabled texture management during
   deferred resizing and preserve content update requests when reallocating
 - Fix DataStream read counts at EOF and preserve position and state in size queries
 - Add owning DataManager::getDataHolder; make DataStreamHolder non-copyable and non-movable
+- Add IDataStream::readAll and readAllText helpers to read all remaining bytes from a stream
 - Optimize delegate invocation and subscription handling, and fix callback lifetime issues during nested dispatch,
   mutation, exceptions and event destruction
 - Add base widget rotation support with updated hit testing, clipping and coordinate conversion; add Widget::setRotation and getRotation
-- Deprecate RotatingSkin, use Widget::setRotation instead
 - Fix FreeType and MSDF fonts bypassing the configured substitute for unsupported characters and regenerating incorrect
   glyphs after texture invalidation
 - Skip unchanged values in several widget setters to avoid redundant layout and render updates
+- Fix Version comparisons to order major, minor and patch components correctly
+- Fix MenuControl losing item names when switching to separator skins
+- Fix automatic ProgressBar animation wrapping with a stale position
+
+### Compatibility
+- Remove UString::asWStr_c_str and asUTF32_c_str; use asWStr and asUTF32 instead. asWStr now returns an independent
+  std::wstring by value, so retain the returned string when using its c_str pointer. asUTF8_c_str remains available
+- Remove legacy .txt language resource and user-tag support; migrate these files to XML
+- Deprecate RotatingSkin; use Widget::setRotation and Widget::setRotationCenter instead
+- Deprecate texture_utility::getTextureSize; use RenderManager::getTextureSize instead
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
@@ -71,6 +81,8 @@
   stop advertising unknown pixel formats
 - OgreNext: implement texture lock read (used in picking)
 - OgreNext: fix nested RTT
+- OgreNext: fix Metal rendering and preserve vertex and indirect buffers across multiple updates within a frame
+- OgreNext: fix texture lifecycle, read/write locks and pixel-format conversion
 - OpenGL3: fix odd-width texture uploads and readback buffer overruns; preserve host pixel-transfer state and bindings
 - OpenGL3: fix PBO support detection in core contexts and uploads to file-loaded textures; preserve existing pixels in
   read/write locks, including render-target textures, and fix interleaved locks and read-lock lifetime reporting
@@ -88,6 +100,8 @@
 - OpenGL: stop advertising unsupported pixel formats and luminance render targets
 
 - DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
+- DirectX9: fix texture read/write locks, row-pitch handling and render-target readback
+- DirectX9: preserve render targets, viewport and host scene ownership during nested RTT
 
 - DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
 - DirectX11: implement texture read and read/write locks, including GPU-rendered pixels, with correct row-pitch handling
@@ -103,7 +117,8 @@
 - Vulkan: retain vertex storage until recorded commands retire, reuse completed allocations and check map failures;
   submit RTT work asynchronously and wait before command reuse or destruction
 
-- Vulkan: add real-backend tests for recorded vertex lifetime, allocation retirement and rendered output without mocks
+- Make DataManager::getDataListNames and getDataPath no longer required in DataManager implementations; they are still
+  used internally by most platforms and by demos/tools
 
 ### Demos
 - Add [browser demos](https://mygui.info/demos/) built with Emscripten, Ogre backend (pure OpenGLES also tested),
@@ -111,6 +126,7 @@
 - Handle SDL_QUIT in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays
 - Fix Ogre application shutdown destroying the render window twice
+- Fix OgreNext application window resizing on Linux
 - Make all custom RTTLayer implementations respect DPI scale
 - Fix unreachable code in Demo_GraphView and deprecated skin usage in its resources
 - Move interactive tests to AdvancedDemos as Demo_<Feature>, controlled by MYGUI_BUILD_ADVANCED_DEMOS (ON by default)
@@ -120,8 +136,12 @@
 - Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool
 - LayoutEditor: always save the latest layout format, upgrade recognized deprecated properties and preserve unknown
   properties
+- Fix missing editor fonts when FreeType is disabled
 
 ### Infrastructure
+
+- Enable MYGUI_BUILD_UNITTESTS by default
+- Propagate the C++17 requirement to consumers of the MyGUI CMake target
 - Implement --screenshot CLI option for demos and tools to save a screenshot and exit
 - Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools against committed
   references (with tolerance for comparing e.g. DirectX vs OpenGL)
@@ -130,7 +150,10 @@
 - Keep only automated tests in UnitTests; convert AttachDetach and MultiList into finite headless tests
 - Share test setup, assertions, and resource loading in UnitTests/Common
 - Run unit tests with CTest in native GitHub CI builds
-- Run platform tests in CI for Linux/Ogre, Linux/OpenGL3, macOS/OpenGL3 and Windows/DirectX11
+- Run platform tests in CI for Linux/Ogre, Linux/OpenGL3, Linux/Vulkan, macOS/OpenGL3 and Windows/DirectX11
+- Run Emscripten core unit tests and browser/OpenGLES platform tests in CI
+- Run unit tests with AddressSanitizer and UndefinedBehaviorSanitizer in CI
+- Add Clang source-based code coverage reports and a coverage badge
 - Fix Ogre captures of hidden windows by reading the back buffer before swapping
 - Generate resources.xml beside executables for multi-configuration builds
 - Fix Linux builds with X11 and older OpenGL headers; propagate required GL extension prototypes through the OpenGL,
