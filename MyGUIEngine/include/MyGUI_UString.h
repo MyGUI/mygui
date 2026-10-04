@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include <algorithm>
 #include <cstddef>
 #include <ostream>
 #include <stdexcept>
@@ -294,7 +295,10 @@ namespace MyGUI
 
 		friend bool operator==(const UString& left, const UString& right)
 		{
-			return left.mData == right.mData;
+			// faster than simple left.mData == right.mData
+			return &left == &right ||
+				(left.mData.size() == right.mData.size() &&
+				 std::equal(left.mData.begin(), left.mData.end(), right.mData.begin()));
 		}
 
 		friend bool operator!=(const UString& left, const UString& right)

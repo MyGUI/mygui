@@ -106,6 +106,10 @@ namespace MyGUI
 
 	void EditText::setCaption(const UString& _value)
 	{
+		// Compare only when unchanged text can preserve the current layout.
+		if (!mTextOutDate && mCaption == _value)
+			return;
+
 		mCaption = _value;
 		mTextOutDate = true;
 
