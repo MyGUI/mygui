@@ -29,6 +29,14 @@ jobs:
             build_jobs: 4 # limit parallel compilation to avoid OOM on Ogre-heavy builds
 
           - os: ubuntu-latest
+            name: "Linux: OgreNext, platform tests, shared"
+            preset: minimal
+            rendersystem: 9
+            platform_tests: true
+            cmake_flags: -DBUILD_SHARED_LIBS=ON
+            build_jobs: 4
+
+          - os: ubuntu-latest
             name: "Linux: GL3, no features, platform tests"
             preset: minimal
             rendersystem: 7
@@ -76,6 +84,11 @@ jobs:
         if: runner.os == 'Linux' && matrix.rendersystem == 3
         uses: ./.github/actions/setup-ogre
 
+      - name: Set up OgreNext
+        if: runner.os == 'Linux' && matrix.rendersystem == 9
+        id: ogre-next
+        uses: ./.github/actions/setup-ogre-next
+
       - name: Set up Vulkan (Linux)
         if: runner.os == 'Linux' && matrix.rendersystem == 10
         run: |
@@ -95,6 +108,7 @@ jobs:
           ${{ runner.os == 'Windows' && '-DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"' || '' }}
           -DCMAKE_BUILD_TYPE=RelWithDebInfo
           -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem }}
+          ${{ matrix.rendersystem == 9 && format('-DOGRE_DIR="{0}" -DOGRE_CONFIG_DIR="{0}/bin"', steps.ogre-next.outputs.prefix) || '' }}
           ${{ matrix.rendersystems && format('-DMYGUI_BUILD_RENDERSYSTEMS="{0}"', matrix.rendersystems) || '' }}
           ${{ matrix.cmake_flags }}
           -DMYGUI_BUILD_UNITTESTS=ON

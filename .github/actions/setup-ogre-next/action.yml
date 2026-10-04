@@ -1,0 +1,109 @@
+name: Set up OgreNext
+description: Build and cache OgreNext for the Ubuntu CI jobs
+
+inputs:
+  revision:
+    description: OgreNext commit to build
+    # Upstream master, 2026-09-08 (4.0.0 development).
+    default: "475f783d76f21b530e718aab4a548cdd9a222e50"
+
+outputs:
+  prefix:
+    description: OgreNext installation prefix
+    value: ${{ steps.config.outputs.prefix }}
+
+runs:
+  using: composite
+  steps:
+    - name: Identify OgreNext cache
+      id: config
+      shell: bash
+      env:
+        OGRE_NEXT_REVISION: ${{ inputs.revision }}
+      run: |
+        source /etc/os-release
+        echo "platform=${ID}-${VERSION_ID}-gcc-$(g++ -dumpfullversion)" >> "$GITHUB_OUTPUT"
+        echo "prefix=$HOME/.cache/mygui-ogre-next/$OGRE_NEXT_REVISION" >> "$GITHUB_OUTPUT"
+
+    # System libraries are needed even when the OgreNext installation is restored.
+    - name: Install OgreNext dependencies
+      shell: bash
+      run: >
+        sudo apt-get install -y -qq pkg-config libgl1-mesa-dev libx11-dev
+        libxrandr-dev libxt-dev libxaw7-dev libfreeimage-dev libzzip-dev zlib1g-dev
+
+    - name: Restore OgreNext
+      id: cache
+      uses: actions/cache/restore@v5
+      with:
+        path: ${{ steps.config.outputs.prefix }}
+        key: ogre-next-${{ steps.config.outputs.platform }}-${{ runner.arch }}-${{ inputs.revision }}-${{ hashFiles('.github/actions/setup-ogre-next/action.yml') }}
+
+    - name: Build OgreNext
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        OGRE_NEXT_REVISION: ${{ inputs.revision }}
+        OGRE_NEXT_PREFIX: ${{ steps.config.outputs.prefix }}
+      run: |
+        source_dir="$RUNNER_TEMP/ogre-next-source"
+        build_dir="$RUNNER_TEMP/ogre-next-build"
+        mkdir -p "$source_dir"
+        curl --fail --location --retry 3 \
+          "https://github.com/OGRECave/ogre-next/archive/${OGRE_NEXT_REVISION}.tar.gz" \
+          -o "$RUNNER_TEMP/ogre-next.tar.gz"
+        tar -xzf "$RUNNER_TEMP/ogre-next.tar.gz" -C "$source_dir" --strip-components=1
+        cmake -S "$source_dir" -B "$build_dir" \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX="$OGRE_NEXT_PREFIX" \
+          -DOGRE_USE_NEW_PROJECT_NAME=ON \
+          -DOGRE_LIB_DIRECTORY=lib \
+          -DOGRE_STATIC=OFF \
+          -DOGRE_BUILD_SAMPLES2=OFF \
+          -DOGRE_BUILD_TESTS=OFF \
+          -DOGRE_BUILD_TOOLS=OFF \
+          -DOGRE_INSTALL_SAMPLES=OFF \
+          -DOGRE_INSTALL_DOCS=OFF \
+          -DOGRE_BUILD_COMPONENT_ATMOSPHERE=OFF \
+          -DOGRE_BUILD_COMPONENT_HLMS_PBS=OFF \
+          -DOGRE_BUILD_COMPONENT_HLMS_UNLIT=OFF \
+          -DOGRE_BUILD_COMPONENT_MESHLODGENERATOR=OFF \
+          -DOGRE_BUILD_COMPONENT_OVERLAY=OFF \
+          -DOGRE_BUILD_COMPONENT_PAGING=OFF \
+          -DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=OFF \
+          -DOGRE_BUILD_COMPONENT_PROPERTY=OFF \
+          -DOGRE_BUILD_COMPONENT_SCENE_FORMAT=OFF \
+          -DOGRE_BUILD_COMPONENT_VOLUME=OFF \
+          -DOGRE_BUILD_PLUGIN_PFX=OFF \
+          -DOGRE_BUILD_PLUGIN_PFX2=OFF \
+          -DOGRE_CONFIG_ENABLE_FREEIMAGE=ON \
+          -DOGRE_CONFIG_ENABLE_JSON=OFF \
+          -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=ON \
+          -DOGRE_GLSUPPORT_USE_GLX=ON \
+          -DOGRE_GLSUPPORT_USE_EGL_HEADLESS=OFF \
+          -DOGRE_BUILD_RENDERSYSTEM_GLES2=OFF \
+          -DOGRE_BUILD_RENDERSYSTEM_VULKAN=OFF
+        cmake --build "$build_dir" --parallel 4
+        cmake --install "$build_dir"
+        # MyGUI's test harness loads this renderer from plugins.cfg.
+        mkdir -p "$OGRE_NEXT_PREFIX/bin"
+        printf 'PluginFolder=%s/lib/OGRE-Next\nPlugin=RenderSystem_GL3Plus\n' \
+          "$OGRE_NEXT_PREFIX" > "$OGRE_NEXT_PREFIX/bin/plugins.cfg"
+
+    # Save immediately so a later MyGUI failure does not discard the OgreNext build.
+    - name: Save OgreNext
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: ${{ steps.config.outputs.prefix }}
+        key: ${{ steps.cache.outputs.cache-primary-key }}
+
+    - name: Make OgreNext available to subsequent steps
+      shell: bash
+      env:
+        OGRE_NEXT_PREFIX: ${{ steps.config.outputs.prefix }}
+      run: |
+        echo "CMAKE_PREFIX_PATH=$OGRE_NEXT_PREFIX${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}" >> "$GITHUB_ENV"
+        # Upstream FindOGRE still searches include/OGRE instead of include/OGRE-Next.
+        echo "CMAKE_INCLUDE_PATH=$OGRE_NEXT_PREFIX/include/OGRE-Next${CMAKE_INCLUDE_PATH:+:$CMAKE_INCLUDE_PATH}" >> "$GITHUB_ENV"
+        echo "LD_LIBRARY_PATH=$OGRE_NEXT_PREFIX/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
