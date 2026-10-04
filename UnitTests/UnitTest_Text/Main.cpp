@@ -296,6 +296,14 @@ namespace
 		require(
 			view->getTextSize() == MyGUI::IntSize(40, 20),
 			"Growing the available width must remove obsolete line breaks");
+		view->setSize(25, 200);
+		require(
+			view->getTextSize() == MyGUI::IntSize(20, 40),
+			"Resizing must reflow existing text without resetting the caption or wrapping mode");
+		view->setSize(100, 200);
+		require(
+			view->getTextSize() == MyGUI::IntSize(40, 20),
+			"Growing the view must refresh the cached wrapped layout");
 	}
 
 	void testCursorHitTesting()

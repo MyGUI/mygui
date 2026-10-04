@@ -516,6 +516,8 @@ int main()
 		{"Text glyphs, colour tags, shadows and font loading", testTextGeometry},
 		{"Text clipping and UV interpolation", testTextClipping},
 		{"Multiline selection and cursor rendering", testTextSelectionAndCursor},
+		{"Explicit text layout and render invalidation", testTextLayoutInvalidation},
+		{"Text alignment updates layout before rendering", testTextAlignmentInvalidation},
 		{"Render buffer allocation, packing, and invalidation", testBufferUpdates},
 		{"Empty geometry and failed buffer locks", testEmptyAndFailedDraws},
 		{"Manual render dispatch", testManualRendering},

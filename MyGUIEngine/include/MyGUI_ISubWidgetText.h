@@ -86,6 +86,13 @@ namespace MyGUI
 		{
 		}
 
+		/** Invalidate cached text layout and rendering without changing text properties.
+			Layout is rebuilt on the next measurement or render.
+		*/
+		virtual void invalidateTextLayout()
+		{
+		}
+
 		// Get cursor position (character index) from an absolute coordinates point
 		virtual size_t getCursorPosition(const IntPoint& /*_point*/) const
 		{

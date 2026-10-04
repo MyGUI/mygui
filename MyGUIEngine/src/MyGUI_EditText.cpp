@@ -224,10 +224,8 @@ namespace MyGUI
 			mFontHeight = mFont->getDefaultHeight();
 		else
 			mFontHeight = _value;
-		mTextOutDate = true;
 
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		invalidateTextLayout();
 	}
 
 	int EditText::getFontHeight() const
@@ -326,8 +324,7 @@ namespace MyGUI
 	{
 		mTextAlign = _value;
 
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		invalidateTextLayout();
 	}
 
 	Align EditText::getTextAlign() const
@@ -418,7 +415,14 @@ namespace MyGUI
 
 	void EditText::setWordWrap(bool _value)
 	{
+		if (mWordWrap == _value)
+			return;
 		mWordWrap = _value;
+		invalidateTextLayout();
+	}
+
+	void EditText::invalidateTextLayout()
+	{
 		mTextOutDate = true;
 
 		if (nullptr != mNode)

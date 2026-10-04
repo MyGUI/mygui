@@ -1446,11 +1446,11 @@ namespace MyGUI
 
 	void EditBox::eraseView()
 	{
-		// if word wrap, reset text size
+		// Reflow wrapped text after changes to the available width or font.
 		if (mModeWordWrap)
 		{
 			if (mClientText != nullptr)
-				mClientText->setWordWrap(true);
+				mClientText->invalidateTextLayout();
 		}
 
 		updateView();

@@ -2,6 +2,7 @@
 #include "BehaviourTestSupport.h"
 #include "SkinTestContext.h"
 #include "MyGUI_EditText.h"
+#include "MyGUI_ResourceManualFont.h"
 #include "MyGUI_TextureUtility.h"
 
 namespace
@@ -46,10 +47,13 @@ namespace
 			gui.shutdown();
 			renderer.shutdown();
 		}
-		void render(size_t _quads)
+		void render(size_t _quads, bool _update = true)
 		{
 			renderer.vertices.clear();
-			renderer.render();
+			if (_update)
+				renderer.render();
+			else
+				MyGUI::LayerManager::getInstance().renderToTarget(&renderer, false);
 			require(renderer.vertices.size() == _quads * 6, "Text must submit exactly the expected visible quads");
 		}
 		void quad(size_t _index, MyGUI::FloatRect _pixels, MyGUI::FloatRect _atlasPixels, MyGUI::uint32 _colour)
@@ -163,4 +167,37 @@ void testTextSelectionAndCursor()
 	f.quad(4, {110, 120, 112, 140}, {64, 32, 66, 52}, f.colour(MyGUI::Colour::White));
 	f.text->setVisibleCursor(false);
 	f.render(4);
+}
+
+void testTextLayoutInvalidation()
+{
+	TextFixture f;
+	f.widget->setCaption("AB");
+	f.render(2);
+	MyGUI::ISubWidgetText* text = f.widget->getSubWidgetText();
+	const auto size = text->getTextSize();
+	auto* font = MyGUI::FontManager::getInstance().getByName("RenderTestFont")->castType<MyGUI::ResourceManualFont>();
+	font->addKerningInfo('A', 'B', -2);
+	text->setWordWrap(false);
+	unittest::require(text->getTextSize() == size, "Unchanged wrapping must preserve cached layout");
+	text->invalidateTextLayout();
+	font->addKerningInfo('A', 'B', -5);
+	unittest::require(
+		text->getTextSize() == MyGUI::IntSize(size.width - 5, size.height),
+		"Explicit invalidation must defer layout until the next measurement");
+	f.render(2, false);
+	f.quad(1, {105, 100, 115, 120}, {32, 32, 42, 52}, f.colour(MyGUI::Colour::Red));
+}
+
+void testTextAlignmentInvalidation()
+{
+	TextFixture f;
+	f.widget->setCaption("AB\nA");
+	f.render(3);
+	f.widget->setTextAlign(MyGUI::Align::Right | MyGUI::Align::Top);
+	unittest::require(
+		f.text->getCursorCoord(3).point() == MyGUI::IntPoint(110, 120),
+		"Changing alignment must update cursor coordinates before rendering");
+	f.render(3, false);
+	f.quad(2, {110, 120, 120, 140}, {16, 32, 26, 52}, f.colour(MyGUI::Colour::Red));
 }
