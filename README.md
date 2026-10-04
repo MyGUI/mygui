@@ -13,8 +13,8 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 
 - **Wide widget set:** buttons, edit boxes, combo boxes, lists, tree controls, item boxes, tab controls, scroll bars,
   progress bars, windows, and more
-- **Multiple render backends:** Vulkan, Direct3D 9, Direct3D 11, OpenGL (legacy), OpenGL 3.x, OpenGL ES 2.0, Ogre and
-  OgreNext
+- **Multiple render backends:** Vulkan, Direct3D 9, Direct3D 11, OpenGL (legacy), OpenGL 3.x, OpenGL ES 3 / WebGL 2,
+  Ogre, OgreNext, OpenSceneGraph
 - **Skin system:** fully customizable widget appearance via XML-based skin definitions
 - **Layout system:** load UI layouts from XML files at runtime; includes a visual **Layout Editor**
 - **Tools:** built-in editors for layouts, skins, images, and fonts
@@ -54,7 +54,7 @@ written in C++17 and is designed to be fast, flexible, and easy to integrate wit
 | Direct3D 9                 | 5        |
 | Direct3D 11                | 6        |
 | OpenGL 3.x                 | 7        |
-| OpenGL ES 2.0 (Emscripten) | 8        |
+| OpenGL ES 3 / WebGL 2 (Emscripten) | 8 |
 | OgreNext                   | 9        |
 | Vulkan                     | 10       |
 | OpenSceneGraph             | 11       |
@@ -98,7 +98,7 @@ Available targets:
 | `MyGUI::OgrePlatform`      | Ogre backend           |
 | `MyGUI::OpenGLPlatform`    | OpenGL backend         |
 | `MyGUI::OpenGL3Platform`   | OpenGL 3.x backend     |
-| `MyGUI::OpenGLES`          | OpenGLES backend       |
+| `MyGUI::OpenGLESPlatform`  | OpenGLES backend (Emscripten) |
 | `MyGUI::DirectXPlatform`   | Direct3D 9 backend     |
 | `MyGUI::DirectX11Platform` | Direct3D 11 backend    |
 | `MyGUI::OgreNextPlatform`  | OgreNext backend       |
