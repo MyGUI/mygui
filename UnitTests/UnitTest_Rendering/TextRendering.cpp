@@ -215,7 +215,8 @@ void testTextSkinReplacement()
 		f.widget->setTextColour(MyGUI::Colour::Red);
 		f.widget->setCaption("AAAAAAAAAAAA");
 		unittest::require(
-			f.widget->getSize() == MyGUI::IntSize(width, 60), "Replacing a skin must preserve the requested size");
+			f.widget->getSize() == MyGUI::IntSize(width, 60),
+			"Replacing a skin must preserve the requested size");
 		const size_t count = width == 100 ? 10 : 12;
 		f.render(count, false);
 		const float right = 100.0f + float(count) * 10.0f;
