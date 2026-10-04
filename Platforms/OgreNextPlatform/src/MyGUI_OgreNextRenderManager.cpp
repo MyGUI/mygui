@@ -296,7 +296,9 @@ namespace MyGUI
 		const auto gpuFormat = OgreNextTexture::convertFormat(format);
 		if (gpuFormat == Ogre::PFG_UNKNOWN || !mRenderSystem)
 			return false;
-		const Ogre::uint32 flags = usage.isValue(TextureUsage::RenderTarget) ? Ogre::TextureFlags::RenderToTexture : 0u;
+		const Ogre::uint32 flags = usage.isValue(TextureUsage::RenderTarget)
+			? static_cast<Ogre::uint32>(Ogre::TextureFlags::RenderToTexture)
+			: 0u;
 		return mRenderSystem->getTextureGpuManager()->checkSupport(gpuFormat, Ogre::TextureTypes::Type2D, flags);
 	}
 
