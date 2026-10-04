@@ -105,6 +105,8 @@ Available targets:
 | `MyGUI::VulkanPlatform`    | Vulkan backend         |
 | `MyGUI::OsgPlatform`       | OpenSceneGraph backend |
 
+For OgreNext, add its installation prefix to `CMAKE_PREFIX_PATH` when configuring the consumer, or set `OGRE_DIR`.
+
 Build options:
 
 | Option                  | Default        | Description                          |

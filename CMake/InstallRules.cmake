@@ -42,8 +42,23 @@ endif()
 # Determine platform dependencies for the config file
 set(MYGUI_CONFIG_FIND_DEPS "")
 foreach(_rs IN LISTS MYGUI_BUILD_RENDERSYSTEMS)
-	if(_rs EQUAL 3 OR _rs EQUAL 9)
+	if(_rs EQUAL 3)
 		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(OGRE)")
+	elseif(_rs EQUAL 9)
+		configure_file(
+			"${MYGUI_TEMPLATES_DIR}/MyGUIOgreNextConfig.cmake.in"
+			"${MYGUI_BINARY_DIR}/MyGUIOgreNextConfig.cmake"
+			@ONLY
+		)
+		install(FILES "${MYGUI_BINARY_DIR}/MyGUIOgreNextConfig.cmake"
+			DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/MyGUI"
+		)
+		list(APPEND MYGUI_CONFIG_FIND_DEPS
+			"find_dependency(MyGUIOgreNext CONFIG PATHS \"\${CMAKE_CURRENT_LIST_DIR}\" NO_DEFAULT_PATH)"
+		)
+		if(OGRE_STATIC)
+			list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(ZLIB)")
+		endif()
 	elseif(_rs EQUAL 10)
 		list(APPEND MYGUI_CONFIG_FIND_DEPS "find_dependency(Vulkan)")
 	elseif(_rs EQUAL 11)

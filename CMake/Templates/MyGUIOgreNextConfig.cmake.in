@@ -1,0 +1,54 @@
+# Recreate MyGUI's OgreNext dependency using the consumer's installation.
+# OgreNext's legacy FindOGRE module does not provide OgreNext::OgreNext.
+if(TARGET OgreNext::OgreNext)
+	return()
+endif()
+
+set(_mygui_ogre_next_hints "${OGRE_DIR}" "${OGRE_HOME}" "$ENV{OGRE_HOME}" "$ENV{OGRE_SDK}")
+find_path(MyGUIOgreNext_INCLUDE_DIR OgreHlms.h
+	HINTS ${_mygui_ogre_next_hints}
+	PATH_SUFFIXES include/OGRE-Next include/OGRE OGRE-Next OGRE
+)
+set(_mygui_ogre_next_suffix "")
+if("@OGRE_STATIC@")
+	set(_mygui_ogre_next_suffix "Static")
+endif()
+find_library(MyGUIOgreNext_LIBRARY_RELEASE
+	NAMES OgreNextMain${_mygui_ogre_next_suffix} OgreMain${_mygui_ogre_next_suffix}
+	HINTS ${_mygui_ogre_next_hints}
+	PATH_SUFFIXES lib lib64 lib/Release Release
+)
+find_library(MyGUIOgreNext_LIBRARY_DEBUG
+	NAMES OgreNextMain${_mygui_ogre_next_suffix}_d OgreMain${_mygui_ogre_next_suffix}_d
+	HINTS ${_mygui_ogre_next_hints}
+	PATH_SUFFIXES lib lib64 lib/Debug Debug
+)
+
+if(NOT MyGUIOgreNext_INCLUDE_DIR OR
+	(NOT MyGUIOgreNext_LIBRARY_RELEASE AND NOT MyGUIOgreNext_LIBRARY_DEBUG))
+	set(MyGUIOgreNext_FOUND FALSE)
+	set(MyGUIOgreNext_NOT_FOUND_MESSAGE
+		"OgreNext headers and library were not found. Add its installation prefix to CMAKE_PREFIX_PATH or set OGRE_DIR."
+	)
+	return()
+endif()
+
+add_library(OgreNext::OgreNext UNKNOWN IMPORTED)
+set_target_properties(OgreNext::OgreNext PROPERTIES
+	INTERFACE_INCLUDE_DIRECTORIES "${MyGUIOgreNext_INCLUDE_DIR}"
+)
+foreach(_config RELEASE DEBUG)
+	if(MyGUIOgreNext_LIBRARY_${_config})
+		set_property(TARGET OgreNext::OgreNext APPEND PROPERTY IMPORTED_CONFIGURATIONS ${_config})
+		set_target_properties(OgreNext::OgreNext PROPERTIES
+			IMPORTED_LOCATION_${_config} "${MyGUIOgreNext_LIBRARY_${_config}}"
+		)
+	endif()
+endforeach()
+if("@OGRE_STATIC@")
+	set_property(TARGET OgreNext::OgreNext APPEND PROPERTY INTERFACE_COMPILE_DEFINITIONS OGRE_STATIC_LIB)
+endif()
+mark_as_advanced(MyGUIOgreNext_INCLUDE_DIR MyGUIOgreNext_LIBRARY_RELEASE MyGUIOgreNext_LIBRARY_DEBUG)
+unset(_mygui_ogre_next_hints)
+unset(_mygui_ogre_next_suffix)
+unset(_config)
