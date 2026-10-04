@@ -1,85 +1,91 @@
 ## MyGUI v3.5.2
 
+### Compatibility
+- Remove `UString::asWStr_c_str` and `asUTF32_c_str`; use `asWStr` and `asUTF32` instead. `asWStr` now returns an
+  independent `std::wstring` by value, so retain the returned string when using its `c_str` pointer. `asUTF8_c_str`
+  remains available
+- Remove legacy .txt language resource and user-tag support; migrate these files to XML
+- Deprecate `RotatingSkin`; use `Widget::setRotation` and `Widget::setRotationCenter` instead
+- Deprecate `texture_utility::getTextureSize`; use `RenderManager::getTextureSize` instead
+
 ### Core
-- Fix asserts in the ImageBox::deleteItemFrame
-- Move texture_utility::getTextureSize() into RenderManager so its size cache is tied to the renderer lifetime, fixing
-  textures not being recreated after renderer reinitialization
-- Fix out-of-bounds reads in TextIterator when text ends with an unescaped '#'
-- Fix EditBox::getTextSelectionLength returning an underflowed value for reverse selections and inactive selection
-- Fix EditBox left-side maximum-length truncation dropping a trailing literal '#'
-- Ignore empty and out-of-range EditBox colour intervals and clamp oversized lengths
-- Fix XML partial stream reads, failed-save reporting and stale error diagnostics; return null for missing XML roots
-- Fix hovering over an inactive MenuBar stealing keyboard focus from other widgets (#282)
-- Add Widget::eventChangeAbsoluteCoord for absolute position or size changes, including ancestor movement, alignment and
-  reparenting
-- Fix ComboBox drop-downs and MenuControl submenus not following ancestor movement
-- Fix ComboBox shutdown crash when destroying a focused drop-down
-- Fix LayerItem not restoring layer nodes for overlapped descendants when reparenting a widget as a child
-- Add InputManager::setDoubleClickTime and getDoubleClickTime
-- Add setItemHeight, getItemHeight and ItemHeight property to ListBox, ComboBox and MultiListBox for runtime row resizing
-- Fix newly added MultiListBox columns not inheriting the current scroll position
+- Add base widget rotation support with updated hit testing, clipping and coordinate conversion; add
+  `Widget::setRotation` and `getRotation`
+- Add `Widget::eventChangeAbsoluteCoord` for absolute position or size changes, including ancestor movement, alignment
+  and reparenting
+- Add `InputManager::setDoubleClickTime` and `getDoubleClickTime`
+- Add `setItemHeight`, `getItemHeight` and `ItemHeight` property to `ListBox`, `ComboBox` and `MultiListBox` for
+  runtime row resizing
+- Add owning `DataManager::getDataHolder`; make `DataStreamHolder` non-copyable and non-movable
+- Add `IDataStream::readAll` and `readAllText` helpers to read all remaining bytes from a stream
+- Reimplement `UString` using `std::u32string` and UTF8-CPP; indices count Unicode code points. This also improves
+  internal text handling speed by avoiding extra 8/16/32 conversions
+- Optimize delegate invocation and subscription handling, and fix callback lifetime issues during nested dispatch,
+  mutation, exceptions and event destruction
+- Skip unchanged values in several widget setters to avoid redundant layout and render updates
+- Fix out-of-bounds reads in `TextIterator` when text ends with an unescaped '#'
+- Fix `EditBox::getTextSelectionLength` returning an underflowed value for reverse selections and inactive selection
+- Fix `EditBox` left-side maximum-length truncation dropping a trailing literal '#'
+- Ignore empty and out-of-range `EditBox` colour intervals and clamp oversized lengths
+- Fix `TextIterator::cutMaxLengthFromBeginning` reading past incomplete colour tags
+- Make `EditBox` password mode single-line, disabling multiline mode with a warning when both are requested
+- Fix FreeType and MSDF fonts bypassing the configured substitute for unsupported characters and regenerating
+  incorrect glyphs after texture invalidation
+- Fix newly added `MultiListBox` columns not inheriting the current scroll position
+- Fix `MultiListBox` row indices not being cleared when removing the last column, allowing the list to be reused
+- Fix an empty `ListBox` accepting nonzero scrolling
+- Fix resizing `ListBox` exposing a reused row without refreshing its selected appearance
+- Fix removing an offscreen selected `ListBox` item selecting a visible neighbour without repainting it
+- Fix inserting a `ListBox` item before the visible rows leaving too few row widgets for subsequent pixel scrolling
+- Fix `ScrollView` scrollbar visibility, ranges and thumb sizes using stale viewport dimensions after scrollbars
+  appear or disappear
+- Fix `ScrollView`, `EditBox` and `ItemBox` keeping scrollbars visible after `setVisibleVScroll(false)` or
+  `setVisibleHScroll(false)` when content still overflows
+- Fix `TabControl` header scrolling not accounting for navigation button space in layout-based skins, leaving the
+  target tab hidden
+- Fix hovering over an inactive `MenuBar` stealing keyboard focus from other widgets (#282)
+- Fix `ComboBox` drop-downs and `MenuControl` submenus not following ancestor movement
+- Fix `ComboBox` shutdown crash when destroying a focused drop-down
 - Fix keyboard focus gained events reporting the new widget instead of the previous focused widget
 - Preserve keyboard focus in modal dialogs when clicking outside them
 - Exclude right and bottom edges from widget hit testing to match rendered bounds and prevent adjacent widgets from
   sharing clickable boundary pixels
-- Fix MultiListBox row indices not being cleared when removing the last column, allowing the list to be reused
-- Fix ScrollView scrollbar visibility, ranges and thumb sizes using stale viewport dimensions after scrollbars appear or
-  disappear
-- Fix ScrollView, EditBox and ItemBox keeping scrollbars visible after setVisibleVScroll(false) or
-  setVisibleHScroll(false) when content still overflows
-- Fix reparenting did not update inherited visibility and enabled state
-- Fix child popup with disabled ancestor could still intercept mouse input
-- Fix an empty ListBox accepted nonzero scrolling
-- Fix resizing ListBox could expose a reused row without refreshing its selected appearance
-- Fix removing an offscreen selected ListBox item could select a visible neighbour without repainting it
-- Fix TextIterator::cutMaxLengthFromBeginning reading past incomplete colour tags
-- Fix inserting a ListBox item before the visible rows leaving too few row widgets for subsequent pixel scrolling
-- Make EditBox password mode single-line, disabling multiline mode with a warning when both are requested
-- Fix ImageBox selection indices when inserting or deleting items and refresh the displayed image when deleting the
+- Fix reparenting not updating inherited visibility and enabled state
+- Fix child popups with disabled ancestors intercepting mouse input
+- Fix `MenuControl` losing item names when switching to separator skins
+- Fix `LayerItem` not restoring layer nodes for overlapped descendants when reparenting a widget as a child
+- Fix `RotatingSkin` ignoring subskin position offsets and render-target scale changes; respect render-target origin
+  offsets in `RotatingSkin` and `PolygonalSkin`
+- Fix `PolygonalSkin` retaining stale geometry after clearing points or supplying a single point or duplicate-only
+  points
+- Fix `PolygonalSkin` vertex buffer overruns when clipping sharp joins and invalid geometry at line reversals
+- Simplify rotation, clipping and shared coordinate conversion; make `RotatingSkin` draw only populated triangles
+- Fix bounds checks in `ImageBox::deleteItemFrame`
+- Fix `ImageBox` selection indices when inserting or deleting items and refresh the displayed image when deleting the
   selected item
-- Fix TabControl header scrolling not accounting for navigation button space in layout-based skins, leaving the target
-  tab hidden
-- Fix RotatingSkin ignoring subskin position offsets and render-target scale changes; respect render-target origin
-  offsets in RotatingSkin and PolygonalSkin
-- Fix PolygonalSkin retaining stale geometry after clearing points or supplying a single point or duplicate-only points
-- Fix PolygonalSkin vertex buffer overruns when clipping sharp joins and invalid geometry at line reversals
-- Simplify rotation, clipping and shared coordinate conversion; make RotatingSkin draw only populated triangles while
-  keeping its fixed vertex buffer capacity
-- Reimplement UString using std::u32string and UTF8-CPP; indices count Unicode code points. This also improves internal
-  text handling speed by avoiding extra 8/16/32 conversions
-- Fix Canvas texture destruction leaving stale references and queued updates; respect disabled texture management during
-  deferred resizing and preserve content update requests when reallocating
-- Fix DataStream read counts at EOF and preserve position and state in size queries
-- Add owning DataManager::getDataHolder; make DataStreamHolder non-copyable and non-movable
-- Add IDataStream::readAll and readAllText helpers to read all remaining bytes from a stream
-- Optimize delegate invocation and subscription handling, and fix callback lifetime issues during nested dispatch,
-  mutation, exceptions and event destruction
-- Add base widget rotation support with updated hit testing, clipping and coordinate conversion; add Widget::setRotation and getRotation
-- Fix FreeType and MSDF fonts bypassing the configured substitute for unsupported characters and regenerating incorrect
-  glyphs after texture invalidation
-- Skip unchanged values in several widget setters to avoid redundant layout and render updates
-- Fix Version comparisons to order major, minor and patch components correctly
-- Fix MenuControl losing item names when switching to separator skins
-- Fix automatic ProgressBar animation wrapping with a stale position
-
-### Compatibility
-- Remove UString::asWStr_c_str and asUTF32_c_str; use asWStr and asUTF32 instead. asWStr now returns an independent
-  std::wstring by value, so retain the returned string when using its c_str pointer. asUTF8_c_str remains available
-- Remove legacy .txt language resource and user-tag support; migrate these files to XML
-- Deprecate RotatingSkin; use Widget::setRotation and Widget::setRotationCenter instead
-- Deprecate texture_utility::getTextureSize; use RenderManager::getTextureSize instead
+- Move `texture_utility::getTextureSize` into `RenderManager` so its size cache is tied to the renderer lifetime,
+  fixing textures not being recreated after renderer reinitialization
+- Fix `Canvas` texture destruction leaving stale references and queued updates; respect disabled texture management
+  during deferred resizing and preserve content update requests when reallocating
+- Fix automatic `ProgressBar` animation restarting incorrectly
+- Fix XML partial stream reads, failed-save reporting and stale error diagnostics; return null for missing XML roots
+- Fix `DataStream` read counts at EOF and preserve position and state in size queries
+- Fix `Version` comparisons to order major, minor and patch components correctly
 
 ### Platforms
-- New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale
-- New OsgPlatform for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shader support, custom osg::Drawable rendering with pooled VBOs
-- All platforms now use standard Porter-Duff alpha blending (dst_a = src_a + dst_a * (1 - src_a))
+- New `VulkanPlatform` (`MYGUI_RENDERSYSTEM=10`): shader support, RTT textures, `FilterNone` and DPI scale
+- New `OsgPlatform` for OpenSceneGraph (`MYGUI_RENDERSYSTEM=11`): shader support, custom `osg::Drawable` rendering
+  with pooled VBOs
+- All platforms now use standard Porter-Duff alpha blending (`dst_a = src_a + dst_a * (1 - src_a)`)
+- Make `DataManager::getDataListNames` and `getDataPath` no longer required in `DataManager` implementations; they are
+  still used internally by most platforms and by demos/tools
 - Ogre/OgreNext: fix texture parameters not being set
 - Ogre: fix GLSL shader loading with Ogre versions older than 14.3
 - Ogre: preserve partial read/write texture updates and normalize loaded image formats and channel order for readback
   and saving
 - Ogre: fix reuse and ownership of existing textures, texture recreation and combined render-target/read/write usage;
   stop advertising unknown pixel formats
-- OgreNext: implement texture lock read (used in picking)
+- OgreNext: implement texture read locks for picking
 - OgreNext: fix nested RTT
 - OgreNext: fix Metal rendering and preserve vertex and indirect buffers across multiple updates within a frame
 - OgreNext: fix texture lifecycle, read/write locks and pixel-format conversion
@@ -98,70 +104,63 @@
   restore host state even when rendering throws, while retaining explicit GUI wireframe support
 - OpenGL: fix nested render targets, preserve host framebuffer and renderbuffer bindings, and check framebuffer completeness
 - OpenGL: stop advertising unsupported pixel formats and luminance render targets
-
 - DirectX9: use dynamic discard vertex buffers, release them on device loss and recreate them after device restoration
 - DirectX9: fix texture read/write locks, row-pitch handling and render-target readback
 - DirectX9: preserve render targets, viewport and host scene ownership during nested RTT
-
 - DirectX11: check vertex-buffer map failures and retry allocation when no buffer exists
 - DirectX11: implement texture read and read/write locks, including GPU-rendered pixels, with correct row-pitch handling
 - DirectX11: fix combined render-target/read/write usage, texture usage reporting and render-target cleanup on recreation
-
 - OpenGLES: fix texture read/write locks, interleaved updates, transfer sizing and array cleanup; preserve host
   pixel-store state and use core ES 3 PBO uploads with framebuffer readback
 - OpenGLES: normalize texture channel order for uploaded and rendered images, and support ES 3 luminance textures
 - OpenGLES: isolate GUI rendering from inherited raster/sampler state and restore host bindings, including on exceptions
 - OpenGLES: fix render-target dimensions, nested target restoration and custom-shader orientation; resolve replaced shaders
   per texture and request an ES 3 context before creating the SDL window
-
 - Vulkan: retain vertex storage until recorded commands retire, reuse completed allocations and check map failures;
   submit RTT work asynchronously and wait before command reuse or destruction
 
-- Make DataManager::getDataListNames and getDataPath no longer required in DataManager implementations; they are still
-  used internally by most platforms and by demos/tools
-
 ### Demos
-- Add [browser demos](https://mygui.info/demos/) built with Emscripten, Ogre backend (pure OpenGLES also tested),
-  a shared WebAssembly build, demo selector and high-DPI support
-- Handle SDL_QUIT in apps
+- Add [browser demos](https://mygui.info/demos/) built with Emscripten using the Ogre backend (pure OpenGLES also
+  tested), combined into a single WebAssembly application with a demo selector and high-DPI support
+- Add widget rotation demo
+- Handle `SDL_QUIT` in apps
 - Fix DPI scaling in demos and tools on macOS Retina displays
 - Fix Ogre application shutdown destroying the render window twice
 - Fix OgreNext application window resizing on Linux
-- Make all custom RTTLayer implementations respect DPI scale
-- Fix unreachable code in Demo_GraphView and deprecated skin usage in its resources
-- Move interactive tests to AdvancedDemos as Demo_<Feature>, controlled by MYGUI_BUILD_ADVANCED_DEMOS (ON by default)
-- Add widget rotation demo
+- Make all custom `RTTLayer` implementations respect DPI scale
+- Fix unreachable code in `Demo_GraphView` and deprecated skin usage in its resources
+- Move interactive tests to `AdvancedDemos` as `Demo_<Feature>`, controlled by `MYGUI_BUILD_ADVANCED_DEMOS` (ON by
+  default)
 
 ### Tools
-- Merge tools CLI arguments parsing into SdlBaseManager instead of duplicating it in every tool
+- Share CLI argument parsing for tools in `SdlBaseManager`
 - LayoutEditor: always save the latest layout format, upgrade recognized deprecated properties and preserve unknown
   properties
 - Fix missing editor fonts when FreeType is disabled
 
 ### Infrastructure
-
-- Enable MYGUI_BUILD_UNITTESTS by default
+- Enable `MYGUI_BUILD_UNITTESTS` by default
 - Propagate the C++17 requirement to consumers of the MyGUI CMake target
-- Implement --screenshot CLI option for demos and tools to save a screenshot and exit
-- Add screenshot testing: compare_screenshots.py compares screenshots produced by demos/tools against committed
+- Implement `--screenshot` CLI option for demos and tools to save a screenshot and exit
+- Add screenshot testing: `compare_screenshots.py` compares screenshots produced by demos/tools against committed
   references (with tolerance for comparing e.g. DirectX vs OpenGL)
 - Add extensive unit-test coverage across the engine
-- Add extensive unit-test coverage across the platforms implementations using shared test suite
-- Keep only automated tests in UnitTests; convert AttachDetach and MultiList into finite headless tests
-- Share test setup, assertions, and resource loading in UnitTests/Common
+- Add extensive unit-test coverage across platform implementations using a shared test suite
+- Keep only automated tests in `UnitTests`; convert `AttachDetach` and `MultiList` into finite headless tests
+- Share test setup, assertions, and resource loading in `UnitTests/Common`
 - Run unit tests with CTest in native GitHub CI builds
 - Run platform tests in CI for Linux/Ogre, Linux/OpenGL3, Linux/Vulkan, macOS/OpenGL3 and Windows/DirectX11
 - Run Emscripten core unit tests and browser/OpenGLES platform tests in CI
 - Run unit tests with AddressSanitizer and UndefinedBehaviorSanitizer in CI
 - Add Clang source-based code coverage reports and a coverage badge
 - Fix Ogre captures of hidden windows by reading the back buffer before swapping
-- Generate resources.xml beside executables for multi-configuration builds
+- Generate `resources.xml` beside executables for multi-configuration builds
 - Fix Linux builds with X11 and older OpenGL headers; propagate required GL extension prototypes through the OpenGL,
   OpenGL3 and OpenGLES CMake targets
 - Make time-based updates deterministic in screenshot mode for reproducible screenshots
 - Use OgreNext CMake package config instead of PkgConfig
 - Fix Emscripten build
-- Remove bundled doxygen.exe binary from Wrappers (#317)
+- Remove bundled `doxygen.exe` binary from Wrappers (#317)
 
 ## MyGUI v3.5.1
 
