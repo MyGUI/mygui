@@ -83,6 +83,8 @@ namespace MyGUI
 	{
 		if (mAutoTrack)
 			return;
+		if (mEndPosition == _pos)
+			return;
 		mEndPosition = _pos;
 		if (mEndPosition > mRange)
 			mEndPosition = mRange;

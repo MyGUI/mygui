@@ -36,6 +36,8 @@ namespace MyGUI
 	void SubSkin::setAlpha(float _alpha)
 	{
 		uint32 alpha = ((uint8)(_alpha * 255) << 24);
+		if ((mCurrentColour & 0xFF000000) == alpha)
+			return;
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)

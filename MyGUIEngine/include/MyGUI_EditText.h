@@ -132,7 +132,7 @@ namespace MyGUI
 		bool mEmptyView{false};
 		uint32 mCurrentColourNative{0xFFFFFFFF};
 		uint32 mInverseColourNative{0xFF000000};
-		uint32 mShadowColourNative{0x00000000};
+		uint32 mShadowColourNative{0xFF000000};
 		IntCoord mCurrentCoord;
 
 		UString mCaption;

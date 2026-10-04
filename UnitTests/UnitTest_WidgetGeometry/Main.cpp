@@ -71,20 +71,24 @@ namespace
 			MyGUI::Align::Default,
 			"Popup");
 		CoordObserver parentObserver;
+		CoordObserver localObserver;
 		CoordObserver childObserver;
 		CoordObserver popupObserver;
 		parent->eventChangeAbsoluteCoord += MyGUI::newDelegate(&parentObserver, &CoordObserver::notify);
+		parent->eventChangeCoord += MyGUI::newDelegate(&localObserver, &CoordObserver::notify);
 		child->eventChangeAbsoluteCoord += MyGUI::newDelegate(&childObserver, &CoordObserver::notify);
 		popup->eventChangeAbsoluteCoord += MyGUI::newDelegate(&popupObserver, &CoordObserver::notify);
 
 		parent->setPosition(150, 200);
 		require(parentObserver.count == 1, "Direct movement must emit an absolute position event");
+		require(localObserver.count == 1, "Direct movement must emit a local coordinate event");
 		require(childObserver.count == 1, "Ancestor movement must notify descendants");
 		require(childObserver.position == MyGUI::IntPoint(160, 220), "The event must expose the updated position");
 		require(popupObserver.count == 0, "Popups must not inherit ancestor movement");
 		require(popup->getAbsolutePosition() == MyGUI::IntPoint(400, 400), "Popup coordinates must stay absolute");
 
 		parent->setPosition(parent->getPosition());
+		require(localObserver.count == 1, "Unchanged position must not emit a local coordinate event");
 		parent->setCoord(parent->getCoord());
 		require(parentObserver.count == 1, "Unchanged coordinates must not emit events");
 		parent->setSize(350, 350);

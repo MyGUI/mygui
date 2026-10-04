@@ -268,6 +268,8 @@ namespace MyGUI
 
 	void EditText::setTextSelection(size_t _start, size_t _end)
 	{
+		if (mStartSelect == _start && mEndSelect == _end)
+			return;
 		mStartSelect = _start;
 		mEndSelect = _end;
 
@@ -322,6 +324,8 @@ namespace MyGUI
 
 	void EditText::setTextAlign(Align _value)
 	{
+		if (mTextAlign == _value)
+			return;
 		mTextAlign = _value;
 
 		invalidateTextLayout();
@@ -360,6 +364,8 @@ namespace MyGUI
 
 	void EditText::setViewOffset(const IntPoint& _point)
 	{
+		if (mViewOffset == _point)
+			return;
 		mViewOffset = _point;
 
 		if (nullptr != mNode)
@@ -616,6 +622,8 @@ namespace MyGUI
 
 	void EditText::setShadow(bool _value)
 	{
+		if (mShadow == _value)
+			return;
 		mShadow = _value;
 		mTextOutDate = true;
 
@@ -627,6 +635,8 @@ namespace MyGUI
 
 	void EditText::setShadowColour(const Colour& _value)
 	{
+		if (mShadowColour == _value)
+			return;
 		mShadowColour = _value;
 		mShadowColourNative = texture_utility::toNativeColour(mShadowColour, mVertexFormat);
 

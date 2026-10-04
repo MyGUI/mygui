@@ -61,12 +61,16 @@ namespace MyGUI
 
 	void PolygonalSkin::setWidth(float _width)
 	{
+		if (mLineWidth == _width)
+			return;
 		mLineWidth = _width;
 		_updateView();
 	}
 
 	void PolygonalSkin::setStroke(size_t _value)
 	{
+		if (mLineStroke == _value)
+			return;
 		mLineStroke = _value;
 		_updateView();
 	}
@@ -83,6 +87,8 @@ namespace MyGUI
 	void PolygonalSkin::setAlpha(float _alpha)
 	{
 		uint32 alpha = ((uint8)(_alpha * 255) << 24);
+		if ((mCurrentColour & 0xFF000000) == alpha)
+			return;
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)

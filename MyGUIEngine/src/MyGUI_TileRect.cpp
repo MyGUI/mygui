@@ -39,6 +39,8 @@ namespace MyGUI
 	void TileRect::setAlpha(float _alpha)
 	{
 		uint32 alpha = ((uint8)(_alpha * 255) << 24);
+		if ((mCurrentColour & 0xFF000000) == alpha)
+			return;
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)
@@ -126,6 +128,8 @@ namespace MyGUI
 
 	void TileRect::_setUVSet(const FloatRect& _rect)
 	{
+		if (mCurrentTexture == _rect)
+			return;
 		mCurrentTexture = _rect;
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);

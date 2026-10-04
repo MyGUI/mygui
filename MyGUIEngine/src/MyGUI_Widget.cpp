@@ -447,6 +447,8 @@ namespace MyGUI
 
 	void Widget::setInheritsAlpha(bool _inherits)
 	{
+		if (mInheritsAlpha == _inherits)
+			return;
 		mInheritsAlpha = _inherits;
 		_updateAlpha();
 	}
@@ -611,6 +613,8 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntPoint& _point)
 	{
+		if (mCoord.point() == _point)
+			return;
 		mCoord = _point;
 		_updateGeometry();
 
