@@ -134,6 +134,10 @@ MyGUI ships with several visual editors under `Tools/`:
 
 Run tests with `ctest --test-dir build -C RelWithDebInfo --output-on-failure` (use your build configuration).
 
+Run `python3 Scripts/Tests/test_install.py` to build, install, relocate, and run an OpenGL3 platform consumer without creating a
+graphics context. Add `--static` to test static linking or `--rendersystem <ID>` to select another backend. CI uses
+`--skip-build --build-dir build` to reuse its existing build; installation, relocation, and the consumer test always run.
+
 Run `python3 Scripts/Tests/compare_screenshots.py build` to compare demos and tools screenshots against reference images,
 checking rendering consistency across platforms and render backends. Requires built applications, a graphical display,
 and NumPy/Pillow (`python3 -m pip install numpy pillow`).

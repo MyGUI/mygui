@@ -117,24 +117,13 @@ jobs:
         if: matrix.platform_tests && runner.os != 'Linux'
         run: ctest --test-dir build --build-config RelWithDebInfo --output-on-failure --no-tests=error --timeout 120 -L platform
 
-      - name: Install
+      - name: Test install (relocation and consumer build)
         if: runner.os == 'Linux'
-        run: cmake --install build --prefix ${{ github.workspace }}/install
-
-      - name: Test install (consumer build)
-        if: runner.os == 'Linux'
-        run: |
-          mkdir consumer-test
-          printf '%s\n' \
-            'cmake_minimum_required(VERSION 3.25)' \
-            'project(TestInstall)' \
-            'list(APPEND CMAKE_MODULE_PATH "${{ github.workspace }}/CMake")' \
-            'include(TestInstall)' \
-            > consumer-test/CMakeLists.txt
-          cmake -S consumer-test -B consumer-test/build \
-            -DCMAKE_PREFIX_PATH=${{ github.workspace }}/install \
-            -DMYGUI_RENDERSYSTEM=${{ matrix.rendersystem }}
-          cmake --build consumer-test/build
+        run: >
+          python3 Scripts/Tests/test_install.py --skip-build
+          --build-dir build
+          --prefix "${{ github.workspace }}/install"
+          --rendersystem ${{ matrix.rendersystem }}
 
   sanitizers:
     name: "Linux: Debug unit tests, ASan + UBSan"
