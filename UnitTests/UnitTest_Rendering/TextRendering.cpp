@@ -180,7 +180,7 @@ void testTextLayoutInvalidation()
 	font->addKerningInfo('A', 'B', -2);
 	text->setWordWrap(false);
 	unittest::require(text->getTextSize() == size, "Unchanged wrapping must preserve cached layout");
-	text->invalidateTextLayout();
+	text->_invalidateTextLayout();
 	font->addKerningInfo('A', 'B', -5);
 	unittest::require(
 		text->getTextSize() == MyGUI::IntSize(size.width - 5, size.height),

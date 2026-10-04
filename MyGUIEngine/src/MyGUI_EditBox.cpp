@@ -1450,7 +1450,7 @@ namespace MyGUI
 		if (mModeWordWrap)
 		{
 			if (mClientText != nullptr)
-				mClientText->invalidateTextLayout();
+				mClientText->_invalidateTextLayout();
 		}
 
 		updateView();

@@ -92,14 +92,13 @@ namespace MyGUI
 
 		void setWordWrap(bool _value) override;
 
-		void invalidateTextLayout() override;
-
 		void setStateData(IStateInfo* _data) override;
 
 		void setShadowColour(const Colour& _value) override;
 		const Colour& getShadowColour() const override;
 
 		/*internal:*/
+		void _invalidateTextLayout() override;
 		void _updateView() override;
 		void _correctView() override;
 
