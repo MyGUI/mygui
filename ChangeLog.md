@@ -57,6 +57,7 @@
 - Deprecate RotatingSkin, use Widget::setRotation instead
 - Fix FreeType and MSDF fonts bypassing the configured substitute for unsupported characters and regenerating incorrect
   glyphs after texture invalidation
+- Skip unchanged values in several widget setters to avoid redundant layout and render updates
 
 ### Platforms
 - New VulkanPlatform (`MYGUI_RENDERSYSTEM=10`): shaders support, RTT textures, FilterNone and DPI scale

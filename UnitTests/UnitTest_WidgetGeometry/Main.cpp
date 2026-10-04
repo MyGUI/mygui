@@ -90,9 +90,12 @@ namespace
 		parent->setPosition(parent->getPosition());
 		require(localObserver.count == 1, "Unchanged position must not emit a local coordinate event");
 		parent->setCoord(parent->getCoord());
+		parent->setSize(parent->getSize());
 		require(parentObserver.count == 1, "Unchanged coordinates must not emit events");
+		require(localObserver.count == 1, "Unchanged coordinates and size must not emit local events");
 		parent->setSize(350, 350);
 		require(parentObserver.count == 2, "Resizing must emit an absolute coordinate event");
+		require(localObserver.count == 2, "Resizing must emit one local coordinate event");
 		require(
 			parentObserver.coord == MyGUI::IntCoord(150, 200, 350, 350),
 			"Resize callbacks must expose the new size");

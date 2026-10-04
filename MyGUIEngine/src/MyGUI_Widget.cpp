@@ -198,7 +198,7 @@ namespace MyGUI
 
 		if (_skinInfo != nullptr)
 		{
-			//FIXME - explicit call
+			// Bypass derived resize handlers while skin children are being initialized.
 			Widget::setSize(_skinInfo->getSize());
 
 			_createSkinItem(_skinInfo);
@@ -248,7 +248,7 @@ namespace MyGUI
 
 		if (root != nullptr)
 		{
-			//FIXME - explicit call
+			// Bypass derived resize handlers while skin children are being initialized.
 			Widget::setSize(root->intCoord.size());
 
 			for (const auto& userString : root->userStrings)
@@ -262,8 +262,11 @@ namespace MyGUI
 			}
 		}
 
-		//FIXME - explicit call
-		Widget::setSize(_size);
+		// Newly created skin subwidgets need geometry even when the size is unchanged.
+		if (mCoord.size() == _size)
+			_updateCoord(_size);
+		else
+			Widget::setSize(_size);
 
 		return root;
 	}
@@ -625,15 +628,26 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize& _size)
 	{
+		if (mCoord.size() == _size)
+			return;
 		Widget::setCoord(IntCoord(mCoord.point(), _size));
 	}
 
 	void Widget::setCoord(const IntCoord& _coord)
 	{
+		if (mCoord == _coord)
+			return;
 		// set new coordinate, use old one in calculations
 		IntSize old = mCoord.size();
 		mCoord = _coord;
 
+		_updateCoord(old);
+
+		eventChangeCoord(this);
+	}
+
+	void Widget::_updateCoord(const IntSize& _oldSize)
+	{
 		bool visible = true;
 
 		bool margin = mCroppedParent ? _checkMargin() : false;
@@ -648,14 +662,12 @@ namespace MyGUI
 
 		_setSubSkinVisible(visible);
 
-		_updateGeometry(&old);
+		_updateGeometry(&_oldSize);
 
-		_setSkinItemAlign(old);
+		_setSkinItemAlign(_oldSize);
 
 		// remember current state
 		mIsMargin = margin;
-
-		eventChangeCoord(this);
 	}
 
 	void Widget::setAlign(Align _value)

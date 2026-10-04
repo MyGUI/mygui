@@ -518,6 +518,7 @@ int main()
 		{"Multiline selection and cursor rendering", testTextSelectionAndCursor},
 		{"Explicit text layout and render invalidation", testTextLayoutInvalidation},
 		{"Text alignment updates layout before rendering", testTextAlignmentInvalidation},
+		{"Skin replacement initializes text geometry", testTextSkinReplacement},
 		{"Render buffer allocation, packing, and invalidation", testBufferUpdates},
 		{"Empty geometry and failed buffer locks", testEmptyAndFailedDraws},
 		{"Manual render dispatch", testManualRendering},

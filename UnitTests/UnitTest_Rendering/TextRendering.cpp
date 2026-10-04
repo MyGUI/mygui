@@ -201,3 +201,24 @@ void testTextAlignmentInvalidation()
 	f.render(3, false);
 	f.quad(2, {110, 120, 120, 140}, {16, 32, 26, 52}, f.colour(MyGUI::Colour::Red));
 }
+
+void testTextSkinReplacement()
+{
+	TextFixture f;
+	for (int width : {100, 150})
+	{
+		f.widget->setSize(width, 60);
+		f.widget->changeWidgetSkin("RenderTestText");
+		f.widget->setFontName("RenderTestFont");
+		f.widget->setFontHeight(20);
+		f.widget->setTextAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		f.widget->setTextColour(MyGUI::Colour::Red);
+		f.widget->setCaption("AAAAAAAAAAAA");
+		unittest::require(
+			f.widget->getSize() == MyGUI::IntSize(width, 60), "Replacing a skin must preserve the requested size");
+		const size_t count = width == 100 ? 10 : 12;
+		f.render(count, false);
+		const float right = 100.0f + float(count) * 10.0f;
+		f.quad(count - 1, {right - 10, 100, right, 120}, {16, 32, 26, 52}, f.colour(MyGUI::Colour::Red));
+	}
+}

@@ -477,6 +477,7 @@ namespace MyGUI
 		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();
+		void _updateCoord(const IntSize& _oldSize);
 		void _updateGeometry(const IntSize* _oldSize = nullptr);
 		// Detach hierarchy and layers without updating geometry
 		void _detachFromWidget(std::string_view _layer);

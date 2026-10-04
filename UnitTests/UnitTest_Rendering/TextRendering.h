@@ -5,3 +5,4 @@ void testTextClipping();
 void testTextSelectionAndCursor();
 void testTextLayoutInvalidation();
 void testTextAlignmentInvalidation();
+void testTextSkinReplacement();
