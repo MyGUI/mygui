@@ -525,11 +525,15 @@ namespace MyGUI
 				widget->_setAlign(*_oldSize, getSize());
 			else if (widget->mCroppedParent != nullptr)
 				widget->_updateGeometry();
+			else if (widget->mWorldHasRotation)
+				widget->invalidateRotation();
 		for (auto& widget : mWidgetChildSkin)
 			if (_oldSize != nullptr)
 				widget->_setAlign(*_oldSize, getSize());
 			else if (widget->mCroppedParent != nullptr)
 				widget->_updateGeometry();
+			else if (widget->mWorldHasRotation)
+				widget->invalidateRotation();
 
 		_correctSkinItemView();
 
@@ -613,7 +617,11 @@ namespace MyGUI
 
 		// Parent clipping can change even when alignments leave coordinates unchanged
 		// The coordinate setters may return early, so refresh the view explicitly
-		_updateView();
+		// Descendants also inherit rotation around the parent's changed pivot.
+		if (mWorldHasRotation)
+			invalidateRotation();
+		else
+			_updateView();
 	}
 
 	void Widget::setPosition(const IntPoint& _point)

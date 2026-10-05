@@ -448,6 +448,58 @@ namespace
 		check({510, 140, 550, 200});
 	}
 
+	void testRotatedPopupGeometryInvalidation()
+	{
+		unittest::SkinTestContext context;
+		context.loadSkins();
+		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+		auto* parent = MyGUI::Gui::getInstance()
+						   .createWidget<MyGUI::Widget>("Default", {100, 100, 200, 200}, MyGUI::Align::Default, "Main");
+		parent->setRotation(1.5707963268f);
+		parent->createWidget<MyGUI::Widget>(
+			MyGUI::WidgetStyle::Popup,
+			"WhiteSkin",
+			{400, 100, 40, 40},
+			MyGUI::Align::Default,
+			"Main");
+		RotationTarget target;
+		target.info = context.renderer().getInfo();
+		target.render();
+		target.expectRectangle({260, 400, 300, 440});
+
+		// Popup layout stays absolute, but the inherited rotation pivot moves.
+		parent->setPosition(150, 100);
+		target.render();
+		target.expectRectangle({310, 350, 350, 390});
+		parent->setCoord({170, 110, 220, 240});
+		target.render();
+		target.expectRectangle({370, 350, 410, 390});
+	}
+
+	void testRotatedDescendantGeometryInvalidation()
+	{
+		unittest::SkinTestContext context;
+		context.loadSkins();
+		MyGUI::LayerManager::getInstance().createLayerAt("Main", "OverlappedLayer", 0);
+		auto* parent = MyGUI::Gui::getInstance()
+						   .createWidget<MyGUI::Widget>("Default", {100, 100, 200, 200}, MyGUI::Align::Default, "Main");
+		parent->setRotation(1.5707963268f);
+		auto* container = parent->createWidget<MyGUI::Widget>("Default", {20, 20, 100, 100}, MyGUI::Align::Default);
+		container->createWidget<MyGUI::Widget>("WhiteSkin", {5, 5, 40, 40}, MyGUI::Align::Default);
+		RotationTarget target;
+		target.info = context.renderer().getInfo();
+		target.render();
+		target.expectRectangle({235, 125, 275, 165});
+
+		// The container does not move or resize, but its descendant inherits the new pivot.
+		parent->setSize(300, 300);
+		target.render();
+		target.expectRectangle({335, 125, 375, 165});
+		parent->setCoord({110, 120, 200, 240});
+		target.render();
+		target.expectRectangle({265, 165, 305, 205});
+	}
+
 	void testMixedRotatedBatchClipping()
 	{
 		unittest::SkinTestContext context;
@@ -528,5 +580,7 @@ int main()
 		{"Rotated subskin clipping", testRotatedSubSkinClipping},
 		{"Mixed rotated batch with clipping", testMixedRotatedBatchClipping},
 		{"Rotation render-cache invalidation", testRotationRenderInvalidation},
+		{"Rotated popup geometry invalidation", testRotatedPopupGeometryInvalidation},
+		{"Rotated descendant geometry invalidation", testRotatedDescendantGeometryInvalidation},
 	});
 }
