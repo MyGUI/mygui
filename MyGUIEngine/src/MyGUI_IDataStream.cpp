@@ -17,7 +17,7 @@ namespace MyGUI
 		Container readAllData(IDataStream& _stream)
 		{
 			Container content;
-			typename Container::value_type buffer[4096];
+			typename Container::value_type buffer[16 * 1024];
 			while (size_t readSize = _stream.read(buffer, sizeof(buffer)))
 				content.insert(content.end(), buffer, buffer + readSize);
 			return content;
