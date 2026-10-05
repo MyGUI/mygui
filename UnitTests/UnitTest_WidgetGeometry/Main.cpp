@@ -166,6 +166,71 @@ namespace
 		gui.destroyWidget(root);
 	}
 
+	void testClippingWithUnchangedAlignment(MyGUI::Align _align)
+	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto& layers = MyGUI::LayerManager::getInstance();
+		layers.getByName("Main")->castType<MyGUI::OverlappedLayer>()->setPick(true);
+		auto* parent = gui.createWidget<MyGUI::Widget>("Default", {100, 100, 101, 100}, MyGUI::Align::Default, "Main");
+		// Both (101 - 200) / 2 and (102 - 200) / 2 truncate to -49.
+		// Center alignment therefore also exercises an unchanged setCoord call.
+		const MyGUI::IntCoord childCoord(-49, 0, 200, 40);
+		auto* child = parent->createWidget<MyGUI::Widget>("Default", childCoord, _align);
+		auto* grandchild = child->createWidget<MyGUI::Widget>("Default", {0, 0, 200, 40}, MyGUI::Align::Default);
+		CoordObserver localObserver;
+		CoordObserver absoluteObserver;
+		child->eventChangeCoord += MyGUI::newDelegate(&localObserver, &CoordObserver::notify);
+		child->eventChangeAbsoluteCoord += MyGUI::newDelegate(&absoluteObserver, &CoordObserver::notify);
+
+		for (int width : {102, 101})
+		{
+			parent->setSize(width, 100);
+			require(child->getCoord() == childCoord, "Alignment must leave the child's coordinates unchanged");
+			for (auto* widget : {child, grandchild})
+			{
+				require(widget->_getMarginLeft() == 49, "The left clipping margin must remain unchanged");
+				require(widget->_getViewWidth() == width, "Parent resizing must refresh descendant clipping");
+			}
+			require(
+				layers.getWidgetFromPoint(100 + width - 1, 110) == grandchild,
+				"Picking must include the newly exposed rightmost pixel");
+			require(
+				layers.getWidgetFromPoint(100 + width, 110) == nullptr,
+				"Picking must exclude the parent's right boundary");
+		}
+		require(localObserver.count == 0, "A clipping-only change must not emit local coordinate events");
+		require(absoluteObserver.count == 0, "A clipping-only change must not emit absolute coordinate events");
+		gui.destroyWidget(parent);
+	}
+
+	void testClippingWithRejectedResize()
+	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		const MyGUI::Align alignments[] = {
+			MyGUI::Align::HStretch | MyGUI::Align::Top,
+			MyGUI::Align::HStretch | MyGUI::Align::Bottom};
+		for (auto align : alignments)
+		{
+			auto* parent = gui.createWidget<MyGUI::Widget>("Default", {0, 0, 101, 100}, MyGUI::Align::Default, "Main");
+			const MyGUI::IntCoord childCoord(-49, 0, 200, 40);
+			auto* window = parent->createWidget<MyGUI::Window>("Default", childCoord, align);
+			window->setMinSize(200, 40);
+			window->setMaxSize(200, 40);
+			auto* child = window->createWidget<MyGUI::Widget>("Default", {0, 0, 200, 40}, MyGUI::Align::Default);
+
+			for (int width : {102, 100})
+			{
+				parent->setSize(width, 100);
+				require(window->getCoord() == childCoord, "Window constraints must reject the aligned resize");
+				require(window->_getViewWidth() == width, "A rejected resize must still refresh clipping");
+				require(child->_getViewWidth() == width, "Clipping must propagate through a constrained window");
+			}
+			gui.destroyWidget(parent);
+		}
+	}
+
 	void testResizeNotifications()
 	{
 		Fixture fixture;
@@ -739,6 +804,22 @@ int main()
 	return unittest::runTests({
 		{"Absolute coordinate events", testAbsoluteCoordEvent},
 		{"Clipping after movement", testClippingAfterMovement},
+		{"Clipping after unchanged aligned position",
+		 []
+		 {
+			 testClippingWithUnchangedAlignment(MyGUI::Align::Left | MyGUI::Align::Bottom);
+		 }},
+		{"Clipping after unchanged aligned size",
+		 []
+		 {
+			 testClippingWithUnchangedAlignment(MyGUI::Align::Left | MyGUI::Align::VStretch);
+		 }},
+		{"Clipping after unchanged aligned coordinates",
+		 []
+		 {
+			 testClippingWithUnchangedAlignment(MyGUI::Align::HCenter | MyGUI::Align::VStretch);
+		 }},
+		{"Clipping after rejected aligned resize", testClippingWithRejectedResize},
 		{"Resize notifications", testResizeNotifications},
 		{"Absolute coordinate alignment", testAbsoluteCoordAlignment},
 		{"Alignment modes", testAlignmentModes},
