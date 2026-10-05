@@ -843,12 +843,17 @@ namespace MyGUI
 
 	void Widget::detachFromWidget(std::string_view _layer)
 	{
+		const bool hadRotation = mWorldHasRotation;
 		_detachFromWidget(_layer);
 		_updateAlpha();
 		_updateEnabled();
 		_updateVisible();
 		_updateGeometry();
-		_updateView();
+		// A rotation change affects descendant clipping even when this widget stays unclipped.
+		if (hadRotation != mWorldHasRotation)
+			invalidateRotation();
+		else
+			_updateView();
 	}
 
 	void Widget::_detachFromWidget(std::string_view _layer)
@@ -913,6 +918,7 @@ namespace MyGUI
 			parent = parent->getParent();
 		}
 
+		const bool hadRotation = mWorldHasRotation;
 		_detachFromWidget({});
 
 		mWidgetStyle = _style;
@@ -973,7 +979,11 @@ namespace MyGUI
 		_updateEnabled();
 		_updateVisible();
 		_updateGeometry();
-		_updateView();
+		// Refresh descendants after the final parent, cropping parent, and geometry are established.
+		if (hadRotation != mWorldHasRotation)
+			invalidateRotation();
+		else
+			_updateView();
 	}
 
 	void Widget::setWidgetStyle(WidgetStyle _style, std::string_view _layer)

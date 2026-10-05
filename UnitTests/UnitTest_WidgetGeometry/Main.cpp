@@ -231,6 +231,39 @@ namespace
 		}
 	}
 
+	void testClippingAfterRotationReparenting(bool _fromRotated, bool _detach)
+	{
+		Fixture fixture;
+		auto& gui = fixture.context.getGui();
+		auto* plain = gui.createWidget<MyGUI::Widget>("Default", {0, 0, 200, 200}, MyGUI::Align::Default, "Main");
+		auto* rotated = gui.createWidget<MyGUI::Widget>("Default", {300, 0, 200, 200}, MyGUI::Align::Default, "Main");
+		rotated->setRotation(0.5f);
+		auto* source = _fromRotated ? rotated : plain;
+		auto* destination = _fromRotated ? plain : rotated;
+		// The container stays unclipped; only its descendant needs a new clipping state.
+		auto* container = source->createWidget<MyGUI::Widget>("Default", {0, 0, 100, 100}, MyGUI::Align::Default);
+		const MyGUI::IntCoord childCoord(80, 0, 40, 40);
+		auto* child = container->createWidget<MyGUI::Widget>("Default", childCoord, MyGUI::Align::Default);
+		require(child->_getMarginRight() == (_fromRotated ? 0 : 20), "Initial clipping must match rotation state");
+
+		if (_detach)
+			container->detachFromWidget("Main");
+		else
+			container->attachToWidget(destination);
+
+		const bool rotatedAfter = !_detach && !_fromRotated;
+		require(child->getCoord() == childCoord, "Reparenting must preserve the child's local coordinates");
+		require(child->_hasRotation() == rotatedAfter, "Reparenting must update inherited rotation");
+		require(container->_getViewWidth() == 100, "The container must remain unclipped");
+		require(
+			child->_getMarginRight() == (rotatedAfter ? 0 : 20),
+			"Changing inherited rotation must refresh descendant clipping even when the container is unclipped");
+		if (_detach)
+			gui.destroyWidget(container);
+		gui.destroyWidget(plain);
+		gui.destroyWidget(rotated);
+	}
+
 	void testResizeNotifications()
 	{
 		Fixture fixture;
@@ -820,6 +853,10 @@ int main()
 			 testClippingWithUnchangedAlignment(MyGUI::Align::HCenter | MyGUI::Align::VStretch);
 		 }},
 		{"Clipping after rejected aligned resize", testClippingWithRejectedResize},
+		{"Clipping when attaching to a rotated parent", std::bind(testClippingAfterRotationReparenting, false, false)},
+		{"Clipping when attaching to an unrotated parent",
+		 std::bind(testClippingAfterRotationReparenting, true, false)},
+		{"Clipping when detaching from a rotated parent", std::bind(testClippingAfterRotationReparenting, true, true)},
 		{"Resize notifications", testResizeNotifications},
 		{"Absolute coordinate alignment", testAbsoluteCoordAlignment},
 		{"Alignment modes", testAlignmentModes},
