@@ -606,12 +606,14 @@ namespace MyGUI
 			setPosition(coord.point());
 		else if (resize)
 			setSize(coord.size());
-		else
-			_updateView();
 
 		// Unchanged local coordinates (including a resize rejected by an override) can still inherit movement.
 		if (mCroppedParent != nullptr && mAbsolutePosition != mCroppedParent->getAbsolutePosition() + mCoord.point())
 			_updateGeometry();
+
+		// Parent clipping can change even when alignments leave coordinates unchanged
+		// The coordinate setters may return early, so refresh the view explicitly
+		_updateView();
 	}
 
 	void Widget::setPosition(const IntPoint& _point)
