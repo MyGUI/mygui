@@ -146,8 +146,8 @@
 ### Infrastructure
 - Expand engine and platform test coverage with shared test utilities; keep `UnitTests` fully automated and enable
   `MYGUI_BUILD_UNITTESTS` by default
-- Run CTest in native and Emscripten CI builds, including platform tests for Linux/Ogre, Linux/OpenGL3, Linux/Vulkan,
-  macOS/OpenGL3, Windows/DirectX11 and browser/OpenGLES
+- Run CTest in native and Emscripten CI builds, including platform tests for Linux/Ogre, Linux/OgreNext, Linux/OpenGL3,
+  Linux/Vulkan, macOS/OpenGL3, Windows/DirectX11 and browser/OpenGLES
 - Add AddressSanitizer and UndefinedBehaviorSanitizer CI checks, plus Clang source-based coverage reports and a badge
 - Add `--screenshot` capture for demos/tools and `compare_screenshots.py` reference comparisons with cross-renderer
   tolerance; make screenshot timing deterministic and fix Ogre captures of hidden windows
