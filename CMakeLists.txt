@@ -39,6 +39,7 @@ option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
 option(MYGUI_USE_SYSTEM_MSDFGEN FALSE)
 option(MYGUI_USE_SYSTEM_PUGIXML "Use system installed pugixml" FALSE)
+option(MYGUI_USE_SYSTEM_UTF8CPP "Use system installed UTF8-CPP" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsolete functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 7 CACHE STRING

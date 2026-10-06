@@ -32,9 +32,16 @@ target_include_directories(${PROJECTNAME} PUBLIC
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/MYGUI>
 )
 
-target_include_directories(${PROJECTNAME} SYSTEM PRIVATE
-	"${utfcpp_SOURCE_DIR}/source"
-)
+if(MYGUI_USE_SYSTEM_UTF8CPP)
+	# Only the implementation uses these headers; consumers need no UTF8-CPP dependency.
+	target_include_directories(${PROJECTNAME} SYSTEM PRIVATE
+		"$<TARGET_PROPERTY:utf8cpp::utf8cpp,INTERFACE_INCLUDE_DIRECTORIES>"
+	)
+else()
+	target_include_directories(${PROJECTNAME} SYSTEM PRIVATE
+		"${utfcpp_SOURCE_DIR}/source"
+	)
+endif()
 
 target_compile_definitions(${PROJECTNAME}
 	PRIVATE
