@@ -38,7 +38,8 @@
 	#error "Unknown compiler! Stop building!!!"
 #endif
 
-#if defined(MYGUI_STATIC)
+// Preserve public API and RTTI visibility for non-Windows static builds.
+#if defined(MYGUI_STATIC) && MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	#define MYGUI_EXPORT
 	#define MYGUI_EXPORT_DLL
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

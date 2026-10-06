@@ -13,7 +13,7 @@
 
 // MYGUI_STATIC:
 //   Define when building or using MyGUIEngine as a static library.
-//   Disables dllimport/dllexport / visibility attributes.
+//   Disables Windows dllimport/dllexport attributes.
 #cmakedefine MYGUI_STATIC
 
 // MYGUI_DONT_USE_OBSOLETE:

@@ -1,5 +1,9 @@
 add_subdirectory(Common)
 
+if(UNIX AND NOT EMSCRIPTEN)
+	add_subdirectory(UnitTest_StaticRtti)
+endif()
+
 add_subdirectory(UnitTest_Delegates)
 add_subdirectory(UnitTest_Sigslot)
 add_subdirectory(UnitTest_AttachDetach)

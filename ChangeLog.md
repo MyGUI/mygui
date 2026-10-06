@@ -76,6 +76,7 @@
 - Fix XML partial stream reads, failed-save reporting and stale error diagnostics; return null for missing XML roots
 - Fix `DataStream` read counts at EOF and preserve position and state in size queries
 - Fix `Version` comparisons to order major, minor and patch components correctly
+- Preserve public API and RTTI visibility in non-Windows static builds, fixing runtime type-check failures on macOS
 
 ### Platforms
 - New `VulkanPlatform` (`MYGUI_RENDERSYSTEM=10`): shader support, RTT textures, `FilterNone` and DPI scale
