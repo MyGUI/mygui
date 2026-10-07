@@ -68,6 +68,7 @@ namespace MyGUI
 		void createDummyMovable();
 		void ensureIndirectBuffer(size_t neededDraws);
 		void destroyIndirectBuffer();
+		void mapIndirectBuffer();
 		OgreNextRenderable* renderableFor(Ogre::TextureGpu* tex, const Ogre::MaterialPtr& material);
 
 		struct SavedBatchState

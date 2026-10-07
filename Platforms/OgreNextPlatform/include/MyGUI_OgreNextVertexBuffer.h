@@ -27,28 +27,24 @@ namespace MyGUI
 
 		Ogre::VertexArrayObject* getVao() const
 		{
-			return mVao;
+			return mNextSlot ? mSlots[mNextSlot - 1].vao : nullptr;
 		}
 
 	private:
-		void createBuffer(size_t capacity);
-		void destroyBuffer();
-
 		struct BufferSlot
 		{
 			Ogre::VertexBufferPacked* buffer{};
 			Ogre::VertexArrayObject* vao{};
 			size_t capacity{};
 		};
+		void createBuffer(BufferSlot& slot, size_t capacity);
+		void destroyBuffer(BufferSlot& slot);
+
 		std::vector<BufferSlot> mSlots;
 		uint32 mFrame{};
 		size_t mNextSlot{};
 
 		size_t mRequestedCount{0};
-		size_t mCapacity{0};
-
-		Ogre::VertexBufferPacked* mBuffer{nullptr};
-		Ogre::VertexArrayObject* mVao{nullptr};
 	};
 
 } // namespace MyGUI

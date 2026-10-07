@@ -42,12 +42,8 @@ namespace MyGUI
 
 	OgreNextVertexBuffer::~OgreNextVertexBuffer()
 	{
-		for (const auto& slot : mSlots)
-		{
-			mBuffer = slot.buffer;
-			mVao = slot.vao;
-			destroyBuffer();
-		}
+		for (auto& slot : mSlots)
+			destroyBuffer(slot);
 	}
 
 	void OgreNextVertexBuffer::setVertexCount(size_t _count)
@@ -60,20 +56,21 @@ namespace MyGUI
 		return mRequestedCount;
 	}
 
-	void OgreNextVertexBuffer::createBuffer(size_t capacity)
+	void OgreNextVertexBuffer::createBuffer(BufferSlot& slot, size_t capacity)
 	{
 		Ogre::VaoManager* vao = getVaoManager();
 		MYGUI_PLATFORM_ASSERT(vao != nullptr, "VaoManager is null");
 
-		mBuffer = vao->createVertexBuffer(makeVertexLayout(), capacity, Ogre::BT_DYNAMIC_PERSISTENT, nullptr, false);
+		slot.buffer =
+			vao->createVertexBuffer(makeVertexLayout(), capacity, Ogre::BT_DYNAMIC_PERSISTENT, nullptr, false);
 
-		mVao = vao->createVertexArrayObject({mBuffer}, nullptr, Ogre::OT_TRIANGLE_LIST);
-		mCapacity = capacity;
+		slot.vao = vao->createVertexArrayObject({slot.buffer}, nullptr, Ogre::OT_TRIANGLE_LIST);
+		slot.capacity = capacity;
 	}
 
-	void OgreNextVertexBuffer::destroyBuffer()
+	void OgreNextVertexBuffer::destroyBuffer(BufferSlot& slot)
 	{
-		if (!mBuffer && !mVao)
+		if (!slot.buffer && !slot.vao)
 			return;
 		auto* render = OgreNextRenderManager::getInstancePtr();
 		auto* manager = render ? render->getManager() : nullptr;
@@ -83,20 +80,20 @@ namespace MyGUI
 		if (vao == nullptr)
 			return;
 
-		if (mBuffer != nullptr && mBuffer->getMappingState() != Ogre::MS_UNMAPPED)
-			mBuffer->unmap(Ogre::UO_UNMAP_ALL);
+		if (slot.buffer != nullptr && slot.buffer->getMappingState() != Ogre::MS_UNMAPPED)
+			slot.buffer->unmap(Ogre::UO_UNMAP_ALL);
 
-		if (mVao != nullptr)
+		if (slot.vao != nullptr)
 		{
-			vao->destroyVertexArrayObject(mVao);
-			mVao = nullptr;
+			vao->destroyVertexArrayObject(slot.vao);
+			slot.vao = nullptr;
 		}
-		if (mBuffer != nullptr)
+		if (slot.buffer != nullptr)
 		{
-			vao->destroyVertexBuffer(mBuffer);
-			mBuffer = nullptr;
+			vao->destroyVertexBuffer(slot.buffer);
+			slot.buffer = nullptr;
 		}
-		mCapacity = 0;
+		slot.capacity = 0;
 	}
 
 	Vertex* OgreNextVertexBuffer::lock()
@@ -112,23 +109,20 @@ namespace MyGUI
 		if (mNextSlot == mSlots.size())
 			mSlots.emplace_back();
 		auto& slot = mSlots[mNextSlot++];
-		mBuffer = slot.buffer;
-		mVao = slot.vao;
-		mCapacity = slot.capacity;
-		if (mRequestedCount > mCapacity)
+		if (mRequestedCount > slot.capacity)
 		{
-			destroyBuffer();
-			createBuffer(mRequestedCount + VERTEX_BUFFER_SLACK);
-			slot = {mBuffer, mVao, mCapacity};
+			destroyBuffer(slot);
+			createBuffer(slot, mRequestedCount + VERTEX_BUFFER_SLACK);
 		}
 
-		return static_cast<Vertex*>(mBuffer->map(0u, mRequestedCount));
+		return static_cast<Vertex*>(slot.buffer->map(0u, mRequestedCount));
 	}
 
 	void OgreNextVertexBuffer::unlock()
 	{
-		mBuffer->unmap(Ogre::UO_KEEP_PERSISTENT, 0u, mRequestedCount);
-		mVao->setPrimitiveRange(0u, static_cast<Ogre::uint32>(mRequestedCount));
+		auto& slot = mSlots[mNextSlot - 1];
+		slot.buffer->unmap(Ogre::UO_KEEP_PERSISTENT, 0u, mRequestedCount);
+		slot.vao->setPrimitiveRange(0u, static_cast<Ogre::uint32>(mRequestedCount));
 	}
 
 } // namespace MyGUI

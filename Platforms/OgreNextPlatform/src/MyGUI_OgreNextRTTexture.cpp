@@ -103,14 +103,8 @@ namespace MyGUI
 
 	void OgreNextRTTexture::doRender(IVertexBuffer* buffer, ITexture* texture, size_t count)
 	{
-		auto* rm = OgreNextRenderManager::getInstancePtr();
-		if (rm == nullptr)
-			return;
-		auto* manager = rm->getManager();
-		if (manager == nullptr)
-			return;
-
-		manager->submitDraw(buffer, texture, count);
+		if (auto* rm = OgreNextRenderManager::getInstancePtr())
+			rm->doRender(buffer, texture, count);
 	}
 
 } // namespace MyGUI

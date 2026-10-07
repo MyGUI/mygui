@@ -495,16 +495,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 		Ogre::RenderSystem* rs = Ogre::Root::getSingleton().getRenderSystem();
 		mCommandBuffer->setCurrentRenderSystem(rs);
 
-		ensureIndirectBuffer(INITIAL_INDIRECT_DRAWS);
-
-		if (rs->getVaoManager()->supportsIndirectBuffers())
-		{
-			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->map(0u, mIndirectBuffer->getNumElements()));
-		}
-		else
-		{
-			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->getSwBufferPtr());
-		}
+		mapIndirectBuffer();
 
 		mActiveProjMatrix = saved.projMatrix;
 
@@ -535,6 +526,21 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 		mBaseInstanceAndIndirectBuffers = saved.baseInstanceAndIndirectBuffers;
 	}
 
+	void OgreNextManager::mapIndirectBuffer()
+	{
+		auto* rs = Ogre::Root::getSingleton().getRenderSystem();
+		ensureIndirectBuffer(INITIAL_INDIRECT_DRAWS);
+
+		if (rs->getVaoManager()->supportsIndirectBuffers())
+		{
+			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->map(0u, mIndirectBuffer->getNumElements()));
+		}
+		else
+		{
+			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->getSwBufferPtr());
+		}
+	}
+
 	void OgreNextManager::beginBatch(Ogre::RenderPassDescriptor* rpd, Ogre::TextureGpu* target)
 	{
 		MYGUI_PLATFORM_ASSERT(mActiveRPD == nullptr, "beginBatch called while a batch is already active");
@@ -547,18 +553,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 		Ogre::RenderSystem* rs = Ogre::Root::getSingleton().getRenderSystem();
 		mCommandBuffer->setCurrentRenderSystem(rs);
 
-		// Grow indirect buffer to at least our default. It will be grown further
-		// if a batch actually needs more draws (see submitDraw).
-		ensureIndirectBuffer(INITIAL_INDIRECT_DRAWS);
-
-		if (rs->getVaoManager()->supportsIndirectBuffers())
-		{
-			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->map(0u, mIndirectBuffer->getNumElements()));
-		}
-		else
-		{
-			mIndirectMapped = static_cast<uint8_t*>(mIndirectBuffer->getSwBufferPtr());
-		}
+		mapIndirectBuffer();
 
 		// Compute the projection matrix: identity, adjusted for backend depth
 		// range and flipped if the target requires it.
