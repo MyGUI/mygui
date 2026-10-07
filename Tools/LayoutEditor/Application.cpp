@@ -18,7 +18,6 @@
 #include "Localise.h"
 #include "WidgetCreatorManager.h"
 #include "RecentFilesManager.h"
-#include "MyGUI_FilterNoneSkin.h"
 #include "MyGUI_RTTLayer.h"
 #include "ColourManager.h"
 #include "EditorToolTip.h"
@@ -69,9 +68,6 @@ namespace tools
 
 		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
-
-		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(
@@ -232,9 +228,6 @@ namespace tools
 		SettingsManager::getInstance().saveSettingsFile("SettingsResult.xml");
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
-
-		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);

@@ -9,7 +9,4 @@
 			</State>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ImageBoxFilterNone" size="16 16">
-		<BasisSkin type="FilterNone" offset="0 0 16 16"/>
-	</Resource>
 </MyGUI>

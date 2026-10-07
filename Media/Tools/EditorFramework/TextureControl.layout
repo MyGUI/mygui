@@ -8,7 +8,7 @@
             <Widget type="Widget" skin="BackgroundTile" position="0 0 256 256" align="Stretch">
                 <Widget type="Widget" skin="WhiteSkin" position="0 0 256 256" align="Stretch" name="Background">
                     <Property key="Alpha" value="0.5"/>
-                    <Widget type="ImageBox" skin="ImageBoxFilterNone" position="0 0 256 256" align="Stretch" name="Texture">
+                    <Widget type="ImageBox" skin="ImageBox" position="0 0 256 256" align="Stretch" name="Texture">
                         <Property key="InheritsAlpha" value="false"/>
                     </Widget>
                 </Widget>

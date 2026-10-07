@@ -11,7 +11,6 @@
 #include "ActionManager.h"
 #include "CommandManager.h"
 #include "ExportManager.h"
-#include "MyGUI_FilterNoneSkin.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
 #include "HotKeyManager.h"
@@ -75,9 +74,6 @@ namespace tools
 
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
-
-		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		LoadGuiSettings();
 
@@ -207,9 +203,6 @@ namespace tools
 		SettingsManager::getInstance().saveSettingsFile("SettingsResult.xml");
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
-
-		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>(subWidgetCategory);
 	}
 
 	void Application::prepare()
