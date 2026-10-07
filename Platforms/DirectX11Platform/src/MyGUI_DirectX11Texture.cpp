@@ -110,13 +110,7 @@ namespace MyGUI
 		HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, nullptr, &mTexture);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed!");
 
-		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-		srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srvDesc.Texture2D.MipLevels = 1;
-		srvDesc.Texture2D.MostDetailedMip = 0;
-
-		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, &srvDesc, &mResourceView);
+		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, nullptr, &mResourceView);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Shader ResourceView failed!");
 	}
 
@@ -159,13 +153,7 @@ namespace MyGUI
 		hr = mManager->mpD3DDevice->CreateTexture2D(&desc, &initData, &mTexture);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed for file '" << _filename << "'");
 
-		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-		srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srvDesc.Texture2D.MipLevels = 1;
-		srvDesc.Texture2D.MostDetailedMip = 0;
-
-		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, &srvDesc, &mResourceView);
+		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, nullptr, &mResourceView);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Shader ResourceView failed for file '" << _filename << "'");
 	}
 
