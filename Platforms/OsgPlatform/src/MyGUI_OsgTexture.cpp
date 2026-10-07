@@ -312,8 +312,7 @@ namespace MyGUI
 
 		// bind the 'Texture' sampler to texture unit 0, matching the texture bound
 		// for each batch in osgDrawBatches
-		if (!mShaderStateSet->getUniform("Texture"))
-			mShaderStateSet->addUniform(new osg::Uniform("Texture", 0));
+		mShaderStateSet->addUniform(new osg::Uniform("Texture", 0));
 	}
 
 	osg::Texture2D* OsgTexture::getTexture() const
