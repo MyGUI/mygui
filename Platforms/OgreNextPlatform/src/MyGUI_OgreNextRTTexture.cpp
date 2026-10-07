@@ -70,16 +70,6 @@ namespace MyGUI
 			mRenderPassDesc->mColour[0].storeAction = Ogre::StoreAction::Store;
 			mRenderPassDesc->mColour[0].resolveTexture = nullptr;
 		}
-		mRenderPassDesc->mDepth.texture = rs->getDepthBufferFor(
-			mTexture,
-			mTexture->getDepthBufferPoolId(),
-			mTexture->getPreferDepthTexture(),
-			mTexture->getDesiredDepthBufferFormat());
-		mRenderPassDesc->mDepth.loadAction = Ogre::LoadAction::Clear;
-		mRenderPassDesc->mDepth.storeAction = Ogre::StoreAction::DontCare;
-		mRenderPassDesc->mStencil.texture = nullptr;
-		mRenderPassDesc->mStencil.loadAction = Ogre::LoadAction::Clear;
-		mRenderPassDesc->mStencil.storeAction = Ogre::StoreAction::DontCare;
 		mRenderPassDesc->entriesModified(Ogre::RenderPassDescriptor::All);
 	}
 

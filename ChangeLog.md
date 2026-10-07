@@ -8,7 +8,7 @@
 ### Platforms
 - Simplify rendering backends and remove obsolete FilterNone-specific state and APIs
 - DirectX11: create samplers once during initialization, fixing leaked sampler references when registering shaders
-- Remove unused depth buffers from OpenGL, OpenGL3 and OpenGLES GUI render targets, reducing GPU memory usage
+- Remove unused depth buffers from OpenGL, OpenGL3, OpenGLES and OgreNext GUI render targets, reducing GPU memory usage
 
 ## MyGUI v3.5.2
 ### Release highlights
