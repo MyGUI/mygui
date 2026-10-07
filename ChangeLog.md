@@ -1,3 +1,15 @@
+## MyGUI v3.5.3
+
+### Tools
+- Replace `FilterNone` skins with regular `ImageBox` widgets and `NearestFilter` shaders for nearest-neighbour
+  texture previews. Preview texture copies preserve the original texture's shader, including MSDF font rendering. Legacy
+  OpenGL and Direct3D9 backends, including Ogre Direct3D9, now use normal texture filtering for previews
+
+### Platforms
+- Simplify rendering backends and remove obsolete FilterNone-specific state and APIs
+- DirectX11: create samplers once during initialization, fixing leaked sampler references when registering shaders
+- Remove unused depth buffers from OpenGL, OpenGL3 and OpenGLES GUI render targets, reducing GPU memory usage
+
 ## MyGUI v3.5.2
 ### Release highlights
 - **Unit tests and stability:** extensive new core and platform tests, CI coverage and sanitizer checks,
