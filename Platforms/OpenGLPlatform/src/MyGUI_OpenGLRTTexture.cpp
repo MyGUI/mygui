@@ -16,13 +16,12 @@ namespace MyGUI
 	OpenGLRTTexture::OpenGLRTTexture(unsigned int _texture) :
 		mTextureId(_texture)
 	{
-		GLint textureBinding = 0, drawFramebuffer = 0, readFramebuffer = 0, renderbuffer = 0;
+		GLint textureBinding = 0, drawFramebuffer = 0, readFramebuffer = 0;
 		glGetIntegerv(GL_TEXTURE_BINDING_2D, &textureBinding);
 		const bool separate = OpenGLRenderManager::getInstance().isSeparateFramebufferSupported();
 		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &drawFramebuffer);
 		if (separate)
 			glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFramebuffer);
-		glGetIntegerv(GL_RENDERBUFFER_BINDING, &renderbuffer);
 		int miplevel = 0;
 		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_WIDTH, &mWidth);
@@ -41,22 +40,8 @@ namespace MyGUI
 		glGenFramebuffers(1, &mFBOID);
 		glBindFramebuffer(GL_FRAMEBUFFER, mFBOID);
 
-		// create a renderbuffer object to store depth info
-		// NOTE: A depth renderable image should be attached the FBO for depth test.
-		// If we don't attach a depth renderable image to the FBO, then
-		// the rendering output will be corrupted because of missing depth test.
-		// If you also need stencil test for your rendering, then you must
-		// attach additional image to the stencil attachement point, too.
-		glGenRenderbuffers(1, &mRBOID);
-		glBindRenderbuffer(GL_RENDERBUFFER, mRBOID);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, mWidth, mHeight);
-		glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-
 		// attach a texture to FBO color attachement point
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTextureId, 0);
-
-		// attach a renderbuffer to depth attachment point
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mRBOID);
 
 		const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (separate)
@@ -68,7 +53,6 @@ namespace MyGUI
 			glBindFramebuffer(GL_FRAMEBUFFER, drawFramebuffer);
 		if (status != GL_FRAMEBUFFER_COMPLETE)
 		{
-			glDeleteRenderbuffers(1, &mRBOID);
 			glDeleteFramebuffers(1, &mFBOID);
 			MYGUI_PLATFORM_EXCEPT("Incomplete render target framebuffer: " << status);
 		}
@@ -80,11 +64,6 @@ namespace MyGUI
 		{
 			glDeleteFramebuffers(1, &mFBOID);
 			mFBOID = 0;
-		}
-		if (mRBOID != 0)
-		{
-			glDeleteRenderbuffers(1, &mRBOID);
-			mRBOID = 0;
 		}
 	}
 

@@ -42,7 +42,6 @@ namespace MyGUI
 		float mSavedClearColour[4]{};
 
 		unsigned int mFBOID{0};
-		unsigned int mRBOID{0};
 	};
 
 } // namespace MyGUI

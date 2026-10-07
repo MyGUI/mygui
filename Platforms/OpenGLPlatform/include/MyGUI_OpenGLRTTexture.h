@@ -38,7 +38,6 @@ namespace MyGUI
 		int mWidth{0};
 		int mHeight{0};
 		unsigned int mFBOID{0};
-		unsigned int mRBOID{0};
 		struct TargetState
 		{
 			int viewport[4]{};
