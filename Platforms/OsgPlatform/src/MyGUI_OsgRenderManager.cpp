@@ -127,61 +127,29 @@ namespace MyGUI
 			else
 				state->applyTextureAttribute(0, dummyTexture);
 
+			const void* vertexData = nullptr;
+			const void* colourData = reinterpret_cast<const void*>(offsetof(Vertex, colour));
+			const void* texcoordData = reinterpret_cast<const void*>(offsetof(Vertex, u));
 			if (state->isVertexBufferObjectSupported())
 			{
 				bindOsgVertexBuffer(state, vbo);
-
-				extensions->glEnableVertexAttribArray(position);
-				extensions->glEnableVertexAttribArray(colour);
-				extensions->glEnableVertexAttribArray(texcoord);
-
-				extensions->glVertexAttribPointer(
-					position,
-					3,
-					GL_FLOAT,
-					GL_FALSE,
-					sizeof(Vertex),
-					reinterpret_cast<char*>(0));
-				extensions->glVertexAttribPointer(
-					colour,
-					4,
-					GL_UNSIGNED_BYTE,
-					GL_TRUE,
-					sizeof(Vertex),
-					reinterpret_cast<void*>(offsetof(Vertex, colour)));
-				extensions->glVertexAttribPointer(
-					texcoord,
-					2,
-					GL_FLOAT,
-					GL_FALSE,
-					sizeof(Vertex),
-					reinterpret_cast<void*>(offsetof(Vertex, u)));
 			}
 			else
 			{
 				state->unbindVertexBufferObject();
 				const char* data = static_cast<const char*>(vbo->getArray(0)->getDataPointer());
-
-				extensions->glEnableVertexAttribArray(position);
-				extensions->glEnableVertexAttribArray(colour);
-				extensions->glEnableVertexAttribArray(texcoord);
-
-				extensions->glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), data);
-				extensions->glVertexAttribPointer(
-					colour,
-					4,
-					GL_UNSIGNED_BYTE,
-					GL_TRUE,
-					sizeof(Vertex),
-					data + offsetof(Vertex, colour));
-				extensions->glVertexAttribPointer(
-					texcoord,
-					2,
-					GL_FLOAT,
-					GL_FALSE,
-					sizeof(Vertex),
-					data + offsetof(Vertex, u));
+				vertexData = data;
+				colourData = data + offsetof(Vertex, colour);
+				texcoordData = data + offsetof(Vertex, u);
 			}
+
+			extensions->glEnableVertexAttribArray(position);
+			extensions->glEnableVertexAttribArray(colour);
+			extensions->glEnableVertexAttribArray(texcoord);
+
+			extensions->glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), vertexData);
+			extensions->glVertexAttribPointer(colour, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), colourData);
+			extensions->glVertexAttribPointer(texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), texcoordData);
 
 			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(batch.mVertexCount));
 
