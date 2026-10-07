@@ -491,15 +491,6 @@ namespace MyGUI
 		mSceneManager->_setPass(mPass); // required only by DirectX11 render system
 	}
 
-	void OgreRenderManager::doRenderRtt(
-		IVertexBuffer* _buffer,
-		ITexture* _texture,
-		size_t _count,
-		Ogre::RenderTexture* rtt)
-	{
-		doRender(_buffer, _texture, _count);
-	}
-
 	OgreShaderInfo* OgreRenderManager::getShaderInfo(const std::string& _shaderName) const
 	{
 		auto iter = mRegisteredShaders.find(_shaderName);

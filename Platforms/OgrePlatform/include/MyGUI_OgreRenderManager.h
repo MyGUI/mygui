@@ -105,7 +105,6 @@ namespace MyGUI
 		/* for use with RTT */
 		void beginRttRender(bool isFlippedTexture);
 		void endRttRender();
-		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt);
 		OgreShaderInfo* getShaderInfo(const std::string& _shaderName) const;
 
 	private:
