@@ -46,7 +46,6 @@ namespace MyGUI
 		VkCommandPool mCommandPool{VK_NULL_HANDLE};
 		VkQueue mQueue{VK_NULL_HANDLE};
 		VkRenderPass mRenderPass{VK_NULL_HANDLE};
-		VkImageView mImageView{VK_NULL_HANDLE};
 		VkFramebuffer mFramebuffer{VK_NULL_HANDLE};
 		VkCommandBuffer mCommandBuffer{VK_NULL_HANDLE};
 		VkFence mFence{VK_NULL_HANDLE};

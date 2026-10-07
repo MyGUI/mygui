@@ -25,11 +25,10 @@ namespace MyGUI
 		mCommandPool(_commandPool),
 		mQueue(_queue),
 		mRenderPass(_renderPass),
-		mImageView(_imageView),
 		mWidth(_width),
 		mHeight(_height)
 	{
-		mFramebuffer = createFramebuffer(mImageView);
+		mFramebuffer = createFramebuffer(_imageView);
 
 		VkCommandBufferAllocateInfo allocInfo{};
 		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -99,7 +98,6 @@ namespace MyGUI
 		const auto framebuffer = createFramebuffer(_imageView);
 		vkDestroyFramebuffer(mDevice, mFramebuffer, nullptr);
 		mFramebuffer = framebuffer;
-		mImageView = _imageView;
 	}
 
 	void VulkanRTTexture::resetCommands()
