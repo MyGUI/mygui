@@ -131,6 +131,26 @@ namespace MyGUI
 		hr = mpD3DDevice->CreateRasterizerState(&rastDesc, &mRasterizerState);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Rasterizer State Create failed!");
 
+		// Create Sampler State
+		D3D11_SAMPLER_DESC samplerDesc;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.BorderColor[0] = samplerDesc.BorderColor[1] = samplerDesc.BorderColor[2] =
+			samplerDesc.BorderColor[3] = 0.0f;
+		samplerDesc.ComparisonFunc = (D3D11_COMPARISON_FUNC)0;
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		samplerDesc.MaxAnisotropy = 1;
+		samplerDesc.MaxLOD = 0;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MipLODBias = 0.0f;
+		hr = mpD3DDevice->CreateSamplerState(&samplerDesc, &mSamplerState);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Sampler State Create failed!");
+
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		hr = mpD3DDevice->CreateSamplerState(&samplerDesc, &mPointSamplerState);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Point Sampler State Create failed!");
+
 		registerShader("Default", "MyGUI_DirectX11_VP.hlsl", "MyGUI_DirectX11_FP.hlsl");
 
 		mUpdate = false;
@@ -433,26 +453,6 @@ namespace MyGUI
 			bytecode->Release();
 		if (errors)
 			errors->Release();
-
-		// Create Sampler State
-		D3D11_SAMPLER_DESC samplerDesc;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-		samplerDesc.BorderColor[0] = samplerDesc.BorderColor[1] = samplerDesc.BorderColor[2] =
-			samplerDesc.BorderColor[3] = 0.0f;
-		samplerDesc.ComparisonFunc = (D3D11_COMPARISON_FUNC)0;
-		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.MaxAnisotropy = 1;
-		samplerDesc.MaxLOD = 0;
-		samplerDesc.MinLOD = 0;
-		samplerDesc.MipLODBias = 0.0f;
-		hr = mpD3DDevice->CreateSamplerState(&samplerDesc, &mSamplerState);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Sampler State Create failed!");
-
-		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-		hr = mpD3DDevice->CreateSamplerState(&samplerDesc, &mPointSamplerState);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Point Sampler State Create failed!");
 
 		// Create Input Layout
 		hr = mpD3DDevice->CreateInputLayout(
