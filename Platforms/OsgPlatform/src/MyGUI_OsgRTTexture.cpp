@@ -116,9 +116,7 @@ namespace MyGUI
 		{
 		}
 
-		RTTDrawable(OsgRenderManager* _manager, int _width, int _height) :
-			mWidth(_width),
-			mHeight(_height)
+		RTTDrawable(OsgRenderManager* _manager, int _width, int _height)
 		{
 			setSupportsDisplayList(false);
 			setUseVertexArrayObject(true);
@@ -145,8 +143,6 @@ namespace MyGUI
 
 		RTTDrawable(const RTTDrawable& copy, const osg::CopyOp& copyop = osg::CopyOp::SHALLOW_COPY) :
 			osg::Drawable(copy, copyop),
-			mWidth(copy.mWidth),
-			mHeight(copy.mHeight),
 			mDummyTexture(copy.mDummyTexture),
 			mStateSet(copy.mStateSet),
 			mCache(copy.mCache)
@@ -206,8 +202,6 @@ namespace MyGUI
 	META_Object(osgMyGUI, RTTDrawable)
 
 		private : std::vector<Batch> mBatches;
-		int mWidth;
-		int mHeight;
 
 		osg::ref_ptr<osg::Texture2D> mDummyTexture;
 		osg::ref_ptr<osg::StateSet> mStateSet;

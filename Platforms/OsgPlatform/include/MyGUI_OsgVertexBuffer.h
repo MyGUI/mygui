@@ -31,9 +31,6 @@ namespace MyGUI
 	class OsgVertexBuffer : public IVertexBuffer
 	{
 	public:
-		OsgVertexBuffer();
-		~OsgVertexBuffer() override;
-
 		void setVertexCount(size_t _count) override;
 		size_t getVertexCount() const override;
 

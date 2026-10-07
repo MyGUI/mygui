@@ -77,9 +77,7 @@ namespace MyGUI
 			glfmt = GL_BGRA;
 			numelems = 4;
 			break;
-		default:
-			MYGUI_PLATFORM_LOG(Critical, "Texture format not supported");
-			MYGUI_PLATFORM_EXCEPT("Texture format not supported");
+		default: MYGUI_PLATFORM_EXCEPT("Texture format not supported");
 		}
 
 		mTexture = new osg::Texture2D();
@@ -128,7 +126,6 @@ namespace MyGUI
 		osg::ref_ptr<osg::Image> image = mRenderManager->loadImage(_filename);
 		if (!image.valid())
 		{
-			MYGUI_PLATFORM_LOG(Critical, "Failed to load image '" << _filename << "'");
 			MYGUI_PLATFORM_EXCEPT("Failed to load image '" << _filename << "'");
 		}
 
@@ -198,12 +195,10 @@ namespace MyGUI
 	{
 		if (!mTexture.valid())
 		{
-			MYGUI_PLATFORM_LOG(Critical, "Texture is not created");
 			MYGUI_PLATFORM_EXCEPT("Texture is not created");
 		}
 		if (mLockedImage.valid())
 		{
-			MYGUI_PLATFORM_LOG(Critical, "Texture already locked");
 			MYGUI_PLATFORM_EXCEPT("Texture already locked");
 		}
 

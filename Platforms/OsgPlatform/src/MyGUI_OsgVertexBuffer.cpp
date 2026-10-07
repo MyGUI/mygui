@@ -98,14 +98,6 @@ namespace MyGUI
 			_state->bindVertexBufferObject(_buffer->getOrCreateGLBufferObject(_state->getContextID()));
 	}
 
-	OsgVertexBuffer::OsgVertexBuffer()
-	{
-	}
-
-	OsgVertexBuffer::~OsgVertexBuffer()
-	{
-	}
-
 	void OsgVertexBuffer::setVertexCount(size_t _count)
 	{
 		if (_count == mNeedVertexCount)
