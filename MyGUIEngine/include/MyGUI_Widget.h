@@ -49,6 +49,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED(Widget)
 
 	public:
+		Widget();
+
 		/** Create child widget
 			@param _type widget type
 			@param _skin widget skin
@@ -406,7 +408,7 @@ namespace MyGUI
 
 	protected:
 		// All creation is only through factory
-		~Widget() override = default;
+		~Widget() override;
 
 		virtual void shutdownOverride();
 		virtual void initialiseOverride();

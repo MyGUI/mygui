@@ -11,6 +11,10 @@
 namespace MyGUI
 {
 
+	WidgetInput::WidgetInput() = default;
+
+	WidgetInput::~WidgetInput() = default;
+
 	void WidgetInput::setMaskPick(const std::string& _filename)
 	{
 		if (_filename.empty())

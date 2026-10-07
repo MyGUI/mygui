@@ -59,7 +59,8 @@ namespace MyGUI
 	class MYGUI_EXPORT WidgetInput
 	{
 	public:
-		virtual ~WidgetInput() = default;
+		WidgetInput();
+		virtual ~WidgetInput();
 
 		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
 		void setNeedToolTip(bool _value);

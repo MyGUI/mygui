@@ -27,6 +27,10 @@
 namespace MyGUI
 {
 
+	Widget::Widget() = default;
+
+	Widget::~Widget() = default;
+
 	void Widget::_initialise(
 		WidgetStyle _style,
 		const IntCoord& _coord,
