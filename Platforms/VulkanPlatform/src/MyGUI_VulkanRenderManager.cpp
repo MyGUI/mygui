@@ -31,6 +31,95 @@ namespace MyGUI
 			return static_cast<VmaAllocator>(_allocator);
 		}
 
+
+		// Synchronous transfers share allocation and submission; each caller records its own barriers.
+		class TextureTransfer
+		{
+		public:
+			TextureTransfer(
+				VkDevice device,
+				VmaAllocator allocator,
+				VkCommandPool pool,
+				VkDeviceSize size,
+				VkBufferUsageFlags usage) :
+				mDevice(device),
+				mAllocator(allocator),
+				mPool(pool)
+			{
+				VkBufferCreateInfo info{};
+				info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+				info.size = size;
+				info.usage = usage;
+				info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+				VmaAllocationCreateInfo allocation{};
+				allocation.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
+				allocation.requiredFlags = VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+				MYGUI_PLATFORM_ASSERT(
+					vmaCreateBuffer(allocator, &info, &allocation, &buffer, &mAllocation, nullptr) == VK_SUCCESS,
+					"Failed to create transfer buffer");
+				VkCommandBufferAllocateInfo commands{};
+				commands.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+				commands.commandPool = pool;
+				commands.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+				commands.commandBufferCount = 1;
+				if (vkAllocateCommandBuffers(device, &commands, &commandBuffer) != VK_SUCCESS)
+				{
+					vmaDestroyBuffer(allocator, buffer, mAllocation);
+					MYGUI_PLATFORM_EXCEPT("Failed to allocate transfer commands");
+				}
+			}
+			~TextureTransfer()
+			{
+				vkFreeCommandBuffers(mDevice, mPool, 1, &commandBuffer);
+				vmaDestroyBuffer(mAllocator, buffer, mAllocation);
+			}
+			TextureTransfer(const TextureTransfer&) = delete;
+			TextureTransfer& operator=(const TextureTransfer&) = delete;
+			void* map()
+			{
+				void* data = nullptr;
+				MYGUI_PLATFORM_ASSERT(
+					vmaMapMemory(mAllocator, mAllocation, &data) == VK_SUCCESS,
+					"Failed to map transfer buffer");
+				return data;
+			}
+			void unmap()
+			{
+				vmaUnmapMemory(mAllocator, mAllocation);
+			}
+			void begin()
+			{
+				VkCommandBufferBeginInfo info{};
+				info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+				info.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+				MYGUI_PLATFORM_ASSERT(
+					vkBeginCommandBuffer(commandBuffer, &info) == VK_SUCCESS,
+					"Failed to begin transfer commands");
+			}
+			void submit(VkQueue queue)
+			{
+				MYGUI_PLATFORM_ASSERT(
+					vkEndCommandBuffer(commandBuffer) == VK_SUCCESS,
+					"Failed to end transfer commands");
+				VkSubmitInfo info{};
+				info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+				info.commandBufferCount = 1;
+				info.pCommandBuffers = &commandBuffer;
+				MYGUI_PLATFORM_ASSERT(
+					vkQueueSubmit(queue, 1, &info, VK_NULL_HANDLE) == VK_SUCCESS,
+					"Failed to submit transfer commands");
+				MYGUI_PLATFORM_ASSERT(vkQueueWaitIdle(queue) == VK_SUCCESS, "Failed to wait for transfer commands");
+			}
+			VkBuffer buffer{VK_NULL_HANDLE};
+			VkCommandBuffer commandBuffer{VK_NULL_HANDLE};
+
+		private:
+			VkDevice mDevice;
+			VmaAllocator mAllocator;
+			VkCommandPool mPool;
+			VmaAllocation mAllocation{};
+		};
+
 		void transitionImageLayout(
 			VkCommandBuffer _commandBuffer,
 			VkImage _image,
@@ -622,34 +711,9 @@ namespace MyGUI
 	{
 		const VkDeviceSize size = static_cast<VkDeviceSize>(_width) * _height * 4;
 
-		VkBufferCreateInfo bufferInfo{};
-		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-		bufferInfo.size = size;
-		bufferInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
-		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-
-		VmaAllocationCreateInfo allocCreateInfo{};
-		allocCreateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-		allocCreateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-
-		VkBuffer stagingBuffer = VK_NULL_HANDLE;
-		VmaAllocation stagingAllocation{};
-		if (vmaCreateBuffer(
-				getVmaAllocator(mAllocator),
-				&bufferInfo,
-				&allocCreateInfo,
-				&stagingBuffer,
-				&stagingAllocation,
-				nullptr) != VK_SUCCESS)
-			MYGUI_PLATFORM_EXCEPT("Failed to create staging buffer");
-
-		void* mapped = nullptr;
-		const VkResult mapResult = vmaMapMemory(getVmaAllocator(mAllocator), stagingAllocation, &mapped);
-		if (mapResult != VK_SUCCESS)
-		{
-			vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
-			MYGUI_PLATFORM_EXCEPT("Failed to map staging buffer, VkResult=" << int(mapResult));
-		}
+		TextureTransfer
+			transfer(mDevice, getVmaAllocator(mAllocator), mCommandPool, size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
+		void* mapped = transfer.map();
 
 		const auto* src = static_cast<const uint8_t*>(_data);
 		auto* dst = static_cast<uint8_t*>(mapped);
@@ -670,52 +734,34 @@ namespace MyGUI
 				src += 3;
 			}
 		}
-		vmaUnmapMemory(getVmaAllocator(mAllocator), stagingAllocation);
+		transfer.unmap();
+		transfer.begin();
 
-		VkCommandBufferAllocateInfo cmdAllocInfo{};
-		cmdAllocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-		cmdAllocInfo.commandPool = mCommandPool;
-		cmdAllocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-		cmdAllocInfo.commandBufferCount = 1;
-
-		VkCommandBuffer commandBuffer = VK_NULL_HANDLE;
-		if (vkAllocateCommandBuffers(mDevice, &cmdAllocInfo, &commandBuffer) != VK_SUCCESS)
-		{
-			vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
-			MYGUI_PLATFORM_EXCEPT("Failed to allocate command buffer");
-		}
-
-		VkCommandBufferBeginInfo beginInfo{};
-		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-		beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-		vkBeginCommandBuffer(commandBuffer, &beginInfo);
-
-		transitionImageLayout(commandBuffer, _image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+		transitionImageLayout(
+			transfer.commandBuffer,
+			_image,
+			VK_IMAGE_LAYOUT_UNDEFINED,
+			VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
 		VkBufferImageCopy region{};
 		region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		region.imageSubresource.layerCount = 1;
 		region.imageExtent = {_width, _height, 1};
-		vkCmdCopyBufferToImage(commandBuffer, stagingBuffer, _image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+		vkCmdCopyBufferToImage(
+			transfer.commandBuffer,
+			transfer.buffer,
+			_image,
+			VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+			1,
+			&region);
 
 		transitionImageLayout(
-			commandBuffer,
+			transfer.commandBuffer,
 			_image,
 			VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 			VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
-		vkEndCommandBuffer(commandBuffer);
-
-		VkSubmitInfo submitInfo{};
-		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-		submitInfo.commandBufferCount = 1;
-		submitInfo.pCommandBuffers = &commandBuffer;
-
-		vkQueueSubmit(mQueue, 1, &submitInfo, VK_NULL_HANDLE);
-		vkQueueWaitIdle(mQueue);
-
-		vkFreeCommandBuffers(mDevice, mCommandPool, 1, &commandBuffer);
-		vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
+		transfer.submit(mQueue);
 	}
 
 	void VulkanRenderManager::readbackImage(
@@ -727,47 +773,12 @@ namespace MyGUI
 	{
 		const VkDeviceSize size = static_cast<VkDeviceSize>(_width) * _height * 4;
 
-		VkBufferCreateInfo bufferInfo{};
-		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-		bufferInfo.size = size;
-		bufferInfo.usage = VK_BUFFER_USAGE_TRANSFER_DST_BIT;
-		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-
-		VmaAllocationCreateInfo allocCreateInfo{};
-		allocCreateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-		allocCreateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-
-		VkBuffer stagingBuffer = VK_NULL_HANDLE;
-		VmaAllocation stagingAllocation{};
-		if (vmaCreateBuffer(
-				getVmaAllocator(mAllocator),
-				&bufferInfo,
-				&allocCreateInfo,
-				&stagingBuffer,
-				&stagingAllocation,
-				nullptr) != VK_SUCCESS)
-			MYGUI_PLATFORM_EXCEPT("Failed to create readback buffer");
-
-		VkCommandBufferAllocateInfo cmdAllocInfo{};
-		cmdAllocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-		cmdAllocInfo.commandPool = mCommandPool;
-		cmdAllocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-		cmdAllocInfo.commandBufferCount = 1;
-
-		VkCommandBuffer commandBuffer = VK_NULL_HANDLE;
-		if (vkAllocateCommandBuffers(mDevice, &cmdAllocInfo, &commandBuffer) != VK_SUCCESS)
-		{
-			vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
-			MYGUI_PLATFORM_EXCEPT("Failed to allocate command buffer");
-		}
-
-		VkCommandBufferBeginInfo beginInfo{};
-		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-		beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-		vkBeginCommandBuffer(commandBuffer, &beginInfo);
+		TextureTransfer
+			transfer(mDevice, getVmaAllocator(mAllocator), mCommandPool, size, VK_BUFFER_USAGE_TRANSFER_DST_BIT);
+		transfer.begin();
 
 		transitionImageLayout(
-			commandBuffer,
+			transfer.commandBuffer,
 			_image,
 			VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
 			VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
@@ -776,7 +787,13 @@ namespace MyGUI
 		region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		region.imageSubresource.layerCount = 1;
 		region.imageExtent = {_width, _height, 1};
-		vkCmdCopyImageToBuffer(commandBuffer, _image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, stagingBuffer, 1, &region);
+		vkCmdCopyImageToBuffer(
+			transfer.commandBuffer,
+			_image,
+			VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+			transfer.buffer,
+			1,
+			&region);
 
 		VkBufferMemoryBarrier hostRead{};
 		hostRead.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
@@ -784,10 +801,10 @@ namespace MyGUI
 		hostRead.dstAccessMask = VK_ACCESS_HOST_READ_BIT;
 		hostRead.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 		hostRead.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-		hostRead.buffer = stagingBuffer;
+		hostRead.buffer = transfer.buffer;
 		hostRead.size = VK_WHOLE_SIZE;
 		vkCmdPipelineBarrier(
-			commandBuffer,
+			transfer.commandBuffer,
 			VK_PIPELINE_STAGE_TRANSFER_BIT,
 			VK_PIPELINE_STAGE_HOST_BIT,
 			0,
@@ -799,29 +816,13 @@ namespace MyGUI
 			nullptr);
 
 		transitionImageLayout(
-			commandBuffer,
+			transfer.commandBuffer,
 			_image,
 			VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
 			VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
-		vkEndCommandBuffer(commandBuffer);
-
-		VkSubmitInfo submitInfo{};
-		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-		submitInfo.commandBufferCount = 1;
-		submitInfo.pCommandBuffers = &commandBuffer;
-
-		vkQueueSubmit(mQueue, 1, &submitInfo, VK_NULL_HANDLE);
-		vkQueueWaitIdle(mQueue);
-
-		void* mapped = nullptr;
-		const VkResult mapResult = vmaMapMemory(getVmaAllocator(mAllocator), stagingAllocation, &mapped);
-		if (mapResult != VK_SUCCESS)
-		{
-			vkFreeCommandBuffers(mDevice, mCommandPool, 1, &commandBuffer);
-			vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
-			MYGUI_PLATFORM_EXCEPT("Failed to map readback buffer, VkResult=" << int(mapResult));
-		}
+		transfer.submit(mQueue);
+		void* mapped = transfer.map();
 
 		const auto* src = static_cast<const uint8_t*>(mapped);
 		auto* dst = static_cast<uint8_t*>(_data);
@@ -841,10 +842,7 @@ namespace MyGUI
 				src += 4;
 			}
 		}
-		vmaUnmapMemory(getVmaAllocator(mAllocator), stagingAllocation);
-
-		vkFreeCommandBuffers(mDevice, mCommandPool, 1, &commandBuffer);
-		vmaDestroyBuffer(getVmaAllocator(mAllocator), stagingBuffer, stagingAllocation);
+		transfer.unmap();
 	}
 
 	std::vector<std::byte> VulkanRenderManager::loadShaderBytecode(const std::string& _file)
