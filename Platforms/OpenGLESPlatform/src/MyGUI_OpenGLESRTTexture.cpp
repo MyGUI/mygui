@@ -9,7 +9,6 @@ namespace MyGUI
 {
 
 	OpenGLESRTTexture::OpenGLESRTTexture(unsigned int _texture, int _width, int _height) :
-		mTextureId(_texture),
 		mWidth(_width),
 		mHeight(_height)
 	{
@@ -32,7 +31,7 @@ namespace MyGUI
 		CHECK_GL_ERROR_DEBUG();
 
 		// attach a texture to FBO color attachement point
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTextureId, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture, 0);
 		CHECK_GL_ERROR_DEBUG();
 
 		const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);

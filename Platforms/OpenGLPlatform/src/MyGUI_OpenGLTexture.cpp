@@ -364,7 +364,7 @@ namespace MyGUI
 			OpenGLRenderManager::getInstance().isFormatSupported(mOriginalFormat, TextureUsage::RenderTarget),
 			"Render target format is not supported");
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new OpenGLRTTexture(mTextureId);
+			mRenderTarget = new OpenGLRTTexture(mTextureId, mWidth, mHeight);
 
 		return mRenderTarget;
 	}

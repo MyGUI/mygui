@@ -14,15 +14,14 @@ namespace MyGUI
 
 	DirectXRTTexture::DirectXRTTexture(IDirect3DDevice9* _device, IDirect3DTexture9* _texture) :
 		mpD3DDevice(_device),
-		mpTexture(_texture),
 		mpRenderSurface(nullptr),
 		mpBackBuffer(nullptr)
 	{
 		D3DSURFACE_DESC info{};
-		MYGUI_PLATFORM_ASSERT(SUCCEEDED(mpTexture->GetLevelDesc(0, &info)), "Failed to query render target texture");
+		MYGUI_PLATFORM_ASSERT(SUCCEEDED(_texture->GetLevelDesc(0, &info)), "Failed to query render target texture");
 		MYGUI_PLATFORM_ASSERT((info.Usage & D3DUSAGE_RENDERTARGET) != 0, "Texture is not a render target");
 		MYGUI_PLATFORM_ASSERT(
-			SUCCEEDED(mpTexture->GetSurfaceLevel(0, &mpRenderSurface)),
+			SUCCEEDED(_texture->GetSurfaceLevel(0, &mpRenderSurface)),
 			"Failed to get render target surface");
 		int width = info.Width;
 		int height = info.Height;

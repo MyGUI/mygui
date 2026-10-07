@@ -318,7 +318,7 @@ namespace MyGUI
 	IRenderTarget* OpenGL3Texture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new OpenGL3RTTexture(mTextureId);
+			mRenderTarget = new OpenGL3RTTexture(mTextureId, mWidth, mHeight);
 
 		return mRenderTarget;
 	}

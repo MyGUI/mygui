@@ -38,7 +38,6 @@ namespace MyGUI
 
 	private:
 		IDirect3DDevice9* mpD3DDevice;
-		IDirect3DTexture9* mpTexture;
 		IDirect3DSurface9* mpRenderSurface;
 		IDirect3DSurface9* mpBackBuffer;
 		D3DVIEWPORT9 mSavedViewport{};

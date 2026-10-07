@@ -18,7 +18,7 @@ namespace MyGUI
 	class OpenGL3RTTexture : public IRenderTarget
 	{
 	public:
-		OpenGL3RTTexture(unsigned int _texture);
+		OpenGL3RTTexture(unsigned int _texture, int _width, int _height);
 		~OpenGL3RTTexture() override;
 
 		void begin() override;
@@ -33,7 +33,6 @@ namespace MyGUI
 
 	private:
 		RenderTargetInfo mRenderTargetInfo;
-		unsigned int mTextureId;
 		int mWidth{0};
 		int mHeight{0};
 

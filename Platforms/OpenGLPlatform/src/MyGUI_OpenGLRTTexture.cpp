@@ -13,20 +13,15 @@
 namespace MyGUI
 {
 
-	OpenGLRTTexture::OpenGLRTTexture(unsigned int _texture) :
-		mTextureId(_texture)
+	OpenGLRTTexture::OpenGLRTTexture(unsigned int _texture, int _width, int _height) :
+		mWidth(_width),
+		mHeight(_height)
 	{
-		GLint textureBinding = 0, drawFramebuffer = 0, readFramebuffer = 0;
-		glGetIntegerv(GL_TEXTURE_BINDING_2D, &textureBinding);
+		GLint drawFramebuffer = 0, readFramebuffer = 0;
 		const bool separate = OpenGLRenderManager::getInstance().isSeparateFramebufferSupported();
 		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &drawFramebuffer);
 		if (separate)
 			glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &readFramebuffer);
-		int miplevel = 0;
-		glBindTexture(GL_TEXTURE_2D, mTextureId);
-		glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_WIDTH, &mWidth);
-		glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_HEIGHT, &mHeight);
-		glBindTexture(GL_TEXTURE_2D, textureBinding);
 		MYGUI_PLATFORM_ASSERT(mWidth > 0 && mHeight > 0, "Render target texture has no storage");
 
 		mRenderTargetInfo.maximumDepth = 1.0f;
@@ -41,7 +36,7 @@ namespace MyGUI
 		glBindFramebuffer(GL_FRAMEBUFFER, mFBOID);
 
 		// attach a texture to FBO color attachement point
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTextureId, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _texture, 0);
 
 		const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (separate)

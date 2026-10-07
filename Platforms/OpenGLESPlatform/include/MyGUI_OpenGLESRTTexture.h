@@ -27,7 +27,6 @@ namespace MyGUI
 
 	private:
 		RenderTargetInfo mRenderTargetInfo;
-		unsigned int mTextureId;
 		int mWidth{0};
 		int mHeight{0};
 		unsigned int mFBOID{0};
