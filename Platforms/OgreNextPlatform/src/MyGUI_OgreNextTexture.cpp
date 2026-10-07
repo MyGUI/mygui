@@ -98,11 +98,6 @@ namespace MyGUI
 		}
 	}
 
-	void OgreNextTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
-	{
-		mListener = _listener;
-	}
-
 	void OgreNextTexture::destroy()
 	{
 		ScopedBatchPause pause(mTexture != nullptr);
@@ -249,7 +244,7 @@ namespace MyGUI
 
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
-		mPixelFormat = convertFormat(_format);
+		const auto pixelFormat = convertFormat(_format);
 		mNumElemBytes = _format.getBytesPerPixel();
 
 		uint32_t flags = Ogre::TextureFlags::ManualTexture;
@@ -268,7 +263,7 @@ namespace MyGUI
 		mOwnsTexture = true;
 
 		mTexture->setResolution(static_cast<uint32_t>(_width), static_cast<uint32_t>(_height));
-		mTexture->setPixelFormat(mPixelFormat);
+		mTexture->setPixelFormat(pixelFormat);
 		mTexture->setNumMipmaps(1u);
 
 		if (_usage.isValue(TextureUsage::RenderTarget))
@@ -333,27 +328,26 @@ namespace MyGUI
 	{
 		mOriginalFormat = PixelFormat::Unknow;
 		mNumElemBytes = 0;
-		mPixelFormat = Ogre::PFG_UNKNOWN;
 		if (mTexture == nullptr)
 			return;
 
-		mPixelFormat = mTexture->getPixelFormat();
-		if (mPixelFormat == Ogre::PFG_R8_UNORM)
+		const auto pixelFormat = mTexture->getPixelFormat();
+		if (pixelFormat == Ogre::PFG_R8_UNORM)
 		{
 			mOriginalFormat = PixelFormat::L8;
 			mNumElemBytes = 1;
 		}
-		else if (mPixelFormat == Ogre::PFG_RG8_UNORM)
+		else if (pixelFormat == Ogre::PFG_RG8_UNORM)
 		{
 			mOriginalFormat = PixelFormat::L8A8;
 			mNumElemBytes = 2;
 		}
-		else if (mPixelFormat == Ogre::PFG_RGB8_UNORM)
+		else if (pixelFormat == Ogre::PFG_RGB8_UNORM)
 		{
 			mOriginalFormat = PixelFormat::R8G8B8;
 			mNumElemBytes = 3;
 		}
-		else if (mPixelFormat == Ogre::PFG_RGBA8_UNORM || mPixelFormat == Ogre::PFG_BGRA8_UNORM)
+		else if (pixelFormat == Ogre::PFG_RGBA8_UNORM || pixelFormat == Ogre::PFG_BGRA8_UNORM)
 		{
 			mOriginalFormat = PixelFormat::R8G8B8A8;
 			mNumElemBytes = 4;
@@ -361,7 +355,7 @@ namespace MyGUI
 		else
 		{
 			mOriginalFormat = PixelFormat::Unknow;
-			mNumElemBytes = Ogre::PixelFormatGpuUtils::getBytesPerPixel(mPixelFormat);
+			mNumElemBytes = Ogre::PixelFormatGpuUtils::getBytesPerPixel(pixelFormat);
 		}
 	}
 

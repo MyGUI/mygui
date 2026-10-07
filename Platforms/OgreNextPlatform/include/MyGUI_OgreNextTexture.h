@@ -26,8 +26,6 @@ namespace MyGUI
 		void saveToFile(const std::string& _filename) override;
 		void setShader(const std::string& _shaderName) override;
 
-		void setInvalidateListener(ITextureInvalidateListener* _listener) override;
-
 		void destroy() override;
 
 		void* lock(TextureUsage _access) override;
@@ -82,7 +80,6 @@ namespace MyGUI
 
 		TextureUsage mOriginalUsage;
 		PixelFormat mOriginalFormat;
-		Ogre::PixelFormatGpu mPixelFormat{Ogre::PFG_UNKNOWN};
 		size_t mNumElemBytes{0};
 
 		void* mLockedBuffer{nullptr};
@@ -91,7 +88,6 @@ namespace MyGUI
 		bool mLocked{false};
 		bool mLockedRead{false};
 
-		ITextureInvalidateListener* mListener{nullptr};
 		IRenderTarget* mRenderTarget{nullptr};
 	};
 
