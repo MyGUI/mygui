@@ -53,6 +53,8 @@ namespace MyGUI
 		IRenderTarget* getRenderTarget() override;
 
 	private:
+		void createTexture(const void* _data = nullptr);
+
 		friend class DirectX11RTTexture;
 
 		ID3D11Texture2D* mTexture;

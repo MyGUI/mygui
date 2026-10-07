@@ -92,22 +92,33 @@ namespace MyGUI
 		destroy();
 		mTextureUsage = _usage;
 
+		mWidth = _width;
+		mHeight = _height;
+		createTexture();
+	}
+
+	void DirectX11Texture::createTexture(const void* _data)
+	{
 		D3D11_TEXTURE2D_DESC desc;
 		desc.ArraySize = 1;
-		desc.Width = mWidth = _width;
-		desc.Height = mHeight = _height;
+		desc.Width = mWidth;
+		desc.Height = mHeight;
 		desc.MipLevels = 1;
 		desc.SampleDesc.Count = 1;
 		desc.SampleDesc.Quality = 0;
 		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		if (_usage.isValue(TextureUsage::RenderTarget))
+		if (mTextureUsage.isValue(TextureUsage::RenderTarget))
 			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 		else
 			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		desc.CPUAccessFlags = 0;
 		desc.MiscFlags = 0;
-		HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, nullptr, &mTexture);
+		D3D11_SUBRESOURCE_DATA initData{};
+		initData.pSysMem = _data;
+		initData.SysMemPitch = mWidth * 4;
+
+		HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, _data ? &initData : nullptr, &mTexture);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed!");
 
 		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, nullptr, &mResourceView);
@@ -132,29 +143,7 @@ namespace MyGUI
 			});
 		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to load texture '" << _filename << "' (error code " << hr << ").");
 
-		D3D11_TEXTURE2D_DESC desc;
-		desc.ArraySize = 1;
-		desc.Width = mWidth;
-		desc.Height = mHeight;
-		desc.MipLevels = 1;
-		desc.SampleDesc.Count = 1;
-		desc.SampleDesc.Quality = 0;
-		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-		desc.CPUAccessFlags = 0;
-		desc.MiscFlags = 0;
-
-		D3D11_SUBRESOURCE_DATA initData;
-		initData.pSysMem = pixels.data();
-		initData.SysMemPitch = mWidth * 4;
-		initData.SysMemSlicePitch = 0;
-
-		hr = mManager->mpD3DDevice->CreateTexture2D(&desc, &initData, &mTexture);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed for file '" << _filename << "'");
-
-		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, nullptr, &mResourceView);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Shader ResourceView failed for file '" << _filename << "'");
+		createTexture(pixels.data());
 	}
 
 	void DirectX11Texture::setShader(const std::string& _shaderName)
