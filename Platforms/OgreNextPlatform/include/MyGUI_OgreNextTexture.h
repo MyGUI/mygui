@@ -8,6 +8,8 @@
 #include <OgreMaterial.h>
 #include <OgrePixelFormatGpu.h>
 
+#include <memory>
+
 #include "MyGUI_LastHeader.h"
 
 namespace MyGUI
@@ -82,10 +84,9 @@ namespace MyGUI
 		PixelFormat mOriginalFormat;
 		size_t mNumElemBytes{0};
 
-		void* mLockedBuffer{nullptr};
+		std::unique_ptr<unsigned char[]> mLockedBuffer;
 		int mLockedWidth{0};
 		int mLockedHeight{0};
-		bool mLocked{false};
 		bool mLockedRead{false};
 
 		IRenderTarget* mRenderTarget{nullptr};

@@ -79,9 +79,8 @@ namespace MyGUI
 
 		VulkanRTTexture* mRenderTarget{nullptr};
 
-		bool mLock{false};
 		bool mWriteLock{false};
-		void* mBuffer{nullptr};
+		std::unique_ptr<unsigned char[]> mBuffer;
 
 		std::string mShaderName{"Default"};
 	};

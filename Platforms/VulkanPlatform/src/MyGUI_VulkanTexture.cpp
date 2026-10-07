@@ -188,11 +188,7 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (mBuffer)
-		{
-			delete[] static_cast<unsigned char*>(mBuffer);
-			mBuffer = nullptr;
-		}
+		mBuffer.reset();
 
 		mStorage.reset();
 
@@ -202,7 +198,6 @@ namespace MyGUI
 		mNumElemBytes = 0;
 		mOriginalFormat = PixelFormat::Unknow;
 		mOriginalUsage = TextureUsage::Default;
-		mLock = false;
 		mWriteLock = false;
 		mShaderName = "Default";
 	}
@@ -210,7 +205,7 @@ namespace MyGUI
 	void* VulkanTexture::lock(TextureUsage _access)
 	{
 		MYGUI_PLATFORM_ASSERT(mStorage, "Texture is not created");
-		MYGUI_PLATFORM_ASSERT(!mLock, "Texture is already locked");
+		MYGUI_PLATFORM_ASSERT(!mBuffer, "Texture is already locked");
 		const bool read = _access.isValue(TextureUsage::Read);
 		const bool write = _access.isValue(TextureUsage::Write);
 		MYGUI_PLATFORM_ASSERT(read || write, "Texture lock requires read or write access");
@@ -227,22 +222,19 @@ namespace MyGUI
 				bytes.get());
 		}
 
-		mBuffer = bytes.release();
+		mBuffer = std::move(bytes);
 		mWriteLock = write;
-		mLock = true;
-		return mBuffer;
+		return mBuffer.get();
 	}
 
 	void VulkanTexture::unlock()
 	{
-		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
+		MYGUI_PLATFORM_ASSERT(mBuffer, "Texture is not locked");
 		MYGUI_PLATFORM_ASSERT(mStorage, "Texture is not created");
 
 		if (mWriteLock)
-			uploadData(mBuffer);
-		delete[] static_cast<unsigned char*>(mBuffer);
-		mBuffer = nullptr;
-		mLock = false;
+			uploadData(mBuffer.get());
+		mBuffer.reset();
 		mWriteLock = false;
 	}
 
@@ -293,7 +285,7 @@ namespace MyGUI
 
 	bool VulkanTexture::isLocked() const
 	{
-		return mLock;
+		return mBuffer != nullptr;
 	}
 
 	PixelFormat VulkanTexture::getFormat() const

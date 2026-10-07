@@ -101,11 +101,7 @@ namespace MyGUI
 	void OgreNextTexture::destroy()
 	{
 		ScopedBatchPause pause(mTexture != nullptr);
-		if (mLockedBuffer != nullptr)
-		{
-			delete[] static_cast<uint8*>(mLockedBuffer);
-			mLockedBuffer = nullptr;
-		}
+		mLockedBuffer.reset();
 
 		if (mRenderTarget != nullptr)
 		{
@@ -123,7 +119,6 @@ namespace MyGUI
 		}
 		mTexture = nullptr;
 		mOwnsTexture = false;
-		mLocked = false;
 		mLockedRead = false;
 		mOriginalFormat = PixelFormat::Unknow;
 		mOriginalUsage = TextureUsage::Default;
@@ -143,7 +138,7 @@ namespace MyGUI
 	void* OgreNextTexture::lock(TextureUsage _access)
 	{
 		MYGUI_PLATFORM_ASSERT(mTexture != nullptr, "Texture is not created");
-		MYGUI_PLATFORM_ASSERT(!mLocked, "Texture is already locked");
+		MYGUI_PLATFORM_ASSERT(!mLockedBuffer, "Texture is already locked");
 		MYGUI_PLATFORM_ASSERT(mOriginalFormat != PixelFormat::Unknow, "Texture format does not support CPU locking");
 		ScopedBatchPause pause(_access.isValue(TextureUsage::Read));
 		mLockedWidth = getWidth();
@@ -177,15 +172,14 @@ namespace MyGUI
 					}
 				}
 		}
-		mLockedBuffer = buffer.release();
+		mLockedBuffer = std::move(buffer);
 		mLockedRead = !_access.isValue(TextureUsage::Write);
-		mLocked = true;
-		return mLockedBuffer;
+		return mLockedBuffer.get();
 	}
 
 	void OgreNextTexture::unlock()
 	{
-		if (!mLocked)
+		if (!mLockedBuffer)
 			return;
 		ScopedBatchPause pause;
 		if (!mLockedRead)
@@ -195,8 +189,8 @@ namespace MyGUI
 			for (int y = 0; y < mLockedHeight; ++y)
 				for (int x = 0; x < mLockedWidth; ++x)
 				{
-					const auto* pixel = static_cast<const uint8*>(mLockedBuffer) +
-						(size_t(y) * size_t(mLockedWidth) + size_t(x)) * mNumElemBytes;
+					const auto* pixel =
+						mLockedBuffer.get() + (size_t(y) * size_t(mLockedWidth) + size_t(x)) * mNumElemBytes;
 					Ogre::ColourValue colour;
 					if (mNumElemBytes <= 2)
 						colour = Ogre::ColourValue(
@@ -215,15 +209,13 @@ namespace MyGUI
 			mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
 			image.uploadTo(mTexture, 0, 0);
 		}
-		delete[] static_cast<uint8*>(mLockedBuffer);
-		mLockedBuffer = nullptr;
-		mLocked = false;
+		mLockedBuffer.reset();
 		mLockedRead = false;
 	}
 
 	bool OgreNextTexture::isLocked() const
 	{
-		return mLocked;
+		return mLockedBuffer != nullptr;
 	}
 
 	Ogre::PixelFormatGpu OgreNextTexture::convertFormat(PixelFormat _format)
