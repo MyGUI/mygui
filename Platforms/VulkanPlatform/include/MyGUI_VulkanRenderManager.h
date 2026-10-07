@@ -126,6 +126,9 @@ namespace MyGUI
 
 	private:
 		friend class VulkanRTTexture;
+		friend class VulkanTexture;
+
+		VkDescriptorSet createTextureDescriptor(VkImageView _imageView);
 		void renderGeometry(
 			VkCommandBuffer _commandBuffer,
 			IVertexBuffer* _buffer,

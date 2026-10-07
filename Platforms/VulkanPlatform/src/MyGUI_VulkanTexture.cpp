@@ -133,29 +133,7 @@ namespace MyGUI
 
 		storage->imageView = manager.createImageView(storage->image, VK_FORMAT_B8G8R8A8_UNORM);
 
-		VkDescriptorSetLayout layout = manager.getDescriptorSetLayout();
-		VkDescriptorSetAllocateInfo allocSetInfo{};
-		allocSetInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-		allocSetInfo.descriptorPool = manager.getDescriptorPool();
-		allocSetInfo.descriptorSetCount = 1;
-		allocSetInfo.pSetLayouts = &layout;
-		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &storage->descriptorSet) != VK_SUCCESS)
-			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
-
-		VkDescriptorImageInfo imageDescInfo{};
-		imageDescInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		imageDescInfo.imageView = storage->imageView;
-		imageDescInfo.sampler = manager.getSampler();
-
-		VkWriteDescriptorSet descriptorWrite{};
-		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = storage->descriptorSet;
-		descriptorWrite.dstBinding = 0;
-		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-		descriptorWrite.descriptorCount = 1;
-		descriptorWrite.pImageInfo = &imageDescInfo;
-
-		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
+		storage->descriptorSet = manager.createTextureDescriptor(storage->imageView);
 		return storage;
 	}
 

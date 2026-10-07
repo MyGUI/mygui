@@ -1131,28 +1131,35 @@ namespace MyGUI
 
 		mWhiteImageView = createImageView(mWhiteImage, VK_FORMAT_R8G8B8A8_UNORM);
 
+		mWhiteDescriptorSet = createTextureDescriptor(mWhiteImageView);
+	}
+
+	VkDescriptorSet VulkanRenderManager::createTextureDescriptor(VkImageView _imageView)
+	{
+		VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
 		VkDescriptorSetAllocateInfo allocSetInfo{};
 		allocSetInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
 		allocSetInfo.descriptorPool = mDescriptorPool;
 		allocSetInfo.descriptorSetCount = 1;
 		allocSetInfo.pSetLayouts = &mDescriptorSetLayout;
-		if (vkAllocateDescriptorSets(mDevice, &allocSetInfo, &mWhiteDescriptorSet) != VK_SUCCESS)
+		if (vkAllocateDescriptorSets(mDevice, &allocSetInfo, &descriptorSet) != VK_SUCCESS)
 			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
 
 		VkDescriptorImageInfo imageDescInfo{};
 		imageDescInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		imageDescInfo.imageView = mWhiteImageView;
+		imageDescInfo.imageView = _imageView;
 		imageDescInfo.sampler = mSampler;
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = mWhiteDescriptorSet;
+		descriptorWrite.dstSet = descriptorSet;
 		descriptorWrite.dstBinding = 0;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pImageInfo = &imageDescInfo;
 
 		vkUpdateDescriptorSets(mDevice, 1, &descriptorWrite, 0, nullptr);
+		return descriptorSet;
 	}
 
 } // namespace MyGUI
