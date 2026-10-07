@@ -20,7 +20,7 @@ namespace tools
 
 		setRttLayerSize(size);
 
-		setTextureValue(SettingsManager::getInstance().getValue("Workspace/TextureName"));
+		setTextureValue(SettingsManager::getInstance().getValue("Workspace/TextureName"), false);
 		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Gui::getInstance().getDpiScale());
 
 		addSelectorControl(mAreaSelectorControl);

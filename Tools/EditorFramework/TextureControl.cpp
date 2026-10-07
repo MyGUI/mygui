@@ -7,12 +7,89 @@
 #include "Precompiled.h"
 #include "TextureControl.h"
 #include "Localise.h"
+#include <cstring>
+
+#if defined(MYGUI_OGRE_PLATFORM)
+	#include <MyGUI_OgreRenderManager.h>
+	#include <MyGUI_OgreDataManager.h>
+	#include <OgreHighLevelGpuProgramManager.h>
+	#include <OgreHighLevelGpuProgram.h>
+	#include <OgreRenderSystem.h>
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+	#include <MyGUI_OgreNextRenderManager.h>
+#endif
 
 namespace tools
 {
 
+	bool TextureControl::hasTextureShader()
+	{
+		// Editors have one render-manager lifetime. Do not re-register programs
+		// when another preview is opened: textures may already reference them.
+		static const bool available = []
+		{
+			std::string vertex;
+			std::string fragment;
+#if defined(MYGUI_OPENGL3_PLATFORM)
+			vertex = "MyGUI_OpenGL3_VP.glsl";
+			fragment = "NearestFilter_FP.glsl";
+#elif defined(MYGUI_OPENGLES_PLATFORM)
+			vertex = "MyGUI_OpenGLES_VP.glsl";
+			fragment = "NearestFilter_GLES_FP.glsl";
+#elif defined(MYGUI_OSG_PLATFORM)
+			vertex = "MyGUI_Osg_VP.glsl";
+			fragment = "NearestFilter_FP.glsl";
+#elif defined(MYGUI_DIRECTX11_PLATFORM)
+			vertex = "MyGUI_DirectX11_VP.hlsl";
+			fragment = "NearestFilter_FP.hlsl";
+#elif defined(MYGUI_VULKAN_PLATFORM)
+			vertex = "MyGUI_Vulkan_VP.spv";
+			fragment = "NearestFilter_Vulkan_FP.spv";
+#elif defined(MYGUI_OGRENEXT_PLATFORM)
+			vertex = "mygui/VP";
+			fragment = "NearestFilter_OgreNext_FP." + MyGUI::OgreNextRenderManager::getInstance().getShaderExtension();
+#elif defined(MYGUI_OGRE_PLATFORM)
+			auto& manager = MyGUI::OgreRenderManager::getInstance();
+			if (manager.getRenderSystem()->getName() == "Direct3D9 Rendering Subsystem")
+				return false;
+			const auto extension = manager.getShaderExtension(true);
+			vertex = "MyGUI_Ogre_VP." + extension;
+			fragment = "NearestFilter_Ogre_FP." + extension;
+			if (extension == "hlsl")
+			{
+				fragment = "NearestFilter_FP.hlsl";
+				// Ogre's default loader targets SM3. Its existing-program path lets
+				// this tools-only fragment shader use Texture.Load on D3D11.
+				auto program = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+					fragment,
+					MyGUI::OgreDataManager::getInstance().getGroup(),
+					"hlsl",
+					Ogre::GPT_FRAGMENT_PROGRAM);
+				program->setSourceFile(fragment);
+				program->setParameter("target", "ps_4_0");
+				program->setParameter("entry_point", "main");
+				program->load();
+			}
+#endif
+			if (vertex.empty())
+				return false;
+			MyGUI::RenderManager::getInstance().registerShader("Tools/NearestFilter", vertex, fragment);
+			return true;
+		}();
+		return available;
+	}
+
+	void TextureControl::setTextureShader(MyGUI::ITexture* _texture)
+	{
+		if (_texture != nullptr && hasTextureShader())
+			_texture->setShader("Tools/NearestFilter");
+	}
+
 	TextureControl::~TextureControl()
 	{
+		if (mTexture == nullptr)
+			return;
+		destroyNearestFilterTexture();
 		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
 		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
 		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
@@ -22,6 +99,7 @@ namespace tools
 
 	void TextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
+		hasTextureShader();
 		Control::OnInitialise(_parent, _place, _layoutName);
 
 		assignWidget(mView, "View");
@@ -46,13 +124,77 @@ namespace tools
 			selector->setScale(mScaleValue);
 	}
 
-	void TextureControl::setTextureValue(const MyGUI::UString& _value)
+	void TextureControl::destroyNearestFilterTexture()
 	{
-		mTextureSize = MyGUI::RenderManager::getInstance().getTextureSize(_value, false);
-		mTexture->setImageTexture(_value);
+		mTexture->setImageTexture(std::string_view{});
+		if (mNearestFilterTexture != nullptr)
+		{
+			mNearestFilterTexture->setInvalidateListener(nullptr);
+			MyGUI::RenderManager::getInstance().destroyTexture(mNearestFilterTexture);
+			mNearestFilterTexture = nullptr;
+		}
+		mNearestFilterPixels.clear();
+	}
 
+	void TextureControl::textureInvalidate(MyGUI::ITexture* _texture)
+	{
+		void* pixels = _texture->lock(MyGUI::TextureUsage::Write);
+		MYGUI_ASSERT(pixels != nullptr, "Cannot write preview texture");
+		std::memcpy(pixels, mNearestFilterPixels.data(), mNearestFilterPixels.size());
+		_texture->unlock();
+		setTextureShader(_texture);
+	}
+
+	void TextureControl::createNearestFilterTexture(MyGUI::ITexture* _source)
+	{
+		auto& render = MyGUI::RenderManager::getInstance();
+		// Retain a CPU snapshot for texture invalidation; never retain the
+		// font's atlas pointer, since regeneration replaces the atlas.
+		mNearestFilterPixels.resize(size_t(_source->getWidth()) * _source->getHeight() * _source->getNumElemBytes());
+		const void* pixels = _source->lock(MyGUI::TextureUsage::Read);
+		MYGUI_ASSERT(pixels != nullptr, "Cannot read preview source texture");
+		std::memcpy(mNearestFilterPixels.data(), pixels, mNearestFilterPixels.size());
+		_source->unlock();
+		mNearestFilterTexture = render.createTexture(MyGUI::utility::toString("Tools/NearestFilter/", (size_t)this));
+		try
+		{
+			mNearestFilterTexture->createManual(
+				_source->getWidth(),
+				_source->getHeight(),
+				MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Write,
+				_source->getFormat());
+			textureInvalidate(mNearestFilterTexture);
+			mNearestFilterTexture->setInvalidateListener(this);
+			// The stable preview name may now refer to a differently sized atlas.
+			render.getTextureSize(mNearestFilterTexture->getName(), false);
+			mTexture->setImageTexture(mNearestFilterTexture->getName());
+		}
+		catch (...)
+		{
+			destroyNearestFilterTexture();
+			throw;
+		}
+	}
+
+	void TextureControl::setTextureValue(const MyGUI::UString& _value, bool _copyTexture)
+	{
+		destroyNearestFilterTexture();
+		auto& render = MyGUI::RenderManager::getInstance();
+		mTextureSize = render.getTextureSize(_value, false);
+		auto* source = _value.empty() ? nullptr : render.getTexture(_value);
+		if (source != nullptr && mTextureSize.width > 0 && mTextureSize.height > 0)
+		{
+			if (_copyTexture)
+			{
+				createNearestFilterTexture(source);
+			}
+			else
+			{
+				setTextureShader(source);
+				mTexture->setImageTexture(_value);
+			}
+		}
 		mTextureRegion.set(0, 0, mTextureSize.width, mTextureSize.height);
-
 		updateScale();
 	}
 

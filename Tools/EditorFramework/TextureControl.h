@@ -14,12 +14,16 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL TextureControl : public Control
+	class MYGUI_EXPORT_DLL TextureControl : public Control, private MyGUI::ITextureInvalidateListener
 	{
 	public:
 		~TextureControl() override;
 
-		void setTextureValue(const MyGUI::UString& _value);
+		void setTextureValue(const MyGUI::UString& _value, bool _copyTexture = true);
+
+		// Registers the tools shader once; returns false for legacy renderers.
+		static bool hasTextureShader();
+		static void setTextureShader(MyGUI::ITexture* _texture);
 
 		void setTextureRegion(const MyGUI::IntCoord& _value, float _dpiScale);
 		void resetTextureRegion();
@@ -67,6 +71,10 @@ namespace tools
 		void loadMouseRelative();
 
 	private:
+		void createNearestFilterTexture(MyGUI::ITexture* _source);
+		void destroyNearestFilterTexture();
+		void textureInvalidate(MyGUI::ITexture* _texture) override;
+
 		void notifyChangePosition();
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
@@ -89,6 +97,8 @@ namespace tools
 	private:
 		MyGUI::ScrollView* mView{nullptr};
 		MyGUI::ImageBox* mTexture{nullptr};
+		MyGUI::ITexture* mNearestFilterTexture{nullptr};
+		std::vector<unsigned char> mNearestFilterPixels;
 		MyGUI::Widget* mBackground{nullptr};
 
 		double mScaleValue{1.0};

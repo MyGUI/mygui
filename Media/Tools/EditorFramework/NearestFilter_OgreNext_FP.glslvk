@@ -1,0 +1,15 @@
+vulkan_layout( ogre_t0 ) uniform texture2D sampler0;
+vulkan( layout( ogre_s0 ) uniform sampler texSampler; )
+vulkan_layout( location = 0 ) out vec4 fragColour;
+vulkan_layout( location = 1 )
+in block
+{
+	vec2 uv;
+	vec4 col;
+} inPs;
+void main()
+{
+	ivec2 size = textureSize(vkSampler2D(sampler0, texSampler), 0);
+	ivec2 pixel = clamp(ivec2(floor(inPs.uv * vec2(size))), ivec2(0), size - ivec2(1));
+	fragColour = texelFetch(vkSampler2D(sampler0, texSampler), pixel, 0) * inPs.col;
+}
