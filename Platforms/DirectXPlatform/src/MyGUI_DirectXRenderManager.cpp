@@ -63,7 +63,7 @@ namespace MyGUI
 
 	IVertexBuffer* DirectXRenderManager::createVertexBuffer()
 	{
-		auto* buffer = new DirectXVertexBuffer(mpD3DDevice, this);
+		auto* buffer = new DirectXVertexBuffer(mpD3DDevice);
 		mVertexBuffers.insert(buffer);
 		return buffer;
 	}

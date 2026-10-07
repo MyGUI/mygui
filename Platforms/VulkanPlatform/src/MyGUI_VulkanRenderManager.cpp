@@ -372,12 +372,10 @@ namespace MyGUI
 
 	void VulkanRenderManager::begin()
 	{
-		++mReferenceCount;
 	}
 
 	void VulkanRenderManager::end()
 	{
-		--mReferenceCount;
 	}
 
 	const RenderTargetInfo& VulkanRenderManager::getInfo() const

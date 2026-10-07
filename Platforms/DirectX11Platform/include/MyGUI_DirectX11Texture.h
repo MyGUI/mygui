@@ -67,7 +67,6 @@ namespace MyGUI
 		int mWidth;
 		int mHeight;
 		TextureUsage mTextureUsage;
-		size_t mNumElemBytes;
 		std::string mName;
 		bool mLock;
 		DirectX11RTTexture* mRenderTarget;

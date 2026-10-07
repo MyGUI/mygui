@@ -9,7 +9,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
-#include "MyGUI_DirectXRenderManager.h"
 
 struct IDirect3DDevice9;
 struct IDirect3DVertexBuffer9;
@@ -20,7 +19,7 @@ namespace MyGUI
 	class DirectXVertexBuffer : public IVertexBuffer
 	{
 	public:
-		DirectXVertexBuffer(IDirect3DDevice9* _device, DirectXRenderManager* _pRenderManager);
+		DirectXVertexBuffer(IDirect3DDevice9* _device);
 		~DirectXVertexBuffer() override;
 
 		void setVertexCount(size_t _count) override;
@@ -41,7 +40,6 @@ namespace MyGUI
 	private:
 		IDirect3DDevice9* mpD3DDevice;
 		IDirect3DVertexBuffer9* mpBuffer;
-		DirectXRenderManager* pRenderManager;
 
 		size_t mVertexCount;
 		size_t mNeedVertexCount;

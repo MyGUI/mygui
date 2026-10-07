@@ -33,11 +33,6 @@ namespace MyGUI
 		mRenderTargetInfo.pixScaleX = 1.0f / float(width);
 		mRenderTargetInfo.pixScaleY = 1.0f / float(height);
 
-		D3D11_RENDER_TARGET_VIEW_DESC desc;
-		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-		desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-		desc.Texture2D.MipSlice = 0;
-
 		HRESULT hr = mManager->mpD3DDevice->CreateRenderTargetView(mTexture->mTexture, 0, &mRenderTarget);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Render Target View failed!");
 	}

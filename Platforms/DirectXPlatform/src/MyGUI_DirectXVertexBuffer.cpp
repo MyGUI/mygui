@@ -14,11 +14,10 @@ namespace MyGUI
 
 	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
-	DirectXVertexBuffer::DirectXVertexBuffer(IDirect3DDevice9* _device, DirectXRenderManager* _pRenderManager) :
+	DirectXVertexBuffer::DirectXVertexBuffer(IDirect3DDevice9* _device) :
 		mNeedVertexCount(0),
 		mVertexCount(0),
 		mpD3DDevice(_device),
-		pRenderManager(_pRenderManager),
 		mpBuffer(nullptr)
 	{
 	}

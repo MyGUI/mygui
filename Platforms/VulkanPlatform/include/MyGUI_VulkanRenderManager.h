@@ -197,7 +197,6 @@ namespace MyGUI
 		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		uint32_t mReferenceCount{0}; // for nested rendering
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;

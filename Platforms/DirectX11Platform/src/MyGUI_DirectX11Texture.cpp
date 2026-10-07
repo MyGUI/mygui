@@ -29,7 +29,6 @@ namespace MyGUI
 		mWidth(0),
 		mHeight(0),
 		mName(_name),
-		mNumElemBytes(0),
 		mLock(false),
 		mManager(_manager),
 		mRenderTarget(nullptr)
