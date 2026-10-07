@@ -6,9 +6,9 @@
 
 #pragma warning(push, 0)
 #include <d3d11.h>
-#include <wincodec.h>
 #include <vector>
 #pragma warning(pop)
+#include "WICImageLoader.h"
 #include "WICImageSaver.h"
 #include "MyGUI_DirectX11Texture.h"
 #include "MyGUI_DirectX11DataManager.h"
@@ -18,10 +18,52 @@
 
 #include <filesystem>
 #include <cstring>
+#include <memory>
+#include <limits>
 #include "MyGUI_FileSystemUtility.h"
 
 namespace MyGUI
 {
+
+	namespace
+	{
+
+		template<typename ReadPixels>
+		HRESULT readTexturePixels(
+			ID3D11Device* device,
+			ID3D11DeviceContext* context,
+			ID3D11Texture2D* texture,
+			ReadPixels&& readPixels)
+		{
+			D3D11_TEXTURE2D_DESC desc;
+			texture->GetDesc(&desc);
+			desc.Usage = D3D11_USAGE_STAGING;
+			desc.BindFlags = 0;
+			desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+			desc.MiscFlags = 0;
+
+			ID3D11Texture2D* staging = nullptr;
+			HRESULT hr = device->CreateTexture2D(&desc, nullptr, &staging);
+			bool isMapped = false;
+			const auto release = [&](ID3D11Texture2D* value)
+			{
+				if (isMapped)
+					context->Unmap(value, 0);
+				value->Release();
+			};
+			std::unique_ptr<ID3D11Texture2D, decltype(release)> owner(staging, release);
+			if (FAILED(hr))
+				return hr;
+			context->CopyResource(staging, texture);
+			D3D11_MAPPED_SUBRESOURCE mapped{};
+			hr = context->Map(staging, 0, D3D11_MAP_READ, 0, &mapped);
+			if (FAILED(hr))
+				return hr;
+			isMapped = true;
+			return readPixels(mapped);
+		}
+
+	}
 
 	DirectX11Texture::DirectX11Texture(const std::string& _name, DirectX11RenderManager* _manager) :
 		mTexture(nullptr),
@@ -83,70 +125,18 @@ namespace MyGUI
 		destroy();
 		mTextureUsage = TextureUsage::Static | TextureUsage::Read | TextureUsage::Write;
 
-		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
-		const auto wfullname = MyGUI::utility::toPath(fullname);
-
-		IWICImagingFactory* wicFactory = nullptr;
-		HRESULT hr =
-			CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&wicFactory));
-		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to create WIC imaging factory!");
-
-		IWICBitmapDecoder* decoder = nullptr;
-		hr = wicFactory->CreateDecoderFromFilename(
-			wfullname.c_str(),
-			nullptr,
-			GENERIC_READ,
-			WICDecodeMetadataCacheOnLoad,
-			&decoder);
-		if (FAILED(hr))
-		{
-			wicFactory->Release();
-			MYGUI_PLATFORM_ASSERT(false, "Failed to decode image file '" << _filename << "'");
-		}
-
-		IWICBitmapFrameDecode* frame = nullptr;
-		hr = decoder->GetFrame(0, &frame);
-		if (FAILED(hr))
-		{
-			decoder->Release();
-			wicFactory->Release();
-			MYGUI_PLATFORM_ASSERT(false, "Failed to get image frame for file '" << _filename << "'");
-		}
-
-		IWICFormatConverter* converter = nullptr;
-		hr = wicFactory->CreateFormatConverter(&converter);
-		if (SUCCEEDED(hr))
-		{
-			hr = converter->Initialize(
-				frame,
-				GUID_WICPixelFormat32bppBGRA,
-				WICBitmapDitherTypeNone,
-				nullptr,
-				0.0f,
-				WICBitmapPaletteTypeMedianCut);
-		}
-		if (FAILED(hr))
-		{
-			frame->Release();
-			decoder->Release();
-			wicFactory->Release();
-			MYGUI_PLATFORM_ASSERT(false, "Failed to convert image format for file '" << _filename << "'");
-		}
-
-		UINT imageWidth = 0, imageHeight = 0;
-		converter->GetSize(&imageWidth, &imageHeight);
-		mWidth = imageWidth;
-		mHeight = imageHeight;
-
-		std::vector<unsigned char> pixels(imageWidth * imageHeight * 4);
-		hr = converter->CopyPixels(nullptr, imageWidth * 4, pixels.size(), pixels.data());
-
-		converter->Release();
-		frame->Release();
-		decoder->Release();
-		wicFactory->Release();
-
-		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to copy image pixels for file '" << _filename << "'");
+		const auto path = MyGUI::utility::toPath(DirectX11DataManager::getInstance().getDataPath(_filename));
+		std::vector<BYTE> pixels;
+		HRESULT hr = loadWICImage(
+			path.c_str(),
+			[&](IWICBitmapSource* source, UINT width, UINT height)
+			{
+				mWidth = width;
+				mHeight = height;
+				pixels.resize(size_t(width) * height * 4);
+				return source->CopyPixels(nullptr, width * 4, static_cast<UINT>(pixels.size()), pixels.data());
+			});
+		MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to load texture '" << _filename << "' (error code " << hr << ").");
 
 		D3D11_TEXTURE2D_DESC desc;
 		desc.ArraySize = 1;
@@ -163,7 +153,7 @@ namespace MyGUI
 
 		D3D11_SUBRESOURCE_DATA initData;
 		initData.pSysMem = pixels.data();
-		initData.SysMemPitch = imageWidth * 4;
+		initData.SysMemPitch = mWidth * 4;
 		initData.SysMemSlicePitch = 0;
 
 		hr = mManager->mpD3DDevice->CreateTexture2D(&desc, &initData, &mTexture);
@@ -222,33 +212,21 @@ namespace MyGUI
 		mLockData.resize(size_t(mWidth) * size_t(mHeight) * 4);
 		if (_access.isValue(TextureUsage::Read))
 		{
-			D3D11_TEXTURE2D_DESC desc;
-			mTexture->GetDesc(&desc);
-			desc.Usage = D3D11_USAGE_STAGING;
-			desc.BindFlags = 0;
-			desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-			desc.MiscFlags = 0;
-
-			ID3D11Texture2D* stagingTexture = nullptr;
-			HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, nullptr, &stagingTexture);
-			MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to create staging texture for read lock!");
-			mManager->mpD3DContext->CopyResource(stagingTexture, mTexture);
-
-			D3D11_MAPPED_SUBRESOURCE mapped;
-			hr = mManager->mpD3DContext->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapped);
-			if (FAILED(hr))
-			{
-				stagingTexture->Release();
-				MYGUI_PLATFORM_EXCEPT("Failed to map staging texture for read lock (error code " << hr << ").");
-			}
-			const size_t rowBytes = size_t(mWidth) * 4;
-			for (int y = 0; y < mHeight; ++y)
-				std::memcpy(
-					mLockData.data() + size_t(y) * rowBytes,
-					static_cast<const unsigned char*>(mapped.pData) + size_t(y) * mapped.RowPitch,
-					rowBytes);
-			mManager->mpD3DContext->Unmap(stagingTexture, 0);
-			stagingTexture->Release();
+			const HRESULT hr = readTexturePixels(
+				mManager->mpD3DDevice,
+				mManager->mpD3DContext,
+				mTexture,
+				[&](const D3D11_MAPPED_SUBRESOURCE& mapped)
+				{
+					const size_t rowBytes = size_t(mWidth) * 4;
+					for (int y = 0; y < mHeight; ++y)
+						std::memcpy(
+							mLockData.data() + size_t(y) * rowBytes,
+							static_cast<const unsigned char*>(mapped.pData) + size_t(y) * mapped.RowPitch,
+							rowBytes);
+					return S_OK;
+				});
+			MYGUI_PLATFORM_ASSERT(SUCCEEDED(hr), "Failed to read texture pixels (error code " << hr << ").");
 		}
 		mLockAccess = _access;
 		mLock = true;
@@ -296,58 +274,25 @@ namespace MyGUI
 			return;
 		}
 
-		D3D11_TEXTURE2D_DESC desc;
-		mTexture->GetDesc(&desc);
-
-		desc.Usage = D3D11_USAGE_STAGING;
-		desc.BindFlags = 0;
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-		desc.MiscFlags = 0;
-
-		ID3D11Texture2D* stagingTexture = nullptr;
-		HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, nullptr, &stagingTexture);
-		if (FAILED(hr))
-		{
-			MYGUI_PLATFORM_EXCEPT("Failed to create staging texture (error code " << hr << ").");
-		}
-
-		mManager->mpD3DContext->CopyResource(stagingTexture, mTexture);
-
-		D3D11_MAPPED_SUBRESOURCE mapped;
-		hr = mManager->mpD3DContext->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapped);
-		if (FAILED(hr))
-		{
-			stagingTexture->Release();
-			MYGUI_PLATFORM_EXCEPT("Failed to map staging texture (error code " << hr << ").");
-		}
-
-		UINT width = desc.Width;
-		UINT height = desc.Height;
-		UINT dstStride = width * 4;
-
-		std::vector<BYTE> convertedData;
-		BYTE* pixels = static_cast<BYTE*>(mapped.pData);
-
-		if (mapped.RowPitch != dstStride)
-		{
-			convertedData.resize(height * dstStride);
-			for (UINT y = 0; y < height; ++y)
-			{
-				memcpy(convertedData.data() + y * dstStride, pixels + y * mapped.RowPitch, dstStride);
-			}
-			pixels = convertedData.data();
-		}
-
 		const auto path = MyGUI::utility::toPath(_filename);
-		hr = MyGUI::saveWICImage(path.c_str(), width, height, dstStride, pixels);
-
-		mManager->mpD3DContext->Unmap(stagingTexture, 0);
-		stagingTexture->Release();
-
-		if (FAILED(hr))
-		{
-			MYGUI_PLATFORM_EXCEPT("Failed to save texture to file '" << _filename << "' (error code " << hr << ").");
-		}
+		const HRESULT hr = readTexturePixels(
+			mManager->mpD3DDevice,
+			mManager->mpD3DContext,
+			mTexture,
+			[&](const D3D11_MAPPED_SUBRESOURCE& mapped)
+			{
+				if (mHeight <= 0 || mapped.RowPitch > std::numeric_limits<UINT>::max() / UINT(mHeight))
+					return E_INVALIDARG;
+				return saveWICImage(
+					path.c_str(),
+					mWidth,
+					mHeight,
+					mapped.RowPitch,
+					static_cast<const BYTE*>(mapped.pData));
+			});
+		MYGUI_PLATFORM_ASSERT(
+			SUCCEEDED(hr),
+			"Failed to save texture to file '" << _filename << "' (error code " << hr << ").");
 	}
 
 	IRenderTarget* DirectX11Texture::getRenderTarget()

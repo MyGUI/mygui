@@ -20,6 +20,8 @@ target_link_libraries(${PROJECTNAME}
 	PRIVATE
 		DirectX11::D3D11
 		DirectX11::D3DCompiler
+		windowscodecs
+		ole32
 )
 
 # installation rules
