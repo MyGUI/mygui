@@ -6,6 +6,15 @@
 # (otherwise all warnings from PCH-included headers are suppressed)
 set(CMAKE_PCH_PROLOGUE "")
 
+# Fill in missing compiler support (e.g. AppleClang) for PCH_INSTANTIATE_TEMPLATES.
+if(NOT CMAKE_CXX_COMPILE_OPTIONS_INSTANTIATE_TEMPLATES_PCH)
+	include(CheckCXXCompilerFlag)
+	check_cxx_compiler_flag("-fpch-instantiate-templates" MYGUI_HAS_PCH_INSTANTIATE_TEMPLATES)
+	if(MYGUI_HAS_PCH_INSTANTIATE_TEMPLATES)
+		set(CMAKE_CXX_COMPILE_OPTIONS_INSTANTIATE_TEMPLATES_PCH -fpch-instantiate-templates)
+	endif()
+endif()
+
 if(
 	CMAKE_COMPILER_IS_GNUCXX
 	OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"

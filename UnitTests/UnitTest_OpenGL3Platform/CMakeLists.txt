@@ -1,4 +1,4 @@
-mygui_unit_test(UnitTest_OpenGL3Platform)
+mygui_unit_test(UnitTest_OpenGL3Platform SKIP_PCH)
 target_link_libraries(UnitTest_OpenGL3Platform PRIVATE MyGUICommon)
 target_include_directories(UnitTest_OpenGL3Platform PRIVATE ../UnitTest_Platform)
 set_tests_properties(UnitTest_OpenGL3Platform PROPERTIES

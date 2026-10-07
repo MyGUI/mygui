@@ -1,4 +1,4 @@
-mygui_unit_test(UnitTest_OsgPlatform)
+mygui_unit_test(UnitTest_OsgPlatform SKIP_PCH)
 target_link_libraries(UnitTest_OsgPlatform PRIVATE MyGUICommon)
 set_tests_properties(UnitTest_OsgPlatform PROPERTIES
 	LABELS "platform;graphics" RUN_SERIAL TRUE TIMEOUT 120

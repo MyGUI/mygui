@@ -1,4 +1,4 @@
-mygui_unit_test(UnitTest_Platform GROUPED)
+mygui_unit_test(UnitTest_Platform GROUPED SKIP_PCH)
 target_link_libraries(UnitTest_Platform PRIVATE MyGUICommon)
 if(EMSCRIPTEN)
 	find_package(Python3 REQUIRED COMPONENTS Interpreter)

@@ -1,6 +1,7 @@
 # Configure settings and install targets
 
 include(GNUInstallDirs)
+include("${CMAKE_CURRENT_LIST_DIR}/MyGUIPrecompiledHeaders.cmake")
 
 function(mygui_set_platform_name PLATFORM_ID)
 	if(${PLATFORM_ID} EQUAL 1)
@@ -91,6 +92,7 @@ endfunction(mygui_app)
 
 function(mygui_demo PROJECTNAME)
 	mygui_app(${PROJECTNAME} Demos)
+	mygui_reuse_precompiled_headers(${PROJECTNAME} MyGUIAppPch MyGUICommon)
 	if(MYGUI_BUILD_WEB_DEMOS AND PROJECTNAME MATCHES "^Demo_")
 		get_target_property(_sources ${PROJECTNAME} SOURCES)
 		add_library(${PROJECTNAME}_web OBJECT ${_sources})
@@ -110,22 +112,26 @@ endfunction(mygui_demo)
 
 function(mygui_tool PROJECTNAME)
 	mygui_app(${PROJECTNAME} Tools)
+	mygui_reuse_precompiled_headers(${PROJECTNAME} MyGUIAppPch MyGUICommon)
 	if(MYGUI_INSTALL_TOOLS)
 		mygui_install_app(${PROJECTNAME})
 	endif()
 
 	target_include_directories(${PROJECTNAME} PRIVATE "${MYGUI_SOURCE_DIR}/Tools/EditorFramework")
-	mygui_target_precompile_headers(${PROJECTNAME} "../../Common/Precompiled.h")
 
 	target_link_libraries(${PROJECTNAME} PRIVATE EditorFramework)
 endfunction(mygui_tool)
 
 function(mygui_unit_test PROJECTNAME)
+	cmake_parse_arguments(PARSE_ARGV 1 _test "GROUPED;SKIP_PCH" "" "")
 	include(${PROJECTNAME}.list)
 	add_executable(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER UnitTest WIN32_EXECUTABLE FALSE)
 	mygui_config_common(${PROJECTNAME})
 	target_link_libraries(${PROJECTNAME} PRIVATE MyGUIUnitTestCommon)
+	if(NOT _test_SKIP_PCH)
+		mygui_reuse_precompiled_headers(${PROJECTNAME} MyGUIUnitTestPch MyGUIUnitTestCommon)
+	endif()
 
 	if(WIN32)
 		# Copy engine dependencies for shared builds; static builds may have no runtime DLLs.
@@ -142,7 +148,7 @@ function(mygui_unit_test PROJECTNAME)
 		set_target_properties(${PROJECTNAME} PROPERTIES SUFFIX ".js")
 	endif()
 
-	if(NOT ARGV1 STREQUAL "GROUPED")
+	if(NOT _test_GROUPED)
 		add_test(NAME ${PROJECTNAME} COMMAND ${PROJECTNAME})
 		if(EMSCRIPTEN)
 			# Node loads the preloaded .data package relative to the process working directory.
@@ -176,6 +182,7 @@ function(mygui_tool_dll PROJECTNAME)
 			MyGUICommon
 	)
 
+	# DLL export definitions differ from those of the executable consumers.
 	mygui_target_precompile_headers(${PROJECTNAME} "../../Common/Precompiled.h")
 endfunction(mygui_tool_dll)
 
@@ -229,15 +236,3 @@ function(mygui_config_sample PROJECTNAME)
 		set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 	endif()
 endfunction(mygui_config_sample)
-
-function(mygui_target_precompile_headers PROJECTNAME HEADER)
-	if(NOT MYGUI_CLANG_TIDY_BUILD)
-		target_precompile_headers(${PROJECTNAME} PRIVATE "${HEADER}")
-	else()
-		if(IS_ABSOLUTE "${HEADER}")
-			target_compile_options(${PROJECTNAME} PRIVATE -include "${HEADER}")
-		else()
-			target_compile_options(${PROJECTNAME} PRIVATE -include "${CMAKE_CURRENT_LIST_DIR}/${HEADER}")
-		endif()
-	endif()
-endfunction()

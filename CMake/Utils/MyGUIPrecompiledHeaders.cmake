@@ -1,0 +1,30 @@
+function(mygui_target_precompile_headers PROJECTNAME HEADER)
+	if(MYGUI_CLANG_TIDY_BUILD)
+		get_filename_component(HEADER "${HEADER}" ABSOLUTE BASE_DIR "${CMAKE_CURRENT_LIST_DIR}")
+		target_compile_options(${PROJECTNAME} PRIVATE -include "${HEADER}")
+	else()
+		target_precompile_headers(${PROJECTNAME} PRIVATE "${HEADER}")
+	endif()
+endfunction()
+
+# Share a PCH between executables with the same compile settings and dependencies.
+function(mygui_reuse_precompiled_headers PROJECTNAME PCH_TARGET DEPENDENCY)
+	set(_header "${MYGUI_SOURCE_DIR}/Common/Precompiled.h")
+	if(MYGUI_CLANG_TIDY_BUILD OR CMAKE_DISABLE_PRECOMPILE_HEADERS)
+		mygui_target_precompile_headers(${PROJECTNAME} "${_header}")
+		return()
+	endif()
+
+	if(NOT TARGET ${PCH_TARGET})
+		add_library(${PCH_TARGET} OBJECT EXCLUDE_FROM_ALL "${MYGUI_SOURCE_DIR}/Common/Precompiled.cpp")
+		target_link_libraries(${PCH_TARGET} PRIVATE ${DEPENDENCY})
+		# Match the executable consumers: PIE instead of object-library PIC.
+		set_target_properties(${PCH_TARGET} PROPERTIES POSITION_INDEPENDENT_CODE OFF FOLDER Common)
+		if(CMAKE_POSITION_INDEPENDENT_CODE)
+			target_compile_options(${PCH_TARGET} PRIVATE ${CMAKE_CXX_COMPILE_OPTIONS_PIE})
+		endif()
+		mygui_target_precompile_headers(${PCH_TARGET} "${_header}")
+	endif()
+
+	target_precompile_headers(${PROJECTNAME} REUSE_FROM ${PCH_TARGET})
+endfunction()
