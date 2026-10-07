@@ -63,18 +63,9 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_ASSERT(!mStorage, "Texture already exist");
 
-		if (_format == PixelFormat::R8G8B8)
-		{
-			mNumElemBytes = 3;
-		}
-		else if (_format == PixelFormat::R8G8B8A8)
-		{
-			mNumElemBytes = 4;
-		}
-		else
-		{
+		if (_format != PixelFormat::R8G8B8 && _format != PixelFormat::R8G8B8A8)
 			MYGUI_PLATFORM_EXCEPT("format not support");
-		}
+		mNumElemBytes = _format.getBytesPerPixel();
 
 		mWidth = _width;
 		mHeight = _height;

@@ -69,27 +69,25 @@ namespace MyGUI
 		if (mPixelFormat == PixelFormat::R8G8B8A8)
 		{
 			mInternalFormat = D3DFMT_A8R8G8B8;
-			mNumElemBytes = 4;
 		}
 		else if (mPixelFormat == PixelFormat::R8G8B8)
 		{
 			mInternalFormat = D3DFMT_R8G8B8;
-			mNumElemBytes = 3;
 		}
 		else if (mPixelFormat == PixelFormat::L8A8)
 		{
 			mInternalFormat = D3DFMT_A8L8;
-			mNumElemBytes = 2;
 		}
 		else if (mPixelFormat == PixelFormat::L8)
 		{
 			mInternalFormat = D3DFMT_L8;
-			mNumElemBytes = 1;
 		}
 		else
 		{
 			MYGUI_PLATFORM_EXCEPT("Creating texture with unknown pixel formal.");
 		}
+
+		mNumElemBytes = _format.getBytesPerPixel();
 
 		HRESULT result = mpD3DDevice->CreateTexture(
 			mSize.width,

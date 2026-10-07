@@ -134,18 +134,18 @@ namespace MyGUI
 		{
 			mInternalPixelFormat = GL_RGB8;
 			mPixelFormat = GL_BGR;
-			mNumElemBytes = 3;
 		}
 		else if (_format == PixelFormat::R8G8B8A8)
 		{
 			mInternalPixelFormat = GL_RGBA8;
 			mPixelFormat = GL_BGRA;
-			mNumElemBytes = 4;
 		}
 		else
 		{
 			MYGUI_PLATFORM_EXCEPT("format not support");
 		}
+
+		mNumElemBytes = _format.getBytesPerPixel();
 
 		MYGUI_PLATFORM_ASSERT(_width > 0 && _height > 0, "Texture dimensions must be positive");
 		MYGUI_PLATFORM_ASSERT(

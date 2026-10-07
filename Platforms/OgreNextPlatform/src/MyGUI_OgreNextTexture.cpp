@@ -325,30 +325,17 @@ namespace MyGUI
 
 		const auto pixelFormat = mTexture->getPixelFormat();
 		if (pixelFormat == Ogre::PFG_R8_UNORM)
-		{
 			mOriginalFormat = PixelFormat::L8;
-			mNumElemBytes = 1;
-		}
 		else if (pixelFormat == Ogre::PFG_RG8_UNORM)
-		{
 			mOriginalFormat = PixelFormat::L8A8;
-			mNumElemBytes = 2;
-		}
 		else if (pixelFormat == Ogre::PFG_RGB8_UNORM)
-		{
 			mOriginalFormat = PixelFormat::R8G8B8;
-			mNumElemBytes = 3;
-		}
 		else if (pixelFormat == Ogre::PFG_RGBA8_UNORM || pixelFormat == Ogre::PFG_BGRA8_UNORM)
-		{
 			mOriginalFormat = PixelFormat::R8G8B8A8;
-			mNumElemBytes = 4;
-		}
-		else
-		{
-			mOriginalFormat = PixelFormat::Unknow;
-			mNumElemBytes = Ogre::PixelFormatGpuUtils::getBytesPerPixel(pixelFormat);
-		}
+
+		mNumElemBytes = mOriginalFormat == PixelFormat::Unknow
+			? Ogre::PixelFormatGpuUtils::getBytesPerPixel(pixelFormat)
+			: mOriginalFormat.getBytesPerPixel();
 	}
 
 	IRenderTarget* OgreNextTexture::getRenderTarget()

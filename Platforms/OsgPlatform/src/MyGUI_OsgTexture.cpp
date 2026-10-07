@@ -55,27 +55,16 @@ namespace MyGUI
 		mRenderTarget = nullptr;
 
 		GLenum glfmt = GL_NONE;
-		size_t numelems = 0;
 		switch (_format.getValue())
 		{
-		case PixelFormat::L8:
-			glfmt = GL_LUMINANCE;
-			numelems = 1;
-			break;
-		case PixelFormat::L8A8:
-			glfmt = GL_LUMINANCE_ALPHA;
-			numelems = 2;
-			break;
-		case PixelFormat::R8G8B8:
-			glfmt = GL_BGR;
-			numelems = 3;
-			break;
+		case PixelFormat::L8: glfmt = GL_LUMINANCE; break;
+		case PixelFormat::L8A8: glfmt = GL_LUMINANCE_ALPHA; break;
+		case PixelFormat::R8G8B8: glfmt = GL_BGR; break;
 		case PixelFormat::R8G8B8A8:
 			// The engine stores R8G8B8A8 texture data in memory as B,G,R,A
 			// (see the OpenGL/OpenGL3 backends which upload with GL_BGRA),
 			// so the source format must be BGRA to keep the channels unswapped.
 			glfmt = GL_BGRA;
-			numelems = 4;
 			break;
 		default: MYGUI_PLATFORM_EXCEPT("Texture format not supported");
 		}
@@ -94,7 +83,7 @@ namespace MyGUI
 		mHeight = _height;
 		mFormat = _format;
 		mUsage = _usage;
-		mNumElemBytes = numelems;
+		mNumElemBytes = _format.getBytesPerPixel();
 		mImage = nullptr;
 		if (!_usage.isValue(TextureUsage::RenderTarget))
 		{
