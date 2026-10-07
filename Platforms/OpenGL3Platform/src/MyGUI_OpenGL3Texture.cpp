@@ -312,7 +312,7 @@ namespace MyGUI
 
 	void OpenGL3Texture::setShader(const std::string& _shaderName)
 	{
-		mProgramId = OpenGL3RenderManager::getInstance().getShaderProgramId(_shaderName);
+		mShaderName = _shaderName;
 	}
 
 	IRenderTarget* OpenGL3Texture::getRenderTarget()
@@ -330,7 +330,7 @@ namespace MyGUI
 
 	unsigned int OpenGL3Texture::getShaderId() const
 	{
-		return mProgramId;
+		return mShaderName.empty() ? 0 : OpenGL3RenderManager::getInstance().getShaderProgramId(mShaderName);
 	}
 
 	int OpenGL3Texture::getWidth() const

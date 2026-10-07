@@ -52,6 +52,7 @@ namespace MyGUI
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
 	private:
+		friend class OpenGL3RenderManager;
 		std::string mName;
 		int mWidth{0};
 		int mHeight{0};
@@ -61,7 +62,7 @@ namespace MyGUI
 		size_t mNumElemBytes{0};
 		size_t mDataSize{0};
 		unsigned int mTextureId{0};
-		unsigned int mProgramId{0};
+		std::string mShaderName;
 		unsigned int mPboID{0};
 		bool mLock{false};
 		bool mWriteLock{false};

@@ -6,6 +6,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_OpenGLESImageLoader.h"
 #include <array>
+#include <memory>
 
 namespace MyGUI
 {
@@ -68,7 +69,14 @@ namespace MyGUI
 
 	private:
 		std::string loadFileContent(const std::string& _file);
-		unsigned int createShaderProgram(
+		struct ShaderProgram
+		{
+			~ShaderProgram();
+			unsigned int id{0};
+			int yScale{-1};
+		};
+		const ShaderProgram* getShaderProgram(const std::string& _name) const;
+		std::unique_ptr<ShaderProgram> createShaderProgram(
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
@@ -79,9 +87,7 @@ namespace MyGUI
 		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		unsigned int mDefaultProgramId{0};
-		std::map<std::string, unsigned int> mRegisteredShaders;
-		std::map<unsigned int, int> mYScaleUniformLocations;
+		std::map<std::string, std::unique_ptr<ShaderProgram>> mRegisteredShaders;
 		struct SavedState
 		{
 			std::array<bool, 8> enabled{};

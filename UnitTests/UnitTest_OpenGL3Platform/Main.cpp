@@ -1,4 +1,5 @@
 #include "PlatformFixture.h"
+#include "MyGUI_OpenGL3DataManager.h"
 #include "MyGUI_OpenGL3Texture.h"
 #include <MyGUI_GL.h>
 #include <algorithm>
@@ -280,6 +281,63 @@ namespace
 		fixture.resetCase();
 	}
 
+	void testShaderOwnership(platformtest::Fixture& fixture)
+	{
+		auto& renderer = MyGUI::OpenGL3RenderManager::getInstance();
+		const std::string name = "OwnedShader";
+		glUseProgram(renderer.getShaderProgramId("Default"));
+		GLint previous = 0;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &previous);
+		renderer.registerShader(name, "PlatformOffset_GL3_VP.glsl", "PlatformSwap_FP.glsl");
+		auto* source = static_cast<MyGUI::OpenGL3Texture*>(fixture.texture());
+		source->createManual(1, 2, MyGUI::TextureUsage::Write, MyGUI::PixelFormat::R8G8B8A8);
+		platformtest::upload(source, {0, 0, 255, 255, 255, 0, 0, 255});
+		source->setShader(name);
+		const auto oldProgram = source->getShaderId();
+		require(
+			glGetUniformLocation(oldProgram, "YScale") != glGetUniformLocation(previous, "YScale"),
+			"Shader fixture must use a different YScale location");
+		unittest::requireThrows(
+			[&] { renderer.registerShader(name, "Missing_VP.glsl", "PlatformSwap_FP.glsl"); },
+			"Missing shader must reject replacement");
+		unittest::TemporaryFile invalidShader("#version 150\n#error Intentional shader compilation failure\n");
+		MyGUI::OpenGL3DataManager::getInstance().addResourceLocation(invalidShader.path().parent_path(), false);
+		auto filePath = invalidShader.path().filename().string();
+		unittest::requireThrows(
+			[&] { renderer.registerShader(name, "PlatformOffset_GL3_VP.glsl", filePath); },
+			"Invalid fragment shader must reject replacement");
+		require(
+			source->getShaderId() == oldProgram && glIsProgram(oldProgram),
+			"Failed replacement must preserve the working shader");
+		renderer.registerShader(name, "PlatformOffset_GL3_VP.glsl", "PlatformSwap_FP.glsl");
+		require(
+			source->getShaderId() != oldProgram && !glIsProgram(oldProgram),
+			"Replacement must release the old program and update existing textures");
+		GLint current = 0;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &current);
+		require(current == previous, "Shader registration must preserve the current program");
+		glUseProgram(0);
+		auto* output = fixture.texture();
+		output->createManual(128, 128, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+		fixture.scene(
+			[&](MyGUI::IRenderTarget* target)
+			{
+				auto* rtt = output->getRenderTarget();
+				rtt->begin();
+				fixture.quad(rtt, source);
+				rtt->end();
+				fixture.quad(target, output);
+			});
+		fixture.capture();
+		fixture.expect(64, 16, {0, 0, 255, 255});
+		fixture.expect(64, 112, {255, 0, 0, 255});
+		source->setShader("Default");
+		fixture.capture();
+		fixture.expect(64, 16, {255, 0, 0, 255});
+		fixture.expect(64, 112, {0, 0, 255, 255});
+		require(glGetError() == GL_NO_ERROR, "Shader selection must not generate GL errors");
+	}
+
 	void testRttState(platformtest::Fixture& fixture)
 	{
 		GLuint hostDraw = 0, hostRead = 0;
@@ -329,7 +387,8 @@ int main(int, char**)
 		{{"", "transfers", testTransfers},
 		 {"", "interleaved-locks", testInterleavedLocks},
 		 {"", "raster-state", testRasterState},
-		 {"", "rtt-state", testRttState}},
+		 {"", "rtt-state", testRttState},
+		 {"", "shader-ownership", testShaderOwnership}},
 		[](platformtest::Fixture&)
 		{
 			require(

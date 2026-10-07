@@ -63,6 +63,7 @@ namespace MyGUI
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
 	private:
+		friend class OpenGLESRenderManager;
 		void upload(const unsigned char* _data);
 		void readback(unsigned char* _data);
 

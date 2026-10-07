@@ -13,6 +13,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_OpenGL3ImageLoader.h"
 #include <array>
+#include <memory>
 
 namespace MyGUI
 {
@@ -75,18 +76,25 @@ namespace MyGUI
 
 	private:
 		std::string loadFileContent(const std::string& _file);
-		unsigned int createShaderProgram(
+		struct ShaderProgram
+		{
+			~ShaderProgram();
+			unsigned int id{0};
+			int yScale{-1};
+		};
+		const ShaderProgram* getShaderProgram(const std::string& _name) const;
+		std::unique_ptr<ShaderProgram> createShaderProgram(
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile);
 		void destroyAllResources();
+		void render(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, float _yScale);
 
 	private:
 		IntSize mViewSize;
 		bool mUpdate{false};
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		unsigned int mDefaultProgramId{0};
-		std::map<std::string, unsigned int> mRegisteredShaders;
+		std::map<std::string, std::unique_ptr<ShaderProgram>> mRegisteredShaders;
 		unsigned int mReferenceCount{0}; // for nested rendering
 		// Captured once for the outermost GUI pass; nested RTT passes share GUI state.
 		struct SavedState
@@ -98,7 +106,6 @@ namespace MyGUI
 			unsigned char depthMask{};
 			int program{}, activeTexture{}, texture{}, vertexArray{}, arrayBuffer{};
 		} mSavedState;
-		int mYScaleUniformLocation{-1};
 
 		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;

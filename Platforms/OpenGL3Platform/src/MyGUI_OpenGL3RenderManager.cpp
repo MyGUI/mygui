@@ -49,95 +49,94 @@ namespace MyGUI
 		return static_cast<OpenGL3RenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	static GLuint buildShader(const std::string& text, GLenum type)
+	namespace
 	{
-		GLuint id = glCreateShader(type);
-		const char* c_str = text.c_str();
-		glShaderSource(id, 1, &c_str, nullptr);
-		glCompileShader(id);
 
-		GLint success;
-		glGetShaderiv(id, GL_COMPILE_STATUS, &success);
-
-		if (success == GL_FALSE)
+		struct Shader
 		{
-			GLint len = 0;
-			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+			explicit Shader(GLenum type) :
+				id(glCreateShader(type))
+			{
+			}
+			~Shader()
+			{
+				glDeleteShader(id);
+			}
+			GLuint id;
+		};
 
-			GLchar* buffer = new GLchar[len];
-			glGetShaderInfoLog(id, len, nullptr, buffer);
-			std::string infoLog = buffer;
-			delete[] buffer;
-
-			MYGUI_PLATFORM_EXCEPT(infoLog);
+		void compileShader(GLuint id, const std::string& text)
+		{
+			const char* source = text.c_str();
+			glShaderSource(id, 1, &source, nullptr);
+			glCompileShader(id);
+			GLint success = 0;
+			glGetShaderiv(id, GL_COMPILE_STATUS, &success);
+			if (!success)
+			{
+				GLint length = 0;
+				glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+				std::string message(size_t(length > 0 ? length : 1), '\0');
+				glGetShaderInfoLog(id, length, nullptr, message.data());
+				MYGUI_PLATFORM_EXCEPT(message.c_str());
+			}
 		}
 
-		return id;
+	}
+
+	OpenGL3RenderManager::ShaderProgram::~ShaderProgram()
+	{
+		if (id)
+			glDeleteProgram(id);
 	}
 
 	std::string OpenGL3RenderManager::loadFileContent(const std::string& _file)
 	{
-		auto stream = DataManager::getInstance().getDataHolder(_file);
-		if (!stream)
-		{
-			MYGUI_PLATFORM_LOG(Error, "Failed to load file content '" << _file << "'.");
-			return {};
-		}
-		return stream->readAllText();
+		auto source = DataManager::getInstance().getDataHolder(_file);
+		MYGUI_PLATFORM_ASSERT(source, "Failed to load shader '" << _file << "'.");
+		return source->readAllText();
 	}
 
-	GLuint OpenGL3RenderManager::createShaderProgram(
+	std::unique_ptr<OpenGL3RenderManager::ShaderProgram> OpenGL3RenderManager::createShaderProgram(
 		const std::string& _vertexProgramFile,
 		const std::string& _fragmentProgramFile)
 	{
-		GLuint vsID = buildShader(loadFileContent(_vertexProgramFile), GL_VERTEX_SHADER);
-		GLuint fsID = buildShader(loadFileContent(_fragmentProgramFile), GL_FRAGMENT_SHADER);
+		Shader vertex(GL_VERTEX_SHADER), fragment(GL_FRAGMENT_SHADER);
+		compileShader(vertex.id, loadFileContent(_vertexProgramFile));
+		compileShader(fragment.id, loadFileContent(_fragmentProgramFile));
+		auto program = std::make_unique<ShaderProgram>();
+		program->id = glCreateProgram();
+		glAttachShader(program->id, vertex.id);
+		glAttachShader(program->id, fragment.id);
+		glBindAttribLocation(program->id, 0, "VertexPosition");
+		glBindAttribLocation(program->id, 1, "VertexColor");
+		glBindAttribLocation(program->id, 2, "VertexTexCoord");
+		glLinkProgram(program->id);
+		glDetachShader(program->id, vertex.id);
+		glDetachShader(program->id, fragment.id);
 
-		GLuint progID = glCreateProgram();
-		glAttachShader(progID, vsID);
-		glAttachShader(progID, fsID);
-
-		// setup vertex attribute positions for vertex buffer
-		glBindAttribLocation(progID, 0, "VertexPosition");
-		glBindAttribLocation(progID, 1, "VertexColor");
-		glBindAttribLocation(progID, 2, "VertexTexCoord");
-
-		glLinkProgram(progID);
-
-		GLint success;
-		glGetProgramiv(progID, GL_LINK_STATUS, &success);
-
-		if (success == GL_FALSE)
+		GLint success = 0;
+		glGetProgramiv(program->id, GL_LINK_STATUS, &success);
+		if (!success)
 		{
-			GLint len = 0;
-			glGetProgramiv(progID, GL_INFO_LOG_LENGTH, &len);
-
-			GLchar* buffer = new GLchar[len];
-			glGetProgramInfoLog(progID, len, nullptr, buffer);
-			std::string infoLog = buffer;
-			delete[] buffer;
-
-			MYGUI_PLATFORM_EXCEPT(infoLog);
+			GLint length = 0;
+			glGetProgramiv(program->id, GL_INFO_LOG_LENGTH, &length);
+			std::string message(size_t(length > 0 ? length : 1), '\0');
+			glGetProgramInfoLog(program->id, length, nullptr, message.data());
+			MYGUI_PLATFORM_EXCEPT(message.c_str());
 		}
-		glDeleteShader(vsID); // flag for deletion on call to glDeleteProgram
-		glDeleteShader(fsID);
-
-		int textureUniLoc = glGetUniformLocation(progID, "Texture");
-		if (textureUniLoc == -1)
-		{
-			MYGUI_PLATFORM_EXCEPT("Unable to retrieve uniform variable location");
-		}
-		mYScaleUniformLocation = glGetUniformLocation(progID, "YScale");
-		if (mYScaleUniformLocation == -1)
-		{
-			MYGUI_PLATFORM_EXCEPT("Unable to retrieve YScale variable location");
-		}
-		glUseProgram(progID);
-		glUniform1i(textureUniLoc, 0); // set active sampler for 'Texture' to GL_TEXTURE0
-		glUniform1f(mYScaleUniformLocation, 1.0f);
-		glUseProgram(0);
-
-		return progID;
+		const int texture = glGetUniformLocation(program->id, "Texture");
+		program->yScale = glGetUniformLocation(program->id, "YScale");
+		MYGUI_PLATFORM_ASSERT(
+			texture != -1 && program->yScale != -1,
+			"Unable to retrieve Texture or YScale uniform location");
+		GLint previous = 0;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &previous);
+		glUseProgram(program->id);
+		glUniform1i(texture, 0);
+		glUniform1f(program->yScale, 1.0f);
+		glUseProgram(previous);
+		return program;
 	}
 
 	void OpenGL3RenderManager::initialise(OpenGL3ImageLoader* _loader)
@@ -194,42 +193,32 @@ namespace MyGUI
 
 	void OpenGL3RenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		glUniform1f(mYScaleUniformLocation, -1.0f);
-		doRender(_buffer, _texture, _count);
-		glUniform1f(mYScaleUniformLocation, 1.0f);
+		render(_buffer, _texture, _count, -1.0f);
 	}
 
 	void OpenGL3RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
+		render(_buffer, _texture, _count, 1.0f);
+	}
+
+	void OpenGL3RenderManager::render(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, float _yScale)
+	{
 		const auto* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
-		unsigned int buffer_id = buffer->getBufferID();
-		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
-
-		unsigned int texture_id = 0;
-		if (_texture)
-		{
-			const auto* texture = static_cast<OpenGL3Texture*>(_texture);
-			texture_id = texture->getTextureId();
-			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
-			if (texture->getShaderId())
-			{
-				glUseProgram(texture->getShaderId());
-			}
-		}
-
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-
-		glBindVertexArray(buffer_id);
-
-
-		glDrawArrays(GL_TRIANGLES, 0, _count);
+		MYGUI_PLATFORM_ASSERT(buffer->getBufferID(), "Vertex buffer is not created");
+		const auto* texture = static_cast<OpenGL3Texture*>(_texture);
+		const auto* program =
+			texture && !texture->mShaderName.empty() ? getShaderProgram(texture->mShaderName) : nullptr;
+		if (!program)
+			program = getShaderProgram("Default");
+		MYGUI_PLATFORM_ASSERT(program, "Default shader is not registered");
+		glUseProgram(program->id);
+		glUniform1f(program->yScale, _yScale);
+		glBindTexture(GL_TEXTURE_2D, texture ? texture->getTextureId() : 0);
+		glBindVertexArray(buffer->getBufferID());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(_count));
+		// Subsequent geometry updates may replace this VAO. The pass restores host state.
 		glBindVertexArray(0);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
-		if (_texture && static_cast<OpenGL3Texture*>(_texture)->getShaderId())
-		{
-			glUseProgram(mDefaultProgramId);
-		}
 	}
 
 	void OpenGL3RenderManager::begin()
@@ -251,7 +240,7 @@ namespace MyGUI
 			glGetIntegerv(GL_TEXTURE_BINDING_2D, &mSavedState.texture);
 		}
 
-		glUseProgram(mDefaultProgramId);
+		glUseProgram(getShaderProgramId("Default"));
 		glActiveTexture(GL_TEXTURE0);
 
 		for (size_t i = 1; i < guiStateModes.size(); ++i)
@@ -378,12 +367,8 @@ namespace MyGUI
 		const std::string& _vertexProgramFile,
 		const std::string& _fragmentProgramFile)
 	{
-		auto iter = mRegisteredShaders.find(_shaderName);
-		if (iter != mRegisteredShaders.end())
-			glDeleteProgram(iter->second);
-		mRegisteredShaders[_shaderName] = createShaderProgram(_vertexProgramFile, _fragmentProgramFile);
-		if (_shaderName == "Default")
-			mDefaultProgramId = mRegisteredShaders[_shaderName];
+		auto program = createShaderProgram(_vertexProgramFile, _fragmentProgramFile);
+		mRegisteredShaders[_shaderName] = std::move(program);
 	}
 
 	bool OpenGL3RenderManager::isPixelBufferObjectSupported() const
@@ -391,15 +376,19 @@ namespace MyGUI
 		return mPboIsSupported;
 	}
 
+	const OpenGL3RenderManager::ShaderProgram* OpenGL3RenderManager::getShaderProgram(const std::string& _name) const
+	{
+		const auto iter = mRegisteredShaders.find(_name);
+		if (iter != mRegisteredShaders.end())
+			return iter->second.get();
+		MYGUI_PLATFORM_LOG(Error, "Shader '" << _name << "' is not registered");
+		return nullptr;
+	}
+
 	unsigned int OpenGL3RenderManager::getShaderProgramId(const std::string& _shaderName) const
 	{
-		auto iter = mRegisteredShaders.find(_shaderName);
-		if (iter != mRegisteredShaders.end())
-			return iter->second;
-		MYGUI_PLATFORM_LOG(
-			Error,
-			"Failed to get program ID for shader '" << _shaderName << "'. Did you forgot to register shader?");
-		return 0;
+		const auto* program = getShaderProgram(_shaderName);
+		return program ? program->id : 0;
 	}
 
 	ITexture* OpenGL3RenderManager::createTexture(const std::string& _name)
@@ -440,12 +429,7 @@ namespace MyGUI
 		}
 		mTextures.clear();
 
-		for (const auto& programId : mRegisteredShaders)
-		{
-			glDeleteProgram(programId.second);
-		}
 		mRegisteredShaders.clear();
-		mDefaultProgramId = 0;
 	}
 
 } // namespace MyGUI
