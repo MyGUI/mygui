@@ -321,11 +321,6 @@ namespace MyGUI
 		return mTexture.get();
 	}
 
-	osg::StateSet* OsgTexture::getInjectState()
-	{
-		return mInjectState;
-	}
-
 	osg::StateSet* OsgTexture::getShaderStateSet()
 	{
 		return mShaderStateSet;

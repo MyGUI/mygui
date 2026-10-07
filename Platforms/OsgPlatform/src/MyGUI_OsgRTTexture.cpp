@@ -349,7 +349,7 @@ namespace MyGUI
 	{
 		if (_count == 0)
 			return;
-		mDrawable->addBatch(mRenderManager->createBatch(_buffer, _texture, _count, nullptr));
+		mDrawable->addBatch(mRenderManager->createBatch(_buffer, _texture, _count));
 	}
 
 	const RenderTargetInfo& OsgRTTexture::getInfo() const

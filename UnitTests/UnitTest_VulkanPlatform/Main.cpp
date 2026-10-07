@@ -199,7 +199,6 @@ namespace
 		auto* source = static_cast<MyGUI::VulkanTexture*>(platformtest::solid(fixture, {255, 0, 0, 255}));
 		const auto image = source->getImage();
 		const auto descriptor = source->getDescriptorSet();
-		const auto pointDescriptor = source->getPointDescriptorSet();
 		std::weak_ptr<void> old = source->retainStorage();
 		MyGUI::VulkanVertexBuffer buffer;
 		fixture.fill(&buffer, 6, rtt->getInfo(), {0, 0, 64, 128}, {255, 255, 255, 255});
@@ -207,9 +206,7 @@ namespace
 		rtt->doRender(&buffer, source, 6);
 		platformtest::upload(source, {255, 0, 0, 255});
 		require(source->getImage() != image, "An update must preserve the image used by an unsubmitted draw");
-		require(
-			source->getDescriptorSet() != descriptor && source->getPointDescriptorSet() != pointDescriptor,
-			"Both sampler descriptors must be versioned with the image");
+		require(source->getDescriptorSet() != descriptor, "The descriptor must be versioned with the image");
 		require(!old.expired(), "The old image must remain retained by the recording");
 		fixture.fill(&buffer, 6, rtt->getInfo(), {64, 0, 64, 128}, {255, 255, 255, 255});
 		rtt->doRender(&buffer, source, 6);

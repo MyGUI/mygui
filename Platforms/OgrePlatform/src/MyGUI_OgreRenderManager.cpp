@@ -432,16 +432,6 @@ namespace MyGUI
 		return mWindow;
 	}
 
-	bool OgreRenderManager::getManualRender() const
-	{
-		return mManualRender;
-	}
-
-	void OgreRenderManager::setManualRender(bool _value)
-	{
-		mManualRender = _value;
-	}
-
 	size_t OgreRenderManager::getBatchCount() const
 	{
 		return mCountBatch;

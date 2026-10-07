@@ -86,9 +86,6 @@ namespace MyGUI
 
 		Ogre::RenderWindow* getRenderWindow() const;
 
-		bool getManualRender() const;
-		void setManualRender(bool _value);
-
 		size_t getBatchCount() const;
 
 		/** @see RenderManager::setViewSize */
@@ -154,7 +151,6 @@ namespace MyGUI
 		MapTexture mTextures;
 
 		bool mIsInitialise{false};
-		bool mManualRender{false};
 		size_t mCountBatch{0};
 
 		OgreShaderInfo* mDefaultShader = nullptr;

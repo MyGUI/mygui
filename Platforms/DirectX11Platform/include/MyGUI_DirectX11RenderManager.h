@@ -114,8 +114,9 @@ namespace MyGUI
 	public:
 		ID3D11Device* mpD3DDevice;
 		ID3D11DeviceContext* mpD3DContext;
+
+	private:
 		ID3D11SamplerState* mSamplerState;
-		ID3D11SamplerState* mPointSamplerState;
 		ID3D11BlendState* mBlendState;
 		ID3D11RasterizerState* mRasterizerState;
 		ID3D11DepthStencilState* mDepthStencilState;
@@ -123,7 +124,6 @@ namespace MyGUI
 		DirectX11ShaderInfo* mDefaultShader = nullptr;
 		std::map<std::string, DirectX11ShaderInfo*> mRegisteredShaders;
 
-	private:
 		IntSize mViewSize;
 		VertexColourType mVertexFormat;
 		std::string mVertexProfile;

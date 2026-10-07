@@ -372,7 +372,6 @@ namespace MyGUI
 		mPendingRTTAdd.clear();
 		mPendingRTTRemove.clear();
 		mRegisteredShaders.clear();
-		mInjectState = nullptr;
 		mGuiStateSet = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
@@ -464,11 +463,7 @@ namespace MyGUI
 		mDrawable->setDataVariance(osg::Object::STATIC);
 	}
 
-	Batch OsgRenderManager::createBatch(
-		IVertexBuffer* _buffer,
-		ITexture* _texture,
-		size_t _count,
-		osg::StateSet* _injectState) const
+	Batch OsgRenderManager::createBatch(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) const
 	{
 		MYGUI_PLATFORM_ASSERT(_buffer != nullptr, "Vertex buffer is null");
 		MYGUI_PLATFORM_ASSERT(_count <= _buffer->getVertexCount(), "Vertex count exceeds buffer size");
@@ -482,13 +477,8 @@ namespace MyGUI
 		{
 			batch.mTexture = osgtexture->getTexture();
 			MYGUI_PLATFORM_ASSERT(batch.mTexture.valid(), "Texture is not created");
-			if (osg::StateSet* shaderState = osgtexture->getShaderStateSet())
-				batch.mStateSet = shaderState;
-			else if (osgtexture->getInjectState())
-				batch.mStateSet = osgtexture->getInjectState();
+			batch.mStateSet = osgtexture->getShaderStateSet();
 		}
-		if (_injectState)
-			batch.mStateSet = _injectState;
 
 		return batch;
 	}
@@ -497,7 +487,7 @@ namespace MyGUI
 	{
 		if (_count == 0)
 			return;
-		Batch batch = createBatch(_buffer, _texture, _count, mInjectState);
+		Batch batch = createBatch(_buffer, _texture, _count);
 		if (batch.mTexture.valid() && batch.mTexture->getDataVariance() == osg::Object::DYNAMIC)
 			mDrawable->setDataVariance(osg::Object::DYNAMIC); // only for this frame, reset in begin()
 		mDrawable->addBatch(batch);
@@ -666,11 +656,6 @@ namespace MyGUI
 	void OsgRenderManager::setImageLoader(OsgImageLoader _loader)
 	{
 		mImageLoader = std::move(_loader);
-	}
-
-	void OsgRenderManager::setInjectState(osg::StateSet* _stateSet)
-	{
-		mInjectState = _stateSet;
 	}
 
 	void OsgRenderManager::setGuiStateSet(osg::StateSet* _stateSet)

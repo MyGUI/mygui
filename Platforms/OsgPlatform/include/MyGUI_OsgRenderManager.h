@@ -133,10 +133,8 @@ namespace MyGUI
 
 		/*internal:*/
 
-		// Builds the batch for a draw call, resolving the texture's shader and inject state
-		// sets. _injectState is the render manager's own inject state (may be nullptr) and,
-		// when set, takes precedence over the texture's inject state.
-		Batch createBatch(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, osg::StateSet* _injectState) const;
+		// Builds the batch for a draw call using the texture's shader state.
+		Batch createBatch(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) const;
 
 		// Returns the program registered under _shaderName, or nullptr if it was not registered
 		osg::Program* getShaderProgram(const std::string& _shaderName) const;
@@ -156,10 +154,6 @@ namespace MyGUI
 
 		/** Install a custom image loader, used to load texture images by file name. */
 		void setImageLoader(OsgImageLoader _loader);
-
-		/** Specify a StateSet to inject for rendering. The StateSet will be used by future doRender calls until you
-			reset it to nullptr again. */
-		void setInjectState(osg::StateSet* _stateSet);
 
 		/** Merge a StateSet (e.g. containing an osg::Program) into future GUI drawables. */
 		void setGuiStateSet(osg::StateSet* _stateSet);
@@ -192,7 +186,6 @@ namespace MyGUI
 		using MapShader = std::map<std::string, osg::ref_ptr<osg::Program>>;
 		MapShader mRegisteredShaders;
 
-		osg::ref_ptr<osg::StateSet> mInjectState;
 		OsgImageLoader mImageLoader;
 
 		bool mIsInitialise{false};

@@ -57,7 +57,6 @@ namespace MyGUI
 
 		/*internal:*/
 		osg::Texture2D* getTexture() const;
-		osg::StateSet* getInjectState();
 		// Returns the StateSet carrying the texture's shader program, or nullptr
 		osg::StateSet* getShaderStateSet();
 
@@ -71,7 +70,6 @@ namespace MyGUI
 		osg::ref_ptr<osg::Image> mImage;
 		bool mReadOnlyLock{false};
 		osg::ref_ptr<osg::Texture2D> mTexture;
-		osg::ref_ptr<osg::StateSet> mInjectState;
 		osg::ref_ptr<osg::StateSet> mShaderStateSet;
 		IRenderTarget* mRenderTarget{nullptr};
 		PixelFormat mFormat;

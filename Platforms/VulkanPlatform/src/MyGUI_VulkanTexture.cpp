@@ -25,15 +25,12 @@ namespace MyGUI
 		VkImage image{VK_NULL_HANDLE};
 		VkImageView imageView{VK_NULL_HANDLE};
 		VkDescriptorSet descriptorSet{VK_NULL_HANDLE};
-		VkDescriptorSet pointDescriptorSet{VK_NULL_HANDLE};
 		VmaAllocation allocation{};
 
 		~Storage()
 		{
 			if (descriptorSet != VK_NULL_HANDLE)
 				vkFreeDescriptorSets(device, descriptorPool, 1, &descriptorSet);
-			if (pointDescriptorSet != VK_NULL_HANDLE)
-				vkFreeDescriptorSets(device, descriptorPool, 1, &pointDescriptorSet);
 			if (imageView != VK_NULL_HANDLE)
 				vkDestroyImageView(device, imageView, nullptr);
 			if (image != VK_NULL_HANDLE)
@@ -157,16 +154,6 @@ namespace MyGUI
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pImageInfo = &imageDescInfo;
-
-		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
-
-		allocSetInfo.descriptorSetCount = 1;
-		allocSetInfo.pSetLayouts = &layout;
-		if (vkAllocateDescriptorSets(manager.getDevice(), &allocSetInfo, &storage->pointDescriptorSet) != VK_SUCCESS)
-			MYGUI_PLATFORM_EXCEPT("Failed to allocate descriptor set");
-
-		imageDescInfo.sampler = manager.getPointSampler();
-		descriptorWrite.dstSet = storage->pointDescriptorSet;
 
 		vkUpdateDescriptorSets(manager.getDevice(), 1, &descriptorWrite, 0, nullptr);
 		return storage;
@@ -336,11 +323,6 @@ namespace MyGUI
 	VkDescriptorSet VulkanTexture::getDescriptorSet() const
 	{
 		return mStorage ? mStorage->descriptorSet : VK_NULL_HANDLE;
-	}
-
-	VkDescriptorSet VulkanTexture::getPointDescriptorSet() const
-	{
-		return mStorage ? mStorage->pointDescriptorSet : VK_NULL_HANDLE;
 	}
 
 	std::shared_ptr<void> VulkanTexture::retainStorage() const

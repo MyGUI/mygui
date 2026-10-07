@@ -331,7 +331,7 @@ namespace
 		for (int i = 0; i < 12; ++i)
 		{
 			fillQuad(content, 0xff0000ff);
-			manager.createBatch(&content, nullptr, 6, nullptr);
+			manager.createBatch(&content, nullptr, 6);
 			graphics.expect(0, 255, 0);
 		}
 		require(passes->count == 1, "An unchanged RTT must render only once");

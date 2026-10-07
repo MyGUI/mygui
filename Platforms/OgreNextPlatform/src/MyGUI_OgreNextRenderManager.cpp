@@ -455,12 +455,6 @@ namespace MyGUI
 			mManager->submitDraw(buffer, texture, count);
 	}
 
-	void OgreNextRenderManager::deferSamplerRestore(Ogre::TextureUnitState* tu, const Ogre::HlmsSamplerblock* original)
-	{
-		if (mManager)
-			mManager->deferSamplerRestore(tu, original);
-	}
-
 	size_t OgreNextRenderManager::getBatchCount() const
 	{
 		return mManager ? mManager->getDrawCount() : 0u;

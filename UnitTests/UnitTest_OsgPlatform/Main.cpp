@@ -115,12 +115,12 @@ namespace
 		context.render().doRender(&buffer, nullptr, 0);
 		context.render().end();
 		requireThrows(
-			[&] { context.render().createBatch(&buffer, nullptr, 3, nullptr); },
+			[&] { context.render().createBatch(&buffer, nullptr, 3); },
 			"Unallocated buffer must be rejected");
 		buffer.setVertexCount(3);
 		buffer.lock()[0].x = 12.0f;
 		buffer.unlock();
-		auto batch = context.render().createBatch(&buffer, nullptr, 3, nullptr);
+		auto batch = context.render().createBatch(&buffer, nullptr, 3);
 		std::atomic<bool> preserved{true};
 		std::thread draw(
 			[&]
@@ -137,7 +137,7 @@ namespace
 		{
 			buffer.lock()[0].x = static_cast<float>(i);
 			buffer.unlock();
-			context.render().createBatch(&buffer, nullptr, 3, nullptr);
+			context.render().createBatch(&buffer, nullptr, 3);
 		}
 		draw.join();
 		require(preserved, "Concurrent updates must preserve the drawing thread's vertex data");
@@ -153,12 +153,12 @@ namespace
 		buffer.setVertexCount(3);
 		buffer.lock()[0].x = 1;
 		buffer.unlock();
-		auto first = context.render().createBatch(&buffer, nullptr, 3, nullptr);
+		auto first = context.render().createBatch(&buffer, nullptr, 3);
 		osg::observer_ptr<osg::Array> firstArray = first.mArray;
 		osg::observer_ptr<osg::VertexBufferObject> firstVbo = first.mVertexBuffer;
 		buffer.lock()[0].x = 2;
 		buffer.unlock();
-		auto second = context.render().createBatch(&buffer, nullptr, 3, nullptr);
+		auto second = context.render().createBatch(&buffer, nullptr, 3);
 		first = {};
 		buffer.lock()[0].x = 3;
 		buffer.unlock();
@@ -174,7 +174,7 @@ namespace
 		{
 			buffer.lock()[0].x = static_cast<float>(i);
 			buffer.unlock();
-			pending.push_back(context.render().createBatch(&buffer, nullptr, 3, nullptr));
+			pending.push_back(context.render().createBatch(&buffer, nullptr, 3));
 			arrays.emplace_back(pending.back().mArray);
 		}
 		for (size_t i = 0; i < pending.size(); ++i)
@@ -202,7 +202,7 @@ namespace
 		{
 			buffer.lock()[0].x = static_cast<float>(i);
 			buffer.unlock();
-			pending.push_back(context.render().createBatch(&buffer, nullptr, 3, nullptr));
+			pending.push_back(context.render().createBatch(&buffer, nullptr, 3));
 			arrays.emplace_back(pending.back().mArray);
 		}
 		pending.clear();

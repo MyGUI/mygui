@@ -51,7 +51,6 @@ namespace MyGUI
 		VkImage getImage() const;
 		VkImageView getImageView() const;
 		VkDescriptorSet getDescriptorSet() const;
-		VkDescriptorSet getPointDescriptorSet() const;
 		// Recorded draws own the image, view and descriptors independently of this wrapper.
 		std::shared_ptr<void> retainStorage() const;
 		const std::string& getShaderName() const
