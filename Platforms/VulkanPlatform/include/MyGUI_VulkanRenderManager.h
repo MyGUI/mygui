@@ -143,8 +143,7 @@ namespace MyGUI
 		void destroyAllResources();
 		VkPipeline getPipeline(const std::string& _shaderName, bool _renderTarget) const;
 
-		void createRenderPass();
-		void createRenderTargetRenderPass();
+		VkRenderPass createRenderPass(bool _renderTarget);
 		void createPipelineLayout();
 		void createDescriptorPool();
 		void createSampler();
