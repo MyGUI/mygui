@@ -96,23 +96,12 @@ namespace
 			}
 			batch->setLastVertexCount(count);
 		}
-		void doManualRender(MyGUI::IVertexBuffer* _buffer, MyGUI::ITexture* _texture, size_t _count) override
-		{
-			++manualRenders;
-			manualBuffer = _buffer;
-			manualTexture = _texture;
-			manualCount = _count;
-		}
 		MyGUI::RenderItem* batch;
 		MyGUI::uint32 colour;
 		size_t count{3};
 		int renders{0};
 		bool update{false};
 		MyGUI::IRenderTarget* target{nullptr};
-		int manualRenders{0};
-		MyGUI::IVertexBuffer* manualBuffer{nullptr};
-		MyGUI::ITexture* manualTexture{nullptr};
-		size_t manualCount{0};
 	};
 
 	void testBufferUpdates()
@@ -207,28 +196,6 @@ namespace
 		require(renderer.draws.empty(), "An emptied batch must not submit stale geometry");
 	}
 
-	void testManualRendering()
-	{
-		RecordingRenderer renderer;
-		MyGUI::RenderItem batch;
-		auto* texture = renderer.getTexture("MyGUI_BlueWhiteSkins.png");
-		batch.setTexture(texture);
-		batch.setManualRender(true);
-		DrawItem item(&batch, 1);
-		batch.renderToTarget(&renderer, false);
-		batch.renderToTarget(&renderer, false);
-		require(
-			renderer.draws.empty() && item.renders == 1 && item.manualRenders == 2,
-			"Manual callbacks must run each frame while reusing clean geometry");
-		require(
-			item.manualBuffer == renderer.lastBuffer && item.manualTexture == texture && item.manualCount == 3,
-			"Manual rendering must receive the buffer, texture, and actual vertex count");
-		item.count = 0;
-		batch.outOfDate();
-		batch.renderToTarget(&renderer, false);
-		require(item.manualRenders == 2, "Empty manual batches must skip callbacks");
-	}
-
 	void testBatchQueues()
 	{
 		RecordingRenderer renderer;
@@ -236,21 +203,21 @@ namespace
 		auto* texture = renderer.getTexture("MyGUI_BlueWhiteSkins.png");
 		{
 			MyGUI::LayerNode node(nullptr);
-			DrawItem first(node.addToRenderItem(texture, true, false), 1);
-			DrawItem adjacent(node.addToRenderItem(texture, true, false), 2);
-			DrawItem different(node.addToRenderItem(&otherTexture, true, false), 3);
-			DrawItem later(node.addToRenderItem(texture, true, false), 4);
+			DrawItem first(node.addToRenderItem(texture, true), 1);
+			DrawItem adjacent(node.addToRenderItem(texture, true), 2);
+			DrawItem different(node.addToRenderItem(&otherTexture, true), 3);
+			DrawItem later(node.addToRenderItem(texture, true), 4);
 			require(
 				first.batch == adjacent.batch && first.batch != later.batch,
 				"First queue may batch adjacent textures but must preserve order across texture changes");
-			DrawItem text(node.addToRenderItem(texture, false, false), 5);
-			DrawItem otherText(node.addToRenderItem(&otherTexture, false, false), 6);
-			DrawItem moreText(node.addToRenderItem(texture, false, false), 7);
+			DrawItem text(node.addToRenderItem(texture, false), 5);
+			DrawItem otherText(node.addToRenderItem(&otherTexture, false), 6);
+			DrawItem moreText(node.addToRenderItem(texture, false), 7);
 			require(
 				text.batch == moreText.batch && text.batch != first.batch,
 				"Second queue must batch matching textures independently of insertion order and first queue");
 			auto* child = node.createChildItemNode();
-			DrawItem childItem(child->addToRenderItem(texture, true, false), 8);
+			DrawItem childItem(child->addToRenderItem(texture, true), 8);
 			node.renderToTarget(&renderer, false);
 			require(renderer.draws.size() == 6, "Queues and child nodes must produce six batches");
 			const std::vector<std::vector<MyGUI::uint32>>
@@ -268,42 +235,40 @@ namespace
 		require(renderer.created == renderer.destroyed, "Node destruction must release both queues and child buffers");
 	}
 
-	void testBatchReuseAndManualIsolation()
+	void testBatchReuseAndCompression()
 	{
 		RecordingRenderer renderer;
 		unittest::AtlasTexture otherTexture;
 		auto* texture = renderer.getTexture("MyGUI_BlueWhiteSkins.png");
 		MyGUI::LayerNode node(nullptr);
-		auto* empty = node.addToRenderItem(texture, true, false);
+		auto* empty = node.addToRenderItem(texture, true);
 		{
 			DrawItem removed(empty, 1);
 		}
-		DrawItem retained(node.addToRenderItem(&otherTexture, true, false), 2);
+		DrawItem retained(node.addToRenderItem(&otherTexture, true), 2);
 		node.renderToTarget(&renderer, false);
-		DrawItem reused(node.addToRenderItem(texture, true, false), 3);
+		DrawItem reused(node.addToRenderItem(texture, true), 3);
 		require(
 			reused.batch == empty && renderer.created == 2,
 			"Compression must make empty first-queue buffers reusable");
-		DrawItem manual(node.addToRenderItem(texture, true, true), 4);
-		DrawItem afterManual(node.addToRenderItem(texture, true, false), 5);
+		DrawItem adjacent(node.addToRenderItem(texture, true), 4);
+		DrawItem moreAdjacent(node.addToRenderItem(texture, true), 5);
 		require(
-			manual.batch != reused.batch && manual.batch != afterManual.batch,
-			"Manual first-queue items must remain isolated from ordinary batches");
-		auto* secondEmpty = node.addToRenderItem(texture, false, false);
+			adjacent.batch == reused.batch && moreAdjacent.batch == reused.batch,
+			"Adjacent matching textures must share the reused first-queue batch");
+		auto* secondEmpty = node.addToRenderItem(texture, false);
 		{
 			DrawItem removed(secondEmpty, 6);
 		}
-		DrawItem secondReuse(node.addToRenderItem(&otherTexture, false, false), 7);
+		DrawItem secondReuse(node.addToRenderItem(&otherTexture, false), 7);
 		require(secondReuse.batch == secondEmpty, "Second queue must reuse an empty buffer for a different texture");
 		renderer.draws.clear();
 		node.renderToTarget(&renderer, false);
-		require(
-			renderer.draws.size() == 4 && manual.manualRenders == 1,
-			"Compressed queues must render each surviving batch once");
-		const std::vector<MyGUI::uint32> expected{2, 3, 5, 7};
+		require(renderer.draws.size() == 3, "Compressed queues must render each surviving batch once");
+		const std::vector<std::vector<MyGUI::uint32>> expected{{2, 2, 2}, {3, 3, 3, 4, 4, 4, 5, 5, 5}, {7, 7, 7}};
 		for (size_t index = 0; index < expected.size(); ++index)
 			require(
-				renderer.draws[index].colours == std::vector<MyGUI::uint32>(3, expected[index]),
+				renderer.draws[index].colours == expected[index],
 				"Buffer reuse must preserve surviving draw order and replace removed geometry");
 	}
 
@@ -573,9 +538,8 @@ int main()
 		{"Skin replacement initializes text geometry", testTextSkinReplacement},
 		{"Render buffer allocation, packing, and invalidation", testBufferUpdates},
 		{"Empty geometry and failed buffer locks", testEmptyAndFailedDraws},
-		{"Manual render dispatch", testManualRendering},
 		{"Batch queues and child invalidation", testBatchQueues},
-		{"Batch compression, reuse, and manual isolation", testBatchReuseAndManualIsolation},
+		{"Batch compression and reuse", testBatchReuseAndCompression},
 		{"Native vertex colour packing", testColourPacking},
 		{"Rotated subskin clipping", testRotatedSubSkinClipping},
 		{"Mixed rotated batch with clipping", testMixedRotatedBatchClipping},

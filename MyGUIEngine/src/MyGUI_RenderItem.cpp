@@ -197,15 +197,7 @@ namespace MyGUI
 				return;
 			}
 #endif
-			if (mManualRender)
-			{
-				for (auto& item : mDrawItems)
-					item.first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
-			}
-			else
-			{
-				_target->doRender(mVertexBuffer, mTexture, mCountVertex);
-			}
+			_target->doRender(mVertexBuffer, mTexture, mCountVertex);
 		}
 	}
 
@@ -296,16 +288,6 @@ namespace MyGUI
 	bool RenderItem::getNeedCompression() const
 	{
 		return mNeedCompression;
-	}
-
-	void RenderItem::setManualRender(bool _value)
-	{
-		mManualRender = _value;
-	}
-
-	bool RenderItem::getManualRender() const
-	{
-		return mManualRender;
 	}
 
 	void RenderItem::outOfDate()

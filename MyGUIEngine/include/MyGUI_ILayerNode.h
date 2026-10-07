@@ -51,7 +51,7 @@ namespace MyGUI
 		virtual void attachLayerItem(ILayerItem* _item) = 0;
 		virtual void detachLayerItem(ILayerItem* _root) = 0;
 
-		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _separate) = 0;
+		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue) = 0;
 		virtual void outOfDate(RenderItem* _item) = 0;
 
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;

@@ -62,8 +62,6 @@ namespace MyGUI
 
 		ILayerNode* mNode{nullptr};
 		RenderItem* mRenderItem{nullptr};
-
-		bool mSeparate{false};
 	};
 
 } // namespace MyGUI

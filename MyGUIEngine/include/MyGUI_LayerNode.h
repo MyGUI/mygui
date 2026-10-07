@@ -51,7 +51,7 @@ namespace MyGUI
 		void detachLayerItem(ILayerItem* _item) override;
 
 		// Add sub-item and return render item
-		RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender) override;
+		RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue) override;
 		// Node needs updating
 		void outOfDate(RenderItem* _item) override;
 
@@ -69,8 +69,8 @@ namespace MyGUI
 	protected:
 		// push all empty buffers to the end of buffers list
 		void updateCompression();
-		RenderItem* addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender);
-		RenderItem* addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender);
+		RenderItem* addToRenderItemFirstQueue(ITexture* _texture);
+		RenderItem* addToRenderItemSecondQueue(ITexture* _texture);
 
 	protected:
 		// two render queues, for subskins and text

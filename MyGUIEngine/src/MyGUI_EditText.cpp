@@ -208,7 +208,7 @@ namespace MyGUI
 		// if there is a texture, attach
 		if (nullptr != mTexture && nullptr != mNode)
 		{
-			mRenderItem = mNode->addToRenderItem(mTexture, false, false);
+			mRenderItem = mNode->addToRenderItem(mTexture, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -245,7 +245,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			mRenderItem = mNode->addToRenderItem(mTexture, false, false);
+			mRenderItem = mNode->addToRenderItem(mTexture, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}

@@ -128,25 +128,24 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender)
+	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, bool _firstQueue)
 	{
 		RenderItem* item = nullptr;
 		if (_firstQueue)
-			item = addToRenderItemFirstQueue(_texture, _manualRender);
+			item = addToRenderItemFirstQueue(_texture);
 		else
-			item = addToRenderItemSecondQueue(_texture, _manualRender);
+			item = addToRenderItemSecondQueue(_texture);
 
 		mOutOfDate = false;
 		return item;
 	}
 
-	RenderItem* LayerNode::addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender)
+	RenderItem* LayerNode::addToRenderItemFirstQueue(ITexture* _texture)
 	{
-		if (mFirstRenderItems.empty() || _manualRender)
+		if (mFirstRenderItems.empty())
 		{
 			RenderItem* item = new RenderItem();
 			item->setTexture(_texture);
-			item->setManualRender(_manualRender);
 			mLastNotEmptyItem = mFirstRenderItems.size();
 			mFirstRenderItems.push_back(item);
 
@@ -163,7 +162,7 @@ namespace MyGUI
 		if (mLastNotEmptyItem < mFirstRenderItems.size())
 		{
 			RenderItem* item = mFirstRenderItems[mLastNotEmptyItem];
-			if (!item->getManualRender() && item->getTexture() == _texture)
+			if (item->getTexture() == _texture)
 			{
 				return item;
 			}
@@ -179,14 +178,13 @@ namespace MyGUI
 		// not found, create new
 		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
-		item->setManualRender(_manualRender);
 		mLastNotEmptyItem = mFirstRenderItems.size();
 		mFirstRenderItems.push_back(item);
 
 		return item;
 	}
 
-	RenderItem* LayerNode::addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender)
+	RenderItem* LayerNode::addToRenderItemSecondQueue(ITexture* _texture)
 	{
 		// order is not important in second queue
 		// use first buffer with same texture or empty buffer
@@ -207,7 +205,6 @@ namespace MyGUI
 		// not found, create new
 		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
-		item->setManualRender(_manualRender);
 		mSecondRenderItems.push_back(item);
 
 		return item;
@@ -290,7 +287,7 @@ namespace MyGUI
 
 			for (const auto& item : mFirstRenderItems)
 			{
-				if (item->getNeedVertexCount() == 0 && !item->getManualRender())
+				if (item->getNeedVertexCount() == 0)
 					emptyItems.push_back(item);
 				else
 					nonEmptyItems.push_back(item);

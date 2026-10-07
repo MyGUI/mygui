@@ -59,10 +59,6 @@ namespace MyGUI
 		{
 		}
 
-		virtual void doManualRender(IVertexBuffer* /*_buffer*/, ITexture* /*_texture*/, size_t /*_count*/)
-		{
-		}
-
 	protected:
 		Align mAlign;
 		bool mVisible{true};
