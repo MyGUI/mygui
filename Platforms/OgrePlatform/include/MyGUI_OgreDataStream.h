@@ -19,7 +19,7 @@ namespace MyGUI
 	{
 	public:
 		OgreDataStream(Ogre::DataStreamPtr _stream);
-		~OgreDataStream() override;
+		~OgreDataStream() override = default;
 
 		bool eof() override;
 		size_t size() override;

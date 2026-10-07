@@ -21,7 +21,7 @@ namespace MyGUI
 	{
 	public:
 		OgreNextDataStream(Ogre::DataStreamPtr _stream);
-		~OgreNextDataStream() override;
+		~OgreNextDataStream() override = default;
 
 		bool eof() override;
 		size_t size() override;

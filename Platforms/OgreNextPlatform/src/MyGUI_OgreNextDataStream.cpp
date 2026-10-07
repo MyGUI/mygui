@@ -14,11 +14,6 @@ namespace MyGUI
 	{
 	}
 
-	OgreNextDataStream::~OgreNextDataStream()
-	{
-		mStream.reset();
-	}
-
 	bool OgreNextDataStream::eof()
 	{
 		return mStream ? mStream->eof() : true;
