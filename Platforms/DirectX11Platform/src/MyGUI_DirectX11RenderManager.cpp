@@ -373,7 +373,6 @@ namespace MyGUI
 		// Build Textured Vertex Shader
 		ID3DBlob* bytecode = nullptr;
 		ID3DBlob* errors = nullptr;
-		ID3DBlob* signature = nullptr;
 
 		UINT flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_OPTIMIZATION_LEVEL3;
 
@@ -394,12 +393,6 @@ namespace MyGUI
 			hr == S_OK,
 			(errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Compilation failed, unknown errors!"));
 
-		hr = D3DGetInputSignatureBlob(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), &signature);
-		MYGUI_PLATFORM_ASSERT(
-			hr == S_OK,
-			(errors ? (char*)errors->GetBufferPointer()
-					: "Vertex Shader Compilation failed, failed to get input signature!"));
-
 		hr = mpD3DDevice->CreateVertexShader(
 			bytecode->GetBufferPointer(),
 			bytecode->GetBufferSize(),
@@ -408,6 +401,15 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(
 			hr == S_OK,
 			(errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
+
+		// Create Input Layout
+		hr = mpD3DDevice->CreateInputLayout(
+			vertexLayout,
+			3,
+			bytecode->GetBufferPointer(),
+			bytecode->GetBufferSize(),
+			&shaderInfo->inputLayout);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Input Layout Create failed!");
 
 		if (bytecode)
 			bytecode->Release();
@@ -446,17 +448,6 @@ namespace MyGUI
 			bytecode->Release();
 		if (errors)
 			errors->Release();
-
-		// Create Input Layout
-		hr = mpD3DDevice->CreateInputLayout(
-			vertexLayout,
-			3,
-			signature->GetBufferPointer(),
-			signature->GetBufferSize(),
-			&shaderInfo->inputLayout);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Input Layout Create failed!");
-
-		signature->Release();
 
 		return shaderInfo;
 	}
