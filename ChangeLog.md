@@ -6,6 +6,7 @@
   OpenGL and Direct3D9 backends, including Ogre Direct3D9, now use normal texture filtering for previews
 
 ### Platforms
+- OgreNext: reduce CPU conversions and intermediate storage during texture transfers
 - Simplify rendering backends and remove obsolete FilterNone-specific state and APIs
 - DirectX11: create samplers once during initialization, fixing leaked sampler references when registering shaders
 - Remove unused depth buffers from OpenGL, OpenGL3, OpenGLES and OgreNext GUI render targets, reducing GPU memory usage

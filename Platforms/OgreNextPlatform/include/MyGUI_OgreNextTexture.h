@@ -7,6 +7,7 @@
 
 #include <OgreMaterial.h>
 #include <OgrePixelFormatGpu.h>
+#include <OgreTextureBox.h>
 
 #include <memory>
 
@@ -67,6 +68,7 @@ namespace MyGUI
 		static Ogre::PixelFormatGpu convertFormat(PixelFormat format);
 
 	private:
+		Ogre::TextureBox getLockedBox(void* _data) const;
 		void ensureMaterial();
 		void releaseMaterial();
 		void setFormatFromOgreTexture();

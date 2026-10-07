@@ -23,6 +23,7 @@
 #include "MyGUI_LastHeader.h"
 
 #include <memory>
+#include <algorithm>
 
 namespace MyGUI
 {
@@ -135,6 +136,16 @@ namespace MyGUI
 		return mTexture != nullptr ? static_cast<int>(mTexture->getHeight()) : 0;
 	}
 
+	Ogre::TextureBox OgreNextTexture::getLockedBox(void* _data) const
+	{
+		auto box = mTexture->getEmptyBox(0);
+		box.bytesPerPixel = mNumElemBytes;
+		box.bytesPerRow = mLockedWidth * mNumElemBytes;
+		box.bytesPerImage = size_t(box.bytesPerRow) * mLockedHeight;
+		box.data = _data;
+		return box;
+	}
+
 	void* OgreNextTexture::lock(TextureUsage _access)
 	{
 		MYGUI_PLATFORM_ASSERT(mTexture != nullptr, "Texture is not created");
@@ -148,29 +159,36 @@ namespace MyGUI
 		if (_access.isValue(TextureUsage::Read))
 		{
 			mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
-			mTexture->waitForData();
-			Ogre::Image2 image;
-			image.convertFromTexture(mTexture, 0, 0);
-			for (int y = 0; y < mLockedHeight; ++y)
-				for (int x = 0; x < mLockedWidth; ++x)
-				{
-					const auto colour = image.getColourAt(size_t(x), size_t(y), 0);
-					auto* pixel = buffer.get() + (size_t(y) * size_t(mLockedWidth) + size_t(x)) * mNumElemBytes;
-					if (mNumElemBytes <= 2)
+			if (mNumElemBytes >= 3 && mTexture->getPixelFormat() != Ogre::PFG_RGB8_UNORM)
+			{
+				const auto destination = getLockedBox(buffer.get());
+				Ogre::Image2::copyContentsToMemory(
+					mTexture,
+					mTexture->getEmptyBox(0),
+					destination,
+					mNumElemBytes == 3 ? Ogre::PFG_BGR8_UNORM : Ogre::PFG_BGRA8_UNORM);
+			}
+			else
+			{
+				// Preserve luminance/alpha semantics and avoid Ogre's RGB/BGR conversion stride bug.
+				Ogre::Image2 image;
+				image.convertFromTexture(mTexture, 0, 0);
+				const auto source = image.getData(0);
+				for (int y = 0; y < mLockedHeight; ++y)
+					for (int x = 0; x < mLockedWidth; ++x)
 					{
-						pixel[0] = uint8(colour.r * 255.0f + 0.5f);
-						if (mNumElemBytes == 2)
-							pixel[1] = uint8(colour.a * 255.0f + 0.5f);
+						const auto* texel = static_cast<const uint8*>(source.at(x, y, 0));
+						auto* pixel = buffer.get() + (size_t(y) * mLockedWidth + x) * mNumElemBytes;
+						if (mNumElemBytes == 3)
+							std::reverse_copy(texel, texel + 3, pixel);
+						else
+						{
+							pixel[0] = texel[source.bytesPerPixel == 4 ? 2 : 0];
+							if (mNumElemBytes == 2)
+								pixel[1] = source.bytesPerPixel == 4 ? texel[3] : 255;
+						}
 					}
-					else
-					{
-						pixel[0] = uint8(colour.b * 255.0f + 0.5f);
-						pixel[1] = uint8(colour.g * 255.0f + 0.5f);
-						pixel[2] = uint8(colour.r * 255.0f + 0.5f);
-						if (mNumElemBytes == 4)
-							pixel[3] = uint8(colour.a * 255.0f + 0.5f);
-					}
-				}
+			}
 		}
 		mLockedBuffer = std::move(buffer);
 		mLockedRead = !_access.isValue(TextureUsage::Write);
@@ -186,26 +204,34 @@ namespace MyGUI
 		{
 			Ogre::Image2 image;
 			image.createEmptyImageLike(mTexture);
-			for (int y = 0; y < mLockedHeight; ++y)
-				for (int x = 0; x < mLockedWidth; ++x)
-				{
-					const auto* pixel =
-						mLockedBuffer.get() + (size_t(y) * size_t(mLockedWidth) + size_t(x)) * mNumElemBytes;
-					Ogre::ColourValue colour;
-					if (mNumElemBytes <= 2)
-						colour = Ogre::ColourValue(
-							pixel[0] / 255.0f,
-							pixel[0] / 255.0f,
-							pixel[0] / 255.0f,
-							mNumElemBytes == 2 ? pixel[1] / 255.0f : 1.0f);
-					else
-						colour = Ogre::ColourValue(
-							pixel[2] / 255.0f,
-							pixel[1] / 255.0f,
-							pixel[0] / 255.0f,
-							mNumElemBytes == 4 ? pixel[3] / 255.0f : 1.0f);
-					image.setColourAt(colour, size_t(x), size_t(y), 0);
-				}
+			if (mNumElemBytes >= 3 && mTexture->getPixelFormat() != Ogre::PFG_RGB8_UNORM)
+			{
+				const auto source = getLockedBox(mLockedBuffer.get());
+				auto destination = image.getData(0);
+				Ogre::PixelFormatGpuUtils::bulkPixelConversion(
+					source,
+					mNumElemBytes == 3 ? Ogre::PFG_BGR8_UNORM : Ogre::PFG_BGRA8_UNORM,
+					destination,
+					image.getPixelFormat());
+			}
+			else
+			{
+				const auto destination = image.getData(0);
+				for (int y = 0; y < mLockedHeight; ++y)
+					for (int x = 0; x < mLockedWidth; ++x)
+					{
+						const auto* pixel = mLockedBuffer.get() + (size_t(y) * mLockedWidth + x) * mNumElemBytes;
+						auto* texel = static_cast<uint8*>(destination.at(x, y, 0));
+						if (mNumElemBytes == 3)
+							std::reverse_copy(pixel, pixel + 3, texel);
+						else
+						{
+							std::fill_n(texel, destination.bytesPerPixel, pixel[0]);
+							if (destination.bytesPerPixel == 4)
+								texel[3] = mNumElemBytes == 2 ? pixel[1] : 255;
+						}
+					}
+			}
 			mTexture->scheduleTransitionTo(Ogre::GpuResidency::Resident);
 			image.uploadTo(mTexture, 0, 0);
 		}
@@ -302,18 +328,15 @@ namespace MyGUI
 			int(image.getHeight()),
 			TextureUsage::Static | TextureUsage::Read | TextureUsage::Write,
 			PixelFormat::R8G8B8A8);
-		auto* pixels = static_cast<uint8*>(lock(TextureUsage::Write));
-		for (size_t y = 0; y < image.getHeight(); ++y)
-			for (size_t x = 0; x < image.getWidth(); ++x)
-			{
-				const auto colour = image.getColourAt(x, y, 0);
-				const size_t i = (y * image.getWidth() + x) * 4;
-				pixels[i] = uint8(colour.b * 255.0f + 0.5f);
-				pixels[i + 1] = uint8(colour.g * 255.0f + 0.5f);
-				pixels[i + 2] = uint8(colour.r * 255.0f + 0.5f);
-				pixels[i + 3] = uint8(colour.a * 255.0f + 0.5f);
-			}
-		unlock();
+		Ogre::Image2 converted;
+		converted.createEmptyImageLike(mTexture);
+		auto destination = converted.getData(0);
+		Ogre::PixelFormatGpuUtils::bulkPixelConversion(
+			image.getData(0),
+			format,
+			destination,
+			converted.getPixelFormat());
+		converted.uploadTo(mTexture, 0, 0);
 	}
 
 	void OgreNextTexture::setFormatFromOgreTexture()
