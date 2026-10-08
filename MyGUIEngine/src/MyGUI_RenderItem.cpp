@@ -119,10 +119,18 @@ namespace MyGUI
 	{
 		mCountVertex = 0;
 		bool rotated = false;
+		// Adjacent skin items often share an owner; check its rotation once per group.
+		// Remember the owner only during this scan so later rebuilds observe rotation changes.
+		const ICroppedRectangle* previousOwner = nullptr;
 		for (const auto& item : mDrawItems)
 		{
-			if (const auto* owner = item.first->getCroppedParent())
-				rotated |= owner->_hasRotation();
+			const auto* owner = item.first->getCroppedParent();
+			if (owner && owner != previousOwner && owner->_hasRotation())
+			{
+				rotated = true;
+				break;
+			}
+			previousOwner = owner;
 		}
 		if (rotated)
 		{
