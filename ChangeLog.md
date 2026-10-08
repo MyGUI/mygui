@@ -1,7 +1,9 @@
 ## MyGUI v3.5.3
 
 ### Core
-- Reduce compile time and binary size by sharing inline delegate bookkeeping across non-template base classes
+- Improve widget movement, resizing, hit testing and text rendering performance; reduce repeated text-layout allocations
+- Reduce compile time and binary size by sharing delegate and utility code and moving widget constructors and
+  destructors out of headers
 
 ### Tools
 - Replace `FilterNone` skins with regular `ImageBox` widgets and `NearestFilter` shaders for nearest-neighbour
@@ -15,6 +17,9 @@
 - Simplify rendering backends and remove obsolete FilterNone-specific state and APIs
 - DirectX11: create samplers once during initialization, fixing leaked sampler references when registering shaders
 - Remove unused depth buffers from OpenGL, OpenGL3, OpenGLES and OgreNext GUI render targets, reducing GPU memory usage
+
+### Infrastructure
+- Reuse precompiled headers across demos, tools and unit tests
 
 ## MyGUI v3.5.2
 ### Release highlights
