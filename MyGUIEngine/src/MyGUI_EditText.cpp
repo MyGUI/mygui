@@ -504,6 +504,7 @@ namespace MyGUI
 			// Pass 1: find selection bounds on this line.
 			float selLeft = 0, selRight = 0;
 			bool hasSelection = false;
+			if (mStartSelect < mEndSelect)
 			{
 				float pos = left;
 				size_t charIndex = index;
