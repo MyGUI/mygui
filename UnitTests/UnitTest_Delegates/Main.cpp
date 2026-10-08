@@ -14,6 +14,25 @@ namespace
 	using unittest::require;
 	using Event = MyGUI::delegates::MultiDelegate<>;
 
+	// Sharing ownership code must not allow callbacks with a different signature.
+	using IntDelegate = MyGUI::delegates::Delegate<int&>;
+	using IntEvent = MyGUI::delegates::MultiDelegate<int&>;
+	using IntCallback = MyGUI::delegates::DelegateFunction<int&>*;
+	using OtherCallback = MyGUI::delegates::DelegateFunction<const int&>*;
+	static_assert(std::is_assignable_v<IntDelegate&, IntCallback>);
+	static_assert(!std::is_assignable_v<IntDelegate&, OtherCallback>);
+	static_assert(std::is_invocable_v<decltype(&IntEvent::operator+=), IntEvent&, IntCallback>);
+	static_assert(!std::is_invocable_v<decltype(&IntEvent::operator+=), IntEvent&, OtherCallback>);
+	static_assert(!std::is_invocable_v<decltype(&IntEvent::operator-=), IntEvent&, OtherCallback>);
+	static_assert(std::is_nothrow_move_constructible_v<IntDelegate>);
+	static_assert(std::is_nothrow_move_assignable_v<IntDelegate>);
+	static_assert(std::is_nothrow_move_constructible_v<IntEvent>);
+	static_assert(!std::is_copy_constructible_v<IntDelegate> && !std::is_copy_constructible_v<IntEvent>);
+	static_assert(!std::is_move_assignable_v<IntEvent>);
+	static_assert(std::is_invocable_v<decltype(&IntDelegate::clear), IntDelegate&>);
+	static_assert(std::is_invocable_v<decltype(&IntDelegate::empty), const IntDelegate&>);
+	static_assert(std::is_invocable_v<decltype(&IntEvent::empty), const IntEvent&>);
+
 	void increment(int& _value)
 	{
 		++_value;

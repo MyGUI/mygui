@@ -40,28 +40,364 @@ namespace MyGUI
 			IDelegateUnlink* m_baseDelegateUnlink;
 		};
 
-		namespace detail
-		{
-
-			struct DelegateFactory;
-
-		}
-
 		template<typename... Args>
 		class Delegate;
 		template<typename... Args>
 		class MultiDelegate;
 
+		namespace detail
+		{
+
+			struct DelegateFactory;
+
+			// Ownership and identity are independent of the callback signature.
+			class MYGUI_EXPORT DelegateFunctionBase
+			{
+			public:
+				DelegateFunctionBase(const DelegateFunctionBase&) = delete;
+				DelegateFunctionBase& operator=(const DelegateFunctionBase&) = delete;
+				virtual ~DelegateFunctionBase() = default;
+
+				bool compare(const DelegateFunctionBase* _delegate) const
+				{
+					return _delegate && _delegate->mObject == mObject &&
+						_delegate->mFunctionPointer.compare(mFunctionPointer);
+				}
+				bool compare(IDelegateUnlink* _unlink) const
+				{
+					return mUnlink == _unlink;
+				}
+
+			protected:
+				DelegateFunctionBase(Any&& _identity, const void* _object, const IDelegateUnlink* _unlink) :
+					mUnlink(_unlink),
+					mObject(_object),
+					mFunctionPointer(std::move(_identity))
+				{
+				}
+
+			private:
+				friend class DelegateBase;
+				friend class MultiDelegateBase;
+
+				void release() noexcept
+				{
+					if (--mReferences == 0)
+						delete this;
+				}
+
+				size_t mReferences{1};
+				DelegateFunctionBase* mNextRetired{nullptr};
+				const void* mOwner{nullptr};
+				const IDelegateUnlink* mUnlink{nullptr};
+				const void* mObject{nullptr};
+				Any mFunctionPointer;
+			};
+
+			// Operations on an event and its receivers must be performed on one thread.
+			class DelegateBase
+			{
+			protected:
+				DelegateBase() = default;
+				DelegateBase(DelegateBase&& _other) noexcept :
+					mDelegate(std::exchange(_other.mDelegate, nullptr))
+				{
+				}
+
+				DelegateBase& operator=(DelegateBase&& _other) noexcept
+				{
+					if (this != &_other)
+						*this = std::exchange(_other.mDelegate, nullptr);
+					return *this;
+				}
+
+				~DelegateBase()
+				{
+					mDestroying = true;
+					clear();
+				}
+
+				bool empty() const
+				{
+					return mDelegate == nullptr;
+				}
+
+				void clear()
+				{
+					if (auto* old = std::exchange(mDelegate, nullptr))
+						old->release();
+				}
+
+				DelegateBase& operator=(DelegateFunctionBase* _delegate)
+				{
+					if (mDestroying)
+					{
+						if (_delegate)
+							_delegate->release();
+						return *this;
+					}
+					if (mDelegate != _delegate)
+					{
+						if (auto* old = std::exchange(mDelegate, _delegate))
+							old->release();
+					}
+					return *this;
+				}
+
+				class Invocation
+				{
+				public:
+					explicit Invocation(DelegateFunctionBase* _delegate) :
+						mDelegate(_delegate)
+					{
+						++mDelegate->mReferences;
+					}
+					Invocation(const Invocation&) = delete;
+					Invocation& operator=(const Invocation&) = delete;
+					~Invocation()
+					{
+						mDelegate->release();
+					}
+
+				private:
+					DelegateFunctionBase* mDelegate;
+				};
+
+				DelegateFunctionBase* mDelegate{nullptr};
+
+			private:
+				bool mDestroying{false};
+			};
+
+			class MultiDelegateBase
+			{
+			protected:
+				MultiDelegateBase() = default;
+				MultiDelegateBase(MultiDelegateBase&& _other) noexcept :
+					mState(std::exchange(_other.mState, nullptr))
+				{
+				}
+
+				~MultiDelegateBase()
+				{
+					mDestroying = true;
+					if (auto* state = std::exchange(mState, nullptr))
+					{
+						Operation guard(state);
+						state->closed = true;
+						state->clear();
+						--state->references; // Release the event's ownership; the guard retains state.
+					}
+				}
+
+				bool empty() const
+				{
+					return !mState || mState->active == 0;
+				}
+
+				void clear()
+				{
+					if (auto* state = mState)
+					{
+						Operation guard(state);
+						state->clear();
+					}
+				}
+
+				void clear(IDelegateUnlink* _unlink)
+				{
+					if (auto* state = mState; state && _unlink)
+					{
+						Operation guard(state);
+						for (size_t i = 0; i < state->callbacks.size(); ++i)
+						{
+							auto* callback = state->callbacks[i];
+							if (callback && callback->compare(_unlink))
+								state->remove(i);
+						}
+					}
+				}
+
+				void operator+=(DelegateFunctionBase* _delegate)
+				{
+					if (!_delegate)
+						return;
+					if (mDestroying)
+					{
+						delete _delegate;
+						return;
+					}
+					if (!mState)
+						mState = new State;
+					auto* state = mState;
+					Operation guard(state);
+					state->add(_delegate);
+				}
+
+				void operator-=(DelegateFunctionBase* _delegate)
+				{
+					if (!_delegate)
+						return;
+					if (auto* state = mState)
+					{
+						Operation guard(state);
+						// The original pointer can also be supplied; never delete an owned or retired callback here.
+						std::unique_ptr<DelegateFunctionBase> token(_delegate->mOwner ? nullptr : _delegate);
+						const auto index = state->find(_delegate);
+						if (index != state->callbacks.size())
+							state->remove(index);
+					}
+					else if (!_delegate->mOwner)
+						delete _delegate;
+				}
+
+				MultiDelegateBase& operator=(DelegateFunctionBase* _delegate)
+				{
+					if (mDestroying)
+					{
+						delete _delegate;
+						return *this;
+					}
+					if (!mState)
+					{
+						*this += _delegate;
+						return *this;
+					}
+					auto* state = mState;
+					Operation guard(state);
+					state->clear();
+					state->collectIfIdle();
+					// Releasing old captures can destroy this event. From here on, use only retained state.
+					state->add(_delegate);
+					return *this;
+				}
+
+				struct State
+				{
+					std::vector<DelegateFunctionBase*> callbacks;
+					// Avoid subtracting vector pointers after every callback in the dispatch loop.
+					size_t extent{0};
+					size_t active{0};
+					size_t references{1}; // Event ownership plus active operations, including nested invocations.
+					DelegateFunctionBase* retired{nullptr};
+					DelegateFunctionBase* retiredTail{nullptr};
+					bool closed{false};
+
+					size_t find(DelegateFunctionBase* _delegate) const
+					{
+						for (size_t i = 0; i < callbacks.size(); ++i)
+						{
+							auto* callback = callbacks[i];
+							// Custom Any identities can execute user comparison code and reenter the event.
+							if (callback && callback->compare(_delegate) && callbacks[i] == callback)
+								return i;
+						}
+						return callbacks.size();
+					}
+
+					void add(DelegateFunctionBase* _delegate)
+					{
+						if (!_delegate)
+							return;
+						if (closed)
+						{
+							delete _delegate;
+							return;
+						}
+						const auto index = find(_delegate);
+						if (_delegate->mOwner || index != callbacks.size())
+							MYGUI_EXCEPT("Trying to add same delegate twice.");
+						if (closed)
+						{
+							delete _delegate;
+							return;
+						}
+						callbacks.push_back(_delegate); // Ownership transfers only after successful insertion.
+						extent = callbacks.size();
+						_delegate->mOwner = this;
+						++active;
+					}
+
+					void remove(size_t _index)
+					{
+						auto* callback = std::exchange(callbacks[_index], nullptr);
+						--active;
+						if (retiredTail)
+							retiredTail->mNextRetired = callback;
+						else
+							retired = callback;
+						retiredTail = callback;
+					}
+
+					void clear()
+					{
+						for (size_t i = 0; i < callbacks.size(); ++i)
+						{
+							if (callbacks[i])
+								remove(i);
+						}
+					}
+
+					void collectIfIdle()
+					{
+						while (retired && references == (closed ? 1u : 2u))
+						{
+							callbacks.erase(std::remove(callbacks.begin(), callbacks.end(), nullptr), callbacks.end());
+							extent = callbacks.size();
+							auto* removed = std::exchange(retired, nullptr);
+							retiredTail = nullptr;
+							// Detach the whole batch before running capture destructors. Drain any reentrant removals too.
+							while (removed)
+							{
+								auto* next = std::exchange(removed->mNextRetired, nullptr);
+								// Keep ownership marked while capture destructors can remove this original pointer again.
+								removed->release();
+								removed = next;
+							}
+						}
+					}
+				};
+
+				class Operation
+				{
+				public:
+					explicit Operation(State* _state) :
+						mState(_state)
+					{
+						++mState->references;
+					}
+					Operation(const Operation&) = delete;
+					Operation& operator=(const Operation&) = delete;
+					~Operation()
+					{
+						if (mState->retired)
+							mState->collectIfIdle();
+						if (--mState->references == 0)
+							delete mState;
+					}
+
+				private:
+					State* mState;
+				};
+
+				State* mState{nullptr};
+
+			private:
+				bool mDestroying{false};
+			};
+
+		}
+
 		// Callables have stable addresses. Ownership and dispatch retention are single-threaded.
 		template<typename... Args>
-		class DelegateFunction
+		class DelegateFunction : public detail::DelegateFunctionBase
 		{
 		public:
 			using Function = std::function<void(Args...)>;
 
 			DelegateFunction(const DelegateFunction&) = delete;
 			DelegateFunction& operator=(const DelegateFunction&) = delete;
-			virtual ~DelegateFunction() = default;
+			~DelegateFunction() override = default;
 
 			void invoke(Args... args)
 			{
@@ -70,13 +406,12 @@ namespace MyGUI
 
 			bool compare(DelegateFunction* _delegate) const
 			{
-				return _delegate && _delegate->mObject == mObject &&
-					_delegate->mFunctionPointer.compare(mFunctionPointer);
+				return DelegateFunctionBase::compare(_delegate);
 			}
 
 			bool compare(IDelegateUnlink* _unlink) const
 			{
-				return mUnlink == _unlink;
+				return DelegateFunctionBase::compare(_unlink);
 			}
 
 		private:
@@ -89,26 +424,12 @@ namespace MyGUI
 				Any _identity,
 				const void* _object,
 				const IDelegateUnlink* _unlink) :
-				mInvoke(_invoke),
-				mUnlink(_unlink),
-				mObject(_object),
-				mFunctionPointer(std::move(_identity))
+				DelegateFunctionBase(std::move(_identity), _object, _unlink),
+				mInvoke(_invoke)
 			{
-			}
-
-			void release() noexcept
-			{
-				if (--mReferences == 0)
-					delete this;
 			}
 
 			void (*mInvoke)(DelegateFunction*, Args&&...);
-			size_t mReferences{1};
-			DelegateFunction* mNextRetired{nullptr};
-			const void* mOwner{nullptr};
-			const IDelegateUnlink* mUnlink{nullptr};
-			const void* mObject{nullptr};
-			Any mFunctionPointer;
 		};
 
 		namespace detail
@@ -200,7 +521,6 @@ namespace MyGUI
 		return delegates::detail::DelegateFactory::create<delegates::DelegateFunction<Args...>>(_function, delegateId);
 	}
 
-
 	template<typename>
 	struct GetDelegateFunctionFromLambda;
 	template<typename R, typename C, typename... Args>
@@ -222,56 +542,22 @@ namespace MyGUI
 	namespace delegates
 	{
 
-		// Operations on an event and its receivers must be performed on one thread.
+		// Keep callback signatures in these wrappers; the bases expose no untyped mutation API.
 		template<typename... Args>
-		class Delegate
+		class Delegate : public detail::DelegateBase
 		{
 		public:
 			using IDelegate = DelegateFunction<Args...>;
+			using detail::DelegateBase::empty;
+			using detail::DelegateBase::clear;
 
 			Delegate() = default;
-			Delegate(Delegate&& _other) noexcept :
-				mDelegate(std::exchange(_other.mDelegate, nullptr))
-			{
-			}
-
-			Delegate& operator=(Delegate&& _other) noexcept
-			{
-				if (this != &_other)
-					*this = std::exchange(_other.mDelegate, nullptr);
-				return *this;
-			}
-
-			~Delegate()
-			{
-				mDestroying = true;
-				clear();
-			}
-
-			bool empty() const
-			{
-				return mDelegate == nullptr;
-			}
-
-			void clear()
-			{
-				if (auto* old = std::exchange(mDelegate, nullptr))
-					old->release();
-			}
+			Delegate(Delegate&&) noexcept = default;
+			Delegate& operator=(Delegate&&) noexcept = default;
 
 			Delegate& operator=(IDelegate* _delegate)
 			{
-				if (mDestroying)
-				{
-					if (_delegate)
-						_delegate->release();
-					return *this;
-				}
-				if (mDelegate != _delegate)
-				{
-					if (auto* old = std::exchange(mDelegate, _delegate))
-						old->release();
-				}
+				detail::DelegateBase::operator=(_delegate);
 				return *this;
 			}
 
@@ -280,118 +566,38 @@ namespace MyGUI
 				if (auto* delegate = mDelegate)
 				{
 					Invocation guard(delegate);
-					delegate->invoke(std::forward<Args>(args)...);
+					static_cast<IDelegate*>(delegate)->invoke(std::forward<Args>(args)...);
 				}
 			}
-
-		private:
-			class Invocation
-			{
-			public:
-				explicit Invocation(IDelegate* _delegate) :
-					mDelegate(_delegate)
-				{
-					++mDelegate->mReferences;
-				}
-				Invocation(const Invocation&) = delete;
-				Invocation& operator=(const Invocation&) = delete;
-				~Invocation()
-				{
-					mDelegate->release();
-				}
-
-			private:
-				IDelegate* mDelegate;
-			};
-
-			IDelegate* mDelegate{nullptr};
-			bool mDestroying{false};
 		};
 
 		template<typename... Args>
-		class MultiDelegate
+		class MultiDelegate : public detail::MultiDelegateBase
 		{
 		public:
 			using IDelegate = DelegateFunction<Args...>;
 			using ListDelegate = std::list<std::unique_ptr<IDelegate>>;
+			using detail::MultiDelegateBase::empty;
+			using detail::MultiDelegateBase::clear;
 
 			MultiDelegate() = default;
-			MultiDelegate(MultiDelegate&& _other) noexcept :
-				mState(std::exchange(_other.mState, nullptr))
-			{
-			}
-
-			~MultiDelegate()
-			{
-				mDestroying = true;
-				if (auto* state = std::exchange(mState, nullptr))
-				{
-					Operation guard(state);
-					state->closed = true;
-					state->clear();
-					--state->references; // Release the event's ownership; the guard retains state.
-				}
-			}
-
-			bool empty() const
-			{
-				return !mState || mState->active == 0;
-			}
-
-			void clear()
-			{
-				if (auto* state = mState)
-				{
-					Operation guard(state);
-					state->clear();
-				}
-			}
-
-			void clear(IDelegateUnlink* _unlink)
-			{
-				if (auto* state = mState; state && _unlink)
-				{
-					Operation guard(state);
-					for (size_t i = 0; i < state->callbacks.size(); ++i)
-					{
-						auto* callback = state->callbacks[i];
-						if (callback && callback->compare(_unlink))
-							state->remove(i);
-					}
-				}
-			}
+			MultiDelegate(MultiDelegate&&) noexcept = default;
 
 			void operator+=(IDelegate* _delegate)
 			{
-				if (!_delegate)
-					return;
-				if (mDestroying)
-				{
-					delete _delegate;
-					return;
-				}
-				if (!mState)
-					mState = new State;
-				auto* state = mState;
-				Operation guard(state);
-				state->add(_delegate);
+				detail::MultiDelegateBase::operator+=(_delegate);
 			}
 
 			void operator-=(IDelegate* _delegate)
 			{
-				if (!_delegate)
-					return;
-				if (auto* state = mState)
-				{
-					Operation guard(state);
-					// The original pointer can also be supplied; never delete an owned or retired callback here.
-					std::unique_ptr<IDelegate> token(_delegate->mOwner ? nullptr : _delegate);
-					const auto index = state->find(_delegate);
-					if (index != state->callbacks.size())
-						state->remove(index);
-				}
-				else if (!_delegate->mOwner)
-					delete _delegate;
+				detail::MultiDelegateBase::operator-=(_delegate);
+			}
+
+			MYGUI_OBSOLETE("use : operator += ")
+			MultiDelegate& operator=(IDelegate* _delegate)
+			{
+				detail::MultiDelegateBase::operator=(_delegate);
+				return *this;
 			}
 
 			void operator()(Args... args) const
@@ -405,143 +611,9 @@ namespace MyGUI
 				do
 				{
 					if (auto* callback = state->callbacks[i])
-						callback->invoke(args...);
+						static_cast<IDelegate*>(callback)->invoke(args...);
 				} while (++i < state->extent);
 			}
-
-			MYGUI_OBSOLETE("use : operator += ")
-			MultiDelegate& operator=(IDelegate* _delegate)
-			{
-				if (mDestroying)
-				{
-					delete _delegate;
-					return *this;
-				}
-				if (!mState)
-				{
-					*this += _delegate;
-					return *this;
-				}
-				auto* state = mState;
-				Operation guard(state);
-				state->clear();
-				state->collectIfIdle();
-				// Releasing old captures can destroy this event. From here on, use only retained state.
-				state->add(_delegate);
-				return *this;
-			}
-
-		private:
-			struct State
-			{
-				std::vector<IDelegate*> callbacks;
-				// Avoid subtracting vector pointers after every callback in the dispatch loop.
-				size_t extent{0};
-				size_t active{0};
-				size_t references{1}; // Event ownership plus active operations, including nested invocations.
-				IDelegate* retired{nullptr};
-				IDelegate* retiredTail{nullptr};
-				bool closed{false};
-
-				size_t find(IDelegate* _delegate) const
-				{
-					for (size_t i = 0; i < callbacks.size(); ++i)
-					{
-						auto* callback = callbacks[i];
-						// Custom Any identities can execute user comparison code and reenter the event.
-						if (callback && callback->compare(_delegate) && callbacks[i] == callback)
-							return i;
-					}
-					return callbacks.size();
-				}
-
-				void add(IDelegate* _delegate)
-				{
-					if (!_delegate)
-						return;
-					if (closed)
-					{
-						delete _delegate;
-						return;
-					}
-					const auto index = find(_delegate);
-					if (_delegate->mOwner || index != callbacks.size())
-						MYGUI_EXCEPT("Trying to add same delegate twice.");
-					if (closed)
-					{
-						delete _delegate;
-						return;
-					}
-					callbacks.push_back(_delegate); // Ownership transfers only after successful insertion.
-					extent = callbacks.size();
-					_delegate->mOwner = this;
-					++active;
-				}
-
-				void remove(size_t _index)
-				{
-					auto* callback = std::exchange(callbacks[_index], nullptr);
-					--active;
-					if (retiredTail)
-						retiredTail->mNextRetired = callback;
-					else
-						retired = callback;
-					retiredTail = callback;
-				}
-
-				void clear()
-				{
-					for (size_t i = 0; i < callbacks.size(); ++i)
-					{
-						if (callbacks[i])
-							remove(i);
-					}
-				}
-
-				void collectIfIdle()
-				{
-					while (retired && references == (closed ? 1u : 2u))
-					{
-						callbacks.erase(std::remove(callbacks.begin(), callbacks.end(), nullptr), callbacks.end());
-						extent = callbacks.size();
-						auto* removed = std::exchange(retired, nullptr);
-						retiredTail = nullptr;
-						// Detach the whole batch before running capture destructors. Drain any reentrant removals too.
-						while (removed)
-						{
-							auto* next = std::exchange(removed->mNextRetired, nullptr);
-							// Keep ownership marked while capture destructors can remove this original pointer again.
-							removed->release();
-							removed = next;
-						}
-					}
-				}
-			};
-
-			class Operation
-			{
-			public:
-				explicit Operation(State* _state) :
-					mState(_state)
-				{
-					++mState->references;
-				}
-				Operation(const Operation&) = delete;
-				Operation& operator=(const Operation&) = delete;
-				~Operation()
-				{
-					if (mState->retired)
-						mState->collectIfIdle();
-					if (--mState->references == 0)
-						delete mState;
-				}
-
-			private:
-				State* mState;
-			};
-
-			State* mState{nullptr};
-			bool mDestroying{false};
 		};
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

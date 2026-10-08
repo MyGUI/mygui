@@ -1,5 +1,8 @@
 ## MyGUI v3.5.3
 
+### Core
+- Reduce compile time and binary size by sharing inline delegate bookkeeping across non-template base classes
+
 ### Tools
 - Replace `FilterNone` skins with regular `ImageBox` widgets and `NearestFilter` shaders for nearest-neighbour
   texture previews. Preview texture copies preserve the original texture's shader, including MSDF font rendering. Legacy
