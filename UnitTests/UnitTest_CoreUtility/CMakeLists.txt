@@ -1,0 +1,1 @@
+mygui_unit_test(UnitTest_CoreUtility SKIP_PCH)
