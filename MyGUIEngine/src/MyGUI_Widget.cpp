@@ -462,11 +462,19 @@ namespace MyGUI
 
 	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
+		if (!mInheritedEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()))
+			return nullptr;
+
 		// Recursive picking has already removed ancestor rotations; only the local rotation matters.
 		// Popups enter from a layer and still need the full world transform.
 		if (mRotation == 0.0f && (mCroppedParent || !mParent))
 			return getLayerItemByLocalPoint(IntPoint(_left - mCoord.left, _top - mCoord.top));
 
+		return getLayerItemByRotatedPoint(_left, _top);
+	}
+
+	ILayerItem* Widget::getLayerItemByRotatedPoint(int _left, int _top) const
+	{
 		const FloatPoint point((float)_left, (float)_top);
 		// Popups enter from a layer, bypassing their logical parent's picking traversal.
 		const FloatPoint localPoint =
@@ -478,8 +486,7 @@ namespace MyGUI
 	ILayerItem* Widget::getLayerItemByLocalPoint(types::TPoint<T> _point) const
 	{
 		// check point hit
-		if (!mInheritedEnabled || !mInheritedVisible || (!getNeedMouseFocus() && !getInheritsPick()) ||
-			_point.left < mMargin.left || _point.top < mMargin.top || _point.left >= mCoord.width - mMargin.right ||
+		if (_point.left < mMargin.left || _point.top < mMargin.top || _point.left >= mCoord.width - mMargin.right ||
 			_point.top >= mCoord.height - mMargin.bottom
 			// if there is a mask, also check by mask
 			|| !isMaskPickInside(IntPoint((int)_point.left, (int)_point.top), mCoord))
@@ -493,6 +500,11 @@ namespace MyGUI
 			childLeft = (int)std::floor(_point.left);
 			childTop = (int)std::floor(_point.top);
 		}
+		return pickChildrenOrSelf({childLeft, childTop});
+	}
+
+	ILayerItem* Widget::pickChildrenOrSelf(IntPoint _point) const
+	{
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend();
 			 ++widget)
 		{
@@ -500,7 +512,7 @@ namespace MyGUI
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
 				continue;
 
-			ILayerItem* item = (*widget)->getLayerItemByPoint(childLeft, childTop);
+			ILayerItem* item = (*widget)->getLayerItemByPoint(_point.left, _point.top);
 			if (item != nullptr)
 				return item;
 		}
@@ -509,7 +521,7 @@ namespace MyGUI
 			 widget != mWidgetChildSkin.rend();
 			 ++widget)
 		{
-			ILayerItem* item = (*widget)->getLayerItemByPoint(childLeft, childTop);
+			ILayerItem* item = (*widget)->getLayerItemByPoint(_point.left, _point.top);
 			if (item != nullptr)
 				return item;
 		}

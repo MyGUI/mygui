@@ -497,6 +497,8 @@ namespace MyGUI
 		void _checkInheristProperties();
 		template<typename T>
 		ILayerItem* getLayerItemByLocalPoint(types::TPoint<T> _point) const;
+		ILayerItem* getLayerItemByRotatedPoint(int _left, int _top) const;
+		ILayerItem* pickChildrenOrSelf(IntPoint _point) const;
 		void updateRotationTransform();
 		void updateWorldHasRotation();
 		RotationTransform getWorldRotationTransform() const;

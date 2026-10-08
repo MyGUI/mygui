@@ -688,6 +688,40 @@ namespace
 		check({150, 160}, false);
 	}
 
+	void testPickingEligibility()
+	{
+		Fixture fixture;
+		auto& layers = MyGUI::LayerManager::getInstance();
+		layers.getByName("Main")->castType<MyGUI::OverlappedLayer>()->setPick(true);
+		auto* parent = fixture.context.getGui()
+						   .createWidget<MyGUI::Widget>("Default", {100, 100, 100, 100}, MyGUI::Align::Default, "Main");
+		auto* child = parent->createWidget<MyGUI::Widget>("Default", {10, 10, 40, 40}, MyGUI::Align::Default);
+		auto* grandchild = child->createWidget<MyGUI::Widget>("Default", {10, 10, 20, 20}, MyGUI::Align::Default);
+		for (float angle : {0.0f, 0.5f})
+		{
+			parent->setRotation(angle);
+			const MyGUI::FloatPoint point = grandchild->localToLayer({10, 10});
+			auto pick = [&]
+			{
+				return layers.getWidgetFromPoint((int)point.left, (int)point.top);
+			};
+			require(pick() == grandchild, "Picking must reach eligible descendants");
+			parent->setVisible(false);
+			require(pick() == nullptr, "Hidden ancestors must exclude their descendants from picking");
+			parent->setVisible(true);
+			parent->setEnabled(false);
+			require(pick() == nullptr, "Disabled ancestors must exclude their descendants from picking");
+			parent->setEnabled(true);
+			child->setNeedMouseFocus(false);
+			child->setInheritsPick(false);
+			require(pick() == parent, "Non-pickable children must exclude their descendants");
+			child->setInheritsPick(true);
+			require(pick() == grandchild, "InheritsPick must allow descendants of a non-focusable widget");
+			child->setInheritsPick(false);
+			child->setNeedMouseFocus(true);
+		}
+	}
+
 	void testLocalCoordinatesAndPicking()
 	{
 		Fixture fixture;
@@ -865,6 +899,7 @@ int main()
 		{"Absolute coordinate reparenting", testAbsoluteCoordReparenting},
 		{"Nested rotation and picking", testNestedRotationAndPicking},
 		{"Local coordinates and picking", testLocalCoordinatesAndPicking},
+		{"Picking eligibility with and without rotation", testPickingEligibility},
 		{"World rotation cache invalidation", testWorldRotationCacheInvalidation},
 		{"World rotation cache reparenting", testWorldRotationCacheReparenting},
 	});
