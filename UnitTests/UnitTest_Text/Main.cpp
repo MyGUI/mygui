@@ -3,6 +3,7 @@
 #include "FixedFont.h"
 #include "MyGUI_ResourceManualFont.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_TextView.h"
 #include <array>
 
 namespace
@@ -147,6 +148,64 @@ namespace
 		require(
 			view->getTextLength() == 0 && view->getTextSize().width == 0,
 			"Clearing text must discard previous layout data");
+	}
+
+	void testRepeatedLayout()
+	{
+		unittest::FixedFont font;
+		MyGUI::TextView reused;
+		struct LayoutCase
+		{
+			const char* text;
+			MyGUI::Align align;
+			int width;
+			int height;
+		};
+		const LayoutCase cases[] = {
+			{"a\nlonger", MyGUI::Align::Right, -1, 20},
+			{"bc", MyGUI::Align::Left, -1, 20},
+			{"#FF0000ab cd\nz", MyGUI::Align::HCenter, 35, 20},
+			{"", MyGUI::Align::Left, -1, 20},
+			{"#00FF00abcdef##", MyGUI::Align::Right, 35, 30},
+			{"q\n", MyGUI::Align::Left, -1, 20},
+			{"x", MyGUI::Align::HCenter, -1, 20}};
+		for (const auto& input : cases)
+		{
+			MyGUI::TextView fresh;
+			for (auto* view : {&reused, &fresh})
+				view->update(
+					input.text,
+					&font,
+					input.height,
+					input.align,
+					MyGUI::VertexColourType::ColourARGB,
+					input.width);
+			require(
+				reused.getViewSize() == fresh.getViewSize() && reused.getTextLength() == fresh.getTextLength(),
+				"Replacing text must produce the same size and length as a fresh layout");
+			const auto& actual = reused.getData();
+			const auto& expected = fresh.getData();
+			require(actual.size() == expected.size(), "Replacing text must discard obsolete lines");
+			for (size_t i = 0; i < actual.size(); ++i)
+			{
+				require(
+					actual[i].width == expected[i].width && actual[i].offset == expected[i].offset &&
+						actual[i].count == expected[i].count && actual[i].symbols.size() == expected[i].symbols.size(),
+					"Replacing text must reset line metrics, alignment and symbols");
+				for (size_t j = 0; j < actual[i].symbols.size(); ++j)
+				{
+					const auto& symbol = actual[i].symbols[j];
+					const auto& reference = expected[i].symbols[j];
+					require(symbol.isColour() == reference.isColour(), "Replacing text must reset colour tags");
+					if (symbol.isColour())
+						require(symbol.getColour() == reference.getColour(), "Colour tags must use the new text");
+				}
+			}
+			for (size_t i = 0; i <= reused.getTextLength(); ++i)
+				require(
+					reused.getCursorPoint(i) == fresh.getCursorPoint(i),
+					"Cursor layout must not depend on old text");
+		}
 	}
 
 	void testStringAdapter()
@@ -366,6 +425,7 @@ int main()
 		{"Malformed UTF-8", testMalformedUtf8},
 		{"Malformed native wide strings", testMalformedWideStrings},
 		{"Lines and colour tags", testLinesAndTags},
+		{"Repeated layout updates", testRepeatedLayout},
 		{"UString adapter compatibility", testStringAdapter},
 		{"TextIterator code-point edits", testTextIteratorCodePointEdits},
 		{"Truncated colour tags in TextIterator", testTextIteratorTruncatedColourTags},

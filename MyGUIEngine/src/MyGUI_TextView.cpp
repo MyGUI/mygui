@@ -104,8 +104,10 @@ namespace MyGUI
 		float width = 0.0f;
 		size_t count = 0;
 		mLength = 0;
-		mLineInfo.clear();
-		LineInfo line_info;
+		// Clear line contents while retaining symbol capacity for reuse
+		for (auto& line : mLineInfo)
+			line.clear();
+		size_t current_line = 0;
 		int font_height = _font->getDefaultHeight();
 
 		UString::const_iterator end = _text.end();
@@ -120,6 +122,9 @@ namespace MyGUI
 
 		for (; index != end; ++index)
 		{
+			if (current_line == mLineInfo.size())
+				mLineInfo.emplace_back();
+			auto& line_info = mLineInfo[current_line];
 			Char character = *index;
 
 			// new line
@@ -142,8 +147,7 @@ namespace MyGUI
 				width = 0;
 				count = 0;
 
-				mLineInfo.push_back(line_info);
-				line_info.clear();
+				++current_line;
 
 				roll_back.clear();
 				previousChar = 0;
@@ -248,8 +252,7 @@ namespace MyGUI
 				width = 0;
 				count = 0;
 
-				mLineInfo.push_back(line_info);
-				line_info.clear();
+				++current_line;
 				previousChar = 0;
 
 				// cancel rollback
@@ -272,11 +275,11 @@ namespace MyGUI
 			count++;
 		}
 
+		mLineInfo.resize(current_line + 1);
+		auto& line_info = mLineInfo[current_line];
 		line_info.width = (int)std::ceil(width);
 		line_info.count = count;
 		mLength += line_info.count;
-
-		mLineInfo.push_back(line_info);
 
 		setMax(result.width, line_info.width);
 
