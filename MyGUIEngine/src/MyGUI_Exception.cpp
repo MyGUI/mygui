@@ -6,12 +6,23 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Exception.h"
+#include "MyGUI_Diagnostic.h"
 #include "MyGUI_StringUtility.h"
 
 #include <utility>
 
 namespace MyGUI
 {
+
+	void detail::throwBadCast(std::string_view _from, std::string_view _to, const char* _file, int _line)
+	{
+		std::ostringstream stream;
+		stream << "Cannot cast from type '" << _from << "' to type '" << _to << "'.";
+		std::string message = stream.str();
+		LogManager::getInstance().log(MYGUI_LOG_SECTION, LogLevel::Critical, message, _file, _line);
+		message += '\n';
+		throw Exception(std::move(message), "MyGUI", _file, _line);
+	}
 
 	Exception::Exception(std::string _description, std::string _source, std::string _file, long _line) :
 		mDescription(std::move(_description)),

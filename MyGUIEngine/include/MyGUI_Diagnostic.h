@@ -12,6 +12,17 @@
 #include "MyGUI_LogManager.h"
 #include <sstream>
 
+namespace MyGUI::detail
+{
+
+	[[noreturn]] MYGUI_EXPORT void throwBadCast(
+		std::string_view _from,
+		std::string_view _to,
+		const char* _file,
+		int _line);
+
+}
+
 #define MYGUI_LOG_SECTION "Core"
 #define MYGUI_LOG_FILENAME "MyGUI.log"
 #define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)

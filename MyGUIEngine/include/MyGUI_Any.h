@@ -86,9 +86,8 @@ namespace MyGUI
 		{
 			if (this->getType() == typeid(ValueType))
 				return &static_cast<Any::Holder<ValueType>*>(this->mContent.get())->held;
-			MYGUI_ASSERT(
-				!_throw,
-				"Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
+			if (_throw)
+				detail::throwBadCast(getType().name(), typeid(ValueType).name(), __FILE__, __LINE__);
 			return nullptr;
 		}
 

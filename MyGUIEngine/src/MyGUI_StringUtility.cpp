@@ -6,9 +6,25 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_StringUtility.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI::utility
 {
+
+	template MYGUI_EXPORT std::string toString<int>(int);
+	template MYGUI_EXPORT std::string toString<size_t>(size_t);
+	template MYGUI_EXPORT std::string toString<float>(float);
+
+	template MYGUI_EXPORT int parseValue<int>(std::string_view);
+	template MYGUI_EXPORT size_t parseValue<size_t>(std::string_view);
+	template MYGUI_EXPORT float parseValue<float>(std::string_view);
+	template MYGUI_EXPORT types::TPoint<int> parseValue<types::TPoint<int>>(std::string_view);
+	template MYGUI_EXPORT types::TPoint<float> parseValue<types::TPoint<float>>(std::string_view);
+	template MYGUI_EXPORT types::TSize<int> parseValue<types::TSize<int>>(std::string_view);
+	template MYGUI_EXPORT types::TSize<float> parseValue<types::TSize<float>>(std::string_view);
+	template MYGUI_EXPORT types::TRect<int> parseValue<types::TRect<int>>(std::string_view);
+	template MYGUI_EXPORT types::TCoord<int> parseValue<types::TCoord<int>>(std::string_view);
+	template MYGUI_EXPORT types::TCoord<float> parseValue<types::TCoord<float>>(std::string_view);
 
 	void trim(std::string& _str, bool _left, bool _right)
 	{

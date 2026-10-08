@@ -11,6 +11,20 @@
 #include <vector>
 #include <sstream>
 
+namespace MyGUI::types
+{
+
+	template<typename T>
+	struct TPoint;
+	template<typename T>
+	struct TSize;
+	template<typename T>
+	struct TRect;
+	template<typename T>
+	struct TCoord;
+
+}
+
 namespace MyGUI::utility
 {
 
@@ -23,6 +37,11 @@ namespace MyGUI::utility
 		stream << _value;
 		return stream.str();
 	}
+
+	// Keep numeric formatting in the engine; custom types use the template above.
+	extern template MYGUI_EXPORT std::string toString<int>(int);
+	extern template MYGUI_EXPORT std::string toString<size_t>(size_t);
+	extern template MYGUI_EXPORT std::string toString<float>(float);
 
 	MYGUI_EXPORT const std::string& toString(const std::string& _value);
 
@@ -62,6 +81,18 @@ namespace MyGUI::utility
 
 		return result;
 	}
+
+	// Share stream parsers used by the core with its consumers.
+	extern template MYGUI_EXPORT int parseValue<int>(std::string_view);
+	extern template MYGUI_EXPORT size_t parseValue<size_t>(std::string_view);
+	extern template MYGUI_EXPORT float parseValue<float>(std::string_view);
+	extern template MYGUI_EXPORT types::TPoint<int> parseValue<types::TPoint<int>>(std::string_view);
+	extern template MYGUI_EXPORT types::TPoint<float> parseValue<types::TPoint<float>>(std::string_view);
+	extern template MYGUI_EXPORT types::TSize<int> parseValue<types::TSize<int>>(std::string_view);
+	extern template MYGUI_EXPORT types::TSize<float> parseValue<types::TSize<float>>(std::string_view);
+	extern template MYGUI_EXPORT types::TRect<int> parseValue<types::TRect<int>>(std::string_view);
+	extern template MYGUI_EXPORT types::TCoord<int> parseValue<types::TCoord<int>>(std::string_view);
+	extern template MYGUI_EXPORT types::TCoord<float> parseValue<types::TCoord<float>>(std::string_view);
 
 	// bool specialization
 	template<>

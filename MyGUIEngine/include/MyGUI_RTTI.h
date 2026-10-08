@@ -51,9 +51,8 @@ public: \
 	{ \
 		if (this->isType<Type>()) \
 			return static_cast<Type*>(this); \
-		MYGUI_ASSERT( \
-			!_throw, \
-			"Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
+		if (_throw) \
+			MyGUI::detail::throwBadCast(this->getTypeName(), Type::getClassTypeName(), __FILE__, __LINE__); \
 		return nullptr; \
 	} \
 	/** Try to cast pointer to selected type. \
@@ -63,10 +62,9 @@ public: \
 	const Type* castType(bool _throw = true) const \
 	{ \
 		if (this->isType<Type>()) \
-			return static_cast<Type*>(this); \
-		MYGUI_ASSERT( \
-			!_throw, \
-			"Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
+			return static_cast<const Type*>(this); \
+		if (_throw) \
+			MyGUI::detail::throwBadCast(this->getTypeName(), Type::getClassTypeName(), __FILE__, __LINE__); \
 		return nullptr; \
 	}
 

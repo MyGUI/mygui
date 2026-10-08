@@ -1282,109 +1282,90 @@ namespace MyGUI
 	void BackwardCompatibility::initialise()
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		mPropertyRename["Widget_Caption"] = "Caption";
-		mPropertyRename["Button_Pressed"] = "StateSelected";
-		mPropertyRename["ButtonPressed"] = "StateSelected";
-		mPropertyRename["StateCheck"] = "StateSelected";
-		mPropertyRename["Edit_ShowVScroll"] = "VisibleVScroll";
-		mPropertyRename["Edit_ShowHScroll"] = "VisibleHScroll";
-		mPropertyRename["ScrollView_VScroll"] = "VisibleVScroll";
-		mPropertyRename["ScrollView_HScroll"] = "VisibleHScroll";
-		mPropertyRename["Progress_Position"] = "RangePosition";
-		mPropertyRename["Scroll_Position"] = "RangePosition";
-		mPropertyRename["Tab_SelectSheet"] = "SelectItem";
-		mPropertyRename["Image_Texture"] = "ImageTexture";
-		mPropertyRename["Image_Coord"] = "ImageCoord";
-		mPropertyRename["Image_Tile"] = "ImageTile";
-		mPropertyRename["Image_Index"] = "ImageIndex";
-		mPropertyRename["Image_Resource"] = "ImageResource";
-		mPropertyRename["Image_Group"] = "ImageGroup";
-		mPropertyRename["Image_Name"] = "ImageName";
-		mPropertyRename["MenuItem_Id"] = "MenuItemId";
-		mPropertyRename["MenuItem_Type"] = "MenuItemType";
-		mPropertyRename["Combo_MaxLength"] = "MaxListLength";
-		mPropertyRename["AlignText"] = "TextAlign";
-		mPropertyRename["ToStick"] = "Snap";
-		mPropertyRename["ListSmoothShow"] = "SmoothShow";
-		mPropertyRename["HeightList"] = "MaxListLength";
-		mPropertyRename["AlignVert"] = "VerticalAlignment";
+		static constexpr std::pair<std::string_view, std::string_view> propertyRenames[] = {
+			{"Widget_Caption", "Caption"},
+			{"Button_Pressed", "StateSelected"},
+			{"ButtonPressed", "StateSelected"},
+			{"StateCheck", "StateSelected"},
+			{"Edit_ShowVScroll", "VisibleVScroll"},
+			{"Edit_ShowHScroll", "VisibleHScroll"},
+			{"ScrollView_VScroll", "VisibleVScroll"},
+			{"ScrollView_HScroll", "VisibleHScroll"},
+			{"Progress_Position", "RangePosition"},
+			{"Scroll_Position", "RangePosition"},
+			{"Tab_SelectSheet", "SelectItem"},
+			{"Image_Texture", "ImageTexture"},
+			{"Image_Coord", "ImageCoord"},
+			{"Image_Tile", "ImageTile"},
+			{"Image_Index", "ImageIndex"},
+			{"Image_Resource", "ImageResource"},
+			{"Image_Group", "ImageGroup"},
+			{"Image_Name", "ImageName"},
+			{"MenuItem_Id", "MenuItemId"},
+			{"MenuItem_Type", "MenuItemType"},
+			{"Combo_MaxLength", "MaxListLength"},
+			{"AlignText", "TextAlign"},
+			{"ToStick", "Snap"},
+			{"ListSmoothShow", "SmoothShow"},
+			{"HeightList", "MaxListLength"},
+			{"AlignVert", "VerticalAlignment"},
+		};
+		for (const auto& [from, to] : propertyRenames)
+			mPropertyRename[std::string{from}] = to;
 
-		mPropertyIgnore.insert("DragLayer");
-		mPropertyIgnore.insert("SkinLine");
-		mPropertyIgnore.insert("HeightLine");
-		mPropertyIgnore.insert("SkinLine");
-		mPropertyIgnore.insert("HeightLine");
-		mPropertyIgnore.insert("SeparatorHeight");
-		mPropertyIgnore.insert("SeparatorSkin");
-		mPropertyIgnore.insert("SubmenuImageSize");
-		mPropertyIgnore.insert("SubMenuSkin");
-		mPropertyIgnore.insert("SubMenuLayer");
-		mPropertyIgnore.insert("DistanceButton");
-		mPropertyIgnore.insert("ButtonSkin");
-		mPropertyIgnore.insert("ButtonType");
-		mPropertyIgnore.insert("ButtonSize");
-		mPropertyIgnore.insert("ButtonOffset");
-		mPropertyIgnore.insert("DefaultLayer");
-		mPropertyIgnore.insert("FadeSkin");
-		mPropertyIgnore.insert("FadeLayer");
-		mPropertyIgnore.insert("SkinButton");
-		mPropertyIgnore.insert("HeightButton");
-		mPropertyIgnore.insert("SkinList");
-		mPropertyIgnore.insert("SkinButtonEmpty");
-		mPropertyIgnore.insert("WidthSeparator");
-		mPropertyIgnore.insert("SkinSeparator");
-		mPropertyIgnore.insert("TrackSkin");
-		mPropertyIgnore.insert("TrackWidth");
-		mPropertyIgnore.insert("TrackMin");
-		mPropertyIgnore.insert("TrackStep");
-		mPropertyIgnore.insert("TrackFill");
-		mPropertyIgnore.insert("OffsetBar");
-		mPropertyIgnore.insert("ButtonSkin");
-		mPropertyIgnore.insert("EmptyBarSkin");
-		mPropertyIgnore.insert("TrackRangeMargins");
-		mPropertyIgnore.insert("MinTrackSize");
-		mPropertyIgnore.insert("MainMove");
-		mPropertyIgnore.insert("LevelOffset");
-		mPropertyIgnore.insert("State");
+		static constexpr std::string_view ignoredProperties[] = {
+			"DragLayer",		"SkinLine",		 "HeightLine",	 "SeparatorHeight", "SeparatorSkin",
+			"SubmenuImageSize", "SubMenuSkin",	 "SubMenuLayer", "DistanceButton",	"ButtonSkin",
+			"ButtonType",		"ButtonSize",	 "ButtonOffset", "DefaultLayer",	"FadeSkin",
+			"FadeLayer",		"SkinButton",	 "HeightButton", "SkinList",		"SkinButtonEmpty",
+			"WidthSeparator",	"SkinSeparator", "TrackSkin",	 "TrackWidth",		"TrackMin",
+			"TrackStep",		"TrackFill",	 "OffsetBar",	 "EmptyBarSkin",	"TrackRangeMargins",
+			"MinTrackSize",		"MainMove",		 "LevelOffset",	 "State",
+		};
+		for (const auto property : ignoredProperties)
+			mPropertyIgnore.insert(std::string{property});
 
-		mSkinRename["StaticImage"] = "ImageBox";
-		mSkinRename["StaticText"] = "TextBox";
-		mSkinRename["HScroll"] = "ScrollBarH";
-		mSkinRename["VScroll"] = "ScrollBarV";
-		mSkinRename["ItemBoxH"] = "ItemBox";
-		mSkinRename["ItemBoxV"] = "ItemBox";
-		mSkinRename["VSlider"] = "SliderV";
-		mSkinRename["HSlider"] = "SliderH";
-		mSkinRename["Progress"] = "ProgressBar";
-		mSkinRename["ProgressFill"] = "ProgressBarFill";
-		mSkinRename["List"] = "ListBox";
-		mSkinRename["MultiList"] = "MultiListBox";
-		mSkinRename["Edit"] = "EditBox";
-		mSkinRename["EditStretch"] = "EditBoxStretch";
-		mSkinRename["EditEmpty"] = "EditBoxEmpty";
-		mSkinRename["RadioBox"] = "RadioButton";
-		mSkinRename["Tab"] = "TabControl";
-		mSkinRename["WordWrap"] = "WordWrapEmpty";
-		mSkinRename["WordWrapSimple"] = "WordWrapEmpty";
-		mSkinRename["ButtonSmall"] = "Button";
-		mSkinRename["ButtonImageText"] = "ButtonImage";
-
-		mSkinRename["TileClient"] = "ClientTileSkin";
-		mSkinRename["DefaultClient"] = "ClientDefaultSkin";
-		mSkinRename["Panel"] = "PanelSkin";
-		mSkinRename["PanelSmall"] = "PanelSkin";
-		mSkinRename["Separator1"] = "SepUpVSkin";
-		mSkinRename["Separator2"] = "SepDownVSkin";
-		mSkinRename["Separator3"] = "SepUpHSkin";
-		mSkinRename["Separator4"] = "SepDownHSkin";
-		mSkinRename["MarkerWhite"] = "WhiteSkin";
-		mSkinRename["ButtonLeft"] = "ButtonLeftSkin";
-		mSkinRename["ButtonRight"] = "ButtonRightSkin";
-		mSkinRename["ButtonUp"] = "ButtonUpSkin";
-		mSkinRename["ButtonDown"] = "ButtonDownSkin";
-		mSkinRename["ButtonV"] = "ButtonAcceptSkin";
-		mSkinRename["ButtonX"] = "ButtonCloseSkin";
-		mSkinRename["ButtonMinusPlus"] = "ButtonExpandSkin";
+		static constexpr std::pair<std::string_view, std::string_view> skinRenames[] = {
+			{"StaticImage", "ImageBox"},
+			{"StaticText", "TextBox"},
+			{"HScroll", "ScrollBarH"},
+			{"VScroll", "ScrollBarV"},
+			{"ItemBoxH", "ItemBox"},
+			{"ItemBoxV", "ItemBox"},
+			{"VSlider", "SliderV"},
+			{"HSlider", "SliderH"},
+			{"Progress", "ProgressBar"},
+			{"ProgressFill", "ProgressBarFill"},
+			{"List", "ListBox"},
+			{"MultiList", "MultiListBox"},
+			{"Edit", "EditBox"},
+			{"EditStretch", "EditBoxStretch"},
+			{"EditEmpty", "EditBoxEmpty"},
+			{"RadioBox", "RadioButton"},
+			{"Tab", "TabControl"},
+			{"WordWrap", "WordWrapEmpty"},
+			{"WordWrapSimple", "WordWrapEmpty"},
+			{"ButtonSmall", "Button"},
+			{"ButtonImageText", "ButtonImage"},
+			{"TileClient", "ClientTileSkin"},
+			{"DefaultClient", "ClientDefaultSkin"},
+			{"Panel", "PanelSkin"},
+			{"PanelSmall", "PanelSkin"},
+			{"Separator1", "SepUpVSkin"},
+			{"Separator2", "SepDownVSkin"},
+			{"Separator3", "SepUpHSkin"},
+			{"Separator4", "SepDownHSkin"},
+			{"MarkerWhite", "WhiteSkin"},
+			{"ButtonLeft", "ButtonLeftSkin"},
+			{"ButtonRight", "ButtonRightSkin"},
+			{"ButtonUp", "ButtonUpSkin"},
+			{"ButtonDown", "ButtonDownSkin"},
+			{"ButtonV", "ButtonAcceptSkin"},
+			{"ButtonX", "ButtonCloseSkin"},
+			{"ButtonMinusPlus", "ButtonExpandSkin"},
+		};
+		for (const auto& [from, to] : skinRenames)
+			mSkinRename[std::string{from}] = to;
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
