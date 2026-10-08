@@ -127,7 +127,7 @@ namespace MyGUI
 		// viewport changed
 		if (margin)
 		{
-			if (_checkOutside())
+			if (_checkOutsideUnrotated())
 			{
 				mIsMargin = margin;
 

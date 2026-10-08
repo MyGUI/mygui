@@ -96,6 +96,14 @@ namespace
 			converted == MyGUI::FloatRect(0, 0.75f, 0.5f, 0.25f),
 			"Rectangle conversion must preserve edge identities across the Y flip");
 
+		require(
+			toRenderTarget(MyGUI::IntCoord(16, 8, 32, 16), info, origin) == converted,
+			"Integer rectangle conversion must use width and height with parent and target offsets");
+		require(
+			toRenderTarget(MyGUI::IntCoord(-16, -8, 0, 0), info, origin) ==
+				MyGUI::FloatRect(-0.5f, 1.25f, -0.5f, 1.25f),
+			"Empty integer rectangles must preserve negative positions");
+
 		MyGUI::FloatPoint points[] = {local, {48, 24}};
 		toRenderTargetInPlace(points, info, origin);
 		require(
@@ -119,6 +127,24 @@ namespace
 		require(
 			toRenderTarget(MyGUI::FloatRect(0, 0, 128, 64), info) == MyGUI::FloatRect(-1, 1, 1, -1),
 			"Target edges must map to normalized render coordinates");
+		require(
+			toRenderTarget(MyGUI::IntCoord(0, 0, 128, 64), info) == MyGUI::FloatRect(-1, 1, 1, -1),
+			"Integer target edges must map to normalized render coordinates");
+		info.pixScaleX = 1.0f / 1920;
+		info.pixScaleY = 1.0f / 1080;
+		info.setOffset(13, -7);
+		for (const MyGUI::IntCoord coord :
+			 {MyGUI::IntCoord(11, 19, 76, 38), MyGUI::IntCoord(-25, -18, 80, 60), MyGUI::IntCoord(901, 507, 0, 0)})
+		{
+			const MyGUI::FloatRect edges(
+				(float)coord.left,
+				(float)coord.top,
+				(float)coord.right(),
+				(float)coord.bottom());
+			require(
+				toRenderTarget(coord, info, origin) == toRenderTarget(edges, info, origin),
+				"Integer rectangles must preserve floating-point rounding to avoid changing rotated clipping");
+		}
 	}
 
 	void testAffineUV()

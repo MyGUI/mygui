@@ -107,7 +107,7 @@ namespace MyGUI
 		// viewport became invalid
 		if (margin)
 		{
-			if (_checkOutside())
+			if (_checkOutsideUnrotated())
 			{
 				// remember current state
 				mIsMargin = margin;
@@ -154,18 +154,16 @@ namespace MyGUI
 		float vertex_z = mNode->getNodeDepth();
 
 		// Original tile origin and clipped viewport corners.
-		FloatPoint points[] = {
-			{(float)mCoord.left, (float)mCoord.top},
-			{(float)mCurrentCoord.left, (float)mCurrentCoord.top},
-			{(float)mCurrentCoord.right(), (float)mCurrentCoord.bottom()}};
-		geometry_utility::toRenderTargetInPlace(points, info, mCroppedParent->getAbsolutePosition());
+		const IntPoint origin = mCroppedParent->getAbsolutePosition();
+		const FloatRect window = geometry_utility::toRenderTarget(mCoord, info, origin);
+		const FloatRect viewport = geometry_utility::toRenderTarget(mCurrentCoord, info, origin);
 
-		float window_left = points[0].left;
-		float window_top = points[0].top;
-		float real_left = points[1].left;
-		float real_top = points[1].top;
-		float real_right = points[2].left;
-		float real_bottom = points[2].top;
+		float window_left = window.left;
+		float window_top = window.top;
+		float real_left = viewport.left;
+		float real_top = viewport.top;
+		float real_right = viewport.right;
+		float real_bottom = viewport.bottom;
 
 		size_t count = 0;
 

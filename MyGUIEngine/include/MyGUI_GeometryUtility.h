@@ -39,6 +39,18 @@ namespace MyGUI
 		/** Convert rectangle edges without reordering them: top may be greater than bottom in the result. */
 		FloatRect toRenderTarget(const FloatRect& _rect, const RenderTargetInfo& _info, IntPoint _origin = {});
 
+		/** Convert an integer rectangle without a temporary point buffer, preserving the floating-point edge calculation. */
+		inline FloatRect toRenderTarget(const IntCoord& _coord, const RenderTargetInfo& _info, IntPoint _origin = {})
+		{
+			const float left = ((_info.pixScaleX * (_origin.left - _info.leftOffset) + _info.hOffset) * 2) - 1;
+			const float top = 1 - ((_info.pixScaleY * (_origin.top - _info.topOffset) + _info.vOffset) * 2);
+			return {
+				left + (float)_coord.left * _info.pixScaleX * 2,
+				top - (float)_coord.top * _info.pixScaleY * 2,
+				left + (float)_coord.right() * _info.pixScaleX * 2,
+				top - (float)_coord.bottom() * _info.pixScaleY * 2};
+		}
+
 		/** Convert a point buffer in place using the same pixel coordinates and origin as toRenderTarget. */
 		void toRenderTargetInPlace(
 			FloatPoint* _points,

@@ -250,6 +250,12 @@ namespace MyGUI
 		{
 			if (_hasRotation() || mCroppedParent->_hasRotation())
 				return false;
+			return _checkOutsideUnrotated();
+		}
+
+		// A successful _checkMargin() already establishes that neither rectangle is rotated.
+		bool _checkOutsideUnrotated() const
+		{
 			return (
 				(getRight() < mCroppedParent->mMargin.left) ||
 				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) ||

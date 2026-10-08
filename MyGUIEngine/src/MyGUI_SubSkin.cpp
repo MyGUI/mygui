@@ -72,7 +72,7 @@ namespace MyGUI
 		// viewport became broken
 		if (margin)
 		{
-			if (_checkOutside())
+			if (_checkOutsideUnrotated())
 			{
 				mIsMargin = margin;
 
@@ -174,14 +174,8 @@ namespace MyGUI
 
 		float vertex_z = mNode->getNodeDepth();
 
-		const FloatRect rect = geometry_utility::toRenderTarget(
-			FloatRect(
-				(float)mCurrentCoord.left,
-				(float)mCurrentCoord.top,
-				(float)mCurrentCoord.right(),
-				(float)mCurrentCoord.bottom()),
-			info,
-			mCroppedParent->getAbsolutePosition());
+		const FloatRect rect =
+			geometry_utility::toRenderTarget(mCurrentCoord, info, mCroppedParent->getAbsolutePosition());
 
 		quad->set(
 			rect.left,

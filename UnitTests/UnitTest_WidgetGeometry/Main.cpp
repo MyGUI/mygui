@@ -774,6 +774,15 @@ namespace
 		popup->setPosition(460, 310);
 		expectLocalPoint(popupChild, {5, 5}, {255, 490});
 		require(layers.getWidgetFromPoint(255, 490) == popupChild, "Popup children must follow direct movement");
+
+		parent->setRotation(0);
+		popup->setRotation(0);
+		require(
+			layers.getWidgetFromPoint(475, 330) == popupChild,
+			"Popup picking must return to absolute layout coordinates after removing rotations");
+		require(
+			layers.getWidgetFromPoint(255, 490) != popupChild,
+			"Popup picking must reject the previous rotated position");
 	}
 
 	void testNestedRotationAndPicking()

@@ -78,7 +78,7 @@ namespace MyGUI
 		// viewport became invalid
 		if (margin)
 		{
-			if (_checkOutside())
+			if (_checkOutsideUnrotated())
 			{
 				// remember current state
 				mIsMargin = margin;
