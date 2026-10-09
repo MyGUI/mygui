@@ -23,6 +23,8 @@ namespace MyGUI
 
 	class ILayer;
 	class ILayerNode;
+	class ITexture;
+	class RenderItem;
 	class ResourceImageSet;
 	class ResourceSkin;
 	class UString;
@@ -650,6 +652,10 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<ILayerNode>
 	{
 	public:
+		// The former manual-render flag is ignored; rendering uses the regular batch queues.
+		MYGUI_OBSOLETE("use : addToRenderItem(ITexture*, bool); the manual-render flag is ignored")
+		RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender);
+
 		MYGUI_OBSOLETE("use : getChildItems()")
 		EnumeratorILayerNode getEnumerator() const;
 	};

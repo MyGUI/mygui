@@ -51,6 +51,9 @@ namespace MyGUI
 		void detachLayerItem(ILayerItem* _item) override;
 
 		// Add sub-item and return render item
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		using ILayerNode::addToRenderItem;
+#endif
 		RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue) override;
 		// Node needs updating
 		void outOfDate(RenderItem* _item) override;

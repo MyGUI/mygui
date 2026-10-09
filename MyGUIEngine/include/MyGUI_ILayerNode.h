@@ -51,6 +51,9 @@ namespace MyGUI
 		virtual void attachLayerItem(ILayerItem* _item) = 0;
 		virtual void detachLayerItem(ILayerItem* _root) = 0;
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		using MemberObsolete<ILayerNode>::addToRenderItem;
+#endif
 		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue) = 0;
 		virtual void outOfDate(RenderItem* _item) = 0;
 

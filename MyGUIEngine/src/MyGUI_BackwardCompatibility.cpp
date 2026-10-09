@@ -1115,6 +1115,14 @@ namespace MyGUI
 		_widget->setProperty(_key, _value);
 	}
 
+	RenderItem* MemberObsolete<ILayerNode>::addToRenderItem(
+		ITexture* _texture,
+		bool _firstQueue,
+		bool /*_manualRender*/)
+	{
+		return static_cast<ILayerNode*>(this)->addToRenderItem(_texture, _firstQueue);
+	}
+
 	Enumerator<std::vector<ILayerNode*>> MemberObsolete<ILayerNode>::getEnumerator() const
 	{
 		return EnumeratorILayerNode(static_cast<const ILayerNode*>(this)->getChildItems());
