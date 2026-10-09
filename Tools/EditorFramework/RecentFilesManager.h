@@ -34,6 +34,9 @@ namespace tools
 		void addRecentFile(const MyGUI::UString& _fileName);
 		const VectorUString& getRecentFiles() const;
 
+		void addRecentProject(const MyGUI::UString& _fileName);
+		const VectorUString& getRecentProjects() const;
+
 	private:
 		void checkArray(VectorUString& _array, size_t _maxElements);
 
@@ -43,6 +46,8 @@ namespace tools
 		size_t mMaxRecentFolders{0};
 		VectorUString mRecentFiles;
 		size_t mMaxRecentFiles{0};
+		VectorUString mRecentProjects;
+		size_t mMaxRecentProjects{0};
 	};
 
 }

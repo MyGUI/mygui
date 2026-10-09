@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "MainMenuControl.h"
+#include "MainMenuControlLE.h"
 #include "SettingsManager.h"
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"

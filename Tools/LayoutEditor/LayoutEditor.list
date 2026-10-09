@@ -1,7 +1,6 @@
 set (HEADER_FILES
   Application.h
   ApplicationState.h
-  BackgroundControl.h
   CodeGenerator.h
   Common.h
   CyclicBuffer.h
@@ -10,7 +9,7 @@ set (HEADER_FILES
   EditorWidgets.h
   GroupMessage.h
   IPropertyField.h
-  MainMenuControl.h
+  MainMenuControlLE.h
   MainPaneControl.h
   MainWorkspaceControl.h
   MyGUI_RTTLayer.h
@@ -38,7 +37,6 @@ set (HEADER_FILES
   PropertyFieldPosition.h
   PropertyFieldSkin.h
   PropertyFieldType.h
-  RecentFilesManager.h
   SeparatorPartControl.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
@@ -63,14 +61,13 @@ set (SOURCE_FILES
   ../../Common/Precompiled.cpp
   Application.cpp
   ApplicationState.cpp
-  BackgroundControl.cpp
   CodeGenerator.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   GroupMessage.cpp
   LayoutEditor.rc
-  MainMenuControl.cpp
+  MainMenuControlLE.cpp
   MainPaneControl.cpp
   MainWorkspaceControl.cpp
   MyGUI_RTTLayer.cpp
@@ -95,7 +92,6 @@ set (SOURCE_FILES
   PropertyFieldPosition.cpp
   PropertyFieldSkin.cpp
   PropertyFieldType.cpp
-  RecentFilesManager.cpp
   SeparatorPartControl.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
@@ -167,13 +163,12 @@ SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.h
 )
 SOURCE_GROUP("Header Files" FILES
-  BackgroundControl.h
   Common.h
   CyclicBuffer.h
   EditorToolTip.h
   EditorWidgets.h
   IPropertyField.h
-  MainMenuControl.h
+  MainMenuControlLE.h
   MainPaneControl.h
   MainWorkspaceControl.h
   MyGUI_RTTLayer.h
@@ -181,7 +176,6 @@ SOURCE_GROUP("Header Files" FILES
   PanelTemplateProperties.h
   PossibleValue.h
   ProjectControl.h
-  RecentFilesManager.h
   SeparatorPartControl.h
   SkinInfo.h
 
@@ -222,17 +216,15 @@ SOURCE_GROUP("Resources" FILES
   LayoutEditor.rc
 )
 SOURCE_GROUP("Source Files" FILES
-  BackgroundControl.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  MainMenuControl.cpp
+  MainMenuControlLE.cpp
   MainPaneControl.cpp
   MainWorkspaceControl.cpp
   MyGUI_RTTLayer.cpp
   PanelExtensionProperties.cpp
   PanelTemplateProperties.cpp
   ProjectControl.cpp
-  RecentFilesManager.cpp
   SeparatorPartControl.cpp
 
   ToolsControl.cpp

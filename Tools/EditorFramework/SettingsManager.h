@@ -28,7 +28,7 @@ namespace tools
 		}
 		template<size_t num>
 		NullTerminatedStringView(const char (&str)[num]) :
-			mValue(str, num)
+			mValue(str, num - 1)
 		{
 		}
 		NullTerminatedStringView(const MyGUI::UString& string) :

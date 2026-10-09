@@ -28,23 +28,25 @@ namespace tools
 		if (!SettingsManager::getInstance().tryGetValue<size_t>("Files/MaxRecentFiles", mMaxRecentFiles))
 			mMaxRecentFiles = 8;
 
+		if (!SettingsManager::getInstance().tryGetValue<size_t>("Files/MaxRecentProjects", mMaxRecentProjects))
+			mMaxRecentProjects = 8;
+
 		mRecentFolder = MyGUI::utility::toPath(SettingsManager::getInstance().getValue("Files/RecentFolder"));
-
 		mRecentFolders = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
-
 		mRecentFiles = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFile.List");
+		mRecentProjects = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentProject.List");
 
 		checkArray(mRecentFolders, mMaxRecentFolders);
 		checkArray(mRecentFiles, mMaxRecentFiles);
+		checkArray(mRecentProjects, mMaxRecentProjects);
 	}
 
 	void RecentFilesManager::shutdown()
 	{
 		SettingsManager::getInstance().setValue("Files/RecentFolder", MyGUI::utility::toUtf8(mRecentFolder));
-
-		SettingsManager::getInstance().setValueList("Files/RecentFolder.List", mRecentFolders);
-
-		SettingsManager::getInstance().setValueList("Files/RecentFile.List", mRecentFiles);
+		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFolder.List", mRecentFolders);
+		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFile.List", mRecentFiles);
+		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentProject.List", mRecentProjects);
 	}
 
 	void RecentFilesManager::addRecentFolder(const std::filesystem::path& _folder)
@@ -87,11 +89,27 @@ namespace tools
 		mRecentFiles.insert(mRecentFiles.begin(), _fileName);
 
 		checkArray(mRecentFiles, mMaxRecentFiles);
+
+		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentFile.List", mRecentFiles);
 	}
 
 	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFiles() const
 	{
 		return mRecentFiles;
+	}
+
+	void RecentFilesManager::addRecentProject(const MyGUI::UString& _fileName)
+	{
+		mRecentProjects.insert(mRecentProjects.begin(), _fileName);
+
+		checkArray(mRecentProjects, mMaxRecentProjects);
+
+		SettingsManager::getInstance().setValueList<MyGUI::UString>("Files/RecentProject.List", mRecentProjects);
+	}
+
+	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentProjects() const
+	{
+		return mRecentProjects;
 	}
 
 }

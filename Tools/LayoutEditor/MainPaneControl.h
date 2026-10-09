@@ -2,7 +2,7 @@
 #define _c094d4c6_6c07_414d_979a_f85dde3f4e7b_
 
 #include "Control.h"
-#include "MainMenuControl.h"
+#include "MainMenuControlLE.h"
 #include "MainWorkspaceControl.h"
 
 namespace tools

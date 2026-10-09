@@ -8,7 +8,7 @@
 #define _e7d61788_3d54_4fbc_90c9_77878d1e73c1_
 
 #include "StateController.h"
-#include "BackgroundControl.h"
+#include "Control.h"
 #include "sigslot.h"
 
 namespace tools
@@ -33,7 +33,7 @@ namespace tools
 
 	private:
 		MyGUI::xml::Document* mTestLayout{nullptr};
-		BackgroundControlLE* mBackgroundControl{nullptr};
+		Control* mBackgroundControl{nullptr};
 	};
 
 }
