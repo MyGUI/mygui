@@ -2,6 +2,9 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
+#ifdef __EMSCRIPTEN__
+	#include <vector>
+#endif
 
 namespace MyGUI
 {
@@ -35,6 +38,11 @@ namespace MyGUI
 		size_t mNeedVertexCount{0};
 		size_t mSizeInBytes{0};
 		bool mLocked{false};
+#ifdef __EMSCRIPTEN__
+		// WebGL cannot map GPU buffers. Reuse CPU storage for lock(), then upload in unlock()
+		// without requiring Emscripten's FULL_ES3 mapping emulation.
+		std::vector<Vertex> mVertices;
+#endif
 	};
 
 } // namespace MyGUI

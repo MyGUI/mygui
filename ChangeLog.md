@@ -11,6 +11,7 @@
   OpenGL and Direct3D9 backends, including Ogre Direct3D9, now use normal texture filtering for previews
 
 ### Platforms
+- OpenGLES: no longer require Emscripten's `FULL_ES3` emulation in web builds
 - OpenGL3: fix custom shader replacement and render-target orientation with different uniform locations
 - OpenGL3: release temporary shader objects on compilation and linking failures
 - OgreNext: reduce CPU conversions and intermediate storage during texture transfers

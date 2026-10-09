@@ -18,6 +18,7 @@ target_link_libraries(${PROJECTNAME}
 )
 
 if(EMSCRIPTEN)
+	target_link_options(${PROJECTNAME} PUBLIC "-sMIN_WEBGL_VERSION=2")
 	target_link_libraries(${PROJECTNAME} PRIVATE OpenGL::GL)
 else()
 	target_link_libraries(${PROJECTNAME} PUBLIC MyGUI_GLES)

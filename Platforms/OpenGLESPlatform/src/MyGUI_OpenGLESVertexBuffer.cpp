@@ -54,12 +54,18 @@ namespace MyGUI
 	Vertex* OpenGLESVertexBuffer::lock()
 	{
 		MYGUI_PLATFORM_ASSERT(!mLocked, "Vertex buffer is already locked");
+#ifndef __EMSCRIPTEN__
 		BufferState state;
+#endif
 		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
 			resize();
 
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
+#ifdef __EMSCRIPTEN__
+		// WebGL has no buffer mapping. Reuse CPU storage between uploads.
+		Vertex* pBuffer = mVertices.data();
+#else
 		// Use glMapBuffer
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
 
@@ -70,6 +76,7 @@ namespace MyGUI
 			glMapBufferRange(GL_ARRAY_BUFFER, 0, mSizeInBytes, GL_MAP_INVALIDATE_BUFFER_BIT | GL_MAP_WRITE_BIT);
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
+#endif
 
 		mLocked = true;
 
@@ -83,10 +90,17 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
+#ifdef __EMSCRIPTEN__
+		// Replace storage so earlier draws retain their vertex data.
+		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, mVertices.data(), GL_STREAM_DRAW);
+#else
 		GLboolean result = glUnmapBuffer(GL_ARRAY_BUFFER);
+#endif
 		mLocked = false;
 
+#ifndef __EMSCRIPTEN__
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
+#endif
 	}
 
 	void OpenGLESVertexBuffer::create()
@@ -95,6 +109,9 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
 		mSizeInBytes = mVertexCount * sizeof(Vertex);
+#ifdef __EMSCRIPTEN__
+		mVertices.resize(mVertexCount);
+#endif
 		void* data = nullptr;
 
 		glGenBuffers(1, &mBufferID);
