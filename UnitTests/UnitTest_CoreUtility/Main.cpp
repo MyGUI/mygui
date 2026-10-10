@@ -178,6 +178,8 @@ namespace
 	struct alignas(64) AlignedValue
 	{
 		int value = 42;
+		// Explicit padding avoids MSVC warning C4324.
+		std::byte padding[64 - sizeof(int)]{};
 	};
 
 	struct RestrictedAllocation
