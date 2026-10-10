@@ -15,37 +15,55 @@ namespace MyGUI
 	Any::Any() = default;
 
 	Any::Any(const Any& other) :
-		mContent(other.mContent ? other.mContent->clone() : nullptr)
+		mData(other.mData ? other.mType->copy(other.mData) : nullptr),
+		mType(other.mType)
 	{
 	}
 
-	Any::Any(Any&& other) noexcept = default;
+	Any::Any(Any&& other) noexcept :
+		mData(std::exchange(other.mData, nullptr)),
+		mType(std::exchange(other.mType, nullptr))
+	{
+	}
 
-	Any::~Any() = default;
+	Any::~Any()
+	{
+		if (mData)
+			mType->destroy(mData);
+	}
 
 	Any& Any::operator=(const Any& rhs)
 	{
-		mContent = rhs.mContent ? rhs.mContent->clone() : nullptr;
+		return *this = Any(rhs);
+	}
+
+	Any& Any::operator=(Any&& rhs) noexcept
+	{
+		if (this != &rhs)
+		{
+			// rhs may be nested inside our current value; capture it before destroying that value.
+			Any incoming(std::move(rhs));
+			std::swap(mData, incoming.mData);
+			std::swap(mType, incoming.mType);
+		}
 		return *this;
 	}
 
-	Any& Any::operator=(Any&& rhs) noexcept = default;
-
 	bool Any::empty() const
 	{
-		return !mContent;
+		return !mData;
 	}
 
 	const std::type_info& Any::getType() const
 	{
-		return mContent ? mContent->getType() : typeid(void);
+		return mType ? mType->type : typeid(void);
 	}
 
 	bool Any::compare(const Any& other) const
 	{
-		if (mContent == nullptr && other.mContent == nullptr)
-			return true;
-		return mContent != nullptr && other.mContent != nullptr && mContent->compare(other.mContent);
+		if (empty() || other.empty())
+			return empty() == other.empty();
+		return mType->compare(mData, other.mData, other.mType->type);
 	}
 
 } // namespace MyGUI

@@ -73,6 +73,23 @@ namespace
 		checkSelectionMutations(createList<MyGUI::ListBox>(context.getGui()));
 	}
 
+	void testItemDataPointerStability()
+	{
+		unittest::TestContext context;
+		auto* list = createList<MyGUI::ListBox>(context.getGui());
+		list->addItem("first", 42);
+		int* saved = list->getItemDataAt<int>(0);
+		for (int i = 0; i < 128; ++i)
+			list->addItem("next", i);
+		require(list->getItemDataAt<int>(0) == saved, "Adding items must preserve existing item-data pointers");
+		list->insertItemAt(0, "before", 17);
+		require(list->getItemDataAt<int>(1) == saved, "Inserting before an item must preserve its data pointer");
+		list->removeItemAt(0);
+		require(list->getItemDataAt<int>(0) == saved, "Removing another item must preserve surviving data pointers");
+		*saved = 43;
+		require(*list->getItemDataAt<int>(0) == 43, "Saved item-data pointers must remain usable after list mutations");
+	}
+
 	void testListKeyboardNavigation()
 	{
 		std::vector<size_t> changes;
@@ -345,6 +362,7 @@ int main()
 {
 	return unittest::runTests({
 		{"List selection mutations", testListSelection},
+		{"List item-data pointer stability", testItemDataPointerStability},
 		{"MultiList selection mutations", testMultiListSelection},
 		{"Empty ListBox scrolling", testEmptyListRejectsScrolling},
 		{"ListBox resize selection appearance", testResizeRefreshesSelectedRow},

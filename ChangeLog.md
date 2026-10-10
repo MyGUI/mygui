@@ -1,9 +1,15 @@
 ## MyGUI v3.5.3
 
+### Compatibility
+- Const overloads of `Any::castType<T>`, `UserData::getUserData<T>`, `ListBox::getItemDataAt<T>` now return `const T*`
+  instead of `T*`. Update read-only callers to accept `const T*`; use a non-const object when mutable access is
+  required. Non-const overloads continue to return `T*`
+
 ### Core
 - Improve widget movement, resizing, hit testing and text rendering performance; reduce repeated text-layout allocations
 - Reduce compile time and binary size by sharing delegate and utility code and moving widget constructors and
   destructors out of headers
+- Reimplement `MyGUI::Any` storage and add const-correct access
 
 ### Tools
 - Replace `FilterNone` skins with regular `ImageBox` widgets and `NearestFilter` shaders for nearest-neighbour

@@ -4,21 +4,14 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-// -- Based on boost::any, original copyright information follows --
-// Copyright Kevlin Henney, 2000, 2001, 2002. All rights reserved.
-//
-// Distributed under the Boost Software License, Version 1.0.
-// (See at http://www.boost.org/LICENSE_1_0.txt)
-// -- End original copyright --
-
 #ifndef MYGUI_ANY_H_
 #define MYGUI_ANY_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Diagnostic.h"
-#include <algorithm>
-
+#include <type_traits>
 #include <typeinfo>
+#include <utility>
 
 namespace MyGUI
 {
@@ -63,15 +56,15 @@ namespace MyGUI
 
 		template<typename ValueType>
 		Any(const ValueType& value) :
-			mContent(std::make_unique<Holder<ValueType>>(value))
+			mData(::new std::decay_t<const ValueType>(value)),
+			mType(getTypeOps<std::decay_t<const ValueType>>())
 		{
 		}
 
 		template<typename ValueType>
 		Any& operator=(const ValueType& rhs)
 		{
-			mContent = std::make_unique<Holder>(rhs);
-			return *this;
+			return *this = Any(rhs);
 		}
 
 		Any& operator=(const Any& rhs);
@@ -82,10 +75,26 @@ namespace MyGUI
 		const std::type_info& getType() const;
 
 		template<typename ValueType>
-		ValueType* castType(bool _throw = true) const
+		ValueType* castType(bool _throw = true)
 		{
-			if (this->getType() == typeid(ValueType))
-				return &static_cast<Any::Holder<ValueType>*>(this->mContent.get())->held;
+			if constexpr (std::is_object_v<ValueType>)
+			{
+				if (mData && mType->type == typeid(ValueType))
+					return static_cast<ValueType*>(mData);
+			}
+			if (_throw)
+				detail::throwBadCast(getType().name(), typeid(ValueType).name(), __FILE__, __LINE__);
+			return nullptr;
+		}
+
+		template<typename ValueType>
+		const ValueType* castType(bool _throw = true) const
+		{
+			if constexpr (std::is_object_v<ValueType>)
+			{
+				if (mData && mType->type == typeid(ValueType))
+					return static_cast<const ValueType*>(mData);
+			}
 			if (_throw)
 				detail::throwBadCast(getType().name(), typeid(ValueType).name(), __FILE__, __LINE__);
 			return nullptr;
@@ -94,75 +103,52 @@ namespace MyGUI
 		bool compare(const Any& other) const;
 
 	private:
-		class Placeholder
-		{
-		public:
-			virtual ~Placeholder() = default;
-
-		public:
-			virtual const std::type_info& getType() const = 0;
-			virtual std::unique_ptr<Placeholder> clone() const = 0;
-			virtual bool compare(const std::unique_ptr<Placeholder>& other) const = 0;
-		};
-
-		template<class T>
-		struct HasOperatorEqualImpl
-		{
-			template<typename U>
-			static auto test(U*) -> decltype(std::declval<U>() == std::declval<U>());
-			template<typename>
-			static auto test(...) -> std::false_type;
-
-			using type = typename std::is_same<bool, decltype(test<T>(nullptr))>::type;
-			static constexpr bool value = type::value;
-		};
-
-		template<class T>
-		struct HasOperatorEqual : HasOperatorEqualImpl<T>::type
+		template<typename T, typename = void>
+		struct HasOperatorEqual : std::false_type
 		{
 		};
+
+		template<typename T>
+		struct HasOperatorEqual<T, std::void_t<decltype(std::declval<const T&>() == std::declval<const T&>())>> :
+			std::is_same<bool, decltype(std::declval<const T&>() == std::declval<const T&>())>
+		{
+		};
+
 		template<typename T1, typename T2>
-		struct HasOperatorEqual<std::pair<T1, T2>>
+		struct HasOperatorEqual<std::pair<T1, T2>> : std::conjunction<HasOperatorEqual<T1>, HasOperatorEqual<T2>>
 		{
-			static constexpr bool value = HasOperatorEqualImpl<T1>::value && HasOperatorEqualImpl<T2>::value;
 		};
 
-		template<typename ValueType>
-		class Holder : public Placeholder
+		struct TypeOps
 		{
-			friend class Any;
-
-		public:
-			Holder(const ValueType& value) :
-				held(value)
-			{
-			}
-
-		public:
-			const std::type_info& getType() const override
-			{
-				return typeid(ValueType);
-			}
-
-			std::unique_ptr<Placeholder> clone() const override
-			{
-				return std::make_unique<Holder>(held);
-			}
-
-			bool compare(const std::unique_ptr<Placeholder>& other) const override
-			{
-				if constexpr (HasOperatorEqual<ValueType>::value)
-					return getType() == other->getType() && held == static_cast<Holder*>(other.get())->held;
-				else
-					MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
-			}
-
-		private:
-			ValueType held;
+			const std::type_info& type;
+			void* (*copy)(const void*);
+			void (*destroy)(void*);
+			bool (*compare)(const void*, const void*, const std::type_info&);
 		};
+
+		template<typename T>
+		static const TypeOps* getTypeOps() noexcept
+		{
+			static constexpr TypeOps operations{
+				typeid(T),
+				[](const void* source) -> void* { return ::new T(*static_cast<const T*>(source)); },
+				[](void* source) { ::delete static_cast<T*>(source); },
+				[](const void* left, const void* right, const std::type_info& rightType) -> bool
+				{
+					if constexpr (HasOperatorEqual<T>::value)
+						return typeid(T) == rightType && *static_cast<const T*>(left) == *static_cast<const T*>(right);
+					else
+						MYGUI_EXCEPT("Type '" << typeid(T).name() << "' is not comparable");
+				}};
+			return &operations;
+		}
 
 	private:
-		std::unique_ptr<Placeholder> mContent;
+		// The allocation contains only the value; its operations are shared by type.
+		// Moving an Any transfers ownership without relocating its stored value.
+		void* mData = nullptr;
+		const TypeOps* mType = nullptr;
 	};
 
 } // namespace MyGUI

@@ -44,7 +44,9 @@ namespace MyGUI
 
 			void setData(Any Data);
 			template<typename TYPE>
-			TYPE* getData() const;
+			TYPE* getData();
+			template<typename TYPE>
+			const TYPE* getData() const;
 
 		private:
 			bool mbIsPrepared;
@@ -146,7 +148,13 @@ namespace MyGUI
 		mData = std::move(Data);
 	}
 	template<typename TYPE>
-	TYPE* TreeControl::Node::getData() const
+	TYPE* TreeControl::Node::getData()
+	{
+		return mData.castType<TYPE>(true);
+	}
+
+	template<typename TYPE>
+	const TYPE* TreeControl::Node::getData() const
 	{
 		return mData.castType<TYPE>(true);
 	}

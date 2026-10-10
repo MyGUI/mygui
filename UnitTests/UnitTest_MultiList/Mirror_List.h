@@ -91,7 +91,14 @@ namespace unittest
 
 		//! Get item data from specified position
 		template<typename ValueType>
-		ValueType* getItemDataAt(size_t _index, bool _throw = true) const
+		ValueType* getItemDataAt(size_t _index, bool _throw = true)
+		{
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
+			return mItemsInfo[_index].data.castType<ValueType>(_throw);
+		}
+
+		template<typename ValueType>
+		const ValueType* getItemDataAt(size_t _index, bool _throw = true) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
