@@ -277,8 +277,10 @@ endforeach()
 # Demos and tools optional dependencies
 #######################################################################
 
-find_package(Doxygen)
-macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org" FALSE "" "")
+if(MYGUI_BUILD_DOCS)
+	find_package(Doxygen)
+	macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org" FALSE "" "")
+endif()
 
 # Display results, terminate if anything required is missing
 macro_display_feature_log()

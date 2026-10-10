@@ -70,6 +70,7 @@ option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_ADVANCED_DEMOS "Build advanced MyGUI demos" TRUE)
 cmake_dependent_option(MYGUI_BUILD_WEB_DEMOS "Build a combined browser demo application" FALSE "EMSCRIPTEN" FALSE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
+option(MYGUI_BUILD_DOCS "Generate documentation" FALSE)
 option(MYGUI_BUILD_UNITTESTS "Build the unit tests" TRUE)
 option(MYGUI_BUILD_PLATFORM_TESTS "Build shared graphics platform tests" FALSE)
 if(MYGUI_BUILD_PLATFORM_TESTS)
@@ -85,7 +86,6 @@ cmake_dependent_option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE "WIN32" FAL
 
 cmake_dependent_option(MYGUI_INSTALL_DEMOS "Install MyGUI demos." FALSE "MYGUI_BUILD_DEMOS" FALSE)
 cmake_dependent_option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE "MYGUI_BUILD_TOOLS" FALSE)
-option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;BUILD_SHARED_LIBS" FALSE)
 
 ### Internal options ###
@@ -134,12 +134,10 @@ if(MYGUI_USE_PROJECT_FOLDERS)
 endif()
 
 ######################################################################
-# Dependencies and docs option
+# Dependencies
 ######################################################################
 
 include(Dependencies)
-
-cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 ######################################################################
 # Compiler toolchain settings
