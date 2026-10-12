@@ -4,22 +4,32 @@
 - Const overloads of `Any::castType<T>`, `UserData::getUserData<T>`, `ListBox::getItemDataAt<T>` now return `const T*`
   instead of `T*`. Update read-only callers to accept `const T*`; use a non-const object when mutable access is
   required. Non-const overloads continue to return `T*`
+- Change `ILayerNode::addToRenderItem` to take two arguments; update custom layer-node overrides accordingly. The
+  deprecated three-argument caller overload remains available unless `MYGUI_DONT_USE_OBSOLETE` is enabled, but ignores
+  the manual-render flag
+- Remove no longer used `ISubWidget::doManualRender` and `RenderItem::setManualRender` / `getManualRender`; custom
+  subwidgets now use regular render batches
 
 ### Core
 - Improve widget movement, resizing, hit testing and text rendering performance; reduce repeated text-layout allocations
 - Reduce compile time and binary size by sharing delegate and utility code and moving widget constructors and
   destructors out of headers
-- Reimplement `MyGUI::Any` storage and add const-correct access
+- Replace the Boost-derived `MyGUI::Any` implementation with an MIT-licensed implementation and add const-correct
+  access (#329)
+- Fix `Any` assignment from values and move assignment from nested stored values
 
 ### Tools
 - Replace `FilterNone` skins with regular `ImageBox` widgets and `NearestFilter` shaders for nearest-neighbour
   texture previews. Preview texture copies preserve the original texture's shader, including MSDF font rendering. Legacy
   OpenGL and Direct3D9 backends, including Ogre Direct3D9, now use normal texture filtering for previews
+- LayoutEditor: reuse shared editor framework controls and recent-file/project management, removing duplicate
+  implementations
 
 ### Platforms
 - OpenGLES: no longer require Emscripten's `FULL_ES3` emulation in web builds
 - OpenGL3: fix custom shader replacement and render-target orientation with different uniform locations
-- OpenGL3: release temporary shader objects on compilation and linking failures
+- OpenGL3/OpenGLES: release shader resources on compilation and linking failures and preserve the host shader binding
+  during shader creation
 - OgreNext: reduce CPU conversions and intermediate storage during texture transfers
 - Simplify rendering backends and remove obsolete FilterNone-specific state and APIs
 - DirectX11: create samplers once during initialization, fixing leaked sampler references when registering shaders
@@ -27,6 +37,7 @@
 
 ### Infrastructure
 - Reuse precompiled headers across demos, tools and unit tests
+- Only discover Doxygen when `MYGUI_BUILD_DOCS` is enabled (#328)
 
 ## MyGUI v3.5.2
 ### Release highlights
