@@ -51,6 +51,8 @@ if(
 				-Wno-switch-default # conflicts with Wcovered-switch-default
 				-Wno-lifetime-safety-intra-tu-suggestions
 				-Wno-lifetime-safety-cross-tu-suggestions
+				# Experimental ownership diagnostic also flags intentional pointer-returning accessors.
+				-Wno-experimental-lifetime-safety-field-origin-escape
 				# too many false positives
 				-Wno-lifetime-safety-invalidation
 				-Wno-lifetime-safety-dangling-field
