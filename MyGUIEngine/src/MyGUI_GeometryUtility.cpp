@@ -64,7 +64,7 @@ namespace MyGUI::geometry_utility
 
 	FloatRect toRenderTarget(const FloatRect& _rect, const RenderTargetInfo& _info, IntPoint _origin)
 	{
-		FloatPoint corners[] = {{_rect.left, _rect.top}, {_rect.right, _rect.bottom}};
+		std::array<FloatPoint, 2> corners = {{{_rect.left, _rect.top}, {_rect.right, _rect.bottom}}};
 		toRenderTargetInPlace(corners, _info, _origin);
 		return {corners[0].left, corners[0].top, corners[1].left, corners[1].top};
 	}

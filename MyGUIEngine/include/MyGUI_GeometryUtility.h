@@ -59,12 +59,6 @@ namespace MyGUI
 			IntPoint _origin = {});
 
 		template<size_t N>
-		void toRenderTargetInPlace(FloatPoint (&_points)[N], const RenderTargetInfo& _info, IntPoint _origin = {})
-		{
-			toRenderTargetInPlace(_points, N, _info, _origin);
-		}
-
-		template<size_t N>
 		void toRenderTargetInPlace(
 			std::array<FloatPoint, N>& _points,
 			const RenderTargetInfo& _info,

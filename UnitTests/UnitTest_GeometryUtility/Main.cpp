@@ -104,11 +104,11 @@ namespace
 				MyGUI::FloatRect(-0.5f, 1.25f, -0.5f, 1.25f),
 			"Empty integer rectangles must preserve negative positions");
 
-		MyGUI::FloatPoint points[] = {local, {48, 24}};
+		std::array<MyGUI::FloatPoint, 2> points = {{local, {48, 24}}};
 		toRenderTargetInPlace(points, info, origin);
 		require(
 			points[0] == expected && points[1] == MyGUI::FloatPoint(0.5f, 0.25f),
-			"Array conversion must convert every corner");
+			"std::array conversion must apply the explicit origin to every corner");
 		std::array<MyGUI::FloatPoint, 2> absolutePoints = {{absolute, {88, 44}}};
 		toRenderTargetInPlace(absolutePoints, info);
 		require(
