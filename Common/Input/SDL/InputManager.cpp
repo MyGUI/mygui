@@ -16,8 +16,7 @@ namespace input
 		int sdlKey;
 		MyGUI::KeyCode myguiKey;
 	};
-	static KeyMapItem mapItems[] = {
-		{0, MyGUI::KeyCode::None},
+	static const KeyMapItem mapItems[] = {
 		{SDLK_UNKNOWN, MyGUI::KeyCode::None},
 		{SDLK_ESCAPE, MyGUI::KeyCode::Escape},
 		{SDLK_1, MyGUI::KeyCode::One},
@@ -58,6 +57,7 @@ namespace input
 		{SDLK_k, MyGUI::KeyCode::K},
 		{SDLK_l, MyGUI::KeyCode::L},
 		{SDLK_SEMICOLON, MyGUI::KeyCode::Semicolon},
+		{SDLK_QUOTE, MyGUI::KeyCode::Apostrophe},
 		{SDLK_QUOTEDBL, MyGUI::KeyCode::Apostrophe},
 		{SDLK_BACKQUOTE, MyGUI::KeyCode::Grave},
 		{SDLK_LSHIFT, MyGUI::KeyCode::LeftShift},
@@ -124,7 +124,7 @@ namespace input
 		//{, MyGUI::KeyCode::AX},
 		//{, MyGUI::KeyCode::Unlabeled},
 		//{, MyGUI::KeyCode::NextTrack},
-		{SDLK_KP_DIVIDE, MyGUI::KeyCode::NumpadEnter},
+		{SDLK_KP_ENTER, MyGUI::KeyCode::NumpadEnter},
 		{SDLK_RCTRL, MyGUI::KeyCode::RightControl},
 		//{, MyGUI::KeyCode::Mute},
 		//{, MyGUI::KeyCode::Calculator},
@@ -218,6 +218,8 @@ namespace input
 
 	bool InputManager::mousePressed(const SDL_MouseButtonEvent& evt)
 	{
+		mMouseX = static_cast<int>(evt.x / mDpiScale);
+		mMouseY = static_cast<int>(evt.y / mDpiScale);
 		computeMouseMove();
 		injectMousePress(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
 		return true;
@@ -225,6 +227,8 @@ namespace input
 
 	bool InputManager::mouseReleased(const SDL_MouseButtonEvent& evt)
 	{
+		mMouseX = static_cast<int>(evt.x / mDpiScale);
+		mMouseY = static_cast<int>(evt.y / mDpiScale);
 		computeMouseMove();
 		injectMouseRelease(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
 		return true;
