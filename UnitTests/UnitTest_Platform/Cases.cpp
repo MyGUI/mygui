@@ -91,14 +91,14 @@ namespace platformtest
 				const auto luminance = static_cast<unsigned char>(17 + i * 31);
 				pixel =
 					{luminance, static_cast<unsigned char>(223 - i * 17), static_cast<unsigned char>(37 + i * 19), 255};
-				if (format == MyGUI::PixelFormat::L8 || format == MyGUI::PixelFormat::L8A8)
+				if constexpr (format == MyGUI::PixelFormat::L8 || format == MyGUI::PixelFormat::L8A8)
 				{
 					pixel = {luminance, luminance, luminance, 255};
 					bytes.push_back(luminance);
 				}
 				else
 					bytes.insert(bytes.end(), {pixel[2], pixel[1], pixel[0]});
-				if (format == MyGUI::PixelFormat::L8A8 || format == MyGUI::PixelFormat::R8G8B8A8)
+				if constexpr (format == MyGUI::PixelFormat::L8A8 || format == MyGUI::PixelFormat::R8G8B8A8)
 				{
 					pixel[3] = static_cast<unsigned char>(32 + i * 43);
 					bytes.push_back(pixel[3]);
@@ -140,8 +140,11 @@ namespace platformtest
 				std::vector<unsigned char> expected(size_t(size.width * size.height) * texture->getNumElemBytes());
 				for (size_t i = 0; i < expected.size(); ++i)
 					expected[i] = static_cast<unsigned char>(17 + i * 7);
-				if (format == MyGUI::PixelFormat::R8G8B8A8 && size == MyGUI::IntSize(4, 2))
-					expected = pngBytes();
+				if constexpr (format == MyGUI::PixelFormat::R8G8B8A8)
+				{
+					if (size == MyGUI::IntSize(4, 2))
+						expected = pngBytes();
+				}
 				upload(texture, expected);
 				require(read(texture) == expected, "Readback must reproduce tightly packed bytes");
 				for (size_t edit : {expected.size() / 4, expected.size() - 1})
