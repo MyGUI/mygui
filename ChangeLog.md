@@ -1,3 +1,15 @@
+## MyGUI v3.5.4
+
+### Tools and demos
+- Fix SDL key mappings for apostrophe and numpad Enter
+- Use mouse-button event coordinates for presses and releases, avoiding theoretical stale positions from the last mouse
+  move
+
+### Infrastructure
+- Fix compilation with MSVC 2022 and add CI coverage for this toolset (#331)
+- Fix builds with newer Emscripten when high-level warnings are enabled
+- Build and run platform tests in every CI build-matrix job, including static builds
+
 ## MyGUI v3.5.3
 
 ### Compatibility
