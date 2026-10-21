@@ -75,6 +75,31 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Identify vcpkg cache (Windows)
+        if: runner.os == 'Windows'
+        id: vcpkg-config
+        shell: pwsh
+        env:
+          MYGUI_CMAKE_FLAGS: ${{ matrix.cmake_flags }}
+        run: |
+          $cachePath = Join-Path $env:RUNNER_TEMP 'vcpkg-binary-cache'
+          New-Item -ItemType Directory -Force -Path $cachePath | Out-Null
+          "VCPKG_DEFAULT_BINARY_CACHE=$cachePath" >> $env:GITHUB_ENV
+          "path=$cachePath" >> $env:GITHUB_OUTPUT
+          $revision = git -C $env:VCPKG_INSTALLATION_ROOT rev-parse HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the vcpkg revision' }
+          $flagsHash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData(
+            [Text.Encoding]::UTF8.GetBytes($env:MYGUI_CMAKE_FLAGS)))
+          "key=vcpkg-${{ runner.os }}-${{ runner.arch }}-$env:ImageOS-$env:ImageVersion-$revision-$flagsHash-${{ hashFiles('vcpkg*.json', '.github/workflows/build.yml') }}" >> $env:GITHUB_OUTPUT
+
+      - name: Restore vcpkg binaries (Windows)
+        if: runner.os == 'Windows'
+        id: vcpkg-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ steps.vcpkg-config.outputs.path }}
+          key: ${{ steps.vcpkg-config.outputs.key }}
+
       - name: Install build dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -114,6 +139,14 @@ jobs:
           ${{ matrix.cmake_flags }}
           -DMYGUI_BUILD_UNITTESTS=ON
           -DMYGUI_BUILD_PLATFORM_TESTS=ON
+
+      # Preserve dependency binaries even if the subsequent MyGUI build fails.
+      - name: Save vcpkg binaries (Windows)
+        if: runner.os == 'Windows' && steps.vcpkg-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ steps.vcpkg-config.outputs.path }}
+          key: ${{ steps.vcpkg-cache.outputs.cache-primary-key }}
 
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel ${{ matrix.build_jobs || '' }}

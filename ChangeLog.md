@@ -9,6 +9,7 @@
 - Fix compilation with MSVC 2022 and add CI coverage for this toolset (#331)
 - Fix builds with newer Emscripten when high-level warnings are enabled
 - Build and run platform tests in every CI build-matrix job, including static builds
+- Cache vcpkg dependency binaries between Windows CI runs
 
 ## MyGUI v3.5.3
 
