@@ -67,7 +67,8 @@ Select a backend with the `-DMYGUI_RENDERSYSTEM=<id>` CMake option.
 
 - CMake ≥ 3.22
 - C++17 compiler
-- SDL2 for tools and demos
+- SDL2 ≥ 2.0.6 for tools and demos
+- SDL2_image ≥ 2.0.2 for OpenGL, OpenGL ES, and Vulkan render system
 - FreeType (optional, enabled by default)
 - glad (required on Windows for OpenGL and OpenGL 3.x backends)
 - One of the render systems

@@ -1,3 +1,8 @@
+## MyGUI v3.5.5
+
+### Tools and demos
+- Support SDL 2.0.6 and newer without requiring SDL 2.26's window-size API
+
 ## MyGUI v3.5.4
 
 ### Tools and demos

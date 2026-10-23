@@ -135,7 +135,7 @@ if(MYGUI_BUILD_DEMOS OR MYGUI_BUILD_ADVANCED_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI
 		target_compile_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
 		target_link_options(SDL2::SDL2 INTERFACE "--use-port=sdl2")
 	else()
-		find_package(SDL2)
+		find_package(SDL2 2.0.6 REQUIRED)
 	endif()
 endif()
 

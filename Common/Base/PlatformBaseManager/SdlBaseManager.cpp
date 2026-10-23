@@ -127,9 +127,8 @@ namespace base
 		// Retina and browser DPI scaling enlarge the drawable while window and mouse coordinates stay logical.
 		// Query after creating the rendering context, before Gui initialises its font resources.
 		int windowWidth = 0;
-		int drawableWidth = 0;
 		SDL_GetWindowSize(mSdlWindow, &windowWidth, nullptr);
-		SDL_GetWindowSizeInPixels(mSdlWindow, &drawableWidth, nullptr);
+		const int drawableWidth = getDrawableSize().width;
 		if (windowWidth > 0 && drawableWidth > 0)
 			dpiScale = static_cast<float>(drawableWidth) / windowWidth;
 #endif
@@ -267,7 +266,13 @@ namespace base
 	{
 		int width = 0, height = 0;
 		if (mSdlWindow)
+		{
+#if SDL_VERSION_ATLEAST(2, 26, 0)
 			SDL_GetWindowSizeInPixels(mSdlWindow, &width, &height);
+#else
+			SDL_GL_GetDrawableSize(mSdlWindow, &width, &height);
+#endif
+		}
 		return {width, height};
 	}
 

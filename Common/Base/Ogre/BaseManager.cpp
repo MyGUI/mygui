@@ -38,7 +38,9 @@ namespace base
 		SDL_GL_CreateContext(mSdlWindow);
 		params["currentGLContext"] = "true";
 		// Ogre sets the canvas backing size; preserve SDL's CSS and device-pixel scaling.
-		SDL_GetWindowSizeInPixels(mSdlWindow, &_width, &_height);
+		const auto drawableSize = getDrawableSize();
+		_width = drawableSize.width;
+		_height = drawableSize.height;
 #else
 		SDL_SysWMinfo wmInfo;
 		SDL_VERSION(&wmInfo.version)
