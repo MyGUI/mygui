@@ -6,9 +6,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <cwctype>
 #include <utility>
-#include <limits>
 #include "MyGUI_FileSystemUtility.h"
 
 namespace common
@@ -55,70 +53,34 @@ namespace common
 		return pi == pattern.size();
 	}
 
-	inline VectorFileInfo getSystemFileList(
-		const std::filesystem::path& _folder,
-		const std::filesystem::path& _mask,
-		bool _sorted = true)
+	inline VectorFileInfo getSystemFileList(const std::filesystem::path& _folder)
 	{
 		std::error_code ec;
-
-		const auto searchDir = _folder / _mask.parent_path();
-
-		const MyGUI::UString pattern =
-			_mask.filename() == "*.*" ? MyGUI::UString{} : MyGUI::UString(MyGUI::utility::toUtf8(_mask.filename()));
-
 		auto iter = std::filesystem::directory_iterator(
-			searchDir,
+			_folder,
 			std::filesystem::directory_options::skip_permission_denied,
 			ec);
 		if (ec)
 		{
-			MYGUI_LOG(Error, "Can't open " + MyGUI::utility::toUtf8(searchDir));
+			MYGUI_LOG(Error, "Can't open " + MyGUI::utility::toUtf8(_folder));
 			return {};
 		}
 
 		VectorFileInfo result;
-
 		// ".." is not returned by directory_iterator; add it manually so file dialogs can navigate up
 		result.emplace_back("..", true);
-
 		for (const auto& entry : iter)
-		{
-			auto name = entry.path().filename();
+			result.emplace_back(entry.path().filename(), entry.is_directory());
 
-			if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::toUtf8(name))))
-				continue;
-
-			result.emplace_back(name, entry.is_directory());
-		}
-
-		if (_sorted)
-			std::sort(
-				result.begin(),
-				result.end(),
-				[](const FileInfo& a, const FileInfo& b)
-				{
-					if (a.folder != b.folder)
-						return a.folder;
-					const MyGUI::UString aName(MyGUI::utility::toUtf8(a.name));
-					const MyGUI::UString bName(MyGUI::utility::toUtf8(b.name));
-					return std::lexicographical_compare(
-						aName.begin(),
-						aName.end(),
-						bName.begin(),
-						bName.end(),
-						[](char32_t c1, char32_t c2)
-						{
-							// Preserve code points outside the native wide character range.
-							const auto lower1 = c1 > static_cast<char32_t>(std::numeric_limits<wchar_t>::max())
-								? c1
-								: static_cast<char32_t>(std::towlower(static_cast<wint_t>(c1)));
-							const auto lower2 = c2 > static_cast<char32_t>(std::numeric_limits<wchar_t>::max())
-								? c2
-								: static_cast<char32_t>(std::towlower(static_cast<wint_t>(c2)));
-							return lower1 < lower2;
-						});
-				});
+		std::sort(
+			result.begin(),
+			result.end(),
+			[](const FileInfo& a, const FileInfo& b)
+			{
+				if (a.folder != b.folder)
+					return a.folder;
+				return a.name < b.name;
+			});
 		return result;
 	}
 
@@ -129,9 +91,6 @@ namespace common
 		const MyGUI::UString& _mask,
 		bool _fullpath)
 	{
-		// Normalize DOS-style *.* (match all)
-		const MyGUI::UString pattern = (_mask == "*.*") ? MyGUI::UString() : _mask;
-
 		std::error_code ec;
 
 		auto iterate = [&](auto iter, auto end) -> void
@@ -143,7 +102,7 @@ namespace common
 				if (entry.is_directory())
 					continue;
 
-				if (!pattern.empty() && !matchWildcard(pattern, MyGUI::UString(MyGUI::utility::toUtf8(name))))
+				if (!_mask.empty() && !matchWildcard(_mask, MyGUI::UString(MyGUI::utility::toUtf8(name))))
 					continue;
 
 				if (_fullpath)

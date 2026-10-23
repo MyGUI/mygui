@@ -10,7 +10,6 @@
 #include "CommandManager.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
-#include "FileSystemInfo.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
 #include "WidgetSelectorManager.h"
@@ -551,10 +550,8 @@ namespace tools
 
 	bool ProjectControl::isExistFile(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName)
 	{
-		common::VectorFileInfo fileInfo =
-			common::getSystemFileList(_filePath, MyGUI::utility::toPath(_fileName), false);
-
-		return !fileInfo.empty();
+		std::error_code ec;
+		return std::filesystem::exists(_filePath / MyGUI::utility::toPath(_fileName), ec);
 	}
 
 	void ProjectControl::createProject(const std::filesystem::path& _filePath, const MyGUI::UString& _fileName)

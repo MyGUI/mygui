@@ -52,7 +52,7 @@ SampleLayout::SampleLayout() :
 		pRoot->add(pNode);
 	}
 #else*/
-	common::VectorFileInfo result = common::getSystemFileList(gMediaBase, "*.*");
+	common::VectorFileInfo result = common::getSystemFileList(gMediaBase);
 
 	for (auto& item : result)
 	{
@@ -135,7 +135,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 	if (info.second.folder)
 	{
 		const auto path = info.first / info.second.name;
-		common::VectorFileInfo result = common::getSystemFileList(path, "*.*");
+		common::VectorFileInfo result = common::getSystemFileList(path);
 
 		for (auto& item : result)
 		{

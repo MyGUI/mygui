@@ -142,25 +142,13 @@ namespace tools
 
 		mListFiles->removeAllItems();
 
-		// add all folders first
-		common::VectorFileInfo infos = common::getSystemFileList(mCurrentFolder, "*");
-
-		for (const auto& info : infos)
+		for (const auto& info : common::getSystemFileList(mCurrentFolder))
 		{
+			const auto name = MyGUI::utility::toUtf8(info.name);
 			if (info.folder)
-				mListFiles->addItem("[" + MyGUI::utility::toUtf8(info.name) + "]", info);
-		}
-
-		if (!mFolderMode)
-		{
-			// add files by given mask
-			infos = common::getSystemFileList(mCurrentFolder, MyGUI::utility::toPath(mFileMask));
-
-			for (const auto& info : infos)
-			{
-				if (!info.folder)
-					mListFiles->addItem(MyGUI::utility::toUtf8(info.name), info);
-			}
+				mListFiles->addItem("[" + name + "]", info);
+			else if (!mFolderMode && (mFileMask.empty() || common::matchWildcard(mFileMask, MyGUI::UString(name))))
+				mListFiles->addItem(name, info);
 		}
 	}
 

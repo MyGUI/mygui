@@ -307,10 +307,12 @@ namespace
 		const MyGUI::UString mask(std::u32string(U"\u0411?.xml"));
 		require(common::matchWildcard(mask, name), "A wildcard must match one complete supplementary character");
 		require(!common::matchWildcard("?.xml", name), "A wildcard must not consume two code points");
-		const auto files = common::getSystemFileList(directory, MyGUI::utility::toPath(mask));
+		require(document.save(directory / "other.layout"), "The fixture must include a nonmatching file");
+		const auto files = common::getSystemFileList(directory);
 		require(
-			files.size() == 2 && files[1].name == filename && !files[1].folder,
-			"File dialogs must list and filter Unicode filenames");
+			files.size() == 3 && files[0].name == ".." && files[0].folder && files[1].name == "other.layout" &&
+				!files[1].folder && files[2].name == filename && !files[2].folder,
+			"Directory listings must include all filenames and preserve Unicode");
 		common::VectorPath scanned;
 		common::scanFolder(scanned, directory, true, mask, true);
 		require(scanned.size() == 1 && scanned.front() == path, "Resource scanning must preserve Unicode paths");
@@ -328,10 +330,17 @@ namespace
 			scanned.size() == 2 &&
 				std::find(scanned.begin(), scanned.end(), directory / subdirectory / filename) != scanned.end(),
 			"Recursive scans must preserve Unicode subdirectory paths");
-		const auto nestedFiles = common::getSystemFileList(directory, subdirectory / MyGUI::utility::toPath(mask));
+		const auto nestedFiles = common::getSystemFileList(directory / subdirectory);
 		require(
 			nestedFiles.size() == 2 && nestedFiles[1].name == filename,
-			"File masks must support a directory prefix");
+			"Directory listings must accept Unicode subdirectory paths");
+
+		require(document.save(directory / "README"), "The fixture must include an extensionless file");
+		scanned.clear();
+		common::scanFolder(scanned, directory, false, {}, false);
+		require(
+			scanned.size() == 3 && std::find(scanned.begin(), scanned.end(), "README") != scanned.end(),
+			"An empty mask must include all files, including extensionless names");
 
 		std::ifstream file(path, std::ios::binary);
 		MyGUI::xml::Document streamed;

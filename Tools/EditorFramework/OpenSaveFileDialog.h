@@ -65,7 +65,7 @@ namespace tools
 
 		std::filesystem::path mCurrentFolder;
 		MyGUI::UString mFileName;
-		MyGUI::UString mFileMask{"*.*"};
+		MyGUI::UString mFileMask;
 
 		MyGUI::UString mMode;
 		bool mFolderMode{false};
