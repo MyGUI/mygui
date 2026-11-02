@@ -730,7 +730,12 @@ namespace MyGUI
 
 	FloatPoint Widget::getRotationCenter() const
 	{
-		return mCustomRotationCenter ? mRotationCenter : FloatPoint(mCoord.width * 0.5f, mCoord.height * 0.5f);
+		return getRotationCenterForSize(mCoord.size());
+	}
+
+	FloatPoint Widget::getRotationCenterForSize(const IntSize& _size) const
+	{
+		return mCustomRotationCenter ? mRotationCenter : FloatPoint(_size.width * 0.5f, _size.height * 0.5f);
 	}
 
 	FloatPoint Widget::RotationTransform::transformPoint(const FloatPoint& _point) const

@@ -159,7 +159,7 @@ namespace MyGUI
 			mPreActionCoord = mCoord;
 			mCurrentActionScale = _getActionScale(_sender);
 			if (mCurrentActionScale.width != 0 || mCurrentActionScale.height != 0)
-				mPreActionAnchor = localToLayer(getResizeAnchor());
+				mPreActionAnchor = localToLayer(getResizeAnchor(mCoord.size()));
 		}
 	}
 
@@ -189,13 +189,14 @@ namespace MyGUI
 
 		if (moveOnly)
 			setPosition(requestedCoord.point());
-		else if (mCurrentActionScale.left == 0 && mCurrentActionScale.top == 0)
-			setSize(requestedCoord.size());
 		else
-			setCoord(requestedCoord);
-
-		if (!moveOnly)
-			restoreResizeAnchor();
+		{
+			const IntCoord coord = mCurrentActionScale.left == 0 && mCurrentActionScale.top == 0
+				? IntCoord(mCoord.point(), getConstrainedSize(requestedCoord.size()))
+				: getConstrainedCoord(requestedCoord);
+			// Apply the constrained, anchored rectangle once, without snapping the corrected position again.
+			Base::setCoord(getAnchoredResizeCoord(coord));
+		}
 
 		// send event about position and size change
 		eventWindowChangeCoord(this);
@@ -250,6 +251,11 @@ namespace MyGUI
 
 	void Window::setSize(const IntSize& _size)
 	{
+		Base::setSize(getConstrainedSize(_size));
+	}
+
+	IntSize Window::getConstrainedSize(const IntSize& _size) const
+	{
 		IntSize size = _size;
 		// snap to edges
 
@@ -262,7 +268,7 @@ namespace MyGUI
 		else if (size.height > mMinmax.bottom)
 			size.height = mMinmax.bottom;
 		if ((size.width == mCoord.width) && (size.height == mCoord.height))
-			return;
+			return size;
 
 		if (mSnap)
 		{
@@ -271,10 +277,15 @@ namespace MyGUI
 			size = coord.size();
 		}
 
-		Base::setSize(size);
+		return size;
 	}
 
 	void Window::setCoord(const IntCoord& _coord)
+	{
+		Base::setCoord(getConstrainedCoord(_coord));
+	}
+
+	IntCoord Window::getConstrainedCoord(const IntCoord& _coord) const
 	{
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
@@ -323,10 +334,7 @@ namespace MyGUI
 			getSnappedCoord(coord, Snap::Size);
 		}
 
-		if (coord == mCoord)
-			return;
-
-		Base::setCoord(coord);
+		return coord;
 	}
 
 	void Window::setCaption(const UString& _caption)
@@ -603,28 +611,24 @@ namespace MyGUI
 		return {};
 	}
 
-	FloatPoint Window::getResizeAnchor() const
+	FloatPoint Window::getResizeAnchor(const IntSize& _size) const
 	{
 		return FloatPoint(
-			(float)(mCurrentActionScale.width < 0 ? mCoord.width : 0),
-			(float)(mCurrentActionScale.height < 0 ? mCoord.height : 0));
+			(float)(mCurrentActionScale.width < 0 ? _size.width : 0),
+			(float)(mCurrentActionScale.height < 0 ? _size.height : 0));
 	}
 
-	void Window::restoreResizeAnchor()
+	IntCoord Window::getAnchoredResizeCoord(IntCoord _coord) const
 	{
-		// Resizing can move the rotation pivot; restore the opposite displayed corner.
-		const FloatPoint currentAnchor = localToLayer(getResizeAnchor());
+		// Moving the pivot offsets the local point before rotation and the result after rotation.
+		const FloatPoint pivotOffset = getRotationCenterForSize(_coord.size()) - getRotationCenter();
+		const FloatPoint currentAnchor = localToLayer(getResizeAnchor(_coord.size()) - pivotOffset);
 		const Widget* parent = getParent();
 		const FloatPoint targetInParent = parent ? parent->layerToLocal(mPreActionAnchor) : mPreActionAnchor;
 		const FloatPoint currentInParent = parent ? parent->layerToLocal(currentAnchor) : currentAnchor;
-		const IntPoint correction(
-			(int)std::lround(targetInParent.left - currentInParent.left),
-			(int)std::lround(targetInParent.top - currentInParent.top));
-		if (correction != IntPoint())
-		{
-			// Bypass window snapping so the anchor correction is applied exactly.
-			Base::setPosition(mCoord.point() + correction);
-		}
+		_coord.left = mCoord.left + (int)std::lround(targetInParent.left - currentInParent.left - pivotOffset.left);
+		_coord.top = mCoord.top + (int)std::lround(targetInParent.top - currentInParent.top - pivotOffset.top);
+		return _coord;
 	}
 
 	void Window::setMovable(bool _value)

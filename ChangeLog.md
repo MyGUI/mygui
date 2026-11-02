@@ -1,5 +1,11 @@
 ## MyGUI v3.5.5
 
+### Core
+- Apply interactive window resizing and anchor correction in one coordinate update, so callbacks observe final geometry
+
+### Compatibility
+- Interactive window resizing applies the final rectangle directly instead of calling virtual `setSize`/`setCoord` overrides
+
 ### Tools and demos
 - Support SDL 2.0.6 and newer without requiring SDL 2.26's window-size API
 

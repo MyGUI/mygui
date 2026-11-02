@@ -1,6 +1,7 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
 #include <cmath>
+#include <vector>
 
 namespace
 {
@@ -252,6 +253,189 @@ namespace
 		input.injectMouseRelease(otherPress.left, otherPress.top, MyGUI::MouseButton::Left);
 	}
 
+	void testResizeNotifications()
+	{
+		for (bool leftEdge : {false, true})
+		{
+			unittest::TestContext context;
+			unittest::createInputLayer();
+			unittest::loadResources("UnitTest_Window/TestSkin.xml");
+			auto* window = context.getGui().createWidget<MyGUI::Window>(
+				"InteractionWindow",
+				MyGUI::IntCoord(100, 100, 200, 120),
+				MyGUI::Align::Default,
+				"Main");
+			window->setRotation(1.5707963268f);
+			window->setMinSize(160, 60);
+			window->setMaxSize(240, 160);
+			std::vector<MyGUI::IntCoord> widgetChanges;
+			std::vector<MyGUI::IntCoord> absoluteChanges;
+			std::vector<MyGUI::IntCoord> windowChanges;
+			window->eventChangeCoord +=
+				MyGUI::newDelegate([&](MyGUI::Widget* sender) { widgetChanges.push_back(sender->getCoord()); }, 1);
+			window->eventWindowChangeCoord +=
+				MyGUI::newDelegate([&](MyGUI::Window* sender) { windowChanges.push_back(sender->getCoord()); }, 2);
+			window->eventChangeAbsoluteCoord +=
+				MyGUI::newDelegate([&](MyGUI::Widget* sender) { absoluteChanges.push_back(sender->getCoord()); }, 3);
+			const auto start = window->localToLayer(MyGUI::FloatPoint(leftEdge ? 5.0f : 195.0f, 115.0f));
+			const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+			auto& input = MyGUI::InputManager::getInstance();
+			input.injectMouseMove(press.left, press.top, 0);
+			input.injectMousePress(press.left, press.top, MyGUI::MouseButton::Left);
+			auto drag = [&](int delta, const MyGUI::IntCoord& expected, bool changed)
+			{
+				widgetChanges.clear();
+				absoluteChanges.clear();
+				windowChanges.clear();
+				input.injectMouseMove(press.left, press.top + delta, 0);
+				require(window->getCoord() == expected, "Resize must preserve the final anchored geometry");
+				require(
+					widgetChanges.size() == (changed ? 1u : 0u),
+					"Resize must emit one widget event per actual change");
+				if (changed)
+					require(
+						widgetChanges.front() == expected,
+						"Widget callback must observe the final anchored geometry");
+				require(
+					absoluteChanges == widgetChanges,
+					"Absolute coordinate notifications must also observe only final geometry");
+				require(
+					windowChanges.size() == 1 && windowChanges.front() == expected,
+					"Window event must observe the completed drag update");
+			};
+			drag(20, leftEdge ? MyGUI::IntCoord(110, 110, 180, 120) : MyGUI::IntCoord(90, 110, 220, 120), true);
+			const MyGUI::IntCoord limit =
+				leftEdge ? MyGUI::IntCoord(120, 120, 160, 120) : MyGUI::IntCoord(80, 120, 240, 120);
+			drag(60, limit, true);
+			drag(80, limit, false);
+			drag(0, MyGUI::IntCoord(100, 100, 200, 120), true);
+			widgetChanges.clear();
+			windowChanges.clear();
+			input.injectMouseRelease(press.left, press.top, MyGUI::MouseButton::Left);
+			require(widgetChanges.empty() && windowChanges.empty(), "Release must not emit coordinate events");
+		}
+	}
+
+	void testResizeWithinRotatedParent()
+	{
+		for (auto style : {MyGUI::WidgetStyle::Child, MyGUI::WidgetStyle::Popup})
+			for (bool customCenter : {false, true})
+				for (bool leftEdge : {false, true})
+					for (float radians : {0.7853981634f, 1.5707963268f})
+					{
+						unittest::TestContext context;
+						unittest::createInputLayer();
+						unittest::loadResources("UnitTest_Window/TestSkin.xml");
+						auto* parent = context.getGui().createWidget<MyGUI::Widget>(
+							"Default",
+							MyGUI::IntCoord(50, 50, 400, 400),
+							MyGUI::Align::Default,
+							"Main");
+						parent->setRotation(1.5707963268f);
+						auto* window = parent->createWidget<MyGUI::Window>(
+							style,
+							"InteractionWindow",
+							MyGUI::IntCoord(100, 100, 200, 120),
+							MyGUI::Align::Default,
+							style == MyGUI::WidgetStyle::Popup ? "Main" : "");
+						window->setRotation(radians);
+						if (customCenter)
+							window->setRotationCenter(MyGUI::FloatPoint(30, 40));
+						const auto anchor = window->localToLayer(MyGUI::FloatPoint(leftEdge ? 200.0f : 0.0f, 0));
+						const auto start = window->localToLayer(MyGUI::FloatPoint(leftEdge ? 5.0f : 195.0f, 115));
+						int localEvents = 0;
+						int absoluteEvents = 0;
+						auto checkAnchor = [&](MyGUI::Widget* sender)
+						{
+							const auto actual =
+								sender->localToLayer(MyGUI::FloatPoint(leftEdge ? (float)sender->getWidth() : 0.0f, 0));
+							require(
+								std::abs(actual.left - anchor.left) < 0.51f &&
+									std::abs(actual.top - anchor.top) < 0.51f,
+								"Resize callbacks must observe the preserved anchor with inherited rotation and custom "
+								"pivots");
+						};
+						window->eventChangeCoord += MyGUI::newDelegate(
+							[&](MyGUI::Widget* sender)
+							{
+								++localEvents;
+								checkAnchor(sender);
+							},
+							1);
+						window->eventChangeAbsoluteCoord += MyGUI::newDelegate(
+							[&](MyGUI::Widget* sender)
+							{
+								++absoluteEvents;
+								checkAnchor(sender);
+							},
+							2);
+						const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+						const auto target = window->localToLayer(MyGUI::FloatPoint(leftEdge ? 25.0f : 215.0f, 115));
+						unittest::dragFromTo(
+							press,
+							MyGUI::IntPoint((int)std::lround(target.left), (int)std::lround(target.top)));
+						require(
+							window->getSize() == MyGUI::IntSize(leftEdge ? 180 : 220, 120),
+							"Nested resize must use the window's axes");
+						require(
+							localEvents == 1 && absoluteEvents == 1,
+							"Nested resize must notify final local and absolute coordinates once");
+					}
+	}
+
+	void testResizeCallbackCanSetCoordinates()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setRotation(1.5707963268f);
+		std::vector<MyGUI::IntCoord> changes;
+		window->eventChangeCoord += MyGUI::newDelegate(
+			[&](MyGUI::Widget* sender)
+			{
+				changes.push_back(sender->getCoord());
+				if (changes.size() == 1)
+					window->setCoord(MyGUI::IntCoord(50, 60, 230, 130));
+			},
+			1);
+		const auto start = window->localToLayer(MyGUI::FloatPoint(195, 115));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		unittest::dragFromTo(press, MyGUI::IntPoint(press.left, press.top + 20));
+		require(
+			changes.size() == 2 && changes[0] == MyGUI::IntCoord(90, 110, 220, 120) &&
+				changes[1] == MyGUI::IntCoord(50, 60, 230, 130),
+			"A callback's explicit coordinate update must be notified immediately");
+		require(window->getCoord() == changes.back(), "The resize must not overwrite callback coordinate changes");
+	}
+
+	void testRotatedResizeSnapping()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(550, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setRotation(1.5707963268f);
+		window->setSnap(true);
+		std::vector<MyGUI::IntCoord> changes;
+		window->eventChangeCoord +=
+			MyGUI::newDelegate([&](MyGUI::Widget* sender) { changes.push_back(sender->getCoord()); }, 1);
+		const auto start = window->localToLayer(MyGUI::FloatPoint(195, 115));
+		const MyGUI::IntPoint press((int)std::lround(start.left), (int)std::lround(start.top));
+		unittest::dragFromTo(press, MyGUI::IntPoint(press.left, press.top + 45));
+		require(
+			changes.size() == 1 && changes.front() == MyGUI::IntCoord(525, 125, 250, 120),
+			"Resize must snap size before applying the anchor correction and notify the final rectangle once");
+	}
+
 	void testSnappingAndVisibility()
 	{
 		unittest::TestContext context;
@@ -289,6 +473,10 @@ int main()
 		{"Rotated window drag", testRotatedWindowDrag},
 		{"Drag within rotated parent", testDragWithinRotatedParent},
 		{"Rotated window resize", testRotatedWindowResize},
+		{"Resize notifications", testResizeNotifications},
+		{"Resize within rotated parent", testResizeWithinRotatedParent},
+		{"Resize callback coordinate changes", testResizeCallbackCanSetCoordinates},
+		{"Rotated resize snapping", testRotatedResizeSnapping},
 		{"Snapping and visibility", testSnappingAndVisibility},
 		{"Coordinate constraints and size snapping", testCoordinateConstraints},
 		{"Automatic opacity and focus transitions", testAutomaticAlpha},

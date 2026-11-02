@@ -463,6 +463,8 @@ namespace MyGUI
 
 		virtual void setPropertyOverride(std::string_view _key, std::string_view _value);
 
+		FloatPoint getRotationCenterForSize(const IntSize& _size) const;
+
 	private:
 		struct RotationTransform
 		{

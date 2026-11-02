@@ -139,9 +139,11 @@ namespace MyGUI
 			Size
 		};
 		void getSnappedCoord(IntCoord& _coord, Snap snapMode) const;
+		IntSize getConstrainedSize(const IntSize& _size) const;
+		IntCoord getConstrainedCoord(const IntCoord& _coord) const;
 		IntCoord _getActionScale(Widget* _widget) const;
-		FloatPoint getResizeAnchor() const;
-		void restoreResizeAnchor();
+		FloatPoint getResizeAnchor(const IntSize& _size) const;
+		IntCoord getAnchoredResizeCoord(IntCoord _coord) const;
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
