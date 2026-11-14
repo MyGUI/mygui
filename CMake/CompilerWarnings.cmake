@@ -52,9 +52,12 @@ if(
 				-Wno-lifetime-safety-intra-tu-suggestions
 				-Wno-lifetime-safety-cross-tu-suggestions
 				# Experimental ownership diagnostic also flags intentional pointer-returning accessors.
+				# Keep both spellings for Clang versions before and after the experimental-group rename.
 				-Wno-experimental-lifetime-safety-field-origin-escape
+				-Wno-lifetime-safety-experimental-field-origin-escape
 				# too many false positives
 				-Wno-lifetime-safety-invalidation
+				-Wno-lifetime-safety-experimental-invalidation
 				-Wno-lifetime-safety-dangling-field
 				-Wno-lifetime-safety-dangling-field-moved
 				-Wno-lifetime-safety-return-stack-addr-moved
