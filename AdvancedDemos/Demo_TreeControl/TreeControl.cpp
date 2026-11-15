@@ -157,11 +157,31 @@ namespace MyGUI
 		eventTreeNodeSelected(this, mpSelection);
 	}
 
-	void TreeControl::onMouseWheel(int nValue)
+	void TreeControl::onMouseWheelRouted(MyGUI::MouseWheelEvent& _event)
 	{
-		notifyMouseWheel(nullptr, nValue);
+		const int rel = _event.getWheelDelta();
+		if (rel == 0 || mnScrollRange <= 0)
+			return;
 
-		Widget::onMouseWheel(nValue);
+		int nPosition = (int)mpWidgetScroll->getScrollPosition();
+		if (rel < 0)
+			nPosition += mnItemHeight;
+		else
+			nPosition -= mnItemHeight;
+
+		if (nPosition >= mnScrollRange)
+			nPosition = mnScrollRange;
+		else if (nPosition < 0)
+			nPosition = 0;
+
+		if ((int)mpWidgetScroll->getScrollPosition() == nPosition)
+			return;
+
+		_event.setHandled();
+		mpWidgetScroll->setScrollPosition(nPosition);
+
+		scrollTo(nPosition);
+		sendScrollingEvents(nPosition);
 	}
 
 	void TreeControl::setSize(const IntSize& Size)
@@ -242,7 +262,6 @@ namespace MyGUI
 
 			pItem->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
 			pItem->eventMouseButtonDoubleClick += newDelegate(this, &TreeControl::notifyMouseDoubleClick);
-			pItem->eventMouseWheel += newDelegate(this, &TreeControl::notifyMouseWheel);
 			pItem->eventMouseSetFocus += newDelegate(this, &TreeControl::notifyMouseSetFocus);
 			pItem->eventMouseLostFocus += newDelegate(this, &TreeControl::notifyMouseLostFocus);
 			pItem->_setInternalData((size_t)mItemWidgets.size());
@@ -419,31 +438,6 @@ namespace MyGUI
 			if (nID == MouseButton::Right)
 				eventTreeNodeContextMenu(this, mpSelection);
 		}
-	}
-
-	void TreeControl::notifyMouseWheel(Widget* pSender, int nValue)
-	{
-		if (mnScrollRange <= 0)
-			return;
-
-		int nPosition = (int)mpWidgetScroll->getScrollPosition();
-		if (nValue < 0)
-			nPosition += mnItemHeight;
-		else
-			nPosition -= mnItemHeight;
-
-		if (nPosition >= mnScrollRange)
-			nPosition = mnScrollRange;
-		else if (nPosition < 0)
-			nPosition = 0;
-
-		if ((int)mpWidgetScroll->getScrollPosition() == nPosition)
-			return;
-
-		mpWidgetScroll->setScrollPosition(nPosition);
-
-		scrollTo(nPosition);
-		sendScrollingEvents(nPosition);
 	}
 
 	void TreeControl::notifyMouseDoubleClick(Widget* pSender)

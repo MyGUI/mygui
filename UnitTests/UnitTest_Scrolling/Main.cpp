@@ -1,5 +1,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
+#include "TreeControlItem.h"
 #include <limits>
 #include <vector>
 
@@ -516,6 +517,29 @@ namespace
 		}
 	}
 
+	void testTreeExpandWheel()
+	{
+		unittest::TestContext context;
+		setup();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::TreeControlItem>(
+			MyGUI::WidgetManager::getInstance().getCategoryName());
+		auto* view = context.getGui().createWidget<MyGUI::ScrollView>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 200, 200),
+			MyGUI::Align::Default,
+			"Main");
+		view->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		view->setCanvasSize(200, 600);
+		auto* item = view->createWidget<MyGUI::TreeControlItem>(
+			"WheelTreeItem",
+			MyGUI::IntCoord(0, 0, 100, 20),
+			MyGUI::Align::Default);
+		item->getButtonExpandCollapse()->_riseMouseWheel(-1);
+		require(
+			view->getViewOffset().top == -50,
+			"The real tree expand button must let wheel input reach its scroll ancestor");
+	}
+
 	void testViewportBoundaries()
 	{
 		unittest::TestContext context;
@@ -673,6 +697,7 @@ int main()
 		{"Dragging and wheel input", testDraggingAndWheel},
 		{"Wheel bubbling through scroll view children", testWheelBubbling},
 		{"Nested wheel consumers", testNestedWheelConsumers},
+		{"Tree expand-button wheel routing", testTreeExpandWheel},
 		{"Wheel consumption follows movement", testWheelMovementConsumption},
 		{"Wheel callback order and subclass compatibility", testWheelCallbackOrder},
 		{"Viewport boundaries and scrollbar interaction", testViewportBoundaries},

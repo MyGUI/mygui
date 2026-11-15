@@ -82,7 +82,6 @@ namespace MyGUI
 		void shutdownOverride() override;
 
 		void notifyMousePressed(Widget* pSender, int nLeft, int nTop, MouseButton nID);
-		void notifyMouseWheel(Widget* pSender, int nValue);
 		void notifyMouseDoubleClick(Widget* pSender);
 		void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
 		void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
@@ -90,7 +89,7 @@ namespace MyGUI
 		void notifyExpandCollapse(Widget* pSender);
 		void notifyFrameEntered(float nTime);
 
-		void onMouseWheel(int nValue) override;
+		void onMouseWheelRouted(MyGUI::MouseWheelEvent& _event) override;
 
 	private:
 		using VectorTreeItemPtr = std::vector<TreeControlItem*>;

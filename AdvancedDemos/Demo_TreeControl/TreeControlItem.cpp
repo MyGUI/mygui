@@ -19,7 +19,6 @@ namespace MyGUI
 		{
 			mpButtonExpandCollapse->eventMouseSetFocus += newDelegate(this, &TreeControlItem::notifyMouseSetFocus);
 			mpButtonExpandCollapse->eventMouseLostFocus += newDelegate(this, &TreeControlItem::notifyMouseLostFocus);
-			mpButtonExpandCollapse->eventMouseWheel += newDelegate(this, &TreeControlItem::notifyMouseWheel);
 		}
 
 		assignWidget(mpIcon, "Image");
@@ -46,12 +45,6 @@ namespace MyGUI
 	{
 		if (pSender && pSender->getParent() == this)
 			onMouseLostFocus(pNextWidget);
-	}
-
-	void TreeControlItem::notifyMouseWheel(Widget* pSender, int nValue)
-	{
-		if (pSender && pSender->getParent() == this)
-			onMouseWheel(nValue);
 	}
 
 	TreeControl::Node* TreeControlItem::getNode() const

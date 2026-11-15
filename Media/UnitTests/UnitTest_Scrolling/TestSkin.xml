@@ -37,4 +37,9 @@
 			<Widget type="ScrollBar" skin="BehaviourScrollH" position="0 180 180 20" align="HStretch Bottom" name="HScroll"/>
 		</Widget>
 	</Resource>
+	<Resource type="ResourceLayout" name="WheelTreeItem" version="3.2.0">
+		<Widget type="Widget" skin="Default" position="0 0 100 20" name="Root">
+			<Widget type="Button" skin="Default" position="0 0 20 20" name="ButtonExpandCollapse"/>
+		</Widget>
+	</Resource>
 </MyGUI>

@@ -1,2 +1,2 @@
 set(HEADER_FILES)
-set(SOURCE_FILES Main.cpp)
+set(SOURCE_FILES Main.cpp ../../AdvancedDemos/Demo_TreeControl/TreeControlItem.cpp)

@@ -33,7 +33,6 @@ namespace MyGUI
 
 		void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
 		void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
-		void notifyMouseWheel(Widget* pSender, int nValue);
 
 	private:
 		Button* mpButtonExpandCollapse{nullptr};
