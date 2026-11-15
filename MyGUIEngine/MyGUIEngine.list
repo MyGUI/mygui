@@ -73,6 +73,7 @@ set (HEADER_FILES
   include/MyGUI_IVertexBuffer.h
   include/MyGUI_ImageBox.h
   include/MyGUI_ImageInfo.h
+  include/MyGUI_InputEvent.h
   include/MyGUI_InputManager.h
   include/MyGUI_ItemBox.h
   include/MyGUI_KeyCode.h
@@ -340,6 +341,7 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_FactoryManager.h
   include/MyGUI_FontManager.h
   include/MyGUI_Gui.h
+  include/MyGUI_InputEvent.h
   include/MyGUI_InputManager.h
   include/MyGUI_LanguageManager.h
   include/MyGUI_LayerManager.h

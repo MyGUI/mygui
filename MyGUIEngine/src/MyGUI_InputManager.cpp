@@ -16,6 +16,56 @@ namespace MyGUI
 	namespace
 	{
 
+		class InputWidgetReference final : public IUnlinkWidget
+		{
+		public:
+			explicit InputWidgetReference(Widget*& _widget) :
+				mWidget(_widget)
+			{
+				for (auto* parent = _widget == nullptr ? nullptr : _widget->getParent(); parent != nullptr;
+					 parent = parent->getParent())
+					mParents.push_back(parent);
+				WidgetManager::getInstance().registerUnlinker(this);
+			}
+
+			~InputWidgetReference() override
+			{
+				WidgetManager::getInstance().unregisterUnlinker(this);
+			}
+
+			void _unlinkWidget(Widget* _widget) override
+			{
+				if (mWidget == _widget)
+					mWidget = nullptr;
+				for (auto*& parent : mParents)
+				{
+					if (parent == _widget)
+						parent = nullptr;
+				}
+			}
+
+			void resetRootMouseFocus()
+			{
+				for (auto* parent : mParents)
+				{
+					if (parent == nullptr || !parent->getRootMouseFocus())
+						continue;
+					// A root-focus callback may have already established a new focus path.
+					auto* focused = InputManager::getInstance().getMouseFocusWidget();
+					while (focused != nullptr && focused != parent)
+						focused = focused->getParent();
+					if (focused != nullptr)
+						continue;
+					parent->_setRootMouseFocus(false);
+					parent->_riseMouseChangeRootFocus(false);
+				}
+			}
+
+		private:
+			Widget*& mWidget;
+			VectorWidgetPtr mParents;
+		};
+
 		IntPoint unrotateForWidget(const Widget* _widget, const IntPoint& _point)
 		{
 			if (_widget == nullptr)
@@ -157,6 +207,8 @@ namespace MyGUI
 			}
 		}
 
+		InputWidgetReference itemReference(item);
+
 		// new type of root mouse focus
 		Widget* save_widget = nullptr;
 
@@ -201,10 +253,13 @@ namespace MyGUI
 				point = mLayerMouseFocus->getPosition(_absx, _absy);
 			point = unrotateForWidget(item, point);
 			item->_riseMouseMove(point.left, point.top);
-			item->_riseMouseSetFocus(mWidgetMouseFocus);
+			if (item != nullptr)
+				item->_riseMouseSetFocus(mWidgetMouseFocus);
 		}
 
 		mWidgetMouseFocus = item;
+		if (item == nullptr)
+			itemReference.resetRootMouseFocus();
 
 		if (old_mouse_focus != mWidgetMouseFocus)
 		{
@@ -455,6 +510,7 @@ namespace MyGUI
 	void InputManager::_resetMouseFocusWidget()
 	{
 		Widget* mouseFocus = mWidgetMouseFocus;
+		InputWidgetReference focusReference(mouseFocus);
 		mWidgetMouseFocus = nullptr;
 
 		// recursively reset old widget focus

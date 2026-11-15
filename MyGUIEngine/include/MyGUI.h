@@ -32,6 +32,7 @@
 #include "MyGUI_MultiListItem.h"
 #include "MyGUI_DeprecatedWidgets.h"
 
+#include "MyGUI_InputEvent.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_ClipboardManager.h"

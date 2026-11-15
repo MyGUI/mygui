@@ -16,6 +16,7 @@
 #include "MyGUI_MaskPickInfo.h"
 #include "MyGUI_Delegate.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_InputEvent.h"
 
 namespace MyGUI
 {
@@ -150,6 +151,26 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetInt eventMouseWheel;
 
+		/** Typed input routed from the original target towards its parents.
+			The target's legacy virtual method and delegates run first without implicit
+			consumption. At each widget, typed subscribers run in registration order,
+			followed by the matching typed virtual hook/default action.
+			setHandled() skips remaining subscribers, the hook and ancestors.
+			Routing stops at popup roots, unavailable widgets, unlinked targets and
+			changed parent links. Event references are valid only during delivery.
+			The sender is the current receiver; getTarget() identifies the original target.
+			Direct invocation of legacy delegates does not create a route.
+		*/
+		delegates::MultiDelegate<Widget*, MouseMoveEvent&> eventMouseMoveRouted;
+		delegates::MultiDelegate<Widget*, MouseButtonEvent&> eventMouseDragRouted;
+		delegates::MultiDelegate<Widget*, MouseWheelEvent&> eventMouseWheelRouted;
+		delegates::MultiDelegate<Widget*, MouseButtonEvent&> eventMouseButtonPressedRouted;
+		delegates::MultiDelegate<Widget*, MouseButtonEvent&> eventMouseButtonReleasedRouted;
+		delegates::MultiDelegate<Widget*, MouseClickEvent&> eventMouseButtonClickRouted;
+		delegates::MultiDelegate<Widget*, MouseClickEvent&> eventMouseButtonDoubleClickRouted;
+		delegates::MultiDelegate<Widget*, KeyPressEvent&> eventKeyButtonPressedRouted;
+		delegates::MultiDelegate<Widget*, KeyReleaseEvent&> eventKeyButtonReleasedRouted;
+
 		/** Event : Mouse button pressed.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
 			@param _sender widget that called this event
@@ -253,11 +274,27 @@ namespace MyGUI
 		void _setRootKeyFocus(bool _value);
 
 	protected:
+		/** Set consumption from a legacy virtual input method during dispatch.
+			Outside input delivery on this widget this does nothing. Nested inputs
+			have independent state. Legacy delegates still run for compatibility.
+		*/
+		void setInputHandled(bool _value = true);
+
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);
 		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
 		virtual void onMouseMove(int _left, int _top);
 		virtual void onMouseWheel(int _rel);
+		/** Typed default hooks, called after unconsumed typed subscribers. */
+		virtual void onMouseMoveRouted(MouseMoveEvent& _event);
+		virtual void onMouseDragRouted(MouseButtonEvent& _event);
+		virtual void onMouseWheelRouted(MouseWheelEvent& _event);
+		virtual void onMouseButtonPressedRouted(MouseButtonEvent& _event);
+		virtual void onMouseButtonReleasedRouted(MouseButtonEvent& _event);
+		virtual void onMouseButtonClickRouted(MouseClickEvent& _event);
+		virtual void onMouseButtonDoubleClickRouted(MouseClickEvent& _event);
+		virtual void onKeyButtonPressedRouted(KeyPressEvent& _event);
+		virtual void onKeyButtonReleasedRouted(KeyReleaseEvent& _event);
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonClick();
@@ -270,6 +307,14 @@ namespace MyGUI
 		virtual void onKeyChangeRootFocus(bool _focus);
 
 	private:
+		template<typename Event, typename LegacyDelegate, typename... Args>
+		void riseInputEvent(
+			void (WidgetInput::*_legacyHook)(Args...),
+			LegacyDelegate& _legacyDelegate,
+			void (WidgetInput::*_routedHook)(Event&),
+			delegates::MultiDelegate<Widget*, Event&> WidgetInput::* _routedDelegate,
+			Args... _args);
+
 		std::string mPointer;
 		MaskPickInfo mOwnMaskPickInfo;
 

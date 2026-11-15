@@ -146,9 +146,13 @@ namespace MyGUI
 
 	void WidgetManager::unlinkFromUnlinkers(Widget* _widget)
 	{
-		for (auto& iter : mVectorIUnlinkWidget)
+		// Callbacks can register temporary input routes or unregister other listeners.
+		const auto unlinkers = mVectorIUnlinkWidget;
+		for (auto* unlinker : unlinkers)
 		{
-			iter->_unlinkWidget(_widget);
+			if (std::find(mVectorIUnlinkWidget.begin(), mVectorIUnlinkWidget.end(), unlinker) !=
+				mVectorIUnlinkWidget.end())
+				unlinker->_unlinkWidget(_widget);
 		}
 	}
 

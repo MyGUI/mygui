@@ -23,6 +23,8 @@
 namespace MyGUI
 {
 
+	class InputEventContext;
+
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget, public MemberObsolete<InputManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(InputManager);
@@ -184,6 +186,10 @@ namespace MyGUI
 
 		// Modal widgets stack
 		VectorWidgetPtr mVectorModalRootWidget;
+
+		friend class WidgetInput;
+		// Scoped by WidgetInput dispatch; nested input restores the previous event.
+		InputEventContext* mCurrentInputEvent{nullptr};
 
 		bool mIsInitialise{false};
 	};

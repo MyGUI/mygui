@@ -1,5 +1,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
+#include "RoutedInput.h"
 #include "MyGUI_ToolTipManager.h"
 #include <vector>
 
@@ -32,6 +33,67 @@ namespace
 	{
 		return _gui
 			.createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(_left, 0, 100, 100), MyGUI::Align::Default, "Main");
+	}
+
+	void testWheelRouteLifetime()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto& gui = context.getGui();
+		auto* parent = root(gui, 0);
+		auto* child =
+			parent->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
+		int parentCalls = 0;
+		parent->eventMouseWheelRouted +=
+			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { ++parentCalls; }, 1);
+		child->eventMouseWheelRouted +=
+			MyGUI::newDelegate([&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent&) { gui.destroyWidget(sender); }, 2);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(10, 10, 0);
+		require(input.injectMouseMove(10, 10, -1), "Destroyed wheel targets must still report captured input");
+		require(
+			parentCalls == 0 && input.getMouseFocusWidget() == nullptr,
+			"Destroying the wheel target must stop propagation safely");
+
+		child = parent->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
+		child->eventMouseWheel += MyGUI::newDelegate([&](MyGUI::Widget*, int) { gui.destroyWidget(parent); }, 3);
+		input.injectMouseMove(10, 10, -1);
+		input.injectMouseMove(10, 10, -2);
+		require(
+			parentCalls == 0 && input.getMouseFocusWidget() == nullptr,
+			"Destroying the whole route in a legacy callback must stop dispatch safely");
+	}
+
+	void testWheelRouteOrderAndReparenting()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto& gui = context.getGui();
+		auto* parent = root(gui, 0);
+		auto* other = root(gui, 200);
+		auto* child =
+			parent->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
+		std::vector<MyGUI::Widget*> route;
+		for (auto* widget : {child, parent, other})
+			widget->eventMouseWheelRouted += MyGUI::newDelegate(
+				[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
+				{
+					require(
+						event.getWheelDelta() == -1 && !event.isHandled(),
+						"Unhandled wheel events must keep their delta and state");
+					route.push_back(sender);
+				},
+				1);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(10, 10, 0);
+		input.injectMouseMove(10, 10, -1);
+		require(route == std::vector<MyGUI::Widget*>{child, parent}, "Wheel events must visit child then parent");
+		route.clear();
+		child->eventMouseWheelRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent&) { sender->attachToWidget(other); },
+			2);
+		input.injectMouseMove(10, 10, -2);
+		require(route == std::vector<MyGUI::Widget*>{child}, "Reparenting must stop the original wheel route");
 	}
 
 	void testToolTipLifecycle()
@@ -769,6 +831,16 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Typed routed input payloads and delivery order", testTypedRoutedInputTypes},
+		{"Shared routed input consumption", testTypedRoutedInputConsumption},
+		{"Typed routed input callback lifetime", testTypedRoutedInputLifetime},
+		{"Reentrant typed routed input", testTypedRoutedInputReentrancy},
+		{"Routed capture, clicks and keyboard input", testRoutedInputCaptureAndKeys},
+		{"Routed input boundaries", testRoutedInputBoundaries},
+		{"Routed input callback lifetime", testRoutedInputLifetime},
+		{"Reentrant routed input", testRoutedInputReentrancy},
+		{"Wheel route lifetime", testWheelRouteLifetime},
+		{"Wheel route order and reparenting", testWheelRouteOrderAndReparenting},
 		{"Overlapping roots and layers", testOverlappingRootsAndLayers},
 		{"Child depth", testChildDepth},
 		{"Hit-test edges", testHitTestEdges},

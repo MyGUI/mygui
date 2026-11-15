@@ -3,6 +3,7 @@ add_library(MyGUIUnitTestCommon STATIC
 		TestRunner.h
 		TestSupport.cpp
 		BehaviourTestSupport.h
+		RoutedInputTestSupport.h
 		FixedFont.h
 		SkinTestContext.h
 		SubSkinTestSupport.h
