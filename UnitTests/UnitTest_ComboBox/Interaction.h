@@ -3,3 +3,4 @@
 void testComboBoxInteractions();
 void testComboBoxPlacement();
 void testComboBoxEditableInput();
+void testComboBoxWheelBubbling();

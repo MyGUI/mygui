@@ -79,7 +79,6 @@ namespace MyGUI
 		// subscribe child classes to scroll
 		if (mScrollViewClient != nullptr)
 		{
-			mScrollViewClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
 			mScrollViewClient->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyMousePressed);
 
 			mScrollViewClient->setNeedToolTip(true);
@@ -190,19 +189,21 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyMouseWheel(Widget* _sender, int _rel)
+	void ComboBox::onMouseWheelRouted(MouseWheelEvent& _event)
 	{
-		if (mList->getItemCount() == 0)
+		const int rel = _event.getWheelDelta();
+		if (mList == nullptr || mList->getItemCount() == 0)
 			return;
 		if (InputManager::getInstance().getKeyFocusWidget() != this)
 			return;
 		if (InputManager::getInstance().isCaptureMouse())
 			return;
 
-		if (_rel > 0)
+		if (rel > 0)
 		{
 			if (mItemIndex != 0)
 			{
+				_event.setHandled();
 				if (mItemIndex == ITEM_NONE)
 					mItemIndex = 0;
 				else
@@ -216,10 +217,11 @@ namespace MyGUI
 				eventComboChangePosition(this, mItemIndex);
 			}
 		}
-		else if (_rel < 0)
+		else if (rel < 0)
 		{
 			if ((mItemIndex + 1) < mList->getItemCount())
 			{
+				_event.setHandled();
 				if (mItemIndex == ITEM_NONE)
 					mItemIndex = 0;
 				else

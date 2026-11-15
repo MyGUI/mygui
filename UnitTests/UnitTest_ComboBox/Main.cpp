@@ -215,6 +215,7 @@ int main()
 	return unittest::runTests({
 		{"Repeated skin changes", testSkinChanges},
 		{"Input interactions", testComboBoxInteractions},
+		{"Wheel consumption and parent bubbling", testComboBoxWheelBubbling},
 		{"Popup directions and screen-edge fallback", testComboBoxPlacement},
 		{"Editable input and selection callbacks", testComboBoxEditableInput},
 		{"Item height", testItemHeight<false>},

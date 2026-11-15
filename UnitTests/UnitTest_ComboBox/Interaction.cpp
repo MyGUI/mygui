@@ -194,3 +194,104 @@ void testComboBoxInteractions()
 	input.injectMouseMove(point.left, point.top, -2);
 	require(combo->getIndexSelected() == 0, "Wheel on an unfocused combo must not change selection");
 }
+
+void testComboBoxWheelBubbling()
+{
+	using unittest::require;
+	ComboFixture f;
+	unittest::loadResources("UnitTest_ComboBox/TestSkin.xml");
+	auto* outer = MyGUI::Gui::getInstance().createWidget<MyGUI::ScrollView>(
+		"TestScrollView",
+		MyGUI::IntCoord(0, 0, 400, 300),
+		MyGUI::Align::Default,
+		"Main");
+	outer->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+	outer->setCanvasSize(400, 1000);
+	f.combo->attachToWidget(outer);
+	f.combo->setFontName("UnitTestFixedFont");
+	f.combo->setFontHeight(20);
+	f.combo->setIndexSelected(8);
+	auto& input = MyGUI::InputManager::getInstance();
+	input.setKeyFocusWidget(f.combo);
+	auto* client = f.combo->getClientWidget();
+	int changes = 0;
+	f.combo->eventComboChangePosition += MyGUI::newDelegate([&](MyGUI::ComboBox*, size_t) { ++changes; }, 1);
+	client->_riseMouseWheel(-1);
+	require(
+		f.combo->getIndexSelected() == 9 && changes == 1 && outer->getViewOffset().top == 0,
+		"The last selection step must be consumed without scrolling the parent");
+	client->_riseMouseWheel(-1);
+	require(changes == 1 && outer->getViewOffset().top == -50, "A selection boundary must allow parent scrolling");
+	input.setKeyFocusWidget(nullptr);
+	client->_riseMouseWheel(1);
+	require(
+		f.combo->getIndexSelected() == 9 && outer->getViewOffset().top == 0,
+		"An unfocused combo must pass wheel input to its parent");
+	input.setKeyFocusWidget(f.combo);
+	client->eventMouseWheelRouted +=
+		MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 2);
+	client->_riseMouseWheel(1);
+	require(f.combo->getIndexSelected() == 9 && changes == 1, "A child routed handler can intercept combo selection");
+	client->eventMouseWheelRouted.clear();
+	f.combo->removeAllItems();
+	client->_riseMouseWheel(-1);
+	require(outer->getViewOffset().top == -50, "An empty combo must not consume wheel input");
+
+	// Changing a long caption must not also execute EditBox wheel scrolling.
+	f.combo->addItem("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
+	f.combo->addItem("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	f.combo->setIndexSelected(0);
+	const auto captionOffset = f.combo->getHScrollPosition();
+	f.combo->setIndexSelected(1);
+	f.combo->setHScrollPosition(0);
+	client->_riseMouseWheel(1);
+	require(
+		f.combo->getIndexSelected() == 0 && f.combo->getHScrollPosition() == captionOffset,
+		"Combo selection must take priority over scrolling a long editable caption");
+	client->_riseMouseWheel(0);
+	require(f.combo->getIndexSelected() == 0, "Zero delta must not change combo selection");
+
+	// A long caption must not consume boundary input that belongs to the outer view.
+	require(f.combo->getHScrollRange() > 1, "The long caption must have a horizontal scroll range");
+	for (auto* target : {static_cast<MyGUI::Widget*>(f.combo), client})
+	{
+		outer->setViewOffset(MyGUI::IntPoint(0, -100));
+		f.combo->setHScrollPosition(f.combo->getHScrollRange() - 1);
+		const auto offset = f.combo->getHScrollPosition();
+		target->_riseMouseWheel(1);
+		require(
+			f.combo->getIndexSelected() == 0 && f.combo->getHScrollPosition() == offset &&
+				outer->getViewOffset().top == -50,
+			"Wheel at the first selection must bubble without scrolling the caption");
+
+		input.setKeyFocusWidget(nullptr);
+		f.combo->setHScrollPosition(0);
+		target->_riseMouseWheel(-1);
+		require(
+			f.combo->getIndexSelected() == 0 && f.combo->getHScrollPosition() == 0 &&
+				outer->getViewOffset().top == -100,
+			"An unfocused combo must bubble without scrolling its long caption");
+		input.setKeyFocusWidget(f.combo);
+	}
+
+	outer->setViewOffset(MyGUI::IntPoint());
+	for (int i = 0; i < 10; ++i)
+		f.combo->addItem("popup row");
+	f.combo->setMaxListLength(60);
+	f.open();
+	f.list->setScrollPosition(0);
+	const auto popupSelection = f.combo->getIndexSelected();
+	f.list->_riseMouseWheel(-1);
+	require(
+		f.list->_getScrollPosition() > 0 && f.combo->getIndexSelected() == popupSelection &&
+			outer->getViewOffset().top == 0,
+		"The popup list must scroll independently of combo selection and the outer view");
+	for (int i = 0; i < 20; ++i)
+		f.list->_riseMouseWheel(-1);
+	const auto popupOffset = f.list->_getScrollPosition();
+	f.list->_riseMouseWheel(-1);
+	require(
+		f.list->_getScrollPosition() == popupOffset && f.combo->getIndexSelected() == popupSelection &&
+			outer->getViewOffset().top == 0,
+		"The popup boundary must stop unconsumed wheel input at the end of the list");
+}

@@ -167,6 +167,7 @@ namespace MyGUI
 		void shutdownOverride() override;
 
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
+		void onMouseWheelRouted(MouseWheelEvent& _event) override;
 
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
@@ -176,7 +177,6 @@ namespace MyGUI
 		void notifyListSelectAccept(ListBox* _widget, size_t _position);
 		void notifyListMouseItemActivate(ListBox* _widget, size_t _position);
 		void notifyListChangePosition(ListBox* _widget, size_t _position);
-		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyEditTextChange(EditBox* _sender);
 		void notifyToolTip(Widget* _sender, const ToolTipInfo& _info);
