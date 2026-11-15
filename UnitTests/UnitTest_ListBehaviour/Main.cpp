@@ -356,6 +356,49 @@ namespace
 		checkOrder({2, 0, 1});
 	}
 
+	void testRoutedRowInput()
+	{
+		std::vector<MyGUI::IBNotifyItemData> notifications;
+		unittest::TestContext context;
+		auto* list = createBehaviourList(context.getGui());
+		for (int i = 0; i < 8; ++i)
+			list->addItem("row");
+		list->eventNotifyItem += MyGUI::newDelegate(
+			[&](MyGUI::ListBox*, const MyGUI::IBNotifyItemData& info) { notifications.push_back(info); },
+			1);
+		auto* row = visibleRow(list, 1);
+		row->_riseMouseButtonPressed(17, 29, MyGUI::MouseButton::Left);
+		require(
+			list->getIndexSelected() == 1 && notifications.size() == 1 && notifications.back().index == 1 &&
+				notifications.back().x == 17 && notifications.back().y == 29,
+			"Routed row presses must select and preserve the original notification payload");
+		list->clearIndexSelected();
+		notifications.clear();
+		row->eventMouseButtonPressedRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 2);
+		row->_riseMouseButtonPressed(17, 29, MyGUI::MouseButton::Left);
+		require(
+			list->getIndexSelected() == MyGUI::ITEM_NONE && notifications.empty(),
+			"An item handler must be able to intercept input before list selection");
+		row->eventMouseButtonPressedRouted.clear();
+		auto* nested =
+			row->createWidget<MyGUI::Button>("Default", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
+		nested->_riseMouseButtonPressed(17, 29, MyGUI::MouseButton::Left);
+		require(
+			list->getIndexSelected() == MyGUI::ITEM_NONE && notifications.empty(),
+			"Independent nested buttons must not be treated as list rows");
+		list->setScrollPosition(40);
+		visibleRow(list, 2)->_riseKeyButtonPressed(MyGUI::KeyCode::A, 'a');
+		require(
+			notifications.size() == 1 && notifications.back().index == 2 && notifications.back().key == 'a',
+			"Recycled rows must report their current logical index");
+		notifications.clear();
+		list->getClientWidget()->_riseMouseButtonReleased(17, 29, MyGUI::MouseButton::Left);
+		require(
+			notifications.size() == 1 && notifications.back().index == MyGUI::ITEM_NONE,
+			"Client notifications must preserve the no-item sentinel");
+	}
+
 }
 
 int main()
@@ -370,5 +413,6 @@ int main()
 		{"Populated column mutations", testColumnMutations},
 		{"Displayed row identity and custom sorting", testDisplayedRows},
 		{"ListBox keyboard navigation and acceptance", testListKeyboardNavigation},
+		{"Routed row input and source filtering", testRoutedRowInput},
 	});
 }

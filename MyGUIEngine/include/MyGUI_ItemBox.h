@@ -211,21 +211,19 @@ namespace MyGUI
 		void onKeyButtonReleased(KeyCode _key) override;
 		void onMouseDrag(int _left, int _top, MouseButton _id) override;
 
-		void onMouseWheel(int _rel) override;
+		void onMouseWheelRouted(MouseWheelEvent& _event) override;
+		void onMouseButtonPressedRouted(MouseButtonEvent& _event) override;
+		void onMouseButtonReleasedRouted(MouseButtonEvent& _event) override;
+		void onMouseButtonDoubleClickRouted(MouseClickEvent& _event) override;
+		void onMouseDragRouted(MouseButtonEvent& _event) override;
+		void onKeyButtonPressedRouted(KeyPressEvent& _event) override;
+		void onKeyButtonReleasedRouted(KeyReleaseEvent& _event) override;
 		void onKeyLostFocus(Widget* _new) override;
 		void onKeySetFocus(Widget* _old) override;
 
-		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
-		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _index);
-		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
-		void notifyMouseButtonDoubleClick(Widget* _sender);
 		size_t _getItemIndex(Widget* _item) const override;
-		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
-
 
 		void removeDropItems() override;
 		void updateDropItems() override;
@@ -254,6 +252,7 @@ namespace MyGUI
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
+		void setScrollOffset(int _offset, MouseWheelEvent* _wheel = nullptr);
 		size_t calcIndexByWidget(Widget* _widget) const;
 
 		void requestItemSize();

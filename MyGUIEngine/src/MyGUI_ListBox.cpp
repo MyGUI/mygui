@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ListBox.h"
+#include "MyGUI_ItemInput.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ScrollBar.h"
 #include "MyGUI_ResourceSkin.h"
@@ -32,14 +33,6 @@ namespace MyGUI
 		if (mHeightLine < 1)
 			mHeightLine = 1;
 
-		if (getClientWidget() != nullptr)
-		{
-			getClientWidget()->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
-			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &ListBox::notifyMouseButtonReleased);
-			getClientWidget()->eventKeyButtonPressed += newDelegate(this, &ListBox::notifyKeyButtonPressed);
-			getClientWidget()->eventKeyButtonReleased += newDelegate(this, &ListBox::notifyKeyButtonReleased);
-		}
-
 		///@wskin_child{ListBox, ScrollBar, VScroll} Vertical scroll bar.
 		assignWidget(mWidgetScroll, "VScroll");
 		if (mWidgetScroll != nullptr)
@@ -59,11 +52,66 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	void ListBox::onMouseWheel(int _rel)
+	void ListBox::onMouseButtonPressedRouted(MouseButtonEvent& _event)
 	{
-		notifyMouseWheel(nullptr, _rel);
+		auto* target = consumeItemInput(*this, _event, ItemInputScope::ItemOrClient);
+		if (!target)
+			return;
 
-		Base::onMouseWheel(_rel);
+		const auto button = _event.getButton();
+		if (MouseButton::Left == button && !mActivateOnClick)
+			_activateItem(target);
+
+		eventNotifyItem(this, itemNotification(getIndexByWidget(target), IBNotifyItemData::MousePressed, _event));
+	}
+
+	void ListBox::onMouseButtonReleasedRouted(MouseButtonEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::ItemOrClient))
+			eventNotifyItem(this, itemNotification(getIndexByWidget(target), IBNotifyItemData::MouseReleased, _event));
+	}
+
+	void ListBox::onMouseButtonClickRouted(MouseClickEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::Item); target && mActivateOnClick)
+			_activateItem(target);
+	}
+
+	void ListBox::onMouseButtonDoubleClickRouted(MouseClickEvent& _event)
+	{
+		if (consumeItemInput(*this, _event, ItemInputScope::Item) && mIndexSelect != ITEM_NONE)
+			eventListSelectAccept(this, mIndexSelect);
+	}
+
+	void ListBox::onKeyButtonPressedRouted(KeyPressEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::ItemOrClient))
+			eventNotifyItem(this, itemNotification(getIndexByWidget(target), _event));
+	}
+
+	void ListBox::onKeyButtonReleasedRouted(KeyReleaseEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::ItemOrClient))
+			eventNotifyItem(this, itemNotification(getIndexByWidget(target), _event));
+	}
+
+	void ListBox::onMouseWheelRouted(MouseWheelEvent& _event)
+	{
+		const int rel = _event.getWheelDelta();
+		if (rel == 0 || mRangeIndex <= 0 || mWidgetScroll == nullptr)
+			return;
+
+		const int position = (int)mWidgetScroll->getScrollPosition();
+		const int offset = std::clamp(position + (rel < 0 ? mHeightLine : -mHeightLine), 0, mRangeIndex);
+		if (position == offset)
+			return;
+
+		_event.setHandled();
+		mWidgetScroll->setScrollPosition(offset);
+		_setScrollView(offset);
+		_sendEventChangeScroll(offset);
+
+		_resetContainer(true);
 	}
 
 	void ListBox::onKeyButtonPressed(KeyCode _key, Char _char)
@@ -178,61 +226,10 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyPressed, _key, _char));
 	}
 
-	void ListBox::notifyMouseWheel(Widget* _sender, int _rel)
-	{
-		if (mRangeIndex <= 0)
-			return;
-
-		if (mWidgetScroll == nullptr)
-			return;
-
-		int offset = (int)mWidgetScroll->getScrollPosition();
-		if (_rel < 0)
-			offset += mHeightLine;
-		else
-			offset -= mHeightLine;
-
-		if (offset >= mRangeIndex)
-			offset = mRangeIndex;
-		else if (offset < 0)
-			offset = 0;
-
-		if ((int)mWidgetScroll->getScrollPosition() == offset)
-			return;
-
-		mWidgetScroll->setScrollPosition(offset);
-		_setScrollView(offset);
-		_sendEventChangeScroll(offset);
-
-		_resetContainer(true);
-	}
-
 	void ListBox::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);
-	}
-
-	void ListBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		if (MouseButton::Left == _id && !mActivateOnClick)
-			_activateItem(_sender);
-
-		eventNotifyItem(
-			this,
-			IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
-	}
-
-	void ListBox::notifyMouseClick(MyGUI::Widget* _sender)
-	{
-		if (mActivateOnClick)
-			_activateItem(_sender);
-	}
-
-	void ListBox::notifyMouseDoubleClick(Widget* _sender)
-	{
-		if (mIndexSelect != ITEM_NONE)
-			eventListSelectAccept(this, mIndexSelect);
 	}
 
 	void ListBox::setPosition(const IntPoint& _point)
@@ -319,13 +316,6 @@ namespace MyGUI
 					mHeightLine,
 					Align::Top | Align::HStretch);
 				Button* line = widget->castType<Button>();
-				line->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
-				line->eventMouseButtonReleased += newDelegate(this, &ListBox::notifyMouseButtonReleased);
-				line->eventMouseButtonClick += newDelegate(this, &ListBox::notifyMouseClick);
-				line->eventMouseButtonDoubleClick += newDelegate(this, &ListBox::notifyMouseDoubleClick);
-				line->eventMouseWheel += newDelegate(this, &ListBox::notifyMouseWheel);
-				line->eventKeyButtonPressed += newDelegate(this, &ListBox::notifyKeyButtonPressed);
-				line->eventKeyButtonReleased += newDelegate(this, &ListBox::notifyKeyButtonReleased);
 				line->eventMouseSetFocus += newDelegate(this, &ListBox::notifyMouseSetFocus);
 				line->eventMouseLostFocus += newDelegate(this, &ListBox::notifyMouseLostFocus);
 				line->_setContainer(this);
@@ -943,14 +933,11 @@ namespace MyGUI
 		else if (_sender->getVisible())
 		{
 #if MYGUI_DEBUG_MODE == 1
-			MYGUI_ASSERT_RANGE(
-				*_sender->_getInternalData<size_t>(),
-				mWidgetLines.size(),
-				"ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::_activateItem");
 			MYGUI_ASSERT_RANGE(
 				*_sender->_getInternalData<size_t>() + mTopIndex,
 				mItemsInfo.size(),
-				"ListBox::notifyMousePressed");
+				"ListBox::_activateItem");
 #endif
 
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
@@ -998,23 +985,6 @@ namespace MyGUI
 		if (_widget == getClientWidget())
 			return ITEM_NONE;
 		return *_widget->_getInternalData<size_t>() + mTopIndex;
-	}
-
-	void ListBox::notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char)
-	{
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyPressed, _key, _char));
-	}
-
-	void ListBox::notifyKeyButtonReleased(Widget* _sender, KeyCode _key)
-	{
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyReleased, _key));
-	}
-
-	void ListBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		eventNotifyItem(
-			this,
-			IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ListBox::onKeyButtonReleased(KeyCode _key)

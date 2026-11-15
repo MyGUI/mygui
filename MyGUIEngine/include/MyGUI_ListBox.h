@@ -260,20 +260,19 @@ namespace MyGUI
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void onMouseWheel(int _rel) override;
+		void onMouseWheelRouted(MouseWheelEvent& _event) override;
+		void onMouseButtonPressedRouted(MouseButtonEvent& _event) override;
+		void onMouseButtonReleasedRouted(MouseButtonEvent& _event) override;
+		void onMouseButtonClickRouted(MouseClickEvent& _event) override;
+		void onMouseButtonDoubleClickRouted(MouseClickEvent& _event) override;
+		void onKeyButtonPressedRouted(KeyPressEvent& _event) override;
+		void onKeyButtonReleasedRouted(KeyReleaseEvent& _event) override;
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 		void onKeyButtonReleased(KeyCode _key) override;
 
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _position);
-		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseClick(Widget* _sender);
-		void notifyMouseDoubleClick(Widget* _sender);
-		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
 		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
-		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
-		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
-		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);

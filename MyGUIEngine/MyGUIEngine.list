@@ -210,6 +210,7 @@ set (SOURCE_FILES
   src/MyGUI_ImageBox.cpp
   src/MyGUI_InputManager.cpp
   src/MyGUI_ItemBox.cpp
+  src/MyGUI_ItemInput.h
   src/MyGUI_LanguageManager.cpp
   src/MyGUI_LayerItem.cpp
   src/MyGUI_LayerManager.cpp
@@ -589,6 +590,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_EditBox.cpp
   src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
+  src/MyGUI_ItemInput.h
   src/MyGUI_ListBox.cpp
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuControl.cpp

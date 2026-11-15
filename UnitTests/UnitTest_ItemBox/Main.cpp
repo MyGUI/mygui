@@ -362,6 +362,44 @@ namespace
 			"Clicking empty client space must clear selection and report ITEM_NONE");
 	}
 
+	void testRoutedItemInput()
+	{
+		ItemBoxFixture fixture;
+		fixture.populate(24);
+		auto* item = fixture.item(1);
+		item->eventMouseButtonPressedRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+		item->_riseMouseButtonPressed(80, 60, MyGUI::MouseButton::Left);
+		require(
+			fixture.box->getIndexSelected() == MyGUI::ITEM_NONE && fixture.notifications.empty(),
+			"Item input can be intercepted before ItemBox selection and drag handling");
+		item->eventMouseButtonPressedRouted.clear();
+		auto* nested =
+			item->createWidget<MyGUI::Button>("Default", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
+		nested->_riseMouseButtonPressed(80, 60, MyGUI::MouseButton::Left);
+		require(
+			fixture.box->getIndexSelected() == MyGUI::ITEM_NONE && fixture.notifications.empty(),
+			"Independent nested controls must not be interpreted as item widgets");
+		auto* client = fixture.box->getClientWidget();
+		client->_riseMouseButtonDoubleClick();
+		client->_riseKeyButtonReleased(MyGUI::KeyCode::A);
+		require(
+			fixture.accepts.empty() && fixture.notifications.empty(),
+			"Empty client space must not accept an item or report an item key release");
+		fixture.box->setViewOffset(MyGUI::IntPoint(0, 20));
+		fixture.item(3)->_riseKeyButtonReleased(MyGUI::KeyCode::A);
+		require(
+			fixture.notifications.size() == 1 && fixture.notifications.back().index == 3,
+			"Routed input from recycled cells must use their current item index");
+		fixture.notifications.clear();
+		// Closing a compound widget from a notification must stop the route safely.
+		fixture.box->eventNotifyItem += MyGUI::newDelegate(
+			[&](MyGUI::ItemBox* box, const MyGUI::IBNotifyItemData&) { fixture.context.getGui().destroyWidget(box); },
+			2);
+		fixture.item(3)->_riseKeyButtonReleased(MyGUI::KeyCode::A);
+		require(fixture.notifications.size() == 1, "Deleting the item owner during notification must remain safe");
+	}
+
 }
 
 int main()
@@ -374,5 +412,6 @@ int main()
 		{"Vertical grid and scrolling", testGridAndScrolling<true>},
 		{"Horizontal grid and scrolling", testGridAndScrolling<false>},
 		{"Mouse and keyboard notifications", testInputEvents},
+		{"Routed item input and source filtering", testRoutedItemInput},
 	});
 }

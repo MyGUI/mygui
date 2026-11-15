@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ItemBox.h"
+#include "MyGUI_ItemInput.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ScrollBar.h"
 #include "MyGUI_ResourceSkin.h"
@@ -35,12 +36,6 @@ namespace MyGUI
 			mDragLayer = getUserString("DragLayer");
 
 		assignWidget(mScrollViewClient, "Client");
-		if (getClientWidget() != nullptr)
-		{
-			getClientWidget()->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
-			getClientWidget()->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-		}
 
 		///@wskin_child{ItemBox, ScrollBar, VScroll} Vertical scroll bar.
 		assignWidget(mVScroll, "VScroll");
@@ -181,15 +176,8 @@ namespace MyGUI
 
 			requestCreateWidgetItem(this, item);
 
-			item->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
 			item->eventRootMouseChangeFocus += newDelegate(this, &ItemBox::notifyRootMouseChangeFocus);
-			item->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			item->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-			item->eventMouseButtonDoubleClick += newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
-			item->eventMouseDrag += newDelegate(this, &ItemBox::notifyMouseDrag);
 			item->_setContainer(this);
-			item->eventKeyButtonPressed += newDelegate(this, &ItemBox::notifyKeyButtonPressed);
-			item->eventKeyButtonReleased += newDelegate(this, &ItemBox::notifyKeyButtonReleased);
 
 			item->_setInternalData((size_t)mVectorItems.size());
 
@@ -201,11 +189,90 @@ namespace MyGUI
 		return mVectorItems[_index];
 	}
 
-	void ItemBox::onMouseWheel(int _rel)
+	void ItemBox::onMouseButtonPressedRouted(MouseButtonEvent& _event)
 	{
-		notifyMouseWheel(nullptr, _rel);
+		auto* target = consumeItemInput(*this, _event, ItemInputScope::ItemOrClient);
+		if (!target)
+			return;
 
-		Base::onMouseWheel(_rel);
+		const auto button = _event.getButton();
+		mouseButtonPressed(button);
+
+		if (MouseButton::Left == button)
+		{
+			const size_t old = mIndexSelect;
+
+			if (target == _getClientWidget())
+			{
+				setIndexSelected(ITEM_NONE);
+			}
+			else
+			{
+				mDropSenderIndex = getIndexByWidget(target);
+
+				setIndexSelected(mDropSenderIndex);
+			}
+
+			// Measure the grab offset in the source layer's coordinates
+			const FloatPoint displayedOrigin = target->localToLayer({0, 0});
+			mClickInWidget = InputManager::getInstance().getMousePositionByLayer() -
+				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
+
+			eventMouseItemActivate(this, mIndexSelect);
+			// send position change only on actual change
+			if (old != mIndexSelect)
+				eventChangeItemPosition(this, mIndexSelect);
+		}
+
+		eventNotifyItem(this, itemNotification(getIndexByWidget(target), IBNotifyItemData::MousePressed, _event));
+	}
+
+	void ItemBox::onMouseButtonReleasedRouted(MouseButtonEvent& _event)
+	{
+		auto* target = consumeItemInput(*this, _event, ItemInputScope::ItemOrClient);
+		if (!target)
+			return;
+
+		const auto button = _event.getButton();
+		const bool needEvent = !mStartDrop;
+		mouseButtonReleased(button);
+
+		if (needEvent)
+			eventNotifyItem(this, itemNotification(getIndexByWidget(target), IBNotifyItemData::MouseReleased, _event));
+	}
+
+	void ItemBox::onMouseButtonDoubleClickRouted(MouseClickEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::Item))
+			eventSelectItemAccept(this, getIndexByWidget(target));
+	}
+
+	void ItemBox::onMouseDragRouted(MouseButtonEvent& _event)
+	{
+		if (consumeItemInput(*this, _event, ItemInputScope::Item))
+			mouseDrag(_event.getButton());
+	}
+
+	void ItemBox::onKeyButtonPressedRouted(KeyPressEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::Item))
+			eventNotifyItem(this, itemNotification(getIndexByWidget(target), _event));
+	}
+
+	void ItemBox::onKeyButtonReleasedRouted(KeyReleaseEvent& _event)
+	{
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::Item))
+			eventNotifyItem(this, itemNotification(getIndexByWidget(target), _event));
+	}
+
+	void ItemBox::onMouseWheelRouted(MouseWheelEvent& _event)
+	{
+		const int rel = _event.getWheelDelta();
+		if (rel == 0)
+			return;
+		const int position = mAlignVert ? mContentPosition.top : mContentPosition.left;
+		const int step = mAlignVert ? mSizeItem.height : mSizeItem.width;
+		setScrollOffset(position + (rel < 0 ? step : -step), &_event);
 	}
 
 	void ItemBox::onKeySetFocus(Widget* _old)
@@ -437,13 +504,6 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::notifyMouseButtonDoubleClick(Widget* _sender)
-	{
-		size_t index = getIndexByWidget(_sender);
-
-		eventSelectItemAccept(this, index);
-	}
-
 	void ItemBox::setVerticalAlignment(bool _vert)
 	{
 		if (mAlignVert == _vert)
@@ -452,16 +512,6 @@ namespace MyGUI
 
 		mCountItemInLine = -1;
 		updateFromResize();
-	}
-
-	void ItemBox::notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char)
-	{
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyPressed, _key, _char));
-	}
-
-	void ItemBox::notifyKeyButtonReleased(Widget* _sender, KeyCode _key)
-	{
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyReleased, _key));
 	}
 
 	size_t ItemBox::getIndexByWidget(Widget* _widget) const
@@ -584,57 +634,6 @@ namespace MyGUI
 		requestDrawItem(this, mItemDrag, data);
 	}
 
-	void ItemBox::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		mouseDrag(_id);
-	}
-
-	void ItemBox::notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		mouseButtonPressed(_id);
-
-		if (MouseButton::Left == _id)
-		{
-			size_t old = mIndexSelect;
-
-			if (_sender == _getClientWidget())
-			{
-				setIndexSelected(ITEM_NONE);
-			}
-			else
-			{
-				mDropSenderIndex = getIndexByWidget(_sender);
-
-				setIndexSelected(mDropSenderIndex);
-			}
-
-			// Measure the grab offset in the source layer's coordinates
-			const FloatPoint displayedOrigin = _sender->localToLayer({0, 0});
-			mClickInWidget = InputManager::getInstance().getMousePositionByLayer() -
-				IntPoint((int)std::lround(displayedOrigin.left), (int)std::lround(displayedOrigin.top));
-
-			eventMouseItemActivate(this, mIndexSelect);
-			// send position change only on actual change
-			if (old != mIndexSelect)
-				eventChangeItemPosition(this, mIndexSelect);
-		}
-
-		eventNotifyItem(
-			this,
-			IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
-	}
-
-	void ItemBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		bool needEvent = !mStartDrop;
-		mouseButtonReleased(_id);
-
-		if (needEvent)
-			eventNotifyItem(
-				this,
-				IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
-	}
-
 	void ItemBox::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
 	{
 		size_t index = calcIndexByWidget(_sender);
@@ -710,22 +709,6 @@ namespace MyGUI
 		}
 
 		setContentPosition(mContentPosition);
-	}
-
-	void ItemBox::notifyMouseWheel(Widget* _sender, int _rel)
-	{
-		if (mAlignVert)
-		{
-			if (mContentSize.height <= 0)
-				return;
-			setViewOffset(IntPoint(0, mContentPosition.top + (_rel < 0 ? mSizeItem.height : -mSizeItem.height)));
-		}
-		else
-		{
-			if (mContentSize.width <= 0)
-				return;
-			setViewOffset(IntPoint(mContentPosition.left + (_rel < 0 ? mSizeItem.width : -mSizeItem.width), 0));
-		}
 	}
 
 	void ItemBox::setContentPosition(const IntPoint& _point)
@@ -881,51 +864,26 @@ namespace MyGUI
 
 	void ItemBox::setViewOffset(const IntPoint& _value)
 	{
-		if (mAlignVert)
-		{
-			if (mContentSize.height <= 0)
-				return;
+		setScrollOffset(mAlignVert ? _value.top : _value.left);
+	}
 
-			int offset = _value.top;
+	void ItemBox::setScrollOffset(int _offset, MouseWheelEvent* _wheel)
+	{
+		const int content = mAlignVert ? mContentSize.height : mContentSize.width;
+		if (content <= 0)
+			return;
+		const auto size = _getClientWidget()->getSize();
+		const int viewport = mAlignVert ? size.height : size.width;
+		const int offset = std::clamp(_offset, 0, std::max(0, content - viewport));
+		int& position = mAlignVert ? mContentPosition.top : mContentPosition.left;
+		if (offset == position)
+			return;
 
-			if (mContentSize.height <= _getClientWidget()->getHeight())
-				offset = 0;
-			else if (offset >= mContentSize.height - _getClientWidget()->getHeight())
-				offset = mContentSize.height - _getClientWidget()->getHeight();
-			else if (offset < 0)
-				offset = 0;
+		if (_wheel != nullptr)
+			_wheel->setHandled();
 
-			if (mContentPosition.top == offset)
-				return;
-
-			// reset old highlight, during scroll the mouse may be over a window
-			resetCurrentActiveItem();
-
-			mContentPosition.top = offset;
-		}
-		else
-		{
-			if (mContentSize.width <= 0)
-				return;
-
-			int offset = _value.left;
-
-			if (mContentSize.width <= _getClientWidget()->getWidth())
-				offset = 0;
-			else if (offset >= mContentSize.width - _getClientWidget()->getWidth())
-				offset = mContentSize.width - _getClientWidget()->getWidth();
-			else if (offset < 0)
-				offset = 0;
-
-			if (mContentPosition.left == offset)
-				return;
-
-			// reset old highlight, during scroll the mouse may be over a window
-			resetCurrentActiveItem();
-
-			mContentPosition.left = offset;
-		}
-
+		resetCurrentActiveItem();
+		position = offset;
 		setContentPosition(mContentPosition);
 
 		// search and highlight item again

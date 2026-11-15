@@ -376,6 +376,8 @@ namespace
 	{
 		unittest::TestContext context;
 		setup();
+		unittest::loadResources("UnitTest_ListBehaviour/TestSkin.xml");
+		unittest::loadResources("UnitTest_ItemBox/TestSkin.xml");
 		auto* outer = context.getGui().createWidget<ScrollViewFixture>(
 			"BehaviourScrollView",
 			MyGUI::IntCoord(0, 0, 200, 200),
@@ -409,6 +411,83 @@ namespace
 				require(outer->getViewOffset().top == -100, "A ScrollView whose content fits must allow bubbling");
 			}
 			context.getGui().destroyWidget(inner);
+		}
+
+		for (bool descendant : {false, true})
+		{
+			auto* list = outer->createWidget<MyGUI::ListBox>(
+				"BehaviourListBox",
+				MyGUI::IntCoord(0, 0, 120, 64),
+				MyGUI::Align::Default);
+			for (int i = 0; i < 5; ++i)
+				list->addItem("row");
+			list->setScrollPosition(30);
+			auto target = [&]() -> MyGUI::Widget*
+			{
+				return descendant ? list->getWidgetByIndex(2) : list;
+			};
+			outer->setViewOffset(MyGUI::IntPoint());
+			target()->_riseMouseWheel(-1);
+			require(
+				list->_getScrollPosition() == 40 && outer->getViewOffset().top == 0,
+				"The step reaching the list boundary must be consumed without scrolling the parent");
+			target()->_riseMouseWheel(-1);
+			require(
+				list->_getScrollPosition() == 40 && outer->getViewOffset().top == -50,
+				"Wheel at the list boundary must bubble from both the list and its rows");
+			target()->_riseMouseWheel(1);
+			require(
+				list->_getScrollPosition() == 20 && outer->getViewOffset().top == -50,
+				"Reversing wheel direction must scroll the list again");
+			list->removeAllItems();
+			list->addItem("only row");
+			(descendant ? list->getWidgetByIndex(0) : list)->_riseMouseWheel(-1);
+			require(outer->getViewOffset().top == -100, "A list whose rows fit must allow parent scrolling");
+			list->removeAllItems();
+			list->_riseMouseWheel(-1);
+			require(outer->getViewOffset().top == -150, "An empty list must allow parent scrolling");
+			context.getGui().destroyWidget(list);
+
+			for (bool vertical : {false, true})
+			{
+				auto* box = outer->createWidget<MyGUI::ItemBox>(
+					"TestItemBox",
+					MyGUI::IntCoord(0, 0, 120, 80),
+					MyGUI::Align::Default);
+				box->requestCoordItem = MyGUI::newDelegate(
+					[](MyGUI::ItemBox*, MyGUI::IntCoord& coord, bool) { coord = MyGUI::IntCoord(0, 0, 40, 20); },
+					1);
+				box->setVerticalAlignment(vertical);
+				box->setSize(120, 80);
+				for (int i = 0; i < 18; ++i)
+					box->addItem();
+				box->setViewOffset(MyGUI::IntPoint(10000, 10000));
+				const auto limit = box->getViewOffset();
+				require(
+					vertical ? limit.top > 0 : limit.left > 0,
+					"ItemBox fixture must overflow in its scroll direction");
+				box->setViewOffset(limit - (vertical ? MyGUI::IntPoint(0, 10) : MyGUI::IntPoint(20, 0)));
+				auto boxTarget = [&]() -> MyGUI::Widget*
+				{
+					return descendant ? box->getWidgetByIndex(17) : box;
+				};
+				outer->setViewOffset(MyGUI::IntPoint());
+				boxTarget()->_riseMouseWheel(-1);
+				require(
+					box->getViewOffset() == limit && outer->getViewOffset().top == 0,
+					"ItemBox must consume the step that reaches its boundary");
+				boxTarget()->_riseMouseWheel(-1);
+				require(outer->getViewOffset().top == -50, "ItemBox boundary input must reach the outer view");
+				boxTarget()->_riseMouseWheel(0);
+				require(
+					box->getViewOffset() == limit && outer->getViewOffset().top == -50,
+					"Zero wheel delta must not scroll either control");
+				box->removeAllItems();
+				box->addItem();
+				(descendant ? box->getWidgetByIndex(0) : box)->_riseMouseWheel(-1);
+				require(outer->getViewOffset().top == -100, "ItemBox content that fits must not consume wheel input");
+				context.getGui().destroyWidget(box);
+			}
 		}
 
 		for (bool vertical : {false, true})

@@ -80,7 +80,7 @@ namespace unittest
 			checkEqual(*list->getItemDataAt<size_t>(8), size_t(8), "Preserved item data");
 		}
 
-		list->getWidgetByIndex(8)->eventMouseWheel(list->getWidgetByIndex(8), -1);
+		list->getWidgetByIndex(8)->_riseMouseWheel(-1);
 		checkItemHeightLayout(list, 12, 95);
 		checkEqual(scroll->getScrollPosition(), size_t(95), "Wheel uses updated height");
 
