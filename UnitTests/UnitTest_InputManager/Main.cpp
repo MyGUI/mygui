@@ -35,6 +35,53 @@ namespace
 			.createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(_left, 0, 100, 100), MyGUI::Align::Default, "Main");
 	}
 
+	void testButtonInterception()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_MultiList/InteractionSkin.xml");
+		auto* panel = root(context.getGui(), 0);
+		auto* button = panel->createWidget<MyGUI::Button>(
+			"InteractionListRow",
+			MyGUI::IntCoord(0, 0, 80, 20),
+			MyGUI::Align::Default);
+		auto* text = button->getSubWidgetText();
+		const auto normal = text->getTextColour();
+		const auto left = MyGUI::MouseButton::Left;
+		button->_riseMouseButtonPressed(10, 10, left);
+		require(text->getTextColour() != normal, "Press must apply the button's pushed skin state");
+		button->eventMouseButtonReleasedRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+		button->_riseMouseButtonReleased(10, 10, left);
+		require(text->getTextColour() == normal, "An intercepted release must clear the pushed skin state");
+
+		button->eventMouseButtonReleasedRouted.clear();
+		button->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			{
+				button->_riseMouseButtonPressed(10, 10, left);
+				event.setHandled();
+			},
+			1);
+		button->_riseMouseButtonPressed(10, 10, left);
+		button->_riseMouseButtonReleased(10, 10, left);
+		require(text->getTextColour() != normal, "An older release must not clear a new press from its callback");
+		button->eventMouseButtonReleasedRouted.clear();
+		button->eventMouseButtonReleasedRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+
+		int clicks = 0, parentClicks = 0;
+		button->eventMouseButtonClick += MyGUI::newDelegate([&](MyGUI::Widget*) { ++clicks; }, 2);
+		panel->eventMouseButtonClickRouted +=
+			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseClickEvent&) { ++parentClicks; }, 3);
+		unittest::clickAt(10, 10);
+		require(clicks == 1 && parentClicks == 1, "An intercepted release must still generate a separate click");
+		button->eventMouseButtonClickRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseClickEvent& event) { event.setHandled(); }, 4);
+		unittest::clickAt(10, 10);
+		require(clicks == 1 && parentClicks == 1, "An intercepted click must skip the legacy callback and the parent");
+	}
+
 	void testWheelRouteLifetime()
 	{
 		unittest::TestContext context;
@@ -831,6 +878,8 @@ namespace
 int main()
 {
 	return unittest::runTests({
+		{"Shared mouse interaction cleanup", testSharedMouseInteraction},
+		{"Button release and click interception", testButtonInterception},
 		{"Typed routed input payloads and delivery order", testTypedRoutedInputTypes},
 		{"Shared routed input consumption", testTypedRoutedInputConsumption},
 		{"Typed routed input callback lifetime", testTypedRoutedInputLifetime},

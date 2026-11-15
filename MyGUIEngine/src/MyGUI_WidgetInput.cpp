@@ -194,7 +194,8 @@ namespace MyGUI
 
 	void WidgetInput::_riseMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		InputManager::MouseInteractionRelease release(InputManager::getInstance(), _id);
+		auto& input = InputManager::getInstance();
+		const auto through = input.mLastMouseInteraction;
 		riseInputEvent(
 			&WidgetInput::onMouseButtonReleased,
 			eventMouseButtonReleased,
@@ -203,6 +204,7 @@ namespace MyGUI
 			_left,
 			_top,
 			_id);
+		input.finishMouseInteractions(_id, nullptr, through);
 	}
 
 	void WidgetInput::_riseMouseButtonClick()
@@ -344,7 +346,12 @@ namespace MyGUI
 	{
 	}
 
-	void WidgetInput::onMouseInteractionEnd(MouseButton _button) noexcept
+	void WidgetInput::beginMouseInteraction(Widget* _target, MouseButton _button)
+	{
+		InputManager::getInstance().beginMouseInteraction(static_cast<Widget*>(this), _target, _button);
+	}
+
+	void WidgetInput::onMouseInteractionEnd(Widget* _target, MouseButton _button)
 	{
 	}
 

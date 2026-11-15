@@ -33,12 +33,19 @@ namespace
 	{
 		MYGUI_RTTI_DERIVED(InputWidget)
 	public:
+		using MyGUI::WidgetInput::beginMouseInteraction;
+		std::function<void()> interactionEnd;
 		std::vector<Type> legacy;
 		std::function<void()> keyAction;
 		std::function<void()> wheelAction;
 		std::function<void(MyGUI::InputEventContext&, Type)> typedAction;
 
 	protected:
+		void onMouseInteractionEnd(MyGUI::Widget*, MyGUI::MouseButton) override
+		{
+			if (interactionEnd)
+				interactionEnd();
+		}
 		void onMouseMoveRouted(MyGUI::MouseMoveEvent& _event) override
 		{
 			if (typedAction)
@@ -628,4 +635,41 @@ void testTypedRoutedInputReentrancy()
 	require(
 		received == std::vector<Type>{Type::KeyButtonPressed, Type::MouseWheel},
 		"Nested typed events must complete independently before the outer route resumes");
+}
+
+void testSharedMouseInteraction()
+{
+	Fixture fixture;
+	auto* child = fixture.child;
+	auto* parent = fixture.parent;
+	const auto left = MyGUI::MouseButton::Left;
+	int childEnds = 0, parentEnds = 0;
+	child->interactionEnd = [&]
+	{
+		++childEnds;
+	};
+	parent->interactionEnd = [&]
+	{
+		++parentEnds;
+	};
+	child->beginMouseInteraction(child, left);
+	parent->beginMouseInteraction(child, left);
+	child->_riseMouseButtonReleased(0, 0, MyGUI::MouseButton::Right);
+	require(childEnds == 0 && parentEnds == 0, "Another button must leave both interactions active");
+	child->_riseMouseButtonReleased(0, 0, left);
+	require(childEnds == 1 && parentEnds == 1, "Releasing the registered button must finish both participants");
+
+	// The first callback unlinks the other participant while capture cleanup is in progress.
+	parent->interactionEnd = [&]
+	{
+		++parentEnds;
+		fixture.context.getGui().destroyWidget(child);
+	};
+	MyGUI::InputManager::getInstance().setKeyFocusWidget(child);
+	parent->beginMouseInteraction(child, left);
+	child->beginMouseInteraction(child, left);
+	MyGUI::InputManager::getInstance().resetMouseCaptureWidget();
+	require(
+		childEnds == 2 && parentEnds == 2 && MyGUI::InputManager::getInstance().getKeyFocusWidget() == nullptr,
+		"Unlink must finish each participant once and clear focus");
 }

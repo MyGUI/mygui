@@ -81,6 +81,9 @@ void testEditBoxDragAutoscroll()
 				edit->scroll("VScroll")->getScrollPosition() == edit->getVScrollPosition() &&
 				edit->scroll("HScroll")->getScrollPosition() == edit->getHScrollPosition(),
 			"Autoscroll offsets must stay bounded and synchronized with both scrollbars");
+		if (edge == 0)
+			edit->getClientWidget()->eventMouseButtonReleasedRouted +=
+				MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 		input.injectMouseRelease(outside.left, outside.top, MyGUI::MouseButton::Left);
 		const auto start = edit->getTextSelectionStart(), end = edit->getTextSelectionEnd();
 		const auto vertical = edit->getVScrollPosition(), horizontal = edit->getHScrollPosition();

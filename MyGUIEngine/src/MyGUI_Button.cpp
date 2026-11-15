@@ -60,6 +60,7 @@ namespace MyGUI
 	{
 		if (_id == MouseButton::Left)
 		{
+			beginMouseInteraction(this, _id);
 			mIsMousePressed = true;
 			updateButtonState();
 		}
@@ -67,15 +68,10 @@ namespace MyGUI
 		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	void Button::onMouseInteractionEnd(Widget* _target, MouseButton _button)
 	{
-		if (_id == MouseButton::Left)
-		{
-			mIsMousePressed = false;
-			updateButtonState();
-		}
-
-		Base::onMouseButtonReleased(_left, _top, _id);
+		mIsMousePressed = false;
+		updateButtonState();
 	}
 
 	void Button::updateButtonState()

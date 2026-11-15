@@ -249,8 +249,8 @@ namespace MyGUI
 
 	void ItemBox::onMouseDragRouted(MouseButtonEvent& _event)
 	{
-		if (consumeItemInput(*this, _event, ItemInputScope::Item))
-			mouseDrag(_event.getButton());
+		if (auto* target = consumeItemInput(*this, _event, ItemInputScope::Item))
+			mouseDrag(_event.getButton(), target);
 	}
 
 	void ItemBox::onKeyButtonPressedRouted(KeyPressEvent& _event)

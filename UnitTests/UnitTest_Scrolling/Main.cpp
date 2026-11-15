@@ -159,7 +159,12 @@ namespace
 			context.getGui().eventFrameStart(0.2f);
 			context.getGui().eventFrameStart(0.1f);
 			require(bar->getScrollPosition() > 3, "Holding a repeat-enabled button must advance more than one step");
+			part(bar, "End")->eventMouseButtonReleasedRouted +=
+				MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 			input.injectMouseRelease(500, 500, MyGUI::MouseButton::Left);
+			const auto stopped = bar->getScrollPosition();
+			context.getGui().eventFrameStart(0.3f);
+			require(bar->getScrollPosition() == stopped, "Intercepting release must still stop button repeat");
 			bar->setRepeatEnabled(false);
 			bar->setScrollPosition(0);
 			press(part(bar, "End"));

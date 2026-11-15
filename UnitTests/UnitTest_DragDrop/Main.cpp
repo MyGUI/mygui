@@ -123,6 +123,22 @@ namespace
 		require(fixture.results == std::vector<bool>({false, true}), "A new drag after cancellation must work");
 	}
 
+	template<bool InterceptOnOwner>
+	void testInterceptedRelease()
+	{
+		Fixture fixture;
+		fixture.begin();
+		auto& input = MyGUI::InputManager::getInstance();
+		auto* interceptor = InterceptOnOwner ? fixture.source : input.getMouseFocusWidget();
+		interceptor->eventMouseButtonReleasedRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+		input.injectMouseRelease(265, 25, MyGUI::MouseButton::Left);
+		require(
+			fixture.results == std::vector<bool>{false} && fixture.states.back() == MyGUI::DDItemState::End &&
+				!fixture.dragPreview->getVisible(),
+			"Intercepting the release must discard the preview and cancel the drop");
+	}
+
 	void testRotatedDragPreview()
 	{
 		Fixture fixture;
@@ -156,6 +172,8 @@ int main()
 		{"Accepted drop", testDrop<true>},
 		{"Rejected drop", testDrop<false>},
 		{"Cancellation and recovery", testCancelAndMiss},
+		{"Intercepted item release cancels the drop", testInterceptedRelease<false>},
+		{"Intercepted container release cancels the drop", testInterceptedRelease<true>},
 		{"Rotated drag preview", testRotatedDragPreview},
 	});
 }

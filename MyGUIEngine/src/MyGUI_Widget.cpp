@@ -151,6 +151,7 @@ namespace MyGUI
 		else
 			skinInfo = SkinManager::getInstance().getByName(_skinName);
 
+		InputManager::getInstance().cancelMouseInteractions(this);
 		shutdownOverride();
 
 		saveLayerItem();

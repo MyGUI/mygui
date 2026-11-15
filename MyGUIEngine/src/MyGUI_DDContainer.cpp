@@ -71,7 +71,17 @@ namespace MyGUI
 		}
 	}
 
+	void DDContainer::onMouseInteractionEnd(Widget* _target, MouseButton _button)
+	{
+		endDrop(true);
+	}
+
 	void DDContainer::mouseDrag(MouseButton _id)
+	{
+		mouseDrag(_id, this);
+	}
+
+	void DDContainer::mouseDrag(MouseButton _id, Widget* _target)
 	{
 		if (MouseButton::Left != _id)
 			return;
@@ -81,6 +91,7 @@ namespace MyGUI
 		// first time dropping an item
 		if (!mStartDrop && mDropSenderIndex != ITEM_NONE)
 		{
+			beginMouseInteraction(_target, _id);
 			mStartDrop = true;
 			mNeedDrop = false;
 			update = true;
@@ -188,28 +199,26 @@ namespace MyGUI
 
 	void DDContainer::endDrop(bool _reset)
 	{
-		if (mStartDrop)
-		{
-			removeDropItems();
+		if (!mStartDrop)
+			return;
 
-			// reset old highlight
-			if (mReseiverContainer)
-				mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
+		// End the old drag before notifying: a callback can release capture or start another drag.
+		const auto info = mDropInfo;
+		const bool result = !_reset && mDropResult;
+		auto* receiver = mReseiverContainer;
+		mStartDrop = false;
+		mDropResult = false;
+		mNeedDrop = false;
+		mOldDrop = nullptr;
+		mDropInfo.reset();
+		mReseiverContainer = nullptr;
+		mDropSenderIndex = ITEM_NONE;
 
-			if (_reset)
-				mDropResult = false;
-			eventDropResult(this, mDropInfo, mDropResult);
-			eventChangeDDState(this, DDItemState::End);
-
-			// reset drop info
-			mStartDrop = false;
-			mDropResult = false;
-			mNeedDrop = false;
-			mOldDrop = nullptr;
-			mDropInfo.reset();
-			mReseiverContainer = nullptr;
-			mDropSenderIndex = ITEM_NONE;
-		}
+		removeDropItems();
+		if (receiver)
+			receiver->_setContainerItemInfo(info.receiver_index, false, false);
+		eventDropResult(this, info, result);
+		eventChangeDDState(this, DDItemState::End);
 	}
 
 	void DDContainer::removeDropItems()

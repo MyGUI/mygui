@@ -274,8 +274,11 @@ namespace MyGUI
 		void _setRootKeyFocus(bool _value);
 
 	protected:
-		/** Internal gesture cleanup; called even when release input is consumed. */
-		virtual void onMouseInteractionEnd(MouseButton _button) noexcept;
+		/** Register when this widget starts a mouse action. Multiple controls may share a press.
+			The end hook runs once on release or cancellation, independently of input routing.
+		*/
+		void beginMouseInteraction(Widget* _target, MouseButton _button);
+		virtual void onMouseInteractionEnd(Widget* _target, MouseButton _button);
 
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);

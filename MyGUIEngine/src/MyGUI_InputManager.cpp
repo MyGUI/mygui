@@ -131,52 +131,50 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	InputManager::MouseInteractionRelease::MouseInteractionRelease(InputManager& _input, MouseButton _button) :
-		mInput(_input),
-		mButton(_button),
-		mGeneration(
-			_button != MouseButton::None && _button != MouseButton::MAX
-				? _input.mMouseInteractions[_button.getValue()].generation
-				: 0)
-	{
-	}
-
-	InputManager::MouseInteractionRelease::~MouseInteractionRelease()
-	{
-		if (mButton != MouseButton::None && mButton != MouseButton::MAX &&
-			mInput.mMouseInteractions[mButton.getValue()].generation == mGeneration)
-			mInput.endMouseInteraction(mButton);
-	}
-
 	void InputManager::beginMouseInteraction(Widget* _owner, Widget* _target, MouseButton _button)
-	{
-		endMouseInteraction(_button);
-		auto& interaction = mMouseInteractions[_button.getValue()];
-		interaction.owner = _owner;
-		interaction.target = _target;
-	}
-
-	void InputManager::endMouseInteraction(MouseButton _button) noexcept
 	{
 		if (_button == MouseButton::None || _button == MouseButton::MAX)
 			return;
-		auto& interaction = mMouseInteractions[_button.getValue()];
-		auto* owner = interaction.owner;
-		interaction.owner = nullptr;
-		interaction.target = nullptr;
-		++interaction.generation;
-		if (owner != nullptr)
-			owner->onMouseInteractionEnd(_button);
+		auto& participants = mMouseInteractions[_button.getValue()];
+		const auto sameOwner = [&](const auto& entry)
+		{
+			return entry.owner == _owner;
+		};
+		if (std::none_of(participants.begin(), participants.end(), sameOwner))
+			participants.push_back({_owner, _target, ++mLastMouseInteraction});
 	}
 
-	void InputManager::cancelMouseInteractions(Widget* _widget) noexcept
+	void InputManager::finishMouseInteractions(MouseButton _button, Widget* _widget, size_t _through)
 	{
-		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+		if (_button == MouseButton::None || _button == MouseButton::MAX)
+			return;
+		auto& participants = mMouseInteractions[_button.getValue()];
+		const auto matches = [&](const MouseInteraction& entry)
 		{
-			const auto& interaction = mMouseInteractions[i];
-			if (interaction.owner == _widget || interaction.target == _widget)
-				endMouseInteraction(MouseButton::Enum(i));
+			return entry.id <= _through && (_widget == nullptr || entry.owner == _widget || entry.target == _widget);
+		};
+		// Remove before notifying: callbacks may unlink other owners or register a newer interaction.
+		while (true)
+		{
+			auto it = std::find_if(participants.begin(), participants.end(), matches);
+			if (it == participants.end())
+				break;
+			const auto entry = *it;
+			participants.erase(it);
+			entry.owner->onMouseInteractionEnd(entry.target, _button);
 		}
+	}
+
+	void InputManager::endMouseInteraction(MouseButton _button)
+	{
+		finishMouseInteractions(_button, nullptr, mLastMouseInteraction);
+	}
+
+	void InputManager::cancelMouseInteractions(Widget* _widget)
+	{
+		const auto through = mLastMouseInteraction;
+		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+			finishMouseInteractions(MouseButton::Enum(i), _widget, through);
 	}
 
 	bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)
@@ -396,7 +394,6 @@ namespace MyGUI
 
 	bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)
 	{
-		MouseInteractionRelease interactionRelease(*this, _id);
 		if (_id != MouseButton::None && _id != MouseButton::MAX)
 		{
 			if (mMouseCapture[_id.getValue()])
@@ -409,7 +406,10 @@ namespace MyGUI
 		if (isFocusMouse())
 		{
 			if (!mWidgetMouseFocus->getInheritedEnabled())
+			{
+				endMouseInteraction(_id);
 				return true;
+			}
 
 			IntPoint point(_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
@@ -447,6 +447,7 @@ namespace MyGUI
 			return true;
 		}
 
+		endMouseInteraction(_id);
 		return false;
 	}
 
@@ -599,9 +600,9 @@ namespace MyGUI
 	// remove the given widget from all possible places
 	void InputManager::_unlinkWidget(Widget* _widget)
 	{
-		cancelMouseInteractions(_widget);
 		if (nullptr == _widget)
 			return;
+		cancelMouseInteractions(_widget);
 
 		if (mWidgetMouseFocus == _widget)
 			_resetMouseFocusWidget();
@@ -818,10 +819,8 @@ namespace MyGUI
 	void InputManager::resetMouseCaptureWidget()
 	{
 		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
-		{
 			mMouseCapture[i] = false;
-			endMouseInteraction(MouseButton::Enum(i));
-		}
+		cancelMouseInteractions(nullptr);
 	}
 
 	void InputManager::unlinkWidget(Widget* _widget)

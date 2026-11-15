@@ -73,6 +73,16 @@ later handlers cannot release consumed input because they are not called.
 
 Capture, keyboard focus and click generation are independent of consumption. For
 example, intercepting a release does not intercept the separately generated click.
+A control that starts a mouse interaction calls the protected beginMouseInteraction(target, button).
+Its onMouseInteractionEnd(target, button) hook runs once when that press ends, even if a
+release handler consumes input. Release and cleanup callbacks are expected to return normally.
+On release, cleanup runs after the handlers and
+before click delivery, so a release observer may still see the pressed appearance.
+Several controls can register for the same press:
+a scrollbar button can clear its pressed appearance while the scrollbar stops its repeat timer.
+Capture cancellation, unlinking the owner or target, and skin replacement also end the interaction.
+A new press started by a release handler keeps its own registrations. Use the routed release hook
+for optional actions such as accepting a drop, and the end hook to discard any unfinished state.
 Destruction, reparenting, hiding or disabling can invalidate the route between
 callbacks; remaining routed delivery is then skipped.
 
@@ -179,7 +189,7 @@ still invokes its legacy callbacks.
 Other protected notification helpers remain available for existing subclasses.
 
 Window interaction cleanup is independent of consumable input. The active action is
-cleared after release dispatch even if release is consumed, invalidated or throws.
+cleared after release dispatch even if release is consumed or its route is invalidated.
 Capture cancellation, unlinking and skin shutdown also cancel the interaction. A new
 interaction started during a release callback is not cancelled by the older release.
 Cleanup does not deliver skipped input handlers or replay default actions.

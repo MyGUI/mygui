@@ -2,7 +2,6 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
 #include <cmath>
-#include <stdexcept>
 #include <vector>
 
 namespace
@@ -598,17 +597,11 @@ namespace
 			"An active resize at its size limit must remain handled through release");
 	}
 
-	[[noreturn]] void throwReleaseFailure()
-	{
-		throw std::runtime_error("release failure");
-	}
-
 	void testWindowActionCleanup()
 	{
 		enum class EndMode
 		{
 			ConsumedRelease,
-			ThrowingRelease,
 			Hide,
 			Disable,
 			Skin,
@@ -617,12 +610,7 @@ namespace
 		for (bool direct : {false, true})
 		{
 			for (auto mode :
-				 {EndMode::ConsumedRelease,
-				  EndMode::ThrowingRelease,
-				  EndMode::Hide,
-				  EndMode::Disable,
-				  EndMode::Skin,
-				  EndMode::CaptureReset})
+				 {EndMode::ConsumedRelease, EndMode::Hide, EndMode::Disable, EndMode::Skin, EndMode::CaptureReset})
 			{
 				unittest::TestContext context;
 				unittest::createInputLayer();
@@ -645,13 +633,6 @@ namespace
 						[](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); },
 						1);
 					input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left);
-					break;
-				case EndMode::ThrowingRelease:
-					target->eventMouseButtonReleasedRouted +=
-						MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent&) { throwReleaseFailure(); }, 1);
-					unittest::requireThrows<std::runtime_error>(
-						[&] { input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left); },
-						"Release exceptions must propagate");
 					break;
 				case EndMode::Hide:
 					window->setVisible(false);

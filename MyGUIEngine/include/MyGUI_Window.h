@@ -115,7 +115,7 @@ namespace MyGUI
 		void onMouseButtonReleasedRouted(MouseButtonEvent& _event) override;
 		void onMouseDragRouted(MouseButtonEvent& _event) override;
 
-		void onMouseInteractionEnd(MouseButton _button) noexcept override;
+		void onMouseInteractionEnd(Widget* _target, MouseButton _button) noexcept override;
 
 		void onMouseChangeRootFocus(bool _focus) override;
 		void onKeyChangeRootFocus(bool _focus) override;

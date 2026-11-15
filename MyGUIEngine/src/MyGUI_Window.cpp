@@ -99,7 +99,6 @@ namespace MyGUI
 
 	void Window::shutdownOverride()
 	{
-		InputManager::getInstance().cancelMouseInteractions(this);
 		mCurrentActionScale.clear();
 		mWidgetCaption = nullptr;
 		mActionWidgets.clear();
@@ -122,7 +121,7 @@ namespace MyGUI
 		if (scale.empty())
 			return;
 
-		InputManager::getInstance().beginMouseInteraction(this, _event.getTarget(), _event.getButton());
+		beginMouseInteraction(_event.getTarget(), _event.getButton());
 		mCurrentActionScale = scale;
 		_event.setHandled();
 		mPreActionCoord = mCoord;
@@ -149,7 +148,7 @@ namespace MyGUI
 		updateAction();
 	}
 
-	void Window::onMouseInteractionEnd(MouseButton _button) noexcept
+	void Window::onMouseInteractionEnd(Widget* _target, MouseButton _button) noexcept
 	{
 		if (_button == MouseButton::Left)
 			mCurrentActionScale.clear();

@@ -41,8 +41,9 @@
 - Keep menu and tab items attached to their owners when their skins change; allow repeated ComboBox skin changes
 - Preserve every glyph and logical selection position when wrapping long words
 - Apply interactive window resizing and anchor correction in one coordinate update, so callbacks observe final geometry
-- Clear Window move/resize state independently of release propagation, including consumed or throwing release handlers,
-  capture cancellation and skin replacement; prevent stale actions from affecting later gestures
+- End mouse interactions independently of release propagation. Intercepting a release on an item or its container
+  cancels an unfinished drop. Buttons, scrollbar repeat, text autoscroll and window move/resize also finish when
+  capture is cancelled, without clearing a new interaction started by a release callback
 - Add input bubbling for mouse movement, dragging, wheel, button press/release, click/double-click and key press/release
   through typed routed events. Marking an event handled stops subsequent routed handlers and ancestor delivery
 - Let wheel input over child widgets reach scrolling parents (#332). Scroll controls consume input only when their

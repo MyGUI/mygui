@@ -101,6 +101,7 @@ namespace MyGUI
 		delegates::MultiDelegate<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;
 
 	protected:
+		void onMouseInteractionEnd(Widget* _target, MouseButton _button) override;
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
 		void onMouseDrag(int _left, int _top, MouseButton _id) override;
@@ -112,6 +113,7 @@ namespace MyGUI
 		virtual void updateDropItemsState(const DDWidgetState& _state);
 
 		void mouseDrag(MouseButton _id);
+		void mouseDrag(MouseButton _id, Widget* _target);
 		void mouseButtonReleased(MouseButton _id);
 		void mouseButtonPressed(MouseButton _id);
 

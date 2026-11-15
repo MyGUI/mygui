@@ -249,6 +249,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	protected:
+		void onMouseInteractionEnd(Widget* _target, MouseButton _button) override;
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 

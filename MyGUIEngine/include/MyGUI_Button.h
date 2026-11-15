@@ -47,6 +47,7 @@ namespace MyGUI
 		ImageBox* _getImageBox() const;
 
 	protected:
+		void onMouseInteractionEnd(Widget* _target, MouseButton _button) override;
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
@@ -55,7 +56,6 @@ namespace MyGUI
 		void onMouseLostFocus(Widget* _new) override;
 		void onMouseSetFocus(Widget* _old) override;
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
-		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
 
 		void baseUpdateEnable() override;
 

@@ -141,31 +141,21 @@ namespace MyGUI
 
 	private:
 		friend class WidgetInput;
-		friend class Window;
+		friend class Widget;
 		// A gesture's cleanup is independent of consumable input notifications.
 		struct MouseInteraction
 		{
-			Widget* owner{nullptr};
-			Widget* target{nullptr};
-			size_t generation{0};
+			Widget* owner;
+			Widget* target;
+			size_t id;
 		};
-		class MouseInteractionRelease
-		{
-		public:
-			MouseInteractionRelease(InputManager& _input, MouseButton _button);
-			~MouseInteractionRelease();
-			MouseInteractionRelease(const MouseInteractionRelease&) = delete;
-			MouseInteractionRelease& operator=(const MouseInteractionRelease&) = delete;
 
-		private:
-			InputManager& mInput;
-			MouseButton mButton;
-			size_t mGeneration;
-		};
 		void beginMouseInteraction(Widget* _owner, Widget* _target, MouseButton _button);
-		void endMouseInteraction(MouseButton _button) noexcept;
-		void cancelMouseInteractions(Widget* _widget) noexcept;
-		MouseInteraction mMouseInteractions[MouseButton::MAX];
+		void endMouseInteraction(MouseButton _button);
+		void finishMouseInteractions(MouseButton _button, Widget* _widget, size_t _through);
+		void cancelMouseInteractions(Widget* _widget);
+		std::vector<MouseInteraction> mMouseInteractions[MouseButton::MAX];
+		size_t mLastMouseInteraction{0};
 
 		// Remove widget from all tracked places (focus, capture, modal, etc)
 		void _unlinkWidget(Widget* _widget) override;

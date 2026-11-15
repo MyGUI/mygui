@@ -123,6 +123,7 @@ namespace MyGUI
 		EventHandle_ScrollBarPtrSizeT eventScrollChangePosition;
 
 	protected:
+		void onMouseInteractionEnd(Widget* _target, MouseButton _button) override;
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 

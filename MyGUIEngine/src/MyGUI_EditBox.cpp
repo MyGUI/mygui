@@ -81,7 +81,6 @@ namespace MyGUI
 			getClientWidget()->eventMouseSetFocus += newDelegate(this, &EditBox::notifyMouseSetFocus);
 			getClientWidget()->eventMouseLostFocus += newDelegate(this, &EditBox::notifyMouseLostFocus);
 			getClientWidget()->eventMouseButtonPressed += newDelegate(this, &EditBox::notifyMousePressed);
-			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &EditBox::notifyMouseReleased);
 			getClientWidget()->eventMouseDrag += newDelegate(this, &EditBox::notifyMouseDrag);
 			getClientWidget()->eventMouseButtonDoubleClick += newDelegate(this, &EditBox::notifyMouseButtonDoubleClick);
 		}
@@ -162,7 +161,15 @@ namespace MyGUI
 		updateSelectText();
 
 		if (_id == MouseButton::Left)
+		{
+			beginMouseInteraction(_sender, _id);
 			mMouseLeftPressed = true;
+		}
+	}
+
+	void EditBox::onMouseInteractionEnd(Widget* _target, MouseButton _button)
+	{
+		mMouseLeftPressed = false;
 	}
 
 	void EditBox::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
