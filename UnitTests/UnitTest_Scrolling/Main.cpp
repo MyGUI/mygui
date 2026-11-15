@@ -294,7 +294,7 @@ namespace
 			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
 		bar->_riseMouseWheel(-1);
 		require(
-			stages == std::vector<int>{1, 2, 3} && bar->wheelCalls == 1 && bar->getScrollPosition() == 57,
+			stages == std::vector<int>{2, 3, 1} && bar->wheelCalls == 1 && bar->getScrollPosition() == 57,
 			"Legacy and typed observers must precede default scrolling without consuming input");
 		bar->eventMouseWheel.clear();
 		stages.clear();

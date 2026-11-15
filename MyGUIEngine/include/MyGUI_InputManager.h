@@ -23,8 +23,6 @@
 namespace MyGUI
 {
 
-	class InputEventContext;
-
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget, public MemberObsolete<InputManager>
 	{
 		MYGUI_SINGLETON_DECLARATION(InputManager);
@@ -142,6 +140,7 @@ namespace MyGUI
 		void _resetMouseFocusWidget();
 
 	private:
+		friend class WidgetInput;
 		friend class Window;
 		// A gesture's cleanup is independent of consumable input notifications.
 		struct MouseInteraction
@@ -212,10 +211,6 @@ namespace MyGUI
 
 		// Modal widgets stack
 		VectorWidgetPtr mVectorModalRootWidget;
-
-		friend class WidgetInput;
-		// Scoped by WidgetInput dispatch; nested input restores the previous event.
-		InputEventContext* mCurrentInputEvent{nullptr};
 
 		bool mIsInitialise{false};
 	};

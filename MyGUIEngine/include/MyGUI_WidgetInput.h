@@ -152,10 +152,10 @@ namespace MyGUI
 		EventHandle_WidgetInt eventMouseWheel;
 
 		/** Typed input routed from the original target towards its parents.
-			The target's legacy virtual method and delegates run first without implicit
-			consumption. At each widget, typed subscribers run in registration order,
-			followed by the matching typed virtual hook/default action.
-			setHandled() skips remaining subscribers, the hook and ancestors.
+			At each widget, typed subscribers run first in registration order.
+			At the target only, the legacy virtual method and delegates run next.
+			The matching typed virtual hook/default action runs last on each widget.
+			setHandled() skips all remaining delivery for this event.
 			Routing stops at popup roots, unavailable widgets, unlinked targets and
 			changed parent links. Event references are valid only during delivery.
 			The sender is the current receiver; getTarget() identifies the original target.
@@ -274,12 +274,6 @@ namespace MyGUI
 		void _setRootKeyFocus(bool _value);
 
 	protected:
-		/** Set consumption from a legacy virtual input method during dispatch.
-			Outside input delivery on this widget this does nothing. Nested inputs
-			have independent state. Legacy delegates still run for compatibility.
-		*/
-		void setInputHandled(bool _value = true);
-
 		/** Internal gesture cleanup; called even when release input is consumed. */
 		virtual void onMouseInteractionEnd(MouseButton _button) noexcept;
 

@@ -36,10 +36,6 @@ namespace
 		std::vector<Type> legacy;
 		std::function<void()> keyAction;
 		std::function<void()> wheelAction;
-		void consumeInput()
-		{
-			setInputHandled();
-		}
 		std::function<void(MyGUI::InputEventContext&, Type)> typedAction;
 
 	protected:
@@ -303,19 +299,21 @@ void testRoutedInputLifetime()
 	}
 	{
 		Fixture fixture;
-		int notifications = 0;
+		int typedCalls = 0, legacyCalls = 0;
 		fixture.child->keyAction = [&]
 		{
 			fixture.context.getGui().destroyWidget(fixture.child);
 		};
 		fixture.child->eventKeyButtonPressed +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::KeyCode, MyGUI::Char) { ++notifications; }, 1);
+			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::KeyCode, MyGUI::Char) { ++legacyCalls; }, 1);
 		unittest::subscribeRouted(
 			fixture.child,
-			[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++notifications; },
+			[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++typedCalls; },
 			2);
 		raise(fixture.child, Type::KeyButtonPressed);
-		require(notifications == 0, "Destruction in a legacy virtual method must stop later notifications");
+		require(
+			typedCalls == 1 && legacyCalls == 0,
+			"Destruction in a legacy hook must skip its delegates after the target typed subscriber ran");
 	}
 	{
 		Fixture fixture;
@@ -350,67 +348,43 @@ void testRoutedInputReentrancy()
 {
 	std::vector<Type> parentEvents;
 	Fixture fixture;
-	fixture.child->eventMouseWheelRouted += MyGUI::newDelegate(
-		[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
-		{
-			raise(fixture.child, Type::KeyButtonPressed);
-			require(
-				event.getWheelDelta() == -3 && event.getTarget() == fixture.child &&
-					event.getCurrentTarget() == fixture.child && !event.isHandled(),
-				"Nested dispatch must not change the outer event's payload, route or consumption state");
-		},
-		1);
-	unittest::subscribeRouted(
-		fixture.parent,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext& event, Type kind)
-		{
-			parentEvents.push_back(kind);
-			event.setHandled();
-		},
-		2);
-	raise(fixture.child, Type::MouseWheel);
-	require(
-		parentEvents == std::vector<Type>{Type::KeyButtonPressed, Type::MouseWheel},
-		"Nested input must complete its own route before the outer route resumes");
-	parentEvents.clear();
-	unittest::clearRouted(fixture.child);
-	fixture.child->keyAction = [&]
-	{
-		fixture.child->consumeInput();
-	};
+	fixture.child->eventKeyButtonPressedRouted +=
+		MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::KeyPressEvent& event) { event.setHandled(); }, 1);
 	fixture.child->wheelAction = [&]
 	{
 		raise(fixture.child, Type::KeyButtonPressed);
-		fixture.child->consumeInput();
 	};
-	raise(fixture.child, Type::MouseWheel);
-	require(parentEvents.empty(), "Legacy consumption must restore the outer input after nested dispatch");
-	fixture.child->wheelAction = {};
-	fixture.child->consumeInput(); // No active input: must not retain a completed event.
-	raise(fixture.child, Type::MouseWheel);
-	require(parentEvents == std::vector<Type>{Type::MouseWheel}, "Consumption must not leak into later inputs");
-
-	parentEvents.clear();
-	fixture.child->keyAction = throwInputFailure;
-	fixture.child->wheelAction = [&]
-	{
-		unittest::requireThrows<std::runtime_error>(
-			[&] { raise(fixture.child, Type::KeyButtonPressed); },
-			"Nested input exceptions must propagate to the calling handler");
-		fixture.child->consumeInput();
-	};
-	raise(fixture.child, Type::MouseWheel);
-	require(parentEvents.empty(), "Exception unwinding must restore the outer input for legacy consumption");
-
-	unittest::requireThrows<std::runtime_error>(
-		[&] { raise(fixture.child, Type::KeyButtonPressed); },
-		"Top-level input exceptions must propagate to the caller");
-	fixture.child->wheelAction = {};
-	fixture.child->consumeInput();
+	unittest::subscribeRouted(
+		fixture.parent,
+		[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type kind) { parentEvents.push_back(kind); },
+		2);
 	raise(fixture.child, Type::MouseWheel);
 	require(
-		parentEvents == std::vector<Type>{Type::MouseWheel},
-		"Failed dispatch must not leave an active event behind");
+		parentEvents == std::vector<Type>{Type::MouseWheel} && fixture.child->legacy == parentEvents,
+		"Consuming nested key input inside a legacy wheel hook must leave the outer wheel unhandled");
+
+	parentEvents.clear();
+	fixture.child->legacy.clear();
+	fixture.child->wheelAction = {};
+	fixture.child->eventKeyButtonPressedRouted.clear();
+	fixture.child->keyAction = throwInputFailure;
+	fixture.child->eventMouseWheelRouted += MyGUI::newDelegate(
+		[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+		{
+			unittest::requireThrows<std::runtime_error>(
+				[&] { raise(fixture.child, Type::KeyButtonPressed); },
+				"Nested input exceptions must propagate to the calling handler");
+			event.setHandled();
+		},
+		3);
+	raise(fixture.child, Type::MouseWheel);
+	require(
+		parentEvents.empty() && fixture.child->legacy == std::vector<Type>{Type::KeyButtonPressed},
+		"The outer typed handler must still be able to intercept its own input after a nested exception");
+
+	fixture.child->eventMouseWheelRouted.clear();
+	raise(fixture.child, Type::MouseWheel);
+	require(parentEvents == std::vector<Type>{Type::MouseWheel}, "Later input must start unhandled");
 }
 
 void testTypedRoutedInputTypes()
@@ -515,6 +489,8 @@ void testTypedRoutedInputTypes()
 void testTypedRoutedInputConsumption()
 {
 	Fixture fixture;
+	std::vector<Type> legacyNotifications;
+	subscribeLegacy(fixture.child, legacyNotifications);
 	int parentCalls = 0, firstCalls = 0, laterCalls = 0, defaultCalls = 0;
 	unittest::subscribeRouted(
 		fixture.parent,
@@ -543,8 +519,10 @@ void testTypedRoutedInputConsumption()
 	for (auto type : types)
 		raise(fixture.child, type);
 	require(
-		firstCalls == 9 && laterCalls == 0 && defaultCalls == 0 && parentCalls == 0,
-		"Subscribers must be able to skip later subscribers, defaults and ancestors for every input kind");
+		firstCalls == 9 && laterCalls == 0 && fixture.child->legacy.empty() && legacyNotifications.empty() &&
+			defaultCalls == 0 && parentCalls == 0,
+		"Subscribers must be able to skip later subscribers, legacy callbacks, defaults and ancestors for every input "
+		"kind");
 	unittest::clearRouted(fixture.child);
 	unittest::subscribeRouted(fixture.child, [&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++laterCalls; }, 4);
 	fixture.child->typedAction = [&](MyGUI::InputEventContext& event, Type)
@@ -555,7 +533,8 @@ void testTypedRoutedInputConsumption()
 	for (auto type : types)
 		raise(fixture.child, type);
 	require(
-		laterCalls == 9 && defaultCalls == 9 && parentCalls == 0,
+		laterCalls == 9 && legacyNotifications == std::vector<Type>(types.begin(), types.end()) &&
+			fixture.child->legacy == legacyNotifications && defaultCalls == 9 && parentCalls == 0,
 		"Default hooks must run after subscribers and may consume input before ancestors");
 	fixture.child->typedAction = {};
 	unittest::clearRouted(fixture.child);
@@ -568,16 +547,6 @@ void testTypedRoutedInputConsumption()
 		5);
 	raise(fixture.child, Type::MouseWheel);
 	require(parentCalls == 1, "A handler can revise its consumption before returning");
-	fixture.child->wheelAction = [&]
-	{
-		fixture.child->consumeInput();
-	};
-	int legacyCalls = 0;
-	fixture.child->eventMouseWheel += MyGUI::newDelegate([&](MyGUI::Widget*, int) { ++legacyCalls; }, 6);
-	raise(fixture.child, Type::MouseWheel);
-	require(
-		parentCalls == 1 && legacyCalls == 1,
-		"Explicit legacy consumption must stop routing but preserve legacy notifications");
 }
 
 

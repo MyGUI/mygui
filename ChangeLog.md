@@ -3,10 +3,9 @@
 ### Compatibility
 
 - Interactive window resizing applies the final rectangle directly instead of calling virtual `setSize`/`setCoord` overrides
-- Legacy input subscriptions remain notifications and do not consume input automatically. Typed routed subscribers
-  run before typed default hooks; call `setHandled()` to prevent subsequent subscribers, default actions and bubbling.
-  Legacy callbacks that perform custom input actions may need migration to typed events to prevent additional ancestor
-  or built-in actions
+- Existing input callbacks keep their signatures. On the target, typed routed subscribers run first, then the legacy
+  virtual method and its delegates, then the typed default hook. Calling `setHandled()` in a target subscriber skips
+  the legacy callbacks, the default hook and bubbling. Subscribing to a legacy event alone does not consume input
 - Move default wheel scrolling in `ScrollBar`, `ListBox`, `ItemBox` and the `TreeControl` demo from `onMouseWheel`
   to `onMouseWheelRouted`. Custom overrides that control scrolling must migrate to the routed hook and call its base
   implementation when scrolling is wanted. Calling the inherited legacy method no longer scrolls; omitting its base
@@ -29,7 +28,7 @@
   remain handled through release, including when snapping or size limits prevent movement
 - Remove Window's legacy wheel forwarding from action and resize skin parts and its protected `notifyMouseWheel`
   helper. Use `eventMouseWheelRouted` to receive their input and `getTarget()` to identify the original part. Unhandled
-  wheel input now reaches scrolling ancestors; direct wheel input on the window still invokes its legacy callbacks
+  wheel input now reaches scrolling ancestors; unhandled wheel input targeting the window still invokes its legacy callbacks
 - Directly invoking a child's legacy delegate no longer triggers control actions where internal forwarding was removed.
   Input integrations should inject input through `InputManager`
 - `ComboBox` wheel handling changes selection under its existing focus and capture restrictions, without falling back

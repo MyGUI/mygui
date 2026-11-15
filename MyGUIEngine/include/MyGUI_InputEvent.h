@@ -41,10 +41,11 @@ namespace MyGUI
 			return mHandled;
 		}
 
-		/** Mark input consumed. After this handler returns, later routed handlers on
+		/** Mark input consumed. After this handler returns, remaining handlers on
 			this widget and its ancestors are skipped. A handler may revise its decision
 			with false before returning; a later handler cannot release consumed input.
-			Does not cancel legacy behavior, capture, focus, or click generation.
+			At the target, a subscriber can skip the legacy hook and delegates.
+			Capture, focus and click generation are independent of consumption.
 		*/
 		void setHandled(bool _value = true)
 		{

@@ -45,12 +45,12 @@ Mouse move, captured drag, wheel, button press/release, click/double-click, and 
 press/release events have a route. Focus transitions, tooltips, control value changes,
 geometry changes, lifecycle notifications and rendering/data requests remain direct.
 
-For each input, MyGUI snapshots the original target's parent chain. It invokes the
-original target's existing virtual input method and legacy event once. At the target
-and each successive ancestor, delivery order is:
+For each input, MyGUI snapshots the original target's parent chain. At each widget
+on that route, it calls the following handlers while the event is unhandled:
 
 \li the matching event...Routed subscribers, in registration order
-\li the matching on...Routed virtual hook/default action, if input remains unhandled
+\li on the original target only, the legacy virtual method followed by its legacy delegates
+\li the matching on...Routed virtual hook/default action
 
 Ancestors do not receive legacy callbacks. Their typed hooks can implement default
 actions for bubbled input, as the scrolling and compound controls below do.
@@ -62,23 +62,19 @@ sender identify the current receiver. Each nested input has independent state.
 Do not retain event references after delivery.
 
 Legacy subscribers are notifications: subscribing alone does not consume input.
-Their signatures and multicast delivery remain unchanged. Legacy virtual methods
-can explicitly consume input using the protected setInputHandled() helper during
-delivery on that widget; legacy subscribers still run, but subsequent routed delivery
-is skipped. The helper has no effect outside delivery on that widget.
+Their signatures and multicast delivery remain unchanged. To consume input, use a
+typed subscriber or a typed virtual hook and call setHandled() on its event.
 
-Calling setHandled() skips subsequent typed subscribers, the default hook and
-ancestors as soon as the handler returns. Consumption and route validity are checked
-between subscribers and before the default hook. A handler may revise its own
-decision with setHandled(false) before returning; later handlers cannot release
-consumed input because they are not called. Default hooks may also consume input
-before it reaches an ancestor.
+Calling setHandled() skips remaining delivery as soon as the handler returns. A
+typed subscriber on the target can therefore intercept a legacy action or
+notification. A handler on a parent cannot undo a child's action that already ran.
+A handler may revise its own decision with setHandled(false) before returning;
+later handlers cannot release consumed input because they are not called.
 
-Handling input cannot undo a legacy action that has already run, and does not cancel
-capture, keyboard focus or click generation. Existing legacy virtual behavior still
-runs before typed delivery. A typed observer receives only unconsumed input, not every
-input event. Destruction, reparenting, hiding or disabling can invalidate the route
-between callbacks; remaining routed delivery is then skipped.
+Capture, keyboard focus and click generation are independent of consumption. For
+example, intercepting a release does not intercept the separately generated click.
+Destruction, reparenting, hiding or disabling can invalidate the route between
+callbacks; remaining routed delivery is then skipped.
 
 \code
 void Panel::notifyKey(MyGUI::Widget* receiver, MyGUI::KeyPressEvent& event)
@@ -112,8 +108,8 @@ forwarding. Typed subscribers run before the default hook and can intercept eith
 direct or descendant input.
 
 Built-in scrolling marks input handled when movement occurs, before notifying
-application callbacks. Legacy target callbacks still run first without implicit
-consumption. Typed subscribers can explicitly prevent scrolling with setHandled().
+scroll-position observers. Legacy wheel callbacks run on the target before default
+scrolling if its typed subscribers leave the wheel unhandled.
 
 Custom subclasses of ScrollBar, ListBox, ItemBox and TreeControl that controlled
 scrolling by overriding onMouseWheel should migrate to onMouseWheelRouted and call
@@ -178,8 +174,8 @@ and focus notifications remain direct. Window no longer forwards wheel input fro
 action/resize parts to its legacy onMouseWheel or eventMouseWheel callbacks, and its
 protected notifyMouseWheel helper has been removed. Use eventMouseWheelRouted on the
 window to receive this input; getTarget() identifies the original skin part. Leaving
-it unhandled allows a scrolling ancestor to act. Direct wheel input on the window
-itself still invokes its legacy callbacks.
+it unhandled allows a scrolling ancestor to act. Unhandled wheel input targeting the window itself
+still invokes its legacy callbacks.
 Other protected notification helpers remain available for existing subclasses.
 
 Window interaction cleanup is independent of consumable input. The active action is

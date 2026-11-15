@@ -75,46 +75,6 @@ namespace MyGUI
 
 	}
 
-	namespace
-	{
-
-		// The manager owns the active-event pointer; widgets may be destroyed or
-		// recycled during callbacks. Restore the outer event even on exception.
-		class InputEventScope
-		{
-		public:
-			InputEventScope(InputEventContext*& _current, InputEventContext& _event) :
-				mCurrent(_current),
-				mPrevious(_current)
-			{
-				mCurrent = &_event;
-			}
-
-			~InputEventScope()
-			{
-				mCurrent = mPrevious;
-			}
-
-			InputEventScope(const InputEventScope&) = delete;
-			InputEventScope& operator=(const InputEventScope&) = delete;
-
-		private:
-			InputEventContext*& mCurrent;
-			InputEventContext* mPrevious;
-		};
-
-	}
-
-	void WidgetInput::setInputHandled(bool _value)
-	{
-		if (auto* input = InputManager::getInstancePtr())
-		{
-			auto* event = input->mCurrentInputEvent;
-			if (event != nullptr && event->getCurrentTarget() == this)
-				event->setHandled(_value);
-		}
-	}
-
 	WidgetInput::WidgetInput() = default;
 
 	WidgetInput::~WidgetInput() = default;
@@ -148,13 +108,6 @@ namespace MyGUI
 		auto* target = static_cast<Widget*>(this);
 		Event event(target, _args...);
 		InputEventRoute route(event.mTarget, event.mCurrentTarget);
-		InputEventScope scope(InputManager::getInstance().mCurrentInputEvent, event);
-
-		(this->*_legacyHook)(_args...);
-		if (event.getTarget() == nullptr)
-			return;
-		_legacyDelegate(target, _args...);
-
 		for (size_t index = 0; index < route.widgets.size(); ++index)
 		{
 			auto canContinue = [&]
@@ -166,8 +119,18 @@ namespace MyGUI
 			auto* widget = route.widgets[index];
 			event.mCurrentTarget = widget;
 			(widget->*_routedDelegate).invokeWhile(canContinue, widget, event);
-			if (canContinue())
-				(widget->*_routedHook)(event);
+			if (!canContinue())
+				break;
+			if (index == 0)
+			{
+				(widget->*_legacyHook)(_args...);
+				if (!canContinue())
+					break;
+				_legacyDelegate(widget, _args...);
+				if (!canContinue())
+					break;
+			}
+			(widget->*_routedHook)(event);
 		}
 	}
 
