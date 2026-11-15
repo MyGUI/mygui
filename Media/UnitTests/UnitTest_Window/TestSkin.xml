@@ -3,6 +3,9 @@
 	<Resource type="ResourceLayout" name="InteractionWindow" version="3.2.0">
 		<Widget type="Widget" skin="Default" position="0 0 200 120" name="Root">
 			<Widget type="TextBox" skin="Default" position="0 0 180 20" align="HStretch Top" name="Caption"/>
+			<Widget type="Widget" skin="Default" position="180 0 20 20" align="Right Top" name="Action">
+				<UserString key="Action" value="Move"/>
+			</Widget>
 			<Widget type="Widget" skin="Default" position="190 110 10 10" align="Right Bottom" name="ResizeRightBottom"/>
 			<Widget type="Widget" skin="Default" position="0 110 10 10" align="Left Bottom" name="ResizeLeftBottom"/>
 		</Widget>

@@ -50,9 +50,7 @@ namespace MyGUI
 			if (main_move)
 			{
 				getClientWidget()->setUserString("Scale", "1 1 0 0");
-				getClientWidget()->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-				getClientWidget()->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-				getClientWidget()->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+				mActionWidgets.push_back(getClientWidget());
 			}
 		}
 
@@ -61,9 +59,7 @@ namespace MyGUI
 		if (mWidgetCaption != nullptr)
 		{
 			mWidgetCaption->setUserString("Scale", "1 1 0 0");
-			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-			mWidgetCaption->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-			mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+			mActionWidgets.push_back(mWidgetCaption);
 		}
 
 		VectorWidgetPtr buttons = getSkinWidgetsByName("Button");
@@ -75,10 +71,7 @@ namespace MyGUI
 		VectorWidgetPtr actions = getSkinWidgetsByName("Action");
 		for (auto& action : actions)
 		{
-			action->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-			action->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-			action->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-			action->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
+			mActionWidgets.push_back(action);
 		}
 
 		constexpr size_t countNames = 8;
@@ -98,10 +91,7 @@ namespace MyGUI
 			assignWidget(widget, resizer.first);
 			if (widget != nullptr)
 			{
-				widget->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-				widget->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-				widget->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-				widget->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
+				mActionWidgets.push_back(widget);
 				widget->setUserString("Action", resizer.second);
 			}
 		}
@@ -109,9 +99,60 @@ namespace MyGUI
 
 	void Window::shutdownOverride()
 	{
+		InputManager::getInstance().cancelMouseInteractions(this);
+		mCurrentActionScale.clear();
 		mWidgetCaption = nullptr;
+		mActionWidgets.clear();
 
 		Base::shutdownOverride();
+	}
+
+	bool Window::isActionTarget(Widget* _target) const
+	{
+		return _target == this ||
+			std::find(mActionWidgets.begin(), mActionWidgets.end(), _target) != mActionWidgets.end();
+	}
+
+	void Window::onMouseButtonPressedRouted(MouseButtonEvent& _event)
+	{
+		if (_event.getButton() != MouseButton::Left || !isActionTarget(_event.getTarget()))
+			return;
+
+		const auto scale = _getActionScale(_event.getTarget());
+		if (scale.empty())
+			return;
+
+		InputManager::getInstance().beginMouseInteraction(this, _event.getTarget(), _event.getButton());
+		mCurrentActionScale = scale;
+		_event.setHandled();
+		mPreActionCoord = mCoord;
+		if (mCurrentActionScale.width != 0 || mCurrentActionScale.height != 0)
+			mPreActionAnchor = localToLayer(getResizeAnchor(mCoord.size()));
+	}
+
+	void Window::onMouseButtonReleasedRouted(MouseButtonEvent& _event)
+	{
+		if (_event.getButton() != MouseButton::Left || !isActionTarget(_event.getTarget()) ||
+			mCurrentActionScale.empty())
+			return;
+
+		_event.setHandled();
+	}
+
+	void Window::onMouseDragRouted(MouseButtonEvent& _event)
+	{
+		if (_event.getButton() != MouseButton::Left || !isActionTarget(_event.getTarget()) ||
+			mCurrentActionScale.empty())
+			return;
+
+		_event.setHandled();
+		updateAction();
+	}
+
+	void Window::onMouseInteractionEnd(MouseButton _button) noexcept
+	{
+		if (_button == MouseButton::Left)
+			mCurrentActionScale.clear();
 	}
 
 	void Window::onMouseChangeRootFocus(bool _focus)
@@ -130,49 +171,13 @@ namespace MyGUI
 		Base::onKeyChangeRootFocus(_focus);
 	}
 
-	void Window::onMouseDrag(int _left, int _top, MouseButton _id)
-	{
-		// in case window can be moved by any widget area
-		notifyMouseDrag(this, _left, _top, _id);
-
-		Base::onMouseDrag(_left, _top, _id);
-	}
-
-	void Window::onMouseButtonPressed(int _left, int _top, MouseButton _id)
-	{
-		notifyMousePressed(this, _left, _top, _id);
-
-		Base::onMouseButtonPressed(_left, _top, _id);
-	}
-
-	void Window::onMouseButtonReleased(int _left, int _top, MouseButton _id)
-	{
-		notifyMouseReleased(this, _left, _top, _id);
-
-		Base::onMouseButtonReleased(_left, _top, _id);
-	}
-
-	void Window::notifyMousePressed(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		if (MouseButton::Left == _id)
-		{
-			mPreActionCoord = mCoord;
-			mCurrentActionScale = _getActionScale(_sender);
-			if (mCurrentActionScale.width != 0 || mCurrentActionScale.height != 0)
-				mPreActionAnchor = localToLayer(getResizeAnchor(mCoord.size()));
-		}
-	}
-
 	void Window::notifyPressedButtonEvent(MyGUI::Widget* _sender)
 	{
 		eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
-	void Window::notifyMouseDrag(MyGUI::Widget*, int, int, MouseButton _id)
+	void Window::updateAction()
 	{
-		if (_id != MouseButton::Left || mCurrentActionScale.empty())
-			return;
-
 		const InputManager& input = InputManager::getInstance();
 		const IntPoint screenDelta = input.getMousePositionByLayer() - input.getLastPressedPosition(MouseButton::Left);
 		// Movement uses the parent's axes; resizing uses the window's axes.
@@ -553,14 +558,6 @@ namespace MyGUI
 		mSnap = _value;
 	}
 
-	void Window::notifyMouseReleased(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		if (MouseButton::Left == _id)
-		{
-			mCurrentActionScale.clear();
-		}
-	}
-
 	IntCoord Window::_getActionScale(Widget* _widget) const
 	{
 		if (_widget->isUserString("Scale"))
@@ -639,12 +636,6 @@ namespace MyGUI
 	bool Window::getMovable() const
 	{
 		return mMovable;
-	}
-
-	void Window::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
-	{
-		onMouseWheel(_rel);
-		eventMouseWheel(_sender, _rel);
 	}
 
 } // namespace MyGUI

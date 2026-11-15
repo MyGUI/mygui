@@ -1,6 +1,8 @@
+#include "RoutedInputTestSupport.h"
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
 #include <cmath>
+#include <stdexcept>
 #include <vector>
 
 namespace
@@ -464,6 +466,389 @@ namespace
 		context.getGui().eventFrameStart(1.0f);
 	}
 
+	void testDirectRoutedWindowActions()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"Default",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setSnap(false);
+		window->setUserString("Scale", "1 1 0 0");
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(120, 110, 0);
+		require(input.getMouseFocusWidget() == window, "Fixture must target the window itself");
+
+		for (auto* subscription : {&window->eventMouseButtonPressedRouted, &window->eventMouseDragRouted})
+		{
+			*subscription +=
+				MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			unittest::dragFromTo({120, 110}, {150, 150});
+			require(
+				window->getPosition() == MyGUI::IntPoint(100, 100),
+				"Typed handlers must intercept direct press and drag before Window's default action");
+			subscription->clear();
+		}
+
+		int legacyPresses = 0;
+		window->eventMouseButtonPressed +=
+			MyGUI::newDelegate([&](MyGUI::Widget*, int, int, MyGUI::MouseButton) { ++legacyPresses; }, 2);
+		unittest::dragFromTo({120, 110}, {150, 150});
+		require(
+			legacyPresses == 1 && window->getPosition() == MyGUI::IntPoint(130, 140),
+			"Legacy press observers must not prevent direct movement");
+		window->eventMouseButtonPressed.clear();
+		window->setPosition(100, 100);
+
+		int changes = 0;
+		window->eventWindowChangeCoord += MyGUI::newDelegate([&](MyGUI::Window*) { ++changes; }, 3);
+		unittest::dragFromTo({120, 110}, {150, 150});
+		require(
+			window->getPosition() == MyGUI::IntPoint(130, 140) && changes == 1,
+			"Unconsumed direct movement must run once");
+		input.injectMouseMove(160, 160, 0);
+		window->_riseMouseDrag(160, 160, MyGUI::MouseButton::Left);
+		require(
+			window->getPosition() == MyGUI::IntPoint(130, 140) && changes == 1,
+			"Direct release must clear the active move action");
+
+		window->setUserString("Scale", "0 0 1 1");
+		unittest::dragFromTo({150, 150}, {180, 190});
+		require(
+			window->getCoord() == MyGUI::IntCoord(130, 140, 230, 160) && changes == 2,
+			"Unconsumed direct resizing must run once");
+	}
+
+	void testWindowActionConsumption()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* parent = context.getGui().createWidget<MyGUI::Widget>(
+			"Default",
+			MyGUI::IntCoord(0, 0, 600, 500),
+			MyGUI::Align::Default,
+			"Main");
+		auto* window = parent->createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default);
+		window->setSnap(false);
+		window->setUserString("Scale", "1 1 0 0");
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(120, 110, 0);
+		auto* caption = input.getMouseFocusWidget();
+		require(caption != nullptr && caption != window, "Fixture must pick the caption");
+		int bubbled = 0;
+		for (auto* subscription :
+			 {&parent->eventMouseButtonPressedRouted,
+			  &parent->eventMouseButtonReleasedRouted,
+			  &parent->eventMouseDragRouted})
+			*subscription += MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseButtonEvent&) { ++bubbled; }, 1);
+		for (MyGUI::Widget* target : {static_cast<MyGUI::Widget*>(window), caption})
+		{
+			bubbled = 0;
+			target->_riseMouseButtonPressed(120, 110, MyGUI::MouseButton::Right);
+			target->_riseMouseDrag(150, 150, MyGUI::MouseButton::Right);
+			target->_riseMouseButtonReleased(150, 150, MyGUI::MouseButton::Right);
+			require(
+				bubbled == 3 && window->getActionScale().empty(),
+				"Right-button gestures must bubble without starting an action");
+
+			target->_riseMouseDrag(150, 150, MyGUI::MouseButton::Left);
+			target->_riseMouseButtonReleased(150, 150, MyGUI::MouseButton::Left);
+			require(bubbled == 5, "Left-button drag and release without an active action must bubble");
+			window->setMovable(false);
+			target->_riseMouseButtonPressed(120, 110, MyGUI::MouseButton::Left);
+			target->_riseMouseDrag(150, 150, MyGUI::MouseButton::Left);
+			target->_riseMouseButtonReleased(150, 150, MyGUI::MouseButton::Left);
+			require(
+				bubbled == 8 && window->getActionScale().empty(),
+				"Disabled movement must leave the entire gesture unhandled");
+			window->setMovable(true);
+
+			bubbled = 0;
+			target->_riseMouseButtonPressed(120, 110, MyGUI::MouseButton::Left);
+			require(
+				bubbled == 0 && !window->getActionScale().empty(),
+				"An actionable left press must start and consume the gesture");
+			target->_riseMouseButtonReleased(150, 150, MyGUI::MouseButton::Right);
+			require(
+				bubbled == 1 && !window->getActionScale().empty(),
+				"Right release must bubble without ending the left-button action");
+			target->_riseMouseButtonReleased(150, 150, MyGUI::MouseButton::Left);
+			require(
+				bubbled == 1 && window->getActionScale().empty(),
+				"Left release must end and consume the active action");
+		}
+		window->setUserString("Scale", "0 0 0 0");
+		bubbled = 0;
+		window->_riseMouseButtonPressed(120, 110, MyGUI::MouseButton::Left);
+		require(
+			bubbled == 1 && window->getActionScale().empty(),
+			"A window surface without an action must let presses bubble");
+
+		window->setMaxSize(200, 120);
+		bubbled = 0;
+		unittest::dragFromTo({295, 215}, {325, 245});
+		require(
+			bubbled == 0 && window->getSize() == MyGUI::IntSize(200, 120) && window->getActionScale().empty(),
+			"An active resize at its size limit must remain handled through release");
+	}
+
+	[[noreturn]] void throwReleaseFailure()
+	{
+		throw std::runtime_error("release failure");
+	}
+
+	void testWindowActionCleanup()
+	{
+		enum class EndMode
+		{
+			ConsumedRelease,
+			ThrowingRelease,
+			Hide,
+			Disable,
+			Skin,
+			CaptureReset
+		};
+		for (bool direct : {false, true})
+		{
+			for (auto mode :
+				 {EndMode::ConsumedRelease,
+				  EndMode::ThrowingRelease,
+				  EndMode::Hide,
+				  EndMode::Disable,
+				  EndMode::Skin,
+				  EndMode::CaptureReset})
+			{
+				unittest::TestContext context;
+				unittest::createInputLayer();
+				unittest::loadResources("UnitTest_Window/TestSkin.xml");
+				auto* window = context.getGui().createWidget<MyGUI::Window>(
+					direct ? "Default" : "InteractionWindow",
+					MyGUI::IntCoord(100, 100, 200, 120),
+					MyGUI::Align::Default,
+					"Main");
+				window->setSnap(false);
+				window->setUserString("Scale", "1 1 0 0");
+				auto& input = MyGUI::InputManager::getInstance();
+				input.injectMousePress(120, 110, MyGUI::MouseButton::Left);
+				require(!window->getActionScale().empty(), "Press must start the interaction before cleanup");
+				auto* target = input.getMouseFocusWidget();
+				switch (mode)
+				{
+				case EndMode::ConsumedRelease:
+					target->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
+						[](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); },
+						1);
+					input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left);
+					break;
+				case EndMode::ThrowingRelease:
+					target->eventMouseButtonReleasedRouted +=
+						MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent&) { throwReleaseFailure(); }, 1);
+					unittest::requireThrows<std::runtime_error>(
+						[&] { input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left); },
+						"Release exceptions must propagate");
+					break;
+				case EndMode::Hide:
+					window->setVisible(false);
+					window->setVisible(true);
+					break;
+				case EndMode::Disable:
+					window->setEnabled(false);
+					window->setEnabled(true);
+					break;
+				case EndMode::Skin: window->changeWidgetSkin(direct ? "Default" : "InteractionWindow"); break;
+				case EndMode::CaptureReset: input.resetMouseCaptureWidget(); break;
+				}
+				require(
+					window->getActionScale().empty(),
+					"Release and cancellation must clear state independently of input propagation");
+				input.resetMouseCaptureWidget();
+				input.injectMouseMove(120, 110, 0);
+				target = input.getMouseFocusWidget();
+				require(target != nullptr, "The restored window must be pickable");
+				target->eventMouseButtonReleasedRouted.clear();
+				target->eventMouseButtonPressedRouted +=
+					MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 2);
+				unittest::dragFromTo({120, 110}, {150, 150});
+				require(
+					window->getPosition() == MyGUI::IntPoint(100, 100),
+					"A blocked new press must not reuse the old action");
+			}
+		}
+	}
+
+	void testNestedWindowInteraction()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"Default",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setUserString("Scale", "1 1 0 0");
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMousePress(120, 110, MyGUI::MouseButton::Left);
+		bool nested = false;
+		window->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			{
+				if (!nested)
+				{
+					nested = true;
+					input.injectMousePress(120, 110, MyGUI::MouseButton::Left);
+				}
+				event.setHandled();
+			},
+			1);
+		input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left);
+		require(
+			!window->getActionScale().empty() && input.isCaptureMouse(),
+			"Finishing an old release must preserve a nested new interaction");
+		input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left);
+		require(
+			window->getActionScale().empty() && !input.isCaptureMouse(),
+			"The nested interaction must end on its own release");
+	}
+
+	void testWindowWheelBubbling()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		unittest::loadResources("UnitTest_Scrolling/TestSkin.xml");
+		auto* outer = context.getGui().createWidget<MyGUI::ScrollView>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 400, 300),
+			MyGUI::Align::Default,
+			"Main");
+		outer->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		outer->setCanvasSize(350, 800);
+		auto* window = outer->createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(10, 10, 200, 120),
+			MyGUI::Align::Default);
+		int legacyCalls = 0;
+		window->eventMouseWheel += MyGUI::newDelegate([&](MyGUI::Widget*, int) { ++legacyCalls; }, 1);
+		auto& input = MyGUI::InputManager::getInstance();
+		for (auto point : {MyGUI::IntPoint(195, 15), MyGUI::IntPoint(205, 125)})
+		{
+			outer->setViewOffset(MyGUI::IntPoint());
+			input.injectMouseMove(point.left, point.top, 0);
+			auto* part = input.getMouseFocusWidget();
+			require(part != nullptr && part->getParent() == window, "Fixture must target a window skin part");
+			int routedCalls = 0;
+			bool blockWheel = false;
+			window->eventMouseWheelRouted += MyGUI::newDelegate(
+				[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
+				{
+					++routedCalls;
+					require(
+						sender == window && event.getTarget() == part && event.getWheelDelta() == -1,
+						"Routed wheel input must preserve the original skin part and delta");
+					event.setHandled(blockWheel);
+				},
+				2);
+			part->_riseMouseWheel(-1);
+			require(
+				legacyCalls == 0 && routedCalls == 1 && outer->getViewOffset().top == -50,
+				"Wheel input on action and resize parts must bypass Window legacy callbacks and scroll the parent");
+			blockWheel = true;
+			part->_riseMouseWheel(-1);
+			require(
+				routedCalls == 2 && outer->getViewOffset().top == -50,
+				"Window routed handlers must be able to prevent ancestor scrolling");
+			window->eventMouseWheelRouted.clear();
+		}
+		window->_riseMouseWheel(-1);
+		require(
+			legacyCalls == 1 && outer->getViewOffset().top == -100,
+			"Direct wheel input must notify legacy observers and continue to the scrolling parent");
+	}
+
+	void testRoutedWindowParts()
+	{
+		unittest::TestContext context;
+		unittest::createInputLayer();
+		unittest::loadResources("UnitTest_Window/TestSkin.xml");
+		auto* window = context.getGui().createWidget<MyGUI::Window>(
+			"InteractionWindow",
+			MyGUI::IntCoord(100, 100, 200, 120),
+			MyGUI::Align::Default,
+			"Main");
+		window->setSnap(false);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(120, 110, 0);
+		auto* caption = input.getMouseFocusWidget();
+		require(caption != nullptr && caption != window, "Fixture must pick the caption skin part");
+		caption->eventMouseButtonPressedRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+		unittest::dragFromTo({120, 110}, {150, 150});
+		require(
+			window->getPosition() == MyGUI::IntPoint(100, 100),
+			"Caption input can be consumed before moving the window");
+		caption->eventMouseButtonPressedRouted.clear();
+		bool blockPress = true;
+		int presses = 0;
+		int releases = 0;
+		int drags = 0;
+		window->eventMouseButtonPressedRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			{
+				if (event.getTarget() == caption)
+				{
+					++presses;
+					if (blockPress)
+						event.setHandled();
+				}
+			},
+			3);
+		window->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			{
+				if (event.getTarget() == caption)
+					++releases;
+			},
+			3);
+		window->eventMouseDragRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			{
+				if (event.getTarget() == caption)
+					++drags;
+			},
+			3);
+		unittest::dragFromTo({120, 110}, {150, 150});
+		require(
+			window->getPosition() == MyGUI::IntPoint(100, 100),
+			"Window typed subscribers must be able to prevent the caption's press action");
+		require(
+			presses > 0 && releases > 0 && drags > 0,
+			"Window typed subscribers must run before all three typed action hooks");
+		blockPress = false;
+		unittest::dragFromTo({120, 110}, {150, 150});
+		require(
+			window->getPosition() == MyGUI::IntPoint(130, 140),
+			"Unconsumed caption input must move the window once");
+		unittest::clearRouted(window);
+		auto* content =
+			window->createWidget<MyGUI::Button>("Default", MyGUI::IntCoord(10, 30, 80, 30), MyGUI::Align::Default);
+		content->setUserString("Action", "Move");
+		unittest::dragFromTo({150, 180}, {180, 210});
+		require(
+			window->getPosition() == MyGUI::IntPoint(130, 140),
+			"Ordinary content must not become a move handle even if it has an Action user string");
+		window->changeWidgetSkin("InteractionWindow");
+		unittest::dragFromTo({150, 150}, {160, 160});
+		require(
+			window->getPosition() == MyGUI::IntPoint(140, 150),
+			"Replacing the skin must rebuild eligible action parts");
+	}
+
 }
 
 int main()
@@ -480,5 +865,11 @@ int main()
 		{"Snapping and visibility", testSnappingAndVisibility},
 		{"Coordinate constraints and size snapping", testCoordinateConstraints},
 		{"Automatic opacity and focus transitions", testAutomaticAlpha},
+		{"Direct routed movement and resizing", testDirectRoutedWindowActions},
+		{"Move and resize action consumption", testWindowActionConsumption},
+		{"Routed action parts", testRoutedWindowParts},
+		{"Wheel bubbling through window parts", testWindowWheelBubbling},
+		{"Interaction cleanup independent of routing", testWindowActionCleanup},
+		{"Nested interaction cleanup", testNestedWindowInteraction},
 	});
 }

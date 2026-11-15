@@ -131,6 +131,54 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
+	InputManager::MouseInteractionRelease::MouseInteractionRelease(InputManager& _input, MouseButton _button) :
+		mInput(_input),
+		mButton(_button),
+		mGeneration(
+			_button != MouseButton::None && _button != MouseButton::MAX
+				? _input.mMouseInteractions[_button.getValue()].generation
+				: 0)
+	{
+	}
+
+	InputManager::MouseInteractionRelease::~MouseInteractionRelease()
+	{
+		if (mButton != MouseButton::None && mButton != MouseButton::MAX &&
+			mInput.mMouseInteractions[mButton.getValue()].generation == mGeneration)
+			mInput.endMouseInteraction(mButton);
+	}
+
+	void InputManager::beginMouseInteraction(Widget* _owner, Widget* _target, MouseButton _button)
+	{
+		endMouseInteraction(_button);
+		auto& interaction = mMouseInteractions[_button.getValue()];
+		interaction.owner = _owner;
+		interaction.target = _target;
+	}
+
+	void InputManager::endMouseInteraction(MouseButton _button) noexcept
+	{
+		if (_button == MouseButton::None || _button == MouseButton::MAX)
+			return;
+		auto& interaction = mMouseInteractions[_button.getValue()];
+		auto* owner = interaction.owner;
+		interaction.owner = nullptr;
+		interaction.target = nullptr;
+		++interaction.generation;
+		if (owner != nullptr)
+			owner->onMouseInteractionEnd(_button);
+	}
+
+	void InputManager::cancelMouseInteractions(Widget* _widget) noexcept
+	{
+		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+		{
+			const auto& interaction = mMouseInteractions[i];
+			if (interaction.owner == _widget || interaction.target == _widget)
+				endMouseInteraction(MouseButton::Enum(i));
+		}
+	}
+
 	bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
 		mMousePosition.set(_absx, _absy);
@@ -273,6 +321,7 @@ namespace MyGUI
 
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
+		endMouseInteraction(_id);
 		injectMouseMove(_absx, _absy, mOldAbsZ);
 
 		if (MouseButton::None != _id && MouseButton::MAX != _id)
@@ -347,6 +396,7 @@ namespace MyGUI
 
 	bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)
 	{
+		MouseInteractionRelease interactionRelease(*this, _id);
 		if (_id != MouseButton::None && _id != MouseButton::MAX)
 		{
 			if (mMouseCapture[_id.getValue()])
@@ -549,6 +599,7 @@ namespace MyGUI
 	// remove the given widget from all possible places
 	void InputManager::_unlinkWidget(Widget* _widget)
 	{
+		cancelMouseInteractions(_widget);
 		if (nullptr == _widget)
 			return;
 
@@ -769,6 +820,7 @@ namespace MyGUI
 		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
 		{
 			mMouseCapture[i] = false;
+			endMouseInteraction(MouseButton::Enum(i));
 		}
 	}
 

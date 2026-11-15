@@ -142,6 +142,32 @@ namespace MyGUI
 		void _resetMouseFocusWidget();
 
 	private:
+		friend class Window;
+		// A gesture's cleanup is independent of consumable input notifications.
+		struct MouseInteraction
+		{
+			Widget* owner{nullptr};
+			Widget* target{nullptr};
+			size_t generation{0};
+		};
+		class MouseInteractionRelease
+		{
+		public:
+			MouseInteractionRelease(InputManager& _input, MouseButton _button);
+			~MouseInteractionRelease();
+			MouseInteractionRelease(const MouseInteractionRelease&) = delete;
+			MouseInteractionRelease& operator=(const MouseInteractionRelease&) = delete;
+
+		private:
+			InputManager& mInput;
+			MouseButton mButton;
+			size_t mGeneration;
+		};
+		void beginMouseInteraction(Widget* _owner, Widget* _target, MouseButton _button);
+		void endMouseInteraction(MouseButton _button) noexcept;
+		void cancelMouseInteractions(Widget* _widget) noexcept;
+		MouseInteraction mMouseInteractions[MouseButton::MAX];
+
 		// Remove widget from all tracked places (focus, capture, modal, etc)
 		void _unlinkWidget(Widget* _widget) override;
 

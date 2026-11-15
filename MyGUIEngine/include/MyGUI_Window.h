@@ -111,18 +111,16 @@ namespace MyGUI
 	protected:
 		void initialiseOverride() override;
 		void shutdownOverride() override;
+		void onMouseButtonPressedRouted(MouseButtonEvent& _event) override;
+		void onMouseButtonReleasedRouted(MouseButtonEvent& _event) override;
+		void onMouseDragRouted(MouseButtonEvent& _event) override;
+
+		void onMouseInteractionEnd(MouseButton _button) noexcept override;
 
 		void onMouseChangeRootFocus(bool _focus) override;
 		void onKeyChangeRootFocus(bool _focus) override;
-		void onMouseDrag(int _left, int _top, MouseButton _id) override;
-		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
-		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
 
-		void notifyMousePressed(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseReleased(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyPressedButtonEvent(MyGUI::Widget* _sender);
-		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseWheel(MyGUI::Widget* _sender, int _rel);
 
 		// Update alpha based on focus and auto-alpha flags
 		void updateAlpha();
@@ -132,6 +130,8 @@ namespace MyGUI
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
+		bool isActionTarget(Widget* _target) const;
+		void updateAction();
 		float getAlphaVisible() const;
 		enum class Snap
 		{
@@ -149,6 +149,7 @@ namespace MyGUI
 
 	private:
 		TextBox* mWidgetCaption{nullptr};
+		VectorWidgetPtr mActionWidgets;
 
 		// Window dimensions before starting move/resize operation
 		IntCoord mPreActionCoord;

@@ -280,6 +280,9 @@ namespace MyGUI
 		*/
 		void setInputHandled(bool _value = true);
 
+		/** Internal gesture cleanup; called even when release input is consumed. */
+		virtual void onMouseInteractionEnd(MouseButton _button) noexcept;
+
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);
 		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
@@ -307,6 +310,7 @@ namespace MyGUI
 		virtual void onKeyChangeRootFocus(bool _focus);
 
 	private:
+		friend class InputManager;
 		template<typename Event, typename LegacyDelegate, typename... Args>
 		void riseInputEvent(
 			void (WidgetInput::*_legacyHook)(Args...),
