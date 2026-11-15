@@ -1,0 +1,211 @@
+/*!
+\page RoutedInput Routed input events
+
+MyGUI provides typed routed input events alongside the existing legacy notifications.
+Subscribe to an event such as eventMouseWheelRouted to observe input or intercept a
+widget's default behavior. Custom widgets implement typed hooks such as onMouseWheelRouted.
+There is no catch-all eventInput or onInputEvent API; subscribe to each input kind
+that your control needs.
+
+\section routed_api Typed events
+
+Each event receives only its matching input kind and exposes the relevant payload:
+
+| Event | Payload type | Payload getters |
+|-------|--------------|-----------------|
+| eventMouseMoveRouted | MyGUI::MouseMoveEvent | getPosition() |
+| eventMouseDragRouted | MyGUI::MouseButtonEvent | getPosition(), getButton() |
+| eventMouseWheelRouted | MyGUI::MouseWheelEvent | getWheelDelta() |
+| eventMouseButtonPressedRouted | MyGUI::MouseButtonEvent | getPosition(), getButton() |
+| eventMouseButtonReleasedRouted | MyGUI::MouseButtonEvent | getPosition(), getButton() |
+| eventMouseButtonClickRouted | MyGUI::MouseClickEvent | none |
+| eventMouseButtonDoubleClickRouted | MyGUI::MouseClickEvent | none |
+| eventKeyButtonPressedRouted | MyGUI::KeyPressEvent | getKey(), getCharacter() |
+| eventKeyButtonReleasedRouted | MyGUI::KeyReleaseEvent | getKey() |
+
+Each typed event inherits getTarget(), getCurrentTarget(), isHandled() and
+setHandled() from MyGUI::InputEventContext. The same noncopyable event is passed
+along the route. The subscription identifies the input kind: press, release and drag
+share MouseButtonEvent, while click and double-click share MouseClickEvent.
+If a common handler needs to distinguish them, pass the kind from each subscription.
+
+\code
+void Panel::notifyWheel(MyGUI::Widget* receiver, MyGUI::MouseWheelEvent& event)
+{
+    if (scrollContents(event.getWheelDelta())) // true only when content moves
+        event.setHandled();
+}
+
+panel->eventMouseWheelRouted += MyGUI::newDelegate(this, &Panel::notifyWheel);
+\endcode
+
+\section routed_delivery Delivery and consumption
+
+Mouse move, captured drag, wheel, button press/release, click/double-click, and key
+press/release events have a route. Focus transitions, tooltips, control value changes,
+geometry changes, lifecycle notifications and rendering/data requests remain direct.
+
+For each input, MyGUI snapshots the original target's parent chain. It invokes the
+original target's existing virtual input method and legacy event once. At the target
+and each successive ancestor, delivery order is:
+
+\li the matching event...Routed subscribers, in registration order
+\li the matching on...Routed virtual hook/default action, if input remains unhandled
+
+Ancestors do not receive legacy callbacks. Their typed hooks can implement default
+actions for bubbled input, as the scrolling and compound controls below do.
+Calling a legacy delegate directly, for example eventMouseWheel(widget, delta), does
+not create a route.
+
+getTarget() identifies the original target. getCurrentTarget() and the delegate's
+sender identify the current receiver. Each nested input has independent state.
+Do not retain event references after delivery.
+
+Legacy subscribers are notifications: subscribing alone does not consume input.
+Their signatures and multicast delivery remain unchanged. Legacy virtual methods
+can explicitly consume input using the protected setInputHandled() helper during
+delivery on that widget; legacy subscribers still run, but subsequent routed delivery
+is skipped. The helper has no effect outside delivery on that widget.
+
+Calling setHandled() skips subsequent typed subscribers, the default hook and
+ancestors as soon as the handler returns. Consumption and route validity are checked
+between subscribers and before the default hook. A handler may revise its own
+decision with setHandled(false) before returning; later handlers cannot release
+consumed input because they are not called. Default hooks may also consume input
+before it reaches an ancestor.
+
+Handling input cannot undo a legacy action that has already run, and does not cancel
+capture, keyboard focus or click generation. Existing legacy virtual behavior still
+runs before typed delivery. A typed observer receives only unconsumed input, not every
+input event. Destruction, reparenting, hiding or disabling can invalidate the route
+between callbacks; remaining routed delivery is then skipped.
+
+\code
+void Panel::notifyKey(MyGUI::Widget* receiver, MyGUI::KeyPressEvent& event)
+{
+    if (event.getKey() == MyGUI::KeyCode::Escape)
+    {
+        event.setHandled();
+        closePanel();
+    }
+}
+
+panel->eventKeyButtonPressedRouted += MyGUI::newDelegate(this, &Panel::notifyKey);
+\endcode
+
+For observation, leave the handled state unchanged. To prevent a control's typed
+default action or ancestor handling, subscribe to the matching typed event and call
+setHandled(). Legacy callbacks that implement their own input actions may need to
+migrate to typed subscribers to prevent additional default or ancestor actions.
+
+\section routed_wheel Scrolling
+
+ScrollView, ScrollBar, ListBox, ItemBox, EditBox and the TreeControl demo consume wheel input
+only when their scroll position changes. If content fits or the control is already
+at the boundary in the requested direction, input continues to its parent. The
+step that reaches a boundary is consumed; only subsequent steps bubble. Zero wheel
+delta does not scroll or consume input. Explicit application consumption is respected.
+
+These controls implement direct and descendant wheel handling in onMouseWheelRouted. Internal
+skin parts and list items use the same route instead of unconditional legacy wheel
+forwarding. Typed subscribers run before the default hook and can intercept either
+direct or descendant input.
+
+Built-in scrolling marks input handled when movement occurs, before notifying
+application callbacks. Legacy target callbacks still run first without implicit
+consumption. Typed subscribers can explicitly prevent scrolling with setHandled().
+
+Custom subclasses of ScrollBar, ListBox, ItemBox and TreeControl that controlled
+scrolling by overriding onMouseWheel should migrate to onMouseWheelRouted and call
+the corresponding base routed hook when default scrolling is wanted. The inherited
+legacy onMouseWheel method no longer performs these controls' scrolling. Omitting
+its base call therefore no longer suppresses scrolling; consume the input or use
+the routed override instead.
+
+The protected notifyMouseWheel helpers in ScrollBar, ScrollView, ListBox, ItemBox,
+EditBox, ComboBox and TreeControl have been folded into onMouseWheelRouted. Custom
+subclasses should use that hook instead of calling or subscribing the removed helpers.
+The unused TreeControlItem::notifyMouseWheel helper has also been removed.
+
+ComboBox uses wheel input only to change selection under its existing focus and
+mouse-capture restrictions. It does not fall back to scrolling the editable caption.
+If selection does not change, input continues to the parent. Its popup ListBox scrolls
+independently, with routing stopping at the popup boundary. The tree expand/collapse
+button also uses the normal wheel route.
+
+The dispatcher calls routed handlers only for unhandled input. Built-in wheel hooks
+therefore omit redundant handled checks and calls to empty base hooks. An override
+that explicitly calls a base implementation is responsible for deciding whether that
+base behavior should run.
+
+\section routed_compound Compound controls
+
+Window uses typed routed hooks for both direct and descendant press, release and drag.
+Its typed subscribers can intercept these actions before the default hooks run.
+Legacy observers do not prevent the corresponding default action. Custom subclasses that controlled these actions through onMouseButtonPressed,
+onMouseButtonReleased or onMouseDrag should migrate to the corresponding routed hooks;
+the inherited legacy methods no longer perform Window's movement or resize behavior.
+The old protected notifyMousePressed, notifyMouseReleased and notifyMouseDrag helpers
+have been removed; customize the routed hooks instead. Window consumes only left-button
+presses that start a move or resize action, and left-button drags and releases while
+an action is active. Other buttons and inactive gestures can bubble. An active drag
+remains handled even when snapping or size limits prevent a coordinate change, so
+the gesture is not handed to an ancestor midway through.
+ListBox and ItemBox likewise use typed hooks instead of legacy forwarding delegates
+on each skin part or generated item.
+Their hooks accept only the original sources previously wired for that input:
+
+\li Window accepts press, release and drag from itself or its registered caption, movement
+client and resize/action parts. Arbitrary content is not a move or resize handle.
+\li ListBox accepts row selection, activation and item-key notifications, plus the
+client notifications it previously forwarded. Recycled rows use their current index.
+\li ItemBox accepts item selection, drag/drop and item-key notifications, plus
+client press/release. Independent controls nested inside items are not treated as
+item widgets.
+
+These controls consume their recognized actions before emitting application
+notifications. Child routed handlers can intercept the action with setHandled().
+Legacy subscribers on children remain notifications and do not block those actions.
+Typed subscribers on the child or owning control can prevent them explicitly.
+
+Directly invoking a child's legacy delegate only notifies its subscribers; it no
+longer simulates the compound control's action where forwarding was removed. Tests
+or input integrations should inject input through InputManager (or use the internal
+_rise methods when testing dispatch itself).
+
+Command-button subscriptions (tabs, column sorting, menu commands, window buttons)
+and focus notifications remain direct. Window no longer forwards wheel input from
+action/resize parts to its legacy onMouseWheel or eventMouseWheel callbacks, and its
+protected notifyMouseWheel helper has been removed. Use eventMouseWheelRouted on the
+window to receive this input; getTarget() identifies the original skin part. Leaving
+it unhandled allows a scrolling ancestor to act. Direct wheel input on the window
+itself still invokes its legacy callbacks.
+Other protected notification helpers remain available for existing subclasses.
+
+Window interaction cleanup is independent of consumable input. The active action is
+cleared after release dispatch even if release is consumed, invalidated or throws.
+Capture cancellation, unlinking and skin shutdown also cancel the interaction. A new
+interaction started during a release callback is not cancelled by the older release.
+Cleanup does not deliver skipped input handlers or replay default actions.
+
+\section routed_boundaries Boundaries and lifetime
+
+Routing ends at a root or popup root. It stops when the target or route is unlinked,
+a parent link changes, or a widget on the route becomes hidden or disabled. It never
+switches to a new parent chain after reparenting. Modal input selection and capture
+remain owned by InputManager.
+
+If a callback unlinks the original target or current receiver, the corresponding
+context getter becomes nullptr. The running callback can observe that invalidation; subsequent routed callbacks
+are skipped even if the receiver survives. Unlinking also covers recycled list items.
+
+\section routed_payload Payload coordinates
+
+Move, drag, button press and button release carry the same position as the original
+target's legacy callback. These coordinates are not converted for each ancestor:
+they retain the target's input coordinate system, including layer and rotation
+adjustments. Drag, press and release also carry the button. Wheel carries its delta;
+key events carry their key code, and key press carries the Unicode character.
+Click, double-click and wheel events have no position payload. Typed events expose
+only the payload getters relevant to their input kind.
+*/

@@ -9,6 +9,8 @@
 
 	\link Licensing Licensing \endlink
 
+	\link RoutedInput Routed input events \endlink
+
 	Here's list of main external classes.
 	\section Widgets
 	\li Base \link MyGUI::Widget Widget \endlink

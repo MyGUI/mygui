@@ -1,12 +1,56 @@
 ## MyGUI v3.5.5
 
+### Compatibility
+
+- Interactive window resizing applies the final rectangle directly instead of calling virtual `setSize`/`setCoord` overrides
+- Legacy input subscriptions remain notifications and do not consume input automatically. Typed routed subscribers
+  run before typed default hooks; call `setHandled()` to prevent subsequent subscribers, default actions and bubbling.
+  Legacy callbacks that perform custom input actions may need migration to typed events to prevent additional ancestor
+  or built-in actions
+- Move default wheel scrolling in `ScrollBar`, `ListBox`, `ItemBox` and the `TreeControl` demo from `onMouseWheel`
+  to `onMouseWheelRouted`. Custom overrides that control scrolling must migrate to the routed hook and call its base
+  implementation when scrolling is wanted. Calling the inherited legacy method no longer scrolls; omitting its base
+  call no longer suppresses scrolling. Typed routed subscribers now run before default scrolling for direct input too
+- Remove protected `notifyMouseWheel` helpers from `ScrollBar`, `ScrollView`, `ListBox`, `ItemBox`, `EditBox`,
+  `ComboBox`, `TreeControl` and `TreeControlItem`. Scrolling logic now lives in `onMouseWheelRouted`; custom subclasses
+  should use the routed hook instead of calling or subscribing the removed helpers
+- Replace internal input forwarding in `Window`, `ListBox` and `ItemBox` with routed handling. Consuming input on a
+  skin part or item now prevents the owning control's corresponding action, when a routed handler marks it handled. Command-button and focus subscriptions remain direct
+- Remove the protected row and cell input helpers from `ListBox` and `ItemBox` for mouse presses, releases, clicks
+  and key input, and for item dragging in `ItemBox`. Subclasses that used these helpers should use the corresponding
+  typed routed hooks instead
+- Move Window's direct press, release and drag behavior into its typed routed hooks, shared with skin-part input.
+  Typed routed subscribers can now prevent the corresponding default action on the window itself.
+  Custom subclasses controlling movement or resizing through `onMouseButtonPressed`, `onMouseButtonReleased` or
+  `onMouseDrag` should migrate to the corresponding routed overrides; inherited legacy methods no longer perform those
+  actions
+- Remove Window's protected `notifyMousePressed`, `notifyMouseReleased` and `notifyMouseDrag` helpers; use the typed
+  routed hooks instead. Non-left-button input and inactive move/resize gestures now bubble. Active left-button gestures
+  remain handled through release, including when snapping or size limits prevent movement
+- Remove Window's legacy wheel forwarding from action and resize skin parts and its protected `notifyMouseWheel`
+  helper. Use `eventMouseWheelRouted` to receive their input and `getTarget()` to identify the original part. Unhandled
+  wheel input now reaches scrolling ancestors; direct wheel input on the window still invokes its legacy callbacks
+- Directly invoking a child's legacy delegate no longer triggers control actions where internal forwarding was removed.
+  Input integrations should inject input through `InputManager`
+- `ComboBox` wheel handling changes selection under its existing focus and capture restrictions, without falling back
+  to scrolling the editable caption. If selection cannot change, input bubbles to the parent; popup lists scroll
+  independently
+
 ### Core
+
 - Reduce text-layout memory overhead and CPU cost while preserving wrapped glyphs
 - Keep menu and tab items attached to their owners when their skins change; allow repeated ComboBox skin changes
 - Preserve every glyph and logical selection position when wrapping long words
 - Apply interactive window resizing and anchor correction in one coordinate update, so callbacks observe final geometry
+- Clear Window move/resize state independently of release propagation, including consumed or throwing release handlers,
+  capture cancellation and skin replacement; prevent stale actions from affecting later gestures
+- Add input bubbling for mouse movement, dragging, wheel, button press/release, click/double-click and key press/release
+  through typed routed events. Marking an event handled stops subsequent routed handlers and ancestor delivery
+- Let wheel input over child widgets reach scrolling parents (#332). Scroll controls consume input only when their
+  position changes, allowing outer controls to scroll when inner content fits or reaches a boundary
 
 ### Tools and demos
+
 - Support SDL 2.0.6 and newer without requiring SDL 2.26's window-size API
 
 ## MyGUI v3.5.4
