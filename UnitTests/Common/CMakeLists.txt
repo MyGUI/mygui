@@ -14,7 +14,6 @@ target_include_directories(MyGUIUnitTestCommon PUBLIC
 )
 target_link_libraries(MyGUIUnitTestCommon PUBLIC MyGUI::MyGUI)
 add_library(MyGUISkinTestSupport INTERFACE)
-target_link_libraries(MyGUISkinTestSupport INTERFACE MyGUIUnitTestCommon)
 if(EMSCRIPTEN)
 	target_link_options(MyGUISkinTestSupport INTERFACE
 			"SHELL:--preload-file ${MYGUI_SOURCE_DIR}/Media/MyGUI_Media@/MyGUI_Media"
