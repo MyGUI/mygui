@@ -237,11 +237,8 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
+	void ComboBox::notifyMousePressed(Widget*, int _left, int _top, MouseButton _id)
 	{
-		// must pass to parent, otherwise we stole focus from it
-		Base::notifyMousePressed(_sender, _left, _top, _id);
-
 		mDropMouse = true;
 
 		if (mModeDrop)
