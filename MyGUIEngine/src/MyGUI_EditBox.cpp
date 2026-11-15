@@ -1563,50 +1563,8 @@ namespace MyGUI
 
 	void EditBox::onMouseWheelRouted(MouseWheelEvent& _event)
 	{
-		const int rel = _event.getWheelDelta();
-		if (rel == 0 || mClientText == nullptr)
-			return;
-
-		if (mVRange != 0)
-		{
-			IntPoint point = mClientText->getViewOffset();
-			int offset = point.top;
-			if (rel < 0)
-				offset += EDIT_MOUSE_WHEEL;
-			else
-				offset -= EDIT_MOUSE_WHEEL;
-
-			offset = std::clamp(offset, 0, int(mVRange));
-
-			if (offset != point.top)
-			{
-				_event.setHandled();
-				point.top = offset;
-				if (mVScroll != nullptr)
-					mVScroll->setScrollPosition(offset);
-				mClientText->setViewOffset(point);
-			}
-		}
-		else if (mHRange != 0)
-		{
-			IntPoint point = mClientText->getViewOffset();
-			int offset = point.left;
-			if (rel < 0)
-				offset += EDIT_MOUSE_WHEEL;
-			else
-				offset -= EDIT_MOUSE_WHEEL;
-
-			offset = std::clamp(offset, 0, int(mHRange));
-
-			if (offset != point.left)
-			{
-				_event.setHandled();
-				point.left = offset;
-				if (mHScroll != nullptr)
-					mHScroll->setScrollPosition(offset);
-				mClientText->setViewOffset(point);
-			}
-		}
+		if (mClientText != nullptr)
+			scrollByWheel(_event, EDIT_MOUSE_WHEEL);
 	}
 
 	void EditBox::setEditWordWrap(bool _value)

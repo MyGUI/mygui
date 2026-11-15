@@ -13,6 +13,8 @@
 namespace MyGUI
 {
 
+	class MouseWheelEvent;
+
 	class MYGUI_EXPORT ScrollViewBase
 	{
 	protected:
@@ -20,6 +22,7 @@ namespace MyGUI
 
 		void updateScrollSize();
 		void updateScrollPosition();
+		void scrollByWheel(MouseWheelEvent& _event, int _step);
 
 		virtual IntSize getContentSize() const;
 

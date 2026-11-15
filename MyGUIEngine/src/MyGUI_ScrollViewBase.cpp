@@ -7,7 +7,9 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollViewBase.h"
 #include "MyGUI_ScrollBar.h"
+#include "MyGUI_InputEvent.h"
 #include <algorithm>
+#include <cstdint>
 
 namespace MyGUI
 {
@@ -159,6 +161,28 @@ namespace MyGUI
 				mHScroll->setScrollPosition(offset.left);
 			setContentPosition(offset);
 		}
+	}
+
+	void ScrollViewBase::scrollByWheel(MouseWheelEvent& _event, int _step)
+	{
+		const int delta = _event.getWheelDelta();
+		const bool vertical = mVRange != 0;
+		const auto range = vertical ? mVRange : mHRange;
+		if (delta == 0 || range == 0)
+			return;
+
+		IntPoint position = getContentPosition();
+		int& offset = vertical ? position.top : position.left;
+		const auto requested = static_cast<std::int64_t>(offset) + (delta < 0 ? _step : -_step);
+		const int next = static_cast<int>(std::clamp<std::int64_t>(requested, 0, range));
+		if (offset == next)
+			return;
+
+		_event.setHandled();
+		offset = next;
+		if (auto* scroll = vertical ? mVScroll : mHScroll)
+			scroll->setScrollPosition(next);
+		setContentPosition(position);
 	}
 
 	IntSize ScrollViewBase::getContentSize() const

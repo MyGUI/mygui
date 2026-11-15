@@ -98,59 +98,7 @@ namespace MyGUI
 
 	void ScrollView::onMouseWheelRouted(MouseWheelEvent& _event)
 	{
-		const int rel = _event.getWheelDelta();
-		if (rel == 0)
-			return;
-		if (mVRange != 0)
-		{
-			IntPoint point = getClientWidget()->getPosition();
-			int offset = -point.top;
-			if (rel < 0)
-				offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else
-				offset -= SCROLL_VIEW_MOUSE_WHEEL;
-
-			if (offset < 0)
-				offset = 0;
-			else if (offset > (int)mVRange)
-				offset = mVRange;
-
-			if (offset != -point.top)
-			{
-				_event.setHandled();
-				point.top = -offset;
-				if (mVScroll != nullptr)
-				{
-					mVScroll->setScrollPosition(offset);
-				}
-				getClientWidget()->setPosition(point);
-			}
-		}
-		else if (mHRange != 0)
-		{
-			IntPoint point = getClientWidget()->getPosition();
-			int offset = -point.left;
-			if (rel < 0)
-				offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else
-				offset -= SCROLL_VIEW_MOUSE_WHEEL;
-
-			if (offset < 0)
-				offset = 0;
-			else if (offset > (int)mHRange)
-				offset = mHRange;
-
-			if (offset != -point.left)
-			{
-				_event.setHandled();
-				point.left = -offset;
-				if (mHScroll != nullptr)
-				{
-					mHScroll->setScrollPosition(offset);
-				}
-				getClientWidget()->setPosition(point);
-			}
-		}
+		scrollByWheel(_event, SCROLL_VIEW_MOUSE_WHEEL);
 	}
 
 	IntSize ScrollView::getContentSize() const
