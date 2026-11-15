@@ -944,6 +944,34 @@ namespace
 		require(tailCalls == 1, "The event must remain reusable after exceptional unlinking");
 	}
 
+	void testConditionalDispatch()
+	{
+		Event event;
+		bool keepGoing = false;
+		int first = 0, tail = 0;
+		event += MyGUI::newDelegate(
+			[&]
+			{
+				++first;
+				keepGoing = false;
+				event.clear();
+				event += MyGUI::newDelegate([&] { ++tail; }, 2);
+			},
+			1);
+		event.invokeWhile([&] { return keepGoing; });
+		require(first == 0, "Conditional dispatch must check before its first subscriber");
+		keepGoing = true;
+		event.invokeWhile([&] { return keepGoing; });
+		require(first == 1 && tail == 0, "Consumption must skip even subscribers appended during dispatch");
+		event();
+		require(tail == 1, "Ordinary multicast invocation must remain unconditional");
+		auto owned = std::make_unique<Event>();
+		*owned += MyGUI::newDelegate([&] { owned.reset(); }, 3);
+		*owned += MyGUI::newDelegate([&] { ++tail; }, 4);
+		owned->invokeWhile([] { return true; });
+		require(!owned && tail == 1, "Conditional dispatch must retain state safely across event destruction");
+	}
+
 }
 
 int main()
@@ -987,5 +1015,6 @@ int main()
 		{"Original pointer removal from a moved source", testOriginalPointerRemovalFromMovedSource},
 		{"Single move assignment destroys its destination", testSingleMoveDestroysDestination},
 		{"Empty callable exception behavior", testEmptyCallableInvocation},
+		{"Conditional multicast delivery", testConditionalDispatch},
 	});
 }

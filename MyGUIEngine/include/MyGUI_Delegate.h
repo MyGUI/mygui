@@ -436,6 +436,25 @@ namespace MyGUI
 				return *this;
 			}
 
+			/** Invoke subscribers in registration order while the predicate permits delivery.
+				Unlike operator(), this checks between subscribers as well as before the first.
+			*/
+			template<typename Predicate>
+			void invokeWhile(Predicate&& _continue, Args... args) const
+			{
+				auto* state = mState;
+				if (!state || state->active == 0)
+					return;
+				Operation guard(state);
+				for (size_t i = 0; i < state->extent; ++i)
+				{
+					if (!_continue())
+						break;
+					if (auto* callback = state->callbacks[i])
+						static_cast<IDelegate*>(callback)->invoke(args...);
+				}
+			}
+
 			void operator()(Args... args) const
 			{
 				auto* state = mState;
