@@ -189,3 +189,54 @@ void testEditBoxInteractions()
 	input.injectMouseMove(origin.left + 5, origin.top + 5, 2);
 	require(edit->getHScrollPosition() == 0, "Reverse wheel input at the left edge must clamp to zero");
 }
+
+void testEditBoxWheelBubbling()
+{
+	using unittest::require;
+	unittest::TestContext context;
+	unittest::createInputLayer();
+	unittest::registerFixedFont();
+	unittest::loadResources("UnitTest_EditBox/TestSkin.xml");
+	unittest::loadResources("UnitTest_ComboBox/TestSkin.xml");
+	auto* outer = context.getGui().createWidget<MyGUI::ScrollView>(
+		"TestScrollView",
+		MyGUI::IntCoord(0, 0, 300, 300),
+		MyGUI::Align::Default,
+		"Main");
+	outer->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+	outer->setCanvasSize(300, 1000);
+	auto* edit =
+		outer->createWidget<MyGUI::EditBox>("BehaviourEditBox", MyGUI::IntCoord(0, 0, 200, 80), MyGUI::Align::Default);
+	edit->setEditMultiLine(true);
+	for (bool vertical : {false, true})
+	{
+		edit->setOnlyText(
+			vertical ? "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\n" : "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
+		const auto range = vertical ? edit->getVScrollRange() : edit->getHScrollRange();
+		require(range > 2, "Edit fixture must have overflowing text");
+		for (auto* target : {static_cast<MyGUI::Widget*>(edit), edit->getClientWidget()})
+		{
+			if (vertical)
+				edit->setVScrollPosition(range - 2);
+			else
+				edit->setHScrollPosition(range - 2);
+			outer->setViewOffset(MyGUI::IntPoint());
+			target->_riseMouseWheel(-1);
+			const auto position = vertical ? edit->getVScrollPosition() : edit->getHScrollPosition();
+			require(
+				position == range - 1 && outer->getViewOffset().top == 0,
+				"Text scrolling must consume the step that reaches its boundary");
+			target->_riseMouseWheel(-1);
+			require(outer->getViewOffset().top == -50, "Wheel at a text boundary must scroll the parent");
+			target->_riseMouseWheel(0);
+			require(outer->getViewOffset().top == -50, "Zero wheel delta must not move the parent");
+		}
+	}
+	edit->setOnlyText("fits");
+	edit->getClientWidget()->_riseMouseWheel(-1);
+	require(outer->getViewOffset().top == -100, "Text that fits must allow parent scrolling");
+	edit->getClientWidget()->eventMouseWheelRouted +=
+		MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 1);
+	edit->getClientWidget()->_riseMouseWheel(-1);
+	require(outer->getViewOffset().top == -100, "Explicit child consumption must still stop parent scrolling");
+}

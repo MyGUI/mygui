@@ -2,3 +2,4 @@
 
 void testEditBoxInteractions();
 void testEditBoxDragAutoscroll();
+void testEditBoxWheelBubbling();

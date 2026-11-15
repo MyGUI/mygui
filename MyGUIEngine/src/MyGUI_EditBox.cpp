@@ -84,7 +84,6 @@ namespace MyGUI
 			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &EditBox::notifyMouseReleased);
 			getClientWidget()->eventMouseDrag += newDelegate(this, &EditBox::notifyMouseDrag);
 			getClientWidget()->eventMouseButtonDoubleClick += newDelegate(this, &EditBox::notifyMouseButtonDoubleClick);
-			getClientWidget()->eventMouseWheel += newDelegate(this, &EditBox::notifyMouseWheel);
 		}
 
 		///@wskin_child{EditBox, ScrollBar, VScroll} Vertical scroll bar.
@@ -1562,16 +1561,17 @@ namespace MyGUI
 		}
 	}
 
-	void EditBox::notifyMouseWheel(Widget* _sender, int _rel)
+	void EditBox::onMouseWheelRouted(MouseWheelEvent& _event)
 	{
-		if (mClientText == nullptr)
+		const int rel = _event.getWheelDelta();
+		if (rel == 0 || mClientText == nullptr)
 			return;
 
 		if (mVRange != 0)
 		{
 			IntPoint point = mClientText->getViewOffset();
 			int offset = point.top;
-			if (_rel < 0)
+			if (rel < 0)
 				offset += EDIT_MOUSE_WHEEL;
 			else
 				offset -= EDIT_MOUSE_WHEEL;
@@ -1580,6 +1580,7 @@ namespace MyGUI
 
 			if (offset != point.top)
 			{
+				_event.setHandled();
 				point.top = offset;
 				if (mVScroll != nullptr)
 					mVScroll->setScrollPosition(offset);
@@ -1590,7 +1591,7 @@ namespace MyGUI
 		{
 			IntPoint point = mClientText->getViewOffset();
 			int offset = point.left;
-			if (_rel < 0)
+			if (rel < 0)
 				offset += EDIT_MOUSE_WHEEL;
 			else
 				offset -= EDIT_MOUSE_WHEEL;
@@ -1599,6 +1600,7 @@ namespace MyGUI
 
 			if (offset != point.left)
 			{
+				_event.setHandled();
 				point.left = offset;
 				if (mHScroll != nullptr)
 					mHScroll->setScrollPosition(offset);

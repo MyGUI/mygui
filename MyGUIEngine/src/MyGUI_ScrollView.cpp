@@ -30,14 +30,9 @@ namespace MyGUI
 		setNeedKeyFocus(true);
 
 		assignWidget(mScrollViewClient, "Client");
-		if (getClientWidget() != nullptr)
-		{
-			getClientWidget()->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-		}
 
 		// create widget that will be real parent for child widgets
 		Widget* realClient = _getClientWidget()->createWidget<Widget>("Default", IntCoord(), Align::Default);
-		realClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 		setWidgetClient(realClient);
 
 		///@wskin_child{ScrollView, ScrollBar, VScroll} Vertical scroll bar.
@@ -101,13 +96,16 @@ namespace MyGUI
 		}
 	}
 
-	void ScrollView::notifyMouseWheel(Widget* _sender, int _rel)
+	void ScrollView::onMouseWheelRouted(MouseWheelEvent& _event)
 	{
+		const int rel = _event.getWheelDelta();
+		if (rel == 0)
+			return;
 		if (mVRange != 0)
 		{
 			IntPoint point = getClientWidget()->getPosition();
 			int offset = -point.top;
-			if (_rel < 0)
+			if (rel < 0)
 				offset += SCROLL_VIEW_MOUSE_WHEEL;
 			else
 				offset -= SCROLL_VIEW_MOUSE_WHEEL;
@@ -117,8 +115,9 @@ namespace MyGUI
 			else if (offset > (int)mVRange)
 				offset = mVRange;
 
-			if (offset != point.top)
+			if (offset != -point.top)
 			{
+				_event.setHandled();
 				point.top = -offset;
 				if (mVScroll != nullptr)
 				{
@@ -131,7 +130,7 @@ namespace MyGUI
 		{
 			IntPoint point = getClientWidget()->getPosition();
 			int offset = -point.left;
-			if (_rel < 0)
+			if (rel < 0)
 				offset += SCROLL_VIEW_MOUSE_WHEEL;
 			else
 				offset -= SCROLL_VIEW_MOUSE_WHEEL;
@@ -141,8 +140,9 @@ namespace MyGUI
 			else if (offset > (int)mHRange)
 				offset = mHRange;
 
-			if (offset != point.left)
+			if (offset != -point.left)
 			{
+				_event.setHandled();
 				point.left = -offset;
 				if (mHScroll != nullptr)
 				{

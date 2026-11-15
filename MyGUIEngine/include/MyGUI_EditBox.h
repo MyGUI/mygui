@@ -256,6 +256,7 @@ namespace MyGUI
 		void onKeyLostFocus(Widget* _new) override;
 		void onKeySetFocus(Widget* _old) override;
 		void onKeyButtonPressed(KeyCode _key, Char _char) override;
+		void onMouseWheelRouted(MouseWheelEvent& _event) override;
 
 		// TODO: refactor these notify methods
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
@@ -266,7 +267,6 @@ namespace MyGUI
 		void notifyMouseButtonDoubleClick(Widget* _sender);
 
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _position);
-		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		void updateView();
 		void updateViewWithCursor();

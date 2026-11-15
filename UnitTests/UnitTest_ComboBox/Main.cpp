@@ -133,9 +133,9 @@ namespace
 		auto* list = openList(combo);
 		checkBelow(combo, list);
 
-		// Use the same wheel event as the scroll canvas receives from input handling.
+		// Route wheel input as InputManager does; direct delegate calls are notifications only.
 		auto* canvas = scroll->getClientWidget();
-		canvas->eventMouseWheel(canvas, -1);
+		canvas->_riseMouseWheel(-1);
 		require(scroll->getViewOffset().top == -50, "The mouse wheel must scroll the canvas");
 		checkBelow(combo, list);
 		scroll->setViewOffset(MyGUI::IntPoint(-40, -80));

@@ -68,9 +68,9 @@ namespace MyGUI
 	protected:
 		void initialiseOverride() override;
 		void shutdownOverride() override;
+		void onMouseWheelRouted(MouseWheelEvent& _event) override;
 
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _position);
-		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		void updateView();
 

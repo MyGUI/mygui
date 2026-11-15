@@ -1,6 +1,7 @@
 #include "BehaviourTestSupport.h"
 #include "TestRunner.h"
 #include <limits>
+#include <vector>
 
 namespace scrolling
 {
@@ -12,11 +13,20 @@ namespace scrolling
 	{
 		MYGUI_RTTI_DERIVED(ScrollBarFixture)
 	public:
+		int wheelCalls{0};
+
 		MyGUI::Widget* skinPart(std::string_view _name)
 		{
 			MyGUI::Widget* result = nullptr;
 			assignWidget(result, _name);
 			return result;
+		}
+
+	protected:
+		void onMouseWheelRouted(MyGUI::MouseWheelEvent& _event) override
+		{
+			++wheelCalls;
+			MyGUI::ScrollBar::onMouseWheelRouted(_event);
 		}
 	};
 
@@ -189,6 +199,244 @@ namespace
 		}
 	}
 
+	void testWheelBubbling()
+	{
+		unittest::TestContext context;
+		setup();
+		auto* view = context.getGui().createWidget<ScrollViewFixture>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 200, 200),
+			MyGUI::Align::Default,
+			"Main");
+		view->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		view->setCanvasSize(100, 600);
+		auto* panel =
+			view->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 100, 600), MyGUI::Align::Default);
+		auto* button =
+			panel->createWidget<MyGUI::Button>("Default", MyGUI::IntCoord(0, 0, 100, 600), MyGUI::Align::Default);
+		int observerCalls = 0, typedCalls = 0;
+		bool blockWheel = false;
+		view->eventMouseWheelRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+			{
+				require(!event.isHandled(), "The typed observer must run before the scroll view's typed wheel hook");
+				event.setHandled(blockWheel);
+				++observerCalls;
+			},
+			1);
+		view->eventMouseWheelRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+			{
+				require(!event.isHandled(), "Typed observers must only receive unconsumed input");
+				++typedCalls;
+			},
+			2);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(10, 10, 0);
+		require(input.getMouseFocusWidget() == button, "The nested button must receive the input");
+		input.injectMouseMove(10, 10, -1);
+		require(
+			view->getViewOffset().top == -50 && observerCalls == 1 && typedCalls == 1,
+			"Wheel over a nested button must scroll once with multiple typed observers");
+		require(input.getMouseFocusWidget() == button, "Bubbling must not change mouse focus");
+
+		int legacyCalls = 0;
+		button->eventMouseWheel += MyGUI::newDelegate([&](MyGUI::Widget*, int) { ++legacyCalls; }, 1);
+		input.injectMouseMove(10, 10, -2);
+		require(
+			legacyCalls == 1 && view->getViewOffset().top == -100,
+			"Legacy observers must not prevent scrolling the parent");
+		button->eventMouseWheelRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(false); }, 2);
+		input.injectMouseMove(10, 10, -3);
+		require(
+			legacyCalls == 2 && view->getViewOffset().top == -150,
+			"Legacy and typed observers must both allow parent scrolling");
+		button->eventMouseWheel.clear();
+		button->eventMouseWheelRouted.clear();
+		button->eventMouseWheelRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 3);
+		input.injectMouseMove(10, 10, -4);
+		require(view->getViewOffset().top == -150, "A bubbling handler must be able to consume the wheel");
+		button->eventMouseWheelRouted.clear();
+
+		view->setCanvasSize(600, 100);
+		input.injectMouseMove(10, 10, -5);
+		require(view->getViewOffset().left == -50, "Bubbling must also reach horizontal scroll views");
+		blockWheel = true;
+		input.injectMouseMove(10, 10, -6);
+		require(view->getViewOffset().left == -50, "Typed consumption must prevent the scroll view's typed action");
+	}
+
+	void testWheelCallbackOrder()
+	{
+		std::vector<int> stages;
+		unittest::TestContext context;
+		setup();
+		auto* bar = createBar(context.getGui(), true);
+		bar->setScrollPosition(50);
+		bar->eventMouseWheel += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, int)
+			{
+				require(bar->getScrollPosition() == 50, "Legacy delegates must precede routed scrolling");
+				stages.push_back(1);
+			},
+			1);
+		bar->eventMouseWheelRouted += MyGUI::newDelegate(
+			[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+			{
+				require(!event.isHandled(), "Typed subscribers must only receive unconsumed input");
+				stages.push_back(2);
+			},
+			2);
+		bar->eventMouseWheelRouted +=
+			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
+		bar->_riseMouseWheel(-1);
+		require(
+			stages == std::vector<int>{1, 2, 3} && bar->wheelCalls == 1 && bar->getScrollPosition() == 57,
+			"Legacy and typed observers must precede default scrolling without consuming input");
+		bar->eventMouseWheel.clear();
+		stages.clear();
+		bar->_riseMouseWheel(-1);
+		require(
+			stages == std::vector<int>{2, 3} && bar->wheelCalls == 2 && bar->getScrollPosition() == 64,
+			"Direct scrolling must run once after typed subscribers");
+		stages.clear();
+		auto* child = bar->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
+		child->_riseMouseWheel(-1);
+		require(
+			stages == std::vector<int>{2, 3} && bar->wheelCalls == 3 && bar->getScrollPosition() == 71,
+			"Descendant scrolling must use the virtual override once after typed subscribers");
+		stages.clear();
+		bar->eventMouseWheelRouted +=
+			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 4);
+		bar->_riseMouseWheel(-1);
+		require(
+			stages == std::vector<int>{2, 3} && bar->wheelCalls == 3 && bar->getScrollPosition() == 71,
+			"Typed consumption must prevent direct default scrolling");
+		stages.clear();
+		child->_riseMouseWheel(-1);
+		require(
+			stages == std::vector<int>{2, 3} && bar->wheelCalls == 3 && bar->getScrollPosition() == 71,
+			"Typed consumption must skip the default scrolling hook");
+		bar->eventMouseWheelRouted.clear();
+		bar->eventMouseWheelRouted +=
+			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
+		bar->setScrollPosition(100);
+		stages.clear();
+		child->_riseMouseWheel(-1);
+		require(stages == std::vector<int>{3}, "A control at its boundary must leave wheel input unhandled");
+	}
+
+	void testNestedWheelConsumers()
+	{
+		unittest::TestContext context;
+		setup();
+		auto* outer = context.getGui().createWidget<ScrollViewFixture>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 200, 200),
+			MyGUI::Align::Default,
+			"Main");
+		outer->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		outer->setCanvasSize(100, 600);
+		auto* inner = outer->createWidget<MyGUI::ScrollView>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 150, 150),
+			MyGUI::Align::Default);
+		inner->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		inner->setCanvasSize(100, 400);
+		inner->createWidget<MyGUI::Button>("Default", MyGUI::IntCoord(0, 0, 100, 400), MyGUI::Align::Default);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(10, 10, 0);
+		input.injectMouseMove(10, 10, -1);
+		require(
+			inner->getViewOffset().top == -50 && outer->getViewOffset().top == 0,
+			"Only the nearest scroll view must consume a wheel event");
+		inner->setViewOffset(MyGUI::IntPoint(0, -10000));
+		const auto limit = inner->getViewOffset();
+		input.injectMouseMove(10, 10, -2);
+		require(
+			inner->getViewOffset() == limit && outer->getViewOffset().top == -50,
+			"A scroll view at its limit must let its parent scroll");
+
+		context.getGui().destroyWidget(inner);
+		outer->setViewOffset(MyGUI::IntPoint());
+		auto* bar =
+			outer->createWidget<MyGUI::ScrollBar>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default);
+		bar->setScrollRange(101);
+		bar->setScrollWheelPage(7);
+		input.injectMouseMove(10, 10, -2);
+		input.injectMouseMove(10, 10, -3);
+		require(
+			bar->getScrollPosition() == 7 && outer->getViewOffset().top == 0,
+			"A scrollbar's virtual wheel handler must consume input before its parent");
+	}
+
+	void testWheelMovementConsumption()
+	{
+		unittest::TestContext context;
+		setup();
+		auto* outer = context.getGui().createWidget<ScrollViewFixture>(
+			"BehaviourScrollView",
+			MyGUI::IntCoord(0, 0, 200, 200),
+			MyGUI::Align::Default,
+			"Main");
+		outer->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+		outer->setCanvasSize(100, 1000);
+
+		for (bool vertical : {false, true})
+		{
+			auto* inner = outer->createWidget<ScrollViewFixture>(
+				"BehaviourScrollView",
+				MyGUI::IntCoord(0, 0, 150, 150),
+				MyGUI::Align::Default);
+			inner->setCanvasAlign(MyGUI::Align::Left | MyGUI::Align::Top);
+			for (auto* target : {static_cast<MyGUI::Widget*>(inner), part(inner, "Client"), inner->getClientWidget()})
+			{
+				inner->setCanvasSize(vertical ? MyGUI::IntSize(100, 400) : MyGUI::IntSize(400, 100));
+				inner->setViewOffset(MyGUI::IntPoint(-10000, -10000));
+				const auto limit = inner->getViewOffset();
+				inner->setViewOffset(limit + (vertical ? MyGUI::IntPoint(0, 10) : MyGUI::IntPoint(10, 0)));
+				outer->setViewOffset(MyGUI::IntPoint());
+				target->_riseMouseWheel(-1);
+				require(
+					inner->getViewOffset() == limit && outer->getViewOffset().top == 0,
+					"ScrollView and both client layers must consume the step reaching their boundary");
+				target->_riseMouseWheel(-1);
+				require(outer->getViewOffset().top == -50, "ScrollView client layers must allow boundary bubbling");
+				inner->setCanvasSize(100, 100);
+				target->_riseMouseWheel(-1);
+				require(outer->getViewOffset().top == -100, "A ScrollView whose content fits must allow bubbling");
+			}
+			context.getGui().destroyWidget(inner);
+		}
+
+		for (bool vertical : {false, true})
+		{
+			auto* bar = outer->createWidget<ScrollBarFixture>(
+				vertical ? "BehaviourScrollV" : "BehaviourScrollH",
+				MyGUI::IntCoord(0, 0, 100, 100),
+				MyGUI::Align::Default);
+			bar->setScrollRange(101);
+			bar->setScrollWheelPage(7);
+			for (auto* target : {static_cast<MyGUI::Widget*>(bar), part(bar, "Track"), part(bar, "Start")})
+			{
+				outer->setViewOffset(MyGUI::IntPoint());
+				bar->setScrollPosition(99);
+				target->_riseMouseWheel(-1);
+				require(
+					bar->getScrollPosition() == 100 && outer->getViewOffset().top == 0,
+					"Scrollbar and skin input must consume the final movement");
+				target->_riseMouseWheel(-1);
+				require(outer->getViewOffset().top == -50, "Scrollbar skin input must bubble at its boundary");
+				bar->setScrollPosition(0);
+				target->_riseMouseWheel(1);
+				require(outer->getViewOffset().top == 0, "Wheel at the starting boundary must bubble upward too");
+			}
+			context.getGui().destroyWidget(bar);
+		}
+	}
+
 	void testViewportBoundaries()
 	{
 		unittest::TestContext context;
@@ -344,6 +592,10 @@ int main()
 		{"Scrollbar ranges and track limits", testRanges},
 		{"Line/page buttons and repeat cancellation", testButtonsAndRepeat},
 		{"Dragging and wheel input", testDraggingAndWheel},
+		{"Wheel bubbling through scroll view children", testWheelBubbling},
+		{"Nested wheel consumers", testNestedWheelConsumers},
+		{"Wheel consumption follows movement", testWheelMovementConsumption},
+		{"Wheel callback order and subclass compatibility", testWheelCallbackOrder},
 		{"Viewport boundaries and scrollbar interaction", testViewportBoundaries},
 		{"Scrollbar visibility toggles", testScrollbarVisibility},
 		{"Content alignment and offset clamping", testContentAlignmentAndClamping},

@@ -36,7 +36,6 @@ namespace MyGUI
 		{
 			mWidgetStart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetStart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
-			mWidgetStart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
 		///@wskin_child{ScrollBar, Button, End} Range end button.
@@ -45,7 +44,6 @@ namespace MyGUI
 		{
 			mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetEnd->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
-			mWidgetEnd->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
 		///@wskin_child{ScrollBar, Button, Track} Track button.
@@ -55,7 +53,6 @@ namespace MyGUI
 			mWidgetTrack->eventMouseDrag += newDelegate(this, &ScrollBar::notifyMouseDrag);
 			mWidgetTrack->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetTrack->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
-			mWidgetTrack->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 			mWidgetTrack->setVisible(false);
 		}
 
@@ -65,7 +62,6 @@ namespace MyGUI
 		{
 			mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetFirstPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
-			mWidgetFirstPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
 		///@wskin_child{ScrollBar, Widget, SecondPart} Second half scroll widget from track to end, on press acts as page scroll.
@@ -74,7 +70,6 @@ namespace MyGUI
 		{
 			mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetSecondPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
-			mWidgetSecondPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
 		if (isUserString("MinTrackSize"))
@@ -414,20 +409,14 @@ namespace MyGUI
 		return getTrackPlaceLength() - (int)(mSkinRangeStart + mSkinRangeEnd);
 	}
 
-	void ScrollBar::onMouseWheel(int _rel)
+	void ScrollBar::onMouseWheelRouted(MouseWheelEvent& _event)
 	{
-		notifyMouseWheel(nullptr, _rel);
-
-		Base::onMouseWheel(_rel);
-	}
-
-	void ScrollBar::notifyMouseWheel(Widget* _sender, int _rel)
-	{
-		if (mScrollRange < 2)
+		const int rel = _event.getWheelDelta();
+		if (rel == 0 || mScrollRange < 2)
 			return;
 
 		int offset = mScrollPosition;
-		if (_rel < 0)
+		if (rel < 0)
 			offset += mScrollWheelPage;
 		else
 			offset -= mScrollWheelPage;
@@ -439,6 +428,7 @@ namespace MyGUI
 
 		if ((size_t)offset != mScrollPosition)
 		{
+			_event.setHandled();
 			mScrollPosition = offset;
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();

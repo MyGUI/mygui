@@ -129,12 +129,11 @@ namespace MyGUI
 		void updateTrack();
 		void TrackMove(int _left, int _top);
 
-		void onMouseWheel(int _rel) override;
+		void onMouseWheelRouted(MouseWheelEvent& _event) override;
 
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 

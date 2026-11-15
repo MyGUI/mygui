@@ -493,6 +493,7 @@ int main()
 		{"Select-all, tabs, acceptance and Escape", testEditKeyboardCommands},
 		{"Mouse, vertical navigation and scroll synchronization", testEditBoxInteractions},
 		{"Held drag autoscroll at all four edges", testEditBoxDragAutoscroll},
+		{"Wheel consumption and parent bubbling", testEditBoxWheelBubbling},
 		{"Double-click Unicode word", testDoubleClickUnicodeWord},
 		{"Unicode word navigation", testWordNavigation},
 		{"Supplementary password character", testPasswordCharacter},
