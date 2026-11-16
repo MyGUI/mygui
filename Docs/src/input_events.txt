@@ -146,6 +146,12 @@ base behavior should run.
 
 \section routed_compound Compound controls
 
+ScrollBar handles presses from its Start, End, Track, FirstPart and SecondPart skin widgets
+in onMouseButtonPressedRouted. Subscribe to the scrollbar's eventMouseButtonPressedRouted
+to observe presses on its parts or intercept them before the default action. The scrollbar's
+legacy eventMouseButtonPressed only reports direct presses on the scrollbar itself.
+Other descendants do not activate the scrollbar, and unhandled presses continue to ancestors.
+
 Window uses typed routed hooks for both direct and descendant press, release and drag.
 Its typed subscribers can intercept these actions before the default hooks run.
 Legacy observers do not prevent the corresponding default action. Custom subclasses that controlled these actions through onMouseButtonPressed,

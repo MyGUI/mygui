@@ -15,6 +15,9 @@
 - Remove protected `notifyMouseWheel` helpers from `ScrollBar`, `ScrollView`, `ListBox`, `ItemBox`, `EditBox`,
   `ComboBox`, `TreeControl` and `TreeControlItem`. Scrolling logic now lives in `onMouseWheelRouted`; custom subclasses
   should use the routed hook instead of calling or subscribing the removed helpers
+- Scrollbar skin-part presses no longer fire the scrollbar's legacy `eventMouseButtonPressed`. Subscribe to
+  `eventMouseButtonPressedRouted` on the scrollbar to observe or intercept those presses. Directly invoking a
+  part's legacy press delegate no longer operates the scrollbar
 - Replace internal input forwarding in `Window`, `ListBox` and `ItemBox` with routed handling. Consuming input on a
   skin part or item now prevents the owning control's corresponding action, when a routed handler marks it handled. Command-button and focus subscriptions remain direct
 - Remove the protected row and cell input helpers from `ListBox` and `ItemBox` for mouse presses, releases, clicks

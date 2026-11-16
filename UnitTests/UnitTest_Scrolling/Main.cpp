@@ -165,6 +165,14 @@ namespace
 			const auto stopped = bar->getScrollPosition();
 			context.getGui().eventFrameStart(0.3f);
 			require(bar->getScrollPosition() == stopped, "Intercepting release must still stop button repeat");
+			bar->setMoveToClick(true);
+			bar->setScrollPosition(0);
+			press(part(bar, "SecondPart"));
+			const auto jumped = bar->getScrollPosition();
+			require(jumped > 20 && jumped < 100, "Move-to-click must jump to the press rather than step one page");
+			context.getGui().eventFrameStart(0.3f);
+			require(bar->getScrollPosition() == jumped, "Holding a move-to-click press must not repeat");
+			input.injectMouseRelease(500, 500, MyGUI::MouseButton::Left);
 			bar->setRepeatEnabled(false);
 			bar->setScrollPosition(0);
 			press(part(bar, "End"));
@@ -173,6 +181,57 @@ namespace
 			input.injectMouseRelease(500, 500, MyGUI::MouseButton::Left);
 			context.getGui().destroyWidget(bar);
 		}
+	}
+
+	void testRoutedPartPress()
+	{
+		unittest::TestContext context;
+		setup();
+		auto& gui = context.getGui();
+		auto* parent = gui.createWidget<MyGUI::Widget>("Default", {0, 0, 300, 300}, MyGUI::Align::Default, "Main");
+		auto* bar = createBar(gui, true);
+		bar->attachToWidget(parent);
+		bar->setScrollPosition(50);
+		auto* end = part(bar, "End");
+		const auto point = centre(end);
+		const auto left = MyGUI::MouseButton::Left, right = MyGUI::MouseButton::Right;
+		int notifications = 0, bubbled = 0;
+		bar->eventMouseButtonPressed +=
+			MyGUI::newDelegate([&](MyGUI::Widget*, int, int, MyGUI::MouseButton) { ++notifications; }, 1);
+		parent->eventMouseButtonPressedRouted += MyGUI::newDelegate([&](MyGUI::MouseButtonEvent&) { ++bubbled; }, 2);
+
+		auto pressAtPoint = [&](MyGUI::Widget* target, MyGUI::MouseButton button)
+		{
+			target->_riseMouseButtonPressed(point.left, point.top, button);
+			target->_riseMouseButtonReleased(point.left, point.top, button);
+		};
+		pressAtPoint(end, left);
+		require(
+			notifications == 0 && bar->getScrollPosition() == 53 && bubbled == 1,
+			"A left part press must step and bubble without firing the scrollbar's legacy event");
+		pressAtPoint(end, right);
+		require(
+			notifications == 0 && bar->getScrollPosition() == 53 && bubbled == 2,
+			"A right part press must bubble without stepping or firing the scrollbar's legacy event");
+		pressAtPoint(bar, left);
+		require(notifications == 1, "A direct scrollbar press must fire its legacy event once");
+		auto* decoration = end->createWidget<MyGUI::Widget>("Default", {0, 0, 5, 5}, MyGUI::Align::Default);
+		pressAtPoint(decoration, left);
+		require(
+			notifications == 1 && bar->getScrollPosition() == 53 && bubbled == 4,
+			"A descendant of a skin part must not activate the scrollbar");
+
+		bar->eventMouseButtonPressedRouted +=
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 3);
+		pressAtPoint(end, left);
+		auto* track = part(bar, "Track");
+		press(track);
+		auto& input = MyGUI::InputManager::getInstance();
+		input.injectMouseMove(500, 500, 0);
+		input.injectMouseRelease(500, 500, left);
+		require(
+			bar->getScrollPosition() == 53 && bubbled == 4,
+			"Intercepted presses must not step, start a thumb drag or reach the parent");
 	}
 
 	void testDraggingAndWheel()
@@ -696,6 +755,7 @@ int main()
 	return unittest::runTests({
 		{"Scrollbar ranges and track limits", testRanges},
 		{"Line/page buttons and repeat cancellation", testButtonsAndRepeat},
+		{"Routed scrollbar part presses", testRoutedPartPress},
 		{"Dragging and wheel input", testDraggingAndWheel},
 		{"Wheel bubbling through scroll view children", testWheelBubbling},
 		{"Nested wheel consumers", testNestedWheelConsumers},

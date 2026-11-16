@@ -32,32 +32,23 @@ namespace MyGUI
 
 		///@wskin_child{ScrollBar, Button, Start} Range start button.
 		assignWidget(mWidgetStart, "Start");
-		if (mWidgetStart != nullptr)
-			mWidgetStart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 
 		///@wskin_child{ScrollBar, Button, End} Range end button.
 		assignWidget(mWidgetEnd, "End");
-		if (mWidgetEnd != nullptr)
-			mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 
 		///@wskin_child{ScrollBar, Button, Track} Track button.
 		assignWidget(mWidgetTrack, "Track");
 		if (mWidgetTrack)
 		{
 			mWidgetTrack->eventMouseDrag += newDelegate(this, &ScrollBar::notifyMouseDrag);
-			mWidgetTrack->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetTrack->setVisible(false);
 		}
 
 		///@wskin_child{ScrollBar, Widget, FirstPart} First half scroll widget from start to track, on press acts as page scroll.
 		assignWidget(mWidgetFirstPart, "FirstPart");
-		if (mWidgetFirstPart != nullptr)
-			mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 
 		///@wskin_child{ScrollBar, Widget, SecondPart} Second half scroll widget from track to end, on press acts as page scroll.
 		assignWidget(mWidgetSecondPart, "SecondPart");
-		if (mWidgetSecondPart != nullptr)
-			mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 
 		if (isUserString("MinTrackSize"))
 			mMinTrackSize = utility::parseValue<int>(getUserString("MinTrackSize"));
@@ -225,66 +216,64 @@ namespace MyGUI
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
-	void ScrollBar::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
+	void ScrollBar::onMouseButtonPressedRouted(MouseButtonEvent& _event)
 	{
-		eventMouseButtonPressed(this, _left, _top, _id);
-
-		if (MouseButton::Left != _id)
+		if (_event.getButton() != MouseButton::Left)
 			return;
 
-		beginMouseInteraction(_sender, _id);
+		auto* part = _event.getTarget();
+		if (part == mWidgetStart || part == mWidgetEnd || part == mWidgetTrack || part == mWidgetFirstPart ||
+			part == mWidgetSecondPart)
+			pressScrollPart(part);
+	}
 
-		if (mEnableRepeat && _sender != mWidgetTrack &&
-			((_sender != mWidgetFirstPart && _sender != mWidgetSecondPart) || !mMoveToClick))
+	void ScrollBar::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
+	{
+		if (_id == MouseButton::Left)
+			pressScrollPart(_sender);
+	}
+
+	void ScrollBar::pressScrollPart(Widget* _part)
+	{
+		beginMouseInteraction(_part, MouseButton::Left);
+		if (_part == mWidgetTrack)
 		{
-			ControllerItem* item =
-				ControllerManager::getInstance().createItem(ControllerRepeatClick::getClassTypeName());
-			ControllerRepeatClick* controller = item->castType<ControllerRepeatClick>();
-			controller->eventRepeatClick += newDelegate(this, &ScrollBar::repeatClick);
-			controller->setRepeat(mRepeatTriggerTime, mRepeatStepTime);
-			ControllerManager::getInstance().addItem(_sender, controller);
+			mPreActionOffset = _part->getPosition();
+			mDraggingTrack = true;
+			return;
 		}
 
-		if (mMoveToClick && _sender != mWidgetTrack && _sender != mWidgetStart && _sender != mWidgetEnd)
+		if (mMoveToClick && _part != mWidgetStart && _part != mWidgetEnd)
 		{
 			if (mWidgetTrack != nullptr)
 			{
-				mPreActionOffset =
-					InputManager::getInstance().getLastPressedPositionForWidget(MouseButton::Left, _sender);
-				const IntPoint& point = InputManager::getInstance().getMousePositionForWidget(_sender) -
-					mWidgetTrack->getParent()->getAbsolutePosition();
-
+				auto& input = InputManager::getInstance();
+				mPreActionOffset = input.getLastPressedPositionForWidget(MouseButton::Left, _part);
+				const IntPoint point =
+					input.getMousePositionForWidget(_part) - mWidgetTrack->getParent()->getAbsolutePosition();
 				mPreActionOffset.left -= getTrackSize() / 2;
 				mPreActionOffset.top -= getTrackSize() / 2;
-
 				TrackMove(point.left, point.top);
 			}
+			return;
 		}
-		else if (_sender == mWidgetStart)
+
+		if (mEnableRepeat)
 		{
-			widgetStartPressed();
+			auto& controllers = ControllerManager::getInstance();
+			auto* controller =
+				controllers.createItem(ControllerRepeatClick::getClassTypeName())->castType<ControllerRepeatClick>();
+			controller->eventRepeatClick += newDelegate(this, &ScrollBar::repeatClick);
+			controller->setRepeat(mRepeatTriggerTime, mRepeatStepTime);
+			controllers.addItem(_part, controller);
 		}
-		else if (_sender == mWidgetEnd)
-		{
-			widgetEndPressed();
-		}
-		else if (_sender == mWidgetFirstPart)
-		{
-			widgetFirstPartPressed();
-		}
-		else if (_sender == mWidgetSecondPart)
-		{
-			widgetSecondPartPressed();
-		}
-		else if (_sender == mWidgetTrack)
-		{
-			mPreActionOffset.left = _sender->getLeft();
-			mPreActionOffset.top = _sender->getTop();
-		}
+		stepByPart(_part);
 	}
 
 	void ScrollBar::onMouseInteractionEnd(Widget* _target, MouseButton _button)
 	{
+		if (_button == MouseButton::Left)
+			mDraggingTrack = false;
 		ControllerManager::getInstance().removeItem(_target);
 		updateTrack();
 	}
@@ -296,9 +285,7 @@ namespace MyGUI
 
 	void ScrollBar::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		if (mScrollRange < 2)
-			return;
-		if (_id == MouseButton::Left)
+		if (mDraggingTrack && _id == MouseButton::Left && mScrollRange >= 2)
 			TrackMove(_left, _top);
 	}
 
@@ -430,6 +417,11 @@ namespace MyGUI
 	}
 
 	void ScrollBar::repeatClick(Widget* _widget, ControllerItem* _controller)
+	{
+		stepByPart(_widget);
+	}
+
+	void ScrollBar::stepByPart(Widget* _widget)
 	{
 		if (_widget == mWidgetStart)
 			widgetStartPressed();

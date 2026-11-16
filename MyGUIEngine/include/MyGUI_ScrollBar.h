@@ -130,6 +130,7 @@ namespace MyGUI
 		void updateTrack();
 		void TrackMove(int _left, int _top);
 
+		void onMouseButtonPressedRouted(MouseButtonEvent& _event) override;
 		void onMouseWheelRouted(MouseWheelEvent& _event) override;
 
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -141,11 +142,16 @@ namespace MyGUI
 		int getTrackPlaceLength() const;
 
 	private:
+		void pressScrollPart(Widget* _part);
+		void stepByPart(Widget* _part);
 		void repeatClick(MyGUI::Widget* _widget, MyGUI::ControllerItem* _controller);
+
 		void widgetStartPressed();
 		void widgetEndPressed();
 		void widgetFirstPartPressed();
 		void widgetSecondPartPressed();
+
+		bool mDraggingTrack{false};
 
 	protected:
 		Button* mWidgetStart{nullptr};
