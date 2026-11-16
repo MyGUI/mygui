@@ -102,7 +102,7 @@ namespace MyGUI
 		void (WidgetInput::*_legacyHook)(Args...),
 		LegacyDelegate& _legacyDelegate,
 		void (WidgetInput::*_routedHook)(Event&),
-		delegates::MultiDelegate<Widget*, Event&> WidgetInput::* _routedDelegate,
+		delegates::MultiDelegate<Event&> WidgetInput::* _routedDelegate,
 		Args... _args)
 	{
 		auto* target = static_cast<Widget*>(this);
@@ -118,7 +118,7 @@ namespace MyGUI
 				break;
 			auto* widget = route.widgets[index];
 			event.mCurrentTarget = widget;
-			(widget->*_routedDelegate).invokeWhile(canContinue, widget, event);
+			(widget->*_routedDelegate).invokeWhile(canContinue, event);
 			if (!canContinue())
 				break;
 			if (index == 0)

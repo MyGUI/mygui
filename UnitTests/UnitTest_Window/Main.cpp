@@ -482,8 +482,7 @@ namespace
 
 		for (auto* subscription : {&window->eventMouseButtonPressedRouted, &window->eventMouseDragRouted})
 		{
-			*subscription +=
-				MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			*subscription += MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 			unittest::dragFromTo({120, 110}, {150, 150});
 			require(
 				window->getPosition() == MyGUI::IntPoint(100, 100),
@@ -545,7 +544,7 @@ namespace
 			 {&parent->eventMouseButtonPressedRouted,
 			  &parent->eventMouseButtonReleasedRouted,
 			  &parent->eventMouseDragRouted})
-			*subscription += MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseButtonEvent&) { ++bubbled; }, 1);
+			*subscription += MyGUI::newDelegate([&](MyGUI::MouseButtonEvent&) { ++bubbled; }, 1);
 		for (MyGUI::Widget* target : {static_cast<MyGUI::Widget*>(window), caption})
 		{
 			bubbled = 0;
@@ -629,9 +628,8 @@ namespace
 				switch (mode)
 				{
 				case EndMode::ConsumedRelease:
-					target->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
-						[](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); },
-						1);
+					target->eventMouseButtonReleasedRouted +=
+						MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 					input.injectMouseRelease(120, 110, MyGUI::MouseButton::Left);
 					break;
 				case EndMode::Hide:
@@ -654,7 +652,7 @@ namespace
 				require(target != nullptr, "The restored window must be pickable");
 				target->eventMouseButtonReleasedRouted.clear();
 				target->eventMouseButtonPressedRouted +=
-					MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 2);
+					MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 2);
 				unittest::dragFromTo({120, 110}, {150, 150});
 				require(
 					window->getPosition() == MyGUI::IntPoint(100, 100),
@@ -677,7 +675,7 @@ namespace
 		input.injectMousePress(120, 110, MyGUI::MouseButton::Left);
 		bool nested = false;
 		window->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			[&](MyGUI::MouseButtonEvent& event)
 			{
 				if (!nested)
 				{
@@ -726,11 +724,11 @@ namespace
 			int routedCalls = 0;
 			bool blockWheel = false;
 			window->eventMouseWheelRouted += MyGUI::newDelegate(
-				[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
+				[&](MyGUI::MouseWheelEvent& event)
 				{
 					++routedCalls;
 					require(
-						sender == window && event.getTarget() == part && event.getWheelDelta() == -1,
+						event.getCurrentTarget() == window && event.getTarget() == part && event.getWheelDelta() == -1,
 						"Routed wheel input must preserve the original skin part and delta");
 					event.setHandled(blockWheel);
 				},
@@ -768,7 +766,7 @@ namespace
 		auto* caption = input.getMouseFocusWidget();
 		require(caption != nullptr && caption != window, "Fixture must pick the caption skin part");
 		caption->eventMouseButtonPressedRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 		unittest::dragFromTo({120, 110}, {150, 150});
 		require(
 			window->getPosition() == MyGUI::IntPoint(100, 100),
@@ -779,7 +777,7 @@ namespace
 		int releases = 0;
 		int drags = 0;
 		window->eventMouseButtonPressedRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			[&](MyGUI::MouseButtonEvent& event)
 			{
 				if (event.getTarget() == caption)
 				{
@@ -790,14 +788,14 @@ namespace
 			},
 			3);
 		window->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			[&](MyGUI::MouseButtonEvent& event)
 			{
 				if (event.getTarget() == caption)
 					++releases;
 			},
 			3);
 		window->eventMouseDragRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			[&](MyGUI::MouseButtonEvent& event)
 			{
 				if (event.getTarget() == caption)
 					++drags;

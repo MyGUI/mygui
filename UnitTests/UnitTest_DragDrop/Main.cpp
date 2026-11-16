@@ -131,7 +131,7 @@ namespace
 		auto& input = MyGUI::InputManager::getInstance();
 		auto* interceptor = InterceptOnOwner ? fixture.source : input.getMouseFocusWidget();
 		interceptor->eventMouseButtonReleasedRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 		input.injectMouseRelease(265, 25, MyGUI::MouseButton::Left);
 		require(
 			fixture.results == std::vector<bool>{false} && fixture.states.back() == MyGUI::DDItemState::End &&

@@ -228,8 +228,7 @@ void testComboBoxWheelBubbling()
 		f.combo->getIndexSelected() == 9 && outer->getViewOffset().top == 0,
 		"An unfocused combo must pass wheel input to its parent");
 	input.setKeyFocusWidget(f.combo);
-	client->eventMouseWheelRouted +=
-		MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 2);
+	client->eventMouseWheelRouted += MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 2);
 	client->_riseMouseWheel(1);
 	require(f.combo->getIndexSelected() == 9 && changes == 1, "A child routed handler can intercept combo selection");
 	client->eventMouseWheelRouted.clear();

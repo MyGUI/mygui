@@ -51,13 +51,13 @@ namespace
 		button->_riseMouseButtonPressed(10, 10, left);
 		require(text->getTextColour() != normal, "Press must apply the button's pushed skin state");
 		button->eventMouseButtonReleasedRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 		button->_riseMouseButtonReleased(10, 10, left);
 		require(text->getTextColour() == normal, "An intercepted release must clear the pushed skin state");
 
 		button->eventMouseButtonReleasedRouted.clear();
 		button->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseButtonEvent& event)
+			[&](MyGUI::MouseButtonEvent& event)
 			{
 				button->_riseMouseButtonPressed(10, 10, left);
 				event.setHandled();
@@ -68,16 +68,15 @@ namespace
 		require(text->getTextColour() != normal, "An older release must not clear a new press from its callback");
 		button->eventMouseButtonReleasedRouted.clear();
 		button->eventMouseButtonReleasedRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 
 		int clicks = 0, parentClicks = 0;
 		button->eventMouseButtonClick += MyGUI::newDelegate([&](MyGUI::Widget*) { ++clicks; }, 2);
-		panel->eventMouseButtonClickRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseClickEvent&) { ++parentClicks; }, 3);
+		panel->eventMouseButtonClickRouted += MyGUI::newDelegate([&](MyGUI::MouseClickEvent&) { ++parentClicks; }, 3);
 		unittest::clickAt(10, 10);
 		require(clicks == 1 && parentClicks == 1, "An intercepted release must still generate a separate click");
 		button->eventMouseButtonClickRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseClickEvent& event) { event.setHandled(); }, 4);
+			MyGUI::newDelegate([](MyGUI::MouseClickEvent& event) { event.setHandled(); }, 4);
 		unittest::clickAt(10, 10);
 		require(clicks == 1 && parentClicks == 1, "An intercepted click must skip the legacy callback and the parent");
 	}
@@ -91,10 +90,9 @@ namespace
 		auto* child =
 			parent->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
 		int parentCalls = 0;
-		parent->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { ++parentCalls; }, 1);
+		parent->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { ++parentCalls; }, 1);
 		child->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent&) { gui.destroyWidget(sender); }, 2);
+			MyGUI::newDelegate([&](MyGUI::MouseWheelEvent& event) { gui.destroyWidget(event.getCurrentTarget()); }, 2);
 		auto& input = MyGUI::InputManager::getInstance();
 		input.injectMouseMove(10, 10, 0);
 		require(input.injectMouseMove(10, 10, -1), "Destroyed wheel targets must still report captured input");
@@ -123,12 +121,12 @@ namespace
 		std::vector<MyGUI::Widget*> route;
 		for (auto* widget : {child, parent, other})
 			widget->eventMouseWheelRouted += MyGUI::newDelegate(
-				[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
+				[&](MyGUI::MouseWheelEvent& event)
 				{
 					require(
 						event.getWheelDelta() == -1 && !event.isHandled(),
 						"Unhandled wheel events must keep their delta and state");
-					route.push_back(sender);
+					route.push_back(event.getCurrentTarget());
 				},
 				1);
 		auto& input = MyGUI::InputManager::getInstance();
@@ -137,7 +135,7 @@ namespace
 		require(route == std::vector<MyGUI::Widget*>{child, parent}, "Wheel events must visit child then parent");
 		route.clear();
 		child->eventMouseWheelRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent&) { sender->attachToWidget(other); },
+			[&](MyGUI::MouseWheelEvent& event) { event.getCurrentTarget()->attachToWidget(other); },
 			2);
 		input.injectMouseMove(10, 10, -2);
 		require(route == std::vector<MyGUI::Widget*>{child}, "Reparenting must stop the original wheel route");

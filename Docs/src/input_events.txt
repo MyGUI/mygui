@@ -30,7 +30,7 @@ share MouseButtonEvent, while click and double-click share MouseClickEvent.
 If a common handler needs to distinguish them, pass the kind from each subscription.
 
 \code
-void Panel::notifyWheel(MyGUI::Widget* receiver, MyGUI::MouseWheelEvent& event)
+void Panel::notifyWheel(MyGUI::MouseWheelEvent& event)
 {
     if (scrollContents(event.getWheelDelta())) // true only when content moves
         event.setHandled();
@@ -57,9 +57,9 @@ actions for bubbled input, as the scrolling and compound controls below do.
 Calling a legacy delegate directly, for example eventMouseWheel(widget, delta), does
 not create a route.
 
-getTarget() identifies the original target. getCurrentTarget() and the delegate's
-sender identify the current receiver. Each nested input has independent state.
-Do not retain event references after delivery.
+Routed delegates receive only the typed event. getTarget() identifies the original
+target; getCurrentTarget() identifies the widget whose handler is running.
+Each nested input has independent state. Do not retain event references after delivery.
 
 Legacy subscribers are notifications: subscribing alone does not consume input.
 Their signatures and multicast delivery remain unchanged. To consume input, use a
@@ -87,7 +87,7 @@ Destruction, reparenting, hiding or disabling can invalidate the route between
 callbacks; remaining routed delivery is then skipped.
 
 \code
-void Panel::notifyKey(MyGUI::Widget* receiver, MyGUI::KeyPressEvent& event)
+void Panel::notifyKey(MyGUI::KeyPressEvent& event)
 {
     if (event.getKey() == MyGUI::KeyCode::Escape)
     {

@@ -158,18 +158,18 @@ namespace MyGUI
 			setHandled() skips all remaining delivery for this event.
 			Routing stops at popup roots, unavailable widgets, unlinked targets and
 			changed parent links. Event references are valid only during delivery.
-			The sender is the current receiver; getTarget() identifies the original target.
+			getCurrentTarget() identifies the current receiver; getTarget() identifies the original target.
 			Direct invocation of legacy delegates does not create a route.
 		*/
-		delegates::MultiDelegate<Widget*, MouseMoveEvent&> eventMouseMoveRouted;
-		delegates::MultiDelegate<Widget*, MouseButtonEvent&> eventMouseDragRouted;
-		delegates::MultiDelegate<Widget*, MouseWheelEvent&> eventMouseWheelRouted;
-		delegates::MultiDelegate<Widget*, MouseButtonEvent&> eventMouseButtonPressedRouted;
-		delegates::MultiDelegate<Widget*, MouseButtonEvent&> eventMouseButtonReleasedRouted;
-		delegates::MultiDelegate<Widget*, MouseClickEvent&> eventMouseButtonClickRouted;
-		delegates::MultiDelegate<Widget*, MouseClickEvent&> eventMouseButtonDoubleClickRouted;
-		delegates::MultiDelegate<Widget*, KeyPressEvent&> eventKeyButtonPressedRouted;
-		delegates::MultiDelegate<Widget*, KeyReleaseEvent&> eventKeyButtonReleasedRouted;
+		delegates::MultiDelegate<MouseMoveEvent&> eventMouseMoveRouted;
+		delegates::MultiDelegate<MouseButtonEvent&> eventMouseDragRouted;
+		delegates::MultiDelegate<MouseWheelEvent&> eventMouseWheelRouted;
+		delegates::MultiDelegate<MouseButtonEvent&> eventMouseButtonPressedRouted;
+		delegates::MultiDelegate<MouseButtonEvent&> eventMouseButtonReleasedRouted;
+		delegates::MultiDelegate<MouseClickEvent&> eventMouseButtonClickRouted;
+		delegates::MultiDelegate<MouseClickEvent&> eventMouseButtonDoubleClickRouted;
+		delegates::MultiDelegate<KeyPressEvent&> eventKeyButtonPressedRouted;
+		delegates::MultiDelegate<KeyReleaseEvent&> eventKeyButtonReleasedRouted;
 
 		/** Event : Mouse button pressed.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
@@ -313,7 +313,7 @@ namespace MyGUI
 			void (WidgetInput::*_legacyHook)(Args...),
 			LegacyDelegate& _legacyDelegate,
 			void (WidgetInput::*_routedHook)(Event&),
-			delegates::MultiDelegate<Widget*, Event&> WidgetInput::* _routedDelegate,
+			delegates::MultiDelegate<Event&> WidgetInput::* _routedDelegate,
 			Args... _args);
 
 		std::string mPointer;

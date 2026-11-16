@@ -207,7 +207,7 @@ void testRoutedInputCaptureAndKeys()
 	Fixture fixture;
 	unittest::subscribeRouted(
 		fixture.parent,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext& event, Type kind)
+		[&](MyGUI::InputEventContext& event, Type kind)
 		{
 			require(
 				event.getTarget() == fixture.child,
@@ -250,10 +250,7 @@ void testRoutedInputBoundaries()
 {
 	Fixture fixture;
 	int parentCalls = 0, popupCalls = 0;
-	unittest::subscribeRouted(
-		fixture.parent,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++parentCalls; },
-		1);
+	unittest::subscribeRouted(fixture.parent, [&](MyGUI::InputEventContext&, Type) { ++parentCalls; }, 1);
 	auto* popup = fixture.parent->createWidget<MyGUI::Widget>(
 		MyGUI::WidgetStyle::Popup,
 		"Default",
@@ -262,14 +259,14 @@ void testRoutedInputBoundaries()
 		"Main");
 	auto* popupChild =
 		popup->createWidget<MyGUI::Widget>("Default", MyGUI::IntCoord(0, 0, 20, 20), MyGUI::Align::Default);
-	unittest::subscribeRouted(popup, [&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++popupCalls; }, 2);
+	unittest::subscribeRouted(popup, [&](MyGUI::InputEventContext&, Type) { ++popupCalls; }, 2);
 	for (auto type : types)
 		raise(popupChild, type);
 	require(popupCalls == 9 && parentCalls == 0, "Routes must stop at popup roots");
 
 	unittest::subscribeRouted(
 		fixture.child,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { fixture.parent->setEnabled(false); },
+		[&](MyGUI::InputEventContext&, Type) { fixture.parent->setEnabled(false); },
 		3);
 	raise(fixture.child, Type::MouseWheel);
 	require(parentCalls == 0, "Disabling an ancestor during input must stop propagation");
@@ -277,7 +274,7 @@ void testRoutedInputBoundaries()
 	unittest::clearRouted(fixture.child);
 	unittest::subscribeRouted(
 		fixture.child,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { fixture.parent->setVisible(false); },
+		[&](MyGUI::InputEventContext&, Type) { fixture.parent->setVisible(false); },
 		4);
 	raise(fixture.child, Type::KeyButtonPressed);
 	require(parentCalls == 0, "Hiding an ancestor during input must stop propagation");
@@ -292,10 +289,10 @@ void testRoutedInputLifetime()
 			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::Widget*) { ++gainedFocus; }, 1);
 		unittest::subscribeRouted(
 			fixture.child,
-			[&](MyGUI::Widget* sender, MyGUI::InputEventContext&, Type kind)
+			[&](MyGUI::InputEventContext& event, Type kind)
 			{
 				if (kind == Type::MouseMove)
-					fixture.context.getGui().destroyWidget(sender);
+					fixture.context.getGui().destroyWidget(event.getCurrentTarget());
 			},
 			2);
 		auto& input = MyGUI::InputManager::getInstance();
@@ -313,10 +310,7 @@ void testRoutedInputLifetime()
 		};
 		fixture.child->eventKeyButtonPressed +=
 			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::KeyCode, MyGUI::Char) { ++legacyCalls; }, 1);
-		unittest::subscribeRouted(
-			fixture.child,
-			[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++typedCalls; },
-			2);
+		unittest::subscribeRouted(fixture.child, [&](MyGUI::InputEventContext&, Type) { ++typedCalls; }, 2);
 		raise(fixture.child, Type::KeyButtonPressed);
 		require(
 			typedCalls == 1 && legacyCalls == 0,
@@ -327,7 +321,7 @@ void testRoutedInputLifetime()
 		bool sawUnlinkedTarget = false;
 		unittest::subscribeRouted(
 			fixture.parent,
-			[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type kind)
+			[&](MyGUI::InputEventContext&, Type kind)
 			{
 				if (kind == Type::MouseDrag)
 					fixture.context.getGui().destroyWidget(fixture.child);
@@ -335,7 +329,7 @@ void testRoutedInputLifetime()
 			1);
 		unittest::subscribeRouted(
 			fixture.parent,
-			[&](MyGUI::Widget*, MyGUI::InputEventContext& event, Type kind)
+			[&](MyGUI::InputEventContext& event, Type kind)
 			{
 				if (kind == Type::MouseDrag)
 					sawUnlinkedTarget = event.getTarget() == nullptr && event.getCurrentTarget() == fixture.parent;
@@ -356,14 +350,14 @@ void testRoutedInputReentrancy()
 	std::vector<Type> parentEvents;
 	Fixture fixture;
 	fixture.child->eventKeyButtonPressedRouted +=
-		MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::KeyPressEvent& event) { event.setHandled(); }, 1);
+		MyGUI::newDelegate([](MyGUI::KeyPressEvent& event) { event.setHandled(); }, 1);
 	fixture.child->wheelAction = [&]
 	{
 		raise(fixture.child, Type::KeyButtonPressed);
 	};
 	unittest::subscribeRouted(
 		fixture.parent,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type kind) { parentEvents.push_back(kind); },
+		[&](MyGUI::InputEventContext&, Type kind) { parentEvents.push_back(kind); },
 		2);
 	raise(fixture.child, Type::MouseWheel);
 	require(
@@ -376,7 +370,7 @@ void testRoutedInputReentrancy()
 	fixture.child->eventKeyButtonPressedRouted.clear();
 	fixture.child->keyAction = throwInputFailure;
 	fixture.child->eventMouseWheelRouted += MyGUI::newDelegate(
-		[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+		[&](MyGUI::MouseWheelEvent& event)
 		{
 			unittest::requireThrows<std::runtime_error>(
 				[&] { raise(fixture.child, Type::KeyButtonPressed); },
@@ -409,70 +403,64 @@ void testTypedRoutedInputTypes()
 				"Only the matching default hook must receive unconsumed input");
 			stages.push_back(2);
 		};
-		auto receive = [&](MyGUI::Widget* sender, MyGUI::InputEventContext& event, Type expected)
+		auto receive = [&, widget](MyGUI::InputEventContext& event, Type expected)
 		{
 			require(
-				raised == expected && event.getTarget() == fixture.child && event.getCurrentTarget() == sender &&
+				raised == expected && event.getTarget() == fixture.child && event.getCurrentTarget() == widget &&
 					!event.isHandled(),
 				"Only the matching typed event must receive the original target and shared context");
 			++typedCalls;
 			stages.push_back(1);
 		};
 		widget->eventMouseMoveRouted += MyGUI::newDelegate(
-			[receive](MyGUI::Widget* sender, MyGUI::MouseMoveEvent& event)
+			[receive](MyGUI::MouseMoveEvent& event)
 			{
 				require(event.getPosition() == MyGUI::IntPoint(27, 39), "Typed move must expose its position");
-				receive(sender, event, Type::MouseMove);
+				receive(event, Type::MouseMove);
 			},
 			2);
-		auto receiveButton = [receive](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event, Type expected)
+		auto receiveButton = [receive](MyGUI::MouseButtonEvent& event, Type expected)
 		{
 			require(
 				event.getPosition() == MyGUI::IntPoint(27, 39) && event.getButton() == MyGUI::MouseButton::Right,
 				"Typed button input must expose position and button");
-			receive(sender, event, expected);
+			receive(event, expected);
 		};
 		widget->eventMouseDragRouted += MyGUI::newDelegate(
-			[receiveButton](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event)
-			{ receiveButton(sender, event, Type::MouseDrag); },
+			[receiveButton](MyGUI::MouseButtonEvent& event) { receiveButton(event, Type::MouseDrag); },
 			3);
 		widget->eventMouseButtonPressedRouted += MyGUI::newDelegate(
-			[receiveButton](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event)
-			{ receiveButton(sender, event, Type::MouseButtonPressed); },
+			[receiveButton](MyGUI::MouseButtonEvent& event) { receiveButton(event, Type::MouseButtonPressed); },
 			4);
 		widget->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
-			[receiveButton](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event)
-			{ receiveButton(sender, event, Type::MouseButtonReleased); },
+			[receiveButton](MyGUI::MouseButtonEvent& event) { receiveButton(event, Type::MouseButtonReleased); },
 			5);
 		widget->eventMouseWheelRouted += MyGUI::newDelegate(
-			[receive](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
+			[receive](MyGUI::MouseWheelEvent& event)
 			{
 				require(event.getWheelDelta() == -3, "Typed wheel input must expose its delta");
-				receive(sender, event, Type::MouseWheel);
+				receive(event, Type::MouseWheel);
 			},
 			6);
-		widget->eventMouseButtonClickRouted += MyGUI::newDelegate(
-			[receive](MyGUI::Widget* sender, MyGUI::MouseClickEvent& event)
-			{ receive(sender, event, Type::MouseButtonClick); },
-			7);
+		widget->eventMouseButtonClickRouted +=
+			MyGUI::newDelegate([receive](MyGUI::MouseClickEvent& event) { receive(event, Type::MouseButtonClick); }, 7);
 		widget->eventMouseButtonDoubleClickRouted += MyGUI::newDelegate(
-			[receive](MyGUI::Widget* sender, MyGUI::MouseClickEvent& event)
-			{ receive(sender, event, Type::MouseButtonDoubleClick); },
+			[receive](MyGUI::MouseClickEvent& event) { receive(event, Type::MouseButtonDoubleClick); },
 			8);
 		widget->eventKeyButtonPressedRouted += MyGUI::newDelegate(
-			[receive](MyGUI::Widget* sender, MyGUI::KeyPressEvent& event)
+			[receive](MyGUI::KeyPressEvent& event)
 			{
 				require(
 					event.getKey() == MyGUI::KeyCode::A && event.getCharacter() == U'\u03b1',
 					"Typed key press must expose the key and Unicode character");
-				receive(sender, event, Type::KeyButtonPressed);
+				receive(event, Type::KeyButtonPressed);
 			},
 			9);
 		widget->eventKeyButtonReleasedRouted += MyGUI::newDelegate(
-			[receive](MyGUI::Widget* sender, MyGUI::KeyReleaseEvent& event)
+			[receive](MyGUI::KeyReleaseEvent& event)
 			{
 				require(event.getKey() == MyGUI::KeyCode::A, "Typed key release must expose its key");
-				receive(sender, event, Type::KeyButtonReleased);
+				receive(event, Type::KeyButtonReleased);
 			},
 			10);
 	}
@@ -499,13 +487,10 @@ void testTypedRoutedInputConsumption()
 	std::vector<Type> legacyNotifications;
 	subscribeLegacy(fixture.child, legacyNotifications);
 	int parentCalls = 0, firstCalls = 0, laterCalls = 0, defaultCalls = 0;
-	unittest::subscribeRouted(
-		fixture.parent,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++parentCalls; },
-		1);
+	unittest::subscribeRouted(fixture.parent, [&](MyGUI::InputEventContext&, Type) { ++parentCalls; }, 1);
 	unittest::subscribeRouted(
 		fixture.child,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext& event, Type)
+		[&](MyGUI::InputEventContext& event, Type)
 		{
 			++firstCalls;
 			event.setHandled();
@@ -513,7 +498,7 @@ void testTypedRoutedInputConsumption()
 		2);
 	unittest::subscribeRouted(
 		fixture.child,
-		[&](MyGUI::Widget*, MyGUI::InputEventContext& event, Type)
+		[&](MyGUI::InputEventContext& event, Type)
 		{
 			++laterCalls;
 			event.setHandled(false);
@@ -531,7 +516,7 @@ void testTypedRoutedInputConsumption()
 		"Subscribers must be able to skip later subscribers, legacy callbacks, defaults and ancestors for every input "
 		"kind");
 	unittest::clearRouted(fixture.child);
-	unittest::subscribeRouted(fixture.child, [&](MyGUI::Widget*, MyGUI::InputEventContext&, Type) { ++laterCalls; }, 4);
+	unittest::subscribeRouted(fixture.child, [&](MyGUI::InputEventContext&, Type) { ++laterCalls; }, 4);
 	fixture.child->typedAction = [&](MyGUI::InputEventContext& event, Type)
 	{
 		++defaultCalls;
@@ -546,7 +531,7 @@ void testTypedRoutedInputConsumption()
 	fixture.child->typedAction = {};
 	unittest::clearRouted(fixture.child);
 	fixture.child->eventMouseWheelRouted += MyGUI::newDelegate(
-		[](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+		[](MyGUI::MouseWheelEvent& event)
 		{
 			event.setHandled();
 			event.setHandled(false);
@@ -566,8 +551,7 @@ void testTypedRoutedInputLifetime()
 		{
 			fixture.context.getGui().destroyWidget(fixture.child);
 		};
-		fixture.parent->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { ++typedCalls; }, 1);
+		fixture.parent->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { ++typedCalls; }, 1);
 		raise(fixture.child, Type::MouseWheel);
 		require(typedCalls == 0, "Destruction in a typed virtual hook must skip ancestors");
 	}
@@ -576,14 +560,13 @@ void testTypedRoutedInputLifetime()
 		bool targetInvalidated = false;
 		int laterCalls = 0;
 		fixture.parent->eventMouseWheelRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
+			[&](MyGUI::MouseWheelEvent& event)
 			{
 				fixture.context.getGui().destroyWidget(fixture.child);
-				targetInvalidated = event.getTarget() == nullptr && event.getCurrentTarget() == sender;
+				targetInvalidated = event.getTarget() == nullptr && event.getCurrentTarget() == fixture.parent;
 			},
 			1);
-		fixture.parent->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { ++laterCalls; }, 2);
+		fixture.parent->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { ++laterCalls; }, 2);
 		raise(fixture.child, Type::MouseWheel);
 		require(
 			targetInvalidated && laterCalls == 0,
@@ -594,15 +577,14 @@ void testTypedRoutedInputLifetime()
 		int typedCalls = 0;
 		unittest::subscribeRouted(
 			fixture.child,
-			[&](MyGUI::Widget* sender, MyGUI::InputEventContext&, Type)
-			{ fixture.context.getGui().destroyWidget(sender); },
+			[&](MyGUI::InputEventContext& event, Type)
+			{ fixture.context.getGui().destroyWidget(event.getCurrentTarget()); },
 			1);
 		fixture.child->typedAction = [&](MyGUI::InputEventContext&, Type)
 		{
 			++typedCalls;
 		};
-		fixture.child->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { ++typedCalls; }, 2);
+		fixture.child->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { ++typedCalls; }, 2);
 		raise(fixture.child, Type::MouseWheel);
 		require(typedCalls == 0, "Destruction in the typed event must skip typed delivery on the invalid route");
 	}
@@ -613,7 +595,7 @@ void testTypedRoutedInputReentrancy()
 	std::vector<Type> received;
 	Fixture fixture;
 	fixture.child->eventMouseWheelRouted += MyGUI::newDelegate(
-		[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+		[&](MyGUI::MouseWheelEvent& event)
 		{
 			raise(fixture.child, Type::KeyButtonPressed);
 			require(
@@ -623,14 +605,14 @@ void testTypedRoutedInputReentrancy()
 		},
 		1);
 	fixture.parent->eventKeyButtonPressedRouted += MyGUI::newDelegate(
-		[&](MyGUI::Widget*, MyGUI::KeyPressEvent& event)
+		[&](MyGUI::KeyPressEvent& event)
 		{
 			received.push_back(Type::KeyButtonPressed);
 			event.setHandled();
 		},
 		2);
 	fixture.parent->eventMouseWheelRouted +=
-		MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { received.push_back(Type::MouseWheel); }, 3);
+		MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { received.push_back(Type::MouseWheel); }, 3);
 	raise(fixture.child, Type::MouseWheel);
 	require(
 		received == std::vector<Type>{Type::KeyButtonPressed, Type::MouseWheel},

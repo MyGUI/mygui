@@ -3,7 +3,9 @@
 ### Compatibility
 
 - Interactive window resizing applies the final rectangle directly instead of calling virtual `setSize`/`setCoord` overrides
-- Existing input callbacks keep their signatures. On the target, typed routed subscribers run first, then the legacy
+- Routed input delegates take only the typed event reference. Use `event.getCurrentTarget()` for the receiving
+  widget and `event.getTarget()` for the original target
+- Legacy input callbacks keep their signatures. On the target, typed routed subscribers run first, then the legacy
   virtual method and its delegates, then the typed default hook. Calling `setHandled()` in a target subscriber skips
   the legacy callbacks, the default hook and bubbling. Subscribing to a legacy event alone does not consume input
 - Move default wheel scrolling in `ScrollBar`, `ListBox`, `ItemBox` and the `TreeControl` demo from `onMouseWheel`

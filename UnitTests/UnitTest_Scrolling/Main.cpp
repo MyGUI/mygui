@@ -160,7 +160,7 @@ namespace
 			context.getGui().eventFrameStart(0.1f);
 			require(bar->getScrollPosition() > 3, "Holding a repeat-enabled button must advance more than one step");
 			part(bar, "End")->eventMouseButtonReleasedRouted +=
-				MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+				MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 			input.injectMouseRelease(500, 500, MyGUI::MouseButton::Left);
 			const auto stopped = bar->getScrollPosition();
 			context.getGui().eventFrameStart(0.3f);
@@ -223,7 +223,7 @@ namespace
 		int observerCalls = 0, typedCalls = 0;
 		bool blockWheel = false;
 		view->eventMouseWheelRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+			[&](MyGUI::MouseWheelEvent& event)
 			{
 				require(!event.isHandled(), "The typed observer must run before the scroll view's typed wheel hook");
 				event.setHandled(blockWheel);
@@ -231,7 +231,7 @@ namespace
 			},
 			1);
 		view->eventMouseWheelRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+			[&](MyGUI::MouseWheelEvent& event)
 			{
 				require(!event.isHandled(), "Typed observers must only receive unconsumed input");
 				++typedCalls;
@@ -253,7 +253,7 @@ namespace
 			legacyCalls == 1 && view->getViewOffset().top == -100,
 			"Legacy observers must not prevent scrolling the parent");
 		button->eventMouseWheelRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(false); }, 2);
+			MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(false); }, 2);
 		input.injectMouseMove(10, 10, -3);
 		require(
 			legacyCalls == 2 && view->getViewOffset().top == -150,
@@ -261,7 +261,7 @@ namespace
 		button->eventMouseWheel.clear();
 		button->eventMouseWheelRouted.clear();
 		button->eventMouseWheelRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 3);
+			MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 3);
 		input.injectMouseMove(10, 10, -4);
 		require(view->getViewOffset().top == -150, "A bubbling handler must be able to consume the wheel");
 		button->eventMouseWheelRouted.clear();
@@ -289,14 +289,13 @@ namespace
 			},
 			1);
 		bar->eventMouseWheelRouted += MyGUI::newDelegate(
-			[&](MyGUI::Widget*, MyGUI::MouseWheelEvent& event)
+			[&](MyGUI::MouseWheelEvent& event)
 			{
 				require(!event.isHandled(), "Typed subscribers must only receive unconsumed input");
 				stages.push_back(2);
 			},
 			2);
-		bar->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
+		bar->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
 		bar->_riseMouseWheel(-1);
 		require(
 			stages == std::vector<int>{2, 3, 1} && bar->wheelCalls == 1 && bar->getScrollPosition() == 57,
@@ -314,8 +313,7 @@ namespace
 			stages == std::vector<int>{2, 3} && bar->wheelCalls == 3 && bar->getScrollPosition() == 71,
 			"Descendant scrolling must use the virtual override once after typed subscribers");
 		stages.clear();
-		bar->eventMouseWheelRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 4);
+		bar->eventMouseWheelRouted += MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 4);
 		bar->_riseMouseWheel(-1);
 		require(
 			stages == std::vector<int>{2, 3} && bar->wheelCalls == 3 && bar->getScrollPosition() == 71,
@@ -326,8 +324,7 @@ namespace
 			stages == std::vector<int>{2, 3} && bar->wheelCalls == 3 && bar->getScrollPosition() == 71,
 			"Typed consumption must skip the default scrolling hook");
 		bar->eventMouseWheelRouted.clear();
-		bar->eventMouseWheelRouted +=
-			MyGUI::newDelegate([&](MyGUI::Widget*, MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
+		bar->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { stages.push_back(3); }, 3);
 		bar->setScrollPosition(100);
 		stages.clear();
 		child->_riseMouseWheel(-1);

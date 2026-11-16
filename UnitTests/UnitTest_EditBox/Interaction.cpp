@@ -83,7 +83,7 @@ void testEditBoxDragAutoscroll()
 			"Autoscroll offsets must stay bounded and synchronized with both scrollbars");
 		if (edge == 0)
 			edit->getClientWidget()->eventMouseButtonReleasedRouted +=
-				MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+				MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 		input.injectMouseRelease(outside.left, outside.top, MyGUI::MouseButton::Left);
 		const auto start = edit->getTextSelectionStart(), end = edit->getTextSelectionEnd();
 		const auto vertical = edit->getVScrollPosition(), horizontal = edit->getHScrollPosition();
@@ -239,7 +239,7 @@ void testEditBoxWheelBubbling()
 	edit->getClientWidget()->_riseMouseWheel(-1);
 	require(outer->getViewOffset().top == -100, "Text that fits must allow parent scrolling");
 	edit->getClientWidget()->eventMouseWheelRouted +=
-		MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 1);
+		MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 1);
 	edit->getClientWidget()->_riseMouseWheel(-1);
 	require(outer->getViewOffset().top == -100, "Explicit child consumption must still stop parent scrolling");
 }

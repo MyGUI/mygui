@@ -368,7 +368,7 @@ namespace
 		fixture.populate(24);
 		auto* item = fixture.item(1);
 		item->eventMouseButtonPressedRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 1);
 		item->_riseMouseButtonPressed(80, 60, MyGUI::MouseButton::Left);
 		require(
 			fixture.box->getIndexSelected() == MyGUI::ITEM_NONE && fixture.notifications.empty(),

@@ -23,44 +23,34 @@ namespace unittest
 
 	inline void subscribeRouted(
 		MyGUI::Widget* widget,
-		const std::function<void(MyGUI::Widget*, MyGUI::InputEventContext&, InputKind)>& callback,
+		const std::function<void(MyGUI::InputEventContext&, InputKind)>& callback,
 		int id)
 	{
-		widget->eventMouseMoveRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseMoveEvent& event)
-			{ callback(sender, event, InputKind::MouseMove); },
-			id);
+		widget->eventMouseMoveRouted +=
+			MyGUI::newDelegate([callback](MyGUI::MouseMoveEvent& event) { callback(event, InputKind::MouseMove); }, id);
 		widget->eventMouseDragRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event)
-			{ callback(sender, event, InputKind::MouseDrag); },
+			[callback](MyGUI::MouseButtonEvent& event) { callback(event, InputKind::MouseDrag); },
 			id);
 		widget->eventMouseWheelRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseWheelEvent& event)
-			{ callback(sender, event, InputKind::MouseWheel); },
+			[callback](MyGUI::MouseWheelEvent& event) { callback(event, InputKind::MouseWheel); },
 			id);
 		widget->eventMouseButtonPressedRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event)
-			{ callback(sender, event, InputKind::MouseButtonPressed); },
+			[callback](MyGUI::MouseButtonEvent& event) { callback(event, InputKind::MouseButtonPressed); },
 			id);
 		widget->eventMouseButtonReleasedRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseButtonEvent& event)
-			{ callback(sender, event, InputKind::MouseButtonReleased); },
+			[callback](MyGUI::MouseButtonEvent& event) { callback(event, InputKind::MouseButtonReleased); },
 			id);
 		widget->eventMouseButtonClickRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseClickEvent& event)
-			{ callback(sender, event, InputKind::MouseButtonClick); },
+			[callback](MyGUI::MouseClickEvent& event) { callback(event, InputKind::MouseButtonClick); },
 			id);
 		widget->eventMouseButtonDoubleClickRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::MouseClickEvent& event)
-			{ callback(sender, event, InputKind::MouseButtonDoubleClick); },
+			[callback](MyGUI::MouseClickEvent& event) { callback(event, InputKind::MouseButtonDoubleClick); },
 			id);
 		widget->eventKeyButtonPressedRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::KeyPressEvent& event)
-			{ callback(sender, event, InputKind::KeyButtonPressed); },
+			[callback](MyGUI::KeyPressEvent& event) { callback(event, InputKind::KeyButtonPressed); },
 			id);
 		widget->eventKeyButtonReleasedRouted += MyGUI::newDelegate(
-			[callback](MyGUI::Widget* sender, MyGUI::KeyReleaseEvent& event)
-			{ callback(sender, event, InputKind::KeyButtonReleased); },
+			[callback](MyGUI::KeyReleaseEvent& event) { callback(event, InputKind::KeyButtonReleased); },
 			id);
 	}
 

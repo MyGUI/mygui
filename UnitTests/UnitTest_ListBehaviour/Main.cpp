@@ -375,7 +375,7 @@ namespace
 		list->clearIndexSelected();
 		notifications.clear();
 		row->eventMouseButtonPressedRouted +=
-			MyGUI::newDelegate([](MyGUI::Widget*, MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 2);
+			MyGUI::newDelegate([](MyGUI::MouseButtonEvent& event) { event.setHandled(); }, 2);
 		row->_riseMouseButtonPressed(17, 29, MyGUI::MouseButton::Left);
 		require(
 			list->getIndexSelected() == MyGUI::ITEM_NONE && notifications.empty(),
