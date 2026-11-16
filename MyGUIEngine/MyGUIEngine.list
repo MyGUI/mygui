@@ -193,6 +193,7 @@ set (SOURCE_FILES
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataManager.cpp
   src/MyGUI_DataStream.cpp
+  src/MyGUI_Delegate.cpp
   src/MyGUI_EditBox.cpp
   src/MyGUI_EditText.cpp
   src/MyGUI_Exception.cpp
@@ -560,6 +561,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_CoordConverter.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
+  src/MyGUI_Delegate.cpp
   src/MyGUI_GeometryUtility.cpp
   src/MyGUI_StringUtility.cpp
   src/MyGUI_TextTag.h

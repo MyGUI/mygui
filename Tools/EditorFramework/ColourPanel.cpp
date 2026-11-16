@@ -179,7 +179,7 @@ namespace tools
 
 		// current sector
 		size_t current = static_cast<size_t>(sector_current);
-		assert(current < 6);
+		MYGUI_ASSERT_RANGE(current, 6, "ColourPanel::notifyScrollChangePosition");
 		// offset to the next sector from 0 to 1
 		float offfset = sector_current - static_cast<float>(current);
 

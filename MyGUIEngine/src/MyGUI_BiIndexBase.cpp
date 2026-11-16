@@ -138,7 +138,7 @@ namespace MyGUI
 
 	void BiIndexBase::checkIndexes()
 	{
-		assert(mIndexFace.size() == mIndexBack.size());
+		MYGUI_ASSERT(mIndexFace.size() == mIndexBack.size(), "Index arrays must have matching sizes");
 
 		// check that index is unique
 		std::vector<bool> vec;
