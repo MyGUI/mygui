@@ -8,7 +8,6 @@
 #define MYGUI_ENUMERATOR_H_
 
 #include "MyGUI_Diagnostic.h"
-#include <cassert>
 
 namespace MyGUI
 {
@@ -79,13 +78,13 @@ namespace MyGUI
 
 		typename T::const_reference operator->() const
 		{
-			assert(m_current != m_end);
+			MYGUI_ASSERT(m_current != m_end, "Cannot dereference an exhausted enumerator");
 			return (*m_current);
 		}
 
 		typename T::const_reference current()
 		{
-			assert(m_current != m_end);
+			MYGUI_ASSERT(m_current != m_end, "Cannot dereference an exhausted enumerator");
 			return (*m_current);
 		}
 
