@@ -14,7 +14,6 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME check skin change as it should be called only once
 		Widget* parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuControl");
 		if (!parent->isType<MenuControl>())
@@ -41,10 +40,14 @@ namespace MyGUI
 
 	void MenuItem::shutdownOverride()
 	{
-		// FIXME check skin change as it should be called only once
-		mOwner->_notifyDeleteItem(this);
-
+		mCheck = nullptr;
 		Base::shutdownOverride();
+	}
+
+	void MenuItem::shutdownWidgetOverride()
+	{
+		mOwner->_notifyDeleteItem(this);
+		Base::shutdownWidgetOverride();
 	}
 
 	void MenuItem::onWidgetCreated(Widget* _widget)

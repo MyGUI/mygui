@@ -161,6 +161,8 @@ namespace MyGUI
 		void _resetContainer(bool _update) override;
 
 	protected:
+		void initialiseWidgetOverride() override;
+		void shutdownWidgetOverride() override;
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 

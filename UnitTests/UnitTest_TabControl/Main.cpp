@@ -244,11 +244,28 @@ namespace tabcontrol_test
 		gui.eventFrameStart(1.0f);
 	}
 
+	static void testPageSkinChanges()
+	{
+		Fixture fixture;
+		auto* tabs = createTabs(fixture.context.getGui(), "TestTabControl");
+		auto* page = tabs->addItem("Page");
+		for (int i = 0; i < 3; ++i)
+		{
+			page->changeWidgetSkin("Default");
+			require(
+				tabs->getItemCount() == 1 && tabs->getItemAt(0) == page && page->getCaption() == "Page",
+				"Reskinning a tab page must preserve its membership and caption");
+		}
+		fixture.context.getGui().destroyWidget(page);
+		require(tabs->getItemCount() == 0, "Destroying a tab page must still notify its owner");
+	}
+
 }
 
 int main()
 {
 	return unittest::runTests({
+		{"Page skin changes", tabcontrol_test::testPageSkinChanges},
 		{"Items", tabcontrol_test::testItems<false>},
 		{"Insertion and widths", tabcontrol_test::testInsertionAndWidths<false>},
 		{"Headers", tabcontrol_test::testHeaders<false, false>},

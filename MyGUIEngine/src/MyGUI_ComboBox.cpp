@@ -22,6 +22,18 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
+	void ComboBox::initialiseWidgetOverride()
+	{
+		Base::initialiseWidgetOverride();
+		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
+	}
+
+	void ComboBox::shutdownWidgetOverride()
+	{
+		eventEditTextChange -= newDelegate(this, &ComboBox::notifyEditTextChange);
+		Base::shutdownWidgetOverride();
+	}
+
 	void ComboBox::initialiseOverride()
 	{
 		Base::initialiseOverride();
@@ -73,9 +85,6 @@ namespace MyGUI
 			mScrollViewClient->setNeedToolTip(true);
 			mScrollViewClient->eventToolTip += newDelegate(this, &ComboBox::notifyToolTip);
 		}
-
-		// subscribe to text changes
-		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
 
 	void ComboBox::shutdownOverride()

@@ -186,11 +186,34 @@ namespace
 		gui.eventFrameStart(0.016f);
 	}
 
+	void testSkinChanges()
+	{
+		Fixture fixture;
+		auto* combo = fixture.context.getGui().createWidget<MyGUI::ComboBox>(
+			"TestComboBox",
+			MyGUI::IntCoord(0, 0, 100, 24),
+			MyGUI::Align::Default,
+			"Main");
+		int changes = 0;
+		combo->eventComboChangePosition += MyGUI::newDelegate([&](MyGUI::ComboBox*, size_t) { ++changes; }, 1);
+		for (int i = 0; i < 3; ++i)
+		{
+			combo->changeWidgetSkin("TestComboBox");
+			combo->addItem("First");
+			combo->setIndexSelected(0);
+			combo->eventEditTextChange(combo);
+			require(
+				combo->getIndexSelected() == MyGUI::ITEM_NONE && changes == i + 1,
+				"Skin changes must retain exactly one internal text-change subscription and external listeners");
+		}
+	}
+
 }
 
 int main()
 {
 	return unittest::runTests({
+		{"Repeated skin changes", testSkinChanges},
 		{"Input interactions", testComboBoxInteractions},
 		{"Popup directions and screen-edge fallback", testComboBoxPlacement},
 		{"Editable input and selection callbacks", testComboBoxEditableInput},

@@ -281,6 +281,7 @@ namespace MyGUI
 	protected:
 		void initialiseOverride() override;
 		void shutdownOverride() override;
+		void shutdownWidgetOverride() override;
 
 		void onKeyChangeRootFocus(bool _focus) override;
 

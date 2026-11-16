@@ -873,11 +873,71 @@ namespace
 		gui.destroyWidget(parent);
 	}
 
+	class LifecycleWidget : public MyGUI::Widget
+	{
+		MYGUI_RTTI_DERIVED(LifecycleWidget)
+	public:
+		static inline int widgetInitialise = 0;
+		static inline int widgetShutdown = 0;
+		static inline int skinInitialise = 0;
+		static inline int skinShutdown = 0;
+
+	protected:
+		void initialiseWidgetOverride() override
+		{
+			Base::initialiseWidgetOverride();
+			++widgetInitialise;
+		}
+		void shutdownWidgetOverride() override
+		{
+			++widgetShutdown;
+			Base::shutdownWidgetOverride();
+		}
+		void initialiseOverride() override
+		{
+			Base::initialiseOverride();
+			++skinInitialise;
+		}
+		void shutdownOverride() override
+		{
+			++skinShutdown;
+			Base::shutdownOverride();
+		}
+	};
+
+	void testSkinLifecycle()
+	{
+		unittest::TestContext context;
+		MyGUI::FactoryManager::getInstance().registerFactory<LifecycleWidget>(
+			MyGUI::WidgetManager::getInstance().getCategoryName());
+		LifecycleWidget::widgetInitialise = LifecycleWidget::widgetShutdown = 0;
+		LifecycleWidget::skinInitialise = LifecycleWidget::skinShutdown = 0;
+		auto* widget = context.getGui().createWidget<LifecycleWidget>(
+			"Default",
+			MyGUI::IntCoord(0, 0, 100, 100),
+			MyGUI::Align::Default,
+			"");
+		for (int i = 0; i < 3; ++i)
+			widget->changeWidgetSkin("Default");
+		require(widget->isType<LifecycleWidget>(), "Custom widget type must survive skin changes");
+		require(
+			LifecycleWidget::widgetInitialise == 1 && LifecycleWidget::widgetShutdown == 0,
+			"Skin changes must not repeat widget-lifetime hooks");
+		require(
+			LifecycleWidget::skinInitialise == 4 && LifecycleWidget::skinShutdown == 3,
+			"Legacy hooks must still run for each skin binding");
+		context.getGui().destroyWidget(widget);
+		require(
+			LifecycleWidget::widgetShutdown == 1 && LifecycleWidget::skinShutdown == 4,
+			"Destruction must unbind the skin and run lifetime cleanup once");
+	}
+
 }
 
 int main()
 {
 	return unittest::runTests({
+		{"Skin and widget lifecycle hooks", testSkinLifecycle},
 		{"Absolute coordinate events", testAbsoluteCoordEvent},
 		{"Clipping after movement", testClippingAfterMovement},
 		{"Clipping after unchanged aligned position",

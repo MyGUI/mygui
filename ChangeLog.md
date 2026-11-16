@@ -1,6 +1,7 @@
 ## MyGUI v3.5.5
 
 ### Core
+- Keep menu and tab items attached to their owners when their skins change; allow repeated ComboBox skin changes
 - Apply interactive window resizing and anchor correction in one coordinate update, so callbacks observe final geometry
 
 ### Compatibility

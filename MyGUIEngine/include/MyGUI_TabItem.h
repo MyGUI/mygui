@@ -33,6 +33,7 @@ namespace MyGUI
 	protected:
 		void initialiseOverride() override;
 		void shutdownOverride() override;
+		void shutdownWidgetOverride() override;
 
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 	};

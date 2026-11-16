@@ -97,7 +97,7 @@ namespace MyGUI
 				mParent->addChildNode(this);
 		}
 
-		// virtual method for subclasses
+		initialiseWidgetOverride();
 		initialiseOverride();
 
 		if (skinInfo != nullptr)
@@ -118,8 +118,8 @@ namespace MyGUI
 
 		setUserData(Any::Null);
 
-		// virtual method for subclasses
 		shutdownOverride();
+		shutdownWidgetOverride();
 
 		shutdownWidgetSkinBase();
 
@@ -1187,6 +1187,14 @@ namespace MyGUI
 	{
 		WidgetContainer::_linkChildWidget(_widget);
 		_updateChilds(false);
+	}
+
+	void Widget::initialiseWidgetOverride()
+	{
+	}
+
+	void Widget::shutdownWidgetOverride()
+	{
 	}
 
 	void Widget::shutdownOverride()

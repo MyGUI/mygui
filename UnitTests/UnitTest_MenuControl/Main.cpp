@@ -200,11 +200,36 @@ namespace
 		checkPlacement(nullptr, 300, 200, 250, "Top-level menu");
 	}
 
+	void testItemSkinChanges()
+	{
+		Fixture fixture;
+		auto* menu = fixture.context.getGui().createWidget<MyGUI::MenuControl>(
+			"Default",
+			MyGUI::IntCoord(0, 0, 100, 100),
+			MyGUI::Align::Default,
+			"Main");
+		auto* item = menu->addItem("Entry");
+		auto* submenu = item->createItemChild();
+		for (int i = 0; i < 3; ++i)
+		{
+			item->changeWidgetSkin("Default");
+			submenu->changeWidgetSkin("Default");
+			require(
+				menu->getItemCount() == 1 && menu->getItemAt(0) == item && item->getItemChild() == submenu,
+				"Reskinning an item or submenu must not remove it from its owner");
+		}
+		fixture.context.getGui().destroyWidget(submenu);
+		require(item->getItemChild() == nullptr, "Destroying a submenu must still notify its owner");
+		fixture.context.getGui().destroyWidget(item);
+		require(menu->getItemCount() == 0, "Destroying an item must still remove it from its menu");
+	}
+
 }
 
 int main()
 {
 	return unittest::runTests({
+		{"Item and submenu skin changes", testItemSkinChanges},
 		{"Input interactions", testMenuInteractions},
 		{"Open submenu removal, item types and menu reuse", testMenuMutations},
 		{"Submenu placement", testPlacement},

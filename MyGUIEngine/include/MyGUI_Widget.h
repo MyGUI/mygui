@@ -410,8 +410,20 @@ namespace MyGUI
 		// All creation is only through factory
 		~Widget() override;
 
+		/** Skin hooks: called on creation/destruction and on every skin change.
+			Existing overrides retain their original call order and behavior.
+		*/
 		virtual void shutdownOverride();
 		virtual void initialiseOverride();
+
+		/** Called once, before initialiseOverride(), with the initial skin constructed.
+			Use for widget-lifetime work such as subscribing to this widget's own events.
+		*/
+		virtual void initialiseWidgetOverride();
+		/** Called once, after shutdownOverride(), before skin children are destroyed.
+			Use for lifetime cleanup and notifying an owning container of removal.
+		*/
+		virtual void shutdownWidgetOverride();
 
 		void _updateView();
 

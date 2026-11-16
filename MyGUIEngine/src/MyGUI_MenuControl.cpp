@@ -79,10 +79,14 @@ namespace MyGUI
 		mShutdown = true;
 		eventChangeAbsoluteCoord -= newDelegate(this, &MenuControl::notifyChangeCoord);
 
+		Base::shutdownOverride();
+	}
+
+	void MenuControl::shutdownWidgetOverride()
+	{
 		if (mOwner != nullptr)
 			mOwner->getMenuCtrlParent()->_notifyDeletePopup(mOwner);
-
-		Base::shutdownOverride();
+		Base::shutdownWidgetOverride();
 	}
 
 	void MenuControl::onWidgetCreated(Widget* _widget)

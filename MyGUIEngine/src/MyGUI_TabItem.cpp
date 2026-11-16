@@ -17,11 +17,16 @@ namespace MyGUI
 
 	void TabItem::shutdownOverride()
 	{
+		Base::shutdownOverride();
+	}
+
+	void TabItem::shutdownWidgetOverride()
+	{
 		TabControl* owner = getParent() != nullptr ? getParent()->castType<TabControl>(false) : nullptr;
 		if (owner != nullptr)
 			owner->_notifyDeleteItem(this);
 
-		Base::shutdownOverride();
+		Base::shutdownWidgetOverride();
 	}
 
 	void TabItem::setCaption(const UString& _value)
