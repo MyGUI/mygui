@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_LayoutData.h"
+#include "MyGUI_WidgetDefines.h"
 
 namespace MyGUI
 {

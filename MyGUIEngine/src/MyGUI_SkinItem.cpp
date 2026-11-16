@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SkinItem.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderManager.h"

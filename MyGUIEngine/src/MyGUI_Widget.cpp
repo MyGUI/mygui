@@ -11,6 +11,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_ResourceLayout.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"

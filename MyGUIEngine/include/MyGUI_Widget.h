@@ -13,8 +13,6 @@
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetInput.h"
-#include "MyGUI_ResourceSkin.h"
-#include "MyGUI_ResourceLayout.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_SkinItem.h"
 #include "MyGUI_WidgetContainer.h"
@@ -23,6 +21,9 @@
 namespace MyGUI
 {
 
+	class ResourceSkin;
+	class ResourceLayout;
+	struct WidgetInfo;
 	struct Vertex;
 	struct RenderTargetInfo;
 

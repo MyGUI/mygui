@@ -8,15 +8,20 @@
 #define MYGUI_BACKWARD_COMPATIBILITY_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Colour.h"
-#include "MyGUI_Any.h"
-#include "MyGUI_MouseButton.h"
-#include "MyGUI_KeyCode.h"
-#include "MyGUI_Macros.h"
-#include "MyGUI_WidgetDefines.h"
-#include "MyGUI_ResourceImageSetData.h"
-#include "MyGUI_Enumerator.h"
-#include <map>
+#include "MyGUI_Types.h"
+#include <string_view>
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+	#include "MyGUI_Colour.h"
+	#include "MyGUI_Any.h"
+	#include "MyGUI_MouseButton.h"
+	#include "MyGUI_KeyCode.h"
+	#include "MyGUI_Macros.h"
+	#include "MyGUI_WidgetDefines.h"
+	#include "MyGUI_ResourceImageSetData.h"
+	#include "MyGUI_Enumerator.h"
+	#include <map>
+#endif
 
 namespace MyGUI
 {

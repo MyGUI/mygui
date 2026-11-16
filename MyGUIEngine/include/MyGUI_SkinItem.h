@@ -11,10 +11,12 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_ResourceSkin.h"
+#include "MyGUI_IStateInfo.h"
 
 namespace MyGUI
 {
+
+	class ResourceSkin;
 
 	class MYGUI_EXPORT SkinItem : public LayerItem
 	{
