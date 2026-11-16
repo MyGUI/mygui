@@ -190,7 +190,8 @@ namespace
 			{
 				require(
 					actual[i].width == expected[i].width && actual[i].offset == expected[i].offset &&
-						actual[i].count == expected[i].count && actual[i].symbols.size() == expected[i].symbols.size(),
+						actual[i].count == expected[i].count && actual[i].startPosition == expected[i].startPosition &&
+						actual[i].symbols.size() == expected[i].symbols.size(),
 					"Replacing text must reset line metrics, alignment and symbols");
 				for (size_t j = 0; j < actual[i].symbols.size(); ++j)
 				{
@@ -335,6 +336,93 @@ namespace
 		}
 	}
 
+	class IndexedFont : public unittest::FixedFont
+	{
+	public:
+		const MyGUI::GlyphInfo* getGlyphInfo(MyGUI::Char _character) const override
+		{
+			mGlyph.uvRect.left = static_cast<float>(_character);
+			return &mGlyph;
+		}
+
+	private:
+		mutable MyGUI::GlyphInfo mGlyph{0, 10, 20, 10};
+	};
+
+	void testWrappedLogicalPositions()
+	{
+		IndexedFont font;
+		MyGUI::TextView view;
+		for (const char* source :
+			 {"ABCDE",
+			  "AB##CD",
+			  "#FF0000AB#00FF00CDE",
+			  "A\xF0\x9F\x98\x80"
+			  "BCD",
+			  "AB#123",
+			  "AB#"})
+		{
+			const auto expected = MyGUI::TextIterator::getOnlyText(source);
+			for (int width : {0, 5, 10, 20, 25, 100})
+			{
+				view.update(source, &font, 20, MyGUI::Align::Left, MyGUI::VertexColourType::ColourARGB, width);
+				MyGUI::UString rendered;
+				for (size_t lineIndex = 0; lineIndex < view.getData().size(); ++lineIndex)
+				{
+					require(
+						view.getLineStartPosition(lineIndex) == rendered.size() &&
+							view.getData()[lineIndex].startPosition == rendered.size(),
+						"Soft wraps must not invent logical characters");
+					require(
+						view.getCursorPosition({0, static_cast<int>(lineIndex) * 20}) == rendered.size(),
+						"Wrapped hit testing must use the logical line start");
+					for (const auto& symbol : view.getData()[lineIndex].symbols)
+						if (!symbol.isColour())
+							rendered.push_back(static_cast<MyGUI::Char>(symbol.getUVRect().left));
+				}
+				require(
+					rendered == expected,
+					"Wrapping must preserve every glyph in source order, including escaped hashes");
+				require(view.getTextLength() == expected.size(), "Layout and editing must agree on logical length");
+				for (size_t position = 0; position <= expected.size(); ++position)
+					require(
+						view.getCursorPosition(view.getCursorPoint(position)) == position,
+						"Wrapped cursor positions must round trip");
+			}
+		}
+		for (const char* source :
+			 {"AB CD",
+			  "AB\tCD",
+			  "AB\nCD",
+			  "AB\r\nCD",
+			  "AB\rCD",
+			  "AB\xC2\x85"
+			  "CD"})
+		{
+			view.update(source, &font, 20, MyGUI::Align::Left, MyGUI::VertexColourType::ColourARGB, 25);
+			require(
+				view.getData().size() == 2 && view.getLineStartPosition(1) == 3 && view.getTextLength() == 5,
+				"Word breaks and explicit newlines must consume one logical character");
+			require(
+				view.getCursorPoint(3) == MyGUI::IntPoint(0, 20),
+				"The character after a consumed break must start the next line");
+		}
+	}
+
+	void testMissingGlyphPositions()
+	{
+		MyGUI::ResourceManualFont font;
+		font.setDefaultHeight(20);
+		font.addGlyphInfo('A', MyGUI::GlyphInfo('A', 10, 20, 10));
+		MyGUI::TextView view;
+		view.update("?A?A", &font, 20, MyGUI::Align::Left, MyGUI::VertexColourType::ColourARGB);
+		require(view.getTextLength() == 4, "Missing glyphs must retain their logical positions");
+		require(
+			view.getCursorPoint(3) == MyGUI::IntPoint(10, 0),
+			"Missing glyphs must not shift subsequent cursor positions");
+		require(view.getViewSize() == MyGUI::IntSize(20, 20), "Missing glyphs must remain invisible");
+	}
+
 	void testWrapping()
 	{
 		unittest::TestContext context;
@@ -430,6 +518,8 @@ int main()
 		{"TextIterator code-point edits", testTextIteratorCodePointEdits},
 		{"Truncated colour tags in TextIterator", testTextIteratorTruncatedColourTags},
 		{"Wrapping boundaries", testWrapping},
+		{"Wrapped logical positions and glyph order", testWrappedLogicalPositions},
+		{"Missing glyph positions", testMissingGlyphPositions},
 		{"Cursor hit testing", testCursorHitTesting},
 		{"Manual font metrics", testManualFontMetrics},
 	});

@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_TextTag.h"
 #include <cstdio>
 
 namespace MyGUI
@@ -14,7 +15,7 @@ namespace MyGUI
 	namespace
 	{
 
-		constexpr size_t ColourTagLength = 7; // #RRGGBB
+		using text_detail::ColourTagLength;
 		constexpr int ColourChannelMax = 255;
 
 	}
@@ -39,30 +40,6 @@ namespace MyGUI
 	{
 	}
 
-	template<typename Iterator, typename EndIterator>
-	bool advanceColorTag(Iterator& _iter, const EndIterator& _end)
-	{
-		if (*_iter != U'#')
-			return false;
-		++_iter;
-		if (_iter == _end)
-			return false;
-		if (*_iter != U'#')
-		{
-			for (size_t pos = 2; pos < ColourTagLength; ++pos)
-			{
-				++_iter;
-				if (_iter == _end)
-				{
-					--_iter;
-					break;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
 	bool TextIterator::moveNext()
 	{
 		if (mCurrent == mEnd)
@@ -78,7 +55,7 @@ namespace MyGUI
 		{
 			if ((*iter) == U'#')
 			{
-				if (advanceColorTag(iter, mEnd))
+				if (text_detail::advanceColourTag(iter, mEnd))
 					continue;
 
 				if (iter == mEnd)
@@ -162,7 +139,7 @@ namespace MyGUI
 
 		for (UString::const_iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
-			if (advanceColorTag(iter, mEnd))
+			if (text_detail::advanceColourTag(iter, mEnd))
 				continue;
 
 			if (iter == mEnd)
@@ -182,7 +159,7 @@ namespace MyGUI
 		UString::const_iterator end = _text.end();
 		for (UString::const_iterator iter = _text.begin(); iter != end; ++iter)
 		{
-			if (advanceColorTag(iter, end))
+			if (text_detail::advanceColourTag(iter, end))
 				continue;
 
 			if (iter == end)
@@ -196,21 +173,14 @@ namespace MyGUI
 
 	bool TextIterator::skipColourTag(UString::iterator& _iter) const
 	{
-		if ((_iter == mEnd) || (*_iter != U'#'))
+		if (_iter == mEnd)
 			return false;
-
-		++_iter;
-		if ((_iter == mEnd) || (*_iter == U'#'))
+		const auto start = _iter;
+		if (!text_detail::advanceColourTag(_iter, mEnd))
 			return false;
-
-		for (size_t pos = 2; pos < ColourTagLength; ++pos)
-		{
-			++_iter;
-			if (_iter == mEnd)
-				return false;
-		}
 		++_iter;
-		return true;
+		// Editing complete tags must leave incomplete trailing tags untouched.
+		return static_cast<size_t>(_iter - start) == ColourTagLength;
 	}
 
 	void TextIterator::clearNewLine(UString& _text)
@@ -364,7 +334,7 @@ namespace MyGUI
 
 		for (UString::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
-			if (advanceColorTag(iter, mEnd))
+			if (text_detail::advanceColourTag(iter, mEnd))
 				continue;
 
 			if (iter == mEnd)
@@ -401,9 +371,9 @@ namespace MyGUI
 		for (; iter != mEnd; ++iter)
 		{
 			UString::iterator save = iter;
-			if (advanceColorTag(iter, mEnd))
+			if (text_detail::advanceColourTag(iter, mEnd))
 			{
-				if (static_cast<size_t>(mEnd - save) >= 7)
+				if (static_cast<size_t>(mEnd - save) >= ColourTagLength)
 					iter_colour = save;
 				continue;
 			}
@@ -411,7 +381,7 @@ namespace MyGUI
 				break;
 			if (diff == 0)
 			{
-				// advanceColorTag moves an escaped hash iterator to the second '#'.
+				// advanceColourTag moves an escaped hash iterator to the second '#'.
 				// Keep both characters when the escaped hash is the first retained glyph.
 				iter = save;
 				break;

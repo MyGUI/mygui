@@ -495,10 +495,9 @@ namespace MyGUI
 		const FloatRect& selectedUVRect =
 			mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack)->uvRect;
 
-		size_t index = 0;
-
 		for (const auto& line : textViewData)
 		{
+			size_t index = line.startPosition;
 			float left = (float)(line.offset - mViewOffset.left + mCoord.left);
 
 			// Pass 1: find selection bounds on this line.
@@ -578,7 +577,6 @@ namespace MyGUI
 			}
 
 			top += mFontHeight;
-			++index;
 		}
 
 		// Render the cursor, if any, last.

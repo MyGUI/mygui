@@ -256,6 +256,7 @@ set (SOURCE_FILES
   src/MyGUI_TabControl.cpp
   src/MyGUI_TabItem.cpp
   src/MyGUI_TextBox.cpp
+  src/MyGUI_TextTag.h
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextView.cpp
   src/MyGUI_TextureUtility.cpp
@@ -561,6 +562,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_DataStream.cpp
   src/MyGUI_GeometryUtility.cpp
   src/MyGUI_StringUtility.cpp
+  src/MyGUI_TextTag.h
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextView.cpp
   src/MyGUI_TextureUtility.cpp

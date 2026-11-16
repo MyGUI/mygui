@@ -128,12 +128,15 @@ namespace MyGUI
 			count = 0;
 			symbols.clear();
 			offset = 0;
+			startPosition = 0;
 		}
 
 		int width{0};
 		int offset{0};
 		size_t count{0};
 		VectorCharInfo symbols;
+		// Logical position of the first character, excluding colour tags.
+		size_t startPosition{0};
 	};
 
 	using VectorLineInfo = std::vector<LineInfo>;

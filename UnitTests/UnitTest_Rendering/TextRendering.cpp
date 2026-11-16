@@ -169,6 +169,27 @@ void testTextSelectionAndCursor()
 	f.render(4);
 }
 
+void testWrappedTextSelection()
+{
+	TextFixture f;
+	f.widget->setSize(22, 60); // EditText reserves two pixels for the cursor.
+	f.widget->setCaption("ABAB");
+	f.text->setWordWrap(true);
+	f.text->setTextSelection(1, 3);
+	f.text->setInvertSelected(true);
+	const auto selected = f.colour(MyGUI::Colour(0, 1, 1));
+	f.render(6);
+	f.quad(0, {110, 100, 120, 120}, {80, 32, 81, 33}, selected);
+	f.quad(2, {110, 100, 120, 120}, {32, 32, 42, 52}, selected);
+	f.quad(3, {100, 120, 110, 140}, {80, 32, 81, 33}, selected);
+	f.quad(4, {100, 120, 110, 140}, {16, 32, 26, 52}, selected);
+	f.quad(5, {110, 120, 120, 140}, {32, 32, 42, 52}, f.colour(MyGUI::Colour::Red));
+	f.text->setCursorPosition(3);
+	f.text->setVisibleCursor(true);
+	f.render(7);
+	f.quad(6, {110, 120, 112, 140}, {64, 32, 66, 52}, f.colour(MyGUI::Colour::White));
+}
+
 void testTextLayoutInvalidation()
 {
 	TextFixture f;

@@ -6,6 +6,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TextView.h"
+#include "MyGUI_TextTag.h"
 
 namespace MyGUI
 {
@@ -107,24 +108,41 @@ namespace MyGUI
 		// Clear line contents while retaining symbol capacity for reuse
 		for (auto& line : mLineInfo)
 			line.clear();
+		if (mLineInfo.empty())
+			mLineInfo.emplace_back();
 		size_t current_line = 0;
 		int font_height = _font->getDefaultHeight();
 
 		UString::const_iterator end = _text.end();
 		UString::const_iterator index = _text.begin();
 
-		/*if (index == end)
-			return;*/
-
 		result.height += _height;
 
 		Char previousChar = 0;
 
-		for (; index != end; ++index)
+		const auto nextLine = [&](size_t _breakLength)
 		{
+			auto& line = mLineInfo[current_line];
+			line.width = (int)std::ceil(width);
+			line.count = count;
+			mLength += count + _breakLength;
+			setMax(result.width, line.width);
+			result.height += _height;
+			width = 0;
+			count = 0;
+			previousChar = 0;
+			roll_back.clear();
+
+			++current_line;
 			if (current_line == mLineInfo.size())
 				mLineInfo.emplace_back();
+			mLineInfo[current_line].startPosition = mLength;
+		};
+
+		for (; index != end; ++index)
+		{
 			auto& line_info = mLineInfo[current_line];
+			const auto glyphStart = index;
 			Char character = *index;
 
 			// new line
@@ -138,66 +156,29 @@ namespace MyGUI
 						index = peeki; // skip both as one newline
 				}
 
-				line_info.width = (int)std::ceil(width);
-				line_info.count = count;
-				mLength += line_info.count + 1;
-
-				result.height += _height;
-				setMax(result.width, line_info.width);
-				width = 0;
-				count = 0;
-
-				++current_line;
-
-				roll_back.clear();
-				previousChar = 0;
-
+				nextLine(1);
 				continue;
 			}
-			// tag
-			if (character == U'#')
+			if (text_detail::advanceColourTag(index, end))
 			{
-				// check next character
-				++index;
-				if (index == end)
-				{
-					--index;
-					continue;
-				}
-
-				character = *index;
-				// "##" converted to visible '#', change colour otherwise
-				if (character != U'#')
-				{
-					// read first character
-					uint32 colour = convert_colour[(character - 48) & 0x3F];
-
-					// and 5 more after '#'
-					for (char i = 0; i < 5; i++)
-					{
-						++index;
-						if (index == end)
-						{
-							--index;
-							continue;
-						}
-						colour <<= 4;
-						colour += convert_colour[((*index) - 48) & 0x3F];
-					}
-
-					// convert to ABGR if we use that colour format
-					texture_utility::convertColour(colour, _format);
-
-					line_info.symbols.emplace_back(colour);
-
-					continue;
-				}
+				uint32 colour = 0;
+				for (auto digit = glyphStart + 1; digit != index + 1; ++digit)
+					colour = (colour << 4) + convert_colour[(*digit - 48) & 0x3F];
+				texture_utility::convertColour(colour, _format);
+				line_info.symbols.emplace_back(colour);
+				continue;
 			}
+			if (index == end)
+				break;
+			character = *index;
 
 			const GlyphInfo* info = _font->getGlyphInfo(character);
 
 			if (info == nullptr)
 			{
+				// Invisible glyphs still occupy a logical position in the editor.
+				line_info.symbols.emplace_back();
+				++count;
 				previousChar = 0;
 				continue;
 			}
@@ -229,7 +210,7 @@ namespace MyGUI
 			float char_fullAdvance = char_advance + kerning;
 
 			// word wrap
-			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth)
+			if (_maxWidth != -1 && (width + char_fullAdvance) > _maxWidth && (count != 0 || !roll_back.empty()))
 			{
 				if (!roll_back.empty())
 				{
@@ -241,23 +222,14 @@ namespace MyGUI
 						line_info.symbols.begin() + roll_back.getPosition(),
 						line_info.symbols.end());
 				}
+				else
+				{
+					// Retry the complete glyph (including an escaped hash) on the next line.
+					index = glyphStart - 1;
+				}
 
-				// remember rollback point as full line
-				line_info.width = (int)std::ceil(width);
-				line_info.count = count;
-				mLength += line_info.count + 1;
-
-				result.height += _height;
-				setMax(result.width, line_info.width);
-				width = 0;
-				count = 0;
-
-				++current_line;
-				previousChar = 0;
-
-				// cancel rollback
-				if (!roll_back.empty())
-					roll_back.clear();
+				// A word break consumes its space; a soft break consumes no character.
+				nextLine(roll_back.empty() ? 0 : 1);
 
 				continue;
 			}
@@ -300,21 +272,22 @@ namespace MyGUI
 		size_t result = 0;
 		int top = 0;
 
-		for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
+		for (size_t lineIndex = 0; lineIndex < mLineInfo.size(); ++lineIndex)
 		{
-			bool lastline = line + 1 == mLineInfo.end();
+			const auto& line = mLineInfo[lineIndex];
+			result = line.startPosition;
+			bool lastline = lineIndex + 1 == mLineInfo.size();
 
 			if (top + mFontHeight <= _value.top && !lastline)
 			{
 				top += mFontHeight;
-				result += line->count + 1;
 			}
 			else
 			{
-				float left = (float)line->offset;
+				float left = (float)line.offset;
 				int count = 0;
 
-				for (const auto& sym : line->symbols)
+				for (const auto& sym : line.symbols)
 				{
 					if (sym.isColour())
 						continue;
@@ -340,11 +313,12 @@ namespace MyGUI
 	{
 		setMin(_position, mLength);
 
-		size_t position = 0;
 		int top = 0;
 		float left = 0.0f;
-		for (const auto& line : mLineInfo)
+		for (size_t lineIndex = 0; lineIndex < mLineInfo.size(); ++lineIndex)
 		{
+			const auto& line = mLineInfo[lineIndex];
+			size_t position = line.startPosition;
 			left = (float)line.offset;
 			if (position + line.count >= _position)
 			{
@@ -361,11 +335,15 @@ namespace MyGUI
 				}
 				break;
 			}
-			position += line.count + 1;
 			top += mFontHeight;
 		}
 
 		return {(int)left, top};
+	}
+
+	size_t TextView::getLineStartPosition(size_t _line) const
+	{
+		return mLineInfo.at(_line).startPosition;
 	}
 
 	const IntSize& TextView::getViewSize() const

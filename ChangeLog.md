@@ -1,7 +1,9 @@
 ## MyGUI v3.5.5
 
 ### Core
+- Reduce text-layout memory overhead and CPU cost while preserving wrapped glyphs
 - Keep menu and tab items attached to their owners when their skins change; allow repeated ComboBox skin changes
+- Preserve every glyph and logical selection position when wrapping long words
 - Apply interactive window resizing and anchor correction in one coordinate update, so callbacks observe final geometry
 
 ### Compatibility

@@ -533,6 +533,7 @@ int main()
 		{"Text glyphs, colour tags, shadows and font loading", testTextGeometry},
 		{"Text clipping and UV interpolation", testTextClipping},
 		{"Multiline selection and cursor rendering", testTextSelectionAndCursor},
+		{"Wrapped text selection and cursor", testWrappedTextSelection},
 		{"Explicit text layout and render invalidation", testTextLayoutInvalidation},
 		{"Text alignment updates layout before rendering", testTextAlignmentInvalidation},
 		{"Skin replacement initializes text geometry", testTextSkinReplacement},

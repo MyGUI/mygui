@@ -34,7 +34,13 @@ namespace MyGUI
 
 		size_t getTextLength() const;
 
+		/** Visual lines. Use getLineStartPosition() to map them to logical text positions. */
 		const VectorLineInfo& getData() const;
+
+		/** Logical character position of a visual line. Soft wraps do not consume a character.
+			Colour tags are excluded, escaped hashes and CRLF each count as one character.
+		*/
+		size_t getLineStartPosition(size_t _line) const;
 
 	private:
 		IntSize mViewSize;
