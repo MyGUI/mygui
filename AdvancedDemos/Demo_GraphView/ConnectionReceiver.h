@@ -8,6 +8,7 @@
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
+#include <cassert>
 
 namespace animation
 {

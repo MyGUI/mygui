@@ -14,6 +14,7 @@
 #include "MyGUI_DirectX11VertexBuffer.h"
 #include "MyGUI_DirectX11Diagnostic.h"
 #include "MyGUI_LogManager.h"
+#include <cassert>
 
 namespace MyGUI
 {
@@ -38,7 +39,7 @@ namespace MyGUI
 
 		void initialise(ID3D11Device* _device, std::string_view _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
-			assert(!mIsInitialise);
+			MYGUI_PLATFORM_ASSERT(!mIsInitialise, "DirectX11Platform initialised twice");
 			mIsInitialise = true;
 
 			if (!_logName.empty())
@@ -49,7 +50,7 @@ namespace MyGUI
 
 		void shutdown()
 		{
-			assert(mIsInitialise);
+			MYGUI_PLATFORM_ASSERT(mIsInitialise, "DirectX11Platform is not initialised");
 			mIsInitialise = false;
 
 			mRenderManager->shutdown();

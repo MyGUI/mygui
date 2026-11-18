@@ -9,6 +9,7 @@
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
 #include "ConnectionReceiver.h"
+#include <cassert>
 
 namespace animation
 {

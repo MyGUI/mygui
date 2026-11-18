@@ -3,6 +3,7 @@
 
 #include "ExportDefine.h"
 #include "DemoKeeper.h"
+#include <cassert>
 #include <windows.h>
 
 
