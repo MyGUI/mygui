@@ -730,7 +730,8 @@ namespace
 					require(
 						event.getCurrentTarget() == window && event.getTarget() == part && event.getWheelDelta() == -1,
 						"Routed wheel input must preserve the original skin part and delta");
-					event.setHandled(blockWheel);
+					if (blockWheel)
+						event.setHandled();
 				},
 				2);
 			part->_riseMouseWheel(-1);

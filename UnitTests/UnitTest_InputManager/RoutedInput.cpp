@@ -496,14 +496,7 @@ void testTypedRoutedInputConsumption()
 			event.setHandled();
 		},
 		2);
-	unittest::subscribeRouted(
-		fixture.child,
-		[&](MyGUI::InputEventContext& event, Type)
-		{
-			++laterCalls;
-			event.setHandled(false);
-		},
-		3);
+	unittest::subscribeRouted(fixture.child, [&](MyGUI::InputEventContext&, Type) { ++laterCalls; }, 3);
 	fixture.child->typedAction = [&](MyGUI::InputEventContext&, Type)
 	{
 		++defaultCalls;
@@ -528,17 +521,6 @@ void testTypedRoutedInputConsumption()
 		laterCalls == 9 && legacyNotifications == std::vector<Type>(types.begin(), types.end()) &&
 			fixture.child->legacy == legacyNotifications && defaultCalls == 9 && parentCalls == 0,
 		"Default hooks must run after subscribers and may consume input before ancestors");
-	fixture.child->typedAction = {};
-	unittest::clearRouted(fixture.child);
-	fixture.child->eventMouseWheelRouted += MyGUI::newDelegate(
-		[](MyGUI::MouseWheelEvent& event)
-		{
-			event.setHandled();
-			event.setHandled(false);
-		},
-		5);
-	raise(fixture.child, Type::MouseWheel);
-	require(parentCalls == 1, "A handler can revise its consumption before returning");
 }
 
 

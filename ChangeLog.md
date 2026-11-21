@@ -2,6 +2,9 @@
 
 ### Compatibility
 
+- Input event consumption is irreversible: `setHandled()` no longer accepts a boolean argument.
+  To consume conditionally, call it only when the condition is true
+
 - Interactive window resizing applies the final rectangle directly instead of calling virtual `setSize`/`setCoord` overrides
 - Routed input delegates take only the typed event reference. Use `event.getCurrentTarget()` for the receiving
   widget and `event.getTarget()` for the original target

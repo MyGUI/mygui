@@ -68,8 +68,8 @@ typed subscriber or a typed virtual hook and call setHandled() on its event.
 Calling setHandled() skips remaining delivery as soon as the handler returns. A
 typed subscriber on the target can therefore intercept a legacy action or
 notification. A handler on a parent cannot undo a child's action that already ran.
-A handler may revise its own decision with setHandled(false) before returning;
-later handlers cannot release consumed input because they are not called.
+Consumption cannot be reversed. Call setHandled() only after deciding to consume
+the input.
 
 Capture, keyboard focus and click generation are independent of consumption. For
 example, intercepting a release does not intercept the separately generated click.

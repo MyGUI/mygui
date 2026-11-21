@@ -285,7 +285,8 @@ namespace
 			[&](MyGUI::MouseWheelEvent& event)
 			{
 				require(!event.isHandled(), "The typed observer must run before the scroll view's typed wheel hook");
-				event.setHandled(blockWheel);
+				if (blockWheel)
+					event.setHandled();
 				++observerCalls;
 			},
 			1);
@@ -311,11 +312,11 @@ namespace
 		require(
 			legacyCalls == 1 && view->getViewOffset().top == -100,
 			"Legacy observers must not prevent scrolling the parent");
-		button->eventMouseWheelRouted +=
-			MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(false); }, 2);
+		int buttonObserverCalls = 0;
+		button->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { ++buttonObserverCalls; }, 2);
 		input.injectMouseMove(10, 10, -3);
 		require(
-			legacyCalls == 2 && view->getViewOffset().top == -150,
+			legacyCalls == 2 && buttonObserverCalls == 1 && view->getViewOffset().top == -150,
 			"Legacy and typed observers must both allow parent scrolling");
 		button->eventMouseWheel.clear();
 		button->eventMouseWheelRouted.clear();
