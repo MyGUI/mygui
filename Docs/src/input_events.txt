@@ -65,11 +65,31 @@ Legacy subscribers are notifications: subscribing alone does not consume input.
 Their signatures and multicast delivery remain unchanged. To consume input, use a
 typed subscriber or a typed virtual hook and call setHandled() on its event.
 
-Calling setHandled() skips remaining delivery as soon as the handler returns. A
-typed subscriber on the target can therefore intercept a legacy action or
+Calling setHandled() skips ordinary subscribers and default actions as soon as the
+handler returns. A typed subscriber on the target can therefore intercept a legacy action or
 notification. A handler on a parent cannot undo a child's action that already ran.
 Consumption cannot be reversed. Call setHandled() only after deciding to consume
 the input.
+
+To observe consumed input, call widget->setReceiveHandledEvents(true). This enables all
+routed subscribers on that widget, including later subscribers when an earlier one
+consumes the event. It does not enable legacy callbacks or virtual default hooks for
+handled input. Ordinary widgets still receive only unhandled input; an ordinary
+ancestor does not prevent delivery to an opted-in ancestor above it.
+
+The option defaults to false and can be read with getReceiveHandledEvents(). Changes
+take effect before the next subscriber is called. Event order, popup boundaries and
+route validity checks still apply. Opted-in subscribers cannot reverse consumption.
+
+\code
+panel->setReceiveHandledEvents(true);
+panel->eventMouseWheelRouted += MyGUI::newDelegate(
+    [](MyGUI::MouseWheelEvent& event)
+    {
+        // Receives wheel input even if a descendant already scrolled.
+        observeWheel(event.getTarget(), event.getWheelDelta());
+    }, 1);
+\endcode
 
 Capture, keyboard focus and click generation are independent of consumption. For
 example, intercepting a release does not intercept the separately generated click.
@@ -139,7 +159,7 @@ If selection does not change, input continues to the parent. Its popup ListBox s
 independently, with routing stopping at the popup boundary. The tree expand/collapse
 button also uses the normal wheel route.
 
-The dispatcher calls routed handlers only for unhandled input. Built-in wheel hooks
+The dispatcher calls virtual default hooks only for unhandled input. Built-in wheel hooks
 therefore omit redundant handled checks and calls to empty base hooks. An override
 that explicitly calls a base implementation is responsible for deciding whether that
 base behavior should run.

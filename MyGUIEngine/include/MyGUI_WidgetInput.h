@@ -114,6 +114,19 @@ namespace MyGUI
 		bool getRootMouseFocus() const;
 		bool getRootKeyFocus() const;
 
+		/** Allow this widget's routed subscribers to receive consumed input. Disabled by default.
+			Applies to every routed input kind, including later subscribers on this widget.
+			Legacy callbacks and default hooks still receive only unhandled input.
+		*/
+		void setReceiveHandledEvents(bool _value)
+		{
+			mReceiveHandledEvents = _value;
+		}
+		bool getReceiveHandledEvents() const
+		{
+			return mReceiveHandledEvents;
+		}
+
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
 			@param _sender widget that called this event
@@ -155,7 +168,8 @@ namespace MyGUI
 			At each widget, typed subscribers run first in registration order.
 			At the target only, the legacy virtual method and delegates run next.
 			The matching typed virtual hook/default action runs last on each widget.
-			setHandled() skips all remaining delivery for this event.
+			setHandled() skips remaining legacy callbacks and default hooks; routed
+			subscribers receive handled input only on widgets with setReceiveHandledEvents(true).
 			Routing stops at popup roots, unavailable widgets, unlinked targets and
 			changed parent links. Event references are valid only during delivery.
 			getCurrentTarget() identifies the current receiver; getTarget() identifies the original target.
@@ -323,6 +337,7 @@ namespace MyGUI
 		bool mInheritsPick{false};
 		bool mNeedKeyFocus{false};
 		bool mNeedMouseFocus{true};
+		bool mReceiveHandledEvents{false};
 
 		bool mRootMouseFocus{false};
 		bool mRootKeyFocus{false};

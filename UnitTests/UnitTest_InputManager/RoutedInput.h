@@ -9,3 +9,6 @@ void testTypedRoutedInputConsumption();
 void testTypedRoutedInputLifetime();
 void testTypedRoutedInputReentrancy();
 void testSharedMouseInteraction();
+
+void testHandledInputObservers();
+void testHandledInputObserverLifetime();

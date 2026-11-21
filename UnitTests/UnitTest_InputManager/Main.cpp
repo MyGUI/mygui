@@ -880,6 +880,8 @@ int main()
 		{"Button release and click interception", testButtonInterception},
 		{"Typed routed input payloads and delivery order", testTypedRoutedInputTypes},
 		{"Shared routed input consumption", testTypedRoutedInputConsumption},
+		{"Handled input observers", testHandledInputObservers},
+		{"Handled observer lifetime and opt-out", testHandledInputObserverLifetime},
 		{"Typed routed input callback lifetime", testTypedRoutedInputLifetime},
 		{"Reentrant typed routed input", testTypedRoutedInputReentrancy},
 		{"Routed capture, clicks and keyboard input", testRoutedInputCaptureAndKeys},

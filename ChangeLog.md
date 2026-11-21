@@ -10,7 +10,8 @@
   widget and `event.getTarget()` for the original target
 - Legacy input callbacks keep their signatures. On the target, typed routed subscribers run first, then the legacy
   virtual method and its delegates, then the typed default hook. Calling `setHandled()` in a target subscriber skips
-  the legacy callbacks, the default hook and bubbling. Subscribing to a legacy event alone does not consume input
+  the legacy callbacks, the default hook and ordinary routed subscribers. Subscribing to a legacy event alone does not
+  consume input
 - Move default wheel scrolling in `ScrollBar`, `ListBox`, `ItemBox` and the `TreeControl` demo from `onMouseWheel`
   to `onMouseWheelRouted`. Custom overrides that control scrolling must migrate to the routed hook and call its base
   implementation when scrolling is wanted. Calling the inherited legacy method no longer scrolls; omitting its base
@@ -53,7 +54,9 @@
   cancels an unfinished drop. Buttons, scrollbar repeat, text autoscroll and window move/resize also finish when
   capture is cancelled, without clearing a new interaction started by a release callback
 - Add input bubbling for mouse movement, dragging, wheel, button press/release, click/double-click and key press/release
-  through typed routed events. Marking an event handled stops subsequent routed handlers and ancestor delivery
+  through typed routed events. Marking an event handled skips ordinary subscribers and default actions
+- Allow widgets to observe consumed input with `setReceiveHandledEvents(true)`. Only routed subscribers opt in;
+  default actions stay suppressed and ordinary ancestors do not block opted-in observers farther up the route
 - Let wheel input over child widgets reach scrolling parents (#332). Scroll controls consume input only when their
   position changes, allowing outer controls to scroll when inner content fits or reaches a boundary
 

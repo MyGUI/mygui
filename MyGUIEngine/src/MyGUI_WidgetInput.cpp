@@ -110,27 +110,28 @@ namespace MyGUI
 		InputEventRoute route(event.mTarget, event.mCurrentTarget);
 		for (size_t index = 0; index < route.widgets.size(); ++index)
 		{
-			auto canContinue = [&]
-			{
-				return !event.isHandled() && route.valid(index);
-			};
-			if (!canContinue())
+			if (!route.valid(index))
 				break;
 			auto* widget = route.widgets[index];
 			event.mCurrentTarget = widget;
-			(widget->*_routedDelegate).invokeWhile(canContinue, event);
-			if (!canContinue())
-				break;
+			auto canNotify = [&]
+			{
+				return route.valid(index) && (!event.isHandled() || widget->getReceiveHandledEvents());
+			};
+			(widget->*_routedDelegate).invokeWhile(canNotify, event);
+			auto canRunDefault = [&]
+			{
+				return !event.isHandled() && route.valid(index);
+			};
 			if (index == 0)
 			{
-				(widget->*_legacyHook)(_args...);
-				if (!canContinue())
-					break;
-				_legacyDelegate(widget, _args...);
-				if (!canContinue())
-					break;
+				if (canRunDefault())
+					(widget->*_legacyHook)(_args...);
+				if (canRunDefault())
+					_legacyDelegate(widget, _args...);
 			}
-			(widget->*_routedHook)(event);
+			if (canRunDefault())
+				(widget->*_routedHook)(event);
 		}
 	}
 

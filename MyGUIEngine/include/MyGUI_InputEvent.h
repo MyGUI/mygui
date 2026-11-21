@@ -35,14 +35,15 @@ namespace MyGUI
 		{
 			return mCurrentTarget;
 		}
-		/** Whether this input is consumed and further routed delivery will stop. */
+		/** Whether this input is consumed. Only opted-in routed subscribers receive consumed input. */
 		bool isHandled() const
 		{
 			return mHandled;
 		}
 
-		/** Mark input consumed. After this handler returns, remaining handlers on
-			this widget and its ancestors are skipped. Consumption cannot be reversed.
+		/** Mark input consumed. Remaining routed subscribers on this widget and its
+			ancestors are skipped unless their widget enables setReceiveHandledEvents(true).
+			Legacy callbacks and default hooks are skipped.
 			At the target, a subscriber can skip the legacy hook and delegates.
 			Capture, focus and click generation are independent of consumption.
 		*/

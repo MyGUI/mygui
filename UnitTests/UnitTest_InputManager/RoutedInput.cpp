@@ -264,6 +264,13 @@ void testRoutedInputBoundaries()
 		raise(popupChild, type);
 	require(popupCalls == 9 && parentCalls == 0, "Routes must stop at popup roots");
 
+	popup->setReceiveHandledEvents(true);
+	fixture.parent->setReceiveHandledEvents(true);
+	unittest::subscribeRouted(popupChild, [](MyGUI::InputEventContext& event, Type) { event.setHandled(); }, 5);
+	for (auto type : types)
+		raise(popupChild, type);
+	require(popupCalls == 18 && parentCalls == 0, "Handled observers must also respect popup boundaries");
+
 	unittest::subscribeRouted(
 		fixture.child,
 		[&](MyGUI::InputEventContext&, Type) { fixture.parent->setEnabled(false); },
@@ -521,6 +528,136 @@ void testTypedRoutedInputConsumption()
 		laterCalls == 9 && legacyNotifications == std::vector<Type>(types.begin(), types.end()) &&
 			fixture.child->legacy == legacyNotifications && defaultCalls == 9 && parentCalls == 0,
 		"Default hooks must run after subscribers and may consume input before ancestors");
+}
+
+
+void testHandledInputObservers()
+{
+	Fixture fixture;
+	auto* middle =
+		fixture.parent->createWidget<InputWidget>("Default", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default);
+	fixture.child->attachToWidget(middle);
+	int middleCalls = 0, parentCalls = 0, laterChildCalls = 0, defaultCalls = 0;
+	bool consumeInDefault = false;
+	std::vector<Type> legacy;
+	subscribeLegacy(fixture.child, legacy);
+	for (auto* widget : {middle, fixture.parent})
+	{
+		subscribeLegacy(widget, legacy);
+		widget->typedAction = [&](MyGUI::InputEventContext&, Type)
+		{
+			++defaultCalls;
+		};
+	}
+	unittest::subscribeRouted(middle, [&](MyGUI::InputEventContext&, Type) { ++middleCalls; }, 1);
+	unittest::subscribeRouted(
+		fixture.child,
+		[&](MyGUI::InputEventContext& event, Type)
+		{
+			require(!event.isHandled(), "Each input starts unhandled");
+			if (!consumeInDefault)
+				event.setHandled();
+		},
+		2);
+	unittest::subscribeRouted(fixture.child, [&](MyGUI::InputEventContext&, Type) { ++laterChildCalls; }, 3);
+	fixture.child->typedAction = [&](MyGUI::InputEventContext& event, Type)
+	{
+		++defaultCalls;
+		event.setHandled();
+	};
+	unittest::subscribeRouted(
+		fixture.parent,
+		[&](MyGUI::InputEventContext& event, Type)
+		{
+			require(
+				event.isHandled() && event.getTarget() == fixture.child && event.getCurrentTarget() == fixture.parent,
+				"An observer must receive the consumed event with its original target and current receiver");
+			++parentCalls;
+		},
+		4);
+	require(!fixture.parent->getReceiveHandledEvents(), "Handled input observation must be opt-in");
+	fixture.parent->setReceiveHandledEvents(true);
+	for (auto type : types)
+		raise(fixture.child, type);
+	require(
+		parentCalls == 9 && middleCalls == 0 && laterChildCalls == 0 && defaultCalls == 0 && legacy.empty() &&
+			fixture.child->legacy.empty(),
+		"Handled input must cross an uninterested ancestor without invoking ordinary subscribers or defaults");
+
+	fixture.child->setReceiveHandledEvents(true);
+	for (auto type : types)
+		raise(fixture.child, type);
+	require(
+		parentCalls == 18 && laterChildCalls == 9 && defaultCalls == 0 && legacy.empty(),
+		"Opting in on the target must enable later routed subscribers, but not legacy callbacks or defaults");
+	fixture.child->setReceiveHandledEvents(false);
+	fixture.parent->setReceiveHandledEvents(false);
+	for (auto type : types)
+		raise(fixture.child, type);
+	require(parentCalls == 18 && laterChildCalls == 9, "Turning observation off must restore ordinary delivery");
+
+	fixture.parent->setReceiveHandledEvents(true);
+	consumeInDefault = true;
+	for (auto type : types)
+		raise(fixture.child, type);
+	require(
+		parentCalls == 27 && laterChildCalls == 18 && defaultCalls == 9 && middleCalls == 0 &&
+			legacy == std::vector<Type>(types.begin(), types.end()),
+		"Input consumed by a default hook must also reach opted-in ancestors without running their defaults");
+}
+
+void testHandledInputObserverLifetime()
+{
+	enum class Action
+	{
+		Hide,
+		Disable,
+		Reparent,
+		DestroyTarget,
+		DestroyReceiver,
+		OptOut
+	};
+	for (auto action :
+		 {Action::Hide,
+		  Action::Disable,
+		  Action::Reparent,
+		  Action::DestroyTarget,
+		  Action::DestroyReceiver,
+		  Action::OptOut})
+	{
+		Fixture fixture;
+		fixture.parent->setReceiveHandledEvents(true);
+		int laterCalls = 0;
+		fixture.child->eventMouseWheelRouted +=
+			MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 1);
+		fixture.parent->eventMouseWheelRouted += MyGUI::newDelegate(
+			[&](MyGUI::MouseWheelEvent& event)
+			{
+				require(event.isHandled(), "The observer must see consumed input");
+				switch (action)
+				{
+				case Action::Hide: fixture.child->setVisible(false); break;
+				case Action::Disable: fixture.child->setEnabled(false); break;
+				case Action::Reparent:
+				{
+					auto* other = fixture.context.getGui().createWidget<MyGUI::Widget>(
+						"Default",
+						MyGUI::IntCoord(250, 0, 100, 100),
+						MyGUI::Align::Default,
+						"Main");
+					fixture.child->attachToWidget(other);
+					break;
+				}
+				case Action::DestroyTarget: fixture.context.getGui().destroyWidget(fixture.child); break;
+				case Action::DestroyReceiver: fixture.context.getGui().destroyWidget(fixture.parent); break;
+				case Action::OptOut: fixture.parent->setReceiveHandledEvents(false); break;
+				}
+			},
+			2);
+		fixture.parent->eventMouseWheelRouted += MyGUI::newDelegate([&](MyGUI::MouseWheelEvent&) { ++laterCalls; }, 3);
+		raise(fixture.child, Type::MouseWheel);
+		require(laterCalls == 0, "Route validity and observation preference must be checked between observers");
+	}
 }
 
 

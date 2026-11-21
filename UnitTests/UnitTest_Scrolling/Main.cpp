@@ -389,6 +389,24 @@ namespace
 		stages.clear();
 		child->_riseMouseWheel(-1);
 		require(stages == std::vector<int>{3}, "A control at its boundary must leave wheel input unhandled");
+		bar->setScrollPosition(50);
+		bar->setReceiveHandledEvents(true);
+		bar->eventMouseWheelRouted.clear();
+		int observed = 0;
+		bar->eventMouseWheelRouted += MyGUI::newDelegate(
+			[&](MyGUI::MouseWheelEvent& event)
+			{
+				require(event.isHandled(), "An opted-in scrollbar must observe consumed wheel input");
+				++observed;
+			},
+			5);
+		child->eventMouseWheelRouted +=
+			MyGUI::newDelegate([](MyGUI::MouseWheelEvent& event) { event.setHandled(); }, 6);
+		const auto wheelCalls = bar->wheelCalls;
+		child->_riseMouseWheel(-1);
+		require(
+			observed == 1 && bar->wheelCalls == wheelCalls && bar->getScrollPosition() == 50,
+			"Observing handled input must never re-enable a scrollbar's default wheel action");
 	}
 
 	void testNestedWheelConsumers()
