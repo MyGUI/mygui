@@ -60,7 +60,7 @@ namespace MyGUI
 
 		/** Event : Request tag.\n
 			signature : void method(const MyGUI::UString& _tag, MyGUI::UString& _result);
-			@param _tag Tag than should be translated.
+			@param _tag Tag that should be translated.
 			@param _result String that should be placed instead specified tag.
 			@note If this event is empty and _tag not found - "#{_tag}" used by default.
 		*/

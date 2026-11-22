@@ -49,7 +49,7 @@ namespace MyGUI
 
 		/** Index of element */
 		size_t index;
-		/** State and interdan data changed */
+		/** State and internal data changed */
 		bool update;
 		/** Is widget selected */
 		bool select;
@@ -59,7 +59,7 @@ namespace MyGUI
 		bool drag;
 		/** Is widget accepting drop */
 		bool drop_accept;
-		/** Is widget refuseing drop */
+		/** Is widget refusing drop */
 		bool drop_refuse;
 	};
 

@@ -27,8 +27,8 @@ namespace MyGUI
 	}
 
 	/**
-	   Analagous to std::map's operator[], i.e. it replicates map[key] = value.
-	   The operator isn't overloaded to accept a heterogenous key like find or emplace,
+	   Analogous to std::map's operator[], i.e. it replicates map[key] = value.
+	   The operator isn't overloaded to accept a heterogeneous key like find or emplace,
 	   meaning key needs to be of the map's actual key type, rendering it unusable in combination with string_view.
 	   This function prevents a (key) string allocation if the key is already present in the map.
 	*/

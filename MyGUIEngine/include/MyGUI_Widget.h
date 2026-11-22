@@ -216,7 +216,7 @@ namespace MyGUI
 		/** Get child widget rendering depth */
 		int getDepth() const;
 
-		/** Return widget's visibility based on it's and parents visibility. */
+		/** Return widget's visibility based on its own visibility and that of its parents. */
 		bool getInheritedVisible() const;
 
 		/** Set align */
@@ -247,7 +247,7 @@ namespace MyGUI
 		float getAlpha() const;
 
 		/** Enable or disable inherits alpha mode.\n
-			Inherits alpha mode: when enabled widget alpha is it's own
+			Inherits alpha mode: when enabled widget alpha is its own
 			alpha value multiplied by parent's real alpha (that depend
 			on parent's parent and so on).\n
 			When disabled widget's alpha doesn't depend on parent's alpha.
@@ -281,13 +281,13 @@ namespace MyGUI
 		Widget* getChildAt(size_t _index) const;
 
 		/** Find widget by name.
-			Search recursively through all childs starting from this widget.
+			Search recursively through all children starting from this widget.
 			@return Return first found widget with given name
 		*/
 		Widget* findWidget(std::string_view _name);
 
 		/** Find all widgets with given name and add them into _result.
-			Search recursively through all childs starting from this widget.
+			Search recursively through all children starting from this widget.
 		*/
 		void findWidgets(std::string_view _name, VectorWidgetPtr& _result);
 
@@ -298,7 +298,7 @@ namespace MyGUI
 		/** Is widget enabled */
 		bool getEnabled() const;
 
-		/** Is widget enabled and all it's parents in hierarchy are enabled. */
+		/** Is widget enabled and all its parents in hierarchy are enabled. */
 		bool getInheritedEnabled() const;
 
 		/** Get rectangle where child widgets placed */

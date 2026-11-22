@@ -188,7 +188,7 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------//
 
-		/** Set default button width and disable autowidth mode */
+		/** Set default button width and disable auto-width mode */
 		void setButtonDefaultWidth(int _width);
 		/** Get default button width */
 		int getButtonDefaultWidth() const;

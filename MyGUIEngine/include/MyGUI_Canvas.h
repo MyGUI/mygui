@@ -16,7 +16,7 @@ namespace MyGUI
 
 	/** \brief @wpage{Canvas}
 		Widget wrapper over Texture - shows the texture.
-		Implemented: resizing of texture (see TextureResizeMode); recovery after loosing device;
+		Implemented: resizing of texture (see TextureResizeMode); recovery after device loss;
 	*/
 	class MYGUI_EXPORT Canvas : public Widget, public ITextureInvalidateListener
 	{
@@ -110,7 +110,7 @@ namespace MyGUI
 		/// Unlocks hardware pixel buffer.
 		void unlock();
 
-		/// Checks lockness of hardware _pixel buffer.
+		/// Checks whether the hardware pixel buffer is locked.
 		bool isLocked() const;
 
 		/// Returns real width of texture.
@@ -161,7 +161,7 @@ namespace MyGUI
 		/// Returns true if we own the texture, otherwise false. \sa mManaged
 		bool isTextureManaged() const;
 
-		/// Reurns interface texture.
+		/// Returns the texture interface.
 		ITexture* getTexture() const;
 
 		/// Sets the texture managed @remarks Be careful with assigning managed status to texture, which wasn't created in Canvas! \sa mManaged
@@ -180,7 +180,7 @@ namespace MyGUI
 		*/
 		EventHandle_CanvasPtr eventPreTextureChanges;
 
-		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
+		/** Event : Texture instance was changed (May be caused by resizing texture or losing the device). User have to update all references to new instance of texture.\n
 			signature : void method(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)\n
 			@param _canvas, which needs to update
 			@param _event
@@ -223,7 +223,7 @@ namespace MyGUI
 		/// Current texture
 		ITexture* mTexture{nullptr};
 
-		/// Requested bu user sizes
+		/// Sizes requested by the user
 		IntSize mReqTexSize;
 
 		/// Generated texture name

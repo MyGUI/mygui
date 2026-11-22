@@ -287,7 +287,7 @@ namespace MyGUI
 			@param _column Index of column
 			@param _index1 Index of row for compare
 			@param _index2 Index of row for compare
-			@param _less Comparsion result (write your value here)
+			@param _less Comparison result (write your value here)
 		*/
 		EventPair<
 			EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef,

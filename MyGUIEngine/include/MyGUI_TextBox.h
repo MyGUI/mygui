@@ -55,7 +55,7 @@ namespace MyGUI
 		/** Set TextBox caption and replace special sequences.\n
 			"\\n" will be replaced with new line character;\n
 			"#{Keyword}" replaced with string from LanguageManager or
-			left as it is if kayword wasn't found.
+			left as it is if keyword wasn't found.
 		*/
 		void setCaptionWithReplacing(std::string_view _value);
 

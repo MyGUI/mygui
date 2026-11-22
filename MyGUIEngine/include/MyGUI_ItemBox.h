@@ -147,7 +147,7 @@ namespace MyGUI
 		/** Event : Request for item coordinate.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
 			@param _sender widget that called this event
-			@param _coord write heer item coordinate
+			@param _coord write the item coordinates here
 			@param _drag is this item dragging
 		*/
 		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
@@ -160,7 +160,7 @@ namespace MyGUI
 		*/
 		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
-		/** Event : Doubleclick or enter pressed on item.\n
+		/** Event : Double-click or Enter pressed on item.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index

@@ -161,7 +161,7 @@ namespace MyGUI
 
 		/** Select current item group */
 		void setItemGroup(std::string_view _group);
-		/** Select current item mane */
+		/** Select current item name */
 		void setItemName(std::string_view _name);
 
 		/** Select current items resource used in ImageBox

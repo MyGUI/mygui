@@ -46,7 +46,7 @@ namespace MyGUI
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 			@param _sender widget that called this event
 			@param _info information about DDContainers
-			@param _result write here true if container can be draggedor false if it can't
+			@param _result write here true if container can be dragged or false if it can't
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventStartDrag;
 
@@ -62,7 +62,7 @@ namespace MyGUI
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
 			@param _sender widget that called this event
 			@param _info information about DDContainers
-			@param _result if true then drop was successfull
+			@param _result if true then drop was successful
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBool eventDropResult;
 
@@ -95,7 +95,7 @@ namespace MyGUI
 		/** Event : [Internal event] Update drop widgets state.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget* _item, const MyGUI::DDWidgetState& _state)
 			@param _sender widget that called this event
-			@param _items
+			@param _item
 			@param _state
 		*/
 		delegates::MultiDelegate<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;

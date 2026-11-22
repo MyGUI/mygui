@@ -50,7 +50,7 @@ namespace MyGUI
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
 		}
 
-		/** Unegister factory for specified _category. */
+		/** Unregister factory for specified _category. */
 		template<typename Type>
 		void unregisterFactory(std::string_view _category)
 		{

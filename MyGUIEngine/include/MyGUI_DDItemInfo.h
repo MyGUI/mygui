@@ -49,7 +49,7 @@ namespace MyGUI
 		Enum mValue;
 	};
 
-	/** Inormation about drag'n'drop indexes */
+	/** Information about drag'n'drop indexes */
 	struct MYGUI_EXPORT DDItemInfo
 	{
 		DDItemInfo() :

@@ -94,7 +94,7 @@ namespace MyGUI
 		//! Gets the max amount of text allowed in the edit field.
 		size_t getMaxTextLength() const;
 
-		/** Inser text at _index position (text end by default) */
+		/** Insert text at _index position (text end by default) */
 		void insertText(const UString& _text, size_t _index = ITEM_NONE);
 		/** Add text */
 		void addText(const UString& _text);
@@ -184,7 +184,7 @@ namespace MyGUI
 		/** Get Show VScroll flag */
 		bool isVisibleVScroll() const;
 		/** Get range of vertical scroll (or 0 if no scroll).
-			Range measured in pixels (full text heiht minus EditBox height).
+			Range measured in pixels (full text height minus EditBox height).
 			For example if EditBox is 200 pixels height and 40 lines of text
 			30 pixels height each (i.e. 600 pixels total), then return
 			value is 400 ( = 600 - 200 ).

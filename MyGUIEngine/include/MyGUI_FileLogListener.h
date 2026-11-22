@@ -33,9 +33,9 @@ namespace MyGUI
 			std::string_view _file,
 			int _line) override;
 
-		/** Set listener's file name where it wirte log. */
+		/** Set the listener's log file name. */
 		void setFileName(std::string_view _value);
-		/** Get listener's file name where it wirte log. */
+		/** Get the listener's log file name. */
 		const std::string& getFileName() const;
 
 	private:

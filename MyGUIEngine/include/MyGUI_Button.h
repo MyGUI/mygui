@@ -23,11 +23,11 @@ namespace MyGUI
 	public:
 		//! Set button selected state
 		void setStateSelected(bool _check);
-		//! Get buton selected
+		//! Get the button's selected state
 		bool getStateSelected() const;
 
 		/** Enable or disable Image mode\n
-			Image mode: when button state changed Image on button also change it's picture.\n
+			Image mode: when button state changed Image on button also changes its picture.\n
 			Disabled (false) by default.
 		*/
 		void setModeImage(bool _value);
