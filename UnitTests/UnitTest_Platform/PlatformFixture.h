@@ -39,7 +39,7 @@ namespace platformtest
 	class Fixture : public base::BaseManager
 	{
 	public:
-		explicit Fixture(bool _visible);
+		explicit Fixture(bool _visible, bool _singleBuffer = false);
 		~Fixture() override;
 		Fixture(const Fixture&) = delete;
 		Fixture& operator=(const Fixture&) = delete;
@@ -76,6 +76,9 @@ namespace platformtest
 		std::string caseName;
 
 	protected:
+#if defined(MYGUI_OPENGL3_PLATFORM)
+		void setupRenderWindow() override;
+#endif
 		void setupResources() override;
 		void createScene() override;
 		void destroyScene() override;
@@ -89,6 +92,7 @@ namespace platformtest
 		size_t mDrawIndex{0};
 		size_t mNameIndex{0};
 		bool mVisible;
+		bool mSingleBuffer;
 		bool mCreated{false};
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		bool mComInitialized{false};

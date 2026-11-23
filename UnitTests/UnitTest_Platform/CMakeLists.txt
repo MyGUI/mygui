@@ -10,6 +10,9 @@ if(EMSCRIPTEN)
 		"-sEXPORTED_RUNTIME_METHODS=FS")
 	set_property(TARGET UnitTest_Platform APPEND PROPERTY LINK_DEPENDS "${_web_shell}")
 endif()
+if(APPLE AND MYGUI_RENDERSYSTEM EQUAL 7)
+	option(MYGUI_TEST_SINGLE_BUFFER "Use a single-buffered window for the OpenGL3 rendering tests" OFF)
+endif()
 foreach(group resources rendering lifecycle)
 	if(EMSCRIPTEN)
 		add_test(NAME UnitTest_Platform_${group}
@@ -18,8 +21,12 @@ foreach(group resources rendering lifecycle)
 				--artifacts "${CMAKE_CURRENT_BINARY_DIR}/artifacts/${group}"
 				-- --group ${group} --artifacts /artifacts --visible)
 	else()
+		set(_buffer_args)
+		if(APPLE AND MYGUI_RENDERSYSTEM EQUAL 7 AND MYGUI_TEST_SINGLE_BUFFER AND group STREQUAL "rendering")
+			set(_buffer_args --single-buffer)
+		endif()
 		add_test(NAME UnitTest_Platform_${group}
-			COMMAND UnitTest_Platform --group ${group}
+			COMMAND UnitTest_Platform --group ${group} ${_buffer_args}
 				--artifacts "${CMAKE_CURRENT_BINARY_DIR}/artifacts/${group}")
 	endif()
 	set_tests_properties(UnitTest_Platform_${group} PROPERTIES

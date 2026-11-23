@@ -129,3 +129,11 @@ See their READMEs for setup requirements, including
 probes do not establish browser behavior. This suite does not measure performance.
 Arbitrary device-loss and font-atlas recovery are outside its coverage; resize
 exercises the selected backend's normal window-resize path.
+
+For OpenGL3, `--single-buffer` requests a single-buffered SDL window and checks
+the actual GL buffering mode before the first capture. The default uses SDL's
+normal buffering. Both modes use the same window resize and pixel assertions.
+The hosted macOS job sets `-DMYGUI_TEST_SINGLE_BUFFER=ON` for the rendering
+group because Apple Software Renderer can read a stale back buffer after a
+resize. Leave this option at its default (OFF) to exercise double-buffered
+presentation on a hardware-backed macOS runner.

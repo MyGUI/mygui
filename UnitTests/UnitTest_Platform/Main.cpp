@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 	using namespace platformtest;
 	std::string group, filter;
 	std::filesystem::path artifacts = "platform-artifacts";
-	bool visible = false, list = false;
+	bool visible = false, list = false, singleBuffer = false;
 	try
 	{
 		for (int i = 1; i < argc; ++i)
@@ -15,6 +15,8 @@ int main(int argc, char** argv)
 			const std::string option = argv[i];
 			if (option == "--visible")
 				visible = true;
+			else if (option == "--single-buffer")
+				singleBuffer = true;
 			else if (option == "--list")
 				list = true;
 			else if ((option == "--group" || option == "--case" || option == "--artifacts") && i + 1 < argc)
@@ -52,7 +54,7 @@ int main(int argc, char** argv)
 				if (fixture)
 					fixture->close();
 				fixture.reset();
-				fixture = std::make_unique<Fixture>(visible);
+				fixture = std::make_unique<Fixture>(visible, singleBuffer);
 				fixture->open();
 				currentGroup = test.group;
 				fixture->caseName = "context-initialization";

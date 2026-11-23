@@ -70,7 +70,8 @@ jobs:
             preset: minimal
             rendersystem: 7
             rendersystems: "4;7"
-            cmake_flags: -DMYGUI_BUILD_TEST_APP=ON
+            # Apple Software Renderer can return corrupt back-buffer pixels after a window resize.
+            cmake_flags: -DMYGUI_BUILD_TEST_APP=ON -DMYGUI_TEST_SINGLE_BUFFER=ON
 
     steps:
       - uses: actions/checkout@v7

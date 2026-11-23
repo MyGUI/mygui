@@ -1,4 +1,7 @@
 #include "PlatformFixture.h"
+#if defined(MYGUI_OPENGL3_PLATFORM)
+	#include <MyGUI_GL.h>
+#endif
 #include "TestRunner.h"
 #include "MyGUI_VertexData.h"
 #include <algorithm>
@@ -69,9 +72,13 @@ namespace platformtest
 		Base::renderToTarget(_target, _update);
 	}
 
-	Fixture::Fixture(bool _visible) :
-		mVisible(_visible)
+	Fixture::Fixture(bool _visible, bool _singleBuffer) :
+		mVisible(_visible),
+		mSingleBuffer(_singleBuffer)
 	{
+#if !defined(MYGUI_OPENGL3_PLATFORM)
+		require(!mSingleBuffer, "--single-buffer requires the OpenGL3 platform");
+#endif
 		setWindowOptions(!_visible, true);
 		setResourceFilename("");
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -98,11 +105,27 @@ namespace platformtest
 #endif
 	}
 
+#if defined(MYGUI_OPENGL3_PLATFORM)
+	void Fixture::setupRenderWindow()
+	{
+		BaseManager::setupRenderWindow();
+		if (mSingleBuffer && SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0) != 0)
+			throw Fatal(std::string("Cannot request a single-buffered window: ") + SDL_GetError());
+	}
+#endif
+
 	void Fixture::open()
 	{
 		if (!create(128, 128))
 			throw Fatal("Failed to create graphics fixture");
 		mCreated = true;
+#if defined(MYGUI_OPENGL3_PLATFORM)
+		GLboolean doubleBuffered = GL_TRUE;
+		glGetBooleanv(GL_DOUBLEBUFFER, &doubleBuffered);
+		std::cout << "OpenGL renderer: " << glGetString(GL_RENDERER) << ", double-buffered: " << int(doubleBuffered)
+				  << std::endl;
+		require(!mSingleBuffer || doubleBuffered == GL_FALSE, "Requested a single-buffered drawable");
+#endif
 		require(getDrawableSize() == MyGUI::IntSize(128, 128), "Fixture must have a 128x128 drawable");
 		require(render().getViewSize() == MyGUI::IntSize(128, 128), "Fixture must have an unscaled GUI view");
 		require(MyGUI::Gui::getInstance().getDpiScale() == 1.0f, "Fixture must disable DPI scaling");
